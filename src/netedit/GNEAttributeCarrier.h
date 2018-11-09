@@ -483,12 +483,10 @@ public:
     /// @brief method for getting the attribute in the context of object selection
     virtual std::string getAttributeForSelection(SumoXMLAttr key) const;
 
-    /// @brief get XML Tag assigned to this object
-    //SumoXMLTag getTag() const;
-
+    /// @brief get tag assigned to this object in string format
     const std::string &getTagStr() const;
 
-    /// @brief get Tag Proprty assigned to this object
+    /// @brief get Tag Property assigned to this object
     const TagProperties &getTagProperty() const;
 
     /// @brief get FXIcon associated to this AC
@@ -577,29 +575,42 @@ public:
     template <typename T>
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
         bool parsedOk = true;
+        // @brief declare string values
+        std::string defaultValue, parsedAttribute, additionalOfWarningMessage;
         // obtain tag properties
         const auto& tagProperties = getTagProperties(tag);
+        // check if attribute exist in tagProperties
+        if(!tagProperties.hasAttribute(attribute)) {
+            throw ProcessError("Attribute not defined in Tag Property");
+        }
+        // obtain attribute properties (Only for improving efficiency)
+        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
         // first check if attribute is deprecated
         if (tagProperties.isAttributeDeprecated(attribute)) {
             // show warning if deprecateda ttribute is in the SUMOSAXAttributes
             if (attrs.hasAttribute(attribute)) {
-                WRITE_WARNING("Attribute " + toString(attribute) + "' of " + toString(tag) + " is deprecated and will not be loaded.");
+                WRITE_WARNING("Attribute " + toString(attribute) + "' of " + tagProperties.getTagStr() + " is deprecated and will not be loaded.");
             }
-            return parse<T>("");
+            // return a dummy value
+            if (attrProperties.isNumerical() || attrProperties.isBool()) {
+                return parse<T>("0");
+            } else if (attrProperties.isColor()) {
+                return parse<T>("black");
+            } else {
+                return parse<T>("");
+            }
         }
-        std::string defaultValue, parsedAttribute;
-        // obtain attribute properties (Only for improving efficiency)
-        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
-        // set additionalOfWarningMessage
-        std::string additionalOfWarningMessage;
+        // check if we're obtaining attribute of an object with an already parsed ID
         if (objectID != "") {
-            additionalOfWarningMessage = toString(tag) + " with ID '" + objectID + "'";
+            additionalOfWarningMessage = tagProperties.getTagStr() + " with ID '" + objectID + "'";
         } else {
-            additionalOfWarningMessage = toString(tag);
+            additionalOfWarningMessage = tagProperties.getTagStr();
         }
         // set a special default value for numerical and boolean attributes (To avoid errors parsing)
         if (attrProperties.isNumerical() || attrProperties.isBool()) {
             defaultValue = "0";
+        } else if (attrProperties.isColor()) {
+            defaultValue = "black";
         }
         // first check that attribute exists in XML
         if (attrs.hasAttribute(attribute)) {
@@ -766,7 +777,7 @@ public:
                     parsedAttribute = attrProperties.getDefaultValue();
                 } else {
                     WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
-                                  additionalOfWarningMessage +  " is invalid; " + errorFormat + toString(tag) + " cannot be created");
+                                  additionalOfWarningMessage +  " is invalid; " + errorFormat + tagProperties.getTagStr() + " cannot be created");
                     // abort parsing (and creation) of element
                     abort = true;
                     // set default value (To avoid errors in parse<T>(parsedAttribute))
@@ -783,13 +794,13 @@ public:
                 // check that X attribute is valid
                 if(!canParse<double>(x)) {
                     WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
-                                  additionalOfWarningMessage +  " is invalid; Cannot be parsed to float; " + toString(tag) + " cannot be created");
+                                  additionalOfWarningMessage +  " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     // abort parsing (and creation) of element
                     abort = true;
                 }
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
-                              additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                              additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
                 // abort parsing (and creation) of element
                 abort = true;
             }
@@ -798,13 +809,13 @@ public:
                 // check that X attribute is valid
                 if(!canParse<double>(y)) {
                     WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
-                                  additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + toString(tag) + " cannot be created");
+                                  additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     // abort parsing (and creation) of element
                     abort = true;
                 }
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
-                            additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                            additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
                 // abort parsing (and creation) of element
                 abort = true;
             }
@@ -814,7 +825,7 @@ public:
                 // check that Z attribute is valid
                 if(!canParse<double>(z)) {
                     WRITE_WARNING("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Z) + "' of " +
-                                  additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + toString(tag) + " cannot be created");
+                                  additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     // leave Z attribute empty
                     z.clear();
                 }
@@ -833,7 +844,7 @@ public:
                 parsedAttribute = attrProperties.getDefaultValue();
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
-                              additionalOfWarningMessage +  " is missing; " + toString(tag) + " cannot be created");
+                              additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
                 // abort parsing (and creation) of element
                 abort = true;
                 // set default value (To avoid errors in parse<T>(parsedAttribute))
