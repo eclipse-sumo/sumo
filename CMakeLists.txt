@@ -132,17 +132,15 @@ if (SUMO_LIBRARIES)
         message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
         set(CHECK_OPTIONAL_LIBS false)
     endif()
-    # TODO: Use file(GLOB ...) to avoid explicit versions
-    # set Xerces
-    if(${MSVC_VERSION} AND ${MSVC_VERSION} STREQUAL "1800")
-        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/msvc12/xerces-c-3.2.0${LIB_VERSION}")
+    if("${MSVC_VERSION}" STREQUAL "1800")
+        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/msvc12/xerces-c-3.?.?${LIB_VERSION}")
     else()
-        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/xerces-c-3.2.0${LIB_VERSION}")
+        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?${LIB_VERSION}")
     endif()
-    # set Proj
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/proj_gdal-1911${LIB_VERSION}")
-    # set FOX
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/fox-1.6.55${LIB_VERSION}")
+    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj_gdal-????${LIB_VERSION}")
+    file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-1.6.??${LIB_VERSION}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH}")
+    file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll" "${PROJ_PATH}/bin/*.dll" "${FOX_PATH}/lib/*.dll")
     # set GoogleTest only if compiler isn't mingw32
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
         if(USE_MINGW_64BITS)
@@ -157,13 +155,12 @@ if (SUMO_LIBRARIES)
             message(STATUS "Disabled Google Test in Mingw32")
         endif()
     endif()
-    # set FFMPEG
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/FFMPEG-3.4.1${LIB_VERSION}")
-    # set OSG
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/OSG-3.4.0${LIB_VERSION}")
-    # set GL2PS
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/gl2ps-1.4.0${LIB_VERSION}")
-    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/gl2ps-1.4.0${LIB_VERSION}/Release")
+    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?${LIB_VERSION}")
+    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?${LIB_VERSION}")
+    file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?${LIB_VERSION}")
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll")
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC
@@ -253,6 +250,7 @@ if (CHECK_OPTIONAL_LIBS)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
         endif (GRPC_FOUND AND Protobuf_FOUND)
     endif()
+    set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL} ${SUMO_OPTIONAL_LIBRARIES_DLL}")
 endif (CHECK_OPTIONAL_LIBS)
 
 include_directories(${CMAKE_BINARY_DIR}/src)
@@ -292,6 +290,14 @@ install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/t
         COMPONENT pysumolib)
 install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
         COMPONENT pytraci)
+
+add_custom_target(install_dll)
+foreach(LIB_DLL ${SUMO_LIBRARIES_DLL})
+  add_custom_command(TARGET install_dll PRE_BUILD
+                     COMMAND ${CMAKE_COMMAND} -E copy ${LIB_DLL} ${CMAKE_SOURCE_DIR}/bin)
+endforeach()
+set_property(TARGET install_dll PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 
 # doc targets
 add_custom_target(doxygen
