@@ -489,6 +489,9 @@ MSNet::simulationStep() {
         // also register ApproachingVehicleInformation for all links
         myEdges->planMovements(myStep);
 
+        // register junction approaches based on planned velocities as basis for right-of-way decision
+        myEdges->setJunctionApproaches(myStep);
+
         // decide right-of-way and execute movements
         myEdges->executeMovements(myStep);
         if (MSGlobals::gCheck4Accidents) {

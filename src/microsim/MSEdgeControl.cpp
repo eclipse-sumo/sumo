@@ -100,6 +100,12 @@ MSEdgeControl::planMovements(SUMOTime t) {
     }
 }
 
+void
+MSEdgeControl::setJunctionApproaches(SUMOTime t) {
+    for (MSLane* lane : myActiveLanes) {
+        lane->setJunctionApproaches(t);
+    }
+}
 
 void
 MSEdgeControl::executeMovements(SUMOTime t) {

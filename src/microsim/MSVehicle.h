@@ -366,6 +366,10 @@ public:
      */
     void planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double lengthsInFront);
 
+    /** @brief Register junction approaches for all link items in the current
+     * plan */
+    void setApproachingForAllLinks(const SUMOTime t);
+
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -1906,7 +1910,13 @@ protected:
     /// Container for used Links/visited Lanes during planMove() and executeMove.
     // TODO: Consider making LFLinkLanes a std::deque for efficient front removal (needs refactoring in checkRewindLinkLanes()...)
     typedef std::vector< DriveProcessItem > DriveItemVector;
+
+    /// @brief container for the planned speeds in the current step
     DriveItemVector myLFLinkLanes;
+
+    /// @brief planned speeds from the previous step for un-registering from junctions after the new container is filled
+    DriveItemVector myLFLinkLanesPrev;
+
     /** @brief iterator pointing to the next item in myLFLinkLanes
     *   @note  This is updated whenever the vehicle advances to a subsequent lane (see processLaneAdvances())
     *          and used for inter-actionpoint actualization of myLFLinkLanes (i.e. deletion of passed items)
@@ -1919,9 +1929,6 @@ protected:
 
     /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;
-
-    /// @brief registers computed approach information with all links
-    void setApproachingForAllLinks(DriveItemVector& lfLinks) const;
 
     /// @brief unregister approach from all upcoming links
     void removeApproachingInformation(DriveItemVector& lfLinks) const;

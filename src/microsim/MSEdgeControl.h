@@ -102,6 +102,13 @@ public:
      */
     void planMovements(SUMOTime t);
 
+    /** @brief Register junction approaches for all vehicles after velocities
+     * have been planned. This is a prerequisite for executeMovements
+     *
+     * This method goes through all active lanes calling their "setJunctionApproaches" method.
+     */
+    void setJunctionApproaches(SUMOTime t);
+
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *

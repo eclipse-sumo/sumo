@@ -1138,6 +1138,12 @@ MSLane::planMovements(SUMOTime t) {
     }
 }
 
+void 
+MSLane::setJunctionApproaches(const SUMOTime t) {
+    for (MSVehicle* veh : myVehicles) {
+        veh->setApproachingForAllLinks(t);
+    }
+}
 
 void
 MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPart, VehCont::reverse_iterator& vehRes, MSLeaderInfo& ahead) const {

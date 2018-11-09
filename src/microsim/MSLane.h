@@ -555,6 +555,13 @@ public:
      */
     virtual void planMovements(const SUMOTime t);
 
+    /** @brief Register junction approaches for all vehicles after velocities
+     * have been planned. 
+     *
+     * This method goes through all vehicles calling their * "setApproachingForAllLinks" method.
+     */
+    virtual void setJunctionApproaches(const SUMOTime t);
+
     /** @brief This updates the MSLeaderInfo argument with respect to the given MSVehicle.
      *         All leader-vehicles on the same edge, which are relevant for the vehicle
      *         (i.e. with position > vehicle's position) and not already integrated into

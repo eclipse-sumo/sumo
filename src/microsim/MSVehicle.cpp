@@ -1931,8 +1931,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
 #endif
-
-
+        myLFLinkLanesPrev = myLFLinkLanes;
         planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
@@ -1948,24 +1947,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         }
 #endif
         checkRewindLinkLanes(lengthsInFront, myLFLinkLanes);
-        setApproachingForAllLinks(myLFLinkLanes);
         myNextDriveItem = myLFLinkLanes.begin();
-#ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND) {
-            std::cout << " after checkRewindLinkLanes\n";
-            DriveItemVector::iterator i;
-            for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-                std::cout
-                        << " vPass=" << (*i).myVLinkPass
-                        << " vWait=" << (*i).myVLinkWait
-                        << " linkLane=" << ((*i).myLink == 0 ? "NULL" : (*i).myLink->getViaLaneOrLane()->getID())
-                        << " request=" << (*i).mySetRequest
-                        << " atime=" << (*i).myArrivalTime
-                        << " atimeB=" << (*i).myArrivalTimeBraking
-                        << "\n";
-            }
-        }
-#endif
     }
     getLaneChangeModel().resetChanged();
 }
@@ -1976,8 +1958,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     if (hasDriverState()) {
         myDriverState->update();
     }
-    // remove information about approaching links, will be reset later in this step
-    removeApproachingInformation(lfLinks);
     lfLinks.clear();
     myStopDist = std::numeric_limits<double>::max();
     //
@@ -3947,29 +3927,50 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
 
 
 void
-MSVehicle::setApproachingForAllLinks(DriveItemVector& lfLinks) const {
-    for (DriveItemVector::iterator i = lfLinks.begin(); i != lfLinks.end(); ++i) {
-        if ((*i).myLink != nullptr) {
-            if ((*i).myLink->getState() == LINKSTATE_ALLWAY_STOP) {
-                (*i).myArrivalTime += (SUMOTime)RandHelper::rand((int)2); // tie braker
+MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
+    if (!checkActionStep(t)) {
+        return;
+    }
+    removeApproachingInformation(myLFLinkLanesPrev);
+    for (DriveProcessItem& dpi : myLFLinkLanes) {
+        if (dpi.myLink != nullptr) {
+            if (dpi.myLink->getState() == LINKSTATE_ALLWAY_STOP) {
+                dpi.myArrivalTime += (SUMOTime)RandHelper::rand((int)2); // tie braker
             }
-            (*i).myLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                        (*i).mySetRequest, (*i).myArrivalTimeBraking, (*i).myArrivalSpeedBraking, getWaitingTime(), (*i).myDistance);
+            dpi.myLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                                        dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance);
         }
     }
     if (getLaneChangeModel().getShadowLane() != nullptr) {
         // register on all shadow links
-        for (DriveItemVector::iterator i = lfLinks.begin(); i != lfLinks.end(); ++i) {
-            if ((*i).myLink != nullptr) {
-                MSLink* parallelLink = (*i).myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+        for (DriveProcessItem& dpi : myLFLinkLanes) {
+            if (dpi.myLink != nullptr) {
+                MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != nullptr) {
-                    parallelLink->setApproaching(this, (*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                                 (*i).mySetRequest, (*i).myArrivalTimeBraking, (*i).myArrivalSpeedBraking, getWaitingTime(), (*i).myDistance);
+                    parallelLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                                                 dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance);
                     getLaneChangeModel().setShadowApproachingInformation(parallelLink);
                 }
             }
         }
     }
+#ifdef DEBUG_PLAN_MOVE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME
+            << " veh=" << getID()
+            << " after checkRewindLinkLanes\n";
+        for (DriveProcessItem& dpi : myLFLinkLanes) {
+            std::cout
+                << " vPass=" << dpi.myVLinkPass
+                << " vWait=" << dpi.myVLinkWait
+                << " linkLane=" << (dpi.myLink == 0 ? "NULL" : dpi.myLink->getViaLaneOrLane()->getID())
+                << " request=" << dpi.mySetRequest
+                << " atime=" << dpi.myArrivalTime
+                << " atimeB=" << dpi.myArrivalTimeBraking
+                << "\n";
+        }
+    }
+#endif
 }
 
 void

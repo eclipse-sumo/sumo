@@ -139,6 +139,12 @@ GUILane::planMovements(const SUMOTime t) {
     MSLane::planMovements(t);
 }
 
+void
+GUILane::setJunctionApproaches(const SUMOTime t) {
+    AbstractMutex::ScopedLocker locker(myLock);
+    MSLane::setJunctionApproaches(t);
+}
+
 
 bool
 GUILane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
