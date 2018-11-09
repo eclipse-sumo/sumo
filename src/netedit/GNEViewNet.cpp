@@ -3163,11 +3163,15 @@ GNEViewNet::updateControls() {
 void
 GNEViewNet::SelectingArea::processRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed) {
     selectingUsingRectangle = false;
-    // shift held down on mouse-down and mouse-up
-    if (shiftKeyPressed) {
+    // shift held down on mouse-down and mouse-up and check that rectangle exist
+    if ((abs(selectionCorner1.x() - selectionCorner2.x()) > 0.01) && 
+        (abs(selectionCorner1.y() - selectionCorner2.y()) > 0.01) &&
+        shiftKeyPressed) {
+        // create boundary between two corners
         Boundary rectangleBoundary;
         rectangleBoundary.add(selectionCorner1);
         rectangleBoundary.add(selectionCorner2);
+        // process selection within boundary
         processBoundarySelection(viewNet, rectangleBoundary);
     }
 }
@@ -3178,8 +3182,11 @@ GNEViewNet::SelectingArea::processEdgeRectangleSelection(GNEViewNet* viewNet, bo
     std::vector<GNEEdge*> result;
     // stop select using rectangle
     selectingUsingRectangle = false;
-    // shift held down on mouse-down and mouse-up
-    if (shiftKeyPressed) {
+    // shift held down on mouse-down and mouse-up and check that rectangle exist
+    if ((abs(selectionCorner1.x() - selectionCorner2.x()) > 0.01) && 
+        (abs(selectionCorner1.y() - selectionCorner2.y()) > 0.01) &&
+        shiftKeyPressed) {
+        // create boundary between two corners
         Boundary rectangleBoundary;
         rectangleBoundary.add(selectionCorner1);
         rectangleBoundary.add(selectionCorner2);

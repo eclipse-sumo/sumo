@@ -1302,14 +1302,26 @@ void
 GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
     // first check that a TAZ is selected
     if (myTAZCurrent->getTAZ()) {
-        // iterate over edges
-        for (auto i : edges) {
-            // first check that selected edge isn't already selected
-            if (!myTAZSelectionStatistics->isEdgeSelected(i)) {
-                // iterate over TAZEdges saved in TAZCurrent (it contains the Edge and Source/sinks)
-                for (const auto &j : myTAZCurrent->getTAZEdges()) {
-                    if (j.edge == i) {
-                        myTAZSelectionStatistics->selectEdge(j);
+        // if "toogle Membership" is enabled, create new TAZSources/sinks. In other case simply select edges
+        if (myTAZChildDefaultParameters->getToggleMembership()) {
+            // iterate over edges
+            for (auto i : edges) {
+                // first check if edge owns a TAZEge
+                if (myTAZCurrent->isTAZEdge(i) == false) {
+                    // create new TAZ Sources/Sinks
+                    addOrRemoveTAZMember(i);
+                }
+            }
+        } else {
+            // iterate over edges
+            for (auto i : edges) {
+                // first check that selected edge isn't already selected
+                if (!myTAZSelectionStatistics->isEdgeSelected(i)) {
+                    // iterate over TAZEdges saved in TAZCurrent (it contains the Edge and Source/sinks)
+                    for (const auto &j : myTAZCurrent->getTAZEdges()) {
+                        if (j.edge == i) {
+                            myTAZSelectionStatistics->selectEdge(j);
+                        }
                     }
                 }
             }
