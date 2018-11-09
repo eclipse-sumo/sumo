@@ -105,7 +105,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
 
 def generateCMake(generator, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
-    cmakeOpt = ["-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    cmakeOpt = ["-DCOMPILE_DEFINITONS=MSVC_TEST_SERVER","-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
     # Create directory or clear it if already exists

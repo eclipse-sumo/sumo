@@ -73,13 +73,13 @@ SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
     try {
         const std::string val = getInternal<std::string>(attr);
         return string2time(val);
-    } catch (ProcessError&) {
-        if (report) {
-            emitFormatError(getName(attr), "a time value", objectid);
-        }
     } catch (EmptyData&) {
         if (report) {
             emitEmptyError(getName(attr), objectid);
+        }
+    } catch (ProcessError&) {
+        if (report) {
+            emitFormatError(getName(attr), "a time value", objectid);
         }
     }
     ok = false;
@@ -96,13 +96,13 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
     try {
         const std::string val = getInternal<std::string>(attr);
         return string2time(val);
-    } catch (ProcessError&) {
-        if (report) {
-            emitFormatError(getName(attr), "a real number", objectid);
-        }
     } catch (EmptyData&) {
         if (report) {
             emitEmptyError(getName(attr), objectid);
+        }
+    } catch (ProcessError&) {
+        if (report) {
+            emitFormatError(getName(attr), "a real number", objectid);
         }
     }
     ok = false;
