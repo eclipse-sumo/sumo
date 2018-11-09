@@ -337,6 +337,9 @@ public:
         /// @{
         /// @brief Called when the user set a new value
         long onCmdSetNewValues(FXObject* obj, FXSelector, void*);
+
+        /// @brief Called when the user press select edges
+        long onCmdSelectEdges(FXObject* obj, FXSelector, void*);
         /// @}
 
     protected:
@@ -361,6 +364,9 @@ public:
 
         /// @brief textField for TAZ Sink weight
         FXTextField* myTextFieldTAZSinkWeight;
+
+        /// @brief button for select edges of current selection
+        FXButton *mySelectEdgesOfSelection;
 
         /// @brief Statistics labels
         FXLabel *myStatisticsLabel;

@@ -547,6 +547,8 @@ enum {
     MID_GNE_SET_ATTRIBUTE_DIALOG,
     /// @brief use selected elements
     MID_GNE_USE_SELECTED,
+    /// @brief select items
+    MID_GNE_SELECT,
     /// @}
 
 

@@ -67,6 +67,7 @@ FXDEFMAP(GNETAZFrame::TAZChildDefaultParameters) TAZChildDefaultParametersMap[] 
 
 FXDEFMAP(GNETAZFrame::TAZSelectionStatistics) TAZSelectionStatisticsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,         GNETAZFrame::TAZSelectionStatistics::onCmdSelectEdges),
 };
 
 FXDEFMAP(GNETAZFrame::TAZEdgesGraphic) TAZEdgesGraphicMap[] = {
@@ -508,7 +509,7 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     new FXLabel(myDefaultTAZSinkFrame, "New sink", 0, GUIDesignLabelAttribute);
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myTextFieldDefaultValueTAZSinks->setText("1");
-    // Create groupbox for save changes
+    // Create button for use selected edges
     myUseSelectedEdges = new FXButton(this, "Use selected Edges", nullptr, this, MID_GNE_USE_SELECTED, GUIDesignButton);
     myUseSelectedEdges->disable();
     // Create information label
@@ -649,7 +650,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
 
 
 long 
-GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject* obj, FXSelector, void*) {
+GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
     // select edge or create new TAZ Source/Child, depending of myToggleMembership
     if(myToggleMembership->getCheck() == TRUE) {
         // iterate over selected edges
@@ -682,6 +683,9 @@ GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFram
     new FXLabel(myTAZSinkFrame, "Sink", 0, GUIDesignLabelAttribute);
     myTextFieldTAZSinkWeight = new FXTextField(myTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myTAZSinkFrame->hide();
+    // create button for select edges
+    mySelectEdgesOfSelection = new FXButton(this, "Add edges to selection", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    mySelectEdgesOfSelection->disable();
     // create label for statistics
     myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelFrameInformation);
 }
@@ -716,6 +720,13 @@ GNETAZFrame::TAZSelectionStatistics::selectEdge(const TAZCurrent::TAZEdge &TAZEd
     }
     // add edge and their TAZ Childs into myTAZChildSelected
     myEdgeAndTAZChildsSelected.push_back(TAZEdge);
+    // update button "select edges of selection
+    mySelectEdgesOfSelection->disable();
+    for (const auto &i : myEdgeAndTAZChildsSelected) {
+        if (!i.edge->isAttributeCarrierSelected()) {
+            mySelectEdgesOfSelection->enable();
+        }
+    }
     // always update statistics after insertion
     updateStatistics();
     // update edge colors
@@ -731,6 +742,13 @@ GNETAZFrame::TAZSelectionStatistics::unselectEdge(GNEEdge* edge) {
         for (auto i = myEdgeAndTAZChildsSelected.begin(); i != myEdgeAndTAZChildsSelected.end(); i++) {
             if (i->edge == edge) {
                 myEdgeAndTAZChildsSelected.erase(i);
+                // update button "select edges of selection
+                mySelectEdgesOfSelection->disable();
+                for (const auto &i : myEdgeAndTAZChildsSelected) {
+                    if (!i.edge->isAttributeCarrierSelected()) {
+                        mySelectEdgesOfSelection->enable();
+                    }
+                }
                 // always update statistics after insertion
                 updateStatistics();
                 // update edge colors
@@ -831,12 +849,30 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
 }
 
 
+long 
+GNETAZFrame::TAZSelectionStatistics::onCmdSelectEdges(FXObject*, FXSelector, void*) {
+    for (const auto &i : myEdgeAndTAZChildsSelected) {
+        if (!i.edge->isAttributeCarrierSelected()) {
+            // enable save button
+            myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
+            // change attribute selected
+            i.edge->setAttribute(GNE_ATTR_SELECTED, "true", myTAZFrameParent->getViewNet()->getUndoList());
+        }
+    }
+    // disable button
+    mySelectEdgesOfSelection->disable();
+    return 1;
+}
+
+
 void 
 GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
     if (myEdgeAndTAZChildsSelected.size() > 0) {
         // show TAZSources/Sinks frames
         myTAZSourceFrame->show();
         myTAZSinkFrame->show();
+        // show "select edges of selection" button
+        mySelectEdgesOfSelection->show();
         // declare string sets for TextFields (to avoid duplicated values)
         std::set<std::string> weightSourceSet;
         std::set<std::string> weightSinkSet;
@@ -912,6 +948,8 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         // hide TAZSources/Sinks frames
         myTAZSourceFrame->hide();
         myTAZSinkFrame->hide();
+        // hidde "select edges of selection" button
+        mySelectEdgesOfSelection->hide();
         // set default label
         myStatisticsLabel->setText("No edge selected");
     }
