@@ -19,5 +19,8 @@ CF_situation2
 # Test writing output for two vehicles to the same file.
 two_with_same_outfile
 
+# Test writing output for two vehicles to the same file configured via global --device.ssm.file.
+two_with_same_outfile_global_option
+
 # Test writing output for two vehicles to different files.
 two_with_different_outfile
