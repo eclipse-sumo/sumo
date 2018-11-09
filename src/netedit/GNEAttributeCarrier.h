@@ -579,10 +579,6 @@ public:
         std::string defaultValue, parsedAttribute, additionalOfWarningMessage;
         // obtain tag properties
         const auto& tagProperties = getTagProperties(tag);
-        // check if attribute exist in tagProperties
-        if(!tagProperties.hasAttribute(attribute)) {
-            throw ProcessError("Attribute not defined in Tag Property");
-        }
         // obtain attribute properties (Only for improving efficiency)
         const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
         // first check if attribute is deprecated
