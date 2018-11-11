@@ -100,6 +100,8 @@ public:
         SIMSTATE_CONNECTION_CLOSED,
         /// @brief An error occurred during the simulation step
         SIMSTATE_ERROR_IN_SIM,
+        /// @brief An external interrupt occured
+        SIMSTATE_INTERRUPTED,
         /// @brief The simulation had too many teleports
         SIMSTATE_TOO_MANY_TELEPORTS
     };
@@ -226,12 +228,18 @@ public:
     void loadRoutes();
 
 
+    /** @brief Writes performance output and running vehicle stats
+     *
+     * @param[in] start The step the simulation was started with
+     */
+    const std::string generateStatistics(SUMOTime start);
+
+
     /** @brief Closes the simulation (all files, connections, etc.)
      *
      * Writes also performance output
      *
      * @param[in] start The step the simulation was started with
-     * @todo What exceptions may occure?
      */
     void closeSimulation(SUMOTime start);
 
@@ -617,6 +625,13 @@ public:
     /// @brief return whether a warning regarding the given object shall be issued
     bool warnOnce(const std::string& typeAndID);
 
+    void interrupt() {
+        myAmInterrupted = true;
+    }
+
+    bool isInterrupted() const {
+        return myAmInterrupted;
+    }
 
 protected:
     /// @brief check all lanes for elevation data
@@ -635,6 +650,9 @@ protected:
 
     /// @brief Maximum number of teleports.
     int myMaxTeleports;
+
+    /// @brief whether an interrupt occured
+    bool myAmInterrupted;
 
 
 

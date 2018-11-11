@@ -174,6 +174,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
              MSEventControl* endOfTimestepEvents,
              MSEventControl* insertionEvents,
              ShapeContainer* shapeCont):
+    myAmInterrupted(false),
     myVehiclesMoved(0),
     myHavePermissions(false),
     myHasInternalLinks(false),
@@ -239,9 +240,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     myJunctions->postloadInitContainer();
 
     // initialise performance computation
-    if (myLogExecutionTime) {
-        mySimBeginMillis = SysUtils::getCurrentMillis();
-    }
+    mySimBeginMillis = SysUtils::getCurrentMillis();
     myHasInternalLinks = hasInternalLinks;
     if (hasNeighs && MSGlobals::gLateralResolution > 0) {
         WRITE_WARNING("Opposite direction driving does not work together with the sublane model.");
@@ -358,9 +357,65 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     return state;
 }
 
+
 void
 MSNet::loadRoutes() {
     myRouteLoaders->loadNext(myStep);
+}
+
+
+const std::string
+MSNet::generateStatistics(SUMOTime start) {
+    long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
+    std::ostringstream msg;
+    // print performance notice
+    msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
+    if (duration != 0) {
+        msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
+        msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+        msg.setf(std::ios::showpoint);    // print decimal point
+        msg << " UPS: " << ((double)myVehiclesMoved / ((double)duration / 1000)) << "\n";
+    }
+    // print vehicle statistics
+    const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
+                                        " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
+    msg << "Vehicles: " << "\n"
+        << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
+        << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
+        << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
+
+    if (myVehicleControl->getTeleportCount() > 0 || myVehicleControl->getCollisionCount() > 0) {
+        // print optional teleport statistics
+        std::vector<std::string> reasons;
+        if (myVehicleControl->getCollisionCount() > 0) {
+            reasons.push_back("Collisions: " + toString(myVehicleControl->getCollisionCount()));
+        }
+        if (myVehicleControl->getTeleportsJam() > 0) {
+            reasons.push_back("Jam: " + toString(myVehicleControl->getTeleportsJam()));
+        }
+        if (myVehicleControl->getTeleportsYield() > 0) {
+            reasons.push_back("Yield: " + toString(myVehicleControl->getTeleportsYield()));
+        }
+        if (myVehicleControl->getTeleportsWrongLane() > 0) {
+            reasons.push_back("Wrong Lane: " + toString(myVehicleControl->getTeleportsWrongLane()));
+        }
+        msg << "Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
+    }
+    if (myVehicleControl->getEmergencyStops() > 0) {
+        msg << "Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
+    }
+    if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
+        msg << "Persons: " << "\n"
+            << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
+            << " Running: " << myPersonControl->getRunningNumber() << "\n";
+        if (myPersonControl->getJammedNumber() > 0) {
+            msg << " Jammed: " << myPersonControl->getJammedNumber() << "\n";
+        }
+    }
+    if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
+        msg << MSDevice_Tripinfo::printStatistics();
+    }
+    return msg.str();
 }
 
 
@@ -377,56 +432,7 @@ MSNet::closeSimulation(SUMOTime start) {
         writeChargingStationOutput();
     }
     if (myLogExecutionTime) {
-        long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
-        std::ostringstream msg;
-        // print performance notice
-        msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
-        if (duration != 0) {
-            msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
-            msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
-            msg.setf(std::ios::showpoint);    // print decimal point
-            msg << " UPS: " << ((double)myVehiclesMoved / ((double)duration / 1000)) << "\n";
-        }
-        // print vehicle statistics
-        const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
-                                           " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
-        msg << "Vehicles: " << "\n"
-            << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
-            << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
-            << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
-
-        if (myVehicleControl->getTeleportCount() > 0 || myVehicleControl->getCollisionCount() > 0) {
-            // print optional teleport statistics
-            std::vector<std::string> reasons;
-            if (myVehicleControl->getCollisionCount() > 0) {
-                reasons.push_back("Collisions: " + toString(myVehicleControl->getCollisionCount()));
-            }
-            if (myVehicleControl->getTeleportsJam() > 0) {
-                reasons.push_back("Jam: " + toString(myVehicleControl->getTeleportsJam()));
-            }
-            if (myVehicleControl->getTeleportsYield() > 0) {
-                reasons.push_back("Yield: " + toString(myVehicleControl->getTeleportsYield()));
-            }
-            if (myVehicleControl->getTeleportsWrongLane() > 0) {
-                reasons.push_back("Wrong Lane: " + toString(myVehicleControl->getTeleportsWrongLane()));
-            }
-            msg << "Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
-        }
-        if (myVehicleControl->getEmergencyStops() > 0) {
-            msg << "Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
-        }
-        if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
-            msg << "Persons: " << "\n"
-                << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
-                << " Running: " << myPersonControl->getRunningNumber() << "\n";
-            if (myPersonControl->getJammedNumber() > 0) {
-                msg << " Jammed: " << myPersonControl->getJammedNumber() << "\n";
-            }
-        }
-        if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
-            msg << MSDevice_Tripinfo::printStatistics();
-        }
-        WRITE_MESSAGE(msg.str());
+        WRITE_MESSAGE(generateStatistics(start));
     }
 }
 
@@ -578,6 +584,9 @@ MSNet::simulationState(SUMOTime stopTime) const {
     if (myMaxTeleports >= 0 && myVehicleControl->getTeleportCount() > myMaxTeleports) {
         return SIMSTATE_TOO_MANY_TELEPORTS;
     }
+    if (myAmInterrupted) {
+        return SIMSTATE_INTERRUPTED;
+    }
     return SIMSTATE_RUNNING;
 }
 
@@ -595,6 +604,8 @@ MSNet::getStateMessage(MSNet::SimulationState state) {
             return "TraCI requested termination.";
         case MSNet::SIMSTATE_ERROR_IN_SIM:
             return "An error occurred (see log).";
+        case MSNet::SIMSTATE_INTERRUPTED:
+            return "Interrupted.";
         case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
             return "Too many teleports.";
         case MSNet::SIMSTATE_LOADING:
