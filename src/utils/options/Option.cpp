@@ -27,7 +27,7 @@
 #include <exception>
 #include <sstream>
 #include "Option.h"
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
@@ -212,7 +212,7 @@ Option_Integer::getInt() const {
 bool
 Option_Integer::set(const std::string& v) {
     try {
-        myValue = TplConvert::_2int(v.c_str());
+        myValue = StringUtils::toInt(v);
         return markSet();
     } catch (...) {
         std::string s = "'" + v + "' is not a valid integer.";
@@ -323,7 +323,7 @@ Option_Float::getFloat() const {
 bool
 Option_Float::set(const std::string& v) {
     try {
-        myValue = TplConvert::_2double(v.c_str());
+        myValue = StringUtils::toDouble(v);
         return markSet();
     } catch (...) {
         throw ProcessError("'" + v + "' is not a valid float.");
@@ -378,7 +378,7 @@ Option_Bool::getBool() const {
 bool
 Option_Bool::set(const std::string& v) {
     try {
-        myValue = TplConvert::_2bool(v.c_str());
+        myValue = StringUtils::toBool(v);
         return markSet();
     } catch (...) {
         throw ProcessError("'" + v + "' is not a valid bool.");
@@ -489,7 +489,7 @@ Option_IntVector::set(const std::string& v) {
         }
         StringTokenizer st(v, ";,", true);
         while (st.hasNext()) {
-            myValue.push_back(TplConvert::_2int(st.next().c_str()));
+            myValue.push_back(StringUtils::toInt(st.next()));
         }
         return markSet();
     } catch (EmptyData&) {

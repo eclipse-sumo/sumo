@@ -30,7 +30,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
@@ -160,7 +160,7 @@ NIImporter_DlrNavteq::readVersion(const std::string& line, const std::string& fi
     const int vStart = (int)(lowerCase.find(marker) + marker.size());
     const int vEnd = (int)line.find(" ", vStart);
     try {
-        const double version = TplConvert::_2double(line.substr(vStart, vEnd - vStart).c_str());
+        const double version = StringUtils::toDouble(line.substr(vStart, vEnd - vStart));
         if (version < 0) {
             throw ProcessError("Invalid version number '" + toString(version) + "' in file '" + file + "'.");
         }
@@ -299,21 +299,21 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     // form of way (for priority and permissions)
     int form_of_way;
     try {
-        form_of_way = TplConvert::_2int(getColumn(st, FORM_OF_WAY).c_str());
+        form_of_way = StringUtils::toInt(getColumn(st, FORM_OF_WAY));
     } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for form_of_way of link '" + id + "'.");
     }
     // brunnel type (bridge/tunnel/ferry (for permissions)
     int brunnel_type;
     try {
-        brunnel_type = TplConvert::_2int(getColumn(st, BRUNNEL_TYPE).c_str());
+        brunnel_type = StringUtils::toInt(getColumn(st, BRUNNEL_TYPE));
     } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for brunnel_type of link '" + id + "'.");
     }
     // priority based on street_type / frc
     int priority;
     try {
-        priority = -TplConvert::_2int(getColumn(st, FUNCTIONAL_ROAD_CLASS).c_str());
+        priority = -StringUtils::toInt(getColumn(st, FUNCTIONAL_ROAD_CLASS));
         // lower priority using form_of_way
         if (form_of_way == 11) {
             priority -= 1; // frontage road, very often with lowered curb
@@ -341,7 +341,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     // speed
     double speed;
     try {
-        speed = TplConvert::_2int(getColumn(st, SPEED_RESTRICTION, "-1").c_str()) / 3.6;
+        speed = StringUtils::toInt(getColumn(st, SPEED_RESTRICTION, "-1")) / 3.6;
     } catch (NumberFormatException&) {
         throw ProcessError("Non-numerical value for the SPEED_RESTRICTION of link '" + id + "'.");
     }
@@ -353,7 +353,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     int numLanes;
     try {
         // EXTENDED_NUMBER_OF_LANES is prefered but may not be defined
-        numLanes = TplConvert::_2int(getColumn(st, EXTENDED_NUMBER_OF_LANES, "-1").c_str());
+        numLanes = StringUtils::toInt(getColumn(st, EXTENDED_NUMBER_OF_LANES, "-1"));
         if (numLanes == -1) {
             numLanes = NINavTeqHelper::getLaneNumber(id, getColumn(st, NUMBER_OF_LANES), speed);
         }
@@ -681,9 +681,9 @@ NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
             && yyyymmdd[4] == '-'
             && yyyymmdd[7] == '-') {
         try {
-            timeinfo.tm_year = TplConvert::_str2int(yyyymmdd.substr(0, 4)) - 1900;
-            timeinfo.tm_mon = TplConvert::_str2int(yyyymmdd.substr(5, 2)) - 1;
-            timeinfo.tm_mday = TplConvert::_str2int(yyyymmdd.substr(8, 2));
+            timeinfo.tm_year = StringUtils::toInt(yyyymmdd.substr(0, 4)) - 1900;
+            timeinfo.tm_mon = StringUtils::toInt(yyyymmdd.substr(5, 2)) - 1;
+            timeinfo.tm_mday = StringUtils::toInt(yyyymmdd.substr(8, 2));
             return mktime(&timeinfo);
         } catch (...) {
         }
@@ -795,12 +795,12 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         WRITE_WARNING("Ignoring prohibition from unknown end edge '" + endEdge + "'");
         return true;
     }
-    int fromLane = TplConvert::_2int(fromLaneS.c_str()) - 1; // one based
+    int fromLane = StringUtils::toInt(fromLaneS) - 1; // one based
     if (fromLane < 0 || fromLane >= from->getNumLanes()) {
         WRITE_WARNING("Ignoring invalid lane index '" + fromLaneS + "' in connection from edge '" + startEdge + "' with " + toString(from->getNumLanes()) + " lanes");
         return true;
     }
-    int toLane = TplConvert::_2int(toLaneS.c_str()) - 1; // one based
+    int toLane = StringUtils::toInt(toLaneS) - 1; // one based
     if (toLane < 0 || toLane >= to->getNumLanes()) {
         WRITE_WARNING("Ignoring invalid lane index '" + toLaneS + "' in connection to edge '" + endEdge + "' with " + toString(to->getNumLanes()) + " lanes");
         return true;

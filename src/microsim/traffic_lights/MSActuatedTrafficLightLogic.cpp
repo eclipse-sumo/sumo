@@ -38,7 +38,7 @@
 #include "MSActuatedTrafficLightLogic.h"
 #include <microsim/MSLane.h>
 #include <netload/NLDetectorBuilder.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 
 
 // ===========================================================================
@@ -62,12 +62,12 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TLTYPE_ACTUATED, phases, step, delay, parameter) {
 
-    myMaxGap = TplConvert::_2double(getParameter("max-gap", DEFAULT_MAX_GAP).c_str());
-    myPassingTime = TplConvert::_2double(getParameter("passing-time", DEFAULT_PASSING_TIME).c_str()); // passing-time seems obsolete... (Leo)
-    myDetectorGap = TplConvert::_2double(getParameter("detector-gap", DEFAULT_DETECTOR_GAP).c_str());
-    myShowDetectors = TplConvert::_2bool(getParameter("show-detectors", "false").c_str());
+    myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
+    myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME)); // passing-time seems obsolete... (Leo)
+    myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
+    myShowDetectors = StringUtils::toBool(getParameter("show-detectors", "false"));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
-    myFreq = TIME2STEPS(TplConvert::_2double(getParameter("freq", "300").c_str()));
+    myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
 }
 

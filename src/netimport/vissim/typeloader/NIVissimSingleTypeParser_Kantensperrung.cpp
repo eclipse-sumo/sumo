@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimClosures.h"
 #include "NIVissimSingleTypeParser_Kantensperrung.h"
@@ -63,7 +63,7 @@ NIVissimSingleTypeParser_Kantensperrung::parse(std::istream& from) {
     while (tag != "DATAEND") {
         tag = readEndSecure(from);
         if (tag != "DATAEND") {
-            edges.push_back(TplConvert::_2int(tag.c_str()));
+            edges.push_back(StringUtils::toInt(tag));
         }
     }
     NIVissimClosures::dictionary(id, from_node, to_node, edges);

@@ -25,7 +25,7 @@
 #include <map>
 #include <string>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "NIVissimConflictArea.h"
 #include "NIVissimConnection.h"
 #include <netbuild/NBEdgeCont.h>
@@ -119,8 +119,8 @@ NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec) {
     std::map<int, NIVissimConflictArea*>::iterator it;
     for (it = myDict.begin(); it != myDict.end(); it++) {
         NIVissimConflictArea* const conflictArea = it->second;
-        NIVissimConnection* const firstLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getFirstLink()));
-        NIVissimConnection* const secondLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getSecondLink()));
+        NIVissimConnection* const firstLink = NIVissimConnection::dictionary(StringUtils::toInt(conflictArea->getFirstLink()));
+        NIVissimConnection* const secondLink = NIVissimConnection::dictionary(StringUtils::toInt(conflictArea->getSecondLink()));
         if (firstLink == nullptr || secondLink == nullptr) {
             continue;
         }

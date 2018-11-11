@@ -41,7 +41,7 @@
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
 #include "RODFNet.h"
 #include <utils/iodevices/OutputDevice.h>
@@ -379,7 +379,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 if (oc.isSet("departlane")) {
                     out.writeNonEmptyAttr(SUMO_ATTR_DEPARTLANE, oc.getString("departlane"));
                 } else {
-                    out.writeAttr(SUMO_ATTR_DEPARTLANE, TplConvert::_2int(myLaneID.substr(myLaneID.rfind("_") + 1).c_str()));
+                    out.writeAttr(SUMO_ATTR_DEPARTLANE, StringUtils::toInt(myLaneID.substr(myLaneID.rfind("_") + 1)));
                 }
                 if (oc.isSet("departpos")) {
                     std::string posDesc = oc.getString("departpos");
@@ -387,9 +387,9 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                         double position = myPosition;
                         if (posDesc.length() > 8) {
                             if (posDesc[8] == '+') {
-                                position += TplConvert::_2double(posDesc.substr(9).c_str());
+                                position += StringUtils::toDouble(posDesc.substr(9));
                             } else if (posDesc[8] == '-') {
-                                position -= TplConvert::_2double(posDesc.substr(9).c_str());
+                                position -= StringUtils::toDouble(posDesc.substr(9));
                             } else {
                                 throw NumberFormatException("");
                             }

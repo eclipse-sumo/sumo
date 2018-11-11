@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_Simdauer.h"
@@ -46,7 +46,7 @@ NIVissimSingleTypeParser_Simdauer::parse(std::istream& from) {
     from >> duration;
     // !!!
     try {
-        TplConvert::_2double(duration.c_str());
+        StringUtils::toDouble(duration);
     } catch (...) {
         WRITE_ERROR("Simulation duration could not be parsed");
         return false;

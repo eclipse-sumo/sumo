@@ -21,7 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SUMOTime.h>
@@ -65,7 +65,7 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         if (v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "-") == "-") {
             actualBatteryCapacity = maximumBatteryCapacity * DEFAULT_CHARGE_RATIO;
         } else {
-            actualBatteryCapacity = TplConvert::_2double(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0").c_str());
+            actualBatteryCapacity = StringUtils::toDouble(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0"));
         }
 
         const double powerMax = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100.);
@@ -429,7 +429,7 @@ void
 MSDevice_Battery::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
-        doubleValue = TplConvert::_2double(value.c_str());
+        doubleValue = StringUtils::toDouble(value);
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }

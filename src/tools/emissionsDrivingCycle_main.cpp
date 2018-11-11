@@ -26,7 +26,7 @@
 #include <version.h>
 #endif
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -39,7 +39,7 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -191,10 +191,10 @@ main(int argc, char** argv) {
                 StringTokenizer st(StringUtils::prune(line), oc.getString("timeline-file.separator"));
                 if (st.hasNext()) {
                     try {
-                        double t = TplConvert::_2double<char>(st.next().c_str());
+                        double t = StringUtils::toDouble(st.next());
                         double v = 0;
                         if (st.hasNext()) {
-                            v = TplConvert::_2double<char>(st.next().c_str());
+                            v = StringUtils::toDouble(st.next());
                         } else {
                             v = t;
                             t = time;
@@ -202,8 +202,8 @@ main(int argc, char** argv) {
                         if (inKMH) {
                             v /= 3.6;
                         }
-                        double a = !computeA && st.hasNext() ? TplConvert::_2double<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                        double s = haveSlope && st.hasNext() ? TplConvert::_2double<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                        double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
+                        double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
                             l += v;
                             totalA += a;

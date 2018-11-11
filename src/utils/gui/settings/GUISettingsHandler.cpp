@@ -25,7 +25,7 @@
 #include <config.h>
 
 #include <vector>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/MsgHandler.h>
@@ -115,34 +115,34 @@ GUISettingsHandler::myStartElement(int element,
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_OPENGL:
-            mySettings.dither = TplConvert::_2bool(attrs.getStringSecure("dither", toString(mySettings.dither)).c_str());
+            mySettings.dither = StringUtils::toBool(attrs.getStringSecure("dither", toString(mySettings.dither)));
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
             bool ok = true;
             mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", nullptr, true, ok);
-            mySettings.showGrid = TplConvert::_2bool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)).c_str());
-            mySettings.gridXSize = TplConvert::_2double(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)).c_str());
-            mySettings.gridYSize = TplConvert::_2double(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)).c_str());
+            mySettings.showGrid = StringUtils::toBool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)));
+            mySettings.gridXSize = StringUtils::toDouble(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)));
+            mySettings.gridYSize = StringUtils::toDouble(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)));
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_EDGES: {
-            int laneEdgeMode = TplConvert::_2int(attrs.getStringSecure("laneEdgeMode", "0").c_str());
-            int laneEdgeScaleMode = TplConvert::_2int(attrs.getStringSecure("scaleMode", "0").c_str());
-            mySettings.laneShowBorders = TplConvert::_2bool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)).c_str());
-            mySettings.showBikeMarkings = TplConvert::_2bool(attrs.getStringSecure("showBikeMarkings", toString(mySettings.showBikeMarkings)).c_str());
-            mySettings.showLinkDecals = TplConvert::_2bool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)).c_str());
-            mySettings.showLinkRules = TplConvert::_2bool(attrs.getStringSecure("showLinkRules", toString(mySettings.showLinkRules)).c_str());
-            mySettings.showRails = TplConvert::_2bool(attrs.getStringSecure("showRails", toString(mySettings.showRails)).c_str());
+            int laneEdgeMode = StringUtils::toInt(attrs.getStringSecure("laneEdgeMode", "0"));
+            int laneEdgeScaleMode = StringUtils::toInt(attrs.getStringSecure("scaleMode", "0"));
+            mySettings.laneShowBorders = StringUtils::toBool(attrs.getStringSecure("laneShowBorders", toString(mySettings.laneShowBorders)));
+            mySettings.showBikeMarkings = StringUtils::toBool(attrs.getStringSecure("showBikeMarkings", toString(mySettings.showBikeMarkings)));
+            mySettings.showLinkDecals = StringUtils::toBool(attrs.getStringSecure("showLinkDecals", toString(mySettings.showLinkDecals)));
+            mySettings.showLinkRules = StringUtils::toBool(attrs.getStringSecure("showLinkRules", toString(mySettings.showLinkRules)));
+            mySettings.showRails = StringUtils::toBool(attrs.getStringSecure("showRails", toString(mySettings.showRails)));
             mySettings.edgeName = parseTextSettings("edgeName", attrs, mySettings.edgeName);
             mySettings.internalEdgeName = parseTextSettings("internalEdgeName", attrs, mySettings.internalEdgeName);
             mySettings.cwaEdgeName = parseTextSettings("cwaEdgeName", attrs, mySettings.cwaEdgeName);
             mySettings.streetName = parseTextSettings("streetName", attrs, mySettings.streetName);
-            mySettings.hideConnectors = TplConvert::_2bool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)).c_str());
-            mySettings.laneWidthExaggeration = TplConvert::_2double(attrs.getStringSecure("widthExaggeration", toString(mySettings.laneWidthExaggeration)).c_str());
-            mySettings.laneMinSize = TplConvert::_2double(attrs.getStringSecure("minSize", toString(mySettings.laneWidthExaggeration)).c_str());
-            mySettings.showLaneDirection = TplConvert::_2bool(attrs.getStringSecure("showDirection", toString(mySettings.showLaneDirection)).c_str());
-            mySettings.showSublanes = TplConvert::_2bool(attrs.getStringSecure("showSublanes", toString(mySettings.showSublanes)).c_str());
-            mySettings.spreadSuperposed = TplConvert::_2bool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)).c_str());
+            mySettings.hideConnectors = StringUtils::toBool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)));
+            mySettings.laneWidthExaggeration = StringUtils::toDouble(attrs.getStringSecure("widthExaggeration", toString(mySettings.laneWidthExaggeration)));
+            mySettings.laneMinSize = StringUtils::toDouble(attrs.getStringSecure("minSize", toString(mySettings.laneWidthExaggeration)));
+            mySettings.showLaneDirection = StringUtils::toBool(attrs.getStringSecure("showDirection", toString(mySettings.showLaneDirection)));
+            mySettings.showSublanes = StringUtils::toBool(attrs.getStringSecure("showSublanes", toString(mySettings.showSublanes)));
+            mySettings.spreadSuperposed = StringUtils::toBool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)));
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
             mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
             myCurrentColorer = element;
@@ -218,42 +218,42 @@ GUISettingsHandler::myStartElement(int element,
             }
             break;
         case SUMO_TAG_VIEWSETTINGS_VEHICLES:
-            mySettings.vehicleColorer.setActive(TplConvert::_2int(attrs.getStringSecure("vehicleMode", "0").c_str()));
-            mySettings.vehicleQuality = TplConvert::_2int(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)).c_str());
-            mySettings.showBlinker = TplConvert::_2bool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)).c_str());
+            mySettings.vehicleColorer.setActive(StringUtils::toInt(attrs.getStringSecure("vehicleMode", "0")));
+            mySettings.vehicleQuality = StringUtils::toInt(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)));
+            mySettings.showBlinker = StringUtils::toBool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)));
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_PERSONS:
-            mySettings.personColorer.setActive(TplConvert::_2int(attrs.getStringSecure("personMode", "0").c_str()));
-            mySettings.personQuality = TplConvert::_2int(attrs.getStringSecure("personQuality", toString(mySettings.personQuality)).c_str());
+            mySettings.personColorer.setActive(StringUtils::toInt(attrs.getStringSecure("personMode", "0")));
+            mySettings.personQuality = StringUtils::toInt(attrs.getStringSecure("personQuality", toString(mySettings.personQuality)));
             mySettings.personSize = parseSizeSettings("person", attrs, mySettings.personSize);
             mySettings.personName = parseTextSettings("personName", attrs, mySettings.personName);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_CONTAINERS:
-            mySettings.containerColorer.setActive(TplConvert::_2int(attrs.getStringSecure("containerMode", "0").c_str()));
-            mySettings.containerQuality = TplConvert::_2int(attrs.getStringSecure("containerQuality", toString(mySettings.containerQuality)).c_str());
+            mySettings.containerColorer.setActive(StringUtils::toInt(attrs.getStringSecure("containerMode", "0")));
+            mySettings.containerQuality = StringUtils::toInt(attrs.getStringSecure("containerQuality", toString(mySettings.containerQuality)));
             mySettings.containerSize = parseSizeSettings("container", attrs, mySettings.containerSize);
             mySettings.containerName = parseTextSettings("containerName", attrs, mySettings.containerName);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_JUNCTIONS:
-            mySettings.junctionColorer.setActive(TplConvert::_2int(attrs.getStringSecure("junctionMode", "0").c_str()));
+            mySettings.junctionColorer.setActive(StringUtils::toInt(attrs.getStringSecure("junctionMode", "0")));
             mySettings.drawLinkTLIndex = parseTextSettings("drawLinkTLIndex", attrs, mySettings.drawLinkTLIndex);
             mySettings.drawLinkJunctionIndex = parseTextSettings("drawLinkJunctionIndex", attrs, mySettings.drawLinkJunctionIndex);
             mySettings.junctionName = parseTextSettings("junctionName", attrs, mySettings.junctionName);
             mySettings.internalJunctionName = parseTextSettings("internalJunctionName", attrs, mySettings.internalJunctionName);
-            mySettings.showLane2Lane = TplConvert::_2bool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)).c_str());
-            mySettings.drawJunctionShape = TplConvert::_2bool(attrs.getStringSecure("drawShape", toString(mySettings.drawJunctionShape)).c_str());
-            mySettings.drawCrossingsAndWalkingareas = TplConvert::_2bool(attrs.getStringSecure(
-                        "drawCrossingsAndWalkingareas", toString(mySettings.drawCrossingsAndWalkingareas)).c_str());
+            mySettings.showLane2Lane = StringUtils::toBool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)));
+            mySettings.drawJunctionShape = StringUtils::toBool(attrs.getStringSecure("drawShape", toString(mySettings.drawJunctionShape)));
+            mySettings.drawCrossingsAndWalkingareas = StringUtils::toBool(attrs.getStringSecure(
+                        "drawCrossingsAndWalkingareas", toString(mySettings.drawCrossingsAndWalkingareas)));
             mySettings.junctionSize = parseSizeSettings("junction", attrs, mySettings.junctionSize);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_ADDITIONALS:
-            mySettings.addMode = TplConvert::_2int(attrs.getStringSecure("addMode", toString(mySettings.addMode)).c_str());
+            mySettings.addMode = StringUtils::toInt(attrs.getStringSecure("addMode", toString(mySettings.addMode)));
             mySettings.addSize = parseSizeSettings("add", attrs, mySettings.addSize);
             mySettings.addName = parseTextSettings("addName", attrs, mySettings.addName);
             mySettings.addFullName = parseTextSettings("addFullName", attrs, mySettings.addFullName);
@@ -262,18 +262,18 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.poiSize = parseSizeSettings("poi", attrs, mySettings.poiSize);
             mySettings.poiName = parseTextSettings("poiName", attrs, mySettings.poiName);
             mySettings.poiType = parseTextSettings("poiType", attrs, mySettings.poiType);
-            mySettings.poiColorer.setActive(TplConvert::_2int(attrs.getStringSecure("personMode", "0").c_str()));
+            mySettings.poiColorer.setActive(StringUtils::toInt(attrs.getStringSecure("personMode", "0")));
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_POLYS:
             mySettings.polySize = parseSizeSettings("poly", attrs, mySettings.polySize);
             mySettings.polyName = parseTextSettings("polyName", attrs, mySettings.polyName);
             mySettings.polyType = parseTextSettings("polyType", attrs, mySettings.polyType);
-            mySettings.polyColorer.setActive(TplConvert::_2int(attrs.getStringSecure("personMode", "0").c_str()));
+            mySettings.polyColorer.setActive(StringUtils::toInt(attrs.getStringSecure("personMode", "0")));
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:
-            mySettings.showSizeLegend = TplConvert::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());
+            mySettings.showSizeLegend = StringUtils::toBool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)));
             break;
         case SUMO_TAG_VIEWSETTINGS_DECAL: {
             GUISUMOAbstractView::Decal d;
@@ -286,12 +286,12 @@ GUISettingsHandler::myStartElement(int element,
             d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, d.centerZ);
             d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, d.width);
             d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, nullptr, ok, d.height);
-            d.altitude = TplConvert::_2double(attrs.getStringSecure("altitude", toString(d.height)).c_str());
-            d.rot = TplConvert::_2double(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
-            d.tilt = TplConvert::_2double(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
-            d.roll = TplConvert::_2double(attrs.getStringSecure("roll", toString(d.roll)).c_str());
+            d.altitude = StringUtils::toDouble(attrs.getStringSecure("altitude", toString(d.height)));
+            d.rot = StringUtils::toDouble(attrs.getStringSecure("rotation", toString(d.rot)));
+            d.tilt = StringUtils::toDouble(attrs.getStringSecure("tilt", toString(d.tilt)));
+            d.roll = StringUtils::toDouble(attrs.getStringSecure("roll", toString(d.roll)));
             d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, nullptr, ok, d.layer);
-            d.screenRelative = TplConvert::_2bool(attrs.getStringSecure("screenRelative", toString(d.screenRelative)).c_str());
+            d.screenRelative = StringUtils::toBool(attrs.getStringSecure("screenRelative", toString(d.screenRelative)));
             d.initialised = false;
             myDecals.push_back(d);
         }
@@ -304,10 +304,10 @@ GUISettingsHandler::myStartElement(int element,
             d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, d.centerZ);
             d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, d.width);
             d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, nullptr, ok, d.height);
-            d.altitude = TplConvert::_2double(attrs.getStringSecure("altitude", toString(d.height)).c_str());
-            d.rot = TplConvert::_2double(attrs.getStringSecure("rotation", toString(d.rot)).c_str());
-            d.tilt = TplConvert::_2double(attrs.getStringSecure("tilt", toString(d.tilt)).c_str());
-            d.roll = TplConvert::_2double(attrs.getStringSecure("roll", toString(d.roll)).c_str());
+            d.altitude = StringUtils::toDouble(attrs.getStringSecure("altitude", toString(d.height)));
+            d.rot = StringUtils::toDouble(attrs.getStringSecure("rotation", toString(d.rot)));
+            d.tilt = StringUtils::toDouble(attrs.getStringSecure("tilt", toString(d.tilt)));
+            d.roll = StringUtils::toDouble(attrs.getStringSecure("roll", toString(d.roll)));
             d.layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, nullptr, ok, d.layer);
             d.initialised = false;
             myDecals.push_back(d);
@@ -335,10 +335,10 @@ GUISettingsHandler::parseTextSettings(
     GUIVisualizationTextSettings defaults) {
     bool ok = true;
     return GUIVisualizationTextSettings(
-               TplConvert::_2bool(attrs.getStringSecure(prefix + "_show", toString(defaults.show)).c_str()),
-               TplConvert::_2double(attrs.getStringSecure(prefix + "_size", toString(defaults.size)).c_str()),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_show", toString(defaults.show))),
+               StringUtils::toDouble(attrs.getStringSecure(prefix + "_size", toString(defaults.size))),
                RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "edges", nullptr, true, ok),
-               TplConvert::_2bool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize)).c_str()));
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize))));
 }
 
 
@@ -347,9 +347,9 @@ GUISettingsHandler::parseSizeSettings(
     const std::string& prefix, const SUMOSAXAttributes& attrs,
     GUIVisualizationSizeSettings defaults) {
     return GUIVisualizationSizeSettings(
-               TplConvert::_2double(attrs.getStringSecure(prefix + "_minSize", toString(defaults.minSize)).c_str()),
-               TplConvert::_2double(attrs.getStringSecure(prefix + "_exaggeration", toString(defaults.exaggeration)).c_str()),
-               TplConvert::_2bool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constantSize)).c_str()));
+               StringUtils::toDouble(attrs.getStringSecure(prefix + "_minSize", toString(defaults.minSize))),
+               StringUtils::toDouble(attrs.getStringSecure(prefix + "_exaggeration", toString(defaults.exaggeration))),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constantSize))));
 }
 
 
@@ -420,11 +420,12 @@ GUISettingsHandler::loadBreakpoints(const std::string& file) {
         try {
             SUMOTime value = string2time(val);
             result.push_back(value);
-        } catch (NumberFormatException&) {
-            WRITE_ERROR(" A breakpoint-value must be an int, is:" + val);
-        }  catch (ProcessError&) {
+        } catch (NumberFormatException& e) {
+            WRITE_ERROR(" A breakpoint-value must be an int. " + toString(e.what()));
+        } catch (EmptyData&) {
+        } catch (ProcessError&) {
             WRITE_ERROR(" Could not decode breakpoint '" + val + "'");
-        } catch (EmptyData&) {}
+        }
     }
     return result;
 }

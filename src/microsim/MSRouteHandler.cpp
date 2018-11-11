@@ -40,7 +40,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
@@ -551,7 +551,7 @@ MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         bool ok = true;
         StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_PROBS, myCurrentRouteDistributionID.c_str(), ok));
         while (st.hasNext()) {
-            probs.push_back(TplConvert::_2doubleSec(st.next().c_str(), 1.0));
+            probs.push_back(StringUtils::toDoubleSecure(st.next(), 1.0));
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_ROUTES)) {

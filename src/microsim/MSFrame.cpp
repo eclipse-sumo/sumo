@@ -36,7 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -614,7 +614,7 @@ MSFrame::checkOptions() {
         const std::string val = oc.getString("default.emergencydecel");
         if (val != "default" && val != "decel") {
             try {
-                TplConvert::_2double(val.c_str());
+                StringUtils::toDouble(val);
             } catch (NumberFormatException) {
                 WRITE_ERROR("Invalid value '" + val + "' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'");
                 ok = false;
@@ -679,7 +679,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         MSGlobals::gDefaultEmergencyDecel = VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL;
     } else {
         // value already checked in checkOptions()
-        MSGlobals::gDefaultEmergencyDecel = TplConvert::_2double(defaultEmergencyDecelOption.c_str());
+        MSGlobals::gDefaultEmergencyDecel = StringUtils::toDouble(defaultEmergencyDecelOption);
     }
 
 #ifdef _DEBUG

@@ -52,7 +52,7 @@ public:
 
     /** @brief Returns the number of lanes computed from the given capacity
      *
-     * Returns the esimtaed number of lanes by returning the given capacity
+     * Returns the estimated number of lanes by returning the given capacity
      *  divided by the norming divider given in the constructor.
      *
      * @param[in] capacity The capacity to convert

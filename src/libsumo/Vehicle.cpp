@@ -23,7 +23,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -1531,7 +1531,7 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
         const std::string deviceName = tok.get(1);
         bool create;
         try {
-            create = TplConvert::_2bool(value.c_str());
+            create = StringUtils::toBool(value);
         } catch (BoolFormatException&) {
             throw TraCIException("Changing device status requires a 'true' or 'false'");
         }

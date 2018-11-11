@@ -30,7 +30,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <microsim/cfmodels/MSCFModel_Rail.h>
 #include "MSNet.h"

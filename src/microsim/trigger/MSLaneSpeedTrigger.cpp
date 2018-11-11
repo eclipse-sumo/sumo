@@ -31,7 +31,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>

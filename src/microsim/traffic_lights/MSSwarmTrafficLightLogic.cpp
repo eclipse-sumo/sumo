@@ -123,11 +123,11 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSLane* currentLane = nullptr;
 
 //	Derivative
-    const int derivativeHistorySize = TplConvert::_2int(getParameter("PHERO_DERIVATIVE_HISTORY_SIZE", "3").c_str());
-    const int meanSpeedHistorySize = TplConvert::_2int(getParameter("PHERO_MEAN_SPEED_HISTORY_SIZE", "3").c_str());
-    m_derivativeAlpha = TplConvert::_2double(getParameter("PHERO_DERIVATIVE_ALPHA", "1").c_str());
+    const int derivativeHistorySize = StringUtils::toInt(getParameter("PHERO_DERIVATIVE_HISTORY_SIZE", "3"));
+    const int meanSpeedHistorySize = StringUtils::toInt(getParameter("PHERO_MEAN_SPEED_HISTORY_SIZE", "3"));
+    m_derivativeAlpha = StringUtils::toDouble(getParameter("PHERO_DERIVATIVE_ALPHA", "1"));
     m_losCounter = 0;
-    m_losMaxLimit = TplConvert::_2int(getParameter("LOSS_OF_SIGNAL_LIMIT", "10").c_str());
+    m_losMaxLimit = StringUtils::toInt(getParameter("LOSS_OF_SIGNAL_LIMIT", "10"));
 
     int index = 0;
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector = myLanes.begin();

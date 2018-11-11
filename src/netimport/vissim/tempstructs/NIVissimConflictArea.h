@@ -26,7 +26,7 @@
 
 #include <map>
 #include <string>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "NIVissimConnection.h"
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBEdge.h>

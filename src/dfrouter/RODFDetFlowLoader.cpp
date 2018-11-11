@@ -30,7 +30,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
 #include "RODFDetFlowLoader.h"
 
@@ -68,7 +68,7 @@ RODFDetFlowLoader::read(const std::string& file) {
             if (!myDetectorContainer.knows(detName)) {
                 continue;
             }
-            const double parsedTime = TplConvert::_2double((myLineHandler.get("time").c_str())) * myTimeScale - myTimeOffset;
+            const double parsedTime = StringUtils::toDouble((myLineHandler.get("time"))) * myTimeScale - myTimeOffset;
             // parsing as float to handle values which would cause int overflow
             if (parsedTime < myStartTime || parsedTime >= myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
@@ -80,18 +80,18 @@ RODFDetFlowLoader::read(const std::string& file) {
             const SUMOTime time = (SUMOTime)(parsedTime + .5);
             FlowDef fd;
             fd.isLKW = 0;
-            fd.qPKW = TplConvert::_2double(myLineHandler.get("qpkw").c_str());
+            fd.qPKW = StringUtils::toDouble(myLineHandler.get("qpkw"));
             fd.vPKW = 0;
             if (myLineHandler.know("vPKW")) {
-                fd.vPKW = TplConvert::_2double(myLineHandler.get("vpkw").c_str());
+                fd.vPKW = StringUtils::toDouble(myLineHandler.get("vpkw"));
             }
             fd.qLKW = 0;
             if (myLineHandler.know("qLKW")) {
-                fd.qLKW = TplConvert::_2double(myLineHandler.get("qlkw").c_str());
+                fd.qLKW = StringUtils::toDouble(myLineHandler.get("qlkw"));
             }
             fd.vLKW = 0;
             if (myLineHandler.know("vLKW")) {
-                fd.vLKW = TplConvert::_2double(myLineHandler.get("vlkw").c_str());
+                fd.vLKW = StringUtils::toDouble(myLineHandler.get("vlkw"));
             }
             if (fd.qLKW < 0) {
                 fd.qLKW = 0;

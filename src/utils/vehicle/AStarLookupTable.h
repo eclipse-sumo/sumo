@@ -142,8 +142,8 @@ public:
                 if (numericID[edge] != (int)myFromLandmarkDists[myLandmarks[lm]].size()) {
                     WRITE_WARNING("Unknown or unordered edge '" + edge + "' in landmark file.");
                 }
-                const double distFrom = TplConvert::_2double(st.get(2).c_str());
-                const double distTo = TplConvert::_2double(st.get(3).c_str());
+                const double distFrom = StringUtils::toDouble(st.get(2));
+                const double distTo = StringUtils::toDouble(st.get(3));
                 myFromLandmarkDists[myLandmarks[lm]].push_back(distFrom);
                 myToLandmarkDists[myLandmarks[lm]].push_back(distTo);
             }

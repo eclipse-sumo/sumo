@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimTL.h"

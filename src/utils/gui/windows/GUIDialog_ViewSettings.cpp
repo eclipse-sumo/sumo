@@ -32,7 +32,7 @@
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -1573,7 +1573,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 1:
             try {
-                d.centerX = TplConvert::_2double(value.c_str());
+                d.centerX = StringUtils::toDouble(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1581,7 +1581,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 2:
             try {
-                d.centerY = TplConvert::_2double(value.c_str());
+                d.centerY = StringUtils::toDouble(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1589,7 +1589,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 3:
             try {
-                d.width = TplConvert::_2double(value.c_str());
+                d.width = StringUtils::toDouble(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1597,7 +1597,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 4:
             try {
-                d.height = TplConvert::_2double(value.c_str());
+                d.height = StringUtils::toDouble(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1605,7 +1605,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 5:
             try {
-                d.rot = TplConvert::_2double(value.c_str());
+                d.rot = StringUtils::toDouble(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1613,7 +1613,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 6:
             try {
-                d.layer = TplConvert::_2double(value.c_str());
+                d.layer = StringUtils::toDouble(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a float, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
@@ -1621,7 +1621,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             break;
         case 7:
             try {
-                d.screenRelative = TplConvert::_2bool(value.c_str());
+                d.screenRelative = StringUtils::toBool(value);
             } catch (NumberFormatException&) {
                 std::string msg = "The value must be a bool, is:" + value;
                 FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());

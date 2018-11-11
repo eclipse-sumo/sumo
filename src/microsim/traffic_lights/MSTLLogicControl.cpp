@@ -35,7 +35,7 @@
 #include "MSOffTrafficLightLogic.h"
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 
@@ -237,7 +237,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(const MSTrafficLightLogic& lo
     if (val.length() == 0) {
         return 0;
     }
-    return TplConvert::_2int(val.c_str());
+    return StringUtils::toInt(val);
 }
 
 
@@ -395,7 +395,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
         assert(def.end >= def.begin);
         deltaPossible += TIME2STEPS(def.end - def.begin);
     }
-    int stretchUmlaufAnz = (int) TplConvert::_2double(myTo->getParameter("StretchUmlaufAnz", "").c_str());
+    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
     deltaPossible = stretchUmlaufAnz * deltaPossible;
     if ((deltaPossible > deltaToCut) && (deltaToCut < (cycleTime / 2))) {
         cutLogic(step, gspTo, deltaToCut);
@@ -460,7 +460,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     SUMOTime durOfPhase = myTo->getPhase(currStep).duration;
     SUMOTime remainingStretchTime = allStretchTime;
     SUMOTime StretchTimeOfPhase = 0;
-    int stretchUmlaufAnz = (int) TplConvert::_2double(myTo->getParameter("StretchUmlaufAnz", "").c_str());
+    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
     double facSum = 0;
     int areasNo = getStretchAreaNo(myTo);
     for (int x = 0; x < areasNo; x++) {
@@ -528,9 +528,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchAreaNo(MSTrafficLightLo
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::StretchBereichDef
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLightLogic* from, int index) const {
     StretchBereichDef def;
-    def.begin = TplConvert::_2double(from->getParameter("B" + toString(index) + ".begin", "").c_str());
-    def.end = TplConvert::_2double(from->getParameter("B" + toString(index) + ".end", "").c_str());
-    def.fac = TplConvert::_2double(from->getParameter("B" + toString(index) + ".factor", "").c_str());
+    def.begin = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".begin", ""));
+    def.end = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".end", ""));
+    def.fac = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".factor", ""));
     return def;
 }
 

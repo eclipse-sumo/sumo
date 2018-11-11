@@ -31,7 +31,7 @@
 #include "MSPhasedTrafficLightLogic.h"
 #include "MSSOTLE2Sensors.h"
 #include <utils/common/RandHelper.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 
 
 // ===========================================================================
@@ -150,19 +150,19 @@ protected:
     bool isPushButtonPressed();
 
     int getThreshold() {
-        return TplConvert::_2int(getParameter("THRESHOLD", "10").c_str());
+        return StringUtils::toInt(getParameter("THRESHOLD", "10"));
     }
 
     double getSpeedThreshold() {
-        return TplConvert::_2double(getParameter("THRESHOLDSPEED", "2").c_str());
+        return StringUtils::toDouble(getParameter("THRESHOLDSPEED", "2"));
     }
 
     double getInputSensorsLength() {
-        return TplConvert::_2double(getParameter("INSENSORSLENGTH", "100").c_str());
+        return StringUtils::toDouble(getParameter("INSENSORSLENGTH", "100"));
     }
 
     double getOutputSensorsLength() {
-        return TplConvert::_2double(getParameter("OUTSENSORSLENGTH", "80").c_str());
+        return StringUtils::toDouble(getParameter("OUTSENSORSLENGTH", "80"));
     }
 
     /*
@@ -273,7 +273,7 @@ private:
      * 2-> queue length
      */
     int getMode() {
-        return TplConvert::_2int(getParameter("MODE", "0").c_str());
+        return StringUtils::toInt(getParameter("MODE", "0"));
     }
     /*
      * Decay threshold that should be used in case of penetration rate != 100%
@@ -281,11 +281,11 @@ private:
      * 1-> active
      */
     bool isDecayThresholdActivated() {
-        return TplConvert::_2bool(getParameter("DECAY_THRESHOLD", "0").c_str());
+        return StringUtils::toBool(getParameter("DECAY_THRESHOLD", "0"));
     }
 
     double getDecayConstant() {
-        return TplConvert::_2double(getParameter("DECAY_CONSTANT", "-0.001").c_str());
+        return StringUtils::toDouble(getParameter("DECAY_CONSTANT", "-0.001"));
     }
 
 };

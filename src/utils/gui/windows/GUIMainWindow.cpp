@@ -34,10 +34,8 @@
 #ifdef WIN32
 #undef NOMINMAX
 #endif
-#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplCheck.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/options/OptionsCont.h>
@@ -205,13 +203,15 @@ GUIMainWindow::setWindowSizeAndPos() {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("window-size")) {
         std::vector<std::string> windowSize = oc.getStringVector("window-size");
-        if (windowSize.size() != 2
-                || !TplCheck::_str2int(windowSize[0])
-                || !TplCheck::_str2int(windowSize[1])) {
+        if (windowSize.size() != 2) {
             WRITE_ERROR("option window-size requires INT,INT");
         } else {
-            windowWidth = TplConvert::_str2int(windowSize[0]);
-            windowHeight = TplConvert::_str2int(windowSize[1]);
+            try {
+                windowWidth = StringUtils::toInt(windowSize[0]);
+                windowHeight = StringUtils::toInt(windowSize[1]);
+            } catch (NumberFormatException& e) {
+                WRITE_ERROR("option window-size requires INT,INT " + toString(e.what()));
+            }
         }
     }
     if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0 || oc.isSet("window-pos")) {
@@ -220,14 +220,15 @@ GUIMainWindow::setWindowSizeAndPos() {
         int y = MAX2(50, MIN2(getApp()->reg().readIntEntry("SETTINGS", "y", 150), getApp()->getRootWindow()->getHeight() - windowHeight));
         if (oc.isSet("window-pos")) {
             std::vector<std::string> windowPos = oc.getStringVector("window-pos");
-            if (windowPos.size() != 2
-                    || !TplCheck::_str2int(windowPos[0])
-                    || !TplCheck::_str2int(windowPos[1])
-               ) {
+            if (windowPos.size() != 2) {
                 WRITE_ERROR("option window-pos requires INT,INT");
             } else {
-                x = TplConvert::_str2int(windowPos[0]);
-                y = TplConvert::_str2int(windowPos[1]);
+                try {
+                    x = StringUtils::toInt(windowPos[0]);
+                    y = StringUtils::toInt(windowPos[1]);
+                } catch (NumberFormatException& e) {
+                    WRITE_ERROR("option window-pos requires INT,INT " + toString(e.what()));
+                }
             }
         }
         move(x, y);

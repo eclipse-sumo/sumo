@@ -26,7 +26,7 @@
 #include <algorithm>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
@@ -333,7 +333,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
 double
 SUMOVTypeParameter::getCFParam(const SumoXMLAttr attr, const double defaultValue) const {
     if (cfParameter.count(attr)) {
-        return TplConvert::_str2double(cfParameter.find(attr)->second);
+        return StringUtils::toDouble(cfParameter.find(attr)->second);
     } else {
         return defaultValue;
     }
@@ -352,7 +352,7 @@ SUMOVTypeParameter::getCFParamString(const SumoXMLAttr attr, const std::string d
 double
 SUMOVTypeParameter::getLCParam(const SumoXMLAttr attr, const double defaultValue) const {
     if (lcParameter.count(attr)) {
-        return TplConvert::_str2double(lcParameter.find(attr)->second);
+        return StringUtils::toDouble(lcParameter.find(attr)->second);
     } else {
         return defaultValue;
     }
@@ -367,7 +367,7 @@ SUMOVTypeParameter::getLCParams() const {
 double
 SUMOVTypeParameter::getJMParam(const SumoXMLAttr attr, const double defaultValue) const {
     if (jmParameter.count(attr)) {
-        return TplConvert::_str2double(jmParameter.find(attr)->second);
+        return StringUtils::toDouble(jmParameter.find(attr)->second);
     } else {
         return defaultValue;
     }

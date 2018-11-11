@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimExtendedEdgePoint.h"
@@ -155,7 +155,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
     if (tag == "ALLE") {
         //lanes.push_back(1); // !!!
     } else {
-        lanes.push_back(TplConvert::_2int(tag.c_str()));
+        lanes.push_back(StringUtils::toInt(tag));
     }
     //
     double position;
@@ -172,7 +172,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream&
                 from >> tag;
                 tag = "alle";
             } else if (tag != "zeitluecke" && tag != "durch" && tag != "DATAEND") {
-                int tmp = TplConvert::_2int(tag.c_str());
+                int tmp = StringUtils::toInt(tag);
                 types.push_back(tmp);
             }
         }

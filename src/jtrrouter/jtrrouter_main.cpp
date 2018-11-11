@@ -89,7 +89,7 @@ getTurningDefaults(OptionsCont& oc) {
     }
     for (std::vector<std::string>::const_iterator i = defs.begin(); i != defs.end(); ++i) {
         try {
-            double val = TplConvert::_2double((*i).c_str());
+            double val = StringUtils::toDouble(*i);
             ret.push_back(val);
         } catch (NumberFormatException&) {
             throw ProcessError("A turn default is not numeric.");

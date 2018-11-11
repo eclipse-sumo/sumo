@@ -35,7 +35,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/gui/images/GUIIcons.h>
 
 #include "GNEReferenceCounter.h"

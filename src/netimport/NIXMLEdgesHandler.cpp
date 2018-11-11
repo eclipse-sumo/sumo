@@ -40,7 +40,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/ToString.h>
@@ -419,7 +419,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LANES, nullptr, ok, ""), lanes);
         for (std::vector<std::string>::iterator i = lanes.begin(); i != lanes.end(); ++i) {
             try {
-                int lane = TplConvert::_2int((*i).c_str());
+                int lane = StringUtils::toInt((*i));
                 e.lanes.push_back(lane);
             } catch (NumberFormatException&) {
                 WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");

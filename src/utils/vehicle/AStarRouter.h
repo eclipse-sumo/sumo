@@ -39,7 +39,7 @@
 #include <memory>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/BinaryInputDevice.h>

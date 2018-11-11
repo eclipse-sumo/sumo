@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimVehicleType.h"
@@ -66,7 +66,7 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream& from) {
                 color = (*i).second;
             } else {
                 int r, g, b;
-                r = TplConvert::_2int(colorName.c_str());
+                r = StringUtils::toInt(colorName);
                 if (!(from >> g)) {
                     throw NumberFormatException("");
                 }

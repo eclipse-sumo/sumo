@@ -26,7 +26,7 @@
 #include <utils/common/SwarmDebug.h>
 #include <sstream>
 #include <utils/common/Parameterised.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 
 /**
  * \class MSSOTLPolicyDesirability
@@ -37,11 +37,6 @@ class MSSOTLPolicyDesirability: public Parameterised {
 
 private:
     std::string myKeyPrefix;
-
-protected:
-    double readParameter(std::string parName, double defValue) {
-        return TplConvert::_2doubleSec(getParameter(parName, "").c_str(), defValue);
-    }
 
 public:
 

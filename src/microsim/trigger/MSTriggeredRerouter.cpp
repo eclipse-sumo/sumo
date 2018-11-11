@@ -32,7 +32,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/vehicle/DijkstraRouter.h>
 #include <utils/common/RandHelper.h>
@@ -546,7 +546,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
     // get custom vehicle parameter
     if (veh.getParameter().knowsParameter(param)) {
         try {
-            return TplConvert::_2double(veh.getParameter().getParameter(param, "-1").c_str());
+            return StringUtils::toDouble(veh.getParameter().getParameter(param, "-1"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + veh.getParameter().getParameter(param, "-1") + "' for vehicle parameter '" + param + "'");
         }
@@ -554,7 +554,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
         // get custom vType parameter
         if (veh.getVehicleType().getParameter().knowsParameter(param)) {
             try {
-                return TplConvert::_2double(veh.getVehicleType().getParameter().getParameter(param, "-1").c_str());
+                return StringUtils::toDouble(veh.getVehicleType().getParameter().getParameter(param, "-1"));
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + veh.getVehicleType().getParameter().getParameter(param, "-1") + "' for vType parameter '" + param + "'");
             }

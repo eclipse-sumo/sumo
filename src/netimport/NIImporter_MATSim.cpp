@@ -37,7 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
 #include "NIImporter_MATSim.h"
@@ -197,9 +197,9 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
             return;
         }
         try {
-            int hours = TplConvert::_2int(st.next().c_str());
-            int minutes = TplConvert::_2int(st.next().c_str());
-            int seconds = TplConvert::_2int(st.next().c_str());
+            int hours = StringUtils::toInt(st.next());
+            int minutes = StringUtils::toInt(st.next());
+            int seconds = StringUtils::toInt(st.next());
             myCapacityNorm = (double)(hours * 3600 + minutes * 60 + seconds);
         } catch (NumberFormatException&) {
         } catch (EmptyData&) {

@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/PositionVector.h>
 #include "../NIImporter_Vissim.h"
@@ -88,7 +88,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
         geom.push_back_noDoublePos(getPosition(from));
         tag = myRead(from);
         try {
-            TplConvert::_2double(tag.c_str());
+            StringUtils::toDouble(tag);
             tag = myRead(from);
         } catch (NumberFormatException&) {}
     }
@@ -111,7 +111,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
             tag = myRead(from);
             tag = myRead(from);
             while (tag != "DATAEND" && tag != "spur" && tag != "keinspurwechsel") {
-                int classes = TplConvert::_2int(tag.c_str());
+                int classes = StringUtils::toInt(tag);
                 assignedVehicles.push_back(classes);
                 tag = readEndSecure(from);
             }

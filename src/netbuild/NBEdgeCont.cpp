@@ -34,7 +34,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
@@ -109,7 +109,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
         // !!! throw something if length<4 || length%2!=0?
         std::vector<double> poly;
         for (std::vector<std::string>::iterator i = polyS.begin(); i != polyS.end(); ++i) {
-            poly.push_back(TplConvert::_2double((*i).c_str())); // !!! may throw something anyhow...
+            poly.push_back(StringUtils::toDouble((*i))); // !!! may throw something anyhow...
         }
         if (poly.size() < 4) {
             throw ProcessError("Invalid boundary: need at least 2 coordinates");
@@ -1333,7 +1333,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
         if (numericaIDs) {
             try {
-                TplConvert::_str2long(it->first);
+                StringUtils::toLong(it->first);
             } catch (NumberFormatException&) {
                 toChange.insert(it->second);
             }

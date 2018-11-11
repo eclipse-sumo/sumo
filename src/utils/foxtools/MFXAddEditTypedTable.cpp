@@ -23,7 +23,7 @@
 
 #include <fx.h>
 #include <fxkeys.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include "MFXAddEditTypedTable.h"
 #include <iostream>
@@ -246,9 +246,9 @@ MFXAddEditTypedTable::getControlForItem(FXint r, FXint c) {
             }
             try {
                 if (getCellType(c) == CT_REAL) {
-                    field->setValue(TplConvert::_2double(item->getText().text()));
+                    field->setValue(StringUtils::toDouble(item->getText().text()));
                 } else {
-                    field->setValue(TplConvert::_2int(item->getText().text()));
+                    field->setValue(StringUtils::toInt(item->getText().text()));
                 }
             } catch (NumberFormatException&) {
                 field->setValue(0);

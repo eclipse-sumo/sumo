@@ -25,7 +25,7 @@
 #include <config.h>
 
 #include <memory>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/WrappingCommand.h>
@@ -678,25 +678,25 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
             switchHolderType(value);
         }
     } else if (key == "responseTime") {
-        myResponseTime = TIME2STEPS(TplConvert::_2double(value.c_str()));
+        myResponseTime = TIME2STEPS(StringUtils::toDouble(value));
     } else if (key == "recoveryRate") {
-        myRecoveryRate = TplConvert::_2double(value.c_str());
+        myRecoveryRate = StringUtils::toDouble(value);
     } else if (key == "initialAwareness") {
-        myInitialAwareness = TplConvert::_2double(value.c_str());
+        myInitialAwareness = StringUtils::toDouble(value);
     } else if (key == "currentAwareness") {
-        myCurrentAwareness = TplConvert::_2double(value.c_str());
+        myCurrentAwareness = StringUtils::toDouble(value);
     } else if (key == "mrmDecel") {
-        myMRMDecel = TplConvert::_2double(value.c_str());
+        myMRMDecel = StringUtils::toDouble(value);
     } else if (key == "requestToC") {
         // setting this magic parameter gives the interface for inducing a ToC
-        const SUMOTime timeTillMRM = TIME2STEPS(TplConvert::_2double(value.c_str()));
+        const SUMOTime timeTillMRM = TIME2STEPS(StringUtils::toDouble(value));
         requestToC(timeTillMRM);
     } else if (key == "requestMRM") {
         // setting this magic parameter gives the interface for inducing an MRM
         requestMRM();
     } else if (key == "awareness") {
         // setting this magic parameter gives the interface for setting the driverstate's awareness
-        setAwareness(TplConvert::_2double(value.c_str()));
+        setAwareness(StringUtils::toDouble(value));
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

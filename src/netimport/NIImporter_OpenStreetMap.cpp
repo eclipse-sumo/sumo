@@ -31,7 +31,7 @@
 #include <limits>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
@@ -784,7 +784,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length.tram");
             } else if (myImportElevation && key == "ele") {
                 try {
-                    myToFill[myLastNodeID]->ele = TplConvert::_2double(value.c_str());
+                    myToFill[myLastNodeID]->ele = StringUtils::toDouble(value);
                 } catch (...) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in node '" +
                                   toString(myLastNodeID) + "'.");
@@ -968,7 +968,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         } else if (key == "lanes") {
             try {
-                myCurrentEdge->myNoLanes = TplConvert::_2int(value.c_str());
+                myCurrentEdge->myNoLanes = StringUtils::toInt(value);
             } catch (NumberFormatException&) {
                 // might be a list of values
                 StringTokenizer st(value, ";", true);
@@ -977,7 +977,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                     int minLanes = std::numeric_limits<int>::max();
                     try {
                         for (auto& i : list) {
-                            int numLanes = TplConvert::_2int(StringUtils::prune(i).c_str());
+                            int numLanes = StringUtils::toInt(StringUtils::prune(i));
                             minLanes = MIN2(minLanes, numLanes);
                         }
                         myCurrentEdge->myNoLanes = minLanes;
@@ -996,7 +996,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             }
         } else if (key == "lanes:forward") {
             try {
-                myCurrentEdge->myNoLanesForward = TplConvert::_2int(value.c_str());
+                myCurrentEdge->myNoLanesForward = StringUtils::toInt(value);
             } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
@@ -1004,7 +1004,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "lanes:backward") {
             try {
                 // denote backwards count with a negative sign
-                myCurrentEdge->myNoLanesForward = -TplConvert::_2int(value.c_str());
+                myCurrentEdge->myNoLanesForward = -StringUtils::toInt(value);
             } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
@@ -1021,7 +1021,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                     conversion = 1.609344; // kilometers per mile
                 }
                 try {
-                    myCurrentEdge->myMaxSpeed = TplConvert::_2double(value.c_str()) * conversion;
+                    myCurrentEdge->myMaxSpeed = StringUtils::toDouble(value) * conversion;
                 } catch (...) {
                     WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                                   toString(myCurrentEdge->id) + "'.");
@@ -1040,14 +1040,14 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 myCurrentEdge->setParameter(key, value);
             }
             try {
-                myCurrentEdge->myLayer = TplConvert::_2int(value.c_str());
+                myCurrentEdge->myLayer = StringUtils::toInt(value);
             } catch (...) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                               toString(myCurrentEdge->id) + "'.");
             }
         } else if (key == "tracks") {
             try {
-                if (TplConvert::_2int(value.c_str()) > 1) {
+                if (StringUtils::toInt(value) > 1) {
                     myCurrentEdge->myIsOneWay = "false";
                 } else {
                     myCurrentEdge->myIsOneWay = "true";

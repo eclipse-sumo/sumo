@@ -24,7 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -65,7 +65,7 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
         double customParameter2 = -1;
         if (v.getParameter().knowsParameter("bluelight")) {
             try {
-                customParameter2 = TplConvert::_2double(v.getParameter().getParameter("bluelight", "-1").c_str());
+                customParameter2 = StringUtils::toDouble(v.getParameter().getParameter("bluelight", "-1"));
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("bluelight", "-1") + "'for vehicle parameter 'example'");
             }
@@ -79,7 +79,7 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
         double customParameter3 = -1;
         if (v.getVehicleType().getParameter().knowsParameter("bluelight")) {
             try {
-                customParameter3 = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("bluelight", "-1").c_str());
+                customParameter3 = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("bluelight", "-1"));
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("bluelight", "-1") + "'for vType parameter 'bluelight'");
             }
@@ -244,7 +244,7 @@ void
 MSDevice_Bluelight::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
-        doubleValue = TplConvert::_2double(value.c_str());
+        doubleValue = StringUtils::toDouble(value);
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }

@@ -29,7 +29,7 @@
 #include <string>
 #include <fstream>
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBNetBuilder.h>
@@ -302,7 +302,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
 
         NIVissimClosedLanesVector clv;          //FIXME -> clv einlesen
         std::vector<int> assignedVehicles;      //FIXME -> assignedVehicles einlesen
-        int id(TplConvert::_str2int(myElemData["id"].front()));
+        int id(StringUtils::toInt(myElemData["id"].front()));
 
         PositionVector geom;
         // convert all position coordinate strings to PositionVectors
@@ -314,7 +314,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
 
             // doing a transform with explicit hint on function signature
             std::transform(sPos_v.begin(), sPos_v.end(), pos_v.begin(),
-                           TplConvert::_str2double);
+                           StringUtils::toDouble);
             geom.push_back_noDoublePos(Position(pos_v[0], pos_v[1], pos_v[2]));
         }
         // FIXME: a length = 0 PosVec seems fatal -> segfault
@@ -326,8 +326,8 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
                                                   myElemData["name"].front(),
                                                   myElemData["type"].front(),
                                                   (int)myElemData["width"].size(),   // numLanes,
-                                                  TplConvert::_str2double(myElemData["zuschlag1"].front()),
-                                                  TplConvert::_str2double(myElemData["zuschlag2"].front()),
+                                                  StringUtils::toDouble(myElemData["zuschlag1"].front()),
+                                                  StringUtils::toDouble(myElemData["zuschlag2"].front()),
                                                   length, geom, clv);
             NIVissimEdge::dictionary(id, edge);
             if (id == 85 || id == 91) {
@@ -343,30 +343,30 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
 
             //NOTE: there should be only 1 lane number in XML
             // subtraction of 1 as in readExtEdgePointDef()
-            laneVec[0] = TplConvert::_str2int(myElemData["from_lane"].front()) - 1;
+            laneVec[0] = StringUtils::toInt(myElemData["from_lane"].front()) - 1;
             // then count up, building lane number vector
             for (std::vector<int>::iterator each = ++laneVec.begin(); each != laneVec.end(); ++each) {
                 *each = *(each - 1) + 1;
             }
 
             NIVissimExtendedEdgePoint from_def(
-                TplConvert::_str2int(myElemData["from_id"].front()),
+                StringUtils::toInt(myElemData["from_id"].front()),
                 laneVec,
-                TplConvert::_str2double(myElemData["from_pos"].front()),
+                StringUtils::toDouble(myElemData["from_pos"].front()),
                 assignedVehicles);
 
             //NOTE: there should be only 1 lane number in XML
             // subtraction of 1 as in readExtEdgePointDef()
-            laneVec[0] = TplConvert::_str2int(myElemData["to_lane"].front()) - 1;
+            laneVec[0] = StringUtils::toInt(myElemData["to_lane"].front()) - 1;
             // then count up, building lane number vector
             for (std::vector<int>::iterator each = ++laneVec.begin(); each != laneVec.end(); ++each) {
                 *each = *(each - 1) + 1;
             }
 
             NIVissimExtendedEdgePoint to_def(
-                TplConvert::_str2int(myElemData["to_id"].front()),
+                StringUtils::toInt(myElemData["to_id"].front()),
                 laneVec,
-                TplConvert::_str2double(myElemData["to_pos"].front()),
+                StringUtils::toDouble(myElemData["to_pos"].front()),
                 assignedVehicles);
 
             NIVissimConnection* connector = new
@@ -500,8 +500,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myEndElement(in
         std::vector<std::string> sCol_v(StringTokenizer(
                                             myElemData["color"].front(), " ").getVector());
         std::vector<int> myColorVector(sCol_v.size());
-        std::transform(sCol_v.begin(), sCol_v.end(), myColorVector.begin(),
-                       (TplConvert::_strHex2int));
+        std::transform(sCol_v.begin(), sCol_v.end(), myColorVector.begin(), StringUtils::hexToInt);
 
         color = RGBColor((unsigned char)myColorVector[0],
                          (unsigned char)myColorVector[1],
@@ -509,11 +508,11 @@ NIImporter_Vissim::NIVissimXMLHandler_Fahrzeugklassendefinition::myEndElement(in
                          (unsigned char)myColorVector[3]);
         std::vector<int> types;
         while (!myElemData["types"].empty()) {
-            types.push_back(TplConvert::_str2int(myElemData["types"].front()));
+            types.push_back(StringUtils::toInt(myElemData["types"].front()));
             myElemData["types"].pop_front();
         }
 
-        NIVissimVehTypeClass::dictionary(TplConvert::_str2int(myElemData["id"].front()),
+        NIVissimVehTypeClass::dictionary(StringUtils::toInt(myElemData["id"].front()),
                                          myElemData["name"].front(),
                                          color,
                                          types);
@@ -564,7 +563,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition::myE
             std::vector<std::string> sPos_v(StringTokenizer(
                                                 myElemData["points"].front(), " ").getVector());
             myElemData["points"].pop_front();
-            points->add(TplConvert::_str2double(sPos_v[0]), TplConvert::_str2double(sPos_v[1]));
+            points->add(StringUtils::toDouble(sPos_v[0]), StringUtils::toDouble(sPos_v[1]));
         }
         DistributionCont::dictionary("speed", myElemData["id"].front(), points);
         myElemData.clear();
@@ -778,7 +777,7 @@ NIImporter_Vissim::VissimSingleTypeParser::parseAssignedVehicleTypes(
         return ret;
     }
     while (tmp != "DATAEND" && tmp != next) {
-        ret.push_back(TplConvert::_2int(tmp.c_str()));
+        ret.push_back(StringUtils::toInt(tmp));
         tmp = readEndSecure(from);
     }
     return ret;
@@ -797,7 +796,7 @@ NIImporter_Vissim::VissimSingleTypeParser::readExtEdgePointDef(
     while (tag != "bei") {
         tag = readEndSecure(from);
         if (tag != "bei") {
-            int lane = TplConvert::_2int(tag.c_str());
+            int lane = StringUtils::toInt(tag);
             lanes.push_back(lane - 1);
         }
     }

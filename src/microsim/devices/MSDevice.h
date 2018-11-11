@@ -33,7 +33,7 @@
 #include <microsim/MSMoveReminder.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/common/Named.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 
@@ -237,10 +237,10 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     const std::string key = "has." + deviceName + ".device";
     if (v.getParameter().knowsParameter(key)) {
         parameterGiven = true;
-        haveByParameter = TplConvert::_2bool(v.getParameter().getParameter(key, "false").c_str());
+        haveByParameter = StringUtils::toBool(v.getParameter().getParameter(key, "false"));
     } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
         parameterGiven = true;
-        haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter(key, "false").c_str());
+        haveByParameter = StringUtils::toBool(v.getVehicleType().getParameter().getParameter(key, "false"));
     }
     if (haveByName) {
         return true;

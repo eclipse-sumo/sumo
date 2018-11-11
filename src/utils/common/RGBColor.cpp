@@ -31,7 +31,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include "RGBColor.h"
@@ -210,7 +210,7 @@ RGBColor::parseColor(std::string coldef) {
     unsigned char b = 0;
     unsigned char a = 255;
     if (coldef[0] == '#') {
-        const int coldesc = TplConvert::_hex2int(coldef.c_str());
+        const int coldesc = StringUtils::hexToInt(coldef);
         if (coldef.length() == 7) {
             r = static_cast<unsigned char>((coldesc & 0xFF0000) >> 16);
             g = static_cast<unsigned char>((coldesc & 0x00FF00) >> 8);
@@ -227,21 +227,21 @@ RGBColor::parseColor(std::string coldef) {
         std::vector<std::string> st = StringTokenizer(coldef, ",").getVector();
         if (st.size() == 3 || st.size() == 4) {
             try {
-                r = static_cast<unsigned char>(TplConvert::_2int(st[0].c_str()));
-                g = static_cast<unsigned char>(TplConvert::_2int(st[1].c_str()));
-                b = static_cast<unsigned char>(TplConvert::_2int(st[2].c_str()));
+                r = static_cast<unsigned char>(StringUtils::toInt(st[0]));
+                g = static_cast<unsigned char>(StringUtils::toInt(st[1]));
+                b = static_cast<unsigned char>(StringUtils::toInt(st[2]));
                 if (st.size() == 4) {
-                    a = static_cast<unsigned char>(TplConvert::_2int(st[3].c_str()));
+                    a = static_cast<unsigned char>(StringUtils::toInt(st[3]));
                 }
                 if (r <= 1 && g <= 1 && b <= 1 && (st.size() == 3 || a <= 1)) {
                     throw NumberFormatException("(color component) " + coldef);
                 }
             } catch (NumberFormatException&) {
-                r = static_cast<unsigned char>(TplConvert::_2double(st[0].c_str()) * 255. + 0.5);
-                g = static_cast<unsigned char>(TplConvert::_2double(st[1].c_str()) * 255. + 0.5);
-                b = static_cast<unsigned char>(TplConvert::_2double(st[2].c_str()) * 255. + 0.5);
+                r = static_cast<unsigned char>(StringUtils::toDouble(st[0]) * 255. + 0.5);
+                g = static_cast<unsigned char>(StringUtils::toDouble(st[1]) * 255. + 0.5);
+                b = static_cast<unsigned char>(StringUtils::toDouble(st[2]) * 255. + 0.5);
                 if (st.size() == 4) {
-                    a = static_cast<unsigned char>(TplConvert::_2double(st[3].c_str()) * 255. + 0.5);
+                    a = static_cast<unsigned char>(StringUtils::toDouble(st[3]) * 255. + 0.5);
                 }
             }
         } else {

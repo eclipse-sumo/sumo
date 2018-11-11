@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include "../NIImporter_Vissim.h"
@@ -80,7 +80,7 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream& from) {
         }
         NIVissimNodeDef_Edges::dictionary(id, name, edges);
     } else {
-        int no = TplConvert::_2int(tag.c_str());
+        int no = StringUtils::toInt(tag);
         PositionVector poly;
         for (int i = 0; i < no; i++) {
             poly.push_back(getPosition(from));

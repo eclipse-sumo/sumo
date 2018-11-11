@@ -28,7 +28,7 @@
 #include <iostream>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -2719,13 +2719,13 @@ MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
     bool useGeo = false;
     if (v.getParameter().knowsParameter("device.ssm.geo")) {
         try {
-            useGeo = TplConvert::_2bool(v.getParameter().getParameter("device.ssm.geo", "no").c_str());
+            useGeo = StringUtils::toBool(v.getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.geo", "no") + "'for vehicle parameter 'ssm.geo'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.geo")) {
         try {
-            useGeo = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no").c_str());
+            useGeo = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no") + "'for vType parameter 'ssm.geo'");
         }
@@ -2746,13 +2746,13 @@ MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
     double range = -INVALID;
     if (v.getParameter().knowsParameter("device.ssm.range")) {
         try {
-            range = TplConvert::_2double(v.getParameter().getParameter("device.ssm.range", "").c_str());
+            range = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.range", "") + "'for vehicle parameter 'ssm.range'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.range")) {
         try {
-            range = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device.ssm.range", "").c_str());
+            range = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.range", "") + "'for vType parameter 'ssm.range'");
         }
@@ -2773,13 +2773,13 @@ MSDevice_SSM::getExtraTime(const SUMOVehicle& v) {
     double extraTime = INVALID;
     if (v.getParameter().knowsParameter("device.ssm.extratime")) {
         try {
-            extraTime = TplConvert::_2double(v.getParameter().getParameter("device.ssm.extratime", "").c_str());
+            extraTime = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.extratime", "") + "'for vehicle parameter 'ssm.extratime'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.extratime")) {
         try {
-            extraTime = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device.ssm.extratime", "").c_str());
+            extraTime = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.extratime", "") + "'for vType parameter 'ssm.extratime'");
         }
@@ -2804,13 +2804,13 @@ MSDevice_SSM::requestsTrajectories(const SUMOVehicle& v) {
     bool trajectories = false;
     if (v.getParameter().knowsParameter("device.ssm.trajectories")) {
         try {
-            trajectories = TplConvert::_2bool(v.getParameter().getParameter("device.ssm.trajectories", "no").c_str());
+            trajectories = StringUtils::toBool(v.getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.trajectories", "no") + "'for vehicle parameter 'ssm.trajectories'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.trajectories")) {
         try {
-            trajectories = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no").c_str());
+            trajectories = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no") + "'for vType parameter 'ssm.trajectories'");
         }
@@ -2895,7 +2895,7 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
     if (thresholds_str != "") {
         st = StringTokenizer(thresholds_str);
         while (count < (int)measures.size() && st.hasNext()) {
-            double thresh = TplConvert::_2double(st.next().c_str());
+            double thresh = StringUtils::toDouble(st.next());
             thresholds.insert(std::make_pair(measures[count], thresh));
             ++count;
         }

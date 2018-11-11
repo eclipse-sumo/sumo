@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSTransportable.h>
 #include <microsim/MSVehicleControl.h>
@@ -137,9 +137,9 @@ bool
 MSDevice::equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet) {
     const std::string key = "has." + deviceName + ".device";
     if (t->getParameter().knowsParameter(key)) {
-        return TplConvert::_2bool(t->getParameter().getParameter(key, "false").c_str());
+        return StringUtils::toBool(t->getParameter().getParameter(key, "false"));
     } else if (t->getVehicleType().getParameter().knowsParameter(key)) {
-        return TplConvert::_2bool(t->getVehicleType().getParameter().getParameter(key, "false").c_str());
+        return StringUtils::toBool(t->getVehicleType().getParameter().getParameter(key, "false"));
     }
     return outputOptionSet;
 }
@@ -194,13 +194,13 @@ MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string
     double result = deflt;
     if (v.getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2double(v.getParameter().getParameter("device." + paramName, "").c_str());
+            result = StringUtils::toDouble(v.getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device." + paramName, "") + "'for vehicle parameter 'toc." + paramName + "'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device." + paramName, "").c_str());
+            result = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device." + paramName, "") + "'for vType parameter 'toc." + paramName + "'");
         }
@@ -227,13 +227,13 @@ MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string 
     bool result = deflt;
     if (v.getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2bool(v.getParameter().getParameter("device." + paramName, "").c_str());
+            result = StringUtils::toBool(v.getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device." + paramName, "") + "'for vehicle parameter 'toc." + paramName + "'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device." + paramName, "").c_str());
+            result = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device." + paramName, "") + "'for vType parameter 'toc." + paramName + "'");
         }

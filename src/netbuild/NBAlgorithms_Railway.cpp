@@ -26,7 +26,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include <utils/vehicle/DijkstraRouter.h>
@@ -292,7 +292,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
                 brokenNodes.insert(n);
                 numBrokenType++;
             }
-            if (TplConvert::_2boolSec(n->getParameter("buffer_stop", "false").c_str(), false)) {
+            if (StringUtils::toBool(n->getParameter("buffer_stop", "false"))) {
                 device.writeAttr("buffer_stop", "true");
                 numBufferStops++;
             }
@@ -633,7 +633,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     int numBufferStops = 0;
     int numAddedBidiTotal = 0;
     for (NBNode* node : railNodes) {
-        if (TplConvert::_2boolSec(node->getParameter("buffer_stop", "false").c_str(), false)) {
+        if (StringUtils::toBool(node->getParameter("buffer_stop", "false"))) {
             if (node->getEdges().size() != 1) {
                 WRITE_WARNING("Ignoring buffer stop junction '" + node->getID() + "' with " + toString(node->getEdges().size()) + " edges\n");
                 continue;

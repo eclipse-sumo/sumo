@@ -17,7 +17,7 @@
 // The class for SOTL sensors of "E2" type
 /****************************************************************************/
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicleType.h>
@@ -507,7 +507,7 @@ void MSSOTLE2Sensors::setVehicleWeigths(const std::string& weightString) {
         split(*typesIt, '=', typeWeight);
         if (typeWeight.size() == 2) {
             std::string type = trim(typeWeight[0]);
-            int value = TplConvert::_2int(typeWeight[1].c_str());
+            int value = StringUtils::toInt(typeWeight[1]);
             logstr << type << "=" << value << " ";
             m_typeWeightMap[type] = value;
         }

@@ -28,7 +28,7 @@
 #include <string>
 #include <map>
 #include "SUMOVehicleClass.h"
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>

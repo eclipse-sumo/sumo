@@ -40,7 +40,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -1601,7 +1601,7 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     for (NodeCont::iterator it = myNodes.begin(); it != myNodes.end(); it++) {
         if (numericaIDs) {
             try {
-                TplConvert::_str2long(it->first);
+                StringUtils::toLong(it->first);
             } catch (NumberFormatException&) {
                 toChange.insert(it->second);
             }

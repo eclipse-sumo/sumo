@@ -725,19 +725,19 @@ GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag) :
 
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
-    return TplConvert::_str2int(string);
+    return StringUtils::toInt(string);
 }
 
 
 template<> double
 GNEAttributeCarrier::parse(const std::string& string) {
-    return TplConvert::_str2double(string);
+    return StringUtils::toDouble(string);
 }
 
 
 template<> bool
 GNEAttributeCarrier::parse(const std::string& string) {
-    return TplConvert::_str2Bool(string);
+    return StringUtils::toBool(string);
 }
 
 
