@@ -62,6 +62,7 @@ signalHandler(int signum) {
                 std::cout << "Interrupt signal received, trying to exit gracefully." << std::endl;
                 MSNet::getInstance()->interrupt();
                 break;
+#ifndef _MSC_VER
             case SIGUSR1:
                 std::cout << "Step #" << SIMSTEP << std::endl;
                 std::cout << MSNet::getInstance()->generateStatistics(string2time(OptionsCont::getOptions().getString("begin"))) << std::endl;
@@ -69,6 +70,7 @@ signalHandler(int signum) {
             case SIGUSR2:
                 //TODO reload sim
                 break;
+#endif
             default:
                 break;
         }
