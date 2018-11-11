@@ -83,9 +83,12 @@ signalHandler(int signum) {
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
-    signal(SIGUSR1, signalHandler);
     signal(SIGINT, signalHandler);
     signal(SIGTERM, signalHandler);
+#ifndef _MSC_VER
+    signal(SIGUSR1, signalHandler);
+    signal(SIGUSR2, signalHandler);
+#endif
 
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
