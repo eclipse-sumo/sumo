@@ -163,12 +163,12 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // ---------------------------------------------------------------------------
 
 GNEViewNet::ObjectsUnderCursor::ObjectsUnderCursor():
-    eventInfo(nullptr) {}
+    myEventInfo(nullptr) {}
 
 
 void
 GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlID> &glIDObjects, GNEPoly* editedPolyShape, FXEvent* ev) {
-    // first reset all variables
+    // first clear all containers
     glIDs.clear();
     glTypes.clear();
     attributeCarriers.clear();
@@ -180,25 +180,11 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlI
     lanes.clear();
     crossings.clear();
     connections.clear();
-    tazs.clear();
-    pois.clear();
+    TAZs.clear();
+    POIs.clear();
     polys.clear();
-    // resize variables reset all variables
-    glIDs.reserve(glIDObjects.size());
-    attributeCarriers.reserve(glIDObjects.size());
-    netElements.reserve(glIDObjects.size());
-    additionals.reserve(glIDObjects.size());
-    shapes.reserve(glIDObjects.size());
-    junctions.reserve(glIDObjects.size());
-    edges.reserve(glIDObjects.size());
-    lanes.reserve(glIDObjects.size());
-    crossings.reserve(glIDObjects.size());
-    connections.reserve(glIDObjects.size());
-    tazs.reserve(glIDObjects.size());
-    pois.reserve(glIDObjects.size());
-    polys.reserve(glIDObjects.size());
     // set event
-    eventInfo = ev;
+    myEventInfo = ev;
     // iterate over glIDs
     for (const auto &i : glIDObjects) {
         // only continue if isn't 0
@@ -208,68 +194,63 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlI
             GUIGlObject* glObject = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
             GUIGlObjectStorage::gIDStorage.unblockObject(i);
             // only continue if glObject isn't nullptr;
-            if (glObject == nullptr) {
-                return;
-            }
-            // set glType
-            glTypes.push_back(glObject->getType());
-            // cast attribute carrier from glObject
-            attributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(glObject));
-            // only continue if attributeCarrier isn't nullptr;
-            if (attributeCarriers.back() == nullptr) {
-                return;
-            }
-            // If we're editing a shape, ignore rest of elements (including other polygons)
-            if (editedPolyShape != nullptr) {
-                if (attributeCarriers.back() == editedPolyShape) {
-                    // cast Poly from attribute carrier
-                    polys.push_back(dynamic_cast<GNEPoly*>(attributeCarriers.back()));
-                }
-            } else {
-                // obtain tag property (only for improve code legibility)
-                const auto& tagValue = attributeCarriers.back()->getTagProperty();
-                // check if attributeCarrier can be casted into netElement, additional or shape
-                if (tagValue.isNetElement()) {
-                    // cast netElement from attribute carrier
-                    netElements.push_back(dynamic_cast<GNENetElement*>(attributeCarriers.back()));
-                } else if (tagValue.isAdditional()) {
-                    // cast additional element from attribute carrier
-                    additionals.push_back(dynamic_cast<GNEAdditional*>(attributeCarriers.back()));
-                } else if (tagValue.isShape()) {
-                    // cast shape element from attribute carrier
-                    shapes.push_back(dynamic_cast<GNEShape*>(attributeCarriers.back()));
-                } else if (tagValue.isTAZ()) {
-                    // cast TAZ element from attribute carrier
-                    tazs.push_back(dynamic_cast<GNETAZ*>(attributeCarriers.back()));
-                } else {
-                    // element isn't specified, then stop
-                    return;
-                }
-                // now set specify AC type
-                switch (glObject->getType()) {
-                    case GLO_JUNCTION:
-                        junctions.push_back(dynamic_cast<GNEJunction*>(attributeCarriers.back()));
-                        break;
-                    case GLO_EDGE:
-                        edges.push_back(dynamic_cast<GNEEdge*>(attributeCarriers.back()));
-                        break;
-                    case GLO_LANE:
-                        lanes.push_back(dynamic_cast<GNELane*>(attributeCarriers.back()));
-                        break;
-                    case GLO_CROSSING:
-                        crossings.push_back(dynamic_cast<GNECrossing*>(attributeCarriers.back()));
-                        break;
-                    case GLO_CONNECTION:
-                        connections.push_back(dynamic_cast<GNEConnection*>(attributeCarriers.back()));
-                        break;
-                    case GLO_POI:
-                        pois.push_back(dynamic_cast<GNEPOI*>(attributeCarriers.back()));
-                        break;
-                    case GLO_POLYGON:
-                        polys.push_back(dynamic_cast<GNEPoly*>(attributeCarriers.back()));
-                        break;
-                    default:
-                        break;
+            if (glObject) {
+                // set glType
+                glTypes.push_back(glObject->getType());
+                // cast attribute carrier from glObject
+                attributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(glObject));
+                // only continue if attributeCarrier isn't nullptr;
+                if (attributeCarriers.back()) {
+                    // If we're editing a shape, ignore rest of elements (including other polygons)
+                    if (editedPolyShape != nullptr) {
+                        if (attributeCarriers.back() == editedPolyShape) {
+                            // cast Poly from attribute carrier
+                            polys.push_back(dynamic_cast<GNEPoly*>(attributeCarriers.back()));
+                        }
+                    } else {
+                        // obtain tag property (only for improve code legibility)
+                        const auto& tagValue = attributeCarriers.back()->getTagProperty();
+                        // check if attributeCarrier can be casted into netElement, additional or shape
+                        if (tagValue.isNetElement()) {
+                            // cast netElement from attribute carrier
+                            netElements.push_back(dynamic_cast<GNENetElement*>(attributeCarriers.back()));
+                        } else if (tagValue.isAdditional()) {
+                            // cast additional element from attribute carrier
+                            additionals.push_back(dynamic_cast<GNEAdditional*>(attributeCarriers.back()));
+                        } else if (tagValue.isShape()) {
+                            // cast shape element from attribute carrier
+                            shapes.push_back(dynamic_cast<GNEShape*>(attributeCarriers.back()));
+                        } else if (tagValue.isTAZ()) {
+                            // cast TAZ element from attribute carrier
+                            TAZs.push_back(dynamic_cast<GNETAZ*>(attributeCarriers.back()));
+                        }
+                        // now set specify AC type
+                        switch (glObject->getType()) {
+                            case GLO_JUNCTION:
+                                junctions.push_back(dynamic_cast<GNEJunction*>(attributeCarriers.back()));
+                                break;
+                            case GLO_EDGE:
+                                edges.push_back(dynamic_cast<GNEEdge*>(attributeCarriers.back()));
+                                break;
+                            case GLO_LANE:
+                                lanes.push_back(dynamic_cast<GNELane*>(attributeCarriers.back()));
+                                break;
+                            case GLO_CROSSING:
+                                crossings.push_back(dynamic_cast<GNECrossing*>(attributeCarriers.back()));
+                                break;
+                            case GLO_CONNECTION:
+                                connections.push_back(dynamic_cast<GNEConnection*>(attributeCarriers.back()));
+                                break;
+                            case GLO_POI:
+                                POIs.push_back(dynamic_cast<GNEPOI*>(attributeCarriers.back()));
+                                break;
+                            case GLO_POLYGON:
+                                polys.push_back(dynamic_cast<GNEPoly*>(attributeCarriers.back()));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
         }
@@ -288,10 +269,18 @@ GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
 }
 
 
+void 
+GNEViewNet::ObjectsUnderCursor::setCreatedJunction(GNEJunction* junction) {
+    if (junctions.size() > 0) {
+        junctions.front() = junction;
+    }
+}
+
+
 bool
 GNEViewNet::ObjectsUnderCursor::shiftKeyPressed() const {
-    if (eventInfo) {
-        return (eventInfo->state & SHIFTMASK) != 0;
+    if (myEventInfo) {
+        return (myEventInfo->state & SHIFTMASK) != 0;
     } else {
         return false;
     }
@@ -300,10 +289,150 @@ GNEViewNet::ObjectsUnderCursor::shiftKeyPressed() const {
 
 bool
 GNEViewNet::ObjectsUnderCursor::controlKeyPressed() const {
-    if (eventInfo) {
-        return (eventInfo->state & CONTROLMASK) != 0;
+    if (myEventInfo) {
+        return (myEventInfo->state & CONTROLMASK) != 0;
     } else {
         return false;
+    }
+}
+
+
+GUIGlID 
+GNEViewNet::ObjectsUnderCursor::getGlIDFront() const {
+    if (glIDs.size() > 0) {
+        return glIDs.front();
+    } else {
+        return 0;
+    }
+}
+
+
+GUIGlObjectType 
+GNEViewNet::ObjectsUnderCursor::getGlTypeFront() const {
+    if (glTypes.size() > 0) {
+        return glTypes.front();
+    } else {
+        return GLO_NETWORK;
+    }
+}
+
+
+GNEAttributeCarrier* 
+GNEViewNet::ObjectsUnderCursor::getAttributeCarrierFront() const {
+    if (attributeCarriers.size() > 0) {
+        return attributeCarriers.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNENetElement* 
+GNEViewNet::ObjectsUnderCursor::getNetElementFront() const {
+    if (netElements.size() > 0) {
+        return netElements.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEAdditional* 
+GNEViewNet::ObjectsUnderCursor::getAdditionalFront() const {
+    if (additionals.size() > 0) {
+        return additionals.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEShape* 
+GNEViewNet::ObjectsUnderCursor::getShapeFront() const {
+    if (shapes.size() > 0) {
+        return shapes.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEJunction* 
+GNEViewNet::ObjectsUnderCursor::getJunctionFront() const {
+    if (junctions.size() > 0) {
+        return junctions.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEEdge* 
+GNEViewNet::ObjectsUnderCursor::getEdgeFront() const {
+    if (edges.size() > 0) {
+        return edges.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNELane* 
+GNEViewNet::ObjectsUnderCursor::getLaneFront() const {
+    if (lanes.size() > 0) {
+        return lanes.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNECrossing* 
+GNEViewNet::ObjectsUnderCursor::getCrossingFront() const {
+    if (crossings.size() > 0) {
+        return crossings.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEConnection* 
+GNEViewNet::ObjectsUnderCursor::getConnectionFront() const {
+    if (connections.size() > 0) {
+        return connections.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNETAZ* 
+GNEViewNet::ObjectsUnderCursor::getTAZFront() const {
+    if (TAZs.size() > 0) {
+        return TAZs.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEPOI* 
+GNEViewNet::ObjectsUnderCursor::getPOIFront() const {
+    if (POIs.size() > 0) {
+        return POIs.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEPoly* 
+GNEViewNet::ObjectsUnderCursor::getPolyFront() const {
+    if (polys.size() > 0) {
+        return polys.front();
+    } else {
+        return nullptr;
     }
 }
 
@@ -814,28 +943,29 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
+            /** this function will be implemented in the future class GNECreateEdgeFrame **/
                 // make sure that Control key isn't pressed
                 if (!myObjectsUnderCursor.controlKeyPressed()) {
                     // allow moving when control is held down
                     if (!myUndoList->hasCommandGroup()) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
-                    if (myObjectsUnderCursor.junctions.size() > 0) {
-                        myObjectsUnderCursor.junctions.front() = myNet->createJunction(snapToActiveGrid(getPositionInformation()), myUndoList);
+                    if (myObjectsUnderCursor.getJunctionFront()) {
+                        myObjectsUnderCursor.setCreatedJunction(myNet->createJunction(snapToActiveGrid(getPositionInformation()), myUndoList));
                     }
                     if (myCreateEdgeSource == nullptr) {
-                        myCreateEdgeSource = myObjectsUnderCursor.junctions.front();
+                        myCreateEdgeSource = myObjectsUnderCursor.getJunctionFront();
                         myCreateEdgeSource->markAsCreateEdgeSource();
                         update();
                     } else {
-                        if (myCreateEdgeSource != myObjectsUnderCursor.junctions.front()) {
+                        if (myCreateEdgeSource != myObjectsUnderCursor.getJunctionFront()) {
                             // may fail to prevent double edges
                             GNEEdge* newEdge = myNet->createEdge(
-                                                   myCreateEdgeSource, myObjectsUnderCursor.junctions.front(), myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
+                                                   myCreateEdgeSource, myObjectsUnderCursor.getJunctionFront(), myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
                             if (newEdge) {
                                 // create another edge, if create opposite edge is enabled
                                 if (myAutoCreateOppositeEdge->getCheck()) {
-                                    myNet->createEdge(myObjectsUnderCursor.junctions.front(), myCreateEdgeSource, myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList, "-" + newEdge->getNBEdge()->getID());
+                                    myNet->createEdge(myObjectsUnderCursor.getJunctionFront(), myCreateEdgeSource, myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList, "-" + newEdge->getNBEdge()->getID());
                                 }
                                 myCreateEdgeSource->unMarkAsCreateEdgeSource();
 
@@ -845,7 +975,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                                     std::cout << "edge created without an open CommandGroup )-:\n";
                                 }
                                 if (myChainCreateEdge->getCheck()) {
-                                    myCreateEdgeSource = myObjectsUnderCursor.junctions.front();
+                                    myCreateEdgeSource = myObjectsUnderCursor.getJunctionFront();
                                     myCreateEdgeSource->markAsCreateEdgeSource();
                                     myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                                 } else {
@@ -860,6 +990,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         update();
                     }
                 }
+                /**/
                 // process click
                 processClick(evt, eventData);
                 break;
@@ -868,9 +999,9 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 // first obtain moving reference (common for all)
                 myMoveSingleElementValues.movingReference = snapToActiveGrid(getPositionInformation());
                 // check what type of AC will be moved
-                if (myObjectsUnderCursor.polys.size() > 0) {
+                if (myObjectsUnderCursor.getPolyFront()) {
                     // set Poly to move
-                    myMovedItems.polyToMove = myObjectsUnderCursor.polys.front();
+                    myMovedItems.polyToMove = myObjectsUnderCursor.getPolyFront();
                     // save original shape (needed for commit change)
                     myMoveSingleElementValues.movingOriginalShape = myMovedItems.polyToMove->getShape();
                     // save clicked position as moving original position
@@ -893,30 +1024,30 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     } else {
                         myMoveSingleElementValues.movingIndexShape = -1;
                     }
-                } else if (myObjectsUnderCursor.pois.size() > 0) {
-                    myMovedItems.poiToMove = myObjectsUnderCursor.pois.front();
+                } else if (myObjectsUnderCursor.getPOIFront()) {
+                    myMovedItems.poiToMove = myObjectsUnderCursor.getPOIFront();
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myMovedItems.poiToMove->getPositionInView();
-                } else if (myObjectsUnderCursor.junctions.size() > 0) {
-                    if (myObjectsUnderCursor.junctions.front()->isAttributeCarrierSelected()) {
-                        beginMoveSelection(myObjectsUnderCursor.junctions.front(), getPositionInformation());
+                } else if (myObjectsUnderCursor.getJunctionFront()) {
+                    if (myObjectsUnderCursor.getJunctionFront()->isAttributeCarrierSelected()) {
+                        beginMoveSelection(myObjectsUnderCursor.getJunctionFront(), getPositionInformation());
                     } else {
-                        myMovedItems.junctionToMove = myObjectsUnderCursor.junctions.front();
+                        myMovedItems.junctionToMove = myObjectsUnderCursor.getJunctionFront();
                         myMovedItems.junctionToMove->startGeometryMoving();
                     }
                     // Save original Position of Element
-                    myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.junctions.front()->getPositionInView();
-                } else if (!myObjectsUnderCursor.edges.empty() || !myObjectsUnderCursor.lanes.empty()) {
-                    // allways swap lanes.front()s to edges.front()s in movement mode
-                    if (myObjectsUnderCursor.lanes.size() > 0) {
+                    myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.getJunctionFront()->getPositionInView();
+                } else if (myObjectsUnderCursor.getEdgeFront() || !myObjectsUnderCursor.getLaneFront()) {
+                    // allways swap getLaneFront()s to getEdgesFront()s in movement mode
+                    if (myObjectsUnderCursor.getLaneFront()) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
-                    if (myObjectsUnderCursor.edges.front()->isAttributeCarrierSelected()) {
-                        beginMoveSelection(myObjectsUnderCursor.edges.front(), getPositionInformation());
+                    if (myObjectsUnderCursor.getEdgeFront()->isAttributeCarrierSelected()) {
+                        beginMoveSelection(myObjectsUnderCursor.getEdgeFront(), getPositionInformation());
                     } else if (myObjectsUnderCursor.shiftKeyPressed()) {
-                        myObjectsUnderCursor.edges.front()->editEndpoint(getPositionInformation(), myUndoList);
+                        myObjectsUnderCursor.getEdgeFront()->editEndpoint(getPositionInformation(), myUndoList);
                     } else {
-                        myMovedItems.edgeToMove = myObjectsUnderCursor.edges.front();
+                        myMovedItems.edgeToMove = myObjectsUnderCursor.getEdgeFront();
                         if (myMovedItems.edgeToMove->clickedOverShapeStart(getPositionInformation())) {
                             myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().front();
                             myMoveSingleElementValues.movingStartPos = true;
@@ -933,20 +1064,20 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             myMovedItems.edgeToMove->startGeometryMoving();
                         }
                     }
-                } else if (myObjectsUnderCursor.additionals.size() > 0) {
-                    if (myObjectsUnderCursor.additionals.front()->isAttributeCarrierSelected()) {
+                } else if (myObjectsUnderCursor.getAdditionalFront()) {
+                    if (myObjectsUnderCursor.getAdditionalFront()->isAttributeCarrierSelected()) {
                         myMovingSelection = true;
                     } else {
                         // save current position
                         myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
                         // set additionals moved object
-                        myMovedItems.additionalToMove = myObjectsUnderCursor.additionals.front();
+                        myMovedItems.additionalToMove = myObjectsUnderCursor.getAdditionalFront();
                         // start additionalgeometry moving
                         myMovedItems.additionalToMove->startGeometryMoving();
                     }
-                } else if(myObjectsUnderCursor.tazs.size() > 0) {
+                } else if(myObjectsUnderCursor.getTAZFront()) {
                     // set TAZ to move
-                    myMovedItems.tazToMove = myObjectsUnderCursor.tazs.front();
+                    myMovedItems.tazToMove = myObjectsUnderCursor.getTAZFront();
                     // save original shape (needed for commit change)
                     myMoveSingleElementValues.movingOriginalShape = myMovedItems.tazToMove->getShape();
                     // save clicked position as moving original position
@@ -977,23 +1108,23 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_DELETE: {
-                if (myObjectsUnderCursor.attributeCarriers.size() > 0) {
-                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lanes.front()
-                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarriers.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
+                    if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // check if we are deleting a selection or an single attribute carrier
-                    if (myObjectsUnderCursor.attributeCarriers.front()->isAttributeCarrierSelected()) {
+                    if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                         // before delete al selected attribute carriers, check if we clicked over a geometry pois.front()nt
                         if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
-                                ((myObjectsUnderCursor.edges.size() > 0) && (myObjectsUnderCursor.edges.front()->getVertexIndex(getPositionInformation(), false) != -1)) ||
-                                ((myObjectsUnderCursor.polys.size() > 0) && (myObjectsUnderCursor.polys.front()->getVertexIndex(getPositionInformation(), false) != -1))) {
-                            myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.attributeCarriers.front());
+                                ((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false) != -1)) ||
+                                ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false) != -1))) {
+                            myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
                         } else {
                             myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                         }
                     } else {
-                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.attributeCarriers.front());
+                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
                     }
                 } else {
                     // process click
@@ -1002,25 +1133,25 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_INSPECT: {
-                if (myObjectsUnderCursor.attributeCarriers.size() > 0) {
-                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lanes.front()
-                    if (mySelectEdges && (myObjectsUnderCursor.attributeCarriers.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
+                    if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // if Control key is Pressed, select instead inspect element
                     if (myObjectsUnderCursor.controlKeyPressed()) {
                         // Check if this GLobject type is locked
-                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glTypes.front())) {
+                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toogle netElement selection
-                            if (myObjectsUnderCursor.attributeCarriers.front()->isAttributeCarrierSelected()) {
-                                myObjectsUnderCursor.attributeCarriers.front()->unselectAttributeCarrier();
+                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                             } else {
-                                myObjectsUnderCursor.attributeCarriers.front()->selectAttributeCarrier();
+                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
                             }
                         }
                     } else {
                         // inspect attribute carrier, or multiseletion if AC is selected
-                        myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.attributeCarriers.front());
+                        myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.getAttributeCarrierFront());
                         // focus upper element of inspector frame
                         myViewParent->getInspectorFrame()->focusUpperElement();
                     }
@@ -1038,18 +1169,18 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     mySelectingArea.selectionCorner2 = getPositionInformation();
                 } else {
                     // first check that under cursor there is an attribute carrier and is selectable
-                    if (myObjectsUnderCursor.attributeCarriers.size() > 0) {
-                        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a lanes.front()
-                        if (mySelectEdges && (myObjectsUnderCursor.attributeCarriers.front()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                    if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
+                        if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                             myObjectsUnderCursor.swapLane2Edge();
                         }
                         // Check if this GLobject type is locked
-                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.glTypes.front())) {
+                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
                             // toogle netElement selection
-                            if (myObjectsUnderCursor.attributeCarriers.front()->isAttributeCarrierSelected()) {
-                                myObjectsUnderCursor.attributeCarriers.front()->unselectAttributeCarrier();
+                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
                             } else {
-                                myObjectsUnderCursor.attributeCarriers.front()->selectAttributeCarrier();
+                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
                             }
                         }
                     }
@@ -1060,10 +1191,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             case GNE_MODE_CONNECT: {
                 // swap lanes to edges in connect Mode
-                if (myObjectsUnderCursor.lanes.size() > 0) {
+                if (myObjectsUnderCursor.getLaneFront()) {
                     myObjectsUnderCursor.swapLane2Edge();
                 }
-                if (myObjectsUnderCursor.lanes.size() > 0) {
+                if (myObjectsUnderCursor.getLaneFront()) {
                     // Handle laneclick (shift key may pass connections, Control key allow conflicts)
                     myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
                     update();
@@ -1073,8 +1204,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_TLS: {
-                if (myObjectsUnderCursor.junctions.size() > 0) {
-                    myViewParent->getTLSEditorFrame()->editJunction(myObjectsUnderCursor.junctions.front());
+                if (myObjectsUnderCursor.getJunctionFront()) {
+                    myViewParent->getTLSEditorFrame()->editJunction(myObjectsUnderCursor.getJunctionFront());
                     update();
                 }
                 // process click
@@ -1085,11 +1216,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
                     // check if we need to start select lanes
                     if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-                        // select lanes.front() to create an additional with consecutive lanes
-                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.lanes.size() > 0? myObjectsUnderCursor.lanes.front() : nullptr, 
-                                                                                                          snapToActiveGrid(getPositionInformation()));
-                    } else if (myObjectsUnderCursor.lanes.size() > 0) {
-                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.lanes.front(), snapToActiveGrid(getPositionInformation()));
+                        // select getLaneFront() to create an additional with consecutive lanes
+                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
+                    } else if (myObjectsUnderCursor.getLaneFront()) {
+                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
                     }
                 } else {
                     // add additionals.front()
@@ -1101,12 +1231,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_CROSSING: {
-                if (myObjectsUnderCursor.crossings.size() > 0) {
+                if (myObjectsUnderCursor.getCrossingFront()) {
                      // swap lanes to edges in crossingsMode
-                    if (myObjectsUnderCursor.lanes.size() > 0) {
+                    if (myObjectsUnderCursor.getLaneFront()) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
-                    // add crossings.front()
+                    // add getCrossingFront()
                     if (myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor)) {
                         update();
                     }
@@ -1117,7 +1247,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             }
             case GNE_MODE_TAZ: {
                 // swap laness to edges in TAZ Mode
-                if (myObjectsUnderCursor.lanes.size() > 0) {
+                if (myObjectsUnderCursor.getLaneFront()) {
                     myObjectsUnderCursor.swapLane2Edge();
                 }
                 // check if we want to create a rect for selecting edges
@@ -1137,9 +1267,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_POLYGON: {
-                if (myObjectsUnderCursor.pois.size() > 0) {
-                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), 
-                                                                                                           myObjectsUnderCursor.lanes.size() > 0? myObjectsUnderCursor.lanes.front() : nullptr);
+                if (myObjectsUnderCursor.getPOIFront()) {
+                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
                     // view net must be always update
                     update();
                     // process click depending of the result of "process click"
@@ -1151,7 +1280,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_PROHIBITION: {
-                if (myObjectsUnderCursor.connections.size() > 0) {
+                if (myObjectsUnderCursor.getConnectionFront()) {
                     // shift key may pass connections, Control key allow conflicts.
                     myViewParent->getProhibitionFrame()->handleProhibitionClick(myObjectsUnderCursor);
                     update();

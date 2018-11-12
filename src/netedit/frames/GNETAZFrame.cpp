@@ -1256,29 +1256,29 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNet::Obj
             myDrawingShape->addNewPoint(clickedPosition);
         }
         return true;
-    } else if ((myTAZCurrent->getTAZ() == nullptr) || ((objectsUnderCursor.tazs.size() > 0) && myTAZCurrent->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
+    } else if ((myTAZCurrent->getTAZ() == nullptr) || (objectsUnderCursor.getTAZFront() && myTAZCurrent->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
         // if user click over an TAZ and there isn't changes pending, then select a new TAZ
-        if (objectsUnderCursor.tazs.size() > 0) {
+        if (objectsUnderCursor.getTAZFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
-            myTAZCurrent->setTAZ(objectsUnderCursor.tazs.front());
+            myTAZCurrent->setTAZ(objectsUnderCursor.getTAZFront());
             return true;
         } else {
             return false;
         }
-    } else if (objectsUnderCursor.edges.size() > 0) {
+    } else if (objectsUnderCursor.getEdgeFront()) {
         // if toogle Edge is enabled, select edge. In other case create two new TAZSource/Sinks
         if (myTAZChildDefaultParameters->getToggleMembership()) {
             // create new TAZSource/Sinks or delete it
-            return addOrRemoveTAZMember(objectsUnderCursor.edges.front());
+            return addOrRemoveTAZMember(objectsUnderCursor.getEdgeFront());
         } else {
             // first check if clicked edge was previously selected
-            if (myTAZSelectionStatistics->isEdgeSelected(objectsUnderCursor.edges.front())) {
+            if (myTAZSelectionStatistics->isEdgeSelected(objectsUnderCursor.getEdgeFront())) {
                 // clear selected edges
                 myTAZSelectionStatistics->clearSelectedEdges();
             } else {
                 // iterate over TAZEdges saved in TAZCurrent (it contains the Edge and Source/sinks)
                 for (const auto &i : myTAZCurrent->getTAZEdges()) {
-                    if (i.edge == objectsUnderCursor.edges.front()) {
+                    if (i.edge == objectsUnderCursor.getEdgeFront()) {
                         // clear current selection (to avoid having two or more edges selected at the same time using mouse clicks)
                         myTAZSelectionStatistics->clearSelectedEdges();
                         // now select edge

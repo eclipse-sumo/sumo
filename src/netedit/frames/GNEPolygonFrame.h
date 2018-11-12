@@ -116,10 +116,10 @@ public:
 
     /**@brief process click over Viewnet
     * @param[in] clickedPosition clicked position over ViewNet
-    * @param[in] lane clicked lane
+    * @param[in] ObjectsUnderCursor objects under cursor after click over view
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult processClick(const Position& clickedPosition, GNELane* lane);
+    AddShapeResult processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);

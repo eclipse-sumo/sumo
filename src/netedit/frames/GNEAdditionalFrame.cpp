@@ -756,21 +756,21 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
     std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalAttributes->getAttributesAndValues();
 
     // fill netedit attributes
-    if(!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.lanes.front())) {
+    if(!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.getLaneFront())) {
         return false;
     }
 
     // If element owns an additional parent, get id of parent from AdditionalParentSelector
-    if (tagValues.hasParent() && !buildAdditionalWithParent(valuesMap, objectsUnderCursor.additionals.front(), tagValues)) {
+    if (tagValues.hasParent() && !buildAdditionalWithParent(valuesMap, objectsUnderCursor.getAdditionalFront(), tagValues)) {
         return false;
     }
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
     if(tagValues.canBePlacedOverEdge()) {
-        return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.lanes.front(), tagValues);
+        return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else if(tagValues.canBePlacedOverLane()) {
-        return buildAdditionalOverLane(valuesMap, objectsUnderCursor.lanes.front(), tagValues);
+        return buildAdditionalOverLane(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else if(tagValues.canBePlacedOverLanes()) {
-        return buildAdditionalOverLanes(valuesMap, objectsUnderCursor.lanes.front(), tagValues);
+        return buildAdditionalOverLanes(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else {
         return buildAdditionalOverView(valuesMap, tagValues);
     }

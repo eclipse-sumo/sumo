@@ -220,7 +220,7 @@ GNEPolygonFrame::show() {
 
 
 GNEPolygonFrame::AddShapeResult
-GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
+GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
     // check if current selected shape is valid
@@ -233,7 +233,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         // obtain shape attributes and values
         valuesOfElement = myShapeAttributes->getAttributesAndValues();
         // obtain netedit attributes and values
-        myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, lane);
+        myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, objectsUnderCursor.getLaneFront());
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myItemSelector->getCurrentTagProperties().getTag());
         // obtain position
@@ -248,7 +248,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         }
     } else  if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POILANE) {
         // abort if lane is nullptr
-        if (lane == nullptr) {
+        if (objectsUnderCursor.getLaneFront() == nullptr) {
             WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
             return ADDSHAPE_INVALID;
         }
@@ -260,13 +260,13 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, GNELane* lane) {
         // obtain shape attributes and values
         valuesOfElement = myShapeAttributes->getAttributesAndValues();
         // obtain netedit attributes and values
-        myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, lane);
+        myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, objectsUnderCursor.getLaneFront());
         // generate new ID
         valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myItemSelector->getCurrentTagProperties().getTag());
         // obtain Lane
-        valuesOfElement[SUMO_ATTR_LANE] = lane->getID();
+        valuesOfElement[SUMO_ATTR_LANE] = objectsUnderCursor.getLaneFront()->getID();
         // obtain position over lane
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(lane->getShape().nearest_offset_to_point2D(clickedPosition));
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(objectsUnderCursor.getLaneFront()->getShape().nearest_offset_to_point2D(clickedPosition));
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOILane(valuesOfElement)) {
             return ADDSHAPE_SUCCESS;

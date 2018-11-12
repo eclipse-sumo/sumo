@@ -551,16 +551,16 @@ GNECrossingFrame::hide() {
 bool
 GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // If current element is a junction
-    if (objectsUnderCursor.junctions.size() > 0) {
+    if (objectsUnderCursor.getJunctionFront()) {
         // change label
-        myCurrentJunction->updateCurrentJunctionLabel(objectsUnderCursor.junctions.front()->getID());
+        myCurrentJunction->updateCurrentJunctionLabel(objectsUnderCursor.getJunctionFront()->getID());
         // Enable edge selector and crossing parameters
-        myEdgeSelector->enableEdgeSelector(objectsUnderCursor.junctions.front());
-        myCrossingParameters->enableCrossingParameters(objectsUnderCursor.junctions.front()->getNBNode()->isTLControlled());
+        myEdgeSelector->enableEdgeSelector(objectsUnderCursor.getJunctionFront());
+        myCrossingParameters->enableCrossingParameters(objectsUnderCursor.getJunctionFront()->getNBNode()->isTLControlled());
         // clears selected edges
         myCrossingParameters->clearEdges();
-    } else if (objectsUnderCursor.edges.size() > 0) {
-        myCrossingParameters->markEdge(objectsUnderCursor.edges.front());
+    } else if (objectsUnderCursor.getJunctionFront()) {
+        myCrossingParameters->markEdge(objectsUnderCursor.getEdgeFront());
     } else {
         // set default label
         myCurrentJunction->updateCurrentJunctionLabel("");

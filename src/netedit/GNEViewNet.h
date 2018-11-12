@@ -117,58 +117,104 @@ public:
         /// @brief swap lane to edge
         void swapLane2Edge();
 
+        /// @brief set created junction
+        void setCreatedJunction(GNEJunction* junction);
+
         /// @brief check if SHIFT key was pressed during click
         bool shiftKeyPressed() const;
 
         /// @brief check if CONTROL key was pressed during click
         bool controlKeyPressed() const;
 
-        /// @brief information of event of onLeftBtnPress
-        FXEvent* eventInfo;
+        /// @brief get front GUI GL ID (or a pointer to nullptr if there isn't)
+        GUIGlID getGlIDFront() const;
 
-        /// @brief GUI GL ID
+        /// @brief get front GUI GL object type (or a pointer to nullptr if there isn't)
+        GUIGlObjectType getGlTypeFront() const;
+
+        /// @brief get front attribute carrier (or a pointer to nullptr if there isn't)
+        GNEAttributeCarrier* getAttributeCarrierFront() const;
+
+        /// @brief get front net element (or a pointer to nullptr if there isn't)
+        GNENetElement* getNetElementFront() const;
+
+        /// @brief get front additional element (or a pointer to nullptr if there isn't)
+        GNEAdditional* getAdditionalFront() const;
+
+        /// @brief get front shape element (or a pointer to nullptr if there isn't)
+        GNEShape* getShapeFront() const;
+
+        /// @brief get front junction (or a pointer to nullptr if there isn't)
+        GNEJunction* getJunctionFront() const;
+
+        /// @brief get front edge (or a pointer to nullptr if there isn't)
+        GNEEdge* getEdgeFront() const;
+
+        /// @brief get front lane (or a pointer to nullptr if there isn't)
+        GNELane* getLaneFront() const;
+
+        /// @brief get front crossing (or a pointer to nullptr if there isn't)
+        GNECrossing* getCrossingFront() const;
+
+        /// @brief get front connection (or a pointer to nullptr if there isn't)
+        GNEConnection* getConnectionFront() const;
+
+        /// @brief get front TAZ (or a pointer to nullptr if there isn't)
+        GNETAZ* getTAZFront() const;
+
+        /// @brief get front POI (or a pointer to nullptr if there isn't)
+        GNEPOI* getPOIFront() const;
+
+        /// @brief get front Poly (or a pointer to nullptr if there isn't)
+        GNEPoly* getPolyFront() const;
+
+    private:
+        /// @brief vector with the clicked GUIGLIDs
         std::vector<GUIGlID> glIDs;
 
-        /// @brief GUI GL object type
+        /// @brief vector with the clicked vector with the clicked GUI GL object types
         std::vector<GUIGlObjectType> glTypes;
 
-        /// @brief attribute carrier
+        /// @brief vector with the clicked attribute carriers
         std::vector<GNEAttributeCarrier*> attributeCarriers;
 
-        /// @brief net element
+        /// @brief vector with the clicked net elements
         std::vector<GNENetElement*> netElements;
 
-        /// @brief additional element
+        /// @brief vector with the clicked additional elements
         std::vector<GNEAdditional*> additionals;
 
-        /// @brief shape element (Poly and POIs)
+        /// @brief vector with the clicked shape elements (Poly and POIs)
         std::vector<GNEShape*> shapes;
 
-        /// @brief junction
+        /// @brief vector with the clicked junctions
         std::vector<GNEJunction*> junctions;
 
-        /// @brief edge
+        /// @brief vector with the clicked edges
         std::vector<GNEEdge*> edges;
 
-        /// @brief lane
+        /// @brief vector with the clicked lanes
         std::vector<GNELane*> lanes;
 
-        /// @brief crossing
+        /// @brief vector with the clicked crossings
         std::vector<GNECrossing*> crossings;
 
-        /// @brief connection
+        /// @brief vector with the clicked connections
         std::vector<GNEConnection*> connections;
 
-        /// @brief TAZ element (needed because uses a shape instead a position)
-        std::vector<GNETAZ*> tazs;
+        /// @brief vector with the clicked TAZ elements (needed because uses a shape instead a position)
+        std::vector<GNETAZ*> TAZs;
 
-        /// @brief POI
-        std::vector<GNEPOI*> pois;
+        /// @brief vector with the clicked POIs
+        std::vector<GNEPOI*> POIs;
 
-        /// @brief Poly
+        /// @brief vector with the clicked Polys
         std::vector<GNEPoly*> polys;
 
     private:
+        /// @brief information of event of onLeftBtnPress
+        FXEvent* myEventInfo;
+
         /// @brief Invalidated copy constructor.
         ObjectsUnderCursor(const ObjectsUnderCursor&) = delete;
 
