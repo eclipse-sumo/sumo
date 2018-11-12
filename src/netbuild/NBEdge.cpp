@@ -785,8 +785,10 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
             // cutting and patching z-coordinate may cause steep grades which should be smoothed
             const double dZ = ns.size() >= 2 ? fabs(ns[0].z() - ns[1].z()) : 0;
             if (dZ > 0) {
-                ns = ns.smoothedZFront(MIN2(ns.length2D(),
-                                            dZ * 4 * OptionsCont::getOptions().getFloat("geometry.max-grade")));
+                const OptionsCont& oc = OptionsCont::getOptions();
+                if (oc.exists("geometry.max-grade")) {
+                    ns = ns.smoothedZFront(MIN2(ns.length2D(), dZ * 4 * oc.getFloat("geometry.max-grade")));
+                }
             }
         }
         assert(ns.size() >= 2);
@@ -806,8 +808,10 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         result.push_front_noDoublePos(np);
         const double dZ = result.size() >= 2 ? fabs(result[0].z() - result[1].z()) : 0;
         if (dZ > 0) {
-            result = result.smoothedZFront(MIN2(result.length2D(),
-                                                dZ * 4 * OptionsCont::getOptions().getFloat("geometry.max-grade")));
+            const OptionsCont& oc = OptionsCont::getOptions();
+            if (oc.exists("geometry.max-grade")) {
+                result = result.smoothedZFront(MIN2(result.length2D(), dZ * 4 * oc.getFloat("geometry.max-grade")));
+            }
         }
         return result;
         //if (result.size() >= 2) {

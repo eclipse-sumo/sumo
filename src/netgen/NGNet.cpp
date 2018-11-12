@@ -37,6 +37,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/distribution/Distribution_Parameterized.h>
 #include "NGNet.h"
 
 
@@ -216,9 +217,19 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
 
 void
 NGNet::toNB() const {
+    Distribution_Parameterized perturbx("perturbx", 0, 0);
+    perturbx.parse(OptionsCont::getOptions().getString("perturb-x"));
+    Distribution_Parameterized perturby("perturby", 0, 0);
+    perturby.parse(OptionsCont::getOptions().getString("perturb-y"));
+    Distribution_Parameterized perturbz("perturbz", 0, 0);
+    perturbz.parse(OptionsCont::getOptions().getString("perturb-z"));
     std::vector<NBNode*> nodes;
     for (NGNodeList::const_iterator i1 = myNodeList.begin(); i1 != myNodeList.end(); i1++) {
-        NBNode* node = (*i1)->buildNBNode(myNetBuilder);
+        Position perturb(
+                perturbx.sample(),
+                perturby.sample(),
+                perturbz.sample());
+        NBNode* node = (*i1)->buildNBNode(myNetBuilder, perturb);
         nodes.push_back(node);
         myNetBuilder.getNodeCont().insert(node);
     }

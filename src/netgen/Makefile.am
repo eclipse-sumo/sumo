@@ -11,6 +11,7 @@ netgenerate_LDADD   = \
 ../utils/options/liboptions.a \
 ../utils/xml/libxml.a \
 ../utils/common/libcommon.a \
+../utils/distribution/libdistribution.a \
 ../utils/importio/libimportio.a \
 ../utils/iodevices/libiodevices.a \
 ../foreign/tcpip/libtcpip.a \

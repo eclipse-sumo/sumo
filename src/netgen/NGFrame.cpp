@@ -48,6 +48,13 @@ NGFrame::fillOptions() {
     oc.doRegister("turn-lanes.length", new Option_Float(20));
     oc.addDescription("turn-lanes.length", "Processing", "Set the length of generated turning lanes to FLOAT");
 
+    oc.doRegister("perturb-x", new Option_String("0"));
+    oc.addDescription("perturb-x", "Processing", "Apply random spatial pertubation in x direction according the the given distribution");
+    oc.doRegister("perturb-y", new Option_String("0"));
+    oc.addDescription("perturb-y", "Processing", "Apply random spatial pertubation in y direction according the the given distribution");
+    oc.doRegister("perturb-z", new Option_String("0"));
+    oc.addDescription("perturb-z", "Processing", "Apply random spatial pertubation in z direction according the the given distribution");
+
 
     //  register grid-net options
     oc.doRegister("grid", 'g', new Option_Bool(false));
