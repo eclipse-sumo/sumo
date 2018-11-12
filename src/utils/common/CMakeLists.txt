@@ -34,10 +34,7 @@ set(utils_common_STAT_SRCS
    SysUtils.h
    SysUtils.cpp
    ToString.h
-   TplCheck.h
-   TplCheck.cpp
    TplConvert.h
-   TplConvert.cpp
    UtilExceptions.h
    ValueRetriever.h
    ValueSource.h

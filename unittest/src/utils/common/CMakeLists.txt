@@ -2,7 +2,6 @@ add_executable(testcommon
         StringTokenizerTest.cpp
         FileHelpersTest.cpp
         StringUtilsTest.cpp
-        TplConvertTest.cpp
         RGBColorTest.cpp
         ValueTimeLineTest.cpp
         )
