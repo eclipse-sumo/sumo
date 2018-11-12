@@ -360,6 +360,7 @@ protected:
     ///@brief returns the id of the front object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();
 
+    ///@brief returns the id of the objects under the cursor using GL_SELECT (including overlapped objects)
     std::vector<GUIGlID> getObjectstUnderCursor();
 
     ///@brief returns the id of the object at position using GL_SELECT
