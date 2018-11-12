@@ -181,7 +181,8 @@ enum GUIIcon {
     ICON_LOCK,
     ICON_ADD,
     ICON_REMOVE,
-    ICON_NETEDITARROW,
+    ICON_NETEDITARROWLEFT,
+    ICON_NETEDITARROWRIGHT,
     /// @}
 
     /// @name lane icons
