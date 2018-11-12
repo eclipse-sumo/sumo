@@ -601,6 +601,10 @@ enum {
     MID_GNE_INSPECTORFRAME_COPYTEMPLATE,
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
+    /// @brief inspect next element
+    MID_GNE_INSPECTORFRAME_NEXT,
+    /// @brief inspect previous element
+    MID_GNE_INSPECTORFRAME_PREVIOUS,
     /// @}
 
 

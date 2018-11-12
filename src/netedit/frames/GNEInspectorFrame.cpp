@@ -88,6 +88,12 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
 };
 
+FXDEFMAP(GNEInspectorFrame::OverlappedInspection) OverlappedInspectionMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_NEXT,        GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,    GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
+};
+
+
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                                      FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
 FXIMPLEMENT(GNEInspectorFrame::AttributesEditor::AttributeInput,    FXHorizontalFrame,  AttributeInputMap,          ARRAYNUMBER(AttributeInputMap))
@@ -95,6 +101,7 @@ FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,                    FXGroupBox, 
 FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,             FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,                 FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,                      FXGroupBox,         TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::OverlappedInspection,                FXGroupBox,         OverlappedInspectionMap,    ARRAYNUMBER(OverlappedInspectionMap))
 
 
 // ===========================================================================
@@ -111,23 +118,26 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
-    // Create Attributes Editor
+    // Create Attributes Editor modul
     myAttributesEditor = new AttributesEditor(this);
 
-    // Create GEO Parameters Editor
+    // Create GEO Parameters Editor modul
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
-    // create Generic parameters editor
+    // create Generic parameters editor modul
     myGenericParametersEditor = new GenericParametersEditor(this);
 
-    // Create Netedit Attributes Editor
+    // Create Netedit Attributes Editor modul
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
 
-    // Create Template editor
+    // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create groupbox and tree list
-    myACHierarchy = new GNEFrame::ACHierarchy(this);
+    // Create ACHierarchy modul
+    myACHierarchy = new ACHierarchy(this);
+
+    // overlapped inspectino modul
+    myOverlappedInspection = new OverlappedInspection(this);
 }
 
 
@@ -1495,6 +1505,51 @@ GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate(FXObject* sender, FXSelecto
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
     sender->handle(this, FXSEL(SEL_COMMAND, FXLabel::ID_SETSTRINGVALUE), (void*)&caption);
+    return 1;
+}
+
+
+
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame::OverlappedInspection - methods
+// ---------------------------------------------------------------------------
+
+GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Templates", GUIDesignGroupBoxFrame),
+    myInspectorFrameParent(inspectorFrameParent) {
+    // Create copy template button
+    myPreviousElement = new FXButton(this, "", nullptr, this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButton);
+    // Create set template button
+    myNextElement = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButton);
+}
+
+
+GNEInspectorFrame::OverlappedInspection::~OverlappedInspection() {}
+
+
+void
+GNEInspectorFrame::OverlappedInspection::showOverlappedInspection() {
+    // show template editor
+    show();
+}
+
+
+void
+GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
+    // hide template editor
+    hide();
+}
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
+
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+
     return 1;
 }
 

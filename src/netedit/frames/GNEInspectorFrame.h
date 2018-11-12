@@ -373,6 +373,52 @@ public:
         GNEEdge* myEdgeTemplate;
     };
 
+    // ===========================================================================
+    // class OverlappedInspection
+    // ===========================================================================
+
+    class OverlappedInspection : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::OverlappedInspection)
+
+    public:
+        /// @brief constructor
+        OverlappedInspection(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~OverlappedInspection();
+
+        /// @brief show template editor
+        void showOverlappedInspection();
+
+        /// @brief hide template editor
+        void hideOverlappedInspection();
+
+        /// @name FOX-callbacks
+        /// @{
+        
+        /// @brief Inspect next Element (from top to bot)
+        long onCmdNextElement(FXObject*, FXSelector, void*);
+
+        /// @brief Inspect previous element (from top to bot)
+        long onCmdPreviousElement(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        OverlappedInspection() {}
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief copy template button
+        FXButton* myPreviousElement;
+
+        /// @brief set template button
+        FXButton* myNextElement;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -444,6 +490,9 @@ private:
 
     /// @brief Attribute Carrier Hierarchy
     GNEFrame::ACHierarchy* myACHierarchy;
+
+    /// @brief Overlapped Inspection
+    OverlappedInspection* myOverlappedInspection;
 
     /// @brief back Button
     FXButton* myBackButton;
