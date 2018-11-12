@@ -68,6 +68,9 @@ public:
         /// @brief called when user change the coordinates TextField
         long onCmdSetCoordinates(FXObject*, FXSelector, void*);
 
+        /// @brief called when user select a format radio button
+        long onCmdSetFormat(FXObject*, FXSelector, void*);
+
         /// @brief called when user type in search box
         long onCmdCreateGEOPOI(FXObject*, FXSelector, void*);
         /// @}
@@ -79,6 +82,12 @@ public:
     private:
         /// @brief pointer to Shape frame parent
         GNEPolygonFrame* myPolygonFrameParent;
+
+        /// @brief radio button for the configuration lon-lat
+        FXRadioButton* myLonLatRadioButton;
+
+        /// @brief radio button for the configuration lat-lon
+        FXRadioButton* myLatLonRadioButton;
 
         /// @brief text field for given geo coordinates
         FXTextField* myCoordinatesTextField;

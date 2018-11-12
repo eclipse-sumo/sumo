@@ -224,7 +224,7 @@ public:
         }
     }
 
-    /// @brief checki if two position is almost the sme as other
+    /// @brief check if two position is almost the sme as other
     bool almostSame(const Position& p2, double maxDiv = POSITION_EPS) const {
         return distanceTo(p2) < maxDiv;
     }
@@ -269,6 +269,13 @@ public:
 
     /// @brief rotate this position by rad around origin and return the result
     Position rotateAround2D(double rad, const Position& origin);
+
+    /// @brief swap position X and Y
+    void swap() {
+        double temp = myX;
+        myY = myX;
+        myY = temp;
+    }
 
     /// @brief used to indicate that a position is valid
     static const Position INVALID;

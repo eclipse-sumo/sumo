@@ -47,6 +47,7 @@
 
 FXDEFMAP(GNEPolygonFrame::GEOPOICreator) GEOPOICreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,      GNEPolygonFrame::GEOPOICreator::onCmdSetFormat),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,             GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI),
 };
 
@@ -65,8 +66,11 @@ FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBox,     GEOPOICreatorMap
 GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParent) : 
     FXGroupBox(polygonFrameParent->myContentFrame, "GEO POI Creator", GUIDesignGroupBoxFrame),
     myPolygonFrameParent(polygonFrameParent) {
-    // create information label
-    new FXLabel(this, "GEO Format: Lon,lat", 0, GUIDesignLabelFrameInformation);
+    // create RadioButtons for formats
+    myLonLatRadioButton = new FXRadioButton(this, "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myLatLonRadioButton = new FXRadioButton(this, "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // set lon-lat as default
+    myLonLatRadioButton->setCheck(TRUE);
     // create text field for coordinates
     myCoordinatesTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create checkBox 
@@ -124,6 +128,20 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*
 
 
 long 
+GNEPolygonFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*) {
+    //disable other radio button depending of selected option
+    if(obj == myLonLatRadioButton) {
+        myLonLatRadioButton->setCheck(TRUE);
+        myLatLonRadioButton->setCheck(FALSE);
+    } else if (obj == myLatLonRadioButton) {
+        myLonLatRadioButton->setCheck(FALSE);
+        myLatLonRadioButton->setCheck(TRUE);
+    }
+    return 1;
+}
+
+
+long 
 GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
     // first check if current GEO Position is valid
     if(GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text()) &&
@@ -137,9 +155,13 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
         // force GEO attribute to true and obain position
         valuesOfElement[SUMO_ATTR_GEO] = "true";
         // convert coordinates into lon-lat
-        Position pos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
-        GeoConvHelper::getFinal().x2cartesian_const(pos);
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(pos);
+        Position geoPos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
+        GeoConvHelper::getFinal().x2cartesian_const(geoPos);
+        // check if GEO Position has to be swapped
+        if (myLatLonRadioButton->getCheck() == TRUE) {
+            geoPos.swap();
+        }
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(geoPos);
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (myPolygonFrameParent->addPOI(valuesOfElement)) {
             WRITE_WARNING("GEO POI sucesfully created");
@@ -147,7 +169,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
             if(myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                 // create a boundary over given GEO Position and center view over it
                 Boundary centerPosition;
-                centerPosition.add(pos);
+                centerPosition.add(geoPos);
                 centerPosition = centerPosition.grow(10);
                 myPolygonFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
             }
