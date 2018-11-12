@@ -114,7 +114,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myPreviousElementDelete(nullptr) {
 
     // Create back button
-    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROW), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
+    myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
@@ -124,7 +124,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create GEO Parameters Editor modul
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
-    // create Generic parameters editor modul
+    // create Generic parameters Editor modul
     myGenericParametersEditor = new GenericParametersEditor(this);
 
     // Create Netedit Attributes Editor modul
@@ -133,11 +133,11 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create ACHierarchy modul
-    myACHierarchy = new ACHierarchy(this);
-
-    // overlapped inspectino modul
+    // Create Overlapped Inspection modul
     myOverlappedInspection = new OverlappedInspection(this);
+
+    // Create ACHierarchy modul
+    myACHierarchy = new GNEFrame::ACHierarchy(this);
 }
 
 
@@ -146,7 +146,8 @@ GNEInspectorFrame::~GNEInspectorFrame() {}
 
 void
 GNEInspectorFrame::show() {
-    inspectElement(nullptr);
+    // inspect a null element to reset inspector frame
+    inspectSingleElement(nullptr);
     GNEFrame::show();
 }
 
@@ -159,8 +160,21 @@ GNEInspectorFrame::hide() {
 }
 
 
+void 
+GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    if(objectsUnderCursor.getAttributeCarrierFront()) {
+        // inspect front element
+        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
+        // if element has overlapped elements, show Overlapped Inspection modul
+        if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
+            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor);
+        }
+    }
+}
+
+
 void
-GNEInspectorFrame::inspectElement(GNEAttributeCarrier* AC) {
+GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     std::vector<GNEAttributeCarrier*> itemsToInspect;
     if (AC != nullptr) {
@@ -194,6 +208,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGenericParametersEditor->hideGenericParametersEditor();
     myTemplateEditor->hideTemplateEditor();
     myACHierarchy->hideACHierarchy();
+    myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
     if (myInspectedACs.size() > 0) {
         // Set header
@@ -252,7 +267,7 @@ GNEInspectorFrame::inspectChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* pr
     if (myPreviousElementInspect != nullptr) {
         // disable myPreviousElementDelete to avoid inconsistences
         myPreviousElementDelete = nullptr;
-        inspectElement(AC);
+        inspectSingleElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
     }
@@ -267,7 +282,7 @@ GNEInspectorFrame::inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeC
     if (myPreviousElementDelete != nullptr) {
         // disable myPreviousElementInspect to avoid inconsistences
         myPreviousElementInspect = nullptr;
-        inspectElement(AC);
+        inspectSingleElement(AC);
         myHeaderLeftFrame->show();
         myBackButton->show();
     }
@@ -321,7 +336,7 @@ long
 GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     // Inspect previous element or go back to Delete Frame
     if (myPreviousElementInspect) {
-        inspectElement(myPreviousElementInspect);
+        inspectSingleElement(myPreviousElementInspect);
         myPreviousElementInspect = nullptr;
     } else if (myPreviousElementDelete != nullptr) {
         myPreviousElementDelete = nullptr;
@@ -1508,19 +1523,21 @@ GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate(FXObject* sender, FXSelecto
     return 1;
 }
 
-
-
 // ---------------------------------------------------------------------------
 // GNEInspectorFrame::OverlappedInspection - methods
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Templates", GUIDesignGroupBoxFrame),
-    myInspectorFrameParent(inspectorFrameParent) {
-    // Create copy template button
-    myPreviousElement = new FXButton(this, "", nullptr, this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButton);
-    // Create set template button
-    myNextElement = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButton);
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Overlapped elements", GUIDesignGroupBoxFrame),
+    myInspectorFrameParent(inspectorFrameParent),
+    myItemIndex(0) {
+    FXHorizontalFrame *frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // Create previous Item Button
+    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButtonIconRectangular);
+    // Create label for current item
+    myCurrentItem = new FXLabel(frameButtons, "currentItemID", nullptr, GUIDesignLabelCenterThick);
+    // Create next Item Button
+    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
 }
 
 
@@ -1528,7 +1545,11 @@ GNEInspectorFrame::OverlappedInspection::~OverlappedInspection() {}
 
 
 void
-GNEInspectorFrame::OverlappedInspection::showOverlappedInspection() {
+GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    myCurrentItem->setText(objectsUnderCursor.getAttributeCarrierFront()->getID().c_str());
+    // enable and disable buttons
+    myPreviousElement->disable();
+    myNextElement->enable();
     // show template editor
     show();
 }
@@ -1539,6 +1560,7 @@ GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
     // hide template editor
     hide();
 }
+
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {

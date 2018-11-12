@@ -389,7 +389,7 @@ public:
         ~OverlappedInspection();
 
         /// @brief show template editor
-        void showOverlappedInspection();
+        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
         /// @brief hide template editor
         void hideOverlappedInspection();
@@ -412,11 +412,17 @@ public:
         /// @brief current GNEInspectorFrame parent
         GNEInspectorFrame* myInspectorFrameParent;
 
-        /// @brief copy template button
+        /// @brief Label with the current inspected item
+        FXLabel* myCurrentItem;
+
+        /// @brief Previous element button
         FXButton* myPreviousElement;
 
-        /// @brief set template button
+        /// @brief Next element button
         FXButton* myNextElement;
+
+        /// @brief current index item
+        size_t myItemIndex;
     };
 
     /**@brief Constructor
@@ -434,8 +440,11 @@ public:
     /// @brief hide inspector frame
     void hide();
 
+    /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
+    void inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+
     /// @brief Inspect a single element
-    void inspectElement(GNEAttributeCarrier* AC);
+    void inspectSingleElement(GNEAttributeCarrier* AC);
 
     /// @brief Inspect the given multi-selection
     void inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs);

@@ -168,52 +168,54 @@ public:
         /// @brief get front Poly (or a pointer to nullptr if there isn't)
         GNEPoly* getPolyFront() const;
 
-    private:
-        /// @brief vector with the clicked GUIGLIDs
-        std::vector<GUIGlID> glIDs;
-
-        /// @brief vector with the clicked vector with the clicked GUI GL object types
-        std::vector<GUIGlObjectType> glTypes;
-
-        /// @brief vector with the clicked attribute carriers
-        std::vector<GNEAttributeCarrier*> attributeCarriers;
-
-        /// @brief vector with the clicked net elements
-        std::vector<GNENetElement*> netElements;
-
-        /// @brief vector with the clicked additional elements
-        std::vector<GNEAdditional*> additionals;
-
-        /// @brief vector with the clicked shape elements (Poly and POIs)
-        std::vector<GNEShape*> shapes;
-
-        /// @brief vector with the clicked junctions
-        std::vector<GNEJunction*> junctions;
-
-        /// @brief vector with the clicked edges
-        std::vector<GNEEdge*> edges;
-
-        /// @brief vector with the clicked lanes
-        std::vector<GNELane*> lanes;
-
-        /// @brief vector with the clicked crossings
-        std::vector<GNECrossing*> crossings;
-
-        /// @brief vector with the clicked connections
-        std::vector<GNEConnection*> connections;
-
-        /// @brief vector with the clicked TAZ elements (needed because uses a shape instead a position)
-        std::vector<GNETAZ*> TAZs;
-
-        /// @brief vector with the clicked POIs
-        std::vector<GNEPOI*> POIs;
-
-        /// @brief vector with the clicked Polys
-        std::vector<GNEPoly*> polys;
+        /// @brief get vector with clicked ACs
+        const std::vector<GNEAttributeCarrier*> &getClickedAttributeCarriers() const;
 
     private:
         /// @brief information of event of onLeftBtnPress
         FXEvent* myEventInfo;
+
+        /// @brief vector with the clicked GUIGLIDs
+        std::vector<GUIGlID> myGlIDs;
+
+        /// @brief vector with the clicked vector with the clicked GUI GL object types
+        std::vector<GUIGlObjectType> myGlTypes;
+
+        /// @brief vector with the clicked attribute carriers
+        std::vector<GNEAttributeCarrier*> myAttributeCarriers;
+
+        /// @brief vector with the clicked net elements
+        std::vector<GNENetElement*> myNetElements;
+
+        /// @brief vector with the clicked additional elements
+        std::vector<GNEAdditional*> myAdditionals;
+
+        /// @brief vector with the clicked shape elements (Poly and POIs)
+        std::vector<GNEShape*> myShapes;
+
+        /// @brief vector with the clicked junctions
+        std::vector<GNEJunction*> myJunctions;
+
+        /// @brief vector with the clicked edges
+        std::vector<GNEEdge*> myEdges;
+
+        /// @brief vector with the clicked lanes
+        std::vector<GNELane*> myLanes;
+
+        /// @brief vector with the clicked crossings
+        std::vector<GNECrossing*> myCrossings;
+
+        /// @brief vector with the clicked connections
+        std::vector<GNEConnection*> myConnections;
+
+        /// @brief vector with the clicked TAZ elements (needed because uses a shape instead a position)
+        std::vector<GNETAZ*> myTAZs;
+
+        /// @brief vector with the clicked POIs
+        std::vector<GNEPOI*> myPOIs;
+
+        /// @brief vector with the clicked Polys
+        std::vector<GNEPoly*> myPolys;
 
         /// @brief Invalidated copy constructor.
         ObjectsUnderCursor(const ObjectsUnderCursor&) = delete;

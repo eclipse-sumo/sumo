@@ -649,9 +649,10 @@ GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if inspector frame has to be shown again
     if (currentInspectedACs.size() == 1) {
         if (currentInspectedACs.front() != myRightClickedAC) {
-            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(currentInspectedACs.front());
+            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(currentInspectedACs.front());
         } else {
-            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(nullptr);
+            // inspect a nullprt element to reset inspector frame
+            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
         }
     }
     return 1;

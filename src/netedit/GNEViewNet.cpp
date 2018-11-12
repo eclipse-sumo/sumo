@@ -169,83 +169,83 @@ GNEViewNet::ObjectsUnderCursor::ObjectsUnderCursor():
 void
 GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlID> &glIDObjects, GNEPoly* editedPolyShape, FXEvent* ev) {
     // first clear all containers
-    glIDs.clear();
-    glTypes.clear();
-    attributeCarriers.clear();
-    netElements.clear();
-    additionals.clear();
-    shapes.clear();
-    junctions.clear();
-    edges.clear();
-    lanes.clear();
-    crossings.clear();
-    connections.clear();
-    TAZs.clear();
-    POIs.clear();
-    polys.clear();
+    myGlIDs.clear();
+    myGlTypes.clear();
+    myAttributeCarriers.clear();
+    myNetElements.clear();
+    myAdditionals.clear();
+    myShapes.clear();
+    myJunctions.clear();
+    myEdges.clear();
+    myLanes.clear();
+    myCrossings.clear();
+    myConnections.clear();
+    myTAZs.clear();
+    myPOIs.clear();
+    myPolys.clear();
     // set event
     myEventInfo = ev;
     // iterate over glIDs
     for (const auto &i : glIDObjects) {
-        // only continue if isn't 0
-        if (i != 0) {
-            glIDs.push_back(i);
+        // only continue if isn't GLO_NETELEMENT (0)
+        if (i != GLO_NETELEMENT) {
+            myGlIDs.push_back(i);
             // obtain glObject associated to these glID
             GUIGlObject* glObject = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
             GUIGlObjectStorage::gIDStorage.unblockObject(i);
             // only continue if glObject isn't nullptr;
             if (glObject) {
                 // set glType
-                glTypes.push_back(glObject->getType());
+                myGlTypes.push_back(glObject->getType());
                 // cast attribute carrier from glObject
-                attributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(glObject));
+                myAttributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(glObject));
                 // only continue if attributeCarrier isn't nullptr;
-                if (attributeCarriers.back()) {
+                if (myAttributeCarriers.back()) {
                     // If we're editing a shape, ignore rest of elements (including other polygons)
                     if (editedPolyShape != nullptr) {
-                        if (attributeCarriers.back() == editedPolyShape) {
+                        if (myAttributeCarriers.back() == editedPolyShape) {
                             // cast Poly from attribute carrier
-                            polys.push_back(dynamic_cast<GNEPoly*>(attributeCarriers.back()));
+                            myPolys.push_back(dynamic_cast<GNEPoly*>(myAttributeCarriers.back()));
                         }
                     } else {
                         // obtain tag property (only for improve code legibility)
-                        const auto& tagValue = attributeCarriers.back()->getTagProperty();
+                        const auto& tagValue = myAttributeCarriers.back()->getTagProperty();
                         // check if attributeCarrier can be casted into netElement, additional or shape
                         if (tagValue.isNetElement()) {
                             // cast netElement from attribute carrier
-                            netElements.push_back(dynamic_cast<GNENetElement*>(attributeCarriers.back()));
+                            myNetElements.push_back(dynamic_cast<GNENetElement*>(myAttributeCarriers.back()));
                         } else if (tagValue.isAdditional()) {
                             // cast additional element from attribute carrier
-                            additionals.push_back(dynamic_cast<GNEAdditional*>(attributeCarriers.back()));
+                            myAdditionals.push_back(dynamic_cast<GNEAdditional*>(myAttributeCarriers.back()));
                         } else if (tagValue.isShape()) {
                             // cast shape element from attribute carrier
-                            shapes.push_back(dynamic_cast<GNEShape*>(attributeCarriers.back()));
+                            myShapes.push_back(dynamic_cast<GNEShape*>(myAttributeCarriers.back()));
                         } else if (tagValue.isTAZ()) {
                             // cast TAZ element from attribute carrier
-                            TAZs.push_back(dynamic_cast<GNETAZ*>(attributeCarriers.back()));
+                            myTAZs.push_back(dynamic_cast<GNETAZ*>(myAttributeCarriers.back()));
                         }
                         // now set specify AC type
                         switch (glObject->getType()) {
                             case GLO_JUNCTION:
-                                junctions.push_back(dynamic_cast<GNEJunction*>(attributeCarriers.back()));
+                                myJunctions.push_back(dynamic_cast<GNEJunction*>(myAttributeCarriers.back()));
                                 break;
                             case GLO_EDGE:
-                                edges.push_back(dynamic_cast<GNEEdge*>(attributeCarriers.back()));
+                                myEdges.push_back(dynamic_cast<GNEEdge*>(myAttributeCarriers.back()));
                                 break;
                             case GLO_LANE:
-                                lanes.push_back(dynamic_cast<GNELane*>(attributeCarriers.back()));
+                                myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarriers.back()));
                                 break;
                             case GLO_CROSSING:
-                                crossings.push_back(dynamic_cast<GNECrossing*>(attributeCarriers.back()));
+                                myCrossings.push_back(dynamic_cast<GNECrossing*>(myAttributeCarriers.back()));
                                 break;
                             case GLO_CONNECTION:
-                                connections.push_back(dynamic_cast<GNEConnection*>(attributeCarriers.back()));
+                                myConnections.push_back(dynamic_cast<GNEConnection*>(myAttributeCarriers.back()));
                                 break;
                             case GLO_POI:
-                                POIs.push_back(dynamic_cast<GNEPOI*>(attributeCarriers.back()));
+                                myPOIs.push_back(dynamic_cast<GNEPOI*>(myAttributeCarriers.back()));
                                 break;
                             case GLO_POLYGON:
-                                polys.push_back(dynamic_cast<GNEPoly*>(attributeCarriers.back()));
+                                myPolys.push_back(dynamic_cast<GNEPoly*>(myAttributeCarriers.back()));
                                 break;
                             default:
                                 break;
@@ -260,19 +260,19 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlI
 
 void
 GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
-    for (int i = 0; i < lanes.size(); i++) {
-        edges.push_back(&lanes.at(i)->getParentEdge());
-        netElements.at(i) = edges.back();
-        attributeCarriers.at(i) = edges.back();
-        glTypes.at(i) = GLO_EDGE;
+    for (int i = 0; i < myLanes.size(); i++) {
+        myEdges.push_back(&myLanes.at(i)->getParentEdge());
+        myNetElements.at(i) = myEdges.back();
+        myAttributeCarriers.at(i) = myEdges.back();
+        myGlTypes.at(i) = GLO_EDGE;
     }
 }
 
 
 void 
 GNEViewNet::ObjectsUnderCursor::setCreatedJunction(GNEJunction* junction) {
-    if (junctions.size() > 0) {
-        junctions.front() = junction;
+    if (myJunctions.size() > 0) {
+        myJunctions.front() = junction;
     }
 }
 
@@ -299,8 +299,8 @@ GNEViewNet::ObjectsUnderCursor::controlKeyPressed() const {
 
 GUIGlID 
 GNEViewNet::ObjectsUnderCursor::getGlIDFront() const {
-    if (glIDs.size() > 0) {
-        return glIDs.front();
+    if (myGlIDs.size() > 0) {
+        return myGlIDs.front();
     } else {
         return 0;
     }
@@ -309,8 +309,8 @@ GNEViewNet::ObjectsUnderCursor::getGlIDFront() const {
 
 GUIGlObjectType 
 GNEViewNet::ObjectsUnderCursor::getGlTypeFront() const {
-    if (glTypes.size() > 0) {
-        return glTypes.front();
+    if (myGlTypes.size() > 0) {
+        return myGlTypes.front();
     } else {
         return GLO_NETWORK;
     }
@@ -319,8 +319,8 @@ GNEViewNet::ObjectsUnderCursor::getGlTypeFront() const {
 
 GNEAttributeCarrier* 
 GNEViewNet::ObjectsUnderCursor::getAttributeCarrierFront() const {
-    if (attributeCarriers.size() > 0) {
-        return attributeCarriers.front();
+    if (myAttributeCarriers.size() > 0) {
+        return myAttributeCarriers.front();
     } else {
         return nullptr;
     }
@@ -329,8 +329,8 @@ GNEViewNet::ObjectsUnderCursor::getAttributeCarrierFront() const {
 
 GNENetElement* 
 GNEViewNet::ObjectsUnderCursor::getNetElementFront() const {
-    if (netElements.size() > 0) {
-        return netElements.front();
+    if (myNetElements.size() > 0) {
+        return myNetElements.front();
     } else {
         return nullptr;
     }
@@ -339,8 +339,8 @@ GNEViewNet::ObjectsUnderCursor::getNetElementFront() const {
 
 GNEAdditional* 
 GNEViewNet::ObjectsUnderCursor::getAdditionalFront() const {
-    if (additionals.size() > 0) {
-        return additionals.front();
+    if (myAdditionals.size() > 0) {
+        return myAdditionals.front();
     } else {
         return nullptr;
     }
@@ -349,8 +349,8 @@ GNEViewNet::ObjectsUnderCursor::getAdditionalFront() const {
 
 GNEShape* 
 GNEViewNet::ObjectsUnderCursor::getShapeFront() const {
-    if (shapes.size() > 0) {
-        return shapes.front();
+    if (myShapes.size() > 0) {
+        return myShapes.front();
     } else {
         return nullptr;
     }
@@ -359,8 +359,8 @@ GNEViewNet::ObjectsUnderCursor::getShapeFront() const {
 
 GNEJunction* 
 GNEViewNet::ObjectsUnderCursor::getJunctionFront() const {
-    if (junctions.size() > 0) {
-        return junctions.front();
+    if (myJunctions.size() > 0) {
+        return myJunctions.front();
     } else {
         return nullptr;
     }
@@ -369,8 +369,8 @@ GNEViewNet::ObjectsUnderCursor::getJunctionFront() const {
 
 GNEEdge* 
 GNEViewNet::ObjectsUnderCursor::getEdgeFront() const {
-    if (edges.size() > 0) {
-        return edges.front();
+    if (myEdges.size() > 0) {
+        return myEdges.front();
     } else {
         return nullptr;
     }
@@ -379,8 +379,8 @@ GNEViewNet::ObjectsUnderCursor::getEdgeFront() const {
 
 GNELane* 
 GNEViewNet::ObjectsUnderCursor::getLaneFront() const {
-    if (lanes.size() > 0) {
-        return lanes.front();
+    if (myLanes.size() > 0) {
+        return myLanes.front();
     } else {
         return nullptr;
     }
@@ -389,8 +389,8 @@ GNEViewNet::ObjectsUnderCursor::getLaneFront() const {
 
 GNECrossing* 
 GNEViewNet::ObjectsUnderCursor::getCrossingFront() const {
-    if (crossings.size() > 0) {
-        return crossings.front();
+    if (myCrossings.size() > 0) {
+        return myCrossings.front();
     } else {
         return nullptr;
     }
@@ -399,8 +399,8 @@ GNEViewNet::ObjectsUnderCursor::getCrossingFront() const {
 
 GNEConnection* 
 GNEViewNet::ObjectsUnderCursor::getConnectionFront() const {
-    if (connections.size() > 0) {
-        return connections.front();
+    if (myConnections.size() > 0) {
+        return myConnections.front();
     } else {
         return nullptr;
     }
@@ -409,8 +409,8 @@ GNEViewNet::ObjectsUnderCursor::getConnectionFront() const {
 
 GNETAZ* 
 GNEViewNet::ObjectsUnderCursor::getTAZFront() const {
-    if (TAZs.size() > 0) {
-        return TAZs.front();
+    if (myTAZs.size() > 0) {
+        return myTAZs.front();
     } else {
         return nullptr;
     }
@@ -419,8 +419,8 @@ GNEViewNet::ObjectsUnderCursor::getTAZFront() const {
 
 GNEPOI* 
 GNEViewNet::ObjectsUnderCursor::getPOIFront() const {
-    if (POIs.size() > 0) {
-        return POIs.front();
+    if (myPOIs.size() > 0) {
+        return myPOIs.front();
     } else {
         return nullptr;
     }
@@ -429,11 +429,17 @@ GNEViewNet::ObjectsUnderCursor::getPOIFront() const {
 
 GNEPoly* 
 GNEViewNet::ObjectsUnderCursor::getPolyFront() const {
-    if (polys.size() > 0) {
-        return polys.front();
+    if (myPolys.size() > 0) {
+        return myPolys.front();
     } else {
         return nullptr;
     }
+}
+
+
+const std::vector<GNEAttributeCarrier*> &
+GNEViewNet::ObjectsUnderCursor::getClickedAttributeCarriers() const {
+    return myAttributeCarriers;
 }
 
 // ---------------------------------------------------------------------------
@@ -1151,7 +1157,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         }
                     } else {
                         // inspect attribute carrier, or multiseletion if AC is selected
-                        myViewParent->getInspectorFrame()->inspectElement(myObjectsUnderCursor.getAttributeCarrierFront());
+                        myViewParent->getInspectorFrame()->inspectClickedElement(myObjectsUnderCursor);
                         // focus upper element of inspector frame
                         myViewParent->getInspectorFrame()->focusUpperElement();
                     }
