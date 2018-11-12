@@ -26,7 +26,7 @@
 #include <cstdint>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "SUMOSAXHandler.h"
 #include "SUMOSAXReader.h"
 #include "XMLSubSys.h"
@@ -50,7 +50,7 @@ XMLSubSys::init() {
         XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize();
         myNextFreeReader = 0;
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Error during XML-initialization:\n " + TplConvert::_2str(e.getMessage()));
+        throw ProcessError("Error during XML-initialization:\n " + StringUtils::transcode(e.getMessage()));
     }
 }
 

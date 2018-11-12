@@ -27,6 +27,8 @@
 #include <iostream>
 #include <cstdio>
 #include <cstring>
+#include <xercesc/util/TransService.hpp>
+#include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include "StringUtils.h"
@@ -352,6 +354,30 @@ StringUtils::toBool(const std::string& sData) {
     } else {
         throw BoolFormatException(s);
     }
+}
+
+
+std::string
+StringUtils::transcode(const XMLCh* const data, int length) {
+    if (data == 0) {
+        throw EmptyData();
+    }
+    if (length == 0) {
+        return "";
+    }
+#if _XERCES_VERSION < 30100
+    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(data);
+    std::string result(t);
+    XERCES_CPP_NAMESPACE::XMLString::release(&t);
+    return result;
+#else
+    try {
+        XERCES_CPP_NAMESPACE::TranscodeToStr utf8(data, "UTF-8");
+        return reinterpret_cast<const char*>(utf8.str());
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {
+        return "?";
+    }
+#endif
 }
 
 

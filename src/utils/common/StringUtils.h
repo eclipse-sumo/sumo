@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <string>
+#include <xercesc/util/XMLString.hpp>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -109,9 +110,9 @@ public:
     static int hexToInt(const std::string& sData);
 
     /**@brief converts a string into the double value described by it by calling the char-type converter
-    * @throw an EmptyData - exception if the given string is empty
-    * @throw a NumberFormatException - exception when the string does not contain a double
-    */
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a double
+     */
     static double toDouble(const std::string& sData);
 
     /// @brief converts a string into the integer value described by it
@@ -119,12 +120,24 @@ public:
     static double toDoubleSecure(const std::string& sData, const double def);
 
     /**@brief converts a string into the bool value described by it by calling the char-type converter
-    * @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
-    * @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'
-    * @throw EmptyData - exception if the given string is empty or 0 pointer
-    * @throw BoolFormatException in any other case
-    */
+     * @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
+     * @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'
+     * @throw EmptyData - exception if the given string is empty or 0 pointer
+     * @throw BoolFormatException in any other case
+     */
     static bool toBool(const std::string& sData);
+
+    /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
+     * @throw an EmptyData - exception if the given pointer is 0
+     */
+    static inline std::string transcode(const XMLCh* const data) {
+        return transcode(data, (int)XERCES_CPP_NAMESPACE::XMLString::stringLen(data));
+    }
+
+    /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8 considering the given length
+     * @throw EmptyData if the given pointer is 0
+     */
+    static std::string transcode(const XMLCh* const data, int length);
 };
 
 

@@ -35,7 +35,7 @@
 #include <vector>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
@@ -471,7 +471,7 @@ main(int argc, char** argv) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
         } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
-            WRITE_ERROR(TplConvert::_2str(e.getMessage()));
+            WRITE_ERROR(StringUtils::transcode(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed() || ret != 0) {

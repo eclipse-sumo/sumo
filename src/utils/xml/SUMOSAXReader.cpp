@@ -31,7 +31,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/iodevices/BinaryFormatter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
@@ -216,7 +216,7 @@ SUMOSAXReader::getSAXReader() {
 
 XERCES_CPP_NAMESPACE::InputSource*
 SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
-    const std::string url = TplConvert::_2str(systemId);
+    const std::string url = StringUtils::transcode(systemId);
     const std::string::size_type pos = url.rfind("/");
     if (pos != std::string::npos) {
         const std::string dir = url.substr(0, pos);

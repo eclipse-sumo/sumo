@@ -27,7 +27,7 @@
 #include <cassert>
 #include "GenericSAXHandler.h"
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -95,7 +95,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const /*localname*/,
                                 const XMLCh* const qname,
                                 const XERCES_CPP_NAMESPACE::Attributes& attrs) {
-    std::string name = TplConvert::_2str(qname);
+    std::string name = StringUtils::transcode(qname);
     if (mySchemaSeen && myExpectedRoot != "") {
         if (name != myExpectedRoot) {
             throw ProcessError("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
@@ -121,7 +121,7 @@ void
 GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
                               const XMLCh* const qname) {
-    std::string name = TplConvert::_2str(qname);
+    std::string name = StringUtils::transcode(qname);
     int element = convertTag(name);
     // collect characters
     if (myCharactersVector.size() != 0) {
@@ -169,7 +169,7 @@ GenericSAXHandler::registerParent(const int tag, GenericSAXHandler* handler) {
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
                               const XERCES3_SIZE_t length) {
-    myCharactersVector.push_back(TplConvert::_2str(chars, (int)length));
+    myCharactersVector.push_back(StringUtils::transcode(chars, (int)length));
 }
 
 

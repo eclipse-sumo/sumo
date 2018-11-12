@@ -33,7 +33,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOSAXReader.h>
@@ -213,7 +213,7 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& f
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {
-        exceptMsg = TplConvert::_2str(toCatch.getMessage())
+        exceptMsg = StringUtils::transcode(toCatch.getMessage())
                     + "\n  The " + type + " could not be loaded from '" + handler->getFileName() + "'.";
     } catch (const ProcessError& toCatch) {
         exceptMsg =

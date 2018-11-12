@@ -21,10 +21,9 @@
 // ===========================================================================
 #include <config.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 
-#include "TplConvert.h"
 #include "Parameterised.h"
 
 

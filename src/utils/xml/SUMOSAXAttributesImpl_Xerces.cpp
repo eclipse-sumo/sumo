@@ -29,7 +29,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
 #include "XMLSubSys.h"
@@ -84,7 +84,7 @@ SUMOSAXAttributesImpl_Xerces::getLong(int id) const {
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getString(int id) const {
-    return TplConvert::_2str(getAttributeValueSecure(id));
+    return StringUtils::transcode(getAttributeValueSecure(id));
 }
 
 
@@ -117,7 +117,7 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
 double
 SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const {
     XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    const std::string utf8 = TplConvert::_2str(myAttrs.getValue(t));
+    const std::string utf8 = StringUtils::transcode(myAttrs.getValue(t));
     XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return StringUtils::toDouble(utf8);
 }
@@ -141,7 +141,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
     if (v == nullptr) {
         return str;
     } else {
-        return TplConvert::_2str(v);
+        return StringUtils::transcode(v);
     }
 }
 
@@ -236,8 +236,8 @@ SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
 void
 SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        os << " " << TplConvert::_2str(myAttrs.getLocalName(i));
-        os << "=\"" << TplConvert::_2str(myAttrs.getValue(i)) << "\"";
+        os << " " << StringUtils::transcode(myAttrs.getLocalName(i));
+        os << "=\"" << StringUtils::transcode(myAttrs.getValue(i)) << "\"";
     }
 }
 
@@ -246,7 +246,7 @@ SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Xerces::clone() const {
     std::map<std::string, std::string> attrs;
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        attrs[TplConvert::_2str(myAttrs.getLocalName(i))] = TplConvert::_2str(myAttrs.getValue(i));
+        attrs[StringUtils::transcode(myAttrs.getLocalName(i))] = StringUtils::transcode(myAttrs.getValue(i));
     }
     return new SUMOSAXAttributesImpl_Cached(attrs, myPredefinedTagsMML, getObjectType());
 }

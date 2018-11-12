@@ -39,7 +39,7 @@
 #include "OptionsParser.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 
 // ===========================================================================
 // static member definitions
@@ -124,7 +124,7 @@ OptionsIO::loadConfiguration() {
             throw ProcessError("Could not load configuration '" + path + "'.");
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert::_2str(e.getMessage()));
+        throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
     }
     oc.relocateFiles(path);
     PROGRESS_DONE_MESSAGE();
@@ -149,7 +149,7 @@ OptionsIO::getRoot(const std::string& filename) {
             throw ProcessError("Could not load '" + filename + "'.");
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load '" + filename + "':\n " + TplConvert::_2str(e.getMessage()));
+        throw ProcessError("Could not load '" + filename + "':\n " + StringUtils::transcode(e.getMessage()));
     }
     return handler.getItem();
 }

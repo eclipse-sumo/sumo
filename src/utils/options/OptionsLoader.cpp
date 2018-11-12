@@ -30,7 +30,7 @@
 #include <xercesc/sax/AttributeList.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include "OptionsLoader.h"
 #include "OptionsCont.h"
@@ -52,11 +52,11 @@ OptionsLoader::~OptionsLoader() {}
 
 void OptionsLoader::startElement(const XMLCh* const name,
                                  XERCES_CPP_NAMESPACE::AttributeList& attributes) {
-    myItem = TplConvert::_2str(name);
+    myItem = StringUtils::transcode(name);
     if (!myRootOnly) {
         for (int i = 0; i < (int)attributes.getLength(); i++) {
-            std::string key = TplConvert::_2str(attributes.getName(i));
-            std::string value = TplConvert::_2str(attributes.getValue(i));
+            std::string key = StringUtils::transcode(attributes.getName(i));
+            std::string value = StringUtils::transcode(attributes.getValue(i));
             if (key == "value" || key == "v") {
                 setValue(myItem, value);
             }
@@ -85,7 +85,7 @@ void OptionsLoader::setValue(const std::string& key,
 
 void OptionsLoader::characters(const XMLCh* const chars,
                                const XERCES3_SIZE_t length) {
-    myValue = myValue + TplConvert::_2str(chars, (int) length);
+    myValue = myValue + StringUtils::transcode(chars, (int) length);
 }
 
 
@@ -116,7 +116,7 @@ OptionsLoader::endElement(const XMLCh* const /*name*/) {
 
 void
 OptionsLoader::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
-    WRITE_WARNING(TplConvert::_2str(exception.getMessage()));
+    WRITE_WARNING(StringUtils::transcode(exception.getMessage()));
     WRITE_WARNING(" (At line/column " \
                   + toString(exception.getLineNumber() + 1) + '/' \
                   + toString(exception.getColumnNumber()) + ").");
@@ -127,7 +127,7 @@ OptionsLoader::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception)
 void
 OptionsLoader::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     WRITE_ERROR(
-        TplConvert::_2str(exception.getMessage()));
+        StringUtils::transcode(exception.getMessage()));
     WRITE_ERROR(
         " (At line/column "
         + toString(exception.getLineNumber() + 1) + '/'
@@ -139,7 +139,7 @@ OptionsLoader::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
 void
 OptionsLoader::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     WRITE_ERROR(
-        TplConvert::_2str(exception.getMessage()));
+        StringUtils::transcode(exception.getMessage()));
     WRITE_ERROR(
         " (At line/column "
         + toString(exception.getLineNumber() + 1) + '/'
