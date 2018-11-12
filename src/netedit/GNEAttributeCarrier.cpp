@@ -49,7 +49,6 @@ const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
-const double GNEAttributeCarrier::INVALID_POSITION = -1000000;
 
 
 // ===========================================================================

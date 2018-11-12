@@ -568,9 +568,6 @@ public:
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
 
-    /// @brief default value for invalid positions (used by POIs and Polygons)
-    static const double INVALID_POSITION;
-
     /// @brief Parse attribute from XML and show warnings if there are problems parsing it
     template <typename T>
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {

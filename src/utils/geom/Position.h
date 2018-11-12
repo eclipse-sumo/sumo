@@ -39,31 +39,32 @@
 class Position {
 public:
     /// @brief default constructor
-    Position() : myX(0.0), myY(0.0), myZ(0.0) { }
+    Position() : 
+        myX(0.0), myY(0.0), myZ(0.0) { }
 
-    /// @brief parametrised constructor
-    Position(double x, double y)
-        : myX(x), myY(y), myZ(0) { }
+    /// @brief Parametrised constructor (only for x-y)
+    Position(double x, double y) : 
+        myX(x), myY(y), myZ(0) { }
 
-    /// @brief parametrised constructor
-    Position(double x, double y, double z)
-        : myX(x), myY(y), myZ(z) { }
+    /// @brief Parametrised constructor
+    Position(double x, double y, double z) : 
+        myX(x), myY(y), myZ(z) { }
 
     /// @brief Destructor
     ~Position() { }
 
     /// @brief Returns the x-position
-    double x() const {
+    inline double x() const {
         return myX;
     }
 
     /// @brief Returns the y-position
-    double y() const {
+    inline double y() const {
         return myY;
     }
 
     /// @brief Returns the z-position
-    double z() const {
+    inline double z() const {
         return myZ;
     }
 
