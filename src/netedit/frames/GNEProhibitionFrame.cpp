@@ -124,7 +124,7 @@ GNEProhibitionFrame::~GNEProhibitionFrame() {}
 void
 GNEProhibitionFrame::handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // build prohibition
-    buildProhibition(objectsUnderCursor.connection, objectsUnderCursor.shiftKeyPressed(), objectsUnderCursor.controlKeyPressed(), true);
+    buildProhibition(objectsUnderCursor.connections.front(), objectsUnderCursor.shiftKeyPressed(), objectsUnderCursor.controlKeyPressed(), true);
 }
 
 

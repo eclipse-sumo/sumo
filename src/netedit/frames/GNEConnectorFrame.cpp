@@ -404,7 +404,7 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 void
 GNEConnectorFrame::handleLaneClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // build connection
-    buildConnection(objectsUnderCursor.lane, objectsUnderCursor.shiftKeyPressed(), objectsUnderCursor.controlKeyPressed(), true);
+    buildConnection(objectsUnderCursor.lanes.front(), objectsUnderCursor.shiftKeyPressed(), objectsUnderCursor.controlKeyPressed(), true);
 }
 
 

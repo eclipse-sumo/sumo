@@ -357,8 +357,10 @@ protected:
     ///@briefDraws a line with ticks, and the length information.
     void displayLegend();
 
-    ///@brief returns the id of the object under the cursor using GL_SELECT
+    ///@brief returns the id of the front object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();
+
+    std::vector<GUIGlID> getObjectstUnderCursor();
 
     ///@brief returns the id of the object at position using GL_SELECT
     GUIGlID getObjectAtPosition(Position pos);

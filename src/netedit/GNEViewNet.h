@@ -112,7 +112,7 @@ public:
         ObjectsUnderCursor();
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(GUIGlID glIDObject, GNEPoly* editedPolyShape, FXEvent* ev);
+        void updateObjectUnderCursor(const std::vector<GUIGlID> &glIDObjects, GNEPoly* editedPolyShape, FXEvent* ev);
 
         /// @brief swap lane to edge
         void swapLane2Edge();
@@ -127,46 +127,46 @@ public:
         FXEvent* eventInfo;
 
         /// @brief GUI GL ID
-        GUIGlID glID;
+        std::vector<GUIGlID> glIDs;
 
         /// @brief GUI GL object type
-        GUIGlObjectType glType;
+        std::vector<GUIGlObjectType> glTypes;
 
         /// @brief attribute carrier
-        GNEAttributeCarrier* attributeCarrier;
+        std::vector<GNEAttributeCarrier*> attributeCarriers;
 
         /// @brief net element
-        GNENetElement* netElement;
+        std::vector<GNENetElement*> netElements;
 
         /// @brief additional element
-        GNEAdditional* additional;
+        std::vector<GNEAdditional*> additionals;
 
         /// @brief shape element (Poly and POIs)
-        GNEShape* shape;
+        std::vector<GNEShape*> shapes;
 
         /// @brief junction
-        GNEJunction* junction;
+        std::vector<GNEJunction*> junctions;
 
         /// @brief edge
-        GNEEdge* edge;
+        std::vector<GNEEdge*> edges;
 
         /// @brief lane
-        GNELane* lane;
+        std::vector<GNELane*> lanes;
 
         /// @brief crossing
-        GNECrossing* crossing;
+        std::vector<GNECrossing*> crossings;
 
         /// @brief connection
-        GNEConnection* connection;
+        std::vector<GNEConnection*> connections;
 
         /// @brief TAZ element (needed because uses a shape instead a position)
-        GNETAZ* taz;
+        std::vector<GNETAZ*> tazs;
 
         /// @brief POI
-        GNEPOI* poi;
+        std::vector<GNEPOI*> pois;
 
         /// @brief Poly
-        GNEPoly* poly;
+        std::vector<GNEPoly*> polys;
 
     private:
         /// @brief Invalidated copy constructor.
