@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_0_1+0273-e95334c
+Eclipse SUMO netgenerate Version v1_0_1+0619-4934d00
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -122,6 +122,15 @@ Processing Options:
   --turn-lanes INT                     Generate INT left-turn lanes
   --turn-lanes.length FLOAT            Set the length of generated turning
                                          lanes to FLOAT
+  --perturb-x STR                      Apply random spatial pertubation in x
+                                         direction according the the given
+                                         distribution
+  --perturb-y STR                      Apply random spatial pertubation in y
+                                         direction according the the given
+                                         distribution
+  --perturb-z STR                      Apply random spatial pertubation in z
+                                         direction according the the given
+                                         distribution
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
                                          integers

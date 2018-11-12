@@ -1,0 +1,4 @@
+--grid --grid.number 5 --output=net.net.xml
+--perturb-z norm(50,5)
+--perturb-x norm(0,5)
+--perturb-y norm(0,10)

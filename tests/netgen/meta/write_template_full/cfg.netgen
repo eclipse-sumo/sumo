@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 15 22:36:11 2018 by Eclipse SUMO netgenerate Version v1_0_1+0273-e95334c
+<!-- generated on Mon Nov 12 12:27:45 2018 by Eclipse SUMO netgenerate Version v1_0_1+0619-4934d00
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -77,6 +77,9 @@
     <processing>
         <turn-lanes value="0" type="INT" help="Generate INT left-turn lanes"/>
         <turn-lanes.length value="20" type="FLOAT" help="Set the length of generated turning lanes to FLOAT"/>
+        <perturb-x value="0" type="STR" help="Apply random spatial pertubation in x direction according the the given distribution"/>
+        <perturb-y value="0" type="STR" help="Apply random spatial pertubation in y direction according the the given distribution"/>
+        <perturb-z value="0" type="STR" help="Apply random spatial pertubation in z direction according the the given distribution"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
