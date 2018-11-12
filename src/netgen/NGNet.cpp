@@ -36,6 +36,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/distribution/Distribution_Parameterized.h>
 #include "NGNet.h"
@@ -214,15 +215,23 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
     myEdgeList.push_back(link2);
 }
 
+Distribution_Parameterized 
+NGNet::getDistribution(const std::string& option) {
+    std::string val = OptionsCont::getOptions().getString(option);
+    try {
+        return Distribution_Parameterized("peturb", 0, StringUtils::toDouble(val));
+    } catch (NumberFormatException) {
+        Distribution_Parameterized result("perturb", 0, 0);
+        result.parse(val);
+        return result;
+    }
+}
 
 void
 NGNet::toNB() const {
-    Distribution_Parameterized perturbx("perturbx", 0, 0);
-    perturbx.parse(OptionsCont::getOptions().getString("perturb-x"));
-    Distribution_Parameterized perturby("perturby", 0, 0);
-    perturby.parse(OptionsCont::getOptions().getString("perturb-y"));
-    Distribution_Parameterized perturbz("perturbz", 0, 0);
-    perturbz.parse(OptionsCont::getOptions().getString("perturb-z"));
+    Distribution_Parameterized perturbx = getDistribution("perturb-x");
+    Distribution_Parameterized perturby = getDistribution("perturb-y");
+    Distribution_Parameterized perturbz = getDistribution("perturb-z");
     std::vector<NBNode*> nodes;
     for (NGNodeList::const_iterator i1 = myNodeList.begin(); i1 != myNodeList.end(); i1++) {
         Position perturb(
