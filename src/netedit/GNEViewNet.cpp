@@ -1151,31 +1151,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_INSPECT: {
-                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
-                    // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
-                    if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
-                    // if Control key is Pressed, select instead inspect element
-                    if (myObjectsUnderCursor.controlKeyPressed()) {
-                        // Check if this GLobject type is locked
-                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toogle netElement selection
-                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                            } else {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
-                            }
-                        }
-                    } else {
-                        // inspect attribute carrier, or multiseletion if AC is selected
-                        myViewParent->getInspectorFrame()->inspectClickedElement(myObjectsUnderCursor);
-                        // focus upper element of inspector frame
-                        myViewParent->getInspectorFrame()->focusUpperElement();
-                    }
-                }
+                // process left click in Inspector Frame
+                myViewParent->getInspectorFrame()->processClick(getPositionInformation(), myObjectsUnderCursor);
                 // process click
                 processClick(evt, eventData);
+                // update view
                 update();
                 break;
             }
@@ -1285,7 +1265,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_POLYGON: {
-                if (myObjectsUnderCursor.getPOIFront()) {
+                if (!myObjectsUnderCursor.getPOIFront()) {
                     GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
                     // view net must be always update
                     update();
@@ -1372,8 +1352,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 
 long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
-    // disable right button press during drawing polygon
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        // disable right button press during drawing polygon
         return 1;
     } else {
         return GUISUMOAbstractView::onRightBtnPress(obj, sel, eventData);

@@ -389,10 +389,16 @@ public:
         ~OverlappedInspection();
 
         /// @brief show template editor
-        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
 
         /// @brief hide template editor
         void hideOverlappedInspection();
+
+        /// @brief try to go to next element if clicked position is near to saved position
+        bool nextElement(const Position &clickedPosition);
+
+        /// @brief try to go to previous element if clicked position is near to saved position
+        bool previousElement(const Position &clickedPosition);
 
         /// @name FOX-callbacks
         /// @{
@@ -429,6 +435,9 @@ public:
 
         /// @brief current index item
         size_t myItemIndex;
+
+        /// @brief saved clicked position
+        Position mySavedClickedPosition;
     };
 
     /**@brief Constructor
@@ -446,8 +455,12 @@ public:
     /// @brief hide inspector frame
     void hide();
 
-    /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
-    void inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    /**@brief process click over Viewnet
+    * @param[in] clickedPosition clicked position over ViewNet
+    * @param[in] objectsUnderCursor objects under cursors
+    * @return true if something was sucefully done
+    */
+    bool processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /// @brief Inspect a single element
     void inspectSingleElement(GNEAttributeCarrier* AC);
@@ -486,6 +499,9 @@ public:
 protected:
     /// @brief FOX needs this
     GNEInspectorFrame() {}
+
+    /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
+    void inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
 
 private:
     /// @brief Attribute editor

@@ -35,19 +35,20 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNEPoly.h>
+#include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/GNENet.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 
 #include "GNEInspectorFrame.h"
 #include "GNEDeleteFrame.h"
@@ -160,17 +161,41 @@ GNEInspectorFrame::hide() {
 }
 
 
-void 
-GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
-    if(objectsUnderCursor.getAttributeCarrierFront()) {
-        // inspect front element
-        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
-        // if element has overlapped elements, show Overlapped Inspection modul
-        if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
-            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor);
-        } else {
-            myOverlappedInspection->hideOverlappedInspection();
+bool 
+GNEInspectorFrame::processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    if (objectsUnderCursor.getAttributeCarrierFront()) {
+        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
+        if (myViewNet->selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+            objectsUnderCursor.swapLane2Edge();
         }
+        // if Control key is Pressed, select instead inspect element
+        if (objectsUnderCursor.controlKeyPressed()) {
+            // Check if this GLobject type is locked
+            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+                // toogle netElement selection
+                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                } else {
+                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                }
+            }
+        } else {
+            // first check if we clicked over a OverlappedInspection point
+            if (objectsUnderCursor.shiftKeyPressed()) {
+                if(!myOverlappedInspection->previousElement(clickedPosition)) {
+                    // inspect attribute carrier, (or multiselection if AC is selected)
+                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                }
+            } else  if(!myOverlappedInspection->nextElement(clickedPosition)) {
+                // inspect attribute carrier, (or multiselection if AC is selected)
+                inspectClickedElement(objectsUnderCursor, clickedPosition);
+            }
+            // focus upper element of inspector frame
+            focusUpperElement();
+        }
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -1540,6 +1565,8 @@ GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame*
     myCurrentIndexLabel = new FXLabel(frameButtons, "", nullptr, GUIDesignLabelCenterThick);
     // Create next Item Button
     myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
+    // by default is hidden
+    hideOverlappedInspection();
 }
 
 
@@ -1547,8 +1574,9 @@ GNEInspectorFrame::OverlappedInspection::~OverlappedInspection() {}
 
 
 void
-GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
     myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
+    mySavedClickedPosition = clickedPosition;
     myCurrentItem->setText(objectsUnderCursor.getAttributeCarrierFront()->getID().c_str());
     myItemIndex = 0;
     myCurrentIndexLabel->setText(("1 - " + toString(myOverlappedACs.size())).c_str());
@@ -1568,6 +1596,40 @@ GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
 }
 
 
+bool 
+GNEInspectorFrame::OverlappedInspection::nextElement(const Position &clickedPosition) {
+    // first check if OverlappedInspection is shown
+    if(shown()) {
+        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
+            // inspect next element
+            onCmdNextElement(0,0,0);
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEInspectorFrame::OverlappedInspection::previousElement(const Position &clickedPosition) {
+    // first check if OverlappedInspection is shown
+    if(shown()) {
+        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
+            // inspect previousElement
+            onCmdPreviousElement(0,0,0);
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
 long
 GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
     // check that index can be changed
@@ -1583,6 +1645,8 @@ GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelec
         if(myItemIndex == 0) {
             myPreviousElement->disable();
         }
+        // update view (due dotted contour)
+        myInspectorFrameParent->getViewNet()->update();
     }
     return 1;
 }
@@ -1602,8 +1666,25 @@ GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector,
         if(myItemIndex == (myOverlappedACs.size()-1)) {
             myNextElement->disable();
         }
+        // update view (due dotted contour)
+        myInspectorFrameParent->getViewNet()->update();
     }
     return 1;
+}
+
+
+void 
+GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
+    if(objectsUnderCursor.getAttributeCarrierFront()) {
+        // inspect front element
+        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
+        // if element has overlapped elements, show Overlapped Inspection modul
+        if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
+            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+        } else {
+            myOverlappedInspection->hideOverlappedInspection();
+        }
+    }
 }
 
 /****************************************************************************/
