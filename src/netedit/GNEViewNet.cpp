@@ -1046,43 +1046,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myMovedItems.poiToMove = myObjectsUnderCursor.getPOIFront();
                     // Save original Position of Element
                     myMoveSingleElementValues.movingOriginalPosition = myMovedItems.poiToMove->getPositionInView();
-                } else if (myObjectsUnderCursor.getJunctionFront()) {
-                    if (myObjectsUnderCursor.getJunctionFront()->isAttributeCarrierSelected()) {
-                        beginMoveSelection(myObjectsUnderCursor.getJunctionFront(), getPositionInformation());
-                    } else {
-                        myMovedItems.junctionToMove = myObjectsUnderCursor.getJunctionFront();
-                        myMovedItems.junctionToMove->startGeometryMoving();
-                    }
-                    // Save original Position of Element
-                    myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.getJunctionFront()->getPositionInView();
-                } else if (myObjectsUnderCursor.getEdgeFront() || !myObjectsUnderCursor.getLaneFront()) {
-                    // allways swap getLaneFront()s to getEdgesFront()s in movement mode
-                    if (myObjectsUnderCursor.getLaneFront()) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
-                    if (myObjectsUnderCursor.getEdgeFront()->isAttributeCarrierSelected()) {
-                        beginMoveSelection(myObjectsUnderCursor.getEdgeFront(), getPositionInformation());
-                    } else if (myObjectsUnderCursor.shiftKeyPressed()) {
-                        myObjectsUnderCursor.getEdgeFront()->editEndpoint(getPositionInformation(), myUndoList);
-                    } else {
-                        myMovedItems.edgeToMove = myObjectsUnderCursor.getEdgeFront();
-                        if (myMovedItems.edgeToMove->clickedOverShapeStart(getPositionInformation())) {
-                            myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().front();
-                            myMoveSingleElementValues.movingStartPos = true;
-                        } else if (myMovedItems.edgeToMove->clickedOverShapeEnd(getPositionInformation())) {
-                            myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().back();
-                            myMoveSingleElementValues.movingEndPos = true;
-                        } else {
-                            // save original shape (needed for commit change)
-                            myMoveSingleElementValues.movingOriginalShape = myMovedItems.edgeToMove->getNBEdge()->getInnerGeometry();
-                            // obtain index of vertex to move and moving reference
-                            myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->getVertexIndex(getPositionInformation());
-                            myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
-                            // start moving AFTER getvertex Index
-                            myMovedItems.edgeToMove->startGeometryMoving();
-                        }
-                    }
-                } else if (myObjectsUnderCursor.getAdditionalFront()) {
+                                   } else if (myObjectsUnderCursor.getAdditionalFront()) {
                     if (myObjectsUnderCursor.getAdditionalFront()->isAttributeCarrierSelected()) {
                         myMovingSelection = true;
                     } else {
@@ -1117,6 +1081,42 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         }
                     } else {
                         myMoveSingleElementValues.movingIndexShape = -1;
+                    }
+                } else if (myObjectsUnderCursor.getJunctionFront()) {
+                    if (myObjectsUnderCursor.getJunctionFront()->isAttributeCarrierSelected()) {
+                        beginMoveSelection(myObjectsUnderCursor.getJunctionFront(), getPositionInformation());
+                    } else {
+                        myMovedItems.junctionToMove = myObjectsUnderCursor.getJunctionFront();
+                        myMovedItems.junctionToMove->startGeometryMoving();
+                    }
+                    // Save original Position of Element
+                    myMoveSingleElementValues.movingOriginalPosition = myObjectsUnderCursor.getJunctionFront()->getPositionInView();
+                } else if (myObjectsUnderCursor.getEdgeFront() || myObjectsUnderCursor.getLaneFront()) {
+                    // allways swap getLaneFront()s to getEdgesFront()s in movement mode
+                    if (myObjectsUnderCursor.getLaneFront()) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
+                    if (myObjectsUnderCursor.getEdgeFront()->isAttributeCarrierSelected()) {
+                        beginMoveSelection(myObjectsUnderCursor.getEdgeFront(), getPositionInformation());
+                    } else if (myObjectsUnderCursor.shiftKeyPressed()) {
+                        myObjectsUnderCursor.getEdgeFront()->editEndpoint(getPositionInformation(), myUndoList);
+                    } else {
+                        myMovedItems.edgeToMove = myObjectsUnderCursor.getEdgeFront();
+                        if (myMovedItems.edgeToMove->clickedOverShapeStart(getPositionInformation())) {
+                            myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().front();
+                            myMoveSingleElementValues.movingStartPos = true;
+                        } else if (myMovedItems.edgeToMove->clickedOverShapeEnd(getPositionInformation())) {
+                            myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().back();
+                            myMoveSingleElementValues.movingEndPos = true;
+                        } else {
+                            // save original shape (needed for commit change)
+                            myMoveSingleElementValues.movingOriginalShape = myMovedItems.edgeToMove->getNBEdge()->getInnerGeometry();
+                            // obtain index of vertex to move and moving reference
+                            myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->getVertexIndex(getPositionInformation());
+                            myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
+                            // start moving AFTER getvertex Index
+                            myMovedItems.edgeToMove->startGeometryMoving();
+                        }
                     }
                 } else {
                     // process click
