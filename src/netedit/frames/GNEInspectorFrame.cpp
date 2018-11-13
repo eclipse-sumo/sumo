@@ -235,6 +235,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGenericParametersEditor->hideGenericParametersEditor();
     myTemplateEditor->hideTemplateEditor();
     myACHierarchy->hideACHierarchy();
+    myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
     if (myInspectedACs.size() > 0) {
         // Set header
@@ -1565,8 +1566,15 @@ GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame*
     myCurrentIndexLabel = new FXLabel(frameButtons, "", nullptr, GUIDesignLabelCenterThick);
     // Create next Item Button
     myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
-    // by default is hidden
-    hideOverlappedInspection();
+    // create information label
+    std::ostringstream information;
+    information
+            << " - Click in the same position\n"
+            << "   for inspect next element\n"
+            << " - Shift + Click in the same\n"
+            << "   position for inspect\n"
+            << "   previous element";
+    new FXLabel(this, information.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -1587,7 +1595,6 @@ GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewN
 
 void
 GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
-    myOverlappedACs.clear();
     // hide template editor
     hide();
 }
@@ -1637,8 +1644,9 @@ GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelec
     }
     // change current item
     myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
-    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));   
-    myNextElement->enable();
+    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex)); 
+    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
+    show();
     // update current label
     myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
     // update view (due dotted contour)
@@ -1657,7 +1665,8 @@ GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector,
     }
     myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
     myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
-    myPreviousElement->enable();
+    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
+    show();
     // update current label
     myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
     // update view (due dotted contour)
