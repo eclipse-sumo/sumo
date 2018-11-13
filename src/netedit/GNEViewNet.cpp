@@ -954,8 +954,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     setFocus();
     // interpret object under cursor
     if (makeCurrent()) {
-        // first update objects under cursor if Shif isn't pressed
-        if ((evt->state & SHIFTMASK) == false) {
+        // first update objects under cursor if Shift isn't pressed
+        if ((evt->state & SHIFTMASK) == false || myEditMode == GNE_MODE_CONNECT) {
             myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly, evt);
         }
         // decide what to do based on mode
@@ -1188,10 +1188,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 update();
                 break;
             case GNE_MODE_CONNECT: {
-                // swap lanes to edges in connect Mode
-                if (myObjectsUnderCursor.getLaneFront()) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
                 if (myObjectsUnderCursor.getLaneFront()) {
                     // Handle laneclick (shift key may pass connections, Control key allow conflicts)
                     myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);

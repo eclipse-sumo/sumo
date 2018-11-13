@@ -457,6 +457,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
                         // fromLane must be the same, only check toLane
                         if (c.toEdge == destEdge.getNBEdge() && c.toLane == lane->getIndex()) {
                             newCon = c;
+                            newCon.mayDefinitelyPass = mayDefinitelyPass;
                         }
                     }
                     NBConnection newNBCon(srcEdge.getNBEdge(), fromIndex, destEdge.getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
