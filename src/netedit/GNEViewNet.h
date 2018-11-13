@@ -112,7 +112,7 @@ public:
         ObjectsUnderCursor();
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(const std::vector<GUIGlID> &glIDObjects, GNEPoly* editedPolyShape, FXEvent* ev);
+        void updateObjectUnderCursor(const std::vector<GUIGlObject*> &GUIGlObjects, GNEPoly* editedPolyShape, FXEvent* ev);
 
         /// @brief swap lane to edge
         void swapLane2Edge();
@@ -175,11 +175,8 @@ public:
         /// @brief information of event of onLeftBtnPress
         FXEvent* myEventInfo;
 
-        /// @brief vector with the clicked GUIGLIDs
-        std::vector<GUIGlID> myGlIDs;
-
-        /// @brief vector with the clicked vector with the clicked GUI GL object types
-        std::vector<GUIGlObjectType> myGlTypes;
+        /// @brief vector with the clicked GUIGlObjects
+        std::vector<GUIGlObject*> myGUIGlObjects;
 
         /// @brief vector with the clicked attribute carriers
         std::vector<GNEAttributeCarrier*> myAttributeCarriers;
@@ -216,6 +213,9 @@ public:
 
         /// @brief vector with the clicked Polys
         std::vector<GNEPoly*> myPolys;
+
+        /// @brief invert GUIGlObjects
+        void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*> &GUIGlObjects);
 
         /// @brief Invalidated copy constructor.
         ObjectsUnderCursor(const ObjectsUnderCursor&) = delete;
