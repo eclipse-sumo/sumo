@@ -312,7 +312,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 std::vector<GUIGlID> 
 GUISUMOAbstractView::getObjectstUnderCursor() {
     const double SENSITIVITY = 0.1; // meters
-    return getObjectsAtPosition(getPositionInformation(), 0.1);
+    return getObjectsAtPosition(getPositionInformation(), SENSITIVITY);
 }
 
 
