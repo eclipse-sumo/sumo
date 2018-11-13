@@ -1579,10 +1579,7 @@ GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewN
     mySavedClickedPosition = clickedPosition;
     myCurrentItem->setText(objectsUnderCursor.getAttributeCarrierFront()->getID().c_str());
     myItemIndex = 0;
-    myCurrentIndexLabel->setText(("1 - " + toString(myOverlappedACs.size())).c_str());
-    // enable and disable buttons
-    myPreviousElement->disable();
-    myNextElement->enable();
+    myCurrentIndexLabel->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
     // show template editor
     show();
 }
@@ -1632,43 +1629,39 @@ GNEInspectorFrame::OverlappedInspection::previousElement(const Position &clicked
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
-    // check that index can be changed
+    // set index (it works as a ring)
     if(myItemIndex > 0) {
         myItemIndex--;
-        // change current item
-        myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
-        myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));   
-        myNextElement->enable();
-        // update current label
-        myCurrentIndexLabel->setText((toString(myItemIndex+1) + " - " + toString(myOverlappedACs.size())).c_str());
-        // check if previous Element button has to be disabled
-        if(myItemIndex == 0) {
-            myPreviousElement->disable();
-        }
-        // update view (due dotted contour)
-        myInspectorFrameParent->getViewNet()->update();
+    } else {
+        myItemIndex = (myOverlappedACs.size() - 1);
     }
+    // change current item
+    myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
+    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));   
+    myNextElement->enable();
+    // update current label
+    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
+    // update view (due dotted contour)
+    myInspectorFrameParent->getViewNet()->update();
     return 1;
 }
 
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
-    // check that index can be changed
+    // set index (it works as a ring)
     if(myItemIndex < (myOverlappedACs.size()-1)) {
         myItemIndex++;
-        myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
-        myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
-        myPreviousElement->enable();
-        // update current label
-        myCurrentIndexLabel->setText((toString(myItemIndex+1) + " - " + toString(myOverlappedACs.size())).c_str());
-        // check if next Element button has to be disabled
-        if(myItemIndex == (myOverlappedACs.size()-1)) {
-            myNextElement->disable();
-        }
-        // update view (due dotted contour)
-        myInspectorFrameParent->getViewNet()->update();
+    } else {
+        myItemIndex = 0;
     }
+    myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
+    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
+    myPreviousElement->enable();
+    // update current label
+    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
+    // update view (due dotted contour)
+    myInspectorFrameParent->getViewNet()->update();
     return 1;
 }
 
