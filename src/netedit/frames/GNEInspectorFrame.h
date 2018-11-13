@@ -421,6 +421,9 @@ public:
         /// @brief Next element button
         FXButton* myNextElement;
 
+        /// @brief objects under cursor
+        std::vector<GNEAttributeCarrier*> myOverlappedACs;
+
         /// @brief current index item
         size_t myItemIndex;
     };

@@ -168,6 +168,8 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &o
         // if element has overlapped elements, show Overlapped Inspection modul
         if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
             myOverlappedInspection->showOverlappedInspection(objectsUnderCursor);
+        } else {
+            myOverlappedInspection->hideOverlappedInspection();
         }
     }
 }
@@ -208,7 +210,6 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGenericParametersEditor->hideGenericParametersEditor();
     myTemplateEditor->hideTemplateEditor();
     myACHierarchy->hideACHierarchy();
-    myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
     if (myInspectedACs.size() > 0) {
         // Set header
@@ -1546,7 +1547,9 @@ GNEInspectorFrame::OverlappedInspection::~OverlappedInspection() {}
 
 void
 GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
     myCurrentItem->setText(objectsUnderCursor.getAttributeCarrierFront()->getID().c_str());
+    myItemIndex = 0;
     // enable and disable buttons
     myPreviousElement->disable();
     myNextElement->enable();
@@ -1557,6 +1560,7 @@ GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewN
 
 void
 GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
+    myOverlappedACs.clear();
     // hide template editor
     hide();
 }
@@ -1564,14 +1568,30 @@ GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
-
+    if(myItemIndex > 0) {
+        myItemIndex--;
+        myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
+        myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));   
+        myNextElement->enable();
+        if(myItemIndex == 0) {
+            myPreviousElement->disable();
+        }
+    }
     return 1;
 }
 
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
-
+    if(myItemIndex < (myOverlappedACs.size()-1)) {
+        myItemIndex++;
+        myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
+        myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
+        myPreviousElement->enable();
+        if(myItemIndex == (myOverlappedACs.size()-1)) {
+            myNextElement->disable();
+        }
+    }
     return 1;
 }
 
