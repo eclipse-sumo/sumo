@@ -322,13 +322,12 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     Boundary selection;
     selection.add(pos);
     selection.grow(SENSITIVITY);
-    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    auto ids = getObjectsInBoundary(selection);
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
-    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GUIGlID id = *it;
-        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    for (const auto &it : ids) {
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
         if (o == nullptr) {
             continue;
         }
@@ -351,11 +350,11 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             }
             // check whether the current object is above a previous one
             if (layer > maxLayer) {
-                idMax = id;
+                idMax = it;
                 maxLayer = layer;
             }
         }
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(it);
     }
     return idMax;
 }
@@ -363,27 +362,35 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
 
 std::vector<GUIGlID>
 GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
+    // declare vector result
+    std::vector<GUIGlID> result;
+    // declare boundary witht the given pos and radius
     Boundary selection;
     selection.add(pos);
     selection.grow(radius);
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
-    std::vector<GUIGlID> result;
+    // map used to sort IDs by GUIGlObjectType (this is used to sort ids by altitude (z) )
+    std::map<GUIGlObjectType, std::vector<GUIGlID>> sortedIDs;
     // Interpret results
-    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GUIGlID id = *it;
-        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    for (const auto &it : ids) {
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
         if (o == nullptr) {
             continue;
         }
         if (o->getGlID() == 0) {
             continue;
         }
-        //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         GUIGlObjectType type = o->getType();
-        if (type != 0) {
-            result.push_back(id);
+
+        if (type != GLO_NETWORK) {
+            sortedIDs[type].push_back(it);
         }
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        GUIGlObjectStorage::gIDStorage.unblockObject(it);
+    }
+    for (std::map<GUIGlObjectType, std::vector<GUIGlID>>::reverse_iterator i = sortedIDs.rbegin(); i != sortedIDs.rend(); i++) {
+        for (const auto &j : i->second) {
+            result.push_back(j);
+        }
     }
     return result;
 }
