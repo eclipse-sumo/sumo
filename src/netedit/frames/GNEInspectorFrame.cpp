@@ -1532,11 +1532,12 @@ GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame*
     FXGroupBox(inspectorFrameParent->myContentFrame, "Overlapped elements", GUIDesignGroupBoxFrame),
     myInspectorFrameParent(inspectorFrameParent),
     myItemIndex(0) {
+    // Create label for current item
+    myCurrentItem = new FXLabel(this, "currentItemID", nullptr, GUIDesignLabelCenterThick);
     FXHorizontalFrame *frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
     myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButtonIconRectangular);
-    // Create label for current item
-    myCurrentItem = new FXLabel(frameButtons, "currentItemID", nullptr, GUIDesignLabelCenterThick);
+    myCurrentIndexLabel = new FXLabel(frameButtons, "", nullptr, GUIDesignLabelCenterThick);
     // Create next Item Button
     myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
 }
@@ -1550,6 +1551,7 @@ GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewN
     myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
     myCurrentItem->setText(objectsUnderCursor.getAttributeCarrierFront()->getID().c_str());
     myItemIndex = 0;
+    myCurrentIndexLabel->setText(("1 - " + toString(myOverlappedACs.size())).c_str());
     // enable and disable buttons
     myPreviousElement->disable();
     myNextElement->enable();
@@ -1568,11 +1570,16 @@ GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
+    // check that index can be changed
     if(myItemIndex > 0) {
         myItemIndex--;
+        // change current item
         myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
         myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));   
         myNextElement->enable();
+        // update current label
+        myCurrentIndexLabel->setText((toString(myItemIndex+1) + " - " + toString(myOverlappedACs.size())).c_str());
+        // check if previous Element button has to be disabled
         if(myItemIndex == 0) {
             myPreviousElement->disable();
         }
@@ -1583,11 +1590,15 @@ GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelec
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+    // check that index can be changed
     if(myItemIndex < (myOverlappedACs.size()-1)) {
         myItemIndex++;
         myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
         myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
         myPreviousElement->enable();
+        // update current label
+        myCurrentIndexLabel->setText((toString(myItemIndex+1) + " - " + toString(myOverlappedACs.size())).c_str());
+        // check if next Element button has to be disabled
         if(myItemIndex == (myOverlappedACs.size()-1)) {
             myNextElement->disable();
         }

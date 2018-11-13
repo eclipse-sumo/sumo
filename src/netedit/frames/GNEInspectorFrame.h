@@ -418,6 +418,9 @@ public:
         /// @brief Previous element button
         FXButton* myPreviousElement;
 
+        /// @brief label for current index
+        FXLabel* myCurrentIndexLabel;
+
         /// @brief Next element button
         FXButton* myNextElement;
 
