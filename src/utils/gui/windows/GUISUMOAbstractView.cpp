@@ -82,6 +82,12 @@
 // ===========================================================================
 //#define DEBUG_SNAPSHOT
 
+// ===========================================================================
+// static members
+// ===========================================================================
+
+const double GUISUMOAbstractView::SENSITIVITY = 0.1; // meters
+
 
 // ===========================================================================
 // member method definitions
@@ -311,14 +317,19 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 
 std::vector<GUIGlID> 
 GUISUMOAbstractView::getObjectstUnderCursor() {
-    const double SENSITIVITY = 0.1; // meters
+
     return getObjectsAtPosition(getPositionInformation(), SENSITIVITY);
+}
+
+
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::getGUIGlObjectsUnderCursor() {
+    return getGUIGlObjectsAtPosition(getPositionInformation(), SENSITIVITY);
 }
 
 
 GUIGlID
 GUISUMOAbstractView::getObjectAtPosition(Position pos) {
-    const double SENSITIVITY = 0.1; // meters
     Boundary selection;
     selection.add(pos);
     selection.grow(SENSITIVITY);
@@ -326,18 +337,22 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     // Interpret results
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
-    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GUIGlID id = *it;
-        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    // iterate over obtained GUIGlIDs
+    for (const auto &i : ids) {
+        // obtain GUIGlObject
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
+        // check that GUIGlObject exist
         if (o == nullptr) {
             continue;
         }
+        // check that GUIGlObject isn't the network
         if (o->getGlID() == 0) {
             continue;
         }
         //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         GUIGlObjectType type = o->getType();
-        if (type != 0) {
+        // avoid network
+        if (type != GLO_NETWORK) {
             double layer = (double)type;
             // determine an "abstract" layer for shapes
             //  this "layer" resembles the layer of the shape
@@ -351,11 +366,12 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
             }
             // check whether the current object is above a previous one
             if (layer > maxLayer) {
-                idMax = id;
+                idMax = i;
                 maxLayer = layer;
             }
         }
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        // unblock object
+        GUIGlObjectStorage::gIDStorage.unblockObject(i);
     }
     return idMax;
 }
@@ -363,27 +379,64 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
 
 std::vector<GUIGlID>
 GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
+    // declare result vector
+    std::vector<GUIGlID> result;
+    // calculate boundary
     Boundary selection;
     selection.add(pos);
     selection.grow(radius);
+    // obtain GUIGlID of objects in boundary
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
-    std::vector<GUIGlID> result;
-    // Interpret results
-    for (std::vector<GUIGlID>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        GUIGlID id = *it;
-        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    // iterate over obtained GUIGlIDs
+    for (const auto &i : ids) {
+        // obtain GUIGlObject
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
+        // check that GUIGlObject exist
         if (o == nullptr) {
             continue;
         }
+        // check that GUIGlObject isn't the network
         if (o->getGlID() == 0) {
             continue;
         }
         //std::cout << "point selection hit " << o->getMicrosimID() << "\n";
         GUIGlObjectType type = o->getType();
-        if (type != 0) {
-            result.push_back(id);
+        // avoid network
+        if (type != GLO_NETWORK) {
+            result.push_back(i);
         }
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        // unblock object
+        GUIGlObjectStorage::gIDStorage.unblockObject(i);
+    }
+    return result;
+}
+
+
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
+    // declare result vector
+    std::vector<GUIGlObject*> result;
+    // calculate boundary
+    Boundary selection;
+    selection.add(pos);
+    selection.grow(radius);
+    // obtain GUIGlID of objects in boundary
+    const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
+    // iterate over obtained GUIGlIDs
+    for (const auto &i : ids) {
+        // obtain GUIGlObject
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
+        // check that GUIGlObject exist
+        if (o == nullptr) {
+            continue;
+        }
+        // check that GUIGlObject isn't the network
+        if (o->getGlID() == 0) {
+            continue;
+        }
+        result.push_back(o);
+        // unblock object
+        GUIGlObjectStorage::gIDStorage.unblockObject(i);
     }
     return result;
 }
