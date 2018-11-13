@@ -74,7 +74,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ItemSelector();
+        ItemSelector() {}
 
     private:
         /// @brief pointer to Frame Parent
@@ -83,8 +83,8 @@ public:
         /// @brief comboBox with the list of elements type
         FXComboBox* myTypeMatchBox;
 
-        /// @brief reference to current tag properties
-        GNEAttributeCarrier::TagProperties &myCurrentTagProperties;
+        /// @brief current tag properties
+        GNEAttributeCarrier::TagProperties myCurrentTagProperties;
 
         /// @brief list of tags that will be shown in Match Box
         std::vector<SumoXMLTag> myListOfTags;
@@ -221,14 +221,14 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ACAttributes();
+        ACAttributes() {};
 
     private:
         /// @brief pointer to Polygon Frame Parent
         GNEFrame* myFrameParent;
 
-        /// @brief reference to current edited Tag Properties
-        GNEAttributeCarrier::TagProperties &myTagProperties;
+        /// @brief current edited Tag Properties
+        GNEAttributeCarrier::TagProperties myTagProperties;
 
         /// @brief vector with the shape parameters
         std::vector<ACAttributeRow*> myVectorOfsingleShapeParameter;

@@ -114,8 +114,7 @@ FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,         NeteditAttri
 
 GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TAGProperty type, bool onlyDrawables) :
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myCurrentTagProperties(GNEAttributeCarrier::dummyTagProperty) {
+    myFrameParent(frameParent) {
     // first check that property is valid
     switch (type)     {
         case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_NETELEMENT:
@@ -211,11 +210,6 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in ItemSelector");
     return 1;
-}
-
-
-GNEFrame::ItemSelector::ItemSelector() :
-    myCurrentTagProperties(GNEAttributeCarrier::dummyTagProperty) {
 }
 
 // ---------------------------------------------------------------------------
@@ -442,8 +436,7 @@ long GNEFrame::ACAttributeRow::onCmdSetColorAttribute(FXObject*, FXSelector, voi
 
 GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myTagProperties(GNEAttributeCarrier::dummyTagProperty) {
+    myFrameParent(frameParent) {
 
     // Create single parameters
     for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
@@ -550,11 +543,6 @@ GNEFrame::ACAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
     myFrameParent->openHelpAttributesDialog(myTagProperties);
     return 1;
-}
-
-
-GNEFrame::ACAttributes::ACAttributes() :
-    myTagProperties(GNEAttributeCarrier::dummyTagProperty) {
 }
 
 // ---------------------------------------------------------------------------
