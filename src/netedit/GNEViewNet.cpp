@@ -254,7 +254,7 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
 void
 GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
     // iterate over all lanes
-    for (int i = 0; i < myLanes.size(); i++) {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
         myEdges.push_back(&myLanes.at(i)->getParentEdge());
         myNetElements.at(i) = myEdges.back();
         myAttributeCarriers.at(i) = myEdges.back();
@@ -1133,10 +1133,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                     // check if we are deleting a selection or an single attribute carrier
                     if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                        // before delete al selected attribute carriers, check if we clicked over a geometry pois.front()nt
+                        // before delete al selected attribute carriers, check if we clicked over a geometry point
                         if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
-                                ((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false) != -1)) ||
-                                ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false) != -1))) {
+                                (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false) != -1)) 
+                              || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false) != -1)))) {
                             myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
                         } else {
                             myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
