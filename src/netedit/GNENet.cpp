@@ -2138,10 +2138,27 @@ GNENet::getNumberOfTLSPrograms() const {
 }
 
 
+bool 
+GNENet::additionalExist(GNEAdditional* additional) {
+    // first check that additional pointer is valid
+    if(additional) {
+        // iterate over additionals to ifnd it
+        for (const auto & i : myAttributeCarriers.additionals.at(additional->getTagProperty().getTag())) {
+            if (i.second == additional) {
+                return true;
+            }
+        }
+        return false;
+    } else {
+        throw ProcessError("Invalid additional pointer");
+    }
+}
+
+
 void
 GNENet::insertAdditional(GNEAdditional* additional) {
     // Check if additional element exists before insertion
-    if (myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).count(additional->getID()) == 0) {
+    if (!additionalExist(additional)) {
         myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // only add drawable elements in grid
         if (additional->getTagProperty().isDrawable()) {
@@ -2161,28 +2178,38 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 }
 
 
-void
+bool
 GNENet::deleteAdditional(GNEAdditional* additional) {
-    // Check if additional element exists before deletion
-    if (myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).count(additional->getID()) == 0) {
+    // first check that additional pointer is valid
+    if(additional) {
+        // iterate over additionals to find it
+        for (auto i = myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).begin(); 
+            i != myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).end(); i++) {
+            if (i->second == additional) {
+                // remove it from Inspector Frame
+                myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
+                // Remove from container
+                myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(i);
+                // only remove drawable elements of grid
+                if (additional->getTagProperty().isDrawable()) {
+                    myGrid.removeAdditionalGLObject(additional);
+                }
+                // check if additional is selected
+                if (additional->isAttributeCarrierSelected()) {
+                    additional->unselectAttributeCarrier(false);
+                }
+                // update view
+                update();
+                // additionals has to be saved
+                requiereSaveAdditionals(true);
+                // additional removed, then return true
+                return true;
+            }
+        }
+        // if additional wasn't found, throw exception
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist");
     } else {
-        // remove it from Inspector Frame
-        myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
-        // Remove from container
-        myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(additional->getID());
-        // only remove drawable elements of grid
-        if (additional->getTagProperty().isDrawable()) {
-            myGrid.removeAdditionalGLObject(additional);
-        }
-        // check if additional is selected
-        if (additional->isAttributeCarrierSelected()) {
-            additional->unselectAttributeCarrier(false);
-        }
-        // update view
-        update();
-        // additionals has to be saved
-        requiereSaveAdditionals(true);
+        throw ProcessError("Invalid additional pointer");
     }
 }
 

@@ -682,6 +682,9 @@ protected:
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{
 
+    /// @brief return true if additional exist (use pointer instead ID)
+    bool additionalExist(GNEAdditional* additional);
+
     /**@brief Insert a additional element int GNENet container.
      * @throw processError if route was already inserted
      */
@@ -690,7 +693,7 @@ protected:
     /**@brief delete additional element of GNENet container
      * @throw processError if additional wasn't previously inserted
      */
-    void deleteAdditional(GNEAdditional* additional);
+    bool deleteAdditional(GNEAdditional* additional);
 
     /// @}
 
