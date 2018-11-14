@@ -622,6 +622,45 @@ GNEViewNet::setColorScheme(const std::string& name) {
 
 
 void
+GNEViewNet::openObjectDialog() {
+    // reimplemented from GUISUMOAbstractView due OverlappedInspection
+    ungrab();
+    if (!isEnabled() || !myAmInitialised) {
+        return;
+    }
+    if (makeCurrent()) {
+        // initialise the select mode
+        int id = getObjectUnderCursor();
+        GUIGlObject* o = nullptr;
+        // we need to check if we're inspecting a overlapping element
+        if(myViewParent->getInspectorFrame()->getInspectedACs().size() > 0) {
+            o = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getInspectedACs().front());
+        } else if (id != 0) {
+            o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+        } else {
+            o = GUIGlObjectStorage::gIDStorage.getNetObject();
+        }
+        // check if open popup menu can be opened
+        if (o != nullptr) {
+            myPopup = o->getPopUpMenu(*myApp, *this);
+            int x, y;
+            FXuint b;
+            myApp->getCursorPosition(x, y, b);
+            myPopup->setX(x + myApp->getX());
+            myPopup->setY(y + myApp->getY());
+            myPopup->create();
+            myPopup->show();
+            myPopupPosition = getPositionInformation();
+            myChanger->onRightBtnRelease(nullptr);
+            GUIGlObjectStorage::gIDStorage.unblockObject(id);
+            setFocus();
+        }
+        makeNonCurrent();
+    }
+}
+
+
+void
 GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
     assert(!scheme.isFixed());
     UNUSED_PARAMETER(s);
@@ -1347,7 +1386,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 }
 
 
-long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
+long 
+GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         // disable right button press during drawing polygon
         return 1;
@@ -1357,7 +1397,8 @@ long GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData)
 }
 
 
-long GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
+long 
+GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // disable right button release during drawing polygon
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         return 1;

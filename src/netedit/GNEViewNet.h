@@ -260,6 +260,9 @@ public:
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType);
 
+    //@brief open object dialog
+    void openObjectDialog();
+
     /// @name overloaded handlers
     /// @{
     /// @brief called when user press mouse's left button
