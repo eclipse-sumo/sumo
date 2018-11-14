@@ -183,21 +183,21 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
     glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-
-    // Draw polygon
-    glBegin(GL_LINES);
-    glVertex2d(1.7, 0);
-    glVertex2d(-1.7, 0);
-    glEnd();
-    glBegin(GL_QUADS);
-    glVertex2d(-1.7, .5);
-    glVertex2d(-1.7, -.5);
-    glVertex2d(1.7, -.5);
-    glVertex2d(1.7, .5);
-    glEnd();
-
+  
     // draw details if isn't being drawn for selecting
     if (!s.drawForSelecting) {
+        // Draw polygon
+        glBegin(GL_LINES);
+        glVertex2d(1.7, 0);
+        glVertex2d(-1.7, 0);
+        glEnd();
+        glBegin(GL_QUADS);
+        glVertex2d(-1.7, .5);
+        glVertex2d(-1.7, -.5);
+        glVertex2d(1.7, -.5);
+        glVertex2d(1.7, .5);
+        glEnd();
+
         // first Arrow
         glTranslated(1.5, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -207,6 +207,14 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(-3, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
         GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+    } else {
+        // Draw square in drawy for selecting mode
+        glBegin(GL_QUADS);
+        glVertex2d(-1.7, 4.3);
+        glVertex2d(-1.7, -.5);
+        glVertex2d(1.7, -.5);
+        glVertex2d(1.7, 4.3);
+        glEnd();
     }
 
     // Pop polygon matrix
@@ -216,7 +224,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if (((s.scale * exaggeration) >= 10)) {
+    if (!s.drawForSelecting && ((s.scale * exaggeration) >= 10)) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
