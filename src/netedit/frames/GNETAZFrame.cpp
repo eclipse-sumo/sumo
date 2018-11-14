@@ -174,9 +174,9 @@ GNETAZFrame::TAZCurrent::setTAZ(GNETAZ* editedTAZ) {
     if (myEditedTAZ != nullptr) {
         myTAZCurrentLabel->setText(("Current TAZ: " + myEditedTAZ->getID()).c_str());
         // obtain a copy of all edges of the net (to avoid slowdown during manipulations)
-        myNetEdges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges();
+        myNetEdges = myTAZFrameParent->myViewNet->getNet()->retrieveEdges();
         // obtain a copy of all SELECTED edges of the net (to avoid slowdown during manipulations)
-        mySelectedEdges = myTAZFrameParent->getViewNet()->getNet()->retrieveEdges(true);
+        mySelectedEdges = myTAZFrameParent->myViewNet->getNet()->retrieveEdges(true);
         // resfresh TAZ Edges
         refreshTAZEdges();
         // hide TAZ parameters
@@ -289,7 +289,7 @@ void
 GNETAZFrame::TAZCurrent::addTAZChild(GNEAdditional *additional) {
     // first make sure that additional is an TAZ Source or Sink
     if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) || (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
-        GNEEdge *edge = myTAZFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
+        GNEEdge *edge = myTAZFrameParent->myViewNet->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
         // first check if TAZEdge has to be created
         bool createTAZEdge = true;
         for (auto &i : myTAZEdges) {
@@ -708,7 +708,6 @@ GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFram
     myTAZSinkFrame->hide();
     // create button for select edges
     mySelectEdgesOfSelection = new FXButton(this, "Add edges to selection", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
-    mySelectEdgesOfSelection->disable();
     // create label for statistics
     myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelFrameInformation);
 }
@@ -743,13 +742,6 @@ GNETAZFrame::TAZSelectionStatistics::selectEdge(const TAZCurrent::TAZEdge &TAZEd
     }
     // add edge and their TAZ Childs into myTAZChildSelected
     myEdgeAndTAZChildsSelected.push_back(TAZEdge);
-    // update button "select edges of selection
-    mySelectEdgesOfSelection->disable();
-    for (const auto &i : myEdgeAndTAZChildsSelected) {
-        if (!i.edge->isAttributeCarrierSelected()) {
-            mySelectEdgesOfSelection->enable();
-        }
-    }
     // always update statistics after insertion
     updateStatistics();
     // update edge colors
@@ -765,13 +757,6 @@ GNETAZFrame::TAZSelectionStatistics::unselectEdge(GNEEdge* edge) {
         for (auto i = myEdgeAndTAZChildsSelected.begin(); i != myEdgeAndTAZChildsSelected.end(); i++) {
             if (i->edge == edge) {
                 myEdgeAndTAZChildsSelected.erase(i);
-                // update button "select edges of selection
-                mySelectEdgesOfSelection->disable();
-                for (const auto &j : myEdgeAndTAZChildsSelected) {
-                    if (!j.edge->isAttributeCarrierSelected()) {
-                        mySelectEdgesOfSelection->enable();
-                    }
-                }
                 // always update statistics after insertion
                 updateStatistics();
                 // update edge colors
@@ -831,7 +816,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // update weight of all TAZSources
                 for (const auto  &i : myEdgeAndTAZChildsSelected) {
-                    i.TAZSource->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSourceWeight->getText().text(), myTAZFrameParent->getViewNet()->getUndoList());
+                    i.TAZSource->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSourceWeight->getText().text(), myTAZFrameParent->myViewNet->getUndoList());
                 }
                 // refresh TAZ Edges
                 myTAZFrameParent->getTAZCurrentModul()->refreshTAZEdges();
@@ -855,7 +840,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                 myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // update weight of all TAZSources
                 for (const auto  &i : myEdgeAndTAZChildsSelected) {
-                    i.TAZSink->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSinkWeight->getText().text(), myTAZFrameParent->getViewNet()->getUndoList());
+                    i.TAZSink->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSinkWeight->getText().text(), myTAZFrameParent->myViewNet->getUndoList());
                 }
                 // refresh TAZ Edges
                 myTAZFrameParent->getTAZCurrentModul()->refreshTAZEdges();
@@ -879,11 +864,11 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSelectEdges(FXObject*, FXSelector, voi
             // enable save button
             myTAZFrameParent->myTAZSaveChanges->enableButtonsAndBeginUndoList();
             // change attribute selected
-            i.edge->setAttribute(GNE_ATTR_SELECTED, "true", myTAZFrameParent->getViewNet()->getUndoList());
+            i.edge->setAttribute(GNE_ATTR_SELECTED, "true", myTAZFrameParent->myViewNet->getUndoList());
         }
     }
-    // disable button
-    mySelectEdgesOfSelection->disable();
+    // update view net
+    myTAZFrameParent->myViewNet->update();
     return 1;
 }
 
@@ -1188,7 +1173,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
         }
     }
     // always update view after setting new colors
-    myTAZFrameParent->getViewNet()->update();
+    myTAZFrameParent->myViewNet->update();
 }
 
 
