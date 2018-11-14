@@ -690,8 +690,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
             myTextFieldInt->enable();
         }
         // we need an extra check for connection attribute "TLIndex", because it cannot be edited if junction's connection doesn' have a TLS
-        if((ACTag == SUMO_TAG_CONNECTION) && (ACAttr == SUMO_ATTR_TLLINKINDEX) && (value == "-1")) {
-            myTextFieldInt->setText("No TLS");
+        if((ACTag == SUMO_TAG_CONNECTION) && (ACAttr == SUMO_ATTR_TLLINKINDEX) && (value == "No TLS")) {
             myTextFieldInt->disable();
         }
     } else {
@@ -1033,12 +1032,24 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditorModul() {
                 }
                 oss << *it_val;
             }
+            std::string value = oss.str();
+            if ((ACFrontTag == SUMO_TAG_CONNECTION) && (i.first == SUMO_ATTR_TLLINKINDEX) 
+                    && value == toString(NBConnection::InvalidTlIndex)) {
+                // possibly the connections are newly created (allow assigning
+                // tlIndex if the junction(s) have a traffic light
+                for (auto it_ac : myInspectorFrameParent->getInspectedACs()) {
+                    if (!it_ac->isValid(SUMO_ATTR_TLLINKINDEX, "0")) {
+                        value =  "No TLS";
+                        break;
+                    }
+                }
+            }
             // Show attribute
             if ((disableTLSinJunctions && (ACFrontTag == SUMO_TAG_JUNCTION) && ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
                 // first show AttributesEditor
                 show();
                 // show attribute
-                myVectorOfAttributeInputs[i.second.getPositionListed()]->showAttribute(ACFrontTag, i.first, oss.str());
+                myVectorOfAttributeInputs[i.second.getPositionListed()]->showAttribute(ACFrontTag, i.first, value);
             }
         }
     }
