@@ -30,6 +30,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/div/GUIUserIO.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -76,7 +77,7 @@ GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParen
     // create checkBox 
     myCenterViewAfterCreationCheckButton = new FXCheckButton(this, "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     // create button for create GEO POIs
-    myCreateGEOPOIButton = new FXButton(this, "Create GEO POI", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateGEOPOIButton = new FXButton(this, "Create GEO POI (clipboard)", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
     myLabelCartesianPosition = new FXLabel(this, "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
 }
@@ -122,6 +123,11 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*
     if (input.size() != inputWithoutSpaces.size()) {
         myCoordinatesTextField->setText(inputWithoutSpaces.c_str());
     }
+    if (inputWithoutSpaces.size() > 0) {
+        myCreateGEOPOIButton->setText("Create GEO POI");
+    } else {
+        myCreateGEOPOIButton->setText("Create GEO POI (clipboard)");
+    }
     // simply check if given value can be parsed to Position
     if (GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text())) {
         myCoordinatesTextField->setTextColor(FXRGB(0, 0, 0));
@@ -162,35 +168,48 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*)
 long 
 GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
     // first check if current GEO Position is valid
-    if(GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text()) &&
-        myPolygonFrameParent->myShapeAttributes->areValuesValid()) {
-        // obtain shape attributes and values
-        auto valuesOfElement = myPolygonFrameParent->myShapeAttributes->getAttributesAndValues();
-        // obtain netedit attributes and values
-        myPolygonFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
-        // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myPolygonFrameParent->myViewNet->getNet()->generateShapeID(myPolygonFrameParent->myItemSelector->getCurrentTagProperties().getTag());
-        // force GEO attribute to true and obain position
-        valuesOfElement[SUMO_ATTR_GEO] = "true";
-        Position geoPos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
-        // convert coordinates into lon-lat
-        if (myLatLonRadioButton->getCheck() == TRUE) {
-            geoPos.swapXY();
+    if (myPolygonFrameParent->myShapeAttributes->areValuesValid()) {
+        std::string geoPosStr = myCoordinatesTextField->getText().text();
+        if (geoPosStr.empty()) {
+            // use clipboard
+            WRITE_WARNING("Using clipboard");
+            geoPosStr = GUIUserIO::copyFromClipboard(*getApp());
+            myCoordinatesTextField->setText(geoPosStr.c_str());
+            // remove spaces, update cartesian value
+            onCmdSetCoordinates(0, 0, 0);
+            geoPosStr = myCoordinatesTextField->getText().text();
+            myCoordinatesTextField->setText("");
+            myCreateGEOPOIButton->setText("Create GEO POI (clipboard)");
         }
-        GeoConvHelper::getFinal().x2cartesian_const(geoPos);
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(geoPos);
-        // return ADDSHAPE_SUCCESS if POI was sucesfully created
-        if (myPolygonFrameParent->addPOI(valuesOfElement)) {
-            // check if view has to be centered over created GEO POI
-            if(myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
-                // create a boundary over given GEO Position and center view over it
-                Boundary centerPosition;
-                centerPosition.add(geoPos);
-                centerPosition = centerPosition.grow(10);
-                myPolygonFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
+        if (GNEAttributeCarrier::canParse<Position>(geoPosStr)) { 
+            // obtain shape attributes and values
+            auto valuesOfElement = myPolygonFrameParent->myShapeAttributes->getAttributesAndValues();
+            // obtain netedit attributes and values
+            myPolygonFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
+            // generate new ID
+            valuesOfElement[SUMO_ATTR_ID] = myPolygonFrameParent->myViewNet->getNet()->generateShapeID(myPolygonFrameParent->myItemSelector->getCurrentTagProperties().getTag());
+            // force GEO attribute to true and obain position
+            valuesOfElement[SUMO_ATTR_GEO] = "true";
+            Position geoPos = GNEAttributeCarrier::parse<Position>(geoPosStr);
+            // convert coordinates into lon-lat
+            if (myLatLonRadioButton->getCheck() == TRUE) {
+                geoPos.swapXY();
             }
-        } else {
-            WRITE_WARNING("Could not create GEO POI");
+            GeoConvHelper::getFinal().x2cartesian_const(geoPos);
+            valuesOfElement[SUMO_ATTR_POSITION] = toString(geoPos);
+            // return ADDSHAPE_SUCCESS if POI was sucesfully created
+            if (myPolygonFrameParent->addPOI(valuesOfElement)) {
+                // check if view has to be centered over created GEO POI
+                if(myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
+                    // create a boundary over given GEO Position and center view over it
+                    Boundary centerPosition;
+                    centerPosition.add(geoPos);
+                    centerPosition = centerPosition.grow(10);
+                    myPolygonFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
+                }
+            } else {
+                WRITE_WARNING("Could not create GEO POI");
+            }
         }
     }
     return 1;
