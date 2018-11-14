@@ -91,6 +91,18 @@ class TLS:
     def getPrograms(self):
         return self._programs
 
+class Phase:
+
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1):
+        self.duration = duration
+        self.state = state
+        self.minDur = minDur  # minimum duration (only for actuated tls)
+        self.maxDur = maxDur  # maximum duration (only for actuated tls)
+        self.next = next
+
+    def __repr__(self):
+        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s)" %
+                (self.duration, self.state, self.minDur, self.maxDur, self.next))
 
 class TLSProgram:
 
@@ -100,15 +112,18 @@ class TLSProgram:
         self._offset = offset
         self._phases = []
 
-    def addPhase(self, state, duration):
-        self._phases.append((state, duration))
+    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=-1):
+        self._phases.append(Phase(duration, state, minDur, maxDur, next))
 
     def toXML(self, tlsID):
         ret = '  <tlLogic id="%s" type="%s" programID="%s" offset="%s">\n' % (
             tlsID, self._type, self._id, self._offset)
         for p in self._phases:
+            minDur = '' if p.minDur < 0 else ' minDur="%s"' % p.minDur
+            maxDur = '' if p.maxDur < 0 else ' maxDur="%s"' % p.maxDur
+            next = '' if p.next < 0 else ' next="%s"' % p.next
             ret = ret + \
-                '    <phase duration="%s" state="%s"/>\n' % (p[1], p[0])
+                '    <phase duration="%s" state="%s"%s%s%s/>\n' % (p.duration, p.state, minDur, maxDur, next)
         ret = ret + '  </tlLogic>\n'
         return ret
 
@@ -596,7 +611,11 @@ class NetReader(handler.ContentHandler):
                 attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'], self._latestProgram)
         if self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
-                attrs['state'], int(attrs['duration']))
+                attrs['state'], int(attrs['duration']),
+                    int(attrs['minDur']) if 'minDur' in attrs else -1,
+                    int(attrs['maxDur']) if 'maxDur' in attrs else -1,
+                    int(attrs['next']) if 'next' in attrs else -1
+                    )
         if name == 'roundabout':
             self._net.addRoundabout(
                 attrs['nodes'].split(), attrs['edges'].split())

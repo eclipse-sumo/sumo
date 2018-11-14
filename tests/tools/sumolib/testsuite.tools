@@ -8,3 +8,6 @@ net_short_internal
 net_roundabout
 sumolib3d
 geomhelper
+
+# parsing a network working with tlLogic
+tls
