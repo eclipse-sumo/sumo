@@ -675,7 +675,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             active = 10; // segment incline, fall back to total incline
         }
         for (GNELane* lane : myNet->retrieveLanes()) {
-            const double val = lane->getColorValue(active);
+            const double val = lane->getColorValue(s, active);
             minValue = MIN2(minValue, val);
             maxValue = MAX2(maxValue, val);
         }

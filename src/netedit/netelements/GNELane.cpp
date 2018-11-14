@@ -1068,7 +1068,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         // Get normal lane color
         const GUIColorer& c = s.laneColorer;
         if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
-            GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+            GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
         }
     }
 }
@@ -1110,7 +1110,7 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 
 
 double
-GNELane::getColorValue(int activeScheme) const {
+GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
     switch (activeScheme) {
         case 0:
@@ -1156,6 +1156,26 @@ GNELane::getColorValue(int activeScheme) const {
         case 10: {
             // color by incline
             return (getShape()[-1].z() - getShape()[0].z()) /  myParentEdge.getNBEdge()->getLength();
+        }
+        // case 11: by segment incline
+
+        case 12: {
+            // by numerical edge param value
+            try {
+                return StringUtils::toDouble(myParentEdge.getNBEdge()->getParameter(s.edgeParam, "0"));
+            } catch (NumberFormatException&) {
+                WRITE_WARNING("Edge parameter '" + myParentEdge.getNBEdge()->getParameter(s.edgeParam, "0") + "' key '" + s.edgeParam + "' is not a number for edge '" + myParentEdge.getID() + "'");
+                return 0;
+            }
+        }
+        case 13: {
+            // by numerical lane param value
+            try {
+                return StringUtils::toDouble(myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0"));
+            } catch (NumberFormatException&) {
+                WRITE_WARNING("Lane parameter '" + myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0") + "' key '" + s.laneParam + "' is not a number for lane '" + getID() + "'");
+                return 0;
+            }
         }
     }
     return 0;

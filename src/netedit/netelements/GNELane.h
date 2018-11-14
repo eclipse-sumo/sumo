@@ -207,7 +207,7 @@ public:
     void setSpecialColor(const RGBColor* Color2);
 
     /// @brief return value for lane coloring according to the given scheme
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief remove lane of Additional Parent
     void removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty);
