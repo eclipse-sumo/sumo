@@ -128,11 +128,11 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*
         myCoordinatesTextField->killFocus();
         // convert coordinates into lon-lat
         Position geoPos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
+        if (myLatLonRadioButton->getCheck() == TRUE) {
+            geoPos.swapXY();
+        }
         GeoConvHelper::getFinal().x2cartesian_const(geoPos);
         // check if GEO Position has to be swapped
-        if (myLonLatRadioButton->getCheck() == TRUE) {
-            geoPos.swap();
-        }
         // update myLabelCartesianPosition
         myLabelCartesianPosition->setText(("Cartesian equivalence:\n- X = " + toString(geoPos.x()) + "\n- Y = " + toString(geoPos.y())).c_str());
     } else {
@@ -172,16 +172,15 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
         valuesOfElement[SUMO_ATTR_ID] = myPolygonFrameParent->myViewNet->getNet()->generateShapeID(myPolygonFrameParent->myItemSelector->getCurrentTagProperties().getTag());
         // force GEO attribute to true and obain position
         valuesOfElement[SUMO_ATTR_GEO] = "true";
-        // convert coordinates into lon-lat
         Position geoPos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
-        // check if GEO Position has to be swapped
-        if (myLonLatRadioButton->getCheck() == TRUE) {
-            geoPos.swap();
+        // convert coordinates into lon-lat
+        if (myLatLonRadioButton->getCheck() == TRUE) {
+            geoPos.swapXY();
         }
+        GeoConvHelper::getFinal().x2cartesian_const(geoPos);
         valuesOfElement[SUMO_ATTR_POSITION] = toString(geoPos);
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (myPolygonFrameParent->addPOI(valuesOfElement)) {
-            WRITE_WARNING("GEO POI sucesfully created");
             // check if view has to be centered over created GEO POI
             if(myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                 // create a boundary over given GEO Position and center view over it
@@ -190,6 +189,8 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
                 centerPosition = centerPosition.grow(10);
                 myPolygonFrameParent->myViewNet->getViewParent()->getView()->centerTo(centerPosition);
             }
+        } else {
+            WRITE_WARNING("Could not create GEO POI");
         }
     }
     return 1;

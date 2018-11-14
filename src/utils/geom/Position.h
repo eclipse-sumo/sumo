@@ -272,10 +272,8 @@ public:
     Position rotateAround2D(double rad, const Position& origin);
 
     /// @brief swap position X and Y
-    void swap() {
-        double temp = myX;
-        myX = myY;
-        myY = temp;
+    void swapXY() {
+        std::swap(myX, myY);
     }
 
     /// @brief used to indicate that a position is valid
