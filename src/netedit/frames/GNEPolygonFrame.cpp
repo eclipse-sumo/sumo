@@ -69,8 +69,8 @@ GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParen
     // create RadioButtons for formats
     myLonLatRadioButton = new FXRadioButton(this, "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myLatLonRadioButton = new FXRadioButton(this, "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // set lon-lat as default
-    myLonLatRadioButton->setCheck(TRUE);
+    // set lat-lon as default
+    myLatLonRadioButton->setCheck(TRUE);
     // create text field for coordinates
     myCoordinatesTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create checkBox 
@@ -78,7 +78,7 @@ GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParen
     // create button for create GEO POIs
     myCreateGEOPOIButton = new FXButton(this, "Create GEO POI", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
-    myLabelCartesianPosition = new FXLabel(this, "Cartesian equivalence:\n X = give valid longitude\n Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
+    myLabelCartesianPosition = new FXLabel(this, "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -110,18 +110,34 @@ GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModul() {
 
 long 
 GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) {
+    // check if input contains spaces
+    std::string input = myCoordinatesTextField->getText().text();
+    std::string inputWithoutSpaces;
+    for (const auto &i : input) {
+        if (i != ' ') {
+            inputWithoutSpaces.push_back(i);
+        }
+    }
+    // if input contains spaces, call this function again, and in other case set red text color
+    if (input.size() != inputWithoutSpaces.size()) {
+        myCoordinatesTextField->setText(inputWithoutSpaces.c_str());
+    }
     // simply check if given value can be parsed to Position
     if (GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text())) {
         myCoordinatesTextField->setTextColor(FXRGB(0, 0, 0));
         myCoordinatesTextField->killFocus();
         // convert coordinates into lon-lat
-        Position pos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
-        GeoConvHelper::getFinal().x2cartesian_const(pos);
+        Position geoPos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
+        GeoConvHelper::getFinal().x2cartesian_const(geoPos);
+        // check if GEO Position has to be swapped
+        if (myLonLatRadioButton->getCheck() == TRUE) {
+            geoPos.swap();
+        }
         // update myLabelCartesianPosition
-        myLabelCartesianPosition->setText(("Cartesian equivalence:\n X = " + toString(pos.x()) + "\n Y = " + toString(pos.y())).c_str());
+        myLabelCartesianPosition->setText(("Cartesian equivalence:\n- X = " + toString(geoPos.x()) + "\n- Y = " + toString(geoPos.y())).c_str());
     } else {
         myCoordinatesTextField->setTextColor(FXRGB(255, 0, 0));
-        myLabelCartesianPosition->setText("Cartesian equivalence:\n X = give valid longitude\n Y = give valid latitude");
+        myLabelCartesianPosition->setText("Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude");
     };
     return 1;
 }
@@ -137,6 +153,8 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*)
         myLonLatRadioButton->setCheck(FALSE);
         myLatLonRadioButton->setCheck(TRUE);
     }
+    // in both cases call onCmdSetCoordinates(0,0,0) to set new cartesian equivalence
+    onCmdSetCoordinates(0,0,0);
     return 1;
 }
 
@@ -156,9 +174,8 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
         valuesOfElement[SUMO_ATTR_GEO] = "true";
         // convert coordinates into lon-lat
         Position geoPos = GNEAttributeCarrier::parse<Position>(myCoordinatesTextField->getText().text());
-        GeoConvHelper::getFinal().x2cartesian_const(geoPos);
         // check if GEO Position has to be swapped
-        if (myLatLonRadioButton->getCheck() == TRUE) {
+        if (myLonLatRadioButton->getCheck() == TRUE) {
             geoPos.swap();
         }
         valuesOfElement[SUMO_ATTR_POSITION] = toString(geoPos);

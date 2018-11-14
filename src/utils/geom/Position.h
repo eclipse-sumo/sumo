@@ -274,7 +274,7 @@ public:
     /// @brief swap position X and Y
     void swap() {
         double temp = myX;
-        myY = myX;
+        myX = myY;
         myY = temp;
     }
 
