@@ -243,6 +243,9 @@ public:
         /// @brief hide TAZ child default parameters Modul
         void hideTAZChildDefaultParametersModul();
 
+        /// @brief update "select edges button"
+        void updateSelectEdgesButton();
+
         /// @brief get default TAZSource weight
         double getDefaultTAZSourceWeight() const;
 
@@ -541,6 +544,9 @@ protected:
     
     /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Childs
     bool addOrRemoveTAZMember(GNEEdge *edge);
+
+    /// @brief drop all TAZSources and TAZ Sinks of current TAZ
+    void dropTAZMembers();
 
 private:
     /// @brief current TAZ

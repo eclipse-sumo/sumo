@@ -476,10 +476,12 @@ GNETAZFrame::TAZSaveChanges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
         // disable buttons
         mySaveChangesButton->disable();
         myCancelChangesButton->disable();
-        // abort undo liust
+        // abort undo list
         myTAZFrameParent->myViewNet->getUndoList()->p_abort();
         // always refresh TAZ Edges after removing TAZSources/Sinks
         myTAZFrameParent->myTAZCurrent->refreshTAZEdges();
+        // update use edges button
+        myTAZFrameParent->myTAZChildDefaultParameters->updateSelectEdgesButton();
     }
     return 1;
 }
@@ -510,8 +512,7 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
-    myUseSelectedEdges = new FXButton(this, "Use selected Edges", nullptr, this, MID_GNE_USE_SELECTED, GUIDesignButton);
-    myUseSelectedEdges->disable();
+    myUseSelectedEdges = new FXButton(this, "Use selected edges", nullptr, this, MID_GNE_USE_SELECTED, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
@@ -533,12 +534,8 @@ GNETAZFrame::TAZChildDefaultParameters::showTAZChildDefaultParametersModul() {
     } else {
         myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
     }
-    // check if use selected edges has to be enabled
-    if (myTAZFrameParent->myTAZCurrent->getSelectedEdges().size() > 0) {
-        myUseSelectedEdges->enable();
-    } else {
-        myUseSelectedEdges->disable();
-    }
+    // update selected button
+    updateSelectEdgesButton();
     // show modul
     show();
 }
@@ -550,6 +547,22 @@ GNETAZFrame::TAZChildDefaultParameters::hideTAZChildDefaultParametersModul() {
     myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
     // hide modul
     hide();
+}
+
+
+void 
+GNETAZFrame::TAZChildDefaultParameters::updateSelectEdgesButton() {
+    // check if use selected edges has to be enabled
+    if (myTAZFrameParent->myTAZCurrent->getSelectedEdges().size() > 0) {
+        myUseSelectedEdges->setText("Use selected edges");
+        myUseSelectedEdges->enable();
+    } else if(myTAZFrameParent->myTAZCurrent->getTAZEdges().size() > 0){
+        myUseSelectedEdges->setText("Remove all edges");
+        myUseSelectedEdges->enable();
+    } else {
+        myUseSelectedEdges->setText("Use selected edges");
+        myUseSelectedEdges->disable();
+    }
 }
 
 
@@ -592,6 +605,15 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             myInformationLabel->setText(information.str().c_str());
             // hide TAZSelectionStatistics 
             myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
+            // check if use selected edges has to be enabled
+            if (myTAZFrameParent->myTAZCurrent->getSelectedEdges().size() > 0) {
+                myUseSelectedEdges->setText("Use selected edges");
+            } else if(myTAZFrameParent->myTAZCurrent->getTAZEdges().size() > 0){
+                myUseSelectedEdges->setText("Remove all edges");
+            } else {
+                myUseSelectedEdges->setText("Use selected edges");
+                myUseSelectedEdges->disable();
+            }
         } else {
             myToggleMembership->setText("keep");
             // hide TAZSource/Sink Frames
@@ -653,13 +675,14 @@ long
 GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelector, void*) {
     // select edge or create new TAZ Source/Child, depending of myToggleMembership
     if(myToggleMembership->getCheck() == TRUE) {
-        // iterate over selected edges
+        // first drop all edges
+        myTAZFrameParent->dropTAZMembers();
+        // iterate over selected edges and add it as TAZMember
         for (const auto &i : myTAZFrameParent->myTAZCurrent->getSelectedEdges()) {
-            // check that edge isn't a TAZEdge
-            if (!myTAZFrameParent->myTAZCurrent->isTAZEdge(i)) {
-                myTAZFrameParent->addOrRemoveTAZMember(i);
-            }
+            myTAZFrameParent->addOrRemoveTAZMember(i);
         }
+        // update selected button
+        updateSelectEdgesButton();
     } else {
         myTAZFrameParent->processEdgeSelection(myTAZFrameParent->myTAZCurrent->getSelectedEdges());
     }
@@ -744,8 +767,8 @@ GNETAZFrame::TAZSelectionStatistics::unselectEdge(GNEEdge* edge) {
                 myEdgeAndTAZChildsSelected.erase(i);
                 // update button "select edges of selection
                 mySelectEdgesOfSelection->disable();
-                for (const auto &i : myEdgeAndTAZChildsSelected) {
-                    if (!i.edge->isAttributeCarrierSelected()) {
+                for (const auto &j : myEdgeAndTAZChildsSelected) {
+                    if (!j.edge->isAttributeCarrierSelected()) {
                         mySelectEdgesOfSelection->enable();
                     }
                 }
@@ -1424,9 +1447,27 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge *edge) {
         myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
         // always refresh TAZ Edges after adding TAZSources/Sinks
         myTAZCurrent->refreshTAZEdges();
+        // update selected button
+        myTAZChildDefaultParameters->updateSelectEdgesButton();
         return true;
     } else {
         throw ProcessError("Edge cannot be null");
     }
 }
+
+
+void 
+GNETAZFrame::dropTAZMembers() {
+    // iterate over all TAZEdges
+    for (const auto &i : myTAZCurrent->getTAZEdges()) {
+        // enable save changes button
+        myTAZSaveChanges->enableButtonsAndBeginUndoList();
+        // remove Source and Sinks using GNEChange_Additional
+        myViewNet->getUndoList()->add(new GNEChange_Additional(i.TAZSource, false), true);
+        myViewNet->getUndoList()->add(new GNEChange_Additional(i.TAZSink, false), true);
+    }
+     // always refresh TAZ Edges after removing TAZSources/Sinks
+    myTAZCurrent->refreshTAZEdges();
+}
+
 /****************************************************************************/
