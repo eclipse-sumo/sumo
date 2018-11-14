@@ -36,6 +36,75 @@ class GNEInspectorFrame : public GNEFrame {
     FXDECLARE(GNEInspectorFrame)
 
 public:
+    // ===========================================================================
+    // class OverlappedInspection
+    // ===========================================================================
+
+    class OverlappedInspection : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::OverlappedInspection)
+
+    public:
+        /// @brief constructor
+        OverlappedInspection(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~OverlappedInspection();
+
+        /// @brief show template editor
+        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
+
+        /// @brief hide template editor
+        void hideOverlappedInspection();
+
+        /// @brief try to go to next element if clicked position is near to saved position
+        bool nextElement(const Position &clickedPosition);
+
+        /// @brief try to go to previous element if clicked position is near to saved position
+        bool previousElement(const Position &clickedPosition);
+
+        /// @name FOX-callbacks
+        /// @{
+        
+        /// @brief Inspect next Element (from top to bot)
+        long onCmdNextElement(FXObject*, FXSelector, void*);
+
+        /// @brief Inspect previous element (from top to bot)
+        long onCmdPreviousElement(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdOverlappingHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        OverlappedInspection() {}
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief Previous element button
+        FXButton* myPreviousElement;
+
+        /// @brief label for current index
+        FXLabel* myCurrentIndexLabel;
+
+        /// @brief Next element button
+        FXButton* myNextElement;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
+
+        /// @brief objects under cursor
+        std::vector<GNEAttributeCarrier*> myOverlappedACs;
+
+        /// @brief current index item
+        size_t myItemIndex;
+
+        /// @brief saved clicked position
+        Position mySavedClickedPosition;
+    };
 
     // ===========================================================================
     // class AttributesEditor
@@ -373,73 +442,6 @@ public:
         GNEEdge* myEdgeTemplate;
     };
 
-    // ===========================================================================
-    // class OverlappedInspection
-    // ===========================================================================
-
-    class OverlappedInspection : private FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::OverlappedInspection)
-
-    public:
-        /// @brief constructor
-        OverlappedInspection(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief destructor
-        ~OverlappedInspection();
-
-        /// @brief show template editor
-        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
-
-        /// @brief hide template editor
-        void hideOverlappedInspection();
-
-        /// @brief try to go to next element if clicked position is near to saved position
-        bool nextElement(const Position &clickedPosition);
-
-        /// @brief try to go to previous element if clicked position is near to saved position
-        bool previousElement(const Position &clickedPosition);
-
-        /// @name FOX-callbacks
-        /// @{
-        
-        /// @brief Inspect next Element (from top to bot)
-        long onCmdNextElement(FXObject*, FXSelector, void*);
-
-        /// @brief Inspect previous element (from top to bot)
-        long onCmdPreviousElement(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        OverlappedInspection() {}
-
-    private:
-        /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief Label with the current inspected item
-        FXLabel* myCurrentItem;
-
-        /// @brief Previous element button
-        FXButton* myPreviousElement;
-
-        /// @brief label for current index
-        FXLabel* myCurrentIndexLabel;
-
-        /// @brief Next element button
-        FXButton* myNextElement;
-
-        /// @brief objects under cursor
-        std::vector<GNEAttributeCarrier*> myOverlappedACs;
-
-        /// @brief current index item
-        size_t myItemIndex;
-
-        /// @brief saved clicked position
-        Position mySavedClickedPosition;
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -504,6 +506,9 @@ protected:
     void inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
 
 private:
+    /// @brief Overlapped Inspection
+    OverlappedInspection* myOverlappedInspection;
+
     /// @brief Attribute editor
     AttributesEditor* myAttributesEditor;
 
@@ -521,9 +526,6 @@ private:
 
     /// @brief Attribute Carrier Hierarchy
     GNEFrame::ACHierarchy* myACHierarchy;
-
-    /// @brief Overlapped Inspection
-    OverlappedInspection* myOverlappedInspection;
 
     /// @brief back Button
     FXButton* myBackButton;

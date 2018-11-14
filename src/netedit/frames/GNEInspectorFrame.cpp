@@ -59,9 +59,14 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_GOBACK,          GNEInspectorFrame::onCmdGoBack),
+FXDEFMAP(GNEInspectorFrame::OverlappedInspection) OverlappedInspectionMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_NEXT,        GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,    GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp),
+};
 
+FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_GOBACK,  GNEInspectorFrame::onCmdGoBack),
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor::AttributeInput) AttributeInputMap[] = {
@@ -89,20 +94,15 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
 };
 
-FXDEFMAP(GNEInspectorFrame::OverlappedInspection) OverlappedInspectionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_NEXT,        GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,    GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
-};
-
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                                      FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::OverlappedInspection,                FXGroupBox,         OverlappedInspectionMap,    ARRAYNUMBER(OverlappedInspectionMap))
 FXIMPLEMENT(GNEInspectorFrame::AttributesEditor::AttributeInput,    FXHorizontalFrame,  AttributeInputMap,          ARRAYNUMBER(AttributeInputMap))
 FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,                    FXGroupBox,         AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,             FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,                 FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,                      FXGroupBox,         TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::OverlappedInspection,                FXGroupBox,         OverlappedInspectionMap,    ARRAYNUMBER(OverlappedInspectionMap))
 
 
 // ===========================================================================
@@ -119,6 +119,9 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myHeaderLeftFrame->hide();
     myBackButton->hide();
 
+    // Create Overlapped Inspection modul   
+    myOverlappedInspection = new OverlappedInspection(this);
+
     // Create Attributes Editor modul
     myAttributesEditor = new AttributesEditor(this);
 
@@ -133,9 +136,6 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
 
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
-
-    // Create Overlapped Inspection modul
-    myOverlappedInspection = new OverlappedInspection(this);
 
     // Create ACHierarchy modul
     myACHierarchy = new GNEFrame::ACHierarchy(this);
@@ -380,9 +380,156 @@ GNEInspectorFrame::getInspectedACs() const {
     return myInspectedACs;
 }
 
-// ===========================================================================
-// GNEInspectorFrame::AttributesEditor::AttributeInput method definitions
-// ===========================================================================
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame::OverlappedInspection - methods
+// ---------------------------------------------------------------------------
+
+GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Overlapped elements", GUIDesignGroupBoxFrame),
+    myInspectorFrameParent(inspectorFrameParent),
+    myItemIndex(0) {
+    FXHorizontalFrame *frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // Create previous Item Button
+    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButtonIconRectangular);
+    myCurrentIndexLabel = new FXLabel(frameButtons, "", nullptr, GUIDesignLabelCenterThick);
+    // Create next Item Button
+    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
+    // Create help button
+    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+}
+
+
+GNEInspectorFrame::OverlappedInspection::~OverlappedInspection() {}
+
+
+void
+GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
+    myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
+    mySavedClickedPosition = clickedPosition;
+    myItemIndex = 0;
+    myCurrentIndexLabel->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
+    // show template editor
+    show();
+}
+
+
+void
+GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
+    // hide template editor
+    hide();
+}
+
+
+bool 
+GNEInspectorFrame::OverlappedInspection::nextElement(const Position &clickedPosition) {
+    // first check if OverlappedInspection is shown
+    if(shown()) {
+        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
+            // inspect next element
+            onCmdNextElement(0,0,0);
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEInspectorFrame::OverlappedInspection::previousElement(const Position &clickedPosition) {
+    // first check if OverlappedInspection is shown
+    if(shown()) {
+        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
+            // inspect previousElement
+            onCmdPreviousElement(0,0,0);
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
+    // set index (it works as a ring)
+    if(myItemIndex > 0) {
+        myItemIndex--;
+    } else {
+        myItemIndex = (myOverlappedACs.size() - 1);
+    }
+    // change current inspected item
+    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex)); 
+    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
+    show();
+    // update current label
+    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
+    // update view (due dotted contour)
+    myInspectorFrameParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
+    FXDialogBox* helpDialog = new FXDialogBox(this, "GEO attributes Help", GUIDesignDialogBox);
+    std::ostringstream help;
+    help
+        << " - Click in the same position\n"
+        << "   for inspect next element\n"
+        << " - Shift + Click in the same\n"
+        << "   position for inspect\n"
+        << "   previous element";
+    new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
+    // "OK"
+    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    helpDialog->create();
+    helpDialog->show();
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+    // set index (it works as a ring)
+    if(myItemIndex < (myOverlappedACs.size()-1)) {
+        myItemIndex++;
+    } else {
+        myItemIndex = 0;
+    }
+    // change current inspected item
+    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
+    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
+    show();
+    // update current label
+    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
+    // update view (due dotted contour)
+    myInspectorFrameParent->getViewNet()->update();
+    return 1;
+}
+
+
+void 
+GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
+    if(objectsUnderCursor.getAttributeCarrierFront()) {
+        // inspect front element
+        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
+        // if element has overlapped elements, show Overlapped Inspection modul
+        if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
+            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+        } else {
+            myOverlappedInspection->hideOverlappedInspection();
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame::AttributesEditor::AttributeInput - methods
+// ---------------------------------------------------------------------------
 
 GNEInspectorFrame::AttributesEditor::AttributeInput::AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
@@ -844,9 +991,9 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::disableAttributeInputElemen
     myBoolCheckButton->disable();
 }
 
-// ===========================================================================
-// GNEInspectorFrame::AttributesEditor method definitions
-// ===========================================================================
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame::AttributesEditor - methods
+// ---------------------------------------------------------------------------
 
 GNEInspectorFrame::AttributesEditor::AttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
@@ -994,9 +1141,9 @@ GNEInspectorFrame::AttributesEditor::onCmdAttributeHelp(FXObject*, FXSelector, v
     return 1;
 }
 
-// ===========================================================================
-// GNEInspectorFrame::NeteditAttributesEditor method definitions
-// ===========================================================================
+// ---------------------------------------------------------------------------
+// GNEInspectorFrame::NeteditAttributesEditor - methods
+// ---------------------------------------------------------------------------
 
 GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
@@ -1420,12 +1567,12 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelec
     FXDialogBox* helpDialog = new FXDialogBox(this, "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
-            << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-            << " For a GEO-referenced network, geo coordinates are represented as pairs of Longitude and Latitude\n"
-            << " in decimal degrees without extra symbols. (N,W..)\n"
-            << " - Longitude: East-west position of a point on the Earth's surface.\n"
-            << " - Latitude: North-south position of a point on the Earth's surface.\n"
-            << " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n";
+        << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
+        << " For a GEO-referenced network, geo coordinates are represented as pairs of Longitude and Latitude\n"
+        << " in decimal degrees without extra symbols. (N,W..)\n"
+        << " - Longitude: East-west position of a point on the Earth's surface.\n"
+        << " - Latitude: North-south position of a point on the Earth's surface.\n"
+        << " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n";
     new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
@@ -1548,145 +1695,6 @@ GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate(FXObject* sender, FXSelecto
     }
     sender->handle(this, FXSEL(SEL_COMMAND, FXLabel::ID_SETSTRINGVALUE), (void*)&caption);
     return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEInspectorFrame::OverlappedInspection - methods
-// ---------------------------------------------------------------------------
-
-GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Overlapped elements", GUIDesignGroupBoxFrame),
-    myInspectorFrameParent(inspectorFrameParent),
-    myItemIndex(0) {
-    // Create label for current item
-    myCurrentItem = new FXLabel(this, "currentItemID", nullptr, GUIDesignLabelCenterThick);
-    FXHorizontalFrame *frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // Create previous Item Button
-    myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButtonIconRectangular);
-    myCurrentIndexLabel = new FXLabel(frameButtons, "", nullptr, GUIDesignLabelCenterThick);
-    // Create next Item Button
-    myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
-    // create information label
-    std::ostringstream information;
-    information
-            << " - Click in the same position\n"
-            << "   for inspect next element\n"
-            << " - Shift + Click in the same\n"
-            << "   position for inspect\n"
-            << "   previous element";
-    new FXLabel(this, information.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
-}
-
-
-GNEInspectorFrame::OverlappedInspection::~OverlappedInspection() {}
-
-
-void
-GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
-    myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
-    mySavedClickedPosition = clickedPosition;
-    myCurrentItem->setText(objectsUnderCursor.getAttributeCarrierFront()->getID().c_str());
-    myItemIndex = 0;
-    myCurrentIndexLabel->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
-    // show template editor
-    show();
-}
-
-
-void
-GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
-    // hide template editor
-    hide();
-}
-
-
-bool 
-GNEInspectorFrame::OverlappedInspection::nextElement(const Position &clickedPosition) {
-    // first check if OverlappedInspection is shown
-    if(shown()) {
-        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
-            // inspect next element
-            onCmdNextElement(0,0,0);
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-
-bool 
-GNEInspectorFrame::OverlappedInspection::previousElement(const Position &clickedPosition) {
-    // first check if OverlappedInspection is shown
-    if(shown()) {
-        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
-            // inspect previousElement
-            onCmdPreviousElement(0,0,0);
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-
-long
-GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
-    // set index (it works as a ring)
-    if(myItemIndex > 0) {
-        myItemIndex--;
-    } else {
-        myItemIndex = (myOverlappedACs.size() - 1);
-    }
-    // change current item
-    myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
-    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex)); 
-    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
-    show();
-    // update current label
-    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
-    // update view (due dotted contour)
-    myInspectorFrameParent->getViewNet()->update();
-    return 1;
-}
-
-
-long
-GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
-    // set index (it works as a ring)
-    if(myItemIndex < (myOverlappedACs.size()-1)) {
-        myItemIndex++;
-    } else {
-        myItemIndex = 0;
-    }
-    myCurrentItem->setText(myOverlappedACs.at(myItemIndex)->getID().c_str());
-    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
-    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
-    show();
-    // update current label
-    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
-    // update view (due dotted contour)
-    myInspectorFrameParent->getViewNet()->update();
-    return 1;
-}
-
-
-void 
-GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
-    if(objectsUnderCursor.getAttributeCarrierFront()) {
-        // inspect front element
-        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
-        // if element has overlapped elements, show Overlapped Inspection modul
-        if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
-            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
-        } else {
-            myOverlappedInspection->hideOverlappedInspection();
-        }
-    }
 }
 
 /****************************************************************************/
