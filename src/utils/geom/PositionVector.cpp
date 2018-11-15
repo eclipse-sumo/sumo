@@ -1169,6 +1169,19 @@ PositionVector::isClosed() const {
 }
 
 
+bool 
+PositionVector::isNAN() const {
+    // iterate over all positions and check if is NAN
+    for (auto i = begin(); i != end(); i++) {
+        if (i->isNAN()) {
+            return true;
+        }
+    }
+    // all ok, then return false
+    return false;
+}
+
+
 void
 PositionVector::removeDoublePoints(double minDist, bool assertLength) {
     if (size() > 1) {

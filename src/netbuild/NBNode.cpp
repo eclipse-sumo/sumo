@@ -2390,8 +2390,14 @@ NBNode::buildCrossings() {
             crossingEnd.shape.move2side(endDir * crossingEnd.width / 2);
             crossingBeg.shape.extrapolate(c->width / 2);
             crossingEnd.shape.extrapolate(c->width / 2);
-            c->shape.push_back(crossingBeg.shape[begDir == FORWARD ? 0 : -1]);
-            c->shape.push_back(crossingEnd.shape[endDir == FORWARD ? -1 : 0]);
+            // check if after all changes shape are NAN (in these case, discard)
+            if (crossingBeg.shape.isNAN() || crossingEnd.shape.isNAN()) {
+                WRITE_WARNING("Discarding invalid crossing '" + c->id + "' at junction '" + getID() + "' with edges '" + toString(c->edges) + "' (Invalid shape).");
+                c->valid = false;
+            } else {
+                c->shape.push_back(crossingBeg.shape[begDir == FORWARD ? 0 : -1]);
+                c->shape.push_back(crossingEnd.shape[endDir == FORWARD ? -1 : 0]);
+            }
         }
     }
     return index;

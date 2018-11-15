@@ -275,6 +275,11 @@ public:
     void swapXY() {
         std::swap(myX, myY);
     }
+    
+    /// @brief check if position is NAN
+    bool isNAN() const {
+        return (std::isnan(myX) || std::isnan(myY) || std::isnan(myZ));
+    }
 
     /// @brief used to indicate that a position is valid
     static const Position INVALID;
