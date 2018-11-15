@@ -184,11 +184,14 @@ class Edge:
                 self._shape3D.append(
                     (x / float(numLanes), y / float(numLanes), z / float(numLanes)))
 
-        self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
+        if self._function in ["crossing", "walkingarea"]:
+            self._shapeWithJunctions3D = self._shape3D
+            self._rawShape3D = self._shape3D
+        else:
+            self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
                                                     self._from.getCoord3D(), self._to.getCoord3D())
-
-        if self._rawShape3D == []:
-            self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
+            if self._rawShape3D == []:
+                self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 
         # 2d - versions
         self._shape = [(x, y) for x, y, z in self._shape3D]
