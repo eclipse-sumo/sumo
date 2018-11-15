@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  6 14:15:32 2018 by Eclipse SUMO Version v1_0_1+0549-27d185b
+<!-- generated on Thu Nov 15 10:40:36 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -287,6 +287,9 @@
 
         <!-- Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2 -->
         <default.emergencydecel value="default" type="STR"/>
+
+        <!-- Sets the fraction of emergency decel capability that must be used to trigger a warning. -->
+        <emergencydecel.warning-threshold value="1" type="FLOAT"/>
 
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>

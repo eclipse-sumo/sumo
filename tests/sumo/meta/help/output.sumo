@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_1+0549-27d185b
+Eclipse SUMO Version v1_0_1+0645-93703db
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -199,6 +199,9 @@ Processing Options:
                                          the deceleration value, a vClass-class
                                          specific default or the given FLOAT in
                                          m/s^2
+  --emergencydecel.warning-threshold FLOAT  Sets the fraction of emergency
+                                         decel capability that must be used to
+                                         trigger a warning.
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping',
                                          'remote']

@@ -1,2 +1,3 @@
+Warning: Vehicle 'follower' performs emergency braking with decel=-4.50 wished=2.00 severity=1.00, time=5.00.
 Warning: Teleporting vehicle 'follower2'; collision with vehicle 'follower', lane='end3_0', gap=-6.30, time=8.00 stage=move.
 Warning: Vehicle 'follower2' teleports beyond arrival edge 'end3', time 8.00.

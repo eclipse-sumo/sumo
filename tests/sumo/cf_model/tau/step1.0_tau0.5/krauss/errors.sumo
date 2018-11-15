@@ -1,2 +1,4 @@
 Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
 Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Vehicle 'follower' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=39.00.
+Warning: Vehicle 'follower' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=41.00.

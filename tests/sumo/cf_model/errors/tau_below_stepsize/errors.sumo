@@ -1,3 +1,5 @@
 Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Vehicle 'follower' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=56.00.
+Warning: Vehicle 'follower' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=58.00.
 Warning: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='end_0', gap=-0.96, time=59.00 stage=move.
 Warning: Vehicle 'follower' ends teleporting on edge 'rend', time 59.00.
