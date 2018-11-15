@@ -368,9 +368,6 @@ public:
         /// @brief textField for TAZ Sink weight
         FXTextField* myTextFieldTAZSinkWeight;
 
-        /// @brief button for select edges of current selection
-        FXButton *mySelectEdgesOfSelection;
-
         /// @brief Statistics labels
         FXLabel *myStatisticsLabel;
 
