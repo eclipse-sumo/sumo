@@ -267,6 +267,8 @@ void
 GNEViewNet::ObjectsUnderCursor::setCreatedJunction(GNEJunction* junction) {
     if (myJunctions.size() > 0) {
         myJunctions.front() = junction;
+    } else {
+        myJunctions.push_back(junction);
     }
 }
 
@@ -1009,7 +1011,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     if (!myUndoList->hasCommandGroup()) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
-                    if (myObjectsUnderCursor.getJunctionFront()) {
+                    if (!myObjectsUnderCursor.getJunctionFront()) {
                         myObjectsUnderCursor.setCreatedJunction(myNet->createJunction(snapToActiveGrid(getPositionInformation()), myUndoList));
                     }
                     if (myCreateEdgeSource == nullptr) {
