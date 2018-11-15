@@ -633,7 +633,9 @@ GNEViewNet::openObjectDialog() {
         int id = getObjectUnderCursor();
         GUIGlObject* o = nullptr;
         // we need to check if we're inspecting a overlapping element
-        if(myViewParent->getInspectorFrame()->getInspectedACs().size() > 0) {
+        if(myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
+            myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
+            myViewParent->getInspectorFrame()->getInspectedACs().size() > 0) {
             o = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getInspectedACs().front());
         } else if (id != 0) {
             o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);

@@ -57,6 +57,12 @@ public:
         /// @brief hide template editor
         void hideOverlappedInspection();
 
+        /// @brief check if overlappedInspection modul is shown
+        bool overlappedInspectionShown() const;
+
+        /// @brief check if given position is near to saved position
+        bool checkSavedPosition(const Position &clickedPosition) const;
+
         /// @brief try to go to next element if clicked position is near to saved position
         bool nextElement(const Position &clickedPosition);
 
@@ -487,6 +493,9 @@ public:
 
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
+
+    /// @brief get OverlappedInspection modul
+    OverlappedInspection* getOverlappedInspection() const;
 
     /// @name FOX-callbacks
     /// @{

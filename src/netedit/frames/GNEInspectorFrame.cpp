@@ -359,6 +359,12 @@ GNEInspectorFrame::getTemplateEditor() const {
 }
 
 
+GNEInspectorFrame::OverlappedInspection* 
+GNEInspectorFrame::getOverlappedInspection() const {
+    return myOverlappedInspection;
+}
+
+
 long
 GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
     // Inspect previous element or go back to Delete Frame
@@ -420,11 +426,23 @@ GNEInspectorFrame::OverlappedInspection::hideOverlappedInspection() {
 }
 
 
+bool
+GNEInspectorFrame::OverlappedInspection::overlappedInspectionShown() const {
+    return shown();
+}
+
+
+bool
+GNEInspectorFrame::OverlappedInspection::checkSavedPosition(const Position &clickedPosition) const {
+    return (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25);
+}
+
 bool 
 GNEInspectorFrame::OverlappedInspection::nextElement(const Position &clickedPosition) {
     // first check if OverlappedInspection is shown
     if(shown()) {
-        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
+        // check if given position is near saved position
+        if (checkSavedPosition(clickedPosition)) {
             // inspect next element
             onCmdNextElement(0,0,0);
             return true;
@@ -441,7 +459,8 @@ bool
 GNEInspectorFrame::OverlappedInspection::previousElement(const Position &clickedPosition) {
     // first check if OverlappedInspection is shown
     if(shown()) {
-        if (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25) {
+        // check if given position is near saved position
+        if (checkSavedPosition(clickedPosition)) {
             // inspect previousElement
             onCmdPreviousElement(0,0,0);
             return true;
