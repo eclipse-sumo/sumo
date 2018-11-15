@@ -93,7 +93,8 @@ modetaz.xpm \
 modetrafficlight.xpm \
 netedit_icon16.xpm \
 netedit_icon64.xpm \
-neteditarrow.xpm \
+neteditarrowleft.xpm \
+neteditarrowright.xpm \
 netopen.xpm \
 new_window.xpm \
 no.xpm \
