@@ -181,6 +181,7 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
     myTAZs.clear();
     myPOIs.clear();
     myPolys.clear();
+    myLaneIndex.clear();
     // set event
     myEventInfo = ev;
     // set GUIGlObject
@@ -255,6 +256,7 @@ void
 GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
     // iterate over all lanes
     for (int i = 0; i < (int)myLanes.size(); i++) {
+        myLaneIndex.push_back(myLanes.at(i)->getIndex());
         myEdges.push_back(&myLanes.at(i)->getParentEdge());
         myNetElements.at(i) = myEdges.back();
         myAttributeCarriers.at(i) = myEdges.back();
@@ -436,6 +438,21 @@ GNEViewNet::ObjectsUnderCursor::getPolyFront() const {
 const std::vector<GNEAttributeCarrier*> &
 GNEViewNet::ObjectsUnderCursor::getClickedAttributeCarriers() const {
     return myAttributeCarriers;
+}
+
+
+int 
+GNEViewNet::ObjectsUnderCursor::getLaneIndex(GNEEdge *edgeParent) const {
+    if(myLaneIndex.empty() || (myEdges.size() != myLaneIndex.size())) {
+        return 0;
+    } else {
+        for (int i = 0; i < (int)myEdges.size(); i++) {
+            if(myEdges.at(i) == edgeParent) {
+                return myLaneIndex.at(i);
+            }
+        }
+        return 0;
+    }
 }
 
 
@@ -638,7 +655,14 @@ GNEViewNet::openObjectDialog() {
         if(myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
             myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
             myViewParent->getInspectorFrame()->getInspectedACs().size() > 0) {
-            o = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getInspectedACs().front());
+            // obtain inspected AC
+            GNEAttributeCarrier *AC = myViewParent->getInspectorFrame()->getInspectedACs().front();
+            // if AC is an Edge, obtain their lane parent
+            if(AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                GNEEdge *edge = dynamic_cast<GNEEdge*>(AC);
+                AC = edge->getLanes().at(myObjectsUnderCursor.getLaneIndex(edge));
+            }
+            o = dynamic_cast<GUIGlObject*>(AC);
         } else if (id != 0) {
             o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         } else {
