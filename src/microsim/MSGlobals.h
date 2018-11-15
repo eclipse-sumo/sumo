@@ -120,6 +120,9 @@ public:
     /// whether the simulationLoop is in the lane changing phase
     static bool gComputeLC;
 
+    /// treshold for warning about strong deceleration
+    static double gEmergencyDecelWarningThreshold;
+
 };
 
 

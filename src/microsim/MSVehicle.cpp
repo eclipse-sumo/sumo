@@ -3507,6 +3507,25 @@ MSVehicle::updateState(double vNext) {
                   << " pos=" << myState.myPos << " newPos=" << myState.myPos + deltaPos << std::endl;
     }
 #endif
+    double decelPlus = -myAcceleration - getCarFollowModel().getMaxDecel() - NUMERICAL_EPS;
+    if (decelPlus > 0) {
+        const double previousAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+        if (myAcceleration + NUMERICAL_EPS < previousAcceleration) {
+            // vehicle brakes beyond wished maximum deceleration (only warn at the start of the braking manoeuvre)
+            decelPlus += 2 * NUMERICAL_EPS;
+            const double emergencyFraction = decelPlus / MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel());
+            if (emergencyFraction >= MSGlobals::gEmergencyDecelWarningThreshold) {
+                WRITE_WARNING("Vehicle '" + getID() 
+                        + "' performs emergency braking with decel=" + toString(myAcceleration) 
+                        + " wished=" + toString(getCarFollowModel().getMaxDecel()) 
+                        + " severity=" + toString(emergencyFraction) 
+                        //+ " decelPlus=" + toString(decelPlus) 
+                        //+ " prevAccel=" + toString(previousAcceleration) 
+                        //+ " reserve=" + toString(MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel())) 
+                        + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            }
+        }
+    }
 
     myState.myPreviousSpeed = myState.mySpeed;
     myState.mySpeed = MAX2(vNext, 0.);

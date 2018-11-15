@@ -337,6 +337,9 @@ MSFrame::fillOptions() {
     oc.doRegister("default.emergencydecel", new Option_String("default"));
     oc.addDescription("default.emergencydecel", "Processing", "Select default emergencyDecel value among ('decel', 'default', FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
 
+    oc.doRegister("emergencydecel.warning-threshold", new Option_Float(1));
+    oc.addDescription("emergencydecel.warning-threshold", "Processing", "Sets the fraction of emergency decel capability that must be used to trigger a warning.");
+
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", "Select among pedestrian models ['nonInteracting', 'striping', 'remote']");
@@ -681,6 +684,8 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         // value already checked in checkOptions()
         MSGlobals::gDefaultEmergencyDecel = StringUtils::toDouble(defaultEmergencyDecelOption);
     }
+
+    MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
