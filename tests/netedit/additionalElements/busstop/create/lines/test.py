@@ -44,9 +44,6 @@ netedit.redo(referencePosition, 1)
 # save additionals
 netedit.saveAdditionals()
 
-# Fix stopping places position
-netedit.fixStoppingPlace("fixPositions")
-
 # save network
 netedit.saveNetwork()
 

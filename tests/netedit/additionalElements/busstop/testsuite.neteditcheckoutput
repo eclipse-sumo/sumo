@@ -8,11 +8,11 @@ delete
 # inspect additional
 inspect
 
-# inspect additional generic parameters
-inspect_generic
-
 # inspect selection
 inspect_selection
+
+# load additional
+load
 
 # lock/unlock additional
 lock_unlock

@@ -8,9 +8,6 @@ delete
 # inspect additional
 inspect
 
-# inspect additional generic parameters
-inspect_generic
-
 # inspect selection
 inspect_selection
 
