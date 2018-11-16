@@ -1,0 +1,2 @@
+Warning: Essential unique string attribute 'lane' of containerStop with ID 'containerStop_01' is missing; containerStop cannot be created
+Warning: The lane 'dummyLane' to use within the containerStop 'containerStop_02' is not known.
