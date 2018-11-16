@@ -14,12 +14,6 @@ inspect_generic
 # inspect selection
 inspect_selection
 
-# inspect selection additional generic parameters
-inspect_selection_generic
-
-# load additionals with generic parameters
-load_genericparameters
-
 # lock/unlock additional
 lock_unlock
 
