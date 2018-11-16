@@ -2263,13 +2263,13 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(&veh)) {
                     std::cout << "      linkLeader candidate " << Named::getIDSecure(lVeh)
-                              << " isLeader=" << ((*link)->isLeader(&veh, lVeh, false))
+                              << " isLeader=" << veh.isLeader(*link, lVeh)
                               << " gap=" << ll.vehAndGap.second
                               << " gap+brakeing=" << gap
                               << "\n";
                 }
 #endif
-                if (lVeh != nullptr && !(*link)->isLeader(&veh, lVeh, false)) {
+                if (lVeh != nullptr && !veh.isLeader(*link, lVeh)) {
                     continue;
                 }
                 if (gap < shortestGap) {
@@ -3071,7 +3071,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
         if (linkLeaders.size() > 0) {
             const MSLink::LinkLeader ll = linkLeaders[0];
-            if (ll.vehAndGap.first != 0 && (*link)->isLeader(ego, ll.vehAndGap.first)) {
+            if (ll.vehAndGap.first != 0 && ego->isLeader(*link, ll.vehAndGap.first)) {
                 // add link leader to all sublanes and return
                 for (int i = 0; i < result.numSublanes(); ++i) {
                     MSVehicle* veh = ll.vehAndGap.first;

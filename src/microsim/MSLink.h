@@ -447,17 +447,17 @@ public:
     /// @brief write information about all approaching vehicles to the given output device
     void writeApproaching(OutputDevice& od, const std::string fromLaneID) const;
 
-    /// @brief erase vehicle from myLinkLeaders of this links junction
-    void passedJunction(const MSVehicle* vehicle) const;
-
     /// @brief return the link that is parallel to this lane or 0
     MSLink* getParallelLink(int direction) const;
 
-    //// @brief @return whether the foe vehicle is a leader for ego
-    bool isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader = true) const;
-
     /// @brief return whether the fromLane of this link is an internal lane
     bool fromInternalLane() const;
+
+    /// @brief return whether the toLane of this link is an internal lane and fromLane is a normal lane
+    bool isEntryLink() const;
+
+    /// @brief return whether this link enters the conflict area (not a continuation link)
+    bool isConflictEntryLink() const;
 
     /// @brief return whether the fromLane of this link is an internal lane and toLane is a normal lane
     bool isExitLink() const;

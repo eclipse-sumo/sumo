@@ -1651,6 +1651,9 @@ public:
     /// @brief get a numerical value for the priority of the  upcoming link
     static int nextLinkPriority(const std::vector<MSLane*>& conts);
 
+    /// @brief whether the given vehicle must be followed at the given junction
+    bool isLeader(const MSLink* link, const MSVehicle* veh) const; 
+
     /// @name state io
     //@{
 
@@ -1849,6 +1852,10 @@ protected:
     SUMOTime myCollisionImmunity;
 
     mutable Position myCachedPosition;
+
+    /// @brief time at which the current junction was entered
+    SUMOTime myJunctionEntryTime;
+    SUMOTime myJunctionConflictEntryTime;
 
 protected:
 
