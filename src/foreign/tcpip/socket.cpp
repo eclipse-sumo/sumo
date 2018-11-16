@@ -112,6 +112,36 @@ namespace tcpip
 #endif
 	}
 
+
+    int
+        Socket::
+        getFreeSocketPort()
+    {
+        // Create socket to find a random free port that can be handed to the app
+        int sock = static_cast<int>(socket( AF_INET, SOCK_STREAM, 0 ));
+        struct sockaddr_in self;
+        memset(&self, 0, sizeof(self));
+        self.sin_family = AF_INET;
+        self.sin_port = htons(0);
+        self.sin_addr.s_addr = htonl(INADDR_ANY);
+
+        socklen_t address_len = sizeof(self);
+        // bind with port==0 assigns free port
+        if ( bind(sock, (struct sockaddr*) &self, address_len) < 0)
+            BailOnSocketError("tcpip::Socket::getFreeSocketPort() Unable to bind socket");
+        // get the assigned port with getsockname
+        if ( getsockname(sock, (struct sockaddr*) &self, &address_len) < 0)
+            BailOnSocketError("tcpip::Socket::getFreeSocketPort() Unable to get socket name");
+        const int port = ntohs(self.sin_port);
+#ifdef WIN32
+        ::closesocket( sock );
+#else
+        ::close( sock );
+#endif
+        return port;
+    }
+
+
 	// ----------------------------------------------------------------------
 	Socket::
 		~Socket()
@@ -144,7 +174,7 @@ namespace tcpip
 	// ----------------------------------------------------------------------
 	void 
 		Socket::
-		BailOnSocketError( std::string context) const
+		BailOnSocketError( std::string context)
 	{
 #ifdef WIN32
 		int e = WSAGetLastError();
