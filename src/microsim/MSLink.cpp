@@ -59,6 +59,9 @@ const double MSLink::ZIPPER_ADAPT_DIST(100);
 // the default safety gap when passing before oncoming pedestrians
 #define JM_CROSSING_GAP_DEFAULT 10
 
+// minimim width between sibling lanes to qualify as non-overlapping
+#define DIVERGENCE_MIN_WIDTH 2.5
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -224,7 +227,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         for (const MSLink* const it : pred->getLinkCont()) {
             const MSLane* sibling = it->getViaLane();
             if (sibling != lane && sibling != nullptr) {
-                const double minDist = 0.5 * (lane->getWidth() + sibling->getWidth());
+                const double minDist = MIN2(DIVERGENCE_MIN_WIDTH, 0.5 * (lane->getWidth() + sibling->getWidth()));
                 const PositionVector& l = lane->getShape();
                 const PositionVector& s = sibling->getShape();
                 if (l.front().distanceTo2D(s.front()) >= minDist) {
@@ -1028,13 +1031,13 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         }
                         gap = distToCrossing - ego->getVehicleType().getMinGap() - ((sameTarget || sameSource) ? leaderBackDist : 0);
                     }
-                    if (gDebugFlag1) {
-                        std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << "\n";
-                    }
                     // if the foe is already moving off the intersection, we may
                     // advance up to the crossing point unless we have the same target or same source
                     // (for sameSource, the crossing point indicates the point of divergence)
                     const bool stopAsap = leader->isFrontOnLane(foeLane) ? cannotIgnore : (sameTarget || sameSource);
+                    if (gDebugFlag1) {
+                        std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << " stopAsap=" << stopAsap << "\n";
+                    }
                     result.push_back(LinkLeader(leader, gap, stopAsap ? -1 : distToCrossing, fromLeft));
                 }
 
