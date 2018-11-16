@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # apply zoom
 netedit.setZoom("25", "0", "25")
@@ -51,7 +51,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 46, 181)
 
 # Change block movement
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(10)
 
 # go to move mode
 netedit.moveMode()
@@ -66,7 +66,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 46, 181)
 
 # Change block movement
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(10)
 
 # go to move mode
 netedit.moveMode()
