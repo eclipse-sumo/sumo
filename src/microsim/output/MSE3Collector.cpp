@@ -93,8 +93,9 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
 bool
 MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, double, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
-        WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
-        myCollector.myEnteredContainer.erase(&veh);
+        if (myCollector.myEnteredContainer.erase(&veh) > 0) {
+            WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+        }
         return false;
     }
     return true;
@@ -178,6 +179,12 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOVehicle&  veh , double /* last
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
         WRITE_WARNING("Vehicle '" + veh.getID() + "' teleported from " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
         myCollector.myEnteredContainer.erase(&veh);
+        return false;
+    }
+    if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
+        if (myCollector.myEnteredContainer.erase(&veh) > 0) {
+            WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+        }
         return false;
     }
     return true;
