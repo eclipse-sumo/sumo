@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 12 12:27:45 2018 by Eclipse SUMO netgenerate Version v1_0_1+0619-4934d00
+<!-- generated on Sun Nov 18 21:18:35 2018 by Eclipse SUMO netgenerate Version eeef47f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -110,7 +110,7 @@
         <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
-        <tls.guess.threshold value="41.6667" type="FLOAT" help="Sets minimum value for the sum of all incoming lane speeds when guessing TLS"/>
+        <tls.guess.threshold value="69.4444" type="FLOAT" help="Sets minimum value for the sum of all incoming lane speeds when guessing TLS"/>
         <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
