@@ -46,7 +46,7 @@
 #define DEBUG_COND (veh->isSelected())
 //#define DEBUG_COND (veh->getID() == "follower")
 //#define DEBUG_COND2 (SIMTIME == 176)
-//#define DEBUG_COND2 (gDebugFlag1)
+#define DEBUG_COND2 (gDebugFlag1)
 
 
 
@@ -898,18 +898,19 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
             }
 #endif
 
-            const double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
+            double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
             // Don't be riskier than the usual method (myDecel <= safeDecel may occur, because a headway>0 is used above)
-            x = egoSpeed - ACCEL2SPEED(MAX2(safeDecel, myDecel));
+            safeDecel = MAX2(safeDecel, myDecel);
+            // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
+            safeDecel = MIN2(safeDecel, origSafeDecel);
+            x = egoSpeed - ACCEL2SPEED(safeDecel);
             if (MSGlobals::gSemiImplicitEulerUpdate) {
                 x = MAX2(x, 0.);
             }
-            // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
-            x = MIN2(origSafeDecel, x);
 
 #ifdef DEBUG_EMERGENCYDECEL
             if (DEBUG_COND2) {
-                std::cout << "     -> corrected emergency deceleration: " << safeDecel << std::endl;
+                std::cout << "     -> corrected emergency deceleration: " << safeDecel << " newVSafe=" << x << std::endl;
             }
 #endif
 
