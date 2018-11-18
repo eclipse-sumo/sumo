@@ -324,6 +324,15 @@ void
 MSRoutingEngine::cleanup() {
     delete myRouterWithProhibited;
     myRouterWithProhibited = nullptr;
+    myAdaptationInterval = -1; // responsible for triggering initEdgeWeights
+    myPastEdgeSpeeds.clear();
+    myEdgeSpeeds.clear();
+    // @todo recheck. calling release crashes in parallel routing
+    //for (auto& item : myCachedRoutes) {
+    //    item.second->release();
+    //}
+    myCachedRoutes.clear();
+    myAdaptationStepsIndex = 0;
 #ifdef HAVE_FOX
     if (myThreadPool.size() > 0) {
         // we cannot wait for the static destructor to do the cleanup
