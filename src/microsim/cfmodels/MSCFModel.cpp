@@ -705,8 +705,7 @@ double
 MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double v /*currentSpeed*/, bool onInsertion, double headway) const {
     double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        // XXX pass headway argument
-        vsafe = maximumSafeStopSpeedEuler(g);
+        vsafe = maximumSafeStopSpeedEuler(g, headway);
     } else {
         vsafe = maximumSafeStopSpeedBallistic(g, v, onInsertion, headway);
     }
@@ -757,9 +756,6 @@ MSCFModel::maximumSafeStopSpeedEuler(double gap, double headway) const {
     gap -= NUMERICAL_EPS; // lots of code relies on some slack XXX: it shouldn't...
     if (gap <= 0) {
         return 0;
-    } else if (gap <= ACCEL2SPEED(myDecel)) {
-        // workaround for #2310
-        return MIN2(ACCEL2SPEED(myDecel), DIST2SPEED(gap));
     }
     const double g = gap;
     const double b = ACCEL2SPEED(myDecel);

@@ -74,7 +74,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
     double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
     if (gap > 0 && speed < NUMERICAL_EPS) {
         // ensure that stops can be reached:
-        result = maximumSafeStopSpeed(gap, speed, false, 0);
+        result = maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs());
     }
     return result;
 }
