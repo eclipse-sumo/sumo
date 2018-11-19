@@ -2199,9 +2199,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         double laneStopOffset;
         const double majorStopOffset = MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this));
         const double minorStopOffset = lane->getStopOffset(this);
+        const double brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0);
+        const bool canBrake = seen >= brakeDist;
         if (yellowOrRed) {
-            // Wait at red traffic light with full distance
-            laneStopOffset = majorStopOffset;
+            // Wait at red traffic light with full distance if possible
+            if (canBrake) {
+                laneStopOffset = MIN2(majorStopOffset, seen - brakeDist);
+            } else {
+                laneStopOffset = majorStopOffset;
+            }
         } else if ((*link)->havePriority()) {
             // On priority link, we should never stop below visibility distance
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, majorStopOffset);
@@ -2253,8 +2259,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         bool setRequest = (v > 0 && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
         double vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
-        const double brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0.);
-        const bool canBrake = seen >= brakeDist;
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
             std::cout
