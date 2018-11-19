@@ -219,7 +219,7 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 GNEFrame::ACAttributeRow::ACAttributeRow(ACAttributes* ACAttributesParent) :
     FXHorizontalFrame(ACAttributesParent, GUIDesignAuxiliarHorizontalFrame),
     myACAttributesParent(ACAttributesParent),
-    myShapeAttr(SUMO_ATTR_NOTHING) {
+    myXMLAttr(SUMO_ATTR_NOTHING) {
     // Create visual elements
     myLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
     myColorEditor = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
@@ -238,15 +238,15 @@ GNEFrame::ACAttributeRow::~ACAttributeRow() {}
 void
 GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeProperties &attrProperties, const std::string &value) {
     myAttrProperties = attrProperties;
-    myShapeAttr = attr;
+    myXMLAttr = attr;
     myInvalidValue = "";
     // show label or button for edit colors
     if (myAttrProperties.isColor()) {
         myColorEditor->setTextColor(FXRGB(0, 0, 0));
-        myColorEditor->setText(toString(myShapeAttr).c_str());
+        myColorEditor->setText(toString(myXMLAttr).c_str());
         myColorEditor->show();
     } else {
-        myLabel->setText(toString(myShapeAttr).c_str());
+        myLabel->setText(toString(myXMLAttr).c_str());
         myLabel->show();
     }
     if (myAttrProperties.isInt()) {
@@ -277,7 +277,7 @@ GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttribu
 
 void
 GNEFrame::ACAttributeRow::hideParameter() {
-    myShapeAttr = SUMO_ATTR_NOTHING;
+    myXMLAttr = SUMO_ATTR_NOTHING;
     myLabel->hide();
     myTextFieldInt->hide();
     myTextFieldReal->hide();
@@ -290,7 +290,7 @@ GNEFrame::ACAttributeRow::hideParameter() {
 
 SumoXMLAttr
 GNEFrame::ACAttributeRow::getAttr() const {
-    return myShapeAttr;
+    return myXMLAttr;
 }
 
 
@@ -331,10 +331,10 @@ GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
             int intValue = GNEAttributeCarrier::parse<int>(myTextFieldInt->getText().text());
             // Check if int value must be positive
             if (myAttrProperties.isPositive() && (intValue < 0)) {
-                myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
+                myInvalidValue = "'" + toString(myXMLAttr) + "' cannot be negative";
             }
         } else {
-            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'int' format";
+            myInvalidValue = "'" + toString(myXMLAttr) + "' doesn't have a valid 'int' format";
         }
     } else if (myAttrProperties.isTime()) {
         // time attributes work as positive doubles
@@ -343,10 +343,10 @@ GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
             // Check if parsed value is negative
             if (doubleValue < 0) {
-                myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
+                myInvalidValue = "'" + toString(myXMLAttr) + "' cannot be negative";
             }
         } else {
-            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'time' format";
+            myInvalidValue = "'" + toString(myXMLAttr) + "' doesn't have a valid 'time' format";
         }
     } else if (myAttrProperties.isFloat()) {
         if (GNEAttributeCarrier::canParse<double>(myTextFieldReal->getText().text())) {
@@ -354,31 +354,43 @@ GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
             double doubleValue = GNEAttributeCarrier::parse<double>(myTextFieldReal->getText().text());
             // Check if double value must be positive
             if (myAttrProperties.isPositive() && (doubleValue < 0)) {
-                myInvalidValue = "'" + toString(myShapeAttr) + "' cannot be negative";
+                myInvalidValue = "'" + toString(myXMLAttr) + "' cannot be negative";
                 // check if double value is a probability
             } else if (myAttrProperties.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
-                myInvalidValue = "'" + toString(myShapeAttr) + "' takes only values between 0 and 1";
+                myInvalidValue = "'" + toString(myXMLAttr) + "' takes only values between 0 and 1";
             }
         } else {
-            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'float' format";
+            myInvalidValue = "'" + toString(myXMLAttr) + "' doesn't have a valid 'float' format";
         }
     } else if (myAttrProperties.isColor()) {
         // check if filename format is valid
         if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text()) == false) {
-            myInvalidValue = "'" + toString(myShapeAttr) + "' doesn't have a valid 'RBGColor' format";
+            myInvalidValue = "'" + toString(myXMLAttr) + "' doesn't have a valid 'RBGColor' format";
         }
     } else if (myAttrProperties.isFilename()) {
         std::string file = myTextFieldStrings->getText().text();
         // check if filename format is valid
         if (SUMOXMLDefinitions::isValidFilename(file) == false) {
             myInvalidValue = "input contains invalid characters for a filename";
-        } else if (myShapeAttr == SUMO_ATTR_IMGFILE) {
+        } else if (myXMLAttr == SUMO_ATTR_IMGFILE) {
             if (!file.empty()) {
-                // only load value if file isn't empty
+                // only load value if file exist and can be loaded
                 if (GUITexturesHelper::getTextureID(file) == -1) {
                     myInvalidValue = "doesn't exist image '" + file + "'";
                 }
             }
+        }
+    } else if (myXMLAttr == SUMO_ATTR_NAME) {
+        std::string name = myTextFieldStrings->getText().text();
+        // check if name format is valid
+        if (SUMOXMLDefinitions::isValidAttribute(name) == false) {
+            myInvalidValue = "input contains invalid characters";
+        }
+    } else if (myXMLAttr == SUMO_ATTR_VTYPES) {
+        std::string name = myTextFieldStrings->getText().text();
+        // if list of VTypes isn't empty, check that all characters are valid
+        if (!name.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(name)) {
+            myInvalidValue = "list of IDs contains invalid characters";
         }
     }
     // change color of text field depending of myCurrentValueValid
@@ -440,7 +452,7 @@ GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
 
     // Create single parameters
     for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myVectorOfsingleShapeParameter.push_back(new ACAttributeRow(this));
+        myACAttributeRows.push_back(new ACAttributeRow(this));
     }
 
     // Create help button
@@ -457,14 +469,14 @@ GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProp
     // get current tag Properties
     myTagProperties = tagProperties;
     // Hide all fields
-    for (int i = 0; i < (int)myVectorOfsingleShapeParameter.size(); i++) {
-        myVectorOfsingleShapeParameter.at(i)->hideParameter();
+    for (int i = 0; i < (int)myACAttributeRows.size(); i++) {
+        myACAttributeRows.at(i)->hideParameter();
     }
     // iterate over tag attributes and show it
     for (auto i : myTagProperties) {
         //  make sure that only non-unique attributes are shown
         if (!i.second.isUnique()) {
-            myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->showParameter(i.first, i.second, i.second.getDefaultValue());
+            myACAttributeRows.at(i.second.getPositionListed())->showParameter(i.first, i.second, i.second.getDefaultValue());
         }
     }
     // recalc frame and show again
@@ -483,9 +495,9 @@ std::map<SumoXMLAttr, std::string>
 GNEFrame::ACAttributes::getAttributesAndValues() const {
     std::map<SumoXMLAttr, std::string> values;
     // get standard parameters
-    for (int i = 0; i < (int)myVectorOfsingleShapeParameter.size(); i++) {
-        if (myVectorOfsingleShapeParameter.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
-            values[myVectorOfsingleShapeParameter.at(i)->getAttr()] = myVectorOfsingleShapeParameter.at(i)->getValue();
+    for (int i = 0; i < (int)myACAttributeRows.size(); i++) {
+        if (myACAttributeRows.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
+            values[myACAttributeRows.at(i)->getAttr()] = myACAttributeRows.at(i)->getValue();
         }
     }
     return values;
@@ -499,7 +511,7 @@ GNEFrame::ACAttributes::showWarningMessage(std::string extra) const {
     for (auto i : myTagProperties) {
         if (errorMessage.empty()) {
             // Return string with the error if at least one of the parameter isn't valid
-            std::string attributeValue = myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid();
+            std::string attributeValue = myACAttributeRows.at(i.second.getPositionListed())->isAttributeValid();
             if (attributeValue.size() != 0) {
                 errorMessage = attributeValue;
             }
@@ -524,7 +536,7 @@ GNEFrame::ACAttributes::areValuesValid() const {
     // iterate over standar parameters
     for (auto i : myTagProperties) {
         // Return false if error message of attriuve isn't empty
-        if (myVectorOfsingleShapeParameter.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
+        if (myACAttributeRows.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
         }
     }

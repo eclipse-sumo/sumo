@@ -126,7 +126,7 @@ public:
         /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
         const std::string& isAttributeValid() const;
 
-        /// @brief get shape attributes parent
+        /// @brief get ACAttributes parent
         ACAttributes* getACAttributesParent() const;
 
         /// @name FOX-callbacks
@@ -149,11 +149,11 @@ public:
         /// @brief pointer to ACAttributes
         ACAttributes* myACAttributesParent;
 
-        /// @
+        /// @brief attribute properties
         GNEAttributeCarrier::AttributeProperties myAttrProperties;
 
         /// @brief current XML attribute
-        SumoXMLAttr myShapeAttr;
+        SumoXMLAttr myXMLAttr;
 
         /// @brief lael with the name of the parameter
         FXLabel* myLabel;
@@ -230,8 +230,8 @@ public:
         /// @brief current edited Tag Properties
         GNEAttributeCarrier::TagProperties myTagProperties;
 
-        /// @brief vector with the shape parameters
-        std::vector<ACAttributeRow*> myVectorOfsingleShapeParameter;
+        /// @brief vector with the ACAttribute Rows
+        std::vector<ACAttributeRow*> myACAttributeRows;
     };
 
     // ===========================================================================
