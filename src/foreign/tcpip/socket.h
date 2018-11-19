@@ -111,7 +111,7 @@ namespace tcpip
 		void init();
 		static void BailOnSocketError(std::string context);
 #ifdef WIN32
-		std::string GetWinsockErrorString(int err) const;
+		static std::string GetWinsockErrorString(int err);
 #endif
 		bool atoaddr(std::string, struct sockaddr_in& addr);
 		bool datawaiting(int sock) const;

@@ -576,7 +576,6 @@ namespace tcpip
 	std::string 
 		Socket::
 		GetWinsockErrorString(int err) 
-		const
 	{
 
 		switch( err)
