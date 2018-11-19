@@ -881,9 +881,19 @@ operator<<(std::ostream& os, const NBRequest& r) {
 
 bool
 NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromLane, int toLane, bool includePedCrossings) const {
-    // vehicles which do not have a following lane must always decelerate to the end
-    if (to == nullptr) {
-        return true;
+    NBEdge::Connection con(fromLane, const_cast<NBEdge*>(to), toLane);
+    const int linkIndex = myJunction->getConnectionIndex(from, con);
+    if (linkIndex >= 0 && (int)myResponse.size() > linkIndex) {
+        std::string response = getResponse(linkIndex);
+        if (!includePedCrossings) {
+            response = response.substr(0, response.size() - myJunction->getCrossings().size());
+        }
+        if (response.find_first_of("1") == std::string::npos) {
+            return false;
+        };
+        // if the link must respond it could also be due to a tlsConflict. This
+        // must not carry over the the off-state response so we continue with
+        // the regular check
     }
     // get the indices
     int idx2 = getIndex(from, to);
@@ -935,9 +945,9 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
             }
         }
     }
-
     return false;
 }
+
 
 bool
 NBRequest::mustBrakeForCrossing(const NBNode* node, const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) {
