@@ -43,6 +43,8 @@
         <xsd:attribute name="rectangularLaneCut" type="boolType"/>
         <xsd:attribute name="walkingareas" type="boolType"/>
         <xsd:attribute name="limitTurnSpeed" type="xsd:float"/>
+        <xsd:attribute name="checkLaneFoesAll" type="boolType"/>
+        <xsd:attribute name="checkLaneFoesRoundabout" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">

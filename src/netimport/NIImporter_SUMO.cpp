@@ -79,7 +79,10 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myLinkDetail(-1),
       myRectLaneCut(false),
       myWalkingAreas(false),
-      myLimitTurnSpeed(-1) {
+      myLimitTurnSpeed(-1),
+      myCheckLaneFoesAll(false),
+      myCheckLaneFoesRoundabout(true)
+{
 }
 
 
@@ -298,6 +301,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isDefault("junctions.limit-turn-speed")) {
         oc.set("junctions.limit-turn-speed", toString(myLimitTurnSpeed));
     }
+    if (oc.isDefault("check-lane-foes.all") && oc.getBool("check-lane-foes.all") != myCheckLaneFoesAll) {
+        oc.set("check-lane-foes.all", toString(myCheckLaneFoesAll));
+    }
+    if (oc.isDefault("check-lane-foes.roundabout") && oc.getBool("check-lane-foes.roundabout") != myCheckLaneFoesRoundabout) {
+        oc.set("check-lane-foes.roundabout", toString(myCheckLaneFoesRoundabout));
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
         deprecatedVehicleClassesSeen.clear();
@@ -395,6 +404,9 @@ NIImporter_SUMO::myStartElement(int element,
             myRectLaneCut = attrs.getOpt<bool>(SUMO_ATTR_RECTANGULAR_LANE_CUT, nullptr, ok, false);
             myWalkingAreas = attrs.getOpt<bool>(SUMO_ATTR_WALKINGAREAS, nullptr, ok, false);
             myLimitTurnSpeed = attrs.getOpt<double>(SUMO_ATTR_LIMIT_TURN_SPEED, nullptr, ok, -1);
+            myWalkingAreas = attrs.getOpt<bool>(SUMO_ATTR_WALKINGAREAS, nullptr, ok, false);
+            myCheckLaneFoesAll = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ALL, nullptr, ok, false);
+            myCheckLaneFoesRoundabout = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ALL, nullptr, ok, true);
             break;
         }
         case SUMO_TAG_EDGE:
