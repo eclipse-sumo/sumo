@@ -56,8 +56,8 @@
 //#define DEBUG_CONNECTIONS
 //#define DEBUG_SPIRAL
 
-//#define DEBUG_COND(road) ((road)->id == "42")
-//#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "12"))
+#define DEBUG_COND(road) ((road)->id == "1000003")
+#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "2"))
 
 // ===========================================================================
 // definitions
@@ -536,6 +536,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     // set connections
     for (std::vector<Connection>::const_iterator i = connections2.begin(); i != connections2.end(); ++i) {
+#ifdef DEBUG_CONNECTIONS
+        std::cout << "connections2 " << (*i).getDescription() << "\n";
+#endif
         std::string fromEdge = (*i).fromEdge;
         if (edges.find(fromEdge) == edges.end()) {
             WRITE_WARNING("While setting connections: from-edge '" + fromEdge + "' is not known.");
@@ -543,7 +546,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
         OpenDriveEdge* odFrom = edges[fromEdge];
         int fromLane = (*i).fromLane;
-        bool fromLast = ((*i).fromCP == OPENDRIVE_CP_END) ^ ((*i).fromLane > 0 && !(*i).all);
+        bool fromLast = ((*i).fromCP == OPENDRIVE_CP_END) && ((*i).fromLane < 0);
         fromEdge = fromLast ? odFrom->laneSections.back().sumoID : odFrom->laneSections[0].sumoID;
 
         std::string toEdge = (*i).toEdge;
@@ -836,7 +839,7 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
 #ifdef DEBUG_CONNECTIONS
-                    if (DEBUG_COND(src) std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+                    if (DEBUG_COND(src)) std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
 #endif
                 }
         }
@@ -866,7 +869,7 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
 #ifdef DEBUG_CONNECTIONS
-                    if (DEBUG_COND2(src)) {
+                    if (DEBUG_COND(src)) {
                         std::cout << "insertConLeft from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
                     }
 #endif
