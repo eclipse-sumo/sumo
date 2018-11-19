@@ -628,6 +628,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " f=" << myForbids[idx2][idx]
                                   << " clf=" << checkLaneFoes
                                   << " clfbc=" << checkLaneFoesByClass(queryCon, *i, connected[k])
+                                  << " clfbcoop=" << checkLaneFoesByCooperation(from, queryCon, *i, connected[k])
                                   << " lc=" << laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)
                                   << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
@@ -637,8 +638,9 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << "\n";
                     }
 #endif
-                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k]))
-                                                  || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
+                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k]) 
+                                || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
+                            || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                     if ((myForbids[idx2][idx] && hasLaneConflict)
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
@@ -687,8 +689,9 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
             std::vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
-                const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k]))
-                                              || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
+                const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
+                            || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
+                        || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                 if ((foes(from, to, (*i), connected[k].toEdge) && hasLaneConflict)
                         || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
@@ -794,6 +797,33 @@ NBRequest::checkLaneFoesByClass(const NBEdge::Connection& con,
     SVCPermissions svc2 = prohibitorFrom->getPermissions(prohibitorCon.fromLane) & prohibitorCon.toEdge->getPermissions(prohibitorCon.toLane);
     // check for lane level conflict if the only common classes are bicycles or pedestrians
     return (svc & svc2 & ~(SVC_BICYCLE | SVC_PEDESTRIAN)) == 0;
+}
+
+
+bool
+NBRequest::checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connection& con,
+        const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const {
+    if (con.toEdge != prohibitorCon.toEdge) {
+        return false;
+    }
+    // if from and prohibitorFrom target distinct lanes for all their
+    // connections to the common target edge, cooperation is possible
+    // (and should always happen unless the connections cross for some byzantine reason)
+
+    std::set<int> fromTargetLanes;
+    for (const auto& c : from->getConnections()) {
+        if (c.toEdge == con.toEdge) {
+            fromTargetLanes.insert(c.toLane);
+        }
+    }
+    for (const auto& c : prohibitorFrom->getConnections()) {
+        if (c.toEdge == con.toEdge && fromTargetLanes.count(c.toLane) != 0) {
+            //std::cout << " con=" << con->getDescription(from) << " foe=" << prohibitorCon.getDescription(prohibitorFrom) 
+            //    << " no cooperation (targets=" << joinToString(fromTargetLanes, ' ') << " index=" << c.toLane << "\n";
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -974,7 +1004,6 @@ NBRequest::resetCooperating() {
         }
     }
 }
-
 
 int
 NBRequest::numLinks() const {
