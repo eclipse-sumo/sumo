@@ -6,3 +6,6 @@ parallel_bike_path
 
 # as above but with fewer edges
 parallel_bike_path2
+
+# do not declare foes when the target lanes are conflict-free even though the edgse are in conflict
+checkLaneFoes
