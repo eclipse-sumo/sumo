@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jun 30 00:10:22 2018 by Eclipse SUMO Version 4bc4520
+<!-- generated on Mon Nov 19 11:02:27 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,7 +19,9 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <collision.check-junctions value="true"/>
         <time-to-teleport value="20"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -35,22 +37,22 @@ SPDX-License-Identifier: EPL-2.0
     <timestep id="0.00"/>
     <timestep id="1.00">
         <link from=":C_2_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_16_0" via="" to="CE_0">
             <approaching id="NE" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_18_0" via="" to="CW_0">
             <approaching id="SW" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="NC_0" via=":C_2_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_10_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
     </timestep>
     <timestep id="2.00">
@@ -58,7 +60,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.44" arrivalTimeBraking="38.44" leaveTime="8.81" arrivalSpeed="13.49" arrivalSpeedBraking="0.00" leaveSpeed="13.49" willPass="1"/>
         </link>
         <link from=":C_2_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_16_0" via="" to="CE_0">
             <approaching id="NE" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -67,7 +69,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SN" impatience="0.00" arrivalTime="8.44" arrivalTimeBraking="38.44" leaveTime="8.81" arrivalSpeed="13.49" arrivalSpeedBraking="0.00" leaveSpeed="13.49" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_18_0" via="" to="CW_0">
             <approaching id="SW" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -76,13 +78,13 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.83" arrivalTimeBraking="38.83" leaveTime="9.98" arrivalSpeed="11.52" arrivalSpeedBraking="0.00" leaveSpeed="13.49" willPass="1"/>
         </link>
         <link from="NC_0" via=":C_2_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_9_0" to="CN_0">
             <approaching id="SN" impatience="0.00" arrivalTime="8.83" arrivalTimeBraking="38.83" leaveTime="9.98" arrivalSpeed="11.52" arrivalSpeedBraking="0.00" leaveSpeed="13.49" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_10_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
     </timestep>
     <timestep id="3.00">
@@ -90,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.38" arrivalTimeBraking="38.38" leaveTime="8.74" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_2_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_16_0" via="" to="CE_0">
             <approaching id="NE" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -99,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SN" impatience="0.00" arrivalTime="8.38" arrivalTimeBraking="38.38" leaveTime="8.74" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_18_0" via="" to="CW_0">
             <approaching id="SW" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -108,13 +110,13 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.39" arrivalTimeBraking="38.39" leaveTime="9.49" arrivalSpeed="12.31" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="NC_0" via=":C_2_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_9_0" to="CN_0">
             <approaching id="SN" impatience="0.00" arrivalTime="8.39" arrivalTimeBraking="38.39" leaveTime="9.49" arrivalSpeed="12.31" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_10_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
     </timestep>
     <timestep id="4.00">
@@ -122,7 +124,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.47" arrivalTimeBraking="38.47" leaveTime="8.83" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_2_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_16_0" via="" to="CE_0">
             <approaching id="NE" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -131,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SN" impatience="0.00" arrivalTime="8.47" arrivalTimeBraking="38.47" leaveTime="8.83" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_18_0" via="" to="CW_0">
             <approaching id="SW" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -140,13 +142,13 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.17" arrivalTimeBraking="38.17" leaveTime="9.25" arrivalSpeed="12.84" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="NC_0" via=":C_2_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_9_0" to="CN_0">
             <approaching id="SN" impatience="0.00" arrivalTime="8.17" arrivalTimeBraking="38.17" leaveTime="9.25" arrivalSpeed="12.84" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_10_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
     </timestep>
     <timestep id="5.00">
@@ -154,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.54" arrivalTimeBraking="38.54" leaveTime="8.90" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_2_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_16_0" via="" to="CE_0">
             <approaching id="NE" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -163,7 +165,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SN" impatience="0.00" arrivalTime="8.54" arrivalTimeBraking="38.54" leaveTime="8.90" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="37.30" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="36.98" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_18_0" via="" to="CW_0">
             <approaching id="SW" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -172,13 +174,13 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.06" arrivalTimeBraking="38.06" leaveTime="9.13" arrivalSpeed="13.19" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="NC_0" via=":C_2_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_9_0" to="CN_0">
             <approaching id="SN" impatience="0.00" arrivalTime="8.06" arrivalTimeBraking="38.06" leaveTime="9.13" arrivalSpeed="13.19" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_10_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="36.91" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="0.00" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="36.60" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="0.00" leaveSpeed="11.48" willPass="1"/>
         </link>
     </timestep>
     <timestep id="6.00">
@@ -186,7 +188,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.59" arrivalTimeBraking="38.59" leaveTime="8.95" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_2_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="8.54" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="6.61" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="8.25" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="9.17" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_16_0" via="" to="CE_0">
             <approaching id="NE" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -195,7 +197,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SN" impatience="0.00" arrivalTime="8.59" arrivalTimeBraking="38.59" leaveTime="8.95" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="8.54" leaveTime="8.64" arrivalSpeed="6.61" arrivalSpeedBraking="6.61" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.98" arrivalTimeBraking="8.25" leaveTime="7.91" arrivalSpeed="10.22" arrivalSpeedBraking="9.17" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_18_0" via="" to="CW_0">
             <approaching id="SW" impatience="0.00" arrivalTime="7.23" arrivalTimeBraking="37.23" leaveTime="7.59" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
@@ -204,13 +206,13 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.00" arrivalTimeBraking="38.00" leaveTime="9.06" arrivalSpeed="13.42" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="NC_0" via=":C_2_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="8.02" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="6.61" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="7.72" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="10.22" leaveSpeed="11.48" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_9_0" to="CN_0">
             <approaching id="SN" impatience="0.00" arrivalTime="8.00" arrivalTimeBraking="38.00" leaveTime="9.06" arrivalSpeed="13.42" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from="SC_0" via=":C_10_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="6.92" arrivalTimeBraking="8.02" leaveTime="8.28" arrivalSpeed="6.61" arrivalSpeedBraking="6.61" leaveSpeed="8.43" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="6.60" arrivalTimeBraking="7.72" leaveTime="7.55" arrivalSpeed="10.22" arrivalSpeedBraking="10.22" leaveSpeed="11.48" willPass="1"/>
         </link>
     </timestep>
     <timestep id="7.00">
@@ -218,7 +220,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="NS" impatience="0.00" arrivalTime="8.64" arrivalTimeBraking="38.64" leaveTime="9.00" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_2_0" via=":C_16_0" to="CE_0">
-            <approaching id="NE" impatience="0.00" arrivalTime="7.62" arrivalTimeBraking="8.25" leaveTime="8.96" arrivalSpeed="6.61" arrivalSpeedBraking="6.61" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="NE" impatience="0.00" arrivalTime="7.03" arrivalTimeBraking="8.07" leaveTime="7.96" arrivalSpeed="10.22" arrivalSpeedBraking="10.22" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_16_0" via="" to="CE_0">
             <approaching id="NE" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="8.36" leaveTime="7.65" arrivalSpeed="13.89" arrivalSpeedBraking="12.53" leaveSpeed="13.89" willPass="1"/>
@@ -227,7 +229,7 @@ SPDX-License-Identifier: EPL-2.0
             <approaching id="SN" impatience="0.00" arrivalTime="8.64" arrivalTimeBraking="38.64" leaveTime="9.00" arrivalSpeed="13.89" arrivalSpeedBraking="0.00" leaveSpeed="13.89" willPass="1"/>
         </link>
         <link from=":C_10_0" via=":C_18_0" to="CW_0">
-            <approaching id="SW" impatience="0.00" arrivalTime="7.62" arrivalTimeBraking="8.25" leaveTime="8.96" arrivalSpeed="6.61" arrivalSpeedBraking="6.61" leaveSpeed="8.36" willPass="1"/>
+            <approaching id="SW" impatience="0.00" arrivalTime="7.03" arrivalTimeBraking="8.07" leaveTime="7.96" arrivalSpeed="10.22" arrivalSpeedBraking="10.22" leaveSpeed="11.43" willPass="1"/>
         </link>
         <link from=":C_18_0" via="" to="CW_0">
             <approaching id="SW" impatience="0.00" arrivalTime="7.29" arrivalTimeBraking="8.36" leaveTime="7.65" arrivalSpeed="13.89" arrivalSpeedBraking="12.53" leaveSpeed="13.89" willPass="1"/>

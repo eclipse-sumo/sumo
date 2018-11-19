@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 19 22:05:29 2018 by Eclipse SUMO Version v1_0_1+0032-2ab88a2
+<!-- generated on Mon Nov 19 09:35:42 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -99,19 +99,19 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="2" x="-47.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.00" pos="73.00" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="88.00">
-        <vehicle id="1" x="-16.07" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.74" pos="2.77" lane="beg2_0" slope="0.00"/>
+        <vehicle id="1" x="-15.10" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.00" pos="3.40" lane="beg2_0" slope="0.00"/>
         <vehicle id="2" x="-40.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.00" pos="80.00" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="88.50">
-        <vehicle id="1" x="-7.76" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.86" pos="8.20" lane="beg2_0" slope="0.00"/>
-        <vehicle id="2" x="-33.31" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.37" pos="86.69" lane="beg_0" slope="0.00"/>
+        <vehicle id="1" x="-5.52" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.52" pos="9.66" lane="beg2_0" slope="0.00"/>
+        <vehicle id="2" x="-33.00" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.00" pos="87.00" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="89.00">
-        <vehicle id="1" x="-1.33" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="9.05" pos="2.62" lane="beg3_0" slope="0.00"/>
-        <vehicle id="2" x="-27.45" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.73" pos="2.25" lane=":A_2_0" slope="0.00"/>
+        <vehicle id="1" x="1.58" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.27" pos="4.70" lane="beg3_0" slope="0.00"/>
+        <vehicle id="2" x="-26.57" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.86" pos="3.13" lane=":A_2_0" slope="0.00"/>
     </timestep>
     <timestep time="89.50">
-        <vehicle id="1" x="3.75" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="7.25" pos="6.25" lane="beg3_0" slope="0.00"/>
-        <vehicle id="2" x="-22.37" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="10.16" pos="7.33" lane=":A_2_0" slope="0.00"/>
+        <vehicle id="1" x="7.20" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="8.02" pos="8.71" lane="beg3_0" slope="0.00"/>
+        <vehicle id="2" x="-20.89" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.36" pos="8.81" lane=":A_2_0" slope="0.00"/>
     </timestep>
 </fcd-export>
