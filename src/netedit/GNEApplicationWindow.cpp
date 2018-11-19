@@ -56,6 +56,7 @@
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -227,6 +228,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUIIconSubSys::initIcons(a);
     // init Textures
     GUITextureSubSys::initTextures(a);
+    // init cursors
+    GUICursorSubSys::initCursors(a);
 }
 #ifdef _MSC_VER
 #pragma warning(pop)

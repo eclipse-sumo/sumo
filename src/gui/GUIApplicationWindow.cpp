@@ -69,6 +69,7 @@
 #include <utils/gui/tracker/GUIParameterTracker.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/div/GLHelper.h>
@@ -210,7 +211,10 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myPreviousCollisionNumber(0),
     myWaitingTime(0),
     myTimeLoss(0) {
+    // init icons
     GUIIconSubSys::initIcons(a);
+    // init cursors
+    GUICursorSubSys::initCursors(a);
 }
 
 

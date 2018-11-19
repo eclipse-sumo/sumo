@@ -1,1 +1,1 @@
-SUBDIRS = div events globjects images settings tracker windows
+SUBDIRS = div events globjects images settings tracker windows cursors
