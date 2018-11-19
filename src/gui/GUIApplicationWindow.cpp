@@ -1408,6 +1408,15 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 // set simulation name on the caption
                 setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING, ec->myFile.c_str()));
             }
+            if (ec->myViewportFromRegistry) {
+                Position off;
+                off.set(getApp()->reg().readRealEntry("viewport", "x"), 
+                        getApp()->reg().readRealEntry("viewport", "y"), 
+                        getApp()->reg().readRealEntry("viewport", "z"));
+                Position p(off.x(), off.y(), 0);
+                GUISUMOAbstractView* view = static_cast<GUIGlChildWindow*>(mySubWindows[0])->getView();
+                view->setViewportFromToRot(off, p, 0);
+            }
             // set simulation step begin information
             myLCDLabel->setText("----------------");
             for (std::vector<FXButton*>::const_iterator it = myStatButtons.begin(); it != myStatButtons.end(); ++it) {

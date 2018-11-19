@@ -76,7 +76,8 @@ protected:
      * application is informed about the loading */
     void submitEndAndCleanup(GUINet* net, const SUMOTime simStartTime, const SUMOTime simEndTime,
                              const std::vector<std::string>& guiSettingsFiles = std::vector<std::string>(),
-                             const bool osgView = false);
+                             const bool osgView = false,
+                             const bool viewportFromRegistry = false);
 
 protected:
     /// the parent window to inform about the loading

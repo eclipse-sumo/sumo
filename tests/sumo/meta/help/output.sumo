@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_1+0645-93703db
+Eclipse SUMO Version eeef47f
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -491,14 +491,13 @@ GUI Only Options:
   -D, --demo                           Restart the simulation after ending
                                          (demo mode)
   -T, --disable-textures               Do not load background pictures
+  --registry-viewport                  Load current viewport from registry
   --window-size STR                    Create initial window with the given x,y
                                          size
   --window-pos STR                     Create initial window at the given x,y
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

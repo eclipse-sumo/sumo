@@ -219,7 +219,8 @@ GUILoadThread::run() {
         MSNet::clearAll();
     }
     delete eb;
-    submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView);
+    submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView,
+            oc.getBool("registry-viewport"));
     return 0;
 }
 
@@ -229,13 +230,14 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
                                    const SUMOTime simStartTime,
                                    const SUMOTime simEndTime,
                                    const std::vector<std::string>& guiSettingsFiles,
-                                   const bool osgView) {
+                                   const bool osgView,
+                                   const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myTitle, guiSettingsFiles, osgView);
+    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myTitle, guiSettingsFiles, osgView, viewportFromRegistry);
     myEventQue.add(e);
     myEventThrow.signal();
 }

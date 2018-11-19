@@ -61,6 +61,7 @@
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
 
@@ -1336,6 +1337,13 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
     if (mySubWindows.empty()) {
         return 1;
     }
+    FXRegistry reg("SUMO GUI", "Eclipse");
+    reg.read();
+    const GUISUMOAbstractView* const v = getView();
+    reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
+    reg.writeRealEntry("viewport", "y", v->getChanger().getYPos());
+    reg.writeRealEntry("viewport", "z", v->getChanger().getZPos());
+    reg.write();
     std::string sumogui = "sumo-gui";
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != nullptr) {
@@ -1344,7 +1352,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
             sumogui = "\"" + newPath + "\"";
         }
     }
-    std::string cmd = sumogui + " -n "  + OptionsCont::getOptions().getString("output-file");
+    std::string cmd = sumogui + " --registry-viewport" + " -n "  + OptionsCont::getOptions().getString("output-file");
     // start in background
 #ifndef WIN32
     cmd = cmd + " &";
