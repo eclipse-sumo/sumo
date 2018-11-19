@@ -743,12 +743,13 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
 
 
 void
-GNENet::splitEdgesBidi(const std::set<GNEEdge*>& edges, const Position& pos, GNEUndoList* undoList) {
+GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList) {
     GNEJunction* newJunction = nullptr;
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE) + "s");
-    for (auto it : edges) {
-        newJunction = splitEdge(it, pos, undoList, newJunction);
-    }
+    // split edge and save created junction 
+    newJunction = splitEdge(edge, pos, undoList, newJunction);
+    // split second edge
+    splitEdge(oppositeEdge, pos, undoList, newJunction);
     undoList->p_end();
 }
 

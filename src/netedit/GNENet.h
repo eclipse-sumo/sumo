@@ -293,10 +293,11 @@ public:
     GNEJunction* splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction = 0);
 
     /**@brief split all edges at position by inserting one new junction
-     * @param[in] edges The edges to be split
+     * @param[in] edge The edge to be split
+     * @param[in] oppositeEdge The oppositeEdge to be split
      * @param[in] pos The position on which to insert the new junction
      */
-    void splitEdgesBidi(const std::set<GNEEdge*>& edges, const Position& pos, GNEUndoList* undoList);
+    void splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList);
 
     /**@brief reverse edge
      * @param[in] edge The edge to be reversed

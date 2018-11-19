@@ -888,9 +888,6 @@ private:
     /// @brief try to retrieve a crossing at popup position
     GNECrossing* getCrossingAtPopupPosition();
 
-    /// @brief try to retrieve multiple edges at popup position
-    std::set<GNEEdge*> getEdgesAtPopupPosition();
-
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
 

@@ -1847,32 +1847,6 @@ GNEViewNet::getLaneAtPopupPosition() {
 }
 
 
-std::set<GNEEdge*>
-GNEViewNet::getEdgesAtPopupPosition() {
-    std::set<GNEEdge*> result;
-    if (makeCurrent()) {
-        const std::vector<GUIGlID> ids = getObjectsAtPosition(getPopupPosition(), 1.0);
-        for (auto it : ids) {
-            GUIGlObject* pointed = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it);
-            GUIGlObjectStorage::gIDStorage.unblockObject(it);
-            if (pointed) {
-                switch (pointed->getType()) {
-                    case GLO_EDGE:
-                        result.insert((GNEEdge*)pointed);
-                        break;
-                    case GLO_LANE:
-                        result.insert(&(((GNELane*)pointed)->getParentEdge()));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
-    return result;
-}
-
-
 GNEAdditional*
 GNEViewNet::getAdditionalAtPopupPosition() {
     if (makeCurrent()) {
@@ -2009,9 +1983,14 @@ GNEViewNet::onCmdSplitEdge(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSplitEdgeBidi(FXObject*, FXSelector, void*) {
-    std::set<GNEEdge*> edges = getEdgesAtPopupPosition();
-    if (edges.size() != 0) {
-        myNet->splitEdgesBidi(edges, (*edges.begin())->getSplitPos(getPopupPosition()), myUndoList);
+    GNEEdge* edge = getEdgeAtPopupPosition();
+    if (edge != nullptr) {
+        // obtain reverse edge
+        GNEEdge* reverseEdge = edge->getOppositeEdge();
+        // check that reverse edge works
+        if (reverseEdge != nullptr) {
+            myNet->splitEdgesBidi(edge, reverseEdge, edge->getSplitPos(getPopupPosition()), myUndoList);
+        }
     }
     return 1;
 }
