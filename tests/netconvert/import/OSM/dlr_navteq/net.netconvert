@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 19 16:10:23 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Nov 19 18:47:16 2018 by Eclipse SUMO netconvert Version eeef47f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -5158,7 +5158,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="415852953" to="415852954" fromLane="0" toLane="0" via=":294169339_0_0" dir="s" state="="/>
     <connection from="415852953" to="26843133" fromLane="0" toLane="0" via=":294169339_1_0" dir="l" state="="/>
     <connection from="415852953" to="415852873" fromLane="0" toLane="0" via=":294169339_2_0" dir="t" state="="/>
-    <connection from="415852954" to="415852909" fromLane="0" toLane="0" via=":4167993267_0_0" dir="r" state="m"/>
+    <connection from="415852954" to="415852909" fromLane="0" toLane="0" via=":4167993267_0_0" dir="r" state="M"/>
     <connection from="415852954" to="415852819" fromLane="0" toLane="0" via=":4167993267_1_0" dir="s" state="m"/>
     <connection from="415852954" to="415852941" fromLane="0" toLane="0" via=":4167993267_2_0" dir="l" state="m"/>
     <connection from="415852954" to="415852874" fromLane="0" toLane="0" via=":4167993267_3_0" dir="t" state="m"/>
@@ -5191,7 +5191,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="415852964" to="415852965" fromLane="1" toLane="1" via=":4167993269_10_1" dir="s" state="M"/>
     <connection from="415852964" to="415852837" fromLane="1" toLane="0" via=":4167993269_12_0" dir="l" state="m"/>
     <connection from="415852964" to="415852900" fromLane="1" toLane="1" via=":4167993269_13_0" dir="t" state="m"/>
-    <connection from="415852965" to="415852908" fromLane="0" toLane="0" via=":4167993270_8_0" tl="GS_cluster_1560223815_1560223847_301292612_56231397" linkIndex="8" dir="r" state="o"/>
+    <connection from="415852965" to="415852908" fromLane="0" toLane="0" via=":4167993270_8_0" tl="GS_cluster_1560223815_1560223847_301292612_56231397" linkIndex="8" dir="r" state="O"/>
     <connection from="415852965" to="415852902" fromLane="0" toLane="0" via=":4167993270_9_0" tl="GS_cluster_1560223815_1560223847_301292612_56231397" linkIndex="9" dir="s" state="o"/>
     <connection from="415852965" to="415852902" fromLane="1" toLane="1" via=":4167993270_9_1" tl="GS_cluster_1560223815_1560223847_301292612_56231397" linkIndex="10" dir="s" state="o"/>
     <connection from="415852965" to="415852898" fromLane="1" toLane="1" via=":4167993270_11_0" tl="GS_cluster_1560223815_1560223847_301292612_56231397" linkIndex="11" dir="t" state="o"/>

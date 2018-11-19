@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:58 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Mon Nov 19 18:47:16 2018 by Eclipse SUMO netconvert Version eeef47f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -561,7 +561,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-375727032" to="501406797" fromLane="0" toLane="0" via=":3790696297_0_0" dir="r" state="m"/>
     <connection from="-375727032" to="394076991" fromLane="0" toLane="0" via=":3790696297_1_0" dir="l" state="m"/>
     <connection from="-375727032" to="375727032" fromLane="0" toLane="0" via=":3790696297_2_0" dir="t" state="m"/>
-    <connection from="-376710253" to="376710253" fromLane="0" toLane="0" via=":3815833413_0_0" tl="3815833413" linkIndex="0" dir="t" state="o"/>
+    <connection from="-376710253" to="376710253" fromLane="0" toLane="0" via=":3815833413_0_0" tl="3815833413" linkIndex="0" dir="t" state="O"/>
     <connection from="-394076917#0" to="375727027#3" fromLane="0" toLane="0" via=":3790696292_0_0" dir="r" state="m"/>
     <connection from="-394076917#0" to="394076917#0" fromLane="0" toLane="0" via=":3790696292_1_0" dir="t" state="m"/>
     <connection from="-394076917#1" to="394077024#1" fromLane="0" toLane="0" via=":3971103570_3_0" dir="r" state="M"/>
@@ -621,7 +621,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="526422261" to="526422264" fromLane="0" toLane="0" via=":5119194946_1_0" tl="joinedS_0" linkIndex="7" dir="l" state="o"/>
     <connection from="526422264" to="394077035" fromLane="0" toLane="0" via=":3971103767_0_0" dir="s" state="M"/>
     <connection from="526422275" to="394077024#0" fromLane="0" toLane="0" via=":3815833414_0_0" tl="3815833414" linkIndex="0" dir="r" state="O"/>
-    <connection from="526422275" to="-526422275" fromLane="0" toLane="0" via=":3815833414_1_0" tl="3815833414" linkIndex="1" dir="t" state="o"/>
+    <connection from="526422275" to="-526422275" fromLane="0" toLane="0" via=":3815833414_1_0" tl="3815833414" linkIndex="1" dir="t" state="O"/>
 
     <connection from=":2174961454_0" to="-375727032" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":3325293450_0" to="-376710253" fromLane="0" toLane="0" dir="t" state="M"/>
