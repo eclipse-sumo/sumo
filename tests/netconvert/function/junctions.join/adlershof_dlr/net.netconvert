@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 28 15:36:26 2018 by Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
+<!-- generated on Mon Nov 19 16:10:26 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -3325,11 +3325,11 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2"  response="111001100000" foes="111001100000"/>
         <request index="3"  response="111001100000" foes="111001100000"/>
         <request index="4"  response="110000000000" foes="110000000000"/>
-        <request index="5"  response="001000000000" foes="001000001100"/>
+        <request index="5"  response="000000000000" foes="000000001100"/>
         <request index="6"  response="001000000000" foes="001000001100"/>
         <request index="7"  response="000000000010" foes="000000000010"/>
         <request index="8"  response="000000000000" foes="000000000000"/>
-        <request index="9"  response="000000000000" foes="000001101111"/>
+        <request index="9"  response="000000000000" foes="000001001111"/>
         <request index="10" response="000000000000" foes="000000011111"/>
         <request index="11" response="000000000000" foes="000000011111"/>
     </junction>
@@ -3633,9 +3633,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4"  response="000000000000" foes="010000001000"/>
         <request index="5"  response="000000000000" foes="010000000111"/>
         <request index="6"  response="000000000000" foes="110000000110"/>
-        <request index="7"  response="001000000110" foes="001000000110"/>
+        <request index="7"  response="000000000110" foes="000000000110"/>
         <request index="8"  response="000000000000" foes="000000000000"/>
-        <request index="9"  response="000000000000" foes="000010000110"/>
+        <request index="9"  response="000000000000" foes="000000000110"/>
         <request index="10" response="000001110000" foes="000001111110"/>
         <request index="11" response="000001000000" foes="000001000000"/>
     </junction>
@@ -5064,7 +5064,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="14" response="0000011000110000" foes="0000011000111110"/>
         <request index="15" response="0000010000100001" foes="0000010000100001"/>
     </junction>
-    <junction id="cluster_1568241686_2177702824" type="priority" x="4155.00" y="910.99" incLanes="-143308521#3_0 -143308521#3_1 -143308695#1_0 -207517673_0 143308521#1_0 143308521#1_1" intLanes="" shape="4160.18,917.75 4159.66,907.36 4158.09,901.09 4151.69,901.17 4150.51,901.76 4146.64,906.86 4146.58,908.02 4147.11,918.41">
+    <junction id="cluster_1568241686_2177702824" type="priority" x="4155.00" y="910.98" incLanes="-143308521#3_0 -143308521#3_1 -143308695#1_0 -207517673_0 143308521#1_0 143308521#1_1" intLanes="" shape="4160.18,917.75 4159.66,907.36 4158.09,901.09 4151.69,901.17 4150.51,901.76 4146.64,906.86 4146.58,908.02 4147.11,918.41">
         <request index="0"  response="00000000000000" foes="10010000100000"/>
         <request index="1"  response="01000000000000" foes="01110001100000"/>
         <request index="2"  response="01000000000000" foes="01001111100000"/>

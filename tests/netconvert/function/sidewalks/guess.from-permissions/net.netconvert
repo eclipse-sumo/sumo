@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:02 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Mon Nov 19 16:10:26 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -107,10 +107,10 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_4_1 :C_6_0 :C_6_1 :C_9_0" shape="93.60,108.40 108.40,108.40 108.62,107.29 108.90,106.90 109.29,106.62 109.79,106.46 110.40,106.40 110.40,91.60 109.29,91.38 108.90,91.10 108.62,90.71 108.46,90.21 108.40,89.60 93.60,89.60 93.38,90.71 93.10,91.10 92.71,91.38 92.21,91.54 91.60,91.60 91.60,106.40 92.71,106.62 93.10,106.90 93.38,107.29 93.54,107.79">
-        <request index="0" response="111111000" foes="111111110" cont="0"/>
+        <request index="0" response="111110000" foes="111110110" cont="0"/>
         <request index="1" response="100110001" foes="100110001" cont="0"/>
         <request index="2" response="100110001" foes="100110001" cont="0"/>
-        <request index="3" response="000000000" foes="011000001" cont="0"/>
+        <request index="3" response="000000000" foes="011000000" cont="0"/>
         <request index="4" response="000000000" foes="111000111" cont="0"/>
         <request index="5" response="000000000" foes="111000111" cont="0"/>
         <request index="6" response="000111000" foes="000111001" cont="0"/>

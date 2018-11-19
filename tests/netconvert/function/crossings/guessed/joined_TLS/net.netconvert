@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:04 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Mon Nov 19 16:10:29 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -178,9 +178,9 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="29215077" type="traffic_light" x="93.79" y="94.20" incLanes="-4615548_0 -4615548_1 194962398#2_0 194962398#2_1 246044848#1_0 246044848#1_1 246044848#1_2 :29215077_w1_0 :29215077_w2_0 :29215077_w3_0 :29215077_w0_0" intLanes=":29215077_0_0 :29215077_10_0 :29215077_11_0 :29215077_12_0 :29215077_4_0 :29215077_13_0 :29215077_14_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0 :29215077_c2_0 :29215077_c3_0" shape="96.35,102.34 102.31,93.82 99.99,91.62 99.29,90.41 98.89,89.13 98.79,87.78 98.99,86.35 89.85,84.14 89.51,84.87 89.26,85.06 88.95,85.12 88.59,85.06 88.18,84.89 82.51,93.65 84.80,95.45 85.48,96.52 85.85,97.71 85.91,99.02 85.66,100.44 94.73,102.92 95.08,102.22 95.33,102.05 95.62,102.02 95.97,102.12">
         <request index="0"  response="01011111000000" foes="01011111100000" cont="0"/>
-        <request index="1"  response="00111110011000" foes="00111110011000" cont="1"/>
+        <request index="1"  response="00111110010000" foes="00111110010000" cont="1"/>
         <request index="2"  response="00011000010000" foes="00011000010000" cont="1"/>
-        <request index="3"  response="01100110000000" foes="01100110000010" cont="1"/>
+        <request index="3"  response="01100110000000" foes="01100110000000" cont="1"/>
         <request index="4"  response="01011110000000" foes="01011110000110" cont="0"/>
         <request index="5"  response="01000001000001" foes="01000001000001" cont="1"/>
         <request index="6"  response="11000000000000" foes="11000000100001" cont="1"/>

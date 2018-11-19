@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:03 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Mon Nov 19 16:10:27 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -183,22 +183,22 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w2_0 :C_w3_0" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_5_1 :C_17_0 :C_18_0 :C_9_0 :C_9_1 :C_19_0 :C_20_0 :C_13_0 :C_13_1 :C_21_0 :C_c0_0 :C_c1_0" shape="89.10,115.90 110.90,115.90 111.21,113.71 111.60,112.85 112.15,112.15 112.85,111.60 113.71,111.21 114.73,110.98 115.90,110.90 115.90,89.10 113.71,88.79 112.85,88.40 112.15,87.85 111.60,87.15 111.21,86.29 110.98,85.27 110.90,84.10 89.10,84.10 88.79,86.29 88.40,87.15 87.85,87.85 87.15,88.40 86.29,88.79 85.27,89.02 84.10,89.10 84.10,110.90 86.29,111.21 87.15,111.60 87.85,112.15 88.40,112.85 88.79,113.71 89.02,114.73" radius="5.00">
-        <request index="0"  response="000000000000000000" foes="000000100001100000" cont="0"/>
+        <request index="0"  response="000000000000000000" foes="000000000001100000" cont="0"/>
         <request index="1"  response="101001000010000000" foes="101111100011100000" cont="0"/>
         <request index="2"  response="101001000010000000" foes="101111100011100000" cont="0"/>
-        <request index="3"  response="011000011110000000" foes="011110011111100000" cont="1"/>
-        <request index="4"  response="010000011000000000" foes="011000011000000000" cont="0"/>
+        <request index="3"  response="011000011010000000" foes="011110011011100000" cont="1"/>
+        <request index="4"  response="010000011000000000" foes="010000011000000000" cont="0"/>
         <request index="5"  response="010000111000001111" foes="011000111000001111" cont="0"/>
         <request index="6"  response="010000111000001111" foes="011000111000001111" cont="0"/>
-        <request index="7"  response="110111111000001110" foes="110111111000001110" cont="1"/>
-        <request index="8"  response="110000000000000000" foes="110110000000001000" cont="1"/>
+        <request index="7"  response="110110111000001110" foes="110110111000001110" cont="1"/>
+        <request index="8"  response="110000000000000000" foes="110110000000000000" cont="1"/>
         <request index="9"  response="101000000010000000" foes="101110000011111000" cont="0"/>
         <request index="10" response="101000000010000000" foes="101110000011111000" cont="0"/>
-        <request index="11" response="101000000010000111" foes="101110000011100111" cont="1"/>
-        <request index="12" response="100000000000000110" foes="100000000010000110" cont="1"/>
+        <request index="11" response="101000000010000110" foes="101110000011100110" cont="1"/>
+        <request index="12" response="100000000000000110" foes="100000000000000110" cont="1"/>
         <request index="13" response="010000111100001110" foes="010000111110001110" cont="0"/>
         <request index="14" response="010000111100001110" foes="010000111110001110" cont="0"/>
-        <request index="15" response="000000111001111110" foes="000000111001111110" cont="1"/>
+        <request index="15" response="000000111001101110" foes="000000111001101110" cont="1"/>
         <request index="16" response="000000000000000000" foes="000110000111111000" cont="0"/>
         <request index="17" response="000000000000000000" foes="000001111110000110" cont="0"/>
     </junction>

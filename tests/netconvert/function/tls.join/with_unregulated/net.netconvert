@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:02 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Mon Nov 19 16:10:26 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -122,18 +122,18 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="cluster_828110201_828110211" type="dead_end" x="1079.49" y="0.00" incLanes="68992992#2_0 68992992#2_1" intLanes="" shape="1076.33,0.14 1082.72,-0.14"/>
     <junction id="cluster_828110366_828110369" type="traffic_light" x="1149.20" y="1032.37" incLanes="68992992#0_0 68992992#0_1 147676141#0_0 147676141#0_1 137082383#12_0 137082383#12_1" intLanes=":cluster_828110366_828110369_0_0 :cluster_828110366_828110369_1_0 :cluster_828110366_828110369_1_1 :cluster_828110366_828110369_3_0 :cluster_828110366_828110369_4_0 :cluster_828110366_828110369_4_1 :cluster_828110366_828110369_12_0 :cluster_828110366_828110369_13_0 :cluster_828110366_828110369_8_0 :cluster_828110366_828110369_9_0 :cluster_828110366_828110369_9_1 :cluster_828110366_828110369_14_0" shape="1149.90,1047.15 1156.08,1045.49 1155.94,1043.34 1156.30,1042.60 1156.93,1042.07 1157.84,1041.76 1159.04,1041.66 1159.71,1023.60 1156.87,1023.36 1154.52,1022.86 1152.66,1022.10 1151.28,1021.09 1150.39,1019.82 1149.98,1018.30 1143.61,1018.92 1143.38,1021.10 1142.90,1021.84 1142.18,1022.34 1141.22,1022.61 1140.01,1022.63 1138.51,1040.56 1141.56,1040.97 1144.15,1041.66 1146.27,1042.62 1147.94,1043.85 1149.15,1045.36">
-        <request index="0"  response="000000110000" foes="100000110000" cont="0"/>
+        <request index="0"  response="000000110000" foes="000000110000" cont="0"/>
         <request index="1"  response="011101110000" foes="011101110000" cont="0"/>
         <request index="2"  response="011101110000" foes="011101110000" cont="0"/>
         <request index="3"  response="011001110000" foes="011011110000" cont="0"/>
         <request index="4"  response="000000000000" foes="100000001111" cont="0"/>
         <request index="5"  response="000000000000" foes="100000001111" cont="0"/>
-        <request index="6"  response="011100000000" foes="011100001110" cont="1"/>
+        <request index="6"  response="011000000000" foes="011000001110" cont="1"/>
         <request index="7"  response="011000001000" foes="011000001000" cont="1"/>
-        <request index="8"  response="000000000000" foes="000001000110" cont="0"/>
+        <request index="8"  response="000000000000" foes="000000000110" cont="0"/>
         <request index="9"  response="000000000000" foes="000011001110" cont="0"/>
         <request index="10" response="000000000000" foes="000011001110" cont="0"/>
-        <request index="11" response="000000110001" foes="000000110001" cont="1"/>
+        <request index="11" response="000000110000" foes="000000110000" cont="1"/>
     </junction>
 
     <junction id=":cluster_828110366_828110369_12_0" type="internal" x="1150.95" y="1029.58" incLanes=":cluster_828110366_828110369_6_0 137082383#12_0 137082383#12_1" intLanes=":cluster_828110366_828110369_1_0 :cluster_828110366_828110369_1_1 :cluster_828110366_828110369_3_0 :cluster_828110366_828110369_8_0 :cluster_828110366_828110369_9_0 :cluster_828110366_828110369_9_1"/>

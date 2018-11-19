@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:54 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Mon Nov 19 16:10:16 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -653,7 +653,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1"  response="000000000000000" foes="111110001100000" cont="0"/>
         <request index="2"  response="000000000000000" foes="111110001100000" cont="0"/>
         <request index="3"  response="000001110000000" foes="110001111100000" cont="1"/>
-        <request index="4"  response="000001100000000" foes="100001100000000" cont="0"/>
+        <request index="4"  response="000001100000000" foes="000001100000000" cont="0"/>
         <request index="5"  response="000011100001111" foes="100011100001111" cont="0"/>
         <request index="6"  response="011111100001110" foes="011111100001110" cont="0"/>
         <request index="7"  response="000000000000000" foes="010000000001000" cont="0"/>
@@ -663,7 +663,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="11" response="000000000000110" foes="000000001000110" cont="0"/>
         <request index="12" response="000000000000110" foes="000000001000110" cont="0"/>
         <request index="13" response="000011110001110" foes="000011111001110" cont="0"/>
-        <request index="14" response="000011100111110" foes="000011100111110" cont="0"/>
+        <request index="14" response="000011100101110" foes="000011100101110" cont="0"/>
     </junction>
     <junction id="4" type="priority" x="1059.73" y="521.23" incLanes="-4_0 -4_1 -23_0 -23_1 -13_0" intLanes=":4_0_0 :4_1_0 :4_1_1 :4_3_0 :4_3_1 :4_8_0 :4_6_0 :4_7_0" shape="1066.37,527.16 1065.43,514.39 1049.96,516.27 1051.92,528.92 1054.08,529.02 1054.80,529.45 1055.27,530.14 1055.51,531.09 1055.51,532.29 1061.89,532.87 1062.60,529.82 1063.25,528.73 1064.10,527.92 1065.14,527.40">
         <request index="0" response="00000000" foes="00100000" cont="0"/>

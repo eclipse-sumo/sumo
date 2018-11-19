@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:58 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Mon Nov 19 16:10:21 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -194,7 +194,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":-4_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.48" length="9.15" shape="344.00,728.32 342.90,726.02 341.35,724.65 339.36,724.20 336.92,724.67"/>
     </edge>
     <edge id=":-4_1" function="internal">
-        <lane id=":-4_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.73" length="15.93" shape="344.00,728.32 343.01,724.56 342.30,720.55 341.89,716.49 341.78,712.60"/>
+        <lane id=":-4_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.72" length="15.93" shape="344.00,728.32 343.01,724.56 342.30,720.55 341.89,716.49 341.78,712.60"/>
     </edge>
     <edge id=":-4_2" function="internal">
         <lane id=":-4_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.01" length="6.61" shape="344.00,728.32 343.38,724.36 344.11,721.86"/>
@@ -230,7 +230,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":-4_8_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.03" length="9.07" shape="344.98,712.65 345.31,715.21 346.39,716.84 348.22,717.53 350.79,717.29"/>
     </edge>
     <edge id=":-4_9" function="internal">
-        <lane id=":-4_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.73" length="14.91" shape="344.98,712.65 345.06,716.38 345.42,720.08 346.08,723.74 347.05,727.35"/>
+        <lane id=":-4_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.72" length="14.91" shape="344.98,712.65 345.06,716.38 345.42,720.08 346.08,723.74 347.05,727.35"/>
     </edge>
     <edge id=":-4_10" function="internal">
         <lane id=":-4_10_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.68" length="6.04" shape="344.98,712.65 344.43,716.86 343.70,718.49"/>
@@ -356,7 +356,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010001" foes="000010001" cont="0"/>
     </junction>
     <junction id="-15" type="priority" x="303.59" y="681.82" incLanes="-38#1_0 --33#1_0 --33#1_1 -33#0_0 -33#0_1" intLanes=":-15_0_0 :-15_1_0 :-15_2_0 :-15_3_0 :-15_4_0 :-15_4_1 :-15_11_0 :-15_7_0 :-15_7_1 :-15_12_0 :-15_13_0" shape="315.68,690.45 318.19,684.56 316.53,683.47 316.30,682.89 316.47,682.29 317.03,681.67 317.99,681.02 311.69,669.88 297.00,677.95 302.73,689.40 306.31,688.44 308.38,688.46 310.63,688.79 313.06,689.46">
-        <request index="0"  response="00000110000" foes="10000110000" cont="0"/>
+        <request index="0"  response="00000110000" foes="00000110000" cont="0"/>
         <request index="1"  response="01110110000" foes="01111110000" cont="0"/>
         <request index="2"  response="01000001000" foes="01000001000" cont="0"/>
         <request index="3"  response="00000000000" foes="01000000100" cont="0"/>
@@ -366,7 +366,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7"  response="00000000000" foes="00001000010" cont="0"/>
         <request index="8"  response="00000000000" foes="00001000010" cont="0"/>
         <request index="9"  response="00000111000" foes="00000111110" cont="1"/>
-        <request index="10" response="00000110001" foes="00000110001" cont="1"/>
+        <request index="10" response="00000110000" foes="00000110000" cont="1"/>
     </junction>
     <junction id="-19" type="priority" x="1048.06" y="663.40" incLanes="--38#0_0 --37#0_0" intLanes=":-19_0_0 :-19_1_0 :-19_2_0 :-19_3_0" shape="1045.88,655.79 1040.96,659.89 1040.68,666.28 1044.85,666.17 1047.69,665.40 1049.22,663.98 1049.42,661.90 1048.31,659.17">
         <request index="0" response="0000" foes="1000" cont="0"/>
