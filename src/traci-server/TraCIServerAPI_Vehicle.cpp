@@ -487,7 +487,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 const int nParameter = inputStorage.readInt();
                 if (nParameter != 4 && nParameter != 5) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Create gap needs a compound object description of three or four items.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Create gap needs a compound object description of four or five items.", outputStorage);
                 }
                 double newTimeHeadway = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, newTimeHeadway)) {
