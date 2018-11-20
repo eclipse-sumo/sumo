@@ -57,7 +57,6 @@
 // ===========================================================================
 
 const double GNEPoly::myHintSize = 0.8;
-const double GNEPoly::myHintSizeSquared = 0.64;
 
 // ===========================================================================
 // method definitions
@@ -287,11 +286,13 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     */
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
+    double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s));
+    double circleWidthSquared = circleWidth * circleWidth;
     int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // push matrix
     glPushName(getGlID());
     // draw geometry details hints if is not too small and isn't in selecting mode
-    if (s.scale * myHintSize > 1.) {
+    if (s.scale * circleWidth > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
         bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
@@ -316,42 +317,42 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(i) <= (myHintSizeSquared + 2))) {
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(i) <= (circleWidthSquared + 2))) {
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                     // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                    if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
+                    if (modeMove && (i.distanceTo(mousePosition) < circleWidth)) {
                         mouseOverVertex = true;
                         GLHelper::setColor(invertedColor);
                     } else {
                         GLHelper::setColor(darkerColor);
                     }
-                    GLHelper::drawFilledCircle(myHintSize, circleResolution);
+                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
                     // draw special symbols (Start, End and Block)
                     if ((i == myShape.front()) && !s.drawForSelecting) {
                         // draw a "s" over first point
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("S", Position(), .1, 2 * myHintSize, invertedColor);
+                        GLHelper::drawText("S", Position(), .1, 2 * circleWidth, invertedColor);
                         glPopMatrix();
                     } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting) {
                         // draw a "e" over last point if polygon isn't closed
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("E", Position(), .1, 2 * myHintSize, invertedColor);
+                        GLHelper::drawText("E", Position(), .1, 2 * circleWidth, invertedColor);
                         glPopMatrix();
                     }
                 }
             }
             // check if draw moving hint has to be drawed
-            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
+            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < circleWidth)) {
                 // push matrix
                 glPushMatrix();
                 Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
                 glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(myHintSize, circleResolution);
+                GLHelper:: drawFilledCircle(circleWidth, circleResolution);
                 glPopMatrix();
             }
         }

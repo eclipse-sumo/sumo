@@ -244,9 +244,6 @@ private:
     /// @brief hint size of vertex
     static const double myHintSize;
 
-    /// @brief squaredhint size of vertex
-    static const double myHintSizeSquared;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
