@@ -893,6 +893,10 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
                 const double length = sideline.length2D();
                 const double width = ortholine.length2D();
                 const double edgeOffset = road.nearest_offset_to_point2D(center);
+                if (edgeOffset == GeomHelper::INVALID_OFFSET) {
+                    WRITE_WARNING("Cannot map road object polygon '" + id + "' with center " + toString(center) + " onto edge '" + e->getID() + "'");
+                    continue;
+                }
                 Position edgePos = road.positionAtOffset2D(edgeOffset);
                 const double edgeAngle = road.rotationAtOffset(edgeOffset);
                 const double relAngle = absAngle - edgeAngle;
