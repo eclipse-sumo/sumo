@@ -12,7 +12,7 @@
 /// @date    Nov 2018
 /// @version $Id$
 ///
-// Helper for icons loading and usage
+// Helper for cursors loading and usage
 /****************************************************************************/
 
 
@@ -39,31 +39,22 @@ GUICursorSubSys* GUICursorSubSys::myInstance = nullptr;
 // ===========================================================================
 
 GUICursorSubSys::GUICursorSubSys(FXApp* a) {
-    // build cursors
-    /*
-    myCursors[CURSOR_SUMO] = new FXXPMCursor(a, sumo_icon64_xpm);
-    ...
-    ..
-    .
-    */
-    
-    /*
+
+    /*myCursors[CURSOR_SUMO] = new FXXPMCursor(a, sumo_icon64_xpm);*/
+
     // ... and create them
     for (int i = 0; i < CURSOR_MAX; i++) {
         if (myCursors[i] != nullptr) {
             myCursors[i]->create();
         }
     }
-    */
 }
 
 
 GUICursorSubSys::~GUICursorSubSys() {
-    /*
     for (int i = 0; i < CURSOR_MAX; i++) {
         delete myCursors[i];
     }
-    */
 }
 
 

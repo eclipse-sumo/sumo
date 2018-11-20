@@ -37,7 +37,7 @@ public:
      */
     static void initCursors(FXApp* a);
 
-    /**@brief returns a icon previously defined in the enum GUICursor
+    /**@brief returns a cursor previously defined in the enum GUICursor
      * @param[in] which GUICursor enum
      */
     static FXCursor* getCursor(GUICursor which);
