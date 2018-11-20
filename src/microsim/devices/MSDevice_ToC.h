@@ -223,6 +223,10 @@ private:
     /// @brief Remove ongoing awareness recovery process from the event-queue.
     void descheduleRecovery();
 
+    /// @brief Resets the holder's LC mode to the last differing to LCModeMRM
+    void resetLCMode();
+    /// @brief Resets the holder's LC mode to the operational LC-mode of the ToC Device (@see LCModeMRM)
+    void setLCModeMRM();
 
 
 private:
@@ -276,6 +280,12 @@ private:
 
     /// @brief Storage for events to be written to the output
     std::queue<std::pair<SUMOTime, std::string> > myEvents;
+
+    /// @brief LC mode overridden during MRM, stored for restoration
+    int myPreviousLCMode;
+
+    /// @brief LC mode operational during an MRM
+    static int LCModeMRM;
 
 private:
     /// @brief Invalidated copy constructor.

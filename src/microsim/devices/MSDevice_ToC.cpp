@@ -70,6 +70,7 @@
 // ---------------------------------------------------------------------------
 std::set<MSDevice_ToC*> MSDevice_ToC::instances = std::set<MSDevice_ToC*>();
 std::set<std::string> MSDevice_ToC::createdOutputFiles;
+int MSDevice_ToC::LCModeMRM = 768; // = 0b001100000000 - no autonomous changes, no speed adaptation
 
 // ===========================================================================
 // method definitions
@@ -204,7 +205,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myExecuteMRMCommand(nullptr),
     myPrepareToCCommand(nullptr),
     myOutputFile(nullptr),
-    myEvents() {
+    myEvents(),
+    myPreviousLCMode(-1) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
     // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
@@ -318,6 +320,7 @@ MSDevice_ToC::~MSDevice_ToC() {
     }
     if (myExecuteMRMCommand != nullptr) {
         myExecuteMRMCommand->deschedule();
+        resetLCMode();
     }
     if (myPrepareToCCommand != nullptr) {
         myPrepareToCCommand->deschedule();
@@ -509,6 +512,7 @@ MSDevice_ToC::descheduleMRM() {
     // Eventually abort ongoing MRM
     if (myExecuteMRMCommand != nullptr) {
         myExecuteMRMCommand->deschedule();
+        resetLCMode();
         myExecuteMRMCommand = nullptr;
     }
 }
@@ -576,6 +580,7 @@ MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
 
 SUMOTime
 MSDevice_ToC::MRMExecutionStep(SUMOTime t) {
+    setLCModeMRM();
     const double currentSpeed = myHolderMS->getSpeed();
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " MRM step for vehicle '" << myHolder.getID() << "', currentSpeed=" << currentSpeed << std::endl;
@@ -588,20 +593,13 @@ MSDevice_ToC::MRMExecutionStep(SUMOTime t) {
     speedTimeLine.push_back(std::make_pair(t, nextSpeed));
     myHolderMS->getInfluencer().setSpeedTimeLine(speedTimeLine);
 
-    // Prevent lane changes during MRM
-    // TODO: seems not to function
-    std::vector<std::pair<SUMOTime, int> > laneTimeLine;
-    const int currentLane = myHolderMS->getLaneIndex();
-    laneTimeLine.push_back(std::make_pair(t - DELTA_T, currentLane));
-    laneTimeLine.push_back(std::make_pair(t, currentLane));
-    myHolderMS->getInfluencer().setLaneTimeLine(laneTimeLine);
-
     if (myState == MRM) {
         return DELTA_T;
     } else {
 #ifdef DEBUG_TOC
         std::cout << SIMTIME << " Aborting MRM for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
+        resetLCMode();
         return 0;
     }
 }
@@ -771,6 +769,31 @@ MSDevice_ToC::cleanup() {
     }
 }
 
+
+void
+MSDevice_ToC::resetLCMode() {
+    if (myPreviousLCMode != -1) {
+        myHolderMS->getInfluencer().setLaneChangeMode(myPreviousLCMode);
+#ifdef DEBUG_TOC
+        std::cout << "MSDevice_ToC::resetLCMode() restoring LC Mode of vehicle '" << myHolder.getID() << "' to " << myPreviousLCMode << std::endl;
+#endif
+    }
+    myPreviousLCMode = -1;
+}
+
+
+void
+MSDevice_ToC::setLCModeMRM() {
+    const int lcModeHolder = myHolderMS->getInfluencer().getLaneChangeMode();
+    if (lcModeHolder != LCModeMRM) {
+        myPreviousLCMode = lcModeHolder;
+#ifdef DEBUG_TOC
+        std::cout << "MSDevice_ToC::setLCModeMRM() setting LC Mode of vehicle '" << myHolder.getID()
+                << "' from " << myPreviousLCMode << " to " << LCModeMRM << std::endl;
+#endif
+    }
+    myHolderMS->getInfluencer().setLaneChangeMode(LCModeMRM);
+}
 
 /****************************************************************************/
 
