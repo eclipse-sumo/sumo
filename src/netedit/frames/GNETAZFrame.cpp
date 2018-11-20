@@ -90,15 +90,15 @@ FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           FXGroupBox,     TAZEdgesGrap
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZCurrent::TAZEdge::TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNEAdditional *_TAZSource, GNEAdditional *_TAZSink) :
-    myTAZCurrentParent(TAZCurrentParent),
     edge(_edge),
     TAZSource(_TAZSource),
     TAZSink(_TAZSink),
     sourceColor(0),
     sinkColor(0),
     sourcePlusSinkColor(0),
-    sourceMinusSinkColor(0) {
-}
+    sourceMinusSinkColor(0),
+    myTAZCurrentParent(TAZCurrentParent)
+{ }
 
 
 GNETAZFrame::TAZCurrent::TAZEdge::~TAZEdge() {}
