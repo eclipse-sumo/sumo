@@ -365,6 +365,16 @@ MSVehicle::Influencer::getLaneTimeLineDuration() {
     return -duration;
 }
 
+SUMOTime
+MSVehicle::Influencer::getLaneTimeLineEnd() {
+    if(!myLaneTimeLine.empty()) {
+        return myLaneTimeLine.back().first;
+    } else {
+        return -1.0;
+    }
+}
+
+
 double
 MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, double speed, double vSafe, double vMin, double vMax) {
     // keep original speed

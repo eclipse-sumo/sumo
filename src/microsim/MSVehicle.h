@@ -1431,6 +1431,8 @@ public:
         }
         SUMOTime getLaneTimeLineDuration();
 
+        SUMOTime getLaneTimeLineEnd();
+
         /** @brief Applies stored velocity information on the speed to use.
          *
          * The given speed is assumed to be the non-influenced speed from longitudinal control.
