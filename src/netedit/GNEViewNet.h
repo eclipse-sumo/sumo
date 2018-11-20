@@ -909,6 +909,9 @@ private:
     /// @brief Auxiliar function used by onLeftBtnPress(...)
     void processClick(FXEvent* e, void* data);
 
+    /// @brief update cursor after every click/key press/release
+    void updateCursor(FXEvent* e);
+
     /// @brief draw functions
     /// @{
 

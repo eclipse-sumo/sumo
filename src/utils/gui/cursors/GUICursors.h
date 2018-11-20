@@ -32,6 +32,12 @@
  * @brief An enumeration of cursors used by the gui applications
  */
 enum GUICursor {
+    /// @brief default cursor
+    SUMOCURSOR_DEFAULT,
+
+    /// @brief move cursor
+    SUMOCURSOR_MOVE,
+
     /// @brief max number of cursors
     CURSOR_MAX
 };

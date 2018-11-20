@@ -39,8 +39,12 @@ GUICursorSubSys* GUICursorSubSys::myInstance = nullptr;
 // ===========================================================================
 
 GUICursorSubSys::GUICursorSubSys(FXApp* a) {
+    // already created cursor
+    myCursors[SUMOCURSOR_DEFAULT] = a->getDefaultCursor(DEF_ARROW_CURSOR);
+    myCursors[SUMOCURSOR_MOVE] = a->getDefaultCursor(DEF_MOVE_CURSOR);
 
-    /*myCursors[CURSOR_SUMO] = new FXXPMCursor(a, sumo_icon64_xpm);*/
+    /*
+    myCursors[CURSOR_SUMO] = new FXXPMCursor(a, sumo_icon64_xpm);
 
     // ... and create them
     for (int i = 0; i < CURSOR_MAX; i++) {
@@ -48,13 +52,16 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
             myCursors[i]->create();
         }
     }
+    */
 }
 
 
 GUICursorSubSys::~GUICursorSubSys() {
+    /*
     for (int i = 0; i < CURSOR_MAX; i++) {
         delete myCursors[i];
     }
+    */
 }
 
 

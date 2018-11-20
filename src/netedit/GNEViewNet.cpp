@@ -37,6 +37,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
@@ -1274,19 +1275,22 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_ADDITIONAL: {
-                if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
-                    // check if we need to start select lanes
-                    if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-                        // select getLaneFront() to create an additional with consecutive lanes
-                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
-                    } else if (myObjectsUnderCursor.getLaneFront()) {
-                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
+                // avoid create additionals if control key is pressed
+                if(!myObjectsUnderCursor.controlKeyPressed()) {
+                    if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
+                        // check if we need to start select lanes
+                        if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
+                            // select getLaneFront() to create an additional with consecutive lanes
+                            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
+                        } else if (myObjectsUnderCursor.getLaneFront()) {
+                            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
+                        }
+                    } else {
+                        // add additionals.front()
+                        myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
                     }
-                } else {
-                    // add additionals.front()
-                    myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
+                    update();
                 }
-                update();
                 // process click
                 processClick(evt, eventData);
                 break;
@@ -1307,36 +1311,48 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_TAZ: {
-                // swap laness to edges in TAZ Mode
-                if (myObjectsUnderCursor.getLaneFront()) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
-                // check if we want to create a rect for selecting edges
-                if (myObjectsUnderCursor.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
-                    mySelectingArea.selectingUsingRectangle = true;
-                    mySelectingArea.selectionCorner1 = getPositionInformation();
-                    mySelectingArea.selectionCorner2 = getPositionInformation();
-                } else {
-                    // check if process click was scuesfully
-                    if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
-                        // view net must be always update
-                        update();
+                // avoid create TAZs if control key is pressed
+                if(!myObjectsUnderCursor.controlKeyPressed()) {
+                    // swap laness to edges in TAZ Mode
+                    if (myObjectsUnderCursor.getLaneFront()) {
+                        myObjectsUnderCursor.swapLane2Edge();
                     }
+                    // check if we want to create a rect for selecting edges
+                    if (myObjectsUnderCursor.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
+                        mySelectingArea.selectingUsingRectangle = true;
+                        mySelectingArea.selectionCorner1 = getPositionInformation();
+                        mySelectingArea.selectionCorner2 = getPositionInformation();
+                    } else {
+                        // check if process click was scuesfully
+                        if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
+                            // view net must be always update
+                            update();
+                        }
+                        // process click
+                        processClick(evt, eventData);
+                    }
+                } else {
                     // process click
                     processClick(evt, eventData);
                 }
                 break;
             }
             case GNE_MODE_POLYGON: {
-                if (!myObjectsUnderCursor.getPOIFront()) {
-                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
-                    // view net must be always update
-                    update();
-                    // process click depending of the result of "process click"
-                    if ((result != GNEPolygonFrame::ADDSHAPE_UPDATEDTEMPORALSHAPE)) {
-                        // process click
-                        processClick(evt, eventData);
+                // avoid create shapes if control key is pressed
+                if(!myObjectsUnderCursor.controlKeyPressed()) {
+                    if (!myObjectsUnderCursor.getPOIFront()) {
+                        GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
+                        // view net must be always update
+                        update();
+                        // process click depending of the result of "process click"
+                        if ((result != GNEPolygonFrame::ADDSHAPE_UPDATEDTEMPORALSHAPE)) {
+                            // process click
+                            processClick(evt, eventData);
+                        }
                     }
+                } else {
+                    // process click
+                    processClick(evt, eventData);
                 }
                 break;
             }
@@ -1357,6 +1373,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         }
         makeNonCurrent();
     }
+    // update cursor
+    updateCursor(evt);
     return 1;
 }
 
@@ -1364,6 +1382,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
+    // update cursor
+    updateCursor((FXEvent*)eventData);
     // obtan flag to check if shift key was pressed
     bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     if (myMovingSelection) {
@@ -1416,6 +1436,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 long 
 GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
+    // update cursor
+    updateCursor((FXEvent*)eventData);
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         // disable right button press during drawing polygon
         return 1;
@@ -1427,6 +1449,8 @@ GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
 
 long 
 GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
+    // update cursor
+    updateCursor((FXEvent*)eventData);
     // disable right button release during drawing polygon
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         return 1;
@@ -1438,7 +1462,10 @@ GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
+    // process mouse move in GUISUMOAbstractView
     GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
+    // update cursor
+    updateCursor((FXEvent*)eventData);
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending if during movement shift key is pressed
@@ -1499,6 +1526,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
+    // update cursor
+    updateCursor((FXEvent*)eventData);
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
@@ -1514,6 +1543,8 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
+    // update cursor
+    updateCursor((FXEvent*)eventData);
     // update shift key pressed
     myShiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
     // change "delete last created point" depending of shift key
@@ -2644,6 +2675,19 @@ GNEViewNet::processClick(FXEvent* e, void* eventData) {
     // Check there are double click
     if (e->click_count == 2) {
         handle(this, FXSEL(SEL_DOUBLECLICKED, 0), eventData);
+    }
+}
+
+
+void 
+GNEViewNet::updateCursor(FXEvent* e) {
+    // update cursor if control key is pressed
+    if((e->state & CONTROLMASK) && ((myEditMode == GNE_MODE_ADDITIONAL) || (myEditMode == GNE_MODE_POLYGON) || (myEditMode == GNE_MODE_TAZ))) {
+        setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
+        setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
+    } else {
+        setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_DEFAULT));
+        setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_DEFAULT));
     }
 }
 
