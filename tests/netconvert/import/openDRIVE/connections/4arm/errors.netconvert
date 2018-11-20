@@ -1,0 +1,3 @@
+Warning: Given openDrive file 'opendrive.xodr' uses version 1.4;
+ Version 1.2 is supported.
+Warning: Intersecting left turns at junction '1000000' from lane '1.0.00_0' and lane '-2.171.25_0'. (increase junction radius to avoid this)
