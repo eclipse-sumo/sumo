@@ -127,11 +127,6 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             // build new NBNode::Crossings and walking areas
             myNBNode.buildCrossingsAndWalkingAreas();
         }
-        // extract ALL crossing of Tree (Due after rebuild some IDs can referenciate another GNECrossing)
-        for (auto i : myGNECrossings) {
-            myNet->removeGLObjectFromGrid(i);
-        }
-
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
         // iterate over NBNode::Crossings of GNEJunction
@@ -143,8 +138,6 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             std::vector<GNECrossing*>::iterator retrievedExists = std::find(myGNECrossings.begin(), myGNECrossings.end(), retrievedGNECrossing);
             if (retrievedExists != myGNECrossings.end()) {
                 myGNECrossings.erase(retrievedExists);
-                // insert retrieved crossing in tree again
-                myNet->addGLObjectIntoGrid(retrievedGNECrossing);
                 // update geometry of retrieved crossing
                 retrievedGNECrossing->updateGeometry(true);
             } else {
@@ -890,8 +883,6 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
         GNECrossing* createdGNECrossing = new GNECrossing(this, crossing->edges);
         // show extra information for tests
         WRITE_DEBUG("Created " + createdGNECrossing->getTagStr() + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
-        // insert it in Tree
-        myNet->addGLObjectIntoGrid(createdGNECrossing);
         // update geometry after creating
         createdGNECrossing->updateGeometry(true);
         return createdGNECrossing;
