@@ -1,53 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.06.2018 14:06:49 by Eclipse SUMO netedit Version 7725fee923
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun141137.3240/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun141137.3240/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun141137.3240/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun141137.3240/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun141137.3240/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\net.net.xml"/>
-    </output>
-
-    <processing>
-        <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <sidewalks.guess value="true"/>
-        <crossings.guess value="true"/>
-        <walkingareas value="false"/>
-    </processing>
-
-    <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun141137.3240/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_18Jun141137.3240/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\log.txt"/>
-    </report>
-
-</configuration>
--->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_1" pos="14.77" file="instantInductionLoop_1.txt"/>
-    <instantInductionLoop id="instantInductionLoop_2" lane="gneE1_1" pos="41.50" file="instantInductionLoop_2.txt"/>
-    <instantInductionLoop id="instantInductionLoop_3" lane="gneE2_1" pos="19.94" file="instantInductionLoop_3.txt"/>
-    <instantInductionLoop id="instantInductionLoop_4" lane="gneE2_2" pos="25.78" file="instantInductionLoop_4.txt"/>
-    <instantInductionLoop id="instantInductionLoop_5" lane="gneE2_3" pos="29.90" file="instantInductionLoop_5.txt"/>
-    <instantInductionLoop id="instantInductionLoop_6" lane="gneE2_4" pos="34.11" file="instantInductionLoop_6.txt"/>
-    <instantInductionLoop id="instantInductionLoop_7" lane="gneE2_5" pos="36.17" file="instantInductionLoop_7.txt"/>
-    <instantInductionLoop id="instantInductionLoop_8" lane="gneE4_0" pos="10.31" file="instantInductionLoop_8.txt"/>
+    <e1Detector id="e1Detector_gneE0_0_7" lane="gneE0_1" pos="14.77" freq="100.00" file="e1Detector_gneE0_0_7.txt"/>
+    <e1Detector id="e1Detector_gneE1_0_6" lane="gneE1_1" pos="41.50" freq="100.00" file="e1Detector_gneE1_0_6.txt"/>
+    <e1Detector id="e1Detector_gneE2_0_0" lane="gneE2_1" pos="19.94" freq="100.00" file="e1Detector_gneE2_0_0.txt"/>
+    <e1Detector id="e1Detector_gneE2_1_1" lane="gneE2_2" pos="25.78" freq="100.00" file="e1Detector_gneE2_1_1.txt"/>
+    <e1Detector id="e1Detector_gneE2_2_2" lane="gneE2_3" pos="29.90" freq="100.00" file="e1Detector_gneE2_2_2.txt"/>
+    <e1Detector id="e1Detector_gneE2_3_3" lane="gneE2_4" pos="34.11" freq="100.00" file="e1Detector_gneE2_3_3.txt"/>
+    <e1Detector id="e1Detector_gneE2_4_4" lane="gneE2_5" pos="36.17" freq="100.00" file="e1Detector_gneE2_4_4.txt"/>
+    <e1Detector id="e1Detector_gneE4_0_5" lane="gneE4_0" pos="10.31" freq="100.00" file="e1Detector_gneE4_0_5.txt"/>
 </additional>
