@@ -31,6 +31,10 @@ ToC_overflow
 # Let automated vehicle perform a complete minimum risk maneuver (come to halt) before resuming.
 complete_MRM
 
+# Let automated vehicle perform lanechanges while it performs an MRM. It should not perform any lanechange deliberately but obey only to TraCI induced lanechanges.
+# This also tests that the vehicle is controllable during the PREPARE_TOC phase
+LC_during_MRM
+
 # Schedule ToC to happen during slow-down phase of the MRM
 incomplete_MRM
 
