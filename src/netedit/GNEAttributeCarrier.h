@@ -576,8 +576,6 @@ public:
         std::string defaultValue, parsedAttribute, additionalOfWarningMessage;
         // obtain tag properties
         const auto& tagProperties = getTagProperties(tag);
-        // obtain attribute properties (Only for improving efficiency)
-        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
         // first check if attribute is deprecated
         if (tagProperties.isAttributeDeprecated(attribute)) {
             // show warning if deprecateda ttribute is in the SUMOSAXAttributes
@@ -585,14 +583,10 @@ public:
                 WRITE_WARNING("Attribute " + toString(attribute) + "' of " + tagProperties.getTagStr() + " is deprecated and will not be loaded.");
             }
             // return a dummy value
-            if (attrProperties.isNumerical() || attrProperties.isBool()) {
-                return parse<T>("0");
-            } else if (attrProperties.isColor()) {
-                return parse<T>("black");
-            } else {
-                return parse<T>("");
-            }
+            return parse<T>("");
         }
+        // obtain attribute properties (Only for improving efficiency)
+        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
         // check if we're obtaining attribute of an object with an already parsed ID
         if (objectID != "") {
             additionalOfWarningMessage = tagProperties.getTagStr() + " with ID '" + objectID + "'";
