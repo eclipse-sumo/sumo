@@ -20,40 +20,40 @@ e1detector
 e2detector
 
 # e2 multilane 
-e2MultiLaneDetector
+#e2MultiLaneDetector
 
 # e3 detector
-e3detector
+#e3detector
 
 # det entry
-detentry
+#detentry
 
 # det exit
-detexit
+#detexit
 
 # E1 Instant detector
-e1InstantDetector
+#e1InstantDetector
 
 # calibrator
-calibrator
+#calibrator
 
 # lanecalibrator
-lanecalibrator
+#lanecalibrator
 
 # parking areas
-parkingarea
+#parkingarea
 
 # parking space
-parkingspace
+#parkingspace
 
 # rerouter
-rerouter
+#rerouter
 
 # routeprobe
-routeprobe
+#routeprobe
 
 # vaporizer
-vaporizer
+#vaporizer
 
 # variable speed sign
 #variablespeedsign
