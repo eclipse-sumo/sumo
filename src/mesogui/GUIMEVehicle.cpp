@@ -23,6 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -148,7 +149,10 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
 
 bool
 GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, SUMOVehicleShape /* guiShape */, bool /* asImage */) const {
+    // undo scaling from GUIBaseVehicle::drawAction_drawVehicleAsPoly
+    glPopMatrix();
     drawAction_drawVehicleAsBoxPlus();
+    glPushMatrix();
     return true;
 }
 
