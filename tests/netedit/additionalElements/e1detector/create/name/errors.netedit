@@ -2,21 +2,20 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e1Detector' in ItemSelector
+Debug: Invalid input parameter of e1Detector: input contains invalid characters
 Debug: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Adding e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
+Debug: Removing e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding e1Detector 'e1Detector_gneE0_0_1' in GNEChange_Additional
+Debug: Adding e1Detector 'e1Detector_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_1'
+Debug: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE0_0_0'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

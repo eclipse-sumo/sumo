@@ -1,71 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.07.2018 10:47:23 by Eclipse SUMO netedit Version 7115a4b324
+<!-- generated on 20.11.2018 15:00:39 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/lane\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/lane\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="5"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/lane\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/lane\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/lane\shapes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/lane\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul104245.2044/netedit.gui/additionalElements/e2detector/load\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/lane\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="E2_01" length="10.00" lane="gneE0_0" pos="1.00" freq="100.00" file="e2Detector_01.txt"/>
-    <e2Detector id="E2_10" length="12.00" lane="gneE0_0" pos="9.00" freq="100.00" file="e2Detector_10.txt"/>
-    <e2Detector id="E2_14" length="10.00" lane="gneE0_0" pos="13.00" freq="120.00" file="e2Detector_14.txt"/>
-    <e2Detector id="E2_18" length="10.00" lane="gneE0_0" pos="17.00" freq="120.00" file="e2Detector_01"/>
-    <e2Detector id="E2_19" length="10.00" lane="gneE0_0" pos="18.00" freq="120.00" file="myOwnFile.txt"/>
-    <e2Detector id="E2_20" length="10.00" lane="gneE0_0" pos="19.00" freq="120.00" file="e2Detector_20.txt"/>
-    <e2Detector id="E2_21" length="10.00" lane="gneE0_0" pos="20.00" freq="120.00" file="e2Detector_21.txt"/>
-    <e2Detector id="E2_22" length="10.00" lane="gneE0_0" pos="21.00" freq="120.00" file="e2Detector_22.txt"/>
-    <e2Detector id="E2_23" length="10.00" lane="gneE0_0" pos="22.00" freq="120.00" file="e2Detector_23.txt"/>
-    <e2Detector id="E2_24" length="10.00" lane="gneE0_0" pos="23.00" freq="120.00" file="e2Detector_24.txt"/>
-    <e2Detector id="E2_25" length="10.00" lane="gneE0_0" pos="24.00" freq="120.00" file="e2Detector_25.txt"/>
-    <e2Detector id="E2_26" length="10.00" lane="gneE0_0" pos="25.00" freq="120.00" file="e2Detector_26.txt"/>
-    <e2Detector id="E2_27" length="10.00" lane="gneE0_0" pos="26.00" freq="120.00" file="e2Detector_27.txt" timeThreshold="2.00"/>
-    <e2Detector id="E2_28" length="10.00" lane="gneE0_0" pos="27.00" freq="120.00" file="e2Detector_28.txt"/>
-    <e2Detector id="E2_29" length="10.00" lane="gneE0_0" pos="28.00" freq="120.00" file="e2Detector_29.txt"/>
-    <e2Detector id="E2_30" length="10.00" lane="gneE0_0" pos="29.00" freq="120.00" file="e2Detector_30.txt"/>
-    <e2Detector id="E2_31" length="10.00" lane="gneE0_0" pos="30.00" freq="120.00" file="e2Detector_31.txt" speedThreshold="5.00"/>
-    <e2Detector id="E2_32" length="10.00" lane="gneE0_0" pos="31.00" freq="120.00" file="e2Detector_32.txt"/>
-    <e2Detector id="E2_33" length="10.00" lane="gneE0_0" pos="32.00" freq="120.00" file="e2Detector_33.txt"/>
-    <e2Detector id="E2_34" length="10.00" lane="gneE0_0" pos="33.00" freq="120.00" file="e2Detector_34.txt"/>
-    <e2Detector id="E2_35" length="10.00" lane="gneE0_0" pos="34.00" freq="120.00" file="e2Detector_35.txt" jamThreshold="12.00"/>
-    <e2Detector id="E2_36" length="10.00" lane="gneE0_0" pos="35.00" freq="120.00" file="e2Detector_36.txt" jamThreshold="12.00"/>
-    <e2Detector id="E2_37" length="10.00" lane="gneE0_0" pos="35.00" freq="120.00" file="e2Detector_37.txt" jamThreshold="12.00"/>
-    <e2Detector id="E2_38" length="10.00" lane="gneE0_0" pos="0.00" freq="120.00" file="e2Detector_38.txt" jamThreshold="12.00" friendlyPos="1"/>
-    <e2Detector id="E2_39" length="0.00" lane="gneE0_0" pos="50.00" freq="120.00" file="e2Detector_39.txt" jamThreshold="12.00" friendlyPos="1"/>
-    <e2Detector id="E2_40" length="14.00" lane="gneE0_0" pos="36.00" freq="120.00" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
-    <e2Detector id="E2_42" length="5.00" lane="gneE0_0" pos="36.00" freq="120.00" file="e2Detector_40.txt" jamThreshold="12.00" friendlyPos="1"/>
-    <e2Detector id="E2_43" name="valid name" length="5.00" lane="gneE0_0" pos="37.00" freq="120.00" file="e2Detector_41.txt" jamThreshold="12.00" friendlyPos="1"/>
+    <e2Detector id="E2_03" length="10.00" lane="gneE0_0" pos="1.00" freq="100.00" file="fileA.txt"/>
 </additional>
