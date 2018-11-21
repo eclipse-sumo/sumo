@@ -680,6 +680,28 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_ACC] = ACCParams;
         allParams.insert(ACCParams.begin(), ACCParams.end());
 
+        std::set<SumoXMLAttr> CACCParams;
+        CACCParams.insert(SUMO_ATTR_ACCEL);
+        CACCParams.insert(SUMO_ATTR_DECEL);
+        CACCParams.insert(SUMO_ATTR_EMERGENCYDECEL);
+        CACCParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
+        CACCParams.insert(SUMO_ATTR_TAU);
+        CACCParams.insert(SUMO_ATTR_SC_GAIN_CACC);
+        CACCParams.insert(SUMO_ATTR_GCC_GAIN_GAP_CACC);
+        CACCParams.insert(SUMO_ATTR_GCC_GAIN_GAP_DOT_CACC);
+        CACCParams.insert(SUMO_ATTR_GC_GAIN_GAP_CACC);
+        CACCParams.insert(SUMO_ATTR_GC_GAIN_GAP_DOT_CACC);
+        CACCParams.insert(SUMO_ATTR_CA_GAIN_GAP_CACC);
+        CACCParams.insert(SUMO_ATTR_CA_GAIN_GAP_DOT_CACC);
+        CACCParams.insert(SUMO_ATTR_GCC_GAIN_SPEED);
+        CACCParams.insert(SUMO_ATTR_GCC_GAIN_SPACE);
+        CACCParams.insert(SUMO_ATTR_GC_GAIN_SPEED);
+        CACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
+        CACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
+        CACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+        allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;
+        allParams.insert(CACCParams.begin(), CACCParams.end());
+
         allowedCFModelAttrs[SUMO_TAG_NOTHING] = allParams;
     }
     return allowedCFModelAttrs;

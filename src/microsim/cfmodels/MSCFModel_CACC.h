@@ -7,12 +7,12 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSCFModel_ACC.h
+/// @file    MSCFModel_CACC.h
 /// @author  Kallirroi Porfyri
-/// @date    Feb 2018
+/// @date    Nov 2018
 /// @version $Id$
 ///
-// ACC car-following model based on [1], [2].
+// CACC car-following model based on [1], [2].
 // [1] Milanes, V., and S. E. Shladover. Handling Cut-In Vehicles in Strings
 //    of Cooperative Adaptive Cruise Control Vehicles. Journal of Intelligent
 //     Transportation Systems, Vol. 20, No. 2, 2015, pp. 178-191.
@@ -21,8 +21,8 @@
 //     Control Vehicles. Transportation Research Record: Journal of the
 //     Transportation Research Board, No. 2623, 2017. (DOI: 10.3141/2623-01).
 /****************************************************************************/
-#ifndef MSCFModel_ACC_H
-#define MSCFModel_ACC_H
+#ifndef MSCFModel_CACC_H
+#define MSCFModel_CACC_H
 
 // ===========================================================================
 // included modules
@@ -30,6 +30,7 @@
 #include <config.h>
 
 #include "MSCFModel.h"
+#include "MSCFModel_ACC.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 // ===========================================================================
@@ -37,24 +38,24 @@
 // ===========================================================================
 class MSVehicle;
 class MSVehicleType;
-class MSCFModel_CACC;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/** @class MSCFModel_ACC
-* @brief The ACC car-following model
+/** @class MSCFModel_CACC
+* @brief The CACC car-following model
 * @see MSCFModel
 */
-class MSCFModel_ACC : public MSCFModel {
+class MSCFModel_CACC : public MSCFModel {
 public:
     /** @brief Constructor
      *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel_ACC(const MSVehicleType* vtype);
+
+    MSCFModel_CACC(const MSVehicleType* vtype);
 
     /// @brief Destructor
-    ~MSCFModel_ACC();
+    ~MSCFModel_CACC();
 
 
     /// @name Implementations of the MSCFModel interface
@@ -98,7 +99,7 @@ public:
     * @see MSCFModel::getModelName
     */
     int getModelID() const {
-        return SUMO_TAG_CF_ACC;
+        return SUMO_TAG_CF_CACC;
     }
     /// @}
 
@@ -111,44 +112,44 @@ public:
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
     virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
-        ACCVehicleVariables* ret = new ACCVehicleVariables();
-        ret->ACC_ControlMode = 0;
-        ret->lastUpdateTime = 0;
+        CACCVehicleVariables* ret = new CACCVehicleVariables();
+        ret->CACC_ControlMode = 0;
+        ret->lastUpdateTime = 0.0;
         return ret;
     }
 
-    friend class MSCFModel_CACC;
 
 private:
-    class ACCVehicleVariables : public MSCFModel::VehicleVariables {
+    class CACCVehicleVariables : public MSCFModel::VehicleVariables {
     public:
-        ACCVehicleVariables() : ACC_ControlMode(0) {}
-        /// @brief The vehicle's ACC control mode. 0 for speed control and 1 for gap control
-        int ACC_ControlMode;
-        SUMOTime lastUpdateTime;
+        CACCVehicleVariables() : CACC_ControlMode(0) {}
+        /// @brief The vehicle's CACC  precious time step gap error
+        int    CACC_ControlMode;
+        double lastUpdateTime;
     };
 
 
 private:
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
-              const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
+        const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
-    double accelSpeedControl(double vErr) const;
-    double accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const;
-
+    double speedSpeedContol(const double speed, double vErr) const;
+    double speedGapControl(const MSVehicle* const veh, const double gap2pred,
+                           const double speed, const double predSpeed, const double desSpeed, double vErr) const;
 
 private:
+    MSCFModel_ACC acc_CFM;
     double mySpeedControlGain;
-    double myGapClosingControlGainSpeed;
-    double myGapClosingControlGainSpace;
-    double myGapControlGainSpeed;
-    double myGapControlGainSpace;
-    double myCollisionAvoidanceGainSpeed;
-    double myCollisionAvoidanceGainSpace;
+    double myGapClosingControlGainGap;
+    double myGapClosingControlGainGapDot;
+    double myGapControlGainGap;
+    double myGapControlGainGapDot;
+    double myCollisionAvoidanceGainGap;
+    double myCollisionAvoidanceGainGapDot;
 
 private:
     /// @brief Invalidated assignment operator
-    MSCFModel_ACC& operator=(const MSCFModel_ACC& s);
+    MSCFModel_CACC & operator=(const MSCFModel_CACC& s);
 };
 
-#endif /* MSCFModel_ACC_H */
+#endif /* MSCFModel_CACC_H */

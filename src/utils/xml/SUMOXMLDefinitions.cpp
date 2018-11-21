@@ -174,6 +174,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-Wiedemann",     SUMO_TAG_CF_WIEDEMANN },
     { "carFollowing-Rail",          SUMO_TAG_CF_RAIL },
     { "carFollowing-ACC",           SUMO_TAG_CF_ACC },
+    { "carFollowing-CACC",          SUMO_TAG_CF_CACC },
     // Person
     { "person",                     SUMO_TAG_PERSON },
     { "personTrip",                 SUMO_TAG_PERSONTRIP },
@@ -338,6 +339,14 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "gapControlGainSpace", SUMO_ATTR_GC_GAIN_SPACE },
     { "collisionAvoidanceGainSpeed", SUMO_ATTR_CA_GAIN_SPEED },
     { "collisionAvoidanceGainSpace", SUMO_ATTR_CA_GAIN_SPACE },
+
+    { "speedControlGainCACC", SUMO_ATTR_SC_GAIN_CACC },
+    { "gapClosingControlGainGap", SUMO_ATTR_GCC_GAIN_GAP_CACC },
+    { "gapClosingControlGainGapDot", SUMO_ATTR_GCC_GAIN_GAP_DOT_CACC },
+    { "gapControlGainGap", SUMO_ATTR_GC_GAIN_GAP_CACC },
+    { "gapControlGainGapDot", SUMO_ATTR_GC_GAIN_GAP_DOT_CACC },
+    { "collisionAvoidanceGainGap", SUMO_ATTR_CA_GAIN_GAP_CACC },
+    { "collisionAvoidanceGainGapDot", SUMO_ATTR_CA_GAIN_GAP_DOT_CACC },
 
     { "trainType",               SUMO_ATTR_TRAIN_TYPE },
 
@@ -742,6 +751,7 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "BKerner",     SUMO_TAG_CF_BKERNER },
     { "Rail",        SUMO_TAG_CF_RAIL },
     { "ACC",         SUMO_TAG_CF_ACC },
+    { "CACC",        SUMO_TAG_CF_CACC },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one
 };
 

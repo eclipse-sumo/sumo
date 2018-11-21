@@ -265,6 +265,7 @@ enum SumoXMLTag {
     SUMO_TAG_CF_BKERNER,
     SUMO_TAG_CF_WIEDEMANN,
     SUMO_TAG_CF_ACC,
+    SUMO_TAG_CF_CACC,
     SUMO_TAG_CF_RAIL,
     /// @}
 
@@ -519,6 +520,18 @@ enum SumoXMLAttr {
     SUMO_ATTR_CA_GAIN_SPEED,
     SUMO_ATTR_CA_GAIN_SPACE,
     /// @}
+
+    // @name Train CACC model attributes
+    /// @{
+    SUMO_ATTR_SC_GAIN_CACC,
+    SUMO_ATTR_GCC_GAIN_GAP_CACC,
+    SUMO_ATTR_GCC_GAIN_GAP_DOT_CACC,
+    SUMO_ATTR_GC_GAIN_GAP_CACC,
+    SUMO_ATTR_GC_GAIN_GAP_DOT_CACC,
+    SUMO_ATTR_CA_GAIN_GAP_CACC,
+    SUMO_ATTR_CA_GAIN_GAP_DOT_CACC,
+    /// @}
+
 
     /// @name Train model attributes
     /// @{
