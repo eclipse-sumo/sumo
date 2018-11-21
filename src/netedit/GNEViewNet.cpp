@@ -1023,7 +1023,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     // interpret object under cursor
     if (makeCurrent()) {
         // first update objects under cursor if Shift isn't pressed
-        if ((evt->state & SHIFTMASK) == false || myEditMode == GNE_MODE_CONNECT || myEditMode == GNE_MODE_INSPECT) {
+        if ((evt->state & SHIFTMASK) == false || myEditMode == GNE_MODE_CONNECT || myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_DELETE) {
             myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly, evt);
         }
         // decide what to do based on mode
@@ -1195,7 +1195,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_DELETE: {
                 if (myObjectsUnderCursor.getAttributeCarrierFront()) {
                     // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
-                    if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myObjectsUnderCursor.controlKeyPressed()) {
+                    if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myObjectsUnderCursor.shiftKeyPressed()) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // check if we are deleting a selection or an single attribute carrier
