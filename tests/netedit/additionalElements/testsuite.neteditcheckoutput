@@ -20,10 +20,10 @@ e1detector
 e2detector
 
 # e2 multilane 
-#e2MultiLaneDetector
+e2MultiLaneDetector
 
 # e3 detector
-#e3detector
+e3detector
 
 # det entry
 #detentry

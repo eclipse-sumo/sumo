@@ -23,7 +23,7 @@ e2detector
 e2MultiLaneDetector
 
 # e3 detector
-#e3detector
+e3detector
 
 # det entry
 #detentry
