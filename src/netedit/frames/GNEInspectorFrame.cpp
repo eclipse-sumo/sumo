@@ -515,11 +515,7 @@ GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelec
 long
 GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
     // set index (it works as a ring)
-    if(myItemIndex < (myOverlappedACs.size()-1)) {
-        myItemIndex++;
-    } else {
-        myItemIndex = 0;
-    }
+    myItemIndex = (myItemIndex + 1) % myOverlappedACs.size();
     // change current inspected item
     myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
     // show OverlappedInspection again (because it's hidden in inspectSingleElement)
