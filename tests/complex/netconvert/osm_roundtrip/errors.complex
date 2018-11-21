@@ -20,7 +20,7 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
      </edge>
      <edge id="-7727483#3" from="32266935" to="294169342" priority="6" type="highway.tertiary" shape="478.98,121.02 482.98,167.40 484.69,187.19 488.69,233.50 492.80,281.09 495.08,307.55">
          <lane id="-7727483#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="187.22" shape="481.48,131.37 484.58,167.26 486.29,187.05 490.29,233.36 494.40,280.95 496.27,302.68"/>
-@@ -1052,7 +1052,7 @@
+@@ -982,7 +982,7 @@
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>
      </junction>
@@ -29,7 +29,7 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
          <request index="0" response="0000" foes="1000"/>
          <request index="1" response="0100" foes="0100"/>
          <request index="2" response="0000" foes="0010"/>
-@@ -1583,16 +1583,16 @@
+@@ -1513,7 +1513,7 @@
      <node id="261599791" x="33.97" y="176.57" type="traffic_light" tl="261599791"/>
      <node id="261636677" x="1119.89" y="114.18" type="priority"/>
      <node id="261636678" x="1115.15" y="53.12" type="priority"/>
@@ -38,18 +38,7 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
      <node id="283018841" x="520.23" y="532.83" type="dead_end"/>
      <node id="283018842" x="480.89" y="521.99" type="dead_end"/>
      <node id="283018844" x="402.53" y="486.32" type="dead_end"/>
--    <node id="283018845" x="359.89" y="459.46" type="traffic_light" tl="joinedS_1"/>
-+    <node id="283018845" x="359.89" y="459.46" type="traffic_light" tl="joinedS_1" controlledInner="-6137233#1 6137233#1"/>
-     <node id="283018932" x="413.88" y="472.88" type="priority"/>
-     <node id="283018933" x="537.36" y="508.91" type="priority"/>
-     <node id="283018937" x="506.58" y="550.58" type="dead_end"/>
-     <node id="283719736" x="1053.02" y="520.83" type="priority"/>
--    <node id="283720461" x="1021.53" y="494.52" type="traffic_light" tl="joinedS_2"/>
-+    <node id="283720461" x="1021.53" y="494.52" type="traffic_light" tl="joinedS_2" controlledInner="-5198585#6 5198585#6"/>
-     <node id="283721344" x="1019.45" y="531.46" type="dead_end"/>
-     <node id="283721473" x="1007.12" y="573.30" type="dead_end"/>
-     <node id="283722835" x="1020.81" y="585.83" type="dead_end"/>
-@@ -1633,11 +1633,11 @@
+@@ -1563,7 +1563,7 @@
      <node id="38919605" x="782.81" y="575.88" type="priority"/>
      <node id="38919668" x="685.82" y="466.03" type="priority"/>
      <node id="38919703" x="664.49" y="450.74" type="priority"/>
@@ -58,17 +47,7 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
      <node id="38919797" x="525.69" y="749.30" type="dead_end"/>
      <node id="38919841" x="502.24" y="560.98" type="priority"/>
      <node id="38919854" x="387.44" y="504.33" type="priority"/>
--    <node id="38919880" x="339.13" y="454.31" type="traffic_light" tl="joinedS_1"/>
-+    <node id="38919880" x="339.13" y="454.31" type="traffic_light" tl="joinedS_1" controlledInner="-6137233#1 6137233#1"/>
-     <node id="38919927" x="297.39" y="446.01" type="priority"/>
-     <node id="38920501" x="495.47" y="311.99" type="priority"/>
-     <node id="38920557" x="518.91" y="744.71" type="dead_end"/>
-@@ -1648,11 +1648,11 @@
-     <node id="57343510" x="14.85" y="179.31" type="priority"/>
-     <node id="94487954" x="1737.68" y="19.68" type="traffic_light" tl="94487954"/>
-     <node id="cluster_283719904_36268403" x="934.12" y="553.29" type="traffic_light" tl="cluster_283719904_36268403"/>
--    <node id="cluster_283721348_36268378" x="1000.41" y="481.78" type="traffic_light" tl="joinedS_2"/>
-+    <node id="cluster_283721348_36268378" x="1000.41" y="481.78" type="traffic_light" tl="joinedS_2" controlledInner="-5198585#6 5198585#6"/>
+@@ -1582,7 +1582,7 @@
      <node id="cluster_294168098_294169338" x="562.43" y="315.09" type="right_before_left"/>
      <node id="cluster_301292612_38919945_56231397_59993001" x="492.35" y="390.75" type="priority"/>
      <node id="cluster_306982585_36268398_38920778" x="897.77" y="599.27" type="priority"/>
