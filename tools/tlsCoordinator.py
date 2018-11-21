@@ -249,11 +249,11 @@ def getFirstGreenOffset(tl, connection):
                            (len(tlp), connection._tls))
     phases = list(tlp.values())[0].getPhases()
     start = 0
-    for state, duration in phases:
-        if state[index] in ['G', 'g']:
+    for p in phases:
+        if p.state[index] in ['G', 'g']:
             return start
         else:
-            start += duration
+            start += p.duration
     raise RuntimeError(
         "No green light for tlIndex %s at tl %s" % (index, connection._tls))
 
