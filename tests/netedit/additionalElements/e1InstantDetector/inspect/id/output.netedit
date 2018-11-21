@@ -1,11 +1,11 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
-e1Detector
+instantInductionLoop
 TestFunctions: Clicked over position 554 - 290
 TestFunctions: Clicked over position 754 - 290
 TestFunctions: Clicked over position 554 - 290
-e1Detector_gneE2_1_1
+instantInductionLoop_gneE2_1_1
 Id with spaces
 correctID
 TestFunctions: Clicked over position 304 - 140

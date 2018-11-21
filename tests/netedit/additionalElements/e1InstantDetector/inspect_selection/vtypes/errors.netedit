@@ -1,69 +1,69 @@
-Debug: Adding e1Detector 'E1_A' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'E1_A' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Inserting generic parameter 'KeyA1|valueA1' into additional e1Detector.
-Debug: Inserting generic parameter 'KeyA3|valueA2' into additional e1Detector.
-Debug: Inserting generic parameter 'KeyA2|valueA3' into additional e1Detector.
-Debug: Adding e1Detector 'E1_B' in GNEChange_Additional
-Debug: Inserting generic parameter 'KeyB1|valueB1' into additional e1Detector.
-Debug: Inserting generic parameter 'KeyB3|valueB2' into additional e1Detector.
-Debug: Inserting generic parameter 'KeyB2|valueB3' into additional e1Detector.
+Debug: Inserting generic parameter 'KeyA1|valueA1' into additional instantInductionLoop.
+Debug: Inserting generic parameter 'KeyA3|valueA2' into additional instantInductionLoop.
+Debug: Inserting generic parameter 'KeyA2|valueA3' into additional instantInductionLoop.
+Debug: Adding instantInductionLoop 'E1_B' in GNEChange_Additional
+Debug: Inserting generic parameter 'KeyB1|valueB1' into additional instantInductionLoop.
+Debug: Inserting generic parameter 'KeyB3|valueB2' into additional instantInductionLoop.
+Debug: Inserting generic parameter 'KeyB2|valueB3' into additional instantInductionLoop.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e1Detector 'E1_A'
-Debug: Setting new attribute selected 'true' into e1Detector 'E1_B'
-Debug: Setting new attribute vTypes '' into e1Detector 'E1_A'
-Debug: Setting new attribute vTypes '' into e1Detector 'E1_B'
-Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e1Detector isn't valid
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_A'
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_B'
+Debug: Setting new attribute selected 'true' into instantInductionLoop 'E1_A'
+Debug: Setting new attribute selected 'true' into instantInductionLoop 'E1_B'
+Debug: Setting new attribute vTypes '' into instantInductionLoop 'E1_A'
+Debug: Setting new attribute vTypes '' into instantInductionLoop 'E1_B'
+Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of instantInductionLoop isn't valid
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1_A'
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1_B'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute vTypes '' into e1Detector 'E1_B'
-Debug: Setting previous attribute vTypes '' into e1Detector 'E1_A'
+Debug: Setting previous attribute vTypes '' into instantInductionLoop 'E1_B'
+Debug: Setting previous attribute vTypes '' into instantInductionLoop 'E1_A'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute vTypes 'Type4 Type5 Type6' into e1Detector 'E1_B'
-Debug: Setting previous attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_A'
+Debug: Setting previous attribute vTypes 'Type4 Type5 Type6' into instantInductionLoop 'E1_B'
+Debug: Setting previous attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1_A'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '0' into e1Detector 'E1_B'
-Debug: Setting previous attribute selected '0' into e1Detector 'E1_A'
+Debug: Setting previous attribute selected '0' into instantInductionLoop 'E1_B'
+Debug: Setting previous attribute selected '0' into instantInductionLoop 'E1_A'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing e1Detector 'E1_B' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'E1_B' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
-Debug: Removing e1Detector 'E1_A' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'E1_A' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding e1Detector 'E1_A' in GNEChange_Additional
-Debug: Adding e1Detector 'E1_B' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'E1_A' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'E1_B' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e1Detector 'E1_A'
-Debug: Setting new attribute selected 'true' into e1Detector 'E1_B'
+Debug: Setting new attribute selected 'true' into instantInductionLoop 'E1_A'
+Debug: Setting new attribute selected 'true' into instantInductionLoop 'E1_B'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute vTypes '' into e1Detector 'E1_A'
-Debug: Setting new attribute vTypes '' into e1Detector 'E1_B'
+Debug: Setting new attribute vTypes '' into instantInductionLoop 'E1_A'
+Debug: Setting new attribute vTypes '' into instantInductionLoop 'E1_B'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_A'
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_B'
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1_A'
+Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into instantInductionLoop 'E1_B'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced e1Detector 'E1_B'
+Debug: Deleting unreferenced instantInductionLoop 'E1_B'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Deleting unreferenced e1Detector 'E1_A'
+Debug: Deleting unreferenced instantInductionLoop 'E1_A'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -38,10 +38,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 240)
 
 # Change boolean parameter friendlypos
-netedit.modifyAdditionalDefaultValue(7, "dummyTrue")
+netedit.modifyAdditionalDefaultValue(6, "dummyTrue")
 
 # Change boolean parameter friendlypos
-netedit.modifyAdditionalDefaultValue(7, "true")
+netedit.modifyAdditionalDefaultValue(6, "true")
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

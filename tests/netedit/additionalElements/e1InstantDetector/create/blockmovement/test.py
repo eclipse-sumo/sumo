@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeAdditional("instantInductionLoop")
 
 # Change block movement
-netedit.modifyAdditionalDefaultBoolValue(8)
+netedit.modifyAdditionalDefaultBoolValue(7)
 
 # create E1 with different block movement
 netedit.leftClick(referencePosition, 500, 250)

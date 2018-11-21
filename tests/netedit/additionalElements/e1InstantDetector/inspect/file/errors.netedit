@@ -1,21 +1,21 @@
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected item 'busStop' in ItemSelector
-Debug: Selected item 'e1Detector' in ItemSelector
-Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
+Debug: Selected item 'instantInductionLoop' in ItemSelector
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Value '%%%;:..&&%$%$' for attribute file of e1Detector isn't valid
-Debug: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'e1Detector_gneE2_1_0'
+Debug: Value '%%%;:..&&%$%$' for attribute file of instantInductionLoop isn't valid
+Debug: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'instantInductionLoop_gneE2_1_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute file 'e1Detector_gneE2_1_0.xml' into e1Detector 'e1Detector_gneE2_1_0'
+Debug: Setting previous attribute file 'instantInductionLoop_gneE2_1_0.xml' into instantInductionLoop 'instantInductionLoop_gneE2_1_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'instantInductionLoop_gneE2_1_0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute file 'myOwnOutput.txt' into e1Detector 'e1Detector_gneE2_1_0'
+Debug: Setting new attribute file 'myOwnOutput.txt' into instantInductionLoop 'instantInductionLoop_gneE2_1_0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -25,7 +25,7 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE2_1_0'
+Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE2_1_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

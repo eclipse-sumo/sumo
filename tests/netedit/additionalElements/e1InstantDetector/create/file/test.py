@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("instantInductionLoop")
 
 # set invalid filename
-netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")
+netedit.modifyAdditionalDefaultValue(3, "&&&&&&&&")
 
 # try to create E1 with invalid filename
 netedit.leftClick(referencePosition, 350, 250)
 
 # set valid filename
-netedit.modifyAdditionalDefaultValue(4, "myOwnFilename.txt")
+netedit.modifyAdditionalDefaultValue(3, "myOwnFilename.txt")
 
 # try to create E1 with invalid filename
 netedit.leftClick(referencePosition, 350, 250)

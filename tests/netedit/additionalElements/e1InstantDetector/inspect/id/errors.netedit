@@ -1,27 +1,27 @@
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected item 'busStop' in ItemSelector
-Debug: Selected item 'e1Detector' in ItemSelector
-Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
+Debug: Selected item 'instantInductionLoop' in ItemSelector
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Adding e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
-Debug: Value 'e1Detector_gneE2_1_1' for attribute id of e1Detector isn't valid
-Debug: Value 'Id with spaces' for attribute id of e1Detector isn't valid
-Debug: Setting new attribute id 'correctID' into e1Detector 'e1Detector_gneE2_1_0'
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_1' in GNEChange_Additional
+Debug: Value 'instantInductionLoop_gneE2_1_1' for attribute id of instantInductionLoop isn't valid
+Debug: Value 'Id with spaces' for attribute id of instantInductionLoop isn't valid
+Debug: Setting new attribute id 'correctID' into instantInductionLoop 'instantInductionLoop_gneE2_1_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute id 'e1Detector_gneE2_1_0' into e1Detector 'correctID'
+Debug: Setting previous attribute id 'instantInductionLoop_gneE2_1_0' into instantInductionLoop 'correctID'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'instantInductionLoop_gneE2_1_1' in GNEChange_Additional
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'instantInductionLoop_gneE2_1_0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Adding e1Detector 'e1Detector_gneE2_1_1' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'instantInductionLoop_gneE2_1_1' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute id 'correctID' into e1Detector 'e1Detector_gneE2_1_0'
+Debug: Setting new attribute id 'correctID' into instantInductionLoop 'instantInductionLoop_gneE2_1_0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -31,10 +31,10 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE2_1_1'
+Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE2_1_1'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Deleting unreferenced e1Detector 'correctID'
+Debug: Deleting unreferenced instantInductionLoop 'correctID'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
