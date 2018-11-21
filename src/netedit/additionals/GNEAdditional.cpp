@@ -988,12 +988,20 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 }
 
 
+bool 
+GNEAdditional::isValidDetectorID(const std::string& newID) const {
+    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 void
 GNEAdditional::changeAdditionalID(const std::string& newID) {
     if (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) != nullptr) {
         throw InvalidArgument("An Additional with tag " + getTagStr() + " and ID = " + newID + " already exists");
-    } else if (!SUMOXMLDefinitions::isValidNetID(newID)) {
-        throw InvalidArgument("Additional ID " + newID + " contains invalid characters");
     } else {
         // Save old ID
         std::string oldID = getMicrosimID();

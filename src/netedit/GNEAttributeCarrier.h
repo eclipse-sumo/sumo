@@ -618,8 +618,14 @@ public:
                 if (parsedAttribute.empty()) {
                     errorFormat = "ID cannot be empty; ";
                     parsedOk = false;
+                } else if (tagProperties.isDetector()) {
+                    // special case for detectors (because in this case empty spaces are allowed)
+                    if (SUMOXMLDefinitions::isValidDetectorID(parsedAttribute) == false) {
+                        errorFormat = "Detector ID contains invalid characters; ";
+                        parsedOk = false;
+                    }
                 } else if (SUMOXMLDefinitions::isValidNetID(parsedAttribute) == false) {
-                    errorFormat = "'" + parsedAttribute + "' contains invalid characters; ";
+                    errorFormat = "ID contains invalid characters; ";
                     parsedOk = false;
                 }
             }

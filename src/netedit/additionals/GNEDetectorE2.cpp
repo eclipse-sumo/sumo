@@ -598,7 +598,7 @@ bool
 GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidDetectorID(value);
         case SUMO_ATTR_LANE:
             if (value.empty()) {
                 return false;

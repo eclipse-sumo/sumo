@@ -1265,6 +1265,9 @@ public:
     /// @brief whether the given string is a valid id for an edge or vehicle type
     static bool isValidTypeID(const std::string& value);
 
+    /// @brief whether the given string is a valid id for an detector
+    static bool isValidDetectorID(const std::string& value);
+
     /// @brief whether the given string is a valid attribute for a certain key (for example, a name)
     static bool isValidAttribute(const std::string& value);
 

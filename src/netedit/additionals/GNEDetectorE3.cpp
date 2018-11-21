@@ -247,7 +247,7 @@ bool
 GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidDetectorID(value);
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_FREQUENCY:
