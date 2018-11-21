@@ -14,10 +14,10 @@ waiting time (max, mean, dev): False True False
 ('footmainout', 'footmain0to1') True True True
 ('footmainout', 'footmain1to2') True True True
 ('footmainout', 'footmain2to3') True True True
-('footmainout', 'footmain3to4') True True True
+('footmainout', 'footmain3to4') True True False
 ('footmainout', 'footmain4to5') True True True
 ('footmainout', 'footmain5to6') True True True
-('footmainout', 'footmain6to7') True True True
+('footmainout', 'footmain6to7') True True False
 ('footmainout', 'footmain7to8') True True False
 CO2: True
  Retrying in 1 seconds
@@ -33,10 +33,10 @@ waiting time (max, mean, dev): False True False
 ('footmainout', 'footmain0to1') True True True
 ('footmainout', 'footmain1to2') True True True
 ('footmainout', 'footmain2to3') True True True
-('footmainout', 'footmain3to4') True True True
+('footmainout', 'footmain3to4') True True False
 ('footmainout', 'footmain4to5') True True True
 ('footmainout', 'footmain5to6') True True True
-('footmainout', 'footmain6to7') True True True
+('footmainout', 'footmain6to7') True True False
 ('footmainout', 'footmain7to8') True True False
 CO2: True
 Missing 'all-the-results.txt'
