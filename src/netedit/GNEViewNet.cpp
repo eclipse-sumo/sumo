@@ -1032,7 +1032,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             /** this function will be implemented in the future class GNECreateEdgeFrame **/
                 // make sure that Control key isn't pressed
                 if (!myObjectsUnderCursor.controlKeyPressed()) {
-                    // allow moving when control is held down
                     if (!myUndoList->hasCommandGroup()) {
                         myUndoList->p_begin("create new " + toString(SUMO_TAG_EDGE));
                     }
@@ -1196,7 +1195,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_DELETE: {
                 if (myObjectsUnderCursor.getAttributeCarrierFront()) {
                     // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
-                    if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                    if (mySelectEdges && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myObjectsUnderCursor.controlKeyPressed()) {
                         myObjectsUnderCursor.swapLane2Edge();
                     }
                     // check if we are deleting a selection or an single attribute carrier
