@@ -164,8 +164,8 @@ GNEInspectorFrame::hide() {
 bool 
 GNEInspectorFrame::processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     if (objectsUnderCursor.getAttributeCarrierFront()) {
-        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront()
-        if (myViewNet->selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront() and shift key isn't pressed
+        if (!objectsUnderCursor.shiftKeyPressed() && myViewNet->selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
             objectsUnderCursor.swapLane2Edge();
         }
         // if Control key is Pressed, select instead inspect element
