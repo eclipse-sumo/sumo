@@ -64,16 +64,20 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties() :
     myPositionListed(0),
     myDefinition(""),
     myDefaultValue(""),
-    myAttrSynonym(SUMO_ATTR_NOTHING) {}
+    myAttrSynonym(SUMO_ATTR_NOTHING),
+    myMinimumRange(0),
+    myMaximumRange(0) {}
 
 
-GNEAttributeCarrier::AttributeProperties::AttributeProperties(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym) :
+GNEAttributeCarrier::AttributeProperties::AttributeProperties(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym, double minimum, double maximum) :
     myAttributeProperty(attributeProperty),
     myPositionListed(positionListed),
     myDefinition(definition),
     myDefaultValue(defaultValue),
     myDiscreteValues(discreteValues),
-    myAttrSynonym(synonym) {
+    myAttrSynonym(synonym),
+    myMinimumRange(minimum),
+    myMaximumRange(maximum) {
 }
 
 
@@ -90,9 +94,17 @@ GNEAttributeCarrier::AttributeProperties::checkAttributeIntegrity() {
     if (isSecuential() && !isList()) {
         throw FormatException("Secuential property only is compatible with list properties");
     }
-    // check that synonim attribute isn't nothing
+    // check that synonym attribute isn't nothing
     if (hasAttrSynonym() && (myAttrSynonym == SUMO_ATTR_NOTHING)) {
-        throw FormatException("Synonim attribute cannot be nothing");
+        throw FormatException("synonym attribute cannot be nothing");
+    }
+    // check that ranges are valid
+    if (hasAttrRange()) {
+        if ((myMinimumRange == 0) && (myMaximumRange == 0)) {
+            throw FormatException("non-defined range");
+        } else if ((myMaximumRange - myMinimumRange) <= 0) {
+            throw FormatException("invalid range");
+        }
     }
 }
 
@@ -204,6 +216,26 @@ GNEAttributeCarrier::AttributeProperties::getAttrSynonym() const {
 }
 
 
+double 
+GNEAttributeCarrier::AttributeProperties::getMinimumRange() const {
+    if (hasAttrRange()) {
+        return myMinimumRange;
+    } else {
+        throw ProcessError("Attr doesn't have range");
+    }
+}
+
+
+double 
+GNEAttributeCarrier::AttributeProperties::getMaximumRange() const {
+    if (hasAttrRange()) {
+        return myMaximumRange;
+    } else {
+        throw ProcessError("Attr doesn't have range");
+    }
+}
+
+
 bool
 GNEAttributeCarrier::AttributeProperties::hasDefaultValue() const {
     return (myAttributeProperty & ATTRPROPERTY_DEFAULTVALUE) != 0;
@@ -213,6 +245,11 @@ GNEAttributeCarrier::AttributeProperties::hasDefaultValue() const {
 bool
 GNEAttributeCarrier::AttributeProperties::hasAttrSynonym() const {
     return (myAttributeProperty & ATTRPROPERTY_SYNONYM) != 0;
+}
+
+bool
+GNEAttributeCarrier::AttributeProperties::hasAttrRange() const {
+    return (myAttributeProperty & ATTRPROPERTY_RANGE) != 0;
 }
 
 
@@ -455,6 +492,18 @@ GNEAttributeCarrier::TagProperties::addAttribute(SumoXMLAttr attr, int attribute
         throw ProcessError("Attribute '" + toString(attr) + "' already inserted");
     } else {
         myAttributeProperties[attr] = AttributeProperties(attributeProperty, (int)myAttributeProperties.size(), definition, defaultValue, std::vector<std::string>(), synonym);
+    }
+}
+
+
+void 
+GNEAttributeCarrier::TagProperties::addAttribute(SumoXMLAttr attr, const int attributeProperty, const std::string& definition, const std::string& defaultValue, double minimum, double maximum) {
+    if (isAttributeDeprecated(attr)) {
+        throw ProcessError("Attribute '" + toString(attr) + "' is deprecated and cannot be inserted");
+    } else if (myAttributeProperties.count(attr) != 0) {
+        throw ProcessError("Attribute '" + toString(attr) + "' already inserted");
+    } else {
+        myAttributeProperties[attr] = AttributeProperties(attributeProperty, (int)myAttributeProperties.size(), definition, defaultValue, std::vector<std::string>(), SUMO_ATTR_NOTHING, minimum, maximum);
     }
 }
 
@@ -1518,9 +1567,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "Charging power in W",
                                                  "22000.00");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_EFFICIENCY,
-                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                  "Charging efficiency [0,1]",
-                                                 "0.95");
+                                                 "0.95",
+                                                 0, 1);
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_CHARGEINTRANSIT,
                                                  ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                  "Enable or disable charge in transit, i.e. vehicle must or must not to stop for charging",
@@ -2169,8 +2219,8 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "",
                                                  SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_PROB,
-                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                                                 "probability",
+                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                                 "SUMO Probability",
                                                  "1.00");
     }
     currentTag = SUMO_TAG_PARKING_ZONE_REROUTE;
@@ -2184,8 +2234,8 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "",
                                                  SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_PROB,
-                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                                                 "probability",
+                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                                 "SUMO Probability",
                                                  "1.00");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_VISIBLE,
                                                  ATTRPROPERTY_BOOL | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE,
@@ -2203,8 +2253,8 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "",
                                                  SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_PROB,
-                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                                                 "probability",
+                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                                 "SUMO Probability",
                                                  "1.00");
     }
     currentTag = SUMO_TAG_ROUTEPROBE;
@@ -2325,9 +2375,10 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "The deceleration ability of vehicles of this type [m/s^2]",
                                                  "4.50");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_SIGMA,
-                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_PROBABILITY | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                  "Car-following model parameter",
-                                                 "0.50");
+                                                 "0.50", 
+                                                 0, 1);
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_TAU,
                                                  ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                  "Car-following model parameter",

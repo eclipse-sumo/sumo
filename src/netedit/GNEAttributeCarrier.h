@@ -87,7 +87,8 @@ public:
         ATTRPROPERTY_OPTIONAL =     1 << 18,    // Attribute is optional
         ATTRPROPERTY_DEFAULTVALUE = 1 << 19,    // Attribute owns a default value
         ATTRPROPERTY_COMBINABLE =   1 << 20,    // Attribute is combinable with other Attribute
-        ATTRPROPERTY_SYNONYM =      1 << 21,    // Element will be written with a different name in der XML
+        ATTRPROPERTY_SYNONYM =      1 << 21,    // Attribute will be written with a different name in der XML
+        ATTRPROPERTY_RANGE =        1 << 22,    // Attribute only accept a range of elements
     };
 
     /// @brief struct with the attribute Properties
@@ -97,7 +98,7 @@ public:
         AttributeProperties();
 
         /// @brief parameter constructor
-        AttributeProperties(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym);
+        AttributeProperties(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym, double minimum = 0, double maximum = 0);
 
         /// @brief destructor
         ~AttributeProperties();
@@ -123,11 +124,20 @@ public:
         /// @brief get tag synonym
         SumoXMLAttr getAttrSynonym() const;
 
+        /// @brief get minimum range
+        double getMinimumRange() const;
+
+        /// @brief get maximum range
+        double getMaximumRange() const;
+
         /// @brief return true if attribute owns a default value
         bool hasDefaultValue() const;
 
         /// @brief return true if Attr correspond to an element that will be written in XML with another name
         bool hasAttrSynonym() const;
+
+        /// @brief return true if Attr correspond to an element that only accept a range of values
+        bool hasAttrRange() const;
 
         /// @brief return true if atribute is an integer
         bool isInt() const;
@@ -207,6 +217,12 @@ public:
 
         /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
         SumoXMLAttr myAttrSynonym;
+
+        /// @brief minimun Range
+        double myMinimumRange;
+
+        /// @brief maxium Range
+        double myMaximumRange;
     };
 
     enum TAGProperty {
@@ -267,6 +283,9 @@ public:
 
         /// @brief add attribute with synonym (duplicated attributed aren't allowed)
         void addAttribute(SumoXMLAttr attr, const int attributeProperty, const std::string& definition, const std::string& defaultValue, SumoXMLAttr synonym);
+
+        /// @brief add attribute with a range
+        void addAttribute(SumoXMLAttr attr, const int attributeProperty, const std::string& definition, const std::string& defaultValue, double minimum, double maximum);
 
         /// @brief add deprecated Attribute
         void addDeprecatedAttribute(SumoXMLAttr attr);
@@ -684,16 +703,34 @@ public:
             // set extra check for probability values
             if (attrProperties.isProbability()) {
                 if (canParse<double>(parsedAttribute)) {
-                    // parse to SUMO Real and check if is negative
-                    if (parse<double>(parsedAttribute) < 0) {
+                    // parse to double and check if is between [0,1]
+                    double probability = parse<double>(parsedAttribute);
+                    if (probability < 0) {
                         errorFormat = "Probability cannot be smaller than 0; ";
                         parsedOk = false;
-                    } else if (parse<double>(parsedAttribute) > 1) {
+                    } else if (probability > 1) {
                         errorFormat = "Probability cannot be greather than 1; ";
                         parsedOk = false;
                     }
                 } else {
                     errorFormat = "Cannot be parsed to probability; ";
+                    parsedOk = false;
+                }
+            }
+            // set extra check for range values
+            if (attrProperties.hasAttrRange()) {
+                if (canParse<double>(parsedAttribute)) {
+                    // parse to double and check if is in range
+                    double range = parse<double>(parsedAttribute);
+                    if (range < attrProperties.getMinimumRange()) {
+                        errorFormat = "Float cannot be smaller than " + toString(attrProperties.getMinimumRange())+ "; ";
+                        parsedOk = false;
+                    } else if (range > attrProperties.getMaximumRange()) {
+                        errorFormat = "Float cannot be greather than " + toString(attrProperties.getMaximumRange())+ "; ";
+                        parsedOk = false;
+                    }
+                } else {
+                    errorFormat = "Cannot be parsed to float; ";
                     parsedOk = false;
                 }
             }
