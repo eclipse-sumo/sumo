@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -38,8 +38,14 @@ netedit.changeAdditional("e2MultilaneDetector")
 netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
-# Change block movement
-netedit.modifyAdditionalDefaultBoolValue(11)
+# set invalid time threshold
+netedit.modifyAdditionalDefaultValue(6, "-12")
+
+# create E2 with default parameters
+netedit.typeEnter()
+
+# set valid time threshold
+netedit.modifyAdditionalDefaultValue(6, "10")
 
 # create E2 with default parameters
 netedit.typeEnter()

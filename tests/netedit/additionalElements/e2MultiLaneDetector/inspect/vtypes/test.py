@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -45,11 +45,11 @@ netedit.inspectMode()
 #inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change parameter 7 with a invalid value
-netedit.modifyAdditionalDefaultValue(7, "Type%%%%%1 T;;yp$2 Type3")
+# Change parameter vtypes with a invalid value
+netedit.modifyAdditionalDefaultValue(10, "Type%%%%%1 T;;yp$2 Type3")
 
-# Change parameter 7 with a valid value
-netedit.modifyAdditionalDefaultValue(7, "Type1 Type2 Type3")
+# Change parameter vtypes with a valid value
+netedit.modifyAdditionalDefaultValue(10, "Type1 Type2 Type3")
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

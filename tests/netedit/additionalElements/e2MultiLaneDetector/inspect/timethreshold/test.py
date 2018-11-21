@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -45,14 +45,14 @@ netedit.inspectMode()
 #inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change parameter 8 with a non valid value
-netedit.modifyAttribute(8, "dummyTimeTreshold")
+# Change parameter TimeTreshold with a non valid value
+netedit.modifyAttribute(11, "dummyTimeTreshold")
 
-# Change parameter 8 with a non valid value
-netedit.modifyAttribute(8, "-5")
+# Change parameter TimeTreshold with a non valid value
+netedit.modifyAttribute(11, "-5")
 
-# Change parameter 8 with a valid value
-netedit.modifyAttribute(8, "4")
+# Change parameter TimeTreshold with a valid value
+netedit.modifyAttribute(11, "4")
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

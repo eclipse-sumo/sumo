@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -38,14 +38,20 @@ netedit.changeAdditional("e2MultilaneDetector")
 netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
-# set invalid vehicle types (invalid IDs)
-netedit.modifyAdditionalDefaultValue(5, "%%;$$$ %%$$ type.3")
+# set invalid frequency
+netedit.modifyAdditionalDefaultValue(2, "dummyFreq")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
-# set valid vehicle type
-netedit.modifyAdditionalDefaultValue(5, "private passenger taxi bus")
+# set invalid frequency
+netedit.modifyAdditionalDefaultValue(2, "-30")
+
+# create E2 with default parameters
+netedit.typeEnter()
+
+# set valid frequency
+netedit.modifyAdditionalDefaultValue(2, "120")
 
 # create E2 with default parameters
 netedit.typeEnter()

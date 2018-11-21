@@ -32,7 +32,7 @@ e2detector
 #detexit
 
 # E1 Instant detector
-#e1InstantDetector
+e1InstantDetector
 
 # calibrator
 #calibrator

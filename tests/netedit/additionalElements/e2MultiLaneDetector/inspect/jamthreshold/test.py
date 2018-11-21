@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -45,14 +45,14 @@ netedit.inspectMode()
 #inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change parameter 10 with a non valid value
-netedit.modifyAttribute(10, "dummyJamThreshold")
+# Change parameter JamThreshold with a non valid value
+netedit.modifyAttribute(13, "dummyJamThreshold")
 
-# Change parameter 9 with a non valid value
-netedit.modifyAttribute(10, "-11.1")
+# Change parameter JamThreshold with a non valid value
+netedit.modifyAttribute(13, "-11.1")
 
-# Change parameter 9 with a valid value
-netedit.modifyAttribute(10, "7.3")
+# Change parameter JamThreshold with a valid value
+netedit.modifyAttribute(13, "7.3")
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

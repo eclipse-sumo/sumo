@@ -20,7 +20,7 @@ e1detector
 e2detector
 
 # e2 multilane 
-#e2MultiLaneDetector
+e2MultiLaneDetector
 
 # e3 detector
 #e3detector
@@ -32,7 +32,7 @@ e2detector
 #detexit
 
 # E1 Instant detector
-#e1InstantDetector
+e1InstantDetector
 
 # calibrator
 #calibrator

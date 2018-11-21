@@ -23,48 +23,31 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
+# first recompute
 netedit.rebuildNetwork()
 
-# go to additional mode
-netedit.additionalMode()
-
-# select E2
-netedit.changeAdditional("e2MultilaneDetector")
-
-# create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 240)
-netedit.leftClick(referencePosition, 440, 240)
-netedit.typeEnter()
-
-# create second E2
-netedit.leftClick(referencePosition, 440, 210)
-netedit.leftClick(referencePosition, 190, 210)
-netedit.typeEnter()
-
-# go to select mode mode
+# go to select mode
 netedit.selectMode()
 
-#inspect E2 multilanes
-netedit.leftClick(referencePosition, 320, 210)
-netedit.leftClick(referencePosition, 320, 240)
+# select all using invert
+netedit.selectionInvert()
 
-# go to additional mode
+# go to inspect mode
 netedit.inspectMode()
 
-#inspect selection
+# inspect selection
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change parameter 5 with a non valid value
-netedit.modifyAttribute(5, "dummySpeedTreshold")
+# Change parameter SpeedTreshold with a non valid value
+netedit.modifyAttribute(8, "dummySpeedTreshold")
 
-# Change parameter 5 with a non valid value
-netedit.modifyAttribute(5, "-12.1")
+# Change parameter SpeedTreshold with a non valid value
+netedit.modifyAttribute(8, "-12.1")
 
-# Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "6.3")
+# Change parameter SpeedTreshold with a valid value
+netedit.modifyAttribute(8, "6.3")
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

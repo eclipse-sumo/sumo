@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -38,8 +38,8 @@ netedit.changeAdditional("e2MultilaneDetector")
 netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
-# Change friendlyPos
-netedit.modifyAdditionalDefaultBoolValue(9)
+# set other name
+netedit.modifyAdditionalDefaultValue(3, "detectorName")
 
 # create E2 with default parameters
 netedit.typeEnter()

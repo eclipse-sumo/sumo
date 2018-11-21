@@ -10,17 +10,11 @@ Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Value '-100' for attribute freq of e2MultilaneDetector isn't valid
-Debug: Setting new attribute freq '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute freq '900.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Key ENTER pressed
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute freq '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals has to be saved

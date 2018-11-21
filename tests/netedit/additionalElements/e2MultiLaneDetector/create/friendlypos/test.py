@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -38,20 +38,8 @@ netedit.changeAdditional("e2MultilaneDetector")
 netedit.leftClick(referencePosition, 190, 240)
 netedit.leftClick(referencePosition, 440, 240)
 
-# set invalid frequency
-netedit.modifyAdditionalDefaultValue(2, "dummyFreq")
-
-# create E2 with default parameters
-netedit.typeEnter()
-
-# set invalid frequency
-netedit.modifyAdditionalDefaultValue(2, "-30")
-
-# create E2 with default parameters
-netedit.typeEnter()
-
-# set valid frequency
-netedit.modifyAdditionalDefaultValue(2, "120")
+# Change friendlyPos
+netedit.modifyAdditionalDefaultBoolValue(9)
 
 # create E2 with default parameters
 netedit.typeEnter()
