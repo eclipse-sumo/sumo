@@ -110,6 +110,7 @@ private:
     static std::string getAutomatedType(const SUMOVehicle& v, const OptionsCont& oc);
     static double getResponseTime(const SUMOVehicle& v, const OptionsCont& oc);
     static double getRecoveryRate(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getLCAbstinence(const SUMOVehicle& v, const OptionsCont& oc);
     static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
     static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
@@ -180,9 +181,8 @@ private:
      * @param[in] useColorScheme whether the color of the vehicle should be changed according to its current ToC-state
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
-                 std::string manualType, std::string automatedType,
-                 SUMOTime responseTime, double recoveryRate, double initialAwareness,
-                 double mrmDecel, bool useColorScheme);
+                 std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
+                 double myLCAbstinence, double initialAwareness, double mrmDecel, bool useColorScheme);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -224,10 +224,14 @@ private:
     void descheduleRecovery();
 
     /// @brief Resets the holder's LC mode to the last differing to LCModeMRM
-    void resetLCMode();
+    void resetDeliberateLCs();
     /// @brief Resets the holder's LC mode to the operational LC-mode of the ToC Device (@see LCModeMRM)
-    void setLCModeMRM();
+    void deactivateDeliberateLCs();
 
+    /// @brief Whether the current operation mode is manual
+    bool isManuallyDriven();
+    /// @brief Whether the current operation mode is automated
+    bool isAutomated();
 
 private:
     /// @name private state members of the ToC device
@@ -238,17 +242,19 @@ private:
     /// @brief vehicle type ID for automated driving
     std::string myAutomatedTypeID;
 
-    // @brief Average response time needed by the driver to take back control
+    /// @brief Average response time needed by the driver to take back control
     SUMOTime myResponseTime;
-    // @brief Recovery rate for the driver's awareness after a ToC
+    /// @brief Recovery rate for the driver's awareness after a ToC
     double myRecoveryRate;
-    // @brief Average awareness the driver has initially after a ToC
+    /// @brief Level of the awareness below which no lane-changes are performed
+    double myLCAbstinence;
+    /// @brief Average awareness the driver has initially after a ToC
     double myInitialAwareness;
 
     /// @brief Deceleration rate applied during MRM
     double myMRMDecel;
 
-    // @brief Current awareness-level of the driver in [0,1]
+    /// @brief Current awareness-level of the driver in [0,1]
     double myCurrentAwareness;
 
     /// @brief Coloring scheme, @see initColorScheme()
