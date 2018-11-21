@@ -1,4 +1,4 @@
-Eclipse SUMO Version eeef47f
+Eclipse SUMO Version v1_0_1+0726-00a3d57
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -98,6 +98,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -376,8 +380,11 @@ ToC Device Options:
                                          to take back control.
   --device.toc.recoveryRate FLOAT      Recovery rate for the driver's awareness
                                          after a ToC.
+  --device.toc.lcAbstinence FLOAT      Attention level below which a driver
+                                         restrains from performing lane changes
+                                         (value in [0,1]).
   --device.toc.initialAwareness FLOAT  Average awareness a driver has initially
-                                         after a ToC.
+                                         after a ToC (value in [0,1]).
   --device.toc.mrmDecel FLOAT          Deceleration rate applied during a
                                          'minimum risk maneuver'.
   --device.toc.useColorScheme          Whether a coloring scheme shall by

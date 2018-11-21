@@ -8,6 +8,7 @@
         <param key="device.toc.automatedType" value="automated"/>
         <param key="device.toc.responseTime" value="23.0"/>
         <param key="device.toc.recoveryRate" value="0.2"/>
+        <param key="device.toc.lcAbstinence" value="0.4"/>
         <param key="device.toc.initialAwareness" value="0.25"/>
         <param key="device.toc.mrmDecel" value="1.2"/>
     </vehicle>
