@@ -32,6 +32,10 @@
 #include "MSTransportable.h"
 #include "MSParkingArea.h"
 
+//#define DEBUG_RESERVATIONS
+//#define DEBUG_COND2(obj) (obj.getID() == "v.3")
+#define DEBUG_COND2(obj) (obj.isSelected())
+
 
 // ===========================================================================
 // method definitions
@@ -46,7 +50,11 @@ MSParkingArea::MSParkingArea(const std::string& id,
     myCapacity(0),
     myWidth(width),
     myLength(length),
-    myAngle(angle) {
+    myAngle(angle),
+    myReservationTime(-1),
+    myReservations(0),
+    myReservationMaxLength(0)
+{
     // initialize unspecified defaults
     if (myWidth == 0) {
         myWidth = SUMO_const_laneWidth;
@@ -97,8 +105,13 @@ MSParkingArea::addLotEntry(double x, double y, double z,
 
 
 double
-MSParkingArea::getLastFreePos(const SUMOVehicle& /* forVehicle */) const {
-    return myLastFreePos;
+MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle) const {
+    if (myCapacity == getOccupancy()) {
+        // keep enough space so that  parking vehicles can leave
+        return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
+    } else {
+        return myLastFreePos;
+    }
 }
 
 Position
@@ -159,6 +172,55 @@ MSParkingArea::computeLastFreePos() {
         } else {
             myLastFreePos = MIN2(myLastFreePos, 
                     lsd.myEndPos - lsd.vehicle->getVehicleType().getLength() - NUMERICAL_EPS);
+        }
+    }
+}
+
+
+double 
+MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle) {
+    if (forVehicle.getLane() != &myLane) {
+        // for different lanes, do not consider reservations to avoid lane-order
+        // dependency in parallel simulation
+#ifdef DEBUG_RESERVATIONS
+        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " other lane\n";
+#endif
+        return getLastFreePos(forVehicle);
+    }
+    if (t > myReservationTime) {
+#ifdef DEBUG_RESERVATIONS
+        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " first reservation\n";
+#endif
+        myReservationTime = t;
+        myReservations = 1;
+        myReservationMaxLength = forVehicle.getVehicleType().getLength();
+        for (const auto& lsd : mySpaceOccupancies) {
+            if (lsd.vehicle != nullptr) {
+                myReservationMaxLength = MAX2(myReservationMaxLength, lsd.vehicle->getVehicleType().getLength());
+            }
+        }
+        return getLastFreePos(forVehicle);
+    } else {
+        if (myCapacity > getOccupancy() + myReservations) {
+#ifdef DEBUG_RESERVATIONS
+        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " res=" << myReservations << " enough space\n";
+#endif
+            myReservations++;
+            myReservationMaxLength = MAX2(myReservationMaxLength, forVehicle.getVehicleType().getLength());
+            return getLastFreePos(forVehicle);
+        } else{
+            if (myCapacity == 0) {
+                return getLastFreePos(forVehicle);
+            } else {
+#ifdef DEBUG_RESERVATIONS
+        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() 
+            << " res=" << myReservations << " resTime=" << myReservationTime << " reserved full, maxLen=" << myReservationMaxLength << " endPos=" << mySpaceOccupancies[0].myEndPos << "\n";
+#endif
+                return (mySpaceOccupancies[0].myEndPos 
+                        - myReservationMaxLength 
+                        - forVehicle.getVehicleType().getMinGap() 
+                        - NUMERICAL_EPS);
+            }
         }
     }
 }

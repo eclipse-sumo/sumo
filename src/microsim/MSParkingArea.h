@@ -128,6 +128,14 @@ public:
     double getLastFreePos(const SUMOVehicle& forVehicle) const;
 
 
+    /** @brief Returns the last free position on this stop including
+     * reservatiosn from the current lane and time step
+     *
+     * @return The last free position of this bus stop
+     */
+    double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle);
+
+
     /** @brief Returns the position of parked vehicle
      *
      * @return The position of parked vehicle
@@ -228,6 +236,11 @@ protected:
 
     /// @brief The roadside shape of this parkingArea
     PositionVector myShape;
+
+    /// @brief track parking reservations from the lane for the current time step
+    SUMOTime myReservationTime;
+    int myReservations;
+    double myReservationMaxLength;
 
 private:
 

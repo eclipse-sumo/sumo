@@ -1743,7 +1743,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 return 0;
             } else {
                 // ballistic:
-                return getCarFollowModel().stopSpeed(this, getSpeed(), stop.getEndPos(*this) - myState.pos());
+                return getSpeed() - getCarFollowModel().getMaxDecel();
             }
         }
     } else {
@@ -1757,30 +1757,18 @@ MSVehicle::processNextStop(double currentVelocity) {
         // is the next stop on the current lane?
         if (stop.edge == myCurrEdge) {
             // get the stopping position
-            double endPos = stop.pars.endPos;
-            bool useStoppingPlace = false;
+            bool useStoppingPlace = stop.busstop != nullptr || stop.containerstop != nullptr;;
             bool fitsOnStoppingPlace = true;
             if (stop.busstop != nullptr) {
-                useStoppingPlace = true;
-                // on bus stops, we have to wait for free place if they are in use...
-                endPos = stop.busstop->getLastFreePos(*this);
-                // at least half the bus has to fit on non-empty bus stops
-                fitsOnStoppingPlace &= stop.busstop->fits(endPos, *this);
+                fitsOnStoppingPlace &= stop.busstop->fits(myState.myPos, *this);
             }
-            // if the stop is a container stop we check if the vehicle fits into the last free position of the stop
             if (stop.containerstop != nullptr) {
-                useStoppingPlace = true;
-                // on container stops, we have to wait for free place if they are in use...
-                endPos = stop.containerstop->getLastFreePos(*this);
-                fitsOnStoppingPlace &= stop.containerstop->fits(endPos, *this);
+                fitsOnStoppingPlace &= stop.containerstop->fits(myState.myPos, *this);
             }
             // if the stop is a parking area we check if there is a free position on the area
             if (stop.parkingarea != nullptr) {
-                endPos = stop.parkingarea->getLastFreePos(*this);
                 if (stop.parkingarea->getOccupancy() == stop.parkingarea->getCapacity()) {
                     fitsOnStoppingPlace = false;
-                    // leave enough space so parking vehicles can exit
-                    endPos -= getVehicleType().getMinGap();
                     // trigger potential parkingZoneReroute
                     for (std::vector< MSMoveReminder* >::const_iterator rem = myLane->getMoveReminders().begin(); rem != myLane->getMoveReminders().end(); ++rem) {
                         addReminder(*rem);
@@ -1793,15 +1781,13 @@ MSVehicle::processNextStop(double currentVelocity) {
                     }
                 }
             }
-            if (stop.lane->getEdge().isInternal() && &myLane->getEdge() != &stop.lane->getEdge()) {
-                // endPos is on subsequent edge
-                endPos += myLane->getLength();
-            }
-
-            const double reachedThreshold = (useStoppingPlace ? endPos - STOPPING_PLACE_OFFSET : stop.pars.startPos) - NUMERICAL_EPS;
+            const double targetPos = (myLFLinkLanes.empty() 
+                    ? stop.getEndPos(*this) // loading simulation state
+                    : myState.myPos + myLFLinkLanes.front().myDistance); // avoid concurrent read/write to stoppingPlace during execute move;
+            const double reachedThreshold = (useStoppingPlace ? targetPos - STOPPING_PLACE_OFFSET : stop.pars.startPos) - NUMERICAL_EPS;
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
-                std::cout <<  "   pos=" << myState.pos() << " speed=" << currentVelocity << " endPos=" << endPos << " fits=" << fitsOnStoppingPlace << " reachedThresh=" << reachedThreshold << "\n";
+                std::cout <<  "   pos=" << myState.pos() << " speed=" << currentVelocity << " targetPos=" << targetPos << " fits=" << fitsOnStoppingPlace << " reachedThresh=" << reachedThreshold << "\n";
             }
 #endif
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= SUMO_const_haltingSpeed && myLane == stop.lane) {
@@ -1837,14 +1823,6 @@ MSVehicle::processNextStop(double currentVelocity) {
                     // let the parking area know the vehicle
                     stop.parkingarea->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
                 }
-            }
-            // decelerate
-            if (MSGlobals::gSemiImplicitEulerUpdate) {
-                // euler
-                return getCarFollowModel().stopSpeed(this, getSpeed(), endPos - myState.pos() + NUMERICAL_EPS);
-            } else {
-                // ballistic
-                return getCarFollowModel().stopSpeed(this, myState.mySpeed, endPos - myState.myPos);
             }
         }
     }
@@ -2091,7 +2069,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 && myStops.front().edge == myCurrEdge + view) {
             // we are approaching a stop on the edge; must not drive further
             const Stop& stop = *myStops.begin();
-            const double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
+            double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
+            if (stop.parkingarea != nullptr) {
+                // leave enough space so parking vehicles can exit
+                endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this);
+            }
             myStopDist = seen + endPos - lane->getLength();
             // regular stops are not emergencies
             const double stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), myStopDist), vMinComfortable);

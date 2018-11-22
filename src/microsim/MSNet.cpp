@@ -879,7 +879,7 @@ MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag
     if (myStoppingPlaces.count(category) > 0) {
         for (const auto& it : myStoppingPlaces.find(category)->second) {
             MSStoppingPlace* stop = it.second;
-            if (&stop->getLane() == lane && stop->getBeginLanePosition() <= pos && stop->getEndLanePosition() >= pos) {
+            if (&stop->getLane() == lane && stop->getBeginLanePosition() - POSITION_EPS <= pos && stop->getEndLanePosition() + POSITION_EPS >= pos) {
                 return stop->getID();
             }
         }
