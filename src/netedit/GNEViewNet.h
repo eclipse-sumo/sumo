@@ -537,7 +537,7 @@ public:
     void beginMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition);
 
     /// @brief move selection
-    void moveSelection(const Position& offset);
+    void moveSelection();
 
     /// @brief finish moving selection
     void finishMoveSelection();
@@ -755,8 +755,8 @@ private:
     /** NOTE: IN the future will be changed to std::map<GNENetElement*, Position> **/
     std::map<GNEJunction*, Position> myOriginPositionOfMovedJunctions;
 
-    /// @brief Selected Edges that are being moved < Edge, PositionVector >
-    std::map<GNEEdge*, PositionVector> myOriginShapesMovedEntireShapes;
+    /// @brief Selected Edges that are being moved < Edge, >originalPosition, shape> >
+    std::map<GNEEdge*, std::pair<Position, PositionVector> > myOriginShapesMovedEntireShapes;
 
     struct MovingEdges {
         PositionVector originalShape;
