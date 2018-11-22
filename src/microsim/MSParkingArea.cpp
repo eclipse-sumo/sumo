@@ -71,13 +71,6 @@ MSParkingArea::MSParkingArea(const std::string& id,
             myWidth, myLength,
             ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI) + myAngle);
         mySpaceOccupancies.back().myEndPos = myBegPos + spaceDim * (i + 1);
-        //std::cout << getID() << " added lot i=" << mySpaceOccupancies.back().index 
-        //    << " f=" << f
-        //    << " s=" << s
-        //    << " shapeLen=" << myShape.length()
-        //    << " sPos=" << spaceDim * (i)
-        //    << " endPos= " << mySpaceOccupancies.back().myEndPos
-        //    << "\n";
     }
     computeLastFreePos();
 }
