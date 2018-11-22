@@ -171,9 +171,6 @@ public:
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*> &getClickedAttributeCarriers() const;
 
-        /// @brief get index of lane vinculated with this edge parent (return 0 if myLaneIndex is empty)
-        int getLaneIndex(GNEEdge *edgeParent) const;
-
     private:
         /// @brief information of event of onLeftBtnPress
         FXEvent* myEventInfo;
@@ -216,9 +213,6 @@ public:
 
         /// @brief vector with the clicked Polys
         std::vector<GNEPoly*> myPolys;
-
-        /// @index of lanes swapped to edge
-        std::vector<int> myLaneIndex;
 
         /// @brief invert GUIGlObjects
         void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*> &GUIGlObjects);

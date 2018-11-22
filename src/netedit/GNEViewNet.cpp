@@ -182,7 +182,6 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
     myTAZs.clear();
     myPOIs.clear();
     myPolys.clear();
-    myLaneIndex.clear();
     // set event
     myEventInfo = ev;
     // set GUIGlObject
@@ -228,6 +227,10 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
                             break;
                         case GLO_LANE:
                             myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarriers.back()));
+                            // check if edge's lane parent is already inserted in myEdges
+                            if (std::find(myEdges.begin(), myEdges.end(), &myLanes.back()->getParentEdge()) == myEdges.end()) {
+                                myEdges.push_back(&myLanes.back()->getParentEdge());
+                            }
                             break;
                         case GLO_CROSSING:
                             myCrossings.push_back(dynamic_cast<GNECrossing*>(myAttributeCarriers.back()));
@@ -250,19 +253,37 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
             }
         }
     }
+     // write information in debug mode
+    WRITE_DEBUG("ObjectsUnderCursor: GUIGlObjects: " + toString(GUIGlObjects.size()) + 
+                ", AttributeCarriers: " + toString(myAttributeCarriers.size()) + 
+                ", NetElements: " + toString(myNetElements.size()) + 
+                ", Additionals: " + toString(myAdditionals.size()) + 
+                ", Shapes: " + toString(myShapes.size()) + 
+                ", Junctions: " + toString(myJunctions.size()) + 
+                ", Edges: " + toString(myEdges.size()) + 
+                ", Lanes: " + toString(myLanes.size()) + 
+                ", Crossings: " + toString(myCrossings.size()) + 
+                ", Connections: " + toString(myConnections.size()) + 
+                ", TAZs: " + toString(myTAZs.size()) + 
+                ", POIs: " + toString(myPOIs.size()) + 
+                ", Polys: " + toString(myPolys.size()));
 }
 
 
 void
 GNEViewNet::ObjectsUnderCursor::swapLane2Edge() {
-    // iterate over all lanes
-    for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLaneIndex.push_back(myLanes.at(i)->getIndex());
-        myEdges.push_back(&myLanes.at(i)->getParentEdge());
-        myNetElements.at(i) = myEdges.back();
-        myAttributeCarriers.at(i) = myEdges.back();
-        myGUIGlObjects.at(i) = myEdges.back();
+    // clear some containers
+    myGUIGlObjects.clear();
+    myAttributeCarriers.clear();
+    myNetElements.clear();
+    // fill containers using edges
+    for (const auto &i : myEdges) {
+        myGUIGlObjects.push_back(i);
+        myAttributeCarriers.push_back(i);
+        myNetElements.push_back(i);
     }
+    // write information for debug
+    WRITE_DEBUG("ObjectsUnderCursor: swapped Lanes to edges")
 }
 
 
@@ -439,21 +460,6 @@ GNEViewNet::ObjectsUnderCursor::getPolyFront() const {
 const std::vector<GNEAttributeCarrier*> &
 GNEViewNet::ObjectsUnderCursor::getClickedAttributeCarriers() const {
     return myAttributeCarriers;
-}
-
-
-int 
-GNEViewNet::ObjectsUnderCursor::getLaneIndex(GNEEdge *edgeParent) const {
-    if(myLaneIndex.empty() || (myEdges.size() != myLaneIndex.size())) {
-        return 0;
-    } else {
-        for (int i = 0; i < (int)myEdges.size(); i++) {
-            if(myEdges.at(i) == edgeParent) {
-                return myLaneIndex.at(i);
-            }
-        }
-        return 0;
-    }
 }
 
 
@@ -656,14 +662,7 @@ GNEViewNet::openObjectDialog() {
         if(myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
             myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
             myViewParent->getInspectorFrame()->getInspectedACs().size() > 0) {
-            // obtain inspected AC
-            GNEAttributeCarrier *AC = myViewParent->getInspectorFrame()->getInspectedACs().front();
-            // if AC is an Edge, obtain their lane parent
-            if(AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                GNEEdge *edge = dynamic_cast<GNEEdge*>(AC);
-                AC = edge->getLanes().at(myObjectsUnderCursor.getLaneIndex(edge));
-            }
-            o = dynamic_cast<GUIGlObject*>(AC);
+            o = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getInspectedACs().front());
         } else if (id != 0) {
             o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         } else {
