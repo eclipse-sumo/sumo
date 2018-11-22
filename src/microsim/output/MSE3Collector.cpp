@@ -232,7 +232,8 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOVehicle&  veh , double /* last
             << "\n";
     }
 #endif
-    if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
+    if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE && &enteredLane->getEdge() == &myLane->getEdge()) {
+        // keep the detector when changing while still on the exit detector but already on a new lane (#4803)
 #ifdef DEBUG_E3_NOTIFY_LEAVE
         if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "  remove reminder, keep in container\n";
 #endif
