@@ -1393,10 +1393,10 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.poiToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         myMovedItems.poiToMove = nullptr;
     } else if (myMovedItems.junctionToMove) {
-        // finish Junction movement
-        myMovedItems.junctionToMove->endGeometryMoving();
-        // position is already up to date but we must register with myUndoList
+        // check if in the moved position there is another Junction and it will be merged
         if (!mergeJunctions(myMovedItems.junctionToMove, myMoveSingleElementValues.movingOriginalPosition)) {
+            myMovedItems.junctionToMove->endGeometryMoving();
+            // position is already up to date but we must register with myUndoList
             myMovedItems.junctionToMove->commitGeometryMoving(myMoveSingleElementValues.movingOriginalPosition, myUndoList);
         }
         myMovedItems.junctionToMove = nullptr;
@@ -3357,6 +3357,8 @@ GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
         }
         // restore previous position of junction moved
         moved->moveGeometry(oldPos, Position(0, 0));
+        // finish geometry moving
+        moved->endGeometryMoving();
         // merge moved and targed junctions
         myNet->mergeJunctions(moved, mergeTarget, myUndoList);
         return true;
