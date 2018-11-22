@@ -42,6 +42,7 @@ class MSNet;
 class MSLane;
 class MSRoute;
 class SUMOVehicle;
+class MSParkingArea;
 
 
 // ===========================================================================

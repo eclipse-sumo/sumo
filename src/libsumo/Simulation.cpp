@@ -41,6 +41,7 @@
 #include <microsim/MSTransportableControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <netload/NLBuilder.h>
 #include <traci-server/TraCIConstants.h>

@@ -44,8 +44,6 @@
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
-#include "MSParkingArea.h"
-#include "MSStoppingPlace.h"
 
 
 // ===========================================================================
@@ -69,6 +67,7 @@ class ShapeContainer;
 class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
+class MSStoppingPlace;
 template<class E, class L, class N, class V>
 class IntermodalRouter;
 template<class E, class L, class N, class V>
