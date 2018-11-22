@@ -482,7 +482,35 @@ GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelec
         myItemIndex = (myOverlappedACs.size() - 1);
     }
     // change current inspected item
-    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex)); 
+    GNEAttributeCarrier *AC = myOverlappedACs.at(myItemIndex);
+    // if is an lane and selectEdges checkBox is enabled, inspect their edge 
+    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->selectEdges()) {
+        myInspectorFrameParent->inspectSingleElement(&dynamic_cast<GNELane*>(AC)->getParentEdge());
+    } else {
+        myInspectorFrameParent->inspectSingleElement(AC);
+    }
+    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
+    show();
+    // update current label
+    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
+    // update view (due dotted contour)
+    myInspectorFrameParent->getViewNet()->update();
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+    // set index (it works as a ring)
+    myItemIndex = (myItemIndex + 1) % myOverlappedACs.size();
+    // change current inspected item
+    GNEAttributeCarrier *AC = myOverlappedACs.at(myItemIndex);
+    // if is an lane and selectEdges checkBox is enabled, inspect their edge 
+    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->selectEdges()) {
+        myInspectorFrameParent->inspectSingleElement(&dynamic_cast<GNELane*>(AC)->getParentEdge());
+    } else {
+        myInspectorFrameParent->inspectSingleElement(AC);
+    }
     // show OverlappedInspection again (because it's hidden in inspectSingleElement)
     show();
     // update current label
@@ -512,22 +540,6 @@ GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelec
 }
 
 
-long
-GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
-    // set index (it works as a ring)
-    myItemIndex = (myItemIndex + 1) % myOverlappedACs.size();
-    // change current inspected item
-    myInspectorFrameParent->inspectSingleElement(myOverlappedACs.at(myItemIndex));
-    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
-    show();
-    // update current label
-    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
-    // update view (due dotted contour)
-    myInspectorFrameParent->getViewNet()->update();
-    return 1;
-}
-
-
 void 
 GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
     if(objectsUnderCursor.getAttributeCarrierFront()) {
@@ -541,6 +553,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &o
         }
     }
 }
+
 
 // ---------------------------------------------------------------------------
 // GNEInspectorFrame::AttributesEditor::AttributeInput - methods
