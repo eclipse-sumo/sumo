@@ -1,5 +1,8 @@
 small
 ticket4645
 
-# crash when arriving while on the detector
+# crash when arriving while on the exit detector but already past the detector lane
 ticket4803
+
+# crash when lane-changing on the exit detector while already on the next lane
+ticket4803b
