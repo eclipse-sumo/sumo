@@ -76,6 +76,8 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
         mySignRot = myShape.rotationDegreeAtOffset(double((myShape.length() / 2.)));
         mySignRot -= 90;
     }
+    myBoundary = myShape.getBoxBoundary();
+    myBoundary.grow(20);
 }
 
 GUIParkingArea::~GUIParkingArea() {}
@@ -129,15 +131,14 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);
-        std::map<unsigned int, LotSpaceDefinition >::const_iterator i;
-        for (i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
+        for (const auto& lsd : mySpaceOccupancies) {
             glPushMatrix();
-            glTranslated((*i).second.myPosition.x(), (*i).second.myPosition.y(), (*i).second.myPosition.z());
-            glRotated((*i).second.myRotation, 0, 0, 1);
-            Position pos = (*i).second.myPosition;
+            glTranslated(lsd.myPosition.x(), lsd.myPosition.y(), lsd.myPosition.z());
+            glRotated(lsd.myRotation, 0, 0, 1);
+            Position pos = lsd.myPosition;
             PositionVector geom;
-            double w = (*i).second.myWidth / 2. - 0.1 * exaggeration;
-            double h = (*i).second.myLength;
+            double w = lsd.myWidth / 2. - 0.1 * exaggeration;
+            double h = lsd.myLength;
             geom.push_back(Position(- w, + 0, 0.));
             geom.push_back(Position(+ w, + 0, 0.));
             geom.push_back(Position(+ w, + h, 0.));
@@ -150,7 +151,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             geom.push_back(Position(pos.x(), pos.y() - (*l).second.myLength, pos.z()));
             geom.push_back(Position(pos.x(), pos.y(), pos.z()));
             */
-            GLHelper::setColor((*i).second.vehicle == nullptr ? green : red);
+            GLHelper::setColor(lsd.vehicle == nullptr ? green : red);
             GLHelper::drawBoxLines(geom, 0.1 * exaggeration);
             glPopMatrix();
         }
@@ -203,15 +204,19 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
 
 }
 
+void 
+GUIParkingArea::addLotEntry(double x, double y, double z,
+        double width, double length, double angle) {
+    MSParkingArea::addLotEntry(x, y, z, width, length, angle);
+    Boundary b;
+    b.add(Position(x,y));
+    b.grow(MAX2(width, length) + 5);
+    myBoundary.add(b);
+}
 
 Boundary
 GUIParkingArea::getCenteringBoundary() const {
-    Boundary b = myShape.getBoxBoundary();
-    for (std::map<unsigned int, LotSpaceDefinition >::const_iterator i = mySpaceOccupancies.begin(); i != mySpaceOccupancies.end(); i++) {
-        b.add((*i).second.myPosition);
-    }
-    b.grow(20);
-    return b;
+    return myBoundary;
 }
 
 

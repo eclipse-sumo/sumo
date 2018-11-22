@@ -118,6 +118,9 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief extend boundary
+    void addLotEntry(double x, double y, double z,
+            double width, double length, double angle);
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -139,6 +142,9 @@ private:
 
     /// @brief The rotation of the sign
     double mySignRot;
+
+    /// @brief the centering boundary
+    Boundary myBoundary;
 
 };
 
