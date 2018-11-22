@@ -1386,16 +1386,20 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     stop.edge = find(*searchStart, myRoute->end(), stopEdge);
     MSRouteIterator prevStopEdge = myCurrEdge;
+    MSEdge* prevEdge = nullptr;
     double prevStopPos = myState.myPos;
     // where to insert the stop
     std::list<Stop>::iterator iter = myStops.begin();
     if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size())) {
         if (myStops.size() > 0) {
             prevStopEdge = myStops.back().edge;
+            prevEdge = &myStops.back().lane->getEdge();
             prevStopPos = myStops.back().pars.endPos;
             iter = myStops.end();
             stop.edge = find(prevStopEdge, myRoute->end(), stopEdge);
-            if (prevStopEdge == stop.edge && prevStopPos > stop.pars.endPos) {
+            if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
+                    && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
+                    && prevStopPos > stop.pars.endPos) {
                 stop.edge = find(prevStopEdge + 1, myRoute->end(), stopEdge);
             }
         }
@@ -1418,8 +1422,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             stop.edge = find(prevStopEdge, myRoute->end(), stopEdge);
         }
     }
+    const bool sameEdgeAsLastStop = prevStopEdge == stop.edge && prevEdge == &stop.lane->getEdge();
     if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
-            (prevStopEdge == stop.edge && prevStopPos > stop.pars.endPos && !collision)
+            (sameEdgeAsLastStop && prevStopPos > stop.pars.endPos && !collision)
             || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
         if (stop.edge != myRoute->end()) {
             // check if the edge occurs again later in the route
