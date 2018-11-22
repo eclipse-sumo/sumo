@@ -222,16 +222,23 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
                         case GLO_JUNCTION:
                             myJunctions.push_back(dynamic_cast<GNEJunction*>(myAttributeCarriers.back()));
                             break;
-                        case GLO_EDGE:
-                            myEdges.push_back(dynamic_cast<GNEEdge*>(myAttributeCarriers.back()));
+                        case GLO_EDGE: {
+                            // fisrt obtain Edge
+                            GNEEdge *edge = dynamic_cast<GNEEdge*>(myAttributeCarriers.back());
+                            // check if edge parent is already inserted in myEdges (for example, due clicking over Geometry Points)
+                            if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
+                                myEdges.push_back(edge);
+                            }
                             break;
-                        case GLO_LANE:
+                        }
+                        case GLO_LANE: {
                             myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarriers.back()));
-                            // check if edge's lane parent is already inserted in myEdges
+                            // check if edge's lane parent is already inserted in myEdges (for example, due clicking over Geometry Points)
                             if (std::find(myEdges.begin(), myEdges.end(), &myLanes.back()->getParentEdge()) == myEdges.end()) {
                                 myEdges.push_back(&myLanes.back()->getParentEdge());
                             }
                             break;
+                        }
                         case GLO_CROSSING:
                             myCrossings.push_back(dynamic_cast<GNECrossing*>(myAttributeCarriers.back()));
                             break;
