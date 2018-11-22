@@ -156,6 +156,9 @@ MSParkingArea::computeLastFreePos() {
             myLastFreeLot = lsd.index;
             myLastFreePos = lsd.myEndPos;
             break;
+        } else {
+            myLastFreePos = MIN2(myLastFreePos, 
+                    lsd.myEndPos - lsd.vehicle->getVehicleType().getLength() - NUMERICAL_EPS);
         }
     }
 }
