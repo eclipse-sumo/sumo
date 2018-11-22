@@ -31,9 +31,16 @@
 #include <microsim/MSVehicle.h>
 
 //#define DEBUG_E3_NOTIFY_MOVE
+//#define DEBUG_E3_NOTIFY_ENTER
+//#define DEBUG_E3_NOTIFY_LEAVE
+//#define DEBUG_E3_DETECTORUPDATE
+
 //#define DEBUG_COND(obj) ((obj.getID() == ""))
-#define DEBUG_COND(obj) (true)
-#define DEBUG_COND_VEH(veh) (veh.isSelected())
+//#define DEBUG_COND_VEH(veh) ((veh).getID() == "")
+//#define DEBUG_COND_VEH(veh) ((veh).isSelected())
+//#define DEBUG_COND(collector) (true)
+//#define DEBUG_COND_VEH(veh) (true)
+
 
 // ===========================================================================
 // method definitions
@@ -50,9 +57,22 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 
 bool
 MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+#ifdef DEBUG_E3_NOTIFY_ENTER
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << SIMTIME
+            << " MSE3EntryReminder::notifyEnter() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+            << " vehicle '" << veh.getID() << "'"
+            << " enteredLane=" << enteredLane->getID()
+            << " reason=" << reason
+            << "\n";
+    }
+#endif
     if (reason != NOTIFICATION_JUNCTION) {
         const double posOnLane = veh.getBackPositionOnLane(enteredLane) + veh.getVehicleType().getLength();
         if (myLane == enteredLane && posOnLane > myPosition) {
+#ifdef DEBUG_E3_NOTIFY_ENTER
+            if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "  assume already known\n";
+#endif
             // if the vehicle changes into a covered section we assume it was already registered on another lane
             return false;
         }
@@ -64,9 +84,22 @@ MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification rea
 bool
 MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
         double newPos, double newSpeed) {
+#ifdef DEBUG_E3_NOTIFY_MOVE
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << SIMTIME
+            << " MSE3EntryReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+            << " vehicle '" << veh.getID() << "'"
+            << " entered. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed 
+            << " myPosition=" << myPosition
+            << "\n";
+    }
+#endif
     if (myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() && newPos > myPosition) {
         if (oldPos > myPosition) {
             // was behind the detector already in the last step
+#ifdef DEBUG_E3_NOTIFY_MOVE
+            if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "    already behind\n";
+#endif
             return false;
         } else {
             // entered in this step
@@ -77,12 +110,7 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
             const double fractionTimeOnDet = TS - timeBeforeEnter;
             myCollector.enter(veh, entryTime - fractionTimeOnDet, fractionTimeOnDet);
 #ifdef DEBUG_E3_NOTIFY_MOVE
-            if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
-                std::cout << "\n" << SIMTIME
-                          << " MSE3EntryReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
-                          << " vehicle '" << veh.getID() << "'"
-                          << " entered. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
-            }
+            if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "    enter\n";
 #endif
         }
     }
@@ -92,6 +120,15 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
 
 bool
 MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, double, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef DEBUG_E3_NOTIFY_LEAVE
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << SIMTIME
+            << " MSE3EntryReminder::notifyLeave() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+            << " vehicle '" << veh.getID() << "'"
+            << " reason=" << reason
+            << "\n";
+    }
+#endif
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
             WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
@@ -113,11 +150,24 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
 
 bool
 MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+#ifdef DEBUG_E3_NOTIFY_ENTER
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << SIMTIME
+            << " MSE3LeaveReminder::notifyEnter() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+            << " vehicle '" << veh.getID() << "'"
+            << " enteredLane=" << enteredLane->getID()
+            << " reason=" << reason
+            << "\n";
+    }
+#endif
     if (reason != NOTIFICATION_JUNCTION) {
         const double backPosOnLane = veh.getBackPositionOnLane(enteredLane);
         if (backPosOnLane > myPosition) {
             // if the vehicle changes into a covered section we assume it was already registered on another lane
             // however, if it is not fully past the detector we still need to track it
+#ifdef DEBUG_E3_NOTIFY_ENTER
+            if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "  assume already known\n";
+#endif
             return false;
         }
     }
@@ -128,6 +178,16 @@ MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, Notification rea
 bool
 MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
         double newPos, double newSpeed) {
+#ifdef DEBUG_E3_NOTIFY_MOVE
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << SIMTIME
+            << " MSE3LeaveReminder::notifyMove() (" << getDescription() << " on lane '" << myLane->getID() << "')"
+            << " vehicle '" << veh.getID() << "'"
+            << " entered. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed
+            << " myPosition=" << myPosition
+            << "\n";
+    }
+#endif
     if (newPos < myPosition) {
         // crossSection not yet reached
         return true;
@@ -140,12 +200,7 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
         const double leaveTimeFront = SIMTIME - TS + timeBeforeLeave;
         myCollector.leaveFront(veh, leaveTimeFront);
 #ifdef DEBUG_E3_NOTIFY_MOVE
-        if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
-            std::cout << "\n" << SIMTIME
-                      << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
-                      << " vehicle '" << veh.getID() << "'"
-                      << " leaveFront. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
-        }
+        if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "    leaveFront\n";
 #endif
     }
     const double backPos = newPos - veh.getVehicleType().getLength();
@@ -160,20 +215,27 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
     const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, backPos, oldSpeed, newSpeed);
     myCollector.leave(veh, leaveStep - TS + timeBeforeLeave, timeBeforeLeave);
 #ifdef DEBUG_E3_NOTIFY_MOVE
-    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
-        std::cout << "\n" << SIMTIME
-                  << " MSE3LeaveReminder::notifyMove() (" << getDescription() << "on lane '" << myLane->getID() << "')"
-                  << " vehicle '" << veh.getID() << "'"
-                  << " left. oldPos=" << oldPos << " newPos=" << newPos << " newSpeed=" << newSpeed << "\n";
-    }
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "    leave\n";
 #endif
     return false;
 }
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOVehicle&  veh , double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOVehicle&  veh , double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+#ifdef DEBUG_E3_NOTIFY_LEAVE
+    if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
+        std::cout << SIMTIME
+            << " MSE3LeaveReminder::notifyLeave() (" << getDescription() << "on lane '" << myLane->getID() << "')"
+            << " vehicle '" << veh.getID() << "'"
+            << " reason=" << reason
+            << "\n";
+    }
+#endif
     if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
+#ifdef DEBUG_E3_NOTIFY_LEAVE
+        if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "  remove reminder, keep in container\n";
+#endif
         return false;
     }
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
@@ -409,6 +471,13 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
     myCurrentHaltingsNumber = 0;
     for (std::map<const SUMOVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {
         const SUMOVehicle* veh = pair->first;
+#ifdef DEBUG_E3_DETECTORUPDATE
+        //if (DEBUG_COND(*this) && DEBUG_COND_VEH(*veh)) {
+        if (DEBUG_COND(*this)) {
+            std::cout << SIMTIME << " vehPtr=" << veh << "\n";
+            std::cout << "       veh=" << veh->getID() << "\n";
+        }
+#endif
         E3Values& values = pair->second;
         myCurrentMeanSpeed += veh->getSpeed();
         values.hadUpdate = true;
