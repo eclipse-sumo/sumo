@@ -1,0 +1,105 @@
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '280.00'
+Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'e3Detector' in ItemSelector
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Selected item 'detEntry' in ItemSelector
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Selected item 'detExit' in ItemSelector
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
+Debug: Value ';;;;;;;;;;;;;;;;;' for attribute id of e3Detector isn't valid
+Debug: Setting new attribute id 'Id with spaces' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute id 'Id with spacesdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute id 'Id with spacesdetExit0' into detExit 'e3Detector_0detExit0'
+Debug: Setting new attribute id 'correctID' into e3Detector 'Id with spaces'
+Debug: Setting new attribute id 'correctIDdetEntry0' into detEntry 'Id with spacesdetEntry0'
+Debug: Setting new attribute id 'correctIDdetExit0' into detExit 'Id with spacesdetExit0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute id 'Id with spacesdetExit0' into detExit 'correctIDdetExit0'
+Debug: Setting previous attribute id 'Id with spacesdetEntry0' into detEntry 'correctIDdetEntry0'
+Debug: Setting previous attribute id 'Id with spaces' into e3Detector 'correctID'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute id 'e3Detector_0detExit0' into detExit 'Id with spacesdetExit0'
+Debug: Setting previous attribute id 'e3Detector_0detEntry0' into detEntry 'Id with spacesdetEntry0'
+Debug: Setting previous attribute id 'e3Detector_0' into e3Detector 'Id with spaces'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute id 'Id with spaces' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute id 'Id with spacesdetEntry0' into detEntry 'e3Detector_0detEntry0'
+Debug: Setting new attribute id 'Id with spacesdetExit0' into detExit 'e3Detector_0detExit0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute id 'correctID' into e3Detector 'Id with spaces'
+Debug: Setting new attribute id 'correctIDdetEntry0' into detEntry 'Id with spacesdetEntry0'
+Debug: Setting new attribute id 'correctIDdetExit0' into detExit 'Id with spacesdetExit0'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced detExit 'e3Detector_1detExit0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced detExit 'correctIDdetExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Debug: Deleting unreferenced detEntry 'correctIDdetEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_1'
+Debug: Deleting unreferenced e3Detector 'correctID'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

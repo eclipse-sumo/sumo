@@ -1,17 +1,17 @@
-load_default
+default
 
-load_id
+id
 
-load_freq
+freq
 
-load_file
+file
 
-load_timethreshold
+timethreshold
 
-load_speedthreshold
+speedthreshold
 
-load_position
+position
 
-load_empty
+empty
 
-load_invalidchilds
+invalidchilds

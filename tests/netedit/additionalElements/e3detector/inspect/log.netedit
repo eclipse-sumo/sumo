@@ -1,3 +1,0 @@
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Warning: Please note that using ';' and ',' as XML list separators is deprecated.
- From 1.0 onwards, only ' ' will be accepted.

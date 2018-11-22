@@ -1,0 +1,6 @@
+Warning: There is another e3Detector with the same ID='e3Detector_0'.
+Warning: A detEntry must be declared within the definition of a e3Detector.
+Warning: A detExit must be declared within the definition of a e3Detector.
+Warning: Essential unique string attribute 'id' of e3Detector is missing; e3Detector cannot be created
+Warning: A detEntry must be declared within the definition of a e3Detector.
+Warning: A detExit must be declared within the definition of a e3Detector.
