@@ -704,6 +704,34 @@ private:
         int testingHeight;
     };
 
+    /// @brief struct used to group all variables related to create edges
+    struct CreateEdgeValues {
+
+        /// @brief default constructor
+        CreateEdgeValues();
+
+        /// @brief hide all MenuChecks
+        void hideCheckBoxs();
+
+        /// @brief source junction for new edge 0 if no edge source is selected an existing (or newly created) junction otherwise
+        GNEJunction* createEdgeSource;
+
+        /// @brief whether the endpoint for a created edge should be set as the new source
+        FXMenuCheck* chainCreateEdge;
+
+        /// @brief create auto create opposite edge
+        FXMenuCheck* autoCreateOppositeEdge;
+
+        /// @brief whether we should warn about merging junctions
+        FXMenuCheck* menuCheckWarnAboutMerge;
+
+        /// @brief show connection as buuble in "Move" mode.
+        FXMenuCheck* menuCheckShowBubbleOverJunction;
+
+        /// @brief apply movement to elevation
+        FXMenuCheck* menuCheckMoveElevation;
+    };
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
@@ -743,30 +771,13 @@ private:
     /// @brief flag to check if shift key is pressed (can be changed after Key Press/Released and mouse Move)
     bool myShiftKeyPressed;
 
-    /// @name the state-variables of the create-edge state-machine
-    // @{
-    /// @brief source junction for new edge 0 if no edge source is selected an existing (or newly created) junction otherwise
-    GNEJunction* myCreateEdgeSource;
-
-    /// @brief whether the endpoint for a created edge should be set as the new source
-    FXMenuCheck* myChainCreateEdge;
-    FXMenuCheck* myAutoCreateOppositeEdge;
-    // @}
-
-    /// @name the state-variables of the move state-machine
-    // @{
-    /// @brief whether we should warn about merging junctions
-    FXMenuCheck* myMenuCheckWarnAboutMerge;
-
-    /// @brief show connection as buuble in "Move" mode.
-    FXMenuCheck* myMenuCheckShowBubbleOverJunction;
-
-    /// @brief apply movement to elevation
-    FXMenuCheck* myMenuCheckMoveElevation;
-    // @}
-
+    /// @name structs
+    /// @{
     /// @brief variable use to save all pointers to objects under cursor after a click
     ObjectsUnderCursor myObjectsUnderCursor;
+
+    /// @brief variable used to save all elements related to creation of Edges
+    CreateEdgeValues myCreateEdgeValues;
 
     /// @brief variable use to save pointers to moved elements
     MovedItems myMovedItems;
@@ -825,15 +836,6 @@ private:
     /// @brief checkable button for edit mode polygon
     MFXCheckableButton* myEditModeProhibition;
 
-    /// @}
-
-    /// @brief since we cannot switch on strings we map the mode names to an enum
-    /// @{
-    /// @brief stringBijection for edit mode names
-    StringBijection<EditMode> myEditModeNames;
-
-    /// @brief stringBijection for edit additional mode names
-    StringBijection<EditMode> myEditAdditionalModeNames;
     /// @}
 
     /// @brief a reference to the undolist maintained in the application
