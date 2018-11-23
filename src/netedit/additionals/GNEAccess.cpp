@@ -72,6 +72,7 @@ GNEAccess::moveGeometry(const Position& offset) {
     // Calculate new position using old position
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
+    // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     myPositionOverLane = toString(myLane->getShape().nearest_offset_to_point2D(newPosition, false));
     // Update geometry

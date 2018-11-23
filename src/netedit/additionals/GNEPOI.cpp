@@ -117,19 +117,19 @@ GNEPOI::writeShape(OutputDevice& device) {
 void
 GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!myBlockMovement) {
+        // Calculate new position using old position
+        Position newPosition = oldPos;
+        newPosition.add(offset);
+        // filtern position using snap to active grid
+        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
+        // set position depending of POI Type
         if (myGNELane) {
-            // Calculate new position using old position
-            Position newPosition = oldPos;
-            newPosition.add(offset);
-            myNet->getViewNet()->snapToActiveGrid(newPosition);
             myPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(newPosition, false);
-            // Update geometry
-            updateGeometry(false);
         } else {
-            // restore old position, apply offset and refresh element
-            set(oldPos);
-            add(offset);
+            set(newPosition);
         }
+        // Update geometry
+        updateGeometry(false);
     }
 }
 

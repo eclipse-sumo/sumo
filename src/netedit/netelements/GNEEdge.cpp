@@ -311,13 +311,11 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
     if (index != -1) {
         // check that index is correct before change position
         if (index < (int)edgeGeometry.size()) {
-            // save Z value
-            double zValue = edgeGeometry[index].z();
-            // change position of vertex (only X-Y)
+            // change position of vertex
             edgeGeometry[index] = oldPos;
             edgeGeometry[index].add(offset);
-            // restore Z value
-            edgeGeometry[index].setz(zValue);
+            // filtern position using snap to active grid
+            edgeGeometry[index] = myNet->getViewNet()->snapToActiveGrid(edgeGeometry[index]);
             // update edge's geometry without updating RTree (To avoid unnecesary changes in RTree)
             setGeometry(edgeGeometry, true, false);
             return index;

@@ -214,6 +214,7 @@ GNEDetectorE2::moveGeometry(const Position& offset) {
     // Calculate new position using old position
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
+    // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     double offsetLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false) - myLanes.front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
     // move geometry depending of number of lanes

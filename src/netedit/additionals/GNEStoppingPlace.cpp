@@ -157,6 +157,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
         // Calculate new position using old position
         Position newPosition = myMove.originalViewPosition;
         newPosition.add(offset);
+        // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         double offsetLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false) - myLane->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
         // check if start position must be moved  

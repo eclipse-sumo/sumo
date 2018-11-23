@@ -453,6 +453,9 @@ public:
     /// @brief toogle show bubbles
     long onCmdToogleShowBubbles(FXObject*, FXSelector, void*);
 
+    /// @brief toogle move elevation
+    long onCmdToogleMoveElevation(FXObject*, FXSelector, void*);
+
     /// @brief select AC under cursor
     long onCmdAddSelected(FXObject*, FXSelector, void*);
 
@@ -507,7 +510,10 @@ public:
     void setStatusBarText(const std::string& text);
 
     /// @brief whether inspection, selection and inversion should apply to edges or to lanes
-    bool selectEdges();
+    bool selectEdges() const;
+
+    /// @brief return true if elevation is being edited
+    bool editingElevation() const;
 
     /// @brief show connections over junctions
     bool showConnections();

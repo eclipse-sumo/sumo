@@ -99,6 +99,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_MOVE_ELEVATION,          GNEViewNet::onCmdToogleMoveElevation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_GRID,               GNEViewNet::onCmdShowGrid),
     // select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                           GNEViewNet::onCmdAddSelected),
@@ -742,8 +743,18 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 
 
 bool
-GNEViewNet::selectEdges() {
+GNEViewNet::selectEdges() const {
     return mySelectEdges;
+}
+
+
+bool 
+GNEViewNet::editingElevation() const {
+    if (myCreateEdgeValues.menuCheckMoveElevation->shown()) {
+        return (myCreateEdgeValues.menuCheckMoveElevation->getCheck() == TRUE);
+    } else {
+        return false;
+    }
 }
 
 
@@ -1371,11 +1382,15 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     if ((myEditMode == GNE_MODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myShiftKeyPressed);
     }
-    // calculate offset
-    Position offsetMovement = snapToActiveGrid(getPositionInformation()) - myMoveSingleElementValues.movingOriginalPosition;
-    if (myCreateEdgeValues.menuCheckMoveElevation->getCheck()) {
-        const double dist = int((offsetMovement.y() + offsetMovement.x()) / myVisualizationSettings->gridXSize) * myVisualizationSettings->gridXSize;
-        offsetMovement = Position(0, 0, dist / 10);
+    // calculate offset between current position and original position
+    Position offsetMovement = getPositionInformation() - myMoveSingleElementValues.movingOriginalPosition;
+    // calculate Z depending of Grid
+    if (myCreateEdgeValues.menuCheckMoveElevation->shown() && myCreateEdgeValues.menuCheckMoveElevation->getCheck() == TRUE) {
+        // reset offset X and Y and use Y for Z
+        offsetMovement = Position(0, 0, offsetMovement.y());
+    } else {
+        // leave z empty (because in this case offset only actuates over X-Y)
+        offsetMovement.setz(0);
     }
     // @note  #3521: Add checkBox to allow moving elements... has to behere implemented
     // check what type of additional is moved
@@ -2798,7 +2813,15 @@ GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
-    // Update view net Shapes
+    // Only update view
+    update();
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector, void*) {
+    // Only update view
     update();
     return 1;
 }
@@ -3419,12 +3442,15 @@ GNEViewNet::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarrier* o
 
 void
 GNEViewNet::MoveMultipleElementValues::moveSelection() {
-    // calculate offset movement
-    Position offsetMovement = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()) - myClickedPosition;
-    // check elevation
-    if (myViewNet->myCreateEdgeValues.menuCheckMoveElevation->getCheck()) {
-        const double dist = int((offsetMovement.y() + offsetMovement.x()) / myViewNet->myVisualizationSettings->gridXSize) * myViewNet->myVisualizationSettings->gridXSize;
-        offsetMovement = Position(0, 0, dist / 10);
+    // calculate offset between current position and original position
+    Position offsetMovement = myViewNet->getPositionInformation() - myClickedPosition;
+    // calculate Z depending of Grid
+    if (myViewNet->myCreateEdgeValues.menuCheckMoveElevation->shown() && myViewNet->myCreateEdgeValues.menuCheckMoveElevation->getCheck() == TRUE) {
+        // reset offset X and Y and use Y for Z
+        offsetMovement = Position(0, 0, offsetMovement.y());
+    } else {
+        // leave z empty (because in this case offset only actuates over X-Y)
+        offsetMovement.setz(0);
     }
     // move selected junctions
     for (auto i : myMovedJunctionOriginPositions) {

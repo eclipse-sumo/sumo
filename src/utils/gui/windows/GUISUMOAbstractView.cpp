@@ -195,10 +195,16 @@ Position
 GUISUMOAbstractView::snapToActiveGrid(const Position& pos) const {
     Position result = pos;
     if (myVisualizationSettings->showGrid) {
-        const double xRest = std::fmod(pos.x(), myVisualizationSettings->gridXSize) + (pos.x() < 0 ? myVisualizationSettings->gridXSize : 0);
-        const double yRest = std::fmod(pos.y(), myVisualizationSettings->gridYSize) + (pos.y() < 0 ? myVisualizationSettings->gridYSize : 0);
-        result.setx(pos.x() - xRest + (xRest < myVisualizationSettings->gridXSize * 0.5 ? 0 : myVisualizationSettings->gridXSize));
-        result.sety(pos.y() - yRest + (yRest < myVisualizationSettings->gridYSize * 0.5 ? 0 : myVisualizationSettings->gridYSize));
+        if (pos.z() == 0) {
+            const double xRest = std::fmod(pos.x(), myVisualizationSettings->gridXSize) + (pos.x() < 0 ? myVisualizationSettings->gridXSize : 0);
+            const double yRest = std::fmod(pos.y(), myVisualizationSettings->gridYSize) + (pos.y() < 0 ? myVisualizationSettings->gridYSize : 0);
+            result.setx(pos.x() - xRest + (xRest < myVisualizationSettings->gridXSize * 0.5 ? 0 : myVisualizationSettings->gridXSize));
+            result.sety(pos.y() - yRest + (yRest < myVisualizationSettings->gridYSize * 0.5 ? 0 : myVisualizationSettings->gridYSize));
+        } else {
+            // snapZToActiveGrid uses grid Y Size
+            const double zRest = std::fmod(pos.z(), myVisualizationSettings->gridYSize) + (pos.z() < 0 ? myVisualizationSettings->gridYSize : 0);
+            result.setz(pos.z() - zRest + (zRest < myVisualizationSettings->gridYSize * 0.5 ? 0 : myVisualizationSettings->gridYSize));
+        }
     }
     return result;
 }

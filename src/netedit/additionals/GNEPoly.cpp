@@ -105,32 +105,18 @@ GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position
         if (index < (int)myShape.size()) {
             // save current moving Geometry Point
             myCurrentMovingVertexIndex = index;
-            // Declare value for saving Z value (needed because movement is only in X-Y)
-            double zValue = 0;
             // if closed shape and cliked is first or last, move both giving more priority to first always
             if (myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
-                // save Z value of first shape Geometry Point
-                zValue = myShape.front().z();
                 // Change position of first shape Geometry Point
                 myShape.front() = oldPos;
                 myShape.front().add(offset);
-                // restore Z value of first shape Geometry Point
-                myShape.front().setz(zValue);
-                // save Z value of last shape Geometry Point
-                zValue = myShape.back().z();
                 // Change position of last shape Geometry Point
                 myShape.back() = oldPos;
                 myShape.back().add(offset);
-                // restore Z value of last shape Geometry Point
-                myShape.back().setz(zValue);
             } else {
-                // save Z value of Geometry Point
-                zValue = myShape.back().z();
                 // change position of Geometry Point
                 myShape[index] = oldPos;
                 myShape[index].add(offset);
-                // restore Z value of Geometry Point
-                myShape.back().setz(zValue);
             }
             // return index of moved Geometry Point
             return index;

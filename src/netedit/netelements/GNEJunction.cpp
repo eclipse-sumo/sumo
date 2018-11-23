@@ -318,6 +318,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForSelecting) {
             drawName(myNBNode.getPosition(), s.scale, s.junctionName);
         }
+        // draw elevation
+        if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+            // Push matrix
+            glPushMatrix();
+            // Traslate to center of detector
+            glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
+            // draw Z
+            GLHelper::drawText(toString(myNBNode.getPosition().z()), Position(), .1, 2, RGBColor::BLUE);
+            // pop matrix
+            glPopMatrix();
+        }
         // name must be removed from selection stack before drawing crossings
         glPopName();
         // draw crossings
@@ -567,6 +578,9 @@ GNEJunction::moveGeometry(const Position& oldPos, const Position& offset) {
     if (!abort) {
         Position newPosition = oldPos;
         newPosition.add(offset);
+        // filtern position using snap to active grid
+        // filtern position using snap to active grid
+        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
         moveJunctionGeometry(newPosition, false);
     }
 }
