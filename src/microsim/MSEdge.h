@@ -73,12 +73,15 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 typedef std::vector<std::pair<const MSEdge*, const MSEdge*> > MSConstEdgePairVector;
 
 class MSEdge : public Named, public Parameterised {
-public:
-    /** @brief Suceeding edges (keys) and allowed lanes to reach these edges (values). */
+private:
+    /** @brief Succeeding edges (keys) and allowed lanes to reach these edges (values). */
     typedef std::map< const MSEdge*, std::vector<MSLane*>* > AllowedLanesCont;
 
-    /** @brief Map from vehicle types to lanes that may be used to reach one of the next edges */
+    /** @brief Map from vehicle class to lanes that may be used to reach one of the next edges */
     typedef std::map< SUMOVehicleClass, AllowedLanesCont > ClassedAllowedLanesCont;
+
+    /** @brief Map from vehicle class to allowed lanes */
+    typedef std::map< SUMOVehicleClass, const std::vector<MSLane*>* > AllowedCont;
 
 
 public:
@@ -191,10 +194,11 @@ public:
      *
      * @param[in] destination The edge to reach
      * @param[in] vclass The vehicle class for which this information shall be returned
-     * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
+     * @return The lanes that may be used to reach the given edge, nullptr if no such lanes exist
      */
     const std::vector<MSLane*>* allowedLanes(const MSEdge& destination,
             SUMOVehicleClass vclass = SVC_IGNORING) const;
+
 
 
     /** @brief Get the allowed lanes for the given vehicle class.
@@ -743,21 +747,6 @@ protected:
     };
 
 
-    /** @brief Get the allowed lanes to reach the destination-edge.
-     *
-     * If there is no such edge, get 0. Then you are on the wrong edge.
-     *
-     * @param[in] destination The edge to reach
-     * @param[in] vclass The vehicle class for which this information shall be returned
-     * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
-     */
-    const std::vector<MSLane*>* allowedLanes(const MSEdge* destination,
-            SUMOVehicleClass vclass = SVC_IGNORING) const;
-
-
-    /// @brief lookup in map and return 0 if not found
-    const std::vector<MSLane*>* getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const;
-
     /// @brief return upper bound for the depart position on this edge
     double getDepartPosBound(const MSVehicle& veh, bool upper = true) const;
 
@@ -809,12 +798,12 @@ protected:
     /// @name Storages for allowed lanes (depending on vehicle classes)
     /// @{
 
-    /// @brief Associative container from destination-edge to allowed-lanes.
-    AllowedLanesCont myAllowed;
+    /// @brief Associative container from vehicle class to allowed-lanes.
+    AllowedCont myAllowed;
 
     /// @brief From vehicle class to lanes allowed to be used by it
     // @note: this map is filled on demand
-    mutable ClassedAllowedLanesCont myClassedAllowed;
+    ClassedAllowedLanesCont myClassedAllowed;
 
     /// @brief The intersection of lane permissions for this edge
     SVCPermissions myMinimumPermissions;
