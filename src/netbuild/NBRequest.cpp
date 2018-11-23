@@ -42,8 +42,8 @@
 #include "NBRequest.h"
 
 //#define DEBUG_RESPONSE
-//#define DEBUG_FOES
-#define DEBUGCOND (myJunction->getID() == "C")
+//#define DEBUG_SETBLOCKING
+#define DEBUGCOND (myJunction->getID() == "F")
 
 // ===========================================================================
 // static member variables
@@ -251,10 +251,21 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
             return;
         }
     }
+#ifdef DEBUG_SETBLOCKING
+    if (DEBUGCOND) std::cout << "setBlocking"
+            << " 1:" << from1->getID() << "->" << to1->getID() 
+            << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
+#endif
     // check the priorities if required by node type
     if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
         int from1p = from1->getJunctionPriority(myJunction);
         int from2p = from2->getJunctionPriority(myJunction);
+#ifdef DEBUG_SETBLOCKING
+        if (DEBUGCOND) std::cout << "setBlocking"
+            << " 1:" << from1->getID() << "->" << to1->getID() 
+            << " 2:" << from2->getID() << "->" << to2->getID()
+            << " p1=" << from1p << " p2=" << from2p << "\n";
+#endif
         // check if one of the connections is higher priorised when incoming into
         //  the junction, the connection road will yield
         if (from1p > from2p) {
@@ -271,6 +282,12 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT && !myJunction->isBentPriority()) {
         LinkDirection ld1 = myJunction->getDirection(from1, to1);
         LinkDirection ld2 = myJunction->getDirection(from2, to2);
+#ifdef DEBUG_SETBLOCKING
+        if (DEBUGCOND) std::cout << "setBlocking"
+            << " 1:" << from1->getID() << "->" << to1->getID() 
+            << " 2:" << from2->getID() << "->" << to2->getID()
+            << " dir1=" << toString(ld1) << " dir2=" << toString(ld2) << "\n";
+#endif
         if (ld1 == LINKDIR_STRAIGHT) {
             if (ld2 != LINKDIR_STRAIGHT) {
                 myForbids[idx1][idx2] = true;
@@ -331,6 +348,12 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         }
         NBContHelper::nextCW(myAll, c2);
     }
+#ifdef DEBUG_SETBLOCKING
+        if (DEBUGCOND) std::cout << "setBlocking"
+            << " 1:" << from1->getID() << "->" << to1->getID() 
+            << " 2:" << from2->getID() << "->" << to2->getID()
+            << " noDecision\n";
+#endif
 }
 
 
