@@ -1857,6 +1857,7 @@ protected:
 
     /// @brief time at which the current junction was entered
     SUMOTime myJunctionEntryTime;
+    SUMOTime myJunctionEntryTimeNeverYield;
     SUMOTime myJunctionConflictEntryTime;
 
 protected:
