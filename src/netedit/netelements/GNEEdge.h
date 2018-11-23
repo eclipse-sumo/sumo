@@ -360,10 +360,10 @@ private:
     void removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList);
 
     /// @brief change Shape StartPos
-    void setShapeStartPos(const Position& pos);
+    void setShapeStartPos(const Position& pos, bool updateGrid);
 
     /// @brief change Shape EndPos
-    void setShapeEndPos(const Position& pos);
+    void setShapeEndPos(const Position& pos, bool updateGrid);
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

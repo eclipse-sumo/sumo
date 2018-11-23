@@ -533,23 +533,12 @@ public:
     /// @brief edit edit shape
     void stopEditCustomShape();
 
-    /// @brief begin move selection
-    void beginMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition);
-
-    /// @brief move selection
-    void moveSelection();
-
-    /// @brief finish moving selection
-    void finishMoveSelection();
-
     /// @brief enable drawing of the reference square when testing
-    void enableReferenceSquare() {
-        myTestingMode.drawRefSquare = true;
-    }
+    void enableReferenceSquare();
 
 protected:
     /// @brief FOX needs this
-    GNEViewNet() {}
+    GNEViewNet();
 
     /// @brief do paintGL
     int doPaintGL(int mode, const Boundary& bound);
@@ -560,14 +549,9 @@ protected:
 private:
     /// @brief struct used to group all pointers to moved elements
     struct MovedItems {
+
         /// @brief constructor
-        MovedItems() :
-            junctionToMove(nullptr),
-            edgeToMove(nullptr),
-            polyToMove(nullptr),
-            poiToMove(nullptr),
-            additionalToMove(nullptr),
-            tazToMove(nullptr) {}
+        MovedItems();
 
         /// @brief the Junction to be moved.
         GNEJunction* junctionToMove;
@@ -588,13 +572,27 @@ private:
         GNETAZ* tazToMove;
     };
 
+    /// @brief struct used for moving geometry points
+    struct MovingGeometryPoint {
+
+        /// @brief constructor
+        MovingGeometryPoint();
+
+        /// @brief original shape
+        PositionVector originalShape;
+
+        /// @brief index moved
+        int index;
+
+        /// @brief original position of Index
+        Position originalPosition;
+    };
+
     /// @brief struct used to group all variables related with movement of single elements
     struct MoveSingleElementValues {
+
         /// @brief constructor
-        MoveSingleElementValues() :
-            movingStartPos(false),
-            movingEndPos(false),
-            movingIndexShape(-1) {}
+        MoveSingleElementValues();
 
         /// @brief variable for calculating moving offset (Used when user doesn't click exactly over the center of shape)
         Position movingReference;
@@ -613,13 +611,50 @@ private:
         int movingIndexShape;
     };
 
+    /// @brief struct used to group all variables related with movement of groups of elements
+    struct MoveMultipleElementValues {
+
+        /// @brief constructor
+        MoveMultipleElementValues(GNEViewNet* viewNet);
+
+        /// @brief begin move selection
+        void beginMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition);
+
+        /// @brief move selection
+        void moveSelection();
+
+        /// @brief finish moving selection
+        void finishMoveSelection();
+
+        /// @brief check if currently there is element being moved
+        bool isMovingSelection() const;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief original clicked position when moveSelection is called (used for calculate offset during moveSelection())
+        Position myClickedPosition;
+
+        /// @brief flag to check if a selection is being moved
+        bool myMovingSelection;
+
+        /// @brief container used for move junctions 
+        std::map<GNEJunction*, Position> myMovedJunctionOriginPositions;
+
+        /// @brief container used for move entire edges
+        std::map<GNEEdge*, PositionVector> myMovedEdgesOriginShape;
+    
+        /// @brief container used for move GeometryPoints of edges
+        std::map<GNEEdge*, MovingGeometryPoint> myMovedEgdesGeometryPoints;
+    };
+
     /// @brief struct used to group all variables related with selecting using a square or polygon
     /// @note in the future the variables used for selecting throught a polygon will be placed here
     struct SelectingArea {
-    public:
+
         /// @brief default constructor
-        SelectingArea() :
-            selectingUsingRectangle(false) {}
+        SelectingArea();
 
         /// @brief process rectangle Selection
         void processRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
@@ -652,12 +687,9 @@ private:
 
     /// @brief struct used to group all variables related with testing
     struct TestingMode {
+
         /// @brief default constructor
-        TestingMode() :
-            testingEnabled(OptionsCont::getOptions().getBool("gui-testing")),
-            drawRefSquare(false),
-            testingWidth(0),
-            testingHeight(0) {}
+        TestingMode();
 
         /// @brief flag to enable or disable testing mode
         bool testingEnabled;
@@ -742,29 +774,14 @@ private:
     /// @brief variable used to save variables related with movement of single elements
     MoveSingleElementValues myMoveSingleElementValues;
 
+    /// @brief variable used to save variables related with movement of multiple elements
+    MoveMultipleElementValues myMoveMultipleElementValues;
+
     /// @brief variable used to save variables related with selecting areas
     SelectingArea mySelectingArea;
 
     /// @brief variable used to save variables related with testing mode
     TestingMode myTestingMode;
-
-    /// @brief whether a selection is being moved
-    bool myMovingSelection;
-
-    /// @brief Selected Junctions that are being moved
-    /** NOTE: IN the future will be changed to std::map<GNENetElement*, Position> **/
-    std::map<GNEJunction*, Position> myOriginPositionOfMovedJunctions;
-
-    /// @brief Selected Edges that are being moved < Edge, >originalPosition, shape> >
-    std::map<GNEEdge*, std::pair<Position, PositionVector> > myOriginShapesMovedEntireShapes;
-
-    struct MovingEdges {
-        PositionVector originalShape;
-        int index;
-        Position originalPosition;
-    };
-
-    std::map<GNEEdge*, MovingEdges> myOriginShapesMovedPartialShapes;
     // @}
 
     /// @brief a reference to the toolbar in myParent

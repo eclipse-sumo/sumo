@@ -176,8 +176,9 @@ GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
     // change shape startPosition using oldPosition and offset
     Position shapeStartEdited = oldPos;
     shapeStartEdited.add(offset);
-    setShapeStartPos(shapeStartEdited);
-    updateGeometry(true);
+    // set shape start position without updating grid
+    setShapeStartPos(shapeStartEdited, false);
+    updateGeometry(false);
 }
 
 
@@ -186,8 +187,9 @@ GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
     // change shape endPosition using oldPosition and offset
     Position shapeEndEdited = oldPos;
     shapeEndEdited.add(offset);
-    setShapeEndPos(shapeEndEdited);
-    updateGeometry(true);
+    // set shape end position without updating grid
+    setShapeEndPos(shapeEndEdited, false);
+    updateGeometry(false);
 }
 
 
@@ -196,7 +198,7 @@ GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
     // first save current shape start position
     Position modifiedShapeStartPos = myNBEdge.getGeometry().front();
     // restore old shape start position
-    setShapeStartPos(oldPos);
+    setShapeStartPos(oldPos, true);
     // set attribute using undolist
     undoList->p_begin("shape start of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
@@ -209,7 +211,7 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
     // first save current shape end position
     Position modifiedShapeEndPos = myNBEdge.getGeometry().back();
     // restore old shape end position
-    setShapeEndPos(oldPos);
+    setShapeEndPos(oldPos, true);
     // set attribute using undolist
     undoList->p_begin("shape end of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
@@ -330,8 +332,6 @@ GNEEdge::moveVertexShape(const int index, const Position& oldPos, const Position
 
 void
 GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
-    // first remove object from net grid
-    myNet->removeGLObjectFromGrid(this);
     // make a copy of the old shape to change it
     PositionVector modifiedShape = oldShape;
     // change all points of the inner geometry using offset
@@ -339,9 +339,7 @@ GNEEdge::moveEntireShape(const PositionVector& oldShape, const Position& offset)
         i.add(offset);
     }
     // restore modified shape
-    setGeometry(modifiedShape, true, true);
-    // add object into net again
-    myNet->addGLObjectIntoGrid(this);
+    setGeometry(modifiedShape, true, false);
 }
 
 
@@ -1271,7 +1269,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                 newShapeStart = parse<Position>(value);
             }
             // set shape start position
-            setShapeStartPos(newShapeStart);
+            setShapeStartPos(newShapeStart, true);
             break;
         }
         case GNE_ATTR_SHAPE_END: {
@@ -1283,7 +1281,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
                 newShapeEnd = parse<Position>(value);
             }
             // set shape end position
-            setShapeEndPos(newShapeEnd);
+            setShapeEndPos(newShapeEnd, true);
             break;
         }
         case GNE_ATTR_BIDIR:
@@ -1705,24 +1703,24 @@ GNEEdge::smoothElevation(GNEUndoList* undoList) {
 
 
 void
-GNEEdge::setShapeStartPos(const Position& pos) {
+GNEEdge::setShapeStartPos(const Position& pos, bool updateGrid) {
     // remove start position and add it the new position
     PositionVector geom = myNBEdge.getGeometry();
     geom.erase(geom.begin());
     geom.push_front_noDoublePos(pos);
     // restore modified shape
-    setGeometry(geom, false, true);
+    setGeometry(geom, false, updateGrid);
 }
 
 
 void
-GNEEdge::setShapeEndPos(const Position& pos) {
+GNEEdge::setShapeEndPos(const Position& pos, bool updateGrid) {
     // remove end position and add it the new position
     PositionVector geom = myNBEdge.getGeometry();
     geom.pop_back();
     geom.push_back_noDoublePos(pos);
     // restore modified shape
-    setGeometry(geom, false, true);
+    setGeometry(geom, false, updateGrid);
 }
 
 /****************************************************************************/
