@@ -468,7 +468,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     }
-    const bool drawDetails =  s.scale * exaggeration > 5 && !s.drawForSelecting;
+    const bool drawDetails =  (s.scale * exaggeration > 5 || s.junctionSize.minSize == 0) && !s.drawForSelecting;
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
@@ -505,7 +505,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw lane
         // check whether it is not too small
-        if (s.scale * exaggeration < 1. && junctionExaggeration == 1) {
+        if (s.scale * exaggeration < 1. && junctionExaggeration == 1 && s.junctionSize.minSize != 0) {
             if (!isInternal) {
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawLine(myShape, myShapeColors);
@@ -539,13 +539,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 setColor(s);
                 GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
             } else if (isCrossing) {
-                if (s.drawCrossingsAndWalkingareas && s.scale > 3.0) {
+                if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);
                     GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5, s.drawForSelecting);
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
-                if (s.drawCrossingsAndWalkingareas && s.scale > 3.0) {
+                if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);
                     if (s.scale * exaggeration < 20.) {
                         GLHelper::drawFilledPoly(myShape, true);
