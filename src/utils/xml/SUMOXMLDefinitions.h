@@ -640,6 +640,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RADIUS,
     /// @brief Whether vehicles must keep the junction clear
     SUMO_ATTR_KEEP_CLEAR,
+    /// @brief How to compute right of way
+    SUMO_ATTR_RIGHT_OF_WAY,
     /// @brief whether a given shape is user-defined
     SUMO_ATTR_CUSTOMSHAPE,
     /// @brief A color information
@@ -993,6 +995,13 @@ enum LaneSpreadFunction {
 };
 
 
+/// @brief algorithms for computing right of way
+enum RightOfWay {
+    RIGHT_OF_WAY_DEFAULT,
+    RIGHT_OF_WAY_EDGEPRIORITY
+};
+
+
 /**
  * @enum LinkState
  * @brief The right-of-way state of a link between two lanes
@@ -1231,6 +1240,9 @@ public:
     /// @brief lane spread functions
     static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
 
+    /// @brief lane spread functions
+    static StringBijection<RightOfWay> RightOfWayValues;
+
     /// @brief link states
     static StringBijection<LinkState> LinkStates;
 
@@ -1310,6 +1322,9 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<LaneSpreadFunction>::Entry laneSpreadFunctionValues[];
+
+    /// @brief lane spread function values
+    static StringBijection<RightOfWay>::Entry rightOfWayValuesInitializer[];
 
     /// @brief link state values
     static StringBijection<LinkState>::Entry linkStateValues[];

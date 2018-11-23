@@ -693,6 +693,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         // both types of nodes come without a tlLogic
         myRailSignals.insert(id);
     }
+    if (attrs.hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
+        node->setRightOfWay(attrs.getRightOfWay(ok));
+    }
 }
 
 

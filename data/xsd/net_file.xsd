@@ -137,6 +137,14 @@
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="radius" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="customShape" type="boolType" use="optional"/>
+        <xsd:attribute name="rightOfWay" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="default"/>
+                    <xsd:enumeration value="edgePriority"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="requestType">

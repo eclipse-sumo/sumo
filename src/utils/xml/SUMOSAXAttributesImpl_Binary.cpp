@@ -266,6 +266,19 @@ SUMOSAXAttributesImpl_Binary::getNodeType(bool& ok) const {
 }
 
 
+RightOfWay
+SUMOSAXAttributesImpl_Binary::getRightOfWay(bool& ok) const {
+    try {
+        return SUMOXMLDefinitions::RightOfWayValues.get(getString(SUMO_ATTR_RIGHT_OF_WAY));
+    } catch (InvalidArgument) {
+        ok = false;
+        return RIGHT_OF_WAY_DEFAULT;
+    } catch (EmptyData) {
+        return RIGHT_OF_WAY_DEFAULT;
+    }
+}
+
+
 RGBColor
 SUMOSAXAttributesImpl_Binary::getColor() const {
     const std::map<int, int>::const_iterator i = myIntValues.find(SUMO_ATTR_COLOR);

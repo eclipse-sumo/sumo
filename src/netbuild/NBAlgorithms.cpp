@@ -291,7 +291,13 @@ NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(NBNode* node) {
     }
     // compute the priorities on junction when needed
     if (node->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
-        setPriorityJunctionPriorities(*node);
+        if (node->getRightOfWay() == RIGHT_OF_WAY_EDGEPRIORITY) {
+            for (NBEdge* e : node->getIncomingEdges()) {
+                e->setJunctionPriority(node, e->getPriority());
+            }
+        } else {
+            setPriorityJunctionPriorities(*node);
+        }
     }
 }
 

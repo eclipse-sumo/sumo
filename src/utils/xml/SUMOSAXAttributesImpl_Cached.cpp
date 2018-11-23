@@ -158,6 +158,19 @@ SUMOSAXAttributesImpl_Cached::getNodeType(bool& ok) const {
 }
 
 
+RightOfWay
+SUMOSAXAttributesImpl_Cached::getRightOfWay(bool& ok) const {
+    if (hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
+        std::string rowString = getString(SUMO_ATTR_RIGHT_OF_WAY);
+        if (SUMOXMLDefinitions::RightOfWayValues.hasString(rowString)) {
+            return SUMOXMLDefinitions::RightOfWayValues.get(rowString);
+        }
+        ok = false;
+    }
+    return RIGHT_OF_WAY_DEFAULT;
+}
+
+
 RGBColor
 SUMOSAXAttributesImpl_Cached::getColor() const {
     return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));

@@ -171,6 +171,18 @@ SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
     return NODETYPE_UNKNOWN;
 }
 
+RightOfWay
+SUMOSAXAttributesImpl_Xerces::getRightOfWay(bool& ok) const {
+    if (hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
+        std::string rowString = getString(SUMO_ATTR_RIGHT_OF_WAY);
+        if (SUMOXMLDefinitions::RightOfWayValues.hasString(rowString)) {
+            return SUMOXMLDefinitions::RightOfWayValues.get(rowString);
+        }
+        ok = false;
+    }
+    return RIGHT_OF_WAY_DEFAULT;
+}
+
 
 RGBColor
 SUMOSAXAttributesImpl_Xerces::getColor() const {

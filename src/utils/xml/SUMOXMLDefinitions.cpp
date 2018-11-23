@@ -426,6 +426,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "radius",                 SUMO_ATTR_RADIUS },
     { "customShape",            SUMO_ATTR_CUSTOMSHAPE },
     { "keepClear",              SUMO_ATTR_KEEP_CLEAR },
+    { "rightOfWay",             SUMO_ATTR_RIGHT_OF_WAY },
     { "color",                  SUMO_ATTR_COLOR },
     { "dir",                    SUMO_ATTR_DIR },
     { "state",                  SUMO_ATTR_STATE },
@@ -669,6 +670,11 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
     {"center",  LANESPREAD_CENTER } //< must be the last one
 };
 
+StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
+    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY }, 
+    {"default",      RIGHT_OF_WAY_DEFAULT } // default (must be the last one)
+};
+
 
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "G", LINKSTATE_TL_GREEN_MAJOR },
@@ -801,6 +807,9 @@ StringBijection<SumoXMLEdgeFunc> SUMOXMLDefinitions::EdgeFunctions(
 
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
     SUMOXMLDefinitions::laneSpreadFunctionValues, LANESPREAD_CENTER);
+
+StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
+    SUMOXMLDefinitions::rightOfWayValuesInitializer, RIGHT_OF_WAY_DEFAULT);
 
 StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
     SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);

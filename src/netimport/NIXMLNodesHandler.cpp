@@ -220,6 +220,11 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)) {
         node->setKeepClear(attrs.get<bool>(SUMO_ATTR_KEEP_CLEAR, nodeID.c_str(), ok));
     }
+
+    // set optional right-of-way hint
+    if (attrs.hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
+        node->setRightOfWay(attrs.getRightOfWay(ok));
+    }
     return node;
 }
 

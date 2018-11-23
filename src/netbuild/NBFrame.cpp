@@ -80,6 +80,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.junctions.radius", new Option_Float(4));
     oc.addDescription("default.junctions.radius", "Building Defaults", "The default turning radius of intersections");
 
+    oc.doRegister("default.right-of-way", new Option_String("default"));
+    oc.addDescription("default.right-of-way", "Building Defaults", "The default algorithm for computing right of way rules ('default', 'edgePriority')");
+
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Junctions", "Omits internal links");
@@ -574,6 +577,11 @@ NBFrame::checkOptions() {
     }
     if (oc.getString("tls.layout") != "opposites" && oc.getString("tls.layout") != "incoming") {
         WRITE_ERROR("tls.layout must be 'opposites' or 'incoming'");
+        ok = false;
+    }
+    if (!oc.isDefault("default.right-of-way") && 
+            !SUMOXMLDefinitions::RightOfWayValues.hasString(oc.getString("default.right-of-way"))) {
+        WRITE_ERROR("default.right-of-way must be one of '" + toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()) + "'");
         ok = false;
     }
     return ok;

@@ -208,6 +208,7 @@ public:
     static const int AVOID_WIDE_RIGHT_TURN;
     static const int AVOID_WIDE_LEFT_TURN;
     static const int FOUR_CONTROL_POINTS;
+
 public:
     /**@brief Constructor
      * @param[in] id The id of the node
@@ -275,6 +276,11 @@ public:
     /// @brief Returns the keepClear flag
     bool getKeepClear() const {
         return myKeepClear;
+    }
+
+    /// @brief Returns hint on how to compute right of way
+    RightOfWay getRightOfWay() const {
+        return myRightOfWay;
     }
     /// @}
 
@@ -494,6 +500,11 @@ public:
     /// @brief set the keepClear flag
     void setKeepClear(bool keepClear) {
         myKeepClear = keepClear;
+    }
+
+    /// @brief set method for computing right-of-way
+    void setRightOfWay(RightOfWay rightOfWay) {
+        myRightOfWay = rightOfWay;
     }
 
     /// @brief return whether the shape was set by the user
@@ -815,6 +826,9 @@ private:
 
     /// @brief whether the junction area must be kept clear
     bool myKeepClear;
+
+    /// @brief how to compute right of way for this node
+    RightOfWay myRightOfWay;
 
     /// @brief whether to discard all pedestrian crossings
     bool myDiscardAllCrossings;
