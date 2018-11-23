@@ -3440,17 +3440,19 @@ void
 GNEViewNet::MoveMultipleElementValues::moveSelection() {
     // calculate offset movement
     Position offsetMovement = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()) - myClickedPosition;
-
+    // check elevation
+    if (myViewNet->myMenuCheckMoveElevation->getCheck()) {
+        const double dist = int((offsetMovement.y() + offsetMovement.x()) / myViewNet->myVisualizationSettings->gridXSize) * myViewNet->myVisualizationSettings->gridXSize;
+        offsetMovement = Position(0, 0, dist / 10);
+    }
     // move selected junctions
     for (auto i : myMovedJunctionOriginPositions) {
         i.first->moveGeometry(i.second, offsetMovement);
     }
-
     // move entire edge shapes
     for (auto i : myMovedEdgesOriginShape) {
         i.first->moveEntireShape(i.second, offsetMovement);
     }
-
     // move partial shapes
     for (auto i : myMovedEgdesGeometryPoints) {
         i.first->moveVertexShape(i.second.index, i.second.originalPosition, offsetMovement);
