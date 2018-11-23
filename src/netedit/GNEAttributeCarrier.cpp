@@ -1300,6 +1300,11 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE,
                                                  "Whether the junction-blocking-heuristic should be activated at this node",
                                                  "1");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_RIGHT_OF_WAY,
+                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE,
+                                                 "How to compute right of way rules at this node",
+                                                 SUMOXMLDefinitions::RightOfWayValues.getString(RIGHT_OF_WAY_DEFAULT),
+                                                 SUMOXMLDefinitions::RightOfWayValues.getStrings());
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_TLTYPE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE,
                                                  "An optional type for the traffic light algorithm",

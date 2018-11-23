@@ -959,6 +959,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
                 }
                 return toString(false);
             }
+        case SUMO_ATTR_RIGHT_OF_WAY:
+            return SUMOXMLDefinitions::RightOfWayValues.getString(myNBNode.getRightOfWay());
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -981,6 +983,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
         case SUMO_ATTR_TLTYPE:
+        case SUMO_ATTR_RIGHT_OF_WAY:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
             undoList->add(new GNEChange_Attribute(this, key, value), true);
@@ -1115,6 +1118,8 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return myNBNode.isTLControlled() && (value != "");
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
+        case SUMO_ATTR_RIGHT_OF_WAY:
+            return SUMOXMLDefinitions::RightOfWayValues.hasString(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
@@ -1236,6 +1241,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBNode.setKeepClear(parse<bool>(value));
             break;
         }
+        case SUMO_ATTR_RIGHT_OF_WAY:
+            myNBNode.setRightOfWay(SUMOXMLDefinitions::RightOfWayValues.get(value));
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
