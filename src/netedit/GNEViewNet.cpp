@@ -503,6 +503,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myShowConnections(false),
     mySelectEdges(true),
     myShiftKeyPressed(false),
+    myMoveMultipleElementValues(this), 
     myToolbar(toolBar),
     myEditModeCreateEdge(nullptr),
     myEditModeMove(nullptr),
@@ -516,8 +517,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModePolygon(nullptr),
     myEditModeProhibition(nullptr),
     myUndoList(undoList),
-    myEditShapePoly(nullptr),
-    myMoveMultipleElementValues(this) {
+    myEditShapePoly(nullptr)
+{
     // view must be the final member of actualParent
     reparent(actualParent);
 
