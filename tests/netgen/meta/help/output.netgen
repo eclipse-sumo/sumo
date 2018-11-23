@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_0_1+0619-4934d00
+Eclipse SUMO netgenerate Version eeef47f
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -165,6 +165,9 @@ Building Defaults Options:
                                          by default
   --default.junctions.radius FLOAT     The default turning radius of
                                          intersections
+  --default.right-of-way STR           The default algorithm for computing
+                                         right of way rules ('default',
+                                         'edgePriority')
   -j, --default-junction-type STR      [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
 
 TLS Building Options:

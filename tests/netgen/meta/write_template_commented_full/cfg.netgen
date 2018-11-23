@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Nov 18 21:18:35 2018 by Eclipse SUMO netgenerate Version eeef47f
+<!-- generated on Fri Nov 23 22:33:10 2018 by Eclipse SUMO netgenerate Version eeef47f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -260,6 +260,9 @@
 
         <!-- The default turning radius of intersections -->
         <default.junctions.radius value="4" type="FLOAT"/>
+
+        <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
+        <default.right-of-way value="default" type="STR"/>
 
         <!-- [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
         <default-junction-type value="" synonymes="j junctions" type="STR"/>

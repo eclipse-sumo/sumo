@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_0_1+0273-e95334c
+Eclipse SUMO netconvert Version eeef47f
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -186,6 +186,9 @@ Building Defaults Options:
                                          by default
   --default.junctions.radius FLOAT     The default turning radius of
                                          intersections
+  --default.right-of-way STR           The default algorithm for computing
+                                         right of way rules ('default',
+                                         'edgePriority')
 
 TLS Building Options:
   --tls.discard-loaded                 Does not instatiate traffic lights
