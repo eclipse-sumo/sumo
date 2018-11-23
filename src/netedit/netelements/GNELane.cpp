@@ -560,10 +560,10 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // create menu commands for all edge oeprations
         new FXMenuCommand(edgeOperations, "Split edge here", nullptr, &parent, MID_GNE_EDGE_SPLIT);
         new FXMenuCommand(edgeOperations, "Split edge in both direction here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
-        new FXMenuCommand(edgeOperations, "Reverse edge", nullptr, &parent, MID_GNE_EDGE_REVERSE);
-        new FXMenuCommand(edgeOperations, "Add reverse direction", nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
         new FXMenuCommand(edgeOperations, "Set geometry endpoint here (shift-click)", nullptr, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
         new FXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+        new FXMenuCommand(edgeOperations, ("Reverse " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_REVERSE);
+        new FXMenuCommand(edgeOperations, ("Add reverse direction for " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
         new FXMenuCommand(edgeOperations, ("Straighten " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN);
         new FXMenuCommand(edgeOperations, ("Smooth " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_SMOOTH);
         new FXMenuCommand(edgeOperations, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);

@@ -2043,7 +2043,18 @@ long
 GNEViewNet::onCmdReverseEdge(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
-        myNet->reverseEdge(edge, myUndoList);
+        if (edge->isAttributeCarrierSelected()) {
+            myUndoList->p_begin("Reverse selected " + toString(SUMO_TAG_EDGE) + "s");
+            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+            for (auto it : edges) {
+                myNet->reverseEdge(it, myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("Reverse " + toString(SUMO_TAG_EDGE));
+            myNet->reverseEdge(edge, myUndoList);
+            myUndoList->p_end();
+        }
     }
     return 1;
 }
@@ -2053,7 +2064,18 @@ long
 GNEViewNet::onCmdAddReversedEdge(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
-        myNet->addReversedEdge(edge, myUndoList);
+        if (edge->isAttributeCarrierSelected()) {
+            myUndoList->p_begin("Add Reverse edge for selected " + toString(SUMO_TAG_EDGE) + "s");
+            std::vector<GNEEdge*> edges = myNet->retrieveEdges(true);
+            for (auto it : edges) {
+                myNet->addReversedEdge(it, myUndoList);
+            }
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("Add reverse " + toString(SUMO_TAG_EDGE));
+            myNet->addReversedEdge(edge, myUndoList);
+            myUndoList->p_end();
+        }
     }
     return 1;
 }
