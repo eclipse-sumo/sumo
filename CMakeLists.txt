@@ -303,10 +303,8 @@ install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/t
         COMPONENT pytraci)
 
 add_custom_target(install_dll)
-foreach(LIB_DLL ${SUMO_LIBRARIES_DLL})
-  add_custom_command(TARGET install_dll PRE_BUILD
-                     COMMAND ${CMAKE_COMMAND} -E copy ${LIB_DLL} ${CMAKE_SOURCE_DIR}/bin)
-endforeach()
+add_custom_command(TARGET install_dll PRE_BUILD
+                   COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy(l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]")
 set_property(TARGET install_dll PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 
