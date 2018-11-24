@@ -302,9 +302,10 @@ install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/t
 install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
         COMPONENT pytraci)
 
+string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
 add_custom_target(install_dll)
 add_custom_command(TARGET install_dll PRE_BUILD
-                   COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy(l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]")
+                   COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]")
 set_property(TARGET install_dll PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 
@@ -439,4 +440,3 @@ if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
-
