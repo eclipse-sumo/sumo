@@ -117,6 +117,9 @@ endif ()
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
+if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+    set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+endif ()
 if (SUMO_LIBRARIES)
     # Special option for MinGW32
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
