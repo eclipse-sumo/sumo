@@ -56,7 +56,7 @@ endif ()
 # special debug flags
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
 endif ()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
@@ -142,7 +142,13 @@ if (SUMO_LIBRARIES)
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj_gdal-????${LIB_VERSION}")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-1.6.??${LIB_VERSION}")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH}")
-    file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll" "${PROJ_PATH}/bin/*.dll" "${FOX_PATH}/lib/*.dll")
+    file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
+                                 "${PROJ_PATH}/bin/*.dll"
+                                 "${FOX_PATH}/lib/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-?.?.?${LIB_VERSION}/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-?.?.??${LIB_VERSION}/*/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-?.?.?${LIB_VERSION}/libtiff/*/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}/*/*.dll")
     # set GoogleTest only if compiler isn't mingw32
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
         if(USE_MINGW_64BITS)
@@ -252,7 +258,7 @@ if (CHECK_OPTIONAL_LIBS)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
         endif (GRPC_FOUND AND Protobuf_FOUND)
     endif()
-    set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL} ${SUMO_OPTIONAL_LIBRARIES_DLL}")
+    set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL};${SUMO_OPTIONAL_LIBRARIES_DLL}")
 endif (CHECK_OPTIONAL_LIBS)
 
 include_directories(${CMAKE_BINARY_DIR}/src)
@@ -389,7 +395,7 @@ if (GIT_FOUND)
     set_property(TARGET dist PROPERTY FOLDER "CMake")
     set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     # alias for backward compatibility
-	add_custom_target(dist-complete DEPENDS dist)
+    add_custom_target(dist-complete DEPENDS dist)
     set_property(TARGET dist-complete PROPERTY FOLDER "CMake")
     set_property(TARGET dist-complete PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
