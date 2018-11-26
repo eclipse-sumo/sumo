@@ -502,13 +502,11 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                     glPopMatrix();
                     // draw elevation or special symbols (Start, End and Block)
                     if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
-                        // Push matrix
                         glPushMatrix();
-                        // Traslate to center of detector
+                        // Translate to geometry point
                         glTranslated(pos.x(), pos.y(), GLO_JUNCTION);
-                        // draw Z
-                        GLHelper::drawText(toString(pos.z()), Position(), .1, 1.2, RGBColor::BLUE);
-                        // pop matrix
+                        // draw Z value
+                        GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
                         glPopMatrix();
                     } 
                 }

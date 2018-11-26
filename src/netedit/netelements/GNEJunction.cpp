@@ -320,13 +320,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw elevation
         if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
-            // Push matrix
             glPushMatrix();
-            // Traslate to center of detector
+            // Translate to center of junction
             glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
-            // draw Z
-            GLHelper::drawText(toString(myNBNode.getPosition().z()), Position(), .1, 2, RGBColor::BLUE);
-            // pop matrix
+            // draw Z value
+            GLHelper::drawText(toString(myNBNode.getPosition().z()), Position(), GLO_MAX - 5, s.junctionName.scaledSize(s.scale), s.junctionName.color);
             glPopMatrix();
         }
         // name must be removed from selection stack before drawing crossings
