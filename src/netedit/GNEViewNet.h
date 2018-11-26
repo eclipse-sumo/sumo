@@ -578,43 +578,43 @@ private:
         GNETAZ* tazToMove;
     };
 
-    /// @brief struct used for moving geometry points
-    struct MovingGeometryPoint {
-
-        /// @brief constructor
-        MovingGeometryPoint();
-
-        /// @brief original shape
-        PositionVector originalShape;
-
-        /// @brief index moved
-        int index;
-
-        /// @brief original position of Index
-        Position originalPosition;
-    };
-
     /// @brief struct used to group all variables related with movement of single elements
     struct MoveSingleElementValues {
 
         /// @brief constructor
-        MoveSingleElementValues();
+        MoveSingleElementValues(GNEViewNet* viewNet);
 
-        /// @brief variable for calculating moving offset (Used when user doesn't click exactly over the center of shape)
-        Position movingReference;
+        /// @brief calculate offset movement
+        Position calculateOffsetMovement() const;
 
-        /// @brief original Position of element before moving (needed for commmit position changes)
-        Position movingOriginalPosition;
+        /// calculate Poly movement values (Position, Index, etc.)
+        void calculatePolyValues();
 
-        /// @brief Shape of elements before moving (needed for commmit shape changes)
-        PositionVector movingOriginalShape;
+        /// calculate Edge movement values (Position, Index, etc.)
+        void calculateEdgeValues();
+
+        /// calculate TAZ movement values (Position, Index, etc.)
+        void calculateTAZValues();
+
+        /// @brief original shape of element before start moving (used by polygons, edges, etc., needed for commmit position changes)
+        PositionVector originalShapeBeforeMoving;
+
+        /// @brief index moved
+        int movingIndexShape;
+
+        /// @brief original position of geometry position (needed for commmit position changes)
+        Position originalPositionInView;
+
+        /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
+        Position relativeClickedPosition;
 
         /// @brief bool to indicate that startPos are being moved
         bool movingStartPos;
         bool movingEndPos;
 
-        /// @brief current index of shape that are being moved
-        int movingIndexShape;
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
@@ -624,7 +624,7 @@ private:
         MoveMultipleElementValues(GNEViewNet* viewNet);
 
         /// @brief begin move selection
-        void beginMoveSelection(GNEAttributeCarrier* originAC, const Position& originPosition);
+        void beginMoveSelection(GNEAttributeCarrier* originAC);
 
         /// @brief move selection
         void moveSelection();
@@ -652,7 +652,7 @@ private:
         std::map<GNEEdge*, PositionVector> myMovedEdgesOriginShape;
     
         /// @brief container used for move GeometryPoints of edges
-        std::map<GNEEdge*, MovingGeometryPoint> myMovedEgdesGeometryPoints;
+        std::map<GNEEdge*, MoveSingleElementValues*> myMovedEgdesGeometryPoints;
     };
 
     /// @brief struct used to group all variables related with selecting using a square or polygon
