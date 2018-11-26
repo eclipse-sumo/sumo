@@ -1,3 +1,3 @@
 Warning: Essential unique string attribute 'id' of containerStop is missing; containerStop cannot be created
-Warning: Format of essential unique string attribute 'id' of containerStop is invalid; 'ID with spaces' contains invalid characters; containerStop cannot be created
+Warning: Format of essential unique string attribute 'id' of containerStop is invalid; ID contains invalid characters; containerStop cannot be created
 Warning: There is another containerStop with the same ID='containerStop_00'.

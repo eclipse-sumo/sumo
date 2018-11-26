@@ -14,12 +14,22 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 GLDebug: Removed object e2Detector:E2_01 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
 GLDebug: Inserted e2Detector:E2_01 into SUMORTree with boundary -19.00,-21.60,31.00,18.40
+Debug: Adding e2Detector 'id with spaces' in GNEChange_Additional
+GLDebug: Inserted e2Detector:id with spaces into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object e2Detector:id with spaces from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:id with spaces into SUMORTree with boundary -18.00,-21.60,32.00,18.40
+GLDebug: Removed object e2Detector:E2_01 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
+GLDebug: Inserted e2Detector:E2_01 into SUMORTree with boundary -19.00,-21.60,31.00,18.40
+GLDebug: Removed object e2Detector:id with spaces from SUMORTree with boundary -18.00,-21.60,32.00,18.40
+GLDebug: Inserted e2Detector:id with spaces into SUMORTree with boundary -18.00,-21.60,32.00,18.40
 Debug: Adding e2Detector 'E2_02' in GNEChange_Additional
 GLDebug: Inserted e2Detector:E2_02 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object e2Detector:E2_02 from SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Inserted e2Detector:E2_02 into SUMORTree with boundary -19.00,-21.60,31.00,18.40
 GLDebug: Removed object e2Detector:E2_01 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
 GLDebug: Inserted e2Detector:E2_01 into SUMORTree with boundary -19.00,-21.60,31.00,18.40
+GLDebug: Removed object e2Detector:id with spaces from SUMORTree with boundary -18.00,-21.60,32.00,18.40
+GLDebug: Inserted e2Detector:id with spaces into SUMORTree with boundary -18.00,-21.60,32.00,18.40
 GLDebug: Removed object e2Detector:E2_02 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
 GLDebug: Inserted e2Detector:E2_02 into SUMORTree with boundary -19.00,-21.60,31.00,18.40
 Debug: net has to be saved
@@ -43,6 +53,8 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object e2Detector:E2_01 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
 GLDebug: Inserted e2Detector:E2_01 into SUMORTree with boundary -19.00,-21.60,31.00,18.40
+GLDebug: Removed object e2Detector:id with spaces from SUMORTree with boundary -18.00,-21.60,32.00,18.40
+GLDebug: Inserted e2Detector:id with spaces into SUMORTree with boundary -18.00,-21.60,32.00,18.40
 GLDebug: Removed object e2Detector:E2_02 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
 GLDebug: Inserted e2Detector:E2_02 into SUMORTree with boundary -19.00,-21.60,31.00,18.40
 GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
@@ -57,6 +69,8 @@ Debug: Deleting unreferenced e2Detector 'E2_02'
 GLDebug: Removed object e2Detector:E2_02 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced e2Detector 'id with spaces'
+GLDebug: Removed object e2Detector:id with spaces from SUMORTree with boundary -18.00,-21.60,32.00,18.40
 Debug: Deleting unreferenced e2Detector 'E2_01'
 GLDebug: Removed object e2Detector:E2_01 from SUMORTree with boundary -19.00,-21.60,31.00,18.40
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

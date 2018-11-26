@@ -3,16 +3,27 @@ Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '280.00'
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e3Detector' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Debug: Selected item 'detEntry' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Debug: Selected item 'detExit' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
 Debug: Value ';;;;;;;;;;;;;;;;;' for attribute id of e3Detector isn't valid
 Debug: Setting new attribute id 'Id with spaces' into e3Detector 'e3Detector_0'
@@ -21,6 +32,7 @@ Debug: Setting new attribute id 'Id with spacesdetExit0' into detExit 'e3Detecto
 Debug: Setting new attribute id 'correctID' into e3Detector 'Id with spaces'
 Debug: Setting new attribute id 'correctIDdetEntry0' into detEntry 'Id with spacesdetEntry0'
 Debug: Setting new attribute id 'correctIDdetExit0' into detExit 'Id with spacesdetExit0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute id 'Id with spacesdetExit0' into detExit 'correctIDdetExit0'
 Debug: Setting previous attribute id 'Id with spacesdetEntry0' into detEntry 'correctIDdetEntry0'
@@ -42,6 +54,7 @@ Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed

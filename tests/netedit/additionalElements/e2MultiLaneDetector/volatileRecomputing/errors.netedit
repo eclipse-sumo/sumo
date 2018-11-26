@@ -401,60 +401,30 @@ GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-32.00,22.0
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-32.00,22.00,12.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -25.20,-35.20,25.20,15.20
 Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -0.10,-10.10,0.10,0.10
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -0.10,-10.10,0.10,0.10
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-32.00,72.00,12.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-32.00,72.00,12.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 24.80,-35.20,75.20,15.20
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 49.90,-10.10,50.10,50.10
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 49.90,-10.10,50.10,50.10
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 28.00,8.00,72.00,52.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,8.00,72.00,52.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 22.80,4.80,75.20,68.00
 Debug: Created crossing ':gneJ2_c0' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 49.90,29.90,50.10,50.10
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 49.90,29.90,50.10,50.10
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -25.20,4.80,27.20,68.00
 Debug: Created crossing ':gneJ3_c0' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -0.10,0.10,0.10,29.90
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -0.10,0.10,0.10,29.90
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
 GLDebug: Inserted junction:gneJ4 into SUMORTree with boundary -22.00,-12.00,22.00,32.00
 GLDebug: Removed object junction:gneJ4 from SUMORTree with boundary -22.00,-12.00,22.00,32.00
 GLDebug: Inserted junction:gneJ4 into SUMORTree with boundary -25.20,-17.20,27.20,37.20
 Debug: Created crossing ':gneJ4_c0' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -0.10,0.10,0.10,9.90
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -0.10,0.10,0.10,9.90
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
 Debug: Created crossing ':gneJ4_c1' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -0.10,0.10,0.10,9.90
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -0.10,0.10,0.10,9.90
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
 Debug: Created crossing ':gneJ4_c2' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -0.10,0.10,0.10,9.90
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -0.10,0.10,0.10,9.90
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
 GLDebug: Inserted junction:gneJ5 into SUMORTree with boundary 28.00,-12.00,72.00,32.00
 GLDebug: Removed object junction:gneJ5 from SUMORTree with boundary 28.00,-12.00,72.00,32.00
 GLDebug: Inserted junction:gneJ5 into SUMORTree with boundary 22.80,-17.20,75.20,37.20
 Debug: Created crossing ':gneJ5_c0' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 49.90,9.90,50.10,50.10
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 49.90,9.90,50.10,50.10
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
 Debug: Created crossing ':gneJ5_c1' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 49.90,9.90,50.10,50.10
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 49.90,9.90,50.10,50.10
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
 Debug: Created crossing ':gneJ5_c2' in retrieveGNECrossing()
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 49.90,9.90,50.10,50.10
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 49.90,9.90,50.10,50.10
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-44.20,80.00,20.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-40.00,80.00,24.20
 GLDebug: Inserted edge:gneE10 into SUMORTree with boundary 20.00,-40.00,84.20,40.00
@@ -629,104 +599,24 @@ Debug: Created connection 'fromgneE8_1togneE0_1' in retrieveGNEConnection()
 GLDebug: Inserted connection:fromgneE8_1togneE0_1 into SUMORTree with boundary -20.10,-30.10,20.10,20.10
 Debug: Created connection 'fromgneE9_1togneE1_1' in retrieveGNEConnection()
 GLDebug: Inserted connection:fromgneE9_1togneE1_1 into SUMORTree with boundary 29.90,-30.10,70.10,70.10
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -25.20,-35.20,25.20,15.20
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -25.20,-35.20,25.20,15.20
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -25.20,-35.20,25.20,15.20
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 24.80,-35.20,75.20,15.20
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 24.80,-35.20,75.20,15.20
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 24.80,-35.20,75.20,15.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 22.80,4.80,75.20,68.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 22.80,4.80,75.20,68.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 22.80,4.80,75.20,68.00
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -25.20,4.80,27.20,68.00
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -25.20,4.80,27.20,68.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -25.20,4.80,27.20,68.00
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
 GLDebug: Inserted junction:gneJ4 into SUMORTree with boundary -25.20,-17.20,27.20,37.20
 GLDebug: Removed object junction:gneJ4 from SUMORTree with boundary -25.20,-17.20,27.20,37.20
 GLDebug: Inserted junction:gneJ4 into SUMORTree with boundary -25.20,-17.20,27.20,37.20
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
 GLDebug: Inserted junction:gneJ5 into SUMORTree with boundary 22.80,-17.20,75.20,37.20
 GLDebug: Removed object junction:gneJ5 from SUMORTree with boundary 22.80,-17.20,75.20,37.20
 GLDebug: Inserted junction:gneJ5 into SUMORTree with boundary 22.80,-17.20,75.20,37.20
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-44.20,80.00,20.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-44.20,80.00,20.00
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -24.20,-34.20,74.20,67.00
@@ -1068,104 +958,24 @@ GLDebug: Removed object edge:gneE6 from SUMORTree with boundary -30.00,-24.20,80
 GLDebug: Removed object edge:gneE7 from SUMORTree with boundary -30.00,-20.00,80.00,44.20
 GLDebug: Removed object edge:gneE8 from SUMORTree with boundary -34.20,-40.00,30.00,40.00
 GLDebug: Removed object edge:gneE9 from SUMORTree with boundary 15.80,-40.00,80.00,40.00
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -25.20,-35.20,25.20,15.20
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -25.20,-35.20,25.20,15.20
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -25.20,-35.20,25.20,15.20
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -13.20,-16.80,13.20,3.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 24.80,-35.20,75.20,15.20
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 24.80,-35.20,75.20,15.20
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 24.80,-35.20,75.20,15.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 36.80,-16.80,63.20,3.20
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 22.80,4.80,75.20,68.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 22.80,4.80,75.20,68.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 22.80,4.80,75.20,68.00
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Removed object crossing::gneJ2_c0 from SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Inserted crossing::gneJ2_c0 into SUMORTree with boundary 36.80,16.80,63.20,36.80
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -25.20,4.80,27.20,68.00
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -25.20,4.80,27.20,68.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -25.20,4.80,27.20,68.00
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Removed object crossing::gneJ3_c0 from SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Inserted crossing::gneJ3_c0 into SUMORTree with boundary -4.80,20.00,15.20,56.00
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
 GLDebug: Inserted junction:gneJ4 into SUMORTree with boundary -25.20,-17.20,27.20,37.20
 GLDebug: Removed object junction:gneJ4 from SUMORTree with boundary -25.20,-17.20,27.20,37.20
 GLDebug: Inserted junction:gneJ4 into SUMORTree with boundary -25.20,-17.20,27.20,37.20
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Removed object crossing::gneJ4_c0 from SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c0 into SUMORTree with boundary -13.20,5.20,13.20,25.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Removed object crossing::gneJ4_c1 from SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c1 into SUMORTree with boundary -4.80,-3.20,15.20,23.20
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Removed object crossing::gneJ4_c2 from SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Inserted crossing::gneJ4_c2 into SUMORTree with boundary -13.20,-5.20,13.20,14.80
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
 GLDebug: Inserted junction:gneJ5 into SUMORTree with boundary 22.80,-17.20,75.20,37.20
 GLDebug: Removed object junction:gneJ5 from SUMORTree with boundary 22.80,-17.20,75.20,37.20
 GLDebug: Inserted junction:gneJ5 into SUMORTree with boundary 22.80,-17.20,75.20,37.20
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Removed object crossing::gneJ5_c0 from SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c0 into SUMORTree with boundary 36.80,5.20,63.20,25.20
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Removed object crossing::gneJ5_c1 from SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c1 into SUMORTree with boundary 36.80,-5.20,63.20,14.80
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Removed object crossing::gneJ5_c2 from SUMORTree with boundary 34.80,-3.20,54.80,23.20
-GLDebug: Inserted crossing::gneJ5_c2 into SUMORTree with boundary 34.80,-3.20,54.80,23.20
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-44.20,80.00,20.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-44.20,80.00,20.00
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -24.20,-34.20,74.20,67.00
@@ -1454,4 +1264,4 @@ Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3' in GNEN
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 107
+GLDebug: Number of objects in SUMORTree during call destructor: 97

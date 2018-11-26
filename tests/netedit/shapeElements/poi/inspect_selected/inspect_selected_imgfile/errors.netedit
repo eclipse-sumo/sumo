@@ -14,6 +14,9 @@ Debug: Adding poi 'POI_2' into viewNet
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Error: Could not load '%$$%%%%%'.
 Unknown file extension '' for image '%$$%%%%%'!
 Debug: Value '%$$%%%%%' for attribute imgFile of poi isn't valid
@@ -30,6 +33,7 @@ GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00,
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 1.50,17.50,2.50,18.50
 GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 1.50,17.50,2.50,18.50
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 1.50,17.50,2.50,18.50
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute imgFile '' into poi 'POI_2'
 GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 1.50,17.50,2.50,18.50
@@ -48,6 +52,7 @@ GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00,
 Debug: Removing poi 'POI_1' from viewNet
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 4.00,15.00,10.00,21.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding poi 'POI_1' into viewNet
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 4.00,15.00,10.00,21.00

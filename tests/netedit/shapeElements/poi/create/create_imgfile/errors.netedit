@@ -10,10 +10,13 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected item 'poly' in ItemSelector
 Debug: Selected item 'poi' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Invalid input parameter of poi: input contains invalid characters for a filename
 Error: Could not load 'paris.ico'.
 Loading failed!
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Invalid input parameter of poi: doesn't exist image 'paris.ico'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding poi 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 11.50,17.50,12.50,18.50
 Debug: Shapes has to be saved
@@ -21,12 +24,14 @@ Debug: Current saving Status: net saved, additionals saved, shapes unsaved
 Debug: Setting new attribute blockMovement 'false' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 11.50,17.50,12.50,18.50
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 11.50,17.50,12.50,18.50
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockMovement '0' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 11.50,17.50,12.50,18.50
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 11.50,17.50,12.50,18.50
 Debug: Removing poi 'POI_0' from viewNet
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 11.50,17.50,12.50,18.50
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding poi 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 11.50,17.50,12.50,18.50

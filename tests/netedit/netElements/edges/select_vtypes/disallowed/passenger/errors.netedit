@@ -38,6 +38,7 @@ Debug: Created connection 'fromgneE22_0to-gneE22_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE23_0to-gneE23_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE24_0to-gneE24_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE25_0to-gneE25_0' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Adding edge 'gneE13' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ3'
@@ -51,6 +52,7 @@ Debug: declaring connections of edge 'gneE12' as loaded (It will not be removed)
 Debug: Adding connection 'gneE12_0->gneE13_0' into edge 'gneE12'
 Debug: Created connection 'fromgneE12_0togneE13_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing connection 'gneE12_0->gneE13_0' from edge 'gneE12'
 Debug: Deleting unreferenced connection 'fromgneE12_0togneE13_0' in removeConnection()

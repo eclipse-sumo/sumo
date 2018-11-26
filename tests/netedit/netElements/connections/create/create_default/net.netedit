@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 15:13:50 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 26.11.2018 12:23:34 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep151253.1976/netedit.gui/netElements/connections/create/create_default\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/netElements/connections/create/create_default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep151253.1976/netedit.gui/netElements/connections/create/create_default\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/netElements/connections/create/create_default\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep151253.1976/netedit.gui/netElements/connections/create/create_default\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep151253.1976/netedit.gui/netElements/connections/create/create_default\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/netElements/connections/create/create_default\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/netElements/connections/create/create_default\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep151253.1976/netedit.gui/netElements/connections/create/create_default\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/netElements/connections/create/create_default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +43,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep151253.1976/netedit.gui/netElements/connections/create/create_default\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/netElements/connections/create/create_default\log.txt"/>
     </report>
 
 </configuration>
@@ -90,20 +90,20 @@
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes="" shape="50.00,100.00 56.40,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes="" shape="0.00,50.00 0.00,56.40 0.00,50.00"/>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1" intLanes="" shape="43.60,60.40 56.40,60.40 56.84,58.18 57.40,57.40 58.18,56.84 59.18,56.51 60.40,56.40 60.40,43.60 58.18,43.16 57.40,42.60 56.84,41.82 56.51,40.82 56.40,39.60 43.60,39.60 43.16,41.82 42.60,42.60 41.82,43.16 40.82,43.49 39.60,43.60 39.60,56.40 41.82,56.84 42.60,57.40 43.16,58.18 43.49,59.18">
-        <request index="0"  response="00000000000000000" foes="00001000010100000"/>
+        <request index="0"  response="00000000000000000" foes="00000000010100000"/>
         <request index="1"  response="00000000000000000" foes="11111000110100000"/>
         <request index="2"  response="00000000000000000" foes="11111000110100000"/>
-        <request index="3"  response="00000111000000000" foes="11100111110100000"/>
+        <request index="3"  response="00000110000000000" foes="11100110110100000"/>
         <request index="4"  response="00000110000000000" foes="10000110000000000"/>
         <request index="5"  response="00001110000001111" foes="10001110001001111"/>
         <request index="6"  response="00000110000100000" foes="10000110000100000"/>
         <request index="7"  response="00001110000001111" foes="10001110000001111"/>
-        <request index="8"  response="01111110000001110" foes="01111110000001110"/>
-        <request index="9"  response="00000000000000000" foes="01100000000001000"/>
+        <request index="8"  response="01101110000001110" foes="01101110000001110"/>
+        <request index="9"  response="00000000000000000" foes="01100000000000000"/>
         <request index="10" response="00000000000000000" foes="11100000111111000"/>
         <request index="11" response="00000000000000000" foes="11100000111111000"/>
-        <request index="12" response="00000000000000111" foes="11100000110100111"/>
-        <request index="13" response="00000000000000110" foes="00000000100000110"/>
+        <request index="12" response="00000000000000110" foes="11100000110100110"/>
+        <request index="13" response="00000000000000110" foes="00000000000000110"/>
         <request index="14" response="00001111000001110" foes="00001111100001110"/>
         <request index="15" response="00001111000001110" foes="00001111100001110"/>
         <request index="16" response="00001110011111110" foes="00001110011111110"/>

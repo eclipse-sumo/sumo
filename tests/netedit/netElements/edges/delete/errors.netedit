@@ -36,6 +36,8 @@ Debug: Created connection 'from8_3to3_3' in retrieveGNEConnection()
 Debug: Created connection 'from8_3to1_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Setting new attribute edges '7' into crossing ':Center_c1'
 Debug: net has to be saved
@@ -55,6 +57,7 @@ Debug: Deleting unreferenced connection 'from5_1to3_3' in removeConnection()
 Debug: Removing connection '3_3->7_3' from edge '3'
 Debug: Deleting unreferenced connection 'from3_3to7_3' in removeConnection()
 Debug: Removing edge '3' from net
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 3, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 2, Lanes: 2, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing busStop 'busStop_8_2_1' in GNEChange_Additional
@@ -131,6 +134,7 @@ Debug: Created connection 'from7_1to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_1to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to2_1' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Adding junction 'D' into net
 Debug: Adding edge '4' from net
@@ -229,6 +233,7 @@ Debug: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Setting new attribute edges '7' into crossing ':Center_c1'

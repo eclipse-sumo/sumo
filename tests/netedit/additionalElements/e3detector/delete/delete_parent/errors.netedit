@@ -85,15 +85,19 @@ Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e3Detector' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 GLDebug: Inserted e3Detector:e3Detector_3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object e3Detector:e3Detector_3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Inserted e3Detector:e3Detector_3 into SUMORTree with boundary -3.00,-14.00,37.00,26.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 4.00,-14.00,44.00,26.00
 Debug: Selected item 'detEntry' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_4detEntry0 into SUMORTree with boundary 4.00,-14.00,44.00,26.00
 GLDebug: Removed object entryDetector:e3Detector_4detEntry0 from SUMORTree with boundary 4.00,-14.00,44.00,26.00
@@ -111,6 +115,8 @@ GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 4.00,-14.
 GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 4.00,-14.00,44.00,26.00
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 4.00,-14.00,44.00,26.00
 Debug: Selected item 'detExit' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding detExit 'e3Detector_4detExit0' in GNEChange_Additional
 GLDebug: Inserted exitDetector:e3Detector_4detExit0 into SUMORTree with boundary 4.00,-14.00,44.00,26.00
 GLDebug: Removed object exitDetector:e3Detector_4detExit0 from SUMORTree with boundary 4.00,-14.00,44.00,26.00
@@ -131,8 +137,10 @@ GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 4.0
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 4.00,-14.00,44.00,26.00
 GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 4.00,-14.00,44.00,26.00
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 4.00,-14.00,44.00,26.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
 GLDebug: Removed object e3Detector:e3Detector_3 from SUMORTree with boundary -3.00,-14.00,37.00,26.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 GLDebug: Removed object entryDetector:e3Detector_4detEntry0 from SUMORTree with boundary -1.00,-21.60,39.00,18.40
 GLDebug: Removed object entryDetector:e3Detector_2detEntry0 from SUMORTree with boundary 15.35,-21.60,55.35,18.40
@@ -155,6 +163,7 @@ GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 4.0
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 4.00,-14.00,44.00,26.00
 Debug: Removing e3Detector 'e3Detector_4' in GNEChange_Additional
 GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 4.00,-14.00,44.00,26.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 11.65,-18.40,51.65,21.60
 GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 10.00,-18.40,50.00,21.60
@@ -177,6 +186,8 @@ GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 11.
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 11.65,-13.64,51.65,26.36
 Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 11.65,-13.64,51.65,26.36
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 GLDebug: Removed object entryDetector:e3Detector_2detEntry0 from SUMORTree with boundary 15.35,-21.60,55.35,18.40
 GLDebug: Removed object e3Detector:e3Detector_2 from SUMORTree with boundary 11.65,-25.00,51.65,15.00
@@ -199,6 +210,7 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Removing edge 'gneE0' from net
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Adding edge 'gneE0' from net
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
@@ -394,6 +406,8 @@ Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 11.65,-13.64,51.65,26.36
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 7.79,-13.64,47.79,26.36
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_2'
 Debug: Deleting unreferenced detExit 'e3Detector_2detExit0'
@@ -430,6 +444,7 @@ GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00
 Debug: Removing edge 'gneE0' from net
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

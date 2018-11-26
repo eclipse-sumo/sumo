@@ -231,7 +231,7 @@ GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 18.
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 18.00,-10.00,58.00,30.00
 GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 18.00,-10.00,58.00,30.00
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 18.00,-10.00,58.00,30.00
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.22Nov104814.4140/netedit.gui/additionalElements/e3detector/load/position\input_additionals.add.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/e3detector/load/position\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

@@ -14,12 +14,22 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
 GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
+Debug: Adding instantInductionLoop 'ID with spaces' in GNEChange_Additional
+GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
+GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
+GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
+GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
+GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: Adding instantInductionLoop 'validID' in GNEChange_Additional
 GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
 GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
+GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
+GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -14.00,-21.60,26.00,18.40
 GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: net has to be saved
@@ -43,6 +53,8 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
 GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
+GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
+GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -14.00,-21.60,26.00,18.40
 GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
@@ -57,6 +69,8 @@ Debug: Deleting unreferenced instantInductionLoop 'validID'
 GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced instantInductionLoop 'ID with spaces'
+GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: Deleting unreferenced instantInductionLoop 'E1_01'
 GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

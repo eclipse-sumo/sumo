@@ -1,13 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 26.11.2018 09:25:13 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_gneE0_0_0" lane="gneE0_1" startPos="19.75" endPos="29.75"/>
-    <busStop id="busStop_gneE1_0_1" lane="gneE1_1" startPos="28.41" endPos="38.41"/>
-    <busStop id="busStop_gneE2_0_7" lane="gneE2_1" startPos="16.48" endPos="26.48"/>
-    <busStop id="busStop_gneE2_1_6" lane="gneE2_2" startPos="21.73" endPos="31.73"/>
-    <busStop id="busStop_gneE2_2_5" lane="gneE2_3" startPos="23.79" endPos="33.79"/>
-    <busStop id="busStop_gneE2_3_4" lane="gneE2_4" startPos="27.13" endPos="37.13"/>
-    <busStop id="busStop_gneE2_4_3" lane="gneE2_5" startPos="31.03" endPos="41.03"/>
-    <busStop id="busStop_gneE4_0_2" lane="gneE4_0" startPos="17.90" endPos="27.90"/>
+    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_1" startPos="19.75" endPos="29.75"/>
+    <containerStop id="containerStop_gneE1_0_1" lane="gneE1_1" startPos="28.41" endPos="38.41"/>
+    <containerStop id="containerStop_gneE2_0_7" lane="gneE2_1" startPos="16.48" endPos="26.48"/>
+    <containerStop id="containerStop_gneE2_1_6" lane="gneE2_2" startPos="21.73" endPos="31.73"/>
+    <containerStop id="containerStop_gneE2_2_5" lane="gneE2_3" startPos="23.79" endPos="33.79"/>
+    <containerStop id="containerStop_gneE2_3_4" lane="gneE2_4" startPos="27.13" endPos="37.13"/>
+    <containerStop id="containerStop_gneE2_4_3" lane="gneE2_5" startPos="31.03" endPos="41.03"/>
+    <containerStop id="containerStop_gneE4_0_2" lane="gneE4_0" startPos="17.90" endPos="27.90"/>
 </additional>
