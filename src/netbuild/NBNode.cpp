@@ -2596,7 +2596,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             continue;
         }
         // build shape and connections
-        std::set<NBEdge*> connected;
+        std::set<NBEdge*, ComparatorIdLess> connected;
         for (int j = 0; j < count; ++j) {
             const int nlI = (start + j) % normalizedLanes.size();
             NBEdge* edge = normalizedLanes[nlI].first;
