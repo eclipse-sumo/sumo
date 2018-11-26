@@ -434,7 +434,7 @@ GNEInspectorFrame::OverlappedInspection::overlappedInspectionShown() const {
 
 bool
 GNEInspectorFrame::OverlappedInspection::checkSavedPosition(const Position &clickedPosition) const {
-    return (mySavedClickedPosition.distanceSquaredTo(clickedPosition) < 0.25);
+    return (mySavedClickedPosition.distanceSquaredTo2D(clickedPosition) < 0.25);
 }
 
 bool 

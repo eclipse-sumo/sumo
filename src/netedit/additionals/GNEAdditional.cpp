@@ -657,7 +657,7 @@ GNEAdditional::getCenteringBoundary() const {
     } else if (myFirstAdditionalParent) {
         return myFirstAdditionalParent->getCenteringBoundary();
     } else {
-        return Boundary(-0.1, 0.1, 0, 1, 0, 1);
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
 }
 

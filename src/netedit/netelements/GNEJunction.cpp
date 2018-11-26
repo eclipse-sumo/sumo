@@ -291,7 +291,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             if (color[3] != 0) {
                 glPushMatrix();
                 glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
                     std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);
                     // check if dotted contour has to be drawn
                     if (!s.drawForSelecting && myNet->getViewNet()->getACUnderCursor() == this) {
@@ -1280,7 +1280,7 @@ GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
         double circleWidthSquared = circleWidth * circleWidth;
         if (drawBubble) {
             // check if cursor is whithin the circle
-            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(myNBNode.getPosition()) <= circleWidthSquared) {
+            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= circleWidthSquared) {
                 myNet->getViewNet()->setACUnderCursor(this);
             }
         } else if (drawShape) {

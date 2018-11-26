@@ -124,7 +124,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details and if is being drawn for selecting
     if (s.drawForSelecting) {
         // only draw circle depending of distance between sign and mouse cursor
-        if (myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+        if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
             // Add a draw matrix for details
             glPushMatrix();
             // Start drawing sign traslating matrix to signal position

@@ -303,7 +303,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(i) <= (circleWidthSquared + 2))) {
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(i) <= (circleWidthSquared + 2))) {
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                     // Change color of vertex and flag mouseOverVertex if mouse is over vertex

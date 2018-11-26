@@ -301,7 +301,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // draw points of shape
             for (auto i : myGeometry.shape) {
-                if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo(i) <= (myHintSizeSquared + 2))) {
+                if (!s.drawForSelecting || (myViewNet->getPositionInformation().distanceSquaredTo2D(i) <= (myHintSizeSquared + 2))) {
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                     // Change color of vertex and flag mouseOverVertex if mouse is over vertex
