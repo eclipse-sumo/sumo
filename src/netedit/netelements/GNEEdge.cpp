@@ -558,7 +558,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 
     // (optionally) draw the name and/or the street name if isn't being drawn for selecting
     const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
-    if (!s.drawForSelecting && (s.edgeName.show || drawStreetName)) {
+    if (!s.drawForSelecting && (s.edgeName.show || drawStreetName || s.edgeValue.show)) {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
         GNELane* lane2 = myLanes[myLanes.size() - 1];
@@ -576,6 +576,11 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         if (drawStreetName) {
             GLHelper::drawText(myNBEdge.getStreetName(), p, GLO_MAX,
                                s.streetName.scaledSize(s.scale), s.streetName.color, angle);
+        }
+        if (s.edgeValue.show) {
+            double value = lane2->getColorValue(s, s.laneColorer.getActive());
+            GLHelper::drawText(toString(value), p, GLO_MAX,
+                    s.edgeValue.scaledSize(s.scale), s.edgeValue.color, angle);
         }
         glPopName();
     }
