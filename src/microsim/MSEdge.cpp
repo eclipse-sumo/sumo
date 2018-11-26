@@ -266,13 +266,15 @@ MSEdge::rebuildAllowedLanes() {
                     for (const MSLink* const link : lane->getLinkCont()) {
                         const MSLane* const targetLane = link->getLane();
                         if (targetLane->allowsVehicleClass(vclass)) {
-                            const MSEdge* const target = &targetLane->getEdge();
-                            if (myClassedAllowed[vclass].find(target) == myClassedAllowed[vclass].end()) {
-                                myClassedAllowed[vclass][target] = new std::vector<MSLane*>({ lane });
-                            } else {
-                                std::vector<MSLane*>* const classedAllowed = myClassedAllowed[vclass][target];
-                                if (std::find(classedAllowed->begin(), classedAllowed->end(), lane) == classedAllowed->end()) {
-                                    classedAllowed->push_back(lane);
+                            for (const SUMOVehicleClass c : {vclass, SVC_IGNORING}) {
+                                const MSEdge* const target = &targetLane->getEdge();
+                                if (myClassedAllowed[c].find(target) == myClassedAllowed[c].end()) {
+                                    myClassedAllowed[c][target] = new std::vector<MSLane*>({ lane });
+                                } else {
+                                    std::vector<MSLane*>* const classedAllowed = myClassedAllowed[c][target];
+                                    if (std::find(classedAllowed->begin(), classedAllowed->end(), lane) == classedAllowed->end()) {
+                                        classedAllowed->push_back(lane);
+                                    }
                                 }
                             }
                         }
