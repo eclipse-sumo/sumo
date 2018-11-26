@@ -88,6 +88,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
     cwaEdgeName(false, 50, RGBColor::MAGENTA),
     streetName(false, 55, RGBColor::YELLOW),
+    edgeValue(false, 100, RGBColor::CYAN),
     hideConnectors(false),
     laneWidthExaggeration(1),
     laneMinSize(0),
@@ -954,6 +955,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "               ";
     streetName.print(dev, "streetName");
+    dev.lf();
+    dev << "               ";
+    edgeValue.print(dev, "edgeValue");
     laneColorer.save(dev);
     laneScaler.save(dev);
     edgeColorer.save(dev);
@@ -1113,6 +1117,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (streetName != v2.streetName) {
+        return false;
+    }
+    if (edgeValue != v2.edgeValue) {
         return false;
     }
     if (hideConnectors != v2.hideConnectors) {

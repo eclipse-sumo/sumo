@@ -231,7 +231,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == EDGEFUNC_INTERNAL;
     const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA);
     const bool drawStreetName = s.streetName.show && myStreetName != "";
-    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName) {
+    const bool drawEdgeValue = s.edgeValue.show && (myFunction == EDGEFUNC_NORMAL 
+            || (myFunction == EDGEFUNC_INTERNAL && !s.drawJunctionShape)
+            || ((myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA) && s.drawCrossingsAndWalkingareas));
+    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
         if (lane1 != nullptr && lane2 != nullptr) {
@@ -249,6 +252,15 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             if (drawStreetName) {
                 GLHelper::drawText(getStreetName(), p, GLO_MAX,
                                    s.streetName.scaledSize(s.scale), s.streetName.color, angle);
+            }
+            if (drawEdgeValue) {
+                const int activeScheme = s.getLaneEdgeMode();
+                // use value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
+                double value = (MSGlobals::gUseMesoSim 
+                    ? getColorValue(activeScheme)
+                    : lane2->getColorValue(s, activeScheme));
+                GLHelper::drawText(toString(value), p, GLO_MAX,
+                                   s.edgeValue.scaledSize(s.scale), s.edgeValue.color, angle);
             }
         }
     }
