@@ -3419,7 +3419,10 @@ GNEViewNet::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarrier* o
             }
             // obtain index shape of clicked edge
             int index = clickedEdge->getVertexIndex(originPosition);
-            assert(index >= 0);
+            // check that index is valid
+            if (index < 0) {
+                throw ProcessError("invalid shape index");
+            }
             // save index and original position
             myMovedEgdesGeometryPoints[clickedEdge].index = index;
             myMovedEgdesGeometryPoints[clickedEdge].originalPosition = myViewNet->getPositionInformation();
@@ -3431,7 +3434,12 @@ GNEViewNet::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarrier* o
                     int movingIndex = i->getVertexIndex(originPosition);
                     // save index and original position
                     myMovedEgdesGeometryPoints[i].index = movingIndex;
-                    myMovedEgdesGeometryPoints[i].originalPosition = myViewNet->getPositionInformation();
+                    // set originalPosition depending if edge is opposite to clicked edge
+                    if (i->getOppositeEdge() == clickedEdge) {
+                        myMovedEgdesGeometryPoints[i].originalPosition = myViewNet->getPositionInformation();
+                    } else {
+                        myMovedEgdesGeometryPoints[i].originalPosition = i->getNBEdge()->getInnerGeometry()[movingIndex];
+                    }
                     // start moving of clicked edge AFTER getting vertex Index
                     i->startGeometryMoving();
                 }
