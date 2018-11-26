@@ -87,13 +87,24 @@ GNEPoly::~GNEPoly() {}
 
 void
 GNEPoly::startGeometryMoving() {
-    // nothing to do (will be used in future implementations)
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
 }
 
 
 void
 GNEPoly::endGeometryMoving() {
-    // nothing to do (will be used in future implementations)
+    // check that endGeometryMoving was called only once
+    if (myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // update geometry without updating grid
+        updateGeometry(false);
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 
@@ -259,7 +270,12 @@ GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNEPoly::getCenteringBoundary() const {
-    return GUIPolygon::getCenteringBoundary();
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
+    }  else {
+        return GUIPolygon::getCenteringBoundary();
+    }
 }
 
 
@@ -315,8 +331,17 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
-                    // draw special symbols (Start, End and Block)
-                    if ((i == myShape.front()) && !s.drawForSelecting) {
+                    // draw elevation or special symbols (Start, End and Block)
+                    if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+                        // Push matrix
+                        glPushMatrix();
+                        // Traslate to center of detector
+                        glTranslated(i.x(), i.y(), getType() + 1);
+                        // draw Z
+                        GLHelper::drawText(toString(i.z()), Position(), .1, 0.7, RGBColor::BLUE);
+                        // pop matrix
+                        glPopMatrix();
+                    } else if ((i == myShape.front()) && !s.drawForSelecting) {
                         // draw a "s" over first point
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);

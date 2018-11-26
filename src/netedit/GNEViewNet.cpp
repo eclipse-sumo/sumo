@@ -998,27 +998,43 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 if (myObjectsUnderCursor.getPolyFront()) {
                     // set Poly to move
                     myMovedItems.polyToMove = myObjectsUnderCursor.getPolyFront();
-                    // save original shape (needed for commit change)
-                    myMoveSingleElementValues.movingOriginalShape = myMovedItems.polyToMove->getShape();
-                    // save clicked position as moving original position
-                    myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
-                    // obtain index of vertex to move if shape isn't blocked
-                    if ((myMovedItems.polyToMove->isPolygonBlocked() == false) && (myMovedItems.polyToMove->isMovementBlocked() == false)) {
-                        // check if we want to remove a Geometry Point
-                        if (myShiftKeyPressed) {
-                            // check if we're clicked over a Geometry Point
-                            myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition, false);
-                            if (myMoveSingleElementValues.movingIndexShape != -1) {
-                                myMovedItems.polyToMove->deleteGeometryPoint(myMoveSingleElementValues.movingOriginalPosition);
-                                // after removing Geomtery Point, reset PolyToMove
-                                myMovedItems.polyToMove = nullptr;
-                            }
+                    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
+                    if (myCreateEdgeValues.menuCheckMoveElevation->shown() && myCreateEdgeValues.menuCheckMoveElevation->getCheck() == TRUE) {
+                        // check if in the clicked position a geometry point exist
+                        int existentIndex = myMovedItems.polyToMove->getVertexIndex(getPositionInformation(), false);
+                        if (existentIndex != -1) {
+                            // save original shape (needed for commit change)
+                            myMoveSingleElementValues.movingOriginalShape = myMovedItems.polyToMove->getShape();
+                            // obtain existent index
+                            myMoveSingleElementValues.movingIndexShape = existentIndex;
+                            myMoveSingleElementValues.movingOriginalPosition = myMovedItems.polyToMove->getShape()[existentIndex];
                         } else {
-                            // obtain index of vertex to move and moving reference
-                            myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition);
+                            // stop poly moving
+                            myMovedItems.polyToMove = nullptr;
                         }
                     } else {
-                        myMoveSingleElementValues.movingIndexShape = -1;
+                        // save original shape (needed for commit change)
+                        myMoveSingleElementValues.movingOriginalShape = myMovedItems.polyToMove->getShape();
+                        // save clicked position as moving original position
+                        myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
+                        // obtain index of vertex to move if shape isn't blocked
+                        if ((myMovedItems.polyToMove->isPolygonBlocked() == false) && (myMovedItems.polyToMove->isMovementBlocked() == false)) {
+                            // check if we want to remove a Geometry Point
+                            if (myShiftKeyPressed) {
+                                // check if we're clicked over a Geometry Point
+                                myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition, false);
+                                if (myMoveSingleElementValues.movingIndexShape != -1) {
+                                    myMovedItems.polyToMove->deleteGeometryPoint(myMoveSingleElementValues.movingOriginalPosition);
+                                    // after removing Geomtery Point, reset PolyToMove
+                                    myMovedItems.polyToMove = nullptr;
+                                }
+                            } else {
+                                // obtain index of vertex to move and moving reference
+                                myMoveSingleElementValues.movingIndexShape = myMovedItems.polyToMove->getVertexIndex(myMoveSingleElementValues.movingOriginalPosition);
+                            }
+                        } else {
+                            myMoveSingleElementValues.movingIndexShape = -1;
+                        }
                     }
                 } else if (myObjectsUnderCursor.getPOIFront()) {
                     myMovedItems.poiToMove = myObjectsUnderCursor.getPOIFront();
@@ -1075,24 +1091,45 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     } else if (myObjectsUnderCursor.shiftKeyPressed()) {
                         myObjectsUnderCursor.getEdgeFront()->editEndpoint(getPositionInformation(), myUndoList);
                     } else {
+                        // assign clicked edge to edgeToMove
                         myMovedItems.edgeToMove = myObjectsUnderCursor.getEdgeFront();
+                        // check if we clicked over a start or end position
                         if (myMovedItems.edgeToMove->clickedOverShapeStart(getPositionInformation())) {
                             // save start pos
                             myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().front();
                             myMoveSingleElementValues.movingStartPos = true;
+                            // start geometry moving
+                            myMovedItems.edgeToMove->startGeometryMoving();
                         } else if (myMovedItems.edgeToMove->clickedOverShapeEnd(getPositionInformation())) {
                             // save end pos
                             myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getGeometry().back();
                             myMoveSingleElementValues.movingEndPos = true;
+                            // start geometry moving
+                            myMovedItems.edgeToMove->startGeometryMoving();
                         } else {
-                            // save original shape (needed for commit change)
-                            myMoveSingleElementValues.movingOriginalShape = myMovedItems.edgeToMove->getNBEdge()->getInnerGeometry();
-                            // obtain index of vertex to move and moving reference
-                            myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->getVertexIndex(getPositionInformation());
-                            myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
+                            // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
+                            if (myCreateEdgeValues.menuCheckMoveElevation->shown() && myCreateEdgeValues.menuCheckMoveElevation->getCheck() == TRUE) {
+                                // check if in the clicked position a geometry point exist
+                                int existentIndex = myMovedItems.edgeToMove->getVertexIndex(getPositionInformation(), false);
+                                if (existentIndex != -1) {
+                                    myMoveSingleElementValues.movingIndexShape = existentIndex;
+                                    myMoveSingleElementValues.movingOriginalPosition = myMovedItems.edgeToMove->getNBEdge()->getInnerGeometry()[existentIndex];
+                                    // start geometry moving
+                                    myMovedItems.edgeToMove->startGeometryMoving();
+                                } else {
+                                    // stop edge moving
+                                    myMovedItems.edgeToMove = nullptr;
+                                }
+                            } else {
+                                // save original shape (needed for commit change)
+                                myMoveSingleElementValues.movingOriginalShape = myMovedItems.edgeToMove->getNBEdge()->getInnerGeometry();
+                                // obtain index of vertex to move and moving reference
+                                myMoveSingleElementValues.movingIndexShape = myMovedItems.edgeToMove->getVertexIndex(getPositionInformation());
+                                myMoveSingleElementValues.movingOriginalPosition = getPositionInformation();
+                                // start geometry moving
+                                myMovedItems.edgeToMove->startGeometryMoving();
+                            }
                         }
-                        // start geometry moving
-                        myMovedItems.edgeToMove->startGeometryMoving();
                     }
                 } else {
                     // process click

@@ -500,6 +500,17 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                     // resolution of drawn circle depending of the zoom (To improve smothness)
                     GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
+                    // draw elevation or special symbols (Start, End and Block)
+                    if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+                        // Push matrix
+                        glPushMatrix();
+                        // Traslate to center of detector
+                        glTranslated(pos.x(), pos.y(), GLO_JUNCTION);
+                        // draw Z
+                        GLHelper::drawText(toString(pos.z()), Position(), .1, 1.2, RGBColor::BLUE);
+                        // pop matrix
+                        glPopMatrix();
+                    } 
                 }
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
@@ -558,7 +569,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 
     // (optionally) draw the name and/or the street name if isn't being drawn for selecting
     const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
-    if (!s.drawForSelecting && (s.edgeName.show || drawStreetName || s.edgeValue.show)) {
+    if (!s.drawForSelecting && (s.edgeName.show || drawStreetName)) {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
         GNELane* lane2 = myLanes[myLanes.size() - 1];
@@ -576,11 +587,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         if (drawStreetName) {
             GLHelper::drawText(myNBEdge.getStreetName(), p, GLO_MAX,
                                s.streetName.scaledSize(s.scale), s.streetName.color, angle);
-        }
-        if (s.edgeValue.show) {
-            double value = lane2->getColorValue(s, s.laneColorer.getActive());
-            GLHelper::drawText(toString(value), p, GLO_MAX,
-                    s.edgeValue.scaledSize(s.scale), s.edgeValue.color, angle);
         }
         glPopName();
     }
