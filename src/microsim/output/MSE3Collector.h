@@ -244,7 +244,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet);
+    void enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -390,6 +390,8 @@ protected:
         SUMOTime intervalTimeLoss;
         /// @brief An internal information whether the update step was performed
         bool hadUpdate;
+        /// @brief the reminder on which the vehicle entered the detector
+        MSE3EntryReminder* entryReminder;
     };
 
     /// @brief Container for vehicles that have entered the area

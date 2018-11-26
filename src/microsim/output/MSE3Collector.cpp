@@ -70,11 +70,15 @@ MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification rea
     if (reason != NOTIFICATION_JUNCTION) {
         const double posOnLane = veh.getBackPositionOnLane(enteredLane) + veh.getVehicleType().getLength();
         if (myLane == enteredLane && posOnLane > myPosition) {
+            const auto& itVeh = myCollector.myEnteredContainer.find(&veh);
+            if (itVeh == myCollector.myEnteredContainer.end() || 
+                    itVeh->second.entryReminder != this) {
 #ifdef DEBUG_E3_NOTIFY_ENTER
-            if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "  assume already known\n";
+                if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "  assume already known\n";
 #endif
-            // if the vehicle changes into a covered section we assume it was already registered on another lane
-            return false;
+                // if the vehicle changes into a covered section we assume it was already registered on another lane
+                return false;
+            }
         }
     }
     return true;
@@ -108,7 +112,7 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
             assert(!MSGlobals::gSemiImplicitEulerUpdate || newSpeed != 0); // how could it move across the detector otherwise
             const double timeBeforeEnter = MSCFModel::passingTime(oldPos, myPosition, newPos, oldSpeed, newSpeed);
             const double fractionTimeOnDet = TS - timeBeforeEnter;
-            myCollector.enter(veh, entryTime - fractionTimeOnDet, fractionTimeOnDet);
+            myCollector.enter(veh, entryTime - fractionTimeOnDet, fractionTimeOnDet, this);
 #ifdef DEBUG_E3_NOTIFY_MOVE
             if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) std::cout << "    enter\n";
 #endif
@@ -296,7 +300,7 @@ MSE3Collector::reset() {
 
 
 void
-MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet) {
+MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder) {
     if (!vehicleApplies(veh)) {
         return;
     }
@@ -325,6 +329,7 @@ MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const d
         v.timeLoss = static_cast<const MSVehicle&>(veh).getTimeLoss();
         v.intervalTimeLoss = v.timeLoss;
     }
+    v.entryReminder = entryReminder;
     myEnteredContainer[&veh] = v;
 }
 
