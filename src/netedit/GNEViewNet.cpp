@@ -3266,9 +3266,9 @@ GNEViewNet::MovedItems::MovedItems() :
 // ---------------------------------------------------------------------------
 
 GNEViewNet::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
+    movingIndexShape(-1),
     movingStartPos(false),
     movingEndPos(false),
-    movingIndexShape(-1),
     myViewNet(viewNet) {
 }
 
