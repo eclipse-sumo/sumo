@@ -194,10 +194,6 @@ public:
     struct LaneUsage {
         /// @brief The described lane
         MSLane* lane;
-        /// @brief The lane left to the described lane (==lastNeigh if none)
-        std::vector<MSLane*>::const_iterator firstNeigh;
-        /// @brief The end of this lane's edge's lane container
-        std::vector<MSLane*>::const_iterator lastNeigh;
         /// @brief Information whether this lane is active
         bool amActive;
         /// @brief Information whether this lane belongs to a multi-lane edge
