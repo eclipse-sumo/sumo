@@ -26,7 +26,7 @@ e2MultiLaneDetector
 e3detector
 
 # det entry
-#detentry
+detentry
 
 # det exit
 #detexit
