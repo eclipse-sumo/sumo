@@ -945,7 +945,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             // special treatment of contLane foe only applies if this lane is not a contLane or contLane follower itself
             const bool contLane = (foeLane->getLinkCont()[0]->getViaLaneOrLane()->getEdge().isInternal() && !(
                                        isInternalJunctionLink() || isExitLinkAfterInternalJunction()));
-            if (distToCrossing + crossingWidth < 0) {
+            if (distToCrossing + crossingWidth < 0
+                    && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing + crossingWidth + ego->getVehicleType().getLength() < 0)) {
                 continue; // vehicle is behind the crossing point, continue with next foe lane
             }
             const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
@@ -984,7 +985,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     continue;
                 }
                 // after entering the conflict area, ignore foe vehicles that are not in the way
-                if (distToCrossing < -POSITION_EPS && !inTheWay) {
+                if (distToCrossing < -POSITION_EPS && !inTheWay
+                        && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing < -ego->getVehicleType().getLength())) {
                     continue;
                 }
                 // ignore foe vehicles that will not pass
