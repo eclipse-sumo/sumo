@@ -7,7 +7,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 140
 e3Detector
 TestFunctions: Clicked over position 404 - 190
 TestFunctions: Clicked over position 504 - 190
-detExit
+detEntry
 TestFunctions: Clicked over position 379 - 340
 TestFunctions: Clicked over position 554 - 340
 TestFunctions: Clicked over position 404 - 190

@@ -29,7 +29,7 @@ e3detector
 detentry
 
 # det exit
-#detexit
+detexit
 
 # E1 Instant detector
 e1InstantDetector
