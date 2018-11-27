@@ -2918,7 +2918,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
     const double egoPos = backOffset + ego->getVehicleType().getLength();
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(ego)) {
-        std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID() << " pos=" << egoPos << "\n";
+        std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID()
+            << " backOffset=" << backOffset << " pos=" << egoPos
+            << " allSub=" << allSublanes << " searchDist=" << searchDist << " ignoreMinor=" << ignoreMinorLinks
+            << "\n";
     }
 #endif
     assert(ego != 0);
@@ -2969,9 +2972,30 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 MSLeaderInfo firstFront = next->getFirstVehicleInformation(nullptr, 0, true);
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(ego)) {
-                    std::cout << "   next=" << next->getID() << " first=" << first.toString() << " firstFront=" << firstFront.toString() << "\n";
+                    std::cout << "   next=" << next->getID() << " seen=" << (*it).length << " first=" << first.toString() << " firstFront=" << firstFront.toString() << "\n";
+                    gDebugFlag1 = true; // for calling getLeaderInfo
                 }
 #endif
+                if (backOffset + (*it).length - next->getLength() < 0) {
+                    // check for junction foes that would interfere with lane changing
+                    const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
+                    for (const auto& ll : linkLeaders) {
+                        if (ll.vehAndGap.first != nullptr) {
+                            result.addFollower(ll.vehAndGap.first, ego, ll.vehAndGap.second);
+                        }
+#ifdef DEBUG_CONTEXT
+                        if (DEBUG_COND2(ego)) {
+                            std::cout << SIMTIME << " ego=" << ego->getID() << "    link=" << (*it).viaLink->getViaLaneOrLane()->getID()
+                                << " leader=" << ll.vehAndGap.first->getID() << " gap=" << ll.vehAndGap.second << " dtC=" << ll.distToCrossing
+                                << "\n";
+                        }
+#endif
+                    }
+                }
+#ifdef DEBUG_CONTEXT
+                if (DEBUG_COND2(ego)) gDebugFlag1 = false;
+#endif
+
                 for (int i = 0; i < first.numSublanes(); ++i) {
                     // NOTE: I added this because getFirstVehicleInformation() returns the ego as first if it partially laps into next.
                     // EDIT: Disabled the previous changes (see commented code in next line and fourth upcoming) as I realized that this
