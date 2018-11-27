@@ -926,7 +926,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
     // or it must be queried by the pedestrian model (ego == 0)
     if (fromInternalLane() || ego == nullptr) {
         if (gDebugFlag1) {
-            std::cout << SIMTIME << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << "\n";
+            std::cout << SIMTIME << " getLeaderInfo link=" << getViaLaneOrLane()->getID() << " dist=" << dist << " isShadowLink=" << isShadowLink << "\n";
         }
         // this is an exit link
         for (int i = 0; i < (int)myFoeLanes.size(); ++i) {
