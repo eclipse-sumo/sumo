@@ -503,6 +503,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myShowConnections(false),
     mySelectEdges(true),
     myShiftKeyPressed(false),
+    mySelectingArea(this),
     myMoveSingleElementValues(this), 
     myMoveMultipleElementValues(this), 
     myToolbar(toolBar),
@@ -518,8 +519,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModePolygon(nullptr),
     myEditModeProhibition(nullptr),
     myUndoList(undoList),
-    myEditShapePoly(nullptr)
-{
+    myEditShapePoly(nullptr) {
     // view must be the final member of actualParent
     reparent(actualParent);
 
@@ -835,6 +835,7 @@ GNEViewNet::enableReferenceSquare() {
 
 
 GNEViewNet::GNEViewNet() : 
+    mySelectingArea(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this) {
 }
@@ -1077,9 +1078,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
             case GNE_MODE_SELECT:
                 // check if a rect for selecting is being created
                 if (evt->state & SHIFTMASK) {
-                    mySelectingArea.selectingUsingRectangle = true;
-                    mySelectingArea.selectionCorner1 = getPositionInformation();
-                    mySelectingArea.selectionCorner2 = getPositionInformation();
+                    // begin rectangle selection
+                    mySelectingArea.beginRectangleSelection();
                 } else {
                     // first check that under cursor there is an attribute carrier and is selectable
                     if (myObjectsUnderCursor.getAttributeCarrierFront()) {
@@ -1166,9 +1166,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     }
                     // check if we want to create a rect for selecting edges
                     if (myObjectsUnderCursor.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
-                        mySelectingArea.selectingUsingRectangle = true;
-                        mySelectingArea.selectionCorner1 = getPositionInformation();
-                        mySelectingArea.selectionCorner2 = getPositionInformation();
+                        // begin rectangle selection
+                        mySelectingArea.beginRectangleSelection();
                     } else {
                         // check if process click was scuesfully
                         if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
@@ -1228,11 +1227,18 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
 
 long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
+    // process parent function
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
+    // obtain event data
+    FXEvent* evt = (FXEvent*)eventData;
+    if (makeCurrent()) {
+        // update objects under cursor again
+        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly, evt);
+        makeNonCurrent();
+    }
     // update cursor
-    updateCursor((FXEvent*)eventData);
-    // obtan flag to check if shift key was pressed
-    bool shiftKeyPressed = ((FXEvent*)eventData)->state & SHIFTMASK;
+    updateCursor(evt);
+    // check if we're editing moving
     if (myMoveMultipleElementValues.isMovingSelection()) {
         myMoveMultipleElementValues.finishMoveSelection();
     } else if (myMovedItems.polyToMove) {
@@ -1271,13 +1277,25 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         myMovedItems.tazToMove->commitShapeChange(myMoveSingleElementValues.originalShapeBeforeMoving, myUndoList);
         myMovedItems.tazToMove = nullptr;
     } else if (mySelectingArea.selectingUsingRectangle) {
-        // check if we're selecting all type of elements o we only want a set of edges for TAZ
-        if(myEditMode == GNE_MODE_SELECT) { 
-            mySelectingArea.processRectangleSelection(this, shiftKeyPressed);
-        } else if(myEditMode == GNE_MODE_TAZ) {  
-            // process edge selection
-            myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection(this, myShiftKeyPressed));
+        // check if we're creating a rectangle selection or we want only to select a lane
+        if(mySelectingArea.startDrawing) {
+            // check if we're selecting all type of elements o we only want a set of edges for TAZ
+            if(myEditMode == GNE_MODE_SELECT) { 
+                mySelectingArea.processRectangleSelection(myObjectsUnderCursor.shiftKeyPressed());
+            } else if(myEditMode == GNE_MODE_TAZ) {  
+                // process edge selection
+                myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection(myShiftKeyPressed));
+            }
+        } else if(myObjectsUnderCursor.shiftKeyPressed() && myObjectsUnderCursor.getLaneFront()) {
+            // if we clicked over an lane with shift key pressed, select or unselect it
+            if(myObjectsUnderCursor.getLaneFront()->isAttributeCarrierSelected()) {
+                myObjectsUnderCursor.getLaneFront()->unselectAttributeCarrier();
+            } else {
+                myObjectsUnderCursor.getLaneFront()->selectAttributeCarrier();
+            }
         }
+        // finish selection
+        mySelectingArea.finishRectangleSelection();
     }
     update();
     return 1;
@@ -1369,8 +1387,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
         }
     } else if (mySelectingArea.selectingUsingRectangle) {
         // update selection corner of selecting area
-        mySelectingArea.selectionCorner2 = getPositionInformation();
-        setStatusBarText(mySelectingArea.reportDimensions());
+        mySelectingArea.moveRectangleSelection();
     }
     // update view
     update();
@@ -3600,14 +3617,44 @@ GNEViewNet::MoveMultipleElementValues::isMovingSelection() const {
 // GNEViewNet::SelectingArea - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNet::SelectingArea::SelectingArea() :
-    selectingUsingRectangle(false) {
+GNEViewNet::SelectingArea::SelectingArea(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
+    selectingUsingRectangle(false),
+    startDrawing(false) {
+}
+
+
+void 
+GNEViewNet::SelectingArea::beginRectangleSelection() {
+    selectingUsingRectangle = true;
+    selectionCorner1 = myViewNet->getPositionInformation();
+    selectionCorner2 = selectionCorner1;
+}
+
+
+void 
+GNEViewNet::SelectingArea::moveRectangleSelection() {
+    // start drawing
+    startDrawing = true;
+    // only update selection corner 2
+    selectionCorner2 = myViewNet->getPositionInformation();
+    // update status bar
+    myViewNet->setStatusBarText("Selection width:" + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
+        + " height:" + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
+        + " diagonal:" + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
+}
+
+
+void 
+GNEViewNet::SelectingArea::finishRectangleSelection() {
+    // finish rectangle selection
+    selectingUsingRectangle = false;
+    startDrawing = false;
 }
 
 
 void
-GNEViewNet::SelectingArea::processRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed) {
-    selectingUsingRectangle = false;
+GNEViewNet::SelectingArea::processRectangleSelection(bool shiftKeyPressed) {
     // shift held down on mouse-down and mouse-up and check that rectangle exist
     if ((abs(selectionCorner1.x() - selectionCorner2.x()) > 0.01) && 
         (abs(selectionCorner1.y() - selectionCorner2.y()) > 0.01) &&
@@ -3617,16 +3664,15 @@ GNEViewNet::SelectingArea::processRectangleSelection(GNEViewNet* viewNet, bool s
         rectangleBoundary.add(selectionCorner1);
         rectangleBoundary.add(selectionCorner2);
         // process selection within boundary
-        processBoundarySelection(viewNet, rectangleBoundary);
+        processBoundarySelection(rectangleBoundary);
     }
 }
 
 
 std::vector<GNEEdge*>
-GNEViewNet::SelectingArea::processEdgeRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed) {
+GNEViewNet::SelectingArea::processEdgeRectangleSelection(bool shiftKeyPressed) {
+    // declare vector for selection
     std::vector<GNEEdge*> result;
-    // stop select using rectangle
-    selectingUsingRectangle = false;
     // shift held down on mouse-down and mouse-up and check that rectangle exist
     if ((abs(selectionCorner1.x() - selectionCorner2.x()) > 0.01) && 
         (abs(selectionCorner1.y() - selectionCorner2.y()) > 0.01) &&
@@ -3635,16 +3681,16 @@ GNEViewNet::SelectingArea::processEdgeRectangleSelection(GNEViewNet* viewNet, bo
         Boundary rectangleBoundary;
         rectangleBoundary.add(selectionCorner1);
         rectangleBoundary.add(selectionCorner2);
-        if (viewNet->makeCurrent()) {
+        if (myViewNet->makeCurrent()) {
             // obtain all ACs in Rectangle BOundary
-            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = viewNet->getAttributeCarriersInBoundary(rectangleBoundary);
+            std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(rectangleBoundary);
             // Filter ACs in Boundary and get only edges
             for (auto i : ACsInBoundary) {
                 if(i.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                     result.push_back(dynamic_cast<GNEEdge*>(i.second));
                 }
             }
-            viewNet->makeNonCurrent();
+            myViewNet->makeNonCurrent();
         }
     }
     return result;
@@ -3652,16 +3698,8 @@ GNEViewNet::SelectingArea::processEdgeRectangleSelection(GNEViewNet* viewNet, bo
 
 
 void 
-GNEViewNet::SelectingArea::processShapeSelection(GNEViewNet* viewNet, const PositionVector &shape) {
-    processBoundarySelection(viewNet, shape.getBoxBoundary());
-}
-
-
-std::string
-GNEViewNet::SelectingArea::reportDimensions() {
-    return ("Selection width:" + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
-            + " height:" + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
-            + " diagonal:" + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
+GNEViewNet::SelectingArea::processShapeSelection(const PositionVector &shape) {
+    processBoundarySelection(shape.getBoxBoundary());
 }
 
 
@@ -3685,9 +3723,9 @@ GNEViewNet::SelectingArea::drawRectangleSelection(const RGBColor& color) const {
 
 
 void 
-GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundary boundary) {
-    if (viewNet->makeCurrent()) {
-        std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = viewNet->getAttributeCarriersInBoundary(boundary);
+GNEViewNet::SelectingArea::processBoundarySelection(const Boundary &boundary) {
+    if (myViewNet->makeCurrent()) {
+        std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(boundary);
         // declare two sets of attribute carriers, one for select and another for unselect
         std::vector<GNEAttributeCarrier*> ACToSelect;
         std::vector<GNEAttributeCarrier*> ACToUnselect;
@@ -3695,15 +3733,15 @@ GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundar
         ACToSelect.reserve(ACsInBoundary.size());
         ACToUnselect.reserve(ACsInBoundary.size());
         // in restrict AND replace mode all current selected attribute carriers will be unselected
-        if ((viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
-                (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE)) {
-            for (auto i : viewNet->myNet->getSelectedAttributeCarriers()) {
+        if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
+                (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE)) {
+            for (auto i : myViewNet->myNet->getSelectedAttributeCarriers()) {
                 ACToUnselect.push_back(i);
             }
         }
         // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
         for (auto i : ACsInBoundary) {
-            switch (viewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
+            switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
                 case GNESelectorFrame::ModificationMode::SET_SUB:
                     ACToUnselect.push_back(i.second);
                     break;
@@ -3718,7 +3756,7 @@ GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundar
             }
         }
         // select junctions and their connections and crossings if Auto select junctions is enabled (note: only for "add mode")
-        if (viewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
+        if (myViewNet->autoSelectNodes() && GNESelectorFrame::ModificationMode::SET_ADD) {
             std::vector<GNEEdge*> edgesToSelect;
             // iterate over ACToSelect and extract edges
             for (auto i : ACToSelect) {
@@ -3749,18 +3787,18 @@ GNEViewNet::SelectingArea::processBoundarySelection(GNEViewNet* viewNet, Boundar
         // only continue if there is ACs to select or unselect
         if ((ACToSelect.size() + ACToUnselect.size()) > 0) {
             // first unselect AC of ACToUnselect and then selects AC of ACToSelect
-            viewNet->myUndoList->p_begin("selection using rectangle");
+            myViewNet->myUndoList->p_begin("selection using rectangle");
             for (auto i : ACToUnselect) {
-                i->setAttribute(GNE_ATTR_SELECTED, "0", viewNet->myUndoList);
+                i->setAttribute(GNE_ATTR_SELECTED, "0", myViewNet->myUndoList);
             }
             for (auto i : ACToSelect) {
                 if (i->getTagProperty().isSelectable()) {
-                    i->setAttribute(GNE_ATTR_SELECTED, "1", viewNet->myUndoList);
+                    i->setAttribute(GNE_ATTR_SELECTED, "1", myViewNet->myUndoList);
                 }
             }
-            viewNet->myUndoList->p_end();
+            myViewNet->myUndoList->p_end();
         }
-        viewNet->makeNonCurrent();
+        myViewNet->makeNonCurrent();
     }
 }
 

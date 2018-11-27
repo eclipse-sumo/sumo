@@ -660,19 +660,38 @@ private:
     struct SelectingArea {
 
         /// @brief default constructor
-        SelectingArea();
+        SelectingArea(GNEViewNet* viewNet);
+
+        /// @brief begin rectangle selection
+        void beginRectangleSelection();
+
+        /// @brief move rectangle selection
+        void moveRectangleSelection();
+
+        /// @brief finish rectangle selection
+        void finishRectangleSelection();
 
         /// @brief process rectangle Selection
-        void processRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
+        void processRectangleSelection(bool shiftKeyPressed);
 
         /// @brief process rectangle Selection (only limited to Edges)
-        std::vector<GNEEdge*> processEdgeRectangleSelection(GNEViewNet* viewNet, bool shiftKeyPressed);
+        std::vector<GNEEdge*> processEdgeRectangleSelection(bool shiftKeyPressed);
 
         /// @brief process shape selection
-        void processShapeSelection(GNEViewNet* viewNet, const PositionVector &shape);
+        void processShapeSelection(const PositionVector &shape);
+        
+        /// @brief draw rectangle selection
+        void drawRectangleSelection(const RGBColor& color) const;
 
         /// @brief whether we have started rectangle-selection
         bool selectingUsingRectangle;
+                
+        /// @brief whether we have started rectangle-selection
+        bool startDrawing;
+
+    private:
+        /// @brief Process boundary Selection
+        void processBoundarySelection(const Boundary &boundary);
 
         /// @brief firstcorner of the rectangle-selection
         Position selectionCorner1;
@@ -680,15 +699,8 @@ private:
         /// @brief second corner of the rectangle-selection
         Position selectionCorner2;
 
-        /// @brief inform about selection size
-        std::string reportDimensions();
-
-        /// @brief draw rectangle selection
-        void drawRectangleSelection(const RGBColor& color) const;
-
-    private:
-        /// @brief Process boundary Selection
-        void processBoundarySelection(GNEViewNet* viewNet, Boundary boundary);
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
     };
 
     /// @brief struct used to group all variables related with testing
