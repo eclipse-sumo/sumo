@@ -257,7 +257,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 const int activeScheme = s.getLaneEdgeMode();
                 // use value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
                 double value = (MSGlobals::gUseMesoSim 
-                    ? getColorValue(activeScheme)
+                    ? getColorValue(s, activeScheme)
                     : lane2->getColorValue(s, activeScheme));
                 GLHelper::drawText(toString(value), p, GLO_MAX,
                                    s.edgeValue.scaledSize(s.scale), s.edgeValue.color, angle);
@@ -394,7 +394,7 @@ GUIEdge::setColor(const GUIVisualizationSettings& s) const {
     myMesoColor = RGBColor(0, 0, 0); // default background color when using multiColor
     const GUIColorer& c = s.edgeColorer;
     if (!setFunctionalColor(c) && !setMultiColor(c)) {
-        myMesoColor = c.getScheme().getColor(getColorValue(c.getActive()));
+        myMesoColor = c.getScheme().getColor(getColorValue(s, c.getActive()));
     }
 }
 
@@ -470,7 +470,7 @@ GUIEdge::setMultiColor(const GUIColorer& c) const {
 
 
 double
-GUIEdge::getColorValue(int activeScheme) const {
+GUIEdge::getColorValue(const GUIVisualizationSettings& /*s*/, int activeScheme) const {
     switch (activeScheme) {
         case 1:
             return gSelected.isSelected(getType(), getGlID());

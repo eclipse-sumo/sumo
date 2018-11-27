@@ -189,7 +189,7 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         const MSEdgeVector& edges = MSEdge::getAllEdges();
         for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
             if (MSGlobals::gUseMesoSim) {
-                const double val = static_cast<GUIEdge*>(*it)->getColorValue(active);
+                const double val = static_cast<GUIEdge*>(*it)->getColorValue(s, active);
                 minValue = MIN2(minValue, val);
                 maxValue = MAX2(maxValue, val);
             } else {

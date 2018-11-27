@@ -494,7 +494,13 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
         if (object != nullptr) {
             Position pos = getPositionInformation();
             pos.add(0, p2m(15));
-            GLHelper::drawTextBox(object->getFullName(), pos, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor(255, 179, 0, 255));
+            std::string label = object->getFullName();
+            if (myVisualizationSettings->edgeValue.show && 
+                    (object->getType() == GLO_EDGE || object->getType() == GLO_LANE)) {
+                const int activeScheme = myVisualizationSettings->getLaneEdgeMode();
+                label += " (" + toString(object->getColorValue(&myVisualizationSettings, activeScheme)) + ")";
+            }
+            GLHelper::drawTextBox(label, pos, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor(255, 179, 0, 255));
             GUIGlObjectStorage::gIDStorage.unblockObject(id);
         }
     }

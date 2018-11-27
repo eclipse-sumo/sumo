@@ -141,6 +141,10 @@ public:
     /// @brief Draws the object
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    virtual double getColorValue(const GUIVisualizationSettings& /*s*/, int /*activeScheme*/) const {
+        return 0;
+    }
     /// @}
 
     /** @brief Draws additional, user-triggered visualisations

@@ -173,7 +173,7 @@ public:
     bool setMultiColor(const GUIColorer& c) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief gets the scaling value according to the current scheme index
     double getScaleValue(int activeScheme) const;
