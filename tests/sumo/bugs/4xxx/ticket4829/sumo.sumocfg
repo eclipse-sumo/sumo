@@ -13,9 +13,12 @@
     <processing>
         <ignore-route-errors value="true"/>
         <step-method.ballistic value="true"/>
-        <step-length value="0.25" />
         <time-to-teleport value="10" />
     </processing>
+
+    <time>
+        <step-length value="0.25" />
+    </time>
 
     <report>
         <no-step-log value="true"/>
