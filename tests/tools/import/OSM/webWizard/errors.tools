@@ -1934,14 +1934,11 @@ Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt
 Warning: Collision of person 'ped76' and person 'ped133', lane=':1828018040_c0_0', time=730.00.
 Warning: Collision of person 'ped76' and person 'ped133', lane=':1828018040_c0_0', time=731.00.
 Warning: Collision of person 'ped76' and person 'ped133', lane=':1828018040_c0_0', time=732.00.
-Warning: Teleporting vehicle 'veh168'; waited too long (yield), lane=':cluster_21487285_29207836_1_0', time=1042.00.
-Warning: Vehicle 'veh168' ends teleporting on edge '52328295#0', time 1042.00.
 Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
 Warning: Person 'ped5' aborted waiting for M5:3 at busStop '30731508'.
-Warning: Person 'ped151' aborted waiting for M4:3 at busStop '30731508'.
 Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
 Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
 Warning: Person 'ped135' aborted waiting for N42:1 at busStop '270727260'.
+Warning: Person 'ped163' aborted waiting for 100:0 at busStop '1827996417'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
-Warning: Person 'ped139' aborted waiting for U6:1 at busStop '2071423334'.
 Warning: Person 'ped158' aborted waiting for 147:3 at busStop '3869306772'.
