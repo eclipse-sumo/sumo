@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 21 10:09:40 2018 by Eclipse SUMO Version v1_0_1+0726-00a3d57
+<!-- generated on Tue Nov 27 10:34:13 2018 by Eclipse SUMO Version eeef47f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -65,13 +65,12 @@
         <lanechange-output.started value="false" type="BOOL" help="Record start of lane change manoeuvres"/>
         <lanechange-output.ended value="false" type="BOOL" help="Record end of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
         <save-state.suffix value=".sbx" type="STR" help="Suffix for network states (.sbx or .xml)"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
+        <breakpoints value="" type="STR" help="Use TIME[] as times when the simulation should halt"/>
     </output>
 
     <time>

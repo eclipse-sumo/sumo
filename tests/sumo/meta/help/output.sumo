@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_1+0726-00a3d57
+Eclipse SUMO Version eeef47f
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -98,16 +98,14 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR   List of vehicle ids which shall save
-                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
   --save-state.prefix FILE             Prefix for network states
   --save-state.suffix STR              Suffix for network states (.sbx or .xml)
   --save-state.files FILE              Files for network states
+  --breakpoints STR                    Use TIME[] as times when the simulation
+                                         should halt
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;
