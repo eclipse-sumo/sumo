@@ -1123,10 +1123,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (myNet) {
         myNet->requiereSaveNet(false);
     }
-    // check if reference Square can be enabled
-    if(getView()) {
-        getView()->enableReferenceSquare();
-    }
+    // update app
     update();
 }
 

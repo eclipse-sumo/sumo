@@ -278,7 +278,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledPolyTesselated(shape, true);
                 }
                 // check if dotted contour has to be drawn
-                if (!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this) && !drawBubble) {
+                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this) && !drawBubble) {
                     GLHelper::drawShapeDottedContour(getType(), shape);
                 }
                 glPopMatrix();
@@ -294,7 +294,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
                     std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices(circleWidth, circleResolution);
                     // check if dotted contour has to be drawn
-                    if (!s.drawForSelecting && myNet->getViewNet()->getACUnderCursor() == this) {
+                    if (!s.drawForSelecting && myNet->getViewNet()->getDottedAC() == this) {
                         GLHelper::drawShapeDottedContour(getType(), vertices);
                     }
                 } else {
@@ -1265,7 +1265,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
     // only continue if there isn't already a AC under cursor
-    if (myNet->getViewNet()->getACUnderCursor() == nullptr) {
+    if (myNet->getViewNet()->getDottedAC() == nullptr) {
         // obtain current x-y coordinates
         Position mousePos = myNet->getViewNet()->getPositionInformation();
         // check if junction are drawn as buuble or as polygon
@@ -1279,12 +1279,12 @@ GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
         if (drawBubble) {
             // check if cursor is whithin the circle
             if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= circleWidthSquared) {
-                myNet->getViewNet()->setACUnderCursor(this);
+                myNet->getViewNet()->setDottedAC(this);
             }
         } else if (drawShape) {
             // check if cursor is within the shape
             if (myNBNode.getShape().around(mousePos)) {
-                myNet->getViewNet()->setACUnderCursor(this);
+                myNet->getViewNet()->setDottedAC(this);
             }
         }
     }

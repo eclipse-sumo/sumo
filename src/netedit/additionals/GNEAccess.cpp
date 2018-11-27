@@ -202,7 +202,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         std::vector<Position> vertices = GLHelper::drawFilledCircleReturnVertices((double) 0.5 * exaggeration, 16);
         // check if dotted contour has to be drawn
-        if (myViewNet->getACUnderCursor() == this) {
+        if (myViewNet->getDottedAC() == this) {
             GLHelper::drawShapeDottedContour(getType(), vertices);
         }
     }

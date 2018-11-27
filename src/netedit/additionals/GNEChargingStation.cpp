@@ -194,7 +194,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
     }
     // Pop name matrix

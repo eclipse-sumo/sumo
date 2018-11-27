@@ -263,7 +263,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
 
     }
     // check if dotted contour has to be drawn
-    if (myNet->getViewNet()->getACUnderCursor() == this) {
+    if (myNet->getViewNet()->getDottedAC() == this) {
         if (getShapeImgFile() != DEFAULT_IMG_FILE) {
             GLHelper::drawShapeDottedContour(getType(), *this, 2 * myHalfImgWidth * s.poiSize.getExaggeration(s), 2 * myHalfImgHeight * s.poiSize.getExaggeration(s));
         } else if (myPOIVertices.size() > 0) {

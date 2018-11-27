@@ -181,7 +181,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSLinkNo(s);
         }
         // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+        if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
             GLHelper::drawShapeDottedContour(getType(), myShape, crossing->width * 0.5);
         }
     }

@@ -498,10 +498,10 @@ public:
     FXMenuCheck* getMenuCheckShowGrid() const;
 
     /// @brief get AttributeCarrier under cursor
-    const GNEAttributeCarrier* getACUnderCursor() const;
+    const GNEAttributeCarrier* getDottedAC() const;
 
     /// @brief set attributeCarrier under cursor
-    void setACUnderCursor(const GNEAttributeCarrier* AC);
+    void setDottedAC(const GNEAttributeCarrier* AC);
 
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
@@ -538,9 +538,6 @@ public:
 
     /// @brief edit edit shape
     void stopEditCustomShape();
-
-    /// @brief enable drawing of the reference square when testing
-    void enableReferenceSquare();
 
 protected:
     /// @brief FOX needs this
@@ -707,19 +704,26 @@ private:
     struct TestingMode {
 
         /// @brief default constructor
-        TestingMode();
+        TestingMode(GNEViewNet* viewNet);
+
+        /// @brief init testing mode
+        void initTestingMode();
+
+        /// @brief draw testing element
+        void drawTestingElements(GUIMainWindow* mainWindow);
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
 
         /// @brief flag to enable or disable testing mode
-        bool testingEnabled;
-
-        /// @brief flag to enable or disable magenta reference square
-        bool drawRefSquare;
+        bool myTestingEnabled;
 
         /// @brief Width of viewNet in testing mode
-        int testingWidth;
+        int myTestingWidth;
 
         /// @brief Height of viewNet in testing mode
-        int testingHeight;
+        int myTestingHeight;
     };
 
     /// @brief struct used to group all variables related to create edges
@@ -859,8 +863,10 @@ private:
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
 
-    /// @brief current AttributeCarrier under Mouse position
-    const GNEAttributeCarrier* myACUnderCursor;
+    /**@brief current AttributeCarrier that is drawn using with a dotted contour 
+     * note: it's constant because is edited from constant functions (example: drawGL(...) const)
+     */
+    const GNEAttributeCarrier* myDottedAC;
 
     /// @name variables for edit shapes
     /// @{

@@ -506,6 +506,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     mySelectingArea(this),
     myMoveSingleElementValues(this), 
     myMoveMultipleElementValues(this), 
+    myTestingMode(this), 
     myToolbar(toolBar),
     myEditModeCreateEdge(nullptr),
     myEditModeMove(nullptr),
@@ -532,15 +533,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     // Reset textures
     GUITextureSubSys::resetTextures();
 
-    if (myTestingMode.testingEnabled && OptionsCont::getOptions().isSet("window-size")) {
-        std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
-        if (windowSize.size() == 2 && GNEAttributeCarrier::canParse<int>(windowSize[0]) && GNEAttributeCarrier::canParse<int>(windowSize[1])) {
-            myTestingMode.testingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
-            myTestingMode.testingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
-        } else {
-            WRITE_ERROR("Invalid windows size-format: " + toString(windowSize) + "for option 'window-size'");
-        }
-    }
+    // init testing mode
+    myTestingMode.initTestingMode();
 }
 
 
@@ -828,16 +822,11 @@ GNEViewNet::stopEditCustomShape() {
 }
 
 
-void 
-GNEViewNet::enableReferenceSquare() {
-    myTestingMode.drawRefSquare = true;
-}
-
-
 GNEViewNet::GNEViewNet() : 
     mySelectingArea(this),
     myMoveSingleElementValues(this),
-    myMoveMultipleElementValues(this) {
+    myMoveMultipleElementValues(this),
+    myTestingMode(this) {
 }
 
 
@@ -871,44 +860,15 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myMenuCheckShowGrid->setCheck(false);
         }
         myMenuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
-        if (myTestingMode.testingEnabled) {
-            if (myTestingMode.testingWidth > 0 && (getWidth() != myTestingMode.testingWidth || getHeight() != myTestingMode.testingHeight)) {
-                // only resize once to avoid flickering
-                //std::cout << " before resize: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
-                myApp->resize(myTestingMode.testingWidth + myTestingMode.testingWidth - getWidth(), myTestingMode.testingHeight + myTestingMode.testingHeight - getHeight());
-                //std::cout << " directly after resize: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
-                myTestingMode.testingWidth = 0;
-            }
-            //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << myApp->getWidth() << ", " << myApp->getHeight() << "\n";
-            if (myTestingMode.drawRefSquare) {
-                // draw pink square in the upper left corner on top of everything
-                glPushMatrix();
-                const double size = p2m(32);
-                Position center = screenPos2NetPos(8, 8);
-                GLHelper::setColor(RGBColor::MAGENTA);
-                glTranslated(center.x(), center.y(), GLO_MAX - 1);
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                glBegin(GL_QUADS);
-                glVertex2d(0, 0);
-                glVertex2d(0, -size);
-                glVertex2d(size, -size);
-                glVertex2d(size, 0);
-                glEnd();
-                glPopMatrix();
-                // show box with the current position relative to pink square
-                Position posRelative = screenPos2NetPos(getWidth() - 40, getHeight() - 20);
-                // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
-                GLHelper::drawTextBox(toString(myWindowCursorPositionX - 24) + " " + toString(myWindowCursorPositionY - 25), posRelative, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor::WHITE);
-            }
-        }
-    }
 
+    }
     // draw temporal elements
     if (!myVisualizationSettings->drawForSelecting) {
         drawTemporalDrawShape();
         drawLaneCandidates();
+        // draw testing elements
+        myTestingMode.drawTestingElements(myApp);
     }
-
     // draw elements
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -943,6 +903,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
+
             /** this function will be implemented in the future class GNECreateEdgeFrame **/
                 // make sure that Control key isn't pressed
                 if (!myObjectsUnderCursor.controlKeyPressed()) {
@@ -1631,14 +1592,14 @@ GNEViewNet::getMenuCheckShowGrid() const {
 
 
 const GNEAttributeCarrier*
-GNEViewNet::getACUnderCursor() const {
-    return myACUnderCursor;
+GNEViewNet::getDottedAC() const {
+    return myDottedAC;
 }
 
 
 void
-GNEViewNet::setACUnderCursor(const GNEAttributeCarrier* AC) {
-    myACUnderCursor = AC;
+GNEViewNet::setDottedAC(const GNEAttributeCarrier* AC) {
+    myDottedAC = AC;
 }
 
 
@@ -3808,11 +3769,64 @@ GNEViewNet::SelectingArea::processBoundarySelection(const Boundary &boundary) {
 // GNEViewNet::TestingMode - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNet::TestingMode::TestingMode() :
-    testingEnabled(OptionsCont::getOptions().getBool("gui-testing")),
-    drawRefSquare(false),
-    testingWidth(0),
-    testingHeight(0) {
+GNEViewNet::TestingMode::TestingMode(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
+    myTestingEnabled(OptionsCont::getOptions().getBool("gui-testing")),
+    myTestingWidth(0),
+    myTestingHeight(0) {
+}
+
+
+void
+GNEViewNet::TestingMode::initTestingMode() {
+    // first check if testing mode is enabled and window size is correct
+    if (myTestingEnabled && OptionsCont::getOptions().isSet("window-size")) {
+        std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
+        // make sure that given windows size has exactly two valid int values
+        if ((windowSize.size() == 2) && GNEAttributeCarrier::canParse<int>(windowSize[0]) && GNEAttributeCarrier::canParse<int>(windowSize[1])) {
+            myTestingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
+            myTestingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
+        } else {
+            WRITE_ERROR("Invalid windows size-format: " + toString(windowSize) + "for option 'window-size'");
+        }
+    }
+}
+
+
+void
+GNEViewNet::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
+    // first check if testing mode is neabled
+    if (myTestingEnabled) {
+        // check if main windows has to be resized
+        if (myTestingWidth > 0 && ((myViewNet->getWidth() != myTestingWidth) || (myViewNet->getHeight() != myTestingHeight))) {
+            // only resize once to avoid flickering
+            //std::cout << " before resize: view=" << getWidth() << ", " << getHeight() << " app=" << mainWindow->getWidth() << ", " << mainWindow->getHeight() << "\n";
+            mainWindow->resize(myTestingWidth + myTestingWidth - myViewNet->getWidth(), myTestingHeight + myTestingHeight - myViewNet->getHeight());
+            //std::cout << " directly after resize: view=" << getWidth() << ", " << getHeight() << " app=" << mainWindow->getWidth() << ", " << mainWindow->getHeight() << "\n";
+            myTestingWidth = 0;
+        }
+        //std::cout << " fixed: view=" << getWidth() << ", " << getHeight() << " app=" << mainWindow->getWidth() << ", " << mainWindow->getHeight() << "\n";
+        // draw pink square in the upper left corner on top of everything
+        glPushMatrix();
+        const double size = myViewNet->p2m(32);
+        Position center = myViewNet->screenPos2NetPos(8, 8);
+        GLHelper::setColor(RGBColor::MAGENTA);
+        glTranslated(center.x(), center.y(), GLO_MAX - 1);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glBegin(GL_QUADS);
+        glVertex2d(0, 0);
+        glVertex2d(0, -size);
+        glVertex2d(size, -size);
+        glVertex2d(size, 0);
+        glEnd();
+        glPopMatrix();
+        glPushMatrix();
+        // show box with the current position relative to pink square
+        Position posRelative = myViewNet->screenPos2NetPos(myViewNet->getWidth() - 40, myViewNet->getHeight() - 20);
+        // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
+        GLHelper::drawTextBox(toString(myViewNet->myWindowCursorPositionX - 24) + " " + toString(myViewNet->myWindowCursorPositionY - 25), posRelative, GLO_MAX - 1, myViewNet->p2m(20), RGBColor::BLACK, RGBColor::WHITE);
+        glPopMatrix();
+    }
 }
 
 // ---------------------------------------------------------------------------

@@ -156,7 +156,7 @@ GNEInspectorFrame::show() {
 void
 GNEInspectorFrame::hide() {
     myInspectedACs.clear();
-    myViewNet->setACUnderCursor(nullptr);
+    myViewNet->setDottedAC(nullptr);
     GNEFrame::hide();
 }
 
@@ -205,7 +205,7 @@ GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     std::vector<GNEAttributeCarrier*> itemsToInspect;
     if (AC != nullptr) {
-        myViewNet->setACUnderCursor(AC);
+        myViewNet->setDottedAC(AC);
         if (AC->isAttributeCarrierSelected()) {
             std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers();
             for (const auto &i : selectedACs) {
@@ -340,7 +340,7 @@ GNEInspectorFrame::clearInspectedAC() {
     if (myInspectedACs.size() > 0) {
         // clear ACs
         myInspectedACs.clear();
-        myViewNet->setACUnderCursor(nullptr);
+        myViewNet->setDottedAC(nullptr);
         // Inspect multi selection again (to hide all Editors)
         inspectMultisection(myInspectedACs);
     }

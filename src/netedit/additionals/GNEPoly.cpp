@@ -369,7 +369,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // check if dotted contour has to be drawn
-    if (myNet->getViewNet()->getACUnderCursor() == this) {
+    if (myNet->getViewNet()->getDottedAC() == this) {
         GLHelper::drawShapeDottedContour(getType(), getShape());
     }
     // pop name
@@ -908,10 +908,10 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEPoly::mouseOverObject(const GUIVisualizationSettings&) const {
     // only continue if there isn't already a AC under cursor
-    if (myNet->getViewNet()->getACUnderCursor() == nullptr) {
+    if (myNet->getViewNet()->getDottedAC() == nullptr) {
         // check if cursor is within the shape
         if (getShape().around(myNet->getViewNet()->getPositionInformation())) {
-            myNet->getViewNet()->setACUnderCursor(this);
+            myNet->getViewNet()->setDottedAC(this);
         }
     }
 }

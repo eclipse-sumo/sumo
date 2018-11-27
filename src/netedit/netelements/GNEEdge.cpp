@@ -588,7 +588,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         glPopName();
     }
-    if (!s.drawForSelecting && (myNet->getViewNet()->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
         // draw dotted contor around the first and last lane
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
         const double myHalfLaneWidthBack = myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
