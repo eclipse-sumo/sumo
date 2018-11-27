@@ -35,7 +35,7 @@ detexit
 e1InstantDetector
 
 # calibrator
-#calibrator
+calibrator
 
 # lanecalibrator
 #lanecalibrator

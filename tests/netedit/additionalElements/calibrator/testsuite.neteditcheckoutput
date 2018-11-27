@@ -6,25 +6,13 @@ create
 #create_values
 
 # delete additional
-#delete
+delete
 
 # inspect additional
-#inspect
+inspect
 
 # load additional
 load
-
-# load additionals with generic parameters
-load_genericparameters
-
-# load calibrator's flow values
-load_values_flows
-
-# load calibrator's routes values
-load_values_routes
-
-# load calibrator's vtypes values
-load_values_vtypes
 
 # volatile recomputing
 volatileRecomputing
