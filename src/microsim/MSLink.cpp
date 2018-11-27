@@ -940,6 +940,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             if (gDebugFlag1) {
                 std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << " cWidth=" << crossingWidth
                           << " ijl=" << isInternalJunctionLink() << " sT=" << sameTarget << " sS=" << sameSource
+                          << " lbc=" << myLengthsBehindCrossing[i].first
+                          << " flbc=" << myLengthsBehindCrossing[i].second
                           << "\n";
             }
             // special treatment of contLane foe only applies if this lane is not a contLane or contLane follower itself
@@ -1031,7 +1033,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             // or there is no crossing point
                             continue; // next vehicle
                         }
-                        gap = distToCrossing - ego->getVehicleType().getMinGap() - ((sameTarget || sameSource) ? leaderBackDist : 0);
+                        gap = distToCrossing - ego->getVehicleType().getMinGap() - leaderBackDist - foeCrossingWidth;
                     }
                     // if the foe is already moving off the intersection, we may
                     // advance up to the crossing point unless we have the same target or same source
