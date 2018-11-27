@@ -503,9 +503,9 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myShowConnections(false),
     mySelectEdges(true),
     myShiftKeyPressed(false),
-    mySelectingArea(this),
     myMoveSingleElementValues(this), 
     myMoveMultipleElementValues(this), 
+    mySelectingArea(this),
     myTestingMode(this), 
     myToolbar(toolBar),
     myEditModeCreateEdge(nullptr),
@@ -823,9 +823,9 @@ GNEViewNet::stopEditCustomShape() {
 
 
 GNEViewNet::GNEViewNet() : 
-    mySelectingArea(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
+    mySelectingArea(this),
     myTestingMode(this) {
 }
 
@@ -3581,9 +3581,9 @@ GNEViewNet::MoveMultipleElementValues::isMovingSelection() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNet::SelectingArea::SelectingArea(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
     selectingUsingRectangle(false),
-    startDrawing(false) {
+    startDrawing(false), 
+    myViewNet(viewNet) {
 }
 
 
