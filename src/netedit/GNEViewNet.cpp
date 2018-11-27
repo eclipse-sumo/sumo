@@ -1231,14 +1231,10 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
     // obtain event data
     FXEvent* evt = (FXEvent*)eventData;
-    if (makeCurrent()) {
-        // update objects under cursor again
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly, evt);
-        makeNonCurrent();
-    }
     // update cursor
     updateCursor(evt);
-    // check if we're editing moving
+    // obtan flag to check if shift key was pressed
+    bool shiftKeyPressed = (evt->state & SHIFTMASK);
     if (myMoveMultipleElementValues.isMovingSelection()) {
         myMoveMultipleElementValues.finishMoveSelection();
     } else if (myMovedItems.polyToMove) {
@@ -1281,12 +1277,18 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         if(mySelectingArea.startDrawing) {
             // check if we're selecting all type of elements o we only want a set of edges for TAZ
             if(myEditMode == GNE_MODE_SELECT) { 
-                mySelectingArea.processRectangleSelection(myObjectsUnderCursor.shiftKeyPressed());
+                mySelectingArea.processRectangleSelection(shiftKeyPressed);
             } else if(myEditMode == GNE_MODE_TAZ) {  
                 // process edge selection
                 myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection(myShiftKeyPressed));
             }
-        } else if(myObjectsUnderCursor.shiftKeyPressed() && myObjectsUnderCursor.getLaneFront()) {
+        } else if(shiftKeyPressed) {
+            // obtain objects under cursor
+            if (makeCurrent()) {
+                // update objects under cursor again
+                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly, evt);
+                makeNonCurrent();
+            }
             // if we clicked over an lane with shift key pressed, select or unselect it
             if(myObjectsUnderCursor.getLaneFront()->isAttributeCarrierSelected()) {
                 myObjectsUnderCursor.getLaneFront()->unselectAttributeCarrier();
