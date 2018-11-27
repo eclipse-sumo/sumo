@@ -2245,6 +2245,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
             gDebugFlag1 = true;
         }
 #endif
+        const bool laneChanging = veh.getLane() != this;
         const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(&veh, seen);
 #ifdef DEBUG_CONTEXT
         gDebugFlag1 = false;
@@ -2270,8 +2271,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                 }
 #endif
                 // in the context of lane-changing, all candidates are leaders
-                const bool alwaysLeader = veh.getLane() != this;
-                if (lVeh != nullptr && !alwaysLeader && !veh.isLeader(*link, lVeh)) {
+                if (lVeh != nullptr && !laneChanging && !veh.isLeader(*link, lVeh)) {
                     continue;
                 }
                 if (gap < shortestGap) {
@@ -3019,6 +3019,11 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                             agap = (*it).length - next->getLength() + backOffset
                                    /// XXX dubious term. here for backwards compatibility
                                    - v->getVehicleType().getMinGap();
+#ifdef DEBUG_CONTEXT
+                            if (DEBUG_COND2(ego)) {
+                                std::cout << "    agap1=" << agap << "\n";
+                            }
+#endif
                             if (agap > 0 && &v->getLane()->getEdge() != &ego->getLane()->getEdge()) {
                                 // Only if ego overlaps we treat v as if it were a real follower
                                 // Otherwise we ignore it and look for another follower
