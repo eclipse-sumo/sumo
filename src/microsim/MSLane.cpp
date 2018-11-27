@@ -2981,15 +2981,19 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
                     for (const auto& ll : linkLeaders) {
                         if (ll.vehAndGap.first != nullptr) {
-                            result.addFollower(ll.vehAndGap.first, ego, ll.vehAndGap.second);
-                        }
+                            const bool egoIsLeader = ll.vehAndGap.first->isLeader((*it).viaLink, ego);
+                            const double gap = egoIsLeader ? NUMERICAL_EPS : ll.vehAndGap.second;
+                            result.addFollower(ll.vehAndGap.first, ego, gap);
 #ifdef DEBUG_CONTEXT
-                        if (DEBUG_COND2(ego)) {
-                            std::cout << SIMTIME << " ego=" << ego->getID() << "    link=" << (*it).viaLink->getViaLaneOrLane()->getID()
-                                << " leader=" << ll.vehAndGap.first->getID() << " gap=" << ll.vehAndGap.second << " dtC=" << ll.distToCrossing
-                                << "\n";
-                        }
+                            if (DEBUG_COND2(ego)) {
+                                std::cout << SIMTIME << " ego=" << ego->getID() << "    link=" << (*it).viaLink->getViaLaneOrLane()->getID()
+                                    << " (3) added veh=" << Named::getIDSecure(ll.vehAndGap.first)
+                                    << " gap=" << ll.vehAndGap.second << " dtC=" << ll.distToCrossing
+                                    << " egoIsLeader=" << egoIsLeader << " gap2=" << gap
+                                    << "\n";
+                            }
 #endif
+                        }
                     }
                 }
 #ifdef DEBUG_CONTEXT
