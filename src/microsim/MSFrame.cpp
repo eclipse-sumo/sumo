@@ -458,6 +458,9 @@ MSFrame::fillOptions() {
     oc.doRegister("start", 'S', new Option_Bool(false));
     oc.addDescription("start", "GUI Only", "Start the simulation after loading");
 
+    oc.doRegister("breakpoints", new Option_String());
+    oc.addDescription("breakpoints", "Output", "Use TIME[] as times when the simulation should halt");
+
     oc.doRegister("demo", 'D', new Option_Bool(false));
     oc.addDescription("demo", "GUI Only", "Restart the simulation after ending (demo mode)");
 
@@ -627,6 +630,15 @@ MSFrame::checkOptions() {
             }
         }
     }
+    for (const std::string& val : oc.getStringVector("breakpoints")) {
+        try {
+            string2time(val);
+        } catch (ProcessError& e) {
+            WRITE_ERROR("Invalid time '" + val + "' for option 'breakpoints'. Must be a FLOAT or human-readable time");
+            ok = false;
+        }
+    };
+
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions();
 
@@ -689,7 +701,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     }
 
     MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
-
+    
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
         MSBaseVehicle::initMoveReminderOutput(oc);
