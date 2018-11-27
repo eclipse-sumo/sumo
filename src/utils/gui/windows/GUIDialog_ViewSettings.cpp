@@ -226,7 +226,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         // edge name
         myEdgeNamePanel = new NamePanel(m22, this, "Show edge name", mySettings->edgeName);
         myStreetNamePanel = new NamePanel(m22, this, "Show street name", mySettings->streetName);
-        myEdgeValuePanel = new NamePanel(m22, this, "Show edge value", mySettings->edgeValue);
+        myEdgeValuePanel = new NamePanel(m22, this, "Show edge color value", mySettings->edgeValue);
     }
     {
         // vehicles
@@ -273,6 +273,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m33, " ", 0, GUIDesignViewSettingsLabel1);
         */
         myVehicleNamePanel = new NamePanel(m33, this, "Show vehicle name", mySettings->vehicleName);
+        myVehicleValuePanel = new NamePanel(m33, this, "Show vehicle color value", mySettings->vehicleValue);
         /*
         FXCheckButton *tmpc = new FXCheckButton(m33, "Show braking lights", 0 ,0);
         tmpc->disable();
@@ -528,6 +529,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myTLIndexPanel;
     delete myJunctionNamePanel;
     delete myVehicleNamePanel;
+    delete myVehicleValuePanel;
     delete myAddNamePanel;
     delete myAddFullNamePanel;
     delete myPOINamePanel;
@@ -632,6 +634,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
     myVehicleNamePanel->update(mySettings->vehicleName);
+    myVehicleValuePanel->update(mySettings->vehicleValue);
     myVehicleSizePanel->update(mySettings->vehicleSize);
 
     myPersonColorMode->setCurrentItem((FXint) mySettings->personColorer.getActive());
@@ -848,6 +851,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */
     tmpSettings.vehicleName = myVehicleNamePanel->getSettings();
+    tmpSettings.vehicleValue = myVehicleValuePanel->getSettings();
     tmpSettings.vehicleSize = myVehicleSizePanel->getSettings();
 
     tmpSettings.personColorer.setActive(myPersonColorMode->getCurrentItem());

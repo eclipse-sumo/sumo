@@ -206,8 +206,9 @@ public:
     bool showBTRange;
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
-    // Setting bundles for optional drawing vehicle names
+    // Setting bundles for optional drawing vehicle names or color value
     GUIVisualizationTextSettings vehicleName;
+    GUIVisualizationTextSettings vehicleValue;
     //@}
 
 

@@ -101,6 +101,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     drawLaneChangePreference(false), drawMinGap(false),
     showBTRange(false), vehicleSize(1),
     vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
+    vehicleValue(false, 80, RGBColor::CYAN),
     personQuality(0),
     personSize(1),
     personName(false, 50, RGBColor(0, 153, 204, 255)),
@@ -972,6 +973,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
+    dev.lf();
+    dev << "                 ";
+    vehicleValue.print(dev, "vehicleValue");
     vehicleColorer.save(dev);
     dev.closeTag();
     // persons
@@ -1168,6 +1172,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (vehicleName != v2.vehicleName) {
+        return false;
+    }
+    if (vehicleValue != v2.vehicleValue) {
         return false;
     }
     if (!(personColorer == v2.personColorer)) {

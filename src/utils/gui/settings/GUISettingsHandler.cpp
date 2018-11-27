@@ -224,6 +224,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.showBlinker = StringUtils::toBool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)));
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
+            mySettings.vehicleValue = parseTextSettings("vehicleValue", attrs, mySettings.vehicleValue);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_PERSONS:

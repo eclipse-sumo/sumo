@@ -1037,6 +1037,12 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         GLHelper::drawText("line:" + myVehicle.getParameter().line, Position(0, 0),
                            GLO_MAX, s.vehicleName.scaledSize(s.scale), s.vehicleName.color, s.angle);
     }
+    if (s.vehicleValue.show) {
+        glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
+        const double value = getColorValue(s.vehicleColorer.getActive()); 
+        GLHelper::drawText(toString(value), Position(0, 0),
+                           GLO_MAX, s.vehicleValue.scaledSize(s.scale), s.vehicleValue.color, s.angle);
+    }
     glPopMatrix();
     glPopName();
     drawAction_drawPersonsAndContainers(s);
