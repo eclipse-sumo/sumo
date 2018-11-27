@@ -2269,7 +2269,9 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                               << "\n";
                 }
 #endif
-                if (lVeh != nullptr && !veh.isLeader(*link, lVeh)) {
+                // in the context of lane-changing, all candidates are leaders
+                const bool alwaysLeader = veh.getLane() != this;
+                if (lVeh != nullptr && !alwaysLeader && !veh.isLeader(*link, lVeh)) {
                     continue;
                 }
                 if (gap < shortestGap) {
