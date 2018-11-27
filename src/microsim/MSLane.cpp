@@ -3019,7 +3019,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                             agap = (*it).length - next->getLength() + backOffset
                                    /// XXX dubious term. here for backwards compatibility
                                    - v->getVehicleType().getMinGap();
-                            if (agap > 0) {
+                            if (agap > 0 && &v->getLane()->getEdge() != &ego->getLane()->getEdge()) {
                                 // Only if ego overlaps we treat v as if it were a real follower
                                 // Otherwise we ignore it and look for another follower
                                 v = firstFront[i];
