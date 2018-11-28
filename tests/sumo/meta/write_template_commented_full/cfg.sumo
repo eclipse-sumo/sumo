@@ -549,6 +549,18 @@
         <!-- Deceleration rate applied during a &apos;minimum risk maneuver&apos;. -->
         <device.toc.mrmDecel value="1.5" type="FLOAT"/>
 
+        <!-- Timegap for ToC preparation phase. -->
+        <device.toc.ogNewTimeHeadway value="-1" type="FLOAT"/>
+
+        <!-- Additional spacing for ToC preparation phase. -->
+        <device.toc.ogNewSpaceHeadway value="-1" type="FLOAT"/>
+
+        <!-- Maximal deceleration applied for establishing increased gap in ToC preparation phase. -->
+        <device.toc.ogMaxDecel value="-1" type="FLOAT"/>
+
+        <!-- Rate of adaptation towards the increased headway during ToC preparation. -->
+        <device.toc.ogChangeRate value="-1" type="FLOAT"/>
+
         <!-- Whether a coloring scheme shall by applied to indicate the different ToC stages. -->
         <device.toc.useColorScheme value="true" type="BOOL"/>
 

@@ -211,6 +211,10 @@
         <device.toc.lcAbstinence value="0" type="FLOAT" help="Attention level below which a driver restrains from performing lane changes (value in [0,1])."/>
         <device.toc.initialAwareness value="0.5" type="FLOAT" help="Average awareness a driver has initially after a ToC (value in [0,1])."/>
         <device.toc.mrmDecel value="1.5" type="FLOAT" help="Deceleration rate applied during a &apos;minimum risk maneuver&apos;."/>
+        <device.toc.ogNewTimeHeadway value="-1" type="FLOAT" help="Timegap for ToC preparation phase."/>
+        <device.toc.ogNewSpaceHeadway value="-1" type="FLOAT" help="Additional spacing for ToC preparation phase."/>
+        <device.toc.ogMaxDecel value="-1" type="FLOAT" help="Maximal deceleration applied for establishing increased gap in ToC preparation phase."/>
+        <device.toc.ogChangeRate value="-1" type="FLOAT" help="Rate of adaptation towards the increased headway during ToC preparation."/>
         <device.toc.useColorScheme value="true" type="BOOL" help="Whether a coloring scheme shall by applied to indicate the different ToC stages."/>
         <device.toc.file value="" type="STR" help="Switches on output by specifying an output filename."/>
     </toc_device>

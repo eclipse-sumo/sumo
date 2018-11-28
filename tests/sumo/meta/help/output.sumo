@@ -385,6 +385,14 @@ ToC Device Options:
                                          after a ToC (value in [0,1]).
   --device.toc.mrmDecel FLOAT          Deceleration rate applied during a
                                          'minimum risk maneuver'.
+  --device.toc.ogNewTimeHeadway FLOAT  Timegap for ToC preparation phase.
+  --device.toc.ogNewSpaceHeadway FLOAT  Additional spacing for ToC preparation
+                                         phase.
+  --device.toc.ogMaxDecel FLOAT        Maximal deceleration applied for
+                                         establishing increased gap in ToC
+                                         preparation phase.
+  --device.toc.ogChangeRate FLOAT      Rate of adaptation towards the increased
+                                         headway during ToC preparation.
   --device.toc.useColorScheme          Whether a coloring scheme shall by
                                          applied to indicate the different ToC
                                          stages.
