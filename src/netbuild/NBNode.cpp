@@ -2701,7 +2701,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
         if (myWalkingAreaCustomShapes.size() > 0) {
             for (auto wacs : myWalkingAreaCustomShapes) {
                 // every edge in wasc.edges must be part of connected
-                if (wacs.shape.size() != 0 && std::includes(connected.begin(), connected.end(), wacs.edges.begin(), wacs.edges.end())) {
+                if (wacs.shape.size() != 0 && includes(connected, wacs.edges)) {
                     wa.shape = wacs.shape;
                     wa.hasCustomShape = true;
                 }
@@ -2761,12 +2761,11 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             wa.shape.push_back(tmp[0]);
             // apply custom shapes
             if (myWalkingAreaCustomShapes.size() > 0) {
-                EdgeVector crossed = prev.edges;
-                crossed.insert(crossed.end(), next.edges.begin(), next.edges.end());
-                std::sort(crossed.begin(), crossed.end());
+                std::set<NBEdge*, ComparatorIdLess> crossed(prev.edges.begin(), prev.edges.end());
+                crossed.insert(next.edges.begin(), next.edges.end());
                 for (auto wacs : myWalkingAreaCustomShapes) {
                     // every edge in wacs.edges must be part of crossed
-                    if (wacs.shape.size() != 0 && wacs.edges.size() > 1 && std::includes(crossed.begin(), crossed.end(), wacs.edges.begin(), wacs.edges.end())) {
+                    if (wacs.shape.size() != 0 && wacs.edges.size() > 1 && includes(crossed, wacs.edges)) {
                         wa.shape = wacs.shape;
                         wa.hasCustomShape = true;
                     }
@@ -2780,6 +2779,18 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             }
         }
     }
+}
+
+bool 
+NBNode::includes(const std::set<NBEdge*, ComparatorIdLess>& super,
+                  const std::set<const NBEdge*, ComparatorIdLess>& sub) {
+    // for some reason std::include does not work reliably
+    for (const NBEdge* e : sub) {
+        if (super.count(const_cast<NBEdge*>(e)) == 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 

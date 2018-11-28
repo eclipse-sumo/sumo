@@ -778,6 +778,10 @@ private:
     /// @brief displace lane shapes to account for change in lane width at this node
     void displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
 
+    /// @brief returns whether sub is a subset of super
+    static bool includes(const std::set<NBEdge*, ComparatorIdLess>& super,
+                  const std::set<const NBEdge*, ComparatorIdLess>& sub);
+
 private:
     /// @brief The position the node lies at
     Position myPosition;
