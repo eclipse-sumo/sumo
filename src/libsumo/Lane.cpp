@@ -308,8 +308,8 @@ Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
-    for (MSEdge* pred : l->getEdge().getPredecessors()) {
-        pred->rebuildAllowedLanes();
+    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedTargets();
     }
 }
 
@@ -319,6 +319,9 @@ Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClass
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(invertPermissions(parseVehicleClasses(disallowedClasses)), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
+    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedTargets();
+    }
 }
 
 

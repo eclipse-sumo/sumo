@@ -310,6 +310,9 @@ Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
         lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
     }
     e->rebuildAllowedLanes();
+    for (MSEdge* const pred : e->getPredecessors()) {
+        pred->rebuildAllowedTargets();
+    }
 }
 
 

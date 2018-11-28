@@ -74,14 +74,11 @@ typedef std::vector<std::pair<const MSEdge*, const MSEdge*> > MSConstEdgePairVec
 
 class MSEdge : public Named, public Parameterised {
 private:
+    /** @brief "Map" from vehicle class to allowed lanes */
+    typedef std::vector<std::pair<SVCPermissions, const std::vector<MSLane*>* > > AllowedLanesCont;
+
     /** @brief Succeeding edges (keys) and allowed lanes to reach these edges (values). */
-    typedef std::map< const MSEdge*, std::vector<MSLane*>* > AllowedLanesCont;
-
-    /** @brief Map from vehicle class to lanes that may be used to reach one of the next edges */
-    typedef std::map< SUMOVehicleClass, AllowedLanesCont > ClassedAllowedLanesCont;
-
-    /** @brief Map from vehicle class to allowed lanes */
-    typedef std::map< SUMOVehicleClass, const std::vector<MSLane*>* > AllowedCont;
+    typedef std::map<const MSEdge*, AllowedLanesCont> AllowedLanesByTarget;
 
 
 public:
@@ -126,7 +123,7 @@ public:
     /* @brief returns whether initizliaing a lane change is permitted on this edge
      * @note Has to be called after all sucessors and predecessors have been set (after closeBuilding())
      */
-    bool allowsLaneChanging();
+    bool allowsLaneChanging() const;
 
     /// @name Access to the edge's lanes
     /// @{
@@ -553,6 +550,8 @@ public:
 
     void rebuildAllowedLanes();
 
+    void rebuildAllowedTargets(const bool updateVehicles=true);
+
 
     /** @brief optimistic air distance heuristic for use in routing
      * @param[in] other The edge to which the distance shall be returned
@@ -799,11 +798,10 @@ protected:
     /// @{
 
     /// @brief Associative container from vehicle class to allowed-lanes.
-    AllowedCont myAllowed;
+    AllowedLanesCont myAllowed;
 
-    /// @brief From vehicle class to lanes allowed to be used by it
-    // @note: this map is filled on demand
-    ClassedAllowedLanesCont myClassedAllowed;
+    /// @brief From target edge to lanes allowed to be used to reach it
+    AllowedLanesByTarget myAllowedTargets;
 
     /// @brief The intersection of lane permissions for this edge
     SVCPermissions myMinimumPermissions;
@@ -880,6 +878,8 @@ private:
     MSEdge& operator=(const MSEdge&);
 
     bool isSuperposable(const MSEdge* other);
+
+    void addToAllowed(const SVCPermissions permissions, const std::vector<MSLane*>* allowedLanes, AllowedLanesCont& laneCont) const;
 };
 
 

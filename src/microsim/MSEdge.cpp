@@ -89,7 +89,7 @@ MSEdge::~MSEdge() {
             delete i.second;
         }
     }
-    for (auto i2 : myClassedAllowed) {
+    for (auto i2 : myAllowedTargets) {
         for (auto i1 : i2.second) {
             if (i1.second != myLanes) {
                 delete i1.second;
@@ -209,7 +209,7 @@ MSEdge::buildLaneChanger() {
 
 
 bool
-MSEdge::allowsLaneChanging() {
+MSEdge::allowsLaneChanging() const {
     if (isInternal()) {
         // allow changing only if all links leading to this internal lane have priority
         // or they are controlled by a traffic light
@@ -231,63 +231,126 @@ MSEdge::allowsLaneChanging() {
 }
 
 
+void 
+MSEdge::addToAllowed(const SVCPermissions permissions, const std::vector<MSLane*>* allowedLanes, AllowedLanesCont& laneCont) const {
+    // recheck whether we had this list to save memory
+    if (allowedLanes->empty()) {
+        delete allowedLanes;
+        allowedLanes = nullptr;
+    } else {
+        for (auto& allowed : laneCont) {
+            if (*allowed.second == *allowedLanes) {
+                delete allowedLanes;
+                allowedLanes = nullptr;
+                allowed.first |= permissions;
+                break;
+            }
+        }
+    }
+    if (allowedLanes != nullptr) {
+        laneCont.push_back(std::make_pair(permissions, allowedLanes));
+    }
+}
+
+
 void
 MSEdge::rebuildAllowedLanes() {
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        myMinimumPermissions &= (*i)->getPermissions();
-        myCombinedPermissions |= (*i)->getPermissions();
+    for (MSLane* const lane : *myLanes) {
+        myMinimumPermissions &= lane->getPermissions();
+        myCombinedPermissions |= lane->getPermissions();
     }
-    // rebuild myAllowed and myClassedAllowed
+    // rebuild myAllowed
     for (const auto i : myAllowed) {
         if (i.second != myLanes) {
             delete i.second;
         }
     }
     myAllowed.clear();
-    for (const auto i2 : myClassedAllowed) {
+    if (myCombinedPermissions != myMinimumPermissions) {
+        myAllowed.push_back(std::make_pair(SVC_IGNORING, myLanes));
+        for (SUMOVehicleClass vclass = SVC_PRIVATE; vclass <= SUMOVehicleClass_MAX; vclass = (SUMOVehicleClass)(2 * (int)vclass)) {
+            if ((myCombinedPermissions & vclass) == vclass) {
+                std::vector<MSLane*>* allowedLanes = new std::vector<MSLane*>();
+                for (MSLane* const lane : *myLanes) {
+                    if (lane->allowsVehicleClass(vclass)) {
+                        allowedLanes->push_back(lane);
+                    }
+                }
+                addToAllowed(vclass, allowedLanes, myAllowed);
+            }
+        }
+    }
+    rebuildAllowedTargets(false);
+}
+
+
+void
+MSEdge::rebuildAllowedTargets(const bool updateVehicles) {
+    for (const auto i2 : myAllowedTargets) {
         for (const auto i1 : i2.second) {
             if (i1.second != myLanes) {
                 delete i1.second;
             }
         }
     }
-    myClassedAllowed.clear();
-    myAllowed[SVC_IGNORING] = myLanes;
-    for (SUMOVehicleClass vclass = SVC_PRIVATE; vclass <= SUMOVehicleClass_MAX; vclass = (SUMOVehicleClass)(2 * (int)vclass)) {
-        if ((myCombinedPermissions & vclass) == vclass) {
-            std::vector<MSLane*>* allowed = new std::vector<MSLane*>();
-            for (MSLane* const lane : *myLanes) {
-                if (lane->allowsVehicleClass(vclass)) {
-                    allowed->push_back(lane);
-                    // target lane allows the current vehicle class?
-                    for (const MSLink* const link : lane->getLinkCont()) {
-                        const MSLane* const targetLane = link->getLane();
-                        if (targetLane->allowsVehicleClass(vclass)) {
-                            for (const SUMOVehicleClass c : {vclass, SVC_IGNORING}) {
-                                const MSEdge* const target = &targetLane->getEdge();
-                                if (myClassedAllowed[c].find(target) == myClassedAllowed[c].end()) {
-                                    myClassedAllowed[c][target] = new std::vector<MSLane*>({ lane });
-                                } else {
-                                    std::vector<MSLane*>* const classedAllowed = myClassedAllowed[c][target];
-                                    if (std::find(classedAllowed->begin(), classedAllowed->end(), lane) == classedAllowed->end()) {
-                                        classedAllowed->push_back(lane);
-                                    }
+    myAllowedTargets.clear();
+
+    for (const MSEdge* target : mySuccessors) {
+        bool universalMap = true; // whether the mapping for SVC_IGNORING is also valid for all vehicle classes
+        std::vector<MSLane*>* allLanes = new std::vector<MSLane*>();
+        // compute the mapping for SVC_IGNORING
+        for (MSLane* const lane : *myLanes) {
+            SVCPermissions combinedTargetPermissions = 0;
+            for (const MSLink* const link : lane->getLinkCont()) {
+                if (&link->getLane()->getEdge() == target) {
+                    allLanes->push_back(lane);
+                    combinedTargetPermissions |= link->getLane()->getPermissions();
+                }
+            }
+            if (combinedTargetPermissions == 0 || (lane->getPermissions() & combinedTargetPermissions) != lane->getPermissions()) {
+                universalMap = false;
+            }
+        }
+        if (universalMap) {
+            if (myAllowed.empty()) {
+                // we have no lane specific permissions
+                myAllowedTargets[target].push_back(std::make_pair(myMinimumPermissions, myLanes));
+            } else {
+                for (const auto i : myAllowed) {
+                    // we cannot add the lane vectors directly because they are deleted separately (shared_ptr anyone?)
+                    addToAllowed(i.first, new std::vector<MSLane*>(*i.second), myAllowedTargets[target]);
+                }
+            }
+        } else {
+            addToAllowed(SVC_IGNORING, allLanes, myAllowedTargets[target]);
+            // compute the vclass specific mapping
+            for (SUMOVehicleClass vclass = SVC_PRIVATE; vclass <= SUMOVehicleClass_MAX; vclass = (SUMOVehicleClass)(2 * (int)vclass)) {
+                if ((myCombinedPermissions & vclass) == vclass) {
+                    std::vector<MSLane*>* allowedLanes = new std::vector<MSLane*>();
+                    for (MSLane* const lane : *myLanes) {
+                        if (lane->allowsVehicleClass(vclass)) {
+                            for (const MSLink* const link : lane->getLinkCont()) {
+                                if (link->getLane()->allowsVehicleClass(vclass) && &link->getLane()->getEdge() == target) {
+                                    allowedLanes->push_back(lane);
                                 }
                             }
                         }
                     }
+                    addToAllowed(vclass, allowedLanes, myAllowedTargets[target]);
                 }
             }
-            if (allowed->size() == myLanes->size()) {
-                // reduce memory footprint by avoiding multiple storage of the all lanes vector
-                delete allowed;
-                myAllowed[vclass] = myLanes;
-            } else {
-                myAllowed[vclass] = allowed;
+        }
+    }
+    if (updateVehicles) {
+        for (const MSLane* const lane : *myLanes) {
+            const MSLane::VehCont& vehs = lane->getVehiclesSecure();
+            for (MSVehicle* veh : vehs) {
+                veh->updateBestLanes(true);
             }
+            lane->releaseVehicles();
         }
     }
     myClassesSuccessorMap.clear();
@@ -324,25 +387,30 @@ MSEdge::parallelLane(const MSLane* const lane, int offset) const {
 
 const std::vector<MSLane*>*
 MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const {
-    ClassedAllowedLanesCont::const_iterator i = myClassedAllowed.find(vclass);
-    if (i != myClassedAllowed.end()) {
-        AllowedLanesCont::const_iterator it = i->second.find(&destination);
-        if (it == i->second.end()) {
-            return nullptr;
-        } else {
-            return it->second;
+    AllowedLanesByTarget::const_iterator i = myAllowedTargets.find(&destination);
+    if (i != myAllowedTargets.end()) {
+        for (const auto& allowed : i->second) {
+            if ((allowed.first & vclass) == vclass) {
+                return allowed.second;
+            }
         }
-    } else {
-        return nullptr;
     }
+    return nullptr;
 }
 
 
 const std::vector<MSLane*>*
 MSEdge::allowedLanes(SUMOVehicleClass vclass) const {
-    if ((myCombinedPermissions & vclass) == vclass) {
-        return myAllowed.find(vclass)->second;
+    if ((myMinimumPermissions & vclass) == vclass) {
+        return myLanes;
     } else {
+        if ((myCombinedPermissions & vclass) == vclass) {
+            for (const auto& allowed : myAllowed) {
+                if ((allowed.first & vclass) == vclass) {
+                    return allowed.second;
+                }
+            }
+        }
         return nullptr;
     }
 }
@@ -631,11 +699,8 @@ MSEdge::changeLanes(SUMOTime t) {
 const MSEdge*
 MSEdge::getInternalFollowingEdge(const MSEdge* followerAfterInternal) const {
     //@todo to be optimized
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        MSLane* l = *i;
-        const MSLinkCont& lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
-            MSLink* link = *j;
+    for (const MSLane* const l : *myLanes) {
+        for (const MSLink* const link : l->getLinkCont()) {
             if (&link->getLane()->getEdge() == followerAfterInternal) {
                 if (link->getViaLane() != nullptr) {
                     return &link->getViaLane()->getEdge();
