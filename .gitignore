@@ -17,6 +17,11 @@
 /compile
 /latex
 /mirror
+# eclipse project files
+/.settings
+/.cproject
+/.project
+/.pydevproject
 # build dir 
 /cmake-build*
 /cmake_build*
