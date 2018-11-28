@@ -57,6 +57,17 @@ private:
     // All files, that receive ToC output (TODO: check if required)
     static std::set<std::string> createdOutputFiles;
 
+    struct OpenGapParams {
+        double newTimeHeadway;
+        double newSpaceHeadway;
+        double changeRate;
+        double maxDecel;
+        bool active;
+        OpenGapParams(double timegap, double spacing, double changeRate, double maxDecel, bool active) :
+            newTimeHeadway(timegap), newSpaceHeadway(spacing), changeRate(changeRate), maxDecel(maxDecel), active(active)
+        {};
+    };
+
 public:
     /** @brief Inserts MSDevice_ToC-options
      * @param[filled] oc The options container to add the options to
@@ -115,6 +126,7 @@ private:
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
     static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
     static std::string getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc);
+    static OpenGapParams getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc);
 
     static ToCState _2ToCState(const std::string&);
     static std::string _2string(ToCState state);
@@ -176,13 +188,15 @@ private:
      * @param[in] automatedType vType that models automated driving
      * @param[in] responseTime time lapse until vType switch after request was received
      * @param[in] recoveryRate rate at which the awareness increases after the takeover
+     * @param[in] lcAbstinence awareness level below which no lane changes are taken out
      * @param[in] initialAwareness value to which the awareness is set after takeover
      * @param[in] mrmDecel constant deceleration rate assumed to be applied during an MRM
      * @param[in] useColorScheme whether the color of the vehicle should be changed according to its current ToC-state
+     * @param[in] ogp parameters for the openGap mechanism applied during ToC preparation phase
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                  std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
-                 double myLCAbstinence, double initialAwareness, double mrmDecel, bool useColorScheme);
+                 double lcAbstinence, double initialAwareness, double mrmDecel, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -292,6 +306,9 @@ private:
 
     /// @brief LC mode operational during an MRM
     static int LCModeMRM;
+
+    /// @brief Parameters for the openGap mechanism applied during ToC preparation phase
+    OpenGapParams myOpenGapParams;
 
 private:
     /// @brief Invalidated copy constructor.

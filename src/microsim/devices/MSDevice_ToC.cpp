@@ -61,6 +61,13 @@
 // The default value for the deceleration rate applied during a 'minimum risk maneuver'
 #define DEFAULT_MRM_DECEL 1.5
 
+// The default values for the openGap parameters applied for gap creation in preparation for a ToC
+#define DEFAULT_OPENGAP_TIMEGAP -1.0
+#define DEFAULT_OPENGAP_SPACING 0.0
+#define DEFAULT_OPENGAP_CHANGERATE 1.0
+#define DEFAULT_OPENGAP_MAXDECEL 1.0
+
+
 #define DEFAULT_MANUAL_TYPE ""
 #define DEFAULT_AUTOMATED_TYPE ""
 
@@ -99,6 +106,14 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.initialAwareness", "ToC Device", "Average awareness a driver has initially after a ToC (value in [0,1]).");
     oc.doRegister("device.toc.mrmDecel", new Option_Float(DEFAULT_MRM_DECEL));
     oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
+    oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
+    oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", "Timegap for ToC preparation phase.");
+    oc.doRegister("device.toc.ogNewSpaceHeadway", new Option_Float(-1.0));
+    oc.addDescription("device.toc.ogNewSpaceHeadway", "ToC Device", "Additional spacing for ToC preparation phase.");
+    oc.doRegister("device.toc.ogMaxDecel", new Option_Float(-1.0));
+    oc.addDescription("device.toc.ogMaxDecel", "ToC Device", "Maximal deceleration applied for establishing increased gap in ToC preparation phase.");
+    oc.doRegister("device.toc.ogChangeRate", new Option_Float(-1.0));
+    oc.addDescription("device.toc.ogChangeRate", "ToC Device", "Rate of adaptation towards the increased headway during ToC preparation.");
     oc.doRegister("device.toc.useColorScheme", new Option_Bool(true));
     oc.addDescription("device.toc.useColorScheme", "ToC Device", "Whether a coloring scheme shall by applied to indicate the different ToC stages.");
     oc.doRegister("device.toc.file", new Option_String());
@@ -120,10 +135,11 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         bool useColoring = useColorScheme(v, oc);
         std::string deviceID = "toc_" + v.getID();
         std::string file = getOutputFilename(v, oc);
+        OpenGapParams ogp = getOpenGapParams(v, oc);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
-                                                lcAbstinence, initialAwareness, mrmDecel, useColoring);
+                                                lcAbstinence, initialAwareness, mrmDecel, useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -191,14 +207,57 @@ MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
     return getBoolParam(v, oc, "toc.useColorScheme", "false", false);
 }
 
+MSDevice_ToC::OpenGapParams
+MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
+    double timegap = getFloatParam(v, oc, "toc.ogNewTimeHeadway", -1.0, false);
+    double spacing = getFloatParam(v, oc, "toc.ogNewSpaceHeadway", -1.0, false);
+    double changeRate = getFloatParam(v, oc, "toc.ogChangeRate", -1.0, false);
+    double maxDecel = getFloatParam(v, oc, "toc.ogMaxDecel", -1.0, false);
 
+    bool specifiedAny = false;
+    if (changeRate == -1.0) {
+        changeRate = DEFAULT_OPENGAP_CHANGERATE;
+    } else {
+        specifiedAny = true;
+    }
+    if (maxDecel == -1.0) {
+        maxDecel = DEFAULT_OPENGAP_MAXDECEL;
+    } else {
+        specifiedAny = true;
+    }
+    if (specifiedAny && timegap == -1 && spacing == -1) {
+        WRITE_ERROR("If any openGap parameters for the ToC model are specified, then at least one of ogTimeGap and ogSpacing must be defined.")
+    }
+    if (timegap == -1) {
+        timegap = DEFAULT_OPENGAP_TIMEGAP;
+    } else {
+        specifiedAny = true;
+    }
+    if (spacing == -1) {
+        spacing = DEFAULT_OPENGAP_SPACING;
+    } else {
+        specifiedAny = true;
+    }
+
+
+#ifdef DEBUG_TOC
+    std::cout << "Parsed openGapParams: \n"
+            << "  timegap=" << timegap
+            << ", spacing=" << spacing
+            << ", changeRate=" << changeRate
+            << ", maxDecel=" << maxDecel
+            << std::endl;
+#endif
+
+    return OpenGapParams(timegap, spacing, changeRate, maxDecel, specifiedAny);
+}
 
 // ---------------------------------------------------------------------------
 // MSDevice_ToC-methods
 // ---------------------------------------------------------------------------
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                            std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
-                           double lcAbstinence, double initialAwareness, double mrmDecel, bool useColoring) :
+                           double lcAbstinence, double initialAwareness, double mrmDecel, bool useColoring, OpenGapParams ogp) :
     MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -216,7 +275,8 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myPrepareToCCommand(nullptr),
     myOutputFile(nullptr),
     myEvents(),
-    myPreviousLCMode(-1) {
+    myPreviousLCMode(-1),
+    myOpenGapParams(ogp) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
     // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
@@ -279,6 +339,11 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
               << "myRecoveryRate=" << myRecoveryRate << ", "
               << "myInitialAwareness=" << myInitialAwareness << ", "
               << "myMRMDecel=" << myMRMDecel << ", "
+              << "ogTimeHeadway=" << myOpenGapParams.newTimeHeadway << ", "
+              << "ogSpaceHeadway=" << myOpenGapParams.newSpaceHeadway << ", "
+              << "ogChangeRate=" << myOpenGapParams.changeRate << ", "
+              << "ogMaxDecel=" << myOpenGapParams.maxDecel << ", "
+              << "ogActive=" << myOpenGapParams.active << ", "
               << "myCurrentAwareness=" << myCurrentAwareness << ", "
               << "myState=" << _2string(myState) << std::endl;
 #endif
@@ -360,6 +425,11 @@ MSDevice_ToC::setAwareness(double value) {
 
 void
 MSDevice_ToC::setState(ToCState state) {
+    if (myOpenGapParams.active && myState == PREPARING_TOC && state != PREPARING_TOC) {
+        // Deactivate gap control at preparation phase end
+        myHolderMS->getInfluencer().deactivateGapController();
+    }
+
     myState = state;
     if (myUseColorScheme) {
         setVehicleColor();
@@ -415,7 +485,13 @@ MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
         myPrepareToCCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::ToCPreparationStep);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myPrepareToCCommand, SIMSTEP + DELTA_T);
         setState(PREPARING_TOC);
-
+        if (myOpenGapParams.active) {
+            // Start gap controller
+            double originalTau = myHolderMS->getCarFollowModel().getHeadwayTime();
+            myHolderMS->getInfluencer().activateGapController(originalTau,
+                    myOpenGapParams.newTimeHeadway, myOpenGapParams.newSpaceHeadway, -1,
+                    myOpenGapParams.changeRate, myOpenGapParams.maxDecel);
+        }
         // Record event
         if (generatesOutput()) {
             myEvents.push(std::make_pair(SIMSTEP, "TOR"));
