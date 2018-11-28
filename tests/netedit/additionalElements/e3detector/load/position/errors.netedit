@@ -7,8 +7,8 @@ GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -38,8 +38,8 @@ GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -20
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Error: Shape of a(n) user-supplied position is broken: not numeric position entry.
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
@@ -75,8 +75,8 @@ GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -20
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_2detEntry0 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
@@ -120,8 +120,8 @@ GLDebug: Removed object e3Detector:e3Detector_2 from SUMORTree with boundary -20
 GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Error: Shape of a(n) user-supplied position is broken: not numeric position entry.
 Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_3 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_3detEntry0 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
@@ -172,8 +172,8 @@ GLDebug: Inserted e3Detector:e3Detector_3 into SUMORTree with boundary -20.00,-2
 GLDebug: Removed object e3Detector:e3Detector_3 from SUMORTree with boundary -20.00,-20.00,20.00,20.00
 GLDebug: Inserted e3Detector:e3Detector_3 into SUMORTree with boundary -20.00,-20.00,20.00,20.00
 Debug: Adding e3Detector 'e3Detector_4' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 18.00,-10.00,58.00,30.00
 Debug: Adding detEntry 'e3Detector_4detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_4detEntry0 into SUMORTree with boundary 18.00,-10.00,58.00,30.00
@@ -231,7 +231,7 @@ GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 18.
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 18.00,-10.00,58.00,30.00
 GLDebug: Removed object e3Detector:e3Detector_4 from SUMORTree with boundary 18.00,-10.00,58.00,30.00
 GLDebug: Inserted e3Detector:e3Detector_4 into SUMORTree with boundary 18.00,-10.00,58.00,30.00
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/e3detector/load/position\input_additionals.add.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Nov111148.2952/netedit.gui/additionalElements/e3detector/load/position\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved

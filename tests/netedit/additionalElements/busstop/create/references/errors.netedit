@@ -12,8 +12,8 @@ Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'busStop' in ItemSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE0_0_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object busStop:busStop_gneE0_0_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted busStop:busStop_gneE0_0_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object busStop:busStop_gneE0_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted busStop:busStop_gneE0_0_0 into SUMORTree with boundary -4.00,-23.20,46.00,16.80
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -21,8 +21,8 @@ GLDebug: Removed object busStop:busStop_gneE0_0_0 from SUMORTree with boundary -
 GLDebug: Inserted busStop:busStop_gneE0_0_0 into SUMORTree with boundary -4.00,-23.20,46.00,16.80
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding busStop 'busStop_gneE0_0_1' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE0_0_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object busStop:busStop_gneE0_0_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted busStop:busStop_gneE0_0_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object busStop:busStop_gneE0_0_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted busStop:busStop_gneE0_0_1 into SUMORTree with boundary -15.00,-23.20,35.00,16.80
 GLDebug: Removed object busStop:busStop_gneE0_0_0 from SUMORTree with boundary -4.00,-23.20,46.00,16.80
 GLDebug: Inserted busStop:busStop_gneE0_0_0 into SUMORTree with boundary -4.00,-23.20,46.00,16.80
@@ -30,8 +30,8 @@ GLDebug: Removed object busStop:busStop_gneE0_0_1 from SUMORTree with boundary -
 GLDebug: Inserted busStop:busStop_gneE0_0_1 into SUMORTree with boundary -15.00,-23.20,35.00,16.80
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding busStop 'busStop_gneE0_0_2' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE0_0_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object busStop:busStop_gneE0_0_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted busStop:busStop_gneE0_0_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object busStop:busStop_gneE0_0_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted busStop:busStop_gneE0_0_2 into SUMORTree with boundary 10.00,-23.20,60.00,16.80
 GLDebug: Removed object busStop:busStop_gneE0_0_0 from SUMORTree with boundary -4.00,-23.20,46.00,16.80
 GLDebug: Inserted busStop:busStop_gneE0_0_0 into SUMORTree with boundary -4.00,-23.20,46.00,16.80

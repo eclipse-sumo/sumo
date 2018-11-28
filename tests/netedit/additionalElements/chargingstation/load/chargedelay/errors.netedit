@@ -7,24 +7,24 @@ GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
-GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -8.00,-18.40,34.00,21.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -8.00,-18.40,34.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -8.00,-18.40,34.00,21.60
 Debug: Adding chargingStation 'chargingStation_1' in GNEChange_Additional
-GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object chargingStation:chargingStation_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object chargingStation:chargingStation_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary -12.00,-18.40,30.00,21.60
 GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -8.00,-18.40,34.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -8.00,-18.40,34.00,21.60
 GLDebug: Removed object chargingStation:chargingStation_1 from SUMORTree with boundary -12.00,-18.40,30.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary -12.00,-18.40,30.00,21.60
 Debug: Adding chargingStation 'chargingStation_2' in GNEChange_Additional
-GLDebug: Inserted chargingStation:chargingStation_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object chargingStation:chargingStation_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted chargingStation:chargingStation_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object chargingStation:chargingStation_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_2 into SUMORTree with boundary -16.00,-18.40,26.00,21.60
 GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -8.00,-18.40,34.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -8.00,-18.40,34.00,21.60
@@ -33,8 +33,8 @@ GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary
 GLDebug: Removed object chargingStation:chargingStation_2 from SUMORTree with boundary -16.00,-18.40,26.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_2 into SUMORTree with boundary -16.00,-18.40,26.00,21.60
 Debug: Adding chargingStation 'chargingStation_3' in GNEChange_Additional
-GLDebug: Inserted chargingStation:chargingStation_3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object chargingStation:chargingStation_3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted chargingStation:chargingStation_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object chargingStation:chargingStation_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_3 into SUMORTree with boundary -16.00,-18.40,26.00,21.60
 GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -8.00,-18.40,34.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -8.00,-18.40,34.00,21.60

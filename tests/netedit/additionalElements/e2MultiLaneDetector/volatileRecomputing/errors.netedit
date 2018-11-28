@@ -31,8 +31,8 @@ GLDebug: Inserted edge:gneE7 into SUMORTree with boundary -30.00,-20.00,80.00,41
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -31.60,-40.00,30.00,40.00
 GLDebug: Inserted edge:gneE9 into SUMORTree with boundary 18.40,-40.00,80.00,40.00
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -21.60,-31.60,71.60,64.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -49,8 +49,8 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary 
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -21.60,-31.60,71.60,64.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -21.60,-31.60,71.60,64.40
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
-GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -20.00,-10.00,70.00,51.60
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -20.00,-10.00,70.00,51.60
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -20.00,-10.00,70.00,51.60
@@ -63,8 +63,8 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary 
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -20.00,-10.00,70.00,51.60
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -20.00,-10.00,70.00,51.60
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
-GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -20.00,-7.20,70.00,51.60
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -20.00,-10.00,70.00,51.60
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -20.00,-10.00,70.00,51.60
@@ -79,8 +79,8 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary 
 GLDebug: Removed object e2Detector:e2MultilaneDetector_2 from SUMORTree with boundary -20.00,-7.20,70.00,51.60
 GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -20.00,-7.20,70.00,51.60
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_3' in GNEChange_Additional
-GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -20.00,-30.00,70.00,30.00
 GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -20.00,-30.00,70.00,30.00
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -20.00,-30.00,70.00,30.00
@@ -91,8 +91,8 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary 
 GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -20.00,-30.00,70.00,30.00
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -20.00,-30.00,70.00,30.00
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additional
-GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_4 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_4 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -20.00,-30.00,70.00,51.60
 GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -20.00,-30.00,70.00,30.00
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -20.00,-30.00,70.00,30.00
@@ -439,8 +439,8 @@ GLDebug: Inserted edge:gneE6 into SUMORTree with boundary -30.00,-24.20,80.00,40
 GLDebug: Inserted edge:gneE7 into SUMORTree with boundary -30.00,-20.00,80.00,44.20
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -34.20,-40.00,30.00,40.00
 GLDebug: Inserted edge:gneE9 into SUMORTree with boundary 15.80,-40.00,80.00,40.00
-GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -24.20,-34.20,74.20,67.00
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -24.20,-34.20,74.20,67.00
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -24.20,-34.20,74.20,67.00
@@ -454,8 +454,8 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -24.20,-34.20,74.20,67.00
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -24.20,-34.20,74.20,67.00
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -24.20,-34.20,74.20,67.00
-GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -15.80,-5.80,65.80,54.80
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -15.80,-5.80,65.80,54.80
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -15.80,-5.80,65.80,54.80
@@ -467,8 +467,8 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -15.80,-5.80,65.80,54.80
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -15.80,-5.80,65.80,54.80
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -15.80,-5.80,65.80,54.80
-GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -15.80,0.00,62.80,54.80
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -15.80,-5.80,65.80,54.80
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -15.80,-5.80,65.80,54.80
@@ -482,8 +482,8 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -15.80,-5.80,65.80,54.80
 GLDebug: Removed object e2Detector:e2MultilaneDetector_2 from SUMORTree with boundary -15.80,0.00,62.80,54.80
 GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -15.80,0.00,62.80,54.80
-GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -15.80,-25.80,65.80,25.80
 GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -15.80,-25.80,65.80,25.80
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -15.80,-25.80,65.80,25.80
@@ -493,8 +493,8 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -15.80,-25.80,65.80,25.80
 GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -15.80,-25.80,65.80,25.80
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -15.80,-25.80,65.80,25.80
-GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_4 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_4 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -15.80,-25.80,62.80,54.80
 GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -15.80,-25.80,65.80,25.80
 GLDebug: Inserted e2Detector:e2MultilaneDetector_3 into SUMORTree with boundary -15.80,-25.80,65.80,25.80

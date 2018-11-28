@@ -55,8 +55,8 @@ GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,0.00,80.00,61.60
 GLDebug: Inserted edge:8 into SUMORTree with boundary -30.00,-1.60,80.00,60.00
 GLDebug: Inserted edge:9 into SUMORTree with boundary -30.00,-10.00,80.00,51.60
 Debug: Adding busStop 'busStop_0' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object busStop:busStop_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object busStop:busStop_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved

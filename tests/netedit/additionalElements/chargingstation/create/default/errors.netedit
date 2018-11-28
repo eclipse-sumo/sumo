@@ -12,8 +12,8 @@ Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'chargingStation' in ItemSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
-GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -3.00,-21.60,47.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
