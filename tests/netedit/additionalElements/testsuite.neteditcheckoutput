@@ -38,7 +38,7 @@ e1InstantDetector
 calibrator
 
 # lanecalibrator
-#lanecalibrator
+lanecalibrator
 
 # parking areas
 #parkingarea

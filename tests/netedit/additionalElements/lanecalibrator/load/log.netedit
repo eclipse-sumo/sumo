@@ -1,9 +1,0 @@
-Warning: Essential unique string attribute 'id' of laneCalibrator is missing; laneCalibrator cannot be created
-Warning: Format of essential unique string attribute 'id' of laneCalibrator is invalid; 'ID with spaces' contains invalid characters; laneCalibrator cannot be created
-Warning: Format of essential unique string attribute 'id' of laneCalibrator is invalid; ID cannot be empty; laneCalibrator cannot be created
-Warning: There is another laneCalibrator with the same ID='calibrator01'.
-Warning: additional calibrator must have either a lane or an edge attribute.
-Warning: The lane 'dummylane' to use within the laneCalibrator 'calibrator04' is not known.
-Warning: Essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator06' is missing; laneCalibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator07' is invalid; laneCalibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of laneCalibrator with ID 'calibrator08' is invalid; Cannot be negative; laneCalibrator cannot be created
