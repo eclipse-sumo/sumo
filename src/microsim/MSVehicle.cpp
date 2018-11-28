@@ -2162,7 +2162,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                      || getLaneChangeModel().getShadowLane()->getLinkCont().size() == 0
                      || getLaneChangeModel().getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane())
                 )) {
-            double va = MIN2(cfModel.stopSpeed(this, getSpeed(), seen), laneMaxV);
+            double va = cfModel.stopSpeed(this, getSpeed(), seen);
             if (lastLink != nullptr) {
                 lastLink->adaptLeaveSpeed(va);
             }
