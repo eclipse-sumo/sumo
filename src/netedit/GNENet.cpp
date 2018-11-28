@@ -2432,11 +2432,13 @@ GNENet::reserveJunctionID(const std::string& id) {
 
 void
 GNENet::initGNEConnections() {
-    for (auto it : myAttributeCarriers.edges) {
-        it.second->remakeGNEConnections();
-    }
-    for (auto it : myAttributeCarriers.edges) {
-        it.second->updateGeometry(true);
+    for (const auto &i : myAttributeCarriers.edges) {
+        // remake connections
+        i.second->remakeGNEConnections();
+        // update geometry of connections
+        for (const auto &j : i.second->getGNEConnections()) {
+            j->updateGeometry(true);
+        }
     }
 }
 

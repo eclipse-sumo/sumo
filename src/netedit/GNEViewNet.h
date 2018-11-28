@@ -104,7 +104,6 @@ class GNEViewNet : public GUISUMOAbstractView {
     FXDECLARE(GNEViewNet)
 
 public:
-
     /// @brief class used to group all variables related with objects under cursor after a click over view
     class ObjectsUnderCursor {
     public:
@@ -112,19 +111,13 @@ public:
         ObjectsUnderCursor();
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(const std::vector<GUIGlObject*> &GUIGlObjects, GNEPoly* editedPolyShape, FXEvent* ev);
+        void updateObjectUnderCursor(const std::vector<GUIGlObject*> &GUIGlObjects, GNEPoly* editedPolyShape);
 
         /// @brief swap lane to edge
         void swapLane2Edge();
 
         /// @brief set created junction
         void setCreatedJunction(GNEJunction* junction);
-
-        /// @brief check if SHIFT key was pressed during click
-        bool shiftKeyPressed() const;
-
-        /// @brief check if CONTROL key was pressed during click
-        bool controlKeyPressed() const;
 
         /// @brief get front GUI GL ID (or a pointer to nullptr if there isn't)
         GUIGlID getGlIDFront() const;
@@ -172,9 +165,6 @@ public:
         const std::vector<GNEAttributeCarrier*> &getClickedAttributeCarriers() const;
 
     private:
-        /// @brief information of event of onLeftBtnPress
-        FXEvent* myEventInfo;
-
         /// @brief vector with the clicked GUIGlObjects
         std::vector<GUIGlObject*> myGUIGlObjects;
 
@@ -224,6 +214,26 @@ public:
         ObjectsUnderCursor& operator=(const ObjectsUnderCursor&) = delete;
     };
 
+    /// @brief class used to group all variables related with key pressed after certain events
+    struct KeyPressed {
+
+        /// @brief constructor
+        KeyPressed();
+
+        /// @brief update status of KeyPressed
+        void update(void *eventData);
+
+        /// @brief check if SHIFT key was pressed during click
+        bool shiftKeyPressed() const;
+
+        /// @brief check if CONTROL key was pressed during click
+        bool controlKeyPressed() const;
+
+    private:
+        /// @brief information of event
+        FXEvent* myEventInfo;
+    };
+
     /* @brief constructor
      * @param[in] tmpParent temporal FXFrame parent so that we can add items to view area in the desired order
      * @param[in] actualParent FXFrame parent of GNEViewNet
@@ -240,7 +250,7 @@ public:
                FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar);
 
     /// @brief destructor
-    virtual ~GNEViewNet();
+    ~GNEViewNet();
 
     /// @brief builds the view toolbars
     virtual void buildViewToolBars(GUIGlChildWindow&);
@@ -494,6 +504,9 @@ public:
     /// @brief get the current edit mode
     EditMode getCurrentEditMode() const;
 
+    /// @brief get Key Pressed modul
+    const KeyPressed &getKeyPressed() const;
+
     /// @brief get grid button
     FXMenuCheck* getMenuCheckShowGrid() const;
 
@@ -669,10 +682,10 @@ private:
         void finishRectangleSelection();
 
         /// @brief process rectangle Selection
-        void processRectangleSelection(bool shiftKeyPressed);
+        void processRectangleSelection();
 
         /// @brief process rectangle Selection (only limited to Edges)
-        std::vector<GNEEdge*> processEdgeRectangleSelection(bool shiftKeyPressed);
+        std::vector<GNEEdge*> processEdgeRectangleSelection();
 
         /// @brief process shape selection
         void processShapeSelection(const PositionVector &shape);
@@ -727,13 +740,16 @@ private:
     };
 
     /// @brief struct used to group all variables related to create edges
-    struct CreateEdgeValues {
+    struct CreateEdgeOptions {
 
         /// @brief default constructor
-        CreateEdgeValues();
+        CreateEdgeOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildCreateEdgeOptionMenuChecks();
 
         /// @brief hide all MenuChecks
-        void hideCheckBoxs();
+        void hideCreateEdgeOptionMenuChecks();
 
         /// @brief source junction for new edge 0 if no edge source is selected an existing (or newly created) junction otherwise
         GNEJunction* createEdgeSource;
@@ -752,6 +768,51 @@ private:
 
         /// @brief apply movement to elevation
         FXMenuCheck* menuCheckMoveElevation;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
+    /// @brief struct used to group all variables related to view options
+    struct ViewOptions {
+
+        /// @brief default constructor
+        ViewOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildViewOptionsMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideViewOptionsMenuChecks();
+
+        /// @brief check if select edges checkbox is enabled
+        bool selectEdges() const;
+
+        /// @brief check if select show connections checkbox is enabled
+        bool showConnections() const;
+
+        /// @brief menu check to select only edges
+        FXMenuCheck* menuCheckSelectEdges;
+
+        /// @brief menu check to show connections
+        FXMenuCheck* menuCheckShowConnections;
+
+        /// @brief menu check to hide connections in connect mode
+        FXMenuCheck* menuCheckHideConnections;
+
+        /// @brief menu check to extend to edge nodes
+        FXMenuCheck* menuCheckExtendSelection;
+
+        /// @brief menu check to set change all phases
+        FXMenuCheck* menuCheckChangeAllPhases;
+
+        /// @brief show grid button
+        FXMenuCheck* menuCheckShowGrid;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
     };
 
     /// @brief view parent
@@ -766,40 +827,17 @@ private:
     /// @brief the current frame
     GNEFrame* myCurrentFrame;
 
-    /// @brief menu check to select only edges
-    FXMenuCheck* myMenuCheckSelectEdges;
-
-    /// @brief menu check to show connections
-    FXMenuCheck* myMenuCheckShowConnections;
-
-    /// @brief menu check to hide connections in connect mode
-    FXMenuCheck* myMenuCheckHideConnections;
-
-    /// @brief menu check to extend to edge nodes
-    FXMenuCheck* myMenuCheckExtendToEdgeNodes;
-
-    /// @brief menu check to set change all phases
-    FXMenuCheck* myMenuCheckChangeAllPhases;
-
-    /// @brief show grid button
-    FXMenuCheck* myMenuCheckShowGrid;
-
-    /// @brief whether show connections has been activated once
-    bool myShowConnections;
-
-    /// @brief flag to check if select edges is enabled
-    bool mySelectEdges;
-
-    /// @brief flag to check if shift key is pressed (can be changed after Key Press/Released and mouse Move)
-    bool myShiftKeyPressed;
-
     /// @name structs
     /// @{
+
+    /// @brief variable used to save key status after certain events 
+    KeyPressed myKeyPressed;
+
     /// @brief variable use to save all pointers to objects under cursor after a click
     ObjectsUnderCursor myObjectsUnderCursor;
 
     /// @brief variable used to save all elements related to creation of Edges
-    CreateEdgeValues myCreateEdgeValues;
+    CreateEdgeOptions myCreateEdgeOptions;
 
     /// @brief variable use to save pointers to moved elements
     MovedItems myMovedItems;
@@ -815,6 +853,9 @@ private:
 
     /// @brief variable used to save variables related with testing mode
     TestingMode myTestingMode;
+    
+    /// @brief variable used to save variables related with view options
+    ViewOptions myViewOptions;
     // @}
 
     /// @brief a reference to the toolbar in myParent
@@ -944,10 +985,10 @@ private:
     bool removeRestrictedLane(SUMOVehicleClass vclass);
 
     /// @brief Auxiliar function used by onLeftBtnPress(...)
-    void processClick(FXEvent* e, void* data);
+    void processClick(void* eventData);
 
     /// @brief update cursor after every click/key press/release
-    void updateCursor(FXEvent* e);
+    void updateCursor();
 
     /// @brief draw functions
     /// @{
