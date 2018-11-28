@@ -1392,16 +1392,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                         myRunThread->getBreakpoints().assign(settings.getBreakpoints().begin(), settings.getBreakpoints().end());
                         myRunThread->getBreakpointLock().unlock();
                     }
-                    if (!OptionsCont::getOptions().isDefault("breakpoints")) {
-                        std::vector<SUMOTime> breakpoints;
-                        for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {
-                            breakpoints.push_back(string2time(val));
-                        }
-                        std::sort(breakpoints.begin(), breakpoints.end());
-                        myRunThread->getBreakpointLock().lock();
-                        myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
-                        myRunThread->getBreakpointLock().unlock();
-                    }
                     myJamSounds = settings.getEventDistribution("jam");
                     myCollisionSounds = settings.getEventDistribution("collision");
                     if (settings.getJamSoundTime() > 0) {
@@ -1410,6 +1400,16 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 }
             } else {
                 openNewView(defaultType);
+            }
+            if (!OptionsCont::getOptions().isDefault("breakpoints")) {
+                std::vector<SUMOTime> breakpoints;
+                for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {
+                    breakpoints.push_back(string2time(val));
+                }
+                std::sort(breakpoints.begin(), breakpoints.end());
+                myRunThread->getBreakpointLock().lock();
+                myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
+                myRunThread->getBreakpointLock().unlock();
             }
 
             if (isGaming()) {
