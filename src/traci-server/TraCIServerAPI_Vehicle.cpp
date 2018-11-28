@@ -517,7 +517,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     if (newSpaceHeadway < 0) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the new desired space headway must be non-negative for create gap", outputStorage);
                     }
-                    if (duration < 0 || SIMTIME + duration > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
+                    if ((duration < 0 && duration != -1)  || SIMTIME + duration > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval for create gap", outputStorage);
                     }
                     if (changeRate <= 0) {
