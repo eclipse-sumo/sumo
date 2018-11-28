@@ -512,11 +512,11 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditMode(GNE_MODE_MOVE),
     myCurrentFrame(nullptr),
     myCreateEdgeOptions(this),
-    myViewOptions(this),
     myMoveSingleElementValues(this), 
     myMoveMultipleElementValues(this), 
     mySelectingArea(this),
     myTestingMode(this), 
+    myViewOptions(this),
     myToolbar(toolBar),
     myEditModeCreateEdge(nullptr),
     myEditModeMove(nullptr),
@@ -834,11 +834,11 @@ GNEViewNet::stopEditCustomShape() {
 
 GNEViewNet::GNEViewNet() : 
     myCreateEdgeOptions(this),
-    myViewOptions(this),
-    mySelectingArea(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
-    myTestingMode(this) {
+    mySelectingArea(this),
+    myTestingMode(this), 
+    myViewOptions(this) {
 }
 
 
@@ -3827,8 +3827,8 @@ GNEViewNet::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
 // ---------------------------------------------------------------------------
 
 GNEViewNet::CreateEdgeOptions::CreateEdgeOptions(GNEViewNet* viewNet) : 
-    myViewNet(viewNet),
-    createEdgeSource(nullptr) {
+    createEdgeSource(nullptr),
+    myViewNet(viewNet) {
 }
 
 
