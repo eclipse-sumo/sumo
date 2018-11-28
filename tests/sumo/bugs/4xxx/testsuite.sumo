@@ -51,3 +51,6 @@ ticket4556
 
 # Deadlock at opposed strategical LC attempt.
 ticket4829
+
+# deadlock on parallel routing
+ticket4855
