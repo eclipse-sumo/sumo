@@ -14,7 +14,7 @@ netElements
 trafficLights
 
 # test for routes elements (Routes, Vehicles, etc.)
-routeElements
+#routeElements
 
 # test for select elements 
 selection

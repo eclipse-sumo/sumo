@@ -1,0 +1,11 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 140
+calibrator
+TestFunctions: Clicked over position 549 - 300
+TestFunctions: Clicked over position 604 - 345
+///
+customName
+TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 304 - 140
+TestFunctions: Netedit closed successfully

@@ -11,6 +11,9 @@ delete
 # inspect additional
 inspect
 
+# inspect selection of additionals
+inspect_selection
+
 # load additional
 load
 
