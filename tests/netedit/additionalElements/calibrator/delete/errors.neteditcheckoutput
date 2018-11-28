@@ -1,2 +1,2 @@
-Error: Could not access configuration 'sumo.sumocfg'.
+Error: File 'net.netedit' is not accessible (No such file or directory).
 Quitting (on error).
