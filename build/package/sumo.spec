@@ -20,6 +20,7 @@
 Name:           sumo
 Version:        git
 Release:        0
+Epoch:          2
 Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
