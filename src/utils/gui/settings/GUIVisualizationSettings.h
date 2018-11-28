@@ -39,6 +39,7 @@
 class BaseSchemeInfoSource;
 class OutputDevice;
 class GUIVisualizationSettings;
+class GUIGlObject;
 
 
 // ===========================================================================
@@ -80,8 +81,8 @@ struct GUIVisualizationTextSettings {
 
 
 struct GUIVisualizationSizeSettings {
-    GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false) :
-        minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize) {}
+    GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false, bool _constantSizeSelected = false) :
+        minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize), constantSizeSelected(_constantSizeSelected) {}
 
     /// @brief The minimum size to draw this object
     double minSize;
@@ -89,9 +90,12 @@ struct GUIVisualizationSizeSettings {
     double exaggeration;
     // @brief whether the object shall be drawn with constant size regardless of zoom
     bool constantSize;
+    // @brief whether only selected objects shall be drawn with constant
+    bool constantSizeSelected;
 
     bool operator==(const GUIVisualizationSizeSettings& other) {
         return constantSize == other.constantSize &&
+               constantSizeSelected == other.constantSizeSelected &&
                minSize == other.minSize &&
                exaggeration == other.exaggeration;
     }
@@ -103,10 +107,11 @@ struct GUIVisualizationSizeSettings {
         dev.writeAttr(name + "_minSize", minSize);
         dev.writeAttr(name + "_exaggeration", exaggeration);
         dev.writeAttr(name + "_constantSize", constantSize);
+        dev.writeAttr(name + "_constantSizeSelected", constantSizeSelected);
     }
 
     /// @brief return the drawing size including exaggeration and constantSize values
-    double getExaggeration(const GUIVisualizationSettings& s, double factor = 20) const;
+    double getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor = 20) const;
 };
 
 

@@ -241,7 +241,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
     GLfloat color[4];
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
-    exaggeration *= s.junctionSize.getExaggeration(s);
+    exaggeration *= s.junctionSize.getExaggeration(s, this);
     // declare values for circles
     double circleWidth = BUBBLE_RADIUS * exaggeration;
     double circleWidthSquared = circleWidth * circleWidth;
@@ -1273,7 +1273,7 @@ GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
         const bool drawBubble = (((!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape) || myNet->getViewNet()->showJunctionAsBubbles());
         // declare values for circles
         double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
-        exaggeration *= s.junctionSize.getExaggeration(s);
+        exaggeration *= s.junctionSize.getExaggeration(s, this);
         double circleWidth = BUBBLE_RADIUS * exaggeration;
         double circleWidthSquared = circleWidth * circleWidth;
         if (drawBubble) {

@@ -101,6 +101,14 @@ GUISelectedStorage::isSelected(GUIGlObjectType type, GUIGlID id) {
     }
 }
 
+bool 
+GUISelectedStorage::isSelected(const GUIGlObject* o) {
+    if (o == nullptr) {
+        return false;
+    } else {
+        return isSelected(o->getType(), o->getGlID());
+    }
+}
 
 void
 GUISelectedStorage::select(GUIGlID id, bool update) {

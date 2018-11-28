@@ -351,7 +351,8 @@ GUISettingsHandler::parseSizeSettings(
     return GUIVisualizationSizeSettings(
                StringUtils::toDouble(attrs.getStringSecure(prefix + "_minSize", toString(defaults.minSize))),
                StringUtils::toDouble(attrs.getStringSecure(prefix + "_exaggeration", toString(defaults.exaggeration))),
-               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constantSize))));
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constantSize))),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSizeSelected", toString(defaults.constantSizeSelected))));
 }
 
 

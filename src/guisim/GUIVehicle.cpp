@@ -452,7 +452,7 @@ GUIVehicle::drawBestLanes() const {
 
 void
 GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const {
-    const double exaggeration = s.vehicleSize.getExaggeration(s);
+    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
     MSRouteIterator i = r.begin();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
@@ -517,7 +517,7 @@ void
 GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, double defaultLength, double carriageGap, int firstPassengerCarriage, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
-    const double exaggeration = s.vehicleSize.getExaggeration(s);
+    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
     const double totalLength = getVType().getLength();
     double upscaleLength = exaggeration;
     if (exaggeration > 1 && totalLength > 5) {

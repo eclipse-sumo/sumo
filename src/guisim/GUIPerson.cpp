@@ -282,7 +282,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     // set person color
     setColor(s);
     // scale
-    const double upscale = s.personSize.getExaggeration(s, 80);
+    const double upscale = s.personSize.getExaggeration(s, this, 80);
     glScaled(upscale, upscale, 1);
     switch (s.personQuality) {
         case 0:
@@ -339,7 +339,7 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             GLHelper::setColor(darker);
             MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
             assert(stage != 0);
-            const double exaggeration = s.personSize.getExaggeration(s);
+            const double exaggeration = s.personSize.getExaggeration(s, this);
             const ConstMSEdgeVector& edges = stage->getRoute();
             for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
                 GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);
@@ -531,7 +531,7 @@ GUIPerson::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         }
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const double exaggeration = s.personSize.getExaggeration(s);
+            const double exaggeration = s.personSize.getExaggeration(s, this);
             const double halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
             const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);

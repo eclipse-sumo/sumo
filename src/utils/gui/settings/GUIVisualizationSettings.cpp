@@ -25,6 +25,7 @@
 
 #include <map>
 #include <vector>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include "GUIVisualizationSettings.h"
 #include "GUIPropertyScheme.h"
 
@@ -1278,9 +1279,11 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 
 
 double
-GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, double factor) const {
+GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor) const {
     /// @note should look normal-sized at zoom 1000
-    return (constantSize && !s.drawForSelecting) ? MAX2((double)exaggeration, exaggeration * factor / s.scale) : exaggeration;
+    return (constantSize && !s.drawForSelecting && (!constantSizeSelected || o == nullptr || gSelected.isSelected(o))) 
+        ? MAX2((double)exaggeration, exaggeration * factor / s.scale) 
+        : (!constantSizeSelected || o == nullptr || gSelected.isSelected(o) ? exaggeration : 1);
 }
 
 

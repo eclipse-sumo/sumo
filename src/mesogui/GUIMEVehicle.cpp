@@ -205,7 +205,7 @@ GUIMEVehicle::getColorValue(int activeScheme) const {
 
 void
 GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const {
-    const double exaggeration = s.vehicleSize.getExaggeration(s);
+    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
     MSRouteIterator i = r.begin();
     for (; i != r.end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);

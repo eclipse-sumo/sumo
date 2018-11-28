@@ -148,7 +148,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     const int numberOfLanes = int(myEdge->getLanes().size());
 
     // set color

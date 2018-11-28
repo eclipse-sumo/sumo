@@ -160,7 +160,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, getType());
     double dwidth = 1;
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     if (exaggeration > 0) {
         if (myDetector.getUsageType() == DU_TL_CONTROL) {
             dwidth = (double) 0.3;

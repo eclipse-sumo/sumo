@@ -288,7 +288,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     */
     // simply use GUIPolygon::drawGL
     GUIPolygon::drawGL(s);
-    double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s));
+    double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
     double circleWidthSquared = circleWidth * circleWidth;
     int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // push matrix
@@ -315,7 +315,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             glTranslated(0, 0, GLO_POLYGON + 0.01);
             GLHelper::setColor(darkerColor);
-            GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s));
+            GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {

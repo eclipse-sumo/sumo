@@ -251,7 +251,7 @@ GNETAZ::getParentName() const {
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
-    if (s.polySize.getExaggeration(s) == 0) {
+    if (s.polySize.getExaggeration(s, this) == 0) {
         return;
     }
     Boundary boundary = myGeometry.shape.getBoxBoundary();
@@ -297,7 +297,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             glTranslated(0, 0, GLO_POLYGON + 0.01);
             GLHelper::setColor(darkerColor);
-            GLHelper::drawBoxLines(myGeometry.shape, (myHintSize / 4) * s.polySize.getExaggeration(s));
+            GLHelper::drawBoxLines(myGeometry.shape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
             glPopMatrix();
             // draw points of shape
             for (auto i : myGeometry.shape) {

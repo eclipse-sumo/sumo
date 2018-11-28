@@ -103,7 +103,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator
     glPushName(getGlID());
     // Add a draw matrix

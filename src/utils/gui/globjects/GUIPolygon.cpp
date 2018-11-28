@@ -134,7 +134,7 @@ GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
-    if (s.polySize.getExaggeration(s) == 0) {
+    if (s.polySize.getExaggeration(s, this) == 0) {
         return;
     }
     Boundary boundary = myShape.getBoxBoundary();
@@ -192,7 +192,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     }
     // recall tesselation
     //glCallList(myDisplayList);
-    performTesselation(myLineWidth * s.polySize.getExaggeration(s));
+    performTesselation(myLineWidth * s.polySize.getExaggeration(s, this));
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);

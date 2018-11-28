@@ -158,7 +158,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     glPushName(getGlID());
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
 
     // iterate over every Calibrator symbol
     for (int i = 0; i < (int)myGeometry.shape.size(); ++i) {

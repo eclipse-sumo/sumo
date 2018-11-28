@@ -337,7 +337,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::getParameterWindow(GUIMainWindow
 
 void
 GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSettings& s) const {
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     if (s.scale * exaggeration >= 3) {
         glPushName(getGlID());
         const double prob = myParent->getProbability();

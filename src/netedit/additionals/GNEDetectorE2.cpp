@@ -436,7 +436,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
 
     // check if we have to drawn a E2 single lane or a E2 multiLane
     if(myGeometry.shape.size() > 0) {

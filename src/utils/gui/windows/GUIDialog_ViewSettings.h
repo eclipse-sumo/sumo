@@ -76,6 +76,7 @@ public:
         FXRealSpinner* myMinSizeDial;
         FXRealSpinner* myExaggerateDial;
         FXCheckButton* myCheck;
+        FXCheckButton* myCheckSelected;
     };
 
     /** @brief Constructor

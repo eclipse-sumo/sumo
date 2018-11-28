@@ -106,6 +106,8 @@ public:
      */
     bool isSelected(GUIGlObjectType type, GUIGlID id);
 
+    bool isSelected(const GUIGlObject* o);
+
     /** @brief Adds the object with the given id
      *
      * The id of the object is added to the sub-container that is

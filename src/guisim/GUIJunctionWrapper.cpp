@@ -120,7 +120,7 @@ void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (!myIsInternal && s.drawJunctionShape) {
         // check whether it is not too small
-        const double exaggeration = s.junctionSize.getExaggeration(s, 4);
+        const double exaggeration = s.junctionSize.getExaggeration(s, this, 4);
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
             glPushMatrix();
             glPushName(getGlID());

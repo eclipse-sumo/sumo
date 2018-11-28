@@ -184,7 +184,7 @@ GNEAccess::getParentName() const {
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator
     glPushName(getGlID());
     // push matrix

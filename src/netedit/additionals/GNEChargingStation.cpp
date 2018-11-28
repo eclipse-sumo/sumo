@@ -106,7 +106,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Get exaggeration
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // Push name
     glPushName(getGlID());
     // Push base matrix

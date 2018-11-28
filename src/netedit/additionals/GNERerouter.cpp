@@ -173,7 +173,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         myBlockIcon.draw(0.4);
 
         // Draw symbols in every lane
-        const double exaggeration = s.addSize.getExaggeration(s);
+        const double exaggeration = s.addSize.getExaggeration(s, this);
 
         if (s.scale * exaggeration >= 3) {
             // draw rerouter symbol over all lanes

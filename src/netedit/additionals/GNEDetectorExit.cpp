@@ -176,7 +176,7 @@ GNEDetectorExit::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(s.SUMO_color_E3Exit);
     }
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Push polygon matrix

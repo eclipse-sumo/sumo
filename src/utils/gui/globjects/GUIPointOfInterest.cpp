@@ -96,7 +96,7 @@ GUIPointOfInterest::getCenteringBoundary() const {
 
 void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
-    const double exaggeration = s.poiSize.getExaggeration(s);
+    const double exaggeration = s.poiSize.getExaggeration(s, this);
     // first clear vertices
     myPOIVertices.clear();
     // only continue if scale is valid

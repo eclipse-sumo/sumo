@@ -861,7 +861,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s,
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const double exaggeration = s.vehicleSize.getExaggeration(s);
+            const double exaggeration = s.vehicleSize.getExaggeration(s, this);
             if (length < 0) {
                 length = getVType().getLength() * exaggeration;
             }
@@ -892,7 +892,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // set lane color
     setColor(s);
     // scale
-    const double upscale = s.vehicleSize.getExaggeration(s);
+    const double upscale = s.vehicleSize.getExaggeration(s, this);
     double upscaleLength = upscale;
     if (upscale > 1 && length > 5) {
         // reduce the length/width ratio because this is not usefull at high zoom

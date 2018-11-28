@@ -501,7 +501,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         if (!isInternal
                 && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING
                 && (s.junctionSize.constantSize || s.junctionSize.exaggeration > 1)) {
-            junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, 4));
+            junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, this, 4));
         }
         // draw lane
         // check whether it is not too small
@@ -638,7 +638,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
     }
     // draw vehicles
-    if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
+    if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {
         // retrieve vehicles from lane; disallow simulation
         const MSLane::VehCont& vehicles = getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {

@@ -143,7 +143,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(s.SUMO_color_chargingStation);
     }
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
 
     // draw details unless zoomed out to far

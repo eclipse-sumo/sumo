@@ -107,7 +107,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // Push name
     glPushName(getGlID());
     // Push base matrix

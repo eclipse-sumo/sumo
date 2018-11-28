@@ -221,7 +221,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     if (MSGlobals::gUseMesoSim) {
-        if (s.scale * s.vehicleSize.getExaggeration(s) > s.vehicleSize.minSize) {
+        if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {
             drawMesoVehicles(s);
         }
     }
@@ -264,7 +264,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
     }
-    if (s.scale * s.personSize.getExaggeration(s) > s.personSize.minSize) {
+    if (s.scale * s.personSize.getExaggeration(s, nullptr) > s.personSize.minSize) {
         AbstractMutex::ScopedLocker locker(myLock);
         for (std::set<MSTransportable*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
@@ -272,7 +272,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             person->drawGL(s);
         }
     }
-    if (s.scale * s.containerSize.getExaggeration(s) > s.containerSize.minSize) {
+    if (s.scale * s.containerSize.getExaggeration(s, nullptr) > s.containerSize.minSize) {
         AbstractMutex::ScopedLocker locker(myLock);
         for (std::set<MSTransportable*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);

@@ -166,7 +166,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         myBlockIcon.draw(0.4);
 
         // obtain exxageration
-        const double exaggeration = s.addSize.getExaggeration(s);
+        const double exaggeration = s.addSize.getExaggeration(s, this);
 
         // iterate over symbols and rotation
         for (auto i : myChildConnections.symbolsPositionAndRotation) {
