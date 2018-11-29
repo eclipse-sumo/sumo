@@ -956,7 +956,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
         std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
         double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
-        // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
+        std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
             // get pointer and edge
@@ -967,7 +967,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
             } else if (edge == nullptr) {
                 WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
             } else {
-                myLastInsertedAdditional = buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, name, outfile, freq);
+                myLastInsertedAdditional = buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, name, outfile, freq, routeProbe);
                 // save ID of last created element
                 myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
             }
@@ -980,8 +980,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
         double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
         std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
         double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
-        // std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort); Currently routeProbe not used
-
+        std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
             // get pointer to lane
@@ -992,7 +991,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, co
             } else if (lane == nullptr) {
                 WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
             } else {
-                myLastInsertedAdditional = buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, name, outfile, freq);
+                myLastInsertedAdditional = buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, name, outfile, freq, routeProbe);
                 // save ID of last created element
                 myParentElements.commitElementInsertion(myLastInsertedAdditional->getID());
             }
@@ -1473,9 +1472,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string name = values[SUMO_ATTR_NAME];
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
+            std::string routeProbe = values[SUMO_ATTR_ROUTEPROBE];
             // Build calibrator edge
             if (edge) {
-                return buildCalibrator(viewNet, allowUndoRedo, id, edge, pos, name, outfile, freq);
+                return buildCalibrator(viewNet, allowUndoRedo, id, edge, pos, name, outfile, freq, routeProbe);
             } else {
                 return nullptr;
             }
@@ -1489,9 +1489,10 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string name = values[SUMO_ATTR_NAME];
             std::string outfile = values[SUMO_ATTR_OUTPUT];
             double freq = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_FREQUENCY]);
+            std::string routeProbe = values[SUMO_ATTR_ROUTEPROBE];
             // Build calibrator lane
             if (lane) {
-                return buildCalibrator(viewNet, allowUndoRedo, id, lane, pos, name, outfile, freq);
+                return buildCalibrator(viewNet, allowUndoRedo, id, lane, pos, name, outfile, freq, routeProbe);
             } else {
                 return nullptr;
             }
@@ -1851,9 +1852,9 @@ GNEAdditionalHandler::buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndo
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const double freq) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const double freq, const std::string& routeprobe) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
-        GNECalibrator* calibrator = new GNECalibrator(id, viewNet, lane, pos, freq, name, outfile);
+        GNECalibrator* calibrator = new GNECalibrator(id, viewNet, lane, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
@@ -1873,9 +1874,9 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const double freq) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const double freq, const std::string& routeprobe) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
-        GNECalibrator* calibrator = new GNECalibrator(id, viewNet, edge, pos, freq, name, outfile);
+        GNECalibrator* calibrator = new GNECalibrator(id, viewNet, edge, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
             viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);

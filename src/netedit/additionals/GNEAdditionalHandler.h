@@ -522,7 +522,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
      */
-    static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, double freq);
+    static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, double freq, const std::string& routeprobe);
 
     /**@brief builds a microscopic calibrator over an edge
     * @param[in] viewNet viewNet in which element will be inserted
@@ -532,12 +532,13 @@ public:
     * @param[in] pos The position on the edge the calibrator lies at
     * @param[in] name Calibrator name
     * @param[in] outfile te file in which write results
+    * @param[in] routeProbe route probe vinculated with this calibrator
     * @return true if was sucesfully created, false in other case
     * @todo Is the position correct/needed
     * @return true if was sucesfully created, false in other case
     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
     */
-    static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, double freq);
+    static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, double freq, const std::string& routeprobe);
 
     /**
     DOCUMENTAR

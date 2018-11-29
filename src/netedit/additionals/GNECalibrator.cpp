@@ -56,25 +56,25 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false),
     myEdge(edge),
     myLane(nullptr),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr) { /** change this in the future **/
+    myRouteProbe(routeprobe) {
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false),
     myEdge(nullptr),
     myLane(lane),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
-    myRouteProbe(nullptr) { /** change this in the future **/
+    myRouteProbe(routeprobe) {
 }
 
 
@@ -240,11 +240,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
-            if (myRouteProbe) {
-                return myRouteProbe->getID();
-            } else {
-                return "";
-            }
+            return myRouteProbe;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -317,11 +313,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OUTPUT:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_ROUTEPROBE:
-            if (SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr)) {
-                return true;
-            } else {
-                return false;
-            }
+            return SUMOXMLDefinitions::isValidNetID(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
@@ -372,7 +364,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOutput = value;
             break;
         case SUMO_ATTR_ROUTEPROBE:
-            myRouteProbe = dynamic_cast<GNERouteProbe*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value));
+            myRouteProbe = value;
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

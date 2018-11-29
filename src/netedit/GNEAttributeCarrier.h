@@ -800,6 +800,11 @@ public:
                 errorFormat = "List of vTypes contains invalid characters; ";
                 parsedOk = false;
             }
+            // set extra check for list of RouteProbe
+            if ((attribute == SUMO_ATTR_ROUTEPROBE) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
+                errorFormat = "RouteProbe ID contains invalid characters; ";
+                parsedOk = false;
+            }
             // If attribute has an invalid format
             if (!parsedOk) {
                 // if attribute is optional and has a default value, obtain it as string. In other case, abort.

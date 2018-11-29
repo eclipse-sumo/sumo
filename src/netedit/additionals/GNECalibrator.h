@@ -52,10 +52,11 @@ public:
     * @param[in] frequency the aggregation interval in which to calibrate the flows
     * @param[in] name Calibrator name
     * @param[in] output The output file for writing calibrator information
+    * @param[in] routeprobe route probe vinculated with this calibrator
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
     */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output);
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
 
     /**@brief Constructor using lane
     * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -64,11 +65,12 @@ public:
     * @param[in] pos position of the calibrator on the edge (Currently not used)
     * @param[in] frequency the aggregation interval in which to calibrate the flows
     * @param[in] name Calibrator name
+    * @param[in] routeprobe route probe vinculated with this calibrator
     * @param[in] output The output file for writing calibrator information
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
     */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output);
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
 
     /// @brief Destructor
     ~GNECalibrator();
@@ -154,8 +156,8 @@ protected:
     /// @brief output of calibrator
     std::string myOutput;
 
-    /// @brief pointer to current RouteProbe
-    GNERouteProbe* myRouteProbe;
+    /// @brief ID to current RouteProbe
+    std::string myRouteProbe;
 
 private:
     /// @brief set attribute after validation
