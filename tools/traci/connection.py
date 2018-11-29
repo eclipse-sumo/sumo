@@ -282,7 +282,7 @@ class Connection:
             else:
                 length += 4  # extended msg length
                 self._string += struct.pack("!BiBB", 0, length, command, filterType)
-            self._string += self._packStringList(params)
+            self._packStringList(params)
         elif filterType == tc.FILTER_TYPE_LANES:
             # filter with list(byte) parameter
             # check uniqueness of given lanes in list

@@ -1344,11 +1344,13 @@ TraCIServer::addSubscriptionFilter() {
             addSubscriptionFilterTurn();
             break;
         case FILTER_TYPE_VCLASS: {
+            myInputStorage.readByte(); // read type stringlist
             SVCPermissions vClasses = parseVehicleClasses(myInputStorage.readStringList());
             addSubscriptionFilterVClass(vClasses);
         }
         break;
         case FILTER_TYPE_VTYPE: {
+            myInputStorage.readByte(); // read type stringlist
             std::vector<std::string> vTypesVector = myInputStorage.readStringList();
             std::set<std::string> vTypesSet;
             vTypesSet.insert(vTypesVector.begin(), vTypesVector.end());
