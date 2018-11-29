@@ -1540,6 +1540,7 @@ class VehicleDomain(Domain):
             lanes = [-1, 0, 1]
         elif not (direction == -1 or direction == 1):
             warnings.warn("Ignoring lane change subscription filter with non-neighboring lane offset direction=%s."%direction)
+            return
         else:
             lanes = [0, direction]
         self.addSubscriptionFilterLeadFollow(lanes)
