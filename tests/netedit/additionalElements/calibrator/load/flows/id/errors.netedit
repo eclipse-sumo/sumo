@@ -1,0 +1,110 @@
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding calibrator 'calibratorFlows' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Adding route 'CalibratorFlowRoute' in GNEChange_Additional
+Debug: Adding vType 'CalibratorFlowType' in GNEChange_Additional
+Debug: Adding flow 'calibratorFlowsflow0' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow1' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow2' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow3' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow4' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow5' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow6' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow7' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow8' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding flow 'calibratorFlowsflow9' in GNEChange_Additional
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding route 'routeWithoutCalibrator' in GNEChange_Additional
+Debug: Adding vType 'typeWithoutCalibrator' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Deleting unreferenced vType 'typeWithoutCalibrator'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced route 'routeWithoutCalibrator'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow9'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow8'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow7'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow6'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow5'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow4'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow3'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow2'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow1'
+Debug: Deleting unreferenced flow 'calibratorFlowsflow0'
+Debug: Deleting unreferenced vType 'CalibratorFlowType'
+Debug: Deleting unreferenced route 'CalibratorFlowRoute'
+Debug: Deleting unreferenced calibrator 'calibratorFlows'
+GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 6

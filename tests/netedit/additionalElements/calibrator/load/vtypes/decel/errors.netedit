@@ -1,0 +1,312 @@
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding calibrator 'calibratorVehicleTypes' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibratorVehicleTypes into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibratorVehicleTypes from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibratorVehicleTypes into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object calibrator:calibratorVehicleTypes from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibratorVehicleTypes into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Adding vType 'type01' in GNEChange_Additional
+Debug: Adding vType 'type02' in GNEChange_Additional
+Debug: Adding vType 'type03' in GNEChange_Additional
+Debug: Adding vType 'type04' in GNEChange_Additional
+Debug: Adding vType 'type05' in GNEChange_Additional
+Debug: Adding vType 'type06' in GNEChange_Additional
+Debug: Adding vType 'type07' in GNEChange_Additional
+Debug: Adding vType 'type08' in GNEChange_Additional
+Debug: Adding vType 'type09' in GNEChange_Additional
+Debug: Adding vType 'type10' in GNEChange_Additional
+Debug: Adding vType 'type11' in GNEChange_Additional
+Debug: Adding vType 'type12' in GNEChange_Additional
+Debug: Adding vType 'type13' in GNEChange_Additional
+Debug: Adding vType 'type14' in GNEChange_Additional
+Debug: Adding vType 'type15' in GNEChange_Additional
+Debug: Adding vType 'type16' in GNEChange_Additional
+Debug: Adding vType 'type17' in GNEChange_Additional
+Debug: Adding vType 'type18' in GNEChange_Additional
+Debug: Adding vType 'type19' in GNEChange_Additional
+Debug: Adding vType 'type20' in GNEChange_Additional
+Debug: Adding vType 'type21' in GNEChange_Additional
+Debug: Adding vType 'type22' in GNEChange_Additional
+Debug: Adding vType 'type23' in GNEChange_Additional
+Debug: Adding vType 'type24' in GNEChange_Additional
+Debug: Adding vType 'type25' in GNEChange_Additional
+Debug: Adding vType 'type26' in GNEChange_Additional
+Debug: Adding vType 'type27' in GNEChange_Additional
+Debug: Adding vType 'type28' in GNEChange_Additional
+Debug: Adding vType 'type29' in GNEChange_Additional
+Debug: Adding vType 'type30' in GNEChange_Additional
+Debug: Adding vType 'type31' in GNEChange_Additional
+Debug: Adding vType 'type32' in GNEChange_Additional
+Debug: Adding vType 'type33' in GNEChange_Additional
+Debug: Adding vType 'type34' in GNEChange_Additional
+Debug: Adding vType 'type35' in GNEChange_Additional
+Debug: Adding vType 'type36' in GNEChange_Additional
+Debug: Adding vType 'type37' in GNEChange_Additional
+Debug: Adding vType 'type38' in GNEChange_Additional
+Debug: Adding vType 'type39' in GNEChange_Additional
+Debug: Adding vType 'type40' in GNEChange_Additional
+Debug: Adding vType 'type41' in GNEChange_Additional
+Debug: Adding vType 'type42' in GNEChange_Additional
+Debug: Adding vType 'type43' in GNEChange_Additional
+Debug: Adding vType 'type44' in GNEChange_Additional
+Debug: Adding vType 'type45' in GNEChange_Additional
+Debug: Adding vType 'type46' in GNEChange_Additional
+Debug: Adding vType 'type47' in GNEChange_Additional
+Debug: Adding vType 'type48' in GNEChange_Additional
+Debug: Adding vType 'type49' in GNEChange_Additional
+Debug: Adding vType 'type50' in GNEChange_Additional
+Debug: Adding vType 'type51' in GNEChange_Additional
+Debug: Adding vType 'type52' in GNEChange_Additional
+Debug: Adding vType 'type53' in GNEChange_Additional
+Debug: Adding vType 'type54' in GNEChange_Additional
+Debug: Adding vType 'type55' in GNEChange_Additional
+Debug: Adding vType 'type56' in GNEChange_Additional
+Debug: Adding vType 'type57' in GNEChange_Additional
+Debug: Adding vType 'type58' in GNEChange_Additional
+Debug: Adding vType 'type59' in GNEChange_Additional
+Debug: Adding vType 'type60' in GNEChange_Additional
+Debug: Adding vType 'type61' in GNEChange_Additional
+Debug: Adding vType 'type62' in GNEChange_Additional
+Debug: Adding vType 'type63' in GNEChange_Additional
+Debug: Adding vType 'type64' in GNEChange_Additional
+Debug: Adding vType 'type65' in GNEChange_Additional
+Debug: Adding vType 'type66' in GNEChange_Additional
+Debug: Adding vType 'type67' in GNEChange_Additional
+Debug: Adding vType 'type68' in GNEChange_Additional
+Debug: Adding vType 'type69' in GNEChange_Additional
+Debug: Adding vType 'type70' in GNEChange_Additional
+Debug: Adding vType 'type71' in GNEChange_Additional
+Debug: Adding vType 'type72' in GNEChange_Additional
+Debug: Adding vType 'type73' in GNEChange_Additional
+Debug: Adding vType 'type74' in GNEChange_Additional
+Debug: Adding vType 'type75' in GNEChange_Additional
+Debug: Adding vType 'type76' in GNEChange_Additional
+Debug: Adding vType 'type77' in GNEChange_Additional
+Debug: Adding vType 'type78' in GNEChange_Additional
+Debug: Adding vType 'type79' in GNEChange_Additional
+Debug: Adding vType 'type80' in GNEChange_Additional
+Debug: Adding vType 'type81' in GNEChange_Additional
+Debug: Adding vType 'type82' in GNEChange_Additional
+Debug: Adding vType 'type83' in GNEChange_Additional
+Debug: Adding vType 'type84' in GNEChange_Additional
+Debug: Adding vType 'type85' in GNEChange_Additional
+Debug: Adding vType 'type86' in GNEChange_Additional
+Debug: Adding vType 'type87' in GNEChange_Additional
+Debug: Adding vType 'type88' in GNEChange_Additional
+Debug: Adding vType 'type89' in GNEChange_Additional
+Debug: Adding vType 'type90' in GNEChange_Additional
+Debug: Adding vType 'type91' in GNEChange_Additional
+Debug: Adding vType 'type92' in GNEChange_Additional
+Debug: Adding vType 'type93' in GNEChange_Additional
+Debug: Adding vType 'type94' in GNEChange_Additional
+Debug: Adding vType 'type95' in GNEChange_Additional
+Debug: Adding vType 'type96' in GNEChange_Additional
+Debug: Adding vType 'type97' in GNEChange_Additional
+Debug: Adding vType 'type98' in GNEChange_Additional
+Debug: Adding vType 'type99' in GNEChange_Additional
+Debug: Adding vType 'type101' in GNEChange_Additional
+Debug: Adding vType 'type102' in GNEChange_Additional
+Debug: Adding vType 'type103' in GNEChange_Additional
+Debug: Adding vType 'type104' in GNEChange_Additional
+Debug: Adding vType 'type105' in GNEChange_Additional
+Debug: Adding vType 'type106' in GNEChange_Additional
+Debug: Adding vType 'type107' in GNEChange_Additional
+Debug: Adding vType 'type108' in GNEChange_Additional
+Debug: Adding vType 'type109' in GNEChange_Additional
+Debug: Adding vType 'type110' in GNEChange_Additional
+Debug: Adding vType 'type111' in GNEChange_Additional
+Debug: Adding vType 'type112' in GNEChange_Additional
+Debug: Adding vType 'type113' in GNEChange_Additional
+Debug: Adding vType 'type114' in GNEChange_Additional
+Debug: Adding vType 'type115' in GNEChange_Additional
+Debug: Adding vType 'type116' in GNEChange_Additional
+Debug: Adding vType 'type117' in GNEChange_Additional
+Debug: Adding vType 'type118' in GNEChange_Additional
+Debug: Adding vType 'type119' in GNEChange_Additional
+Debug: Adding vType 'type120' in GNEChange_Additional
+Debug: Adding vType 'type121' in GNEChange_Additional
+Debug: Adding vType 'type122' in GNEChange_Additional
+Debug: Adding vType 'type123' in GNEChange_Additional
+Debug: Adding vType 'type124' in GNEChange_Additional
+Debug: Adding route 'routeWithoutCalibrator' in GNEChange_Additional
+Debug: Adding vType 'typeWithoutCalibrator' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Removed object calibrator:calibratorVehicleTypes from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibratorVehicleTypes into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Deleting unreferenced vType 'typeWithoutCalibrator'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced route 'routeWithoutCalibrator'
+Debug: Deleting unreferenced vType 'type124'
+Debug: Deleting unreferenced vType 'type123'
+Debug: Deleting unreferenced vType 'type122'
+Debug: Deleting unreferenced vType 'type121'
+Debug: Deleting unreferenced vType 'type120'
+Debug: Deleting unreferenced vType 'type119'
+Debug: Deleting unreferenced vType 'type118'
+Debug: Deleting unreferenced vType 'type117'
+Debug: Deleting unreferenced vType 'type116'
+Debug: Deleting unreferenced vType 'type115'
+Debug: Deleting unreferenced vType 'type114'
+Debug: Deleting unreferenced vType 'type113'
+Debug: Deleting unreferenced vType 'type112'
+Debug: Deleting unreferenced vType 'type111'
+Debug: Deleting unreferenced vType 'type110'
+Debug: Deleting unreferenced vType 'type109'
+Debug: Deleting unreferenced vType 'type108'
+Debug: Deleting unreferenced vType 'type107'
+Debug: Deleting unreferenced vType 'type106'
+Debug: Deleting unreferenced vType 'type105'
+Debug: Deleting unreferenced vType 'type104'
+Debug: Deleting unreferenced vType 'type103'
+Debug: Deleting unreferenced vType 'type102'
+Debug: Deleting unreferenced vType 'type101'
+Debug: Deleting unreferenced vType 'type99'
+Debug: Deleting unreferenced vType 'type98'
+Debug: Deleting unreferenced vType 'type97'
+Debug: Deleting unreferenced vType 'type96'
+Debug: Deleting unreferenced vType 'type95'
+Debug: Deleting unreferenced vType 'type94'
+Debug: Deleting unreferenced vType 'type93'
+Debug: Deleting unreferenced vType 'type92'
+Debug: Deleting unreferenced vType 'type91'
+Debug: Deleting unreferenced vType 'type90'
+Debug: Deleting unreferenced vType 'type89'
+Debug: Deleting unreferenced vType 'type88'
+Debug: Deleting unreferenced vType 'type87'
+Debug: Deleting unreferenced vType 'type86'
+Debug: Deleting unreferenced vType 'type85'
+Debug: Deleting unreferenced vType 'type84'
+Debug: Deleting unreferenced vType 'type83'
+Debug: Deleting unreferenced vType 'type82'
+Debug: Deleting unreferenced vType 'type81'
+Debug: Deleting unreferenced vType 'type80'
+Debug: Deleting unreferenced vType 'type79'
+Debug: Deleting unreferenced vType 'type78'
+Debug: Deleting unreferenced vType 'type77'
+Debug: Deleting unreferenced vType 'type76'
+Debug: Deleting unreferenced vType 'type75'
+Debug: Deleting unreferenced vType 'type74'
+Debug: Deleting unreferenced vType 'type73'
+Debug: Deleting unreferenced vType 'type72'
+Debug: Deleting unreferenced vType 'type71'
+Debug: Deleting unreferenced vType 'type70'
+Debug: Deleting unreferenced vType 'type69'
+Debug: Deleting unreferenced vType 'type68'
+Debug: Deleting unreferenced vType 'type67'
+Debug: Deleting unreferenced vType 'type66'
+Debug: Deleting unreferenced vType 'type65'
+Debug: Deleting unreferenced vType 'type64'
+Debug: Deleting unreferenced vType 'type63'
+Debug: Deleting unreferenced vType 'type62'
+Debug: Deleting unreferenced vType 'type61'
+Debug: Deleting unreferenced vType 'type60'
+Debug: Deleting unreferenced vType 'type59'
+Debug: Deleting unreferenced vType 'type58'
+Debug: Deleting unreferenced vType 'type57'
+Debug: Deleting unreferenced vType 'type56'
+Debug: Deleting unreferenced vType 'type55'
+Debug: Deleting unreferenced vType 'type54'
+Debug: Deleting unreferenced vType 'type53'
+Debug: Deleting unreferenced vType 'type52'
+Debug: Deleting unreferenced vType 'type51'
+Debug: Deleting unreferenced vType 'type50'
+Debug: Deleting unreferenced vType 'type49'
+Debug: Deleting unreferenced vType 'type48'
+Debug: Deleting unreferenced vType 'type47'
+Debug: Deleting unreferenced vType 'type46'
+Debug: Deleting unreferenced vType 'type45'
+Debug: Deleting unreferenced vType 'type44'
+Debug: Deleting unreferenced vType 'type43'
+Debug: Deleting unreferenced vType 'type42'
+Debug: Deleting unreferenced vType 'type41'
+Debug: Deleting unreferenced vType 'type40'
+Debug: Deleting unreferenced vType 'type39'
+Debug: Deleting unreferenced vType 'type38'
+Debug: Deleting unreferenced vType 'type37'
+Debug: Deleting unreferenced vType 'type36'
+Debug: Deleting unreferenced vType 'type35'
+Debug: Deleting unreferenced vType 'type34'
+Debug: Deleting unreferenced vType 'type33'
+Debug: Deleting unreferenced vType 'type32'
+Debug: Deleting unreferenced vType 'type31'
+Debug: Deleting unreferenced vType 'type30'
+Debug: Deleting unreferenced vType 'type29'
+Debug: Deleting unreferenced vType 'type28'
+Debug: Deleting unreferenced vType 'type27'
+Debug: Deleting unreferenced vType 'type26'
+Debug: Deleting unreferenced vType 'type25'
+Debug: Deleting unreferenced vType 'type24'
+Debug: Deleting unreferenced vType 'type23'
+Debug: Deleting unreferenced vType 'type22'
+Debug: Deleting unreferenced vType 'type21'
+Debug: Deleting unreferenced vType 'type20'
+Debug: Deleting unreferenced vType 'type19'
+Debug: Deleting unreferenced vType 'type18'
+Debug: Deleting unreferenced vType 'type17'
+Debug: Deleting unreferenced vType 'type16'
+Debug: Deleting unreferenced vType 'type15'
+Debug: Deleting unreferenced vType 'type14'
+Debug: Deleting unreferenced vType 'type13'
+Debug: Deleting unreferenced vType 'type12'
+Debug: Deleting unreferenced vType 'type11'
+Debug: Deleting unreferenced vType 'type10'
+Debug: Deleting unreferenced vType 'type09'
+Debug: Deleting unreferenced vType 'type08'
+Debug: Deleting unreferenced vType 'type07'
+Debug: Deleting unreferenced vType 'type06'
+Debug: Deleting unreferenced vType 'type05'
+Debug: Deleting unreferenced vType 'type04'
+Debug: Deleting unreferenced vType 'type03'
+Debug: Deleting unreferenced vType 'type02'
+Debug: Deleting unreferenced vType 'type01'
+Debug: Deleting unreferenced calibrator 'calibratorVehicleTypes'
+GLDebug: Removed object calibrator:calibratorVehicleTypes from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 6
