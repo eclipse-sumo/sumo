@@ -512,6 +512,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
+            break;
         case GNE_ATTR_BLOCK_SHAPE:
             myBlockShape = parse<bool>(value);
             break;

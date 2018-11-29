@@ -277,7 +277,7 @@ StringUtils::toLong(const std::string& sData) {
         errno = 0;
         throw NumberFormatException("(long long integer range) " + sData);
     }
-    if ((int)(end - data) != strlen(data)) {
+    if ((int)(end - data) != (int)strlen(data)) {
         throw NumberFormatException("(long long integer format) " + sData);
     }
     return ret;
@@ -317,7 +317,7 @@ StringUtils::toDouble(const std::string& sData) {
         size_t idx = 0;
         const double result = std::stod(sData, &idx);
         if (idx != sData.size()) {
-            throw NumberFormatException("(double) " + sData);
+            throw NumberFormatException("(double format) " + sData);
         } else {
             return result;
         }

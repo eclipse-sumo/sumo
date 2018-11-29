@@ -238,6 +238,7 @@ GNELane::drawLane2LaneConnections() const {
                 break;
             case LINKSTATE_ALLWAY_STOP:
                 glColor3d(.7, .7, 1);
+                break;
             case LINKSTATE_ZIPPER:
                 glColor3d(.75, .5, 0.25);
                 break;
@@ -916,12 +917,13 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
         case SUMO_ATTR_CUSTOMSHAPE: {
-            // A lane shape can either empty or greather than 1
+            // A lane shape can either be empty or have more than 1 element
             if (value.empty()) {
                 return true;
             } else if (canParse<PositionVector>(value)) {
                 return parse<PositionVector>(value).size() > 1;
             }
+            return false;
         }
         case SUMO_ATTR_INDEX:
             return canParse<int>(value) && (parse<int>(value) == myIndex);
