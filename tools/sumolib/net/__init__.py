@@ -150,6 +150,7 @@ class Net:
         self._allLanes = []
         self._origIdx = None
         self.hasWarnedAboutMissingRTree = False
+        self.hasInternal = False
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -189,6 +190,8 @@ class Net:
             e = edge.Edge(id, fromN, toN, prio, function, name)
             self._edges.append(e)
             self._id2edge[id] = e
+            if function:
+                self.hasInternal = True
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length, width, allow=None, disallow=None):
@@ -457,9 +460,16 @@ class Net:
                 return path, cost
             if cost > maxCost:
                 return None, cost
-            for e2 in e1.getOutgoing():
+            for e2, conn in e1.getOutgoing().items():
                 if e2 not in seen:
                     newCost = cost + e2.getLength()
+                    if self.hasInternal:
+                        minInternalCost = 1e400
+                        for c in conn:
+                            if c.getViaLaneID() is not None:
+                                minInternalCost = min(minInternalCost, self.getLane(c.getViaLaneID()).getLength())
+                        if minInternalCost < 1e400:
+                            newCost += minInternalCost
                     if e2 not in dist or newCost < dist[e2]:
                         dist[e2] = newCost
                         heapq.heappush(q, (newCost, e2.getID(), e2, path))
