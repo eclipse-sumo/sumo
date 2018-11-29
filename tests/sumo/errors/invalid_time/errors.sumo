@@ -1,2 +1,2 @@
-Error: Input string 'invalidInput' is not a valid number or exceeds the time value range.
+Error: Invalid Number Format '(double) invalidInput'
 Quitting (on error).
