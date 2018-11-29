@@ -370,7 +370,7 @@ MSVehicle::Influencer::getLaneTimeLineEnd() {
     if(!myLaneTimeLine.empty()) {
         return myLaneTimeLine.back().first;
     } else {
-        return -1.0;
+        return -1;
     }
 }
 
