@@ -1175,7 +1175,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
     } else {
         objIDs.insert(s.id);
     }
-    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
+    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == TRACI_ID_LIST ? 0 : (int)s.variables.size();
     int skipped = 0;
     for (std::set<std::string>::iterator j = objIDs.begin(); j != objIDs.end(); ++j) {
         if (s.contextDomain > 0) {

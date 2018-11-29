@@ -152,7 +152,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
     } else {
         objIDs.insert(s.id);
     }
-    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
+    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == TRACI_ID_LIST ? 0 : (int)s.variables.size();
     if (myWrapper.empty()) {
         myWrapper[CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
         myWrapper[CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
@@ -181,7 +181,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
             }
         } else {
             if (!handler->handle(objID, LAST_STEP_VEHICLE_NUMBER, handler.get())) {
-                handler->handle(objID, ID_LIST, handler.get());
+                handler->handle(objID, TRACI_ID_LIST, handler.get());
             }
         }
     }

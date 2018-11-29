@@ -19,7 +19,7 @@ from .storage import Storage
 from . import constants as tc
 
 
-_RETURN_VALUE_FUNC = {tc.ID_LIST: Storage.readStringList,
+_RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.ID_COUNT: Storage.readInt,
                       tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),

@@ -608,7 +608,7 @@ TraCIAPI::load(const std::vector<std::string>& args) {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::EdgeScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_EDGE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_EDGE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -779,7 +779,7 @@ TraCIAPI::EdgeScope::setMaxSpeed(const std::string& edgeID, double speed) const 
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::GUIScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_GUI_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_GUI_VARIABLE, TRACI_ID_LIST, "");
 }
 
 double
@@ -881,7 +881,7 @@ TraCIAPI::GUIScope::trackVehicle(const std::string& viewID, const std::string& v
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::InductionLoopScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_INDUCTIONLOOP_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_INDUCTIONLOOP_VARIABLE, TRACI_ID_LIST, "");
 }
 
 double
@@ -965,7 +965,7 @@ TraCIAPI::InductionLoopScope::getVehicleData(const std::string& loopID) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::JunctionScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_JUNCTION_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_JUNCTION_VARIABLE, TRACI_ID_LIST, "");
 }
 
 libsumo::TraCIPosition
@@ -981,7 +981,7 @@ TraCIAPI::JunctionScope::getPosition(const std::string& junctionID) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::LaneScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1229,7 +1229,7 @@ TraCIAPI::LaneScope::setLength(const std::string& laneID, double length) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::LaneAreaScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_LANEAREA_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_LANEAREA_VARIABLE, TRACI_ID_LIST, "");
 }
 
 
@@ -1240,7 +1240,7 @@ TraCIAPI::LaneAreaScope::getIDList() const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::MeMeScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_MULTIENTRYEXIT_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_MULTIENTRYEXIT_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1270,7 +1270,7 @@ TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string& detID) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::POIScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_POI_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_POI_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1369,7 +1369,7 @@ TraCIAPI::POIScope::remove(const std::string& poiID, int layer) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::PolygonScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_POLYGON_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_POLYGON_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1496,7 +1496,7 @@ TraCIAPI::PolygonScope::remove(const std::string& polygonID, int layer) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::RouteScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_ROUTE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_ROUTE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 std::vector<std::string>
@@ -1644,7 +1644,7 @@ TraCIAPI::SimulationScope::getDistanceRoad(const std::string& edgeID1, double po
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::TrafficLightScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_TL_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_TL_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1847,7 +1847,7 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::VehicleTypeScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_VEHICLETYPE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_VEHICLETYPE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 double
@@ -2176,7 +2176,7 @@ TraCIAPI::VehicleTypeScope::setColor(const std::string& typeID, const libsumo::T
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::VehicleScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -2953,7 +2953,7 @@ TraCIAPI::VehicleScope::setEmissionClass(const std::string& vehicleID, const std
 
 std::vector<std::string>
 TraCIAPI::PersonScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int

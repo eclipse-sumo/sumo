@@ -30,7 +30,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 18
+#define TRACI_VERSION 19
 
 // ****************************************
 // COMMANDS
@@ -483,7 +483,7 @@
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
 // ****************************************
 // list of instances' ids (get: all)
-#define ID_LIST 0x00
+#define TRACI_ID_LIST 0x00
 
 // count of instances (get: all)
 #define ID_COUNT 0x01
