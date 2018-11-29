@@ -17,20 +17,22 @@
 """
 This script extracts definitions from <SUMO>/src/traci-server/TraCIConstants.h
  and builds an according constants definition python file "constants.py".
+ For Python just call the script without options, for Java: 
+ tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants -o tools/contributed/traas/src/de/tudresden/sumo/config/Constants.java
 """
 
 from __future__ import print_function
 from __future__ import absolute_import
 import os
 import datetime
-from optparse import OptionParser
+import argparse
 
 dirname = os.path.dirname(__file__)
-optParser = OptionParser()
-optParser.add_option("-j", "--java", help="generate Java output as static members of the given class")
-optParser.add_option("-o", "--output", default=os.path.join(dirname, "constants.py"),
-                     help="File to save constants into", metavar="FILE")
-(options, args) = optParser.parse_args()
+argParser = argparse.ArgumentParser()
+argParser.add_argument("-j", "--java", help="generate Java output as static members of the given class", metavar="CLASS")
+argParser.add_argument("-o", "--output", default=os.path.join(dirname, "constants.py"),
+                       help="File to save constants into", metavar="FILE")
+options = argParser.parse_args()
 
 
 fdo = open(options.output, "w")

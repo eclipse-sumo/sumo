@@ -53,7 +53,7 @@ public class Gui {
 	 */
 
 	public static SumoCommand getIDList(){
-		return new SumoCommand(Constants.CMD_GET_GUI_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_GUI_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_GUI_VARIABLE, Constants.TRACI_ID_LIST, "", Constants.RESPONSE_GET_GUI_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
