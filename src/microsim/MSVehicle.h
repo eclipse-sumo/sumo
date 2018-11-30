@@ -1554,6 +1554,10 @@ public:
             myLatDist = 0.;
         }
 
+        bool ignoreOverlap() const {
+            return myTraciLaneChangePriority == LCP_ALWAYS;
+        }
+
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
 
     private:

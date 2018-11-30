@@ -564,6 +564,11 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
         // flags for the current reason
         LaneChangeMode mode = LC_NEVER;
         if ((state & LCA_TRACI) != 0 && myLatDist != 0) {
+            // security checks
+            if ((myTraciLaneChangePriority == LCP_ALWAYS)
+                    || (myTraciLaneChangePriority == LCP_NOOVERLAP && (state & LCA_OVERLAPPING) == 0)) {
+                state &= ~(LCA_BLOCKED | LCA_OVERLAPPING);
+            }
             // continue sublane change manoeuvre
             return state;
         } else if ((state & LCA_STRATEGIC) != 0) {
