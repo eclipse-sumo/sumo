@@ -195,9 +195,18 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             personCapacity = 2;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV", vclass);
             break;
+        case SVC_PRIVATE:
+        case SVC_VIP:
         case SVC_PASSENGER:
+        case SVC_HOV:
+        case SVC_CUSTOM1:
+        case SVC_CUSTOM2:
             shape = SVS_PASSENGER;
             speedFactor.getParameter()[1] = 0.1;
+            break;
+        case SVC_TAXI:
+            shape = SVS_PASSENGER;
+            speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_E_VEHICLE:
             shape = SVS_E_VEHICLE;
