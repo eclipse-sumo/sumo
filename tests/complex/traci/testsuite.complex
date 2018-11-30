@@ -20,6 +20,9 @@ closingOutput
 contextSubscriptions
 ContextSubscriptionFilters
 
+# Tests for lateral collisions
+lateralCollision
+
 # Tests the openGap() method.
 openGap
 
