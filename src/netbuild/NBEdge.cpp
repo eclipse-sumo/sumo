@@ -642,6 +642,17 @@ NBEdge::setNodeBorder(const NBNode* node, const Position& p, const Position& p2,
 }
 
 
+const PositionVector&
+NBEdge::getNodeBorder(const NBNode* node) {
+    if (node == myFrom) {
+        return myFromBorder;
+    } else {
+        assert(node == myTo);
+        return myToBorder;
+    }
+}
+
+
 void
 NBEdge::resetNodeBorder(const NBNode* node) {
     if (node == myFrom) {
@@ -761,7 +772,7 @@ NBEdge::computeEdgeShape() {
 
 
 PositionVector
-NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, PositionVector nodeShape) const {
+NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, PositionVector nodeShape) {
     if (nodeShape.size() == 0) {
         nodeShape = startNode->getShape();
         nodeShape.closePolygon();

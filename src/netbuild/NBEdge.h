@@ -1244,6 +1244,7 @@ public:
 
     /// @brief Set Node border
     void setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut);
+    const PositionVector& getNodeBorder(const NBNode* node);
     void resetNodeBorder(const NBNode* node);
 
     /// @brief whether this edge is part of a bidirectional railway
@@ -1257,6 +1258,11 @@ public:
 
     /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
     static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2);
+
+    /** returns a modified version of laneShape which starts at the outside of startNode. laneShape may be shorted or extended
+     * @note see [wiki:Developer/Network_Building_Process]
+     */
+    static PositionVector startShapeAt(const PositionVector& laneShape, const NBNode* startNode, PositionVector nodeShape);
 
     /// @name functions for router usage
     //@{
@@ -1419,11 +1425,6 @@ private:
     /// @brief whether the connection can originate on newFromLane
     bool canMoveConnection(const Connection& con, int newFromLane) const;
     /// @}
-
-    /** returns a modified version of laneShape which starts at the outside of startNode. laneShape may be shorted or extended
-     * @note see [wiki:Developer/Network_Building_Process]
-     */
-    PositionVector startShapeAt(const PositionVector& laneShape, const NBNode* startNode, PositionVector nodeShape) const;
 
     /// @brief computes the angle of this edge and stores it in myAngle
     void computeAngle();
