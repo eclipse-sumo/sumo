@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 19 16:10:12 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Nov 30 12:37:07 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,8 +35,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_0_0" index="0" speed="6.51" length="9.03" shape="95.20,110.40 94.85,107.95 93.80,106.20 92.05,105.15 89.60,104.80"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" speed="13.89" length="19.70" shape="95.20,110.40 95.20,89.60"/>
-        <lane id=":C_1_1" index="1" speed="13.89" length="19.70" shape="98.35,108.05 103.00,100.00 98.35,91.95"/>
+        <lane id=":C_1_0" index="0" speed="13.89" length="23.93" shape="95.20,110.40 95.20,89.60"/>
+        <lane id=":C_1_1" index="1" speed="13.89" length="23.93" shape="93.34,114.90 103.00,100.00 98.35,91.95"/>
     </edge>
     <edge id=":C_3" function="internal">
         <lane id=":C_3_0" index="0" speed="9.26" length="6.96" shape="98.40,110.40 99.15,105.15 100.00,103.73"/>
@@ -167,7 +167,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="EC" to="CS" fromLane="1" toLane="1" via=":C_7_0" dir="l" state="m"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="M"/>
     <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="M"/>
-    <connection from="NC" to="CS" fromLane="1" toLane="1" shape="98.35,108.05 103.00,100.00 98.35,91.95" via=":C_1_1" dir="s" state="M"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1" shape="93.34,114.90 103.00,100.00 98.35,91.95" via=":C_1_1" dir="s" state="M"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1" via=":C_3_0" dir="l" state="m"/>
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" dir="r" state="M"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_9_0" dir="s" state="M"/>
