@@ -2,13 +2,13 @@
 create
 
 # create crossing in a junction with four arms and sidewalks 
-sidewalks
+create_sidewalks
 
 # delete crossing
 delete
 
 # delete crossing with sidewalks
-sidewalks
+delete_sidewalks
 
 # inspect crossing
 inspect

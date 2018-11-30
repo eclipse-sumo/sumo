@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 09:11:55 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 30.11.2018 14:00:25 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/create_sidewalks/button_invert\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov135749.3652/netedit.gui/netElements/crossings/create_sidewalks/button_invert\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/create_sidewalks/button_invert\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov135749.3652/netedit.gui/netElements/crossings/create_sidewalks/button_invert\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/create_sidewalks/button_invert\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/create_sidewalks/button_invert\shapes.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov135749.3652/netedit.gui/netElements/crossings/create_sidewalks/button_invert\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov135749.3652/netedit.gui/netElements/crossings/create_sidewalks/button_invert\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/create_sidewalks/button_invert\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov135749.3652/netedit.gui/netElements/crossings/create_sidewalks/button_invert\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +43,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/crossings/create_sidewalks/button_invert\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov135749.3652/netedit.gui/netElements/crossings/create_sidewalks/button_invert\log.txt"/>
     </report>
 
 </configuration>
@@ -98,22 +98,22 @@
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1 2_2" intLanes="" shape="50.00,100.00 58.40,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1 3_2" intLanes="" shape="0.00,50.00 0.00,58.40 0.00,50.00"/>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 8_2 5_0 5_1 5_2 7_0 7_1 7_2" intLanes="" shape="41.60,60.40 58.40,60.40 58.62,59.29 58.90,58.90 59.29,58.62 59.79,58.46 60.40,58.40 60.40,41.60 59.29,41.38 58.90,41.10 58.62,40.71 58.46,40.21 58.40,39.60 41.60,39.60 41.38,40.71 41.10,41.10 40.71,41.38 40.21,41.54 39.60,41.60 39.60,58.40 40.71,58.62 41.10,58.90 41.38,59.29 41.54,59.79">
-        <request index="0"  response="0000000000000000" foes="0000100001100000"/>
+        <request index="0"  response="0000000000000000" foes="0000000001100000"/>
         <request index="1"  response="0000000000000000" foes="1111100011100000"/>
         <request index="2"  response="0000000000000000" foes="1111100011100000"/>
-        <request index="3"  response="0000011100000000" foes="1110011111100000"/>
-        <request index="4"  response="0000011000000000" foes="1000011000000000"/>
+        <request index="3"  response="0000011000000000" foes="1110011011100000"/>
+        <request index="4"  response="0000011000000000" foes="0000011000000000"/>
         <request index="5"  response="0000111000001111" foes="1000111000001111"/>
         <request index="6"  response="0000111000001111" foes="1000111000001111"/>
-        <request index="7"  response="0111111000001110" foes="0111111000001110"/>
-        <request index="8"  response="0000000000000000" foes="0110000000001000"/>
+        <request index="7"  response="0110111000001110" foes="0110111000001110"/>
+        <request index="8"  response="0000000000000000" foes="0110000000000000"/>
         <request index="9"  response="0000000000000000" foes="1110000011111000"/>
         <request index="10" response="0000000000000000" foes="1110000011111000"/>
-        <request index="11" response="0000000000000111" foes="1110000011100111"/>
-        <request index="12" response="0000000000000110" foes="0000000010000110"/>
+        <request index="11" response="0000000000000110" foes="1110000011100110"/>
+        <request index="12" response="0000000000000110" foes="0000000000000110"/>
         <request index="13" response="0000111100001110" foes="0000111110001110"/>
         <request index="14" response="0000111100001110" foes="0000111110001110"/>
-        <request index="15" response="0000111001111110" foes="0000111001111110"/>
+        <request index="15" response="0000111001101110" foes="0000111001101110"/>
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1 4_2" intLanes="" shape="100.00,50.00 100.00,41.60 100.00,50.00"/>
 
