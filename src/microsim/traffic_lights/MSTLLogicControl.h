@@ -135,6 +135,7 @@ public:
 
         void executeOnSwitchActions() const;
         void addLink(MSLink* link, MSLane* lane, int pos);
+        void ignoreLinkIndex(int pos);
 
 
     private:

@@ -1159,6 +1159,11 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
     const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
     const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
     if (!MSGlobals::gUsingInternalLanes && (fromID[0] == ':' || toID[0] == ':')) {
+        std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
+        if (tlID != "") {
+            int tlLinkIdx = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok);
+            myJunctionControlBuilder.getTLLogic(tlID).ignoreLinkIndex(tlLinkIdx);
+        }
         return;
     }
 

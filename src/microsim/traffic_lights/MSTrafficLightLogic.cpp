@@ -131,7 +131,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             const std::string& state1 = phases[i]->getState();
             const std::string& state2 = phases[iNext]->getState();
             assert(state1.size() == state2.size());
-            if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size()) {
+            if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
                 WRITE_WARNING("Unused states in tlLogic '" + getID()
                               + "', program '" + getProgramID() + "' in phase " + toString(i)
                               + " after tl-index " + toString((int)myLanes.size() - 1));
@@ -206,6 +206,7 @@ void
 MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
     myLinks = logic.myLinks;
     myLanes = logic.myLanes;
+    myIgnoredIndices = logic.myIgnoredIndices;
 }
 
 
@@ -350,6 +351,12 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         }
     }
 
+}
+
+
+void 
+MSTrafficLightLogic::ignoreLinkIndex(int pos) {
+    myIgnoredIndices.insert(pos);
 }
 
 /****************************************************************************/

@@ -223,6 +223,12 @@ MSTLLogicControl::TLSLogicVariants::addLink(MSLink* link, MSLane* lane, int pos)
     }
 }
 
+void
+MSTLLogicControl::TLSLogicVariants::ignoreLinkIndex(int pos) {
+    for (std::map<std::string, MSTrafficLightLogic*>::iterator i = myVariants.begin(); i != myVariants.end(); ++i) {
+        (*i).second->ignoreLinkIndex(pos);
+    }
+}
 
 
 /* -------------------------------------------------------------------------

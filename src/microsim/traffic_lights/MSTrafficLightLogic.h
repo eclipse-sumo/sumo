@@ -115,6 +115,9 @@ public:
      */
     virtual void addLink(MSLink* link, MSLane* lane, int pos);
 
+    /// @brief ignore pedestrian crossing index in mesosim
+    void ignoreLinkIndex(int pos);
+
 
     /** @brief Applies information about controlled links and lanes from the given logic
      *
@@ -426,6 +429,9 @@ protected:
 
     /// @brief An empty lane vector
     static const LaneVector myEmptyLaneVector;
+
+    /// @brief list of indices that are ignored in mesoscopic simulatino
+    std::set<int> myIgnoredIndices;
 
 private:
     /// @brief initialize optional meso penalties
