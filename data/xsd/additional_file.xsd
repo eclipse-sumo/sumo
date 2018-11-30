@@ -153,6 +153,7 @@
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
+        <xsd:attribute name="show" use="optional" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="e3DetectorType">

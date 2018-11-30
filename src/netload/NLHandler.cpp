@@ -896,9 +896,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     double position = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, std::numeric_limits<double>::max());
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, std::numeric_limits<double>::max());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    //    const bool showDetector = attrs.getOpt<bool>(SUMO_ATTR_SHOW_DETECTOR, id.c_str(), ok, true);
-    // TODO: introduce show-detector attribute
-    const bool showDetector = true;
+    const bool showDetector = attrs.getOpt<bool>(SUMO_ATTR_SHOW_DETECTOR, id.c_str(), ok, true);
     const std::string contStr = attrs.getOpt<std::string>(SUMO_ATTR_CONT, id.c_str(), ok, "");
     if (contStr != "") {
         WRITE_WARNING("Ignoring deprecated argument 'cont' for E2 detector '" + id + "'");
