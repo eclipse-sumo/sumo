@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 125)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(4, "dummyVisibility")
+netedit.modifyAttribute(7, "dummyVisibility")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(4, "-4")
+netedit.modifyAttribute(7, "-4")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(4, "0")
+netedit.modifyAttribute(7, "0")
 
 # Change visibility with an valid value
-netedit.modifyAttribute(4, "11")
+netedit.modifyAttribute(7, "11")
 
 # rebuild 
 netedit.rebuildNetwork()

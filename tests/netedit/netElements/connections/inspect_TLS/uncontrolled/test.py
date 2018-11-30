@@ -35,7 +35,7 @@ netedit.toogleShowConnectionsInspectorMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change uncontrolled
-netedit.modifyBoolAttribute(3)
+netedit.modifyBoolAttribute(6)
 
 # rebuild 
 netedit.rebuildNetwork()

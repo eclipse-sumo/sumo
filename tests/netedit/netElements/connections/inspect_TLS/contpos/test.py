@@ -35,16 +35,16 @@ netedit.toogleShowConnectionsInspectorMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change constPos with an invalid value
-netedit.modifyAttribute(2, "dummyContPos")
+netedit.modifyAttribute(5, "dummyContPos")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(2, "-3")
+netedit.modifyAttribute(5, "-3")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(2, "0")
+netedit.modifyAttribute(5, "0")
 
 # Change constPos with an valid value
-netedit.modifyAttribute(2, "12")
+netedit.modifyAttribute(5, "12")
 
 # rebuild 
 netedit.rebuildNetwork()
