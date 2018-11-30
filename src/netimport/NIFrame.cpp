@@ -373,6 +373,10 @@ NIFrame::checkOptions() {
             // a better interpretation of imported geometries
             oc.set("rectangular-lane-cut", "true");
         }
+        if (oc.isDefault("opendrive.advance-stopline") && oc.getBool("opendrive.internal-shapes")) {
+            // avoid mismatch between edge shapes and and internal edge shapes
+            oc.set("opendrive.advance-stopline", "0");
+        }
     }
     return ok;
 }
