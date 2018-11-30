@@ -1,169 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.07.2018 15:15:01 by Eclipse SUMO netedit Version 8f872a1c5c
+<!-- generated on 30.11.2018 10:25:09 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Jul151424.6592/netedit.gui/additionalElements/calibrator/load_values_vtypes\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Jul151424.6592/netedit.gui/additionalElements/calibrator/load_values_vtypes\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov102327.376/netedit.gui/additionalElements/calibrator/load/vtypes/vclass\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Jul151424.6592/netedit.gui/additionalElements/calibrator/load_values_vtypes\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Jul151424.6592/netedit.gui/additionalElements/calibrator/load_values_vtypes\shapes.xml"/>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Jul151424.6592/netedit.gui/additionalElements/calibrator/load_values_vtypes\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov102327.376/netedit.gui/additionalElements/calibrator/load/vtypes/vclass\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="5"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov102327.376/netedit.gui/additionalElements/calibrator/load/vtypes/vclass\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov102327.376/netedit.gui/additionalElements/calibrator/load/vtypes/vclass\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov102327.376/netedit.gui/additionalElements/calibrator/load/vtypes/vclass\shapes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Jul151424.6592/netedit.gui/additionalElements/calibrator/load_values_vtypes\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov102327.376/netedit.gui/additionalElements/calibrator/load/vtypes/vclass\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.26Jul151424.6592/netedit.gui/additionalElements/calibrator/load_values_vtypes\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov102327.376/netedit.gui/additionalElements/calibrator/load/vtypes/vclass\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vType id="type01" accel="0.80" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type02" accel="0.80" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type03" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type04" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type05" accel="0.80" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type06" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type07" accel="2.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type08" accel="2.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type09" accel="2.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type10" accel="2.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type101" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type102" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type103" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type104" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" boardingDuration="1.30" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type105" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type106" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type107" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type108" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type109" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" loadingDuration="96.20" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type11" accel="2.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type110" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type111" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type112" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type113" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type114" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type115" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type116" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type117" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type118" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type119" width="3.10" length="0.00" maxSpeed="90.00" minGapLat="2.34" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type12" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type120" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type121" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type122" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type123" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type124" width="3.10" length="0.00" maxSpeed="90.00" maxSpeedLat="2.30" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type13" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type14" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type15" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type16" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type17" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type18" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type19" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type20" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type21" accel="2.30" decel="8.30" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="type22" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type23" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type24" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type25" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type26" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type27" length="0.00" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type28" length="7.00" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type29" length="7.00" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type30" length="7.00" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type31" length="7.00" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type32" length="7.00" accel="2.30" decel="8.30" vClass="private" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type33" length="0.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type34" length="0.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type35" length="0.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type36" length="0.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type37" length="0.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type38" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type39" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type40" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type41" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type42" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type43" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type44" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type45" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type46" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type47" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type48" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="black" imgFile="default.png"/>
-    <vType id="type49" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="yellow" imgFile="default.png"/>
-    <vType id="type50" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="yellow" imgFile="default.png"/>
-    <vType id="type51" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="yellow" imgFile="default.png"/>
-    <vType id="type52" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="private" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type53" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type54" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type55" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type56" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type57" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type58" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type59" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type60" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type61" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type62" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type63" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" imgFile="default.png"/>
-    <vType id="type64" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="default.png"/>
-    <vType id="type65" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="default.png"/>
-    <vType id="type66" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="default.png"/>
-    <vType id="type67" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="default.png"/>
-    <vType id="type68" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="default.png"/>
-    <vType id="type69" width="0.00" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="default.png"/>
-    <vType id="type70" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="default.png"/>
-    <vType id="type71" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger"/>
-    <vType id="type72" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger"/>
-    <vType id="type73" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger"/>
-    <vType id="type74" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png"/>
-    <vType id="type75" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png"/>
-    <vType id="type76" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png"/>
-    <vType id="type77" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png"/>
-    <vType id="type78" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png"/>
-    <vType id="type79" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type80" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type81" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type82" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type83" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type84" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type85" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type86" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type87" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type88" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type89" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type90" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type91" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type92" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type93" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type94" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type95" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type96" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type97" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type98" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="type99" width="3.10" length="0.00" maxSpeed="90.00" accel="2.30" decel="8.30" vClass="emergency" speedFactor="2.00" speedDev="1.20" laneChangeModel="DK2008" carFollowModel="PWagner2009" minGap="3.40" tau="2.50" personCapacity="6" containerCapacity="4" color="255,128,255" guiShape="passenger" imgFile="ownImgFile.png" impatience="2.00"/>
-    <vType id="typeWithoutCalibrator" accel="0.80" vClass="private" color="black" imgFile="default.png"/>
-    <route id="routeWithoutCalibrator" edges="gneE0 gneE1" color="black"/>
+    <vType id="type01" color="yellow"/>
+    <vType id="type02" color="yellow"/>
+    <vType id="type03" vClass="delivery" color="yellow"/>
     <calibrator id="calibratorVehicleTypes" edge="gneE0" pos="10.00" freq="100.00" output="calibratorVehicleTypes.txt"/>
 </additional>

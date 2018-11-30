@@ -17,42 +17,6 @@
 		<!-- valid ID -->
 		<route id = "route02" edges="gneE0 gneE1" color="0,0,0"/>
 		
-		<!-- non valid edges (empty) -->
-		<route id = "route03" color="0,0,0"/>
-		
-		<!-- non valid edges (partial invalid) -->
-		<route id = "route04" edges="dummyEdge1 dummyEdge2" color="0,0,0"/>
-		
-		<!-- non valid edges (all invalid) -->
-		<route id = "route05" edges="dummyEdge1 gneE1" color="0,0,0"/>
-		
-		<!-- non valid edges (incorrect configuration) -->
-		<route id = "route06" edges="gneE0 gneE0" color="0,0,0"/>
-		
-		<!-- valid edges -->
-		<route id = "route07" edges="gneE1 gneE0" color="0,0,0"/>
-		
-		<!-- non valid color (missing) -->
-		<route id = "route08" edges="gneE1 gneE0"/>
-		
-		<!-- non valid color (dummy) -->
-		<route id = "route09" edges="gneE1 gneE0" color="dummy"/>
-		
-		<!-- valid color (empty) -->
-		<route id = "route10" edges="gneE1 gneE0" color=""/>
-		
-		<!-- valid color -->
-		<route id = "route11" edges="gneE1 gneE0" color="255,255,255"/>
-		
 	</calibrator>
-	
-	<!-- Route without calibrator (must not be loaded) -->
-	<route id = "routeWithoutCalibrator" edges="gneE0 gneE1" color="0,0,0"/>
-	
-	<!-- Vehicle type without calibrator (must not be loaded) -->
-	<vType id="typeWithoutCalibrator" accel="0.8" decel="4.5" sigma="0.5" tau = "1.0" length="5" minGap = "2.5" maxSpeed="70" speedFactor="1.0" speedDev="0.0" color="0,0,0" vClass="private" emissionClass="P_7_7" guiShape="unknown" width="2.0" imgFile="default.png" impatience="0.0" laneChangeModel="LC2013" carFollowModel="Krauss" personCapacity="4" containerCapacity="0" boardingDuration="0.5" loadingDuration="90.0" latAlignment="center" minGapLat="0.12" maxSpeedLat="1.0"/>
-	
-	<!-- Flow without calibrator (must not be loaded) -->
-	<flow id="flowWithouyCalibrator" type="routeWithoutCalibrator" route="typeWithoutCalibrator" begin="0" end="100" color="1,1,0" departLane="first" departPos="base" departSpeed="0" arrivalLane="current" arrivalPos="max" arrivalSpeed="current" line="line" personNumber="0" containerNumber="0" reroute="false" via="gneE0 gneE1" departPosLat="center" arrivalPosLat="center" vehsPerHour="10"/>
 	
 </additional>

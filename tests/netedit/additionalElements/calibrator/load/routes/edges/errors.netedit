@@ -16,16 +16,8 @@ GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80
 GLDebug: Removed object calibrator:calibratorRoutes from SUMORTree with boundary -20.00,-21.60,20.00,18.40
 GLDebug: Inserted calibrator:calibratorRoutes into SUMORTree with boundary -20.00,-21.60,20.00,18.40
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-Debug: Adding route 'route01' in GNEChange_Additional
-Debug: Adding route 'route02' in GNEChange_Additional
-Debug: Adding route 'route06' in GNEChange_Additional
-Debug: Adding route 'route07' in GNEChange_Additional
-Debug: Adding route 'route08' in GNEChange_Additional
-Debug: Adding route 'route09' in GNEChange_Additional
-Debug: Adding route 'route10' in GNEChange_Additional
-Debug: Adding route 'route11' in GNEChange_Additional
-Debug: Adding route 'routeWithoutCalibrator' in GNEChange_Additional
-Debug: Adding vType 'typeWithoutCalibrator' in GNEChange_Additional
+Debug: Adding route 'route04' in GNEChange_Additional
+Debug: Adding route 'route05' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved
@@ -55,18 +47,10 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Deleting unreferenced vType 'typeWithoutCalibrator'
+Debug: Deleting unreferenced route 'route05'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Deleting unreferenced route 'routeWithoutCalibrator'
-Debug: Deleting unreferenced route 'route11'
-Debug: Deleting unreferenced route 'route10'
-Debug: Deleting unreferenced route 'route09'
-Debug: Deleting unreferenced route 'route08'
-Debug: Deleting unreferenced route 'route07'
-Debug: Deleting unreferenced route 'route06'
-Debug: Deleting unreferenced route 'route02'
-Debug: Deleting unreferenced route 'route01'
+Debug: Deleting unreferenced route 'route04'
 Debug: Deleting unreferenced calibrator 'calibratorRoutes'
 GLDebug: Removed object calibrator:calibratorRoutes from SUMORTree with boundary -20.00,-21.60,20.00,18.40
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

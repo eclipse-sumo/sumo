@@ -1,53 +1,43 @@
 default
 
+type
+
 id
 
-accel
+route
 
-decel
+speed
 
-sigma
+vehsperhour
 
-tau
+begin
 
-length
-
-mingap
-
-maxspeed
-
-speedfactor
-
-speeddev
+end
 
 color
 
-vclass
+departlane
 
-emissionclass
+departpos
 
-guishape
+departspeed
 
-width
+arrivallane
 
-imgfile
+arrivalpos
 
-impatience
+arrivalspeed
 
-lanechangemodel
+line
 
-carfollowmodel
+personnumber
 
-personcapacity
+containernumber
 
-containercapacity
+reroute
 
-boardingduration
+via
 
-loadingduration
+departposlat
 
-latalignment
-
-mingaplat
-
-maxspeedlat
+arrivalposlat
