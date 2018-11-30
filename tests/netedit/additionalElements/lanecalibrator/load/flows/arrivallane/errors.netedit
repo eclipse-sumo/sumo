@@ -6,18 +6,16 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding route 'CRoute' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding vType 'CType' in GNEChange_Additional
 Debug: Adding laneCalibrator 'calibratorFlows' in GNEChange_Additional
 GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
 GLDebug: Inserted calibrator:calibratorFlows into SUMORTree with boundary 0.00,-21.60,40.00,18.40
-Debug: Adding route 'CalibratorFlowRoute' in GNEChange_Additional
-Debug: Adding vType 'CalibratorFlowType' in GNEChange_Additional
-Debug: Adding route 'routeWithoutCalibrator' in GNEChange_Additional
-Debug: Adding vType 'typeWithoutCalibrator' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved
@@ -47,14 +45,12 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Deleting unreferenced vType 'typeWithoutCalibrator'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Deleting unreferenced route 'routeWithoutCalibrator'
-Debug: Deleting unreferenced vType 'CalibratorFlowType'
-Debug: Deleting unreferenced route 'CalibratorFlowRoute'
 Debug: Deleting unreferenced laneCalibrator 'calibratorFlows'
 GLDebug: Removed object calibrator:calibratorFlows from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced vType 'CType'
+Debug: Deleting unreferenced route 'CRoute'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

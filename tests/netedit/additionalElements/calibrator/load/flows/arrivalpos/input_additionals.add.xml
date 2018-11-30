@@ -10,19 +10,19 @@
 	<calibrator id="calibratorFlows" edge="gneE0" pos="20.00" freq="100.00" output="calibratorFlows.txt">
 
 		<!-- non valid (empty) -->
-		<flow type="CType" route="CRoute" begin="0" end="100" speed="10" id="CFlow01"/>
+		<flow type="CType" route="CRoute" begin="000" end="100" speed="10" id="CFlow01"/>
 		
 		<!-- non valid (dummy) -->
-		<flow type="CType" route="CRoute" begin="0" end="100" speed="10" id="CFlow02" arrivalPos="dummyArrivalPos"/>
+		<flow type="CType" route="CRoute" begin="100" end="200" speed="10" id="CFlow02" arrivalPos="dummyArrivalPos"/>
 		
 		<!-- non valid (negative) -->
-		<flow type="CType" route="CRoute" begin="0" end="100" speed="10" id="CFlow03" arrivalPos="-3"/>
+		<flow type="CType" route="CRoute" begin="200" end="300" speed="10" id="CFlow03" arrivalPos="-3"/>
 		
 		<!-- valid A -->
-		<flow type="CType" route="CRoute" begin="0" end="100" speed="10" id="CFlow04" arrivalPos="12"/>
+		<flow type="CType" route="CRoute" begin="300" end="400" speed="10" id="CFlow04" arrivalPos="12"/>
 		
 		<!-- valid B -->
-		<flow type="CType" route="CRoute" begin="0" end="100" speed="10" id="CFlow05" arrivalPos="random"/>
+		<flow type="CType" route="CRoute" begin="400" end="500" speed="10" id="CFlow05" arrivalPos="random"/>
 		
 	</calibrator>
 	

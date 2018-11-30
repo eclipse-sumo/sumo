@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.08.2018 14:08:14 by Eclipse SUMO netedit Version b980bbd93f
+<!-- generated on 30.11.2018 11:11:35 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug140754.2820/netedit.gui/additionalElements/calibrator/load_values_flows\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov111043.3984/netedit.gui/additionalElements/calibrator/load/flows/begin\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug140754.2820/netedit.gui/additionalElements/calibrator/load_values_flows\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov111043.3984/netedit.gui/additionalElements/calibrator/load/flows/begin\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,7 +19,7 @@
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
     </junctions>
 
@@ -28,13 +28,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug140754.2820/netedit.gui/additionalElements/calibrator/load_values_flows\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug140754.2820/netedit.gui/additionalElements/calibrator/load_values_flows\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug140754.2820/netedit.gui/additionalElements/calibrator/load_values_flows\shapes.xml"/>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov111043.3984/netedit.gui/additionalElements/calibrator/load/flows/begin\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov111043.3984/netedit.gui/additionalElements/calibrator/load/flows/begin\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov111043.3984/netedit.gui/additionalElements/calibrator/load/flows/begin\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug140754.2820/netedit.gui/additionalElements/calibrator/load_values_flows\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov111043.3984/netedit.gui/additionalElements/calibrator/load/flows/begin\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,27 +44,18 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug140754.2820/netedit.gui/additionalElements/calibrator/load_values_flows\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov111043.3984/netedit.gui/additionalElements/calibrator/load/flows/begin\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vType id="CalibratorFlowType" accel="0.80" vClass="private" color="black" imgFile="default.png"/>
-    <vType id="typeWithoutCalibrator" accel="0.80" vClass="private" color="black" imgFile="default.png"/>
-    <route id="CalibratorFlowRoute" edges="gneE0 gneE1" color="black"/>
-    <route id="routeWithoutCalibrator" edges="gneE0 gneE1" color="black"/>
+    <vType id="CType" color="yellow"/>
+    <route id="CRoute" edges="gneE0 gneE1"/>
     <calibrator id="calibratorFlows" edge="gneE0" pos="20.00" freq="100.00" output="calibratorFlows.txt">
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="0.00" end="100.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="100.00" end="200.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="200.00" end="300.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="300.00" end="400.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="400.00" end="500.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="500.00" end="600.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="600.00" end="700.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="700.00" end="800.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="800.00" end="900.00" line="line" vehsPerHour="10"/>
-        <flow type="CalibratorFlowType" speed="10" route="CalibratorFlowRoute" begin="900.00" end="1000.00" line="line" vehsPerHour="10"/>
+        <flow type="CType" speed="10" route="CRoute" begin="0.00" end="100.00"/>
+        <flow type="CType" speed="10" route="CRoute" begin="100.00" end="200.00"/>
+        <flow type="CType" speed="10" route="CRoute" begin="200.00" end="300.00"/>
     </calibrator>
 </additional>
