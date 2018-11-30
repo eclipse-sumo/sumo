@@ -773,9 +773,10 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     cn.shape = dest->geom;
                     double offset = 0;
                     for (const auto& rightLane : dest->laneSections.front().lanesByDir[OPENDRIVE_TAG_RIGHT]) {
-                        if (rightLane.predecessor < c.fromLane) {
+                        //if (cn.fromEdge == "108" && cn.fromLane == -2 && c.toEdge == "111") {
+                        if (abs(rightLane.predecessor) < abs(c.fromLane)) {
                             offset += rightLane.width;
-                        } else if (rightLane.predecessor == c.fromLane) {
+                        } else if (abs(rightLane.predecessor) == abs(c.fromLane)) {
                             offset += rightLane.width / 2;
                             break;
                         }
