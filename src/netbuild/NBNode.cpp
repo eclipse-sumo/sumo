@@ -664,10 +664,50 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
     if (con.toLane >= con.toEdge->getNumLanes()) {
         throw ProcessError("Connection '" + con.getDescription(fromE) + "' targets a non-existant lane.");
     }
+    PositionVector fromShape = fromE->getLaneShape(con.fromLane);
+    PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
     PositionVector ret;
-    if (con.customShape.size() == 0) {
-        PositionVector fromShape = fromE->getLaneShape(con.fromLane);
-        PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
+    bool useCustomShape = con.customShape.size() > 0;
+    if (useCustomShape) {
+        // ensure that the shape starts and ends at the intersection boundary
+        PositionVector startBorder = fromE->getNodeBorder(this);
+        if (startBorder.size() == 0) {
+            startBorder = fromShape.getOrthogonal(fromShape.back(), 1, true);
+        }
+        PositionVector tmp = NBEdge::startShapeAt(con.customShape, this, startBorder);
+        if (tmp.size() < 2) {
+            WRITE_WARNING("Could not use custom shape for connection " + con.getDescription(fromE));
+            useCustomShape = false;
+        } else {
+            if (tmp.length2D() > con.customShape.length2D() + POSITION_EPS) {
+                // shape was lengthened at the start, make sure it attaches at the center of the lane
+                tmp[0] = fromShape.back();
+            } else if (recordError != nullptr) {
+                const double offset = tmp[0].distanceTo2D(fromShape.back());
+                if (offset > fromE->getLaneWidth(con.fromLane) / 2) {
+                    WRITE_WARNING("Custom shape has distance " + toString(offset) + " to incoming lane for connection " + con.getDescription(fromE));
+                }
+            }
+            PositionVector endBorder = con.toEdge->getNodeBorder(this);
+            if (endBorder.size() == 0) {
+                endBorder = toShape.getOrthogonal(toShape.front(), 1, false);
+            }
+            ret = NBEdge::startShapeAt(tmp.reverse(), this, endBorder).reverse();
+            if (ret.size() < 2) {
+                WRITE_WARNING("Could not use custom shape for connection " + con.getDescription(fromE));
+                useCustomShape = false;
+            } else if (ret.length2D() > tmp.length2D() + POSITION_EPS) {
+                // shape was lengthened at the end, make sure it attaches at the center of the lane
+                ret[-1] = toShape.front();
+            } else if (recordError != nullptr) {
+                const double offset = ret[-1].distanceTo2D(toShape.front());
+                if (offset > con.toEdge->getLaneWidth(con.toLane) / 2) {
+                    WRITE_WARNING("Custom shape has distance " + toString(offset) + " to outgoing lane for connection " + con.getDescription(fromE));
+                }
+            }
+        }
+    }
+    if (!useCustomShape) {
         displaceShapeAtWidthChange(fromE, con, fromShape, toShape);
         double extrapolateBeg = 5. * fromE->getNumLanes();
         double extrapolateEnd = 5. * con.toEdge->getNumLanes();
@@ -679,8 +719,6 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         ret = computeSmoothShape(fromShape, toShape,
                                  numPoints, fromE->getTurnDestination() == con.toEdge,
                                  extrapolateBeg, extrapolateEnd, recordError, shapeFlag);
-    } else {
-        ret = con.customShape;
     }
     const NBEdge::Lane& lane = fromE->getLaneStruct(con.fromLane);
     if (lane.endOffset > 0) {
