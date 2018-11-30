@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change shape with a non valid value
-netedit.modifyAttribute(1, "dummyWidth")
+netedit.modifyAttribute(4, "dummyWidth")
 
 # Change shape with a non valid value
-netedit.modifyAttribute(1, "-5")
+netedit.modifyAttribute(4, "-5")
 
 # Change shape with a valid value
-netedit.modifyAttribute(1, "8.1")
+netedit.modifyAttribute(4, "8.1")
 
 # rebuild network
 netedit.rebuildNetwork()

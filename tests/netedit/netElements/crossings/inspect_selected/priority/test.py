@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change priority
-netedit.modifyAttribute(0, "true")
+netedit.modifyAttribute(3, "true")
 
 # rebuild network
 netedit.rebuildNetwork()
