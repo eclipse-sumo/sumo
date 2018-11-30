@@ -228,11 +228,9 @@ Debug: Created connection 'from6_0to3_1' in retrieveGNEConnection()
 Debug: Adding connection '6_0->3_2' into edge '6'
 Debug: Created connection 'from6_0to3_2' in retrieveGNEConnection()
 Debug: Setting previous attribute edges '3 7' into crossing ':Center_c0'
-Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing busStop 'busStop_3_2_0' in GNEChange_Additional
