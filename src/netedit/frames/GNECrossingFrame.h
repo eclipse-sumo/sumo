@@ -259,9 +259,8 @@ public:
 
     /**@brief add Crossing element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if a GNECrossing was added, false in other case
      */
-    bool addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    void addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /// @brief create crossing (used when user press ENTER key in Crossing mode)
     void createCrossingHotkey();

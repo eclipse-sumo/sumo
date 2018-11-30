@@ -548,7 +548,7 @@ GNECrossingFrame::hide() {
 }
 
 
-bool
+void
 GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // If current element is a junction
     if (objectsUnderCursor.getJunctionFront()) {
@@ -559,7 +559,8 @@ GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnder
         myCrossingParameters->enableCrossingParameters(objectsUnderCursor.getJunctionFront()->getNBNode()->isTLControlled());
         // clears selected edges
         myCrossingParameters->clearEdges();
-    } else if (objectsUnderCursor.getJunctionFront()) {
+    } else if (objectsUnderCursor.getEdgeFront()) {
+        // mark edge
         myCrossingParameters->markEdge(objectsUnderCursor.getEdgeFront());
     } else {
         // set default label
@@ -569,7 +570,8 @@ GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnder
         // Disable edge selector
         myEdgeSelector->disableEdgeSelector();
     }
-    return false;
+    // always update view after an operation
+    myViewNet->update();
 }
 
 

@@ -1108,7 +1108,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
                         }
                     } else {
-                        // add additionals.front()
+                        // call function addAdditional from additional frame
                         myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
                     }
                     update();
@@ -1118,16 +1118,12 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                 break;
             }
             case GNE_MODE_CROSSING: {
-                if (myObjectsUnderCursor.getCrossingFront()) {
-                     // swap lanes to edges in crossingsMode
-                    if (myObjectsUnderCursor.getLaneFront()) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
-                    // add getCrossingFront()
-                    if (myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor)) {
-                        update();
-                    }
+                // swap lanes to edges in crossingsMode
+                if (myObjectsUnderCursor.getLaneFront()) {
+                    myObjectsUnderCursor.swapLane2Edge();
                 }
+                // call function addCrossing from crossing frame
+                myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor);
                 // process click
                 processClick(eventData);
                 break;
