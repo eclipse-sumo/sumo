@@ -1008,17 +1008,34 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 bool
 MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs) {
     bool hasCrossingVehObs = false;
-    const MSLink::LinkLeaders linkLeaders = crossing->getLinkCont().front()->getLeaderInfo(nullptr, crossing->getLength());
+    const MSLink* crossingExitLink = crossing->getLinkCont().front();
+    const MSLink* crossingEntryLink = crossing->getIncomingLanes().front().viaLink;
+    const bool prio = crossingEntryLink->havePriority() || crossingEntryLink->getTLLogic() != nullptr;
+    gDebugFlag1 = DEBUGCOND2(crossing);
+    const MSLink::LinkLeaders linkLeaders = crossingExitLink->getLeaderInfo(nullptr, crossing->getLength());
+    gDebugFlag1 = false;
     if (linkLeaders.size() > 0) {
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
             const MSVehicle* veh = (*it).vehAndGap.first;
             if (veh != nullptr) {
                 Obstacle vo((*it).distToCrossing, 0, OBSTACLE_VEHICLE, veh->getID(), veh->getVehicleType().getWidth() + 2 * MINGAP_TO_VEHICLE);
-                // relY increases from left to right (the other way around from vehicles)
-                const double bGap = veh->getCarFollowModel().brakeGap(veh->getSpeed(), veh->getCarFollowModel().getMaxDecel(), 0);
+                // block entry to the crossing in walking direction but allow leaving it
+                Obstacle voBlock = vo;
+                if (dir == FORWARD) {
+                    voBlock.xBack = NUMERICAL_EPS;
+                } else {
+                    voBlock.xFwd = crossing->getLength() - NUMERICAL_EPS;
+                }
+                // when approaching a priority crossings, vehicles must be able
+                // to brake, otherwise the person must be able to cross in time
+                const double distToCrossBeforeVeh = (dir == FORWARD ? vo.xFwd : crossing->getLength() - vo.xBack);
+                const double bGap = (prio
+                        ? veh->getCarFollowModel().brakeGap(veh->getSpeed(), veh->getCarFollowModel().getMaxDecel(), 0)
+                        : veh->getSpeed() * distToCrossBeforeVeh); // walking 1m/s
                 double vehYmin;
                 double vehYmax;
+                // relY increases from left to right (the other way around from vehicles)
                 if ((*it).fromLeft) {
                     vehYmin = -(*it).vehAndGap.second + lateral_offset; // vehicle back
                     vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap + MINGAP_TO_VEHICLE;
@@ -1032,7 +1049,12 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 for (int s = MAX2(0, PState::stripe(vehYmin)); s < MIN2(PState::stripe(vehYmax), stripes); ++s) {
                     if ((dir == FORWARD && obs[s].xBack > vo.xBack)
                             || (dir == BACKWARD && obs[s].xFwd < vo.xFwd)) {
-                        obs[s] = vo;
+                        if (!prio && veh->getSpeed() > SUMO_const_haltingSpeed) {
+                            // do not enter the crossing
+                            obs[s] = voBlock;
+                        } else {
+                            obs[s] = vo;
+                        }
                         hasCrossingVehObs = true;
                     }
                 }
@@ -1040,6 +1062,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                     std::cout << SIMTIME
                               << " crossingVeh=" << veh->getID()
                               << " lane=" << crossing->getID()
+                              << " prio=" << prio
                               << " latOffset=" << lateral_offset
                               << " dir=" << dir
                               << " stripes=" << stripes
@@ -1047,6 +1070,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                               << " gap=" << (*it).vehAndGap.second
                               << " brakeGap=" << bGap
                               << " fromLeft=" << (*it).fromLeft
+                              << " distToCrossBefore=" << distToCrossBeforeVeh
                               << " ymin=" << vehYmin
                               << " ymax=" << vehYmax
                               << " smin=" << PState::stripe(vehYmin)
@@ -1785,15 +1809,19 @@ void
 MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2) {
     for (int i = 0; i < (int)into.size(); ++i) {
         if (gDebugFlag1) {
-            std::cout << "     i=" << i << " intoDist=" << distanceTo(into[i]) << " obs2Dist=" << distanceTo(obs2[i]) << "\n";
+            std::cout << "     i=" << i
+                << " into=" << into[i].description << " iDist=" << distanceTo(into[i])
+                << " obs2=" << obs2[i].description << " oDist=" << distanceTo(obs2[i]) << "\n";
         }
         const double dO = distanceTo(obs2[i]);
         const double dI = distanceTo(into[i]);
         if (dO < dI) {
             into[i] = obs2[i];
-        } else if (dO == dI && (
-                       obs2[i].type == OBSTACLE_PED ||
-                       obs2[i].type == OBSTACLE_VEHICLE)) {
+        } else if (dO == dI
+                && into[i].type != OBSTACLE_PED
+                && into[i].type != OBSTACLE_VEHICLE
+                && (obs2[i].type == OBSTACLE_PED ||
+                    obs2[i].type == OBSTACLE_VEHICLE)) {
             into[i] = obs2[i];
         }
     }
