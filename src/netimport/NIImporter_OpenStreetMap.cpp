@@ -1299,18 +1299,18 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
         } else if (myIsStopArea && OptionsCont::getOptions().isSet("ptstop-output")) {
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
-                    WRITE_WARNING(
-                        "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                        + "' does not exist. Probably OSM file is incomplete.");
+                    //WRITE_WARNING(
+                    //    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                    //    + "' does not exist. Probably OSM file is incomplete.");
                     continue;
                 }
 
                 NIOSMNode* n = myOSMNodes.find(ref)->second;
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == nullptr) {
-                    WRITE_WARNING(
-                        "Relation '" + toString(myCurrentRelation) + "' refers to a non existing pt stop at node: '"
-                        + toString(n->id) + "'. Probably OSM file is incomplete.");
+                    //WRITE_WARNING(
+                    //    "Relation '" + toString(myCurrentRelation) + "' refers to a non existing pt stop at node: '"
+                    //    + toString(n->id) + "'. Probably OSM file is incomplete.");
                     continue;
                 }
                 for (NIIPTPlatform& myPlatform : myPlatforms) {
@@ -1326,9 +1326,9 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         PositionVector p;
                         for (auto nodeRef : edge->myCurrentNodes) {
                             if (myOSMNodes.find(nodeRef) == myOSMNodes.end()) {
-                                WRITE_WARNING(
-                                    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                                    + "' does not exist. Probably OSM file is incomplete.");
+                                //WRITE_WARNING(
+                                //    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                                //    + "' does not exist. Probably OSM file is incomplete.");
                                 continue;
                             }
                             NIOSMNode* pNode = myOSMNodes.find(nodeRef)->second;
@@ -1349,9 +1349,9 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         ptStop->addPlatformCand(platform);
                     } else {
                         if (myOSMNodes.find(myPlatform.ref) == myOSMNodes.end()) {
-                            WRITE_WARNING(
-                                "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                                + "' does not exist. Probably OSM file is incomplete.");
+                            //WRITE_WARNING(
+                            //    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                            //    + "' does not exist. Probably OSM file is incomplete.");
                             continue;
                         }
                         NIOSMNode* pNode = myOSMNodes.find(myPlatform.ref)->second;
@@ -1372,13 +1372,13 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
-                    WRITE_WARNING(
-                        "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
-                        + "' does not exist. Probably OSM file is incomplete.");
+                    //WRITE_WARNING(
+                    //    "Referenced node: '" + toString(ref) + "' in relation: '" + toString(myCurrentRelation)
+                    //    + "' does not exist. Probably OSM file is incomplete.");
 //                    resetValues();
 //                    return;
                     if (!ptLine->getStops().empty()) {
-                        WRITE_WARNING("Done reading first coherent junk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
+                        WRITE_WARNING("Done reading first coherent chunk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
                         break;
                     }
                     continue;
@@ -1387,13 +1387,13 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 NIOSMNode* n = myOSMNodes.find(ref)->second;
                 NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == nullptr) {
-                    WRITE_WARNING("Relation '" + toString(myCurrentRelation)
-                                  + "' refers to a non existing pt stop at node: '" + toString(n->id)
-                                  + "'. Probably OSM file is incomplete.");
+                    //WRITE_WARNING("Relation '" + toString(myCurrentRelation)
+                    //              + "' refers to a non existing pt stop at node: '" + toString(n->id)
+                    //              + "'. Probably OSM file is incomplete.");
 //                    resetValues();
 //                    return;
                     if (!ptLine->getStops().empty()) {
-                        WRITE_WARNING("Done reading first coherent junk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
+                        WRITE_WARNING("Done reading first coherent chunk of pt stops. Further stops in relation " + toString(myCurrentRelation) + " are ignored");
                         break;
                     }
                     continue;
