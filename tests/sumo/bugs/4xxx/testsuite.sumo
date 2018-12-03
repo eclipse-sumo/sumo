@@ -54,3 +54,6 @@ ticket4829
 
 # deadlock on parallel routing
 ticket4855
+
+# ACC model applies emergency decel at insertion
+ticket4861
