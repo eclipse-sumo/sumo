@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28.11.2018 13:40:17 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
+<!-- generated on 03.12.2018 11:27:52 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov134004.6388/netedit.gui/additionalElements/calibrator/inspect_selection/pos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_01Dec122337.2480/netedit.gui/additionalElements/calibrator/inspect_selection/pos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov134004.6388/netedit.gui/additionalElements/calibrator/inspect_selection/pos\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_01Dec122337.2480/netedit.gui/additionalElements/calibrator/inspect_selection/pos\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,13 +28,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov134004.6388/netedit.gui/additionalElements/calibrator/inspect_selection/pos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov134004.6388/netedit.gui/additionalElements/calibrator/inspect_selection/pos\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov134004.6388/netedit.gui/additionalElements/calibrator/inspect_selection/pos\shapes.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_01Dec122337.2480/netedit.gui/additionalElements/calibrator/inspect_selection/pos\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_01Dec122337.2480/netedit.gui/additionalElements/calibrator/inspect_selection/pos\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_01Dec122337.2480/netedit.gui/additionalElements/calibrator/inspect_selection/pos\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov134004.6388/netedit.gui/additionalElements/calibrator/inspect_selection/pos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_01Dec122337.2480/netedit.gui/additionalElements/calibrator/inspect_selection/pos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,19 +44,19 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov134004.6388/netedit.gui/additionalElements/calibrator/inspect_selection/pos\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_01Dec122337.2480/netedit.gui/additionalElements/calibrator/inspect_selection/pos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <calibrator id="calibratorA" name="NameA" edge="gneE2" pos="10.00" freq="30.00" output="fileA.txt">
+    <calibrator id="calibratorA" name="NameA" edge="gneE2" pos="10.00" freq="30.00" routeProbe="RouteProbeA" output="fileA.txt">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </calibrator>
-    <calibrator id="calibratorB" name="NameB" edge="gneE3" pos="10.00" freq="40.00" output="fileB.txt">
+    <calibrator id="calibratorB" name="NameB" edge="gneE3" pos="10.00" freq="40.00" routeProbe="RouteProbeB" output="fileB.txt">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>
