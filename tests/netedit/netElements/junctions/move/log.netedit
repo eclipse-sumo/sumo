@@ -6,7 +6,15 @@ Warning: Edge 'gneE16' has a grade of 25.00%.
 Warning: Edge 'gneE17' has a grade of 25.00%.
 Warning: Edge 'gneE18' has a grade of 25.00%.
 Warning: Edge 'gneE19' has a grade of 25.00%.
-Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE19_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE17_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
+Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 13.84%.
+Warning: Connection '-gneE17_0->gneE19_0' has a grade of 27.86%.
+Warning: Edge '-gneE18' has a grade of 12.45%.
+Warning: Edge 'gneE18' has a grade of 12.45%.
 Warning: Speed of straight connection '-gneE9_0->-gneE8_0' reduced by 6.62 due to turning radius of 9.60 (length=2.83 angle=33.42)
 Warning: Speed of straight connection '-gneE11_0->-gneE10_0' reduced by 6.66 due to turning radius of 9.50 (length=2.88 angle=33.95)
-Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE19_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'gneJ19' from lane '-gneE17_0' and lane '-gneE16_0'. (increase junction radius to avoid this)
+Warning: Connection '-gneE14_0->-gneE19_0' has a grade of 13.83%.
+Warning: Connection '-gneE17_0->gneE19_0' has a grade of 28.53%.
+Warning: Edge '-gneE18' has a grade of 12.80%.
+Warning: Edge 'gneE18' has a grade of 12.80%.

@@ -28,17 +28,26 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # rebuild network
 netedit.rebuildNetwork()
 
-# inspect central node
+# go to select mode
+netedit.selectMode()
+
+# select first edge
 netedit.leftClick(referencePosition, 325, 250)
 
-# set invalid radius
-netedit.modifyAttribute(5, "dummyRadius")
+# select second edge
+netedit.leftClick(referencePosition, 10, 220)
 
-# set invalid radius
-netedit.modifyAttribute(5, "-7")
+# go to inspect mode
+netedit.inspectMode()
 
-# change radio
-netedit.modifyAttribute(5, "2.3")
+# inspect central node
+netedit.leftClick(referencePosition, 325, 220)
+
+# set invalid right of way
+netedit.modifyAttribute(3, "dummyRightOfWays")
+
+# set invalid right of way
+netedit.modifyAttribute(3, "edgePriority")
 
 # rebuild network
 netedit.rebuildNetwork()

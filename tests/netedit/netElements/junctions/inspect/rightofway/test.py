@@ -31,14 +31,11 @@ netedit.rebuildNetwork()
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)
 
-# set invalid radius
-netedit.modifyAttribute(5, "dummyRadius")
+# set dummy value
+netedit.modifyAttribute(7, "dummyRightOfWay")
 
-# set invalid radius
-netedit.modifyAttribute(5, "-7")
-
-# change radio
-netedit.modifyAttribute(5, "2.3")
+# change shape of junction
+netedit.modifyAttribute(7, "edgePriority")
 
 # rebuild network
 netedit.rebuildNetwork()
