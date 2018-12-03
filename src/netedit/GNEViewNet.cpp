@@ -1259,11 +1259,14 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
                 myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
                 makeNonCurrent();
             }
-            // if we clicked over an lane with shift key pressed, select or unselect it
-            if(myObjectsUnderCursor.getLaneFront()->isAttributeCarrierSelected()) {
-                myObjectsUnderCursor.getLaneFront()->unselectAttributeCarrier();
-            } else {
-                myObjectsUnderCursor.getLaneFront()->selectAttributeCarrier();
+            // check if there is a lane in objects under cursor
+            if(myObjectsUnderCursor.getLaneFront()) {
+                // if we clicked over an lane with shift key pressed, select or unselect it
+                if(myObjectsUnderCursor.getLaneFront()->isAttributeCarrierSelected()) {
+                    myObjectsUnderCursor.getLaneFront()->unselectAttributeCarrier();
+                } else {
+                    myObjectsUnderCursor.getLaneFront()->selectAttributeCarrier();
+                }
             }
         }
         // finish selection
