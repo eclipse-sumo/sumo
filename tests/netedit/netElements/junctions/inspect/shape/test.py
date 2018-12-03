@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -31,11 +31,11 @@ netedit.rebuildNetwork()
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)
 
-# set invalid value
-netedit.modifyAttribute(2, "dummyType")
+# set dummy shape
+netedit.modifyAttribute(4, "dummy shape")
 
-# change type of junction
-netedit.modifyAttribute(2, "rail_crossing")
+# change shape of junction
+netedit.modifyAttribute(4, "43.60,60.40 56.40,60.40 52.00,53.00 60.40,56.40 60.40,43.60 52.00,47.00 56.40,39.60 43.60,39.60 48.00,47.00 39.60,43.60 39.60,56.40 48.00,53.00 43.60,60.40")
 
 # rebuild network
 netedit.rebuildNetwork()

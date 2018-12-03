@@ -1,20 +1,20 @@
-# edit attribute id
-inspect_id
-
-# edit attribute pos
-inspect_pos
-
 # edit attribute type
 type
 
+# edit attribute id
+id
+
+# edit attribute pos
+pos
+
 # edit attribute shape
-inspect_shape
+shape
 
 # edit attribute radius
-inspect_radius
+radius
 
 # edit attribute keep clear
-inspect_keepclear
+keepclear
 
 # edit attribute genericparameters
-inspect_genericparameters
+genericparameters

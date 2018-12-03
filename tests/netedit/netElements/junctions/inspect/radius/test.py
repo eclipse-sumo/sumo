@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -31,11 +31,14 @@ netedit.rebuildNetwork()
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)
 
-# set invalid value
-netedit.modifyAttribute(2, "dummyType")
+# set invalid radius
+netedit.modifyAttribute(5, "dummyRadius")
 
-# change type of junction
-netedit.modifyAttribute(2, "rail_crossing")
+# set invalid radius
+netedit.modifyAttribute(5, "-7")
+
+# change radio
+netedit.modifyAttribute(5, "2.3")
 
 # rebuild network
 netedit.rebuildNetwork()

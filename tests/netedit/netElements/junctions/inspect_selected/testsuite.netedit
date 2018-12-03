@@ -2,10 +2,10 @@
 type
 
 # edit attribute radius
-inspect_selected_radius
+radius
 
 # edit attribute keep clear
-inspect_selected_keepclear
+keepclear
 
 # edit attribute genericparameters
-inspect_selected_genericparameters
+genericparameters
