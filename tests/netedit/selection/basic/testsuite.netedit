@@ -1,0 +1,15 @@
+# default values of selection
+default
+
+# select using click
+click
+
+# select differents busstops
+additional_basic
+
+# check that undo-redo of elements works correctly
+undo_redo
+
+# try to select elements with wrong parameters
+wrong_parameters
+
