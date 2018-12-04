@@ -81,24 +81,13 @@ GNEPOI::~GNEPOI() {}
 
 void
 GNEPOI::startGeometryMoving() {
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
+    // Not used in POIs
 }
 
 
 void
 GNEPOI::endGeometryMoving() {
-    // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // update geometry without updating grid
-        updateGeometry(false);
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
+    // Not used in POIs
 }
 
 void
@@ -259,7 +248,6 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(RGBColor::ORANGE);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             glPopMatrix();
-
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getDottedAC() == this) {

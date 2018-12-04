@@ -981,8 +981,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                     myMovedItems.poiToMove = myObjectsUnderCursor.getPOIFront();
                     // Save original Position of POI in view
                     myMoveSingleElementValues.originalPositionInView = myMovedItems.poiToMove->getPositionInView();
-                    // start POI geometry moving
-                    myMovedItems.poiToMove->startGeometryMoving();
                 } else if (myObjectsUnderCursor.getAdditionalFront()) {
                     // set additionals moved object
                     myMovedItems.additionalToMove = myObjectsUnderCursor.getAdditionalFront();
