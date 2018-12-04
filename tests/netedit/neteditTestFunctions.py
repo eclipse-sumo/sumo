@@ -22,7 +22,8 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.01
+DELAY_KEY = 0.2
+DELAY_KEY_TAB = 0.01
 DELAY_MOUSE = 0.1
 DELAY_QUESTION = 0.1
 DELAY_REFERENCE = 30
@@ -76,8 +77,10 @@ def typeSpace():
 
 
 def typeTab():
-    # type tab key
-    typeKey('tab')
+    # wait before every operation
+    time.sleep(DELAY_KEY_TAB)
+    # type keys
+    pyautogui.hotkey('tab')
 
 
 """
@@ -86,8 +89,10 @@ def typeTab():
 
 
 def typeInvertTab():
-    # type invert tab
-    typeTwoKeys('shift', 'tab')
+    # wait before every operation
+    time.sleep(DELAY_KEY_TAB)
+    # type two keys at the same time
+    pyautogui.hotkey('shift', 'tab')
 
 
 """
