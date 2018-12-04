@@ -281,18 +281,16 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
-    /*
-        // first call function mouseOverObject  (to check if this object is under cursor)
-        // @note currently disabled. It will be implemented in an different ticket of #2905
-        mouseOverObject(s);
-    */
-    // simply use GUIPolygon::drawGL
-    GUIPolygon::drawGL(s);
+    // push name (needed for getGUIGlObjectsUnderCursor(...)
+    glPushName(getGlID());
+    // first check if inner polygon can be drawn
+    if(checkDraw(s)) {
+        drawInnerPolygon(s);
+    }
+    // draw details of Netedit
     double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
     double circleWidthSquared = circleWidth * circleWidth;
     int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
-    // push matrix
-    glPushName(getGlID());
     // draw geometry details hints if is not too small and isn't in selecting mode
     if (s.scale * circleWidth > 1.) {
         // set values relative to mouse position regarding to shape

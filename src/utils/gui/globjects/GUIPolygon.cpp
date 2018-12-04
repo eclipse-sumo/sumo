@@ -36,8 +36,56 @@
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 
 // ===========================================================================
+// callbacks definitions
+// ===========================================================================
+
+void APIENTRY beginCallback(GLenum which) {
+    glBegin(which);
+}
+
+
+void APIENTRY errorCallback(GLenum errorCode) {
+    const GLubyte* estring;
+
+    estring = gluErrorString(errorCode);
+    fprintf(stderr, "Tessellation Error: %s\n", estring);
+    exit(0);
+}
+
+
+void APIENTRY endCallback(void) {
+    glEnd();
+}
+
+
+void APIENTRY vertexCallback(GLvoid* vertex) {
+    glVertex3dv((GLdouble*) vertex);
+}
+
+
+void APIENTRY combineCallback(GLdouble coords[3],
+                              GLdouble* vertex_data[4],
+                              GLfloat weight[4], GLdouble** dataOut) {
+    UNUSED_PARAMETER(weight);
+    UNUSED_PARAMETER(*vertex_data);
+    GLdouble* vertex;
+
+    vertex = (GLdouble*) malloc(7 * sizeof(GLdouble));
+
+    vertex[0] = coords[0];
+    vertex[1] = coords[1];
+    vertex[2] = coords[2];
+    *dataOut = vertex;
+}
+
+GLfloat INV_POLY_TEX_DIM = 1.0 / 256.0;
+GLfloat xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
+GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
+
 GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
                        const RGBColor& color, const PositionVector& shape, bool geo,
                        bool fill, double lineWidth, double layer, double angle, const std::string& imgFile,
@@ -92,126 +140,21 @@ GUIPolygon::getCenteringBoundary() const {
 }
 
 
-void APIENTRY beginCallback(GLenum which) {
-    glBegin(which);
-}
-
-void APIENTRY errorCallback(GLenum errorCode) {
-    const GLubyte* estring;
-
-    estring = gluErrorString(errorCode);
-    fprintf(stderr, "Tessellation Error: %s\n", estring);
-    exit(0);
-}
-
-void APIENTRY endCallback(void) {
-    glEnd();
-}
-
-void APIENTRY vertexCallback(GLvoid* vertex) {
-    glVertex3dv((GLdouble*) vertex);
-}
-
-void APIENTRY combineCallback(GLdouble coords[3],
-                              GLdouble* vertex_data[4],
-                              GLfloat weight[4], GLdouble** dataOut) {
-    UNUSED_PARAMETER(weight);
-    UNUSED_PARAMETER(*vertex_data);
-    GLdouble* vertex;
-
-    vertex = (GLdouble*) malloc(7 * sizeof(GLdouble));
-
-    vertex[0] = coords[0];
-    vertex[1] = coords[1];
-    vertex[2] = coords[2];
-    *dataOut = vertex;
-}
-
-
-GLfloat INV_POLY_TEX_DIM = 1.0 / 256.0;
-GLfloat xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
-GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
-
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
-    if (s.polySize.getExaggeration(s, this) == 0) {
-        return;
+    // first check if polygon can be drawn
+    if(checkDraw(s)) {
+        AbstractMutex::ScopedLocker locker(myLock);
+        //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
+        //    storeTesselation(s.polySize.getExaggeration(s));
+        //}
+        // push name (needed for getGUIGlObjectsUnderCursor(...)
+        glPushName(getGlID());
+        // draw inner polygon
+        drawInnerPolygon(s);
+        // pop name
+        glPopName();
     }
-    Boundary boundary = myShape.getBoxBoundary();
-    if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
-        return;
-    }
-    if (getFill()) {
-        if (myShape.size() < 3) {
-            return;
-        }
-    } else {
-        if (myShape.size() < 2) {
-            return;
-        }
-    }
-    AbstractMutex::ScopedLocker locker(myLock);
-    //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
-    //    storeTesselation(s.polySize.getExaggeration(s));
-    //}
-    glPushName(getGlID());
-    glPushMatrix();
-    glTranslated(0, 0, getShapeLayer());
-    glRotated(-getShapeNaviDegree(), 0, 0, 1);
-    setColor(s);
-
-    int textureID = -1;
-    if (getFill()) {
-        const std::string& file = getShapeImgFile();
-        if (file != "") {
-            textureID = GUITexturesHelper::getTextureID(file, true);
-        }
-    }
-    // init generation of texture coordinates
-    if (textureID >= 0) {
-        glEnable(GL_TEXTURE_2D);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glDisable(GL_CULL_FACE);
-        glDisable(GL_DEPTH_TEST); // without DEPTH_TEST vehicles may be drawn below roads
-        glDisable(GL_LIGHTING);
-        glDisable(GL_COLOR_MATERIAL);
-        glDisable(GL_ALPHA_TEST);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        // http://www.gamedev.net/topic/133564-glutesselation-and-texture-mapping/
-        glEnable(GL_TEXTURE_GEN_S);
-        glEnable(GL_TEXTURE_GEN_T);
-        glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-        glTexGenfv(GL_S, GL_OBJECT_PLANE, xPlane);
-        glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-        glTexGenfv(GL_T, GL_OBJECT_PLANE, yPlane);
-    }
-    // recall tesselation
-    //glCallList(myDisplayList);
-    performTesselation(myLineWidth * s.polySize.getExaggeration(s, this));
-    // de-init generation of texture coordinates
-    if (textureID >= 0) {
-        glEnable(GL_DEPTH_TEST);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glDisable(GL_TEXTURE_2D);
-        glDisable(GL_TEXTURE_GEN_S);
-        glDisable(GL_TEXTURE_GEN_T);
-    }
-#ifdef GUIPolygon_DEBUG_DRAW_VERTICES
-    GLHelper::debugVertices(myShape, 80 / s.scale);
-#endif
-    glPopMatrix();
-    const Position namePos = myShape.getPolygonCenter();
-    drawName(namePos, s.scale, s.polyName, s.angle);
-    if (s.polyType.show) {
-        GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.polyType.size / s.scale),
-                           GLO_MAX, s.polyType.size / s.scale, s.polyType.color);
-    }
-    glPopName();
 }
 
 
@@ -285,6 +228,89 @@ GUIPolygon::setColor(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, getGlID())));
     } else {
         GLHelper::setColor(c.getScheme().getColor(0));
+    }
+}
+
+
+bool
+GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
+    if (s.polySize.getExaggeration(s, this) == 0) {
+        return false;
+    }
+    Boundary boundary = myShape.getBoxBoundary();
+    if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
+        return false;
+    }
+    if (getFill()) {
+        if (myShape.size() < 3) {
+            return false;
+        }
+    } else {
+        if (myShape.size() < 2) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void 
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s) const {
+    glPushMatrix();
+    glTranslated(0, 0, getShapeLayer());
+    glRotated(-getShapeNaviDegree(), 0, 0, 1);
+    setColor(s);
+
+    int textureID = -1;
+    if (getFill()) {
+        const std::string& file = getShapeImgFile();
+        if (file != "") {
+            textureID = GUITexturesHelper::getTextureID(file, true);
+        }
+    }
+    // init generation of texture coordinates
+    if (textureID >= 0) {
+        glEnable(GL_TEXTURE_2D);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST); // without DEPTH_TEST vehicles may be drawn below roads
+        glDisable(GL_LIGHTING);
+        glDisable(GL_COLOR_MATERIAL);
+        glDisable(GL_ALPHA_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        // http://www.gamedev.net/topic/133564-glutesselation-and-texture-mapping/
+        glEnable(GL_TEXTURE_GEN_S);
+        glEnable(GL_TEXTURE_GEN_T);
+        glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+        glTexGenfv(GL_S, GL_OBJECT_PLANE, xPlane);
+        glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+        glTexGenfv(GL_T, GL_OBJECT_PLANE, yPlane);
+    }
+    // recall tesselation
+    //glCallList(myDisplayList);
+    performTesselation(myLineWidth * s.polySize.getExaggeration(s, this));
+    // de-init generation of texture coordinates
+    if (textureID >= 0) {
+        glEnable(GL_DEPTH_TEST);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glDisable(GL_TEXTURE_2D);
+        glDisable(GL_TEXTURE_GEN_S);
+        glDisable(GL_TEXTURE_GEN_T);
+    }
+#ifdef GUIPolygon_DEBUG_DRAW_VERTICES
+    GLHelper::debugVertices(myShape, 80 / s.scale);
+#endif
+    glPopMatrix();
+    const Position namePos = myShape.getPolygonCenter();
+    drawName(namePos, s.scale, s.polyName, s.angle);
+    if (s.polyType.show) {
+        GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.polyType.size / s.scale),
+                           GLO_MAX, s.polyType.size / s.scale, s.polyType.color);
     }
 }
 

@@ -96,45 +96,17 @@ GUIPointOfInterest::getCenteringBoundary() const {
 
 void
 GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
-    const double exaggeration = s.poiSize.getExaggeration(s, this);
     // first clear vertices
     myPOIVertices.clear();
-    // only continue if scale is valid
-    if (s.scale * (1.3 / 3.0) *exaggeration < s.poiSize.minSize) {
-        return;
+    // check if POI can be drawn
+    if(checkDraw(s)) {
+        // push name (needed for getGUIGlObjectsUnderCursor(...)
+        glPushName(getGlID());
+        // draw inner polygon
+        drawInnerPOI(s);
+        // pop name
+        glPopName();
     }
-    glPushName(getGlID());
-    glPushMatrix();
-    setColor(s);
-    glTranslated(x(), y(), getShapeLayer());
-    glRotated(-getShapeNaviDegree(), 0, 0, 1);
-
-    if (getShapeImgFile() != DEFAULT_IMG_FILE) {
-        int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
-        if (textureID > 0) {
-            GUITexturesHelper::drawTexturedBox(textureID,
-                                               -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
-                                               myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
-        }
-    } else {
-        // fallback if no image is defined
-        if (s.drawForSelecting) {
-            GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
-        } else {
-            // draw filled circle saving vertices
-            myPOIVertices = GLHelper::drawFilledCircleReturnVertices((double) 1.3 * exaggeration, 16);
-        }
-    }
-    glPopMatrix();
-    if (!s.drawForSelecting) {
-        const Position namePos = *this;
-        drawName(namePos, s.scale, s.poiName, s.angle);
-        if (s.poiType.show) {
-            GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.poiType.size / s.scale),
-                               GLO_MAX, s.poiType.size / s.scale, s.poiType.color);
-        }
-    }
-    glPopName();
 }
 
 
@@ -151,6 +123,52 @@ GUIPointOfInterest::setColor(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POI, getGlID())));
     } else {
         GLHelper::setColor(c.getScheme().getColor(0));
+    }
+}
+
+
+bool 
+GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s) const {
+    // only continue if scale is valid
+    if (s.scale * (1.3 / 3.0) *s.poiSize.getExaggeration(s, this) < s.poiSize.minSize) {
+        return false;
+    }
+    return true;
+}
+
+
+void 
+GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s) const {
+    const double exaggeration = s.poiSize.getExaggeration(s, this);
+    glPushMatrix();
+    setColor(s);
+    glTranslated(x(), y(), getShapeLayer());
+    glRotated(-getShapeNaviDegree(), 0, 0, 1);
+    // check if has to be drawn as a circle or with an image
+    if (getShapeImgFile() != DEFAULT_IMG_FILE) {
+        int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
+        if (textureID > 0) {
+            GUITexturesHelper::drawTexturedBox(textureID,
+                                                -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
+                                                myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
+        }
+    } else {
+        // fallback if no image is defined
+        if (s.drawForSelecting) {
+            GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
+        } else {
+            // draw filled circle saving vertices
+            myPOIVertices = GLHelper::drawFilledCircleReturnVertices((double) 1.3 * exaggeration, 16);
+        }
+    }
+    glPopMatrix();
+    if (!s.drawForSelecting) {
+        const Position namePos = *this;
+        drawName(namePos, s.scale, s.poiName, s.angle);
+        if (s.poiType.show) {
+            GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.poiType.size / s.scale),
+                                GLO_MAX, s.poiType.size / s.scale, s.poiType.color);
+        }
     }
 }
 

@@ -111,6 +111,12 @@ protected:
     /// @brief set color
     void setColor(const GUIVisualizationSettings& s) const;
 
+    /// @brief check if Polygon can be drawn
+    bool checkDraw(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw inner Polygon (before pushName() )
+    void drawInnerPolygon(const GUIVisualizationSettings& s) const;
+
 private:
     /// The mutex used to avoid concurrent updates of the shape
     mutable MFXMutex myLock;
