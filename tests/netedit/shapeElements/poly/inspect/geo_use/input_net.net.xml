@@ -1,50 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04.12.2018 11:03:51 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on Sun Sep  2 10:34:39 2018 by Eclipse SUMO netconvert Version d6cfaccbb6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec105215.6652/netedit.gui/shapeElements/poly/load_genericparameters\input_net.net.xml"/>
+        <node-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.nod.xml"/>
+        <edge-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.edg.xml"/>
+        <connection-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.con.xml"/>
+        <tllogic-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec105215.6652/netedit.gui/shapeElements/poly/load_genericparameters\net.net.xml"/>
+        <output-file value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.net.xml"/>
     </output>
 
-    <processing>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec105215.6652/netedit.gui/shapeElements/poly/load_genericparameters\additionals.xml"/>
-        <sumo-shapes-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec105215.6652/netedit.gui/shapeElements/poly/load_genericparameters\input_shapes.add.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec105215.6652/netedit.gui/shapeElements/poly/load_genericparameters\shapes.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec105215.6652/netedit.gui/shapeElements/poly/load_genericparameters\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-    </visualisation>
-
     <report>
-        <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec105215.6652/netedit.gui/shapeElements/poly/load_genericparameters\log.txt"/>
+        <verbose value="true"/>
     </report>
 
 </configuration>
@@ -52,7 +23,7 @@
 
 <net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":gneJ0_0" function="internal">
         <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>

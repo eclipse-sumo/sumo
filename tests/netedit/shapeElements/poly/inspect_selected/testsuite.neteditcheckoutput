@@ -1,39 +1,39 @@
 # all test check also the undo-redo of modifications and save the into a file
 # edit color
-inspect_selected_color
+color
 
 # edit fill
-inspect_selected_fill
+fill
 
 # edit linewidth
-inspect_selected_linewidth
+linewidth
 
 # edit layer
-inspect_selected_layer
+layer
 
 # edit type
-inspect_selected_type
+type
 
 # edit imgfile
-inspect_selected_imgfile
+imgfile
 
 # edit relative path
-inspect_selected_relativepath
+relativepath
 
 # edit angle
-inspect_selected_angle
+angle
 
 # edit use geo
-inspect_selected_geo_use
+geo_use
 
 # edit generic parameters
-inspect_selected_genericparameters
+genericparameters
 
 # edit block move
-inspect_selected_blockmove
+blockmove
 
 # edit block shape
-inspect_selected_blockshape
+blockshape
 
 # edit close shape
-inspect_selected_closeshape
+closeshape

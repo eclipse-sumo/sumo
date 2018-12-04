@@ -3,6 +3,11 @@ Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Selected item 'poly' in ItemSelector
 Debug: Selected item 'poly' in ItemSelector
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Shapes has to be saved
@@ -10,29 +15,60 @@ Debug: Current saving Status: net saved, additionals saved, shapes unsaved
 Debug: Setting new attribute blockMovement 'false' into poly 'poly_0'
 Debug: Setting new attribute blockShape 'false' into poly 'poly_0'
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_1' into viewNet
 Debug: Setting new attribute blockMovement 'false' into poly 'poly_1'
 Debug: Setting new attribute blockShape 'false' into poly 'poly_1'
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_2' into viewNet
 Debug: Setting new attribute blockMovement 'false' into poly 'poly_2'
 Debug: Setting new attribute blockShape 'true' into poly 'poly_2'
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_3' into viewNet
 Debug: Setting new attribute blockMovement 'true' into poly 'poly_3'
 Debug: Setting new attribute blockShape 'false' into poly 'poly_3'
 Debug: Key ENTER pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_4' into viewNet
 Debug: Setting new attribute blockMovement 'true' into poly 'poly_4'
 Debug: Setting new attribute blockShape 'true' into poly 'poly_4'
-Debug: Setting new attribute shape '2.00,-6.00 2.00,13.00 -3.00,13.00 -3.00,8.00 2.00,-6.00' into poly 'poly_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: Setting new attribute shape '1.97,-5.68 2.00,13.00 -3.00,13.00 -3.00,8.00 1.97,-5.68' into poly 'poly_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
 Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_1'
-Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,-6.00 12.00,8.00' into poly 'poly_1'
-Debug: Setting new attribute shape '22.36,-5.95 22.36,-0.95 17.36,-0.95 17.36,-5.95 22.36,-5.95' into poly 'poly_2'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,-5.68 12.00,8.00' into poly 'poly_1'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: Setting new attribute shape '22.00,-5.64 22.00,-0.64 17.00,-0.64 17.00,-5.64 22.00,-5.64' into poly 'poly_2'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shape '22.00,8.00 22.00,13.00 17.00,13.00 17.00,8.00 22.00,8.00' into poly 'poly_2'
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -57,6 +93,7 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockShape '0' into poly 'poly_1'
 Debug: Setting previous attribute blockMovement '0' into poly 'poly_1'
 Debug: Removing poly 'poly_1' from viewNet
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding poly 'poly_1' into viewNet
 Debug: Setting new attribute blockMovement 'false' into poly 'poly_1'
@@ -74,13 +111,13 @@ Debug: Adding poly 'poly_4' into viewNet
 Debug: Setting new attribute blockMovement 'true' into poly 'poly_4'
 Debug: Setting new attribute blockShape 'true' into poly 'poly_4'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute shape '2.00,-6.00 2.00,13.00 -3.00,13.00 -3.00,8.00 2.00,-6.00' into poly 'poly_0'
+Debug: Setting new attribute shape '1.97,-5.68 2.00,13.00 -3.00,13.00 -3.00,8.00 1.97,-5.68' into poly 'poly_0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_1'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,-6.00 12.00,8.00' into poly 'poly_1'
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,-5.68 12.00,8.00' into poly 'poly_1'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute shape '22.36,-5.95 22.36,-0.95 17.36,-0.95 17.36,-5.95 22.36,-5.95' into poly 'poly_2'
+Debug: Setting new attribute shape '22.00,-5.64 22.00,-0.64 17.00,-0.64 17.00,-5.64 22.00,-5.64' into poly 'poly_2'
 Debug: Shapes saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
