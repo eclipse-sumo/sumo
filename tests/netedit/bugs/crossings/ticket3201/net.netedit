@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 09:09:07 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 04.12.2018 14:54:44 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/bugs/crossings/ticket3201\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/crossings/ticket3201\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/bugs/crossings/ticket3201\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/crossings/ticket3201\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/bugs/crossings/ticket3201\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/bugs/crossings/ticket3201\shapes.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/crossings/ticket3201\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/crossings/ticket3201\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/bugs/crossings/ticket3201\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/crossings/ticket3201\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +43,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/bugs/crossings/ticket3201\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/crossings/ticket3201\log.txt"/>
     </report>
 
 </configuration>
@@ -156,22 +156,22 @@
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes="" shape="50.00,100.00 56.40,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1 3_2" intLanes="" shape="0.00,50.00 0.00,59.60 0.00,50.00"/>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 5_0 5_1 7_0 7_1 7_2 :Center_w0_0" intLanes=":Center_16_0 :Center_1_0 :Center_1_1 :Center_17_0 :Center_4_0 :Center_5_0 :Center_5_1 :Center_7_0 :Center_8_0 :Center_9_0 :Center_9_1 :Center_11_0 :Center_12_0 :Center_13_0 :Center_13_1 :Center_15_0 :Center_c1_0" shape="40.40,61.10 56.40,61.10 56.57,58.49 56.77,57.58 57.07,56.92 57.44,56.53 57.90,56.40 57.90,43.60 57.07,43.08 56.78,42.42 56.57,41.51 56.44,40.34 56.40,38.90 40.40,38.90 40.23,39.73 40.02,40.03 39.73,40.23 39.36,40.36 38.90,40.40 38.90,59.60 39.73,59.77 40.03,59.98 40.23,60.27 40.36,60.64">
-        <request index="0"  response="10000000000000000" foes="10000100001100000" cont="1"/>
+        <request index="0"  response="10000000000000000" foes="10000000001100000" cont="1"/>
         <request index="1"  response="01111000000000000" foes="01111100011100000" cont="0"/>
         <request index="2"  response="01111000000000000" foes="01111100011100000" cont="0"/>
-        <request index="3"  response="01110000000000000" foes="01110011111100000" cont="1"/>
-        <request index="4"  response="01000000000000000" foes="01000011000000000" cont="0"/>
+        <request index="3"  response="01110000000000000" foes="01110011011100000" cont="1"/>
+        <request index="4"  response="00000000000000000" foes="00000011000000000" cont="0"/>
         <request index="5"  response="01000000000001111" foes="11000111000001111" cont="0"/>
         <request index="6"  response="01000000000001111" foes="11000111000001111" cont="0"/>
-        <request index="7"  response="00111000000001110" foes="00111111000001110" cont="0"/>
-        <request index="8"  response="00110000000001000" foes="00110000000001000" cont="0"/>
+        <request index="7"  response="00110000000001110" foes="00110111000001110" cont="0"/>
+        <request index="8"  response="00110000000000000" foes="00110000000000000" cont="0"/>
         <request index="9"  response="01110000011111000" foes="01110000011111000" cont="0"/>
         <request index="10" response="01110000011111000" foes="01110000011111000" cont="0"/>
-        <request index="11" response="11110000011100111" foes="11110000011100111" cont="0"/>
-        <request index="12" response="00000000000000000" foes="00000000010000110" cont="0"/>
+        <request index="11" response="11110000011100110" foes="11110000011100110" cont="0"/>
+        <request index="12" response="00000000000000000" foes="00000000000000110" cont="0"/>
         <request index="13" response="00000000000000000" foes="00000111110001110" cont="0"/>
         <request index="14" response="00000000000000000" foes="00000111110001110" cont="0"/>
-        <request index="15" response="00000000000000000" foes="00000111001111110" cont="0"/>
+        <request index="15" response="00000000000000000" foes="00000111001101110" cont="0"/>
         <request index="16" response="00000000001100000" foes="00000100001100001" cont="0"/>
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes="" shape="100.00,50.00 100.00,43.60 100.00,50.00"/>
@@ -191,7 +191,7 @@
     <connection from="7" to="4" fromLane="1" toLane="0" via=":Center_13_0" dir="s" state="M"/>
     <connection from="7" to="4" fromLane="2" toLane="1" via=":Center_13_1" dir="s" state="M"/>
     <connection from="7" to="2" fromLane="2" toLane="1" via=":Center_15_0" dir="l" state="M"/>
-    <connection from="8" to="2" fromLane="0" toLane="0" via=":Center_4_0" dir="r" state="m"/>
+    <connection from="8" to="2" fromLane="0" toLane="0" via=":Center_4_0" dir="r" state="M"/>
     <connection from="8" to="3" fromLane="0" toLane="1" via=":Center_5_0" dir="s" state="m"/>
     <connection from="8" to="3" fromLane="1" toLane="2" via=":Center_5_1" dir="s" state="m"/>
     <connection from="8" to="1" fromLane="1" toLane="2" via=":Center_7_0" dir="l" state="m"/>
