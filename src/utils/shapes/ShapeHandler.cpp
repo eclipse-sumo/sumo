@@ -184,7 +184,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     }
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
     const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, myDefaultFill);
-    const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, id.c_str(), ok, 1);
+    const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, id.c_str(), ok, Shape::DEFAULT_LINEWIDTH);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, Shape::DEFAULT_TYPE);
     const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : myDefaultColor;
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
@@ -215,6 +215,12 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         WRITE_ERROR("Polygon's shape cannot be empty.");
         return;
     }
+    // check that lineWidth is positive
+    if (lineWidth <= 0) {
+        WRITE_ERROR("Polygon's lineWidth must be greather than 0.");
+        return;
+    }
+    // create polygon, or show an error if polygon already exists
     if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, ignorePruning)) {
         WRITE_ERROR("Polygon '" + id + "' already exists.");
     }
