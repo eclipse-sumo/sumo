@@ -31,27 +31,12 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeShape("poly")
 
-# create polygon with default values
-netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
-
-# create open polygon
-netedit.createSquaredPoly(referencePosition, 200, 50, 100, False)
-
-# create polygon clicking in the same points
-netedit.createSquaredPoly(referencePosition, 200, 50, 100, False)
-
-# create one-point polygon with area 0
-netedit.createRectangledPoly(referencePosition, 300, 50, 0, 0, True)
-
 # create open line polygon (area 0)
 netedit.createLinePoly(referencePosition, 400, 50, 100, 100, False)
 
-# create close line polygon (area 0)
-netedit.createLinePoly(referencePosition, 500, 50, 100, 100, True)
-
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save shapes
 netedit.saveShapes()

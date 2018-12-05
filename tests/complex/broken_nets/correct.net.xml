@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Dec  4 15:59:22 2018 by Eclipse SUMO netconvert Version v1_0_0+1208-d42a3cd999
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value=".\complex\broken_nets\input_nodes.nod.xml"/>
+        <edge-files value=".\complex\broken_nets\input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value=".\complex\broken_nets\correct.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="-100.00,0.00,100.00,0.00" projParameter="!"/>
+
+    <edge id="1" from="1" to="2" priority="1">
+        <lane id="1_0" index="0" speed="19.00" length="100.00" shape="0.00,-4.80 100.00,-4.80"/>
+        <lane id="1_1" index="1" speed="19.00" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+    <edge id="2" from="2" to="3" priority="1">
+        <lane id="2_0" index="0" speed="19.00" length="100.00" shape="100.00,-4.80 200.00,-4.80"/>
+        <lane id="2_1" index="1" speed="19.00" length="100.00" shape="100.00,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.40"/>
+    <junction id="2" type="priority" x="100.00" y="0.00" incLanes="1_0 1_1" intLanes="" shape="100.00,0.00 100.00,-6.40 100.00,0.00">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="3" type="dead_end" x="200.00" y="0.00" incLanes="2_0 2_1" intLanes="" shape="200.00,-6.40 200.00,0.00"/>
+
+    <connection from="1" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="2" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>
