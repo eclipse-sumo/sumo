@@ -236,7 +236,7 @@ public:
         TAGPROPERTY_DRAWABLE =            1 << 7,   // Element can be drawed in view
         TAGPROPERTY_BLOCKMOVEMENT =       1 << 8,   // Element can block their movement
         TAGPROPERTY_BLOCKSHAPE =          1 << 9,   // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =          1 << 10,   // Element can close their shape
+        TAGPROPERTY_CLOSESHAPE =          1 << 10,  // Element can close their shape
         TAGPROPERTY_GEOPOSITION =         1 << 11,  // Element's position can be defined using a GEO position
         TAGPROPERTY_GEOSHAPE =            1 << 12,  // Element's shape acn be defined using a GEO Shape
         TAGPROPERTY_DIALOG =              1 << 13,  // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
@@ -255,6 +255,7 @@ public:
         TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 26,  // Element will be placed over a junction
         TAGPROPERTY_PLACEDOVER_EDGES =    1 << 27,  // Element will be placed over a list of edges
         TAGPROPERTY_PLACEDOVER_LANES =    1 << 28,  // Element will be placed over a list of lanes
+        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 29,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
     };
 
     /// @brief struct with the attribute Properties
@@ -370,6 +371,9 @@ public:
 
         /// @brief return true if tag correspond to an element that only have a limited number of childs
         bool hasMinimumNumberOfChilds() const;
+
+        /// @brief return true if Tag correspond to an element that supports generic parameters
+        bool hasGenericParameters() const;
 
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;

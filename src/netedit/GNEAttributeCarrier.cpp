@@ -690,6 +690,13 @@ GNEAttributeCarrier::TagProperties::hasMinimumNumberOfChilds() const {
 }
 
 
+bool 
+GNEAttributeCarrier::TagProperties::hasGenericParameters() const {
+    // note: By default all Tags supports generic parameters, except Tags with "TAGPROPERTY_NOGENERICPARAMETERS"
+    return (myTagProperty & TAGPROPERTY_NOGENERICPARAMETERS) == 0;
+}
+
+
 bool
 GNEAttributeCarrier::TagProperties::canBeReparent() const {
     return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
@@ -1844,7 +1851,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_ENTRY;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3ENTRY, SUMO_TAG_E3DETECTOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_NOGENERICPARAMETERS | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3ENTRY, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LANE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -1862,7 +1869,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_DET_EXIT;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3EXIT, SUMO_TAG_E3DETECTOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_NOGENERICPARAMETERS | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DETECTOR | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, additional, ICON_E3EXIT, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LANE,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

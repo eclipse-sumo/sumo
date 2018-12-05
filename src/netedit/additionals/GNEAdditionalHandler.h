@@ -748,13 +748,13 @@ public:
 
 private:
     /// @brief Stack used to save the last inserted element
-    struct HierarchyInsertedElements {
+    struct HierarchyInsertedAdditionals {
 
         /// @brief insert new element (called only in function myStartElement)
         void insertElement(SumoXMLTag tag);
 
-        /// @brief commit element insertion (used to save ID of last correct inserted element)
-        void commitElementInsertion(const std::string& id);
+        /// @brief commit element insertion (used to save last correct created element)
+        void commitElementInsertion(GNEAdditional* additionalCreated);
 
         /// @brief pop last inserted element (used only in function myEndElement)
         void popElement();
@@ -762,9 +762,12 @@ private:
         /// @brief retrieve additional parent correspond to current status of myInsertedElements
         GNEAdditional* retrieveAdditionalParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const;
 
+        /// @brief return last additional inserted
+        GNEAdditional* getLastInsertedAdditional() const;
+
     private:
         /// @brief vector used as stack
-        std::vector<std::pair<SumoXMLTag, std::string> > myInsertedElements;
+        std::vector<std::pair<SumoXMLTag, GNEAdditional*> > myInsertedElements;
     };
 
     /// @brief pointer to View's Net
@@ -776,11 +779,8 @@ private:
     /// @brief pointer to parent additional (used for loading additional childs placed in a different XML)
     GNEAdditional* myAdditionalParent;
 
-    /// @brief pointer to last inserted additional (used for generic parameters)
-    GNEAdditional* myLastInsertedAdditional;
-
-    /// @brief HierarchyInsertedElements used for insert childs
-    HierarchyInsertedElements myParentElements;
+    /// @brief HierarchyInsertedAdditionals used for insert childs
+    HierarchyInsertedAdditionals myHierarchyInsertedAdditionals;
 };
 
 
