@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Sep  2 10:33:30 2018 by Eclipse SUMO netconvert Version d6cfaccbb6
+<!-- generated on Tue Dec  4 16:32:49 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -189,10 +189,10 @@
     </junction>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 8_2 8_3 5_0 5_1 7_0 7_1 7_2 7_3 :Center_w1_0 :Center_w0_0" intLanes=":Center_0_0 :Center_1_0 :Center_2_0 :Center_2_1 :Center_4_0 :Center_5_0 :Center_6_0 :Center_24_0 :Center_8_0 :Center_9_0 :Center_9_1 :Center_25_0 :Center_12_0 :Center_13_0 :Center_14_0 :Center_14_1 :Center_16_0 :Center_17_0 :Center_18_0 :Center_26_0 :Center_20_0 :Center_21_0 :Center_21_1 :Center_27_0 :Center_c0_0 :Center_c1_0" shape="43.60,64.30 56.40,64.30 56.57,63.47 56.77,63.18 57.07,62.97 57.44,62.84 57.90,62.80 57.90,37.20 57.07,37.03 56.78,36.83 56.57,36.53 56.44,36.16 56.40,35.70 43.60,35.70 43.43,36.53 43.23,36.82 42.93,37.03 42.56,37.16 42.10,37.20 42.10,62.80 42.93,62.97 43.22,63.17 43.43,63.47 43.56,63.84">
         <request index="0"  response="10000000000000000001000000" foes="10000000000000000001000000" cont="0"/>
-        <request index="1"  response="10000000000000011001000000" foes="10000000010000011001000000" cont="0"/>
+        <request index="1"  response="10000000000000011001000000" foes="10000000000000011001000000" cont="0"/>
         <request index="2"  response="00111111100000111011000000" foes="00111111110000111011000000" cont="0"/>
         <request index="3"  response="00111111000000111011000000" foes="00111111010000111011000000" cont="0"/>
-        <request index="4"  response="01111010001110111011000000" foes="01111010001110111011000000" cont="0"/>
+        <request index="4"  response="01111010001100111011000000" foes="01111010001100111011000000" cont="0"/>
         <request index="5"  response="01000000000000000000000000" foes="01100010001100000000000000" cont="0"/>
         <request index="6"  response="01000000000000000000000000" foes="11100010001100000100011111" cont="0"/>
         <request index="7"  response="01011101100000011000000000" foes="01111111111100011100011100" cont="1"/>
@@ -201,10 +201,10 @@
         <request index="10" response="01000000000000000000000000" foes="11100010011100000010011110" cont="0"/>
         <request index="11" response="01011101000000000000000000" foes="01011111011100000000011100" cont="1"/>
         <request index="12" response="01000001000000000000000000" foes="01000001000000000000000000" cont="0"/>
-        <request index="13" response="01011001000000000000000000" foes="01011001000000000000010000" cont="0"/>
+        <request index="13" response="01011001000000000000000000" foes="01011001000000000000000000" cont="0"/>
         <request index="14" response="00111011000000111111100000" foes="00111011000000111111110000" cont="0"/>
         <request index="15" response="00111011000000111111000000" foes="00111011000000111111010000" cont="0"/>
-        <request index="16" response="10111011000000111010001110" foes="10111011000000111010001110" cont="0"/>
+        <request index="16" response="10111011000000111010001100" foes="10111011000000111010001100" cont="0"/>
         <request index="17" response="00000000000000000000000000" foes="10000000000000100010001100" cont="0"/>
         <request index="18" response="01000000000000000000000000" foes="11000100011111100010001100" cont="0"/>
         <request index="19" response="00011000000000111111100000" foes="10011100011100111111111100" cont="1"/>

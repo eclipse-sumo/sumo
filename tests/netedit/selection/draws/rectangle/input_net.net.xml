@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Sep  2 10:34:15 2018 by Eclipse SUMO netconvert Version d6cfaccbb6
+<!-- generated on Tue Dec  4 16:33:14 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\selection\select_rectangle\input_net.nod.xml"/>
-        <edge-files value=".\netedit\selection\select_rectangle\input_net.edg.xml"/>
+        <node-files value=".\netedit\selection\draws\rectangle\input_net.nod.xml"/>
+        <edge-files value=".\netedit\selection\draws\rectangle\input_net.edg.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\selection\select_rectangle\input_net.net.xml"/>
+        <output-file value=".\netedit\selection\draws\rectangle\input_net.net.xml"/>
     </output>
 
     <junctions>
@@ -73,22 +73,22 @@
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1 2_2" intLanes="" shape="50.00,100.00 59.60,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1 3_2" intLanes="" shape="0.00,50.00 0.00,59.60 0.00,50.00"/>
     <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 8_2 5_0 5_1 5_2 7_0 7_1 7_2" intLanes="" shape="40.40,61.10 59.60,61.10 59.77,60.27 59.98,59.97 60.27,59.77 60.64,59.64 61.10,59.60 61.10,40.40 60.27,40.23 59.97,40.02 59.77,39.73 59.64,39.36 59.60,38.90 40.40,38.90 40.23,39.73 40.02,40.03 39.73,40.23 39.36,40.36 38.90,40.40 38.90,59.60 39.73,59.77 40.03,59.98 40.23,60.27 40.36,60.64">
-        <request index="0"  response="0000000000000000" foes="0000100001100000"/>
+        <request index="0"  response="0000000000000000" foes="0000000001100000"/>
         <request index="1"  response="0000000000000000" foes="1111100011100000"/>
         <request index="2"  response="0000000000000000" foes="1111100011100000"/>
-        <request index="3"  response="0000011100000000" foes="1110011111100000"/>
-        <request index="4"  response="0000011000000000" foes="1000011000000000"/>
+        <request index="3"  response="0000011000000000" foes="1110011011100000"/>
+        <request index="4"  response="0000011000000000" foes="0000011000000000"/>
         <request index="5"  response="0000111000001111" foes="1000111000001111"/>
         <request index="6"  response="0000111000001111" foes="1000111000001111"/>
-        <request index="7"  response="0111111000001110" foes="0111111000001110"/>
-        <request index="8"  response="0000000000000000" foes="0110000000001000"/>
+        <request index="7"  response="0110111000001110" foes="0110111000001110"/>
+        <request index="8"  response="0000000000000000" foes="0110000000000000"/>
         <request index="9"  response="0000000000000000" foes="1110000011111000"/>
         <request index="10" response="0000000000000000" foes="1110000011111000"/>
-        <request index="11" response="0000000000000111" foes="1110000011100111"/>
-        <request index="12" response="0000000000000110" foes="0000000010000110"/>
+        <request index="11" response="0000000000000110" foes="1110000011100110"/>
+        <request index="12" response="0000000000000110" foes="0000000000000110"/>
         <request index="13" response="0000111100001110" foes="0000111110001110"/>
         <request index="14" response="0000111100001110" foes="0000111110001110"/>
-        <request index="15" response="0000111001111110" foes="0000111001111110"/>
+        <request index="15" response="0000111001101110" foes="0000111001101110"/>
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1 4_2" intLanes="" shape="100.00,50.00 100.00,40.40 100.00,50.00"/>
 

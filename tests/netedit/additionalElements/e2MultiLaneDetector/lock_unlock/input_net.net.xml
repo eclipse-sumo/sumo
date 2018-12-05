@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.10.2018 10:08:24 by Eclipse SUMO netedit Version v1_0_0+0003-85a2829977
+<!-- generated on Tue Dec  4 16:31:24 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\additionalElements\e2MultiLaneDetector\create\input_net.net.xml"/>
+        <node-files value=".\netedit\additionalElements\e2MultiLaneDetector\lock_unlock\input_net.nod.xml"/>
+        <edge-files value=".\netedit\additionalElements\e2MultiLaneDetector\lock_unlock\input_net.edg.xml"/>
+        <connection-files value=".\netedit\additionalElements\e2MultiLaneDetector\lock_unlock\input_net.con.xml"/>
+        <tllogic-files value=".\netedit\additionalElements\e2MultiLaneDetector\lock_unlock\input_net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\additionalElements\e2MultiLaneDetector\create\input_net.net.xml"/>
-        <plain-output-prefix value=""/>
+        <output-file value=".\netedit\additionalElements\e2MultiLaneDetector\lock_unlock\input_net.net.xml"/>
     </output>
 
-    <processing>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->

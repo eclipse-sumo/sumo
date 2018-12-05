@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Sep  2 10:33:13 2018 by Eclipse SUMO netconvert Version d6cfaccbb6
+<!-- generated on Tue Dec  4 16:32:05 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -156,25 +156,25 @@
     </junction>
     <junction id="Center" type="priority" x="50.00" y="0.00" incLanes="5_0 5_1 8_0 8_1 7_0 7_1 6_0 6_1" intLanes=":Center_0_0 :Center_1_0 :Center_2_0 :Center_3_0 :Center_4_0 :Center_5_0 :Center_6_0 :Center_20_0 :Center_8_0 :Center_21_0 :Center_10_0 :Center_22_0 :Center_12_0 :Center_23_0 :Center_24_0 :Center_15_0 :Center_16_0 :Center_17_0 :Center_18_0 :Center_19_0" shape="59.23,18.28 68.28,9.23 67.15,7.66 67.16,7.11 67.54,6.71 68.31,6.48 69.45,6.40 69.45,-6.40 30.55,-6.40 30.55,6.40 32.46,6.71 32.84,7.11 32.85,7.66 32.47,8.36 31.72,9.23 40.77,18.28 43.85,15.72 46.92,14.18 50.00,13.67 53.08,14.18 56.15,15.72">
         <request index="0"  response="00000010000000100000" foes="10000010000000100000" cont="0"/>
-        <request index="1"  response="01110001110101101000" foes="01110001111101101100" cont="0"/>
+        <request index="1"  response="01110001110101101000" foes="01110001110101101100" cont="0"/>
         <request index="2"  response="00000010000000100010" foes="10000010000000100010" cont="0"/>
-        <request index="3"  response="01111010000101100010" foes="01111110000101100010" cont="0"/>
-        <request index="4"  response="01010000100010000000" foes="01010000100010000000" cont="0"/>
-        <request index="5"  response="00000000000000000000" foes="11010010100010001111" cont="0"/>
+        <request index="3"  response="01110010000101100010" foes="01110110000101100010" cont="0"/>
+        <request index="4"  response="01010000000010000000" foes="01010000000010000000" cont="0"/>
+        <request index="5"  response="00000000000000000000" foes="01010000100010001111" cont="0"/>
         <request index="6"  response="00000000000000000000" foes="00101110100010001010" cont="0"/>
         <request index="7"  response="00000000000001100000" foes="01010000100001110000" cont="1"/>
         <request index="8"  response="00000000000000000000" foes="00101110100000001010" cont="0"/>
-        <request index="9"  response="00100001010000000010" foes="00100001010000000010" cont="1"/>
+        <request index="9"  response="00100001010000000000" foes="00100001010000000000" cont="1"/>
         <request index="10" response="00000000000000000000" foes="00100000001000000010" cont="0"/>
-        <request index="11" response="00000001000111100000" foes="01110001000111110010" cont="1"/>
+        <request index="11" response="00000001000111100000" foes="01110001000111100010" cont="1"/>
         <request index="12" response="00000000000000000000" foes="00100000101000000010" cont="0"/>
-        <request index="13" response="00000000000101100000" foes="11110000000101101101" cont="1"/>
-        <request index="14" response="00001000000101001000" foes="00001000000101001000" cont="1"/>
-        <request index="15" response="00000000000101000000" foes="00000100000101001000" cont="0"/>
+        <request index="13" response="00000000000101000000" foes="11110000000101001101" cont="1"/>
+        <request index="14" response="00000000000101001000" foes="00000000000101001000" cont="1"/>
+        <request index="15" response="00000000000101000000" foes="00000000000101000000" cont="0"/>
         <request index="16" response="00100010100010100000" foes="00100010100010111010" cont="0"/>
         <request index="17" response="00000011110101000000" foes="00010011111101001010" cont="0"/>
         <request index="18" response="00000010100010100000" foes="00000010100010111010" cont="0"/>
-        <request index="19" response="00000010000000100101" foes="00000010000000100101" cont="0"/>
+        <request index="19" response="00000010000000000101" foes="00000010000000000101" cont="0"/>
     </junction>
     <junction id="D" type="priority" x="100.00" y="0.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,0.00 100.00,-6.40 100.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
