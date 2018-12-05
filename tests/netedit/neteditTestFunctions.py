@@ -1618,3 +1618,48 @@ def modifyShapeDefaultBoolValue(numTabs):
         typeTab()
     # Change current value
     typeSpace()
+    
+    
+"""
+@brief create GEO POI
+"""
+
+
+def createGEOPOI():
+    # focus current frame
+    focusOnFrame()
+    # place cursor in create GEO POI
+    for x in range(19):
+        typeTab()
+    # Change current value
+    typeSpace()
+    
+
+"""
+@brief change GEO POI format as Lon Lat
+"""
+
+
+def GEOPOILonLat():
+    # focus current frame
+    focusOnFrame()
+    # place cursor in lon-lat
+    for x in range(15):
+        typeTab()
+    # Change current value
+    typeSpace()
+    
+
+"""
+@brief change GEO POI format as Lat Lon
+"""
+
+
+def GEOPOILatLon():
+    # focus current frame
+    focusOnFrame()
+    # place cursor in lat-lon
+    for x in range(16):
+        typeTab()
+    # Change current value
+    typeSpace()
