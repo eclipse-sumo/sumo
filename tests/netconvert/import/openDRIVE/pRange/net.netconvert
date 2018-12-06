@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  6 21:11:18 2018 by Eclipse SUMO netconvert Version eeef47f
+<!-- generated on Thu Dec  6 23:02:01 2018 by Eclipse SUMO netconvert Version eeef47f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,12 +63,12 @@ SPDX-License-Identifier: EPL-2.0
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id="-1.0.00" from="1" to="2" priority="1" type="driving" shape="60.33,-1.43,-10.00 61.93,121.82 62.39,123.34 63.70,124.27 65.89,124.59 199.04,125.81,10.00">
-        <lane id="-1.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="260.07" width="3.20" shape="61.93,-1.45,-10.00 63.23,98.54,-1.87 63.53,121.58 63.76,122.35 64.31,122.74 66.01,122.99 99.10,123.29,2.49 199.06,124.21,10.00">
+        <lane id="-1.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="260.07" width="3.20" shape="61.93,-1.45,-10.00 63.53,121.58 63.76,122.35 64.31,122.74 66.01,122.99 199.06,124.21,10.00">
             <param key="origId" value="1_-1"/>
         </lane>
     </edge>
-    <edge id="-2.0.00" from="3" to="4" priority="1" type="driving" shape="100.05,0.00,10.00 100.05,93.00 100.24,95.13,-0.21 100.82,96.86,-0.32 101.79,98.21,-0.35 103.14,99.18,-0.32 104.87,99.76,-0.21 106.99,99.95,-0.00 200.00,99.95,10.00">
-        <lane id="-2.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="195.82" width="3.20" shape="101.65,-0.00,10.00 101.65,92.93,0.12 101.82,94.80,-0.08 102.26,96.13,-0.22 102.93,97.07,-0.35 103.87,97.74,-0.22 105.20,98.18,-0.08 107.07,98.35,0.12 200.00,98.35,10.00">
+    <edge id="-2.0.00" from="3" to="4" priority="1" type="driving" shape="100.05,0.00,10.00 100.05,93.00,0.24 100.24,95.13,0.02 100.82,96.86,-0.17 101.79,98.21,-0.35 103.14,99.18,-0.17 104.87,99.76,0.02 106.99,99.95,0.24 200.00,99.95,10.00">
+        <lane id="-2.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="195.82" width="3.20" shape="101.65,-0.00,10.00 101.65,92.93,0.24 101.82,94.80,0.02 102.26,96.13,-0.17 102.93,97.07,-0.35 103.87,97.74,-0.17 105.20,98.18,0.02 107.07,98.35,0.24 200.00,98.35,10.00">
             <param key="origId" value="2_-1"/>
         </lane>
     </edge>

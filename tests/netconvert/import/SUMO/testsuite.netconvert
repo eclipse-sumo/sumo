@@ -94,5 +94,7 @@ limit-turn-speed
 limit-turn-speed_overwrite
 
 # import check-lane-foes options from .net.xml
-# 
 checkLaneFoes
+
+# test computation of lane shapes from edge shapes with elevation
+elevation
