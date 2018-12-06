@@ -278,6 +278,12 @@ GNEAttributeCarrier::AttributeProperties::isString() const {
 
 
 bool
+GNEAttributeCarrier::AttributeProperties::isposition() const {
+    return (myAttributeProperty & ATTRPROPERTY_POSITION) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::AttributeProperties::isProbability() const {
     return (myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0;
 }
@@ -826,7 +832,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
         throw EmptyData();
     } else {
         bool ok = true;
-        PositionVector pos = GeomConvHelper::parseShapeReporting(string, "user-supplied position", 0, ok, false, true);
+        PositionVector pos = GeomConvHelper::parseShapeReporting(string, "user-supplied position", 0, ok, false, false);
         if (!ok || (pos.size() != 1)) {
             throw NumberFormatException("(Position) " + string);
         } else {

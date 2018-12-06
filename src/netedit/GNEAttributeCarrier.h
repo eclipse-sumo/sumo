@@ -151,6 +151,9 @@ public:
         /// @brief return true if atribute is a string
         bool isString() const;
 
+		/// @brief return true if atribute is a position
+        bool isposition() const;
+
         /// @brief return true if atribute is a probability
         bool isProbability() const;
 
@@ -621,6 +624,8 @@ public:
             defaultValue = "0";
         } else if (attrProperties.isColor()) {
             defaultValue = "black";
+        } else if (attrProperties.isposition()) {
+            defaultValue = "0,0";
         }
         // first check that attribute exists in XML
         if (attrs.hasAttribute(attribute)) {
@@ -629,10 +634,6 @@ public:
             // check that sucesfully parsed attribute can be converted to type T
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
-                // only set default value if this isn't a SVCPermission
-                if (!attrProperties.isVClass()) {
-                    parsedAttribute = defaultValue;
-                }
             }
             // declare a string for details about error formats
             std::string errorFormat;
@@ -690,6 +691,15 @@ public:
                     errorFormat = "Cannot be parsed to float; ";
                     parsedOk = false;
                 }
+            }
+			// Set extra checks for position values
+            if (attrProperties.isposition() && !canParse<Position>(parsedAttribute)) {
+				if(attrProperties.isList()) {
+					errorFormat = "List of Positions aren't neither x,y nor x,y,z; ";
+				} else {
+					errorFormat = "Position is neither x,y nor x,y,z; ";
+				}
+                parsedOk = false;
             }
             // set extra check for time(double) values
             if (attrProperties.isTime()) {
