@@ -1425,9 +1425,9 @@ PositionVector::smoothedZFront(double dist) const {
     const double dz = (*this)[1].z() - z0;
     // if the shape only has 2 points it is as smooth as possible already
     if (size() > 2 && dz != 0) {
-        dist = MIN2(dist, length());
+        dist = MIN2(dist, length2D());
         // check wether we need to insert a new point at dist
-        Position pDist = positionAtOffset(dist);
+        Position pDist = positionAtOffset2D(dist);
         int iLast = indexOfClosest(pDist);
         // prevent close spacing to reduce impact of rounding errors in z-axis
         if (pDist.distanceTo2D((*this)[iLast]) > POSITION_EPS * 20) {

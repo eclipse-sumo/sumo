@@ -797,8 +797,8 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
             const double dZ = ns.size() >= 2 ? fabs(ns[0].z() - ns[1].z()) : 0;
             if (dZ > 0) {
                 const OptionsCont& oc = OptionsCont::getOptions();
-                if (oc.exists("geometry.max-grade")) {
-                    ns = ns.smoothedZFront(MIN2(ns.length2D(), dZ * 4 * oc.getFloat("geometry.max-grade")));
+                if (oc.exists("geometry.max-grade") && oc.getFloat("geometry.max-grade") > 0) {
+                    ns = ns.smoothedZFront(MIN2(ns.length2D() / 2, dZ * (100 / oc.getFloat("geometry.max-grade"))));
                 }
             }
         }
@@ -820,8 +820,8 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         const double dZ = result.size() >= 2 ? fabs(result[0].z() - result[1].z()) : 0;
         if (dZ > 0) {
             const OptionsCont& oc = OptionsCont::getOptions();
-            if (oc.exists("geometry.max-grade")) {
-                result = result.smoothedZFront(MIN2(result.length2D(), dZ * 4 * oc.getFloat("geometry.max-grade")));
+            if (oc.exists("geometry.max-grade") && oc.getFloat("geometry.max-grade") > 0) {
+                result = result.smoothedZFront(MIN2(result.length2D() / 2, dZ * (100 / oc.getFloat("geometry.max-grade"))));
             }
         }
         return result;
