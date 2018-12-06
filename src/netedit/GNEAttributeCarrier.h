@@ -692,14 +692,19 @@ public:
                     parsedOk = false;
                 }
             }
-			// Set extra checks for position values
-            if (attrProperties.isposition() && !canParse<Position>(parsedAttribute)) {
-				if(attrProperties.isList()) {
-					errorFormat = "List of Positions aren't neither x,y nor x,y,z; ";
-				} else {
-					errorFormat = "Position is neither x,y nor x,y,z; ";
-				}
-                parsedOk = false;
+            // Set extra checks for position values
+            if (attrProperties.isposition()) {
+                // check if we're parsing a single position or an entire shape
+                if (attrProperties.isList()) {
+                    // check if parsed attribute can be parsed to Position Vector
+                    if(!canParse<PositionVector>(parsedAttribute)) {
+                        errorFormat = "List of Positions aren't neither x,y nor x,y,z; ";
+                        parsedOk = false;
+                    }
+                } else if (!canParse<Position>(parsedAttribute)) {
+                    errorFormat = "Position is neither x,y nor x,y,z; ";
+                    parsedOk = false;
+                }
             }
             // set extra check for time(double) values
             if (attrProperties.isTime()) {
