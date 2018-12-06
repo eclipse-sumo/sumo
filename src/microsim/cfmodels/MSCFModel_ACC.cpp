@@ -58,6 +58,15 @@
 #define DEFAULT_CA_GAIN_SPACE 0.8
 #define DEFAULT_CA_GAIN_SPEED 0.23
 
+// ===========================================================================
+// thresholds
+// ===========================================================================
+#define GAP_THRESHOLD_SPEEDCTRL 120
+#define GAP_THRESHOLD_GAPCTRL 100
+
+
+
+
 // override followSpeed when deemed unsafe by the given margin (the value was selected to reduce the number of necessary interventions)
 #define DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD 2.0
 
@@ -104,6 +113,15 @@ MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double 
     return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
+
+double
+MSCFModel_ACC::getSecureGap(const double speed, const double leaderSpeed, const double /* leaderMaxDecel */) const {
+    // Accel in gap mode should vanish:
+    //      0 = myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * (g - myHeadwayTime * speed);
+    // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;
+    // <=>  g = - myGapControlGainSpeed * (leaderSpeed - speed) / myGapControlGainSpace + myHeadwayTime * speed;
+    return myGapControlGainSpeed * (speed - leaderSpeed) / myGapControlGainSpace + myHeadwayTime * speed;
+}
 
 /// @todo update interactionGap logic
 double
@@ -155,8 +173,8 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
                   const double predSpeed, const double desSpeed, const bool /* respectMinGap */) const {
 
     double accelACC = 0;
-    double gapLimit_SC = 120; // lower gap limit in meters to enable speed control law
-    double gapLimit_GC = 100; // upper gap limit in meters to enable gap control law
+    double gapLimit_SC = GAP_THRESHOLD_SPEEDCTRL; // lower gap limit in meters to enable speed control law
+    double gapLimit_GC = GAP_THRESHOLD_GAPCTRL; // upper gap limit in meters to enable gap control law
 
 #ifdef DEBUG_ACC
     if DEBUG_COND {
@@ -179,11 +197,11 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
 
 #ifdef DEBUG_ACC
         if DEBUG_COND {
-        std::cout << "        applying speedControl" << std::endl;
-    }
+            std::cout << "        applying speedControl" << std::endl;
+        }
 #endif
-    // Find acceleration - Speed control law
-    accelACC = accelSpeedControl(vErr);
+        // Find acceleration - Speed control law
+        accelACC = accelSpeedControl(vErr);
         // Set cl to vehicle parameters
         if (setControlMode) {
             vars->ACC_ControlMode = 0;
