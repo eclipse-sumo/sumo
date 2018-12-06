@@ -137,6 +137,10 @@ Processing Options:
   --reserved-ids FILE                  Ensures that generated ids do not
                                          included any of the typed IDs from FILE
                                          (SUMO-GUI selection file format)
+  --geometry.max-grade FLOAT           Warn about edge geometries with a grade
+                                         in % above FLOAT.
+  --geometry.max-grade.fix             Smooth edge edge geometries with a grade
+                                         in above the warning threshold.
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions

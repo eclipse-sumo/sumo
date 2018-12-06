@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 23 22:33:16 2018 by Eclipse SUMO netconvert Version eeef47f
+<!-- generated on Thu Dec  6 21:23:27 2018 by Eclipse SUMO netconvert Version eeef47f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -243,11 +243,14 @@
         <!-- Ignore overlapping edges if they are separated vertically by the given threshold. -->
         <geometry.check-overlap.vertical-threshold value="4" type="FLOAT"/>
 
-        <!-- Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed. -->
-        <geometry.max-grade value="10" type="FLOAT"/>
-
         <!-- Modify edge geometries to avoid overlap at junctions -->
         <geometry.avoid-overlap value="true" type="BOOL"/>
+
+        <!-- Warn about edge geometries with a grade in % above FLOAT. -->
+        <geometry.max-grade value="10" type="FLOAT"/>
+
+        <!-- Smooth edge edge geometries with a grade in above the warning threshold. -->
+        <geometry.max-grade.fix value="true" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
