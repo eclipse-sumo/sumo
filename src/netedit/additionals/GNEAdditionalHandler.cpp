@@ -2535,7 +2535,13 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::insertElement(SumoXMLTag tag
 
 void
 GNEAdditionalHandler::HierarchyInsertedAdditionals::commitElementInsertion(GNEAdditional* additional) {
-    myInsertedElements.back().second = additional;
+    // make sure that inserted additional exists
+    if (additional) {
+        myInsertedElements.back().second = additional;
+    } else {
+        // abort parsing of additionals
+        throw ProcessError("Commiting insertion of an empty element.");
+    }
 }
 
 
