@@ -43,14 +43,11 @@ netedit.inspectMode()
 # inspect first chargingStation
 netedit.leftClick(referencePosition, 250, 160)
 
-# Change parameter power with a non valid value
-netedit.modifyAttribute(9, "dummyPower")
+# Change parameter name with a non valid value
+netedit.modifyAttribute(7, "%%%;:..&&%$%$")
 
-# Change parameter power with a non valid value
-netedit.modifyAttribute(9, "-30")
-
-# Change parameter power with a non valid value
-netedit.modifyAttribute(9, "500.5")
+# Change parameter name with a non valid value
+netedit.modifyAttribute(7, "charging station name")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

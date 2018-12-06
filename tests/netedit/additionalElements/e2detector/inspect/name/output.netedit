@@ -3,42 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
 e2Detector
 TestFunctions: Clicked over position 554 - 290
-TestFunctions: Clicked over position 754 - 290
 TestFunctions: Clicked over position 564 - 290
-e2Detector_gneE2_1_1
-Id with spaces
-correctID
-dummy lane
-gneE0_0
-gneE2_1
-gneE2_0
--5
-400
-20
-dummyLength
--5
-5
-dummyFrequency
--100
-120
 %%%;:..&&%$%$
 customName
-%;;%%&%%%&&
-
-E2Detector_gneE2_1_1.txt
-myOwnOutput.txt
-Type%%%%%1 T;;yp$2 Type3
-Type1 Type2 Type3
-dummyTimeTreshold
--5
-4
-dummySpeedTreshold
--12.1
-6.3
-dummyJamThreshold
--11.1
-7.3
-12.5
 TestFunctions: Clicked over position 304 - 140
 TestFunctions: Clicked over position 304 - 140
 TestFunctions: Netedit closed successfully

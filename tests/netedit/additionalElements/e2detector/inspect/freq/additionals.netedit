@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.08.2018 11:09:33 by Eclipse SUMO netedit Version 7115a4b324
+<!-- generated on 06.12.2018 09:44:12 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_03Aug091602.3036/netedit.gui/additionalElements/e2detector/inspect\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Dec082041.2924/netedit.gui/additionalElements/e2detector/inspect/freq\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_03Aug091602.3036/netedit.gui/additionalElements/e2detector/inspect\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_03Aug091602.3036/netedit.gui/additionalElements/e2detector/inspect\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_03Aug091602.3036/netedit.gui/additionalElements/e2detector/inspect\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Dec082041.2924/netedit.gui/additionalElements/e2detector/inspect/freq\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="5"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Dec082041.2924/netedit.gui/additionalElements/e2detector/inspect/freq\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Dec082041.2924/netedit.gui/additionalElements/e2detector/inspect/freq\shapes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_03Aug091602.3036/netedit.gui/additionalElements/e2detector/inspect\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Dec082041.2924/netedit.gui/additionalElements/e2detector/inspect/freq\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -32,13 +42,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_03Aug091602.3036/netedit.gui/additionalElements/e2detector/inspect\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Dec082041.2924/netedit.gui/additionalElements/e2detector/inspect/freq\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="correctID" name="customName" length="5.00" vTypes="Type1 Type2 Type3" lane="gneE2_0" pos="20.00" freq="120.00" file="myOwnOutput.txt" timeThreshold="4.00" speedThreshold="6.30" jamThreshold="12.50" friendlyPos="1"/>
-    <e2Detector id="e2Detector_gneE2_1_1" length="10.00" lane="gneE2_1" pos="37.00" freq="900.00" file="e2Detector_gneE2_1_1.xml"/>
+    <e2Detector id="e2Detector_gneE2_1_0" length="10.00" lane="gneE2_1" pos="17.00" freq="120.50" file="e2Detector_gneE2_1_0.xml"/>
 </additional>
