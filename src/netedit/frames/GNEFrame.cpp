@@ -358,6 +358,8 @@ GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
                 // check if double value is a probability
             } else if (myAttrProperties.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
                 myInvalidValue = "'" + toString(myXMLAttr) + "' takes only values between 0 and 1";
+			} else if (myAttrProperties.hasAttrRange() && ((doubleValue < myAttrProperties.getMinimumRange()) || doubleValue > myAttrProperties.getMaximumRange())) {
+                myInvalidValue = "'" + toString(myXMLAttr) + "' takes only values between " + toString(myAttrProperties.getMinimumRange())+ " and " + toString(myAttrProperties.getMaximumRange());
             } else if ((myACAttributesParent->myTagProperties.getTag() == SUMO_TAG_E2DETECTOR) && (myXMLAttr == SUMO_ATTR_LENGTH) && (doubleValue == 0)) {
                 myInvalidValue = "E2 length cannot be 0";
             }
