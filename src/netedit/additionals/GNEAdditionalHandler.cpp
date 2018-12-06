@@ -2535,13 +2535,7 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::insertElement(SumoXMLTag tag
 
 void
 GNEAdditionalHandler::HierarchyInsertedAdditionals::commitElementInsertion(GNEAdditional* additional) {
-    // make sure that inserted additional exists
-    if (additional) {
-        myInsertedElements.back().second = additional;
-    } else {
-        // abort parsing of additionals
-        throw ProcessError("Commiting insertion of an empty element.");
-    }
+    myInsertedElements.back().second = additional;
 }
 
 
@@ -2560,6 +2554,14 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveAdditionalParent(GNE
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
         return nullptr;
     } else {
+        if(myInsertedElements.size() < 2) {
+            // additional was hierarchically bad loaded, then return nullptr
+            return nullptr;
+        } else if ((myInsertedElements.end() - 2)->second == nullptr) {
+            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
+            // additional parent wasn't sucesfully loaded, then return nullptr
+            return nullptr;
+        }
         GNEAdditional* retrievedAdditional = viewNet->getNet()->retrieveAdditional((myInsertedElements.end() - 2)->first, (myInsertedElements.end() - 2)->second->getID(), false);
         if (retrievedAdditional == nullptr) {
             // additional doesn't exist
