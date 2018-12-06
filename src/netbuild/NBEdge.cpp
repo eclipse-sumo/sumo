@@ -757,7 +757,33 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
 
 
 void
-NBEdge::computeEdgeShape() {
+NBEdge::computeEdgeShape(double smoothElevationThreshold) {
+    if (smoothElevationThreshold > 0 && myGeom.hasElevation()) {
+        PositionVector cut = cutAtIntersection(myGeom);
+        // cutting and patching z-coordinate may cause steep grades which should be smoothed
+        if (!myFrom->geometryLike()) {
+            cut[0].setz(myFrom->getPosition().z());
+            const double d = cut[0].distanceTo2D(cut[1]);
+            const double dZ = fabs(cut[0].z() - cut[1].z());
+            if (dZ / smoothElevationThreshold > d) {
+                cut = cut.smoothedZFront(MIN2(cut.length2D() / 2, dZ / smoothElevationThreshold));
+            }
+        }
+        if (!myTo->geometryLike()) {
+            cut[-1].setz(myTo->getPosition().z());
+            const double d = cut[-1].distanceTo2D(cut[-2]);
+            const double dZ = fabs(cut[-1].z() - cut[-2].z());
+            if (dZ / smoothElevationThreshold > d) {
+                cut = cut.reverse().smoothedZFront(MIN2(cut.length2D() / 2, dZ / smoothElevationThreshold)).reverse();
+            }
+        }
+        cut[0] = myGeom[0];
+        cut[-1] = myGeom[-1];
+        if (cut != myGeom) {
+            myGeom = cut;
+            computeLaneShapes();
+        }
+    }
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape = cutAtIntersection(myLanes[i].shape);
     }
@@ -793,14 +819,6 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
         if (!startNode->geometryLike() || pb < 1) {
             // make "real" intersections and small intersections flat
             ns[0].setz(startNode->getPosition().z());
-            // cutting and patching z-coordinate may cause steep grades which should be smoothed
-            const double dZ = ns.size() >= 2 ? fabs(ns[0].z() - ns[1].z()) : 0;
-            if (dZ > 0) {
-                const OptionsCont& oc = OptionsCont::getOptions();
-                if (oc.getBool("geometry.max-grade.fix") && oc.getFloat("geometry.max-grade") > 0) {
-                    ns = ns.smoothedZFront(MIN2(ns.length2D() / 2, dZ * (100 / oc.getFloat("geometry.max-grade"))));
-                }
-            }
         }
         assert(ns.size() >= 2);
         return ns;
@@ -817,13 +835,6 @@ NBEdge::startShapeAt(const PositionVector& laneShape, const NBNode* startNode, P
             np.setz(startNode->getPosition().z());
         }
         result.push_front_noDoublePos(np);
-        const double dZ = result.size() >= 2 ? fabs(result[0].z() - result[1].z()) : 0;
-        if (dZ > 0) {
-            const OptionsCont& oc = OptionsCont::getOptions();
-            if (oc.getBool("geometry.max-grade.fix") && oc.getFloat("geometry.max-grade") > 0) {
-                result = result.smoothedZFront(MIN2(result.length2D() / 2, dZ * (100 / oc.getFloat("geometry.max-grade"))));
-            }
-        }
         return result;
         //if (result.size() >= 2) {
         //    return result;

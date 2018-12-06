@@ -855,9 +855,9 @@ NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
 }
 
 void
-NBEdgeCont::computeEdgeShapes() {
+NBEdgeCont::computeEdgeShapes(double smoothElevationThreshold) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->computeEdgeShape();
+        (*i).second->computeEdgeShape(smoothElevationThreshold);
     }
 }
 

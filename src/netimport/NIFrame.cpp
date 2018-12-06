@@ -349,6 +349,10 @@ NIFrame::checkOptions() {
             // changed default since we wish to preserve the network as far as possible
             oc.set("offset.disable-normalization", "true");
         }
+        if (oc.isWriteable("geometry.max-grade.fix")) {
+            // changed default since we wish to preserve the network as far as possible
+            oc.set("geometry.max-grade.fix", "false");
+        }
     }
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
