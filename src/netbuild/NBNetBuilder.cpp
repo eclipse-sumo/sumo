@@ -543,7 +543,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myEdgeCont.checkOverlap(oc.getFloat("geometry.check-overlap"), oc.getFloat("geometry.check-overlap.vertical-threshold"));
         PROGRESS_TIME_MESSAGE(before);
     }
-    if (oc.exists("geometry.max-grade") && oc.getFloat("geometry.max-grade") > 0 && geoConvHelper.getConvBoundary().getZRange() > 0) {
+    if (geoConvHelper.getConvBoundary().getZRange() > 0 && oc.getFloat("geometry.max-grade") > 0) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Checking edge grade");
         // user input is in %

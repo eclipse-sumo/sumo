@@ -152,9 +152,6 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.check-overlap.vertical-threshold", new Option_Float(4));
         oc.addDescription("geometry.check-overlap.vertical-threshold", "Processing", "Ignore overlapping edges if they are separated vertically by the given threshold.");
 
-        oc.doRegister("geometry.max-grade", new Option_Float(10));
-        oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed.");
-
         oc.doRegister("geometry.avoid-overlap", new Option_Bool(true));
         oc.addDescription("geometry.avoid-overlap", "Processing", "Modify edge geometries to avoid overlap at junctions");
 
@@ -181,6 +178,12 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("railway.access-factor", "Railway", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
         oc.addSynonyme("railway.access-factor", "osm.stop-output.footway-access-factor", true);
     }
+
+    oc.doRegister("geometry.max-grade", new Option_Float(10));
+    oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT.");
+
+    oc.doRegister("geometry.max-grade.fix", new Option_Bool(true));
+    oc.addDescription("geometry.max-grade.fix", "Processing", "Smooth edge edge geometries with a grade in above the warning threshold.");
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));
     oc.addSynonyme("offset.disable-normalization", "disable-normalize-node-positions", true);
