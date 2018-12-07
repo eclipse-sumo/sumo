@@ -114,7 +114,7 @@ public:
     virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
         CACCVehicleVariables* ret = new CACCVehicleVariables();
         ret->CACC_ControlMode = 0;
-        ret->lastUpdateTime = 0.0;
+        ret->lastUpdateTime = 0;
         return ret;
     }
 
@@ -125,7 +125,7 @@ private:
         CACCVehicleVariables() : CACC_ControlMode(0) {}
         /// @brief The vehicle's CACC  precious time step gap error
         int    CACC_ControlMode;
-        double lastUpdateTime;
+        SUMOTime lastUpdateTime;
     };
 
 
