@@ -431,7 +431,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "&Open Network...\tCtrl+O\tOpen a SUMO network.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK);
     new FXMenuCommand(myFileMenu,
-                      "Open Configura&tion...\tCtrl+Shift+O\tOpen a NETCONVERT configuration file.",
+                      "Open Netconvert Configura&tion...\tCtrl+Shift+O\tOpen a configuration file with NETCONVERT options.",
                       GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG);
     new FXMenuCommand(myFileMenu,
                       "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
