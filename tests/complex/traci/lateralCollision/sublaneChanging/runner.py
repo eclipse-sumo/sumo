@@ -33,10 +33,8 @@ else:
 
 def runSingle(traciEndTime, latDist, vehID):
     step = 0
-    traci.start(sumoCall + ["-c", "../sumo.sumocfg",
-							"--lateral-resolution", "0.25"])
-    # ~ traci.start(sumoCall + ["-c", "../sumo.sumocfg"])
-    # ~ traci.init()
+    traci.start(sumoCall + ["-c", "sumo.sumocfg",
+							"--lateral-resolution", "0.1"])
     
     # disable safety checks and set constant speed
     print("old lanechangemode", format(traci.vehicle.getLaneChangeMode(vehID), '012b'))
@@ -50,18 +48,15 @@ def runSingle(traciEndTime, latDist, vehID):
 
     while not step > traciEndTime:
         responses = traci.simulationStep()
-        
-        if step == 5:
-            print("trying to change lane...")
-            traci.vehicle.changeSublane(vehID, latDist)
-            # ~ traci.vehicle.changeLane(vehID, 2, 50)
-        
+
         # check if vehID has arrived at destination
         arrivedList = traci.simulation.getArrivedIDList()
         if vehID in arrivedList:
             print("[%03d] Vehicle '%s' has arrived at destination" % (step, vehID))
             break
 
+        print("trying to change lateral position by %.2f..." % (latDist))
+        traci.vehicle.changeSublane(vehID, latDist)
         print("[%03d] lane %d, lateral pos: %.2f" % (step, traci.vehicle.getLaneIndex(vehID), traci.vehicle.getLateralLanePosition(vehID)))
         sys.stdout.flush()
 
