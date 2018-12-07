@@ -1241,7 +1241,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         const double follow = ego->getCarFollowModel().followSpeed(
                                   ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel(), foe);
         // speed adaption to follow the foe can be spread over secondsToArrival
-        const double followInTime = vSafeOrig + (follow - vSafeOrig) / MAX2((double)1, secondsToArrival / TS);
+        const double followInTime = vSafeOrig + (follow - vSafeOrig) / MAX2(1.0, secondsToArrival);
         vSafe = MIN2(vSafe, followInTime);
 #ifdef DEBUG_ZIPPER
         if (gDebugFlag1) std::cout << "    adapting to foe=" << foe->getID()
