@@ -22,8 +22,5 @@ inspect_selected
 # inspect selected crossing with sidewalks
 inspect_selected_sidewalks
 
-# load big net with crossigns
-load_big
-
-# load small net with crossings
-load_small
+# load nets with crossings
+load
