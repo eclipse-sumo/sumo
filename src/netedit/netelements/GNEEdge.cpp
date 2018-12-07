@@ -176,9 +176,14 @@ GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
     // change shape startPosition using oldPosition and offset
     Position shapeStartEdited = oldPos;
     shapeStartEdited.add(offset);
-    // set shape start position without updating grid
-    setShapeStartPos(shapeStartEdited, false);
-    updateGeometry(false);
+    // snap to active grid
+    shapeStartEdited = myNet->getViewNet()->snapToActiveGrid(shapeStartEdited);
+    // make sure that start and end position are different
+    if (shapeStartEdited != myNBEdge.getGeometry().back()) {
+        // set shape start position without updating grid
+        setShapeStartPos(shapeStartEdited, false);
+        updateGeometry(false);
+    }
 }
 
 
@@ -187,9 +192,14 @@ GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
     // change shape endPosition using oldPosition and offset
     Position shapeEndEdited = oldPos;
     shapeEndEdited.add(offset);
-    // set shape end position without updating grid
-    setShapeEndPos(shapeEndEdited, false);
-    updateGeometry(false);
+    // snap to active grid
+    shapeEndEdited = myNet->getViewNet()->snapToActiveGrid(shapeEndEdited);
+    // make sure that start and end position are different
+    if (shapeEndEdited != myNBEdge.getGeometry().front()) {
+        // set shape end position without updating grid
+        setShapeEndPos(shapeEndEdited, false);
+        updateGeometry(false);
+    }
 }
 
 
@@ -267,14 +277,17 @@ GNEEdge::endGeometryMoving() {
 
 
 int
-GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
+GNEEdge::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
     PositionVector entireGeometry = myNBEdge.getGeometry();
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
+    }
     double offset = entireGeometry.nearest_offset_to_point2D(pos, true);
     if (offset == GeomHelper::INVALID_OFFSET) {
         return -1;
     }
     Position newPos = entireGeometry.positionAtOffset2D(offset);
-
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)entireGeometry.size(); i++) {
         if (entireGeometry[i].distanceTo2D(newPos) < SNAP_RADIUS) {
@@ -287,7 +300,11 @@ GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
     }
     // if vertex doesn't exist, insert it
     if (createIfNoExist) {
-        int index = entireGeometry.insertAtClosest(newPos);
+        // check if position has to be snapped to grid
+        if (snapToGrid) {
+            newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
+        }
+        int index = entireGeometry.insertAtClosest(myNet->getViewNet()->snapToActiveGrid(newPos));
         setGeometry(entireGeometry, false, true);
         // index refers to inner geometry
         return (index - 1);
@@ -298,8 +315,8 @@ GNEEdge::getVertexIndex(const Position& pos, bool createIfNoExist) {
 
 
 int
-GNEEdge::getVertexIndex(const double offset, bool createIfNoExist) {
-    return getVertexIndex(myNBEdge.getGeometry().positionAtOffset2D(offset), createIfNoExist);
+GNEEdge::getVertexIndex(const double offset, bool createIfNoExist, bool snapToGrid) {
+    return getVertexIndex(myNBEdge.getGeometry().positionAtOffset2D(offset), createIfNoExist, snapToGrid);
 }
 
 
@@ -629,26 +646,35 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
     } else {
-        undoList->p_begin("set endpoint");
-        PositionVector geom = myNBEdge.getGeometry();
-        int index = geom.indexOfClosest(pos);
-        if (geom[index].distanceTo(pos) < SNAP_RADIUS) { // snap to existing geometry
-            pos = geom[index];
+        // we need to create new Start/End position over Edge shape, not over clicked position
+        double offset = myNBEdge.getGeometry().nearest_offset_to_point2D(myNet->getViewNet()->snapToActiveGrid(pos), true);
+        if (offset != GeomHelper::INVALID_OFFSET) {
+            PositionVector geom = myNBEdge.getGeometry();
+            // calculate position over edge shape relative to clicked positino
+            Position newPos = geom.positionAtOffset2D(offset);
+            // snap new position to grid
+            newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
+            undoList->p_begin("set endpoint");
+            int index = geom.indexOfClosest(pos);
+             // check if snap to existing geometry
+            if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
+                pos = geom[index];
+            }
+            Position destPos = myGNEJunctionDestiny->getNBNode()->getPosition();
+            Position sourcePos = myGNEJunctionSource->getNBNode()->getPosition();
+            if (pos.distanceTo2D(destPos) < pos.distanceTo2D(sourcePos)) {
+                setAttribute(GNE_ATTR_SHAPE_END, toString(newPos), undoList);
+                myGNEJunctionDestiny->invalidateShape();
+            } else {
+                setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
+                myGNEJunctionSource->invalidateShape();
+            }
+            // possibly existing inner point is no longer needed
+            if (myNBEdge.getInnerGeometry().size() > 0 && getVertexIndex(pos, false, false) != -1) {
+                deleteGeometryPoint(pos, false);
+            }
+            undoList->p_end();
         }
-        Position destPos = myGNEJunctionDestiny->getNBNode()->getPosition();
-        Position sourcePos = myGNEJunctionSource->getNBNode()->getPosition();
-        if (pos.distanceTo2D(destPos) < pos.distanceTo2D(sourcePos)) {
-            setAttribute(GNE_ATTR_SHAPE_END, toString(pos), undoList);
-            myGNEJunctionDestiny->invalidateShape();
-        } else {
-            setAttribute(GNE_ATTR_SHAPE_START, toString(pos), undoList);
-            myGNEJunctionSource->invalidateShape();
-        }
-        // possibly existing inner point is no longer needed
-        if (myNBEdge.getInnerGeometry().size() > 0 && getVertexIndex(pos, false) != -1) {
-            deleteGeometryPoint(pos, false);
-        }
-        undoList->p_end();
     }
 }
 

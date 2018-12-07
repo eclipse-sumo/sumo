@@ -108,16 +108,17 @@ public:
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
     * @param pos position of new/existent vertex
     * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
+    * @param snapToGrid enable or disable snapToActiveGrid
     * @return index of position vector
     */
-    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
+    int getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid);
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
     * @param offset position over edge
     * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
     * @return index of position vector
     */
-    int getVertexIndex(const double offset, bool createIfNoExist = true);
+    int getVertexIndex(const double offset, bool createIfNoExist, bool snapToGrid);
 
     /**@brief change position of a vertex of shape without commiting change
     * @param[in] index index of Vertex shape
