@@ -7,9 +7,6 @@ load_and_save
 # open net using shortcut
 open_net_shortcut
 
-# load configuration
-open_configuration
-
 # load configuration using shortcut
 open_configuration_shortcut
 
