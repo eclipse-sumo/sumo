@@ -193,6 +193,9 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
+#ifdef DEBUG_FINALIZE_SPEED
+    double vDawdle = vNext;
+#endif
     assert(vNext >= vMin);
     assert(vNext <= vMax);
     // apply lane-changing related speed adaptations
@@ -204,10 +207,11 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     if DEBUG_COND {
     std::cout << std::setprecision(gPrecision)
         << "veh '" << veh->getID() << "' oldV=" << oldV
+        << " vPos" << vPos
         << " vMin=" << vMin
         << " vMax=" << vMax
-        << " vPos" << vStop
-        << " vStop" << vStop
+        << " vStop=" << vStop
+        << " vDawdle=" << vDawdle
         << " vNext=" << vNext
         << "\n";
     }
