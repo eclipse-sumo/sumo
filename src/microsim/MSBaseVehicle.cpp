@@ -52,6 +52,8 @@ std::vector<MSTransportable*> MSBaseVehicle::myEmptyTransportableVector;
 #ifdef _DEBUG
 std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 #endif
+SUMOVehicle::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
+
 
 // ===========================================================================
 // method definitions
@@ -77,7 +79,8 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myDepartPos(-1),
     myArrivalPos(-1),
     myArrivalLane(-1),
-    myNumberReroutes(0)
+    myNumberReroutes(0),
+    myNumericalID(myCurrentNumericalIndex++)
 #ifdef _DEBUG
     , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
 #endif
