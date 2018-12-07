@@ -118,16 +118,19 @@ GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position
             myCurrentMovingVertexIndex = index;
             // if closed shape and cliked is first or last, move both giving more priority to first always
             if (myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
-                // Change position of first shape Geometry Point
+                // Change position of first shape Geometry Point and filtern position using snap to active grid
                 myShape.front() = oldPos;
                 myShape.front().add(offset);
-                // Change position of last shape Geometry Point
+                myShape.front() = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
+                // Change position of last shape Geometry Point and filtern position using snap to active grid
                 myShape.back() = oldPos;
                 myShape.back().add(offset);
+                myShape.back() = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
             } else {
-                // change position of Geometry Point
+                // change position of Geometry Point and filtern position using snap to active grid
                 myShape[index] = oldPos;
                 myShape[index].add(offset);
+                myShape[index] = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
             }
             // return index of moved Geometry Point
             return index;
@@ -245,7 +248,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     }
     // create a extra FXMenuCommand if mouse is over a vertex
-    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
+    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false, false);
     if (index != -1) {
         FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
         FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
@@ -376,7 +379,11 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 
 
 int
-GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
+GNEPoly::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
+    }
     // first check if vertex already exists
     for (auto i : myShape) {
         if (i.distanceTo2D(pos) < myHintSize) {
@@ -384,7 +391,7 @@ GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
         }
     }
     // if vertex doesn't exist, insert it
-    if (createIfNoExist && (myShape.distance2D(pos) < myHintSize)) {
+    if (createIfNoExist) {
         return myShape.insertAtClosest(pos);
     } else {
         return -1;

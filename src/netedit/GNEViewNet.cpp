@@ -1023,7 +1023,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
                         // before delete al selected attribute carriers, check if we clicked over a geometry point
                         if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
                                 (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false, false) != -1)) 
-                              || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false) != -1)))) {
+                              || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false, false) != -1)))) {
                             myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
                         } else {
                             myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
@@ -2089,12 +2089,12 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
     if (myEditShapePoly != nullptr) {
-        myEditShapePoly->changeFirstGeometryPoint(myEditShapePoly->getVertexIndex(getPopupPosition(), false), false);
+        myEditShapePoly->changeFirstGeometryPoint(myEditShapePoly->getVertexIndex(getPopupPosition(), false, false), false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
-            polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(getPopupPosition(), false));
+            polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(getPopupPosition(), false, false));
         }
     }
     return 1;
@@ -3266,7 +3266,7 @@ GNEViewNet::MoveSingleElementValues::calculatePolyValues() {
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
     if (myViewNet->myCreateEdgeOptions.menuCheckMoveElevation->shown() && myViewNet->myCreateEdgeOptions.menuCheckMoveElevation->getCheck() == TRUE) {
         // check if in the clicked position a geometry point exist
-        int existentIndex = myViewNet->myMovedItems.polyToMove->getVertexIndex(myViewNet->getPositionInformation(), false);
+        int existentIndex = myViewNet->myMovedItems.polyToMove->getVertexIndex(myViewNet->getPositionInformation(), false, false);
         if (existentIndex != -1) {
             // save original shape (needed for commit change)
             myViewNet->myMoveSingleElementValues.originalShapeBeforeMoving = myViewNet->myMovedItems.polyToMove->getShape();
@@ -3287,7 +3287,7 @@ GNEViewNet::MoveSingleElementValues::calculatePolyValues() {
             // check if we want to remove a Geometry Point
             if (myViewNet->myKeyPressed.shiftKeyPressed()) {
                 // check if we're clicked over a Geometry Point
-                myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.polyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, false);
+                myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.polyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, false, false);
                 if (myViewNet->myMoveSingleElementValues.movingIndexShape != -1) {
                     myViewNet->myMovedItems.polyToMove->deleteGeometryPoint(myViewNet->myMoveSingleElementValues.originalPositionInView);
                     // after removing Geomtery Point, reset PolyToMove
@@ -3295,7 +3295,11 @@ GNEViewNet::MoveSingleElementValues::calculatePolyValues() {
                 }
             } else {
                 // obtain index of vertex to move and moving reference
-                myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.polyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView);
+                myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.polyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, false, false);
+                if (myViewNet->myMoveSingleElementValues.movingIndexShape == -1) {
+                    // create new geometry point
+                    myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.polyToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, true, true);
+                }
             }
         } else {
             myViewNet->myMoveSingleElementValues.movingIndexShape = -1;
@@ -3380,7 +3384,7 @@ GNEViewNet::MoveSingleElementValues::calculateTAZValues() {
         // check if we want to remove a Geometry Point
         if (myViewNet->myKeyPressed.shiftKeyPressed()) {
             // check if we're clicked over a Geometry Point
-            myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.tazToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, false);
+            myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.tazToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, false, false);
             if (myViewNet->myMoveSingleElementValues.movingIndexShape != -1) {
                 myViewNet->myMovedItems.tazToMove->deleteGeometryPoint(myViewNet->myMoveSingleElementValues.originalPositionInView);
                 // after removing Geomtery Point, reset PolyToMove
@@ -3388,7 +3392,11 @@ GNEViewNet::MoveSingleElementValues::calculateTAZValues() {
             }
         } else {
             // obtain index of vertex to move and moving reference
-            myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.tazToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView);
+            myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.tazToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, false, false);
+            if (myViewNet->myMoveSingleElementValues.movingIndexShape == -1) {
+                // create new geometry point
+                myViewNet->myMoveSingleElementValues.movingIndexShape = myViewNet->myMovedItems.tazToMove->getVertexIndex(myViewNet->myMoveSingleElementValues.originalPositionInView, true, true);
+            }
         }
     } else {
         // abort moving index shape

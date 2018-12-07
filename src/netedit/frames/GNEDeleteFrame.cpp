@@ -144,14 +144,14 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             case SUMO_TAG_POLY: {
                 GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
-                if (polygon && (polygon->getVertexIndex(clickedPosition, false) != -1)) {
+                if (polygon && (polygon->getVertexIndex(clickedPosition, false, false) != -1)) {
                     polygon->deleteGeometryPoint(clickedPosition);
                 }
                 break;
             }
             case SUMO_TAG_TAZ: {
                 GNETAZ* TAZ = dynamic_cast<GNETAZ*>(ac);
-                if (TAZ && TAZ->getVertexIndex(clickedPosition, false) != -1) {
+                if (TAZ && TAZ->getVertexIndex(clickedPosition, false, false) != -1) {
                     TAZ->deleteGeometryPoint(clickedPosition);
                 }
                 break;
