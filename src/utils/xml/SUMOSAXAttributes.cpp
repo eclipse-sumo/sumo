@@ -37,7 +37,6 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-bool SUMOSAXAttributes::myHaveInformedAboutDeprecatedDivider = false;
 const std::string SUMOSAXAttributes::ENCODING = " encoding=\"UTF-8\"";
 
 
@@ -154,13 +153,7 @@ SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::strin
 
 void
 SUMOSAXAttributes::parseStringVector(const std::string& def, std::vector<std::string>& into) {
-    if (def.find(';') != std::string::npos || def.find(',') != std::string::npos) {
-        if (!myHaveInformedAboutDeprecatedDivider) {
-            WRITE_WARNING("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
-            myHaveInformedAboutDeprecatedDivider = true;
-        }
-    }
-    StringTokenizer st(def, ";, ", true);
+    StringTokenizer st(def, " ", true);
     while (st.hasNext()) {
         into.push_back(st.next());
     }
@@ -169,13 +162,7 @@ SUMOSAXAttributes::parseStringVector(const std::string& def, std::vector<std::st
 
 void
 SUMOSAXAttributes::parseStringSet(const std::string& def, std::set<std::string>& into) {
-    if (def.find(';') != std::string::npos || def.find(',') != std::string::npos) {
-        if (!myHaveInformedAboutDeprecatedDivider) {
-            WRITE_WARNING("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
-            myHaveInformedAboutDeprecatedDivider = true;
-        }
-    }
-    StringTokenizer st(def, ";, ", true);
+    StringTokenizer st(def, " ", true);
     while (st.hasNext()) {
         into.insert(st.next());
     }

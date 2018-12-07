@@ -412,10 +412,6 @@ protected:
     void emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const;
 
 private:
-    /// @brief Information whether the usage of a deprecated divider was reported
-    static bool myHaveInformedAboutDeprecatedDivider;
-
-private:
     /// @brief Invalidated copy constructor.
     SUMOSAXAttributes(const SUMOSAXAttributes& src);
 
