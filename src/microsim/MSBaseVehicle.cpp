@@ -177,7 +177,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         for (std::vector<std::string>::const_iterator it = myParameter->via.begin(); it != myParameter->via.end(); ++it) {
             MSEdge* viaEdge = MSEdge::dictionary(*it);
             assert(viaEdge != 0);
-            if (viaEdge->allowedLanes(getVClass()) == nullptr) {
+            if (!viaEdge->isTazConnector() && viaEdge->allowedLanes(getVClass()) == nullptr) {
                 throw ProcessError("Vehicle '" + getID() + "' is not allowed on any lane of via edge '" + viaEdge->getID() + "'.");
             }
             stops.push_back(viaEdge);
@@ -192,6 +192,12 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             if (into.size() > 0) {
                 into.pop_back();
                 edges.insert(edges.end(), into.begin(), into.end());
+                if ((*s)->isTazConnector()) {
+                    source = into.back();
+                    edges.pop_back();
+                } else {
+                    source = *s;
+                }
             } else {
                 std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + "' to stop edge '" + (*s)->getID() + "'.";
                 if (MSGlobals::gCheckRoutes) {
@@ -200,8 +206,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                     WRITE_WARNING(error);
                     edges.push_back(source);
                 }
+                source = *s;
             }
-            source = *s;
         }
     }
     router.compute(source, sink, this, t, edges);
