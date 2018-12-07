@@ -57,7 +57,6 @@ GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.00,9.00,42.00,49.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummy position' for attribute pos of e3Detector isn't valid
 Debug: Setting new attribute pos '0,0' into e3Detector 'e3Detector_0'
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.00,9.00,42.00,49.00

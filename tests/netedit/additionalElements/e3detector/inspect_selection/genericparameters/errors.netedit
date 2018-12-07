@@ -3,15 +3,15 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_AdetExit0' in GNEChange_Additional
-Debug: Inserting generic parameter 'keyA1|valueA1' into additional detExit.
-Debug: Inserting generic parameter 'keyA2|valueA2' into additional detExit.
-Debug: Inserting generic parameter 'keyA3|valueA3' into additional detExit.
+Debug: Inserting generic parameter 'keyA1|valueA1' into additional e3Detector.
+Debug: Inserting generic parameter 'keyA2|valueA2' into additional e3Detector.
+Debug: Inserting generic parameter 'keyA3|valueA3' into additional e3Detector.
 Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_BdetExit0' in GNEChange_Additional
-Debug: Inserting generic parameter 'keyB1|valueB1' into additional detExit.
-Debug: Inserting generic parameter 'keyB2|valueB2' into additional detExit.
-Debug: Inserting generic parameter 'keyB3|valueB3' into additional detExit.
+Debug: Inserting generic parameter 'keyB1|valueB1' into additional e3Detector.
+Debug: Inserting generic parameter 'keyB2|valueB2' into additional e3Detector.
+Debug: Inserting generic parameter 'keyB3|valueB3' into additional e3Detector.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -59,8 +59,8 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_B'
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_A'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute genericParameter '' into e3Detector 'e3Detector_B'
-Debug: Setting previous attribute genericParameter '' into e3Detector 'e3Detector_A'
+Debug: Setting previous attribute genericParameter 'keyB1=valueB1|keyB2=valueB2|keyB3=valueB3' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute genericParameter 'keyA1=valueA1|keyA2=valueA2|keyA3=valueA3' into e3Detector 'e3Detector_A'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_BdetExit0'
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_AdetExit0'
