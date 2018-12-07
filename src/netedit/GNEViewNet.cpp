@@ -910,10 +910,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     myKeyPressed.update(eventData);
     // interpret object under cursor
     if (makeCurrent()) {
-        // first update objects under cursor if Shift isn't pressed
-        if (!myKeyPressed.shiftKeyPressed() || myEditMode == GNE_MODE_CONNECT || myEditMode == GNE_MODE_INSPECT || myEditMode == GNE_MODE_DELETE) {
-            myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
-        }
+        // fill objects under cursor
+        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
         // decide what to do based on mode
         switch (myEditMode) {
             case GNE_MODE_CREATE_EDGE: {
