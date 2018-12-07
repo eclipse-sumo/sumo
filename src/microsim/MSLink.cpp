@@ -41,6 +41,7 @@
 //#define MSLink_DEBUG_CROSSING_POINTS
 //#define MSLink_DEBUG_OPENED
 //#define DEBUG_APPROACHING
+//#define DEBUG_ZIPPER
 //#define DEBUG_COND (myLane->getID()=="43[0]_0" && myLaneBefore->getID()==":33_0_0")
 //#define DEBUG_COND (myLane->getID()=="end_0")
 //#define DEBUG_COND (true)
@@ -1186,7 +1187,6 @@ double
 MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                        SUMOTime arrivalTime,
                        std::vector<const SUMOVehicle*>* collectFoes) const {
-    //gDebugFlag1 = ego->getID() == "left.7";
     if (myFoeLinks.size() == 0) {
         // link should have LINKSTATE_MAJOR in this case
         assert(false);
@@ -1198,17 +1198,20 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     const double secondsToArrival = STEPS2TIME(arrivalTime - now);
     if (secondsToArrival > ZIPPER_ADAPT_TIME && dist > ZIPPER_ADAPT_DIST) {
-        //if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-        //    << " dist=" << dist
-        //    << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
+#ifdef DEBUG_ZIPPER
+        if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
+            << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
+#endif
         return vSafe;
     }
-    //if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-    //    << " egoAT=" << arrivalTime
-    //    << " dist=" << dist
-    //    << " vSafe=" << vSafe
-    //    << " numFoes=" << collectFoes->size()
-    //    << "\n";
+#ifdef DEBUG_ZIPPER
+    if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
+        << " egoAT=" << arrivalTime
+        << " dist=" << dist
+        << " vSafe=" << vSafe
+        << " numFoes=" << collectFoes->size()
+        << "\n";
+#endif
     MSLink* foeLink = myFoeLinks[0];
     const double vSafeOrig = vSafe;
     for (std::vector<const SUMOVehicle*>::const_iterator i = collectFoes->begin(); i != collectFoes->end(); ++i) {
@@ -1221,15 +1224,17 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
             couldBrakeForLeader(avi.dist, dist, foe, ego) ||
             // resolve ties by lane index
             (avi.arrivalTime == arrivalTime && avi.dist == dist && ego->getLane()->getIndex() < foe->getLane()->getIndex())) {
-            //if (gDebugFlag1) std::cout
-            //    << "    ignoring foe=" << foe->getID()
-            //        << " foeAT=" << avi.arrivalTime
-            //        << " foeDist=" << avi.dist
-            //        << " foeSpeed=" << foe->getSpeed()
-            //        << " egoSpeed=" << ego->getSpeed()
-            //        << " deltaDist=" << avi.dist - dist
-            //        << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
-            //        << "\n";
+#ifdef DEBUG_ZIPPER
+            if (gDebugFlag1) std::cout
+                << "    ignoring foe=" << foe->getID()
+                << " foeAT=" << avi.arrivalTime
+                << " foeDist=" << avi.dist
+                << " foeSpeed=" << foe->getSpeed()
+                << " egoSpeed=" << ego->getSpeed()
+                << " deltaDist=" << avi.dist - dist
+                << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
+                << "\n";
+#endif
             continue;
         }
         const double gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - avi.dist;
@@ -1238,18 +1243,20 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         // speed adaption to follow the foe can be spread over secondsToArrival
         const double followInTime = vSafeOrig + (follow - vSafeOrig) / MAX2((double)1, secondsToArrival / TS);
         vSafe = MIN2(vSafe, followInTime);
-        //if (gDebugFlag1) std::cout << "    adapting to foe=" << foe->getID()
-        //    << " foeDist=" << avi.dist
-        //    << " follow=" << follow
-        //    << " followInTime=" << followInTime
-        //    << " gap=" << gap
-        //    << " foeSpeed=" << foe->getSpeed()
-        //    << " follow=" << follow
-        //    << " foeAT=" << avi.arrivalTime
-        //    << " foeLT=" << avi.leavingTime
-        //    << " foeAS=" << avi.arrivalSpeed
-        //    << " vSafe=" << vSafe
-        //    << "\n";
+#ifdef DEBUG_ZIPPER
+        if (gDebugFlag1) std::cout << "    adapting to foe=" << foe->getID()
+            << " foeDist=" << avi.dist
+            << " follow=" << follow
+            << " followInTime=" << followInTime
+            << " gap=" << gap
+            << " foeSpeed=" << foe->getSpeed()
+            << " follow=" << follow
+            << " foeAT=" << avi.arrivalTime
+            << " foeLT=" << avi.leavingTime
+            << " foeAS=" << avi.arrivalSpeed
+            << " vSafe=" << vSafe
+            << "\n";
+#endif
     }
     return vSafe;
 }
