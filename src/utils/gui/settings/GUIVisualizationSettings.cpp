@@ -335,9 +335,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::BLUE, (double)(120 / 3.6));
     scheme.addColor(RGBColor::MAGENTA, (double)(150 / 3.6));
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by action step", RGBColor::GREY);
-    scheme.addColor(RGBColor(0, 255, 0, 255), 1.);
-    scheme.addColor(RGBColor(80, 160, 80, 255), 2.);
+    scheme = GUIColorScheme("by action step", RGBColor::GREY, "no action", true);
+    scheme.addColor(RGBColor(0, 255, 0, 255), 1., "action in next step");
+    scheme.addColor(RGBColor(80, 160, 80, 255), 2., "had action step");
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
     scheme.addColor(RGBColor::CYAN, (double)30);
