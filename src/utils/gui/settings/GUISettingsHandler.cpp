@@ -222,6 +222,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.vehicleColorer.setActive(StringUtils::toInt(attrs.getStringSecure("vehicleMode", "0")));
             mySettings.vehicleQuality = StringUtils::toInt(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)));
             mySettings.showBlinker = StringUtils::toBool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)));
+            mySettings.drawMinGap = StringUtils::toBool(attrs.getStringSecure("drawMinGap", toString(mySettings.drawMinGap)));
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             mySettings.vehicleValue = parseTextSettings("vehicleValue", attrs, mySettings.vehicleValue);

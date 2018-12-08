@@ -971,6 +971,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleQuality", vehicleQuality);
     vehicleSize.print(dev, "vehicle");
     dev.writeAttr("showBlinker", showBlinker);
+    dev.writeAttr("drawMinGap", drawMinGap);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
