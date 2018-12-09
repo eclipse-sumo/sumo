@@ -600,8 +600,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawName(p, s.scale, s.edgeName, angle);
         }
         if (drawStreetName) {
-            GLHelper::drawText(myNBEdge.getStreetName(), p, GLO_MAX,
-                               s.streetName.scaledSize(s.scale), s.streetName.color, angle);
+            GLHelper::drawTextSettings(s.streetName, myNBEdge.getStreetName(), p, s.scale, angle);
         }
         glPopName();
     }
