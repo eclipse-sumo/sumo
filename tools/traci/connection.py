@@ -269,14 +269,12 @@ class Connection:
             self._string += struct.pack("!BBBBd", length, command, filterType, tc.TYPE_DOUBLE, params)
         elif filterType in (tc.FILTER_TYPE_VCLASS, tc.FILTER_TYPE_VTYPE):
             # filter with list(string) parameter
+            length = 1 + 1 + 1 + 1 + 4  # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(stringlist)
             try:
-                l = len(params)
+                for s in params:
+                    length += 4 + len(s)  # length(s) + s
             except Exception:
                 raise TraCIException("Filter type %s requires identifier list as parameter." % filterType)
-            length = 1 + 1 + 1 + 1 + 4  # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(stringlist)
-            for s in params:
-                length += 4 + len(s)  # length(s) + s
-
             if length <= 255:
                 self._string += struct.pack("!BBB", length, command, filterType)
             else:
@@ -286,16 +284,14 @@ class Connection:
         elif filterType == tc.FILTER_TYPE_LANES:
             # filter with list(byte) parameter
             # check uniqueness of given lanes in list
-            try:
-                l = len(params)
-            except:
-                raise TraCIException("Filter type lanes requires index list as parameter.")
-            lanes = list(set(params))
-            if len(lanes) < len(params):
+            lanes = set(list(params))
+            if len(lanes) < len(list(params)):
                 warnings.warn("Ignoring duplicate lane specification for subscription filter.")
-            length = 1 + 1 + 1 + 1 + l  # length + CMD + FILTER_ID + length(list) as ubyte + lane-indices
-            self._string += struct.pack("!BBBB", length, command, filterType, l)
+            length = 1 + 1 + 1 + 1 + len(lanes)  # length + CMD + FILTER_ID + length(list) as ubyte + lane-indices
+            self._string += struct.pack("!BBBB", length, command, filterType, len(lanes))
             for i in lanes:
+                if not type(i) is int:
+                    raise TraCIException("Filter type lanes requires numeric index list as parameter.")
                 if i <= -128 or i >= 128:
                     raise TraCIException("Filter type lanes: maximal lane index is 127.")
                 if i < 0:
