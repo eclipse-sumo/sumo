@@ -50,6 +50,7 @@ const RGBColor RGBColor::ORANGE = RGBColor(255, 128, 0, 255);
 const RGBColor RGBColor::WHITE = RGBColor(255, 255, 255, 255);
 const RGBColor RGBColor::BLACK = RGBColor(0, 0, 0, 255);
 const RGBColor RGBColor::GREY = RGBColor(128, 128, 128, 255);
+const RGBColor RGBColor::TRANSPARENT = RGBColor(0, 0, 0, 0);
 
 const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::YELLOW;
 const std::string RGBColor::DEFAULT_COLOR_STRING = toString(RGBColor::DEFAULT_COLOR);

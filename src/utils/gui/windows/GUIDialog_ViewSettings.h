@@ -62,6 +62,7 @@ public:
         FXCheckButton* myCheck;
         FXRealSpinner* mySizeDial;
         FXColorWell* myColorWell;
+        FXColorWell* myBGColorWell;
         FXCheckButton* myConstSizeCheck;
     };
 

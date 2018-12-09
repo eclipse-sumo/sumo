@@ -191,6 +191,7 @@ public:
     static const RGBColor WHITE;
     static const RGBColor BLACK;
     static const RGBColor GREY;
+    static const RGBColor TRANSPARENT;
     /// @}
 
     /// @brief The default color (for vehicle types and vehicles)

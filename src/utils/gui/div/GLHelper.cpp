@@ -38,6 +38,7 @@
 #endif
 #include <foreign/fontstash/fontstash.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #define GLFONTSTASH_IMPLEMENTATION // Expands implementation
 #include <foreign/fontstash/glfontstash.h>
 #include "Roboto.h"
@@ -629,12 +630,30 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     glPopMatrix();
 }
 
+void
+GLHelper::drawTextSettings(
+            const GUIVisualizationTextSettings& settings,
+            const std::string& text, const Position& pos,
+            const double scale,
+            const double angle,
+            const double layer) {
+    drawTextBox(text, pos, layer,
+            settings.scaledSize(scale),
+            settings.color,
+            settings.bgColor,
+            RGBColor::TRANSPARENT,
+            angle, 0, 0.2);
+}
+
 
 void
 GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const double layer, const double size,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
-                      const double angle) {
+                      const double angle,
+                      const double relBorder,
+                      const double relMargin)
+{
     if (!initFont()) {
         return;
     };
@@ -643,9 +662,9 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
         boxAngle -= 360;
     }
     const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
-    const double borderWidth = size / 20;
-    const double boxHeight = size * 0.8;
-    const double boxWidth = stringWidth + size / 2;
+    const double borderWidth = size * relBorder;
+    const double boxHeight = size * (0.32 + 0.6 * relMargin);
+    const double boxWidth = stringWidth + size * relMargin;
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glTranslated(0, 0, layer);
