@@ -166,8 +166,8 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s) const {
         const Position namePos = *this;
         drawName(namePos, s.scale, s.poiName, s.angle);
         if (s.poiType.show) {
-            GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.poiType.size / s.scale),
-                                GLO_MAX, s.poiType.size / s.scale, s.poiType.color);
+            const Position p = namePos + Position(0, -0.6 * s.poiType.size / s.scale);
+            GLHelper::drawTextSettings(s.poiType, getShapeType(), p, s.scale, s.angle);
         }
     }
 }

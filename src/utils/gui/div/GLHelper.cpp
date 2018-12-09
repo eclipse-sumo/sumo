@@ -657,20 +657,17 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     if (!initFont()) {
         return;
     };
-    double boxAngle = angle + 90;
-    if (boxAngle > 360) {
-        boxAngle -= 360;
-    }
+    const double boxAngle = 90;
     const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
     const double borderWidth = size * relBorder;
     const double boxHeight = size * (0.32 + 0.6 * relMargin);
     const double boxWidth = stringWidth + size * relMargin;
     glPushMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glTranslated(0, 0, layer);
+    glTranslated(pos.x(), pos.y(), layer);
+    glRotated(-angle, 0, 0, 1);
+    Position left(-boxWidth * 0.5, 0);
     setColor(borderColor);
-    Position left = pos;
-    left.sub(boxWidth / 2, 0);
     drawBoxLine(left, boxAngle, boxWidth, boxHeight);
     left.add(borderWidth * 1.5, 0);
     setColor(bgColor);

@@ -309,8 +309,8 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s) const {
     const Position namePos = myShape.getPolygonCenter();
     drawName(namePos, s.scale, s.polyName, s.angle);
     if (s.polyType.show) {
-        GLHelper::drawText(getShapeType(), namePos + Position(0, -0.6 * s.polyType.size / s.scale),
-                           GLO_MAX, s.polyType.size / s.scale, s.polyType.color);
+        const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
+        GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
     }
 }
 

@@ -180,11 +180,11 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
     }
     if (s.addFullName.show && getMyName() != "") {
-        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(myFGSignRot));
+        GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     glPopMatrix();
     glPopName();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
 }
 
 /****************************************************************************/

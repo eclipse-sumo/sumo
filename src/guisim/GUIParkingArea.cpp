@@ -187,10 +187,10 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopMatrix();
     if (s.addFullName.show && getMyName() != "") {
-        GLHelper::drawText(getMyName(), mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(mySignRot));
+        GLHelper::drawTextSettings(s.addFullName, getMyName(), mySignPos, s.scale, s.getTextAngle(mySignRot), GLO_MAX - getType());
     }
     glPopName();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
     for (std::vector<MSTransportable*>::const_iterator i = myWaitingTransportables.begin(); i != myWaitingTransportables.end(); ++i) {
         glTranslated(0, 1, 0); // make multiple containers viewable
         static_cast<GUIContainer*>(*i)->drawGL(s);

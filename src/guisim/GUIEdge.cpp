@@ -250,8 +250,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 drawName(p, s.scale, s.cwaEdgeName, angle);
             }
             if (drawStreetName) {
-                GLHelper::drawText(getStreetName(), p, GLO_MAX,
-                                   s.streetName.scaledSize(s.scale), s.streetName.color, angle);
+                GLHelper::drawTextSettings(s.streetName, getStreetName(), p, s.scale, angle);
             }
             if (drawEdgeValue) {
                 const int activeScheme = s.getLaneEdgeMode();
@@ -259,8 +258,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 double value = (MSGlobals::gUseMesoSim 
                     ? getColorValue(s, activeScheme)
                     : lane2->getColorValue(s, activeScheme));
-                GLHelper::drawText(toString(value), p, GLO_MAX,
-                                   s.edgeValue.scaledSize(s.scale), s.edgeValue.color, angle);
+                GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
             }
         }
     }

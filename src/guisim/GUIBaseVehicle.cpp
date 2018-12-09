@@ -1034,14 +1034,12 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
              getVType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName, s.angle);
     if (s.vehicleName.show && myVehicle.getParameter().line != "") {
         glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
-        GLHelper::drawText("line:" + myVehicle.getParameter().line, Position(0, 0),
-                           GLO_MAX, s.vehicleName.scaledSize(s.scale), s.vehicleName.color, s.angle);
+        GLHelper::drawTextSettings(s.vehicleName, "line:" + myVehicle.getParameter().line, Position(0, 0), s.scale, s.angle);
     }
     if (s.vehicleValue.show) {
         glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
         const double value = getColorValue(s.vehicleColorer.getActive()); 
-        GLHelper::drawText(toString(value), Position(0, 0),
-                           GLO_MAX, s.vehicleValue.scaledSize(s.scale), s.vehicleValue.color, s.angle);
+        GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
     }
     glPopMatrix();
     glPopName();
