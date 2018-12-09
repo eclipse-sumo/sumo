@@ -30,7 +30,12 @@
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 
-class GUIVisualizationTextSettings;
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+struct GUIVisualizationTextSettings;
+
 
 // ===========================================================================
 // class definitions

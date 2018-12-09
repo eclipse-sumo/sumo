@@ -630,6 +630,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     glPopMatrix();
 }
 
+
 void
 GLHelper::drawTextSettings(
             const GUIVisualizationTextSettings& settings,
@@ -641,7 +642,7 @@ GLHelper::drawTextSettings(
             settings.scaledSize(scale),
             settings.color,
             settings.bgColor,
-            RGBColor::TRANSPARENT,
+            RGBColor::INVISIBLE,
             angle, 0, 0.2);
 }
 
