@@ -7,6 +7,9 @@ riders
 # complex test scenario by Mirco
 complex
 
+# block on road line while using parkingArea
+onRoad
+
 # test angled roadside parking (including vehicle positions)
 angled_roadside_parking
 
