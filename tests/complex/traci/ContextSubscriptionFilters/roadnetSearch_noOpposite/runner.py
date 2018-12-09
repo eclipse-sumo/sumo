@@ -42,8 +42,8 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite):
         responses = traci.simulationStep()
         near1 = set()
         if subscribed:
-            print("Context results for veh '%s':"%egoID)
-            for v in traci.vehicle.getContextSubscriptionResults(egoID):
+            print("Context results for veh '%s':" % egoID)
+            for v in sorted(traci.vehicle.getContextSubscriptionResults(egoID)):
                 print(v)
                 near1.add(v)
 
@@ -51,7 +51,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite):
             print("Subscribing to context of vehicle '%s'" % (egoID))
             traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0, 
                                             [traci.constants.VAR_POSITION])
-            print("Adding subscription filters ... \n(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s)"%(downstreamDist, upstreamDist, lanes, opposite))
+            print("Adding subscription filters ... \n(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s)" % (downstreamDist, upstreamDist, lanes, opposite))
             sys.stdout.flush()
             traci.vehicle.addSubscriptionFilterDownstreamDistance(downstreamDist)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(upstreamDist)

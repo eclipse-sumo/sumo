@@ -42,10 +42,10 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vType
         responses = traci.simulationStep()
         near1 = set()
         if subscribed:
-            print("Context results for veh '%s':"%egoID)
+            print("Context results for veh '%s':" % egoID)
             results = traci.vehicle.getContextSubscriptionResults(egoID)
             if results:
-                for v in results:
+                for v in sorted(results):
                     print(v)
                     near1.add(v)
 

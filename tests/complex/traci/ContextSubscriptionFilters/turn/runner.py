@@ -45,7 +45,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
             print("Step %s:\nContext results for veh '%s':"%(step, egoID))
             results = traci.vehicle.getContextSubscriptionResults(egoID)
             if results is not None:
-                for v in results:
+                for v in sorted(results):
                     print(v)
                     near1.add(v)
             if egoID in traci.simulation.getArrivedIDList():

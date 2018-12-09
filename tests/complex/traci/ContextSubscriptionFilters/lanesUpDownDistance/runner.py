@@ -79,4 +79,3 @@ def runSingle(traciEndTime, viewRange, objID):
 
 sys.stdout.flush()
 runSingle(100, float(sys.argv[2]), "ego")
-

@@ -64,7 +64,7 @@ traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseDuration(tlsID, 23)
 check()
 defs = traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID)
-print("numDefs=%s numPhases=%s" % (len(defs), map(lambda d: len(d.getPhases()), defs)))
+print("numDefs=%s numPhases=%s" % (len(defs), list(map(lambda d: len(d.getPhases()), defs))))
 traci.trafficlight.subscribe(tlsID)
 print(traci.trafficlight.getSubscriptionResults(tlsID))
 for step in range(3, 6):

@@ -47,7 +47,7 @@ def runSingle(traciEndTime, viewRange, objID):
                 break
             
             print("[%03d] Context results for vehicle '%s':" % (step, objID))
-            for v in traci.vehicle.getContextSubscriptionResults(objID):
+            for v in sorted(traci.vehicle.getContextSubscriptionResults(objID)):
                 print(v)
 
         if not subscribed:
