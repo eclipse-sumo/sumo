@@ -1241,6 +1241,7 @@ MSLCM_LC2013::_wantsChange(
                   << " best.occupation=" << best.occupation
                   << " best.length=" << best.length
                   << " maxJam=" << maxJam
+                  << " neighDist=" << neighDist
                   << " neighLeftPlace=" << neighLeftPlace
                   << "\n";
     }
