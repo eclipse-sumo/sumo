@@ -63,54 +63,13 @@ template<class E, class V, class BASE>
 class DijkstraRouter : public BASE {
 public:
     /**
-     * @class EdgeInfo
-     * A definition about a route's edge with the effort needed to reach it and
-     *  the information about the previous edge.
-     */
-    class EdgeInfo {
-    public:
-        /// Constructor
-        EdgeInfo(const E* const e)
-            : edge(e), effort(std::numeric_limits<double>::max()), leaveTime(0.), prev(nullptr), via(nullptr), visited(false) {}
-
-        /// The current edge
-        const E* const edge;
-
-        /// Effort to reach the edge
-        double effort;
-
-        /// The time the vehicle leaves the edge
-        double leaveTime;
-
-        /// The previous edge
-        const EdgeInfo* prev;
-
-        /// The optional internal edge corresponding to prev
-        const E* via;
-
-        /// The previous edge
-        bool visited;
-
-        inline void reset() {
-            effort = std::numeric_limits<double>::max();
-            via = nullptr;
-            visited = false;
-        }
-
-    private:
-        /// @brief Invalidated assignment operator
-        EdgeInfo& operator=(const EdgeInfo& s) = delete;
-
-    };
-
-    /**
      * @class EdgeInfoByEffortComparator
      * Class to compare (and so sort) nodes by their effort
      */
     class EdgeInfoByEffortComparator {
     public:
         /// Comparing method
-        bool operator()(const EdgeInfo* nod1, const EdgeInfo* nod2) const {
+        bool operator()(const typename BASE::EdgeInfo* nod1, const typename BASE::EdgeInfo* nod2) const {
             if (nod1->effort == nod2->effort) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }
@@ -180,8 +139,8 @@ public:
             init();
             // add begin node
             EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
-            fromInfo->effort = 0;
-            fromInfo->prev = 0;
+            fromInfo->effort = 0.;
+            fromInfo->prev = nullptr;
             fromInfo->leaveTime = STEPS2TIME(msTime);
             myFrontierList.push_back(fromInfo);
         }
@@ -265,7 +224,7 @@ public:
 
 
     /// Builds the path from marked edges
-    void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
+    void buildPathFrom(const typename BASE::EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::vector<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_back(rbegin->edge);
@@ -274,12 +233,12 @@ public:
         std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
     }
 
-    const EdgeInfo& getEdgeInfo(int index) const {
+    const typename BASE::EdgeInfo& getEdgeInfo(int index) const {
         return myEdgeInfos[index];
     }
 
 private:
-    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning,
+    DijkstraRouter(const std::vector<typename BASE::EdgeInfo>& edgeInfos, bool unbuildIsWarning,
                    typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
         BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
@@ -300,12 +259,12 @@ private:
     EffortCalculator* const myExternalEffort;
 
     /// The container of edge information
-    std::vector<EdgeInfo> myEdgeInfos;
+    std::vector<typename BASE::EdgeInfo> myEdgeInfos;
 
     /// A container for reusage of the min edge heap
-    std::vector<EdgeInfo*> myFrontierList;
+    std::vector<typename BASE::EdgeInfo*> myFrontierList;
     /// @brief list of visited Edges (for resetting)
-    std::vector<EdgeInfo*> myFound;
+    std::vector<typename BASE::EdgeInfo*> myFound;
 
     EdgeInfoByEffortComparator myComparator;
 };
@@ -314,4 +273,3 @@ private:
 #endif
 
 /****************************************************************************/
-

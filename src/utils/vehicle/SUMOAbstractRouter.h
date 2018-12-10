@@ -45,6 +45,53 @@
 template<class E, class V>
 class SUMOAbstractRouter {
 public:
+    /**
+    * @class EdgeInfo
+    * A definition about a route's edge with the effort needed to reach it and
+    *  the information about the previous edge.
+    */
+    class EdgeInfo {
+    public:
+        /// Constructor
+        EdgeInfo(const E* const e)
+            : edge(e), effort(std::numeric_limits<double>::max()),
+            heuristicEffort(std::numeric_limits<double>::max()),
+            leaveTime(0.), prev(nullptr), via(nullptr), visited(false) {}
+
+        /// The current edge
+        const E* const edge;
+
+        /// Effort to reach the edge
+        double effort;
+
+        /// Estimated effort to reach the edge (effort + lower bound on remaining effort)
+        // only used by A*
+        double heuristicEffort;
+
+        /// The time the vehicle leaves the edge
+        double leaveTime;
+
+        /// The previous edge
+        const EdgeInfo* prev;
+
+        /// The optional internal edge corresponding to prev
+        const E* via;
+
+        /// The previous edge
+        bool visited;
+
+        inline void reset() {
+            effort = std::numeric_limits<double>::max();
+            via = nullptr;
+            visited = false;
+        }
+
+    private:
+        /// @brief Invalidated assignment operator
+        EdgeInfo& operator=(const EdgeInfo& s) = delete;
+
+    };
+
     /// Type of the function that is used to retrieve the edge effort.
     typedef double(* Operation)(const E* const, const V* const, double);
 
@@ -197,4 +244,3 @@ protected:
 #endif
 
 /****************************************************************************/
-

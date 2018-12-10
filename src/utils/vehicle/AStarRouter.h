@@ -82,56 +82,17 @@ public:
     typedef LandmarkLookupTable<E, V> LMLT;
 
     /**
-     * @struct EdgeInfo
-     * A definition about a route's edge with the effort needed to reach it and
-     *  the information about the previous edge.
-     */
-    class EdgeInfo {
-    public:
-        /// Constructor
-        EdgeInfo(const E* e) :
-            edge(e),
-            traveltime(std::numeric_limits<double>::max()),
-            heuristicTime(std::numeric_limits<double>::max()),
-            prev(0),
-            visited(false) {
-        }
-
-        /// The current edge
-        const E* edge;
-
-        /// Effort to reach the edge
-        double traveltime;
-
-        /// Estimated time to reach the edge (traveltime + lower bound on remaining time)
-        double heuristicTime;
-
-        /// The previous edge
-        EdgeInfo* prev;
-
-        /// The previous edge
-        bool visited;
-
-        inline void reset() {
-            // heuristicTime is set before adding to the frontier, thus no reset is needed
-            traveltime = std::numeric_limits<double>::max();
-            visited = false;
-        }
-
-    };
-
-    /**
      * @class EdgeInfoComparator
      * Class to compare (and so sort) nodes by their effort
      */
     class EdgeInfoComparator {
     public:
         /// Comparing method
-        bool operator()(const EdgeInfo* nod1, const EdgeInfo* nod2) const {
-            if (nod1->heuristicTime == nod2->heuristicTime) {
+        bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod1, const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod2) const {
+            if (nod1->heuristicEffort == nod2->heuristicEffort) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }
-            return nod1->heuristicTime > nod2->heuristicTime;
+            return nod1->heuristicEffort > nod2->heuristicEffort;
         }
     };
 
@@ -147,7 +108,7 @@ public:
         }
     }
 
-    AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename BASE::Operation operation, const std::shared_ptr<const LookupTable> lookup = 0) :
+    AStarRouter(const std::vector<typename BASE::EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename BASE::Operation operation, const std::shared_ptr<const LookupTable> lookup = 0) :
         BASE("AStarRouter", operation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myLookupTable(lookup),
@@ -196,7 +157,6 @@ public:
         std::cout << "DEBUG: starting search for '" << vehicle->getID() << "' speed: " << MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor()) << " time: " << STEPS2TIME(msTime) << "\n";
 #endif
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
-        const double time = STEPS2TIME(msTime);
         if (this->myBulkMode) {
             const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
@@ -208,8 +168,9 @@ public:
             init();
             // add begin node
             EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
-            fromInfo->traveltime = 0;
-            fromInfo->prev = 0;
+            fromInfo->effort = 0.;
+            fromInfo->prev = nullptr;
+            fromInfo->leaveTime = STEPS2TIME(msTime);
             myFrontierList.push_back(fromInfo);
         }
         // loop
@@ -245,6 +206,7 @@ public:
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
+            const E* viaEdge = minimumInfo->via;
 #ifdef ASTAR_DEBUG_QUERY
             std::cout << "DEBUG: hit=" << minEdge->getID()
                       << " TT=" << minimumInfo->traveltime
@@ -256,7 +218,18 @@ public:
             }
             std::cout << "\n";
 #endif
-            const double traveltime = minimumInfo->traveltime + this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime);
+            double effort = minimumInfo->effort;
+            double leaveTime = minimumInfo->leaveTime;
+            while (viaEdge != nullptr && viaEdge->isInternal()) {
+                const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
+                leaveTime += this->getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
+                effort += viaEffortDelta;
+                viaEdge = viaEdge->getViaSuccessors().front().first;
+            }
+            const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
+            leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
+            effort += effortDelta;
+
             // admissible A* heuristic: straight line distance at maximum speed
             const double heuristic_remaining = (myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed :
                                                 myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(), minEdge->getMinimumTravelTime(0), to->getMinimumTravelTime(0)));
@@ -264,18 +237,19 @@ public:
                 continue;
             }
             // check all ways from the node with the minimal length
-            const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
-            for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-                const E* const follower = *it;
-                EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
+            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
+                EdgeInfo* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
                 // check whether it can be used
-                if (this->isProhibited(follower, vehicle)) {
+                if (this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
-                const double oldEffort = followerInfo->traveltime;
-                if ((!followerInfo->visited || mayRevisit) && traveltime < oldEffort) {
-                    followerInfo->traveltime = traveltime;
-                    followerInfo->heuristicTime = traveltime + heuristic_remaining;
+                const double oldEffort = followerInfo->effort;
+                if ((!followerInfo->visited || mayRevisit) && effort < oldEffort) {
+                    followerInfo->effort = effort;
+                    followerInfo->heuristicEffort = effort + heuristic_remaining;
+                    followerInfo->leaveTime = leaveTime;
+                    followerInfo->prev = minimumInfo;
+                    followerInfo->via = follower.second;
                     /* the code below results in fewer edges being looked up but is more costly due to the effort
                        calculations. Overall it resulted in a slowdown in the Berlin tests but could be made configurable someday.
                     followerInfo->heuristicTime = traveltime;
@@ -290,7 +264,6 @@ public:
 #ifdef ASTAR_DEBUG_QUERY_FOLLOWERS
                     std::cout << "   follower=" << followerInfo->edge->getID() << " OEF=" << oldEffort << " TT=" << traveltime << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicTime << "\n";
 #endif
-                    followerInfo->prev = minimumInfo;
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
@@ -317,7 +290,7 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
+    void buildPathFrom(const typename BASE::EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::vector<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_back(rbegin->edge);
@@ -328,12 +301,12 @@ public:
 
 protected:
     /// The container of edge information
-    std::vector<EdgeInfo> myEdgeInfos;
+    std::vector<typename BASE::EdgeInfo> myEdgeInfos;
 
     /// A container for reusage of the min edge heap
-    std::vector<EdgeInfo*> myFrontierList;
+    std::vector<typename BASE::EdgeInfo*> myFrontierList;
     /// @brief list of visited Edges (for resetting)
-    std::vector<EdgeInfo*> myFound;
+    std::vector<typename BASE::EdgeInfo*> myFound;
 
     EdgeInfoComparator myComparator;
 
