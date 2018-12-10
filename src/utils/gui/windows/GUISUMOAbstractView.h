@@ -182,6 +182,8 @@ public:
     /// @brief Checks whether it is time for a snapshot
     virtual void checkSnapshots();
 
+    void waitForSnapshots(const SUMOTime snapshotTime);
+
     /// @brief get the current simulation time
     virtual SUMOTime getCurrentTimeStep() const;
     ///@}
@@ -261,12 +263,6 @@ public:
 
     /// @brief destoys the popup
     void destroyPopup();
-
-    /// @brief add snapshot synchronization
-    void setApplicationSnapshots(std::set<SUMOTime>* snapshots, FXMutex* lock) {
-        myApplicationSnapshots = snapshots;
-        myApplicationSnapshotsLock = lock;
-    }
 
 public:
     ///@struct Decal
@@ -453,11 +449,12 @@ protected:
 
     /// @brief Snapshots
     std::map<SUMOTime, std::vector<std::tuple<std::string, int, int> > > mySnapshots;
-    std::set<SUMOTime>* myApplicationSnapshots;
 
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
-    MFXMutex mySnapshotsLock;
-    FXMutex* myApplicationSnapshotsLock;
+    FXMutex mySnapshotsMutex;
+
+    /// @brief the semaphore when waiting for snapshots to finish
+    FXCondition mySnapshotCondition;
 
     /// @brief poly draw lock
     mutable MFXMutex myPolyDrawLock;

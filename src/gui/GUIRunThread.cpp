@@ -338,14 +338,12 @@ GUIRunThread::simulationIsStepable() const {
 
 
 void
-GUIRunThread::waitForSnapshots(SUMOTime snapShotTime) {
-    myApplicationSnapshotsLock.lock();
-    const bool wait = find(myApplicationSnapshots.begin(), myApplicationSnapshots.end(), snapShotTime) != myApplicationSnapshots.end();
-    //std::cout << SIMTIME << "waitForSnapshots " << toString(myApplicationSnapshots) << "\n";
-    myApplicationSnapshotsLock.unlock();
-    if (wait && !myHalting) {
-        sleep(50);
-        waitForSnapshots(snapShotTime);
+GUIRunThread::waitForSnapshots(const SUMOTime snapshotTime) {
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
+    if (mw != nullptr) {
+        for (GUIGlChildWindow* const window : mw->getViews()) {
+            window->getView()->waitForSnapshots(snapshotTime);
+        }
     }
 }
 

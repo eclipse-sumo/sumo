@@ -135,9 +135,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myViewportChooser(nullptr),
     myWindowCursorPositionX(getWidth() / 2),
     myWindowCursorPositionY(getHeight() / 2),
-    myVisualizationChanger(nullptr),
-    myApplicationSnapshots(nullptr),
-    myApplicationSnapshotsLock(nullptr) {
+    myVisualizationChanger(nullptr) {
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
@@ -910,16 +908,10 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 void
 GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file, const int width, const int height) {
 #ifdef DEBUG_SNAPSHOT
-    std::cout << "add snappshot time=" << time << " file=" << file << "\n";
+    std::cout << "add snapshot time=" << time << " file=" << file << "\n";
 #endif
-    mySnapshotsLock.lock();
+    FXMutexLock lock(mySnapshotsMutex);
     mySnapshots[time].push_back(std::make_tuple(file, width, height));
-    mySnapshotsLock.unlock();
-    if (myApplicationSnapshots != nullptr) {
-        myApplicationSnapshotsLock->lock();
-        myApplicationSnapshots->insert(time);
-        myApplicationSnapshotsLock->unlock();
-    }
 }
 
 
@@ -1083,39 +1075,43 @@ GUISUMOAbstractView::saveFrame(const std::string& destFile, FXColor* buf) {
 
 void
 GUISUMOAbstractView::checkSnapshots() {
-    SUMOTime time = getCurrentTimeStep() - DELTA_T;
+    const SUMOTime time = getCurrentTimeStep() - DELTA_T;
 #ifdef DEBUG_SNAPSHOT
-    std::cout << "check snappshots time=" << time << " registeredTimes=" << mySnapshots.size() << "\n";
+    std::cout << "check snapshots time=" << time << " registeredTimes=" << mySnapshots.size() << "\n";
 #endif
-    mySnapshotsLock.lock();
-    auto snapIt = mySnapshots.find(time);
-    std::vector<std::tuple<std::string, int, int> > files;
-    if (snapIt != mySnapshots.end()) {
-        files = snapIt->second;
-        mySnapshots.erase(snapIt);
+    FXMutexLock lock(mySnapshotsMutex);
+    const auto snapIt = mySnapshots.find(time);
+    if (snapIt == mySnapshots.end()) {
+        return;
     }
-    mySnapshotsLock.unlock();
+    std::vector<std::tuple<std::string, int, int> > files = snapIt->second;
+    lock.unlock();
     // decouple map access and painting to avoid deadlock
     for (const auto& entry : files) {
 #ifdef DEBUG_SNAPSHOT
-        std::cout << "make snappshot time=" << time << " file=" << file << "\n";
+        std::cout << "make snapshot time=" << time << " file=" << file << "\n";
 #endif
-        std::string error = makeSnapshot(std::get<0>(entry), std::get<1>(entry), std::get<2>(entry));
-        if (error != "") {
+        const std::string& error = makeSnapshot(std::get<0>(entry), std::get<1>(entry), std::get<2>(entry));
+        if (error != "" && error != "video") {
             WRITE_WARNING(error);
         }
     }
     // synchronization with a waiting run thread
-    if (!files.empty()) {
-        assert(myApplicationSnapshots != 0);
-        assert(myApplicationSnapshotsLock != 0);
-        myApplicationSnapshotsLock->lock();
-        myApplicationSnapshots->erase(time);
-        myApplicationSnapshotsLock->unlock();
-    }
+    lock.lock();
+    mySnapshots.erase(time);
+    mySnapshotCondition.signal();
 #ifdef DEBUG_SNAPSHOT
     std::cout << "  files=" << toString(files) << " myApplicationSnapshots=" << joinToString(*myApplicationSnapshots, ",") << "\n";
 #endif
+}
+
+
+void
+GUISUMOAbstractView::waitForSnapshots(const SUMOTime snapshotTime) {
+    FXMutexLock lock(mySnapshotsMutex);
+    if (mySnapshots.count(snapshotTime) > 0) {
+        mySnapshotCondition.wait(mySnapshotsMutex);
+    }
 }
 
 
@@ -1488,4 +1484,3 @@ GUISUMOAbstractView::Decal::Decal() :
 
 
 /****************************************************************************/
-

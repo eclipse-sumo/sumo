@@ -441,15 +441,12 @@ GUIViewTraffic::endSnapshot() {
 
 void
 GUIViewTraffic::checkSnapshots() {
-    GUISUMOAbstractView::checkSnapshots();
 #ifdef HAVE_FFMPEG
     if (myCurrentVideo != nullptr) {
-        std::string error = makeSnapshot("");
-        if (error != "" && error != "video") {
-            WRITE_WARNING(error);
-        }
+        addSnapshot(getCurrentTimeStep() - DELTA_T, "");
     }
 #endif
+    GUISUMOAbstractView::checkSnapshots();
 }
 
 

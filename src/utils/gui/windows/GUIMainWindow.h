@@ -59,6 +59,9 @@ public:
 
     std::vector<std::string> getViewIDs() const;
     GUIGlChildWindow* getViewByID(const std::string& id) const;
+    const std::vector<GUIGlChildWindow*>& getViews() const {
+        return myGLWindows;
+    }
 
     void updateChildren();
 

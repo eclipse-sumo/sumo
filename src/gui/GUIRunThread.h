@@ -115,18 +115,10 @@ public:
         return myBreakpointLock;
     }
 
-    std::set<SUMOTime>& getSnapshots() {
-        return myApplicationSnapshots;
-    }
-
-    FXMutex& getSnapshotsLock() {
-        return myApplicationSnapshotsLock;
-    }
-
 protected:
     void makeStep();
 
-    void waitForSnapshots(SUMOTime snapShotTime);
+    void waitForSnapshots(const SUMOTime snapshotTime);
 
 protected:
     /// the loaded simulation network
@@ -172,12 +164,6 @@ protected:
 
     /// @brief Lock for modifying the list of breakpoints
     FXMutex myBreakpointLock;
-
-    /// @brief List of snapshot times
-    std::set<SUMOTime> myApplicationSnapshots;
-
-    /// @brief Lock for modifying the list of snapshot times
-    FXMutex myApplicationSnapshotsLock;
 
 };
 
