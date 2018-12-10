@@ -471,10 +471,13 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
+Warning: Person 'ped139' aborted waiting for 147:1 at busStop '-3867910422'.
 Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
 Warning: Person 'ped5' aborted waiting for M5:3 at busStop '30731508'.
-Warning: Person 'ped151' aborted waiting for M4:3 at busStop '30731508'.
 Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
 Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
 Warning: Person 'ped163' aborted waiting for 100:0 at busStop '1827996417'.
+Warning: Person 'ped23' aborted waiting for TXL:1 at busStop '271296293'.
+Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
+Warning: Person 'ped126' aborted waiting for S3:0 at busStop '2603331695'.
 Warning: Person 'ped158' aborted waiting for 147:3 at busStop '3869306772'.
