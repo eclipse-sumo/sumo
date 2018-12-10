@@ -2335,7 +2335,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             slowedDownForMinor = true;
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "   slowedDownForMinor maxArrivalSpeed=" << maxArrivalSpeed << " arrivalSpeed=" << arrivalSpeed << "\n";
+                std::cout << "   slowedDownForMinor maxSpeedAtVisDist=" << maxSpeedAtVisibilityDist << " maxArrivalSpeed=" << maxArrivalSpeed << " arrivalSpeed=" << arrivalSpeed << "\n";
             }
 #endif
         }
@@ -2751,6 +2751,18 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 }
             }
             // vehicles should decelerate when approaching a minor link
+#ifdef DEBUG_EXEC_MOVE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME
+                    << "   opened=" << opened
+                    << " influencerPrio=" << influencerPrio
+                    << " linkPrio=" << link->havePriority()
+                    << " lastContMajor=" << link->lastWasContMajor()
+                    << " isCont=" << link->isCont()
+                    << " ignoreRed=" << ignoreRedLink
+                    << "\n";
+        }
+#endif
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRedLink) {
                 double visibilityDistance = link->getFoeVisibilityDistance();
                 double determinedFoePresence = i->myDistance <= visibilityDistance;
