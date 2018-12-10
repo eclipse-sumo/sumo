@@ -616,6 +616,9 @@ private:
     std::vector<const MSLane*> myFoeLanes;
     const MSLane* myWalkingAreaFoe;
 
+    /// @brief whether on of myFoeLanes is a crossing
+    bool myHavePedestrianCrossingFoe;
+
     /* @brief Links with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */
     std::vector<MSLink*> mySublaneFoeLinks;

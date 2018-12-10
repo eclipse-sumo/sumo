@@ -88,6 +88,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myGreenFraction(1),
     myLateralShift(0),
     myWalkingAreaFoe(nullptr),
+    myHavePedestrianCrossingFoe(false),
     myParallelRight(nullptr),
     myParallelLeft(nullptr),
     myJunction(nullptr) {
@@ -155,6 +156,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         }
         // compute crossing points
         for (std::vector<const MSLane*>::const_iterator it_lane = myFoeLanes.begin(); it_lane != myFoeLanes.end(); ++it_lane) {
+            myHavePedestrianCrossingFoe = myHavePedestrianCrossingFoe || (*it_lane)->getEdge().isCrossing();
             const bool sameTarget = myLane == (*it_lane)->getLinkCont()[0]->getLane();
             if (sameTarget && !beforeInternalJunction && !contIntersect(lane, *it_lane)) {
                 //if (myLane == (*it_lane)->getLinkCont()[0]->getLane()) {
@@ -716,7 +718,7 @@ MSLink::isCont() const {
 
 bool
 MSLink::lastWasContMajor() const {
-    if (myInternalLane == nullptr || myAmCont) {
+    if (myInternalLane == nullptr || myAmCont || myHavePedestrianCrossingFoe) {
         return false;
     } else {
         MSLane* pred = myInternalLane->getLogicalPredecessorLane();
