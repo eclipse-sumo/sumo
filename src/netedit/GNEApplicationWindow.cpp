@@ -1207,22 +1207,18 @@ void
 GNEApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     // remove trackers and other external windows
-    for (int i = 0; i < (int)mySubWindows.size(); ++i) {
-        mySubWindows[i]->destroy();
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        window->destroy();
+        delete window;
     }
-    for (int i = 0; i < (int)myTrackerWindows.size(); ++i) {
-        myTrackerWindows[i]->destroy();
+    myGLWindows.clear();
+    for (FXMainWindow* const window : myTrackerWindows) {
+        window->destroy();
+        delete window;
     }
+    myTrackerWindows.clear();
     // reset the caption
     setTitle(myTitlePrefix);
-    // delete other children
-    while (myTrackerWindows.size() != 0) {
-        delete myTrackerWindows[0];
-    }
-    while (mySubWindows.size() != 0) {
-        delete mySubWindows[0];
-    }
-    mySubWindows.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();
@@ -1331,7 +1327,7 @@ GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
-    if (mySubWindows.empty()) {
+    if (myGLWindows.empty()) {
         return 1;
     }
     FXRegistry reg("SUMO GUI", "Eclipse");
@@ -1990,13 +1986,8 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 
 GNEViewNet*
 GNEApplicationWindow::getView() {
-    if (mySubWindows.size() != 0) {
-        GUIGlChildWindow* childWindows = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
-        if (childWindows != nullptr) {
-            return dynamic_cast<GNEViewNet*>(childWindows->getView());
-        } else {
-            return nullptr;
-        }
+    if (!myGLWindows.empty()) {
+        return dynamic_cast<GNEViewNet*>(myGLWindows[0]->getView());
     } else {
         return nullptr;
     }

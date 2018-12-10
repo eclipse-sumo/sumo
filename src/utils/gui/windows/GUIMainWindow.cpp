@@ -89,22 +89,22 @@ GUIMainWindow::~GUIMainWindow() {
 
 
 void
-GUIMainWindow::addChild(FXMDIChild* child, bool /*updateOnSimStep !!!*/) {
-    mySubWindows.push_back(child);
+GUIMainWindow::addGLChild(GUIGlChildWindow* child) {
+    myGLWindows.push_back(child);
 }
 
 
 void
-GUIMainWindow::removeChild(FXMDIChild* child) {
-    std::vector<FXMDIChild*>::iterator i = std::find(mySubWindows.begin(), mySubWindows.end(), child);
-    if (i != mySubWindows.end()) {
-        mySubWindows.erase(i);
+GUIMainWindow::removeGLChild(GUIGlChildWindow* child) {
+    std::vector<GUIGlChildWindow*>::iterator i = std::find(myGLWindows.begin(), myGLWindows.end(), child);
+    if (i != myGLWindows.end()) {
+        myGLWindows.erase(i);
     }
 }
 
 
 void
-GUIMainWindow::addChild(FXMainWindow* child, bool /*updateOnSimStep !!!*/) {
+GUIMainWindow::addChild(FXMainWindow* child) {
     myTrackerLock.lock();
     myTrackerWindows.push_back(child);
     myTrackerLock.unlock();
@@ -123,18 +123,18 @@ GUIMainWindow::removeChild(FXMainWindow* child) {
 std::vector<std::string>
 GUIMainWindow::getViewIDs() const {
     std::vector<std::string> ret;
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
-        ret.push_back((*i)->getTitle().text());
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        ret.push_back(window->getTitle().text());
     }
     return ret;
 }
 
 
-FXMDIChild*
+GUIGlChildWindow*
 GUIMainWindow::getViewByID(const std::string& id) const {
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
-        if (std::string((*i)->getTitle().text()) == id) {
-            return *i;
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        if (std::string(window->getTitle().text()) == id) {
+            return window;
         }
     }
     return nullptr;
@@ -195,6 +195,7 @@ GUIMainWindow::getActiveView() const {
     }
     return nullptr;
 }
+
 
 void
 GUIMainWindow::setWindowSizeAndPos() {

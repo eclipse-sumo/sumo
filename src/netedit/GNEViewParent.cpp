@@ -96,7 +96,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h),
     myGNEAppWindows(parentWindow) {
     // Add child to parent
-    myParent->addChild(this, false);
+    myParent->addGLChild(this);
 
     // add undo/redo buttons
     new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GUIDesignButtonToolbar);
@@ -154,7 +154,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
 
 GNEViewParent::~GNEViewParent() {
     // Remove child before remove
-    myParent->removeChild(this);
+    myParent->removeGLChild(this);
 }
 
 

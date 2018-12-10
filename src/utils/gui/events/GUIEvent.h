@@ -62,11 +62,6 @@ enum GUIEventType {
     */
     EVENT_SIMULATION_ENDED,
 
-    /**@brief Send when a screenshot is requested;
-     * @brief View and file name are stored within the event
-     */
-    EVENT_SCREENSHOT,
-
     /// @brief End of events list; use this to define new
     EVENT_END
 };

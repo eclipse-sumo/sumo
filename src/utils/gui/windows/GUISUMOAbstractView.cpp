@@ -922,6 +922,7 @@ GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file, const i
     }
 }
 
+
 std::string
 GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, const int height) {
     if (width >= 0) {

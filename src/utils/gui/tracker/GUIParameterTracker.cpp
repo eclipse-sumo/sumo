@@ -66,7 +66,7 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
     : FXMainWindow(app.getApp(), "Tracker", nullptr, nullptr, DECOR_ALL, 20, 20, 300, 200),
       myApplication(&app) {
     buildToolBar();
-    app.addChild(this, true);
+    app.addChild(this);
     FXVerticalFrame* glcanvasFrame = new FXVerticalFrame(this, FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle(name.c_str());

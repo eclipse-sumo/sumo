@@ -140,7 +140,7 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
         if (viewIDs.empty()) {
             return;
         }
-        GUIGlChildWindow* const child = dynamic_cast<GUIGlChildWindow*>(main->getViewByID(viewIDs[0]));
+        GUIGlChildWindow* const child = main->getViewByID(viewIDs[0]);
         const FXString text = getText();
         const GUIGlObject* const glObj = getActiveStringObject(text, pos, lineStart(pos), lineEnd(pos));
         if (glObj != nullptr) {

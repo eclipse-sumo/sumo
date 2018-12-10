@@ -51,7 +51,6 @@
 #include "GUIApplicationWindow.h"
 #include "GUIEvent_SimulationLoaded.h"
 #include "GUIEvent_SimulationEnded.h"
-#include "GUIEvent_Screenshot.h"
 
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
@@ -757,12 +756,8 @@ GUIApplicationWindow::onCmdEditBreakpoints(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
-    if (mySubWindows.empty()) {
-        return 1;
-    }
-    GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
-    if (w != nullptr) {
-        w->getView()->showViewportEditor();
+    if (!myGLWindows.empty()) {
+        myGLWindows[0]->getView()->showViewportEditor();
     }
     return 1;
 }
@@ -770,16 +765,11 @@ GUIApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
-    if (mySubWindows.empty()) {
-        return 1;
-    }
-    GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
-    if (w != nullptr) {
-        w->getView()->showViewschemeEditor();
+    if (!myGLWindows.empty()) {
+        myGLWindows[0]->getView()->showViewschemeEditor();
     }
     return 1;
 }
-
 
 
 long
@@ -791,12 +781,12 @@ GUIApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
-    if (mySubWindows.empty()) {
+    if (myGLWindows.empty()) {
         return 1;
     }
     FXRegistry reg("SUMO netedit", "Eclipse");
     reg.read();
-    const GUISUMOAbstractView* const v = static_cast<GUIGlChildWindow*>(mySubWindows[0])->getView();
+    const GUISUMOAbstractView* const v = myGLWindows[0]->getView();
     reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
     reg.writeRealEntry("viewport", "y", v->getChanger().getYPos());
     reg.writeRealEntry("viewport", "z", v->getChanger().getZPos());
@@ -1321,9 +1311,6 @@ GUIApplicationWindow::eventOccurred() {
             case EVENT_SIMULATION_ENDED:
                 handleEvent_SimulationEnded(e);
                 break;
-            case EVENT_SCREENSHOT:
-                handleEvent_Screenshot(e);
-                break;
             default:
                 break;
         }
@@ -1424,7 +1411,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                         getApp()->reg().readRealEntry("viewport", "y"), 
                         getApp()->reg().readRealEntry("viewport", "z"));
                 Position p(off.x(), off.y(), 0);
-                GUISUMOAbstractView* view = static_cast<GUIGlChildWindow*>(mySubWindows[0])->getView();
+                GUISUMOAbstractView* view = myGLWindows[0]->getView();
                 view->setViewportFromToRot(off, p, 0);
             }
             // set simulation step begin information
@@ -1516,19 +1503,6 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         }
         myHaveNotifiedAboutSimEnd = true;
     }
-}
-
-
-void
-GUIApplicationWindow::handleEvent_Screenshot(GUIEvent* e) {
-    GUIEvent_Screenshot* ec = static_cast<GUIEvent_Screenshot*>(e);
-    myEventMutex.lock();
-    const std::string error = ec->myView->makeSnapshot(ec->myFile);
-    if (error != "") {
-        WRITE_WARNING(error);
-    }
-    myEventCondition.signal();
-    myEventMutex.unlock();
 }
 
 
@@ -1653,25 +1627,20 @@ GUIApplicationWindow::closeAllWindows() {
         }
     }
     // remove trackers and other external windows
-    int i;
-    for (i = 0; i < (int)mySubWindows.size(); ++i) {
-        mySubWindows[i]->destroy();
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        window->destroy();
+        delete window;
     }
-    for (i = 0; i < (int)myTrackerWindows.size(); ++i) {
-        myTrackerWindows[i]->destroy();
+    myGLWindows.clear();
+    for (FXMainWindow* const window : myTrackerWindows) {
+        window->destroy();
+        delete window;
     }
+    myTrackerWindows.clear();
     // delete the simulation
     myRunThread->deleteSim();
     // reset the caption
     setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
-    // delete other children
-    while (myTrackerWindows.size() != 0) {
-        delete myTrackerWindows[0];
-    }
-    while (mySubWindows.size() != 0) {
-        delete mySubWindows[0];
-    }
-    mySubWindows.clear();
     // clear selected items
     gSelected.clear();
     // add a separator to the log

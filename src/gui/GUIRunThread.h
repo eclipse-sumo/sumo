@@ -26,11 +26,14 @@
 #include <config.h>
 
 #include <string>
+#include <vector>
+#include <set>
 #include <iostream>
 #include <fx.h>
 #include <utils/foxtools/FXSingleEventThread.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXEventQue.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -182,4 +185,3 @@ protected:
 #endif
 
 /****************************************************************************/
-

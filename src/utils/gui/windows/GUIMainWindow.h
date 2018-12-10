@@ -38,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class GUIEvent;
+class GUIGlChildWindow;
 class GUISUMOAbstractView;
 
 
@@ -49,15 +50,15 @@ public:
     GUIMainWindow(FXApp* a);
     virtual ~GUIMainWindow();
     /// Adds a further child window to the list
-    void addChild(FXMDIChild* child, bool updateOnSimStep = true);
-    void addChild(FXMainWindow* child, bool updateOnSimStep = true);
+    void addGLChild(GUIGlChildWindow* child);
+    void addChild(FXMainWindow* child);
 
     /// removes the given child window from the list
-    void removeChild(FXMDIChild* child);
+    void removeGLChild(GUIGlChildWindow* child);
     void removeChild(FXMainWindow*  child);
 
     std::vector<std::string> getViewIDs() const;
-    FXMDIChild* getViewByID(const std::string& id) const;
+    GUIGlChildWindow* getViewByID(const std::string& id) const;
 
     void updateChildren();
 
@@ -137,7 +138,7 @@ protected:
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;
 
-    std::vector<FXMDIChild*> mySubWindows;
+    std::vector<GUIGlChildWindow*> myGLWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
     /// A lock to make the removal and addition of trackers secure
     MFXMutex myTrackerLock;

@@ -86,12 +86,13 @@ GUIViewTraffic::GUIViewTraffic(
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
     myTrackedID(GUIGlObject::INVALID_ID)
 #ifdef HAVE_FFMPEG
-    , myCurrentVideo(0)
+    , myCurrentVideo(nullptr)
 #endif
 {}
 
 
 GUIViewTraffic::~GUIViewTraffic() {
+    endSnapshot();
 }
 
 
@@ -416,7 +417,7 @@ GUIViewTraffic::onDoubleClicked(FXObject*, FXSelector, void*) {
 void
 GUIViewTraffic::saveFrame(const std::string& destFile, FXColor* buf) {
 #ifdef HAVE_FFMPEG
-    if (myCurrentVideo == 0) {
+    if (myCurrentVideo == nullptr) {
         myCurrentVideo = new GUIVideoEncoder(destFile.c_str(), getWidth(), getHeight(), myApp->getDelay());
     }
     myCurrentVideo->writeFrame((uint8_t*)buf);
@@ -430,9 +431,9 @@ GUIViewTraffic::saveFrame(const std::string& destFile, FXColor* buf) {
 void
 GUIViewTraffic::endSnapshot() {
 #ifdef HAVE_FFMPEG
-    if (myCurrentVideo != 0) {
+    if (myCurrentVideo != nullptr) {
         delete myCurrentVideo;
-        myCurrentVideo = 0;
+        myCurrentVideo = nullptr;
     }
 #endif
 }
@@ -442,7 +443,7 @@ void
 GUIViewTraffic::checkSnapshots() {
     GUISUMOAbstractView::checkSnapshots();
 #ifdef HAVE_FFMPEG
-    if (myCurrentVideo != 0) {
+    if (myCurrentVideo != nullptr) {
         std::string error = makeSnapshot("");
         if (error != "" && error != "video") {
             WRITE_WARNING(error);
@@ -456,5 +457,6 @@ const std::vector<SUMOTime>
 GUIViewTraffic::retrieveBreakpoints() const {
     return myApp->retrieveBreakpoints();
 }
+
 
 /****************************************************************************/

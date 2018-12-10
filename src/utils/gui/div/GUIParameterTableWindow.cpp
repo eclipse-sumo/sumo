@@ -226,7 +226,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
     }
-    myApplication->addChild(this, true);
+    myApplication->addChild(this);
     create();
     show();
 }

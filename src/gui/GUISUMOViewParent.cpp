@@ -95,7 +95,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h)
     : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
-    myParent->addChild(this, false);
+    myParent->addGLChild(this);
 }
 
 
@@ -121,7 +121,7 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
 
 
 GUISUMOViewParent::~GUISUMOViewParent() {
-    myParent->removeChild(this);
+    myParent->removeGLChild(this);
 }
 
 

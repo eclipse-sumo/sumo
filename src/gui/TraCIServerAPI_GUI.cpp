@@ -34,8 +34,8 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIBaseVehicle.h>
-#include "GUIEvent_Screenshot.h"
 #include "TraCIServerAPI_GUI.h"
+
 
 // ===========================================================================
 // method definitions
@@ -219,7 +219,7 @@ TraCIServerAPI_GUI::getNamedView(const std::string& id) {
     if (mw == nullptr) {
         return nullptr;
     }
-    GUIGlChildWindow* const c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
+    GUIGlChildWindow* const c = mw->getViewByID(id);
     if (c == nullptr) {
         return nullptr;
     }

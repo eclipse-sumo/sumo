@@ -71,17 +71,9 @@ class GUIVideoEncoder {
 public:
     GUIVideoEncoder(const char* const out_file, const int width, const int height, double frameDelay) {
         av_register_all();
-        AVFormatContext* const pFormatCtx = myFormatContext = avformat_alloc_context();
-
-        //Guess Format
-        pFormatCtx->oformat = av_guess_format(NULL, out_file, NULL);
-        if (pFormatCtx->oformat == 0) {
-            throw std::runtime_error("Unknown format!");
-        }
-
-        //Open output URL
-        if (avio_open(&pFormatCtx->pb, out_file, AVIO_FLAG_READ_WRITE) < 0) {
-            throw std::runtime_error("Failed to open output file!");
+        avformat_alloc_output_context2(&myFormatContext, NULL, NULL, out_file);
+        if (myFormatContext == nullptr) {
+            throw ProcessError("Unknown format!");
         }
 
         // @todo maybe warn about default and invalid framerates
@@ -92,149 +84,151 @@ public:
                 framerate = 1;
             }
         }
-        AVStream* const video_st = avformat_new_stream(pFormatCtx, 0);
+        AVStream* const video_st = avformat_new_stream(myFormatContext, 0);
         video_st->time_base.num = 1;
         video_st->time_base.den = framerate;
 
+        const AVCodec* const codec = avcodec_find_encoder(myFormatContext->oformat->video_codec);
+        if (codec == nullptr) {
+            throw ProcessError("Unknown codec!");
+        }
         //Param that must set
-        AVCodecContext* const pCodecCtx = video_st->codec;
-        //pCodecCtx->codec_id =AV_CODEC_ID_HEVC;
-        pCodecCtx->codec_id = pFormatCtx->oformat->video_codec;
-        pCodecCtx->codec_type = AVMEDIA_TYPE_VIDEO;
-        pCodecCtx->pix_fmt = AV_PIX_FMT_YUV420P;
+        myCodecCtx = avcodec_alloc_context3(codec);
+        if (myCodecCtx == nullptr) {
+            throw ProcessError("Could not allocate video codec context!");
+        }
+        //pmyCodecCtx->codec_id =AV_CODEC_ID_HEVC;
+        //pmyCodecCtx->codec_id = pFormatCtx->oformat->video_codec;
+        //pmyCodecCtx->codec_type = AVMEDIA_TYPE_VIDEO;
+        myCodecCtx->pix_fmt = AV_PIX_FMT_YUV420P;
         // @todo maybe warn about one missing line for odd width or height
-        pCodecCtx->width = (width / 2) * 2;
-        pCodecCtx->height = (height / 2) * 2;
-        pCodecCtx->time_base.num = 1;
-        pCodecCtx->time_base.den = framerate;
-        pCodecCtx->bit_rate = 4000000;
-        pCodecCtx->gop_size = 250;
+        myCodecCtx->width = (width / 2) * 2;
+        myCodecCtx->height = (height / 2) * 2;
+        myCodecCtx->time_base.num = 1;
+        myCodecCtx->time_base.den = framerate;
+        myCodecCtx->framerate.num = framerate;
+        myCodecCtx->framerate.den = 1;
+        myCodecCtx->bit_rate = 4000000; // example has 400000
+        myCodecCtx->gop_size = 10; // example has 10
         //H264
-        //pCodecCtx->me_range = 16;
-        //pCodecCtx->max_qdiff = 4;
-        //pCodecCtx->qcompress = 0.6;
-        pCodecCtx->qmin = 10;
-        pCodecCtx->qmax = 51;
+        //pmyCodecCtx->me_range = 16;
+        //pmyCodecCtx->max_qdiff = 4;
+        //pmyCodecCtx->qcompress = 0.6;
+        //myCodecCtx->qmin = 10; // example does not set this
+        //myCodecCtx->qmax = 51; // example does not set this
+        myCodecCtx->max_b_frames = 1; // example has 1
 
-        //Optional Param
-        pCodecCtx->max_b_frames = 3;
-
-        // Set Option
-        AVDictionary* param = 0;
+        // Set codec specific options
         //H.264
-        if (pCodecCtx->codec_id == AV_CODEC_ID_H264) {
-            av_dict_set(&param, "preset", "slow", 0);
-            av_dict_set(&param, "tune", "zerolatency", 0);
-            //av_dict_set(&param, "profile", "main", 0);
+        if (myCodecCtx->codec_id == AV_CODEC_ID_H264) {
+            av_opt_set(myCodecCtx->priv_data, "preset", "slow", 0);
+            //av_opt_set(myCodecCtx->priv_data, "tune", "zerolatency", 0);
+            //av_opt_set(myCodecCtx->priv_data, "profile", "main", 0);
         }
         //H.265
-        if (pCodecCtx->codec_id == AV_CODEC_ID_HEVC) {
-            av_dict_set(&param, "preset", "ultrafast", 0);
-            av_dict_set(&param, "tune", "zero-latency", 0);
+        if (myCodecCtx->codec_id == AV_CODEC_ID_HEVC) {
+            av_opt_set(myCodecCtx->priv_data, "preset", "ultrafast", 0);
+            av_opt_set(myCodecCtx->priv_data, "tune", "zero-latency", 0);
         }
-
-        //Show some Information
-        //av_dump_format(pFormatCtx, 0, out_file, 1);
-
-        AVCodec* const pCodec = avcodec_find_encoder(pCodecCtx->codec_id);
-        if (!pCodec) {
-            throw std::runtime_error("Can not find encoder!");
-        }
-        const int ret = avcodec_open2(pCodecCtx, pCodec, &param);
-        if (ret < 0) {
-            throw std::runtime_error("Failed to open encoder (" + toString(ret) + ")!");
+        if (avcodec_open2(myCodecCtx, codec, nullptr) < 0) {
+            throw ProcessError("Could not open codec!");
         }
 
         myFrame = av_frame_alloc();
-        myFrame->format = pCodecCtx->pix_fmt;
-        myFrame->width  = pCodecCtx->width;
-        myFrame->height = pCodecCtx->height;
-        av_image_alloc(myFrame->data, myFrame->linesize, pCodecCtx->width, pCodecCtx->height,
-                       pCodecCtx->pix_fmt, 32);
-
-        mySwsContext = sws_getContext(pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_RGBA,
-                                      pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_YUV420P,
+        if (myFrame == nullptr) {
+            throw ProcessError("Could not allocate video frame!");
+        }
+        myFrame->format = myCodecCtx->pix_fmt;
+        myFrame->width  = myCodecCtx->width;
+        myFrame->height = myCodecCtx->height;
+        if (av_frame_get_buffer(myFrame, 32) < 0) {
+            throw ProcessError("Could not allocate the video frame data!");
+        }
+        mySwsContext = sws_getContext(myCodecCtx->width, myCodecCtx->height, AV_PIX_FMT_RGBA,
+                                      myCodecCtx->width, myCodecCtx->height, AV_PIX_FMT_YUV420P,
                                       0, 0, 0, 0);
+        //Open output URL
+        if (avio_open(&myFormatContext->pb, out_file, AVIO_FLAG_WRITE) < 0) {
+            throw ProcessError("Failed to open output file!");
+        }
+
         //Write File Header
-        avformat_write_header(pFormatCtx, NULL);
+        avformat_write_header(myFormatContext, NULL);
         myFrameIndex = 0;
+        myPkt = av_packet_alloc();
+        if (myPkt == nullptr) {
+            throw ProcessError("Could not allocate video packet!");
+        }
     }
 
     ~GUIVideoEncoder() {
-        AVFormatContext* fmt_ctx = myFormatContext;
         int ret = 1;
-        int got_frame;
-        AVPacket enc_pkt;
-        if (!(fmt_ctx->streams[0]->codec->codec->capabilities &
-                AV_CODEC_CAP_DELAY)) {
+        if (!(myCodecCtx->codec->capabilities & AV_CODEC_CAP_DELAY)) {
             ret = 0;
         }
-        while (ret > 0) {
-            enc_pkt.data = NULL;
-            enc_pkt.size = 0;
-            av_init_packet(&enc_pkt);
-            ret = avcodec_encode_video2(fmt_ctx->streams[0]->codec, &enc_pkt,
-                                        NULL, &got_frame);
-            av_frame_free(NULL);
-            if (ret < 0) {
+        if (avcodec_send_frame(myCodecCtx, nullptr) < 0) {
+            throw ProcessError("Error sending final frame!");
+        }
+        while (ret >= 0) {
+            ret = avcodec_receive_packet(myCodecCtx, myPkt);
+            if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
                 break;
+            } else if (ret < 0) {
+                throw ProcessError("Error during encoding!");
             }
-            if (!got_frame) {
-                ret = 0;
-                break;
-            }
-            /* mux encoded frame */
-            ret = av_write_frame(fmt_ctx, &enc_pkt);
+            ret = av_write_frame(myFormatContext, myPkt);
+            av_packet_unref(myPkt);
         }
 
-        if (ret == 0) {
-            //Write file trailer
-            av_write_trailer(fmt_ctx);
+        //Write file trailer
+        av_write_trailer(myFormatContext);
+        avio_closep(&myFormatContext->pb);
 
-            //Clean
-            if (fmt_ctx->streams[0]) {
-                avcodec_close(fmt_ctx->streams[0]->codec);
-                av_freep(&myFrame->data[0]);
-                av_frame_free(&myFrame);
-            }
-            avio_close(fmt_ctx->pb);
-            avformat_free_context(fmt_ctx);
-        }
+        //Clean
+        avcodec_free_context(&myCodecCtx);
+        av_frame_free(&myFrame);
+        av_packet_free(&myPkt);
+        avformat_free_context(myFormatContext);
     }
 
     void writeFrame(uint8_t* buffer) {
-        AVStream* const video_st = myFormatContext->streams[0];
-        AVCodecContext* const pCodecCtx = video_st->codec;
-
-        uint8_t* inData[1] = { buffer }; // RGBA32 have one plane
-        int inLinesize[1] = { 4 * pCodecCtx->width }; // RGBA stride
-        sws_scale(mySwsContext, inData, inLinesize, 0, pCodecCtx->height,
+        if (av_frame_make_writable(myFrame) < 0) {
+            throw ProcessError();
+        }
+        uint8_t* inData[1] = { buffer }; // RGBA32 has one plane
+        int inLinesize[1] = { 4 * myCodecCtx->width }; // RGBA stride
+        sws_scale(mySwsContext, inData, inLinesize, 0, myCodecCtx->height,
                   myFrame->data, myFrame->linesize);
-
-        av_init_packet(&myPkt);
-        myPkt.data = NULL;
-        myPkt.size = 0;
-        //PTS
         myFrame->pts = myFrameIndex;
-        int got_picture = 0;
-        //Encode
-        int ret = avcodec_encode_video2(pCodecCtx, &myPkt, myFrame, &got_picture);
-        if (ret < 0) {
-            throw std::runtime_error("Failed to encode!");
+        int r = avcodec_send_frame(myCodecCtx, myFrame);
+        if (r < 0) {
+            char errbuf[64];
+            av_strerror(r, errbuf, 64);
+            throw ProcessError("Error sending frame for encoding!");
         }
-        if (got_picture == 1) {
-            myPkt.stream_index = video_st->index;
-            ret = av_write_frame(myFormatContext, &myPkt);
-            av_free_packet(&myPkt);
-            myFrameIndex++;
+        int ret = 0;
+        while (ret >= 0) {
+            ret = avcodec_receive_packet(myCodecCtx, myPkt);
+            if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
+                break;
+            } else if (ret < 0) {
+                throw ProcessError("Error during encoding!");
+            }
+            /* rescale output packet timestamp values from codec to stream timebase */
+            av_packet_rescale_ts(myPkt, myCodecCtx->time_base, myFormatContext->streams[0]->time_base);
+            myPkt->stream_index = 0;
+            ret = av_write_frame(myFormatContext, myPkt);
+            av_packet_unref(myPkt);
         }
+        myFrameIndex++;
     }
 
 private:
     AVFormatContext* myFormatContext;
     SwsContext* mySwsContext;
+    AVCodecContext* myCodecCtx;
     AVFrame* myFrame;
-    AVPacket myPkt;
+    AVPacket* myPkt;
     int myFrameIndex;
 
 };
