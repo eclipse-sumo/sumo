@@ -300,6 +300,25 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         drawLinkRule(s, net, myLinks[lefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
         x1 = x2;
     }
+    // draw stopOffset for passenger cars
+    if (myStopOffsets.size() != 0 && (myStopOffsets.begin()->first & SVC_PASSENGER) != 0) {
+        const double stopOffsetPassenger = myStopOffsets.begin()->second;
+        const Position& end = myShape.back();
+        const Position& f = myShape[-2];
+        const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
+        GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
+        glPushMatrix();
+        glTranslated(end.x(), end.y(), 0);
+        glRotated(rot, 0, 0, 1);
+        glTranslated(0, stopOffsetPassenger, 0);
+        glBegin(GL_QUADS);
+        glVertex2d(-myHalfLaneWidth, 0.0);
+        glVertex2d(-myHalfLaneWidth, 0.2);
+        glVertex2d(myHalfLaneWidth, 0.2);
+        glVertex2d(myHalfLaneWidth, 0.0);
+        glEnd();
+        glPopMatrix();
+    }
 }
 
 
