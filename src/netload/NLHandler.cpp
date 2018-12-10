@@ -1214,8 +1214,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
                 return;
             }
         }
-        double length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
-
+        double length;
         // build the link
         MSLane* via = nullptr;
         if (viaID != "" && MSGlobals::gUsingInternalLanes) {
@@ -1226,6 +1225,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
                 return;
             }
             length = via->getLength();
+        } else {
+            length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
         }
         link = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx);
         if (via != nullptr) {

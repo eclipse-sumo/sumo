@@ -2397,9 +2397,6 @@ MSLane::getCriticalLeader(double dist, double seen, double speed, const MSVehicl
 
 MSLane*
 MSLane::getLogicalPredecessorLane() const {
-    if (myLogicalPredecessorLane != nullptr) {
-        return myLogicalPredecessorLane;
-    }
     if (myLogicalPredecessorLane == nullptr) {
         MSEdgeVector pred = myEdge->getPredecessors();
         // get only those edges which connect to this lane
