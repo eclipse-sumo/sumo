@@ -372,7 +372,7 @@ public:
      * @exception InvalidArgument If the charging Station can not be added to the net (is duplicate)
      */
     static GNEAdditional* buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name,
-                                           bool friendlyPosition, int roadSideCapacity, double width, const std::string& length, double angle, bool blockMovement);
+                                           bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement);
 
     /**@brief Builds a Parking Space
      * @param[in] viewNet viewNet in which element will be inserted

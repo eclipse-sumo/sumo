@@ -877,6 +877,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
     bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
     int roadSideCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, id, tag, SUMO_ATTR_ROADSIDE_CAPACITY, abort);
+    bool onRoad = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_ONROAD, abort);
     double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_WIDTH, abort);
     std::string length = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LENGTH, abort);
     double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ANGLE, abort);
@@ -895,7 +896,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
-            myHierarchyInsertedAdditionals.commitElementInsertion(buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, false));
+            myHierarchyInsertedAdditionals.commitElementInsertion(buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, false));
         }
     }
 }
@@ -1281,13 +1282,14 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             std::string name = values[SUMO_ATTR_NAME];
             bool friendlyPos = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_FRIENDLY_POS]);
             int roadSideCapacity = GNEAttributeCarrier::parse<int>(values[SUMO_ATTR_ROADSIDE_CAPACITY]);
+            bool onRoad = GNEAttributeCarrier::parse<bool>(values[SUMO_ATTR_ONROAD]);
             double width = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_WIDTH]);
             std::string lenght = values[SUMO_ATTR_LENGTH];
             double angle = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_ANGLE]);
             bool blockMovement = GNEAttributeCarrier::parse<bool>(values[GNE_ATTR_BLOCK_MOVEMENT]);
             // Build Parking Area
             if (lane) {
-                return buildParkingArea(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, friendlyPos, roadSideCapacity, width, lenght, angle, blockMovement);
+                return buildParkingArea(viewNet, allowUndoRedo, id, lane, startPos, endPos, name, friendlyPos, roadSideCapacity, onRoad, width, lenght, angle, blockMovement);
             } else {
                 return nullptr;
             }
@@ -1634,9 +1636,9 @@ GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRe
 
 GNEAdditional*
 GNEAdditionalHandler::buildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name,
-                                       bool friendlyPosition, int roadSideCapacity, double width, const std::string& length, double angle, bool blockMovement) {
+                                       bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
-        GNEParkingArea* parkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, width, length, angle, blockMovement);
+        GNEParkingArea* parkingArea = new GNEParkingArea(id, lane, viewNet, startPos, endPos, name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_AREA));
             viewNet->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);

@@ -55,9 +55,10 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name,
-                               bool friendlyPosition, int roadSideCapacity, double width, const std::string& length, double angle, bool blockMovement) :
+                               bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myRoadSideCapacity(roadSideCapacity),
+    myOnRoad(onRoad),
     myWidth(width),
     myLength(length),
     myAngle(angle) {
@@ -210,6 +211,8 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return toString(myFriendlyPosition);
         case SUMO_ATTR_ROADSIDE_CAPACITY:
             return toString(myRoadSideCapacity);
+        case SUMO_ATTR_ONROAD:
+            return toString(myOnRoad);
         case SUMO_ATTR_WIDTH:
             return toString(myWidth);
         case SUMO_ATTR_LENGTH:
@@ -249,6 +252,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_ROADSIDE_CAPACITY:
+        case SUMO_ATTR_ONROAD:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
@@ -310,6 +314,8 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_ROADSIDE_CAPACITY:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_ONROAD:
+            return canParse<bool>(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LENGTH:
@@ -358,6 +364,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROADSIDE_CAPACITY:
             myRoadSideCapacity = parse<int>(value);
+            break;
+        case SUMO_ATTR_ONROAD:
+            myOnRoad = parse<bool>(value);
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
