@@ -103,7 +103,7 @@ public:
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myEdgeInfos.push_back(EdgeInfo(*i));
+            myEdgeInfos.push_back(typename BASE::EdgeInfo(*i));
             myMaxSpeed = MAX2(myMaxSpeed, (*i)->getSpeedLimit() * MAX2(1.0, (*i)->getLengthGeometryFactor()));
         }
     }
@@ -113,9 +113,9 @@ public:
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
-        for (typename std::vector<EdgeInfo>::const_iterator i = edgeInfos.begin(); i != edgeInfos.end(); ++i) {
-            myEdgeInfos.push_back(EdgeInfo(i->edge));
-            myMaxSpeed = MAX2(myMaxSpeed, i->edge->getSpeedLimit() * i->edge->getLengthGeometryFactor());
+        for (const auto& edgeInfo : edgeInfos) {
+            myEdgeInfos.push_back(typename BASE::EdgeInfo(edgeInfo.edge));
+            myMaxSpeed = MAX2(myMaxSpeed, edgeInfo.edge->getSpeedLimit() * edgeInfo.edge->getLengthGeometryFactor());
         }
     }
 
@@ -128,12 +128,12 @@ public:
 
     void init() {
         // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
-        for (typename std::vector<EdgeInfo*>::iterator i = myFrontierList.begin(); i != myFrontierList.end(); i++) {
-            (*i)->reset();
+        for (auto& edgeInfo : myFrontierList) {
+            edgeInfo->reset();
         }
         myFrontierList.clear();
-        for (typename std::vector<EdgeInfo*>::iterator i = myFound.begin(); i != myFound.end(); i++) {
-            (*i)->reset();
+        for (auto& edgeInfo : myFound) {
+            edgeInfo->reset();
         }
         myFound.clear();
     }
@@ -158,7 +158,7 @@ public:
 #endif
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         if (this->myBulkMode) {
-            const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
+            const auto& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);
                 this->endQuery(1);
@@ -167,7 +167,7 @@ public:
         } else {
             init();
             // add begin node
-            EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
+            auto* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
             fromInfo->effort = 0.;
             fromInfo->prev = nullptr;
             fromInfo->leaveTime = STEPS2TIME(msTime);
@@ -180,7 +180,7 @@ public:
         while (!myFrontierList.empty()) {
             num_visited += 1;
             // use the node with the minimal length
-            EdgeInfo* const minimumInfo = myFrontierList.front();
+            auto* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
             // check whether the destination node was already reached
             if (minEdge == to) {
@@ -193,9 +193,9 @@ public:
 #endif
 #ifdef ASTAR_DEBUG_VISITED
                 OutputDevice& dev = OutputDevice::getDevice(vehicle->getID() + "_" + time2string(msTime) + "_" + from->getID() + "_" + to->getID());
-                for (typename std::vector<EdgeInfo>::const_iterator i = myEdgeInfos.begin(); i != myEdgeInfos.end(); ++i) {
-                    if (i->visited) {
-                        dev << "edge:" << i->edge->getID() << "\n";
+                for (const auto& i : myEdgeInfos) {
+                    if (i.visited) {
+                        dev << "edge:" << i.edge->getID() << "\n";
                     }
                 }
                 dev.close();
@@ -238,7 +238,7 @@ public:
             }
             // check all ways from the node with the minimal length
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
-                EdgeInfo* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
+                auto* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
                 // check whether it can be used
                 if (this->isProhibited(follower.first, vehicle)) {
                     continue;
@@ -268,7 +268,7 @@ public:
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
-                        typename std::vector<EdgeInfo*>::iterator fi = find(myFrontierList.begin(), myFrontierList.end(), followerInfo);
+                        auto fi = find(myFrontierList.begin(), myFrontierList.end(), followerInfo);
                         if (fi == myFrontierList.end()) {
                             assert(mayRevisit);
                             myFrontierList.push_back(followerInfo);
