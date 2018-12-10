@@ -726,7 +726,7 @@ protected:
 
         /// @brief comparing operator
         int operator()(const MSEdge* const e1, const MSEdge* const e2) const {
-            return e1->getID() < e2->getID();
+            return e1->getNumericalID() < e2->getNumericalID();
         }
 
     };
