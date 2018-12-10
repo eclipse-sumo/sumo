@@ -24,29 +24,24 @@ from sumolib.miscutils import Statistics  # noqa
 
 
 def write_diff(orig, new, out):
-    vehicles_orig = OrderedDict([(v.id, v) for v in parse(orig, 'tripinfo')])
+    attrs = ["depart", "arrival", "timeLoss", "duration", "routeLength"]
+    attr_conversions = dict([(a, float) for a in attrs])
+    vehicles_orig = OrderedDict([(v.id, v) for v in parse(orig, 'tripinfo',
+        attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
     durationDiffs = Statistics('duration differences')
     with open(out, 'w') as f:
         f.write("<tripDiffs>\n")
-        for v in parse(new, 'tripinfo'):
+        for v in parse(new, 'tripinfo', attr_conversions=attr_conversions):
             if v.id in vehicles_orig:
                 vOrig = vehicles_orig[v.id]
-                departDiff = float(v.depart) - float(vOrig.depart)
-                arrivalDiff = float(v.arrival) - float(vOrig.arrival)
-                timeLossDiff = float(v.timeLoss) - float(vOrig.timeLoss)
-                durationDiff = float(v.duration) - float(vOrig.duration)
-                routeLengthDiff = float(v.routeLength) - \
-                    float(vOrig.routeLength)
-
-                durations.add(float(v.duration), v.id)
-                origDurations.add(float(vOrig.duration), v.id)
-                durationDiffs.add(durationDiff, v.id)
-
-                f.write(('''    <vehicle id="%s" departDiff="%s" arrivalDiff="%s" timeLossDiff="%s" \
-durationDiff="%s" routeLengthDiff="%s"/>\n''') % (
-                    v.id, departDiff, arrivalDiff, timeLossDiff, durationDiff, routeLengthDiff))
+                diffs = [v.getAttribute(a) - vOrig.getAttribute(a) for a in attrs]
+                durations.add(v.duration, v.id)
+                origDurations.add(vOrig.duration, v.id)
+                durationDiffs.add(v.duration - vOrig.duration, v.id)
+                diffAttrs = ''.join([' %sDiff="%s"' % (a,x) for a,x in zip(attrs, diffs)])
+                f.write('    <vehicle id="%s"%s/>\n' % (v.id, diffAttrs))
                 del vehicles_orig[v.id]
             else:
                 f.write('    <vehicle id="%s" comment="new"/>\n' % v.id)
