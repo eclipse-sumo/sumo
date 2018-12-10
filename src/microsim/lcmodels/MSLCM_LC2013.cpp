@@ -82,14 +82,14 @@
 // ===========================================================================
 // debug defines
 // ===========================================================================
-//#define DEBUG_PATCH_SPEED
-//#define DEBUG_INFORMED
-//#define DEBUG_INFORMER
-//#define DEBUG_CONSTRUCTOR
-//#define DEBUG_WANTS_CHANGE
-//#define DEBUG_SLOW_DOWN
-//#define DEBUG_COOPERATE
-//#define DEBUG_SAVE_BLOCKER_LENGTH
+#define DEBUG_PATCH_SPEED
+#define DEBUG_INFORMED
+#define DEBUG_INFORMER
+#define DEBUG_CONSTRUCTOR
+#define DEBUG_WANTS_CHANGE
+#define DEBUG_SLOW_DOWN
+#define DEBUG_COOPERATE
+#define DEBUG_SAVE_BLOCKER_LENGTH
 
 //#define DEBUG_COND (myVehicle.getID() == "disabled")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -1113,6 +1113,28 @@ MSLCM_LC2013::_wantsChange(
         neighDist = neigh.length;
         currentDist = curr.length;
     }
+    double driveToNextStop = -std::numeric_limits<double>::max();
+    if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
+            && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
+        // vehicle can always drive up to stop distance
+        // @note this information is dynamic and thus not available in updateBestLanes()
+        // @note: nextStopDist was compute before the vehicle moved
+        driveToNextStop = myVehicle.nextStopDist();
+        const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
+                  << " stopDist=" << myVehicle.nextStopDist()
+                  << " lastDist=" << myVehicle.getLastStepDist()
+                  << " stopPos=" << stopPos
+                  << " currentDist=" << currentDist
+                  << " neighDist=" << neighDist
+                  << "\n";
+    }
+#endif
+        currentDist = MAX2(currentDist, stopPos);
+        neighDist = MAX2(neighDist, stopPos);
+    }
     const double posOnLane = isOpposite() ? myVehicle.getLane()->getOppositePos(myVehicle.getPositionOnLane()) : myVehicle.getPositionOnLane();
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
@@ -1218,7 +1240,7 @@ MSLCM_LC2013::_wantsChange(
     }
 #endif
 
-    const double usableDist = (currentDist - posOnLane - best.occupation *  JAM_FACTOR);
+    const double usableDist = MAX2(currentDist - posOnLane - best.occupation * JAM_FACTOR, driveToNextStop);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const double maxJam = MAX2(preb[currIdx + prebOffset].occupation, preb[currIdx].occupation);
     const double neighLeftPlace = MAX2((double) 0, neighDist - posOnLane - maxJam);
@@ -1305,6 +1327,14 @@ MSLCM_LC2013::_wantsChange(
                     || neighLead.second > overtakeDist)) {
             // avoid becoming stuck behind a stopped leader
             currentDist = myVehicle.getPositionOnLane() + leader.second;
+#ifdef DEBUG_WANTS_CHANGE
+            if (DEBUG_COND) {
+                std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
+                    << " overtakeDist=" << overtakeDist
+                    << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
+                    << "\n";
+            }
+#endif
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
         } else if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
             // the opposite lane-changing direction should be done than the one examined herein

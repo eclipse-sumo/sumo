@@ -413,6 +413,7 @@
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
         <xsd:attribute name="roadsideCapacity" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="onRoad" type="boolType" use="optional"/>
         <xsd:attribute name="startPos" type="xsd:float" use="optional"/>
         <xsd:attribute name="endPos" type="xsd:float" use="optional"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>

@@ -1625,7 +1625,8 @@ MSVehicle::collisionStopTime() const {
 
 bool
 MSVehicle::isParking() const {
-    return isStopped() && myStops.begin()->pars.parking;
+    return isStopped() && myStops.begin()->pars.parking && (
+            myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
 }
 
 
@@ -1768,7 +1769,7 @@ MSVehicle::processNextStop(double currentVelocity) {
         // is the next stop on the current lane?
         if (stop.edge == myCurrEdge) {
             // get the stopping position
-            bool useStoppingPlace = stop.busstop != nullptr || stop.containerstop != nullptr;;
+            bool useStoppingPlace = stop.busstop != nullptr || stop.containerstop != nullptr || stop.parkingarea != nullptr;
             bool fitsOnStoppingPlace = true;
             if (stop.busstop != nullptr) {
                 fitsOnStoppingPlace &= stop.busstop->fits(myState.myPos, *this);
@@ -1778,6 +1779,7 @@ MSVehicle::processNextStop(double currentVelocity) {
             }
             // if the stop is a parking area we check if there is a free position on the area
             if (stop.parkingarea != nullptr) {
+                fitsOnStoppingPlace &= myState.myPos > stop.parkingarea->getBeginLanePosition();
                 if (stop.parkingarea->getOccupancy() == stop.parkingarea->getCapacity()) {
                     fitsOnStoppingPlace = false;
                     // trigger potential parkingZoneReroute

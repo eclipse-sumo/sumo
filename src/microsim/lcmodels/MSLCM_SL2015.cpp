@@ -1027,6 +1027,29 @@ MSLCM_SL2015::_wantsChangeSublane(
             break;
         }
     }
+    double driveToNextStop = -std::numeric_limits<double>::max(); 
+    UNUSED_PARAMETER(driveToNextStop); // XXX use when computing usableDist
+    if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
+            && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
+        // vehicle can always drive up to stop distance
+        // @note this information is dynamic and thus not available in updateBestLanes()
+        // @note: nextStopDist was compute before the vehicle moved
+        driveToNextStop = myVehicle.nextStopDist();
+        const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
+#ifdef DEBUG_WANTS_CHANGE
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
+                  << " stopDist=" << myVehicle.nextStopDist()
+                  << " lastDist=" << myVehicle.getLastStepDist()
+                  << " stopPos=" << stopPos
+                  << " currentDist=" << currentDist
+                  << " neighDist=" << neighDist
+                  << "\n";
+    }
+#endif
+        currentDist = MAX2(currentDist, stopPos);
+        neighDist = MAX2(neighDist, stopPos);
+    }
     // direction specific constants
     const bool right = (laneOffset == -1);
     const bool left = (laneOffset == 1);

@@ -473,6 +473,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "containerStop",          SUMO_ATTR_CONTAINER_STOP },
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },
+    { "onRoad",                 SUMO_ATTR_ONROAD },
     { "chargingStation",        SUMO_ATTR_CHARGING_STATION},
     { "line",                   SUMO_ATTR_LINE },
     { "lines",                  SUMO_ATTR_LINES },

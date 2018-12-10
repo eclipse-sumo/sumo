@@ -75,7 +75,8 @@ public:
     MSParkingArea(const std::string& id,
                   const std::vector<std::string>& lines, MSLane& lane,
                   double begPos, double endPos, int capacity,
-                  double width, double length, double angle, const std::string& name);
+                  double width, double length, double angle, const std::string& name,
+                  bool onRoad);
 
     /// @brief Destructor
     virtual ~MSParkingArea();
@@ -86,6 +87,11 @@ public:
      * @return The capacity
      */
     int getCapacity() const;
+
+    /// @brief whether vehicles park on the road
+    bool parkOnRoad() const {
+        return myOnRoad;
+    }
 
 
     /** @brief Returns the area occupancy
@@ -220,6 +226,9 @@ protected:
 
     /// @brief Stop area capacity
     int myCapacity;
+
+    /// @brief Whether vehicles stay on the road
+    bool myOnRoad;
 
     /// @brief The default width of each parking space
     double myWidth;

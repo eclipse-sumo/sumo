@@ -45,9 +45,11 @@ MSParkingArea::MSParkingArea(const std::string& id,
                              MSLane& lane,
                              double begPos, double endPos,
                              int capacity,
-                             double width, double length, double angle, const std::string& name) :
+                             double width, double length, double angle, const std::string& name,
+                             bool onRoad) :
     MSStoppingPlace(id, lines, lane, begPos, endPos, name),
     myCapacity(0),
+    myOnRoad(onRoad),
     myWidth(width),
     myLength(length),
     myAngle(angle),
@@ -68,7 +70,9 @@ MSParkingArea::MSParkingArea(const std::string& id,
     myShape = lane.getShape().getSubpart(
                   lane.interpolateLanePosToGeometryPos(begPos),
                   lane.interpolateLanePosToGeometryPos(endPos));
-    myShape.move2side((lane.getWidth() / 2. + myWidth / 2.) * offset);
+    if (!myOnRoad) {
+        myShape.move2side((lane.getWidth() / 2. + myWidth / 2.) * offset);
+    }
     // Initialize space occupancies if there is a road-side capacity
     // The overall number of lots is fixed and each lot accepts one vehicle regardless of size
     for (int i = 0; i < capacity; ++i) {
@@ -110,6 +114,8 @@ MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle) const {
         // keep enough space so that  parking vehicles can leave
         return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
     } else {
+        // XXX if (forVehicle.getLane() == myLane && forVehicle.getPositionOnLane() > myLastFreePos) {
+        //        find freePos beyond vehicle position }
         return myLastFreePos;
     }
 }
