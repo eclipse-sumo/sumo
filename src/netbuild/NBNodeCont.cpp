@@ -484,13 +484,15 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 continue;
             }
             c.insert(n);
-#ifdef DEBUG_JOINJUNCTIONS
-            if (DEBUGCOND(n)) {
-                std::cout << "generateNodeClusters: consider n=" << n->getID() << " edges=" << toString(n->getEdges(), ' ') << " with cluster " << joinNamedToString(c, ' ') << " pureRail=" << pureRail << "\n";
-            }
-#endif
             for (NBEdge* e : n->getEdges()) {
                 NBNode* s = n->hasIncoming(e) ? e->getFromNode() : e->getToNode();
+                const double length = e->getLoadedLength();
+#ifdef DEBUG_JOINJUNCTIONS
+                if (DEBUGCOND(s)) {
+                    std::cout << "generateNodeClusters: consider s=" << s->getID() 
+                        << " clusterNode=" << n->getID() << " edge=" << e->getID() << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
+                }
+#endif
                 if (railAndPeds && n->getType() != NODETYPE_RAIL_CROSSING) {
                     bool railAndPeds2 = true;
                     for (NBEdge* e : n->getEdges()) {
@@ -505,13 +507,6 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                         continue;
                     }
                 }
-
-                const double length = e->getLoadedLength();
-#ifdef DEBUG_JOINJUNCTIONS
-                if (DEBUGCOND(n)) {
-                    std::cout << "generateNodeClusters edge=" << e->getID() << " length=" << length << "\n";
-                }
-#endif
                 const bool bothCrossing = n->getType() == NODETYPE_RAIL_CROSSING && s->getType() == NODETYPE_RAIL_CROSSING;
                 const bool joinPedCrossings = bothCrossing && e->getPermissions() == SVC_PEDESTRIAN;
                 if ( // never join pedestrian stuff (unless at a rail crossing
