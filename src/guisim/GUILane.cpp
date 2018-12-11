@@ -96,8 +96,8 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
         myShapeRotations.push_back(RAD2DEG(atan2(s.x() - f.x(), f.y() - s.y())));
     }
     //
-    myHalfLaneWidth = (double)(myWidth / 2.);
-    myQuarterLaneWidth = (double)(myWidth / 4.);
+    myHalfLaneWidth = myWidth / 2.;
+    myQuarterLaneWidth = myWidth / 4.;
 }
 
 
@@ -832,7 +832,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 15 + myEdge->getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 15 + (int)myEdge->getParametersMap().size());
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);

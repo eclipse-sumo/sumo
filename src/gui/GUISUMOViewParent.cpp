@@ -234,9 +234,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    GUIDialog_GLObjChooser* chooser = new GUIDialog_GLObjChooser(
-        this, GUIIconSubSys::getIcon(icon), title.c_str(), ids, GUIGlObjectStorage::gIDStorage);
-    UNUSED_PARAMETER(chooser);
+    new GUIDialog_GLObjChooser(this, GUIIconSubSys::getIcon(icon), title.c_str(), ids, GUIGlObjectStorage::gIDStorage);
     return 1;
 }
 
@@ -289,4 +287,3 @@ GUISUMOViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 
 /****************************************************************************/
-

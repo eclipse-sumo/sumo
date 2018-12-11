@@ -57,6 +57,7 @@ extern "C"
 #pragma GCC diagnostic pop
 #endif
 
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 
 
@@ -153,7 +154,9 @@ public:
         }
 
         //Write File Header
-        avformat_write_header(myFormatContext, NULL);
+        if (avformat_write_header(myFormatContext, nullptr) < 0) {
+            throw ProcessError("Failed to write file header!");
+        }
         myFrameIndex = 0;
         myPkt = av_packet_alloc();
         if (myPkt == nullptr) {
@@ -167,14 +170,16 @@ public:
             ret = 0;
         }
         if (avcodec_send_frame(myCodecCtx, nullptr) < 0) {
-            throw ProcessError("Error sending final frame!");
+            WRITE_WARNING("Error sending final frame!");
+            ret = -1;
         }
         while (ret >= 0) {
             ret = avcodec_receive_packet(myCodecCtx, myPkt);
             if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
                 break;
             } else if (ret < 0) {
-                throw ProcessError("Error during encoding!");
+                WRITE_WARNING("Error during final encoding step!");
+                break;
             }
             ret = av_write_frame(myFormatContext, myPkt);
             av_packet_unref(myPkt);
