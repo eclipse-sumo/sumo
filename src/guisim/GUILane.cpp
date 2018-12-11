@@ -67,6 +67,7 @@
 // ===========================================================================
 const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -795,8 +796,7 @@ GUILane::debugDrawFoeIntersections() const {
 
 // ------ inherited from GUIGlObject
 GUIGLObjectPopupMenu*
-GUILane::getPopUpMenu(GUIMainWindow& app,
-                      GUISUMOAbstractView& parent) {
+GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
@@ -830,8 +830,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app,
 
 
 GUIParameterTableWindow*
-GUILane::getParameterWindow(GUIMainWindow& app,
-                            GUISUMOAbstractView&) {
+GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 15 + (int)myEdge->getParametersMap().size());
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
@@ -867,11 +866,6 @@ GUILane::getCenteringBoundary() const {
     // is outside the view
     return b;
 }
-
-
-
-
-
 
 
 const PositionVector&
@@ -1305,5 +1299,5 @@ GUILane::getPendingEmits() const {
     return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
 }
 
-/****************************************************************************/
 
+/****************************************************************************/
