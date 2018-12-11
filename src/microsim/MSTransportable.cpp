@@ -526,7 +526,7 @@ MSTransportable::Stage_Driving::isWaiting4Vehicle() const {
 
 SUMOTime
 MSTransportable::Stage_Driving::getWaitingTime(SUMOTime now) const {
-    return isWaiting4Vehicle() ? now - myDeparted : 0;
+    return isWaiting4Vehicle() ? now - myWaitingSince : 0;
 }
 
 
