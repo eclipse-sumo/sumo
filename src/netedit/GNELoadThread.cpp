@@ -20,33 +20,22 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <iostream>
-#include <ctime>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/MsgRetrievingFunction.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/Option.h>
-#include <utils/options/OptionsIO.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBFrame.h>
-#include <netimport/NILoader.h>
+#include <netbuild/NBNetBuilder.h>
 #include <netimport/NIFrame.h>
+#include <netimport/NILoader.h>
 #include <netwrite/NWFrame.h>
-#include <netbuild/NBFrame.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <utils/common/MsgRetrievingFunction.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/xml/XMLSubSys.h>
 
+#include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-#include "GNEEvent_NetworkLoaded.h"
 
 
 // ===========================================================================

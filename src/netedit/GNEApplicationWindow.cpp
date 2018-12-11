@@ -19,44 +19,28 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
-#include <string>
-#include <sstream>
-#include <algorithm>
 
 #include <netbuild/NBFrame.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/additionals/GNEPOI.h>
 #include <netedit/dialogs/GNEDialog_About.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
 #include <netimport/NIFrame.h>
-#include <netimport/NIImporter_SUMO.h>
 #include <netwrite/NWFrame.h>
+#include <utils/common/SysUtils.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/ToString.h>
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/geom/GeoConvHelper.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -66,13 +50,15 @@
 #include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNELoadThread.h"
 #include "GNEEvent_NetworkLoaded.h"
-#include "GNEViewParent.h"
-#include "GNEViewNet.h"
+#include "GNELoadThread.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
+#include "GNEViewParent.h"
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
 
 // ===========================================================================
 // FOX-declarations

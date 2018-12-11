@@ -25,16 +25,11 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <iostream>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/options/OptionsCont.h>
-
-#include "GNEUndoList.h"
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/common/MsgHandler.h>
+
 #include "GNEApplicationWindow.h"
+#include "GNEUndoList.h"
 
 
 // ===========================================================================

@@ -46,6 +46,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netbuild/NBNetBuilder.h>
 
 #include "GNEEdge.h"
 #include "GNEConnection.h"

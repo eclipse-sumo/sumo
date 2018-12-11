@@ -27,32 +27,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <iterator>
-#include <map>
-#include <set>
-#include <vector>
-
 #include <netbuild/NBAlgorithms.h>
-#include <netwrite/NWFrame.h>
-#include <netwrite/NWWriter_XML.h>
-#include <netwrite/NWWriter_SUMO.h>
-#include <utility>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/StringUtils.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/shapes/ShapeContainer.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/XMLSubSys.h>
-#include <netedit/changes/GNEChange_Additional.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/additionals/GNECalibratorVehicleType.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNEPoly.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
@@ -60,31 +40,26 @@
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/frames/GNEInspectorFrame.h>
-#include <netedit/frames/GNEAdditionalFrame.h>
-#include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/dialogs/GNEDialog_FixAdditionalPositions.h>
+#include <netedit/frames/GNEAdditionalFrame.h>
+#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/additionals/GNECalibratorRoute.h>
-#include <netedit/additionals/GNECalibratorVehicleType.h>
-#include <netedit/additionals/GNEDetector.h>
-#include <netedit/additionals/GNEDetectorE2.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/additionals/GNERerouter.h>
-#include <netedit/additionals/GNERerouterInterval.h>
-#include <netedit/additionals/GNEStoppingPlace.h>
+#include <netwrite/NWFrame.h>
+#include <netwrite/NWWriter_SUMO.h>
+#include <netwrite/NWWriter_XML.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/xml/XMLSubSys.h>
 
-#include "GNENet.h"
 #include "GNEApplicationWindow.h"
+#include "GNENet.h"
 #include "GNEUndoList.h"
-#include "GNEViewNet.h"
 #include "GNEViewParent.h"
 
 

@@ -48,6 +48,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNELane.h"
 #include "GNEEdge.h"

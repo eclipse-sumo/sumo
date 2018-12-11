@@ -44,6 +44,7 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/netelements/GNEInternalLane.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNETLSEditorFrame.h"
 

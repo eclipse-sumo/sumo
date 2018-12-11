@@ -19,22 +19,15 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <algorithm>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/geom/GeomConvHelper.h>
-#include <netbuild/NBEdge.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/geom/GeomConvHelper.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEAttributeCarrier.h"
-#include "GNEUndoList.h"
 #include "GNENet.h"
 
 

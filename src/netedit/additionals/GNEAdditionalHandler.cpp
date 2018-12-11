@@ -28,6 +28,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netbuild/NBNetBuilder.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"

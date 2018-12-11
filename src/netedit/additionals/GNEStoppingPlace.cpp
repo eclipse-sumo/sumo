@@ -43,6 +43,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEStoppingPlace.h"
 #include "GNEAdditionalHandler.h"

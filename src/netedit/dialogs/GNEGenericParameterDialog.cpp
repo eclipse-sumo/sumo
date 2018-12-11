@@ -31,6 +31,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNet.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
 #include "GNEGenericParameterDialog.h"
 

@@ -42,6 +42,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEConnection.h"
 #include "GNEJunction.h"

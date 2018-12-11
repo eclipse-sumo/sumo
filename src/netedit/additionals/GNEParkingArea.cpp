@@ -46,6 +46,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEParkingArea.h"
 

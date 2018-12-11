@@ -23,16 +23,16 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/geom/Boundary.h>
-#include <utils/geom/Position.h>
-#include <utils/common/RGBColor.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/common/StringBijection.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/options/OptionsCont.h>
+#include <utils/geom/Position.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/gui/settings/GUIPropertyScheme.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 
 // ===========================================================================
@@ -72,7 +72,6 @@ enum EditMode {
 // class declarations
 // ===========================================================================
 
-class GNEChange;
 class GNENet;
 class GNENetElement;
 class GNEJunction;
@@ -86,11 +85,10 @@ class GNEShape;
 class GNEPoly;
 class GNEPOI;
 class GNEFrame;
-class GNENetElement;
 class GNECrossing;
-class GNEInternalLane;
 class GNEAttributeCarrier;
 class GNETAZ;
+class GNEInternalLane;
 
 // ===========================================================================
 // class definitions

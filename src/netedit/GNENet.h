@@ -32,29 +32,26 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <utility>
+#include <fx.h>
 #include <foreign/rtree/SUMORTree.h>
-#include <netbuild/NBNetBuilder.h>
-#include <utils/common/IDSupplier.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/StringUtils.h>
-#include <utils/geom/Boundary.h>
-#include <utils/geom/Position.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIShapeContainer.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/options/OptionsCont.h>
+#include <netbuild/NBTrafficLightLogicCont.h>
 #include <netedit/changes/GNEChange.h>
+#include <utils/common/IDSupplier.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIShapeContainer.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
+class NBNetBuilder;
 class GNEAdditional;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;

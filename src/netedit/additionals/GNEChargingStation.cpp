@@ -46,6 +46,8 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netbuild/NBNetBuilder.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEChargingStation.h"
 

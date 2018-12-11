@@ -26,24 +26,16 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <fx.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/Boundary.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
+
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUISUMOAbstractView;
 class GNEDialogACChooser;
 class GNENet;
 class GNEUndoList;
 class GNEApplicationWindow;
-class GNEDialogACChooser;
-class GNEFrame;
 class GNEInspectorFrame;
 class GNESelectorFrame;
 class GNEConnectorFrame;

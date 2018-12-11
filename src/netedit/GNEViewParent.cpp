@@ -22,49 +22,29 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <string>
-#include <vector>
-#include <utils/foxtools/MFXUtils.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/foxtools/MFXImageHelper.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/Boundary.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/images/GUIIcons.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/common/MsgHandler.h>
-#include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/frames/GNESelectorFrame.h>
-#include <netedit/frames/GNEConnectorFrame.h>
-#include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/dialogs/GNEDialogACChooser.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
+#include <netedit/frames/GNEConnectorFrame.h>
 #include <netedit/frames/GNECrossingFrame.h>
-#include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNEDeleteFrame.h>
+#include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
 #include <netedit/frames/GNEProhibitionFrame.h>
-#include <netedit/frames/GNEInspectorFrame.h>
-#include <netedit/netelements/GNEJunction.h>
+#include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/frames/GNETAZFrame.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/dialogs/GNEDialogACChooser.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNENet.h"
-#include "GNEViewNet.h"
-#include "GNEViewParent.h"
-#include "GNEUndoList.h"
 #include "GNEApplicationWindow.h"
+#include "GNENet.h"
+#include "GNEUndoList.h"
+#include "GNEViewParent.h"
 
 
 // ===========================================================================

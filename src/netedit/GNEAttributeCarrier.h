@@ -23,20 +23,13 @@
 // ===========================================================================
 #include <config.h>
 
-#include <fx.h>
-#include <string>
-#include <vector>
-#include <map>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/gui/images/GUIIcons.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 #include "GNEReferenceCounter.h"
 
@@ -45,10 +38,9 @@
 // class declarations
 // ===========================================================================
 class GNENet;
-class GNEEdge;
-class GNELane;
 class GNEUndoList;
-class GUIGlObject;
+class GNELane;
+class GNEEdge;
 
 // ===========================================================================
 // class definitions

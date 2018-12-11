@@ -44,6 +44,7 @@
 #include <netedit/additionals/GNERouteProbe.h>
 #include <netedit/additionals/GNEVaporizer.h>
 #include <netedit/additionals/GNEDetectorE2.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"

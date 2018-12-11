@@ -27,6 +27,7 @@
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
+#include <netbuild/NBNetBuilder.h>
 
 #include "GNEChange_Crossing.h"
 
