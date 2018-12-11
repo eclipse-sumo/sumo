@@ -21,7 +21,7 @@ import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
-from sumolib.miscutils import uMax, Statistics  # noqa
+from sumolib.miscutils import uMax, Statistics, parseTime  # noqa
 
 
 def update_earliest(earliest_diffs, diff, timestamp, tag):
@@ -30,28 +30,29 @@ def update_earliest(earliest_diffs, diff, timestamp, tag):
 
 
 def write_diff(orig, new, out, earliest_out=None):
+    attr_conversions = {"depart" : parseTime, "arrival": parseTime}
     earliest_diffs = defaultdict(lambda: (uMax, None))  # diff -> (time, veh)
-    vehicles_orig = dict([(v.id, v) for v in parse(orig, 'vehicle')])
+    vehicles_orig = dict([(v.id, v) for v in parse(orig, 'vehicle',
+        attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
     durationDiffs = Statistics('duration differences')
     with open(out, 'w') as f:
         f.write("<routeDiff>\n")
-        for v in parse(new, 'vehicle'):
+        for v in parse(new, 'vehicle', attr_conversions=attr_conversions):
             if v.id in vehicles_orig:
                 vOrig = vehicles_orig[v.id]
-                departDiff = float(v.depart) - float(vOrig.depart)
-                arrivalDiff = float(v.arrival) - float(vOrig.arrival)
+                departDiff = v.depart - vOrig.depart
+                arrivalDiff = v.arrival - vOrig.arrival
                 if v.route[0].exitTimes is None:
                     sys.exit("Error: Need route input with 'exitTimes'\n")
-                exitTimes = map(float, v.route[0].exitTimes.split())
-                origExitTimes = map(float, vOrig.route[0].exitTimes.split())
+                exitTimes = map(parseTime, v.route[0].exitTimes.split())
+                origExitTimes = map(parseTime, vOrig.route[0].exitTimes.split())
                 exitTimesDiff = [
                     e - eOrig for e, eOrig in zip(exitTimes, origExitTimes)]
 
-                durations.add(float(v.arrival) - float(v.depart), v.id)
-                origDurations.add(
-                    float(vOrig.arrival) - float(vOrig.depart), v.id)
+                durations.add(v.arrival - v.depart, v.id)
+                origDurations.add(vOrig.arrival - vOrig.depart, v.id)
                 durationDiffs.add(arrivalDiff - departDiff, v.id)
 
                 update_earliest(
