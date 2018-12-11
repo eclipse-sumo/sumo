@@ -359,6 +359,4 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
 }
 
 
-
 /****************************************************************************/
-

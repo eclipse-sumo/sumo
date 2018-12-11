@@ -871,15 +871,18 @@ MSEdge::parseEdgesList(const std::vector<std::string>& desc, ConstMSEdgeVector& 
 
 
 double
-MSEdge::getDistanceTo(const MSEdge* other) const {
+MSEdge::getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate) const {
+    if (doBoundaryEstimate) {
+        return myBoundary.distanceTo2D(other->myBoundary);
+    }
     if (isTazConnector()) {
         if (other->isTazConnector()) {
-            return myTazBoundary.distanceTo2D(other->myTazBoundary);
+            return myBoundary.distanceTo2D(other->myBoundary);
         }
-        return myTazBoundary.distanceTo2D(other->getFromJunction()->getPosition());
+        return myBoundary.distanceTo2D(other->getFromJunction()->getPosition());
     }
     if (other->isTazConnector()) {
-        return other->myTazBoundary.distanceTo2D(getToJunction()->getPosition());
+        return other->myBoundary.distanceTo2D(getToJunction()->getPosition());
     }
     return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
 }
@@ -963,12 +966,12 @@ MSEdge::addSuccessor(MSEdge* edge, const MSEdge* via) {
     mySuccessors.push_back(edge);
     myViaSuccessors.push_back(std::make_pair(edge, via));
     if (isTazConnector() && edge->getFromJunction() != nullptr) {
-        myTazBoundary.add(edge->getFromJunction()->getPosition());
+        myBoundary.add(edge->getFromJunction()->getPosition());
     }
 
     edge->myPredecessors.push_back(this);
     if (edge->isTazConnector() && getToJunction() != nullptr) {
-        edge->myTazBoundary.add(getToJunction()->getPosition());
+        edge->myBoundary.add(getToJunction()->getPosition());
     }
 }
 
@@ -1052,13 +1055,23 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
 }
 
 
+void
+MSEdge::setJunctions(MSJunction* from, MSJunction* to) {
+    myFromJunction = from;
+    myToJunction = to;
+    if (!isTazConnector()) {
+        myBoundary.add(from->getPosition());
+        myBoundary.add(to->getPosition());
+    }
+}
+
+
 bool
 MSEdge::canChangeToOpposite() {
     return (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr &&
             // do not change on curved internal lanes
             (!isInternal() || myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LINKDIR_STRAIGHT));
 }
-
 
 
 const MSEdge*

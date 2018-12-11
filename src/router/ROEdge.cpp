@@ -72,6 +72,9 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     if (from == nullptr && to == nullptr) {
         // TAZ edge, no lanes
         myCombinedPermissions = SVCAll;
+    } else {
+        myBoundary.add(from->getPosition());
+        myBoundary.add(to->getPosition());
     }
 }
 
@@ -102,12 +105,12 @@ ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));
         if (isTazConnector()) {
-            myTazBoundary.add(s->getFromJunction()->getPosition());
+            myBoundary.add(s->getFromJunction()->getPosition());
         }
         if (!isInternal()) {
             s->myApproachingEdges.push_back(this);
             if (s->isTazConnector()) {
-                s->myTazBoundary.add(getToJunction()->getPosition());
+                s->myBoundary.add(getToJunction()->getPosition());
             }
             if (via != nullptr) {
                 if (via->myApproachingEdges.size() == 0) {
@@ -144,15 +147,18 @@ ROEdge::getEffort(const ROVehicle* const veh, double time) const {
 
 
 double
-ROEdge::getDistanceTo(const ROEdge* other) const {
+ROEdge::getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate) const {
+    if (doBoundaryEstimate) {
+        return myBoundary.distanceTo2D(other->myBoundary);
+    }
     if (isTazConnector()) {
         if (other->isTazConnector()) {
-            return myTazBoundary.distanceTo2D(other->myTazBoundary);
+            return myBoundary.distanceTo2D(other->myBoundary);
         }
-        return myTazBoundary.distanceTo2D(other->getFromJunction()->getPosition());
+        return myBoundary.distanceTo2D(other->getFromJunction()->getPosition());
     }
     if (other->isTazConnector()) {
-        return other->myTazBoundary.distanceTo2D(getToJunction()->getPosition());
+        return other->myBoundary.distanceTo2D(getToJunction()->getPosition());
     }
     return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
 }

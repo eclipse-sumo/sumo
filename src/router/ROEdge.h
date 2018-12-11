@@ -434,7 +434,7 @@ public:
 
 
     /// @brief optimistic distance heuristic for use in routing
-    double getDistanceTo(const ROEdge* other) const;
+    double getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate=false) const;
 
 
     /** @brief Returns all ROEdges */
@@ -541,8 +541,8 @@ protected:
     /// @brief The list of allowed vehicle classes combined across lanes
     SVCPermissions myCombinedPermissions;
 
-    /// @brief The bounding rectangle of incoming or outgoing edges for taz connectors
-    Boundary myTazBoundary;
+    /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
+    Boundary myBoundary;
 
     static ROEdgeVector myEdges;
 

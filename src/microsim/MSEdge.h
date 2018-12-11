@@ -349,10 +349,7 @@ public:
     }
 
 
-    void setJunctions(MSJunction* from, MSJunction* to) {
-        myFromJunction = from;
-        myToJunction = to;
-    }
+    void setJunctions(MSJunction* from, MSJunction* to);
     /// @}
 
 
@@ -555,9 +552,10 @@ public:
 
     /** @brief optimistic air distance heuristic for use in routing
      * @param[in] other The edge to which the distance shall be returned
+     * @param[in] doBoundaryEstimate whether the distance should be estimated by looking at the distance of the bounding boxes
      * @return The distance to the other edge
      */
-    double getDistanceTo(const MSEdge* other) const;
+    double getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate=false) const;
 
 
     /// @brief return the coordinates of the center of the given stop
@@ -863,8 +861,8 @@ protected:
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, MSConstEdgePairVector> myClassesViaSuccessorMap;
 
-    /// @brief The bounding rectangle of incoming or outgoing edges for taz connectors
-    Boundary myTazBoundary;
+    /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
+    Boundary myBoundary;
 
 private:
 

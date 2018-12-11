@@ -231,7 +231,7 @@ public:
             effort += effortDelta;
 
             // admissible A* heuristic: straight line distance at maximum speed
-            const double heuristic_remaining = (myLookupTable == 0 ? minEdge->getDistanceTo(to) / speed :
+            const double heuristic_remaining = (myLookupTable == nullptr ? minEdge->getDistanceTo(to) / speed :
                                                 myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(), minEdge->getMinimumTravelTime(0), to->getMinimumTravelTime(0)));
             if (heuristic_remaining == UNREACHABLE) {
                 continue;

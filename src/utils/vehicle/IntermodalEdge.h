@@ -160,7 +160,7 @@ public:
 
     // only used by AStar
     inline double getDistanceTo(const IntermodalEdge* other) const {
-        return myEdge != nullptr && other->myEdge != nullptr ? myEdge->getDistanceTo(other->myEdge) : 0.;
+        return myEdge != nullptr && other->myEdge != nullptr ? myEdge->getDistanceTo(other->myEdge, true) : 0.;
     }
 
     // only used by AStar
