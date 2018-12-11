@@ -28,31 +28,31 @@ Debug: Setting new attribute blockShape 'false' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,6.00,14.00,15.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,6.00,14.00,15.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
-Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_0'
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,8.00 12.00,8.00' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,6.00,14.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,5.95,14.00,15.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,6.00,14.00,15.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
-Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,-5.68 12.00,8.00' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,5.95,14.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,-7.68,14.00,15.00
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,-6.00 12.00,8.00' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,6.00,14.00,15.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,-8.00,14.00,15.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,-7.68,14.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,5.95,14.00,15.00
+Debug: Setting previous attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,8.00 12.00,8.00' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,-8.00,14.00,15.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,6.00,14.00,15.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 12.00,8.00' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,5.95,14.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,6.00,14.00,15.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,6.00,14.00,15.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,7.95 12.00,8.00' into poly 'poly_0'
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,8.00 12.00,8.00' into poly 'poly_0'
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,6.00,14.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,5.95,14.00,15.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,6.00,14.00,15.00
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 9.55,-5.68 12.00,8.00' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,5.95,14.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,-7.68,14.00,15.00
+Debug: Setting new attribute shape '12.00,8.00 12.00,13.00 7.00,13.00 7.00,8.00 10.00,-6.00 12.00,8.00' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,6.00,14.00,15.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 5.00,-8.00,14.00,15.00
 Debug: Shapes saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -79,7 +79,7 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,-7.68,14.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 5.00,-8.00,14.00,15.00
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

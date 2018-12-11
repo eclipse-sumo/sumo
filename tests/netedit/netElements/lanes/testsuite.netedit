@@ -9,7 +9,7 @@ inspect
 inspect_selected
 
 # load lane
-load
+#load
 
 # move lane
 #move

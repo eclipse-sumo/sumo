@@ -29,9 +29,7 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyShapeStart' for attribute shapeStart of edge isn't valid
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
 Debug: Value '34' for attribute shapeStart of edge isn't valid
 Debug: Setting new attribute shapeStart '14,15.5' into edge 'gneE2'
 Debug: net has to be saved

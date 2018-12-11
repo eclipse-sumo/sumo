@@ -40,6 +40,9 @@ netedit.leftClick(referencePosition, 400, 250)
 # set valid vehicle type
 netedit.modifyAdditionalDefaultValue(4, "type1 type2 type3")
 
+# create E1 Instant with valid vehicle types
+netedit.leftClick(referencePosition, 400, 250)
+
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)

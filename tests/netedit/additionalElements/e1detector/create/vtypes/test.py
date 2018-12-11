@@ -40,6 +40,9 @@ netedit.leftClick(referencePosition, 400, 250)
 # set valid vehicle type
 netedit.modifyAdditionalDefaultValue(5, "private passenger taxi bus")
 
+# create E1 with valid vehicle types
+netedit.leftClick(referencePosition, 400, 250)
+
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
