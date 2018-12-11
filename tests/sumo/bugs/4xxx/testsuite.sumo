@@ -57,3 +57,6 @@ ticket4855
 
 # ACC model applies emergency decel at insertion
 ticket4861
+
+# speed on junction when approaching pedestrian crossing
+ticket4900
