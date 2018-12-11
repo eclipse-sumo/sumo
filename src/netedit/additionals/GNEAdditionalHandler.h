@@ -23,22 +23,17 @@
 
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <utils/common/MsgHandler.h>
-#include <utils/geom/Position.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNENet;
 class GNEViewNet;
-class GNEJunction;
-class GNEUndoList;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;

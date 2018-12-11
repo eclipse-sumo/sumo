@@ -20,18 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
-#include <utils/common/MsgHandler.h>
 #include "GNERerouterInterval.h"
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNENet.h>
 
-#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions

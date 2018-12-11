@@ -20,7 +20,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
 #include "GNEClosingLaneReroute.h"
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -28,10 +27,8 @@
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 
 #include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include "GNERerouterInterval.h"
 
 
 // ===========================================================================

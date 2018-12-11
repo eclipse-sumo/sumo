@@ -20,14 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
-#include <utils/common/MsgHandler.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNETAZSource.h"
-#include "GNETAZ.h"
 
 
 // ===========================================================================

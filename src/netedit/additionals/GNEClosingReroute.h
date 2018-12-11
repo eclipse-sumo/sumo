@@ -21,12 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <vector>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 
 #include "GNEAdditional.h"
 
@@ -34,7 +28,6 @@
 // class declarations
 // ===========================================================================
 
-class GNEEdge;
 class GNERerouterInterval;
 class GNERerouterIntervalDialog;
 

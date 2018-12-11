@@ -20,14 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
-#include <utils/common/MsgHandler.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEVariableSpeedSignStep.h"
-#include "GNEVariableSpeedSign.h"
 
 
 // ===========================================================================

@@ -21,12 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <utils/common/UtilExceptions.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/RGBColor.h>
 
 #include "GNEAdditional.h"
 

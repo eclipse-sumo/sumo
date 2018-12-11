@@ -22,7 +22,8 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
+
+#include <utils/gui/globjects/GUIPointOfInterest.h>
 
 #include "GNEShape.h"
 

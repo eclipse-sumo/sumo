@@ -20,17 +20,13 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
-#include "GNEParkingArea.h"
 #include "GNEParkingAreaReroute.h"
 #include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include "GNERerouterInterval.h"
 
 // ===========================================================================
 // member method definitions

@@ -18,35 +18,16 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <netbuild/NBEdge.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNEDetectorE2.h"
 #include "GNEAdditionalHandler.h"

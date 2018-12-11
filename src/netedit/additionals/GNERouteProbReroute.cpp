@@ -20,8 +20,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 #include <netedit/GNEUndoList.h>
@@ -29,7 +27,6 @@
 #include <netedit/GNENet.h>
 
 #include "GNERouteProbReroute.h"
-#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions

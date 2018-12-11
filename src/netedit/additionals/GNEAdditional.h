@@ -23,22 +23,17 @@
 
 #include <config.h>
 
-#include <string>
-#include <vector>
+#include <netedit/GNEAttributeCarrier.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <netedit/GNEAttributeCarrier.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEAdditionalDialog;
 class GNEEdge;
 class GNELane;
-class GNENet;
 class GNEViewNet;
 class GUIGLObjectPopupMenu;
 

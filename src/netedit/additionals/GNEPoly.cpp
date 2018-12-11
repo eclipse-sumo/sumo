@@ -20,34 +20,17 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include <string>
-#include <utility>
 #include <utils/common/StringTokenizer.h>
-#include <utils/foxtools/MFXImageHelper.h>
-#include <utils/geom/Position.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/xml/XMLSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <netimport/NIImporter_SUMO.h>
-#include <netwrite/NWWriter_SUMO.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEPoly.h"
 

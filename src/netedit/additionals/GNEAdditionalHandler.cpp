@@ -19,16 +19,13 @@
 // included modules
 // ===========================================================================
 #include <config.h>
-#include <string>
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <netbuild/NBNetBuilder.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAdditionalHandler.h"

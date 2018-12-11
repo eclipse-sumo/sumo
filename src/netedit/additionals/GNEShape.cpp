@@ -21,14 +21,12 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <gl/GL.h>
 
 #include "GNEShape.h"
 
