@@ -28,6 +28,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEVariableSpeedSign.h"
 

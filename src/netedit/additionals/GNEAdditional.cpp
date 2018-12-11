@@ -33,6 +33,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEAdditional.h"
 

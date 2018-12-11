@@ -27,6 +27,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewParent.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNETAZ.h"
 

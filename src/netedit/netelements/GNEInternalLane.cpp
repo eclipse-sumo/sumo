@@ -21,30 +21,15 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <time.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/common/RandHelper.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <netedit/GNENet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEInternalLane.h"
-
 
 // ===========================================================================
 // FOX callback mapping

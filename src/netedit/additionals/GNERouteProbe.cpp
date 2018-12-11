@@ -28,6 +28,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERouteProbe.h"
 

@@ -36,6 +36,7 @@
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 #include "GNESelectorFrame.h"
 

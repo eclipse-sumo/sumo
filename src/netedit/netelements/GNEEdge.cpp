@@ -22,29 +22,20 @@
 // ===========================================================================
 #include <config.h>
 
-#include <vector>
-#include <cmath>
-#include <string>
-#include <algorithm>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/geom/GeomHelper.h>
 #include <utils/geom/bezier.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/common/MsgHandler.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNERouteProbe.h>
-#include <netedit/additionals/GNEVaporizer.h>
 #include <netedit/additionals/GNEDetectorE2.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"

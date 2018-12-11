@@ -23,23 +23,8 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <utility>
-#include <vector>
-#include <netbuild/NBConnection.h>
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBNode.h>
-#include <utils/geom/Boundary.h>
-#include <utils/geom/Position.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/globjects/GUIPolygon.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <netedit/GNEAttributeCarrier.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 // ===========================================================================
 // class declarations

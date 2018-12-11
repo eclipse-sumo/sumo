@@ -28,6 +28,9 @@
 #include <netedit/netelements/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/geom/GeomHelper.h>
 
 #include "GNEBusStop.h"
 #include "GNEAccess.h"

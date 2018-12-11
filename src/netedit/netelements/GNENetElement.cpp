@@ -21,13 +21,12 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/frames/GNESelectorFrame.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNENetElement.h"
 

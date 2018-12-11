@@ -32,6 +32,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEPOI.h"
 
