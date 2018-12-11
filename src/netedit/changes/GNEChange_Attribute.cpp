@@ -20,17 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <cassert>
-#include <utils/common/MsgHandler.h>
-#include <utils/options/OptionsCont.h>
-#include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/netelements/GNENetElement.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEShape.h>
-#include <netedit/frames/GNESelectorFrame.h>
 
 #include "GNEChange_Attribute.h"
 

@@ -20,14 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
-#include <cassert>
 
 #include "GNEChange_Lane.h"
 

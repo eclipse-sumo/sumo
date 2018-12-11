@@ -20,9 +20,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/frames/GNEInspectorFrame.h>

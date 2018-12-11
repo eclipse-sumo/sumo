@@ -20,16 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 
-#include <cassert>
 #include <utils/options/OptionsCont.h>
-#include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_TLS.h"
 

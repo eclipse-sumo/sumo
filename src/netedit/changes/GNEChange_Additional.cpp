@@ -20,18 +20,10 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/additionals/GNEAdditional.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/additionals/GNEDetectorE3.h>
-#include <netedit/additionals/GNEDetectorEntry.h>
-#include <netedit/additionals/GNEDetectorExit.h>
-#include <netedit/additionals/GNEStoppingPlace.h>
-#include <netedit/additionals/GNERerouter.h>
-#include <netedit/additionals/GNEVariableSpeedSign.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
 

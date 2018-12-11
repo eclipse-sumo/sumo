@@ -20,10 +20,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
-#include <utils/common/RGBColor.h>
-#include <utils/geom/PositionVector.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/frames/GNEInspectorFrame.h>
