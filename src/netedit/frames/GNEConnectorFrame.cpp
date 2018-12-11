@@ -21,11 +21,8 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <netedit/changes/GNEChange_Connection.h>
@@ -34,11 +31,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNEInternalLane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 
-#include "GNEInspectorFrame.h"
 #include "GNEConnectorFrame.h"
 #include "GNESelectorFrame.h"
 

@@ -21,6 +21,7 @@
 // included modules
 // ===========================================================================
 #include "GNEFrame.h"
+#include <netbuild/NBTrafficLightLogic.h>
 
 // ===========================================================================
 // class declarations
@@ -28,6 +29,7 @@
 class NBTrafficLightDefinition;
 class NBLoadedSUMOTLDef;
 class NBOwnTLDef;
+class GNEInternalLane;
 
 // ===========================================================================
 // class definitions

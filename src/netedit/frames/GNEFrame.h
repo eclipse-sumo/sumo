@@ -20,15 +20,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <fx.h>
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBTrafficLightLogic.h>
-#include <utils/gui/div/GUISelectedStorage.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <netedit/GNEAttributeCarrier.h>
-#include <netedit/GNEViewNet.h>
+#include <config.h>
 
+#include <fx.h>
+#include <netedit/GNEAttributeCarrier.h>
+#include <utils/geom/PositionVector.h>
+#include <netedit/GNEViewNet.h>
 
 // ===========================================================================
 // class definitions

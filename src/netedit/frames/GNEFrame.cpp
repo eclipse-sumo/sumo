@@ -21,14 +21,10 @@
 
 #include <config.h>
 
-#include <iostream>
-#include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -40,11 +36,9 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/GNEAttributeCarrier.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
 
 #include "GNEFrame.h"

@@ -21,23 +21,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/xml/XMLSubSys.h>
-#include <netwrite/NWWriter_SUMO.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNetBuilder.h>
-#include <netbuild/NBOwnTLDef.h>
 #include <netedit/changes/GNEChange_TLS.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNEEdge.h>

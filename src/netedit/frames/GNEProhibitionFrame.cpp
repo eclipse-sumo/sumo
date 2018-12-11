@@ -21,29 +21,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <set>
-#include <utils/common/MsgHandler.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/foxtools/fxexdefs.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <netedit/GNEAttributeCarrier.h>
-#include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNEInternalLane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEProhibitionFrame.h"
 

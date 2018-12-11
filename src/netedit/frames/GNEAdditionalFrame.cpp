@@ -20,34 +20,15 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <utils/foxtools/fxexdefs.h>
-#include <utils/foxtools/MFXUtils.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/additionals/GNECalibrator.h>
-#include <netedit/additionals/GNEClosingLaneReroute.h>
-#include <netedit/additionals/GNEClosingReroute.h>
-#include <netedit/additionals/GNERerouter.h>
-#include <netedit/additionals/GNERerouterInterval.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/additionals/GNEDestProbReroute.h>
-#include <netedit/additionals/GNERerouter.h>
-#include <netedit/additionals/GNEVariableSpeedSign.h>
-#include <netedit/additionals/GNEVariableSpeedSignStep.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEAdditionalFrame.h"
