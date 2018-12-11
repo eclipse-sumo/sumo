@@ -106,6 +106,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     personQuality(0),
     personSize(1),
     personName(false, 50, RGBColor(0, 153, 204, 255)),
+    personValue(false, 80, RGBColor::CYAN),
     containerQuality(0),
     containerSize(1),
     containerName(false, 50, RGBColor(0, 153, 204, 255)),
@@ -988,6 +989,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "                ";
     personName.print(dev, "personName");
+    dev.lf();
+    dev << "                 ";
+    personValue.print(dev, "personValue");
     personColorer.save(dev);
     dev.closeTag();
     // containers
@@ -1189,6 +1193,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (personName != v2.personName) {
+        return false;
+    }
+    if (personValue != v2.personValue) {
         return false;
     }
     if (!(containerColorer == v2.containerColorer)) {

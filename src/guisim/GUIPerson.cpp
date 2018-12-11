@@ -302,6 +302,11 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     drawAction_drawWalkingareaPath(s);
 #endif
     drawName(p1, s.scale, s.personName, s.angle);
+    if (s.personValue.show) {
+        Position p2 = p1 + Position(0, 0.6 * s.personName.scaledSize(s.scale));
+        const double value = getColorValue(s.personColorer.getActive());
+        GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
+    }
     glPopName();
 }
 

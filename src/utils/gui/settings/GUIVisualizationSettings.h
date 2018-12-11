@@ -231,6 +231,7 @@ public:
     GUIVisualizationSizeSettings personSize;
     // Setting bundles for optional drawing person names
     GUIVisualizationTextSettings personName;
+    GUIVisualizationTextSettings personValue;
     //@}
 
 

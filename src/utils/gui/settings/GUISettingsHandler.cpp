@@ -233,6 +233,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.personQuality = StringUtils::toInt(attrs.getStringSecure("personQuality", toString(mySettings.personQuality)));
             mySettings.personSize = parseSizeSettings("person", attrs, mySettings.personSize);
             mySettings.personName = parseTextSettings("personName", attrs, mySettings.personName);
+            mySettings.personValue = parseTextSettings("personValue", attrs, mySettings.personValue);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_CONTAINERS:

@@ -317,6 +317,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
 
         FXMatrix* m103 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
         myPersonNamePanel = new NamePanel(m103, this, "Show person name", mySettings->personName);
+        myPersonValuePanel = new NamePanel(m103, this, "Show person color value", mySettings->personValue);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
@@ -530,6 +531,8 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myJunctionNamePanel;
     delete myVehicleNamePanel;
     delete myVehicleValuePanel;
+    delete myPersonNamePanel;
+    delete myPersonValuePanel;
     delete myAddNamePanel;
     delete myAddFullNamePanel;
     delete myPOINamePanel;
@@ -640,6 +643,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myPersonColorMode->setCurrentItem((FXint) mySettings->personColorer.getActive());
     myPersonShapeDetail->setCurrentItem(mySettings->personQuality);
     myPersonNamePanel->update(mySettings->personName);
+    myPersonValuePanel->update(mySettings->personValue);
     myPersonSizePanel->update(mySettings->personSize);
 
     myContainerColorMode->setCurrentItem((FXint) mySettings->containerColorer.getActive());
@@ -857,6 +861,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.personColorer.setActive(myPersonColorMode->getCurrentItem());
     tmpSettings.personQuality = myPersonShapeDetail->getCurrentItem();
     tmpSettings.personName = myPersonNamePanel->getSettings();
+    tmpSettings.personValue = myPersonValuePanel->getSettings();
     tmpSettings.personSize = myPersonSizePanel->getSettings();
 
     tmpSettings.containerColorer.setActive(myContainerColorMode->getCurrentItem());
