@@ -21,7 +21,7 @@ import optparse
 from collections import OrderedDict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
-from sumolib.miscutils import Statistics  # noqa
+from sumolib.miscutils import Statistics, parseTime  # noqa
 
 def get_options(args=None):
     optParser = optparse.OptionParser()
@@ -38,7 +38,8 @@ def get_options(args=None):
 
 def write_diff(options):
     attrs = ["depart", "arrival", "timeLoss", "duration", "routeLength"]
-    attr_conversions = dict([(a, float) for a in attrs])
+    # parseTime works just fine for floats
+    attr_conversions = dict([(a, parseTime) for a in attrs])
     vehicles_orig = OrderedDict([(v.id, v) for v in parse(options.orig, 'tripinfo',
         attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')
@@ -68,7 +69,7 @@ def write_diff(options):
 
 def write_persondiff(options):
     attrs = ["depart", "arrival", "timeLoss", "duration", "routeLength", "waitingTime"]
-    attr_conversions = dict([(a, float) for a in attrs])
+    attr_conversions = dict([(a, parseTime) for a in attrs])
     persons_orig = OrderedDict([(p.id, p) for p in parse(options.orig, 'personinfo',
         attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')

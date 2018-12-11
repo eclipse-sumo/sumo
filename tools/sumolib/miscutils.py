@@ -306,3 +306,14 @@ def getSocketStream(port, mode='rb'):
 # euclidean distance between two coordinates in the plane
 def euclidean(a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+
+def parseTime(t):
+    try:
+        return float(t)
+    except ValueError:
+        pass
+    # prepended zero is ignored if the date value already contains days
+    days, hours, minutes, seconds = ([0] + map(float, t.split(':')))[-4:]
+    return 3600 * 24 * days + 3600 * hours + 60 * minutes + seconds
+
+
