@@ -217,7 +217,7 @@ private:
     std::vector<MSLane*> myWithVehicles2Integrate;
 
     /// @brief Lanes which changed the state without informing the control
-    std::set<MSLane*, ComparatorIdLess> myChangedStateLanes;
+    std::set<MSLane*, ComparatorNumericalIdLess> myChangedStateLanes;
 
     /// @brief The list of active (not empty) lanes
     std::vector<SUMOTime> myLastLaneChange;

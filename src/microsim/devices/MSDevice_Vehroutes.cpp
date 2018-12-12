@@ -391,7 +391,7 @@ MSDevice_Vehroutes::addRoute(const std::string& info) {
 
 void
 MSDevice_Vehroutes::generateOutputForUnfinished() {
-    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorIdLess >::const_iterator it = myStateListener.myDevices.begin();
+    for (std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorIdLess>::const_iterator it = myStateListener.myDevices.begin();
             it != myStateListener.myDevices.end(); ++it) {
         if (it->first->hasDeparted()) {
             it->second->writeOutput(false);
