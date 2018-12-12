@@ -20,11 +20,11 @@ GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object busStop:busStop1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop1 into SUMORTree with boundary 17.00,-23.20,67.00,16.80
+GLDebug: Inserted busStop:busStop1 into SUMORTree with boundary 17.00,-23.20,63.60,16.80
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-GLDebug: Removed object busStop:busStop1 from SUMORTree with boundary 17.00,-23.20,67.00,16.80
-GLDebug: Inserted busStop:busStop1 into SUMORTree with boundary 17.00,-23.20,67.00,16.80
+GLDebug: Removed object busStop:busStop1 from SUMORTree with boundary 17.00,-23.20,63.60,16.80
+GLDebug: Inserted busStop:busStop1 into SUMORTree with boundary 17.00,-23.20,63.60,16.80
 Debug: Adding busStop 'busStop2' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object busStop:busStop2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -34,9 +34,9 @@ GLDebug: Inserted busStop:busStop2 into SUMORTree with boundary 17.00,-16.80,67.
 Debug: Adding busStop 'busStop3' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 17.00,-3.20,67.00,36.80
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 17.00,-3.20,67.00,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 17.00,-3.20,67.00,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 15.50,-3.20,55.60,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 15.50,-3.20,55.60,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 15.50,-3.20,55.60,36.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Key F5 (Compute) pressed
@@ -71,15 +71,19 @@ GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -23.20,-23.20,23.2
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 26.80,-23.20,73.20,23.20
+Debug: Created crossing ':gneJ2_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ2_c1' in retrieveGNECrossing()
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
 GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -23.20,-7.20,27.20,42.00
+Debug: Created crossing ':gneJ3_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ3_c1' in retrieveGNECrossing()
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 22.80,-7.20,73.20,42.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object busStop:busStop1 from SUMORTree with boundary 17.00,-23.20,67.00,16.80
+GLDebug: Removed object busStop:busStop1 from SUMORTree with boundary 17.00,-23.20,63.60,16.80
 GLDebug: Inserted busStop:busStop1 into SUMORTree with boundary 20.20,-23.20,66.80,16.80
 GLDebug: Removed object connection:fromgneE1_0togneE9_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
 GLDebug: Inserted connection:fromgneE1_0togneE9_0 into SUMORTree with boundary -18.40,-18.40,23.20,23.20
@@ -101,8 +105,8 @@ GLDebug: Inserted connection:fromgneE4_0togneE1_0 into SUMORTree with boundary 2
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 17.00,-3.20,67.00,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.80,-3.20,62.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 15.50,-3.20,55.60,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.70,-3.20,62.80,36.80
 GLDebug: Removed object connection:fromgneE9_0togneE2_0 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
 GLDebug: Inserted connection:fromgneE9_0togneE2_0 into SUMORTree with boundary -18.40,-7.20,27.20,38.40
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
@@ -129,8 +133,8 @@ GLDebug: Inserted edge:gneE5 into SUMORTree with boundary 20.00,-30.00,81.60,50.
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.80,-3.20,62.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.80,-3.20,62.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.70,-3.20,62.80,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.70,-3.20,62.80,36.80
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 22.80,-7.20,73.20,42.00
@@ -217,8 +221,8 @@ GLDebug: Inserted connection:fromgneE4_0togneE1_0 into SUMORTree with boundary 2
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.80,-3.20,62.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 20.20,-3.20,66.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.70,-3.20,62.80,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 18.70,-3.20,58.80,36.80
 GLDebug: Removed object connection:fromgneE9_0togneE2_0 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
 GLDebug: Inserted connection:fromgneE9_0togneE2_0 into SUMORTree with boundary -18.40,-3.20,23.20,38.40
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
@@ -268,8 +272,8 @@ GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 26.80,-3.20,73.20,
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE2'
 Debug: declaring connections of edge 'gneE2' as loaded (It will not be removed)
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 20.20,-3.20,66.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 20.20,-3.20,66.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 18.70,-3.20,58.80,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 18.70,-3.20,58.80,36.80
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE5'
 Debug: declaring connections of edge 'gneE5' as loaded (It will not be removed)
@@ -325,8 +329,8 @@ GLDebug: Inserted connection:fromgneE4_0togneE1_0 into SUMORTree with boundary 2
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 20.20,-3.20,66.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.80,-3.20,62.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 18.70,-3.20,58.80,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.70,-3.20,62.80,36.80
 GLDebug: Removed object connection:fromgneE9_0togneE2_0 from SUMORTree with boundary -18.40,-3.20,23.20,38.40
 GLDebug: Inserted connection:fromgneE9_0togneE2_0 into SUMORTree with boundary -18.40,-7.20,27.20,38.40
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
@@ -353,8 +357,8 @@ GLDebug: Inserted edge:gneE5 into SUMORTree with boundary 20.00,-30.00,81.60,50.
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.80,-3.20,62.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.80,-3.20,62.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.70,-3.20,62.80,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.70,-3.20,62.80,36.80
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 22.80,-7.20,73.20,42.00
@@ -441,8 +445,8 @@ GLDebug: Inserted connection:fromgneE4_0togneE1_0 into SUMORTree with boundary 2
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.80,-3.20,62.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 20.20,-3.20,66.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.70,-3.20,62.80,36.80
+GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 18.70,-3.20,58.80,36.80
 GLDebug: Removed object connection:fromgneE9_0togneE2_0 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
 GLDebug: Inserted connection:fromgneE9_0togneE2_0 into SUMORTree with boundary -18.40,-3.20,23.20,38.40
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
@@ -459,7 +463,7 @@ GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50
 GLDebug: Removed object edge:gneE9 from SUMORTree with boundary -30.00,-30.00,31.60,50.00
 GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50.00
 Debug: Deleting unreferenced busStop 'busStop3'
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 20.20,-3.20,66.80,36.80
+GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 18.70,-3.20,58.80,36.80
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Deleting unreferenced busStop 'busStop2'
@@ -495,7 +499,11 @@ Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_0' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ2_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ2_c1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ3_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ3_c1' in GNEJunction destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call destructor: 22

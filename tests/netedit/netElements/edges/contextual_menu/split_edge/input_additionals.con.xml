@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 13:07:55 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 12.12.2018 13:11:08 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\reverse_direction\input_net.net.xml"/>
+        <sumo-net-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\split_edge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\reverse_direction\input_net.net.xml"/>
-        <plain-output-prefix value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\reverse_direction\input_net"/>
+        <output-file value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\split_edge\input_net.net.xml"/>
+        <plain-output-prefix value="D:\sumo\tests\netedit\netElements\edges\contextual_menu\split_edge\input_additionals"/>
     </output>
 
     <processing>
@@ -40,7 +40,7 @@
     <connection from="gneE1" to="gneE9" fromLane="0" toLane="0"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0"/>
 
-    <connection from="gneE2"/>
+    <connection from="gneE2" to="gneE4" fromLane="0" toLane="0"/>
 
     <connection from="gneE4" to="gneE1" fromLane="0" toLane="0"/>
 
@@ -49,6 +49,7 @@
     <connection from="gneE8" to="gneE0" fromLane="0" toLane="0"/>
 
     <connection from="gneE9" to="gneE2" fromLane="0" toLane="0"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1"/>
 
     <crossing node="gneJ2" edges="gneE2" priority="0" width="4.00"/>
     <crossing node="gneJ2" edges="gneE8 gneE9" priority="0" width="4.00"/>
