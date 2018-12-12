@@ -1,9 +1,3 @@
-Warning: Additionals of type 'detEntry' doesn't support Generic Parameters
-Warning: Additionals of type 'detEntry' doesn't support Generic Parameters
-Warning: Additionals of type 'detEntry' doesn't support Generic Parameters
-Warning: Additionals of type 'detEntry' doesn't support Generic Parameters
-Warning: Additionals of type 'detEntry' doesn't support Generic Parameters
-Warning: Additionals of type 'detEntry' doesn't support Generic Parameters
 Warning: Invalid format of Generic Parameter (dummyGenericParameters)
 Warning: Invalid format of Generic Parameter (key1)
 Warning: Generic Parameters wit the same key aren't allowed (key1duplicated=value1,key1duplicated=value2)

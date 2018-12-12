@@ -24,6 +24,10 @@ GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.9
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.97,-13.64,42.97,26.36
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 2.97,-13.64,42.97,26.36
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.97,-13.64,42.97,26.36
+Debug: Inserting generic parameter 'key1|value1' into additional detEntry.
+Debug: Inserting generic parameter 'key1|value4' into additional detEntry.
+Debug: Inserting generic parameter 'key2|' into additional detEntry.
+Debug: Inserting generic parameter 'key4|value5' into additional detEntry.
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 2.97,-13.64,42.97,26.36
 GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 2.97,-13.64,42.97,26.36
