@@ -26,7 +26,7 @@
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
-#include <gl/GL.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEShape.h"
 

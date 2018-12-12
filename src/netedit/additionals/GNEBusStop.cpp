@@ -26,7 +26,6 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>

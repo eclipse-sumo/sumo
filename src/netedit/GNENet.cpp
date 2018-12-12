@@ -52,6 +52,7 @@
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/options/OptionsCont.h>
