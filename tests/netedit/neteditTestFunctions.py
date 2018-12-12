@@ -1670,7 +1670,7 @@ def GEOPOILatLon():
 #################################################
 
 
-def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation):
+def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation1, suboperation2 = 0):
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # click relative to offset
@@ -1681,11 +1681,20 @@ def contextualMenuOperation(referencePosition, positionx, positiony, operation, 
         time.sleep(DELAY_KEY_TAB)
         # type down keys
         pyautogui.hotkey('down')
-    if (suboperation > 0):
+    if (suboperation1 > 0):
         # type right key for the second menu
         typeSpace()
         # place cursor over second operation
-        for x in range(suboperation):
+        for x in range(suboperation1):
+            # wait before every down
+            time.sleep(DELAY_KEY_TAB)
+            # type down keys
+            pyautogui.hotkey('down')
+    if (suboperation2 > 0):
+        # type right key for the third menu
+        typeSpace()
+        # place cursor over third operation
+        for x in range(suboperation2):
             # wait before every down
             time.sleep(DELAY_KEY_TAB)
             # type down keys

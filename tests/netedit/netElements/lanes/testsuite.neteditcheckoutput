@@ -16,3 +16,6 @@ inspect_selected
 
 # check selection of lanes through allow and disallow parameter
 select_vtypes
+
+# check contextual menu
+contextual_menu
