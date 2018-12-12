@@ -44,18 +44,18 @@ def run():
     step = 0
     lastLane = traci.vehicle.getLaneIndex(ToC_vehicle)
     t = traci.simulation.getTime()
-    print("Time %s: Current lane of veh '%s': %s"%(t, ToC_vehicle, lastLane))
+    print("Time %s: Current lane of veh '%s': %s" % (t, ToC_vehicle, lastLane))
     traci.simulationStep()
     while traci.simulation.getMinExpectedNumber() > 0:
         if step == 29:
             traci.vehicle.changeLane(ToC_vehicle, 1, 5)
             t = traci.simulation.getTime()
-            print("Time %s: Requested lanechange of veh '%s' to lane %s"%(t, ToC_vehicle, 1))
+            print("Time %s: Requested lanechange of veh '%s' to lane %s" % (t, ToC_vehicle, 1))
         if step == 49:
             # Let vehicle go to left lane, which is strategically not adequate
             traci.vehicle.changeLane(ToC_vehicle, 1, 5.)
             t = traci.simulation.getTime()
-            print("Time %s: Requested lanechange of veh '%s' to lane %s"%(t, ToC_vehicle, 1))
+            print("Time %s: Requested lanechange of veh '%s' to lane %s" % (t, ToC_vehicle, 1))
         if step == 50:
             requestToC(ToC_vehicle, timeTillMRM)
             t = traci.simulation.getTime()
@@ -63,25 +63,25 @@ def run():
         if step == 51:
             traci.vehicle.changeLane(ToC_vehicle, 0, 5.)
             t = traci.simulation.getTime()
-            print("Time %s: Requested lanechange of veh '%s' to lane %s"%(t, ToC_vehicle, 0))
+            print("Time %s: Requested lanechange of veh '%s' to lane %s" % (t, ToC_vehicle, 0))
         if step == 53:
             traci.vehicle.changeLane(ToC_vehicle, 1, 4.)
             t = traci.simulation.getTime()
-            print("Time %s: Requested lanechange of veh '%s' to lane %s"%(t, ToC_vehicle, 1))
+            print("Time %s: Requested lanechange of veh '%s' to lane %s" % (t, ToC_vehicle, 1))
         if step == 75:
             traci.vehicle.changeLane(ToC_vehicle, 0, 10.)
             t = traci.simulation.getTime()
-            print("Time %s: Requested lanechange of veh '%s' to lane %s"%(t, ToC_vehicle, 0))
+            print("Time %s: Requested lanechange of veh '%s' to lane %s" % (t, ToC_vehicle, 0))
         if step == 78:
             traci.vehicle.changeLane(ToC_vehicle, 1, 2.)
             t = traci.simulation.getTime()
-            print("Time %s: Requested lanechange of veh '%s' to lane %s"%(t, ToC_vehicle, 1))
+            print("Time %s: Requested lanechange of veh '%s' to lane %s" % (t, ToC_vehicle, 1))
         newLane = traci.vehicle.getLaneIndex(ToC_vehicle)
         if newLane != lastLane:
             t = traci.simulation.getTime()
-            print("Time %s: veh '%s' changed lanes. Current: %s"%(t, ToC_vehicle, newLane))
+            print("Time %s: veh '%s' changed lanes. Current: %s" % (t, ToC_vehicle, newLane))
             lastLane = newLane
-            
+
         printToCParams(ToC_vehicle, True)
         sys.stdout.flush()
         step += 1

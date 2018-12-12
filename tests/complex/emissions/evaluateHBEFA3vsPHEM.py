@@ -29,13 +29,13 @@ hbefa = collections.defaultdict(lambda: collections.defaultdict(list))
 phem = collections.defaultdict(lambda: collections.defaultdict(list))
 maxVal = collections.defaultdict(float)
 for line in open('nefz_hbefa3/output.complex'):
-    l = line.split(":")
+    lh = line.split(":")
     if line[:7] == "Running":
         ec = line.split('/')[1][:-2]
-    elif len(l) > 1:
-        val = float(l[1])
-        hbefa[ec][l[0]].append(val)
-        maxVal[l[0]] = max(maxVal[l[0]], val)
+    elif len(lh) > 1:
+        val = float(lh[1])
+        hbefa[ec][lh[0]].append(val)
+        maxVal[lh[0]] = max(maxVal[lh[0]], val)
 for line in open('nefz_phemlightV4/output.complex'):
     l = line.split(":")
     if line[:7] == "Running":

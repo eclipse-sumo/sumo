@@ -31,13 +31,14 @@ if sys.argv[1] == "sumo":
 else:
     sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
 
+
 def runSingle(traciEndTime, viewRange, objID):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg"])
 
     subscribed = False
     while not step > traciEndTime:
-        responses = traci.simulationStep()
+        traci.simulationStep()
 
         if subscribed:
             # check if objID has arrived at destination
@@ -45,7 +46,7 @@ def runSingle(traciEndTime, viewRange, objID):
             if objID in arrivedList:
                 print("[%03d] Vehicle '%s' has arrived at destination" % (step, objID))
                 break
-            
+
             print("[%03d] Context results for vehicle '%s':" % (step, objID))
             for v in traci.vehicle.getContextSubscriptionResults(objID) or []:
                 print(v)
@@ -53,14 +54,14 @@ def runSingle(traciEndTime, viewRange, objID):
         if not subscribed:
             print("Subscribing to vehicle context of object '%s'" % (objID))
             traci.vehicle.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE,
-                                    viewRange, [traci.constants.VAR_POSITION])
+                                           viewRange, [traci.constants.VAR_POSITION])
             sys.stdout.flush()
 
             traci.vehicle.addSubscriptionFilterLCManeuver(1)
-            # advice all vehicle not to change lanes 
+            # advice all vehicle not to change lanes
             for vehID in traci.vehicle.getIDList():
                 traci.vehicle.changeLane(vehID, traci.vehicle.getLaneIndex(vehID), 111)
-                
+
             subscribed = True
         step += 1
 
@@ -72,4 +73,3 @@ def runSingle(traciEndTime, viewRange, objID):
 
 sys.stdout.flush()
 runSingle(100, float(sys.argv[2]), "ego")
-

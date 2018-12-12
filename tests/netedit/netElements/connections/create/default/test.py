@@ -40,13 +40,13 @@ netedit.createConnection(referencePosition, 600, 190, 350, 0)
 # save changes
 netedit.saveConnectionEdit()
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo
