@@ -8,6 +8,9 @@ Debug: Adding laneCalibrator 'calibratorB' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyB1|valueB1' into additional laneCalibrator.
 Debug: Inserting generic parameter 'KeyB3|valueB2' into additional laneCalibrator.
 Debug: Inserting generic parameter 'KeyB2|valueB3' into additional laneCalibrator.
+Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
+Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
+Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -20,6 +23,9 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ3'
 Debug: Setting new attribute selected 'true' into edge 'gneE2'
 Debug: Setting new attribute selected 'true' into laneCalibrator 'calibratorA'
 Debug: Setting new attribute selected 'true' into laneCalibrator 'calibratorB'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeA'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
+Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value '///;;' for attribute routeProbe of laneCalibrator isn't valid
 Debug: Setting new attribute routeProbe 'customRouteProbeName' into laneCalibrator 'calibratorA'
@@ -29,6 +35,9 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute routeProbe 'RouteProbeB' into laneCalibrator 'calibratorB'
 Debug: Setting previous attribute routeProbe 'RouteProbeA' into laneCalibrator 'calibratorA'
 Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute selected '0' into routeProbe 'customRouteProbeName'
+Debug: Setting previous attribute selected '0' into routeProbe 'RouteProbeB'
+Debug: Setting previous attribute selected '0' into routeProbe 'RouteProbeA'
 Debug: Setting previous attribute selected '0' into laneCalibrator 'calibratorB'
 Debug: Setting previous attribute selected '0' into laneCalibrator 'calibratorA'
 Debug: Setting previous attribute selected '0' into edge 'gneE2'
@@ -40,6 +49,9 @@ Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing routeProbe 'customRouteProbeName' in GNEChange_Additional
+Debug: Removing routeProbe 'RouteProbeB' in GNEChange_Additional
+Debug: Removing routeProbe 'RouteProbeA' in GNEChange_Additional
 Debug: Removing laneCalibrator 'calibratorB' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing laneCalibrator 'calibratorA' in GNEChange_Additional
@@ -49,6 +61,9 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding laneCalibrator 'calibratorA' in GNEChange_Additional
 Debug: Adding laneCalibrator 'calibratorB' in GNEChange_Additional
+Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
+Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
+Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
@@ -60,6 +75,9 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ3'
 Debug: Setting new attribute selected 'true' into edge 'gneE2'
 Debug: Setting new attribute selected 'true' into laneCalibrator 'calibratorA'
 Debug: Setting new attribute selected 'true' into laneCalibrator 'calibratorB'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeA'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
+Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute routeProbe 'customRouteProbeName' into laneCalibrator 'calibratorA'
 Debug: Setting new attribute routeProbe 'customRouteProbeName' into laneCalibrator 'calibratorB'
@@ -73,9 +91,12 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced laneCalibrator 'calibratorB'
+Debug: Deleting unreferenced routeProbe 'customRouteProbeName'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced routeProbe 'RouteProbeB'
+Debug: Deleting unreferenced routeProbe 'RouteProbeA'
+Debug: Deleting unreferenced laneCalibrator 'calibratorB'
 Debug: Deleting unreferenced laneCalibrator 'calibratorA'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

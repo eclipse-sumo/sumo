@@ -12,4 +12,8 @@
 		<param key="KeyB3" value="valueB2"/>
 		<param key="KeyB2" value="valueB3"/>
 	</calibrator>
+	
+	<routeProbe id="RouteProbeA" edge="gneE0" freq="3600" file="RouteProbeA.xml" begin="0.00"/>
+	<routeProbe id="RouteProbeB" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>
+	<routeProbe id="customRouteProbeName" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>
 </additional>
