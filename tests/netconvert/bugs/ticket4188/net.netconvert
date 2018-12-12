@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 30 14:05:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Dec 12 15:44:33 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -63,13 +64,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0" index="0" disallow="pedestrian" speed="13.89" length="11.16" width="3.50" shape="379.13,160.68 370.70,159.58 368.17,158.76"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" index="0" speed="13.89" length="22.80" width="3.50" shape="351.32,167.74 350.79,167.80 350.86,161.94 350.99,157.02 350.95,152.83 351.70,145.57"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" index="0" disallow="pedestrian" speed="13.89" length="22.80" width="3.50" shape="351.32,167.74 350.79,167.80 350.86,161.94 350.99,157.02 350.95,152.83 351.70,145.57"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" index="0" speed="13.89" length="14.40" width="3.50" shape="368.68,164.58 363.73,165.81 359.81,168.70 358.37,172.89"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" index="0" disallow="pedestrian" speed="13.89" length="14.40" width="3.50" shape="368.68,164.58 363.73,165.81 359.81,168.70 358.37,172.89"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23_0" index="0" speed="13.89" length="21.80" width="3.50" shape="368.17,158.76 361.93,156.76 355.12,152.13 352.55,145.61"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23_0" index="0" disallow="pedestrian" speed="13.89" length="21.80" width="3.50" shape="368.17,158.76 361.93,156.76 355.12,152.13 352.55,145.61"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_0" index="0" allow="bicycle" speed="13.89" length="19.23" width="1.50" shape="360.35,143.15 360.94,148.06 363.18,151.63 367.07,153.85 372.60,154.73"/>
@@ -87,10 +88,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_10_0" index="0" disallow="pedestrian" speed="13.89" length="8.49" width="3.50" shape="356.22,143.11 354.72,151.47"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" index="0" speed="13.89" length="27.06" width="1.50" shape="354.41,147.22 353.61,150.72 349.42,157.77 343.44,162.91 336.30,164.79"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" index="0" allow="bicycle" speed="13.89" length="27.06" width="1.50" shape="354.41,147.22 353.61,150.72 349.42,157.77 343.44,162.91 336.30,164.79"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" index="0" speed="13.89" length="22.93" width="3.50" shape="354.72,151.47 354.68,151.68 350.84,157.73 344.72,161.27 336.31,162.29"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" index="0" disallow="pedestrian" speed="13.89" length="22.93" width="3.50" shape="354.72,151.47 354.68,151.68 350.84,157.73 344.72,161.27 336.31,162.29"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0" index="0" disallow="pedestrian" speed="13.89" length="19.83" width="3.50" shape="335.16,152.77 342.29,152.47 347.43,151.17 350.57,148.87 351.73,145.57"/>
@@ -111,13 +112,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0" index="0" disallow="pedestrian" speed="13.89" length="13.17" width="3.50" shape="332.95,158.51 341.19,159.46 345.85,160.90"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" index="0" speed="13.89" length="20.26" width="3.50" shape="361.69,152.88 361.64,158.96 361.35,162.97 360.52,167.30 359.37,172.93"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" index="0" disallow="pedestrian" speed="13.89" length="20.26" width="3.50" shape="361.69,152.88 361.64,158.96 361.35,162.97 360.52,167.30 359.37,172.93"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" index="0" speed="13.89" length="15.01" width="3.50" shape="342.10,154.63 347.45,153.09 351.17,150.01 352.55,145.61"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" index="0" disallow="pedestrian" speed="13.89" length="15.01" width="3.50" shape="342.10,154.63 347.45,153.09 351.17,150.01 352.55,145.61"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0" index="0" speed="13.89" length="18.53" width="3.50" shape="345.85,160.90 349.55,162.05 355.97,166.46 358.37,172.89"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0" index="0" disallow="pedestrian" speed="13.89" length="18.53" width="3.50" shape="345.85,160.90 349.55,162.05 355.97,166.46 358.37,172.89"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0" index="0" allow="bicycle" speed="13.89" length="19.82" width="1.50" shape="350.75,174.77 349.99,170.54 347.33,167.47 342.77,165.55 336.30,164.79"/>
@@ -132,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0" index="0" disallow="pedestrian" speed="13.89" length="8.04" width="3.50" shape="354.88,174.85 356.25,166.93"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29" function="internal">
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29_0" index="0" speed="13.89" length="20.31" width="3.50" shape="356.25,166.93 359.64,161.36 365.05,158.12 372.47,157.23"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29_0" index="0" disallow="pedestrian" speed="13.89" length="20.31" width="3.50" shape="356.25,166.93 359.64,161.36 365.05,158.12 372.47,157.23"/>
     </edge>
 
     <edge id="EW1" from="gneJ10" to="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" priority="1" shape="583.53,166.27 376.20,158.95">

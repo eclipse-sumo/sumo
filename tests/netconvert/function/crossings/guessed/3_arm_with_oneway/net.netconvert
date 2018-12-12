@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:04 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Wed Dec 12 15:44:30 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_1_0" index="0" allow="passenger" speed="6.92" length="2.94" shape="102.00,101.60 100.43,101.05 99.71,100.00"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" speed="6.92" length="7.41" shape="99.71,100.00 99.30,99.40 98.62,96.65 98.40,92.80"/>
+        <lane id=":C_4_0" index="0" allow="passenger" speed="6.92" length="7.41" shape="99.71,100.00 99.30,99.40 98.62,96.65 98.40,92.80"/>
     </edge>
     <edge id=":C_2" function="internal">
         <lane id=":C_2_0" index="0" allow="passenger" speed="5.99" length="3.37" shape="94.80,98.40 96.38,98.05 97.50,97.00 97.58,96.80"/>
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_3_0" index="0" disallow="pedestrian" speed="13.89" length="7.20" shape="94.80,98.40 102.00,98.40"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" speed="5.99" length="4.12" shape="97.58,96.80 98.18,95.25 98.40,92.80"/>
+        <lane id=":C_5_0" index="0" allow="passenger" speed="5.99" length="4.12" shape="97.58,96.80 98.18,95.25 98.40,92.80"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CE EC">
         <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="100.00,96.80 100.00,103.20"/>

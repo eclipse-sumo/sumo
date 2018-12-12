@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 31 12:15:26 2018 by Eclipse SUMO netconvert Version bb21e4e
+<!-- generated on Wed Dec 12 15:44:32 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -74,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ2_1_0" index="0" allow="rail" speed="27.78" length="3.11" shape="128.38,53.32 126.10,53.06 125.37,52.68"/>
     </edge>
     <edge id=":gneJ2_3" function="internal">
-        <lane id=":gneJ2_3_0" index="0" speed="27.78" length="4.99" shape="125.37,52.68 124.66,52.31 123.38,51.10 121.60,49.45"/>
+        <lane id=":gneJ2_3_0" index="0" allow="rail" speed="27.78" length="4.99" shape="125.37,52.68 124.66,52.31 123.38,51.10 121.60,49.45"/>
     </edge>
     <edge id=":gneJ2_2" function="internal">
         <lane id=":gneJ2_2_0" index="0" allow="rail" speed="27.78" length="7.22" shape="120.22,53.22 122.59,53.02 123.61,52.32 123.28,51.13 121.60,49.45"/>

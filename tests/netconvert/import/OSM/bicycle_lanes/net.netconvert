@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:58 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Wed Dec 12 15:44:24 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -107,7 +107,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2627346845_7_0" index="0" disallow="tram rail_urban rail rail_electric bicycle ship" speed="3.65" length="2.34" shape="3165.52,155.63 3164.23,154.97 3163.75,154.22"/>
     </edge>
     <edge id=":2627346845_13" function="internal">
-        <lane id=":2627346845_13_0" index="0" speed="3.65" length="2.34" shape="3163.75,154.22 3164.06,153.38 3165.16,152.45"/>
+        <lane id=":2627346845_13_0" index="0" disallow="tram rail_urban rail rail_electric bicycle ship" speed="3.65" length="2.34" shape="3163.75,154.22 3164.06,153.38 3165.16,152.45"/>
     </edge>
     <edge id=":2627346845_8" function="internal">
         <lane id=":2627346845_8_0" index="0" allow="bicycle" speed="13.89" length="9.40" width="1.50" shape="3155.20,147.98 3164.54,146.93"/>
@@ -123,10 +123,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2627346845_12_0" index="0" disallow="tram rail_urban rail rail_electric bicycle ship" speed="3.65" length="2.34" shape="3155.82,153.49 3157.10,154.15 3157.59,154.90"/>
     </edge>
     <edge id=":2627346845_14" function="internal">
-        <lane id=":2627346845_14_0" index="0" speed="9.09" length="9.48" shape="3161.39,154.48 3162.12,156.58 3163.30,163.74"/>
+        <lane id=":2627346845_14_0" index="0" allow="bicycle" speed="9.09" length="9.48" shape="3161.39,154.48 3162.12,156.58 3163.30,163.74"/>
     </edge>
     <edge id=":2627346845_15" function="internal">
-        <lane id=":2627346845_15_0" index="0" speed="3.65" length="2.34" shape="3157.59,154.90 3157.28,155.74 3156.17,156.67"/>
+        <lane id=":2627346845_15_0" index="0" disallow="tram rail_urban rail rail_electric bicycle ship" speed="3.65" length="2.34" shape="3157.59,154.90 3157.28,155.74 3156.17,156.67"/>
     </edge>
     <edge id=":35215949_0" function="internal">
         <lane id=":35215949_0_0" index="0" allow="bicycle" speed="2.68" length="1.46" width="1.00" shape="615.85,551.88 616.05,551.47 616.28,551.32 616.55,551.41 616.84,551.76"/>

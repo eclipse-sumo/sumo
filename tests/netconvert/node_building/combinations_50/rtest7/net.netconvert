@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 19 16:10:09 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Dec 12 15:44:13 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":61052071_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="76.99,7.98 75.57,7.73 74.89,7.15"/>
     </edge>
     <edge id=":61052071_10" function="internal">
-        <lane id=":61052071_10_0" index="0" speed="3.65" length="2.34" shape="74.89,7.15 74.93,6.26 75.71,5.05"/>
+        <lane id=":61052071_10_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="74.89,7.15 74.93,6.26 75.71,5.05"/>
     </edge>
     <edge id=":61052071_4" function="internal">
         <lane id=":61052071_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.88" shape="49.63,12.34 54.32,11.09 60.46,8.54 67.39,5.33 74.44,2.11"/>
@@ -57,7 +57,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":61052071_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="60.88,17.02 62.21,16.45 63.10,16.55"/>
     </edge>
     <edge id=":61052071_11" function="internal">
-        <lane id=":61052071_11_0" index="0" speed="3.65" length="2.34" shape="63.10,16.55 63.55,17.33 63.56,18.77"/>
+        <lane id=":61052071_11_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="63.10,16.55 63.55,17.33 63.56,18.77"/>
     </edge>
     <edge id=":61052096_0" function="internal">
         <lane id=":61052096_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="92.70,-1.50 94.10,-1.17 94.75,-0.55 94.65,0.33 93.80,1.50"/>

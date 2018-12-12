@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 19 18:47:16 2018 by Eclipse SUMO netconvert Version eeef47f
+<!-- generated on Wed Dec 12 15:44:24 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -169,10 +169,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3971103570_2_0" index="0" allow="delivery bicycle pedestrian" speed="3.65" length="2.34" shape="389.89,199.55 389.56,198.15 389.81,197.29"/>
     </edge>
     <edge id=":3971103570_9" function="internal">
-        <lane id=":3971103570_9_0" index="0" speed="4.17" length="4.80" width="2.00" shape="389.64,197.17 390.61,195.38 392.31,193.20"/>
+        <lane id=":3971103570_9_0" index="0" allow="bicycle pedestrian" speed="4.17" length="4.80" width="2.00" shape="389.64,197.17 390.61,195.38 392.31,193.20"/>
     </edge>
     <edge id=":3971103570_10" function="internal">
-        <lane id=":3971103570_10_0" index="0" speed="3.65" length="2.34" shape="389.81,197.29 390.65,196.97 392.07,197.20"/>
+        <lane id=":3971103570_10_0" index="0" allow="delivery bicycle pedestrian" speed="3.65" length="2.34" shape="389.81,197.29 390.65,196.97 392.07,197.20"/>
     </edge>
     <edge id=":3971103570_3" function="internal">
         <lane id=":3971103570_3_0" index="0" allow="bicycle pedestrian" speed="4.17" length="4.53" width="2.00" shape="388.37,194.00 389.33,194.53 390.31,194.57 391.30,194.13 392.31,193.20"/>
@@ -184,7 +184,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3971103570_5_0" index="0" allow="delivery bicycle pedestrian" speed="3.65" length="2.34" shape="388.37,194.00 388.80,195.38 388.61,196.25"/>
     </edge>
     <edge id=":3971103570_11" function="internal">
-        <lane id=":3971103570_11_0" index="0" speed="3.65" length="2.34" shape="388.61,196.25 387.79,196.62 386.36,196.49"/>
+        <lane id=":3971103570_11_0" index="0" allow="delivery bicycle pedestrian" speed="3.65" length="2.34" shape="388.61,196.25 387.79,196.62 386.36,196.49"/>
     </edge>
     <edge id=":3971103570_6" function="internal">
         <lane id=":3971103570_6_0" index="0" allow="delivery bicycle pedestrian" speed="4.17" length="4.60" shape="386.31,200.54 387.06,199.36 387.32,198.29 387.08,197.33 386.36,196.49"/>
@@ -232,7 +232,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":5119194946_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="4.27" length="1.29" shape="363.87,241.82 362.73,241.22"/>
     </edge>
     <edge id=":5119194946_4" function="internal">
-        <lane id=":5119194946_4_0" index="0" speed="4.27" length="4.67" shape="362.73,241.22 362.61,241.15 362.59,240.53 363.83,239.96 366.31,239.43"/>
+        <lane id=":5119194946_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="4.27" length="4.67" shape="362.73,241.22 362.61,241.15 362.59,240.53 363.83,239.96 366.31,239.43"/>
     </edge>
     <edge id=":5119194946_2" function="internal">
         <lane id=":5119194946_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="10.54" length="7.97" shape="358.77,237.87 360.83,239.00 362.38,239.59 364.00,239.71 366.31,239.43"/>
@@ -241,7 +241,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":5119194946_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.08" shape="358.77,237.87 359.42,239.16 359.39,239.79"/>
     </edge>
     <edge id=":5119194946_5" function="internal">
-        <lane id=":5119194946_5_0" index="0" speed="3.65" length="2.60" shape="359.39,239.79 359.38,240.05 358.64,240.55 357.20,240.67"/>
+        <lane id=":5119194946_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.60" shape="359.39,239.79 359.38,240.05 358.64,240.55 357.20,240.67"/>
     </edge>
     <edge id=":5119194973_0" function="internal">
         <lane id=":5119194973_0_0" index="0" allow="bicycle" speed="2.04" length="1.46" width="1.00" shape="349.64,231.23 349.22,231.05 349.05,230.83 349.13,230.56 349.45,230.25"/>

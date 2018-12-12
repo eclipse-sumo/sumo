@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:58 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Wed Dec 12 15:44:24 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -83,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1403553705_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="2031.62,744.07 2030.59,743.06 2030.34,742.20"/>
     </edge>
     <edge id=":1403553705_4" function="internal">
-        <lane id=":1403553705_4_0" index="0" speed="3.65" length="2.34" shape="2030.34,742.20 2030.88,741.49 2032.21,740.92"/>
+        <lane id=":1403553705_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="2030.34,742.20 2030.88,741.49 2032.21,740.92"/>
     </edge>
     <edge id=":1403553705_2" function="internal">
         <lane id=":1403553705_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="4.82" shape="2027.44,740.27 2028.87,740.38 2029.84,740.49 2030.81,740.66 2032.21,740.92"/>
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1403553705_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="2027.44,740.27 2028.58,741.15 2028.93,741.97"/>
     </edge>
     <edge id=":1403553705_5" function="internal">
-        <lane id=":1403553705_5_0" index="0" speed="3.65" length="2.34" shape="2028.93,741.97 2028.47,742.74 2027.22,743.46"/>
+        <lane id=":1403553705_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="2028.93,741.97 2028.47,742.74 2027.22,743.46"/>
     </edge>
     <edge id=":32444599_0" function="internal">
         <lane id=":32444599_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="2066.33,747.35 2067.37,748.36 2067.61,749.22 2067.07,749.93 2065.74,750.50"/>

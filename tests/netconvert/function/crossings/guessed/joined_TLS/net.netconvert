@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 19 16:10:29 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Dec 12 15:44:31 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,10 +64,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":29215077_2_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="3.65" length="2.34" shape="98.04,99.12 97.51,97.78 97.64,96.90"/>
     </edge>
     <edge id=":29215077_10" function="internal">
-        <lane id=":29215077_10_0" index="0" speed="9.22" length="10.26" shape="96.53,96.11 96.27,94.70 96.48,90.88 97.43,85.97"/>
+        <lane id=":29215077_10_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="9.22" length="10.26" shape="96.53,96.11 96.27,94.70 96.48,90.88 97.43,85.97"/>
     </edge>
     <edge id=":29215077_11" function="internal">
-        <lane id=":29215077_11_0" index="0" speed="3.65" length="2.34" shape="97.64,96.90 98.43,96.47 99.87,96.50"/>
+        <lane id=":29215077_11_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="3.65" length="2.34" shape="97.64,96.90 98.43,96.47 99.87,96.50"/>
     </edge>
     <edge id=":29215077_3" function="internal">
         <lane id=":29215077_3_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="6.40" length="5.99" shape="86.22,87.92 89.20,89.08 91.54,89.02 91.90,88.75"/>
@@ -79,10 +79,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":29215077_5_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="3.65" length="2.22" shape="86.22,87.92 86.79,89.25 86.71,90.01"/>
     </edge>
     <edge id=":29215077_12" function="internal">
-        <lane id=":29215077_12_0" index="0" speed="6.40" length="4.42" shape="91.90,88.75 93.25,87.73 94.32,85.22"/>
+        <lane id=":29215077_12_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="6.40" length="4.42" shape="91.90,88.75 93.25,87.73 94.32,85.22"/>
     </edge>
     <edge id=":29215077_13" function="internal">
-        <lane id=":29215077_13_0" index="0" speed="3.65" length="2.47" shape="86.71,90.01 86.69,90.14 85.92,90.60 84.47,90.62"/>
+        <lane id=":29215077_13_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="3.65" length="2.47" shape="86.71,90.01 86.69,90.14 85.92,90.60 84.47,90.62"/>
     </edge>
     <edge id=":29215077_6" function="internal">
         <lane id=":29215077_6_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="8.55" length="9.43" shape="90.10,101.66 90.46,98.35 89.65,95.40 87.78,93.00"/>
@@ -95,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":29215077_9_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="6.35" length="10.78" shape="93.18,102.50 94.52,98.77 96.08,96.52 97.87,95.77 99.87,96.50"/>
     </edge>
     <edge id=":29215077_14" function="internal">
-        <lane id=":29215077_14_0" index="0" speed="8.55" length="4.09" shape="87.78,93.00 87.65,92.83 84.47,90.62"/>
+        <lane id=":29215077_14_0" index="0" disallow="rail_urban rail rail_electric pedestrian" speed="8.55" length="4.09" shape="87.78,93.00 87.65,92.83 84.47,90.62"/>
     </edge>
     <edge id=":29215077_c0" function="crossing" crossingEdges="4615548 -4615548">
         <lane id=":29215077_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="99.15,94.04 95.48,99.29"/>

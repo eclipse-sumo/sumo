@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 19 16:10:28 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Dec 12 15:44:29 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_3_0" index="0" allow="passenger" speed="10.62" length="8.24" shape="98.40,114.40 99.40,107.40 100.00,106.40"/>
     </edge>
     <edge id=":C_16" function="internal">
-        <lane id=":C_16_0" index="0" speed="10.62" length="17.57" shape="100.00,106.40 102.40,102.40 107.40,99.40 114.40,98.40"/>
+        <lane id=":C_16_0" index="0" allow="passenger" speed="10.62" length="17.57" shape="100.00,106.40 102.40,102.40 107.40,99.40 114.40,98.40"/>
     </edge>
     <edge id=":C_4" function="internal">
         <lane id=":C_4_0" index="0" allow="passenger" speed="8.33" length="15.48" shape="114.40,104.80 110.20,105.40 107.20,107.20 105.40,110.20 104.80,114.40"/>
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_7_0" index="0" allow="passenger" speed="10.62" length="8.24" shape="114.40,101.60 107.40,100.60 106.40,100.00"/>
     </edge>
     <edge id=":C_17" function="internal">
-        <lane id=":C_17_0" index="0" speed="10.62" length="17.57" shape="106.40,100.00 102.40,97.60 99.40,92.60 98.40,85.60"/>
+        <lane id=":C_17_0" index="0" allow="passenger" speed="10.62" length="17.57" shape="106.40,100.00 102.40,97.60 99.40,92.60 98.40,85.60"/>
     </edge>
     <edge id=":C_8" function="internal">
         <lane id=":C_8_0" index="0" allow="passenger" speed="8.33" length="10.89" shape="104.80,85.60 105.40,89.80 107.20,92.80 109.90,94.42"/>
@@ -72,10 +72,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_11_0" index="0" allow="passenger" speed="10.62" length="8.24" shape="101.60,85.60 100.60,92.60 100.00,93.60"/>
     </edge>
     <edge id=":C_18" function="internal">
-        <lane id=":C_18_0" index="0" speed="8.33" length="4.59" shape="109.90,94.42 110.20,94.60 114.40,95.20"/>
+        <lane id=":C_18_0" index="0" allow="passenger" speed="8.33" length="4.59" shape="109.90,94.42 110.20,94.60 114.40,95.20"/>
     </edge>
     <edge id=":C_19" function="internal">
-        <lane id=":C_19_0" index="0" speed="10.62" length="17.57" shape="100.00,93.60 97.60,97.60 92.60,100.60 85.60,101.60"/>
+        <lane id=":C_19_0" index="0" allow="passenger" speed="10.62" length="17.57" shape="100.00,93.60 97.60,97.60 92.60,100.60 85.60,101.60"/>
     </edge>
     <edge id=":C_12" function="internal">
         <lane id=":C_12_0" index="0" allow="passenger" speed="8.33" length="10.89" shape="85.60,95.20 89.80,94.60 92.80,92.80 94.42,90.10"/>
@@ -88,10 +88,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_15_0" index="0" allow="passenger" speed="10.62" length="8.24" shape="85.60,98.40 92.60,99.40 93.60,100.00"/>
     </edge>
     <edge id=":C_20" function="internal">
-        <lane id=":C_20_0" index="0" speed="8.33" length="4.59" shape="94.42,90.10 94.60,89.80 95.20,85.60"/>
+        <lane id=":C_20_0" index="0" allow="passenger" speed="8.33" length="4.59" shape="94.42,90.10 94.60,89.80 95.20,85.60"/>
     </edge>
     <edge id=":C_21" function="internal">
-        <lane id=":C_21_0" index="0" speed="10.62" length="17.57" shape="93.60,100.00 97.60,102.40 100.60,107.40 101.60,114.40"/>
+        <lane id=":C_21_0" index="0" allow="passenger" speed="10.62" length="17.57" shape="93.60,100.00 97.60,102.40 100.60,107.40 101.60,114.40"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CE EC">
         <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.50" shape="112.15,93.60 112.15,106.40"/>

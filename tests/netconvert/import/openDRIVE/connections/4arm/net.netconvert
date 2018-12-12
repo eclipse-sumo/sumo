@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 20 12:23:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Dec 12 15:44:23 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -130,7 +130,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1000000_2_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.14" length="6.10" width="3.50" shape="233.82,188.45 234.42,184.62 235.65,182.76"/>
     </edge>
     <edge id=":1000000_12" function="internal">
-        <lane id=":1000000_12_0" index="0" speed="8.14" length="8.70" width="3.50" shape="235.65,182.76 236.22,181.89 239.22,180.25 243.42,179.70"/>
+        <lane id=":1000000_12_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.14" length="8.70" width="3.50" shape="235.65,182.76 236.22,181.89 239.22,180.25 243.42,179.70"/>
     </edge>
     <edge id=":1000000_3" function="internal">
         <lane id=":1000000_3_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="6.66" length="9.57" width="3.50" shape="243.42,182.95 240.64,183.29 238.66,184.33 237.47,186.04 237.07,188.45"/>
@@ -151,7 +151,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1000000_8_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.14" length="6.11" width="3.50" shape="237.92,173.75 237.32,177.58 236.09,179.44"/>
     </edge>
     <edge id=":1000000_13" function="internal">
-        <lane id=":1000000_13_0" index="0" speed="8.14" length="8.70" width="3.50" shape="236.09,179.44 235.52,180.31 232.52,181.95 228.32,182.50"/>
+        <lane id=":1000000_13_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.14" length="8.70" width="3.50" shape="236.09,179.44 235.52,180.31 232.52,181.95 228.32,182.50"/>
     </edge>
     <edge id=":1000000_9" function="internal">
         <lane id=":1000000_9_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="6.66" length="9.56" width="3.50" shape="228.32,179.25 231.10,178.90 233.08,177.87 234.27,176.15 234.67,173.75"/>

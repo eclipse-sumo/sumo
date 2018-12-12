@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:48 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Wed Dec 12 15:44:32 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -86,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ2_1_0" index="0" allow="rail" speed="27.78" length="4.85" shape="128.38,53.32 126.10,53.06 124.66,52.31 123.98,51.67"/>
     </edge>
     <edge id=":gneJ2_4" function="internal">
-        <lane id=":gneJ2_4_0" index="0" speed="27.78" length="3.25" shape="123.98,51.67 123.38,51.10 121.60,49.45"/>
+        <lane id=":gneJ2_4_0" index="0" allow="rail" speed="27.78" length="3.25" shape="123.98,51.67 123.38,51.10 121.60,49.45"/>
     </edge>
     <edge id=":gneJ2_2" function="internal">
         <lane id=":gneJ2_2_0" index="0" allow="rail" speed="27.78" length="8.10" shape="121.60,49.45 123.38,51.10 124.66,52.31 126.10,53.06 128.38,53.32"/>
@@ -197,7 +198,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ6_3_0" index="0" allow="rail" speed="27.78" length="5.02" shape="255.68,54.76 258.10,54.95 259.71,55.40 260.55,55.79"/>
     </edge>
     <edge id=":gneJ6_4" function="internal">
-        <lane id=":gneJ6_4_0" index="0" speed="27.78" length="3.25" shape="260.55,55.79 261.27,56.11 263.54,57.07"/>
+        <lane id=":gneJ6_4_0" index="0" allow="rail" speed="27.78" length="3.25" shape="260.55,55.79 261.27,56.11 263.54,57.07"/>
     </edge>
     <edge id=":gneJ9_0" function="internal">
         <lane id=":gneJ9_0_0" index="0" allow="rail" speed="27.78" length="8.68" shape="44.23,-67.71 41.76,-67.46 40.18,-66.73 38.72,-65.57 36.64,-64.01"/>
