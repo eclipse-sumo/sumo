@@ -128,7 +128,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
     if ((tagProperties.hasMinimumNumberOfChilds() || tagProperties.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
         WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
     } else {
-        // Open Tag or synonim Tag
+        // Open Tag or synonym Tag
         if (tagProperties.hasTagSynonym()) {
             device.openTag(tagProperties.getTagSynonym());
         } else {
@@ -191,8 +191,6 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
-        // save generic parameters
-        writeParams(device);
         // iterate over childs and write it in XML (or in a different file)
         if (tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
@@ -218,6 +216,8 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 }
             }
         }
+        // save generic parameters (Always after childs to avoid problems with additionals.xsd)
+        writeParams(device);
         // Close tag
         device.closeTag();
     }
