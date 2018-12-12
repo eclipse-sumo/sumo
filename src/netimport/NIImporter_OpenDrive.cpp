@@ -772,9 +772,12 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 cn.origLane = c.toLane;
                 if (myImportInternalShapes) {
                     OpenDriveXMLTag lanesDir;
+                    cn.shape = dest->geom;
+                    // determine which lane of dest belongs to this connection
                     int referenceLane = 0;
+                    int offsetFactor = 1;
                     if (c.toCP == OPENDRIVE_CP_END) {
-                        cn.shape = dest->geom.reverse();
+                        offsetFactor = -1;
                         lanesDir = OPENDRIVE_TAG_LEFT;
                         for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
                             if (destLane.successor == c.fromLane) {
@@ -783,7 +786,6 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                             }
                         }
                     } else {
-                        cn.shape = dest->geom;
                         lanesDir = OPENDRIVE_TAG_RIGHT;
                         for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
                             if (destLane.predecessor == c.fromLane) {
@@ -792,7 +794,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                             }
                         }
                     }
-                    double offset = 0;
+                    // compute offsets
+                    std::vector<double> offsets(dest->geom.size(), 0);
 #ifdef DEBUG_INTERNALSHAPES
                     std::string destPred;
 #endif
@@ -801,13 +804,29 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                         destPred += "  lane=" + toString(destLane.id) 
                             + " pred=" + toString(destLane.predecessor) 
                             + " succ=" + toString(destLane.successor) 
+                            + " wStart=" + toString(destLane.widthData.front().computeAt(0)) 
+                            + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D())) 
                             + " width=" + toString(destLane.width) + "\n";
 #endif
-                        if (abs(destLane.id) < abs(referenceLane)) {
-                            offset += destLane.width;
-                        } else if (abs(destLane.id) == abs(referenceLane)) {
-                            offset += destLane.width / 2;
+                        if (abs(destLane.id) <= abs(referenceLane)) {
+                            const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
+#ifdef DEBUG_INTERNALSHAPES
+                            destPred += "     multiplier=" + toString(multiplier) + "\n";
+#endif
+                            double s = 0;
+                            for (int i = 0; i < (int)cn.shape.size(); ++i) {
+                                if (i > 0) {
+                                    s += cn.shape[i - 1].distanceTo2D(cn.shape[i]);
+                                }
+                                offsets[i] += destLane.widthData.front().computeAt(s) * multiplier;
+                            }
                         }
+                    }
+                    try {
+                        cn.shape.move2side(offsets);
+                    } catch (InvalidArgument&) {
+                        WRITE_WARNING("Could not import internal lane shape from edge '" + c.fromEdge + "' to edge '" + c.toEdge);
+                        cn.shape.clear();
                     }
 #ifdef DEBUG_INTERNALSHAPES
                     std::cout << "internalShape "
@@ -815,15 +834,13 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                         << " dest=" << dest->id
                         << " refLane=" << referenceLane
                         << " destPred\n" << destPred
-                        << " offset=" << offset
-                        << " shape=" << dest->geom
+                        << " offsets=" << offsets
+                        << "\n shape=" << dest->geom
+                        << "\n shape2=" << cn.shape
                         << "\n";
 #endif
-                    try {
-                        cn.shape.move2side(offset);
-                    } catch (InvalidArgument&) {
-                        WRITE_WARNING("Could not import internal lane shape from edge '" + c.fromEdge + "' to edge '" + c.toEdge);
-                        cn.shape.clear();
+                    if (c.toCP == OPENDRIVE_CP_END) {
+                        cn.shape = cn.shape.reverse();
                     }
                 }
                 into.push_back(cn);

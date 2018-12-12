@@ -1079,6 +1079,66 @@ PositionVector::move2side(double amount) {
 }
 
 
+void 
+PositionVector::move2side(std::vector<double> amount) {
+    if (size() < 2) {
+        return;
+    }
+    if (length2D() == 0) {
+        return;
+    }
+    if (size() != amount.size()) {
+        throw InvalidArgument("Numer of offsets (" + toString(amount.size()) 
+                + ") does not match number of points (" + toString(size()) + ")");
+    }
+    PositionVector shape;
+    for (int i = 0; i < static_cast<int>(size()); i++) {
+        if (i == 0) {
+            const Position& from = (*this)[i];
+            const Position& to = (*this)[i + 1];
+            if (from != to) {
+                shape.push_back(from - sideOffset(from, to, amount[i]));
+            }
+        } else if (i == static_cast<int>(size()) - 1) {
+            const Position& from = (*this)[i - 1];
+            const Position& to = (*this)[i];
+            if (from != to) {
+                shape.push_back(to - sideOffset(from, to, amount[i]));
+            }
+        } else {
+            const Position& from = (*this)[i - 1];
+            const Position& me = (*this)[i];
+            const Position& to = (*this)[i + 1];
+            PositionVector fromMe(from, me);
+            fromMe.extrapolate2D(me.distanceTo2D(to));
+            const double extrapolateDev = fromMe[1].distanceTo2D(to);
+            if (fabs(extrapolateDev) < POSITION_EPS) {
+                // parallel case, just shift the middle point
+                shape.push_back(me - sideOffset(from, to, amount[i]));
+            } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
+                // counterparallel case, just shift the middle point
+                PositionVector fromMe(from, me);
+                fromMe.extrapolate2D(amount[i]);
+                shape.push_back(fromMe[1]);
+            } else {
+                Position offsets = sideOffset(from, me, amount[i]);
+                Position offsets2 = sideOffset(me, to, amount[i]);
+                PositionVector l1(from - offsets, me - offsets);
+                PositionVector l2(me - offsets2, to - offsets2);
+                Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], 100);
+                if (meNew == Position::INVALID) {
+                    throw InvalidArgument("no line intersection");
+                }
+                meNew = meNew + Position(0, 0, me.z());
+                shape.push_back(meNew);
+            }
+            // copy original z value
+            shape.back().set(shape.back().x(), shape.back().y(), me.z());
+        }
+    }
+    *this = shape;
+}
+
 double
 PositionVector::angleAt2D(int pos) const {
     if ((pos + 1) < (int)size()) {
