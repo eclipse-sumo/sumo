@@ -348,7 +348,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
-                    writeLane(into, (*k).viaID + "_0", (*k).vmax, SVCAll, SVCAll,
+                    writeLane(into, (*k).viaID + "_0", (*k).vmax, successor.permissions, successor.preferred,
                               NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), successor.width, (*k).viaShape, &(*k),
                               MAX2((*k).viaShape.length(), POSITION_EPS), // microsim needs positive length
                               0, "");
