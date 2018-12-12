@@ -234,9 +234,7 @@ private:
     SUMOTime myMesoTimeLoss;
 
     /// @brief devices which may still need to produce output
-    typedef std::set<const MSDevice_Tripinfo*, ComparatorIdLess> DeviceSet;
-
-    static DeviceSet myPendingOutput;
+    static std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> myPendingOutput;
 
     /// @brief global tripinfo statistics
     static double myVehicleCount;

@@ -30,14 +30,9 @@
 #include <map>
 #include <set>
 #include <random>
+#include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSMoveReminder.h>
 #include "MSDevice.h"
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class SUMOVehicle;
 
 
 // ===========================================================================
@@ -77,8 +72,12 @@ public:
      *
      * @return The vehicle that holds this device
      */
-    SUMOVehicle& getHolder() const {
+    inline SUMOVehicle& getHolder() const {
         return myHolder;
+    }
+
+    inline SUMOVehicle::NumericalID getNumericalID() const {
+        return myHolder.getNumericalID();
     }
 
 protected:

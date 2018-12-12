@@ -215,7 +215,7 @@ private:
         void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
         /// @brief A map for internal notification
-        std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorIdLess> myDevices;
+        std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorNumericalIdLess> myDevices;
 
     };
 

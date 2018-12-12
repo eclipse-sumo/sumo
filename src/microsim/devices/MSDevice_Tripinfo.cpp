@@ -40,7 +40,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-MSDevice_Tripinfo::DeviceSet MSDevice_Tripinfo::myPendingOutput;
+std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> MSDevice_Tripinfo::myPendingOutput;
 
 double MSDevice_Tripinfo::myVehicleCount(0);
 double MSDevice_Tripinfo::myTotalRouteLength(0);
