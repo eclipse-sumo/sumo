@@ -601,21 +601,11 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 #endif
             glPopMatrix();
             // draw details
-            if ((!isInternal || isCrossing) && (drawDetails || s.drawForSelecting || junctionExaggeration > 1)) {
+            if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || s.drawForSelecting || junctionExaggeration > 1)) {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
                 if (drawDetails) {
-                    if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi) {
-                        // draw sublane-borders
-                        GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
-                        for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
-                            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset);
-                        }
-                    }
-                    if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
-                        drawArrows();
-                    }
                     if (s.showLaneDirection) {
                         if (drawAsRailway(s)) {
                             // improve visibility of superposed rail edges
@@ -627,14 +617,26 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             drawDirectionIndicators(exaggeration);
                         }
                     }
-                    glTranslated(0, 0, 1000);
-                    if (s.drawLinkJunctionIndex.show) {
-                        drawLinkNo(s);
+                    if (!isInternal) {
+                        if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi) {
+                            // draw sublane-borders
+                            GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
+                            for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
+                                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset);
+                            }
+                        }
+                        if (s.showLinkDecals && !drawAsRailway(s) && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
+                            drawArrows();
+                        }
+                        glTranslated(0, 0, 1000);
+                        if (s.drawLinkJunctionIndex.show) {
+                            drawLinkNo(s);
+                        }
+                        if (s.drawLinkTLIndex.show) {
+                            drawTLSLinkNo(s, *net);
+                        }
+                        glTranslated(0, 0, -1000);
                     }
-                    if (s.drawLinkTLIndex.show) {
-                        drawTLSLinkNo(s, *net);
-                    }
-                    glTranslated(0, 0, -1000);
                     glTranslated(0, 0, .1);
                 }
                 // make sure link rules are drawn so tls can be selected via right-click
