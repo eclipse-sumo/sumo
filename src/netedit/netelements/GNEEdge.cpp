@@ -62,7 +62,6 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     myNBEdge(nbe) ,
     myGNEJunctionSource(myNet->retrieveJunction(myNBEdge.getFromNode()->getID())),
     myGNEJunctionDestiny(myNet->retrieveJunction(myNBEdge.getToNode()->getID())),
-    myOrigShape(nbe.getInnerGeometry()),
     myLanes(0),
     myAmResponsible(false),
     myWasSplit(wasSplit),
@@ -1054,7 +1053,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // actually the geometry is already updated (incrementally
             // during mouse movement). We set the restore point to the end
             // of the last change-set
-            myNBEdge.setGeometry(myOrigShape, true);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         case GNE_ATTR_BIDIR:
@@ -1251,8 +1249,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge.myType = value;
             break;
         case SUMO_ATTR_SHAPE:
-            myOrigShape = parse<PositionVector>(value);
-            setGeometry(myOrigShape, true, true);
+            setGeometry(parse<PositionVector>(value), true, true);
             break;
         case SUMO_ATTR_SPREADTYPE:
             myNBEdge.setLaneSpreadFunction(SUMOXMLDefinitions::LaneSpreadFunctions.get(value));

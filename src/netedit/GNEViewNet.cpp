@@ -1935,6 +1935,7 @@ GNEViewNet::onCmdStraightenEdges(FXObject*, FXSelector, void*) {
             }
             myUndoList->p_end();
         } else {
+
             myUndoList->p_begin("straighten " + toString(SUMO_TAG_EDGE));
             edge->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             myUndoList->p_end();

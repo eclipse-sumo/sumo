@@ -210,6 +210,9 @@ protected:
     GNELane* myGNELane;
 
 private:
+    /// @brief position used for move POILanes
+    Position myOriginalViewPosition;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

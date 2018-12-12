@@ -313,9 +313,6 @@ protected:
     /// @brief pointer to GNEJunction destiny
     GNEJunction* myGNEJunctionDestiny;
 
-    /// @brief restore point for undo
-    PositionVector myOrigShape;
-
     /// @brief vectgor with the lanes of this edge
     LaneVector myLanes;
 

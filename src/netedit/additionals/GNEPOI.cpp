@@ -67,14 +67,28 @@ GNEPOI::~GNEPOI() {}
 
 void
 GNEPOI::startGeometryMoving() {
-    // Not used in POIs
+    // always save original position over view
+    myOriginalViewPosition = getPositionInView();
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
 }
 
 
 void
 GNEPOI::endGeometryMoving() {
-    // Not used in POIs
+    // check that endGeometryMoving was called only once
+    if (myGNELane && myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // update geometry without updating grid
+        updateGeometry(false);
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
+
 
 void
 GNEPOI::writeShape(OutputDevice& device) {
