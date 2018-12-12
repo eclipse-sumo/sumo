@@ -771,27 +771,50 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 cn.origID = c.toEdge;
                 cn.origLane = c.toLane;
                 if (myImportInternalShapes) {
-                    cn.shape = c.toCP == OPENDRIVE_CP_END ? dest->geom.reverse() : dest->geom;
+                    OpenDriveXMLTag lanesDir;
+                    int referenceLane = 0;
+                    if (c.toCP == OPENDRIVE_CP_END) {
+                        cn.shape = dest->geom.reverse();
+                        lanesDir = OPENDRIVE_TAG_LEFT;
+                        for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
+                            if (destLane.successor == c.fromLane) {
+                                referenceLane = destLane.id;
+                                break;
+                            }
+                        }
+                    } else {
+                        cn.shape = dest->geom;
+                        lanesDir = OPENDRIVE_TAG_RIGHT;
+                        for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
+                            if (destLane.predecessor == c.fromLane) {
+                                referenceLane = destLane.id;
+                                break;
+                            }
+                        }
+                    }
                     double offset = 0;
 #ifdef DEBUG_INTERNALSHAPES
-                    std::string destRightPred;
+                    std::string destPred;
 #endif
-                    for (const auto& rightLane : dest->laneSections.front().lanesByDir[OPENDRIVE_TAG_RIGHT]) {
+                    for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
 #ifdef DEBUG_INTERNALSHAPES
-                        destRightPred += toString(rightLane.predecessor) + ":" + toString(rightLane.width) + ", ";
+                        destPred += "  lane=" + toString(destLane.id) 
+                            + " pred=" + toString(destLane.predecessor) 
+                            + " succ=" + toString(destLane.successor) 
+                            + " width=" + toString(destLane.width) + "\n";
 #endif
-                        //if (cn.fromEdge == "108" && cn.fromLane == -2 && c.toEdge == "111") {
-                        if (abs(rightLane.predecessor) < abs(c.fromLane)) {
-                            offset += rightLane.width;
-                        } else if (abs(rightLane.predecessor) == abs(c.fromLane)) {
-                            offset += rightLane.width / 2;
-                            break;
+                        if (abs(destLane.id) < abs(referenceLane)) {
+                            offset += destLane.width;
+                        } else if (abs(destLane.id) == abs(referenceLane)) {
+                            offset += destLane.width / 2;
                         }
                     }
 #ifdef DEBUG_INTERNALSHAPES
-                    std::cout << "importInternalShape"
+                    std::cout << "internalShape "
                         << c.getDescription()
-                        << " destRightPred=" << destRightPred
+                        << " dest=" << dest->id
+                        << " refLane=" << referenceLane
+                        << " destPred\n" << destPred
                         << " offset=" << offset
                         << " shape=" << dest->geom
                         << "\n";
