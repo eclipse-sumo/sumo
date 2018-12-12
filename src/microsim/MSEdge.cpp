@@ -879,12 +879,12 @@ MSEdge::getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate) const 
         if (other->isTazConnector()) {
             return myBoundary.distanceTo2D(other->myBoundary);
         }
-        return myBoundary.distanceTo2D(other->getFromJunction()->getPosition());
+        return myBoundary.distanceTo2D(other->getLanes()[0]->getShape()[0]);
     }
     if (other->isTazConnector()) {
-        return other->myBoundary.distanceTo2D(getToJunction()->getPosition());
+        return other->myBoundary.distanceTo2D(getLanes()[0]->getShape()[-1]);
     }
-    return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
+    return getLanes()[0]->getShape()[-1].distanceTo2D(other->getLanes()[0]->getShape()[0]);
 }
 
 

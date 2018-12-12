@@ -159,7 +159,7 @@ public:
      *
      * @return This edge's lanes
      */
-    const std::vector<MSLane*>& getLanes() const {
+    inline const std::vector<MSLane*>& getLanes() const {
         return *myLanes;
     }
 
