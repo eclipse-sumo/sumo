@@ -1,4 +1,4 @@
-Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_0'.
+Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_1'.
 Error: Invalid lane id 'dummyLane' (missing '_').
 Error: Invalid lane index 'dummyLane' for lane 'dummyLane'.
 Error: Edge dummyLane
