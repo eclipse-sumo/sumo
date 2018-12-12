@@ -39,6 +39,7 @@
 #endif
 
 #include <string>
+#include <cmath>
 #include <map>
 #include <iostream>
 #include <algorithm>
@@ -1575,6 +1576,9 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
     for (int i = 0; i < size; ++i) {
         double x = inputStorage.readDouble();
         double y = inputStorage.readDouble();
+        if (std::isnan(x) || std::isnan(y)) {
+            throw libsumo::TraCIException("NaN-Value in shape");
+        }
         into.push_back(Position(x, y));
     }
     return true;
