@@ -3,6 +3,3 @@ Warning: Given openDrive file 'opendrive.xodr' uses version 1.4;
 Warning: Lane '-1.55.15_1' is not connected from any incoming edge at junction '1.55.15'.
 Warning: Lane '-2.29.53_1' is not connected from any incoming edge at junction '2.29.53'.
 Warning: Lane '-3.66.33_1' is not connected from any incoming edge at junction '3.66.33'.
-Warning: Custom shape has distance 3.50 to incoming lane for connection -3.102.05_2->1.93.97_1
-Warning: Custom shape has distance 3.50 to incoming lane for connection -4.32.26_1->3.102.05_0
-Warning: Custom shape has distance 3.50 to incoming lane for connection -4.32.26_2->3.102.05_1
