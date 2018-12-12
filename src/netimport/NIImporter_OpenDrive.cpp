@@ -771,7 +771,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 cn.origID = c.toEdge;
                 cn.origLane = c.toLane;
                 if (myImportInternalShapes) {
-                    cn.shape = dest->geom;
+                    cn.shape = c.toCP == OPENDRIVE_CP_END ? dest->geom.reverse() : dest->geom;
                     double offset = 0;
 #ifdef DEBUG_INTERNALSHAPES
                     std::string destRightPred;
