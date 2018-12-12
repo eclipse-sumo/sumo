@@ -55,6 +55,7 @@
 //#define DEBUG_VARIABLE_SPEED
 //#define DEBUG_CONNECTIONS
 //#define DEBUG_SPIRAL
+//#define DEBUG_INTERNALSHAPES
 
 #define DEBUG_COND(road) ((road)->id == "1000003")
 #define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "2"))
@@ -772,7 +773,13 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 if (myImportInternalShapes) {
                     cn.shape = dest->geom;
                     double offset = 0;
+#ifdef DEBUG_INTERNALSHAPES
+                    std::string destRightPred;
+#endif
                     for (const auto& rightLane : dest->laneSections.front().lanesByDir[OPENDRIVE_TAG_RIGHT]) {
+#ifdef DEBUG_INTERNALSHAPES
+                        destRightPred += toString(rightLane.predecessor) + ":" + toString(rightLane.width) + ", ";
+#endif
                         //if (cn.fromEdge == "108" && cn.fromLane == -2 && c.toEdge == "111") {
                         if (abs(rightLane.predecessor) < abs(c.fromLane)) {
                             offset += rightLane.width;
@@ -781,6 +788,14 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                             break;
                         }
                     }
+#ifdef DEBUG_INTERNALSHAPES
+                    std::cout << "importInternalShape"
+                        << c.getDescription()
+                        << " destRightPred=" << destRightPred
+                        << " offset=" << offset
+                        << " shape=" << dest->geom
+                        << "\n";
+#endif
                     try {
                         cn.shape.move2side(offset);
                     } catch (InvalidArgument&) {
