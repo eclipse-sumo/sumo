@@ -1663,3 +1663,32 @@ def GEOPOILatLon():
         typeTab()
     # Change current value
     typeSpace()
+
+
+#################################################
+# Contextual menu
+#################################################
+
+
+def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation):
+    # obtain clicked position
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    # click relative to offset
+    pyautogui.rightClick(clickedPosition)
+    # place cursor over first operation
+    for x in range(operation):
+        # wait before every down
+        time.sleep(DELAY_KEY_TAB)
+        # type down keys
+        pyautogui.hotkey('down')
+    if (suboperation > 0):
+        # type right key for the second menu
+        typeSpace()
+        # place cursor over second operation
+        for x in range(suboperation):
+            # wait before every down
+            time.sleep(DELAY_KEY_TAB)
+            # type down keys
+            pyautogui.hotkey('down')
+    # select current operation
+    typeSpace()
