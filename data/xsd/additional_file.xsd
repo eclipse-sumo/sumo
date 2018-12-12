@@ -349,6 +349,7 @@
         <xsd:attribute name="file" type="xsd:string" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="busStopType">
