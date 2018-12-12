@@ -55,6 +55,20 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
 }
 
 
+GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const NBNode::Crossing& crossing, bool forward):
+    GNEChange(junctionParent->getNet(), forward),
+    myJunctionParent(junctionParent),
+    myEdges(crossing.edges),
+    myWidth(crossing.width),
+    myPriority(crossing.priority),
+    myCustomTLIndex(crossing.customTLIndex),
+    myCustomTLIndex2(crossing.customTLIndex2),
+    myCustomShape(crossing.customShape),
+    mySelected(false) {
+    assert(myNet);
+}
+
+
 GNEChange_Crossing::~GNEChange_Crossing() {
     assert(myNet);
 }

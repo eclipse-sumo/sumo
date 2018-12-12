@@ -683,6 +683,24 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
                                      undoList, baseName + toString(posBase + (int)linePos), true, false, false);
     // fix connections from the split edge (must happen before changing SUMO_ATTR_TO)
     edge->getGNEJunctionDestiny()->replaceIncomingConnections(edge, secondPart, undoList);
+    // remove affected crossings from junction (must happen before changing SUMO_ATTR_TO)
+    std::vector<NBNode::Crossing> affectedCrossings;
+    for (GNECrossing* crossing : edge->getGNEJunctionDestiny()->getGNECrossings()) {
+        if (crossing->checkEdgeBelong(edge)) {
+            NBNode::Crossing nbC = *crossing->getNBCrossing();
+            undoList->add(new GNEChange_Crossing(edge->getGNEJunctionDestiny(), nbC, false), true);
+            EdgeVector newEdges;
+            for (NBEdge* nbEdge : nbC.edges) {
+                if (nbEdge == edge->getNBEdge()) {
+                    newEdges.push_back(secondPart->getNBEdge());
+                } else {
+                    newEdges.push_back(nbEdge);
+                }
+            }
+            nbC.edges = newEdges;
+            affectedCrossings.push_back(nbC);
+        }
+    }
     // modify the edge so that it ends at the new junction (and all incoming connections are preserved
     undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_TO, newJunction->getID()));
     // fix first part of geometry
@@ -699,19 +717,9 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     for (int i = 0; i < (int)edge->getLanes().size(); ++i) {
         undoList->add(new GNEChange_Connection(edge, NBEdge::Connection(i, secondPart->getNBEdge(), i), false, true), true);
     }
-    // move connections at the destination junction from the original edge to the secondPart
-    for (GNECrossing* crossing : secondPart->getGNEJunctionDestiny()->getGNECrossings()) {
-        if (crossing->checkEdgeBelong(edge)) {
-            EdgeVector newNBEdges;
-            for (NBEdge* nbEdge : crossing->getNBCrossing()->edges) {
-                if (nbEdge == edge->getNBEdge()) {
-                    newNBEdges.push_back(secondPart->getNBEdge());
-                } else {
-                    newNBEdges.push_back(nbEdge);
-                }
-            }
-            crossing->setAttribute(SUMO_ATTR_EDGES, toString(newNBEdges), undoList);
-        }
+    // re-add modified crossings
+    for (const auto& nbC : affectedCrossings) {
+        undoList->add(new GNEChange_Crossing(secondPart->getGNEJunctionDestiny(), nbC, true), true);
     }
     undoList->p_end();
     return newJunction;
