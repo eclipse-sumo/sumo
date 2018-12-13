@@ -27,19 +27,19 @@ import sumolib  # noqa
 
 
 traci.start([sumolib.checkBinary('sumo'),
-    '--no-step-log',
-    '-n', 'input_net.net.xml',
-    '-r', 'input_routes.rou.xml',
-    '-a', 'input_additional.add.xml',
-    ])
+             '--no-step-log',
+             '-n', 'input_net.net.xml',
+             '-r', 'input_routes.rou.xml',
+             '-a', 'input_additional.add.xml',
+             ])
 
 while traci.simulation.getMinExpectedNumber() > 0:
-        
+
     traci.simulationStep()
     if traci.simulation.getTime() == 10:
         traci.lane.setAllowed("4_1", "authority")
         traci.lane.setAllowed("4_2", "authority")
-    
+
     if traci.simulation.getTime() == 300:
         traci.lane.setAllowed("4_1", "passenger")
         traci.lane.setAllowed("4_2", "passenger")

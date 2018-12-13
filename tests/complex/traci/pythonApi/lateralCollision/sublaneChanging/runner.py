@@ -31,11 +31,12 @@ if sys.argv[1] == "sumo":
 else:
     sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
 
+
 def runSingle(traciEndTime, latDist, vehID):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg",
-							"--lateral-resolution", "0.1"])
-    
+                            "--lateral-resolution", "0.1"])
+
     # disable safety checks and set constant speed
     print("old lanechangemode", format(traci.vehicle.getLaneChangeMode(vehID), '012b'))
     print("old speedmode", traci.vehicle.getSpeedMode(vehID))
@@ -57,7 +58,8 @@ def runSingle(traciEndTime, latDist, vehID):
 
         print("trying to change lateral position by %.2f..." % (latDist))
         traci.vehicle.changeSublane(vehID, latDist)
-        print("[%03d] lane %d, lateral pos: %.2f" % (step, traci.vehicle.getLaneIndex(vehID), traci.vehicle.getLateralLanePosition(vehID)))
+        print("[%03d] lane %d, lateral pos: %.2f" %
+              (step, traci.vehicle.getLaneIndex(vehID), traci.vehicle.getLateralLanePosition(vehID)))
         sys.stdout.flush()
 
         step += 1
@@ -66,7 +68,7 @@ def runSingle(traciEndTime, latDist, vehID):
     traci.close()
     sys.stdout.flush()
 
+
 sys.stdout.flush()
 sys.stderr.flush()
 runSingle(50, float(sys.argv[2]), "collider")
-

@@ -49,13 +49,13 @@ netedit.modifyAttribute(8, "600")
 # Change linkIndex with an valid value
 netedit.modifyAttribute(8, "12")
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 5)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

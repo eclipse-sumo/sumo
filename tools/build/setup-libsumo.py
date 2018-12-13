@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    setup.py.in
+# @file    setup-libsumo.py
 # @author  Benjamin Striner
 # @author  Michael Behrisch
 # @date    2017-01-26

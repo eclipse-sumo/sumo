@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    plotTrajectories.py
+# @file    averageRuns.py
 # @author  Jakob Erdmann
 # @date    2018-08-24
 # @version $Id$
@@ -43,11 +43,13 @@ def getOptions(args=None):
     random.seed(options.seed)
     return options
 
+
 def build_retriever(key):
     reString = " %s: ([\d.]*)" % key
     regex = re.compile(reString)
     # values should all be positive so -1 is a suitable flag
     invalidResult = -1
+
     def retriever(output):
         foundStats = False
         for line in output.split('\n'):
@@ -78,16 +80,16 @@ def main(options):
         'WaitingTime',
         'TimeLoss',
         'DepartDelay',
-        ]]
+    ]]
 
     for i in range(options.numRuns):
         sys.stdout.write('.')
         sys.stdout.flush()
         seed = str(random.randint(0, 2**31))
-        output = check_output([SUMO, '-c', options.config, 
-            '--duration-log.statistics',
-            '--no-duration-log', 'false',
-            '--seed', seed])
+        output = check_output([SUMO, '-c', options.config,
+                               '--duration-log.statistics',
+                               '--no-duration-log', 'false',
+                               '--seed', seed])
         for stats, retriever in statsRetrievers:
             stats.add(retriever(output), seed)
     print()

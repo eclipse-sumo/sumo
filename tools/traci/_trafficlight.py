@@ -60,7 +60,7 @@ class Logic:
 
     def __repr__(self):
         return ("Logic(programID='%s', type=%s, currentPhaseIndex=%s, phases=%s, subParameter=%s)" %
-                  (self.programID, self.type, self.currentPhaseIndex, self.phases, self.subParameter))
+                (self.programID, self.type, self.currentPhaseIndex, self.phases, self.subParameter))
 
 
 def _readLogics(result):
@@ -255,7 +255,7 @@ class TrafficLightDomain(Domain):
             len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
         for p in tls.phases:
             length += 1 + 4 + 1 + 8 + 1 + 4 + len(p.state) + 1 + 8 + 1 + 8 + 1 + 4
-        length += 1 + 4 # subparams
+        length += 1 + 4  # subparams
         for k, v in tls.subParameter.items():
             length += 1 + 4 + 4 + len(k) + 4 + len(v)
         self._connection._beginMessage(
@@ -269,7 +269,7 @@ class TrafficLightDomain(Domain):
             self._connection._string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 5, tc.TYPE_DOUBLE, p.duration)
             self._connection._packString(p.state)
             self._connection._string += struct.pack("!BdBdBi", tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur,
-                                                                tc.TYPE_INTEGER, p.next)
+                                                    tc.TYPE_INTEGER, p.next)
         # subparams
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.subParameter))
         for par in tls.subParameter.items():

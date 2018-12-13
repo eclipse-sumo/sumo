@@ -82,7 +82,7 @@ def cut_trips(aEdges, options, validTaz):
             num_returned += 1
 
         print("Parsing persontrips from %s" % routeFile)
-        ignored_planitems = defaultdict(lambda : 0)
+        ignored_planitems = defaultdict(lambda: 0)
         num_persons = 0
         num_persontrips = 0
         from_ok = 0
@@ -119,11 +119,10 @@ def cut_trips(aEdges, options, validTaz):
                     person.personTrip = kept_pt
                     yield float(person.depart), person
 
-
     print("Parsed %s trips and kept %s" % (num_trips, num_returned))
     if num_persons > 0:
         print("Parsed %s persons and kept %s persontrips" % (num_trips,
-            num_persontrips))
+                                                             num_persontrips))
         print("Discared %s person that departed in the area and %s persons that arrived in the area" % (
             from_ok, to_ok))
         if ignored_planitems:

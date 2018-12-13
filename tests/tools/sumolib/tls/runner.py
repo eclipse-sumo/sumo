@@ -26,7 +26,7 @@ else:
 import sumolib.net  # noqa
 
 net = sumolib.net.readNet(sys.argv[1], withInternal=True,
-        withLatestPrograms=True)
+                          withLatestPrograms=True)
 tls = net.getTLS('C')
 program = tls.getPrograms()['0']
 print(program.toXML(tls.getID()))

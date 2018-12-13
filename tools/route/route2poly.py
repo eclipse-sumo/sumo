@@ -54,7 +54,8 @@ def parse_args(args):
                          help="group similar routes and scale width by group size multiplied with the given factor (in m)")
     optParser.add_option("--standalone", action="store_true", default=False,
                          help="Parse stand-alone routes that are not define as child-element of a vehicle")
-    optParser.add_option("--filter-output.file", dest="filterOutputFile", help="only write output for edges in the given selection file")
+    optParser.add_option("--filter-output.file", dest="filterOutputFile",
+                         help="only write output for edges in the given selection file")
     optParser.add_option("--seed", type="int", help="random seed")
     options, args = optParser.parse_args(args=args)
     if options.seed:
@@ -81,6 +82,8 @@ def randomize_pos(pos, blur):
 MISSING_EDGES = set()
 SPREAD = defaultdict(set)
 SPREAD_MAX = [0]
+
+
 def getSpread(lanes):
     """find the smalles spread value that is available for all lanes"""
     cands = [0]
@@ -163,15 +166,17 @@ def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=
             outf.write('    <param key="%s" value="%s"/>\n' % (key, value))
         outf.write('</poly>\n')
 
+
 def filterEdges(edges, keep):
     if keep is None:
         return edges
-    else: 
+    else:
         return [e for e in edges if e in keep]
 
 
 def parseRoutes(options):
     known_ids = set()
+
     def unique_id(cand, index=0):
         cand2 = cand
         if index > 0:
@@ -187,7 +192,7 @@ def parseRoutes(options):
         keep = set()
         for line in open(options.filterOutputFile):
             if line.startswith('edge:'):
-                keep.add(line.replace('edge:','').strip())
+                keep.add(line.replace('edge:', '').strip())
 
     for routefile in options.routefiles:
         print("parsing %s" % routefile)

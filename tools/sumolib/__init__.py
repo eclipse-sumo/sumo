@@ -133,7 +133,7 @@ def checkBinary(name, bindir=None):
         return binary
     if name[-1] != "D" and name[-5:] != "D.exe":
         if name[-4:] == ".exe":
-             return checkBinary(name[:-4] + "D")
+            return checkBinary(name[:-4] + "D")
         return checkBinary(name + "D")
     return name
 

@@ -101,8 +101,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     multiAffectedRoutes = 0
     teleportFactorSum = 0.0
     too_short = 0
-    standaloneRoutes = {} # routeID -> routeObject
-    standaloneRoutesDepart = {} # routeID -> time or 'discard' or None
+    standaloneRoutes = {}  # routeID -> routeObject
+    standaloneRoutesDepart = {}  # routeID -> time or 'discard' or None
     if options.additional_input:
         parse_standalone_routes(options.additional_input, standaloneRoutes)
     for routeFile in options.routeFiles:
@@ -185,7 +185,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                 remaining = edges[fromIndex:toIndex + 1]
                 stops = cut_stops(vehicle, busStopEdges, remaining)
                 if routeRef:
-                    routeRef.stop = cut_stops(routeRef, busStopEdges, remaining, departShift, options.defaultStopDuration)
+                    routeRef.stop = cut_stops(routeRef, busStopEdges, remaining,
+                                              departShift, options.defaultStopDuration)
                     routeRef.edges = " ".join(remaining)
                     yield None, routeRef
                 else:
@@ -216,6 +217,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
           multiAffectedRoutes)
     printTop(missingEdgeOccurences)
 
+
 def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0):
     stops = []
     if vehicle.stop:
@@ -242,7 +244,6 @@ def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0
             elif stop.lane[:-2] in remaining:
                 stops.append(stop)
     return stops
-
 
 
 def getFirstIndex(areaEdges, edges):
@@ -308,6 +309,7 @@ def parse_standalone_routes(file, into):
     for route in parse(file, 'route'):
         into[route.id] = route
 
+
 def main(options):
     net = readNet(options.network)
     edges = set([e.getID() for e in net.getEdges()])
@@ -361,7 +363,7 @@ def main(options):
         elif num_taz > 0:
             print("Kept %s of %s tazs" % (
                 kept_taz, num_taz))
-                
+
     if options.stops_output:
         busStops.write('</additional>\n')
         busStops.close()

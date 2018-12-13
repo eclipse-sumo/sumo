@@ -58,13 +58,13 @@ netedit.modifyAttribute(7, "0")
 # Change visibility with an valid value
 netedit.modifyAttribute(7, "11")
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 4)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

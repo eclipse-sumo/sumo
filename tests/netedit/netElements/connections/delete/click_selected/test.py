@@ -43,13 +43,13 @@ netedit.deleteMode()
 # delete selected connections
 netedit.leftClick(referencePosition, 250, 190)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

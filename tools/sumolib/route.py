@@ -71,7 +71,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
                                     edge.getFromNode().getCoord())
                                 if gapPenalty < 0:
                                     gapPenalty = airLineDist
-                                baseDiff = abs(lastBase + advance - path[-1].getLength() - base - airLineDist) + gapPenalty
+                                baseDiff = abs(lastBase + advance -
+                                               path[-1].getLength() - base - airLineDist) + gapPenalty
                                 extension = (edge,)
                             else:
                                 baseDiff = lastBase + advance - base - cost + path[-1].getLength()

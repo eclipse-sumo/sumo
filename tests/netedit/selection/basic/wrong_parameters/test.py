@@ -32,7 +32,7 @@ netedit.selectMode()
 netedit.focusOnFrame()
 for x in range(0, 13):
     netedit.typeTab()
-	
+
 # paste the new elementClass
 netedit.pasteIntoTextField("dummyElement")
 
@@ -43,14 +43,14 @@ netedit.typeEnter()
 netedit.focusOnFrame()
 for x in range(0, 13):
     netedit.typeTab()
-	
+
 # paste the new elementClass
 netedit.pasteIntoTextField("Net Element")
 
 # jump to element
 for x in range(0, 2):
     netedit.typeTab()
-	
+
 # paste the new elementType
 netedit.pasteIntoTextField("dummyType")
 
@@ -61,21 +61,21 @@ netedit.typeEnter()
 netedit.focusOnFrame()
 for x in range(0, 13):
     netedit.typeTab()
-	
+
 # paste the new elementClass
 netedit.pasteIntoTextField("Net Element")
 
 # jump to element
 for x in range(0, 2):
     netedit.typeTab()
-	
+
 # paste the new elementType
 netedit.pasteIntoTextField("junction")
 
 # jump to attribute
 for x in range(0, 2):
     netedit.typeTab()
-	
+
 # paste the new attribute
 netedit.pasteIntoTextField("dummyAttribute")
 

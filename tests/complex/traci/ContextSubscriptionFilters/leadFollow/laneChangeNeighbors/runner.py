@@ -58,7 +58,7 @@ def runSingle(traciEndTime, viewRange, objID):
             sys.stdout.flush()
 
             traci.vehicle.addSubscriptionFilterLCManeuver(None)
-            # advice all vehicle not to change lanes 
+            # advice all vehicle not to change lanes
             for vehID in traci.vehicle.getIDList():
                 traci.vehicle.changeLane(vehID, traci.vehicle.getLaneIndex(vehID), 111)
 

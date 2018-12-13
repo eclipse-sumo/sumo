@@ -22,11 +22,11 @@ import traci
 import sumolib
 
 sumoBinary = sumolib.checkBinary('sumo')
-traci.start([sumoBinary, 
-    "-n", "input_net.net.xml", "-r",
-    "input_routes.rou.xml",
-    "--no-step-log",
-    ])
+traci.start([sumoBinary,
+             "-n", "input_net.net.xml", "-r",
+             "input_routes.rou.xml",
+             "--no-step-log",
+             ])
 
 vehHasLeft = False
 vehHasArrived = False
@@ -40,12 +40,12 @@ while not vehHasLeft:
         arrivedVehicles = traci.simulation.getDepartedIDList()
         vehHasArrived = vehID in arrivedVehicles
         route = traci.vehicle.getRoute(vehID)
-    
+
     if vehHasArrived:
         remainingDist = traci.vehicle.getDrivingDistance(vehID, route[-1], 0.0)
         currentEdge = traci.vehicle.getRoadID(vehID)
         vehHasLeft = currentEdge == route[-1]
-        
+
         if not vehHasLeft:
             resultList.append((str(step), currentEdge, route[-1], str(remainingDist)))
     step += 1

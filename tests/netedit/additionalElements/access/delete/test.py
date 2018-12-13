@@ -37,10 +37,10 @@ netedit.changeAdditional("busStop")
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, 375, 250)
 
-# select Access 
+# select Access
 netedit.changeAdditional("access")
 
-# Create Access 
+# Create Access
 netedit.selectAdditionalChild(7, 0)
 netedit.leftClick(referencePosition, 200, 50)
 

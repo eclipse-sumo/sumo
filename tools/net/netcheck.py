@@ -138,9 +138,9 @@ def getReachable(net, source_id, options, useIncoming=False):
 if __name__ == "__main__":
     options = parse_args()
 
-    net = sumolib.net.readNet(options.net, 
-            withInternal=(options.vclass == "pedestrian"),
-            withPedestrianConnections=(options.vclass == "pedestrian"))
+    net = sumolib.net.readNet(options.net,
+                              withInternal=(options.vclass == "pedestrian"),
+                              withPedestrianConnections=(options.vclass == "pedestrian"))
     if options.source:
         getReachable(net, options.source, options)
     elif options.destination:

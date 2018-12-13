@@ -34,6 +34,7 @@ else:
 
 egoID = "ego"
 
+
 def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite):
     step = 0
     traci.start(sumoCall + ["-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
@@ -49,9 +50,10 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite):
 
         if not subscribed:
             print("Subscribing to context of vehicle '%s'" % (egoID))
-            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0, 
-                                            [traci.constants.VAR_POSITION])
-            print("Adding subscription filters ... \n(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s)"%(downstreamDist, upstreamDist, lanes, opposite))
+            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
+                                           [traci.constants.VAR_POSITION])
+            print("Adding subscription filters ... \n(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s)" %
+                  (downstreamDist, upstreamDist, lanes, opposite))
             sys.stdout.flush()
             traci.vehicle.addSubscriptionFilterDownstreamDistance(downstreamDist)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(upstreamDist)
@@ -71,6 +73,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite):
           (traci.simulation.getTime()))
     traci.close()
     sys.stdout.flush()
+
 
 if len(sys.argv) < 6:
     print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> <opposite{0,1}>")

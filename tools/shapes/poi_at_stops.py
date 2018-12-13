@@ -37,11 +37,11 @@ print("Writing output...")
 with open('pois.add.xml', 'w') as f:
     f.write('<?xml version="1.0"?>\n')
     f.write('<additional>\n')
-    for stop in parse(stops, 'busStop'): 
+    for stop in parse(stops, 'busStop'):
         lane = net.getLane(stop.lane)
         pos = (float(stop.startPos) + float(stop.endPos)) / 2
         xypos = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), pos)
-        lon,lat = net.convertXY2LonLat(xypos[0], xypos[1])
+        lon, lat = net.convertXY2LonLat(xypos[0], xypos[1])
         f.write('    <poi id="%s" type="%s" color="1,0,0" layer="100" lon="%s" lat="%s"/>\n' % (
             stop.id, stop.name, lon, lat))
     f.write('</additional>\n')

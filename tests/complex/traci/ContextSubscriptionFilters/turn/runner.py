@@ -34,6 +34,7 @@ else:
 
 egoID = "ego"
 
+
 def runSingle(traciEndTime, downstreamDist, upstreamDist):
     step = 0
     traci.start(sumoCall + ["-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
@@ -42,7 +43,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
         responses = traci.simulationStep()
         near1 = set()
         if subscribed:
-            print("Step %s:\nContext results for veh '%s':"%(step, egoID))
+            print("Step %s:\nContext results for veh '%s':" % (step, egoID))
             results = traci.vehicle.getContextSubscriptionResults(egoID)
             if results is not None:
                 for v in sorted(results):
@@ -53,9 +54,9 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
 
         if not subscribed:
             print("Subscribing to context of vehicle '%s'" % (egoID))
-            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0, 
-                                            [traci.constants.VAR_POSITION])
-            print("Adding turn filter ... \n(downstreamDist=%s, upstreamDist=%s)"%(downstreamDist, upstreamDist))
+            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
+                                           [traci.constants.VAR_POSITION])
+            print("Adding turn filter ... \n(downstreamDist=%s, upstreamDist=%s)" % (downstreamDist, upstreamDist))
             sys.stdout.flush()
             traci.vehicle.addSubscriptionFilterTurn(downstreamDist, upstreamDist)
             subscribed = True
@@ -72,6 +73,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
           (traci.simulation.getTime()))
     traci.close()
     sys.stdout.flush()
+
 
 if len(sys.argv) < 4:
     print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist>")

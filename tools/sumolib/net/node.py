@@ -136,7 +136,7 @@ class Node:
                 lanes = e.getLanes()
             else:
                 # assuming source is a lane
-                lanes=[e]
+                lanes = [e]
             for l in lanes:
                 all_outgoing = l.getOutgoing()
                 outgoing = []

@@ -58,13 +58,14 @@ optParser.add_option("--pedestrians", action="store_true",
 optParser.add_option("-y", "--polyconvert-options",
                      default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
 
+
 def getRelative(dirname, option):
     l = len(dirname)
     if option[0:l] == dirname:
         return option[l+1:]
     else:
         return option
-    
+
 
 def build(args=None, bindir=None):
     (options, args) = optParser.parse_args(args=args)

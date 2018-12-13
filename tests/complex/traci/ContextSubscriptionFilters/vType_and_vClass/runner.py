@@ -30,9 +30,10 @@ if sys.argv[1] == "sumo":
         "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo')), ]
 else:
     sumoCall = [os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))] #, '-S', '-Q']
+        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))]  # , '-S', '-Q']
 
 egoID = "ego"
+
 
 def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vTypes, vClasses):
     step = 0
@@ -51,9 +52,10 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vType
 
         if not subscribed:
             print("Subscribing to context of vehicle '%s'" % (egoID))
-            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0, 
-                                            [traci.constants.VAR_POSITION])
-            print("Adding subscription filters ... \n(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s\n   vTypes:%s, vClasses:%s)"%(downstreamDist, upstreamDist, lanes, opposite, vTypes, vClasses))
+            traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
+                                           [traci.constants.VAR_POSITION])
+            print("Adding subscription filters ... \n(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s\n   vTypes:%s, vClasses:%s)" % (
+                downstreamDist, upstreamDist, lanes, opposite, vTypes, vClasses))
             sys.stdout.flush()
             traci.vehicle.addSubscriptionFilterDownstreamDistance(downstreamDist)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(upstreamDist)
@@ -78,8 +80,10 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vType
     traci.close()
     sys.stdout.flush()
 
+
 if len(sys.argv) < 8:
-    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> <opposite{0,1}> <vTypes> <vClasses>")
+    print(
+        "Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> <opposite{0,1}> <vTypes> <vClasses>")
     sys.exit("")
 sys.stdout.flush()
 opposite = bool(int(sys.argv[5]))

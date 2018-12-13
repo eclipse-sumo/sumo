@@ -91,7 +91,7 @@ def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
         if withNetedit:
             subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
-                             stdout=log, stderr=subprocess.STDOUT, shell=True)
+                            stdout=log, stderr=subprocess.STDOUT, shell=True)
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
@@ -103,7 +103,7 @@ def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
 
 def generateCMake(generator, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
-    cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER","-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER", "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
     # Create directory or clear it if already exists

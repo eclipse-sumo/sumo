@@ -46,13 +46,13 @@ netedit.modifyAttribute(5, "0")
 # Change constPos with an valid value
 netedit.modifyAttribute(5, "12")
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 4)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

@@ -23,6 +23,7 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
 
+
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("--persons", action="store_true",
@@ -41,7 +42,7 @@ def write_diff(options):
     # parseTime works just fine for floats
     attr_conversions = dict([(a, parseTime) for a in attrs])
     vehicles_orig = OrderedDict([(v.id, v) for v in parse(options.orig, 'tripinfo',
-        attr_conversions=attr_conversions)])
+                                                          attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
     durationDiffs = Statistics('duration differences')
@@ -54,7 +55,7 @@ def write_diff(options):
                 durations.add(v.duration, v.id)
                 origDurations.add(vOrig.duration, v.id)
                 durationDiffs.add(v.duration - vOrig.duration, v.id)
-                diffAttrs = ''.join([' %sDiff="%s"' % (a,x) for a,x in zip(attrs, diffs)])
+                diffAttrs = ''.join([' %sDiff="%s"' % (a, x) for a, x in zip(attrs, diffs)])
                 f.write('    <vehicle id="%s"%s/>\n' % (v.id, diffAttrs))
                 del vehicles_orig[v.id]
             else:
@@ -67,11 +68,12 @@ def write_diff(options):
     print(durations)
     print(durationDiffs)
 
+
 def write_persondiff(options):
     attrs = ["depart", "arrival", "timeLoss", "duration", "routeLength", "waitingTime"]
     attr_conversions = dict([(a, parseTime) for a in attrs])
     persons_orig = OrderedDict([(p.id, p) for p in parse(options.orig, 'personinfo',
-        attr_conversions=attr_conversions)])
+                                                         attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
     durationDiffs = Statistics('duration differences')
@@ -83,11 +85,11 @@ def write_persondiff(options):
                 pOrig = persons_orig[p.id]
                 stats = plan_stats(p)
                 statsOrig = plan_stats(pOrig)
-                diffs = [a - b for a,b in zip(stats, statsOrig)]
+                diffs = [a - b for a, b in zip(stats, statsOrig)]
                 durations.add(stats[0], p.id)
                 origDurations.add(statsOrig[0], p.id)
                 durationDiffs.add(stats[0] - statsOrig[0], p.id)
-                diffAttrs = ''.join([' %sDiff="%s"' % (a,x) for a,x in zip(statAttrs, diffs)])
+                diffAttrs = ''.join([' %sDiff="%s"' % (a, x) for a, x in zip(statAttrs, diffs)])
                 f.write('    <personinfo id="%s"%s/>\n' % (p.id, diffAttrs))
                 del persons_orig[p.id]
             else:
@@ -99,6 +101,7 @@ def write_persondiff(options):
     print(origDurations)
     print(durations)
     print(durationDiffs)
+
 
 def plan_stats(pInfo):
     duration = 0

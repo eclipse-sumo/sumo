@@ -166,17 +166,22 @@ def sideOffset(fromPos, toPos, amount):
     return (scale * (fromPos[1] - toPos[1]),
             scale * (toPos[0] - fromPos[0]))
 
+
 def sub(a, b):
     return (a[0] - b[0], a[1] - b[1])
+
 
 def add(a, b):
     return (a[0] + b[0], a[1] + b[1])
 
+
 def mul(a, x):
     return (a[0] * x, a[1] * x)
 
+
 def dotProduct(a, b):
     return a[0] * b[0] + a[1] * b[1]
+
 
 def orthoIntersection(a, b):
     c = add(a, b)
@@ -186,8 +191,10 @@ def orthoIntersection(a, b):
     else:
         return None
 
+
 def length(a):
     return math.sqrt(dotProduct(a, a))
+
 
 def norm(a):
     return mul(a, 1 / length(a))
@@ -201,12 +208,13 @@ def narrow(fromPos, pos, toPos, amount):
     x = dotProduct(a, a) * length(c) / dotProduct(a, c)
     return x < amount
 
+
 def move2side(shape, amount):
-    shape = [s for i,s in enumerate(shape) if i == 0 or shape[i-1] != s]
+    shape = [s for i, s in enumerate(shape) if i == 0 or shape[i-1] != s]
     if len(shape) < 2:
-        return shape;
+        return shape
     if polyLength(shape) == 0:
-        return shape;
+        return shape
     result = []
     for i, pos in enumerate(shape):
         if i == 0:
@@ -237,8 +245,7 @@ def move2side(shape, amount):
                     pos2 = add(pos, mul(extend, amount))
                 result.append(pos2)
     #print("move2side", amount)
-    #print(shape)
-    #print(result)
-    #print()
+    # print(shape)
+    # print(result)
+    # print()
     return result
-

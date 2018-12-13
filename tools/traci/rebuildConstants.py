@@ -29,7 +29,8 @@ import argparse
 
 dirname = os.path.dirname(__file__)
 argParser = argparse.ArgumentParser()
-argParser.add_argument("-j", "--java", help="generate Java output as static members of the given class", metavar="CLASS")
+argParser.add_argument("-j", "--java",
+                       help="generate Java output as static members of the given class", metavar="CLASS")
 argParser.add_argument("-o", "--output", default=os.path.join(dirname, "constants.py"),
                        help="File to save constants into", metavar="FILE")
 options = argParser.parse_args()

@@ -28,7 +28,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to additional mode
 netedit.additionalMode()
 
-#select calibrator
+# select calibrator
 netedit.changeAdditional("laneCalibrator")
 
 # create calibrator

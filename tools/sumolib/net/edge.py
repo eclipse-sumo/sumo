@@ -189,7 +189,7 @@ class Edge:
             self._rawShape3D = self._shape3D
         else:
             self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
-                                                    self._from.getCoord3D(), self._to.getCoord3D())
+                                                        self._from.getCoord3D(), self._to.getCoord3D())
             if self._rawShape3D == []:
                 self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 

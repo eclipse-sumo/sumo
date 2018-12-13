@@ -33,6 +33,7 @@ def readPOI(traceFile, net):
             trace.append(net.convertLonLat2XY(poi.lon, poi.lat))
     yield "blub", trace
 
+
 def readFCD(traceFile, net, geo):
     trace = []
     last = None
@@ -47,6 +48,7 @@ def readFCD(traceFile, net, geo):
             trace.append((v.x, v.y))
     if trace:
         yield last, trace
+
 
 def readLines(traceFile, net, geo):
     with open(traceFile) as traces:

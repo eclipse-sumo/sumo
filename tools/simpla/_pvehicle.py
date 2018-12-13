@@ -131,7 +131,7 @@ class PVehicle(object):
                 if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
                     warn(("No vType specified for PlatoonMode '%s' for vehicle '%s'. Behavior within " +
                           "platoon is NOT altered. This warning is issued only once.") % (
-                          PlatoonMode(mode).name, self._ID))
+                        PlatoonMode(mode).name, self._ID))
                     WARNED_DEFAULT[mode] = True
                 return origVType
         if rp.VERBOSITY >= 3:

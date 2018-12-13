@@ -155,7 +155,8 @@ def pydoc_recursive(module):
 
 def generate_pydoc(out_dir):
     os.mkdir(out_dir)
-    import traci, sumolib
+    import traci
+    import sumolib
     with working_dir(out_dir):
         for module in (traci, sumolib):
             pydoc_recursive(module)

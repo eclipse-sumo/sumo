@@ -388,7 +388,7 @@ def main(options):
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
         print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " +
                "%s in a network with diameter %.2f.") % (
-               options.intermediate, options.min_distance, net.getBBoxDiameter()))
+            options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     trip_generator = buildTripGenerator(net, options)
     idx = 0
@@ -496,7 +496,7 @@ def main(options):
             options.weights_outprefix + SINK_SUFFIX)
         if trip_generator.via_generator:
             trip_generator.via_generator.write_weights(
-                    options.weights_outprefix + VIA_SUFFIX)
+                options.weights_outprefix + VIA_SUFFIX)
 
     # return wether trips could be generated as requested
     return trip_generator is not None

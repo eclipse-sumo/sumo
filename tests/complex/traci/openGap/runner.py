@@ -27,7 +27,7 @@ import traci.constants as tc
 if sys.argv[1] == "sumo":
     sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
 else:
-    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))] #, '-S', '-Q']
+    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))]  # , '-S', '-Q']
 
 # id of vehicle that is controlled
 followerID = "follower"
@@ -38,6 +38,7 @@ extraTime = 50.
 # Offset to trigger phase of keeping enlarged headway
 POSITIONAL_EPS = 0.1
 
+
 def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg"])
@@ -45,14 +46,14 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
     dt = traci.simulation.getDeltaT()
 
     traci.simulationStep()
-    #print(traci.vehicle.getIDList())
+    # print(traci.vehicle.getIDList())
     print("Fix follower's lane.")
     traci.vehicle.changeLane(followerID, 0, 500)
     print("Subscribe to leader.")
     traci.vehicle.subscribeLeader(followerID, 500)
     traci.vehicle.subscribe(followerID, [tc.VAR_SPEED])
     traci.vehicle.subscribe(leaderID, [tc.VAR_SPEED])
-    
+
     gapControlActive = False
     targetGapEstablished = False
     remainingTime = duration
@@ -66,12 +67,14 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
         followerSpeed = results[tc.VAR_SPEED]
         leaderSpeed = traci.vehicle.getSubscriptionResults(leaderID)[tc.VAR_SPEED]
         currentTimeHeadway = leaderDist/followerSpeed if followerSpeed > 0 else 10000
-        currentTime = traci.simulation.getTime() 
-        print("Time %s: Gap 'follower'->'%s' = %.3f (headway=%.3f)"%(currentTime, leader, leaderDist, currentTimeHeadway))
-        print("'follower' speed = %s"%followerSpeed)
+        currentTime = traci.simulation.getTime()
+        print("Time %s: Gap 'follower'->'%s' = %.3f (headway=%.3f)" %
+              (currentTime, leader, leaderDist, currentTimeHeadway))
+        print("'follower' speed = %s" % followerSpeed)
         if (not gapControlActive and not targetGapEstablished and currentTime > 50.):
             print("## Starting to open gap.")
-            print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel) = %s"%str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)))
+            print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel) = %s" %
+                  str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)))
             if maxDecel == -1:
                 traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)
             else:
@@ -91,7 +94,7 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
                 targetGapEstablished = True
         if targetGapEstablished:
             remainingTime -= dt
-            print("Remaining: %s"%max(0.0,remainingTime))
+            print("Remaining: %s" % max(0.0, remainingTime))
             if gapControlActive and remainingTime < 0.:
                 gapControlActive = False
                 print("## Gap control expired.")
@@ -102,9 +105,10 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
             traci.vehicle.setSpeed(leaderID, 1.)
         prevLeader = leader
         step += 1
-        
+
     traci.close()
     sys.stdout.flush()
+
 
 sys.stdout.flush()
 targetTimeHeadway = float(sys.argv[2])
@@ -116,4 +120,3 @@ if (len(sys.argv) > 6):
 else:
     maxDecel = -1
 runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)
-

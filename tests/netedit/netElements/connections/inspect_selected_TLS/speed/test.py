@@ -58,13 +58,13 @@ netedit.modifyAttribute(9, "0")
 # Change speed with an valid value
 netedit.modifyAttribute(9, "15.5")
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 4)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

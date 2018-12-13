@@ -957,7 +957,7 @@ class VehicleDomain(Domain):
             "!BiBdBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, speed, tc.TYPE_DOUBLE, duration)
         self._connection._sendExact()
 
-    def openGap(self, vehID, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel = -1):
+    def openGap(self, vehID, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel=-1):
         """openGap(string, double, double, double, double, double) -> None
 
         Changes the vehicle's desired time headway (cf-parameter tau) smoothly to the given new value
@@ -970,8 +970,8 @@ class VehicleDomain(Domain):
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
-        nParams = 4 + int(maxDecel>0)
-        msgLength = 1 + 4 + (1 + 8)*nParams # compoundType, nParams, newHeadway, duration, changeRate, [maxDecel]  
+        nParams = 4 + int(maxDecel > 0)
+        msgLength = 1 + 4 + (1 + 8)*nParams  # compoundType, nParams, newHeadway, duration, changeRate, [maxDecel]
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_OPENGAP, vehID, msgLength)
         if (nParams == 4):
@@ -984,11 +984,10 @@ class VehicleDomain(Domain):
 
     def deactivateGapControl(self, vehID):
         """deactivateGapControl(string) -> None
-        
+
         Deactivate the vehicle's gap control
         """
         self.openGap(vehID, -1, -1, -1, -1)
-
 
     def changeTarget(self, vehID, edgeID):
         """changeTarget(string, string) -> None
@@ -1487,7 +1486,6 @@ class VehicleDomain(Domain):
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
         if upstreamDist != None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
-                
 
     def addSubscriptionFilterNoOpposite(self):
         """addSubscriptionFilterNoOpposite() -> None
@@ -1539,7 +1537,7 @@ class VehicleDomain(Domain):
             # Using default: both directions
             lanes = [-1, 0, 1]
         elif not (direction == -1 or direction == 1):
-            warnings.warn("Ignoring lane change subscription filter with non-neighboring lane offset direction=%s."%direction)
+            warnings.warn("Ignoring lane change subscription filter with non-neighboring lane offset direction=%s." % direction)
             return
         else:
             lanes = [0, direction]
@@ -1550,7 +1548,7 @@ class VehicleDomain(Domain):
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
         if upstreamDist != None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
-        
+
     def addSubscriptionFilterLeadFollow(self, lanes):
         """addSubscriptionFilterLCManeuver() -> None
 
@@ -1571,7 +1569,6 @@ class VehicleDomain(Domain):
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
         if upstreamDist is not None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
-            
 
     def addSubscriptionFilterVClass(self, vClasses):
         """addSubscriptionFilterVClass(list(String)) -> None

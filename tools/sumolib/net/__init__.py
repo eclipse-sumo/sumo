@@ -91,6 +91,7 @@ class TLS:
     def getPrograms(self):
         return self._programs
 
+
 class Phase:
 
     def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1):
@@ -103,6 +104,7 @@ class Phase:
     def __repr__(self):
         return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s)" %
                 (self.duration, self.state, self.minDur, self.maxDur, self.next))
+
 
 class TLSProgram:
 
@@ -475,6 +477,7 @@ class Net:
                         heapq.heappush(q, (newCost, e2.getID(), e2, path))
         return None, 1e400
 
+
 class NetReader(handler.ContentHandler):
 
     """Reads a network, storing the edge geometries, lane numbers and max. speeds"""
@@ -544,7 +547,7 @@ class NetReader(handler.ContentHandler):
                 self._currentNode = self._net.addNode(attrs['id'], attrs['type'],
                                                       tuple(
                                                           map(float, [attrs['x'], attrs['y'],
-                                                              attrs['z'] if 'z' in attrs else '0'])),
+                                                                      attrs['z'] if 'z' in attrs else '0'])),
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
@@ -583,7 +586,7 @@ class NetReader(handler.ContentHandler):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
             if self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
-                    self._net._crossings_and_walkingAreas):
+                                                       self._net._crossings_and_walkingAreas):
                 fromEdge = self._net.getEdge(fromEdgeID)
                 toEdge = self._net.getEdge(toEdgeID)
                 fromLane = fromEdge.getLane(int(attrs['fromLane']))
@@ -622,10 +625,10 @@ class NetReader(handler.ContentHandler):
         if self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
                 attrs['state'], int(attrs['duration']),
-                    int(attrs['minDur']) if 'minDur' in attrs else -1,
-                    int(attrs['maxDur']) if 'maxDur' in attrs else -1,
-                    int(attrs['next']) if 'next' in attrs else -1
-                    )
+                int(attrs['minDur']) if 'minDur' in attrs else -1,
+                int(attrs['maxDur']) if 'maxDur' in attrs else -1,
+                int(attrs['next']) if 'next' in attrs else -1
+            )
         if name == 'roundabout':
             self._net.addRoundabout(
                 attrs['nodes'].split(), attrs['edges'].split())

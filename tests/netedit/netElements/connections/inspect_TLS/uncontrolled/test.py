@@ -37,13 +37,13 @@ netedit.leftClick(referencePosition, 250, 190)
 # Change uncontrolled
 netedit.modifyBoolAttribute(6)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

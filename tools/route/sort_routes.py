@@ -56,7 +56,7 @@ def sort_departs(routefilename, outfile):
             if departAttr is not None:
                 startString = parsenode.getAttribute(departAttr)
                 if ':' in startString:
-                    start = time.strptime(startString,"%d:%H:%M:%S")
+                    start = time.strptime(startString, "%d:%H:%M:%S")
                 else:
                     start = float(startString)
                 vehicles.append(

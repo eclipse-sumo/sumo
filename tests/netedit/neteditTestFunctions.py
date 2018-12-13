@@ -219,7 +219,8 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
     tromPosition = [referencePosition[0] + x2, referencePosition[1] + y2]
     # click relative to offset
     pyautogui.click(fromPosition)
-    pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')     # drag mouse to X of 100, Y of 200 while holding down left mouse button
+    # drag mouse to X of 100, Y of 200 while holding down left mouse button
+    pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')
 
 
 #################################################
@@ -314,11 +315,12 @@ def getReferenceMatch(neProcess, waitTime):
         # adjust position to center
         referencePosition = [positionOnScren[0] + 16, positionOnScren[1] + 16]
         # break loop
-        print("TestFunctions: 'reference.png' found. Position: " + str(referencePosition[0]) + " - " + str(referencePosition[1]))
+        print("TestFunctions: 'reference.png' found. Position: " +
+              str(referencePosition[0]) + " - " + str(referencePosition[1]))
         # check that position is consistent (due scaling)
         if (referencePosition[0] != 304 or referencePosition[1] != 140):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
-                    "is 100% (See #3746)")
+                  "is 100% (See #3746)")
         return referencePosition
     else:
         # reference not found, then kill netedit process
@@ -489,7 +491,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             time.sleep(DELAY_QUESTION)
             if saveNet:
                 waitQuestion('s')
-                # wait for log 
+                # wait for log
                 time.sleep(DELAY_RECOMPUTE)
             else:
                 waitQuestion('q')
@@ -877,7 +879,7 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
 def connectionMode():
     typeKey('c')
 
-    
+
 """
 @brief show connections (Note: Inspector mode has to be enabled)
 """
@@ -892,8 +894,8 @@ def toogleShowConnectionsInspectorMode():
     typeSpace()
     # focus frame again
     typeTab()
-    
-    
+
+
 """
 @brief create connection
 """
@@ -901,21 +903,21 @@ def toogleShowConnectionsInspectorMode():
 
 def createConnection(referencePosition, fromLanePositionX, fromLanePositionY, toLanePositionX, toLanePositionY, mode=""):
     # check if connection has to be created in certain mode
-    if mode=="conflict":
+    if mode == "conflict":
         pyautogui.keyDown('ctrl')
-    elif mode =="yield":
+    elif mode == "yield":
         pyautogui.keyDown('shift')
     # select first lane
     leftClick(referencePosition, fromLanePositionX, fromLanePositionY)
     # select another lane for create a connection
     leftClick(referencePosition, toLanePositionX, toLanePositionY)
     # check if connection has to be created in certain mode
-    if mode=="conflict":
+    if mode == "conflict":
         pyautogui.keyUp('ctrl')
-    elif mode =="yield":
+    elif mode == "yield":
         pyautogui.keyUp('shift')
 
-    
+
 """
 @brief Change to crossing mode
 """
@@ -941,15 +943,15 @@ def saveConnectionEdit():
 def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
-    #go to cancel button
+    # go to cancel button
     for x in range(0, 2):
         typeTab()
     # type space to press button
     typeSpace()
     # wait for gl debug
     time.sleep(DELAY_SELECT)
-    
-    
+
+
 #################################################
 # additionals
 #################################################
@@ -1618,8 +1620,8 @@ def modifyShapeDefaultBoolValue(numTabs):
         typeTab()
     # Change current value
     typeSpace()
-    
-    
+
+
 """
 @brief create GEO POI
 """
@@ -1633,7 +1635,7 @@ def createGEOPOI():
         typeTab()
     # Change current value
     typeSpace()
-    
+
 
 """
 @brief change GEO POI format as Lon Lat
@@ -1648,7 +1650,7 @@ def GEOPOILonLat():
         typeTab()
     # Change current value
     typeSpace()
-    
+
 
 """
 @brief change GEO POI format as Lat Lon
@@ -1670,7 +1672,7 @@ def GEOPOILatLon():
 #################################################
 
 
-def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation1, suboperation2 = 0):
+def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation1, suboperation2=0):
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
     # click relative to offset

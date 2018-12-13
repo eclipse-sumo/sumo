@@ -33,7 +33,7 @@ def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, st
     for end, endVertex in enumerate(endVertices):
         getlinkChoices = False
         if ((odestimation and matrixPshort[start][end] > 0.) or
-           (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.))):
+                (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.))):
             getlinkChoices = True
 
         if startVertex._id != endVertex._id and getlinkChoices:

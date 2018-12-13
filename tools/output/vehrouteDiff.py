@@ -30,10 +30,10 @@ def update_earliest(earliest_diffs, diff, timestamp, tag):
 
 
 def write_diff(orig, new, out, earliest_out=None):
-    attr_conversions = {"depart" : parseTime, "arrival": parseTime}
+    attr_conversions = {"depart": parseTime, "arrival": parseTime}
     earliest_diffs = defaultdict(lambda: (uMax, None))  # diff -> (time, veh)
     vehicles_orig = dict([(v.id, v) for v in parse(orig, 'vehicle',
-        attr_conversions=attr_conversions)])
+                                                   attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
     durationDiffs = Statistics('duration differences')

@@ -42,7 +42,7 @@ netedit.typeEnter()
 # go to additional mode
 netedit.inspectMode()
 
-#inspect E2
+# inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
 # Change parameter lanes with a non valid value (dummy

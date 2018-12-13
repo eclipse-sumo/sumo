@@ -43,13 +43,13 @@ netedit.modifyAttribute(9, "")
 # Change shape with an valid value
 netedit.modifyAttribute(9, "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60")
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 3)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

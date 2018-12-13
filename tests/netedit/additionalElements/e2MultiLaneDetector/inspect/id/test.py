@@ -47,7 +47,7 @@ netedit.typeEnter()
 # go to additional mode
 netedit.inspectMode()
 
-#inspect first E2
+# inspect first E2
 netedit.leftClick(referencePosition, 320, 240)
 
 # Change parameter id with a non valid value (Duplicated ID)

@@ -156,6 +156,7 @@ def compound_object(element_name, attrnames, warn=False):
 
     return CompoundObject
 
+
 def str_possibly_unicode(val):
     # there is probably a better way to do this
     try:
@@ -255,6 +256,7 @@ def average(elements, attrname):
     else:
         raise Exception("average of 0 elements is not defined")
 
+
 def _createRecordAndPattern(element_name, attrnames, warn, optional):
     prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
     if optional:
@@ -323,7 +325,7 @@ def writeHeader(outf, script, root=None, schemaPath=None):
         if schemaPath is None:
             schemaPath = root + "_file.xsd"
         outf.write(('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                   'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
+                    'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
 
 
 def quoteattr(val):

@@ -256,7 +256,7 @@ class Connection:
     def _addSubscriptionFilter(self, filterType, params=None):
         command = tc.CMD_ADD_SUBSCRIPTION_FILTER
         self._queue.append(command)
-        if filterType in (tc.FILTER_TYPE_NONE, tc.FILTER_TYPE_NOOPPOSITE, 
+        if filterType in (tc.FILTER_TYPE_NONE, tc.FILTER_TYPE_NOOPPOSITE,
                           tc.FILTER_TYPE_TURN, tc.FILTER_TYPE_LEAD_FOLLOW):
             # filter without parameter
             assert(params is None)
