@@ -62,3 +62,6 @@ ticket4563
 
 # invalid vehicle.getDrivingDistance
 ticket4642
+
+# failure to add vehicle in long simulation
+ticket4920
