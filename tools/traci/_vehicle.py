@@ -856,7 +856,8 @@ class VehicleDomain(Domain):
                                                 tc.TYPE_DOUBLE, startPos, tc.TYPE_DOUBLE, until)
         self._connection._sendExact()
 
-    def setBusStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
+    def setBusStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
+                   until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
         """setBusStop(string, string, double, double, integer) -> None
 
         Adds or modifies a bus stop with the given parameters. The duration and the until attribute are
@@ -865,7 +866,8 @@ class VehicleDomain(Domain):
         self.setStop(vehID, stopID, duration=duration,
                      until=until, flags=flags | tc.STOP_BUS_STOP)
 
-    def setContainerStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
+    def setContainerStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
+                         until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
         """setContainerStop(string, string, double, double, integer) -> None
 
         Adds or modifies a container stop with the given parameters. The duration and the until attribute are
@@ -874,7 +876,8 @@ class VehicleDomain(Domain):
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | tc.STOP_CONTAINER_STOP)
 
-    def setChargingStationStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
+    def setChargingStationStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
+                               until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
         """setChargingStationStop(string, string, double, double, integer) -> None
 
         Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are
@@ -883,7 +886,8 @@ class VehicleDomain(Domain):
         self.setStop(vehID, stopID, duration=duration, until=until,
                      flags=flags | tc.STOP_CHARGING_STATION)
 
-    def setParkingAreaStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE, until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_PARKING):
+    def setParkingAreaStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
+                           until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_PARKING):
         """setParkingAreaStop(string, string, double, double, integer) -> None
 
         Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are
@@ -971,15 +975,13 @@ class VehicleDomain(Domain):
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
         nParams = 4 + int(maxDecel > 0)
-        msgLength = 1 + 4 + (1 + 8)*nParams  # compoundType, nParams, newHeadway, duration, changeRate, [maxDecel]
-        self._connection._beginMessage(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_OPENGAP, vehID, msgLength)
-        if (nParams == 4):
-            self._connection._string += struct.pack(
-                "!BiBdBdBdBd", tc.TYPE_COMPOUND, nParams, tc.TYPE_DOUBLE, newTimeHeadway, tc.TYPE_DOUBLE, newSpaceHeadway, tc.TYPE_DOUBLE, duration, tc.TYPE_DOUBLE, changeRate)
-        else:
-            self._connection._string += struct.pack(
-                "!BiBdBdBdBdBd", tc.TYPE_COMPOUND, nParams, tc.TYPE_DOUBLE, newTimeHeadway, tc.TYPE_DOUBLE, newSpaceHeadway, tc.TYPE_DOUBLE, duration, tc.TYPE_DOUBLE, changeRate, tc.TYPE_DOUBLE, maxDecel)
+        msgLength = 1 + 4 + (1 + 8) * nParams  # compoundType, nParams, newHeadway, duration, changeRate, [maxDecel]
+        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_OPENGAP, vehID, msgLength)
+        self._connection._string += struct.pack("!BiBdBdBdBd", tc.TYPE_COMPOUND, nParams,
+                                                tc.TYPE_DOUBLE, newTimeHeadway, tc.TYPE_DOUBLE, newSpaceHeadway,
+                                                tc.TYPE_DOUBLE, duration, tc.TYPE_DOUBLE, changeRate)
+        if nParams == 5:
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, maxDecel)
         self._connection._sendExact()
 
     def deactivateGapControl(self, vehID):
@@ -1482,9 +1484,9 @@ class VehicleDomain(Domain):
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LANES, lanes)
         if noOpposite:
             self.addSubscriptionFilterNoOpposite()
-        if downstreamDist != None:
+        if downstreamDist is not None:
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
-        if upstreamDist != None:
+        if upstreamDist is not None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
     def addSubscriptionFilterNoOpposite(self):
@@ -1518,9 +1520,9 @@ class VehicleDomain(Domain):
         downstreamDist and upstreamDist specify the range of the search for leader and follower along the road net.
         """
         self.addSubscriptionFilterLeadFollow([0])
-        if downstreamDist != None:
+        if downstreamDist is not None:
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
-        if upstreamDist != None:
+        if upstreamDist is not None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
     def addSubscriptionFilterLCManeuver(self, direction, noOpposite=False, downstreamDist=None, upstreamDist=None):
@@ -1544,9 +1546,9 @@ class VehicleDomain(Domain):
         self.addSubscriptionFilterLeadFollow(lanes)
         if noOpposite:
             self.addSubscriptionFilterNoOpposite()
-        if downstreamDist != None:
+        if downstreamDist is not None:
             self.addSubscriptionFilterDownstreamDistance(downstreamDist)
-        if upstreamDist != None:
+        if upstreamDist is not None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
     def addSubscriptionFilterLeadFollow(self, lanes):

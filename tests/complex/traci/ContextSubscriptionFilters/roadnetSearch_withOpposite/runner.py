@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
+
 # @file    runner.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch

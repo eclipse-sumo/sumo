@@ -8,6 +8,7 @@
 # SPDX-License-Identifier: EPL-2.0
 
 # @file    poi_at_stops.py
+# @author  Jakob Erdmann
 # @date    2018-08-31
 # @version $Id$
 

@@ -28,20 +28,19 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/globjects/GLIncludes.h>
-
 #include "GNETAZ.h"
+
 
 // ===========================================================================
 // static members
 // ===========================================================================
-
 const double GNETAZ::myHintSize = 0.8;
 const double GNETAZ::myHintSizeSquared = 0.64;
+
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
 GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement),
     myColor(color),
@@ -247,11 +246,10 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return;
     }
-        glPushName(getGlID());
+    glPushName(getGlID());
     if (myGeometry.shape.size() > 1) {
         glPushMatrix();
         glTranslated(0, 0, 128);
-        // set cpñpr depending if is selected
         if (isAttributeCarrierSelected()) {
             GLHelper::setColor(s.selectionColor);
         } else {
@@ -518,5 +516,6 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
+
 
 /****************************************************************************/

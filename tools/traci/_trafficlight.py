@@ -140,8 +140,8 @@ class TrafficLightDomain(Domain):
     def getCompleteRedYellowGreenDefinition(self, tlsID):
         """getCompleteRedYellowGreenDefinition(string) -> list(Logic)
 
-        Returns a list of Logic objects. 
-        Each Logic encodes a traffic light program for the given tlsID. 
+        Returns a list of Logic objects.
+        Each Logic encodes a traffic light program for the given tlsID.
         """
         return self._getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
 
