@@ -16,7 +16,7 @@ waiting time (max, mean, dev): False True False
 ('footmainout', 'footmain2to3') True True False
 ('footmainout', 'footmain3to4') True True False
 ('footmainout', 'footmain4to5') True True False
-('footmainout', 'footmain5to6') True True True
+('footmainout', 'footmain5to6') True True False
 ('footmainout', 'footmain6to7') True True False
 ('footmainout', 'footmain7to8') True True False
 CO2: True
@@ -35,7 +35,7 @@ waiting time (max, mean, dev): False True False
 ('footmainout', 'footmain2to3') True True False
 ('footmainout', 'footmain3to4') True True False
 ('footmainout', 'footmain4to5') True True False
-('footmainout', 'footmain5to6') True True True
+('footmainout', 'footmain5to6') True True False
 ('footmainout', 'footmain6to7') True True False
 ('footmainout', 'footmain7to8') True True False
 CO2: True
