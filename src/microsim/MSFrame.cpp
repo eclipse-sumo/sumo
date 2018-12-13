@@ -459,7 +459,7 @@ MSFrame::fillOptions() {
     oc.addDescription("start", "GUI Only", "Start the simulation after loading");
 
     oc.doRegister("breakpoints", new Option_String());
-    oc.addDescription("breakpoints", "Output", "Use TIME[] as times when the simulation should halt");
+    oc.addDescription("breakpoints", "GUI Only", "Use TIME[] as times when the simulation should halt");
 
     oc.doRegister("demo", 'D', new Option_Bool(false));
     oc.addDescription("demo", "GUI Only", "Restart the simulation after ending (demo mode)");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 27 10:34:13 2018 by Eclipse SUMO Version eeef47f
+<!-- generated on Thu Dec 13 20:58:28 2018 by Eclipse SUMO Version v1_0_1+1015-8e01b2d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -185,9 +185,6 @@
 
         <!-- Files for network states -->
         <save-state.files value="" type="FILE"/>
-
-        <!-- Use TIME[] as times when the simulation should halt -->
-        <breakpoints value="" type="STR"/>
 
     </output>
 
@@ -710,6 +707,9 @@
 
         <!-- Start the simulation after loading -->
         <start value="false" synonymes="S" type="BOOL"/>
+
+        <!-- Use TIME[] as times when the simulation should halt -->
+        <breakpoints value="" type="STR"/>
 
         <!-- Restart the simulation after ending (demo mode) -->
         <demo value="false" synonymes="D" type="BOOL"/>

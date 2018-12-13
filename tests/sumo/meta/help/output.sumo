@@ -1,4 +1,4 @@
-Eclipse SUMO Version eeef47f
+Eclipse SUMO Version v1_0_1+1015-8e01b2d
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -104,8 +104,6 @@ Output Options:
   --save-state.prefix FILE             Prefix for network states
   --save-state.suffix STR              Suffix for network states (.sbx or .xml)
   --save-state.files FILE              Files for network states
-  --breakpoints STR                    Use TIME[] as times when the simulation
-                                         should halt
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;
@@ -501,6 +499,8 @@ GUI Only Options:
   -Q, --quit-on-end                    Quits the GUI when the simulation stops
   -G, --game                           Start the GUI in gaming mode
   -S, --start                          Start the simulation after loading
+  --breakpoints STR                    Use TIME[] as times when the simulation
+                                         should halt
   -D, --demo                           Restart the simulation after ending
                                          (demo mode)
   -T, --disable-textures               Do not load background pictures
