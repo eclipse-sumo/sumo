@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 15:37:58 2017 by SUMO Version v0_31_0-870-g7affc8e
+<!-- generated on Thu Dec 13 13:50:44 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,15 @@ SPDX-License-Identifier: EPL-2.0
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -50,9 +59,9 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" sampledSeconds="422.35" density="28.16" occupancy="4.69" waitingTime="0.00" speed="3.60" departed="0" arrived="0" entered="17" left="20"/>
     <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" sampledSeconds="422.35" density="28.16" occupancy="4.69" waitingTime="0.00" speed="3.60" departed="0" arrived="0" entered="17" left="20"/>
     <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" sampledSeconds="422.35" density="28.16" occupancy="4.69" waitingTime="0.00" speed="3.60" departed="0" arrived="0" entered="17" left="20"/>
-    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="4098.72" density="200.00" occupancy="45.54" waitingTime="0.00" speed="0.66" departed="0" arrived="0" entered="36" left="16"/>
-    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="4098.72" density="200.00" occupancy="45.54" waitingTime="0.00" speed="0.66" departed="0" arrived="0" entered="36" left="16"/>
-    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="4098.72" density="200.00" occupancy="45.54" waitingTime="0.00" speed="0.66" departed="0" arrived="0" entered="36" left="16"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="4098.72" density="273.25" occupancy="45.54" waitingTime="0.00" speed="0.66" departed="0" arrived="0" entered="36" left="16"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="4098.72" density="273.25" occupancy="45.54" waitingTime="0.00" speed="0.66" departed="0" arrived="0" entered="36" left="16"/>
+    <interval begin="180.00" end="360.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="4098.72" density="273.25" occupancy="45.54" waitingTime="0.00" speed="0.66" departed="0" arrived="0" entered="36" left="16"/>
     <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
@@ -62,9 +71,9 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" sampledSeconds="159.46" density="10.63" occupancy="1.77" waitingTime="0.00" speed="3.71" departed="0" arrived="0" entered="7" left="8"/>
     <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" sampledSeconds="159.46" density="10.63" occupancy="1.77" waitingTime="0.00" speed="3.71" departed="0" arrived="0" entered="7" left="8"/>
     <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" sampledSeconds="159.46" density="10.63" occupancy="1.77" waitingTime="0.00" speed="3.71" departed="0" arrived="0" entered="7" left="8"/>
-    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="5899.32" density="200.00" occupancy="65.55" waitingTime="0.00" speed="0.31" departed="0" arrived="0" entered="18" left="20"/>
-    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="5899.32" density="200.00" occupancy="65.55" waitingTime="0.00" speed="0.31" departed="0" arrived="0" entered="18" left="20"/>
-    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="5899.32" density="200.00" occupancy="65.55" waitingTime="0.00" speed="0.31" departed="0" arrived="0" entered="18" left="20"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="5899.32" density="393.29" occupancy="65.55" waitingTime="0.00" speed="0.31" departed="0" arrived="0" entered="18" left="20"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="5899.32" density="393.29" occupancy="65.55" waitingTime="0.00" speed="0.31" departed="0" arrived="0" entered="18" left="20"/>
+    <interval begin="360.00" end="540.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="5899.32" density="393.29" occupancy="65.55" waitingTime="0.00" speed="0.31" departed="0" arrived="0" entered="18" left="20"/>
     <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
@@ -74,9 +83,9 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_3si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_3si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_3si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="3802.45" density="200.00" occupancy="42.25" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="20"/>
-    <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="3802.45" density="200.00" occupancy="42.25" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="20"/>
-    <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="3802.45" density="200.00" occupancy="42.25" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="20"/>
+    <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_1si_0" sampledSeconds="3802.45" density="253.50" occupancy="42.25" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="20"/>
+    <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_1si_1" sampledSeconds="3802.45" density="253.50" occupancy="42.25" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="20"/>
+    <interval begin="540.00" end="720.00" id="TLS0_actuated_additional_InductLoopOn_1si_2" sampledSeconds="3802.45" density="253.50" occupancy="42.25" waitingTime="0.00" speed="0.06" departed="0" arrived="0" entered="0" left="20"/>
     <interval begin="720.00" end="863.00" id="TLS0_actuated_additional_InductLoopOn_4si_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="720.00" end="863.00" id="TLS0_actuated_additional_InductLoopOn_4si_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="720.00" end="863.00" id="TLS0_actuated_additional_InductLoopOn_4si_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
