@@ -3,12 +3,13 @@ Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower tha
 Warning: Vehicle 'follower.0'; collision with vehicle 'leader', lane='middle_0', gap=-0.03, time=39.00 stage=move.
 Warning: Vehicle 'follower.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=40.00.
 Warning: Vehicle 'follower.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=40.00.
-Warning: Vehicle 'follower.2'; collision with vehicle 'follower.1', lane='middle_0', gap=-1.91, time=40.00 stage=move.
+Warning: Vehicle 'follower.1'; collision with vehicle 'follower.0', lane='middle_0', gap=-5.50, time=40.00 stage=move.
+Warning: Vehicle 'follower.2'; collision with vehicle 'follower.1', lane='middle_0', gap=-6.16, time=40.00 stage=move.
 Warning: Vehicle 'follower.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=41.00.
-Warning: Vehicle 'follower.3'; collision with vehicle 'follower.2', lane='middle_0', gap=-5.33, time=41.00 stage=move.
-Warning: Vehicle 'follower.4'; collision with vehicle 'follower.3', lane='middle_0', gap=-0.65, time=41.00 stage=laneChange.
+Warning: Vehicle 'follower.3'; collision with vehicle 'follower.2', lane='middle_0', gap=-9.58, time=41.00 stage=move.
+Warning: Vehicle 'follower.4'; collision with vehicle 'follower.3', lane='middle_0', gap=-4.90, time=41.00 stage=move.
 Warning: Vehicle 'follower.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=42.00.
-Warning: Vehicle 'follower.5'; collision with vehicle 'follower.4', lane='middle_0', gap=-2.06, time=43.00 stage=move.
+Warning: Vehicle 'follower.5'; collision with vehicle 'follower.4', lane='middle_0', gap=-0.79, time=42.00 stage=move.
 Warning: Teleporting vehicle 'follower.0' after earlier collision, lane='middle_0, time=50.00.
 Warning: Vehicle 'follower.0' teleports beyond arrival edge 'middle', time 50.00.
 Warning: Teleporting vehicle 'leader' after earlier collision, lane='middle_0, time=51.00.
@@ -22,5 +23,5 @@ Warning: Teleporting vehicle 'follower.3' after earlier collision, lane='middle_
 Warning: Vehicle 'follower.3' teleports beyond arrival edge 'middle', time 52.00.
 Warning: Teleporting vehicle 'follower.4' after earlier collision, lane='middle_0, time=52.00.
 Warning: Vehicle 'follower.4' teleports beyond arrival edge 'middle', time 52.00.
-Warning: Teleporting vehicle 'follower.5' after earlier collision, lane='middle_0, time=54.00.
-Warning: Vehicle 'follower.5' teleports beyond arrival edge 'middle', time 54.00.
+Warning: Teleporting vehicle 'follower.5' after earlier collision, lane='middle_0, time=53.00.
+Warning: Vehicle 'follower.5' teleports beyond arrival edge 'middle', time 53.00.
