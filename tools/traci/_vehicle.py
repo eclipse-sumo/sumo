@@ -1143,7 +1143,7 @@ class VehicleDomain(Domain):
         times at the time of that call (even for subsequent simulation steps).
         """
         if currentTravelTimes:
-            time = self._connection.simulation.getCurrentTime()
+            time = self._connection.simulation.getTime()
             if time != self.LAST_TRAVEL_TIME_UPDATE:
                 self.LAST_TRAVEL_TIME_UPDATE = time
                 for edge in self._connection.edge.getIDList():
@@ -1413,7 +1413,7 @@ class VehicleDomain(Domain):
         """
         messageString = struct.pack("!Bi", tc.TYPE_COMPOUND, 14)
         if depart is None:
-            depart = str(self._connection.simulation.getCurrentTime() / 1000.)
+            depart = str(self._connection.simulation.getTime())
         for val in (routeID, typeID, depart, departLane, departPos, departSpeed,
                     arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line):
             messageString += struct.pack("!Bi",
