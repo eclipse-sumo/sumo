@@ -377,6 +377,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         }
         vehicle->getInfluencer().setSublaneChange(vehicle->getLaneChangeModel().getManeuverDist());
     }
+    from->lane->requireCollisionCheck();
+    to->lane->requireCollisionCheck();
     return changedToNewLane;
 }
 

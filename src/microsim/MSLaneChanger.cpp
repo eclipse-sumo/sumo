@@ -429,6 +429,7 @@ MSLaneChanger::startChange(MSVehicle* vehicle, ChangerIt& from, int direction) {
         return continueChange(vehicle, myCandi);
     } else {
         to->registerHop(vehicle);
+        to->lane->requireCollisionCheck();
         return true;
     }
 }
@@ -447,8 +448,10 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
         vehicle->myState.myPosLat -= direction * 0.5 * (source->getWidth() + target->getWidth());
         lcm.primaryLaneChanged(source, target, direction);
         to->registerHop(vehicle);
+        to->lane->requireCollisionCheck();
     } else {
         from->registerHop(vehicle);
+        from->lane->requireCollisionCheck();
     }
     if (!lcm.isChangingLanes()) {
         vehicle->myState.myPosLat = 0;
@@ -459,6 +462,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
         // set as hoppedVeh on the shadow lane so it is found as leader on both lanes
         ChangerIt shadow = pastMidpoint ? from : from + lcm.getShadowDirection();
         shadow->hoppedVeh = vehicle;
+        lcm.getShadowLane()->requireCollisionCheck();
     }
     vehicle->myAngle = vehicle->computeAngle();
 

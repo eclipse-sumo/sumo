@@ -77,7 +77,7 @@
 //#define DEBUG_NO_CONNECTION
 //#define DEBUG_SURROUNDING
 
-#define DEBUG_COND (false)
+//#define DEBUG_COND (false)
 //#define DEBUG_COND (getID() == "undefined")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 #define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
@@ -189,7 +189,9 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
     myLengthGeometryFactor(MAX2(POSITION_EPS, myShape.length()) / myLength), // factor should not be 0
     myIsRampAccel(isRampAccel),
     myRightSideOnEdge(0), // initialized in MSEdge::initialize
-    myRightmostSublane(0) {
+    myRightmostSublane(0),
+    myNeedsCollisionCheck(false)
+{
     // initialized in MSEdge::initialize
     initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
 }
@@ -240,6 +242,7 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 
 double
 MSLane::setPartialOccupation(MSVehicle* v) {
+    myNeedsCollisionCheck = true; // always check
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(v)) {
         std::cout << SIMTIME << " setPartialOccupation. lane=" << getID() << " veh=" << v->getID() << "\n";
@@ -301,6 +304,7 @@ MSLane::resetManeuverReservation(MSVehicle* v) {
 // ------ Vehicle emission ------
 void
 MSLane::incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat, const MSLane::VehCont::iterator& at, MSMoveReminder::Notification notification) {
+    myNeedsCollisionCheck = true;
     assert(pos <= myLength);
     bool wasInactive = myVehicles.size() == 0;
     veh->enterLaneAtInsertion(this, pos, speed, posLat, notification);
@@ -1197,6 +1201,7 @@ MSLane::updateLeaderInfo(const MSVehicle* veh, VehCont::reverse_iterator& vehPar
 
 void
 MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
+    myNeedsCollisionCheck = false;
 #ifdef DEBUG_COLLISIONS
     if (DEBUG_COND) {
         std::vector<const MSVehicle*> all;
@@ -1218,9 +1223,9 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     std::set<const MSVehicle*> toTeleport;
     if (!MSAbstractLaneChangeModel::haveLateralDynamics()) {
         // no sublanes
-        VehCont::iterator lastVeh = myVehicles.end() - 1;
-        for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh; ++veh) {
-            VehCont::iterator pred = veh + 1;
+        VehCont::reverse_iterator lastVeh = myVehicles.rend() - 1;
+        for (VehCont::reverse_iterator pred = myVehicles.rbegin(); pred != lastVeh; ++pred) {
+            VehCont::reverse_iterator veh = pred + 1;
             detectCollisionBetween(timestep, stage, *veh, *pred, toRemove, toTeleport);
         }
         if (myPartialVehicles.size() > 0) {
@@ -1268,6 +1273,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 
     if (myCheckJunctionCollisions && myEdge->isInternal()) {
+        myNeedsCollisionCheck = true; // always check
 #ifdef DEBUG_JUNCTION_COLLISIONS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " detect junction Collisions stage=" << stage << " lane=" << getID() << ":\n"
@@ -1564,7 +1570,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     WRITE_WARNING(prefix
                   + "', lane='" + getID()
                   + "', gap=" + toString(gap)
-                  + (latGap == 0 ? "" : "', latGap=" + toString(latGap))
+                  + (MSAbstractLaneChangeModel::haveLateralDynamics() ? "', latGap=" + toString(latGap) : "")
                   + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                   + " stage=" + stage + ".");
 #ifdef DEBUG_COLLISIONS
@@ -1585,6 +1591,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 
 bool
 MSLane::executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIntegrate) {
+    myNeedsCollisionCheck = true;
     // iterate over vehicles in reverse so that move reminders will be called in the correct order
     for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
         MSVehicle* veh = *i;
@@ -1795,6 +1802,7 @@ MSLane::appropriate(const MSVehicle* veh) {
 
 bool
 MSLane::integrateNewVehicle(SUMOTime) {
+    myNeedsCollisionCheck = true;
     bool wasInactive = myVehicles.size() == 0;
     sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter(this));
     for (std::vector<MSVehicle*>::const_iterator i = myVehBuffer.begin(); i != myVehBuffer.end(); ++i) {

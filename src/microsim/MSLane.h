@@ -589,6 +589,15 @@ public:
     ///@}
 
 
+    /// @brief short-circut collision check if nothing changed since the last check
+    inline bool needsCollisionCheck() const {
+        return myNeedsCollisionCheck;
+    }
+
+    /// @brief require another collision check due to relevant changes in the simulation
+    inline void requireCollisionCheck() {
+        myNeedsCollisionCheck = true;
+    }
 
     /// Check if vehicles are too close.
     virtual void detectCollisions(SUMOTime timestep, const std::string& stage);
@@ -1316,6 +1325,9 @@ protected:
     double myRightSideOnEdge;
     /// @brief the index of the rightmost sublane of this lane on myEdge
     int myRightmostSublane;
+
+    /// @brief whether a collision check is currently needed
+    bool myNeedsCollisionCheck;
 
     // @brief the ids of neighboring lanes
     std::vector<std::string> myNeighs;
