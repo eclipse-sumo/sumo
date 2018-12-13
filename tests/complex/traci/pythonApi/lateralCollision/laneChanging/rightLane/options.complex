@@ -1,1 +1,1 @@
-sumo 0 tests/complex/traci/lateralCollision/laneChanging/runner.py
+sumo 0 tests/complex/traci/pythonApi/lateralCollision/laneChanging/runner.py
