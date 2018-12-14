@@ -88,7 +88,7 @@ public:
     class EdgeInfoComparator {
     public:
         /// Comparing method
-        bool operator()(const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod1, const typename SUMOAbstractRouter<E, V>::EdgeInfo* nod2) const {
+        bool operator()(const typename BASE::EdgeInfo* nod1, const typename BASE::EdgeInfo* nod2) const {
             if (nod1->heuristicEffort == nod2->heuristicEffort) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }

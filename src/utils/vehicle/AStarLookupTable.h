@@ -112,7 +112,7 @@ public:
         if (!strm.good()) {
             throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
         }
-        std::ofstream* ostrm = 0;
+        std::ofstream* ostrm = nullptr;
         if (!outfile.empty()) {
             ostrm = new std::ofstream(outfile.c_str());
             if (!ostrm->good()) {
@@ -132,7 +132,7 @@ public:
                 myLandmarks[lm] = numLandMarks++;
                 myFromLandmarkDists.push_back(std::vector<double>(0));
                 myToLandmarkDists.push_back(std::vector<double>(0));
-                if (ostrm != 0) {
+                if (ostrm != nullptr) {
                     (*ostrm) << lm << "\n";
                 }
             } else {
@@ -159,21 +159,22 @@ public:
         for (int i = 0; i < (int)myLandmarks.size(); ++i) {
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
                 const std::string landmarkID = getLandmark(i);
-                const E* landmark = 0;
+                const E* landmark = nullptr;
                 // retrieve landmark edge
-                for (typename std::vector<E*>::const_iterator it_e = edges.begin(); it_e != edges.end(); ++it_e) {
-                    if ((*it_e)->getID() == landmarkID) {
-                        landmark = *it_e;
+                for (const E* const edge : edges) {
+                    if (edge->getID() == landmarkID) {
+                        landmark = edge;
+                        break;
                     }
                 }
-                if (landmark == 0) {
+                if (landmark == nullptr) {
                     WRITE_WARNING("Landmark '" + landmarkID + "' does not exist in the network.");
                     continue;
                 }
-                if (router != 0) {
+                if (router != nullptr) {
                     const std::string missing = outfile.empty() ? filename + ".missing" : outfile;
                     WRITE_WARNING("Not all network edges were found in the lookup table '" + filename + "' for landmark '" + landmarkID + "'. Saving missing values to '" + missing + "'.");
-                    if (ostrm == 0) {
+                    if (ostrm == nullptr) {
                         ostrm = new std::ofstream(missing.c_str());
                         if (!ostrm->good()) {
                             throw ProcessError("Could not open file '" + missing + "' for writing.");
@@ -243,11 +244,11 @@ public:
 #endif
                 for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
                     const E* edge = edges[j];
-                    double distFrom = -1;
-                    double distTo = -1;
+                    double distFrom = -1.;
+                    double distTo = -1.;
                     if (landmark == edge) {
-                        distFrom = 0;
-                        distTo = 0;
+                        distFrom = 0.;
+                        distTo = 0.;
                     } else {
                         std::vector<const E*> routeE(1, edge);
                         const double sourceDestCost = lmCost + router->recomputeCosts(routeE, defaultVehicle, 0);
