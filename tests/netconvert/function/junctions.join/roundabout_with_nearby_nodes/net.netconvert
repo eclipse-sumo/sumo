@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 28 15:36:25 2018 by Eclipse SUMO netconvert Version v1_0_1+0115-fc19294
+<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -41,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-351524.31,-5644976.20" convBoundary="0.00,0.00,1604.04,1060.91" origBoundary="6.886545,50.937339,6.909440,50.946873" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -104,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="26052313" type="priority" x="244.72" y="1060.91" incLanes="-8166420_0" intLanes="" shape="244.72,1060.91 247.91,1060.67 244.72,1060.91">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="26052328" type="priority" x="0.00" y="612.19" incLanes="-75642183_0" intLanes="" shape="-0.00,612.19 1.20,615.16 0.00,612.19">
+    <junction id="26052328" type="priority" x="0.00" y="612.19" incLanes="-75642183_0" intLanes="" shape="0.00,612.19 1.20,615.16 0.00,612.19">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="293433420" type="priority" x="185.89" y="552.14" incLanes="94587485#1_0 75642183_0" intLanes="" shape="186.80,558.44 190.04,557.39 188.70,546.17 185.30,545.83 180.96,549.62 181.87,555.95">
