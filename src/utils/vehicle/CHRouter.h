@@ -79,12 +79,12 @@ public:
         Unidirectional(const std::vector<E*>& edges, bool forward):
             myAmForward(forward),
             myVehicle(0) {
-            for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-                myEdgeInfos.push_back(EdgeInfo(*i));
+            for (const E* const e: edges) {
+                myEdgeInfos.push_back(typename BASE::EdgeInfo(e));
             }
         }
 
-        inline bool found(const E* edge) const {
+        inline bool found(const E* const edge) const {
             return myFound.count(edge) > 0;
         }
 
@@ -138,7 +138,7 @@ public:
          */
         bool step(const std::vector<ConnectionVector>& uplinks, const Unidirectional& otherSearch, double& minTTSeen, Meeting& meeting) {
             // pop the node with the minimal length
-            EdgeInfo* const minimumInfo = myFrontier.front();
+            auto* const minimumInfo = myFrontier.front();
             pop_heap(myFrontier.begin(), myFrontier.end(), myComparator);
             myFrontier.pop_back();
             // check for a meeting with the other search
@@ -151,7 +151,7 @@ public:
             std::cout << "\n";
 #endif
             if (otherSearch.found(minEdge)) {
-                const EdgeInfo* const otherInfo = otherSearch.getEdgeInfo(minEdge);
+                const auto* const otherInfo = otherSearch.getEdgeInfo(minEdge);
                 const double ttSeen = minimumInfo->effort + otherInfo->effort;
 #ifdef CHRouter_DEBUG_QUERY
                 std::cout << "DEBUG: " << (myAmForward ? "Forward" : "Backward") << "-Search hit other search at '" << minEdge->getID() << "', tt: " << ttSeen << " \n";
@@ -172,7 +172,7 @@ public:
             // XXX we only need to keep found elements if they have a higher rank than the lowest rank in the other search queue
             myFound.insert(minimumInfo->edge);
             for (const auto& uplink : uplinks[minEdge->getNumericalID()]) {
-                EdgeInfo* upwardInfo = &myEdgeInfos[uplink.target];
+                const auto upwardInfo = &myEdgeInfos[uplink.target];
                 const double effort = minimumInfo->effort + uplink.cost;
                 const SUMOVehicleClass svc = myVehicle->getVClass();
                 // check whether it can be used
@@ -293,7 +293,7 @@ public:
         myForwardSearch.init(from, vehicle);
         myBackwardSearch.init(to, vehicle);
         double minTTSeen = std::numeric_limits<double>::max();
-        Meeting meeting(static_cast<EdgeInfo*>(0), static_cast<EdgeInfo*>(0));
+        Meeting meeting(nullptr, nullptr);
         bool continueForward = true;
         bool continueBackward = true;
         int num_visited_fw = 0;
@@ -327,7 +327,7 @@ public:
     /// Builds the path from marked edges
     void buildPathFromMeeting(Meeting meeting, std::vector<const E*>& into) const {
         std::deque<const E*> tmp;
-        const EdgeInfo* backtrack = meeting.first;
+        const auto* backtrack = meeting.first;
         while (backtrack != 0) {
             tmp.push_front((E*) backtrack->edge);  // !!!
             backtrack = backtrack->prev;
