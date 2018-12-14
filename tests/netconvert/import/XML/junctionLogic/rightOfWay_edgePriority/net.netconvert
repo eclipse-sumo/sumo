@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 12 15:44:19 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Dec 14 08:45:32 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -199,10 +199,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="F_K5_0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="49.41" shape="124.50,-2.71 153.63,22.89 161.26,30.29"/>
         <lane id="F_K5_0_2" index="2" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="49.41" shape="122.39,-0.31 151.46,25.24 159.13,32.68"/>
     </edge>
-    <edge id="F_N_0" from="F" to="1917221202" priority="15" type="railway.tram" spreadType="center" shape="163.25,47.77 113.89,122.76 0.00,295.99">
+    <edge id="F_N_0" from="F" to="1917221202" priority="15" type="railway.tram" spreadType="center" shape="163.25,47.77 113.89,122.76 0.00,295.99" bidi="F_S1_0">
         <lane id="F_N_0_0" index="0" allow="tram" speed="13.89" length="278.61" shape="153.09,63.21 113.89,122.76 -0.00,295.99"/>
     </edge>
-    <edge id="F_S1_0" from="1917221202" to="F" priority="15" type="railway.tram" spreadType="center" shape="0.00,295.99 113.89,122.76 163.25,47.77">
+    <edge id="F_S1_0" from="1917221202" to="F" priority="15" type="railway.tram" spreadType="center" shape="0.00,295.99 113.89,122.76 163.25,47.77" bidi="F_N_0">
         <lane id="F_S1_0_0" index="0" allow="tram" speed="13.89" length="278.61" shape="-0.00,295.99 113.89,122.76 153.09,63.21"/>
     </edge>
     <edge id="gneE32" from="gneJ52" to="F" priority="4" type="highway.residential" spreadType="center" shape="145.92,51.82 155.77,41.24">
