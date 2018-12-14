@@ -411,6 +411,9 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (e.getStopOffsets().size() != 0) {
         writeStopOffsets(into, e.getStopOffsets());
     }
+    if (e.isBidiRail()) {
+        into.writeAttr(SUMO_ATTR_BIDI, e.getTurnDestination(true)->getID());
+    }
 
     // write the lanes
     const std::vector<NBEdge::Lane>& lanes = e.getLanes();
