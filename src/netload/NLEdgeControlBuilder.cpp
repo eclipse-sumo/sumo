@@ -61,7 +61,8 @@ NLEdgeControlBuilder::beginEdgeParsing(
     const std::string& id, const SumoXMLEdgeFunc function,
     const std::string& streetName,
     const std::string& edgeType,
-    int priority) {
+    int priority,
+    const std::string& bidi) {
     // closeEdge might not have been called because the last edge had an error, so we clear the lane storage
     myLaneStorage->clear();
     myActiveEdge = buildEdge(id, function, streetName, edgeType, priority);
@@ -69,6 +70,9 @@ NLEdgeControlBuilder::beginEdgeParsing(
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
     myEdges.push_back(myActiveEdge);
+    if (bidi != "") {
+        myBidiEdges[myActiveEdge] = bidi;
+    }
 }
 
 
@@ -175,7 +179,7 @@ NLEdgeControlBuilder::closeLane() {
 
 
 MSEdgeControl*
-NLEdgeControlBuilder::build() {
+NLEdgeControlBuilder::build(double networkVersion) {
     for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
         (*i1)->closeBuilding();
     }
@@ -201,8 +205,16 @@ NLEdgeControlBuilder::build() {
         deprecatedVehicleClassesSeen.clear();
     }
     // check for bi-directional edges (this are edges in opposing direction and superposable/congruent shapes)
-    for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
-        (*i1)->checkAndRegisterBiDirEdge();
+    if (myBidiEdges.size() > 0 || networkVersion > 1.0) {
+        for (auto& item : myBidiEdges) {
+            item.first->checkAndRegisterBiDirEdge(item.second);
+        }
+        //WRITE_MESSAGE("Loaded " + toString(myBidiEdges.size()) + " bidirectional edges");
+    } else {
+        // legacy network
+        for (MSEdge* e : myEdges) {
+            e->checkAndRegisterBiDirEdge();
+        }
     }
     return new MSEdgeControl(myEdges);
 }

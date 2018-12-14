@@ -1098,8 +1098,15 @@ MSEdge::hasMinorLink() const {
 }
 
 
-void MSEdge::checkAndRegisterBiDirEdge() {
+void MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
     myBidiEdge = nullptr;
+    if (bidiID != "") {
+        myBidiEdge = dictionary(bidiID);
+        if (myBidiEdge == nullptr) {
+            WRITE_ERROR("Bidi-edge '" + bidiID + "' does not exist");
+        }
+        return;
+    } 
     if (getFunction() != EDGEFUNC_NORMAL) {
         return;
     }

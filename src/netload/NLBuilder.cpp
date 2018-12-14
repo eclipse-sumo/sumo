@@ -274,7 +274,7 @@ NLBuilder::buildNet() {
     std::vector<SUMOTime> stateDumpTimes;
     std::vector<std::string> stateDumpFiles;
     try {
-        edges = myEdgeBuilder.build();
+        edges = myEdgeBuilder.build(myXMLHandler.networkVersion());
         junctions = myJunctionBuilder.build();
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();

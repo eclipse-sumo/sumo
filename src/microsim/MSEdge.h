@@ -233,7 +233,7 @@ public:
 
 
     /// @brief check and register the opposite superposable edge if any
-    void checkAndRegisterBiDirEdge();
+    void checkAndRegisterBiDirEdge(const std::string& bidiID="");
 
     /// @brief return opposite superposable/congruent edge, if it exist and 0 else
     inline const MSEdge* getBidiEdge() const {
