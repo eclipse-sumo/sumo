@@ -833,7 +833,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 15 + (int)myEdge->getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 16 + (int)myEdge->getParametersMap().size());
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
@@ -850,6 +850,9 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);
+    if (myEdge->getBidiEdge() != nullptr) {
+        ret->mkItem("bidi-edge", false, myEdge->getBidiEdge()->getID());
+    }
     for (const auto& kv : myEdge->getParametersMap()) {
         ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);
     }
