@@ -431,16 +431,21 @@ private:
         if (prune && ((edge->getPermissions() & mySVC) != mySVC)) {
             return;
         }
-        const double cost = effortProvider->getEffort(edge, vehicle, time);
+        const double baseCost = effortProvider->getEffort(edge, vehicle, time);
 
-        const std::vector<E*>& successors = edge->getSuccessors(mySVC);
-        for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-            const E* fEdge = *it;
+        for (const std::pair<const E*, const E*>& successor : edge->getViaSuccessors(mySVC)) {
+            const E* fEdge = successor.first;
             if (prune && ((fEdge->getPermissions() & mySVC) != mySVC)) {
                 continue;
             }
-            CHInfo* follower = getCHInfo(fEdge);
-            SVCPermissions permissions = (edge->getPermissions() & follower->edge->getPermissions());
+            CHInfo* const follower = getCHInfo(fEdge);
+            const SVCPermissions permissions = (edge->getPermissions() & fEdge->getPermissions());
+            double cost = baseCost;
+            const E* viaEdge = successor.second;
+            while (viaEdge != nullptr && viaEdge->isInternal()) {
+                cost += effortProvider->getEffort(viaEdge, vehicle, time);
+                viaEdge = viaEdge->getViaSuccessors().front().first;
+            }
             info.followers.push_back(CHConnection(follower, cost, permissions, 1));
             follower->approaching.push_back(CHConnection(&info, cost, permissions, 1));
         }

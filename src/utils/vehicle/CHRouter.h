@@ -66,42 +66,8 @@ public:
     /// Type of the function that is used to retrieve the edge effort.
     typedef double(* Operation)(const E* const, const V* const, double);
 
-    /**
-     * @struct EdgeInfo
-     * A definition about a route's edge with the effort needed to reach it and
-     *  the information about the previous edge.
-     */
-    class EdgeInfo {
-    public:
-        /// Constructor
-        EdgeInfo(const E* e) :
-            edge(e),
-            traveltime(std::numeric_limits<double>::max()),
-            prev(0),
-            visited(false) {
-        }
-
-        /// The current edge
-        const E* edge;
-
-        /// Effort to reach the edge
-        double traveltime;
-
-        /// The previous edge
-        EdgeInfo* prev;
-
-        /// Whether the shortest path to this edge is already found
-        bool visited;
-
-        inline void reset() {
-            traveltime = std::numeric_limits<double>::max();
-            visited = false;
-        }
-    };
-
-
     /// A meeting point of the two search scopes
-    typedef std::pair<const EdgeInfo*, const EdgeInfo*> Meeting;
+    typedef std::pair<const typename BASE::EdgeInfo*, const typename BASE::EdgeInfo*> Meeting;
 
     /**
      * @class Unidirectional
@@ -122,11 +88,11 @@ public:
             return myFound.count(edge) > 0;
         }
 
-        inline EdgeInfo* getEdgeInfo(const E* const edge) {
+        inline typename BASE::EdgeInfo* getEdgeInfo(const E* const edge) {
             return &(myEdgeInfos[edge->getNumericalID()]);
         }
 
-        inline const EdgeInfo* getEdgeInfo(const E* const edge) const {
+        inline const typename BASE::EdgeInfo* getEdgeInfo(const E* const edge) const {
             return &(myEdgeInfos[edge->getNumericalID()]);
         }
 
@@ -137,11 +103,11 @@ public:
         class EdgeInfoByTTComparator {
         public:
             /// Comparing method
-            bool operator()(const EdgeInfo* nod1, const EdgeInfo* nod2) const {
-                if (nod1->traveltime == nod2->traveltime) {
+            bool operator()(const typename BASE::EdgeInfo* nod1, const typename BASE::EdgeInfo* nod2) const {
+                if (nod1->effort == nod2->effort) {
                     return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
                 }
-                return nod1->traveltime > nod2->traveltime;
+                return nod1->effort > nod2->effort;
             }
         };
 
@@ -149,18 +115,18 @@ public:
         void init(const E* const start, const V* const vehicle) {
             assert(vehicle != 0);
             // all EdgeInfos touched in the previous query are either in myFrontier or myFound: clean those up
-            for (typename std::vector<EdgeInfo*>::iterator i = myFrontier.begin(); i != myFrontier.end(); i++) {
-                (*i)->reset();
+            for (auto ei : myFrontier) {
+                ei->reset();
             }
             myFrontier.clear();
-            for (typename std::set<const E*>::const_iterator i = myFound.begin(); i != myFound.end(); i++) {
-                getEdgeInfo(*i)->reset();
+            for (auto edge : myFound) {
+                getEdgeInfo(edge)->reset();
             }
             myFound.clear();
             myVehicle = vehicle;
-            EdgeInfo* startInfo = getEdgeInfo(start);
-            startInfo->traveltime = 0;
-            startInfo->prev = 0;
+            auto startInfo = getEdgeInfo(start);
+            startInfo->effort = 0.;
+            startInfo->prev = nullptr;
             myFrontier.push_back(startInfo);
         }
 
@@ -186,7 +152,7 @@ public:
 #endif
             if (otherSearch.found(minEdge)) {
                 const EdgeInfo* const otherInfo = otherSearch.getEdgeInfo(minEdge);
-                const double ttSeen = minimumInfo->traveltime + otherInfo->traveltime;
+                const double ttSeen = minimumInfo->effort + otherInfo->effort;
 #ifdef CHRouter_DEBUG_QUERY
                 std::cout << "DEBUG: " << (myAmForward ? "Forward" : "Backward") << "-Search hit other search at '" << minEdge->getID() << "', tt: " << ttSeen << " \n";
 #endif
@@ -205,20 +171,19 @@ public:
             minimumInfo->visited = true;
             // XXX we only need to keep found elements if they have a higher rank than the lowest rank in the other search queue
             myFound.insert(minimumInfo->edge);
-            const ConnectionVector& upward = uplinks[minEdge->getNumericalID()];
-            for (typename ConnectionVector::const_iterator it = upward.begin(); it != upward.end(); it++) {
-                EdgeInfo* upwardInfo = &myEdgeInfos[it->target];
-                const double traveltime = minimumInfo->traveltime + it->cost;
+            for (const auto& uplink : uplinks[minEdge->getNumericalID()]) {
+                EdgeInfo* upwardInfo = &myEdgeInfos[uplink.target];
+                const double effort = minimumInfo->effort + uplink.cost;
                 const SUMOVehicleClass svc = myVehicle->getVClass();
                 // check whether it can be used
-                if ((it->permissions & svc) != svc) {
+                if ((uplink.permissions & svc) != svc) {
                     continue;
                 }
-                const double oldTraveltime = upwardInfo->traveltime;
-                if (!upwardInfo->visited && traveltime < oldTraveltime) {
-                    upwardInfo->traveltime = traveltime;
+                const double oldEffort = upwardInfo->effort;
+                if (!upwardInfo->visited && effort < oldEffort) {
+                    upwardInfo->effort = effort;
                     upwardInfo->prev = minimumInfo;
-                    if (oldTraveltime == std::numeric_limits<double>::max()) {
+                    if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontier.push_back(upwardInfo);
                         push_heap(myFrontier.begin(), myFrontier.end(), myComparator);
                     } else {
@@ -233,18 +198,18 @@ public:
             // quadrupled. We could implement a better stopping criterion (Holte)
             // However since the search shall take place in a contracted graph
             // it probably does not matter
-            return !myFrontier.empty() && myFrontier.front()->traveltime < minTTSeen;
+            return !myFrontier.empty() && myFrontier.front()->effort < minTTSeen;
         }
 
     private:
         /// @brief the role of this search
         bool myAmForward;
         /// @brief the min edge heap
-        std::vector<EdgeInfo*> myFrontier;
+        std::vector<typename BASE::EdgeInfo*> myFrontier;
         /// @brief the set of visited (settled) Edges
         std::set<const E*> myFound;
         /// @brief The container of edge information
-        std::vector<EdgeInfo> myEdgeInfos;
+        std::vector<typename BASE::EdgeInfo> myEdgeInfos;
 
         EdgeInfoByTTComparator myComparator;
 
