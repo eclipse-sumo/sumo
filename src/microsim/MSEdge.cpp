@@ -78,8 +78,9 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myEmptyTraveltime(0.),
     myAmDelayed(false),
     myAmRoundabout(false),
-    myAmFringe(true) {
-}
+    myAmFringe(true),
+    myBidiEdge(nullptr) 
+{ }
 
 
 MSEdge::~MSEdge() {
@@ -1099,7 +1100,6 @@ MSEdge::hasMinorLink() const {
 
 
 void MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
-    myBidiEdge = nullptr;
     if (bidiID != "") {
         myBidiEdge = dictionary(bidiID);
         if (myBidiEdge == nullptr) {
