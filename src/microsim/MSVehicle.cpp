@@ -2548,7 +2548,11 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
         const MSVehicle* leader = (*it).vehAndGap.first;
         if (leader == nullptr) {
             // leader is a pedestrian. Passing 'this' as a dummy.
-            //std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << (*link)->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->distToCrossing << "\n";
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " veh=" << getID() << " is blocked on link to " << link->getViaLaneOrLane()->getID() << " by pedestrian. dist=" << it->distToCrossing << "\n";
+            }
+#endif
             adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
         } else if (isLeader(link, leader)) {
             if (MSGlobals::gLateralResolution > 0 &&
