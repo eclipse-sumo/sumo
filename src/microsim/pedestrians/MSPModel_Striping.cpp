@@ -710,7 +710,9 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
             }
             if (nextLane->getEdge().isCrossing()) {
                 // add vehicle obstacles
-                addCrossingVehs(nextLane, stripes, offset, nextDir, obs);
+                const MSLink* crossingEntryLink = nextLane->getIncomingLanes().front().viaLink;
+                const bool prio = crossingEntryLink->havePriority() || crossingEntryLink->getTLLogic() != nullptr;
+                addCrossingVehs(nextLane, stripes, offset, nextDir, obs, prio);
             }
             if (nextLane->getVehicleNumberWithPartials() > 0) {
                 Obstacles vehObs = getVehicleObstacles(nextLane, nextDir);
@@ -874,7 +876,8 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
     Obstacles crossingVehs(stripes, Obstacle(dir));
     bool hasCrossingVehObs = false;
     if (lane->getEdge().isCrossing()) {
-        hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs);
+        // assume that vehicles will brake when already on the crossing
+        hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs, true);
     }
 
     for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
@@ -1006,11 +1009,9 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 }
 
 bool
-MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs) {
+MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs, bool prio) {
     bool hasCrossingVehObs = false;
     const MSLink* crossingExitLink = crossing->getLinkCont().front();
-    const MSLink* crossingEntryLink = crossing->getIncomingLanes().front().viaLink;
-    const bool prio = crossingEntryLink->havePriority() || crossingEntryLink->getTLLogic() != nullptr;
     gDebugFlag1 = DEBUGCOND2(crossing);
     const MSLink::LinkLeaders linkLeaders = crossingExitLink->getLeaderInfo(nullptr, crossing->getLength());
     gDebugFlag1 = false;
