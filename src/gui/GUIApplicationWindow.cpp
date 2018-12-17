@@ -1625,21 +1625,21 @@ GUIApplicationWindow::closeAllWindows() {
             (*it)->hide();
         }
     }
-    // remove trackers and other external windows
-    for (GUIGlChildWindow* const window : myGLWindows) {
-        window->destroy();
-        delete window;
-    }
-    myGLWindows.clear();
-    for (FXMainWindow* const window : myTrackerWindows) {
-        window->destroy();
-        delete window;
-    }
-    myTrackerWindows.clear();
     // delete the simulation
     myRunThread->deleteSim();
     // reset the caption
     setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
+    // remove trackers and other external windows (must be delayed until deleteSim)
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        window->destroy();
+        delete window;
+    }
+    for (FXMainWindow* const window : myTrackerWindows) {
+        window->destroy();
+        delete window;
+    }
+    myGLWindows.clear();
+    myTrackerWindows.clear();
     // clear selected items
     gSelected.clear();
     // add a separator to the log
