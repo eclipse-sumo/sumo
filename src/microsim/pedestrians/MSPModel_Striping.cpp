@@ -1619,7 +1619,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
         }
     } else if (utility[next] <= OBSTRUCTION_THRESHOLD && obs[next].type == OBSTACLE_VEHICLE
                // still on the road
-               && stripe() == stripe(myRelY)) {
+               && stripe() == stripe(myRelY)
+               // only when the vehicle is moving on the same lane
+               && !myLane->getEdge().isCrossing()) {
         // step aside to let the vehicle pass
         myRelY += myDir * vMax;
     }
