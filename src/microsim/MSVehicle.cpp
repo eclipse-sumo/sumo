@@ -2723,7 +2723,8 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             std::vector<const SUMOVehicle*> collectFoes;
             bool opened = (yellow || influencerPrio
                            || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                           getVehicleType().getLength(), getImpatience(),
+                                           getVehicleType().getLength(), 
+                                           canBrake ? getImpatience() : 1,
                                            getCarFollowModel().getMaxDecel(),
                                            getWaitingTime(), getLateralPositionOnLane(),
                                            ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
