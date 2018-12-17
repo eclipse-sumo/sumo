@@ -1630,15 +1630,12 @@ GUIApplicationWindow::closeAllWindows() {
     // reset the caption
     setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
     // remove trackers and other external windows (must be delayed until deleteSim)
-    for (GUIGlChildWindow* const window : myGLWindows) {
-        window->destroy();
-        delete window;
+    while (!myGLWindows.empty()) {
+        delete myGLWindows.front();
     }
     for (FXMainWindow* const window : myTrackerWindows) {
-        window->destroy();
         delete window;
     }
-    myGLWindows.clear();
     myTrackerWindows.clear();
     // clear selected items
     gSelected.clear();
