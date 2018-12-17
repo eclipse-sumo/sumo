@@ -31,7 +31,7 @@ netedit.selectMode()
 # select edge
 netedit.leftClick(referencePosition, 220, 250)
 
-# select second 
+# select second
 netedit.leftClick(referencePosition, 220, 220)
 
 # select from junction

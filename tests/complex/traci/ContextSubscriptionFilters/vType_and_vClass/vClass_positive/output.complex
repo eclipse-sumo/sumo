@@ -1,6 +1,5 @@
- Retrying in 1 seconds
 Subscribing to context of vehicle 'ego'
-Adding subscription filters ... 
+Adding subscription filters ...
 (downstreamDist=20.0, upstreamDist=30.0, lanes=[0], opposite=False
    vTypes:[], vClasses:['truck'])
 Context results for veh 'ego':

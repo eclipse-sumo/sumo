@@ -48,7 +48,7 @@ def runSingle(traciEndTime, latDist, vehID):
     print("new speedmode", traci.vehicle.getSpeedMode(vehID))
 
     while not step > traciEndTime:
-        responses = traci.simulationStep()
+        traci.simulationStep()
 
         # check if vehID has arrived at destination
         arrivedList = traci.simulation.getArrivedIDList()

@@ -17,7 +17,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 
 if 'SUMO_HOME' in os.environ:
@@ -34,7 +33,7 @@ PORT = sumolib.miscutils.getFreeSocketPort()
 cmd = [sumoBinary,
        '-n', 'input_net2.net.xml',
        '--no-step-log',
-       #'-S', '-Q',
+       # '-S', '-Q',
        ]
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
@@ -62,7 +61,7 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
         pass
     print(traci.simulation.getTime(),
           " lane=%s" % lane2,
-          #" route=%s" % str(traci.vehicle.getRoute(vehID)),
+          # " route=%s" % str(traci.vehicle.getRoute(vehID)),
           " right=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID, -1),
           " left=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID,  1))
 

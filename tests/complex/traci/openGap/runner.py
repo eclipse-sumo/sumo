@@ -18,16 +18,16 @@ from __future__ import print_function
 import os
 import sys
 
-sumoHome = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", ".."))
+sumoHome = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
-import traci.constants as tc
+import traci.constants as tc  # noqa
 
 if sys.argv[1] == "sumo":
-    sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
+    sumoCall = [sumolib.checkBinary('sumo')]
 else:
-    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))]  # , '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui')]  # , '-S', '-Q']
 
 # id of vehicle that is controlled
 followerID = "follower"
@@ -42,7 +42,7 @@ POSITIONAL_EPS = 0.1
 def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel):
     step = 0
     traci.start(sumoCall + ["-c", "sumo.sumocfg"])
-    #~ traci.init(port=54321)
+    # traci.init(port=54321)
     dt = traci.simulation.getDeltaT()
 
     traci.simulationStep()
@@ -82,9 +82,10 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
             gapControlActive = True
         elif gapControlActive:
             print("Current/target headway: {0:.3f}/{1}".format(currentTimeHeadway, targetTimeHeadway))
-            currentSpacing = currentTimeHeadway*followerSpeed
-            targetSpacing = targetTimeHeadway*followerSpeed
-            if not targetGapEstablished and (leader == "" or (currentSpacing > max(targetSpacing, targetSpaceHeadway) - POSITIONAL_EPS) or prevLeader != leader):
+            currentSpacing = currentTimeHeadway * followerSpeed
+            targetSpacing = targetTimeHeadway * followerSpeed
+            minSpacing = max(targetSpacing, targetSpaceHeadway) - POSITIONAL_EPS
+            if not targetGapEstablished and (leader == "" or currentSpacing > minSpacing or prevLeader != leader):
                 if (leader != "" and prevLeader != leader):
                     traci.vehicle.deactivateGapControl(followerID)
                     print("## Deactivating gap control (leader has changed).")

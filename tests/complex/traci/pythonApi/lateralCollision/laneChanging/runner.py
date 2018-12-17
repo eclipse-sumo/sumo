@@ -47,7 +47,7 @@ def runSingle(traciEndTime, laneIndex, vehID):
     print("new speedmode", traci.vehicle.getSpeedMode(vehID))
 
     while not step > traciEndTime:
-        responses = traci.simulationStep()
+        traci.simulationStep()
 
         if step == 5:
             print("trying to change lane...")

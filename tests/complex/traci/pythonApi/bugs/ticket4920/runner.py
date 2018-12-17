@@ -19,14 +19,14 @@ import sys
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 
-import traci
-import sumolib
+import traci  # noqa
+import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
-             "-n", "input_net.net.xml", 
+             "-n", "input_net.net.xml",
              "-r", "input_routes.rou.xml",
-             "-b", "2147400", #  ~ 2**31 / 1000
+             "-b", "2147400",  # ~ 2**31 / 1000
              "--no-step-log",
              ])
 
@@ -35,4 +35,3 @@ for i in range(100):
     traci.vehicle.add(str(i), "r0")
 
 traci.close()
-

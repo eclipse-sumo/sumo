@@ -137,7 +137,7 @@ def typeThreeKeys(key1, key2, key3):
 
 
 def pasteIntoTextField(value, removePreviousContents=True):
-    print (value)
+    print(value)
     # remove previous content
     if(removePreviousContents):
         typeTwoKeys('ctrl', 'a')
@@ -409,7 +409,7 @@ def undo(referencePosition, number):
     typeKey('i')
     # click over referencePosition
     leftClick(referencePosition, 0, 0)
-    for x in range(0, number):
+    for _ in range(number):
         typeTwoKeys('ctrl', 'z')
         time.sleep(DELAY_UNDOREDO)
 
@@ -424,7 +424,7 @@ def redo(referencePosition, number):
     typeKey('i')
     # click over referencePosition
     leftClick(referencePosition, 0, 0)
-    for x in range(0, number):
+    for _ in range(number):
         typeTwoKeys('ctrl', 'y')
         time.sleep(DELAY_UNDOREDO)
 
@@ -438,7 +438,7 @@ def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
     typeKey('v')
     # by default is in "load" button, then go to position X
-    for x in range(0, 3):
+    for _ in range(3):
         typeTab()
     # Paste position X
     pasteIntoTextField(positionX)
@@ -677,7 +677,7 @@ def changeChainOption():
     # cancel current created edge
     cancelEdge()
     # jump to chain
-    for x in range(0, 3):
+    for _ in range(3):
         typeInvertTab()
     # change chain mode
     typeSpace()
@@ -692,7 +692,7 @@ def changeTwoWayOption():
     # cancel current created edge
     cancelEdge()
     # jump to two way
-    for x in range(0, 2):
+    for _ in range(2):
         typeInvertTab()
     # change two way mode
     typeSpace()
@@ -720,7 +720,7 @@ def modifyAttribute(attributeNumber, value):
     # focus current frame
     focusOnFrame()
     # jump to attribute
-    for x in range(0, attributeNumber + 1):
+    for _ in range(attributeNumber + 1):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -737,7 +737,7 @@ def modifyBoolAttribute(attributeNumber):
     # focus current frame
     focusOnFrame()
     # jump to attribute
-    for x in range(0, attributeNumber + 1):
+    for _ in range(attributeNumber + 1):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -788,7 +788,7 @@ def createCrossing():
     # focus current frame
     focusOnFrame()
     # jump to create crossing button
-    for x in range(0, 7):
+    for _ in range(7):
         typeTab()
     # type space to create crossing
     typeSpace()
@@ -803,7 +803,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for x in range(0, numtabs + 1):
+    for _ in range(numtabs + 1):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -820,7 +820,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for x in range(0, numtabs + 1):
+    for _ in range(numtabs + 1):
         typeTab()
     # type space to change value
     typeSpace()
@@ -836,11 +836,11 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for x in range(0, 1):
+        for _ in range(1):
             typeTab()
     else:
         # jump to clear button
-        for x in range(0, 1):
+        for _ in range(1):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -856,11 +856,11 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for x in range(0, 1):
+        for _ in range(1):
             typeTab()
     else:
         # jump to clear button
-        for x in range(0, 2):
+        for _ in range(2):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -901,7 +901,8 @@ def toogleShowConnectionsInspectorMode():
 """
 
 
-def createConnection(referencePosition, fromLanePositionX, fromLanePositionY, toLanePositionX, toLanePositionY, mode=""):
+def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
+                     toLanePositionX, toLanePositionY, mode=""):
     # check if connection has to be created in certain mode
     if mode == "conflict":
         pyautogui.keyDown('ctrl')
@@ -926,25 +927,8 @@ def createConnection(referencePosition, fromLanePositionX, fromLanePositionY, to
 def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
-    # go to OK button
-    for x in range(0, 3):
-        typeTab()
-    # type space to press button
-    typeSpace()
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-"""
-@brief Change to crossing mode
-"""
-
-
-def saveConnectionEdit():
-    # focus current frame
-    focusOnFrame()
     # go to cancel button
-    for x in range(0, 2):
+    for _ in range(2):
         typeTab()
     # type space to press button
     typeSpace()
@@ -991,7 +975,7 @@ def modifyAdditionalDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # paste new length
     pasteIntoTextField(length)
@@ -1008,7 +992,7 @@ def modifyAdditionalDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for x in range(numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # Change current value
     typeSpace()
@@ -1023,10 +1007,10 @@ def modifyStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
     # go to add line
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # add lines using space
-    for x in range(0, numLines):
+    for _ in range(numLines):
         typeSpace()
 
 
@@ -1039,10 +1023,10 @@ def fillStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
     # place cursor in the first line
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # fill lines
-    for x in range(0, numLines):
+    for x in range(numLines):
         # paste line and number
         pasteIntoTextField("Line" + str(x))
         # go to next field
@@ -1058,10 +1042,10 @@ def selectAdditionalChild(numTabs, childNumber):
     # focus current frame
     focusOnFrame()
     # place cursor in the list of childs
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # select child
-    for x in range(0, childNumber):
+    for _ in range(childNumber):
         typeKey('down')
     typeSpace()
     # use TAB to select additional child
@@ -1076,19 +1060,19 @@ def selectAdditionalChild(numTabs, childNumber):
 def fixStoppingPlace(solution):
     # select bullet depending of solution
     if (solution == "saveInvalids"):
-        for x in range(0, 3):
+        for _ in range(3):
             typeInvertTab()
         typeSpace()
         # go back and press accept
-        for x in range(0, 3):
+        for _ in range(3):
             typeTab()
         typeSpace()
     elif (solution == "fixPositions"):
-        for x in range(0, 2):
+        for _ in range(2):
             typeInvertTab()
         typeSpace()
         # go back and press accept
-        for x in range(0, 2):
+        for _ in range(2):
             typeTab()
         typeSpace()
     elif (solution == "selectInvalids"):
@@ -1187,7 +1171,7 @@ def abortSelection():
 def toogleSelectEdges():
     focusOnFrame()
     # jump to toogle edge
-    for x in range(0, 3):
+    for _ in range(3):
         typeInvertTab()
     typeSpace()
     # Focus on frame again
@@ -1202,7 +1186,7 @@ def toogleSelectEdges():
 def toogleShowConnections():
     focusOnFrame()
     # jump to toogle edge
-    for x in range(0, 2):
+    for _ in range(2):
         typeInvertTab()
     typeSpace()
     # Focus on frame again
@@ -1218,7 +1202,7 @@ def lockSelection(glType):
     # focus current frame
     focusOnFrame()
     # go to selected glType
-    for x in range(0, glType):
+    for _ in range(glType):
         typeTab()
     # type enter to save change
     typeSpace()
@@ -1232,7 +1216,7 @@ def lockSelection(glType):
 def selectDefault():
     # focus current frame
     focusOnFrame()
-    for x in range(0, 19):
+    for _ in range(19):
         typeTab()
     # type enter to select it
     typeEnter()
@@ -1248,7 +1232,7 @@ def selectDefault():
 def saveSelection():
     focusOnFrame()
     # jump to save
-    for x in range(0, 24):
+    for _ in range(24):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1266,7 +1250,7 @@ def saveSelection():
 def loadSelection():
     focusOnFrame()
     # jump to save
-    for x in range(0, 25):
+    for _ in range(25):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1287,22 +1271,22 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for x in range(0, 13):
+    for _ in range(13):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
-    for x in range(0, 2):
+    for _ in range(2):
         typeTab()
     # paste the new elementType
     pasteIntoTextField(elementType)
     # jump to attribute
-    for x in range(0, 2):
+    for _ in range(2):
         typeTab()
     # paste the new attribute
     pasteIntoTextField(attribute)
     # jump to value
-    for x in range(0, 2):
+    for _ in range(2):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1332,7 +1316,7 @@ def modificationModeAdd():
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
-    for x in range(0, 9):
+    for _ in range(9):
         typeTab()
     # select it
     typeSpace()
@@ -1347,7 +1331,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
-    for x in range(0, 10):
+    for _ in range(10):
         typeTab()
     # select it
     typeSpace()
@@ -1362,7 +1346,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
-    for x in range(0, 11):
+    for _ in range(11):
         typeTab()
     # select it
     typeSpace()
@@ -1377,7 +1361,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
-    for x in range(0, 12):
+    for _ in range(12):
         typeTab()
     # select it
     typeSpace()
@@ -1407,7 +1391,7 @@ def selectionRectangle(referencePosition, startX, startY, endX, endY):
 def selectionClear(previouslyInserted=False):
     # focus current frame
     focusOnFrame()
-    for x in range(0, 22):
+    for _ in range(22):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1423,7 +1407,7 @@ def selectionClear(previouslyInserted=False):
 def selectionInvert():
     # focus current frame
     focusOnFrame()
-    for x in range(0, 23):
+    for _ in range(23):
         typeTab()
     # type space to select invert operation
     typeSpace()
@@ -1440,7 +1424,7 @@ def selectionToogleEdges():
     # focus current frame
     focusOnFrame()
     # go to check box "select edges"
-    for x in range(0, 2):
+    for _ in range(2):
         typeInvertTab()
     # type space to enable or disable edge selection
     typeSpace()
@@ -1468,7 +1452,7 @@ def createTLS():
     # focus current frame
     focusOnFrame()
     # type tab 3 times to jump to create TLS button
-    for x in range(0, 3):
+    for _ in range(3):
         typeTab()
     # create TLS
     typeSpace()
@@ -1576,7 +1560,7 @@ def modifyShapeDefaultValue(numTabs, value):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # paste new value
     pasteIntoTextField(value)
@@ -1593,14 +1577,14 @@ def changeColorUsingDialog(numTabs, color):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     typeSpace()
     # go to list of colors TextField
-    for x in range(2):
+    for _ in range(2):
         typeInvertTab()
     # select color
-    for x in range(1 + color):
+    for _ in range(1 + color):
         typeKey('down')
     # go to accept button and press it
     typeTab()
@@ -1616,7 +1600,7 @@ def modifyShapeDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for x in range(numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # Change current value
     typeSpace()
@@ -1631,7 +1615,7 @@ def createGEOPOI():
     # focus current frame
     focusOnFrame()
     # place cursor in create GEO POI
-    for x in range(19):
+    for _ in range(19):
         typeTab()
     # Change current value
     typeSpace()
@@ -1646,7 +1630,7 @@ def GEOPOILonLat():
     # focus current frame
     focusOnFrame()
     # place cursor in lon-lat
-    for x in range(15):
+    for _ in range(15):
         typeTab()
     # Change current value
     typeSpace()
@@ -1661,7 +1645,7 @@ def GEOPOILatLon():
     # focus current frame
     focusOnFrame()
     # place cursor in lat-lon
-    for x in range(16):
+    for _ in range(16):
         typeTab()
     # Change current value
     typeSpace()
@@ -1678,25 +1662,25 @@ def contextualMenuOperation(referencePosition, positionx, positiony, operation, 
     # click relative to offset
     pyautogui.rightClick(clickedPosition)
     # place cursor over first operation
-    for x in range(operation):
+    for _ in range(operation):
         # wait before every down
         time.sleep(DELAY_KEY_TAB)
         # type down keys
         pyautogui.hotkey('down')
-    if (suboperation1 > 0):
+    if suboperation1 > 0:
         # type right key for the second menu
         typeSpace()
         # place cursor over second operation
-        for x in range(suboperation1):
+        for _ in range(suboperation1):
             # wait before every down
             time.sleep(DELAY_KEY_TAB)
             # type down keys
             pyautogui.hotkey('down')
-    if (suboperation2 > 0):
+    if suboperation2 > 0:
         # type right key for the third menu
         typeSpace()
         # place cursor over third operation
-        for x in range(suboperation2):
+        for _ in range(suboperation2):
             # wait before every down
             time.sleep(DELAY_KEY_TAB)
             # type down keys

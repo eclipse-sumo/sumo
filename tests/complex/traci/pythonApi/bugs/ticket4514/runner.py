@@ -44,7 +44,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.lane.setAllowed("4_1", "passenger")
         traci.lane.setAllowed("4_2", "passenger")
         for veh in traci.edge.getLastStepVehicleIDs("3"):
-            #print("updateBestLanes %s" % veh)
+            # print("updateBestLanes %s" % veh)
             traci.vehicle.updateBestLanes(veh)
 
 traci.close()

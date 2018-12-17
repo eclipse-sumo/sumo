@@ -20,18 +20,15 @@ from __future__ import print_function
 import os
 import sys
 
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', ".."))
+sumoHome = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', ".."))
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
 if sys.argv[1] == "sumo":
-    sumoCall = [os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo')), ]
+    sumoCall = [sumolib.checkBinary('sumo')]
 else:
-    sumoCall = [os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))]  # , '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui')]  # , '-S', '-Q']
 
 egoID = "ego"
 
@@ -55,8 +52,9 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vType
             print("Subscribing to context of vehicle '%s'" % (egoID))
             traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
                                            [traci.constants.VAR_POSITION])
-            print("Adding subscription filters ... \n(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s\n   vTypes:%s, vClasses:%s)" % (
-                downstreamDist, upstreamDist, lanes, opposite, vTypes, vClasses))
+            print("""Adding subscription filters ...
+(downstreamDist=%s, upstreamDist=%s, lanes=%s, opposite=%s
+   vTypes:%s, vClasses:%s)""" % (downstreamDist, upstreamDist, lanes, opposite, vTypes, vClasses))
             sys.stdout.flush()
             traci.vehicle.addSubscriptionFilterDownstreamDistance(downstreamDist)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(upstreamDist)

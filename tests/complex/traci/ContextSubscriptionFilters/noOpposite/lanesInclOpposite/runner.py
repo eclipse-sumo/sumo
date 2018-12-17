@@ -24,12 +24,10 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-DELTA_T = 1000
-
 if sys.argv[1] == "sumo":
-    sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
+    sumoCall = [sumolib.checkBinary('sumo')]
 else:
-    sumoCall = [os.environ.get("GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
 
 
 def runSingle(traciEndTime, viewRange, objID):
@@ -62,8 +60,7 @@ def runSingle(traciEndTime, viewRange, objID):
             subscribed = True
         step += 1
 
-    print("Print ended at step %s" %
-          (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at %s" % traci.simulation.getTime())
     traci.close()
     sys.stdout.flush()
 
