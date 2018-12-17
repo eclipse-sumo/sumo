@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 11:33:10 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 16.12.2018 15:21:09 by Eclipse SUMO netedit Version v1_0_1+1100-f932f3b896
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/volatileRecomputing/sidewalks.guess\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/volatileRecomputing/sidewalks.guess\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/volatileRecomputing/sidewalks.guess\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/volatileRecomputing/sidewalks.guess\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -29,13 +30,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/volatileRecomputing/sidewalks.guess\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/volatileRecomputing/sidewalks.guess\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/volatileRecomputing/sidewalks.guess\shapes.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/volatileRecomputing/sidewalks.guess\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/volatileRecomputing/sidewalks.guess\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/volatileRecomputing/sidewalks.guess\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/volatileRecomputing/sidewalks.guess\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/volatileRecomputing/sidewalks.guess\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/volatileRecomputing/sidewalks.guess\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/volatileRecomputing/sidewalks.guess\log.txt"/>
     </report>
 
 </configuration>
@@ -61,7 +62,7 @@
         <lane id=":gneJ11_1_0" index="0" disallow="pedestrian" speed="8.00" length="5.93" shape="77.20,41.60 73.35,41.05 71.60,40.00"/>
     </edge>
     <edge id=":gneJ11_6" function="internal">
-        <lane id=":gneJ11_6_0" index="0" speed="8.00" length="8.26" shape="71.60,40.00 70.60,39.40 68.95,36.65 68.40,32.80"/>
+        <lane id=":gneJ11_6_0" index="0" disallow="pedestrian" speed="8.00" length="8.26" shape="71.60,40.00 70.60,39.40 68.95,36.65 68.40,32.80"/>
     </edge>
     <edge id=":gneJ11_2" function="internal">
         <lane id=":gneJ11_2_0" index="0" disallow="pedestrian" speed="6.51" length="9.03" shape="71.60,32.80 71.95,35.25 73.00,37.00 74.75,38.05 77.20,38.40"/>
@@ -94,7 +95,7 @@
         <lane id=":gneJ13_3_0" index="0" disallow="pedestrian" speed="8.00" length="5.93" shape="91.60,12.80 91.05,16.65 90.00,18.40"/>
     </edge>
     <edge id=":gneJ13_6" function="internal">
-        <lane id=":gneJ13_6_0" index="0" speed="8.00" length="8.26" shape="90.00,18.40 89.40,19.40 86.65,21.05 82.80,21.60"/>
+        <lane id=":gneJ13_6_0" index="0" disallow="pedestrian" speed="8.00" length="8.26" shape="90.00,18.40 89.40,19.40 86.65,21.05 82.80,21.60"/>
     </edge>
     <edge id=":gneJ13_4" function="internal">
         <lane id=":gneJ13_4_0" index="0" disallow="pedestrian" speed="6.51" length="9.03" shape="82.80,18.40 85.25,18.05 87.00,17.00 88.05,15.25 88.40,12.80"/>
@@ -127,7 +128,7 @@
         <lane id=":gneJ15_5_0" index="0" disallow="pedestrian" speed="8.00" length="5.93" shape="62.80,-1.60 66.65,-1.05 68.40,-0.00"/>
     </edge>
     <edge id=":gneJ15_6" function="internal">
-        <lane id=":gneJ15_6_0" index="0" speed="8.00" length="8.26" shape="68.40,-0.00 69.40,0.60 71.05,3.35 71.60,7.20"/>
+        <lane id=":gneJ15_6_0" index="0" disallow="pedestrian" speed="8.00" length="8.26" shape="68.40,-0.00 69.40,0.60 71.05,3.35 71.60,7.20"/>
     </edge>
     <edge id=":gneJ16_0" function="internal">
         <lane id=":gneJ16_0_0" index="0" disallow="pedestrian" speed="7.10" length="10.97" shape="48.40,5.20 48.83,2.23 50.10,0.10 52.22,-1.17 55.20,-1.60"/>
@@ -142,7 +143,7 @@
         <lane id=":gneJ17_1_0" index="0" disallow="pedestrian" speed="8.00" length="5.93" shape="48.40,27.20 48.95,23.35 50.00,21.60"/>
     </edge>
     <edge id=":gneJ17_6" function="internal">
-        <lane id=":gneJ17_6_0" index="0" speed="8.00" length="8.26" shape="50.00,21.60 50.60,20.60 53.35,18.95 57.20,18.40"/>
+        <lane id=":gneJ17_6_0" index="0" disallow="pedestrian" speed="8.00" length="8.26" shape="50.00,21.60 50.60,20.60 53.35,18.95 57.20,18.40"/>
     </edge>
     <edge id=":gneJ17_2" function="internal">
         <lane id=":gneJ17_2_0" index="0" disallow="pedestrian" speed="6.51" length="9.03" shape="57.20,21.60 54.75,21.95 53.00,23.00 51.95,24.75 51.60,27.20"/>
@@ -172,7 +173,7 @@
         <lane id=":gneJ19_2_0" index="0" disallow="pedestrian" speed="8.00" length="5.93" shape="68.40,27.20 68.95,23.35 70.00,21.60"/>
     </edge>
     <edge id=":gneJ19_12" function="internal">
-        <lane id=":gneJ19_12_0" index="0" speed="8.00" length="8.26" shape="70.00,21.60 70.60,20.60 73.35,18.95 77.20,18.40"/>
+        <lane id=":gneJ19_12_0" index="0" disallow="pedestrian" speed="8.00" length="8.26" shape="70.00,21.60 70.60,20.60 73.35,18.95 77.20,18.40"/>
     </edge>
     <edge id=":gneJ19_3" function="internal">
         <lane id=":gneJ19_3_0" index="0" disallow="pedestrian" speed="6.51" length="9.03" shape="77.20,21.60 74.75,21.95 73.00,23.00 71.95,24.75 71.60,27.20"/>
@@ -193,7 +194,7 @@
         <lane id=":gneJ19_8_0" index="0" disallow="pedestrian" speed="8.00" length="5.93" shape="71.60,12.80 71.05,16.65 70.00,18.40"/>
     </edge>
     <edge id=":gneJ19_13" function="internal">
-        <lane id=":gneJ19_13_0" index="0" speed="8.00" length="8.26" shape="70.00,18.40 69.40,19.40 66.65,21.05 62.80,21.60"/>
+        <lane id=":gneJ19_13_0" index="0" disallow="pedestrian" speed="8.00" length="8.26" shape="70.00,18.40 69.40,19.40 66.65,21.05 62.80,21.60"/>
     </edge>
     <edge id=":gneJ19_9" function="internal">
         <lane id=":gneJ19_9_0" index="0" disallow="pedestrian" speed="6.51" length="9.03" shape="62.80,18.40 65.25,18.05 67.00,17.00 68.05,15.25 68.40,12.80"/>

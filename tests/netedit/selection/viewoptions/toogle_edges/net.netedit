@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.12.2018 13:13:01 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 16.12.2018 14:06:14 by Eclipse SUMO netedit Version v1_0_1+1100-f932f3b896
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -29,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\additionals.xml"/>
-        <sumo-shapes-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\input_shapes.add.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\shapes.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\additionals.xml"/>
+        <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\input_shapes.add.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec131155.6256/netedit.gui/selection/lockselection/lanes\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/selection/viewoptions/toogle_edges\log.txt"/>
     </report>
 
 </configuration>
@@ -75,10 +76,10 @@
         <lane id=":Center_3_0" index="0" disallow="pedestrian" speed="9.51" length="7.18" shape="48.40,61.10 49.19,55.54 50.00,54.20"/>
     </edge>
     <edge id=":Center_16" function="internal">
-        <lane id=":Center_16_0" index="0" speed="6.86" length="4.23" shape="42.90,55.94 41.66,55.19 38.90,54.80"/>
+        <lane id=":Center_16_0" index="0" disallow="pedestrian" speed="6.86" length="4.23" shape="42.90,55.94 41.66,55.19 38.90,54.80"/>
     </edge>
     <edge id=":Center_17" function="internal">
-        <lane id=":Center_17_0" index="0" speed="9.51" length="13.30" shape="50.00,54.20 51.58,51.57 55.54,49.19 61.10,48.40"/>
+        <lane id=":Center_17_0" index="0" disallow="pedestrian" speed="9.51" length="13.30" shape="50.00,54.20 51.58,51.57 55.54,49.19 61.10,48.40"/>
     </edge>
     <edge id=":Center_4" function="internal">
         <lane id=":Center_4_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="61.10,54.80 58.34,55.19 56.38,56.38 55.19,58.34 54.80,61.10"/>
@@ -101,10 +102,10 @@
         <lane id=":Center_11_0" index="0" disallow="pedestrian" speed="9.51" length="7.18" shape="51.60,38.90 50.81,44.46 50.00,45.80"/>
     </edge>
     <edge id=":Center_18" function="internal">
-        <lane id=":Center_18_0" index="0" speed="6.86" length="4.23" shape="57.10,44.06 58.34,44.81 61.10,45.20"/>
+        <lane id=":Center_18_0" index="0" disallow="pedestrian" speed="6.86" length="4.23" shape="57.10,44.06 58.34,44.81 61.10,45.20"/>
     </edge>
     <edge id=":Center_19" function="internal">
-        <lane id=":Center_19_0" index="0" speed="9.51" length="13.30" shape="50.00,45.80 48.42,48.43 44.46,50.81 38.90,51.60"/>
+        <lane id=":Center_19_0" index="0" disallow="pedestrian" speed="9.51" length="13.30" shape="50.00,45.80 48.42,48.43 44.46,50.81 38.90,51.60"/>
     </edge>
     <edge id=":Center_12" function="internal">
         <lane id=":Center_12_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="38.90,45.20 41.66,44.81 43.63,43.63 44.81,41.66 45.20,38.90"/>

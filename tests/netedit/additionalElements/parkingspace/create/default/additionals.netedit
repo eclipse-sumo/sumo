@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.10.2018 16:18:16 by Eclipse SUMO netedit Version v1_0_1+0296-2f18426848
+<!-- generated on 16.12.2018 15:09:04 by Eclipse SUMO netedit Version v1_0_1+1100-f932f3b896
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Oct161346.3048/netedit.gui/additionalElements/parkingspace/create\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec105758.840/netedit.gui/additionalElements/parkingspace/create/default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Oct161346.3048/netedit.gui/additionalElements/parkingspace/create\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec105758.840/netedit.gui/additionalElements/parkingspace/create/default\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Oct161346.3048/netedit.gui/additionalElements/parkingspace/create\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Oct161346.3048/netedit.gui/additionalElements/parkingspace/create\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec105758.840/netedit.gui/additionalElements/parkingspace/create/default\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec105758.840/netedit.gui/additionalElements/parkingspace/create/default\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Oct161346.3048/netedit.gui/additionalElements/parkingspace/create\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec105758.840/netedit.gui/additionalElements/parkingspace/create/default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +44,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_24Oct161346.3048/netedit.gui/additionalElements/parkingspace/create\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec105758.840/netedit.gui/additionalElements/parkingspace/create/default\log.txt"/>
     </report>
 
 </configuration>
@@ -52,9 +53,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="17.00" endPos="27.00">
         <space x="17.00" y="13.00"/>
-        <space width="2.50" length="3.10" x="22.00" y="13.00" angle="-4.00"/>
-        <space width="2.50" length="3.10" x="23.00" y="13.00" angle="500.00"/>
-        <space width="2.50" length="3.10" x="24.00" y="13.00" angle="120.00"/>
-        <space width="2.50" length="3.10" x="25.00" y="13.00" angle="120.00"/>
     </parkingArea>
 </additional>

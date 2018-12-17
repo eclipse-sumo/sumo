@@ -291,40 +291,32 @@ GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,10.00,71.16,8
 GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary 0.60,36.40,50.60,76.40
 GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary 2.36,28.48,52.46,71.01
 GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,10.00,71.16,84.66
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,23.60,122.00,76.40
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
 GLDebug: Removed object junction:A from SUMORTree with boundary 23.60,-22.00,76.40,22.00
 GLDebug: Inserted junction:A into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Removed object junction:B from SUMORTree with boundary 23.60,78.00,76.40,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 18.00,18.00,62.00,62.00
 GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,23.60,22.00,76.40
 GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,28.00,22.00,72.00
-GLDebug: Removed object edge:4 from SUMORTree with boundary 10.00,5.27,130.79,80.00
-GLDebug: Removed object busStop:busStop_4_0_5 from SUMORTree with boundary 45.29,17.73,100.45,60.25
-GLDebug: Inserted busStop:busStop_4_0_5 into SUMORTree with boundary 45.29,17.73,100.45,60.25
-GLDebug: Inserted edge:4 into SUMORTree with boundary 10.00,5.27,130.79,80.00
-GLDebug: Removed object edge:2 from SUMORTree with boundary 10.00,9.21,84.73,130.00
-GLDebug: Removed object busStop:busStop_2_0_2 from SUMORTree with boundary 30.10,41.68,72.63,96.83
-GLDebug: Inserted busStop:busStop_2_0_2 into SUMORTree with boundary 30.10,41.68,72.63,96.83
-GLDebug: Inserted edge:2 into SUMORTree with boundary 10.00,9.21,84.73,130.00
+GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,23.60,122.00,76.40
+GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
+GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
+GLDebug: Inserted junction:Center into SUMORTree with boundary 18.00,18.00,62.00,62.00
+GLDebug: Removed object junction:B from SUMORTree with boundary 23.60,78.00,76.40,122.00
+GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
 GLDebug: Removed object edge:1 from SUMORTree with boundary 5.34,-31.16,80.00,70.00
 GLDebug: Removed object busStop:busStop_1_0_7 from SUMORTree with boundary 16.06,-0.74,58.59,49.36
 GLDebug: Inserted busStop:busStop_1_0_7 into SUMORTree with boundary 16.06,-0.74,58.59,49.36
 GLDebug: Inserted edge:1 into SUMORTree with boundary 5.34,-31.16,80.00,70.00
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,10.00,71.16,84.66
-GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary 2.36,28.48,52.46,71.01
-GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary 2.36,28.48,52.46,71.01
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,10.00,71.16,84.66
+GLDebug: Removed object edge:2 from SUMORTree with boundary 10.00,9.21,84.73,130.00
+GLDebug: Removed object busStop:busStop_2_0_2 from SUMORTree with boundary 30.10,41.68,72.63,96.83
+GLDebug: Inserted busStop:busStop_2_0_2 into SUMORTree with boundary 30.10,41.68,72.63,96.83
+GLDebug: Inserted edge:2 into SUMORTree with boundary 10.00,9.21,84.73,130.00
+GLDebug: Removed object edge:4 from SUMORTree with boundary 10.00,5.27,130.79,80.00
+GLDebug: Removed object busStop:busStop_4_0_5 from SUMORTree with boundary 45.29,17.73,100.45,60.25
+GLDebug: Inserted busStop:busStop_4_0_5 into SUMORTree with boundary 45.29,17.73,100.45,60.25
+GLDebug: Inserted edge:4 into SUMORTree with boundary 10.00,5.27,130.79,80.00
 GLDebug: Removed object edge:5 from SUMORTree with boundary 10.00,-30.00,84.66,71.16
 GLDebug: Removed object busStop:busStop_5_0_6 from SUMORTree with boundary 28.63,1.75,71.16,51.86
 GLDebug: Inserted busStop:busStop_5_0_6 into SUMORTree with boundary 28.63,1.75,71.16,51.86
 GLDebug: Inserted edge:5 into SUMORTree with boundary 10.00,-30.00,84.66,71.16
-GLDebug: Removed object edge:8 from SUMORTree with boundary 9.21,10.00,130.00,84.73
-GLDebug: Removed object busStop:busStop_8_0_4 from SUMORTree with boundary 38.04,29.49,93.19,72.02
-GLDebug: Inserted busStop:busStop_8_0_4 into SUMORTree with boundary 38.04,29.49,93.19,72.02
-GLDebug: Inserted edge:8 into SUMORTree with boundary 9.21,10.00,130.00,84.73
 GLDebug: Removed object edge:6 from SUMORTree with boundary 5.27,10.00,80.00,130.79
 GLDebug: Removed object busStop:busStop_6_1_3 from SUMORTree with boundary 19.27,35.07,61.79,90.22
 GLDebug: Inserted busStop:busStop_6_1_3 into SUMORTree with boundary 19.27,35.07,61.79,90.22
@@ -333,6 +325,14 @@ GLDebug: Removed object edge:7 from SUMORTree with boundary -31.16,5.34,70.00,80
 GLDebug: Removed object busStop:busStop_7_0_1 from SUMORTree with boundary -0.34,15.96,49.76,58.49
 GLDebug: Inserted busStop:busStop_7_0_1 into SUMORTree with boundary -0.34,15.96,49.76,58.49
 GLDebug: Inserted edge:7 into SUMORTree with boundary -31.16,5.34,70.00,80.00
+GLDebug: Removed object edge:8 from SUMORTree with boundary 9.21,10.00,130.00,84.73
+GLDebug: Removed object busStop:busStop_8_0_4 from SUMORTree with boundary 38.04,29.49,93.19,72.02
+GLDebug: Inserted busStop:busStop_8_0_4 into SUMORTree with boundary 38.04,29.49,93.19,72.02
+GLDebug: Inserted edge:8 into SUMORTree with boundary 9.21,10.00,130.00,84.73
+GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,10.00,71.16,84.66
+GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary 2.36,28.48,52.46,71.01
+GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary 2.36,28.48,52.46,71.01
+GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,10.00,71.16,84.66
 GLDebug: Removed object junction:Center from SUMORTree with boundary 18.00,18.00,62.00,62.00
 GLDebug: Inserted junction:Center into SUMORTree with boundary 18.00,18.00,62.00,62.00
 GLDebug: Removed object junction:Center from SUMORTree with boundary 18.00,18.00,62.00,62.00
@@ -507,40 +507,32 @@ GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,8
 GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary -7.49,31.04,42.21,73.47
 GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary -1.35,36.40,55.15,76.40
 GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,84.80
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,23.69,122.00,76.31
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
 GLDebug: Removed object junction:A from SUMORTree with boundary 23.79,-22.00,76.21,22.00
 GLDebug: Inserted junction:A into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Removed object junction:B from SUMORTree with boundary 23.69,78.00,76.31,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
-GLDebug: Removed object junction:Center from SUMORTree with boundary 7.84,7.84,73.84,73.84
-GLDebug: Inserted junction:Center into SUMORTree with boundary 28.00,28.00,72.00,72.00
 GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,23.79,22.00,76.21
 GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,28.00,22.00,72.00
-GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,15.20,130.00,80.00
-GLDebug: Removed object busStop:busStop_4_0_5 from SUMORTree with boundary 46.71,23.60,97.16,63.60
-GLDebug: Inserted busStop:busStop_4_0_5 into SUMORTree with boundary 46.71,23.60,97.16,63.60
-GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,15.20,130.00,80.00
-GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,84.80,130.00
-GLDebug: Removed object busStop:busStop_2_0_2 from SUMORTree with boundary 36.40,45.67,76.40,96.11
-GLDebug: Inserted busStop:busStop_2_0_2 into SUMORTree with boundary 36.40,45.67,76.40,96.11
-GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,84.80,130.00
+GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,23.69,122.00,76.31
+GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
+GLDebug: Removed object junction:Center from SUMORTree with boundary 7.84,7.84,73.84,73.84
+GLDebug: Inserted junction:Center into SUMORTree with boundary 28.00,28.00,72.00,72.00
+GLDebug: Removed object junction:B from SUMORTree with boundary 23.69,78.00,76.31,122.00
+GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
 GLDebug: Removed object edge:1 from SUMORTree with boundary 15.20,-30.00,80.00,80.00
 GLDebug: Removed object busStop:busStop_1_0_7 from SUMORTree with boundary 23.60,-1.35,63.60,55.15
 GLDebug: Inserted busStop:busStop_1_0_7 into SUMORTree with boundary 23.60,-1.35,63.60,55.15
 GLDebug: Inserted edge:1 into SUMORTree with boundary 15.20,-30.00,80.00,80.00
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,84.80
-GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary -1.35,36.40,55.15,76.40
-GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary -1.35,36.40,55.15,76.40
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,84.80
+GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,84.80,130.00
+GLDebug: Removed object busStop:busStop_2_0_2 from SUMORTree with boundary 36.40,45.67,76.40,96.11
+GLDebug: Inserted busStop:busStop_2_0_2 into SUMORTree with boundary 36.40,45.67,76.40,96.11
+GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,84.80,130.00
+GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,15.20,130.00,80.00
+GLDebug: Removed object busStop:busStop_4_0_5 from SUMORTree with boundary 46.71,23.60,97.16,63.60
+GLDebug: Inserted busStop:busStop_4_0_5 into SUMORTree with boundary 46.71,23.60,97.16,63.60
+GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,15.20,130.00,80.00
 GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,84.80,80.00
 GLDebug: Removed object busStop:busStop_5_0_6 from SUMORTree with boundary 36.40,13.00,76.40,69.51
 GLDebug: Inserted busStop:busStop_5_0_6 into SUMORTree with boundary 36.40,13.00,76.40,69.51
 GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,84.80,80.00
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,84.80
-GLDebug: Removed object busStop:busStop_8_0_4 from SUMORTree with boundary 51.80,36.40,102.24,76.40
-GLDebug: Inserted busStop:busStop_8_0_4 into SUMORTree with boundary 51.80,36.40,102.24,76.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,84.80
 GLDebug: Removed object edge:6 from SUMORTree with boundary 15.20,20.00,80.00,130.00
 GLDebug: Removed object busStop:busStop_6_1_3 from SUMORTree with boundary 26.80,48.66,66.80,99.11
 GLDebug: Inserted busStop:busStop_6_1_3 into SUMORTree with boundary 26.80,48.66,66.80,99.11
@@ -549,6 +541,14 @@ GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,15.20,80.00,8
 GLDebug: Removed object busStop:busStop_7_0_1 from SUMORTree with boundary 14.66,23.60,70.00,63.60
 GLDebug: Inserted busStop:busStop_7_0_1 into SUMORTree with boundary 14.66,23.60,70.00,63.60
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,15.20,80.00,80.00
+GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,84.80
+GLDebug: Removed object busStop:busStop_8_0_4 from SUMORTree with boundary 51.80,36.40,102.24,76.40
+GLDebug: Inserted busStop:busStop_8_0_4 into SUMORTree with boundary 51.80,36.40,102.24,76.40
+GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,84.80
+GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,84.80
+GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary -1.35,36.40,55.15,76.40
+GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary -1.35,36.40,55.15,76.40
+GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,84.80
 GLDebug: Removed object junction:Center from SUMORTree with boundary 28.00,28.00,72.00,72.00
 GLDebug: Inserted junction:Center into SUMORTree with boundary 28.00,28.00,72.00,72.00
 GLDebug: Removed object junction:Center from SUMORTree with boundary 28.00,28.00,72.00,72.00
@@ -721,40 +721,32 @@ GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,10.00,71.16,8
 GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary 0.60,36.40,50.60,76.40
 GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary 2.36,28.48,52.46,71.01
 GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,10.00,71.16,84.66
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,23.60,122.00,76.40
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
 GLDebug: Removed object junction:A from SUMORTree with boundary 23.60,-22.00,76.40,22.00
 GLDebug: Inserted junction:A into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Removed object junction:B from SUMORTree with boundary 23.60,78.00,76.40,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 18.00,18.00,62.00,62.00
 GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,23.60,22.00,76.40
 GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,28.00,22.00,72.00
-GLDebug: Removed object edge:4 from SUMORTree with boundary 10.00,5.27,130.79,80.00
-GLDebug: Removed object busStop:busStop_4_0_5 from SUMORTree with boundary 45.29,17.73,100.45,60.25
-GLDebug: Inserted busStop:busStop_4_0_5 into SUMORTree with boundary 45.29,17.73,100.45,60.25
-GLDebug: Inserted edge:4 into SUMORTree with boundary 10.00,5.27,130.79,80.00
-GLDebug: Removed object edge:2 from SUMORTree with boundary 10.00,9.21,84.73,130.00
-GLDebug: Removed object busStop:busStop_2_0_2 from SUMORTree with boundary 30.10,41.68,72.63,96.83
-GLDebug: Inserted busStop:busStop_2_0_2 into SUMORTree with boundary 30.10,41.68,72.63,96.83
-GLDebug: Inserted edge:2 into SUMORTree with boundary 10.00,9.21,84.73,130.00
+GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,23.60,122.00,76.40
+GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
+GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
+GLDebug: Inserted junction:Center into SUMORTree with boundary 18.00,18.00,62.00,62.00
+GLDebug: Removed object junction:B from SUMORTree with boundary 23.60,78.00,76.40,122.00
+GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
 GLDebug: Removed object edge:1 from SUMORTree with boundary 5.34,-31.16,80.00,70.00
 GLDebug: Removed object busStop:busStop_1_0_7 from SUMORTree with boundary 16.06,-0.74,58.59,49.36
 GLDebug: Inserted busStop:busStop_1_0_7 into SUMORTree with boundary 16.06,-0.74,58.59,49.36
 GLDebug: Inserted edge:1 into SUMORTree with boundary 5.34,-31.16,80.00,70.00
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,10.00,71.16,84.66
-GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary 2.36,28.48,52.46,71.01
-GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary 2.36,28.48,52.46,71.01
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,10.00,71.16,84.66
+GLDebug: Removed object edge:2 from SUMORTree with boundary 10.00,9.21,84.73,130.00
+GLDebug: Removed object busStop:busStop_2_0_2 from SUMORTree with boundary 30.10,41.68,72.63,96.83
+GLDebug: Inserted busStop:busStop_2_0_2 into SUMORTree with boundary 30.10,41.68,72.63,96.83
+GLDebug: Inserted edge:2 into SUMORTree with boundary 10.00,9.21,84.73,130.00
+GLDebug: Removed object edge:4 from SUMORTree with boundary 10.00,5.27,130.79,80.00
+GLDebug: Removed object busStop:busStop_4_0_5 from SUMORTree with boundary 45.29,17.73,100.45,60.25
+GLDebug: Inserted busStop:busStop_4_0_5 into SUMORTree with boundary 45.29,17.73,100.45,60.25
+GLDebug: Inserted edge:4 into SUMORTree with boundary 10.00,5.27,130.79,80.00
 GLDebug: Removed object edge:5 from SUMORTree with boundary 10.00,-30.00,84.66,71.16
 GLDebug: Removed object busStop:busStop_5_0_6 from SUMORTree with boundary 28.63,1.75,71.16,51.86
 GLDebug: Inserted busStop:busStop_5_0_6 into SUMORTree with boundary 28.63,1.75,71.16,51.86
 GLDebug: Inserted edge:5 into SUMORTree with boundary 10.00,-30.00,84.66,71.16
-GLDebug: Removed object edge:8 from SUMORTree with boundary 9.21,10.00,130.00,84.73
-GLDebug: Removed object busStop:busStop_8_0_4 from SUMORTree with boundary 38.04,29.49,93.19,72.02
-GLDebug: Inserted busStop:busStop_8_0_4 into SUMORTree with boundary 38.04,29.49,93.19,72.02
-GLDebug: Inserted edge:8 into SUMORTree with boundary 9.21,10.00,130.00,84.73
 GLDebug: Removed object edge:6 from SUMORTree with boundary 5.27,10.00,80.00,130.79
 GLDebug: Removed object busStop:busStop_6_1_3 from SUMORTree with boundary 19.27,35.07,61.79,90.22
 GLDebug: Inserted busStop:busStop_6_1_3 into SUMORTree with boundary 19.27,35.07,61.79,90.22
@@ -763,6 +755,14 @@ GLDebug: Removed object edge:7 from SUMORTree with boundary -31.16,5.34,70.00,80
 GLDebug: Removed object busStop:busStop_7_0_1 from SUMORTree with boundary -0.34,15.96,49.76,58.49
 GLDebug: Inserted busStop:busStop_7_0_1 into SUMORTree with boundary -0.34,15.96,49.76,58.49
 GLDebug: Inserted edge:7 into SUMORTree with boundary -31.16,5.34,70.00,80.00
+GLDebug: Removed object edge:8 from SUMORTree with boundary 9.21,10.00,130.00,84.73
+GLDebug: Removed object busStop:busStop_8_0_4 from SUMORTree with boundary 38.04,29.49,93.19,72.02
+GLDebug: Inserted busStop:busStop_8_0_4 into SUMORTree with boundary 38.04,29.49,93.19,72.02
+GLDebug: Inserted edge:8 into SUMORTree with boundary 9.21,10.00,130.00,84.73
+GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,10.00,71.16,84.66
+GLDebug: Removed object busStop:busStop_3_0_0 from SUMORTree with boundary 2.36,28.48,52.46,71.01
+GLDebug: Inserted busStop:busStop_3_0_0 into SUMORTree with boundary 2.36,28.48,52.46,71.01
+GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,10.00,71.16,84.66
 GLDebug: Removed object junction:Center from SUMORTree with boundary 18.00,18.00,62.00,62.00
 GLDebug: Inserted junction:Center into SUMORTree with boundary 18.00,18.00,62.00,62.00
 GLDebug: Removed object junction:Center from SUMORTree with boundary 18.00,18.00,62.00,62.00
