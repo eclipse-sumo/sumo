@@ -2042,6 +2042,9 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
     }
     const double maxDist = SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat());
     latDist = MAX2(MIN2(latDist, maxDist), -maxDist);
+    if (myVehicle.hasInfluencer() && myVehicle.getInfluencer().getLatDist() != 0 && myVehicle.getInfluencer().ignoreOverlap()) {
+        return 0;
+    }
 
     if (!myCFRelatedReady) {
         updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge(), true);
@@ -2801,8 +2804,9 @@ MSLCM_SL2015::keepLatGap(int state,
 #endif
     }
     // if we cannot move in the desired direction, consider the maneuver blocked anyway
-    bool nonSublaneChange = (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0;
-    if (nonSublaneChange) {
+    const bool nonSublaneChange = (state & (LCA_STRATEGIC | LCA_COOPERATIVE | LCA_SPEEDGAIN | LCA_KEEPRIGHT)) != 0;
+    const bool traciChange = (state & LCA_TRACI) != 0;
+    if (nonSublaneChange && !traciChange) {
         if ((latDist < NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) && (oldLatDist > 0)) {
 #ifdef DEBUG_KEEP_LATGAP
             if (gDebugFlag2) {
