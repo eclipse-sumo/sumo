@@ -56,7 +56,7 @@ from optparse import OptionParser
 from mirrorWiki import readParsePage, readParseEditPage, getAllPages
 TOOLDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(TOOLDIR)
-from sumolib.miscutils import working_dir
+from sumolib.miscutils import working_dir  # noqa
 
 
 def patchLinks(page, name):
@@ -84,13 +84,13 @@ def patchLinks(page, name):
                 page = page[:b + 7] + link + page[e2:]
         # pages (pydoc)
         else:
-            l = page.find('"', b) + 1
-            le = page.find('"', l)
-            link = page[l:le]
+            lb = page.find('"', b) + 1
+            le = page.find('"', lb)
+            link = page[lb:le]
             p = link.find("daily/pydoc")
             if p >= 0:
                 link = level + ".." + link[p + 5:]
-                page = page[:l] + link + page[le:]
+                page = page[:lb] + link + page[le:]
         b = page.find(" href=", b + 1)
     return page, images, level
 
@@ -105,11 +105,11 @@ def patchImages(page, name):
         b += 5
         e = page.find("\"", b + 2)
         add = page[b:e]
-        l = add[add.rfind("/"):]
+        ls = add[add.rfind("/"):]
         if add.find("thumb") >= 0:
-            l = l[l.find("-") + 1:]
+            ls = ls[ls.find("-") + 1:]
         images.add(add)
-        page = page[:b] + level + "images/" + l + page[e:]
+        page = page[:b] + level + "images/" + ls + page[e:]
         b = page.find("<img", b + 1)
         b = page.find("src", b)
     page = page.replace(".svg.png", ".svg")

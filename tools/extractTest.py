@@ -94,10 +94,10 @@ def main(options):
         for line in open(options.file):
             line = line.strip()
             if line and line[0] != '#':
-                l = line.split(SOURCE_DEST_SEP) + [""]
-                l[0] = join(dirname, l[0])
-                l[1] = join(dirname, l[1])
-                targets.append(l[:3])
+                ls = line.split(SOURCE_DEST_SEP) + [""]
+                ls[0] = join(dirname, ls[0])
+                ls[1] = join(dirname, ls[1])
+                targets.append(ls[:3])
     for val in options.args:
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])

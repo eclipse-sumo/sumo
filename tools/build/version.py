@@ -26,9 +26,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sys
-import re
 import subprocess
-from os.path import dirname, exists, getmtime, join, isdir
+from os.path import dirname, exists, getmtime, join
 
 UNKNOWN_REVISION = "UNKNOWN"
 GITDIR = '.git'
