@@ -608,6 +608,16 @@ GUINet::loadEdgeData(const std::string& file) {
 }
 
 
+std::vector<std::string> 
+GUINet::getEdgeDataAttrs() const {
+    std::vector<std::string> result;
+    for (const auto& item : myLoadedEdgeData) {
+        result.push_back(item.first);
+    }
+    return result;
+}
+
+
 #ifdef HAVE_OSG
 void
 GUINet::updateColor(const GUIVisualizationSettings& s) {

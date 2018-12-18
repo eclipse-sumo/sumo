@@ -164,7 +164,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, GUIDesignViewSettingsVerticalFrame4);
         myLaneColorRainbow = new FXButton(frame22, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-        myParamKey = new FXTextField(frame22, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignTextFielWidth100);
+        myParamKey = new FXComboBox(frame22, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myParamKey->disable();
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
@@ -1492,18 +1492,37 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myJunctionColorRainbow->enable();
     }
     const std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
+    myParamKey->clearItems();
+    myParamKey->setEditable(true);
     if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
-        myParamKey->setText(mySettings->edgeParam.c_str());
+        myParamKey->appendItem(mySettings->edgeParam.c_str());
+        for (const std::string& attr : myParent->getEdgeLaneParamKeys(true)) {
+            if (attr != mySettings->edgeParam) {
+                myParamKey->appendItem(attr.c_str());
+            }
+        }
         myParamKey->enable();
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
-        myParamKey->setText(mySettings->laneParam.c_str());
+        myParamKey->appendItem(mySettings->laneParam.c_str());
+        for (const std::string& attr : myParent->getEdgeLaneParamKeys(false)) {
+            if (attr != mySettings->laneParam) {
+                myParamKey->appendItem(attr.c_str());
+            }
+        }
         myParamKey->enable();
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
-        myParamKey->setText(mySettings->edgeData.c_str());
+        myParamKey->appendItem(mySettings->edgeData.c_str());
+        for (const std::string& attr : myParent->getEdgeDataAttrs()) {
+            if (attr != mySettings->edgeData) {
+                myParamKey->appendItem(attr.c_str());
+            }
+        }
         myParamKey->enable();
+        myParamKey->setEditable(false);
     } else {
         myParamKey->disable();
     }
+    myParamKey->setNumVisible(myParamKey->getNumItems());
     myLaneColorSettingFrame->getParent()->recalc();
 
     m = rebuildScaleMatrix(myLaneScaleSettingFrame, myLaneScales, myLaneScaleThresholds, myLaneScaleButtons, myLaneScaleInterpolation, mySettings->getLaneEdgeScaleScheme());

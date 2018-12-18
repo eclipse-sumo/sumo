@@ -230,6 +230,35 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
 }
 
 
+std::vector<std::string> 
+GUIViewTraffic::getEdgeDataAttrs() const {
+    if (GUINet::getGUIInstance() != nullptr) {
+        return GUINet::getGUIInstance()->getEdgeDataAttrs();
+    }
+    return std::vector<std::string>();
+}
+
+
+std::vector<std::string> 
+GUIViewTraffic::getEdgeLaneParamKeys(bool edgeKeys) const {
+    std::set<std::string> keys;
+    for (const MSEdge* e : MSEdge::getAllEdges()) {
+        if (edgeKeys) {
+            for (const auto& item : e->getParametersMap()) {
+                keys.insert(item.first);
+            }
+        } else {
+            for (const auto lane : e->getLanes()) {
+                for (const auto& item : lane->getParametersMap()) {
+                    keys.insert(item.first);
+                }
+            }
+        }
+    }
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
+
+
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     // (uncomment the next line to check select mode)

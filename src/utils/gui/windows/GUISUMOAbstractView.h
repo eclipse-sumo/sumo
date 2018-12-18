@@ -209,6 +209,12 @@ public:
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/) { }
 
+    /// @brief return list of loaded edgeData attributes
+    virtual std::vector<std::string> getEdgeDataAttrs() const { return std::vector<std::string>(); }
+
+    /// @brief return list of available edge parameters
+    virtual std::vector<std::string> getEdgeLaneParamKeys(bool /*edgeKeys*/) const { return std::vector<std::string>(); }
+
     /// @brief remove viewport
     void remove(GUIDialog_EditViewport*);
 
