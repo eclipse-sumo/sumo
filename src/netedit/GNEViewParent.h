@@ -66,6 +66,13 @@ class GNEViewParent : public GUIGlChildWindow {
     FXDECLARE(GNEViewParent)
 
 public:
+
+    /// @brie enum for supermodes
+    enum Supermodes {
+        NETWORK,
+        DEMANDING
+    };
+
     /**@brief Constructor
      * also builds the view and calls create()
      *
@@ -163,9 +170,6 @@ public:
     /// @brief Called when user change the splitter between FrameArea and ViewNet
     long onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*);
     /// @}
-
-    /// @brief true if the object is selected (may include extra logic besides calling gSelected)
-    bool isSelected(GUIGlObject* o) const;
 
 protected:
     /// @brief FOX needs this
