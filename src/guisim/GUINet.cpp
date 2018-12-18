@@ -559,6 +559,9 @@ GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes&
     if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
         std::vector<std::string> tmp = attrs.getAttributeNames();
         edgeAttrs.insert(tmp.begin(), tmp.end());
+    } else if (element == SUMO_TAG_INTERVAL) {
+        bool ok;
+        lastIntervalEnd = MAX2(lastIntervalEnd, attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
     }
 }
 
@@ -589,6 +592,7 @@ GUINet::loadEdgeData(const std::string& file) {
     WRITE_MESSAGE("Loading edgedata from '" + file 
             + "' Found attributes " + toString(attrs.size()) 
             + ": " + toString(attrs));
+    myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
     // create a retriever for each attribute
     std::vector<EdgeFloatTimeLineRetriever_GUI> retrieverDefsInternal;
     retrieverDefsInternal.reserve(attrs.size());

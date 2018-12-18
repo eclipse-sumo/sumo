@@ -384,10 +384,12 @@ protected:
     /// @brief class for discovering edge attributes
     class DiscoverAttributes : public SUMOSAXHandler {
     public: 
-        DiscoverAttributes(const std::string& file): SUMOSAXHandler(file) {};
+        DiscoverAttributes(const std::string& file): 
+            SUMOSAXHandler(file), lastIntervalEnd(0) {};
         ~DiscoverAttributes() {};
         void myStartElement(int element, const SUMOSAXAttributes& attrs);
         std::vector<std::string> getEdgeAttrs();
+        SUMOTime lastIntervalEnd;
     private:
         std::set<std::string> edgeAttrs;
     };

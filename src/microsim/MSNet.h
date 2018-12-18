@@ -743,6 +743,9 @@ protected:
     /// @brief the network version
     double myVersion;
 
+    /// @brief end of loaded edgeData
+    SUMOTime myEdgeDataEndTime;
+
     /// @brief Dictionary of bus / container stops
     std::map<SumoXMLTag, NamedObjectCont<MSStoppingPlace*> > myStoppingPlaces;
 

@@ -179,9 +179,11 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHavePermissions(false),
     myHasInternalLinks(false),
     myHasElevation(false),
+    myEdgeDataEndTime(-1),
     myRouterTT(nullptr),
     myRouterEffort(nullptr),
-    myPedestrianRouter(nullptr) {
+    myPedestrianRouter(nullptr)
+{
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
     }
@@ -563,7 +565,7 @@ MSNet::simulationState(SUMOTime stopTime) const {
     if (TraCIServer::getInstance() != nullptr && !TraCIServer::getInstance()->getLoadArgs().empty()) {
         return SIMSTATE_LOADING;
     }
-    if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == nullptr) {
+    if ((stopTime < 0 || myStep > stopTime) && TraCIServer::getInstance() == nullptr && (stopTime > 0 || myStep > myEdgeDataEndTime)) {
         if ((myVehicleControl->getActiveVehicleCount() == 0)
                 && (myInserter->getPendingFlowCount() == 0)
                 && (myPersonControl == nullptr || !myPersonControl->hasNonWaiting())
