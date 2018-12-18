@@ -314,5 +314,5 @@ def parseTime(t):
     except ValueError:
         pass
     # prepended zero is ignored if the date value already contains days
-    days, hours, minutes, seconds = ([0] + map(float, t.split(':')))[-4:]
+    days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
     return 3600 * 24 * days + 3600 * hours + 60 * minutes + seconds
