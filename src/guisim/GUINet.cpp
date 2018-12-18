@@ -556,10 +556,16 @@ GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
 
 void 
 GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    if (element == SUMO_TAG_EDGE && edgeAttrs.size() == 0) {
-        edgeAttrs = attrs.getAttributeNames();
-        edgeAttrs.erase(std::find(edgeAttrs.begin(), edgeAttrs.end(), "id"));
+    if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
+        std::vector<std::string> tmp = attrs.getAttributeNames();
+        edgeAttrs.insert(tmp.begin(), tmp.end());
     }
+}
+
+std::vector<std::string> 
+GUINet::DiscoverAttributes::getEdgeAttrs() {
+    edgeAttrs.erase(toString(SUMO_ATTR_ID));
+    return std::vector<std::string>(edgeAttrs.begin(), edgeAttrs.end());
 }
 
 void
@@ -579,14 +585,15 @@ GUINet::loadEdgeData(const std::string& file) {
     // discover edge attributes
     DiscoverAttributes discoveryHandler(file);
     XMLSubSys::runParser(discoveryHandler, file);
+    std::vector<std::string> attrs = discoveryHandler.getEdgeAttrs();
     WRITE_MESSAGE("Loading edgedata from '" + file 
-            + "' Found attributes " + toString(discoveryHandler.edgeAttrs.size()) 
-            + ": " + toString(discoveryHandler.edgeAttrs));
+            + "' Found attributes " + toString(attrs.size()) 
+            + ": " + toString(attrs));
     // create a retriever for each attribute
     std::vector<EdgeFloatTimeLineRetriever_GUI> retrieverDefsInternal;
-    retrieverDefsInternal.reserve(discoveryHandler.edgeAttrs.size());
+    retrieverDefsInternal.reserve(attrs.size());
     std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
-    for (const std::string& attr : discoveryHandler.edgeAttrs) {
+    for (const std::string& attr : attrs) {
         MSEdgeWeightsStorage* ws = new MSEdgeWeightsStorage();
         myLoadedEdgeData[attr] = ws;
         retrieverDefsInternal.push_back(EdgeFloatTimeLineRetriever_GUI(ws));

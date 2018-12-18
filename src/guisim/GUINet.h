@@ -387,7 +387,9 @@ protected:
         DiscoverAttributes(const std::string& file): SUMOSAXHandler(file) {};
         ~DiscoverAttributes() {};
         void myStartElement(int element, const SUMOSAXAttributes& attrs);
-        std::vector<std::string> edgeAttrs;
+        std::vector<std::string> getEdgeAttrs();
+    private:
+        std::set<std::string> edgeAttrs;
     };
 
     class EdgeFloatTimeLineRetriever_GUI : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
