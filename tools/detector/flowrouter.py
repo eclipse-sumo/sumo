@@ -203,7 +203,7 @@ class Net:
         edgeObj.target.inEdges.remove(edgeObj)
         if edgeObj.kind == "real":
             del self._edges[edgeObj.label]
-            checkEdges = edgeObj.source.inEdges.union(edgeObj.target.outEdges)
+            checkEdges = set(edgeObj.source.inEdges).union(edgeObj.target.outEdges)
             for edge in checkEdges:
                 if edge.kind != "real":
                     self.removeEdge(edge)
@@ -753,8 +753,8 @@ class Net:
                            int(route.frequency), begin, end, via), file=emitOut)
 
         if options.verbose:
-            print("Writing %s vehicles from %s sources between time %s and %s" % (
-                totalFlow, numSources, begin, end))
+            print("Writing %s vehicles from %s sources between time %s and %s (minutes)" % (
+                totalFlow, numSources, int(begin / 60), int(end / 60)))
             if len(unusedSources) > 0:
                 print("  unused sources:", " ".join(unusedSources))
 
