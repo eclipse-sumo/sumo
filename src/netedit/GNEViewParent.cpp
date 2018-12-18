@@ -426,13 +426,6 @@ GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
     return 0;
 }
 
-
-bool
-GNEViewParent::isSelected(GUIGlObject* o) const {
-    GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(o);
-    return ac && ac->isAttributeCarrierSelected();
-}
-
 // ---------------------------------------------------------------------------
 // GNEViewParent::Frames - methods
 // ---------------------------------------------------------------------------
