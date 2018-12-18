@@ -18,7 +18,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 project(SUMO)
-set(PACKAGE_VERSION "1.1.0")
+set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.1)
 # do not expand quoted variables in if statements
 cmake_policy(SET CMP0054 NEW)
