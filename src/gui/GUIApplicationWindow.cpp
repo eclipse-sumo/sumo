@@ -101,6 +101,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,       GUIApplicationWindow::onCmdOpenConfiguration),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,      GUIApplicationWindow::onCmdOpenNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_SHAPES,       GUIApplicationWindow::onCmdOpenShapes),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_EDGEDATA,     GUIApplicationWindow::onCmdOpenEdgeData),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,        GUIApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,            GUIApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,             GUIApplicationWindow::onCmdClose),
@@ -371,6 +372,9 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myFileMenu,
                       "Open Shapes \tCtrl+P\tLoad POIs and Polygons for visualization.",
                       GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
+    new FXMenuCommand(myFileMenu,
+                      "Open EdgeData \tCtrl+U\tLoad edge related data for visualization.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_EDGEDATA);
     new FXMenuCommand(myFileMenu,
                       "&Reload\tCtrl+R\tReloads the simulation / the network.",
                       GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD);
@@ -871,6 +875,33 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         dynamic_cast<GUIShapeContainer&>(myRunThread->getNet().getShapeContainer()).allowReplacement();
         NLShapeHandler handler(file, myRunThread->getNet().getShapeContainer());
         if (!XMLSubSys::runParser(handler, file, false)) {
+            WRITE_MESSAGE("Loading of " + file + " failed.");
+        }
+        update();
+        if (myMDIClient->numChildren() > 0) {
+            GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
+            if (w != nullptr) {
+                w->getView()->update();
+            }
+        }
+    }
+    return 1;
+}
+
+long
+GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
+    // get the shape file name
+    FXFileDialog opendialog(this, "Open EdgeData");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("EdgeData files (*.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        if (!GUINet::getGUIInstance()->loadEdgeData(file)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
         }
         update();

@@ -583,15 +583,15 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
 }
 
 
-void 
+bool
 GUINet::loadEdgeData(const std::string& file) {
     // discover edge attributes
     DiscoverAttributes discoveryHandler(file);
     XMLSubSys::runParser(discoveryHandler, file);
     std::vector<std::string> attrs = discoveryHandler.getEdgeAttrs();
     WRITE_MESSAGE("Loading edgedata from '" + file 
-            + "' Found attributes " + toString(attrs.size()) 
-            + ": " + toString(attrs));
+            + "' Found " + toString(attrs.size())
+            + " attributes: " + toString(attrs));
     myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
     // create a retriever for each attribute
     std::vector<EdgeFloatTimeLineRetriever_GUI> retrieverDefsInternal;
@@ -604,7 +604,7 @@ GUINet::loadEdgeData(const std::string& file) {
         retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(attr, true, retrieverDefsInternal.back()));
     }
     SAXWeightsHandler handler(retrieverDefs, "");
-    XMLSubSys::runParser(handler, file);
+    return XMLSubSys::runParser(handler, file);
 }
 
 

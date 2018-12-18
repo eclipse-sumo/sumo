@@ -312,7 +312,7 @@ public:
     double getEdgeData(const MSEdge* edge, const std::string& attr);
 
     /// @brief load edgeData from file
-    void loadEdgeData(const std::string& file);
+    bool loadEdgeData(const std::string& file);
 
 #ifdef HAVE_OSG
     void updateColor(const GUIVisualizationSettings& s);

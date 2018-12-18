@@ -68,6 +68,8 @@ enum {
     MID_OPEN_NETWORK,
     /// @brief Load additional file with poi and polygons
     MID_OPEN_SHAPES,
+    /// @brief Load edge data for visualization
+    MID_OPEN_EDGEDATA,
     /// @brief Load additional file with additional elements
     MID_OPEN_ADDITIONALS,
     /// @brief Load additional file with additional elements
