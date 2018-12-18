@@ -240,6 +240,14 @@ SUMOSAXAttributesImpl_Cached::serialize(std::ostream& os) const {
     }
 }
 
+std::vector<std::string>
+SUMOSAXAttributesImpl_Cached::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (std::map<std::string, std::string>::const_iterator it = myAttrs.begin(); it != myAttrs.end(); ++it) {
+        result.push_back(it->first);
+    }
+    return result;
+}
 
 SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Cached::clone() const {

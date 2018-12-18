@@ -367,6 +367,10 @@ public:
      */
     virtual void serialize(std::ostream& os) const = 0;
 
+    /** @brief Retrieves all attribute names
+     */
+    virtual std::vector<std::string> getAttributeNames() const = 0;
+
 
     /// @brief return the objecttype to which these attributes belong
     const std::string& getObjectType() const {

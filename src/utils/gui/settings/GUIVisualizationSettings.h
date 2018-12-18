@@ -194,6 +194,9 @@ public:
     /// @brief key for coloring by edge parameter
     std::string edgeParam;
     std::string laneParam;
+
+    /// @brief key for coloring by edgeData
+    std::string edgeData;
     //@}
 
 
@@ -405,6 +408,7 @@ public:
 
     static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
+    static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
 
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;

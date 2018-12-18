@@ -32,10 +32,12 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSJunction.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
@@ -100,6 +102,9 @@ GUINet::~GUINet() {
     //  of detectors
     for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorWrapper.begin(); i != myDetectorWrapper.end(); ++i) {
         delete *i;
+    }
+    for (auto& item : myLoadedEdgeData) {
+        delete item.second;
     }
 }
 
@@ -529,6 +534,66 @@ GUINet::unlock() {
 GUIMEVehicleControl*
 GUINet::getGUIMEVehicleControl() {
     return dynamic_cast<GUIMEVehicleControl*>(myVehicleControl);
+}
+
+
+double 
+GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
+    auto it = myLoadedEdgeData.find(attr);
+    if (it != myLoadedEdgeData.end()) {
+        double value;
+        bool found = it->second->retrieveExistingEffort(edge, STEPS2TIME(getCurrentTimeStep()), value);
+        if (found) {
+            return value;
+        } else {
+            return -1;
+        }
+    } else {
+        return -2;
+    }
+}
+
+
+void 
+GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    if (element == SUMO_TAG_EDGE && edgeAttrs.size() == 0) {
+        edgeAttrs = attrs.getAttributeNames();
+        edgeAttrs.erase(std::find(edgeAttrs.begin(), edgeAttrs.end(), "id"));
+    }
+}
+
+void
+GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
+        double value, double begTime, double endTime) const {
+    MSEdge* edge = MSEdge::dictionary(id);
+    if (edge != nullptr) {
+        myWeightStorage->addEffort(edge, begTime, endTime, value);
+    } else {
+        WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
+    }
+}
+
+
+void 
+GUINet::loadEdgeData(const std::string& file) {
+    // discover edge attributes
+    DiscoverAttributes discoveryHandler(file);
+    XMLSubSys::runParser(discoveryHandler, file);
+    WRITE_MESSAGE("Loading edgedata from '" + file 
+            + "' Found attributes " + toString(discoveryHandler.edgeAttrs.size()) 
+            + ": " + toString(discoveryHandler.edgeAttrs));
+    // create a retriever for each attribute
+    std::vector<EdgeFloatTimeLineRetriever_GUI> retrieverDefsInternal;
+    retrieverDefsInternal.reserve(discoveryHandler.edgeAttrs.size());
+    std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
+    for (const std::string& attr : discoveryHandler.edgeAttrs) {
+        MSEdgeWeightsStorage* ws = new MSEdgeWeightsStorage();
+        myLoadedEdgeData[attr] = ws;
+        retrieverDefsInternal.push_back(EdgeFloatTimeLineRetriever_GUI(ws));
+        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(attr, true, retrieverDefsInternal.back()));
+    }
+    SAXWeightsHandler handler(retrieverDefs, "");
+    XMLSubSys::runParser(handler, file);
 }
 
 

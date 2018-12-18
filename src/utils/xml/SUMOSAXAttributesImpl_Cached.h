@@ -278,6 +278,10 @@ public:
      */
     void serialize(std::ostream& os) const;
 
+    /** @brief Retrieves all attribute names
+     */
+    std::vector<std::string> getAttributeNames() const;
+
     /// @brief return a new deep-copy attributes object
     SUMOSAXAttributes* clone() const;
 

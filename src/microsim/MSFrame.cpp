@@ -461,6 +461,9 @@ MSFrame::fillOptions() {
     oc.doRegister("breakpoints", new Option_String());
     oc.addDescription("breakpoints", "GUI Only", "Use TIME[] as times when the simulation should halt");
 
+    oc.doRegister("edgedata-files", new Option_FileName());
+    oc.addDescription("edgedata-files", "GUI Only", "Load edge/lane weights for visualization from FILE");
+
     oc.doRegister("demo", 'D', new Option_Bool(false));
     oc.addDescription("demo", "GUI Only", "Restart the simulation after ending (demo mode)");
 

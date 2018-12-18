@@ -200,6 +200,15 @@ GUILoadThread::run() {
 #ifdef HAVE_OSG
             osgView = oc.getBool("osg-view");
 #endif
+            if (oc.isSet("edgedata-files")) {
+                if (!oc.isUsableFileList("edgedata-files")) {
+                    WRITE_ERROR("Could not load edgedata-files '" + oc.getString("edgedata-files") + "'");
+                } else {
+                    for (const std::string& file : oc.getStringVector("edgedata-files")) {
+                        net->loadEdgeData(file);
+                    }
+                }
+            }
         }
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {

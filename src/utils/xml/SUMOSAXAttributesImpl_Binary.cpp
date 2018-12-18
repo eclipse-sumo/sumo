@@ -339,6 +339,15 @@ SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
     }
 }
 
+std::vector<std::string>
+SUMOSAXAttributesImpl_Binary::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (std::set<int>::const_iterator i = myAttrs.begin(); i != myAttrs.end(); ++i) {
+        result.push_back(getName(*i));
+    }
+    return result;
+}
+
 
 SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Binary::clone() const {

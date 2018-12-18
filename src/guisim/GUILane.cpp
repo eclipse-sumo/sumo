@@ -1143,6 +1143,10 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 return 0;
             }
         }
+        case 33: {
+            // by edge data value
+            return GUINet::getGUIInstance()->getEdgeData(myEdge, s.edgeData);
+        }
     }
     return 0;
 }

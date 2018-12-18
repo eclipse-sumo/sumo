@@ -841,6 +841,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
             tmpSettings.edgeParam = myParamKey->getText().text();
         } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
             tmpSettings.laneParam = myParamKey->getText().text();
+        } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+            tmpSettings.edgeData = myParamKey->getText().text();
         }
     }
     tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
@@ -1495,6 +1497,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myParamKey->enable();
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
         myParamKey->setText(mySettings->laneParam.c_str());
+        myParamKey->enable();
+    } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+        myParamKey->setText(mySettings->edgeData.c_str());
         myParamKey->enable();
     } else {
         myParamKey->disable();

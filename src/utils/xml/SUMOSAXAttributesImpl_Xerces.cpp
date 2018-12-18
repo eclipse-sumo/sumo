@@ -254,6 +254,16 @@ SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
 }
 
 
+std::vector<std::string>
+SUMOSAXAttributesImpl_Xerces::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
+        result.push_back(StringUtils::transcode(myAttrs.getLocalName(i)));
+    }
+    return result;
+}
+
+
 SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Xerces::clone() const {
     std::map<std::string, std::string> attrs;
