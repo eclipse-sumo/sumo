@@ -17,8 +17,9 @@
 """
 This script extracts definitions from <SUMO>/src/traci-server/TraCIConstants.h
  and builds an according constants definition python file "constants.py".
- For Python just call the script without options, for Java: 
- tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants -o tools/contributed/traas/src/de/tudresden/sumo/config/Constants.java
+ For Python just call the script without options, for Java:
+ tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants
+  -o tools/contributed/traas/src/de/tudresden/sumo/config/Constants.java
 """
 
 from __future__ import print_function
@@ -81,7 +82,7 @@ def translateFile(filePath, fdo, start, item, end):
                 else:
                     line = line.replace("///", "#").lstrip(" ")
                     line = line.replace("//", "# ").lstrip(" ")
-                if line.find(item) >= 0 and not "//" in line:
+                if line.find(item) >= 0 and "//" not in line:
                     line = line.rstrip(",")
                     if "=" not in line:
                         vals = line.split(" ")

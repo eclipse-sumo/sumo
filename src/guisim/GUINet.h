@@ -314,6 +314,10 @@ public:
     /// @brief load edgeData from file
     bool loadEdgeData(const std::string& file);
 
+
+    /// @brief return list of loaded edgeData attributes
+    std::vector<std::string> getEdgeDataAttrs() const;
+
 #ifdef HAVE_OSG
     void updateColor(const GUIVisualizationSettings& s);
 #endif

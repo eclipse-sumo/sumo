@@ -41,6 +41,7 @@
 #include "stop.xpm"
 #include "step.xpm"
 #include "new_window.xpm"
+#include "new_window_3d.xpm"
 
 #include "app_tracker.xpm"
 #include "app_finder.xpm"
@@ -256,7 +257,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_STOP] = new FXXPMIcon(a, stop_xpm);
     myIcons[ICON_STEP] = new FXXPMIcon(a, step_xpm);
     myIcons[ICON_MICROVIEW] = new FXXPMIcon(a, new_window_xpm);
-    myIcons[ICON_LAGGRVIEW] = new FXXPMIcon(a, new_window_xpm);
+    myIcons[ICON_OSGVIEW] = new FXXPMIcon(a, new_window_3d_xpm);
     myIcons[ICON_RECENTERVIEW] = new FXXPMIcon(a, recenter_view_xpm);
     myIcons[ICON_ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
     myIcons[ICON_EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);

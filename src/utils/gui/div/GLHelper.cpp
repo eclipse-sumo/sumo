@@ -658,23 +658,25 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
     if (!initFont()) {
         return;
     };
-    const double boxAngle = 90;
-    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
-    const double borderWidth = size * relBorder;
-    const double boxHeight = size * (0.32 + 0.6 * relMargin);
-    const double boxWidth = stringWidth + size * relMargin;
-    glPushMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glTranslated(pos.x(), pos.y(), layer);
-    glRotated(-angle, 0, 0, 1);
-    Position left(-boxWidth * 0.5, 0);
-    setColor(borderColor);
-    drawBoxLine(left, boxAngle, boxWidth, boxHeight);
-    left.add(borderWidth * 1.5, 0);
-    setColor(bgColor);
-    glTranslated(0, 0, 0.01);
-    drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
-    glPopMatrix();
+    if (bgColor.alpha() != 0) {
+        const double boxAngle = 90;
+        const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
+        const double borderWidth = size * relBorder;
+        const double boxHeight = size * (0.32 + 0.6 * relMargin);
+        const double boxWidth = stringWidth + size * relMargin;
+        glPushMatrix();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glTranslated(pos.x(), pos.y(), layer);
+        glRotated(-angle, 0, 0, 1);
+        Position left(-boxWidth * 0.5, 0);
+        setColor(borderColor);
+        drawBoxLine(left, boxAngle, boxWidth, boxHeight);
+        left.add(borderWidth * 1.5, 0);
+        setColor(bgColor);
+        glTranslated(0, 0, 0.01);
+        drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
+        glPopMatrix();
+    }
     drawText(text, pos, layer + 0.02, size, txtColor, angle);
 }
 

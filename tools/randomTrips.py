@@ -229,7 +229,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             return 0  # not allowed
         if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
             return 0  # not suitable as intermediate way point
-        if (fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and not options.pedestrians and
+        if (fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and
+                not options.pedestrians and
                 (options.allow_fringe_min_length is None or edge.getLength() < options.allow_fringe_min_length)):
             return 0  # the wrong kind of fringe
         prob = 1

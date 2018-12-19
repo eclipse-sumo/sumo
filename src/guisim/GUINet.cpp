@@ -282,8 +282,16 @@ GUINet::initGUIStructures() {
     // initialise junction storage for gui
     int size = myJunctions->size();
     myJunctionWrapper.reserve(size);
+    std::map<MSJunction*, std::string> junction2TLL;
+    for (const auto tls : getTLSControl().getAllLogics()) {
+        for (const auto& links : tls->getLinks()) {
+            for (const MSLink* l : links) {
+                junction2TLL[l->getJunction()] = l->getTLLogic()->getID();
+            }
+        }
+    }
     for (const auto& i : *myJunctions) {
-        myJunctionWrapper.push_back(new GUIJunctionWrapper(*i.second));
+        myJunctionWrapper.push_back(new GUIJunctionWrapper(*i.second, junction2TLL[i.second]));
     }
     // build the visualization tree
     for (std::vector<GUIEdge*>::iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
@@ -605,6 +613,16 @@ GUINet::loadEdgeData(const std::string& file) {
     }
     SAXWeightsHandler handler(retrieverDefs, "");
     return XMLSubSys::runParser(handler, file);
+}
+
+
+std::vector<std::string> 
+GUINet::getEdgeDataAttrs() const {
+    std::vector<std::string> result;
+    for (const auto& item : myLoadedEdgeData) {
+        result.push_back(item.first);
+    }
+    return result;
 }
 
 

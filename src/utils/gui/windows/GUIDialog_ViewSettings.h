@@ -274,7 +274,7 @@ private:
     FXCheckButton* myLaneColorInterpolation;
     FXButton* myLaneColorRainbow;
     FXButton* myJunctionColorRainbow;
-    FXTextField* myParamKey;
+    FXComboBox* myParamKey;
 
     /// ... lane scaler
     FXComboBox* myLaneEdgeScaleMode;
@@ -342,6 +342,7 @@ private:
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
                *myJunctionIndexPanel, *myTLIndexPanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
+               *myTLSPhaseIndexPanel,
                *myVehicleNamePanel, *myVehicleValuePanel,
                *myPersonNamePanel, *myPersonValuePanel,
                *myContainerNamePanel,

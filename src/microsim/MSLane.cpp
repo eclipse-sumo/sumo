@@ -3261,40 +3261,24 @@ MSLane::getSurroundingVehicles(double startPos, double downstreamDist, double up
 
 
 std::set<MSVehicle*>
-MSLane::getVehiclesInRange(double a, double b) const {
+MSLane::getVehiclesInRange(const double a, const double b) const {
     std::set<MSVehicle*> res;
     const VehCont& vehs = getVehiclesSecure();
 
-    const int nV = (int)vehs.size();
-    if (nV == 0) {
-        releaseVehicles();
-        return res;
-    }
-
-    // query interval to lane dimensions
-    a = MAX2(0., a);
-    b = MIN2(myLength, b);
-
-    // Find indices ia (min with veh in interval)
-    //  and ib (max with veh in interval)
-    int ia = 0, ib = nV-1;
-    while (ia != nV) {
-        if(vehs[ia]->getPositionOnLane() >= a) {
-            break;
+    if (!vehs.empty()) {
+        for (MSVehicle* const veh : vehs) {
+            if (veh->getPositionOnLane() >= a) {
+                if (veh->getBackPositionOnLane() > b) {
+                    break;
+                }
+                res.insert(veh);
+            }
         }
-        ++ia;
     }
-    while (ib != -1) {
-        if(vehs[ib]->getBackPositionOnLane() <= b){
-            break;
-        }
-        --ib;
-    }
-
-    res.insert(vehs.begin()+ia, vehs.begin()+ib+1);
     releaseVehicles();
     return res;
 }
+
 
 std::vector<const MSJunction*>
 MSLane::getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const {

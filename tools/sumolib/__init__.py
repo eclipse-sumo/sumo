@@ -18,17 +18,14 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
+import warnings
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
 try:
     from . import visualization
 except ImportError as e:
-    class VisDummy:
-
-        def __getattr__(self, name):
-            raise e
-    visualization = VisDummy()
+    warnings.warn(e.msg)
 from . import files, net, output, sensors, shapes  # noqa
 from . import color, geomhelper, miscutils, options, route  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa

@@ -61,7 +61,7 @@ enum GUIIcon {
     /// @name simulation view icons
     /// @{
     ICON_MICROVIEW,
-    ICON_LAGGRVIEW,
+    ICON_OSGVIEW,
     /// @}
 
     /// @name simulation view icons (other)

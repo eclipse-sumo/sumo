@@ -120,6 +120,9 @@ public:
         /// sets the walking speed (ignored in other stages)
         virtual void setSpeed(double) {};
 
+        /// get departure time of stage
+        SUMOTime getDeparted() const;
+
         /// logs end of the step
         void setDeparted(SUMOTime now);
 
@@ -674,6 +677,9 @@ public:
 
     /// @brief return whether the person has reached the end of its plan
     bool hasArrived() const;
+    
+    /// @brief return whether the transportable has started it's plan
+    bool hasDeparted() const;
 
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
     void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);

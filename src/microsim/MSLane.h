@@ -895,7 +895,7 @@ public:
 
     /// @brief Returns all vehicles on the lane overlapping with the interval [a,b]
     /// @note  Does not consider vehs with front on subsequent lanes
-    std::set<MSVehicle*> getVehiclesInRange(double a, double b) const;
+    std::set<MSVehicle*> getVehiclesInRange(const double a, const double b) const;
 
 
     /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position

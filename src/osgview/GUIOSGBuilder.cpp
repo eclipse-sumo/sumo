@@ -70,6 +70,8 @@
 #include "GUIOSGBuilder.h"
 
 
+//#define DEBUG_TESSEL
+
 // ===========================================================================
 // static member variables
 // ===========================================================================
@@ -213,6 +215,14 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
 
         if (shape.size() > 2) {
             tessellator.retessellatePolygons(*geom);
+#ifdef DEBUG_TESSEL
+            std::cout << "l=" << l->getID() << " origPoints=" << shape.size() << " geomSize=" << geom->getVertexArray()->getNumElements() << " points=";
+            for (int i = 0; i < (int)geom->getVertexArray()->getNumElements(); i++) {
+                const osg::Vec3& p = (*((osg::Vec3Array*)geom->getVertexArray()))[i];
+                std::cout << p.x() << "," << p.y() << "," << p.z() << " ";
+            }
+            std::cout << "\n";
+#endif
         }
         static_cast<GUILane*>(l)->setGeometry(geom);
     }
