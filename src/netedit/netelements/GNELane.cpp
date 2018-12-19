@@ -728,7 +728,7 @@ GNELane::updateGeometry(bool updateGrid) {
         i->updateGeometry(updateGrid);
     }
     // In Move mode, connections aren't updated
-    if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
+    if (myNet->getViewNet() && myNet->getViewNet()->getCurrentNetworkEditMode() != GNE_MODE_MOVE) {
         // Update incoming connections of this lane
         auto incomingConnections = getGNEIncomingConnections();
         for (auto i : incomingConnections) {
