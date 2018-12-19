@@ -36,6 +36,8 @@
 #include <utils/geom/Position.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSInternalJunction.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -52,9 +54,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
-    : GUIGlObject(GLO_JUNCTION, junction.getID()),
-      myJunction(junction) {
+GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID): 
+    GUIGlObject(GLO_JUNCTION, junction.getID()),
+    myJunction(junction),
+    myTLLID(tllID)
+{
     if (myJunction.getShape().size() == 0) {
         Position pos = myJunction.getPosition();
         myBoundary = Boundary(pos.x() - 1., pos.y() - 1., pos.x() + 1., pos.y() + 1.);
@@ -159,6 +163,10 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
     } else {
         drawName(myJunction.getPosition(), s.scale, s.junctionName, s.angle);
+        if (s.tlsPhaseIndex.show && myTLLID != "") {
+            const int index = MSNet::getInstance()->getTLSControl().getActive(myTLLID)->getCurrentPhaseIndex();
+            GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
+        }
     }
 }
 
@@ -215,7 +223,6 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
             return 0;
     }
 }
-
 
 #ifdef HAVE_OSG
 void

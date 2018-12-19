@@ -258,7 +258,7 @@ public:
     /// @brief The junction colorer
     GUIColorer junctionColorer;
     // Setting bundles for optional drawing junction names and indices
-    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName;
+    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName, tlsPhaseIndex;
     /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
     /// @brief whether the shape of the junction should be drawn
