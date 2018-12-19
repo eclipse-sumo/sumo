@@ -64,8 +64,8 @@ with_taz_vClass
 # using zones for start / end with no edge specified
 taz_noedge
 
-# running A* with districts
-taz_astar
+# running with districts (especially for A*)
+taz
 
 # Test with vehicle having same source and destination
 same_edge
