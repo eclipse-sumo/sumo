@@ -97,6 +97,7 @@ neteditarrowleft.xpm \
 neteditarrowright.xpm \
 netopen.xpm \
 new_window.xpm \
+new_window_3d.xpm \
 no.xpm \
 open_bmp_dialog.xpm \
 opening.xpm \
