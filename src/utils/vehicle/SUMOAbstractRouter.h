@@ -56,7 +56,7 @@ public:
         EdgeInfo(const E* const e)
             : edge(e), effort(std::numeric_limits<double>::max()),
             heuristicEffort(std::numeric_limits<double>::max()),
-            leaveTime(0.), prev(nullptr), via(nullptr), visited(false) {}
+            leaveTime(0.), prev(nullptr), visited(false) {}
 
         /// The current edge
         const E* const edge;
@@ -74,15 +74,11 @@ public:
         /// The previous edge
         const EdgeInfo* prev;
 
-        /// The optional internal edge corresponding to prev
-        const E* via;
-
         /// The previous edge
         bool visited;
 
         inline void reset() {
             effort = std::numeric_limits<double>::max();
-            via = nullptr;
             visited = false;
         }
 
@@ -129,18 +125,21 @@ public:
         return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
     }
 
+    inline void updateViaEdgeCost(const E* viaEdge, const V* const v, double& time, double& effort, double& length) const {
+        while (viaEdge != nullptr && viaEdge->isInternal()) {
+            const double viaEffortDelta = this->getEffort(viaEdge, v, time);
+            time += getTravelTime(viaEdge, v, time, viaEffortDelta);
+            effort += viaEffortDelta;
+            length += viaEdge->getLength();
+            viaEdge = viaEdge->getViaSuccessors().front().first;
+        }
+    }
+
     inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
         if (prev != nullptr) {
             for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
                 if (follower.first == e) {
-                    const E* viaEdge = follower.second;
-                    while (viaEdge != nullptr && viaEdge->isInternal()) {
-                        const double viaEffortDelta = this->getEffort(viaEdge, v, time);
-                        time += getTravelTime(viaEdge, v, time, viaEffortDelta);
-                        effort += viaEffortDelta;
-                        length += viaEdge->getLength();
-                        viaEdge = viaEdge->getViaSuccessors().front().first;
-                    }
+                    updateViaEdgeCost(follower.second, v, time, effort, length);
                     break;
                 }
             }

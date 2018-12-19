@@ -123,6 +123,7 @@ public:
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             return false;
         }
+        double length = 0.; // dummy for the via edge cost update
         this->startQuery();
 #ifdef DijkstraRouter_DEBUG_QUERY
         std::cout << "DEBUG: starting search for '" << vehicle->getID() << "' time: " << STEPS2TIME(msTime) << "\n";
@@ -171,23 +172,11 @@ public:
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
-            const E* viaEdge = minimumInfo->via;
-            double effort = minimumInfo->effort;
-            double leaveTime = minimumInfo->leaveTime;
-            while (viaEdge != nullptr && viaEdge->isInternal()) {
-                const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
-                leaveTime += this->getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
-                effort += viaEffortDelta;
-                viaEdge = viaEdge->getViaSuccessors().front().first;
-            }
-            const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
-            leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
-            effort += effortDelta;
+            const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
+            const double leaveTime = minimumInfo->leaveTime + this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
             if (myExternalEffort != nullptr) {
                 myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
             }
-            assert(effort >= minimumInfo->effort);
-            assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
                 auto* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
@@ -195,12 +184,16 @@ public:
                 if (this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
+                double effort = minimumInfo->effort + effortDelta;
+                double time = leaveTime;
+                this->updateViaEdgeCost(follower.second, vehicle, time, effort, length);
+                assert(effort >= minimumInfo->effort);
+                assert(time >= minimumInfo->leaveTime);
                 const double oldEffort = followerInfo->effort;
                 if (!followerInfo->visited && effort < oldEffort) {
                     followerInfo->effort = effort;
-                    followerInfo->leaveTime = leaveTime;
+                    followerInfo->leaveTime = time;
                     followerInfo->prev = minimumInfo;
-                    followerInfo->via = follower.second;
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
