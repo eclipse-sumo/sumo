@@ -473,8 +473,18 @@ enum {
     MID_GNE_PROCESSING_OPTIONS,
     /// @}
 
+        
+    /// @name Toolbar set supermodes messages
+    /// @{
 
-    /// @name Toolbar setModes messages
+    /// @brief supermode for edit network elements
+    MID_GNE_SETSUPERMODE_NETWORK,
+    /// @brief supermode for edit demand
+    MID_GNE_SETSUPERMODE_DEMAND,
+    /// @}
+
+
+    /// @name Toolbar set network modes messages
     /// @{
 
     /// @brief mode for adding edges
@@ -503,14 +513,14 @@ enum {
     MID_GNE_SETMODE_PROHIBITION,
     /// @}
 
-    /// @name Toolbar set supermodes messages
+
+    /// @name Toolbar set demand modes messages
     /// @{
 
-    /// @brief supermode for edit network elements
-    MID_GNE_SETSUPERMODEMODE_NETWORK,
-    /// @brief supermode for edit demand
-    MID_GNE_SETSUPERMODEMODE_DEMAND,
+    /// @brief mode for edit routes
+    MID_GNE_SETMODE_ROUTES,
     /// @}
+
 
     /// @name GNEViewParent dialog messages
     /// @{

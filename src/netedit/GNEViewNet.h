@@ -39,6 +39,15 @@
 // enum
 // ===========================================================================
 
+/// @brie enum for supermodes
+enum Supermodes {
+    ///@brief Network mode (Edges, junctions, etc..)
+    GNE_SUPERMODE_NETWORK,
+    ///@brief Demanding mode (Routes, Vehicles etc..)
+    GNE_SUPERMODE_DEMANDING
+};
+
+/// @brie enum for network edit modes
 enum NetworkEditMode {
     ///@brief placeholder mode
     GNE_MODE_DUMMY,
@@ -68,6 +77,7 @@ enum NetworkEditMode {
     GNE_MODE_PROHIBITION
 };
 
+/// @brie enum for demand edit modes
 enum DemandEditMode {
     ///@brief Mode for editing routes
     GNE_MODE_ROUTES
@@ -302,6 +312,15 @@ public:
 
     /// @name set mode call backs
     /// @{
+    /// @brief called when user press the button for supermode network
+    long onCmdSetSupermodeNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press the button for supermode demand
+    long onCmdSetSupermodeDemand(FXObject*, FXSelector, void*);
+    /// @}
+
+    /// @name set network mode call backs
+    /// @{
     /// @brief called when user press the button for create edge mode
     long onCmdSetModeCreateEdge(FXObject*, FXSelector, void*);
 
@@ -337,6 +356,13 @@ public:
 
     /// @brief called when user press the button for polygon mode
     long onCmdSetModeProhibition(FXObject*, FXSelector, void*);
+
+    /// @}
+
+    /// @name set network mode call backs
+    /// @{
+    /// @brief called when user press the button for create routes
+    long onCmdSetModeRoutes(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -829,6 +855,15 @@ private:
         
         /// @brief build checkable buttons
         void buildSuperModeButtons();
+      
+        /// @brief the current supermode
+        Supermodes currentSupermode;
+
+        /// @brief the current Network edit mode
+        NetworkEditMode networkEditMode;
+
+        /// @brief the current Demand edit mode
+        DemandEditMode demandEditMode;
 
         /// @brief chekable button for supermode Network
         MFXCheckableButton* metworkButton;
@@ -938,12 +973,6 @@ private:
     /// @brief Pointer to current net. (We are not responsible for deletion)
     GNENet* myNet;
 
-    /// @brief the current Network edit mode
-    NetworkEditMode myNetworkEditMode;
-
-    /// @brief the current Demandedit mode
-    DemandEditMode myDemandEditMode;
-
     /// @brief the current frame
     GNEFrame* myCurrentFrame;
 
@@ -1006,6 +1035,9 @@ private:
     /// @brief the previous edit mode before edit junction's shapes
     NetworkEditMode myPreviousNetworkEditMode;
     /// @}
+
+    /// @brief set Network edit mode
+    void setSupermode(Supermodes supermode);
 
     /// @brief set Network edit mode
     void setNetworkEditMode(NetworkEditMode networkMode);
