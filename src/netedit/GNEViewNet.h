@@ -869,7 +869,7 @@ private:
         DemandEditMode demandEditMode;
 
         /// @brief chekable button for supermode Network
-        MFXCheckableButton* metworkButton;
+        MFXCheckableButton* networkButton;
 
         /// @brief chekable button for supermode Demand
         MFXCheckableButton* demandButton;
@@ -1040,10 +1040,10 @@ private:
     void setSupermode(Supermodes supermode);
 
     /// @brief set Network edit mode
-    void setNetworkEditMode(NetworkEditMode networkMode);
+    void setNetworkEditMode(NetworkEditMode networkMode, bool force = false);
 
     /// @brief set Demand edit mode
-    void setDemandEditMode(DemandEditMode demandMode);
+    void setDemandEditMode(DemandEditMode demandMode, bool force = false);
 
     /// @brief adds controls for setting the Network edit mode
     void buildNetworkEditModeControls();
