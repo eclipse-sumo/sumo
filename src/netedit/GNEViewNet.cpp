@@ -3920,9 +3920,9 @@ GNEViewNet::SuperModes::SuperModes(GNEViewNet* viewNet) :
 void
 GNEViewNet::SuperModes::buildSuperModeButtons() {
     metworkButton = new MFXCheckableButton(false, myViewNet->myToolbar, "Network\t\tSet mode for edit network elements.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SETSUPERMODEMODE_NETWORK, GUIDesignButtonToolbarSupermode);
+        GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myViewNet, MID_GNE_SETSUPERMODEMODE_NETWORK, GUIDesignButtonToolbarSupermode);
     demandButton = new MFXCheckableButton(false, myViewNet->myToolbar, "Demand\t\tSet mode for edit traffic demand.",
-        GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SETSUPERMODEMODE_DEMAND, GUIDesignButtonToolbarSupermode);
+        GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myViewNet, MID_GNE_SETSUPERMODEMODE_DEMAND, GUIDesignButtonToolbarSupermode);
 }
 
 // ---------------------------------------------------------------------------

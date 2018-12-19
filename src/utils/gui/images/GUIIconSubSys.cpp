@@ -129,6 +129,9 @@
 #include "cut.xpm"
 #include "ext.xpm"
 
+#include "supermodenetwork.xpm"
+#include "supermodedemand.xpm"
+
 #include "modeadditional.xpm"
 #include "modeconnection.xpm"
 #include "modecreateedge.xpm"
@@ -340,6 +343,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
+
+    myIcons[ICON_SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
+    myIcons[ICON_SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);
 
     myIcons[ICON_MODEADDITIONAL] = new FXXPMIcon(a, modeadditional_xpm);
     myIcons[ICON_MODECONNECTION] = new FXXPMIcon(a, modeconnection_xpm);
