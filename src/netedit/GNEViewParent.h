@@ -66,13 +66,6 @@ class GNEViewParent : public GUIGlChildWindow {
     FXDECLARE(GNEViewParent)
 
 public:
-
-    /// @brie enum for supermodes
-    enum Supermodes {
-        NETWORK,
-        DEMANDING
-    };
-
     /**@brief Constructor
      * also builds the view and calls create()
      *
