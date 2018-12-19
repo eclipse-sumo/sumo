@@ -407,7 +407,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedBegin(); it != MSNet::getInstance()->getPersonControl().loadedEnd(); ++it) {
         MSTransportable* person = (*it).second;
         // XXX if not departed: continue
-        if (person->hasArrived()) {
+        if (person->hasArrived() || !person->hasDeparted()) {
             //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
             continue;
         }

@@ -104,6 +104,11 @@ MSTransportable::Stage::setDeparted(SUMOTime now) {
     }
 }
 
+SUMOTime
+MSTransportable::Stage::getDeparted() const {
+    return myDeparted;
+}
+
 void
 MSTransportable::Stage::setArrived(MSNet* /* net */, MSTransportable* /* transportable */, SUMOTime now) {
     myArrived = now;
@@ -781,6 +786,11 @@ MSTransportable::getStageSummary(int stageIndex) const {
 bool
 MSTransportable::hasArrived() const {
     return myStep == myPlan->end();
+}
+
+bool
+MSTransportable::hasDeparted() const {
+    return myPlan->size() > 0 && myPlan->front()->getDeparted() >= 0;
 }
 
 
