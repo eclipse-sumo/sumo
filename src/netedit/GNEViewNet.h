@@ -39,7 +39,7 @@
 // enum
 // ===========================================================================
 
-enum EditMode {
+enum NetworkEditMode {
     ///@brief placeholder mode
     GNE_MODE_DUMMY,
     ///@brief mode for creating new edges
@@ -64,8 +64,13 @@ enum EditMode {
     GNE_MODE_TAZ,
     ///@brief Mode for editing Polygons
     GNE_MODE_POLYGON,
-    ///@brief Mode for editing connection prohibits
+    ///@brief Mode for editing connection prohibitions
     GNE_MODE_PROHIBITION
+};
+
+enum DemandEditMode {
+    ///@brief Mode for editing routes
+    GNE_MODE_ROUTES
 };
 
 // ===========================================================================
@@ -499,8 +504,11 @@ public:
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
 
-    /// @brief get the current edit mode
-    EditMode getCurrentEditMode() const;
+    /// @brief get the current Network edit mode
+    NetworkEditMode getCurrentNetworkEditMode() const;
+
+    /// @brief get the current Demand edit mode
+    DemandEditMode getCurrentDemandEditMode() const;
 
     /// @brief get Key Pressed modul
     const KeyPressed &getKeyPressed() const;
@@ -819,8 +827,11 @@ private:
     /// @brief Pointer to current net. (We are not responsible for deletion)
     GNENet* myNet;
 
-    /// @brief the current edit mode
-    EditMode myEditMode;
+    /// @brief the current Network edit mode
+    NetworkEditMode myNetworkEditMode;
+
+    /// @brief the current Demandedit mode
+    DemandEditMode myDemandEditMode;
 
     /// @brief the current frame
     GNEFrame* myCurrentFrame;
@@ -856,7 +867,7 @@ private:
     ViewOptions myViewOptions;
     // @}
 
-    /// @brief a reference to the toolbar in myParent
+    /// @brief a reference to the toolbar in View Parent
     FXToolBar* myToolbar;
 
     /// @name buttons  for selecting the edit mode
@@ -913,17 +924,26 @@ private:
     GNEPoly* myEditShapePoly;
 
     /// @brief the previous edit mode before edit junction's shapes
-    EditMode myPreviousEditMode;
+    NetworkEditMode myPreviousNetworkEditMode;
     /// @}
 
-    /// @brief set edit mode
-    void setEditMode(EditMode mode);
+    /// @brief set Network edit mode
+    void setNetworkEditMode(NetworkEditMode networkMode);
 
-    /// @brief adds controls for setting the edit mode
-    void buildEditModeControls();
+    /// @brief set Demand edit mode
+    void setDemandEditMode(DemandEditMode demandMode);
 
-    /// @brief updates mode specific controls
-    void updateModeSpecificControls();
+    /// @brief adds controls for setting the Network edit mode
+    void buildNetworkEditModeControls();
+
+    /// @brief updates Network mode specific controls
+    void updateNetworkModeSpecificControls();
+
+    /// @brief adds controls for setting the Demand edit mode
+    void buildDemandEditModeControls();
+
+    /// @brief updates Demand mode specific controls
+    void updateDemandModeSpecificControls();
 
     /// @brief delete all currently selected junctions
     void deleteSelectedJunctions();

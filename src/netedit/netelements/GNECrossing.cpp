@@ -207,7 +207,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
     // check if menu commands has to be disabled
-    EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
+    NetworkEditMode editMode = myNet->getViewNet()->getCurrentNetworkEditMode();
     const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
     if (wrongMode) {
         mcCustomShape->disable();
