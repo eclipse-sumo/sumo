@@ -180,7 +180,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
     // check if menu commands has to be disabled
     NetworkEditMode editMode = myNet->getViewNet()->getCurrentNetworkEditMode();
-    const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
+    const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
     if (wrongMode) {
         mcCustomShape->disable();
         mcClearConnections->disable();
@@ -296,7 +296,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw TLS icon if isn't being drawn for selecting
-        if ((s.editMode == GNE_MODE_TLS) && (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
+        if ((s.editMode == GNE_NMODE_TLS) && (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
             glPushMatrix();
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() + 0.1);
