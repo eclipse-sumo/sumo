@@ -314,59 +314,16 @@ public:
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     /// @}
 
-    /// @name set mode call backs
+    /// @name set modes call backs
     /// @{
-    /// @brief called when user press the button for supermode network
-    long onCmdSetSupermodeNetwork(FXObject*, FXSelector, void*);
+    /// @brief called when user press a supermode button
+    long onCmdSetSupermode(FXObject*, FXSelector sel, void*);
 
-    /// @brief called when user press the button for supermode demand
-    long onCmdSetSupermodeDemand(FXObject*, FXSelector, void*);
-    /// @}
+    /// @brief called when user press a network mode button 
+    long onCmdSetNetworkMode(FXObject*, FXSelector sel, void*);
 
-    /// @name set network mode call backs
-    /// @{
-    /// @brief called when user press the button for create edge mode
-    long onCmdSetModeCreateEdge(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for move mode
-    long onCmdSetModeMove(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for delete mode
-    long onCmdSetModeDelete(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for inspect mode
-    long onCmdSetModeInspect(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for select mode
-    long onCmdSetModeSelect(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for connect mode
-    long onCmdSetModeConnect(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for traffic lights mode
-    long onCmdSetModeTLS(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for additional mode
-    long onCmdSetModeAdditional(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for crossing mode
-    long onCmdSetModeCrossing(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for TAZ mode
-    long onCmdSetModeTAZ(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for polygon mode
-    long onCmdSetModePolygon(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for polygon mode
-    long onCmdSetModeProhibition(FXObject*, FXSelector, void*);
-
-    /// @}
-
-    /// @name set network mode call backs
-    /// @{
-    /// @brief called when user press the button for create routes
-    long onCmdSetModeRoutes(FXObject*, FXSelector, void*);
+    /// @brief called when user press a demand mode button 
+    long onCmdSetDemandMode(FXObject*, FXSelector sel, void*);
 
     /// @}
 
@@ -424,41 +381,8 @@ public:
     /// @brief reset custom shapes of selected lanes
     long onCmdResetLaneCustomShape(FXObject*, FXSelector, void*);
 
-    /// @brief restrict lane to pedestrians
-    long onCmdRestrictLaneSidewalk(FXObject*, FXSelector, void*);
-
-    /// @brief restrict lane to bikes
-    long onCmdRestrictLaneBikelane(FXObject*, FXSelector, void*);
-
-    /// @brief restrict lane to buslanes
-    long onCmdRestrictLaneBuslane(FXObject*, FXSelector, void*);
-
-    /// @brief restrict lane to all vehicles
-    long onCmdRestrictLaneGreenVerge(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for pedestrians
-    long onCmdAddRestrictedLaneSidewalk(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for bikes
-    long onCmdAddRestrictedLaneBikelane(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for buses
-    long onCmdAddRestrictedLaneBuslane(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for all vehicles
-    long onCmdAddRestrictedLaneGreenVerge(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for pedestrians
-    long onCmdRemoveRestrictedLaneSidewalk(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for bikes
-    long onCmdRemoveRestrictedLaneBikelane(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for bus
-    long onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for all vehicles
-    long onCmdRemoveRestrictedLaneGreenVerge(FXObject*, FXSelector, void*);
+    /// @brief add/remove/restrict lane
+    long onCmdLaneOperation(FXObject*, FXSelector sel, void*);
 
     /// @brief open additional dialog
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);

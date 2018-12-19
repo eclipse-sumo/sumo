@@ -1053,7 +1053,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
         // set supermode network
         if(getView()) {
-            getView()->onCmdSetSupermodeNetwork(0,0,0);
+            getView()->onCmdSetSupermode(0, MID_GNE_SETSUPERMODE_NETWORK, 0);
         }
         if (ec->myViewportFromRegistry) {
             Position off;

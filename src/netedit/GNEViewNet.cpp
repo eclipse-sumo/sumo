@@ -64,23 +64,23 @@
 
 FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Super Modes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETSUPERMODE_NETWORK,            GNEViewNet::onCmdSetSupermodeNetwork),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETSUPERMODE_DEMAND,             GNEViewNet::onCmdSetSupermodeDemand),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETSUPERMODE_NETWORK,            GNEViewNet::onCmdSetSupermode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETSUPERMODE_DEMAND,             GNEViewNet::onCmdSetSupermode),
     // Network Modes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE,             GNEViewNet::onCmdSetModeCreateEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_MOVE,                    GNEViewNet::onCmdSetModeMove),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_DELETE,                  GNEViewNet::onCmdSetModeDelete),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_INSPECT,                 GNEViewNet::onCmdSetModeInspect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_SELECT,                  GNEViewNet::onCmdSetModeSelect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CONNECT,                 GNEViewNet::onCmdSetModeConnect),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TLS,                     GNEViewNet::onCmdSetModeTLS),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,              GNEViewNet::onCmdSetModeAdditional),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                GNEViewNet::onCmdSetModeCrossing),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TAZ,                     GNEViewNet::onCmdSetModeTAZ),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                 GNEViewNet::onCmdSetModePolygon),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION,             GNEViewNet::onCmdSetModeProhibition),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE,             GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_MOVE,                    GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_DELETE,                  GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_INSPECT,                 GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_SELECT,                  GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CONNECT,                 GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TLS,                     GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,              GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TAZ,                     GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                 GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION,             GNEViewNet::onCmdSetNetworkMode),
     // Demand Modes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ROUTES,                  GNEViewNet::onCmdSetModeRoutes),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ROUTES,                  GNEViewNet::onCmdSetDemandMode),
     // Viewnet
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
@@ -115,18 +115,18 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Lanes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                  GNEViewNet::onCmdDuplicateLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,          GNEViewNet::onCmdResetLaneCustomShape),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,         GNEViewNet::onCmdRestrictLaneSidewalk),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,             GNEViewNet::onCmdRestrictLaneBikelane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,              GNEViewNet::onCmdRestrictLaneBuslane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_GREENVERGE,       GNEViewNet::onCmdRestrictLaneGreenVerge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,               GNEViewNet::onCmdAddRestrictedLaneSidewalk),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                   GNEViewNet::onCmdAddRestrictedLaneBikelane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                    GNEViewNet::onCmdAddRestrictedLaneBuslane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE,             GNEViewNet::onCmdAddRestrictedLaneGreenVerge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,            GNEViewNet::onCmdRemoveRestrictedLaneSidewalk),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                GNEViewNet::onCmdRemoveRestrictedLaneBikelane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                 GNEViewNet::onCmdRemoveRestrictedLaneBuslane),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,          GNEViewNet::onCmdRemoveRestrictedLaneGreenVerge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,         GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BIKE,             GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_BUS,              GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_GREENVERGE,       GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_SIDEWALK,               GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BIKE,                   GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_BUS,                    GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_ADD_GREENVERGE,             GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_SIDEWALK,            GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                 GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,          GNEViewNet::onCmdLaneOperation),
     // Additionals
     FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,              GNEViewNet::onCmdOpenAdditionalDialog),
     // Polygons
@@ -1761,107 +1761,79 @@ GNEViewNet::getPOIAtPopupPosition() {
     return nullptr;
 }
 
+long 
+GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
+    // check what network mode will be set
+    switch (FXSELID(sel)) {
+        case MID_GNE_SETSUPERMODE_NETWORK:
+            setSupermode(GNE_SUPERMODE_NETWORK);
+            break;
+        case MID_GNE_SETSUPERMODE_DEMAND:
+            setSupermode(GNE_SUPERMODE_DEMAND);
+            break;
+        default:
+            break;
+    }
+    return 1;
+}
 
 long 
-GNEViewNet::onCmdSetSupermodeNetwork(FXObject*, FXSelector, void*) {
-    setSupermode(GNE_SUPERMODE_NETWORK);
-    return 1;
-}
-
-
-long 
-GNEViewNet::onCmdSetSupermodeDemand(FXObject*, FXSelector, void*) {
-    setSupermode(GNE_SUPERMODE_DEMAND);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeCreateEdge(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_CREATE_EDGE);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeMove(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_MOVE);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeDelete(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_DELETE);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeInspect(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_INSPECT);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeSelect(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_SELECT);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeConnect(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_CONNECT);
+GNEViewNet::onCmdSetNetworkMode(FXObject*, FXSelector sel, void*) {
+    // check what network mode will be set
+    switch (FXSELID(sel)) {
+        case MID_GNE_SETMODE_CREATE_EDGE:
+            setNetworkEditMode(GNE_NMODE_CREATE_EDGE);
+            break;
+        case MID_GNE_SETMODE_MOVE:
+            setNetworkEditMode(GNE_NMODE_MOVE);
+            break;
+        case MID_GNE_SETMODE_DELETE:
+            setNetworkEditMode(GNE_NMODE_DELETE);
+            break;
+        case MID_GNE_SETMODE_INSPECT:
+            setNetworkEditMode(GNE_NMODE_INSPECT);
+            break;
+        case MID_GNE_SETMODE_SELECT:
+            setNetworkEditMode(GNE_NMODE_SELECT);
+            break;
+        case MID_GNE_SETMODE_CONNECT:
+            setNetworkEditMode(GNE_NMODE_CONNECT);
+            break;
+        case MID_GNE_SETMODE_TLS:
+            setNetworkEditMode(GNE_NMODE_TLS);
+            break;
+        case MID_GNE_SETMODE_ADDITIONAL:
+            setNetworkEditMode(GNE_NMODE_ADDITIONAL);
+            break;
+        case MID_GNE_SETMODE_CROSSING:
+            setNetworkEditMode(GNE_NMODE_CROSSING);
+            break;
+        case MID_GNE_SETMODE_TAZ:
+            setNetworkEditMode(GNE_NMODE_TAZ);
+            break;
+        case MID_GNE_SETMODE_POLYGON:
+            setNetworkEditMode(GNE_NMODE_POLYGON);
+            break;
+        case MID_GNE_SETMODE_PROHIBITION:
+            setNetworkEditMode(GNE_NMODE_PROHIBITION);
+            break;
+        default:
+            break;
+    }
     return 1;
 }
 
 
 long
-GNEViewNet::onCmdSetModeTLS(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_TLS);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeAdditional(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_ADDITIONAL);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeCrossing(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_CROSSING);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeTAZ(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_TAZ);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModePolygon(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_POLYGON);
-    return 1;
-}
-
-long
-GNEViewNet::onCmdSetModeProhibition(FXObject*, FXSelector, void*) {
-    setNetworkEditMode(GNE_NMODE_PROHIBITION);
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdSetModeRoutes(FXObject*, FXSelector, void*) {
-    setDemandEditMode(GNE_DMODE_ROUTES);
+GNEViewNet::onCmdSetDemandMode(FXObject*, FXSelector sel, void*) {
+    // check what demand mode will be set
+    switch (FXSELID(sel)) {
+        case MID_GNE_SETMODE_ROUTES:
+            setDemandEditMode(GNE_DMODE_ROUTES);
+            break;
+        default:
+            break;
+    }
     return 1;
 }
 
@@ -2237,74 +2209,36 @@ GNEViewNet::onCmdResetLaneCustomShape(FXObject*, FXSelector, void*) {
 
 
 long
-GNEViewNet::onCmdRestrictLaneSidewalk(FXObject*, FXSelector, void*) {
-    return restrictLane(SVC_PEDESTRIAN);
-}
-
-
-long
-GNEViewNet::onCmdRestrictLaneBikelane(FXObject*, FXSelector, void*) {
-    return restrictLane(SVC_BICYCLE);
-}
-
-
-long
-GNEViewNet::onCmdRestrictLaneBuslane(FXObject*, FXSelector, void*) {
-    return restrictLane(SVC_BUS);
-}
-
-
-long
-GNEViewNet::onCmdRestrictLaneGreenVerge(FXObject*, FXSelector, void*) {
-    return restrictLane(SVC_IGNORING);
-}
-
-
-long
-GNEViewNet::onCmdAddRestrictedLaneSidewalk(FXObject*, FXSelector, void*) {
-    return addRestrictedLane(SVC_PEDESTRIAN);
-}
-
-
-long
-GNEViewNet::onCmdAddRestrictedLaneBikelane(FXObject*, FXSelector, void*) {
-    return addRestrictedLane(SVC_BICYCLE);
-}
-
-
-long
-GNEViewNet::onCmdAddRestrictedLaneBuslane(FXObject*, FXSelector, void*) {
-    return addRestrictedLane(SVC_BUS);
-}
-
-
-long
-GNEViewNet::onCmdAddRestrictedLaneGreenVerge(FXObject*, FXSelector, void*) {
-    return addRestrictedLane(SVC_IGNORING);
-}
-
-
-long
-GNEViewNet::onCmdRemoveRestrictedLaneSidewalk(FXObject*, FXSelector, void*) {
-    return removeRestrictedLane(SVC_PEDESTRIAN);
-}
-
-
-long
-GNEViewNet::onCmdRemoveRestrictedLaneBikelane(FXObject*, FXSelector, void*) {
-    return removeRestrictedLane(SVC_BICYCLE);
-}
-
-
-long
-GNEViewNet::onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*) {
-    return removeRestrictedLane(SVC_BUS);
-}
-
-
-long
-GNEViewNet::onCmdRemoveRestrictedLaneGreenVerge(FXObject*, FXSelector, void*) {
-    return removeRestrictedLane(SVC_IGNORING);
+GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
+    // check lane operation
+    switch (FXSELID(sel)) {
+        case MID_GNE_LANE_TRANSFORM_SIDEWALK:
+            return restrictLane(SVC_PEDESTRIAN);
+        case MID_GNE_LANE_TRANSFORM_BIKE:
+            return restrictLane(SVC_BICYCLE);
+        case MID_GNE_LANE_TRANSFORM_BUS:
+            return restrictLane(SVC_BUS);
+        case MID_GNE_LANE_TRANSFORM_GREENVERGE:
+            return restrictLane(SVC_IGNORING);
+        case MID_GNE_LANE_ADD_SIDEWALK:
+            return addRestrictedLane(SVC_PEDESTRIAN);
+        case MID_GNE_LANE_ADD_BIKE:
+            return addRestrictedLane(SVC_BICYCLE);
+        case MID_GNE_LANE_ADD_BUS:
+            return addRestrictedLane(SVC_BUS);
+        case MID_GNE_LANE_ADD_GREENVERGE:
+            return addRestrictedLane(SVC_IGNORING);
+        case MID_GNE_LANE_REMOVE_SIDEWALK:
+            return removeRestrictedLane(SVC_PEDESTRIAN);
+        case MID_GNE_LANE_REMOVE_BIKE:
+            return removeRestrictedLane(SVC_BICYCLE);
+        case MID_GNE_LANE_REMOVE_BUS:
+            return removeRestrictedLane(SVC_BUS);
+        case MID_GNE_LANE_REMOVE_GREENVERGE:
+            return removeRestrictedLane(SVC_IGNORING);
+        default:
+            break;
+    }
 }
 
 
