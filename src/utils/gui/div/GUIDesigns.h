@@ -87,6 +87,9 @@
 
 /// @brief little checkable button with icon placed in navigation toolbar
 #define GUIDesignButtonToolbarCheckable     (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+
+/// @brief checkable button with icon placed in navigation toolbar for supermodes
+#define GUIDesignButtonToolbarSupermode     (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23
 /// @}
 
 
