@@ -376,9 +376,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
     // remove inactive
-    for (auto& item : myVehicles) {
-        if (!item.second.active) {
-            removeVeh(item.first);
+    for (auto it = myVehicles.begin(); it != myVehicles.end();) {
+        if (!it->second.active) {
+            removeVeh((it++)->first);
+        } else {
+            ++it;
         }
     }
 
@@ -425,11 +427,16 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
     }
     // remove inactive
-    for (auto& item : myPersons) {
-        if (!item.second.active) {
-            removeTransportable(item.first);
+    for (auto it = myPersons.begin(); it != myPersons.end();) {
+        if (!it->second.active) {
+            removeTransportable((it++)->first);
+        }
+        else {
+            ++it;
         }
     }
+
+
     if (myAdapter->makeCurrent()) {
         myViewer->frame();
         makeNonCurrent();
