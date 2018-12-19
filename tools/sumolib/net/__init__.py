@@ -23,7 +23,6 @@ It uses other classes from this module to represent the road network.
 
 from __future__ import print_function
 from __future__ import absolute_import
-import os
 import sys
 import math
 import heapq
@@ -34,11 +33,11 @@ from collections import defaultdict
 
 import sumolib
 from . import lane, edge, node, connection, roundabout
-from .lane import Lane  # noqa
-from .edge import Edge  # noqa
-from .node import Node  # noqa
-from .connection import Connection  # noqa
-from .roundabout import Roundabout  # noqa
+from .lane import Lane
+from .edge import Edge
+from .node import Node
+from .connection import Connection
+from .roundabout import Roundabout
 
 
 class TLS:
@@ -241,7 +240,7 @@ class Net:
         return self.getEdge(edge_id).getLane(int(lane_index))
 
     def _initRTree(self, shapeList, includeJunctions=True):
-        import rtree
+        import rtree  # noqa
         self._rtree = rtree.index.Index()
         self._rtree.interleaved = True
         for ri, shape in enumerate(shapeList):
@@ -281,18 +280,18 @@ class Net:
                         self._allLanes += the_edge.getLanes()
                 self._initRTree(self._allLanes, includeJunctions)
             for i in self._rtree.intersection((x - r, y - r, x + r, y + r)):
-                l = self._allLanes[i]
+                lane = self._allLanes[i]
                 d = sumolib.geomhelper.distancePointToPolygon(
-                    (x, y), l.getShape(includeJunctions))
+                    (x, y), lane.getShape(includeJunctions))
                 if d < r:
-                    lanes.append((l, d))
+                    lanes.append((lane, d))
         except ImportError:
             for the_edge in self._edges:
-                for l in the_edge.getLanes():
+                for lane in the_edge.getLanes():
                     d = sumolib.geomhelper.distancePointToPolygon(
-                        (x, y), l.getShape(includeJunctions))
+                        (x, y), lane.getShape(includeJunctions))
                     if d < r:
-                        lanes.append((l, d))
+                        lanes.append((lane, d))
         return lanes
 
     def hasNode(self, id):
@@ -585,8 +584,8 @@ class NetReader(handler.ContentHandler):
         if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
-            if self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
-                                                       self._net._crossings_and_walkingAreas):
+            if self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or
+                                                       toEdgeID in self._net._crossings_and_walkingAreas):
                 fromEdge = self._net.getEdge(fromEdgeID)
                 toEdge = self._net.getEdge(toEdgeID)
                 fromLane = fromEdge.getLane(int(attrs['fromLane']))

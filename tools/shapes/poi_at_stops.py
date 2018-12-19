@@ -22,7 +22,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net  # noqa
-from sumolib.xml import parse
+from sumolib.xml import parse  # noqa
 
 
 if len(sys.argv) < 2:
