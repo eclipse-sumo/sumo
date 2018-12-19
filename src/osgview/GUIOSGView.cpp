@@ -342,7 +342,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
     for (; it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); it++) {
         GUIVehicle* veh = static_cast<GUIVehicle*>(it->second);
-        if (!veh->isOnRoad()) {
+        if (!(veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled())) {
             continue;
         }
         auto itVeh = myVehicles.find(veh);
