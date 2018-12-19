@@ -503,6 +503,14 @@ enum {
     MID_GNE_SETMODE_PROHIBITION,
     /// @}
 
+    /// @name Toolbar set supermodes messages
+    /// @{
+
+    /// @brief supermode for edit network elements
+    MID_GNE_SETSUPERMODEMODE_NETWORK,
+    /// @brief supermode for edit demand
+    MID_GNE_SETSUPERMODEMODE_DEMAND,
+    /// @}
 
     /// @name GNEViewParent dialog messages
     /// @{

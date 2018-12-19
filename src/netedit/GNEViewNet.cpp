@@ -499,6 +499,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     mySelectingArea(this),
     myTestingMode(this), 
     myViewOptions(this),
+    mySuperModes(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
     myToolbar(toolBar),
@@ -816,6 +817,7 @@ GNEViewNet::GNEViewNet() :
     mySelectingArea(this),
     myTestingMode(this), 
     myViewOptions(this),
+    mySuperModes(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this) {
 }
@@ -2701,11 +2703,16 @@ GNEViewNet::setDemandEditMode(DemandEditMode mode) {
 
 void
 GNEViewNet::buildNetworkEditModeControls() {
+    // first build supermode buttons
+    mySuperModes.buildSuperModeButtons();
+
     // build menu checks for Network checkable buttons
     myNetworkCheckableButtons.buildNetworkCheckableButtons();
 
-    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, nullptr, 0, GUIDesignToolbarGrip);
+    // build menu checks for Demand checkable buttons
+    myDemandCheckableButtons.buildDemandCheckableButtons();
 
+    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, nullptr, 0, GUIDesignToolbarGrip);
 
     // initialize mode specific controls
 
@@ -3904,6 +3911,25 @@ GNEViewNet::ViewOptions::showConnections() const {
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNet::SuperModes - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNet::SuperModes::SuperModes(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
+    metworkButton(nullptr),
+    demandButton(nullptr) {
+}
+
+
+void
+GNEViewNet::SuperModes::buildSuperModeButtons() {
+    metworkButton = new MFXCheckableButton(false, myViewNet->myToolbar, "Network\t\tSet mode for edit network elements.",
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SETSUPERMODEMODE_NETWORK, GUIDesignButtonToolbarSupermode);
+    demandButton = new MFXCheckableButton(false, myViewNet->myToolbar, "Demand\t\tSet mode for edit traffic demand.",
+        GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SETSUPERMODEMODE_DEMAND, GUIDesignButtonToolbarSupermode);
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNet::NetworkCheckableButtons - methods
 // ---------------------------------------------------------------------------
 
@@ -3994,29 +4020,29 @@ GNEViewNet::NetworkCheckableButtons::updateNetworkCheckableButtons() {
 void
 GNEViewNet::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     createEdgeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
-            GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SETMODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SETMODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
     moveButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset move mode\tMode for move elements.",
-            GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SETMODE_MOVE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SETMODE_MOVE, GUIDesignButtonToolbarCheckable);
     deleteButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset delete mode\tMode for delete elements.",
-            GUIIconSubSys::getIcon(ICON_MODEDELETE), myViewNet, MID_GNE_SETMODE_DELETE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEDELETE), myViewNet, MID_GNE_SETMODE_DELETE, GUIDesignButtonToolbarCheckable);
     inspectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
-            GUIIconSubSys::getIcon(ICON_MODEINSPECT), myViewNet, MID_GNE_SETMODE_INSPECT, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myViewNet, MID_GNE_SETMODE_INSPECT, GUIDesignButtonToolbarCheckable);
     selectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset select mode\tMode for select elements.",
-            GUIIconSubSys::getIcon(ICON_MODESELECT), myViewNet, MID_GNE_SETMODE_SELECT, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODESELECT), myViewNet, MID_GNE_SETMODE_SELECT, GUIDesignButtonToolbarCheckable);
     connectionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset connection mode\tMode for edit connections between lanes.",
-            GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_GNE_SETMODE_CONNECT, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_GNE_SETMODE_CONNECT, GUIDesignButtonToolbarCheckable);
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset prohibition mode\tMode for editing connection prohibitions.",
-            GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myViewNet, MID_GNE_SETMODE_PROHIBITION, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myViewNet, MID_GNE_SETMODE_PROHIBITION, GUIDesignButtonToolbarCheckable);
     trafficLightButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.",
-            GUIIconSubSys::getIcon(ICON_MODETLS), myViewNet, MID_GNE_SETMODE_TLS, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODETLS), myViewNet, MID_GNE_SETMODE_TLS, GUIDesignButtonToolbarCheckable);
     additionalButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset additional mode\tMode for adding additional elements.",
-            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_GNE_SETMODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_GNE_SETMODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
     crossingButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
-            GUIIconSubSys::getIcon(ICON_MODECROSSING), myViewNet, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODECROSSING), myViewNet, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
     TAZButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
-            GUIIconSubSys::getIcon(ICON_MODETAZ), myViewNet, MID_GNE_SETMODE_TAZ, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODETAZ), myViewNet, MID_GNE_SETMODE_TAZ, GUIDesignButtonToolbarCheckable);
     shapeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
-            GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
 }
 
 // ---------------------------------------------------------------------------

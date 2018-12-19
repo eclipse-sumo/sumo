@@ -820,6 +820,26 @@ private:
         GNEViewNet* myViewNet;
     };
 
+    /// @brief struct used to group all variables related with Supermodes
+    struct SuperModes {
+
+        /// @brief default constructor
+        SuperModes(GNEViewNet* viewNet);
+        
+        /// @brief build checkable buttons
+        void buildSuperModeButtons();
+
+        /// @brief chekable button for supermode Network
+        MFXCheckableButton* metworkButton;
+
+        /// @brief chekable button for supermode Demand
+        MFXCheckableButton* demandButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
     /// @brief struct used to group all variables related with Network chekable Buttons
     struct NetworkCheckableButtons {
         
@@ -952,6 +972,9 @@ private:
     
     /// @brief variable used to save variables related with view options
     ViewOptions myViewOptions;
+
+    /// @brief variable used to save variables related with super modes
+    SuperModes mySuperModes;
 
     /// @brief variable used to save checkable buttons for Supermode Network
     NetworkCheckableButtons myNetworkCheckableButtons;
