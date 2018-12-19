@@ -41,46 +41,50 @@
 
 /// @brie enum for supermodes
 enum Supermodes {
-    ///@brief Network mode (Edges, junctions, etc..)
+    /// @brief empty super mode
+    GNE_SUPERMODE_NONE,
+    /// @brief Network mode (Edges, junctions, etc..)
     GNE_SUPERMODE_NETWORK,
     ///@brief Demanding mode (Routes, Vehicles etc..)
-    GNE_SUPERMODE_DEMANDING
+    GNE_SUPERMODE_DEMAND
 };
 
 /// @brie enum for network edit modes
 enum NetworkEditMode {
-    ///@brief placeholder mode
-    GNE_MODE_DUMMY,
+    /// @brief empty Network mode
+    GNE_NMODE_NONE,
     ///@brief mode for creating new edges
-    GNE_MODE_CREATE_EDGE,
+    GNE_NMODE_CREATE_EDGE,
     ///@brief mode for moving things
-    GNE_MODE_MOVE,
+    GNE_NMODE_MOVE,
     ///@brief mode for deleting things
-    GNE_MODE_DELETE,
+    GNE_NMODE_DELETE,
     ///@brief mode for inspecting object attributes
-    GNE_MODE_INSPECT,
+    GNE_NMODE_INSPECT,
     ///@brief mode for selecting objects
-    GNE_MODE_SELECT,
+    GNE_NMODE_SELECT,
     ///@brief mode for connecting lanes
-    GNE_MODE_CONNECT,
+    GNE_NMODE_CONNECT,
     ///@brief mode for editing tls
-    GNE_MODE_TLS,
+    GNE_NMODE_TLS,
     ///@brief Mode for editing additionals
-    GNE_MODE_ADDITIONAL,
+    GNE_NMODE_ADDITIONAL,
     ///@brief Mode for editing crossing
-    GNE_MODE_CROSSING,
+    GNE_NMODE_CROSSING,
     ///@brief Mode for editing TAZ
-    GNE_MODE_TAZ,
+    GNE_NMODE_TAZ,
     ///@brief Mode for editing Polygons
-    GNE_MODE_POLYGON,
+    GNE_NMODE_POLYGON,
     ///@brief Mode for editing connection prohibitions
-    GNE_MODE_PROHIBITION
+    GNE_NMODE_PROHIBITION
 };
 
 /// @brie enum for demand edit modes
 enum DemandEditMode {
+    /// @brief empty Demand mode
+    GNE_DMODE_NONE,
     ///@brief Mode for editing routes
-    GNE_MODE_ROUTES
+    GNE_DMODE_ROUTES
 };
 
 // ===========================================================================
