@@ -1,2 +1,2 @@
-Warning: Not all network edges were found in the lookup table 'lookuptable' for landmark '5/5to4/5'. Saving missing values to 'lookuptable.missing'.
-Warning: Not all network edges were found in the lookup table 'lookuptable' for landmark '2/7to1/7'. Saving missing values to 'lookuptable.missing'.
+Warning: Not all network edges were found in the lookup table 'lookuptable' for landmark '5/5to4/5'. Saving missing values to 'landmarks.csv'.
+Warning: Not all network edges were found in the lookup table 'lookuptable' for landmark '2/7to1/7'. Saving missing values to 'landmarks.csv'.
