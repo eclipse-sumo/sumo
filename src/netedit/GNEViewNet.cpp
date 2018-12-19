@@ -499,18 +499,9 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     mySelectingArea(this),
     myTestingMode(this), 
     myViewOptions(this),
+    myNetworkCheckableButtons(this),
+    myDemandCheckableButtons(this),
     myToolbar(toolBar),
-    myEditModeCreateEdge(nullptr),
-    myEditModeMove(nullptr),
-    myEditModeDelete(nullptr),
-    myEditModeInspect(nullptr),
-    myEditModeSelect(nullptr),
-    myEditModeConnection(nullptr),
-    myEditModeTrafficLight(nullptr),
-    myEditModeAdditional(nullptr),
-    myEditModeCrossing(nullptr),
-    myEditModePolygon(nullptr),
-    myEditModeProhibition(nullptr),
     myUndoList(undoList),
     myEditShapePoly(nullptr) {
     // view must be the final member of actualParent
@@ -520,8 +511,10 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     // Build Demand edit mode control
     buildDemandEditModeControls();
     myUndoList->mark();
+    // set this viewNet in Net
     myNet->setViewNet(this);
 
+    // set drag delay
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds
 
     // Reset textures
@@ -822,7 +815,9 @@ GNEViewNet::GNEViewNet() :
     myMoveMultipleElementValues(this),
     mySelectingArea(this),
     myTestingMode(this), 
-    myViewOptions(this) {
+    myViewOptions(this),
+    myNetworkCheckableButtons(this),
+    myDemandCheckableButtons(this) {
 }
 
 
@@ -2706,31 +2701,8 @@ GNEViewNet::setDemandEditMode(DemandEditMode mode) {
 
 void
 GNEViewNet::buildNetworkEditModeControls() {
-    // initialize buttons for modes
-    myEditModeCreateEdge = new MFXCheckableButton(false, myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
-            GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_SETMODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
-    myEditModeMove = new MFXCheckableButton(false, myToolbar, "\tset move mode\tMode for move elements.",
-            GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_SETMODE_MOVE, GUIDesignButtonToolbarCheckable);
-    myEditModeDelete = new MFXCheckableButton(false, myToolbar, "\tset delete mode\tMode for delete elements.",
-            GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_SETMODE_DELETE, GUIDesignButtonToolbarCheckable);
-    myEditModeInspect = new MFXCheckableButton(false, myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
-            GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_SETMODE_INSPECT, GUIDesignButtonToolbarCheckable);
-    myEditModeSelect = new MFXCheckableButton(false, myToolbar, "\tset select mode\tMode for select elements.",
-            GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_SETMODE_SELECT, GUIDesignButtonToolbarCheckable);
-    myEditModeConnection = new MFXCheckableButton(false, myToolbar, "\tset connection mode\tMode for edit connections between lanes.",
-            GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_SETMODE_CONNECT, GUIDesignButtonToolbarCheckable);
-    myEditModeProhibition = new MFXCheckableButton(false, myToolbar, "\tset prohibition mode\tMode for editing connection prohibitions.",
-            GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), this, MID_GNE_SETMODE_PROHIBITION, GUIDesignButtonToolbarCheckable);
-    myEditModeTrafficLight = new MFXCheckableButton(false, myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.",
-            GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_SETMODE_TLS, GUIDesignButtonToolbarCheckable);
-    myEditModeAdditional = new MFXCheckableButton(false, myToolbar, "\tset additional mode\tMode for adding additional elements.",
-            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_SETMODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
-    myEditModeCrossing = new MFXCheckableButton(false, myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
-            GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
-    myEditModeTAZ = new MFXCheckableButton(false, myToolbar, "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
-            GUIIconSubSys::getIcon(ICON_MODETAZ), this, MID_GNE_SETMODE_TAZ, GUIDesignButtonToolbarCheckable);
-    myEditModePolygon = new MFXCheckableButton(false, myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
-            GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
+    // build menu checks for Network checkable buttons
+    myNetworkCheckableButtons.buildNetworkCheckableButtons();
 
     // @ToDo add here new FXToolBarGrip(myNavigationToolBar, nullptr, 0, GUIDesignToolbarGrip);
 
@@ -2753,33 +2725,23 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myCreateEdgeOptions.hideCreateEdgeOptionMenuChecks();
     // hide all checkbox of view options
     myViewOptions.hideViewOptionsMenuChecks();
-    // unckeck all edit modes
-    myEditModeCreateEdge->setChecked(false);
-    myEditModeMove->setChecked(false);
-    myEditModeDelete->setChecked(false);
-    myEditModeInspect->setChecked(false);
-    myEditModeSelect->setChecked(false);
-    myEditModeConnection->setChecked(false);
-    myEditModeTrafficLight->setChecked(false);
-    myEditModeAdditional->setChecked(false);
-    myEditModeCrossing->setChecked(false);
-    myEditModeTAZ->setChecked(false);
-    myEditModePolygon->setChecked(false);
-    myEditModeProhibition->setChecked(false);
+    // disable all network edit modes
+    myNetworkCheckableButtons.disableNetworkCheckableButtons();
+    // hide all frames
     myViewParent->hideAllFrames();
     // enable selected controls
     switch (myNetworkEditMode) {
         case GNE_MODE_CREATE_EDGE:
             myCreateEdgeOptions.chainEdges->show();
             myCreateEdgeOptions.autoOppositeEdge->show();
-            myEditModeCreateEdge->setChecked(true);
+            myNetworkCheckableButtons.createEdgeButton->setChecked(true);
             myViewOptions.menuCheckShowGrid->show();
             break;
         case GNE_MODE_MOVE:
             myCreateEdgeOptions.warnAboutMerge->show();
             myCreateEdgeOptions.showJunctionBubble->show();
             myCreateEdgeOptions.moveElevation->show();
-            myEditModeMove->setChecked(true);
+            myNetworkCheckableButtons.moveButton->setChecked(true);
             myViewOptions.menuCheckShowGrid->show();
             break;
         case GNE_MODE_DELETE:
@@ -2788,7 +2750,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getDeleteFrame();
             myViewOptions.menuCheckShowConnections->show();
             myViewOptions.menuCheckSelectEdges->show();
-            myEditModeDelete->setChecked(true);
+            myNetworkCheckableButtons.deleteButton->setChecked(true);
             break;
         case GNE_MODE_INSPECT:
             myViewParent->getInspectorFrame()->show();
@@ -2796,7 +2758,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCurrentFrame = myViewParent->getInspectorFrame();
             myViewOptions.menuCheckSelectEdges->show();
             myViewOptions.menuCheckShowConnections->show();
-            myEditModeInspect->setChecked(true);
+            myNetworkCheckableButtons.inspectButton->setChecked(true);
             break;
         case GNE_MODE_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -2805,72 +2767,61 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewOptions.menuCheckSelectEdges->show();
             myViewOptions.menuCheckShowConnections->show();
             myViewOptions.menuCheckExtendSelection->show();
-            myEditModeSelect->setChecked(true);
+            myNetworkCheckableButtons.selectButton->setChecked(true);
             break;
         case GNE_MODE_CONNECT:
             myViewParent->getConnectorFrame()->show();
             myViewParent->getConnectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getConnectorFrame();
             myViewOptions.menuCheckHideConnections->show();
-            myEditModeConnection->setChecked(true);
+            myNetworkCheckableButtons.connectionButton->setChecked(true);
             break;
         case GNE_MODE_TLS:
             myViewParent->getTLSEditorFrame()->show();
             myViewParent->getTLSEditorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getTLSEditorFrame();
             myViewOptions.menuCheckChangeAllPhases->show();
-            myEditModeTrafficLight->setChecked(true);
+            myNetworkCheckableButtons.trafficLightButton->setChecked(true);
             break;
         case GNE_MODE_ADDITIONAL:
             myViewParent->getAdditionalFrame()->show();
             myViewParent->getAdditionalFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getAdditionalFrame();
-            myEditModeAdditional->setChecked(true);
+            myNetworkCheckableButtons.additionalButton->setChecked(true);
             myViewOptions.menuCheckShowGrid->show();
             break;
         case GNE_MODE_CROSSING:
             myViewParent->getCrossingFrame()->show();
             myViewParent->getCrossingFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getCrossingFrame();
-            myEditModeCrossing->setChecked(true);
+            myNetworkCheckableButtons.crossingButton->setChecked(true);
             myViewOptions.menuCheckShowGrid->setCheck(false);
             break;
         case GNE_MODE_TAZ:
             myViewParent->getTAZFrame()->show();
             myViewParent->getTAZFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getTAZFrame();
-            myEditModeTAZ->setChecked(true);
+            myNetworkCheckableButtons.TAZButton->setChecked(true);
             myViewOptions.menuCheckShowGrid->setCheck(false);
             break;
         case GNE_MODE_POLYGON:
             myViewParent->getPolygonFrame()->show();
             myViewParent->getPolygonFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPolygonFrame();
-            myEditModePolygon->setChecked(true);
+            myNetworkCheckableButtons.shapeButton->setChecked(true);
             myViewOptions.menuCheckShowGrid->show();
             break;
         case GNE_MODE_PROHIBITION:
             myViewParent->getProhibitionFrame()->show();
             myViewParent->getProhibitionFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getProhibitionFrame();
-            myEditModeProhibition->setChecked(true);
+            myNetworkCheckableButtons.prohibitionButton->setChecked(true);
             break;
         default:
             break;
     }
-    // Update buttons
-    myEditModeCreateEdge->update();
-    myEditModeMove->update();
-    myEditModeDelete->update();
-    myEditModeInspect->update();
-    myEditModeSelect->update();
-    myEditModeConnection->update();
-    myEditModeTrafficLight->update();
-    myEditModeAdditional->update();
-    myEditModeCrossing->update();
-    myEditModeTAZ->update();
-    myEditModePolygon->update();
-    myEditModeProhibition->update();
+    // Update Network buttons
+    myNetworkCheckableButtons.updateNetworkCheckableButtons();
     // force repaint because different modes draw different things
     myToolbar->recalc();
     onPaint(nullptr, 0, nullptr);
@@ -3950,6 +3901,161 @@ GNEViewNet::ViewOptions::selectEdges() const {
 bool 
 GNEViewNet::ViewOptions::showConnections() const {
     return (menuCheckShowConnections->getCheck() == TRUE);
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::NetworkCheckableButtons - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNet::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet) : 
+    myViewNet(viewNet),
+    createEdgeButton(nullptr),
+    moveButton(nullptr),
+    deleteButton(nullptr),
+    inspectButton(nullptr),
+    selectButton(nullptr),
+    connectionButton(nullptr),
+    trafficLightButton(nullptr),
+    additionalButton(nullptr),
+    crossingButton(nullptr),
+    shapeButton(nullptr),
+    prohibitionButton(nullptr) {
+}
+
+
+void 
+GNEViewNet::NetworkCheckableButtons::showNetworkCheckableButtons() {
+    createEdgeButton->show();
+    moveButton->show();
+    deleteButton->show();
+    inspectButton->show();
+    selectButton->show();
+    connectionButton->show();
+    trafficLightButton->show();
+    additionalButton->show();
+    crossingButton->show();
+    TAZButton->show();
+    shapeButton->show();
+    prohibitionButton->show();
+}
+
+
+void 
+GNEViewNet::NetworkCheckableButtons::hideNetworkCheckableButtons() {
+    createEdgeButton->hide();
+    moveButton->hide();
+    deleteButton->hide();
+    inspectButton->hide();
+    selectButton->hide();
+    connectionButton->hide();
+    trafficLightButton->hide();
+    additionalButton->hide();
+    crossingButton->hide();
+    TAZButton->hide();
+    shapeButton->hide();
+    prohibitionButton->hide();
+}
+
+
+void 
+GNEViewNet::NetworkCheckableButtons::disableNetworkCheckableButtons() {
+    createEdgeButton->setChecked(false);
+    moveButton->setChecked(false);
+    deleteButton->setChecked(false);
+    inspectButton->setChecked(false);
+    selectButton->setChecked(false);
+    connectionButton->setChecked(false);
+    trafficLightButton->setChecked(false);
+    additionalButton->setChecked(false);
+    crossingButton->setChecked(false);
+    TAZButton->setChecked(false);
+    shapeButton->setChecked(false);
+    prohibitionButton->setChecked(false);
+}
+
+
+void 
+GNEViewNet::NetworkCheckableButtons::updateNetworkCheckableButtons() {
+    createEdgeButton->update();
+    moveButton->update();
+    deleteButton->update();
+    inspectButton->update();
+    selectButton->update();
+    connectionButton->update();
+    trafficLightButton->update();
+    additionalButton->update();
+    crossingButton->update();
+    TAZButton->update();
+    shapeButton->update();
+    prohibitionButton->update();
+}
+
+
+void
+GNEViewNet::NetworkCheckableButtons::buildNetworkCheckableButtons() {
+    createEdgeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
+            GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SETMODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
+    moveButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset move mode\tMode for move elements.",
+            GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SETMODE_MOVE, GUIDesignButtonToolbarCheckable);
+    deleteButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset delete mode\tMode for delete elements.",
+            GUIIconSubSys::getIcon(ICON_MODEDELETE), myViewNet, MID_GNE_SETMODE_DELETE, GUIDesignButtonToolbarCheckable);
+    inspectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
+            GUIIconSubSys::getIcon(ICON_MODEINSPECT), myViewNet, MID_GNE_SETMODE_INSPECT, GUIDesignButtonToolbarCheckable);
+    selectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset select mode\tMode for select elements.",
+            GUIIconSubSys::getIcon(ICON_MODESELECT), myViewNet, MID_GNE_SETMODE_SELECT, GUIDesignButtonToolbarCheckable);
+    connectionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset connection mode\tMode for edit connections between lanes.",
+            GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_GNE_SETMODE_CONNECT, GUIDesignButtonToolbarCheckable);
+    prohibitionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset prohibition mode\tMode for editing connection prohibitions.",
+            GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myViewNet, MID_GNE_SETMODE_PROHIBITION, GUIDesignButtonToolbarCheckable);
+    trafficLightButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.",
+            GUIIconSubSys::getIcon(ICON_MODETLS), myViewNet, MID_GNE_SETMODE_TLS, GUIDesignButtonToolbarCheckable);
+    additionalButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset additional mode\tMode for adding additional elements.",
+            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_GNE_SETMODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
+    crossingButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
+            GUIIconSubSys::getIcon(ICON_MODECROSSING), myViewNet, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
+    TAZButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
+            GUIIconSubSys::getIcon(ICON_MODETAZ), myViewNet, MID_GNE_SETMODE_TAZ, GUIDesignButtonToolbarCheckable);
+    shapeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
+            GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::DemandCheckableButtons - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNet::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) : 
+    myViewNet(viewNet),
+    routeButton(nullptr) {
+}
+
+
+void 
+GNEViewNet::DemandCheckableButtons::buildDemandCheckableButtons() {
+    //
+}
+
+
+void 
+GNEViewNet::DemandCheckableButtons::showDemandCheckableButtons() {
+    //
+}
+
+
+void 
+GNEViewNet::DemandCheckableButtons::hideDemandCheckableButtons() {
+    //
+}
+
+
+void 
+GNEViewNet::DemandCheckableButtons::disableDemandCheckableButtons() {
+    //
+}
+
+
+void 
+GNEViewNet::DemandCheckableButtons::updateDemandCheckableButtons() {
+    //
 }
 
 // ---------------------------------------------------------------------------

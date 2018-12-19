@@ -820,6 +820,97 @@ private:
         GNEViewNet* myViewNet;
     };
 
+    /// @brief struct used to group all variables related with Network chekable Buttons
+    struct NetworkCheckableButtons {
+        
+        /// @brief default constructor
+        NetworkCheckableButtons(GNEViewNet* viewNet);
+
+        /// @brief build checkable buttons
+        void buildNetworkCheckableButtons();
+
+        /// @brief show all Network Checkable Buttons
+        void showNetworkCheckableButtons();
+
+        /// @brief hide all Network Checkable Buttons
+        void hideNetworkCheckableButtons();
+
+        /// @brief hide all options menu checks
+        void disableNetworkCheckableButtons();
+
+        /// @brief update network checkable buttons
+        void updateNetworkCheckableButtons();
+
+        /// @brief chekable button for edit mode create edge
+        MFXCheckableButton* createEdgeButton;
+
+        /// @brief chekable button for edit mode move
+        MFXCheckableButton* moveButton;
+
+        /// @brief chekable button for edit mode delete
+        MFXCheckableButton* deleteButton;
+
+        /// @brief chekable button for edit mode inspect
+        MFXCheckableButton* inspectButton;
+
+        /// @brief chekable button for edit mode select
+        MFXCheckableButton* selectButton;
+
+        /// @brief chekable button for edit mode connection
+        MFXCheckableButton* connectionButton;
+
+        /// @brief chekable button for edit mode traffic light
+        MFXCheckableButton* trafficLightButton;
+
+        /// @brief chekable button for edit mode additional
+        MFXCheckableButton* additionalButton;
+
+        /// @brief chekable button for edit mode crossing
+        MFXCheckableButton* crossingButton;
+
+        /// @brief chekable button for edit mode TAZ
+        MFXCheckableButton* TAZButton;
+
+        /// @brief chekable button for edit mode shape
+        MFXCheckableButton* shapeButton;
+
+        /// @brief checkable button for edit mode polygon
+        MFXCheckableButton* prohibitionButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
+    /// @brief struct used to group all variables related with Demand checkable Buttons
+    struct DemandCheckableButtons {
+        
+        /// @brief default constructor
+        DemandCheckableButtons(GNEViewNet* viewNet);
+
+        /// @brief build checkable buttons
+        void buildDemandCheckableButtons();
+
+        /// @brief show all Demand Checkable Buttons
+        void showDemandCheckableButtons();
+
+        /// @brief hide all Demand Checkable Buttons
+        void hideDemandCheckableButtons();
+
+        /// @brief hide all options menu checks
+        void disableDemandCheckableButtons();
+
+        /// @brief update Demand checkable buttons
+        void updateDemandCheckableButtons();
+
+        /// @brief chekable button for edit mode create routes
+        MFXCheckableButton* routeButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
@@ -861,50 +952,16 @@ private:
     
     /// @brief variable used to save variables related with view options
     ViewOptions myViewOptions;
+
+    /// @brief variable used to save checkable buttons for Supermode Network
+    NetworkCheckableButtons myNetworkCheckableButtons;
+
+    /// @brief variable used to save checkable buttons for Supermode Demand
+    DemandCheckableButtons myDemandCheckableButtons;
     // @}
 
     /// @brief a reference to the toolbar in View Parent
     FXToolBar* myToolbar;
-
-    /// @name buttons  for selecting the edit mode
-    /// @{
-    /// @brief chekable button for edit mode create edge
-    MFXCheckableButton* myEditModeCreateEdge;
-
-    /// @brief chekable button for edit mode move
-    MFXCheckableButton* myEditModeMove;
-
-    /// @brief chekable button for edit mode delete
-    MFXCheckableButton* myEditModeDelete;
-
-    /// @brief chekable button for edit mode inspect
-    MFXCheckableButton* myEditModeInspect;
-
-    /// @brief chekable button for edit mode select
-    MFXCheckableButton* myEditModeSelect;
-
-    /// @brief chekable button for edit mode connection
-    MFXCheckableButton* myEditModeConnection;
-
-    /// @brief chekable button for edit mode traffic light
-    MFXCheckableButton* myEditModeTrafficLight;
-
-    /// @brief chekable button for edit mode additional
-    MFXCheckableButton* myEditModeAdditional;
-
-    /// @brief chekable button for edit mode crossing
-    MFXCheckableButton* myEditModeCrossing;
-
-    /// @brief chekable button for edit mode TAZ
-    MFXCheckableButton* myEditModeTAZ;
-
-    /// @brief chekable button for edit mode polygon
-    MFXCheckableButton* myEditModePolygon;
-
-    /// @brief checkable button for edit mode polygon
-    MFXCheckableButton* myEditModeProhibition;
-
-    /// @}
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
