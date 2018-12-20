@@ -34,6 +34,7 @@
 // class declarations
 // ===========================================================================
 class MFXMutex;
+class MFXIconComboBox;
 
 
 // ===========================================================================
@@ -266,7 +267,7 @@ private:
     FXColorWell* mySelectedAdditionalColor;
 
     /// ... lane colorer
-    FXComboBox* myLaneEdgeColorMode;
+    MFXIconComboBox* myLaneEdgeColorMode;
     FXVerticalFrame* myLaneColorSettingFrame;
     std::vector<FXColorWell*> myLaneColors;
     std::vector<FXRealSpinner*> myLaneThresholds;
@@ -277,7 +278,7 @@ private:
     FXComboBox* myParamKey;
 
     /// ... lane scaler
-    FXComboBox* myLaneEdgeScaleMode;
+    MFXIconComboBox* myLaneEdgeScaleMode;
     FXVerticalFrame* myLaneScaleSettingFrame;
     std::vector<FXRealSpinner*> myLaneScales;
     std::vector<FXRealSpinner*> myLaneScaleThresholds;
@@ -289,7 +290,7 @@ private:
     FXRealSpinner* myLaneWidthUpscaleDialer;
     FXRealSpinner* myLaneMinWidthDialer;
 
-    FXComboBox* myVehicleColorMode, *myVehicleShapeDetail;
+    MFXIconComboBox* myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame* myVehicleColorSettingFrame;
     std::vector<FXColorWell*> myVehicleColors;
     std::vector<FXRealSpinner*> myVehicleThresholds;
@@ -297,14 +298,14 @@ private:
     FXCheckButton* myVehicleColorInterpolation;
     FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBTRange; /* *myShowLaneChangePreference,*/
 
-    FXComboBox* myPersonColorMode, *myPersonShapeDetail;
+    MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail;
     FXVerticalFrame* myPersonColorSettingFrame;
     std::vector<FXColorWell*> myPersonColors;
     std::vector<FXRealSpinner*> myPersonThresholds;
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation;
 
-    FXComboBox* myContainerColorMode, *myContainerShapeDetail;
+    MFXIconComboBox* myContainerColorMode, *myContainerShapeDetail;
     FXVerticalFrame* myContainerColorSettingFrame;
     std::vector<FXColorWell*> myContainerColors;
     std::vector<FXRealSpinner*> myContainerThresholds;
@@ -312,21 +313,21 @@ private:
     FXCheckButton* myContainerColorInterpolation;
     FXRealSpinner* myContainerMinSizeDialer, *myContainerUpscaleDialer;
 
-    FXComboBox* myJunctionColorMode;
+    MFXIconComboBox* myJunctionColorMode;
     FXVerticalFrame* myJunctionColorSettingFrame;
     std::vector<FXColorWell*> myJunctionColors;
     std::vector<FXRealSpinner*> myJunctionThresholds;
     std::vector<FXButton*> myJunctionButtons;
     FXCheckButton* myJunctionColorInterpolation;
 
-    FXComboBox* myPOIColorMode, *myPOIShapeDetail;
+    MFXIconComboBox* myPOIColorMode, *myPOIShapeDetail;
     FXVerticalFrame* myPOIColorSettingFrame;
     std::vector<FXColorWell*> myPOIColors;
     std::vector<FXRealSpinner*> myPOIThresholds;
     std::vector<FXButton*> myPOIButtons;
     FXCheckButton* myPOIColorInterpolation;
 
-    FXComboBox* myPolyColorMode, *myPolyShapeDetail;
+    MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail;
     FXVerticalFrame* myPolyColorSettingFrame;
     std::vector<FXColorWell*> myPolyColors;
     std::vector<FXRealSpinner*> myPolyThresholds;

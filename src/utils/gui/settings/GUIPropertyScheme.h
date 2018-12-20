@@ -29,6 +29,7 @@
 #include <vector>
 #include <utils/common/RGBColor.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/gui/images/GUIIcons.h>
 
 
 // ===========================================================================
@@ -46,10 +47,15 @@ class GUIPropertyScheme {
 public:
     /// Constructor
     GUIPropertyScheme(const std::string& name, const T& baseColor,
-                      const std::string& colName = "", const bool isFixed = false, double baseValue = 0) :
+                      const std::string& colName = "", const bool isFixed = false, double baseValue = 0,
+                      RGBColor bgColor = RGBColor::INVISIBLE,
+                      GUIIcon icon = ICON_EMPTY) :
         myName(name), myIsInterpolated(!isFixed),
         myIsFixed(isFixed),
-        myAllowNegativeValues(false) {
+        myAllowNegativeValues(false),
+        myIcon(icon),
+        myBgColor(bgColor)
+    {
         addColor(baseColor, baseValue, colName);
     }
 
@@ -162,6 +168,14 @@ public:
         myAllowNegativeValues = value;
     }
 
+    GUIIcon getIcon() const {
+        return myIcon;
+    }
+
+    const RGBColor& getBackgroundColor() const {
+        return myBgColor;
+    }
+
     void save(OutputDevice& dev) const {
         const std::string tag = getTagName(myColors);
 
@@ -223,6 +237,8 @@ private:
     std::vector<std::string> myNames;
     bool myIsFixed;
     bool myAllowNegativeValues;
+    GUIIcon myIcon;
+    RGBColor myBgColor;
 
 };
 

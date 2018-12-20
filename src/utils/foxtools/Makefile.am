@@ -18,5 +18,6 @@ MFXInterThreadEventClient.h \
 MFXAddEditTypedTable.cpp MFXAddEditTypedTable.h \
 MFXEditableTable.cpp MFXEditableTable.h \
 MFXMenuHeader.cpp MFXMenuHeader.h \
+MFXIconComboBox.cpp MFXIconComboBox.h \
 MFXMutex.cpp MFXMutex.h \
 MFXUtils.cpp MFXUtils.h
