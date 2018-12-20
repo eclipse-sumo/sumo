@@ -41,6 +41,7 @@ public class ResponseMessage {
 	 */
 	public static final int[] STATUS_ONLY_RESPONSES = new int[] {
 		Constants.CMD_CLOSE,
+		Constants.CMD_SETORDER,
 		Constants.CMD_SET_EDGE_VARIABLE,
 		Constants.CMD_SET_GUI_VARIABLE,
 		Constants.CMD_SET_LANE_VARIABLE,
@@ -84,6 +85,11 @@ public class ResponseMessage {
 		
 		byte[] buffer = new byte[totalLen];
 		dis.readFully(buffer);
+        //StringBuilder sb = new StringBuilder();
+        //for (byte b : buffer) {
+        //    sb.append(String.format("%X ", b));
+        //}
+        //System.out.println("ResponseMessage::init buffer=" + sb);
 		
 		Storage s = new Storage(buffer);
 		

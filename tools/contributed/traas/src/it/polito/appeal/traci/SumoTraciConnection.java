@@ -364,7 +364,21 @@ public class SumoTraciConnection {
 		
 		return output;
 	}
-	
+
+
+	public synchronized void setOrder(int index) throws Exception{
+
+		if (isClosed())
+			throw new IllegalStateException("connection is closed");
+
+		try {this.cp.do_setOrder(index);}
+		catch (Exception e) {
+			closeAndDontCareAboutInterruptedException();
+			throw e;
+		}
+
+	}
+
 	public synchronized void do_timestep() throws Exception{this.do_timestep(0);}
 	
 	public synchronized void do_timestep(double targetTime) throws Exception{
