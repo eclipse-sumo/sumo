@@ -26,6 +26,7 @@
 #include <netedit/dialogs/GNEDialogACChooser.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
 #include <netedit/frames/GNEConnectorFrame.h>
+#include <netedit/frames/GNECreateEdgeFrame.h>
 #include <netedit/frames/GNECrossingFrame.h>
 #include <netedit/frames/GNEDeleteFrame.h>
 #include <netedit/frames/GNEInspectorFrame.h>
@@ -117,6 +118,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.TAZFrame = new GNETAZFrame(myFramesArea, viewNet);
     myFrames.deleteFrame = new GNEDeleteFrame(myFramesArea, viewNet);
     myFrames.polygonFrame = new GNEPolygonFrame(myFramesArea, viewNet);
+    myFrames.createEdgeFrame = new GNECreateEdgeFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -200,6 +202,12 @@ GNEViewParent::getPolygonFrame() const {
 GNEProhibitionFrame*
 GNEViewParent::getProhibitionFrame() const {
     return myFrames.prohibitionFrame;
+}
+
+
+GNECreateEdgeFrame* 
+GNEViewParent::getCreateEdgeFrame() const {
+    return myFrames.createEdgeFrame;
 }
 
 
@@ -447,7 +455,8 @@ GNEViewParent::Frames::Frames() :
     TAZFrame(nullptr),
     deleteFrame(nullptr),
     polygonFrame(nullptr),
-    prohibitionFrame(nullptr) {
+    prohibitionFrame(nullptr),
+    createEdgeFrame(nullptr) {
 }
 
 
@@ -463,6 +472,9 @@ GNEViewParent::Frames::hideFrames() {
     deleteFrame->hide();
     polygonFrame->hide();
     prohibitionFrame->hide();
+    /** currently createEdgeFrame unused
+    createEdgeFrame->hide();
+    **/
 }
 
 
@@ -479,6 +491,9 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     deleteFrame->setFrameWidth(frameWidth);
     polygonFrame->setFrameWidth(frameWidth);
     prohibitionFrame->setFrameWidth(frameWidth);
+    /** currently createEdgeFrame unused
+    createEdgeFrame->setFrameWidth(frameWidth);
+    **/
 }
 
 
@@ -505,6 +520,10 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (prohibitionFrame->shown()) {
         return true;
+    /** currently createEdgeFrame unused
+    } else if (createEdgeFrame->shown()) {
+        return true;
+    **/
     } else {
         return false;
     }

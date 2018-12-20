@@ -32,20 +32,21 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEDialogACChooser;
-class GNENet;
-class GNEUndoList;
-class GNEApplicationWindow;
-class GNEInspectorFrame;
-class GNESelectorFrame;
-class GNEConnectorFrame;
-class GNETLSEditorFrame;
 class GNEAdditionalFrame;
+class GNEApplicationWindow;
+class GNEConnectorFrame;
+class GNECreateEdgeFrame;
 class GNECrossingFrame;
-class GNETAZFrame;
 class GNEDeleteFrame;
+class GNEDialogACChooser;
+class GNEInspectorFrame;
+class GNENet;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
+class GNESelectorFrame;
+class GNETAZFrame;
+class GNETLSEditorFrame;
+class GNEUndoList;
 
 // ===========================================================================
 // class declarations
@@ -121,6 +122,9 @@ public:
 
     /// @brief get frame for GNE_MODE_PROHIBITION
     GNEProhibitionFrame* getProhibitionFrame() const;
+    
+    /// @brief get frame for GNE_MODE_PROHIBITION
+    GNECreateEdgeFrame* getCreateEdgeFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -211,6 +215,9 @@ private:
 
         /// @brief frame for GNE_MODE_PROHIBITION
         GNEProhibitionFrame* prohibitionFrame;
+
+        /// @brief frame for GNE_MODE_PROHIBITION
+        GNECreateEdgeFrame* createEdgeFrame;
     };
 
     /// @brief struct for ACChoosers dialog
