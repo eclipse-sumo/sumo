@@ -56,6 +56,8 @@ public class Sumo {
      *
      * @param lisumSimulation
      * @param sumoExec
+     * @param sumoConfig
+     * @param sumoPort
      */
     public Sumo(LisumSimulation lisumSimulation, String sumoExec, String sumoConfig, int sumoPort) {
         this.lisumSimulation = lisumSimulation;

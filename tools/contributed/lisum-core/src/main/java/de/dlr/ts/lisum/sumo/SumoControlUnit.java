@@ -30,15 +30,11 @@ import java.util.logging.Logger;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-class SumoControlUnit {
-
+class SumoControlUnit 
+{
     private final List<SignalGroup> signalGroups = new ArrayList<>();
-    private final String name;
-    //private TrafficLight trafficLight;
-    //private ControlUnitInterface cityControlUnit;
-    private SimulationControlUnits controlUnits;
-
-    //private String trafficLightId;
+    private final String name;    
+    private SimulationControlUnits controlUnits;    
     private SumoTraciConnection sumoTraciConnection;
 
     /**
@@ -97,10 +93,10 @@ class SumoControlUnit {
     /**
      *
      */
-    public void executeSimulationStep() {
-        for (int j = 0; j < signalGroups.size(); j++) {
-            signalGroups.get(j).setCurrentLightColor(controlUnits.getLightColor(this.name, j));
-        }
+    public void executeSimulationStep() 
+    {
+        for (int j = 0; j < signalGroups.size(); j++)
+            signalGroups.get(j).setCurrentLightColor(controlUnits.getLightColor(this.name, j));        
 
         set();
     }
