@@ -36,7 +36,7 @@ netedit.modifyAttribute(1, "dummy position")
 
 # change position with a non valid value (another junction in the same position)
 # BUG #
-#netedit.modifyAttribute(1, "0.00,50.00")
+# netedit.modifyAttribute(1, "0.00,50.00")
 
 # avoid merging
 # BUG #

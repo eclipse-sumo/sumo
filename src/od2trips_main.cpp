@@ -222,6 +222,7 @@ checkOptions() {
         WRITE_ERROR(error);
         ok = false;
     }
+    ok &= SystemFrame::checkOptions();
     return ok;
 }
 

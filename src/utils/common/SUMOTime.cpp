@@ -75,18 +75,19 @@ time2string(SUMOTime t) {
             s = fmod(s, 3600 * 24);
         }
         // hours, pad with zero
-        if (s / 3600 < 10) {
+        if (s / 3600 < 10 && s >= 0) {
             oss << "0";
         }
         oss << (int)(s / 3600) << ":";
         // minutes, pad with zero
         s = fmod(s, 3600);
-        if (s / 60 < 10) {
+        if (s / 60 < 10 && s >= 0) {
             oss << "0";
         }
         oss << (int)(s / 60) << ":";
+        // seconds, pad with zero
         s = fmod(s, 60);
-        if (s < 10) {
+        if (s < 10 && s >= 0) {
             oss << "0";
         }
         if (fmod(s, 1) == 0) {

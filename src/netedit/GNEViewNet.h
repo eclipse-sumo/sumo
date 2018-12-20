@@ -711,23 +711,20 @@ private:
         /// @brief hide all MenuChecks
         void hideCreateEdgeOptionMenuChecks();
 
-        /// @brief source junction for new edge 0 if no edge source is selected an existing (or newly created) junction otherwise
-        GNEJunction* createEdgeSource;
-
         /// @brief whether the endpoint for a created edge should be set as the new source
-        FXMenuCheck* chainCreateEdge;
+        FXMenuCheck* chainEdges;
 
         /// @brief create auto create opposite edge
-        FXMenuCheck* autoCreateOppositeEdge;
+        FXMenuCheck* autoOppositeEdge;
 
         /// @brief whether we should warn about merging junctions
-        FXMenuCheck* menuCheckWarnAboutMerge;
+        FXMenuCheck* warnAboutMerge;
 
         /// @brief show connection as buuble in "Move" mode.
-        FXMenuCheck* menuCheckShowBubbleOverJunction;
+        FXMenuCheck* showJunctionBubble;
 
         /// @brief apply movement to elevation
-        FXMenuCheck* menuCheckMoveElevation;
+        FXMenuCheck* moveElevation;
 
     private:
         /// @brief pointer to viewNet

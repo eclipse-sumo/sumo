@@ -23,9 +23,9 @@ from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
 try:
-    from . import visualization
+    from . import visualization  # noqa
 except ImportError as e:
-    warnings.warn(e.msg)
+    warnings.warn(str(e))
 from . import files, net, output, sensors, shapes  # noqa
 from . import color, geomhelper, miscutils, options, route  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa

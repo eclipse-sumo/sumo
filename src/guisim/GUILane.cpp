@@ -617,8 +617,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             drawDirectionIndicators(exaggeration);
                         }
                     }
-                    if (!isInternal) {
-                        if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi) {
+                    if ((!isInternal || isCrossing)) {
+                        if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && !isCrossing) {
                             // draw sublane-borders
                             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
                             for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {

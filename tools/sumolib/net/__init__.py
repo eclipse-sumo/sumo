@@ -28,16 +28,11 @@ import math
 import heapq
 from xml.sax import handler, parse
 from copy import copy
-from itertools import *  # noqa
 from collections import defaultdict
 
 import sumolib
 from . import lane, edge, node, connection, roundabout
-from .lane import Lane
-from .edge import Edge
-from .node import Node
 from .connection import Connection
-from .roundabout import Roundabout
 
 
 class TLS:

@@ -152,6 +152,7 @@ public:
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             return false;
         }
+        double length = 0.; // dummy for the via edge cost update
         this->startQuery();
 #ifdef ASTAR_DEBUG_QUERY
         std::cout << "DEBUG: starting search for '" << vehicle->getID() << "' speed: " << MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor()) << " time: " << STEPS2TIME(msTime) << "\n";
@@ -206,7 +207,6 @@ public:
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
-            const E* viaEdge = minimumInfo->via;
 #ifdef ASTAR_DEBUG_QUERY
             std::cout << "DEBUG: hit=" << minEdge->getID()
                       << " TT=" << minimumInfo->traveltime
@@ -218,17 +218,8 @@ public:
             }
             std::cout << "\n";
 #endif
-            double effort = minimumInfo->effort;
-            double leaveTime = minimumInfo->leaveTime;
-            while (viaEdge != nullptr && viaEdge->isInternal()) {
-                const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
-                leaveTime += this->getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
-                effort += viaEffortDelta;
-                viaEdge = viaEdge->getViaSuccessors().front().first;
-            }
-            const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
-            leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
-            effort += effortDelta;
+            const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
+            const double leaveTime = minimumInfo->leaveTime + this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
 
             // admissible A* heuristic: straight line distance at maximum speed
             const double heuristic_remaining = (myLookupTable == nullptr ? minEdge->getDistanceTo(to) / speed :
@@ -243,13 +234,15 @@ public:
                 if (this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
+                double effort = minimumInfo->effort + effortDelta;
+                double time = leaveTime;
+                this->updateViaEdgeCost(follower.second, vehicle, time, effort, length);
                 const double oldEffort = followerInfo->effort;
                 if ((!followerInfo->visited || mayRevisit) && effort < oldEffort) {
                     followerInfo->effort = effort;
                     followerInfo->heuristicEffort = effort + heuristic_remaining;
-                    followerInfo->leaveTime = leaveTime;
+                    followerInfo->leaveTime = time;
                     followerInfo->prev = minimumInfo;
-                    followerInfo->via = follower.second;
                     /* the code below results in fewer edges being looked up but is more costly due to the effort
                        calculations. Overall it resulted in a slowdown in the Berlin tests but could be made configurable someday.
                     followerInfo->heuristicTime = traveltime;
