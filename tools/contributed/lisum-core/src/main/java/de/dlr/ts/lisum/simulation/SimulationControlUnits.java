@@ -17,6 +17,7 @@
 /****************************************************************************/
 package de.dlr.ts.lisum.simulation;
 
+import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.lisum.enums.LightColor;
 import de.dlr.ts.lisum.interfaces.CityInterface;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class SimulationControlUnits
 {
     private final Map<String /*Sumo*/, SimuControlUnit> perSumo = new HashMap<>();
     private final Map<String /*City*/, String /*Sumo*/> perCity = new HashMap<>();
-    private final static Map<String /*complexCode*/, LightColor> complexCodes = new HashMap<>();
+    private final static Map<String /*complexCode*/, LightColor> COMPLEX_CODES = new HashMap<>();
     
     
     /**
@@ -75,61 +76,60 @@ public class SimulationControlUnits
             }
         }
         // initialization states
-        complexCodes.put("O", LightColor.OFF);
-        complexCodes.put("OO", LightColor.OFF);
-        complexCodes.put("OOO", LightColor.OFF);
-        complexCodes.put("OoO", LightColor.OFF);
-
+        COMPLEX_CODES.put("O", LightColor.OFF);
+        COMPLEX_CODES.put("OO", LightColor.OFF);
+        COMPLEX_CODES.put("OOO", LightColor.OFF);
+        COMPLEX_CODES.put("OoO", LightColor.OFF);
         
-        complexCodes.put("r", LightColor.RED);
-        complexCodes.put("o", LightColor.YELLOW_BLINKING);
-        complexCodes.put("y", LightColor.YELLOW);
-        complexCodes.put("u", LightColor.RED_YELLOW);
-        complexCodes.put("G", LightColor.GREEN);
-        complexCodes.put("g", LightColor.DARK_GREEN);
+        COMPLEX_CODES.put("r", LightColor.RED);
+        COMPLEX_CODES.put("o", LightColor.YELLOW_BLINKING);
+        COMPLEX_CODES.put("y", LightColor.YELLOW);
+        COMPLEX_CODES.put("u", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("G", LightColor.GREEN);
+        COMPLEX_CODES.put("g", LightColor.DARK_GREEN);
 
-        complexCodes.put("rO", LightColor.RED);
-        complexCodes.put("Or", LightColor.RED);
-        complexCodes.put("ro", LightColor.RED);
-        complexCodes.put("ry", LightColor.YELLOW);
-        complexCodes.put("yr", LightColor.YELLOW);
-        complexCodes.put("yO", LightColor.YELLOW);
-        complexCodes.put("yo", LightColor.YELLOW);
-        complexCodes.put("Oy", LightColor.YELLOW);
-        complexCodes.put("uo", LightColor.RED_YELLOW);
-        complexCodes.put("uO", LightColor.RED_YELLOW);
-        complexCodes.put("Ou", LightColor.RED_YELLOW);
-        complexCodes.put("Go", LightColor.DARK_GREEN);
-        complexCodes.put("go", LightColor.DARK_GREEN);
-        complexCodes.put("gO", LightColor.DARK_GREEN);
-        complexCodes.put("OG", LightColor.GREEN);
-        complexCodes.put("Gr", LightColor.GREEN);
-        complexCodes.put("GO", LightColor.GREEN);
-        complexCodes.put("Gu", LightColor.GREEN);
+        COMPLEX_CODES.put("rO", LightColor.RED);
+        COMPLEX_CODES.put("Or", LightColor.RED);
+        COMPLEX_CODES.put("ro", LightColor.RED);
+        COMPLEX_CODES.put("ry", LightColor.YELLOW);
+        COMPLEX_CODES.put("yr", LightColor.YELLOW);
+        COMPLEX_CODES.put("yO", LightColor.YELLOW);
+        COMPLEX_CODES.put("yo", LightColor.YELLOW);
+        COMPLEX_CODES.put("Oy", LightColor.YELLOW);
+        COMPLEX_CODES.put("uo", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("uO", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("Ou", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("Go", LightColor.DARK_GREEN);
+        COMPLEX_CODES.put("go", LightColor.DARK_GREEN);
+        COMPLEX_CODES.put("gO", LightColor.DARK_GREEN);
+        COMPLEX_CODES.put("OG", LightColor.GREEN);
+        COMPLEX_CODES.put("Gr", LightColor.GREEN);
+        COMPLEX_CODES.put("GO", LightColor.GREEN);
+        COMPLEX_CODES.put("Gu", LightColor.GREEN);
 
-        complexCodes.put("rro", LightColor.RED);
-        complexCodes.put("rrO", LightColor.RED);
-        complexCodes.put("rGo", LightColor.RED);
-        complexCodes.put("rGO", LightColor.RED);
-        complexCodes.put("rOO", LightColor.RED);
-        complexCodes.put("roO", LightColor.RED);
-        complexCodes.put("yOO", LightColor.YELLOW);
-        complexCodes.put("yyo", LightColor.YELLOW);
-        complexCodes.put("yyO", LightColor.YELLOW);
-        complexCodes.put("yoO", LightColor.OFF);
-        complexCodes.put("uOO", LightColor.RED_YELLOW);
-        complexCodes.put("uoO", LightColor.RED_YELLOW);
-        complexCodes.put("ruO", LightColor.RED_YELLOW);
-        complexCodes.put("ruo", LightColor.RED_YELLOW);
-        complexCodes.put("OGo", LightColor.DARK_GREEN);
-        complexCodes.put("GoO", LightColor.DARK_GREEN);
-        complexCodes.put("goO", LightColor.DARK_GREEN);
-        complexCodes.put("GoG", LightColor.GREEN);
-        complexCodes.put("GOG", LightColor.GREEN);
+        COMPLEX_CODES.put("rro", LightColor.RED);
+        COMPLEX_CODES.put("rrO", LightColor.RED);
+        COMPLEX_CODES.put("rGo", LightColor.RED);
+        COMPLEX_CODES.put("rGO", LightColor.RED);
+        COMPLEX_CODES.put("rOO", LightColor.RED);
+        COMPLEX_CODES.put("roO", LightColor.RED);
+        COMPLEX_CODES.put("yOO", LightColor.YELLOW);
+        COMPLEX_CODES.put("yyo", LightColor.YELLOW);
+        COMPLEX_CODES.put("yyO", LightColor.YELLOW);
+        COMPLEX_CODES.put("yoO", LightColor.OFF);
+        COMPLEX_CODES.put("uOO", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("uoO", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("ruO", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("ruo", LightColor.RED_YELLOW);
+        COMPLEX_CODES.put("OGo", LightColor.DARK_GREEN);
+        COMPLEX_CODES.put("GoO", LightColor.DARK_GREEN);
+        COMPLEX_CODES.put("goO", LightColor.DARK_GREEN);
+        COMPLEX_CODES.put("GoG", LightColor.GREEN);
+        COMPLEX_CODES.put("GOG", LightColor.GREEN);
 
 
         // this is a hack for halle_vital.net intersection A
-        complexCodes.put("yG", LightColor.GREEN); 
+        COMPLEX_CODES.put("yG", LightColor.GREEN); 
         //complexCodes.put("GOO", LightColor.DARK_GREEN);
 
     }    
@@ -155,7 +155,7 @@ public class SimulationControlUnits
      */
     private static class SimuControlUnit
     {
-        private final Map<Integer, ArrayList<SignalGroup> > signalGroups = new HashMap<>();
+        private final Map<Integer, ArrayList<SignalGroup>> signalGroups = new HashMap<>();
         private final ControlUnitInterface cui;
         private final String sumoLogicName;
 
@@ -175,30 +175,40 @@ public class SimulationControlUnits
          * @param signalGroupIndex
          * @return 
          */
-        LightColor getColor(int signalGroupIndex)
+        private LightColor getColor(int signalGroupIndex)
         {
             int debugIndex = -1;
-            ArrayList<SignalGroup> sgs = signalGroups.get(signalGroupIndex);
+            ArrayList<SignalGroup> sgs = signalGroups.get(signalGroupIndex);            
 
             if(sgs == null || sgs.isEmpty())
                 return LightColor.OFF;
             
+            //SignalGroup defaultSG = sgs.get(0);
+            
             String complexCode = "";
             for (SignalGroup sg : sgs) {
                 if (signalGroupIndex == debugIndex) {
-                    System.out.println("  buildComplexState sg.lisa=" + sg.lisa + " ocit=" + cui.getLightColor(sg.lisa).getOcitCode());
-                }
+                    DLRLogger.info("  buildComplexState sg.lisa=" + sg.lisa + " ocit=" + 
+                            cui.getLightColor(sg.lisa).getOcitCode());
+                }                                
+                
                 complexCode += cui.getLightColor(sg.lisa).getSumoCode();
             }
 
-            LightColor lightColor = complexCodes.get(complexCode);
+            LightColor lightColor = COMPLEX_CODES.get(complexCode);
             if (signalGroupIndex == debugIndex) {
-                System.out.println("sumoLogic=" + sumoLogicName + " sumoIndex=" + signalGroupIndex + " complex=" + complexCode + " lc=" + lightColor);
+                DLRLogger.info("sumoLogic=" + sumoLogicName + " sumoIndex=" + 
+                        signalGroupIndex + " complex=" + complexCode + " lc=" + lightColor);
             }
             if (lightColor == null) {
-                System.out.println("sumoLogic=" + sumoLogicName + " sumoIndex=" + signalGroupIndex + " complex=" + complexCode + " could not be interpreted");
-                return LightColor.OFF;
+                DLRLogger.info("sumoLogic=" + sumoLogicName + " sumoIndex=" + signalGroupIndex + 
+                        " complex=" + complexCode + " could not be interpreted");
+                
+                lightColor = LightColor.OFF;
             }
+            
+            if(lightColor.isOff() && sgs.get(0).ifOff != null && !sgs.get(0).ifOff.isEmpty())
+                lightColor = cui.getLightColor(sgs.get(0).ifOff);            
             
             return lightColor;
         }
@@ -216,6 +226,9 @@ public class SimulationControlUnits
                 String[] split = string.split(",");
                 
                 for (String s : split) {
+                    if(s.trim().isEmpty())
+                        continue;
+                    
                     int sumoIndex = Integer.valueOf(s);
                     if (!signalGroups.containsKey(sumoIndex)) {
                         signalGroups.put(sumoIndex, new ArrayList<SignalGroup>());
@@ -228,7 +241,7 @@ public class SimulationControlUnits
         /**
          * 
          */
-        class SignalGroup
+        private class SignalGroup
         {
             String lisa;
             String ifOff;
