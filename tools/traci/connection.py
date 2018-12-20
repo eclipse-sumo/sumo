@@ -91,6 +91,7 @@ class Connection:
             result = Storage(traciemb.execute(self._string))
         else:
             length = struct.pack("!i", len(self._string) + 4)
+            #print("python_sendExact: '%s'" % ' '.join(map(lambda x : "%X" % ord(x), self._string)))
             self._socket.send(length + self._string)
             result = self._recvExact()
         if not result:
