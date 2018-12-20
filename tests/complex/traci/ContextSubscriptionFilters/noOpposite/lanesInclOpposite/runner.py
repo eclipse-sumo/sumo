@@ -36,7 +36,7 @@ def runSingle(traciEndTime, viewRange, objID):
 
     subscribed = False
     while not step > traciEndTime:
-        responses = traci.simulationStep()
+        traci.simulationStep()
 
         if subscribed:
             # check if objID has arrived at destination

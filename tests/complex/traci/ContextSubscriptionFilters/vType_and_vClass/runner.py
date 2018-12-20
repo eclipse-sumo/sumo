@@ -81,8 +81,8 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vType
 
 
 if len(sys.argv) < 8:
-    print(
-        "Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> <opposite{0,1}> <vTypes> <vClasses>")
+    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> " +
+          "<opposite{0,1}> <vTypes> <vClasses>")
     sys.exit("")
 sys.stdout.flush()
 opposite = bool(int(sys.argv[5]))

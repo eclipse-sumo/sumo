@@ -170,7 +170,8 @@ class Domain:
         """
         return self._connection._getSubscriptionResults(self._subscribeResponseID).get(None)
 
-    def subscribeContext(self, objectID, domain, dist, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
+    def subscribeContext(self, objectID, domain, dist, varIDs=None,
+                         begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribeContext(string, int, double, list(integer), double, double) -> None
 
         Subscribe to objects of the given domain (specified as domain=traci.constants.CMD_GET_<DOMAIN>_VARIABLE),

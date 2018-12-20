@@ -27,8 +27,7 @@ import operator
 from xml.sax import handler
 from elements import Predecessor, Vertex, Edge, Path, TLJunction, Signalphase
 from dijkstra import dijkstraPlain, dijkstraBoost, dijkstra
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net  # noqa
+import sumolib
 
 # Net class stores the network (vertex and edge collection).
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times

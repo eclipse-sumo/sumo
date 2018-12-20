@@ -60,9 +60,9 @@ optParser.add_option("-y", "--polyconvert-options",
 
 
 def getRelative(dirname, option):
-    l = len(dirname)
-    if option[0:l] == dirname:
-        return option[l+1:]
+    ld = len(dirname)
+    if option[:ld] == dirname:
+        return option[ld+1:]
     else:
         return option
 
@@ -111,7 +111,6 @@ def build(args=None, bindir=None):
     if options.prefix:
         prefix = options.prefix
 
-    basename = path.join(options.output_directory, prefix)
     netfile = prefix + '.net.xml'
     netconvertOpts += vclassRemove[options.vehicle_classes] + ["-o", netfile]
 
