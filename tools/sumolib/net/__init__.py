@@ -481,7 +481,7 @@ class NetReader(handler.ContentHandler):
         self._currentEdge = None
         self._currentNode = None
         self._currentLane = None
-        self._crossing2edges = {}
+        self._crossingID2edgeIDs = {}
         self._withPhases = others.get('withPrograms', False)
         self._latestProgram = others.get('withLatestPrograms', False)
         if self._latestProgram:
@@ -516,7 +516,7 @@ class NetReader(handler.ContentHandler):
                 
                 # remember edges crossed by pedestrians to link them later to the crossing objects
                 if function == 'crossing':
-                    self._crossing2edges[edgeID] = attrs.get('crossingEdges').split(' ')
+                    self._crossingID2edgeIDs[edgeID] = attrs.get('crossingEdges').split(' ')
                 
                 self._currentEdge = self._net.addEdge(edgeID, fromNodeID, toNodeID,
                                                       prio, function, attrs.get('name', ''))
@@ -649,7 +649,7 @@ class NetReader(handler.ContentHandler):
 
     def endDocument(self):
         # set crossed edges of pedestrian crossings
-        for crossingID, crossedEdgeIDs in self._crossing2edges.items():
+        for crossingID, crossedEdgeIDs in self._crossingID2edgeIDs.items():
             pedCrossing = self._net.getEdge(crossingID)
             for crossedEdgeID in crossedEdgeIDs:
                 pedCrossing._addCrossingEdge(self._net.getEdge(crossedEdgeID))
