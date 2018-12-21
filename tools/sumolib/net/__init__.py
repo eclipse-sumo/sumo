@@ -481,6 +481,7 @@ class NetReader(handler.ContentHandler):
         self._currentEdge = None
         self._currentNode = None
         self._currentLane = None
+        self._crossing2edges = {}
         self._withPhases = others.get('withPrograms', False)
         self._latestProgram = others.get('withLatestPrograms', False)
         if self._latestProgram:
@@ -512,7 +513,11 @@ class NetReader(handler.ContentHandler):
                 # for internal junctions use the junction's id for from and to node
                 if function == 'internal':
                     fromNodeID = toNodeID = edgeID[1:edgeID.rfind('_')]
-
+                
+                # remember edges crossed by pedestrians to link them later to the crossing objects
+                if function == 'crossing':
+                    self._crossing2edges[edgeID] = attrs.get('crossingEdges').split(' ')
+                
                 self._currentEdge = self._net.addEdge(edgeID, fromNodeID, toNodeID,
                                                       prio, function, attrs.get('name', ''))
 
@@ -641,6 +646,13 @@ class NetReader(handler.ContentHandler):
         # tl-logic is deprecated!!!
         if self._withPhases and (name == 'tlLogic' or name == 'tl-logic'):
             self._currentProgram = None
+
+    def endDocument(self):
+        # set crossed edges of pedestrian crossings
+        for crossingID, crossedEdgeIDs in self._crossing2edges.items():
+            pedCrossing = self._net.getEdge(crossingID)
+            for crossedEdgeID in crossedEdgeIDs:
+                pedCrossing._addCrossingEdge(self._net.getEdge(crossedEdgeID))
 
     def getNet(self):
         return self._net
