@@ -463,7 +463,7 @@ template<> struct invalid_return<Boundary> {
     static const std::string type;
 };
 
-template<> struct invalid_return<const std::vector<std::string> > {
+template<> struct invalid_return<std::vector<std::string> > {
     static const std::vector<std::string> value;
     static const std::string type;
 };
