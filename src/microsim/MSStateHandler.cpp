@@ -185,8 +185,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_VIEWSETTINGS_VEHICLES: {
-            std::vector<std::string> vehIDs;
-            SUMOSAXAttributes::parseStringVector(attrs.getString(SUMO_ATTR_VALUE), vehIDs);
+            const std::vector<std::string>& vehIDs = attrs.getStringVector(SUMO_ATTR_VALUE);
             if (MSGlobals::gUseMesoSim) {
                 mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex++);
             } else {

@@ -323,7 +323,7 @@ public:
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const int queIdx);
+    void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const int queIdx);
     /// @}
 
 

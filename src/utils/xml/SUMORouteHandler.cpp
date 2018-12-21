@@ -335,16 +335,12 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
 
     // expected persons
-    std::string expectedStr = attrs.getOpt<std::string>(SUMO_ATTR_EXPECTED, nullptr, ok, "");
-    std::set<std::string> personIDs;
-    SUMOSAXAttributes::parseStringSet(expectedStr, personIDs);
-    stop.awaitedPersons = personIDs;
+    const std::vector<std::string>& expected = attrs.getOptStringVector(SUMO_ATTR_EXPECTED, nullptr, ok);
+    stop.awaitedPersons.insert(expected.begin(), expected.end());
 
     // expected containers
-    std::string expectedContainersStr = attrs.getOpt<std::string>(SUMO_ATTR_EXPECTED_CONTAINERS, nullptr, ok, "");
-    std::set<std::string> containerIDs;
-    SUMOSAXAttributes::parseStringSet(expectedContainersStr, containerIDs);
-    stop.awaitedContainers = containerIDs;
+    const std::vector<std::string>& expectedContainers = attrs.getOptStringVector(SUMO_ATTR_EXPECTED_CONTAINERS, nullptr, ok);
+    stop.awaitedContainers.insert(expectedContainers.begin(), expectedContainers.end());
 
     const std::string idx = attrs.getOpt<std::string>(SUMO_ATTR_INDEX, nullptr, ok, "end");
     if (idx == "end") {

@@ -312,7 +312,6 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, nodeID.c_str(), ok, false, true);
     int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok, -1);
     int tlIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, nullptr, ok, -1);
-    std::vector<std::string> edgeIDs;
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         if (discard) {
             node = myNodeCont.retrieve(nodeID);
@@ -327,14 +326,10 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, nullptr, ok), edgeIDs);
-    if (!ok) {
-        return;
-    }
-    for (std::vector<std::string>::const_iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-        NBEdge* edge = myEdgeCont.retrieve(*it);
+    for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
+        NBEdge* edge = myEdgeCont.retrieve(id);
         if (edge == nullptr) {
-            WRITE_ERROR("Edge '" + (*it) + "' for crossing at node '" + nodeID + "' is not known.");
+            WRITE_ERROR("Edge '" + id + "' for crossing at node '" + nodeID + "' is not known.");
             return;
         }
         if (node == nullptr) {
@@ -343,16 +338,19 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
             } else if (edge->getFromNode()->getID() == nodeID) {
                 node = edge->getFromNode();
             } else {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         }
         edges.push_back(edge);
+    }
+    if (!ok) {
+        return;
     }
     bool priority = attrs.getOpt<bool>(SUMO_ATTR_PRIORITY, nodeID.c_str(), ok, node->isTLControlled(), true);
     if (node->isTLControlled() && !priority) {
@@ -387,14 +385,10 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("No edges specified for walkingArea at node '" + nodeID + "'.");
         return;
     }
-    SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, nullptr, ok), edgeIDs);
-    if (!ok) {
-        return;
-    }
-    for (std::vector<std::string>::const_iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-        NBEdge* edge = myEdgeCont.retrieve(*it);
+    for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
+        NBEdge* edge = myEdgeCont.retrieve(id);
         if (edge == nullptr) {
-            WRITE_ERROR("Edge '" + (*it) + "' for walkingArea at node '" + nodeID + "' is not known.");
+            WRITE_ERROR("Edge '" + id + "' for walkingArea at node '" + nodeID + "' is not known.");
             return;
         }
         if (node == nullptr) {
@@ -403,16 +397,19 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
             } else if (edge->getFromNode()->getID() == nodeID) {
                 node = edge->getFromNode();
             } else {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         }
         edges.push_back(edge);
+    }
+    if (!ok) {
+        return;
     }
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     if (!NBNetBuilder::transformCoordinates(customShape)) {

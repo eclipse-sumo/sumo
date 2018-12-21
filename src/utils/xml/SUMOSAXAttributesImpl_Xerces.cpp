@@ -227,15 +227,6 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
 }
 
 
-std::vector<std::string>
-SUMOSAXAttributesImpl_Xerces::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
     if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {

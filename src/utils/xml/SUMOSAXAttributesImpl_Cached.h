@@ -255,13 +255,6 @@ public:
      */
     Boundary getBoundary(int attr) const;
 
-    /** @brief Tries to read given attribute assuming it is a string vector
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occurred
-     */
-    std::vector<std::string> getStringVector(int attr) const;
-
     /** @brief Converts the given attribute id into a man readable string
      *
      * Returns a "?" if the attribute is not known.

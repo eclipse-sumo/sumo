@@ -2890,9 +2890,9 @@ MSLane::saveState(OutputDevice& out) {
 
 
 void
-MSLane::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc) {
-    for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
-        MSVehicle* v = dynamic_cast<MSVehicle*>(vc.getVehicle(*it));
+MSLane::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc) {
+    for (const std::string& id : vehIds) {
+        MSVehicle* v = dynamic_cast<MSVehicle*>(vc.getVehicle(id));
         // vehicle could be removed due to options
         if (v != nullptr) {
             v->updateBestLanes(false, this);

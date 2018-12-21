@@ -24,8 +24,8 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
-#include <utils/xml/SUMOSAXAttributes.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNet.h>
 
@@ -211,11 +211,11 @@ GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
         }
     } else {
         // declare string vector for saving all vclasses
-        std::vector<std::string> allowStringVector;
-        SUMOSAXAttributes::parseStringVector(myAC->getAttribute(SUMO_ATTR_ALLOW), allowStringVector);
+        const std::vector<std::string>& allowStringVector = StringTokenizer(myAC->getAttribute(SUMO_ATTR_ALLOW)).getVector();
+        const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
         // iterate over myVClassMap and set icons
         for (auto i : myVClassMap) {
-            if (std::find(allowStringVector.begin(), allowStringVector.end(), getVehicleClassNames(i.first)) != allowStringVector.end()) {
+            if (allowSet.count(getVehicleClassNames(i.first)) > 0) {
                 i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
                 i.second.second->setText((getVehicleClassNames(i.first) + " allowed").c_str());
             } else {

@@ -325,8 +325,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         tlDefs.insert(tlDef);
     }
     // process inner edges which shall be controlled
-    std::vector<std::string> controlledInner;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_CONTROLLED_INNER, nullptr, ok, ""), controlledInner);
+    const std::vector<std::string>& controlledInner = attrs.getOptStringVector(SUMO_ATTR_CONTROLLED_INNER, nullptr, ok);
     if (controlledInner.size() != 0) {
         for (std::set<NBTrafficLightDefinition*>::iterator it = tlDefs.begin(); it != tlDefs.end(); it++) {
             (*it)->addControlledInnerEdges(controlledInner);

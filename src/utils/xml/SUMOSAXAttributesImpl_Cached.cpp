@@ -214,15 +214,6 @@ SUMOSAXAttributesImpl_Cached::getBoundary(int attr) const {
 }
 
 
-std::vector<std::string>
-SUMOSAXAttributesImpl_Cached::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Cached::getName(int attr) const {
     if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
