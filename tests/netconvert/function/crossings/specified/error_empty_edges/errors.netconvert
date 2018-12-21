@@ -1,2 +1,2 @@
-Error: Attribute 'edges' in definition of a crossing is empty.
+Error: Attribute 'edges' in definition of crossing 'C' is empty.
 Quitting (on error).
