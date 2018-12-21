@@ -47,7 +47,10 @@ def readByte(content):
     return read(content, "B")[0]
 
 
-def readInt(content):
+def readInt(content, withType=False):
+    if withType:
+        valType = readByte(content)
+        assert(valType == INTEGER)
     return read(content, "i")[0]
 
 
@@ -63,7 +66,7 @@ def readString(content):
 def readStringList(content):
     n = readInt(content)
     list = []
-    for i in range(n):
+    for _ in range(n):
         read(content, "B")  # type
         list.append(readString(content))
     return list
@@ -72,13 +75,10 @@ def readStringList(content):
 def readIntListList(content):
     n = readInt(content)
     list = []
-    for i in range(n):
+    for _ in range(n):
         read(content, "B")  # type
         n1 = readInt(content)
-        list.append([])
-        for j in range(n1):
-            read(content, "B")  # type
-            list[-1].append(readInt(content))
+        list.append([readInt(content, True) for __ in range(n1)])
     return list
 
 
@@ -123,10 +123,7 @@ def typedValueStr(content):
     elif valType == STRING:
         return readString(content)
     elif valType == LIST:
-        l = []
-        for i in range(readInt(content)):
-            l.append(typedValueStr(content))
-        return " ".join(l)
+        return " ".join([typedValueStr(content) for _ in range(readInt(content))])
     elif valType == EDGE:
         return edges[readInt(content)]
     elif valType == LANE:
