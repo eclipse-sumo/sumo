@@ -107,6 +107,7 @@ class TLSProgram:
         self._type = type
         self._offset = offset
         self._phases = []
+        self._params = {}
 
     def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=-1):
         self._phases.append(Phase(duration, state, minDur, maxDur, next))
@@ -126,6 +127,14 @@ class TLSProgram:
     def getPhases(self):
         return self._phases
 
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params
 
 class Net:
 
@@ -634,12 +643,20 @@ class NetReader(handler.ContentHandler):
         if name == 'param':
             if self._currentLane is not None:
                 self._currentLane.setParam(attrs['key'], attrs['value'])
+            elif self._currentEdge is not None:
+                self._currentEdge.setParam(attrs['key'], attrs['value'])
+            elif self._currentNode is not None:
+                self._currentNode.setParam(attrs['key'], attrs['value'])
+            elif self._currentProgram is not None:
+                self._currentProgram.setParam(attrs['key'], attrs['value'])
 
     def endElement(self, name):
         if name == 'lane':
             self._currentLane = None
         if name == 'edge':
             self._currentEdge = None
+        if name == 'junction':
+            self._currentNode = None
         # 'row-logic' is deprecated!!!
         if name == 'ROWLogic' or name == 'row-logic':
             self._haveROWLogic = False

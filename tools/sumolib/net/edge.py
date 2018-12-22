@@ -47,6 +47,7 @@ class Edge:
         self._function = function
         self._tls = None
         self._name = name
+        self._params = {}
 
     def getName(self):
         return self._name
@@ -234,6 +235,15 @@ class Edge:
             if lane.allows(vClass):
                 return True
         return False
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params
 
     def __repr__(self):
         if self.getFunction() == '':
