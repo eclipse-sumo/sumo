@@ -4,10 +4,10 @@ Building Contraction Hierarchy for vClass='passenger' and time=0.00 (2048 edges)
 ... 
 Created 3850 shortcuts.
 Recomputed priority 2475 times.
-done (63ms).
+done (93ms).
 done.
 CHRouter answered 1436 queries and explored 95.98 edges on average.
-CHRouter spent 67ms answering queries (0.05ms on average).
-AStarRouter answered 1 queries and explored 61.00 edges on average.
+CHRouter spent 77ms answering queries (0.05ms on average).
+AStarRouter answered 1 queries and explored 57.00 edges on average.
 AStarRouter spent 0ms answering queries (0.00ms on average).
 Success.
