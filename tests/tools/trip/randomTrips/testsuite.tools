@@ -37,6 +37,9 @@ weights_output
 
 # load some weights
 loaded_weights
+
+# scale probability by edge param
+edge_param
 no_valid_edges
 no_valid_intermediate_edges
 
