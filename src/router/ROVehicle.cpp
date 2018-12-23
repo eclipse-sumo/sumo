@@ -224,6 +224,9 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
                 os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 1]->getID());
             }
         }
+        if (getParameter().via.size() > 0) {
+            os.writeAttr(SUMO_ATTR_VIA, getParameter().via);
+        }
     } else {
         myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
     }
