@@ -3064,9 +3064,9 @@ GNEViewNet::updateControls() {
 
 GNEViewNet::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
     movingIndexShape(-1),
+    myViewNet(viewNet),
     myMovingStartPos(false),
     myMovingEndPos(false),
-    myViewNet(viewNet),
     myJunctionToMove(nullptr),
     myEdgeToMove(nullptr),
     myPolyToMove(nullptr),
