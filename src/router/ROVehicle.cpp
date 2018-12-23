@@ -201,11 +201,32 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
         getType()->saved = asAlternatives;
     }
 
+    const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     // write the vehicle (new style, with included routes)
-    getParameter().write(os, options);
+    getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
 
     // save the route
-    myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
+    if (writeTrip) {
+        const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();
+        if (edges.size() > 0) {
+            if (edges.front()->isTazConnector()) {
+                if (edges.size() > 1) {
+                    os.writeAttr(SUMO_ATTR_FROM, edges[1]->getID());
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_FROM, edges[0]->getID());
+            }
+            if (edges.back()->isTazConnector()) {
+                if (edges.size() > 1) {
+                    os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 2]->getID());
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 1]->getID());
+            }
+        }
+    } else {
+        myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
+    }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
         stop->write(os);
     }
