@@ -561,30 +561,6 @@ protected:
     void doInit();
 
 private:
-    /// @brief struct used to group all pointers to moved elements
-    struct MovedItems {
-
-        /// @brief constructor
-        MovedItems();
-
-        /// @brief the Junction to be moved.
-        GNEJunction* junctionToMove;
-
-        /// @brief the edge of which geometry is being moved
-        GNEEdge* edgeToMove;
-
-        /// @brief the poly of which geometry is being moved
-        GNEPoly* polyToMove;
-
-        /// @brief the poi which position is being moved
-        GNEPOI* poiToMove;
-
-        /// @brief the additional element which position is being moved
-        GNEAdditional* additionalToMove;
-
-        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
-        GNETAZ* tazToMove;
-    };
 
     /// @brief struct used to group all variables related with movement of single elements
     struct MoveSingleElementValues {
@@ -592,17 +568,14 @@ private:
         /// @brief constructor
         MoveSingleElementValues(GNEViewNet* viewNet);
 
-        /// @brief calculate offset movement
-        Position calculateOffsetMovement() const;
+        /// @brief begin move single element
+        bool beginMoveSingleElement();
 
-        /// calculate Poly movement values (Position, Index, etc.)
-        void calculatePolyValues();
+        /// @brief move single element
+        void moveSingleElement();
 
-        /// calculate Edge movement values (Position, Index, etc.)
-        void calculateEdgeValues();
-
-        /// calculate TAZ movement values (Position, Index, etc.)
-        void calculateTAZValues();
+        /// @brief finish moving single elements
+        void finishMoveSingleElement();
 
         /// @brief original shape of element before start moving (used by polygons, edges, etc., needed for commmit position changes)
         PositionVector originalShapeBeforeMoving;
@@ -613,16 +586,45 @@ private:
         /// @brief original position of geometry position (needed for commmit position changes)
         Position originalPositionInView;
 
-        /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
-        Position relativeClickedPosition;
-
-        /// @brief bool to indicate that startPos are being moved
-        bool movingStartPos;
-        bool movingEndPos;
-
     private:
+        /// calculate Poly movement values (Position, Index, etc.)
+        bool calculatePolyValues();
+
+        /// calculate Edge movement values (Position, Index, etc.)
+        bool calculateEdgeValues();
+
+        /// calculate TAZ movement values (Position, Index, etc.)
+        bool calculateTAZValues();
+
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
+        Position myRelativeClickedPosition;
+
+        /// @brief bool to indicate that startPos of an edge is being moved
+        bool myMovingStartPos;
+
+        /// @brief bool to indicate that end pos of an edge is being moved
+        bool myMovingEndPos;
+
+        /// @brief the Junction to be moved.
+        GNEJunction* myJunctionToMove;
+
+        /// @brief the edge of which geometry is being moved
+        GNEEdge* myEdgeToMove;
+
+        /// @brief the poly of which geometry is being moved
+        GNEPoly* myPolyToMove;
+
+        /// @brief the poi which position is being moved
+        GNEPOI* myPOIToMove;
+
+        /// @brief the additional element which position is being moved
+        GNEAdditional* myAdditionalToMove;
+
+        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
+        GNETAZ* myTAZToMove;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
@@ -833,9 +835,6 @@ private:
 
     /// @brief variable used to save all elements related to creation of Edges
     CreateEdgeOptions myCreateEdgeOptions;
-
-    /// @brief variable use to save pointers to moved elements
-    MovedItems myMovedItems;
 
     /// @brief variable used to save variables related with movement of single elements
     MoveSingleElementValues myMoveSingleElementValues;
