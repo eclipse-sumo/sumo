@@ -233,3 +233,6 @@ class Lane:
 
     def getParam(self, key, default=None):
         return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params

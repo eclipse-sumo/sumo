@@ -131,7 +131,7 @@ public:
             time += getTravelTime(viaEdge, v, time, viaEffortDelta);
             effort += viaEffortDelta;
             length += viaEdge->getLength();
-            viaEdge = viaEdge->getViaSuccessors().front().first;
+            viaEdge = viaEdge->getViaSuccessors().front().second;
         }
     }
 

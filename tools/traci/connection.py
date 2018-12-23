@@ -91,6 +91,7 @@ class Connection:
             result = Storage(traciemb.execute(self._string))
         else:
             length = struct.pack("!i", len(self._string) + 4)
+            # print("python_sendExact: '%s'" % ' '.join(map(lambda x : "%X" % ord(x), self._string)))
             self._socket.send(length + self._string)
             result = self._recvExact()
         if not result:
@@ -188,14 +189,14 @@ class Connection:
                 numVars -= 1
         else:
             objectNo = result.read("!i")[0]
-            for o in range(objectNo):
+            for _ in range(objectNo):
                 oid = result.readString()
                 if numVars == 0:
                     self._subscriptionMapping[response].addContext(
                         objectID, self._subscriptionMapping[domain], oid)
-                for v in range(numVars):
+                for __ in range(numVars):
                     varID = result.read("!B")[0]
-                    status, varType = result.read("!BB")
+                    status, ___ = result.read("!BB")
                     if status:
                         print("Error!", result.readString())
                     elif response in self._subscriptionMapping:

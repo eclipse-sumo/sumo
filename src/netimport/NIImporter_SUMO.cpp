@@ -527,7 +527,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge->func == EDGEFUNC_CROSSING) {
         // add the crossing but don't do anything else
         Crossing c(id);
-        SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_CROSSING_EDGES, nullptr, ok), c.crossingEdges);
+        c.crossingEdges = attrs.get<std::vector<std::string> >(SUMO_ATTR_CROSSING_EDGES, nullptr, ok);
         myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id)].push_back(c);
         return;
     } else if (myCurrentEdge->func == EDGEFUNC_INTERNAL || myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
@@ -680,7 +680,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         return;
     }
     myCurrentJunction.node = node;
-    SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_INTLANES, nullptr, ok, false), myCurrentJunction.intLanes);
+    myCurrentJunction.intLanes = attrs.get<std::vector<std::string> >(SUMO_ATTR_INTLANES, nullptr, ok, false);
     // set optional radius
     if (attrs.hasAttribute(SUMO_ATTR_RADIUS)) {
         node->setRadius(attrs.get<double>(SUMO_ATTR_RADIUS, id.c_str(), ok));

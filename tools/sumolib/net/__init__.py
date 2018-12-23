@@ -107,6 +107,7 @@ class TLSProgram:
         self._type = type
         self._offset = offset
         self._phases = []
+        self._params = {}
 
     def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=-1):
         self._phases.append(Phase(duration, state, minDur, maxDur, next))
@@ -126,6 +127,14 @@ class TLSProgram:
     def getPhases(self):
         return self._phases
 
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params
 
 class Net:
 
@@ -481,6 +490,7 @@ class NetReader(handler.ContentHandler):
         self._currentEdge = None
         self._currentNode = None
         self._currentLane = None
+        self._crossingID2edgeIDs = {}
         self._withPhases = others.get('withPrograms', False)
         self._latestProgram = others.get('withLatestPrograms', False)
         if self._latestProgram:
@@ -512,7 +522,11 @@ class NetReader(handler.ContentHandler):
                 # for internal junctions use the junction's id for from and to node
                 if function == 'internal':
                     fromNodeID = toNodeID = edgeID[1:edgeID.rfind('_')]
-
+                
+                # remember edges crossed by pedestrians to link them later to the crossing objects
+                if function == 'crossing':
+                    self._crossingID2edgeIDs[edgeID] = attrs.get('crossingEdges').split(' ')
+                
                 self._currentEdge = self._net.addEdge(edgeID, fromNodeID, toNodeID,
                                                       prio, function, attrs.get('name', ''))
 
@@ -629,18 +643,33 @@ class NetReader(handler.ContentHandler):
         if name == 'param':
             if self._currentLane is not None:
                 self._currentLane.setParam(attrs['key'], attrs['value'])
+            elif self._currentEdge is not None:
+                self._currentEdge.setParam(attrs['key'], attrs['value'])
+            elif self._currentNode is not None:
+                self._currentNode.setParam(attrs['key'], attrs['value'])
+            elif self._currentProgram is not None:
+                self._currentProgram.setParam(attrs['key'], attrs['value'])
 
     def endElement(self, name):
         if name == 'lane':
             self._currentLane = None
         if name == 'edge':
             self._currentEdge = None
+        if name == 'junction':
+            self._currentNode = None
         # 'row-logic' is deprecated!!!
         if name == 'ROWLogic' or name == 'row-logic':
             self._haveROWLogic = False
         # tl-logic is deprecated!!!
         if self._withPhases and (name == 'tlLogic' or name == 'tl-logic'):
             self._currentProgram = None
+
+    def endDocument(self):
+        # set crossed edges of pedestrian crossings
+        for crossingID, crossedEdgeIDs in self._crossingID2edgeIDs.items():
+            pedCrossing = self._net.getEdge(crossingID)
+            for crossedEdgeID in crossedEdgeIDs:
+                pedCrossing._addCrossingEdge(self._net.getEdge(crossedEdgeID))
 
     def getNet(self):
         return self._net

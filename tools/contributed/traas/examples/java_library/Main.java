@@ -39,6 +39,7 @@ public class Main {
 		
 			//start Traci Server
 			conn.runServer();
+            conn.setOrder(1);
 			
 			for(int i=0; i<3600; i++){
 			

@@ -80,6 +80,8 @@ def get_options(args=None):
                          default=False, help="weight edge probability by length")
     optParser.add_option("-L", "--lanes", action="store_true",
                          default=False, help="weight edge probability by number of lanes")
+    optParser.add_option("--edge-param", dest="edgeParam",
+                         help="use the given edge parameter as factor for edge")
     optParser.add_option("--speed-exponent", type="float", dest="speed_exponent",
                          default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
     optParser.add_option("--fringe-factor", type="float", dest="fringe_factor",
@@ -245,6 +247,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
                 edge.getSpeed() > options.fringe_threshold and
                 edge.is_fringe(getattr(edge, fringe_bonus))):
             prob *= options.fringe_factor
+        if options.edgeParam is not None:
+            prob *= float(edge.getParam(options.edgeParam, 1.0))
         return prob
     return edge_probability
 

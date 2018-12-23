@@ -60,3 +60,6 @@ ticket4861
 
 # speed on junction when approaching pedestrian crossing
 ticket4900
+
+# invalid routing
+ticket4968

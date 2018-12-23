@@ -28,7 +28,7 @@
 
 #include <cassert>
 #include <utils/common/StringBijection.h>
-#include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/common/StringTokenizer.h>
 
 #include "SUMOXMLDefinitions.h"
 
@@ -887,8 +887,7 @@ SUMOXMLDefinitions::isValidFilename(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
-    std::vector<std::string> typeIDs;
-    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    const std::vector<std::string>& typeIDs = StringTokenizer(value).getVector();
     if (typeIDs.empty()) {
         return false;
     } else {
@@ -905,8 +904,7 @@ SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
-    std::vector<std::string> typeIDs;
-    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    const std::vector<std::string>& typeIDs = StringTokenizer(value).getVector();
     if (typeIDs.empty()) {
         return false;
     } else {

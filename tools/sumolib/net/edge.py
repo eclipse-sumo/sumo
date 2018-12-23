@@ -37,6 +37,7 @@ class Edge:
         self._length = None
         self._incoming = {}
         self._outgoing = {}
+        self._crossingEdges = []
         self._shape = None
         self._shapeWithJunctions = None
         self._shape3D = None
@@ -46,6 +47,7 @@ class Edge:
         self._function = function
         self._tls = None
         self._name = name
+        self._params = {}
 
     def getName(self):
         return self._name
@@ -66,12 +68,15 @@ class Edge:
 
     def getTLS(self):
         return self._tls
-
+    
+    def getCrossingEdges(self):
+        return self._crossingEdges
+    
     def addLane(self, lane):
         self._lanes.append(lane)
         self._speed = lane.getSpeed()
         self._length = lane.getLength()
-
+    
     def addOutgoing(self, conn):
         if conn._to not in self._outgoing:
             self._outgoing[conn._to] = []
@@ -81,7 +86,11 @@ class Edge:
         if conn._from not in self._incoming:
             self._incoming[conn._from] = []
         self._incoming[conn._from].append(conn)
-
+    
+    def _addCrossingEdge(self, edge):
+        if edge not in self._crossingEdges:
+            self._crossingEdges.append(edge)
+    
     def setRawShape(self, shape):
         self._rawShape3D = shape
 
@@ -226,6 +235,15 @@ class Edge:
             if lane.allows(vClass):
                 return True
         return False
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params
 
     def __repr__(self):
         if self.getFunction() == '':

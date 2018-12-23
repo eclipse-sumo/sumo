@@ -33,14 +33,16 @@ import math
 import operator
 from xml.sax import make_parser
 from optparse import OptionParser
+
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
+import sumolib.net  # noqa
+
 from network import Net, DistrictsReader, ExtraSignalInformationReader
 from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra
 from inputs import getMatrix, getConnectionTravelTime
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, linkChoicesOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
 from tables import updateCurveTable
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net  # noqa
 
 
 def initLinkChoiceMap(net, startVertices, endVertices, matrixPshort, linkChoiceMap, odPairsMap):

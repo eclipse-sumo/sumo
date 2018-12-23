@@ -1,5 +1,8 @@
-TraCITestClient output file. Date: Thu Nov  8 09:17:27 2018
+TraCITestClient output file. Date: Thu Dec 20 23:15:25 2018
 
+
+-> Command sent: <SetOrder>:
+.. Command acknowledged (3), [description: ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

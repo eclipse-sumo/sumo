@@ -101,6 +101,12 @@ ROEdge::addLane(ROLane* lane) {
 
 void
 ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
+    if (isInternal()) {
+        // for internal edges after an internal junction, 
+        // this is called twice and only the second call counts
+        myFollowingEdges.clear();
+        myFollowingViaEdges.clear();
+    }
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));

@@ -660,9 +660,9 @@ MESegment::saveState(OutputDevice& out) {
 
 
 void
-MESegment::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
-    for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
-        MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(*it));
+MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
+    for (const std::string& id : vehIds) {
+        MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(id));
         // vehicle could be removed due to options
         if (v != nullptr) {
             assert(v->getSegment() == this);

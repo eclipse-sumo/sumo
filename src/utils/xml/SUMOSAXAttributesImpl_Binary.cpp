@@ -313,15 +313,6 @@ SUMOSAXAttributesImpl_Binary::getBoundary(int attr) const {
 }
 
 
-std::vector<std::string>
-SUMOSAXAttributesImpl_Binary::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Binary::getName(int attr) const {
     if (myAttrIds.find(attr) == myAttrIds.end()) {

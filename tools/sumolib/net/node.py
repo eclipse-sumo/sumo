@@ -32,6 +32,7 @@ class Node:
         self._intLanes = intLanes
         self._shape3D = None
         self._shape = None
+        self._params = {}
 
     def getID(self):
         return self._id
@@ -154,3 +155,12 @@ class Node:
                     outgoing = all_outgoing
                 conns.extend(outgoing)
         return conns
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params

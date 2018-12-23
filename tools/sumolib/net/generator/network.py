@@ -63,9 +63,7 @@ class Edge:
         self.maxSpeed = maxSpeed
         self.lanes = lanes
         if self.lanes is None:
-            self.lanes = []
-            for i in range(0, self.numLanes):
-                self.lanes.append(Lane())
+            self.lanes = [Lane() for _ in range(numLanes)]
         self.splits = splits
         if self.splits is None:
             self.splits = []
@@ -82,10 +80,8 @@ class Edge:
             self.splits.append(Split(0, lanes))
             lanes = range(0, self.numLanes + lanesToRight + lanesToLeft)
             self.splits.append(Split(distance, lanes))
-            for i in range(0, lanesToRight):
-                self.lanes.insert(0, Lane())
-            for i in range(0, lanesToLeft):
-                self.lanes.append(Lane())
+            self.lanes = [Lane() for _ in range(lanesToRight)] + self.lanes
+            self.lanes += [Lane() for _ in range(lanesToLeft)]
 
     def getConnections(self, net):
         ret = []

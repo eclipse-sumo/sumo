@@ -23,8 +23,7 @@ import collectinghandler
 import xml
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -349,76 +348,11 @@ class ConnectionsTestCase(unittest.TestCase):
         self.assert_contains_lane("source", "source lane")
 
         self.assert_destinations_no("source", "source lane", 1)
-        self.assert_contains_destination(
-            "source", "source lane", "destination")
+        self.assert_contains_destination("source", "source lane", "destination")
 
         self.assertTrue(
             "Destination for source (lane source lane) readded: destination"
             in [record.getMessage() for record in collecting_handler.log_records])
-
-
-class ConnectionXMLTestCase(unittest.TestCase):
-    # pylint: disable=C,W,R,E,F
-
-    SOURCE_ATTRIBUTE = "from"
-    SOURCE_LANE_ATTRIBUTE = "fromLane"
-    DESTINATION_ATTRIBUTE = "to"
-    DESTINATION_LANE_ATTRIBUTE = "toLane"
-
-    def setUp(self):
-        # Shared resources.
-        self.from_value = "source"
-        self.to_value = "destination"
-        self.from_lane_value = "source lane"
-        self.to_lane_value = "destination lane"
-
-    def set_up_new_connection_element(self):
-        connection_element = xml.dom.minidom.Element("connection")
-        connection_element.setAttribute(self.SOURCE_ATTRIBUTE,
-                                        self.from_value)
-        connection_element.setAttribute(self.SOURCE_LANE_ATTRIBUTE,
-                                        self.from_lane_value)
-        connection_element.setAttribute(self.DESTINATION_ATTRIBUTE,
-                                        self.to_value)
-        connection_element.setAttribute(self.DESTINATION_LANE_ATTRIBUTE,
-                                        self.to_lane_value)
-        return connection_element
-
-    def set_up_connection_xml_without(self, attribute):
-        connection_element = self.set_up_new_connection_element()
-        connection_element.removeAttribute(attribute)
-        self.set_up_connection_xml(connection_element)
-
-    def set_up_connection_xml(self, connection_element):
-        self.connection_xml = ConnectionXML(connection_element)
-
-    def tearDown(self):
-        self.connection_xml = None
-
-    def test_get_source(self):
-        self.set_up_connection_xml(self.set_up_new_connection_element())
-        self.assertEqual(self.from_value, self.connection_xml.get_source())
-
-    def test_get_source_with_missing_source(self):
-        self.set_up_connection_xml_without(self.SOURCE_ATTRIBUTE)
-        self.assertRaises(AttributeError, self.connection_xml.get_source)
-
-    def test_get_source_lane(self):
-        self.set_up_connection_xml(self.set_up_new_connection_element())
-        self.assertEqual(
-            self.from_lane_value, self.connection_xml.get_source_lane())
-
-    def test_get_source_lane_with_missing_source_lane(self):
-        self.set_up_connection_xml_without(self.SOURCE_LANE_ATTRIBUTE)
-        self.assertRaises(AttributeError, self.connection_xml.get_source_lane)
-
-    def test_get_destination(self):
-        self.set_up_connection_xml(self.set_up_new_connection_element())
-        self.assertEqual(self.to_value, self.connection_xml.get_destination())
-
-    def test_get_destination_with_missing_destination(self):
-        self.set_up_connection_xml_without(self.DESTINATION_ATTRIBUTE)
-        self.assertRaises(AttributeError, self.connection_xml.get_destination)
 
 
 if __name__ == "__main__":

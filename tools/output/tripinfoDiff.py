@@ -17,24 +17,21 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import optparse
+import argparse
 from collections import OrderedDict
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("--persons", action="store_true",
-                         default=False, help="compute personinfo differences")
-    (options, args) = optParser.parse_args(args=args)
-    try:
-        options.orig, options.new, options.output = args
-    except:
-        print("USAGE: <tripinfos1> <tripinfos2> <output>", file=sys.stderr)
-        sys.exit(1)
-    return options
+    argParser = argparse.ArgumentParser()
+    argParser.add_argument("orig", help="the first tripinfo file")
+    argParser.add_argument("new", help="the second tripinfo file")
+    argParser.add_argument("output", help="the output file")
+    argParser.add_argument("--persons", action="store_true",
+                           default=False, help="compute personinfo differences")
+    return argParser.parse_args(args=args)
 
 
 def write_diff(options):
