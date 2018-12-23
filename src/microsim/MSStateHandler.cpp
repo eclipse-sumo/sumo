@@ -185,13 +185,15 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_VIEWSETTINGS_VEHICLES: {
-            const std::vector<std::string>& vehIDs = attrs.getStringVector(SUMO_ATTR_VALUE);
-            if (MSGlobals::gUseMesoSim) {
-                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex++);
-            } else {
-                MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes()[myEdgeAndLane.second]->loadState(
-                    vehIDs, MSNet::getInstance()->getVehicleControl());
-            }
+            try {
+                const std::vector<std::string>& vehIDs = attrs.getStringVector(SUMO_ATTR_VALUE);
+                if (MSGlobals::gUseMesoSim) {
+                    mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex++);
+                } else {
+                    MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes()[myEdgeAndLane.second]->loadState(
+                            vehIDs, MSNet::getInstance()->getVehicleControl());
+                }
+            } catch (EmptyData&) {} // attr may be empty
             break;
         }
         case SUMO_TAG_PARAM: {
