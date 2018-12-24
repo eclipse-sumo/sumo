@@ -193,13 +193,13 @@ enum GUIIcon {
     ICON_LANEGREENVERGE,
     /// @}
 
-    /// @name netedit supermode icons
+    /// @name NETEDIT supermode icons
     /// @{
     ICON_SUPERMODENETWORK,
     ICON_SUPERMODEDEMAND,
     /// @}
 
-    /// @name netedit modes icons
+    /// @name NETEDIT Network modes icons
     /// @{
     ICON_MODEADDITIONAL,
     ICON_MODECONNECTION,
@@ -215,7 +215,12 @@ enum GUIIcon {
     ICON_MODEPROHIBITION,
     /// @}
 
-    /// @name netedit processing icons
+    /// @name NETEDIT Demand modes icons
+    /// @{
+    ICON_MODEROUTE,
+    /// @}
+
+    /// @name NETEDIT processing icons
     /// @{
     ICON_CLEANJUNCTIONS,
     ICON_COMPUTEJUNCTIONS,
@@ -223,7 +228,7 @@ enum GUIIcon {
     ICON_OPTIONS,
     /// @}
 
-    /// @name netedit netElements icons
+    /// @name NETEDIT netElements icons
     /// @{
     ICON_JUNCTION,
     ICON_EDGE,
@@ -233,7 +238,7 @@ enum GUIIcon {
     ICON_CROSSING,
     /// @}
 
-    /// @name netedit additional icons
+    /// @name NETEDIT additional icons
     /// @{
     ICON_BUSSTOP,
     ICON_ACCESS,
@@ -263,7 +268,7 @@ enum GUIIcon {
     ICON_TAZEDGE,
     /// @}
 
-    /// @name netedit routeElements icons
+    /// @name NETEDIT routeElements icons
     /// @{
     ICON_FLOW,
     ICON_ROUTE,
