@@ -200,7 +200,7 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
     if (myLock != nullptr) {
         myLock->lock();
     }
-    RetrieverVector::iterator i = find(myRetrievers.begin(), myRetrievers.end(), retriever);
+    RetrieverVector::iterator i = std::find(myRetrievers.begin(), myRetrievers.end(), retriever);
     if (i != myRetrievers.end()) {
         myRetrievers.erase(i);
     }
@@ -212,7 +212,7 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
 
 bool
 MsgHandler::isRetriever(OutputDevice* retriever) const {
-    return find(myRetrievers.begin(), myRetrievers.end(), retriever) != myRetrievers.end();
+    return std::find(myRetrievers.begin(), myRetrievers.end(), retriever) != myRetrievers.end();
 }
 
 

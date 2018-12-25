@@ -28,6 +28,7 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#include <ctime>
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
