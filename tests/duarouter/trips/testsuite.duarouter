@@ -85,6 +85,9 @@ stop
 # test trip with intermediate bus stop
 busStop
 
+# test trip validation (trip input and trip output)
+write-trips
+
 # test trip with intermediate container stop
 containerStop
 

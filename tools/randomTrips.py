@@ -29,7 +29,6 @@ import optparse
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-import route2trips  # noqa
 from sumolib.miscutils import euclidean  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
@@ -477,22 +476,27 @@ def main(options):
 
         fouttrips.write("</routes>\n")
 
-    if options.routefile:
-        args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '-o', options.routefile, '--ignore-errors',
+    # call duarouter for routes or validated trips
+    args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
                 '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
-        if options.additional is not None:
-            args += ['--additional-files', options.additional]
-        if options.carWalkMode is not None:
-            args += ['--persontrip.transfer.car-walk', options.carWalkMode]
-        if options.walkfactor is not None:
-            args += ['--persontrip.walkfactor', options.walkfactor]
-        print("calling ", " ".join(args))
-        subprocess.call(args)
+    if options.additional is not None:
+        args += ['--additional-files', options.additional]
+    if options.carWalkMode is not None:
+        args += ['--persontrip.transfer.car-walk', options.carWalkMode]
+    if options.walkfactor is not None:
+        args += ['--persontrip.walkfactor', options.walkfactor]
+    if options.routefile:
+        args2 = args + ['-o', options.routefile]
+        print("calling ", " ".join(args2))
+        subprocess.call(args2)
 
     if options.validate:
-        print("calling route2trips")
-        route2trips.main([options.routefile], outfile=options.tripfile,
-                         vias=vias, calledBy=" via randomTrips.py")
+        # write to temporary file because the input is read incrementally
+        tmpTrips = options.tripfile + ".tmp"
+        args2 = args + ['-o', tmpTrips, '--write-trips']
+        print("calling ", " ".join(args2))
+        subprocess.call(args2)
+        os.rename(tmpTrips, options.tripfile)
 
     if options.weights_outprefix:
         trip_generator.source_generator.write_weights(

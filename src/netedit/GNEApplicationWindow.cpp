@@ -1051,7 +1051,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         }
         // set network name on the caption
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
-        getView()->setEditModeFromHotkey(MID_GNE_SETMODE_INSPECT);
+        // by default set supermode network
+        getView()->onCmdSetSupermode(0, MID_GNE_SETSUPERMODE_NETWORK, 0);
         if (ec->myViewportFromRegistry) {
             Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
