@@ -34,6 +34,7 @@
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/frames/GNECreateEdgeFrame.h>
+#include <netedit/frames/GNERouteFrame.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -2862,6 +2863,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // enable selected controls
     switch (mySuperModes.demandEditMode) {
         case GNE_DMODE_ROUTES:
+            myViewParent->getRouteFrame()->show();
             myDemandCheckableButtons.routeButton->setChecked(true);
             break;
         default:
@@ -4085,7 +4087,7 @@ GNEViewNet::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) 
 void 
 GNEViewNet::DemandCheckableButtons::buildDemandCheckableButtons() {
     routeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SETMODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEROUTE), myViewNet, MID_GNE_SETMODE_ROUTES, GUIDesignButtonToolbarCheckable);
 }
 
 
