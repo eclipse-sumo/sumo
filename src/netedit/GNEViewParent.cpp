@@ -35,6 +35,7 @@
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/frames/GNERouteFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -107,7 +108,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Set pointer myView with the created view net
     myView = viewNet;
 
-    // Create frames
+    // Create Network frames
     myFrames.inspectorFrame = new GNEInspectorFrame(myFramesArea, viewNet);
     myFrames.selectorFrame = new GNESelectorFrame(myFramesArea, viewNet);
     myFrames.connectorFrame = new GNEConnectorFrame(myFramesArea, viewNet);
@@ -119,6 +120,9 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.deleteFrame = new GNEDeleteFrame(myFramesArea, viewNet);
     myFrames.polygonFrame = new GNEPolygonFrame(myFramesArea, viewNet);
     myFrames.createEdgeFrame = new GNECreateEdgeFrame(myFramesArea, viewNet);
+
+    // Create Demand frames
+    myFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -208,6 +212,12 @@ GNEViewParent::getProhibitionFrame() const {
 GNECreateEdgeFrame* 
 GNEViewParent::getCreateEdgeFrame() const {
     return myFrames.createEdgeFrame;
+}
+
+
+GNERouteFrame* 
+GNEViewParent::getRouteFrame() const {
+    return myFrames.routeFrame;
 }
 
 
@@ -449,7 +459,8 @@ GNEViewParent::Frames::Frames() :
     deleteFrame(nullptr),
     polygonFrame(nullptr),
     prohibitionFrame(nullptr),
-    createEdgeFrame(nullptr) {
+    createEdgeFrame(nullptr),
+    routeFrame(nullptr) {
 }
 
 
@@ -468,6 +479,7 @@ GNEViewParent::Frames::hideFrames() {
     /** currently createEdgeFrame unused
     createEdgeFrame->hide();
     **/
+    routeFrame->hide();
 }
 
 
@@ -487,6 +499,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     /** currently createEdgeFrame unused
     createEdgeFrame->setFrameWidth(frameWidth);
     **/
+    routeFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -517,6 +530,8 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (createEdgeFrame->shown()) {
         return true;
     **/
+    } else if (routeFrame->shown()) {
+        return true;
     } else {
         return false;
     }

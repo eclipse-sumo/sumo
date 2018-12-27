@@ -8,7 +8,7 @@
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    GNEDeleteFrame.h
-/// @author  Pablo Alvarez Lopex
+/// @author  Pablo Alvarez Lopez
 /// @date    Dec 2016
 /// @version $Id$
 ///
