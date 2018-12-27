@@ -315,11 +315,14 @@ class Builder(object):
         period = 3600 / (length / 1000) / options["count"]
 
         opts = ["-n", self.files["net"], "--seed", RANDOMSEED, "--fringe-factor", options["fringeFactor"],
-                "-p", period, "-r", self.files["route"], "-o", self.files["trips"], "-e", self.data["duration"]]
+                "-p", period, "-o", self.files["trips"], "-e", self.data["duration"]]
+        if "--validate" not in vehicleParameters[vehicle]:
+            opts += ["-r", self.files["route"]]
         if vehicle == "pedestrian" and publicTransport:
             opts += vehicleParameters["persontrips"]
         else:
             opts += vehicleParameters[vehicle]
+
         return opts
 
     def makeConfigFile(self):

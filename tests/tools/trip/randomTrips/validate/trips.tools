@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2017-10-18 14:07:22.248000 by $Id: route2trips.py 26301 2017-10-02 20:48:38Z behrisch $ via randomTrips.py
-  options: -n net2.net.xml -s 42 -e 100 <doubleminus>validate
+
+<!-- generated on Sun Dec 23 21:46:25 2018 by Eclipse SUMO duarouter Version v1_0_1+1015-8e01b2d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml.tmp"/>
+        <write-trips value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="100.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="1" depart="1.00" from="beg2left" to="end"/>
     <trip id="5" depart="5.00" from="beg2left" to="left2end"/>
