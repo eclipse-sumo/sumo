@@ -20,7 +20,7 @@ GNEAttributeCarrier.cpp GNEAttributeCarrier.h \
 GNEReferenceCounter.h \
 GNEEvent_NetworkLoaded.h
 
-SUBDIRS = additionals changes dialogs frames netelements
+SUBDIRS = additionals changes dialogs frames netelements demandelements
 
 netedit_LDADD = ../netimport/libnetimport.a \
 ../netimport/vissim/libvissimimport.a \
@@ -54,6 +54,7 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/foxtools/libfoxtools.a \
 ../netedit/changes/libneteditchanges.a \
 ../netedit/netelements/libneteditnetelements.a \
+../netedit/demandelements/libneteditdemandelements.a \
 $(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
