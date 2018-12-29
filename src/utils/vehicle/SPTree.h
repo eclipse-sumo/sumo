@@ -94,7 +94,7 @@ public:
         // build SPT
         while (!myFrontier.empty()) {
             E* min = myFrontier.front();
-            pop_heap(myFrontier.begin(), myFrontier.end(), myCmp);
+            std::pop_heap(myFrontier.begin(), myFrontier.end(), myCmp);
             myFrontier.pop_back();
             myFound.push_back(min);
             min->visited = true;
@@ -113,10 +113,10 @@ public:
                         follower->permissions = (min->permissions & con.permissions);
                         if (oldTraveltime == std::numeric_limits<double>::max()) {
                             myFrontier.push_back(follower);
-                            push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
+                            std::push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
                         } else {
-                            push_heap(myFrontier.begin(),
-                                      find(myFrontier.begin(), myFrontier.end(), follower) + 1,
+                            std::push_heap(myFrontier.begin(),
+                                      std::find(myFrontier.begin(), myFrontier.end(), follower) + 1,
                                       myCmp);
                         }
                     }
@@ -171,7 +171,7 @@ private:
             if (min == dest) {
                 return dest->traveltime;
             }
-            pop_heap(myFrontier.begin(), myFrontier.end(), myCmp);
+            std::pop_heap(myFrontier.begin(), myFrontier.end(), myCmp);
             myFrontier.pop_back();
             myFound.push_back(min);
             min->visited = true;
@@ -193,10 +193,10 @@ private:
                         follower->permissions = (min->permissions & con.permissions);
                         if (oldTraveltime == std::numeric_limits<double>::max()) {
                             myFrontier.push_back(follower);
-                            push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
+                            std::push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
                         } else {
-                            push_heap(myFrontier.begin(),
-                                      find(myFrontier.begin(), myFrontier.end(), follower) + 1,
+                            std::push_heap(myFrontier.begin(),
+                                      std::find(myFrontier.begin(), myFrontier.end(), follower) + 1,
                                       myCmp);
                         }
                     }

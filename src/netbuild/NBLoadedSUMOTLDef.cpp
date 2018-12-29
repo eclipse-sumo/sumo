@@ -250,7 +250,7 @@ NBLoadedSUMOTLDef::collectEdges() {
     for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end();) {
         NBEdge* edge = *j;
         // an edge lies within the logic if it is outgoing as well as incoming
-        EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
+        EdgeVector::iterator k = std::find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
             if (myControlledInnerEdges.count(edge->getID()) == 0) {
                 bool controlled = false;
@@ -488,7 +488,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end();) {
             const NBConnection con = (*it);
             if (// edge still exists
-                find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
+                std::find(myIncomingEdges.begin(), myIncomingEdges.end(), con.getFrom()) != myIncomingEdges.end()
                 // connection still exists
                 && con.getFrom()->hasConnectionTo(con.getTo(), con.getToLane(), con.getFromLane())
                 // connection is still set to be controlled

@@ -1146,7 +1146,7 @@ NBEdgeCont::guessRoundabouts() {
                 doLoop = false;
                 break;
             }
-            EdgeVector::const_iterator me = find(edges.begin(), edges.end(), e);
+            EdgeVector::const_iterator me = std::find(edges.begin(), edges.end(), e);
             NBContHelper::nextCW(edges, me);
             NBEdge* left = *me;
             double angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), left->getAngleAtNode(e->getToNode())));
@@ -1155,7 +1155,7 @@ NBEdgeCont::guessRoundabouts() {
                 doLoop = false;
                 break;
             }
-            EdgeVector::const_iterator loopClosed = find(loopEdges.begin(), loopEdges.end(), left);
+            EdgeVector::const_iterator loopClosed = std::find(loopEdges.begin(), loopEdges.end(), left);
             const int loopSize = (int)(loopEdges.end() - loopClosed);
             if (loopSize > 0) {
                 // loop found

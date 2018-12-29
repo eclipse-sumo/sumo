@@ -134,7 +134,7 @@ public:
             myCHInfos[i].updatePriority(mySPTree);
             queue.push_back(&(myCHInfos[i]));
         }
-        make_heap(queue.begin(), queue.end(), myCmp);
+        std::make_heap(queue.begin(), queue.end(), myCmp);
         int contractionRank = 0;
         // contraction loop
         while (!queue.empty()) {
@@ -170,9 +170,9 @@ public:
                 to->approaching.push_back(CHConnection(from, it->cost, it->permissions, it->underlying));
             }
             // if you need to debug the chrouter with MSVC uncomment the following line, hierarchy building will get slower and the hierarchy may change though
-            //make_heap(queue.begin(), queue.end(), myCmp);
+            //std::make_heap(queue.begin(), queue.end(), myCmp);
             // remove from queue
-            pop_heap(queue.begin(), queue.end(), myCmp);
+            std::pop_heap(queue.begin(), queue.end(), myCmp);
             queue.pop_back();
             /*
             if (contractionRank % 10000 == 0) {
@@ -180,7 +180,7 @@ public:
                 for (typename std::vector<CHInfo*>::iterator it = queue.begin(); it != queue.end(); ++it) {
                     (*it)->updatePriority(mySPTree);
                 }
-                make_heap(queue.begin(), queue.end(), myCmp);
+                std::make_heap(queue.begin(), queue.end(), myCmp);
             }
             */
             contractionRank++;
@@ -478,8 +478,8 @@ private:
         debugPrintQueue(queue);
 #endif
         if (max->updatePriority(mySPTree)) {
-            pop_heap(queue.begin(), queue.end(), myCmp);
-            push_heap(queue.begin(), queue.end(), myCmp);
+            std::pop_heap(queue.begin(), queue.end(), myCmp);
+            std::push_heap(queue.begin(), queue.end(), myCmp);
             return true;
         } else {
             return false;

@@ -205,7 +205,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
                     }
                 }
                 if (splitEdge != nullptr) {
-                    j = find(j, (*ri).edges2Pass.end(), splitEdge);
+                    j = std::find(j, (*ri).edges2Pass.end(), splitEdge);
                 } else {
                     ++j;
                 }
@@ -877,7 +877,7 @@ RODFDetectorCon::removeDetector(const std::string& id) {
     myDetectorMap.erase(ri1);
     //
     std::vector<RODFDetector*>::iterator ri2 =
-        find(myDetectors.begin(), myDetectors.end(), oldDet);
+        std::find(myDetectors.begin(), myDetectors.end(), oldDet);
     myDetectors.erase(ri2);
     //
     bool found = false;

@@ -469,7 +469,7 @@ MSNet::simulationStep() {
         mySimStepDuration = SysUtils::getCurrentMillis();
     }
     // simulation state output
-    std::vector<SUMOTime>::iterator timeIt = find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
+    std::vector<SUMOTime>::iterator timeIt = std::find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep);
     if (timeIt != myStateDumpTimes.end()) {
         const int dist = (int)distance(myStateDumpTimes.begin(), timeIt);
         MSStateHandler::saveState(myStateDumpFiles[dist], myStep);
@@ -846,7 +846,7 @@ MSNet::addVehicleStateListener(VehicleStateListener* listener) {
 
 void
 MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
-    std::vector<VehicleStateListener*>::iterator i = find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener);
+    std::vector<VehicleStateListener*>::iterator i = std::find(myVehicleStateListeners.begin(), myVehicleStateListeners.end(), listener);
     if (i != myVehicleStateListeners.end()) {
         myVehicleStateListeners.erase(i);
     }

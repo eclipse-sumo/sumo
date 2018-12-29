@@ -161,11 +161,11 @@ NBRequest::buildBitfieldLogic() {
 
 void
 NBRequest::computeRightOutgoingLinkCrossings(NBEdge* from, NBEdge* to) {
-    EdgeVector::const_iterator pfrom = find(myAll.begin(), myAll.end(), from);
+    EdgeVector::const_iterator pfrom = std::find(myAll.begin(), myAll.end(), from);
     while (*pfrom != to) {
         NBContHelper::nextCCW(myAll, pfrom);
         if ((*pfrom)->getToNode() == myJunction) {
-            EdgeVector::const_iterator pto = find(myAll.begin(), myAll.end(), to);
+            EdgeVector::const_iterator pto = std::find(myAll.begin(), myAll.end(), to);
             while (*pto != from) {
                 if (!((*pto)->getToNode() == myJunction)) {
                     setBlocking(from, to, *pfrom, *pto);
@@ -179,11 +179,11 @@ NBRequest::computeRightOutgoingLinkCrossings(NBEdge* from, NBEdge* to) {
 
 void
 NBRequest::computeLeftOutgoingLinkCrossings(NBEdge* from, NBEdge* to) {
-    EdgeVector::const_iterator pfrom = find(myAll.begin(), myAll.end(), from);
+    EdgeVector::const_iterator pfrom = std::find(myAll.begin(), myAll.end(), from);
     while (*pfrom != to) {
         NBContHelper::nextCW(myAll, pfrom);
         if ((*pfrom)->getToNode() == myJunction) {
-            EdgeVector::const_iterator pto = find(myAll.begin(), myAll.end(), to);
+            EdgeVector::const_iterator pto = std::find(myAll.begin(), myAll.end(), to);
             while (*pto != from) {
                 if (!((*pto)->getToNode() == myJunction)) {
                     setBlocking(from, to, *pfrom, *pto);
@@ -325,7 +325,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
 
     // compute the yielding due to the right-before-left rule
     // get the position of the incoming lanes in the junction-wheel
-    EdgeVector::const_iterator c1 = find(myAll.begin(), myAll.end(), from1);
+    EdgeVector::const_iterator c1 = std::find(myAll.begin(), myAll.end(), from1);
     NBContHelper::nextCW(myAll, c1);
     // go through next edges clockwise...
     while (*c1 != from1 && *c1 != from2) {
@@ -337,7 +337,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         NBContHelper::nextCW(myAll, c1);
     }
     // get the position of the incoming lanes in the junction-wheel
-    EdgeVector::const_iterator c2 = find(myAll.begin(), myAll.end(), from2);
+    EdgeVector::const_iterator c2 = std::find(myAll.begin(), myAll.end(), from2);
     NBContHelper::nextCW(myAll, c2);
     // go through next edges clockwise...
     while (*c2 != from2 && *c2 != from1) {
@@ -359,7 +359,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
 
 int
 NBRequest::distanceCounterClockwise(NBEdge* from, NBEdge* to) {
-    EdgeVector::const_iterator p = find(myAll.begin(), myAll.end(), from);
+    EdgeVector::const_iterator p = std::find(myAll.begin(), myAll.end(), from);
     int ret = 0;
     do {
         ret++;
@@ -873,8 +873,8 @@ NBRequest::laneConflict(const NBEdge* from, const NBEdge* to, int toLane,
 
 int
 NBRequest::getIndex(const NBEdge* const from, const NBEdge* const to) const {
-    EdgeVector::const_iterator fp = find(myIncoming.begin(), myIncoming.end(), from);
-    EdgeVector::const_iterator tp = find(myOutgoing.begin(), myOutgoing.end(), to);
+    EdgeVector::const_iterator fp = std::find(myIncoming.begin(), myIncoming.end(), from);
+    EdgeVector::const_iterator tp = std::find(myOutgoing.begin(), myOutgoing.end(), to);
     if (fp == myIncoming.end() || tp == myOutgoing.end()) {
         return -1;
     }
