@@ -934,7 +934,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
         }
     }
     // prevent joining of simple merging/spreading structures
-    if (!hasTLS) {
+    if (!hasTLS && cluster.size() >= 2) {
         int entryNodes = 0;
         int exitNodes = 0;
         int outsideIncoming = 0;
