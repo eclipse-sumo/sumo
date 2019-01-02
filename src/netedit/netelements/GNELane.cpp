@@ -979,8 +979,9 @@ GNELane::setGenericParametersStr(const std::string& value) {
 
 
 void
-GNELane::setSpecialColor(const RGBColor* color) {
+GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
     mySpecialColor = color;
+    mySpecialColorValue = colorValue;
 }
 
 // ===========================================================================
@@ -1104,6 +1105,9 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 double
 GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
+    if (mySpecialColor != nullptr && mySpecialColorValue != std::numeric_limits<double>::max()) {
+        return mySpecialColorValue;
+    }
     switch (activeScheme) {
         case 0:
             switch (myPermissions) {

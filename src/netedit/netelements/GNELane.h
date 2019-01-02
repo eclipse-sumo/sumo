@@ -204,7 +204,7 @@ public:
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color
      */
-    void setSpecialColor(const RGBColor* Color2);
+    void setSpecialColor(const RGBColor* Color2, double colorValue=std::numeric_limits<double>::max());
 
     /// @brief return value for lane coloring according to the given scheme
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
@@ -245,6 +245,8 @@ protected:
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
+    /// @brief optional value that corresponds to which the special color corresponds
+    double mySpecialColorValue;
 
     /// @brief The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
