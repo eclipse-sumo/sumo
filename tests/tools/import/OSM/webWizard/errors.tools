@@ -190,7 +190,9 @@ Warning: PT stop: 4015961303 has been moved to edge: -196850606#4
 Warning: PT stop: 3867910426 has been moved to edge: -275177453
 Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: Incomplete route for ptline '80' (RB22: Königs Wusterhausen => Berlin Friedrichstraße)
+Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node)
 Warning: Not joining junctions 1803575761,2480337678,2656298207,29219440,341340978,3831343134,4566145594,4566145597,5747234974,5747234975,768074054 (7 incoming edges)
+Warning: Not joining junctions 28373970,540698421 (only 1 edge within and no cross-traffic)
 Warning: Not joining junctions 28373972,3513423889,3513425993 (not compact (maxEdge=4612964#0 length=8.21))
 Warning: Reducing junction cluster 3513423870,3513423873,3513423879,3513423880,3513423881,3513423882 (parallel outgoing -310176513#6,54698846#0)
 Warning: Ambiguous node type for node cluster 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' (rail_crossing,unknown) set to 'priority'
@@ -475,9 +477,6 @@ Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
 Warning: Person 'ped5' aborted waiting for M5:3 at busStop '30731508'.
 Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
 Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
-Warning: Person 'ped163' aborted waiting for 100:0 at busStop '1827996417'.
+Warning: Person 'ped135' aborted waiting for N42:1 at busStop '270727260'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
-Warning: Person 'ped76' aborted waiting for M2:1 at busStop '1615531689'.
-Warning: Person 'ped139' aborted waiting for U6:1 at busStop '2071423334'.
-Warning: Person 'ped158' aborted waiting for 147:3 at busStop '3869306772'.
 Warning: Person 'ped186' aborted waiting for S3:1 at busStop '27411231'.
