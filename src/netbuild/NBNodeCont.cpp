@@ -937,20 +937,33 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
     if (!hasTLS) {
         int entryNodes = 0;
         int exitNodes = 0;
+        int outsideIncoming = 0;
+        int outsideOutgoing = 0;
+        int edgesWithin = 0;
         for (NBNode* n : cluster) {
+            bool foundOutsideIncoming = false;
             for (NBEdge* e : n->getIncomingEdges()) {
                 if (cluster.count(e->getFromNode()) == 0) {
                     // edge entering from outside the cluster
-                    entryNodes++;
-                    break;
+                    outsideIncoming++;
+                    foundOutsideIncoming = true;
+                } else {
+                    edgesWithin++;
                 }
             }
+            if (foundOutsideIncoming) {
+                entryNodes++;
+            }
+            bool foundOutsideOutgoing = false;
             for (NBEdge* e : n->getOutgoingEdges()) {
                 if (cluster.count(e->getToNode()) == 0) {
                     // edge leaving cluster
-                    exitNodes++;
-                    break;
+                    outsideOutgoing++;
+                    foundOutsideOutgoing = true;
                 }
+            }
+            if (foundOutsideOutgoing) {
+                exitNodes++;
             }
         }
         if (entryNodes < 2) {
@@ -960,6 +973,12 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
         if (exitNodes < 2) {
             reason = "only 1 exit node";
             return false;
+        }
+        if (cluster.size() == 2) {
+            if (edgesWithin == 1 && outsideIncoming < 3 && outsideOutgoing < 3) {
+                reason = "only 1 edge within and no cross-traffic";
+                return false;
+            }
         }
     }
     return true;
