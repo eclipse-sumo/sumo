@@ -44,3 +44,9 @@ circle2
 
 # find joinable circle in complex cluster
 intermodal
+
+# do not join staggered merging structures
+staggered_merge
+
+# do not join staggered  spreading structures
+staggered_spread
