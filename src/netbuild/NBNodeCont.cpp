@@ -871,14 +871,19 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
             }
         }
     }
+    int numTLS = 0;
+    for (NBNode* n : cluster) {
+        if (n->isTLControlled()) {
+            numTLS++;
+        };
+    }
+    const bool hasTLS = numTLS > 0;
     // prevent removal of long edges unless there is weak circle or a traffic light
     if (cluster.size() > 2) {
         // find the nodes with the biggests physical distance between them
         double maxDist = -1;
-        bool hasTLS = false;
         NBEdge* maxEdge = nullptr;
         for (NBNode* n1 : cluster) {
-            hasTLS |= n1->isTLControlled();
             for (NBNode* n2 : cluster) {
                 NBEdge* e1 = n1->getConnectionTo(n2);
                 NBEdge* e2 = n2->getConnectionTo(n1);
@@ -926,6 +931,35 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
                 reason = "not compact (maxEdge=" + maxEdge->getID() + " length=" + toString(maxDist) + ")";
                 return false;
             }
+        }
+    }
+    // prevent joining of simple merging/spreading structures
+    if (!hasTLS) {
+        int entryNodes = 0;
+        int exitNodes = 0;
+        for (NBNode* n : cluster) {
+            for (NBEdge* e : n->getIncomingEdges()) {
+                if (cluster.count(e->getFromNode()) == 0) {
+                    // edge entering from outside the cluster
+                    entryNodes++;
+                    break;
+                }
+            }
+            for (NBEdge* e : n->getOutgoingEdges()) {
+                if (cluster.count(e->getToNode()) == 0) {
+                    // edge leaving cluster
+                    exitNodes++;
+                    break;
+                }
+            }
+        }
+        if (entryNodes < 2) {
+            reason = "only 1 entry node";
+            return false;
+        }
+        if (exitNodes < 2) {
+            reason = "only 1 exit node";
+            return false;
         }
     }
     return true;
