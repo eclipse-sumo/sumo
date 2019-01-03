@@ -100,7 +100,9 @@ void
 MSRoutingEngine::initEdgeWeights() {
     if (myEdgeSpeeds.empty()) {
         const OptionsCont& oc = OptionsCont::getOptions();
-        myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
+        if (myAdaptationWeight == 0 || !oc.isDefault("device.rerouting.adaptation-steps")) {
+            myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
+        }
         const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
         const double currentSecond = SIMTIME;
         for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
