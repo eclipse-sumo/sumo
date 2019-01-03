@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 10 08:51:45 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Thu Jan  3 13:05:53 2019 by Eclipse SUMO Version v1_0_1+1015-8e01b2d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -39,34 +39,34 @@
         <stop busStop="end_0" until="200.00"/>
     </vehicle>
 
-    <vehicle id="bus.2" type="bus" depart="200.00" line="bus" arrival="349.00">
+    <vehicle id="bus.2" type="bus" depart="200.00" line="bus" arrival="354.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="200.00" probability="0" edges="beg beg end end"/>
-            <route edges="beg middle end"/>
+            <route edges="beg beg2left left left2end end"/>
         </routeDistribution>
         <stop busStop="beg_0" until="200.00"/>
         <stop busStop="end_0" until="300.00"/>
     </vehicle>
 
-    <vehicle id="bus.3" type="bus" depart="300.00" line="bus" arrival="451.00">
+    <vehicle id="bus.3" type="bus" depart="300.00" line="bus" arrival="447.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="300.00" probability="0" edges="beg beg end end"/>
-            <route edges="beg beg2left left left2end end"/>
+            <route edges="beg middle end"/>
         </routeDistribution>
         <stop busStop="beg_0" until="300.00"/>
         <stop busStop="end_0" until="400.00"/>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="546.00">
+    <person id="p0" depart="0.00" arrival="547.00">
         <walk edges="beg" busStop="beg_0"/>
         <ride from="beg" to="end" busStop="end_0" lines="bus" intended="bus.3" depart="300.00"/>
         <walk edges="end"/>
     </person>
 
-    <vehicle id="bus.4" type="bus" depart="400.00" line="bus" arrival="548.00">
+    <vehicle id="bus.4" type="bus" depart="400.00" line="bus" arrival="550.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="400.00" probability="0" edges="beg beg end end"/>
-            <route edges="beg middle end"/>
+            <route edges="beg beg2left left left2end end"/>
         </routeDistribution>
         <stop busStop="beg_0" until="400.00"/>
         <stop busStop="end_0" until="500.00"/>
