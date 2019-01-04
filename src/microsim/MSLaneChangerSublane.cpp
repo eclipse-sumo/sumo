@@ -312,10 +312,10 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     }
 #endif
     const bool completedManeuver = vehicle->getLaneChangeModel().getManeuverDist() - latDist == 0.;
-    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
     vehicle->getLaneChangeModel().updateSafeLatDist(latDist);
 
     outputLCStarted(vehicle, from, to, direction);
+    vehicle->getLaneChangeModel().setManeuverDist(vehicle->getLaneChangeModel().getManeuverDist() - latDist);
     const bool changedToNewLane = checkChangeToNewLane(vehicle, direction, from, to);
 
     MSLane* oldShadowLane = vehicle->getLaneChangeModel().getShadowLane();
@@ -432,7 +432,7 @@ MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, Chang
         vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
         vehicle->getLaneChangeModel().setFollowerGaps(to->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true));
         vehicle->getLaneChangeModel().setOrigLeaderGaps(from->aheadNext);
-        vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction);
+        vehicle->getLaneChangeModel().laneChangeOutput("changeStarted", from->lane, to->lane, direction, vehicle->getLaneChangeModel().getManeuverDist());
     }
 }
 

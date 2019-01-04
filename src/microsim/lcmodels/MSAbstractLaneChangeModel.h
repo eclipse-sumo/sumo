@@ -499,7 +499,7 @@ public:
     void primaryLaneChanged(MSLane* source, MSLane* target, int direction);
 
     /// @brief called once the vehicle ends a lane change manoeuvre (non-instant)
-    void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction);
+    void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction, double maneuverDist=0);
 
     /// @brief whether the current change completes the manoeuvre
     virtual bool sublaneChangeCompleted(const double latDist) const {

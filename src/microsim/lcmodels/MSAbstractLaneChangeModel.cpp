@@ -235,7 +235,7 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
 }
 
 void
-MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction) {
+MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction, double maneuverDist) {
     if (myLCOutput) {
         OutputDevice& of = OutputDevice::getDeviceByOption("lanechange-output");
         of.openTag(tag);
@@ -261,6 +261,9 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
         if (MSGlobals::gLateralResolution > 0) {
             const double latGap = direction < 0 ? myLastLateralGapRight : myLastLateralGapLeft;
             of.writeAttr("latGap", latGap == NO_NEIGHBOR ? "None" : toString(latGap));
+            if (maneuverDist != 0) {
+                of.writeAttr("maneuverDistance", toString(maneuverDist));
+            }
         }
         of.closeTag();
         if (MSGlobals::gLaneChangeDuration > DELTA_T) {
