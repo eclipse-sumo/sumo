@@ -2989,6 +2989,9 @@ NBEdge::append(NBEdge* e) {
     // set the node
     myTo = e->myTo;
     myToBorder = e->myToBorder;
+    if (e->knowsParameter("origTo")) {
+        setParameter("origTo", e->getParameter("origTo"));
+    }
     if (e->getSignalOffset() != UNSPECIFIED_SIGNAL_OFFSET) {
         mySignalOffset = e->getSignalOffset();
     } else {

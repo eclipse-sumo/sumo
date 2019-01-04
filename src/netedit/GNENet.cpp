@@ -1650,7 +1650,7 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
 
 void
 GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
-    std::vector<Position> endpoints = junction->getNBNode()->getEndPoints();
+    std::vector<std::pair<Position, std::string> > endpoints = junction->getNBNode()->getEndPoints();
     if (endpoints.size() < 2) {
         return;
     }
@@ -1665,23 +1665,30 @@ GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
             }
         };
     }
-    //std::cout << "split junction at endpoints: " << toString(endpoints) << "\n";
+    //std::cout << "split junction at endpoints:\n";
+
     junction->setLogicValid(false, undoList);
-    for (Position pos : endpoints) {
+    for (const auto& pair : endpoints) {
+        const Position& pos = pair.first;
+        const std::string& origID = pair.second;
         GNEJunction* newJunction = createJunction(pos, undoList);
-        std::string newID = newJunction->getID();
-        for (GNEEdge* e : junction->getGNEIncomingEdges()) {
-            if (e->getNBEdge()->getGeometry().back().almostSame(pos)) {
-                //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
+        std::string newID = origID != "" ? origID : newJunction->getID();
+        // make a copy because the original vectors are modified during iteration
+        const std::vector<GNEEdge*> incoming = junction->getGNEIncomingEdges();
+        const std::vector<GNEEdge*> outgoing = junction->getGNEOutgoingEdges();
+        //std::cout << "  checkEndpoint " << pair.first << " " << pair.second << " newID=" << newID << "\n";
+        for (GNEEdge* e : incoming) {
+            //std::cout << "   incoming " << e->getID() << " pos=" << pos << " origTo=" << e->getNBEdge()->getParameter("origTo") << " newID=" << newID << "\n";
+            if (e->getNBEdge()->getGeometry().back().almostSame(pos) || e->getNBEdge()->getParameter("origTo") == newID) {
+                //std::cout << "     match\n";
                 undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_TO, newJunction->getID()));
-                newID = e->getNBEdge()->getParameter("origTo", newID);
             }
         }
-        for (GNEEdge* e : junction->getGNEOutgoingEdges()) {
-            if (e->getNBEdge()->getGeometry().front().almostSame(pos)) {
-                //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
+        for (GNEEdge* e : outgoing) {
+            //std::cout << "   outgoing " << e->getID() << " pos=" << pos << " origFrom=" << e->getNBEdge()->getParameter("origFrom") << " newID=" << newID << "\n";
+            if (e->getNBEdge()->getGeometry().front().almostSame(pos) || e->getNBEdge()->getParameter("origFrom") == newID) {
+                //std::cout << "     match\n";
                 undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_FROM, newJunction->getID()));
-                newID = e->getNBEdge()->getParameter("origFrom", newID);
             }
         }
         if (newID != newJunction->getID()) {

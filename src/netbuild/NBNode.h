@@ -748,7 +748,7 @@ public:
     bool isConstantWidthTransition() const;
 
     /// @brief return list of unique endpoint coordinates of all edges at this node
-    std::vector<Position> getEndPoints() const;
+    std::vector<std::pair<Position, std::string> > getEndPoints() const;
 
 private:
     /// @brief sets the priorites in case of a priority junction
