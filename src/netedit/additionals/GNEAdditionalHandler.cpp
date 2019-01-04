@@ -199,7 +199,34 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
 
 
 void
-GNEAdditionalHandler::myEndElement(int) {
+GNEAdditionalHandler::myEndElement(int element) {
+    // Obtain tag of element
+    SumoXMLTag tag = static_cast<SumoXMLTag>(element);
+    switch (tag) {
+        case SUMO_TAG_TAZ: {
+            GNETAZ* TAZ = dynamic_cast<GNETAZ*>(myHierarchyInsertedAdditionals.getLastInsertedAdditional());
+            if (TAZ != nullptr) {
+                if (TAZ->getShape().size() == 0) {
+                    Boundary b;
+                    if (TAZ->getAdditionalChilds().size() > 0) {
+                        for (const auto &i : TAZ->getAdditionalChilds()) {
+                            b.add(i->getCenteringBoundary());
+                        }
+                        PositionVector boundaryShape;
+                        boundaryShape.push_back(Position(b.xmin(), b.ymin()));
+                        boundaryShape.push_back(Position(b.xmax(), b.ymin()));
+                        boundaryShape.push_back(Position(b.xmax(), b.ymax()));
+                        boundaryShape.push_back(Position(b.xmin(), b.ymax()));
+                        boundaryShape.push_back(Position(b.xmin(), b.ymin()));
+                        TAZ->setAttribute(SUMO_ATTR_SHAPE, toString(boundaryShape), myViewNet->getUndoList());
+                    }
+                }
+            }
+            break;
+        }
+        default:
+            break;
+    }
     // pop last inserted element
     myHierarchyInsertedAdditionals.popElement();
 }
@@ -249,7 +276,7 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
     for (auto i : edgeIDs) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(i, false);
         if (edge == nullptr) {
-            WRITE_WARNING("Invalid " + toString(SUMO_TAG_EDGE) + " with ID = '" + i + "'.");
+            WRITE_WARNING("Invalid " + toString(SUMO_TAG_EDGE) + " with ID = '" + i + "' within taz '" + id + "'.");
             abort = true;
         } else {
             edges.push_back(edge);

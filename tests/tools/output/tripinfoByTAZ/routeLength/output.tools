@@ -1,0 +1,2 @@
+foo bar: count 50, min 79.97 (17), max 2532.03 (22), mean 1229.77 Q1 945.52, median 1183.92, Q3 1409.10
+foo qux: count 50, min 360.87 (62), max 2458.30 (77), mean 1232.13 Q1 865.09, median 1144.48, Q3 1622.77

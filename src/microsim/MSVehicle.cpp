@@ -965,7 +965,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
-        MSRouteIterator newCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);;
+        MSRouteIterator newCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);;
         if (myLane->getEdge().isInternal() && (
                     (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(myLane->getOutgoingViaLanes().front().first->getEdge()))) {
             return false;
@@ -990,11 +990,11 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
     } else {
         // recheck old stops
         for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-            if (removeStops && find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
+            if (removeStops && std::find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
                 iter = myStops.erase(iter);
             } else {
                 // iter->edge may point to edges.end() if removeStops is false but it should be replaced by the triggered rerouter anyway
-                iter->edge = find(myCurrEdge, edges.end(), &iter->lane->getEdge());
+                iter->edge = std::find(myCurrEdge, edges.end(), &iter->lane->getEdge());
                 ++iter;
             }
         }
@@ -1019,7 +1019,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
 
 bool
 MSVehicle::willPass(const MSEdge* const edge) const {
-    return find(myCurrEdge, myRoute->end(), edge) != myRoute->end();
+    return std::find(myCurrEdge, myRoute->end(), edge) != myRoute->end();
 }
 
 
@@ -1390,7 +1390,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     if (searchStart == nullptr) {
         searchStart = &myCurrEdge;
     }
-    stop.edge = find(*searchStart, myRoute->end(), stopEdge);
+    stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
     MSRouteIterator prevStopEdge = myCurrEdge;
     MSEdge* prevEdge = nullptr;
     double prevStopPos = myState.myPos;
@@ -1402,11 +1402,11 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             prevEdge = &myStops.back().lane->getEdge();
             prevStopPos = myStops.back().pars.endPos;
             iter = myStops.end();
-            stop.edge = find(prevStopEdge, myRoute->end(), stopEdge);
+            stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
             if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
                     && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
                     && prevStopPos > stop.pars.endPos) {
-                stop.edge = find(prevStopEdge + 1, myRoute->end(), stopEdge);
+                stop.edge = std::find(prevStopEdge + 1, myRoute->end(), stopEdge);
             }
         }
     } else {
@@ -1425,7 +1425,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
                 ++iter;
                 --index;
             }
-            stop.edge = find(prevStopEdge, myRoute->end(), stopEdge);
+            stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
         }
     }
     const bool sameEdgeAsLastStop = prevStopEdge == stop.edge && prevEdge == &stop.lane->getEdge();
@@ -4464,7 +4464,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             q.bestLaneOffset = 0;
             q.length = cl->allowsVehicleClass(myType->getVehicleClass()) ? cl->getLength() : 0;
             q.currentLength = q.length;
-            q.allowsContinuation = allowed == nullptr || find(allowed->begin(), allowed->end(), cl) != allowed->end();
+            q.allowsContinuation = allowed == nullptr || std::find(allowed->begin(), allowed->end(), cl) != allowed->end();
             q.occupation = 0;
             q.nextOccupation = 0;
             currentLanes.push_back(q);

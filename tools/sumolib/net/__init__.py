@@ -427,6 +427,10 @@ class Net:
         """ offset to be added after converting from geo-coordinates to UTM"""
         return list(map(float, self._location["netOffset"].split(",")))
 
+    def getBoundary(self):
+        """ return xmin,ymin,xmax,ymax network coordinates"""
+        return list(map(float, self._location["convBoundary"].split(",")))
+
     def convertLonLat2XY(self, lon, lat, rawUTM=False):
         x, y = self.getGeoProj()(lon, lat)
         if rawUTM:

@@ -20,3 +20,4 @@ tripinfoDiff
 
 # difference of tripinfo output with personInfo elements
 tripinfoDiff_persons
+tripinfoByTAZ

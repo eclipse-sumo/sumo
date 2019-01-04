@@ -114,7 +114,7 @@ MESegment::MESegment(const std::string& id,
             assert(allowed != 0);
             assert(allowed->size() > 0);
             for (std::vector<MSLane*>::const_iterator j = allowed->begin(); j != allowed->end(); ++j) {
-                std::vector<MSLane*>::const_iterator it = find(lanes.begin(), lanes.end(), *j);
+                std::vector<MSLane*>::const_iterator it = std::find(lanes.begin(), lanes.end(), *j);
                 myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
             }
         }
@@ -221,7 +221,7 @@ MESegment::addDetector(MSMoveReminder* data) {
 
 void
 MESegment::removeDetector(MSMoveReminder* data) {
-    std::vector<MSMoveReminder*>::iterator it = find(
+    std::vector<MSMoveReminder*>::iterator it = std::find(
                 myDetectorData.begin(), myDetectorData.end(), data);
     if (it != myDetectorData.end()) {
         myDetectorData.erase(it);

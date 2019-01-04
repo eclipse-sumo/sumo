@@ -200,7 +200,7 @@ NBTrafficLightDefinition::collectEdges() {
     for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end(); ++j) {
         NBEdge* edge = *j;
         // an edge lies within the logic if it is outgoing as well as incoming
-        EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
+        EdgeVector::iterator k = std::find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
             myEdgesWithin.push_back(edge);
         } else  {

@@ -192,7 +192,7 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool 
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
-        myCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);
+        myCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
     }
     // check whether the old route may be deleted (is not used by anyone else)
     newRoute->addReference();

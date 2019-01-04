@@ -166,6 +166,11 @@ GNETAZSink::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_WEIGHT);
 }
 
+Boundary 
+GNETAZSink::getCenteringBoundary() const {
+    return myEdge->getNBEdge()->getGeometry().getBoxBoundary();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

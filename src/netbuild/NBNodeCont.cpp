@@ -871,14 +871,19 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
             }
         }
     }
+    int numTLS = 0;
+    for (NBNode* n : cluster) {
+        if (n->isTLControlled()) {
+            numTLS++;
+        };
+    }
+    const bool hasTLS = numTLS > 0;
     // prevent removal of long edges unless there is weak circle or a traffic light
     if (cluster.size() > 2) {
         // find the nodes with the biggests physical distance between them
         double maxDist = -1;
-        bool hasTLS = false;
         NBEdge* maxEdge = nullptr;
         for (NBNode* n1 : cluster) {
-            hasTLS |= n1->isTLControlled();
             for (NBNode* n2 : cluster) {
                 NBEdge* e1 = n1->getConnectionTo(n2);
                 NBEdge* e2 = n2->getConnectionTo(n1);
@@ -924,6 +929,54 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const 
             }
             if (!foundCircle) {
                 reason = "not compact (maxEdge=" + maxEdge->getID() + " length=" + toString(maxDist) + ")";
+                return false;
+            }
+        }
+    }
+    // prevent joining of simple merging/spreading structures
+    if (!hasTLS && cluster.size() >= 2) {
+        int entryNodes = 0;
+        int exitNodes = 0;
+        int outsideIncoming = 0;
+        int outsideOutgoing = 0;
+        int edgesWithin = 0;
+        for (NBNode* n : cluster) {
+            bool foundOutsideIncoming = false;
+            for (NBEdge* e : n->getIncomingEdges()) {
+                if (cluster.count(e->getFromNode()) == 0) {
+                    // edge entering from outside the cluster
+                    outsideIncoming++;
+                    foundOutsideIncoming = true;
+                } else {
+                    edgesWithin++;
+                }
+            }
+            if (foundOutsideIncoming) {
+                entryNodes++;
+            }
+            bool foundOutsideOutgoing = false;
+            for (NBEdge* e : n->getOutgoingEdges()) {
+                if (cluster.count(e->getToNode()) == 0) {
+                    // edge leaving cluster
+                    outsideOutgoing++;
+                    foundOutsideOutgoing = true;
+                }
+            }
+            if (foundOutsideOutgoing) {
+                exitNodes++;
+            }
+        }
+        if (entryNodes < 2) {
+            reason = "only 1 entry node";
+            return false;
+        }
+        if (exitNodes < 2) {
+            reason = "only 1 exit node";
+            return false;
+        }
+        if (cluster.size() == 2) {
+            if (edgesWithin == 1 && outsideIncoming < 3 && outsideOutgoing < 3) {
+                reason = "only 1 edge within and no cross-traffic";
                 return false;
             }
         }
@@ -1003,6 +1056,7 @@ NBNodeCont::shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, cons
 void
 NBNodeCont::joinNodeClusters(NodeClusters clusters,
                              NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+    const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (NodeClusters::iterator i = clusters.begin(); i != clusters.end(); ++i) {
         NodeSet cluster = *i;
         assert(cluster.size() > 1);
@@ -1059,6 +1113,13 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
             const bool outgoing = cluster.count(e->getFromNode()) > 0;
             NBNode* from = outgoing ? newNode : e->getFromNode();
             NBNode* to   = outgoing ? e->getToNode() : newNode;
+            if (origNames) {
+                if (outgoing) {
+                    e->setParameter("origFrom", e->getFromNode()->getID());
+                } else {
+                    e->setParameter("origTo", e->getToNode()->getID());
+                }
+            }
             e->reinitNodes(from, to);
             // re-add connections which previously existed and may still valid.
             // connections to removed edges will be ignored
@@ -1186,7 +1247,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     if (oc.exists("tls.taz-nodes") && oc.getBool("tls.taz-nodes")) {
         for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
             NBNode* cur = (*i).second;
-            if (cur->isNearDistrict() && find(ncontrolled.begin(), ncontrolled.end(), cur) == ncontrolled.end()) {
+            if (cur->isNearDistrict() && std::find(ncontrolled.begin(), ncontrolled.end(), cur) == ncontrolled.end()) {
                 setAsTLControlled(cur, tlc, type);
             }
         }
@@ -1273,7 +1334,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             // regard only junctions which are not yet controlled and are not
             //  forbidden to be controlled
             for (NodeSet::iterator j = c.begin(); j != c.end();) {
-                if ((*j)->isTLControlled() || find(ncontrolled.begin(), ncontrolled.end(), *j) != ncontrolled.end()) {
+                if ((*j)->isTLControlled() || std::find(ncontrolled.begin(), ncontrolled.end(), *j) != ncontrolled.end()) {
                     c.erase(j++);
                 } else {
                     ++j;

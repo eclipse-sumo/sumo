@@ -203,7 +203,7 @@ public:
 #endif
                 return true;
             }
-            pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
+            std::pop_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
@@ -259,15 +259,15 @@ public:
 #endif
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
-                        push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
+                        std::push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
-                        auto fi = find(myFrontierList.begin(), myFrontierList.end(), followerInfo);
+                        auto fi = std::find(myFrontierList.begin(), myFrontierList.end(), followerInfo);
                         if (fi == myFrontierList.end()) {
                             assert(mayRevisit);
                             myFrontierList.push_back(followerInfo);
-                            push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
+                            std::push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                         } else {
-                            push_heap(myFrontierList.begin(), fi + 1, myComparator);
+                            std::push_heap(myFrontierList.begin(), fi + 1, myComparator);
                         }
                     }
                 }

@@ -865,7 +865,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> std::vector<std::string>
 GNEAttributeCarrier::parse(const std::string& string) {
-    return StringTokenizer(string, " ").getVector();
+    return StringTokenizer(string).getVector();
 }
 
 
@@ -2337,7 +2337,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "The id of the TAZ",
                                                  "");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_SHAPE,
-                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                                                  "The shape of the TAZ",
                                                  "");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_COLOR,
