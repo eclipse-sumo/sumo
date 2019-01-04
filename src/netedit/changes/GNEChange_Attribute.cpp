@@ -12,7 +12,7 @@
 /// @date    Mar 2011
 /// @version $Id$
 ///
-// A network change in which something is moved (for undo/redo)
+// A network change in which something is changed (for undo/redo)
 /****************************************************************************/
 
 // ===========================================================================
@@ -25,6 +25,7 @@
 #include <netedit/netelements/GNENetElement.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEShape.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 
 #include "GNEChange_Attribute.h"
 
@@ -48,8 +49,9 @@ GNEChange_Attribute::GNEChange_Attribute(GNENetElement* netElement,
     myNet(netElement->getNet()),
     myNetElement(netElement),
     myAdditional(nullptr),
-    myShape(nullptr) {
-    assert(myAC && (myNetElement || myAdditional || myShape));
+    myShape(nullptr),
+    myDemandElement(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -65,8 +67,9 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAdditional* additional,
     myNet(additional->getViewNet()->getNet()),
     myNetElement(nullptr),
     myAdditional(additional),
-    myShape(nullptr) {
-    assert(myAC && (myNetElement || myAdditional || myShape));
+    myShape(nullptr),
+    myDemandElement(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -82,8 +85,27 @@ GNEChange_Attribute::GNEChange_Attribute(GNEShape* shape,
     myNet(shape->getNet()),
     myNetElement(nullptr),
     myAdditional(nullptr),
-    myShape(shape) {
-    assert(myAC && (myNetElement || myAdditional || myShape));
+    myShape(shape),
+    myDemandElement(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+}
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEDemandElement* demandElement,
+        SumoXMLAttr key, const std::string& value,
+        bool customOrigValue, const std::string& origValue) :
+    GNEChange(nullptr, true),
+    myAC(demandElement),
+    myKey(key),
+    myOrigValue(customOrigValue ? origValue : demandElement->getAttribute(key)),
+    myNewValue(value),
+    myNet(demandElement->getNet()),
+    myNetElement(nullptr),
+    myAdditional(nullptr),
+    myShape(nullptr),
+    myDemandElement(demandElement) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -123,6 +145,11 @@ GNEChange_Attribute::undo() {
             myNet->requiereSaveAdditionals(true);
         } else if (myShape) {
             myNet->requiereSaveShapes(true);
+        } else if (myDemandElement) {
+            ;
+            /*
+            myNet->requiereSaveDemand(true);
+            */
         }
     }
 }
@@ -142,6 +169,11 @@ GNEChange_Attribute::redo() {
             myNet->requiereSaveAdditionals(true);
         } else if (myShape) {
             myNet->requiereSaveShapes(true);
+        } else if (myDemandElement) {
+            ;
+            /*
+            myNet->requiereSaveDemand(true);
+            */
         }
     }
 }
