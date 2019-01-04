@@ -27,6 +27,7 @@ import argparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
+from collections import defaultdict
 
 
 def get_options(args=None):
@@ -43,6 +44,11 @@ def get_options(args=None):
     options = argParser.parse_args(args=args)
     options.routeFiles = options.routeFiles.split(',') if options.routeFiles else []
     options.tazFiles = options.tazFiles.split(',') if options.tazFiles else []
+    if not options.tripinfoFile:
+        sys.exit("Required argument --tripinfo-file is missing")
+    if not (options.routeFiles or options.tazFiles):
+        sys.exit("At least one  --route-files or --taz-files must be defined")
+
     return options
 
 
@@ -52,11 +58,12 @@ def writeTraveltimeMatrix(options):
     flowIDs = set()
     sinkEdge2TAZ = {} # edgeID : TAZ
     sourceEdge2TAZ = {} # edgeID : TAZ
+    attrs = defaultdict(lambda : ['id', 'fromTaz', 'toTaz'])
     for routeFile in options.routeFiles:
-        for veh in parse(routeFile, ['trip', 'vehicle'], ['id', 'fromTaz', 'toTaz']):
+        for veh in parse(routeFile, ['trip', 'vehicle'], attrs):
             if veh.fromTaz and veh.toTaz:
                 id2TAZ[veh.id] = (veh.fromTaz, veh.toTaz)
-        for flow in parse(routeFile, 'flow', ['id', 'fromTaz', 'toTaz']):
+        for flow in parse(routeFile, 'flow', attrs):
             flowIDs.add(flow.id)
             if flow.fromTaz and flow.toTaz:
                 flowIds2TAZ[flow.id] = (flow.fromTaz, flow.toTaz)
