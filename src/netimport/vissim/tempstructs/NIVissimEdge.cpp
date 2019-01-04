@@ -540,7 +540,7 @@ NIVissimEdge::recheckSpeedPatches()
     // check set speeds
     if(myPatchedSpeeds.size()!=0) {
         std::vector<double>::iterator i =
-            find(myPatchedSpeeds.begin(), myPatchedSpeeds.end(), -1);
+            std::find(myPatchedSpeeds.begin(), myPatchedSpeeds.end(), -1);
         if(myPatchedSpeeds.size()!=myNoLanes||i!=myPatchedSpeeds.end()) {
             cot << "Warning! Not all lanes are patched! (edge:" << myID << ")." << endl;
         }
@@ -789,11 +789,11 @@ void
 NIVissimEdge::mergedInto(NIVissimConnectionCluster* old,
                          NIVissimConnectionCluster* act) {
     ConnectionClusters::iterator i =
-        find(myConnectionClusters.begin(), myConnectionClusters.end(), old);
+        std::find(myConnectionClusters.begin(), myConnectionClusters.end(), old);
     if (i != myConnectionClusters.end()) {
         myConnectionClusters.erase(i);
     }
-    i = find(myConnectionClusters.begin(), myConnectionClusters.end(), act);
+    i = std::find(myConnectionClusters.begin(), myConnectionClusters.end(), act);
     if (i == myConnectionClusters.end()) {
         myConnectionClusters.push_back(act);
     }
@@ -804,7 +804,7 @@ NIVissimEdge::mergedInto(NIVissimConnectionCluster* old,
 void
 NIVissimEdge::removeFromConnectionCluster(NIVissimConnectionCluster* c) {
     ConnectionClusters::iterator i =
-        find(myConnectionClusters.begin(), myConnectionClusters.end(), c);
+        std::find(myConnectionClusters.begin(), myConnectionClusters.end(), c);
     assert(i != myConnectionClusters.end());
     myConnectionClusters.erase(i);
 }
@@ -813,7 +813,7 @@ NIVissimEdge::removeFromConnectionCluster(NIVissimConnectionCluster* c) {
 void
 NIVissimEdge::addToConnectionCluster(NIVissimConnectionCluster* c) {
     ConnectionClusters::iterator i =
-        find(myConnectionClusters.begin(), myConnectionClusters.end(), c);
+        std::find(myConnectionClusters.begin(), myConnectionClusters.end(), c);
     if (i == myConnectionClusters.end()) {
         myConnectionClusters.push_back(c);
     }

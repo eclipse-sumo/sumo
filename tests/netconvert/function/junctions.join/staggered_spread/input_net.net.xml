@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 02 Jan 2019 01:06:04 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/netconvert/function/junctions.join/staggered_spread/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/netconvert/function/junctions.join/staggered_spread/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-395408.93,-5809112.45" convBoundary="4376.22,115.19,4482.45,167.06" origBoundary="13.453860,52.423029,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="8.33" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="1" width="1.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.motorway" priority="13" numLanes="3" speed="44.44" disallow="bicycle pedestrian" oneway="1"/>
+    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" disallow="bicycle pedestrian" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="9" numLanes="2" speed="27.78" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.primary_link" priority="8" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.raceway" priority="14" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="4" numLanes="1" speed="13.89" disallow="pedestrian" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery pedestrian" oneway="0"/>
+    <type id="highway.services" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="6" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="bicycle pedestrian" oneway="0"/>
+    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="bicycle pedestrian" oneway="0"/>
+    <type id="highway.unclassified" priority="5" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail" oneway="1"/>
+    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="15" numLanes="1" speed="27.78" allow="tram" oneway="1"/>
+
+    <edge id="gneE0" from="gneJ1" to="gneJ0" priority="-1">
+        <lane id="gneE0_0" index="0" speed="13.89" length="55.05" shape="4423.18,146.60 4376.19,145.79"/>
+    </edge>
+    <edge id="gneE1" from="gneJ1" to="gneJ2" priority="-1">
+        <lane id="gneE1_0" index="0" speed="13.89" length="51.81" shape="4423.97,150.31 4385.00,168.51"/>
+    </edge>
+    <edge id="gneE2" from="gneJ3" to="gneJ1" priority="-1">
+        <lane id="gneE2_0" index="0" speed="13.89" length="9.46" shape="4434.84,146.56 4433.46,146.63"/>
+    </edge>
+    <edge id="gneE3" from="gneJ4" to="gneJ3" priority="-1">
+        <lane id="gneE3_0" index="0" speed="13.89" length="41.78" shape="4482.52,144.52 4442.85,146.16"/>
+    </edge>
+    <edge id="gneE4" from="gneJ3" to="gneJ5" priority="-1">
+        <lane id="gneE4_0" index="0" speed="13.89" length="37.14" shape="4436.83,142.23 4416.82,116.16"/>
+    </edge>
+
+    <junction id="gneJ0" type="dead_end" x="4376.22" y="144.19" incLanes="gneE0_0" intLanes="" shape="4376.16,147.39 4376.22,144.19"/>
+    <junction id="gneJ1" type="priority" x="4431.26" y="145.14" incLanes="gneE2_0" intLanes="" shape="4433.55,148.23 4433.38,145.03 4423.21,145.00 4423.15,148.20 4423.29,148.86 4424.65,151.76">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="gneJ2" type="dead_end" x="4384.32" y="167.06" incLanes="gneE1_0" intLanes="" shape="4385.67,169.96 4384.32,167.06"/>
+    <junction id="gneJ3" type="priority" x="4440.71" y="144.65" incLanes="gneE3_0" intLanes="" shape="4442.92,147.76 4442.78,144.56 4438.10,141.26 4435.57,143.20 4434.76,144.96 4434.92,148.15">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="gneJ4" type="dead_end" x="4482.45" y="142.92" incLanes="" intLanes="" shape="4482.45,142.92 4482.58,146.12"/>
+    <junction id="gneJ5" type="dead_end" x="4418.09" y="115.19" incLanes="gneE4_0" intLanes="" shape="4415.55,117.14 4418.09,115.19"/>
+
+    <connection from="gneE2" to="gneE1" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="gneE2" to="gneE0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="gneE3" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="gneE3" to="gneE4" fromLane="0" toLane="0" dir="l" state="M"/>
+
+</net>

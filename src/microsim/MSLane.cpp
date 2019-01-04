@@ -2104,7 +2104,7 @@ MSLane::isApproachedFrom(MSEdge* const edge, MSLane* const lane) {
         return false;
     }
     const std::vector<MSLane*>& lanes = (*i).second;
-    return find(lanes.begin(), lanes.end(), lane) != lanes.end();
+    return std::find(lanes.begin(), lanes.end(), lane) != lanes.end();
 }
 
 

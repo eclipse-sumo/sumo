@@ -128,7 +128,7 @@ GUIRunThread::run() {
             }
             // check whether we shall stop at this step
             myBreakpointLock.lock();
-            const bool haltAfter = find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
+            const bool haltAfter = std::find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
             myBreakpointLock.unlock();
             // do the step
             makeStep();

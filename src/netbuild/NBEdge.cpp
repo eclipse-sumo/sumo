@@ -161,7 +161,7 @@ NBEdge::ToEdgeConnectionsAdder::execute(const int lane, const int virtEdge) {
 
     // check whether the current lane was already used to connect the currently
     //  regarded approached edge
-    std::vector<int>::iterator j = find(lanes.begin(), lanes.end(), lane);
+    std::vector<int>::iterator j = std::find(lanes.begin(), lanes.end(), lane);
     if (j == lanes.end()) {
         // if not, add it to the list
         lanes.push_back(lane);
@@ -234,7 +234,7 @@ NBEdge::MainDirections::empty() const {
 
 bool
 NBEdge::MainDirections::includes(Direction d) const {
-    return find(myDirs.begin(), myDirs.end(), d) != myDirs.end();
+    return std::find(myDirs.begin(), myDirs.end(), d) != myDirs.end();
 }
 
 
@@ -1189,7 +1189,7 @@ NBEdge::getConnectedSorted() {
     for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
         if (it->fromLane < 0 && it->toLane < 0) {
             // found an edge that shall not be connected
-            EdgeVector::iterator forbidden = find(outgoing.begin(), outgoing.end(), it->toEdge);
+            EdgeVector::iterator forbidden = std::find(outgoing.begin(), outgoing.end(), it->toEdge);
             if (forbidden != outgoing.end()) {
                 outgoing.erase(forbidden);
             }
@@ -2557,7 +2557,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     //  faster from this lane
     EdgeVector tmp(*outgoing);
     sort(tmp.begin(), tmp.end(), NBContHelper::straightness_sorter(myTo, this));
-    i = find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
+    i = std::find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
     int dist = (int) distance(outgoing->begin(), i);
     MainDirections mainDirections(*outgoing, this, myTo, dist);
 #ifdef DEBUG_CONNECTION_GUESSING
@@ -3608,7 +3608,7 @@ NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
         if (con.fromLane >= 0 && con.toLane >= 0 && con.toEdge != nullptr &&
                 (getPermissions(con.fromLane)
                  & con.toEdge->getPermissions(con.toLane) & vClass) != 0
-                && find(mySuccessors.begin(), mySuccessors.end(), con.toEdge) == mySuccessors.end()) {
+                && std::find(mySuccessors.begin(), mySuccessors.end(), con.toEdge) == mySuccessors.end()) {
             mySuccessors.push_back(con.toEdge);
             //std::cout << "   succ=" << con.toEdge->getID() << "\n";
         }
@@ -3626,7 +3626,7 @@ NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         if (con.fromLane >= 0 && con.toLane >= 0 && con.toEdge != nullptr &&
                 (getPermissions(con.fromLane)
                  & con.toEdge->getPermissions(con.toLane) & vClass) != 0
-                && find(myViaSuccessors.begin(), myViaSuccessors.end(), pair) == myViaSuccessors.end()) {
+                && std::find(myViaSuccessors.begin(), myViaSuccessors.end(), pair) == myViaSuccessors.end()) {
             myViaSuccessors.push_back(pair);
         }
     }

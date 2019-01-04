@@ -111,7 +111,11 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
 
 const std::vector<std::string>
 SUMOSAXAttributes::getStringVector(int attr) const {
-    return StringTokenizer(getInternal<std::string>(attr)).getVector();
+    const std::vector<std::string>& ret = StringTokenizer(getString(attr)).getVector();
+    if (ret.empty()) {
+        throw EmptyData();
+    }
+    return ret;
 }
 
 

@@ -365,7 +365,7 @@ MSVehicleType::duplicateType(const std::string& id, bool persistent) const {
 void
 MSVehicleType::check() {
     if (!myWarnedActionStepLengthTauOnce
-            && myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)
+            && myParameter.actionStepLength != DELTA_T
             && STEPS2TIME(myParameter.actionStepLength) > getCarFollowModel().getHeadwayTime()) {
         myWarnedActionStepLengthTauOnce = true;
         std::stringstream s;

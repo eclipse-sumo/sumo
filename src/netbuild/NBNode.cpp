@@ -1221,7 +1221,7 @@ NBNode::isLongEnough(NBEdge* out, double minLength) {
 EdgeVector*
 NBNode::getEdgesThatApproach(NBEdge* currentOutgoing) {
     // get the position of the node to get the approaching nodes of
-    EdgeVector::const_iterator i = find(myAllEdges.begin(),
+    EdgeVector::const_iterator i = std::find(myAllEdges.begin(),
                                         myAllEdges.end(), currentOutgoing);
     // get the first possible approaching edge
     NBContHelper::nextCW(myAllEdges, i);
@@ -1244,10 +1244,10 @@ NBNode::getEdgesThatApproach(NBEdge* currentOutgoing) {
 void
 NBNode::replaceOutgoing(NBEdge* which, NBEdge* by, int laneOff) {
     // replace the edge in the list of outgoing nodes
-    EdgeVector::iterator i = find(myOutgoingEdges.begin(), myOutgoingEdges.end(), which);
+    EdgeVector::iterator i = std::find(myOutgoingEdges.begin(), myOutgoingEdges.end(), which);
     if (i != myOutgoingEdges.end()) {
         (*i) = by;
-        i = find(myAllEdges.begin(), myAllEdges.end(), which);
+        i = std::find(myAllEdges.begin(), myAllEdges.end(), which);
         (*i) = by;
     }
     // replace the edge in connections of incoming edges
@@ -1280,10 +1280,10 @@ NBNode::replaceOutgoing(const EdgeVector& which, NBEdge* by) {
 void
 NBNode::replaceIncoming(NBEdge* which, NBEdge* by, int laneOff) {
     // replace the edge in the list of incoming nodes
-    EdgeVector::iterator i = find(myIncomingEdges.begin(), myIncomingEdges.end(), which);
+    EdgeVector::iterator i = std::find(myIncomingEdges.begin(), myIncomingEdges.end(), which);
     if (i != myIncomingEdges.end()) {
         (*i) = by;
-        i = find(myAllEdges.begin(), myAllEdges.end(), which);
+        i = std::find(myAllEdges.begin(), myAllEdges.end(), which);
         (*i) = by;
     }
     // replace within the connetion prohibition dependencies
@@ -1385,13 +1385,13 @@ NBNode::removeDoubleEdges() {
 
 bool
 NBNode::hasIncoming(const NBEdge* const e) const {
-    return find(myIncomingEdges.begin(), myIncomingEdges.end(), e) != myIncomingEdges.end();
+    return std::find(myIncomingEdges.begin(), myIncomingEdges.end(), e) != myIncomingEdges.end();
 }
 
 
 bool
 NBNode::hasOutgoing(const NBEdge* const e) const {
-    return find(myOutgoingEdges.begin(), myOutgoingEdges.end(), e) != myOutgoingEdges.end();
+    return std::find(myOutgoingEdges.begin(), myOutgoingEdges.end(), e) != myOutgoingEdges.end();
 }
 
 
@@ -1458,14 +1458,14 @@ NBNode::getPossiblySplittedOutgoing(const std::string& edgeid) {
 
 void
 NBNode::removeEdge(NBEdge* edge, bool removeFromConnections) {
-    EdgeVector::iterator i = find(myAllEdges.begin(), myAllEdges.end(), edge);
+    EdgeVector::iterator i = std::find(myAllEdges.begin(), myAllEdges.end(), edge);
     if (i != myAllEdges.end()) {
         myAllEdges.erase(i);
-        i = find(myOutgoingEdges.begin(), myOutgoingEdges.end(), edge);
+        i = std::find(myOutgoingEdges.begin(), myOutgoingEdges.end(), edge);
         if (i != myOutgoingEdges.end()) {
             myOutgoingEdges.erase(i);
         } else {
-            i = find(myIncomingEdges.begin(), myIncomingEdges.end(), edge);
+            i = std::find(myIncomingEdges.begin(), myIncomingEdges.end(), edge);
             if (i != myIncomingEdges.end()) {
                 myIncomingEdges.erase(i);
             } else {
@@ -1611,7 +1611,7 @@ NBNode::turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
         return false;
     }
     bool result = false;
-    EdgeVector::const_iterator it = find(myAllEdges.begin(), myAllEdges.end(), from);
+    EdgeVector::const_iterator it = std::find(myAllEdges.begin(), myAllEdges.end(), from);
     if (fromLane < fromLane2) {
         // conflict if 'to' comes before 'to2' going clockwise starting at 'from'
         while (*it != to2) {
@@ -1779,7 +1779,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     if (abs((int) angle) + 1 < 45) {
         // check whether there is a straighter edge
         EdgeVector::const_iterator i =
-            find(myOutgoingEdges.begin(), myOutgoingEdges.end(), outgoing);
+            std::find(myOutgoingEdges.begin(), myOutgoingEdges.end(), outgoing);
         if (leftHand) {
             NBContHelper::nextCCW(myOutgoingEdges, i);
         } else {
@@ -1805,7 +1805,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     if (angle > 0) {
         // check whether any other edge goes further to the right
         EdgeVector::const_iterator i =
-            find(myAllEdges.begin(), myAllEdges.end(), outgoing);
+            std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
         if (leftHand) {
             NBContHelper::nextCCW(myAllEdges, i);
         } else {
@@ -1828,7 +1828,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     }
     // check whether any other edge goes further to the left
     EdgeVector::const_iterator i =
-        find(myAllEdges.begin(), myAllEdges.end(), outgoing);
+        std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
     if (leftHand) {
         NBContHelper::nextCW(myAllEdges, i);
     } else {
@@ -2843,8 +2843,8 @@ NBNode::crossingBetween(const NBEdge* e1, const NBEdge* e2) const {
     }
     for (auto c : getCrossings()) {
         const EdgeVector& edges = c->edges;
-        EdgeVector::const_iterator it1 = find(edges.begin(), edges.end(), e1);
-        EdgeVector::const_iterator it2 = find(edges.begin(), edges.end(), e2);
+        EdgeVector::const_iterator it1 = std::find(edges.begin(), edges.end(), e1);
+        EdgeVector::const_iterator it2 = std::find(edges.begin(), edges.end(), e2);
         if (it1 != edges.end() && it2 != edges.end()) {
             return true;
         }
@@ -2856,10 +2856,10 @@ NBNode::crossingBetween(const NBEdge* e1, const NBEdge* e2) const {
 EdgeVector
 NBNode::edgesBetween(const NBEdge* e1, const NBEdge* e2) const {
     EdgeVector result;
-    EdgeVector::const_iterator it = find(myAllEdges.begin(), myAllEdges.end(), e1);
+    EdgeVector::const_iterator it = std::find(myAllEdges.begin(), myAllEdges.end(), e1);
     assert(it != myAllEdges.end());
     NBContHelper::nextCW(myAllEdges, it);
-    EdgeVector::const_iterator it_end = find(myAllEdges.begin(), myAllEdges.end(), e2);
+    EdgeVector::const_iterator it_end = std::find(myAllEdges.begin(), myAllEdges.end(), e2);
     assert(it_end != myAllEdges.end());
     while (it != it_end) {
         result.push_back(*it);

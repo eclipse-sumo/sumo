@@ -13,6 +13,10 @@
 # @date    2016-15-04
 # @version $Id$
 
+"""
+Compare differences between tripinfo files that contain the same vehicles
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 import os

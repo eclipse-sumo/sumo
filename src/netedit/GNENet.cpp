@@ -1656,23 +1656,66 @@ GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
     }
     // start operation
     undoList->p_begin("Split junction");
+    // record connections
+    std::map<GNEEdge*, std::vector<NBEdge::Connection>> straightConnections;
+    for (GNEEdge* e : junction->getGNEIncomingEdges()) {
+        for (const auto& c : e->getNBEdge()->getConnections()) {
+            if (c.fromLane >= 0 && junction->getNBNode()->getDirection(e->getNBEdge(), c.toEdge) == LINKDIR_STRAIGHT) {
+                straightConnections[e].push_back(c);
+            }
+        };
+    }
     //std::cout << "split junction at endpoints: " << toString(endpoints) << "\n";
     junction->setLogicValid(false, undoList);
     for (Position pos : endpoints) {
         GNEJunction* newJunction = createJunction(pos, undoList);
+        std::string newID = newJunction->getID();
         for (GNEEdge* e : junction->getGNEIncomingEdges()) {
             if (e->getNBEdge()->getGeometry().back().almostSame(pos)) {
                 //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
                 undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_TO, newJunction->getID()));
+                newID = e->getNBEdge()->getParameter("origTo", newID);
             }
         }
         for (GNEEdge* e : junction->getGNEOutgoingEdges()) {
             if (e->getNBEdge()->getGeometry().front().almostSame(pos)) {
                 //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
                 undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_FROM, newJunction->getID()));
+                newID = e->getNBEdge()->getParameter("origFrom", newID);
+            }
+        }
+        if (newID != newJunction->getID()) {
+            if (newJunction->isValid(SUMO_ATTR_ID, newID)) {
+                undoList->p_add(new GNEChange_Attribute(newJunction, SUMO_ATTR_ID, newID));
+            } else {
+                WRITE_WARNING("Could not rename split node to '" + newID + "'");
             }
         }
     }
+    // recreate edges from straightConnections
+    for (const auto& item : straightConnections) {
+        GNEEdge* in = item.first;
+        std::map<NBEdge*, GNEEdge*> newEdges;
+        for (auto& c : item.second) {
+            GNEEdge* out = retrieveEdge(c.toEdge->getID());
+            GNEEdge* newEdge = nullptr;
+            if (in->getGNEJunctionDestiny() == out->getGNEJunctionSource()) {
+                continue;
+            }
+            if (newEdges.count(c.toEdge) == 0) {
+                newEdge = createEdge(in->getGNEJunctionDestiny(), out->getGNEJunctionSource(), in, undoList);
+                newEdges[c.toEdge] = newEdge;
+                newEdge->setAttribute(SUMO_ATTR_NUMLANES, "1", undoList);
+            } else {
+                newEdge = newEdges[c.toEdge];
+                duplicateLane(newEdge->getLanes().back(), undoList, true);
+            }
+            // copy permissions
+            newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW, 
+                    in->getLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
+        }
+    }
+    
     deleteJunction(junction, undoList);
     // finish operation
     undoList->p_end();

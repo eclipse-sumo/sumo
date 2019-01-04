@@ -424,7 +424,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             outputStorage.writeString(roadPos.first->getEdge().getID());
             outputStorage.writeDouble(roadPos.second);
             const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-            outputStorage.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
+            outputStorage.writeUnsignedByte((int)distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), roadPos.first)));
         }
         break;
         case POSITION_2D:

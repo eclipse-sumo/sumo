@@ -147,7 +147,7 @@ double
 MSInductLoop::getCurrentSpeed() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return d.size() != 0
-           ? accumulate(d.begin(), d.end(), (double) 0.0, speedSum) / (double) d.size()
+           ? std::accumulate(d.begin(), d.end(), (double) 0.0, speedSum) / (double) d.size()
            : -1;
 }
 
@@ -156,7 +156,7 @@ double
 MSInductLoop::getCurrentLength() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return d.size() != 0
-           ? accumulate(d.begin(), d.end(), (double) 0.0, lengthSum) / (double) d.size()
+           ? std::accumulate(d.begin(), d.end(), (double) 0.0, lengthSum) / (double) d.size()
            : -1;
 }
 

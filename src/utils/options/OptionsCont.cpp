@@ -74,7 +74,7 @@ OptionsCont::~OptionsCont() {
 void
 OptionsCont::doRegister(const std::string& name, Option* v) {
     assert(v != 0);
-    ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
+    ItemAddressContType::iterator i = std::find(myAddresses.begin(), myAddresses.end(), v);
     if (i == myAddresses.end()) {
         myAddresses.push_back(v);
     }
@@ -306,7 +306,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
     os << "Options set:" << std::endl;
     for (OptionsCont::KnownContType::const_iterator i = oc.myValues.begin();
             i != oc.myValues.end(); i++) {
-        std::vector<std::string>::iterator j = find(done.begin(), done.end(), (*i).first);
+        std::vector<std::string>::iterator j = std::find(done.begin(), done.end(), (*i).first);
         if (j == done.end()) {
             std::vector<std::string> synonymes = oc.getSynonymes((*i).first);
             if (synonymes.size() != 0) {
@@ -917,7 +917,7 @@ OptionsCont::isInStringVector(const std::string& optionName,
                               const std::string& itemName) {
     if (isSet(optionName)) {
         std::vector<std::string> values = getStringVector(optionName);
-        return find(values.begin(), values.end(), itemName) != values.end();
+        return std::find(values.begin(), values.end(), itemName) != values.end();
     }
     return false;
 }

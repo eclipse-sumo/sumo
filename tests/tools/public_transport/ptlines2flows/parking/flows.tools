@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-07-31 13:14:40.004279 by $Id$
+<!-- generated on 2019-01-04 11:54:58.545677 by $Id$
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>bus.parking
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -32,11 +32,11 @@
         <stop busStop="3959807201" duration="30.00" until="72.0" parking="true"/> <!-- Dudenstraße/Katzbachstraße -->
         <stop busStop="3959807220" duration="30.00" until="140.0" parking="true"/> <!-- Kolonnenbrücke -->
     </route>
-    <route id="bus_140:1" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3" >
+    <route id="bus_140:1" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 -391493952#2 391493952#2 111325187#0 111325187#1 111325187#2 111325187#3" >
         <stop busStop="4032629811" duration="30.00" until="48.0" parking="true"/> <!-- Katzbachstraße/Kreuzbergstraße -->
         <stop busStop="4032629819" duration="30.00" until="102.0" parking="true"/> <!-- Monumentenstraße -->
-        <stop busStop="2029039199" duration="30.00" until="159.0" parking="true"/> <!-- Dudenstraße/Katzbachstraße -->
-        <stop busStop="2029039146" duration="30.00" until="221.0" parking="true"/> <!-- Badener Ring -->
+        <stop busStop="2029039199" duration="30.00" until="167.0" parking="true"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="2029039146" duration="30.00" until="229.0" parking="true"/> <!-- Badener Ring -->
     </route>
     <flow id="bus_104:0" type="bus" route="bus_104:0" begin="0.0" end="3600.0" period="600" line="104:0" >
         <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße &quot;(test some quotes&quot;"/>

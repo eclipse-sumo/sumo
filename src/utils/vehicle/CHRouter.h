@@ -139,7 +139,7 @@ public:
         bool step(const std::vector<ConnectionVector>& uplinks, const Unidirectional& otherSearch, double& minTTSeen, Meeting& meeting) {
             // pop the node with the minimal length
             auto* const minimumInfo = myFrontier.front();
-            pop_heap(myFrontier.begin(), myFrontier.end(), myComparator);
+            std::pop_heap(myFrontier.begin(), myFrontier.end(), myComparator);
             myFrontier.pop_back();
             // check for a meeting with the other search
             const E* const minEdge = minimumInfo->edge;
@@ -185,10 +185,10 @@ public:
                     upwardInfo->prev = minimumInfo;
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontier.push_back(upwardInfo);
-                        push_heap(myFrontier.begin(), myFrontier.end(), myComparator);
+                        std::push_heap(myFrontier.begin(), myFrontier.end(), myComparator);
                     } else {
-                        push_heap(myFrontier.begin(),
-                                  find(myFrontier.begin(), myFrontier.end(), upwardInfo) + 1,
+                        std::push_heap(myFrontier.begin(),
+                                  std::find(myFrontier.begin(), myFrontier.end(), upwardInfo) + 1,
                                   myComparator);
                     }
                 }

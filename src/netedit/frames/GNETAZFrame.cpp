@@ -1265,13 +1265,19 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
         for (const auto j : i.edge->getLanes() ) {
             // check what will be painted (source, sink or both)
             if (myColorBySourceWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sourceColor));
+                j->setSpecialColor(&myScaleColors.at(i.sourceColor), 
+                        GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT)));
             } else if (myColorBySinkWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sinkColor));
+                j->setSpecialColor(&myScaleColors.at(i.sinkColor),
+                        GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT)));
             } else if (myColorBySourcePlusSinkWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sourcePlusSinkColor));
+                j->setSpecialColor(&myScaleColors.at(i.sourcePlusSinkColor),
+                        GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT))
+                        + GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT)));
             } else {
-                j->setSpecialColor(&myScaleColors.at(i.sourceMinusSinkColor));
+                j->setSpecialColor(&myScaleColors.at(i.sourceMinusSinkColor),
+                        GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT))
+                        - GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT)));
             }
         }
     }

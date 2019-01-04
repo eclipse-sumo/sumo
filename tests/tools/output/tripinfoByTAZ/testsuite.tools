@@ -1,0 +1,11 @@
+# read taz information from trip input
+taz_from_trips
+
+# read taz information from taz file
+taz_file
+
+# read attribute route length
+routeLength
+
+# write xml output
+xml_out
