@@ -1,6 +1,8 @@
 set(netedit_demandelements_SRCS
    GNEdemandElement.h
    GNEdemandElement.cpp
+   GNERoute.h
+   GNERoute.cpp
    )
 
 add_library(netedit_demandelements STATIC ${netedit_demandelements_SRCS})
