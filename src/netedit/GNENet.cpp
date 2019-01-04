@@ -1660,16 +1660,26 @@ GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
     junction->setLogicValid(false, undoList);
     for (Position pos : endpoints) {
         GNEJunction* newJunction = createJunction(pos, undoList);
+        std::string newID = newJunction->getID();
         for (GNEEdge* e : junction->getGNEIncomingEdges()) {
             if (e->getNBEdge()->getGeometry().back().almostSame(pos)) {
                 //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
                 undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_TO, newJunction->getID()));
+                newID = e->getNBEdge()->getParameter("origTo", newID);
             }
         }
         for (GNEEdge* e : junction->getGNEOutgoingEdges()) {
             if (e->getNBEdge()->getGeometry().front().almostSame(pos)) {
                 //std::cout << "  " << e->getID() << " pos=" << pos << "\n";
                 undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_FROM, newJunction->getID()));
+                newID = e->getNBEdge()->getParameter("origFrom", newID);
+            }
+        }
+        if (newID != newJunction->getID()) {
+            if (newJunction->isValid(SUMO_ATTR_ID, newID)) {
+                undoList->p_add(new GNEChange_Attribute(newJunction, SUMO_ATTR_ID, newID));
+            } else {
+                WRITE_WARNING("Could not rename split node to '" + newID + "'");
             }
         }
     }
