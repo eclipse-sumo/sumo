@@ -1056,6 +1056,7 @@ NBNodeCont::shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, cons
 void
 NBNodeCont::joinNodeClusters(NodeClusters clusters,
                              NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+    const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     for (NodeClusters::iterator i = clusters.begin(); i != clusters.end(); ++i) {
         NodeSet cluster = *i;
         assert(cluster.size() > 1);
@@ -1112,6 +1113,13 @@ NBNodeCont::joinNodeClusters(NodeClusters clusters,
             const bool outgoing = cluster.count(e->getFromNode()) > 0;
             NBNode* from = outgoing ? newNode : e->getFromNode();
             NBNode* to   = outgoing ? e->getToNode() : newNode;
+            if (origNames) {
+                if (outgoing) {
+                    e->setParameter("origFrom", e->getFromNode()->getID());
+                } else {
+                    e->setParameter("origTo", e->getToNode()->getID());
+                }
+            }
             e->reinitNodes(from, to);
             // re-add connections which previously existed and may still valid.
             // connections to removed edges will be ignored
