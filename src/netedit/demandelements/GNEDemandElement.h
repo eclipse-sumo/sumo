@@ -30,7 +30,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEAdditional;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -58,23 +58,23 @@ public:
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 
-    /// @brief add additional child to this edge
-    void addAdditionalParent(GNEAdditional* additional);
+    /// @brief add demand child to this edge
+    void addDemandParent(GNEDemandElement* demand);
 
-    /// @brief remove additional child from this edge
-    void removeAdditionalParent(GNEAdditional* additional);
+    /// @brief remove demand child from this edge
+    void removeDemandParent(GNEDemandElement* demand);
 
-    /// @brief add additional child to this edge
-    void addAdditionalChild(GNEAdditional* additional);
+    /// @brief add demand child to this edge
+    void addDemandChild(GNEDemandElement* demand);
 
-    /// @brief remove additional child from this edge
-    void removeAdditionalChild(GNEAdditional* additional);
+    /// @brief remove demand child from this edge
+    void removeDemandChild(GNEDemandElement* demand);
 
-    /// @brief return vector of additionals that have as Parameter this edge (For example, Rerouters)
-    const std::vector<GNEAdditional*>& getAdditionalParents() const;
+    /// @brief return vector of demands that have as Parameter this edge (For example, Rerouters)
+    const std::vector<GNEDemandElement*>& getDemandParents() const;
 
-    /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
+    /// @brief return vector of demands that have as Parent this edge (For example, Calibrators)
+    const std::vector<GNEDemandElement*>& getDemandChilds() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -125,7 +125,7 @@ public:
      */
     virtual std::string getAttribute(SumoXMLAttr key) const = 0;
 
-    /* @brief method for setting the attribute and letting the object perform additional changes
+    /* @brief method for setting the attribute and letting the object perform demand changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
@@ -167,11 +167,11 @@ protected:
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 
-    /// @brief list of Additional parents of this NetElement
-    std::vector<GNEAdditional*> myFirstAdditionalParents;
+    /// @brief list of Demand parents of this NetElement
+    std::vector<GNEDemandElement*> myDemandParents;
 
-    /// @brief list of Additional Childs of this NetElement
-    std::vector<GNEAdditional*> myAdditionalChilds;
+    /// @brief list of Demand Childs of this NetElement
+    std::vector<GNEDemandElement*> myDemandChilds;
 
 private:
     /// @brief set attribute after validation

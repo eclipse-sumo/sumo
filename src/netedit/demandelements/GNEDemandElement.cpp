@@ -23,7 +23,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -53,68 +52,68 @@ GNEDemandElement::getNet() const {
 
 
 void
-GNEDemandElement::addAdditionalParent(GNEAdditional* additional) {
-    // First check that additional wasn't already inserted
-    if (std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional) != myFirstAdditionalParents.end()) {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
+GNEDemandElement::addDemandParent(GNEDemandElement* demand) {
+    // First check that demand wasn't already inserted
+    if (std::find(myDemandParents.begin(), myDemandParents.end(), demand) != myDemandParents.end()) {
+        throw ProcessError(demand->getTagStr() + " with ID='" + demand->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
-        myFirstAdditionalParents.push_back(additional);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        myDemandParents.push_back(demand);
+        // update geometry is needed for stacked demands (routeProbes and Vaporicers)
         updateGeometry(true);
     }
 }
 
 
 void
-GNEDemandElement::removeAdditionalParent(GNEAdditional* additional) {
-    // First check that additional was already inserted
-    auto it = std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional);
-    if (it == myFirstAdditionalParents.end()) {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
+GNEDemandElement::removeDemandParent(GNEDemandElement* demand) {
+    // First check that demand was already inserted
+    auto it = std::find(myDemandParents.begin(), myDemandParents.end(), demand);
+    if (it == myDemandParents.end()) {
+        throw ProcessError(demand->getTagStr() + " with ID='" + demand->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
-        myFirstAdditionalParents.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
+        myDemandParents.erase(it);
+        // update geometry is needed for stacked demands (routeProbes and Vaporizers)
         updateGeometry(true);
     }
 }
 
 
 void
-GNEDemandElement::addAdditionalChild(GNEAdditional* additional) {
-    // First check that additional wasn't already inserted
-    if (std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional) != myAdditionalChilds.end()) {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
+GNEDemandElement::addDemandChild(GNEDemandElement* demand) {
+    // First check that demand wasn't already inserted
+    if (std::find(myDemandChilds.begin(), myDemandChilds.end(), demand) != myDemandChilds.end()) {
+        throw ProcessError(demand->getTagStr() + " with ID='" + demand->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
-        myAdditionalChilds.push_back(additional);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        myDemandChilds.push_back(demand);
+        // update geometry is needed for stacked demands (routeProbes and Vaporicers)
         updateGeometry(true);
     }
 }
 
 
 void
-GNEDemandElement::removeAdditionalChild(GNEAdditional* additional) {
-    // First check that additional was already inserted
-    auto it = std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional);
-    if (it == myAdditionalChilds.end()) {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
+GNEDemandElement::removeDemandChild(GNEDemandElement* demand) {
+    // First check that demand was already inserted
+    auto it = std::find(myDemandChilds.begin(), myDemandChilds.end(), demand);
+    if (it == myDemandChilds.end()) {
+        throw ProcessError(demand->getTagStr() + " with ID='" + demand->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
-        myAdditionalChilds.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
+        myDemandChilds.erase(it);
+        // update geometry is needed for stacked demands (routeProbes and Vaporizers)
         updateGeometry(true);
     }
 }
 
 
-const std::vector<GNEAdditional*>&
-GNEDemandElement::getAdditionalParents() const {
-    return myFirstAdditionalParents;
+const std::vector<GNEDemandElement*>&
+GNEDemandElement::getDemandParents() const {
+    return myDemandParents;
 }
 
 
-const std::vector<GNEAdditional*>&
-GNEDemandElement::getAdditionalChilds() const {
-    return myAdditionalChilds;
+const std::vector<GNEDemandElement*>&
+GNEDemandElement::getDemandChilds() const {
+    return myDemandChilds;
 }
 
 
