@@ -1,0 +1,8 @@
+Document: sumo-doxygen
+Title: Sumo (doxygen documentation)
+Author: Sumo's authors
+Section: Science/Engineering
+
+Format: HTML
+Index: /usr/share/doc/sumo-doc/doxygen/index.html
+Files: /usr/share/doc/sumo-doc/doxygen/*
