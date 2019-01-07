@@ -68,6 +68,8 @@ enum {
     MID_OPEN_NETWORK,
     /// @brief Load additional file with poi and polygons
     MID_OPEN_SHAPES,
+    /// @brief Load edge data for visualization
+    MID_OPEN_EDGEDATA,
     /// @brief Load additional file with additional elements
     MID_OPEN_ADDITIONALS,
     /// @brief Load additional file with additional elements
@@ -493,6 +495,8 @@ enum {
     MID_GNE_SETMODE_ADDITIONAL,
     /// @brief mode for editing crossing
     MID_GNE_SETMODE_CROSSING,
+    /// @brief mode for editing TAZ
+    MID_GNE_SETMODE_TAZ,
     /// @brief mode for creating polygons
     MID_GNE_SETMODE_POLYGON,
     /// @brief mode for editing connection prohibitions
@@ -533,6 +537,8 @@ enum {
     MID_GNE_REMOVE_ATTRIBUTE,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
+    /// @brief create something
+    MID_GNE_CREATE,
     /// @brief used to select a type of element in a combo box
     MID_GNE_SET_TYPE,
     /// @brief text attribute edited
@@ -541,6 +547,8 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trought dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
+    /// @brief select items
+    MID_GNE_SELECT,
     /// @}
 
 
@@ -555,6 +563,12 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
+    /// @brief start drawing polygon
+    MID_GNE_STARTDRAWING,
+    /// @brief stop drawing polygon
+    MID_GNE_STOPDRAWING,
+    /// @brief abort drawing polygon
+    MID_GNE_ABORTDRAWING,
     /// @}
 
 
@@ -587,6 +601,10 @@ enum {
     MID_GNE_INSPECTORFRAME_COPYTEMPLATE,
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
+    /// @brief inspect next element
+    MID_GNE_INSPECTORFRAME_NEXT,
+    /// @brief inspect previous element
+    MID_GNE_INSPECTORFRAME_PREVIOUS,
     /// @}
 
 
@@ -639,7 +657,6 @@ enum {
     MID_GNE_CROSSINGFRAME_CREATECROSSING,
     /// @}
 
-
     /// @name GNEAdditionalFrame messages
     /// @{
 
@@ -665,17 +682,6 @@ enum {
     MID_GNE_ADDITIONALFRAME_ABORTSELECTION,
     /// @}
 
-
-    /// @name GNEPolygonFrame messages
-    /// @{
-
-    /// @brief start drawing polygon
-    MID_GNE_POLYGONFRAME_STARTDRAWING,
-    /// @brief stop drawing polygon
-    MID_GNE_POLYGONFRAME_STOPDRAWING,
-    /// @brief abort drawing polygon
-    MID_GNE_POLYGONFRAME_ABORTDRAWING,
-    /// @}
 
     /// @name GNEProhibitionFrame messages
     /// @{

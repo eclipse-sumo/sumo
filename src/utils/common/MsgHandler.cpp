@@ -39,13 +39,13 @@
 // static member variables
 // ===========================================================================
 
-MsgHandler* MsgHandler::myDebugInstance = 0;
-MsgHandler* MsgHandler::myGLDebugInstance = 0;
-MsgHandler* MsgHandler::myErrorInstance = 0;
-MsgHandler* MsgHandler::myWarningInstance = 0;
-MsgHandler* MsgHandler::myMessageInstance = 0;
+MsgHandler* MsgHandler::myDebugInstance = nullptr;
+MsgHandler* MsgHandler::myGLDebugInstance = nullptr;
+MsgHandler* MsgHandler::myErrorInstance = nullptr;
+MsgHandler* MsgHandler::myWarningInstance = nullptr;
+MsgHandler* MsgHandler::myMessageInstance = nullptr;
 bool MsgHandler::myAmProcessingProcess = false;
-AbstractMutex* MsgHandler::myLock = 0;
+AbstractMutex* MsgHandler::myLock = nullptr;
 bool MsgHandler::myWriteDebugMessages(false);
 bool MsgHandler::myWriteDebugGLMessages(false);
 
@@ -56,7 +56,7 @@ bool MsgHandler::myWriteDebugGLMessages(false);
 
 MsgHandler*
 MsgHandler::getMessageInstance() {
-    if (myMessageInstance == 0) {
+    if (myMessageInstance == nullptr) {
         myMessageInstance = new MsgHandler(MT_MESSAGE);
     }
     return myMessageInstance;
@@ -65,7 +65,7 @@ MsgHandler::getMessageInstance() {
 
 MsgHandler*
 MsgHandler::getWarningInstance() {
-    if (myWarningInstance == 0) {
+    if (myWarningInstance == nullptr) {
         myWarningInstance = new MsgHandler(MT_WARNING);
     }
     return myWarningInstance;
@@ -74,7 +74,7 @@ MsgHandler::getWarningInstance() {
 
 MsgHandler*
 MsgHandler::getErrorInstance() {
-    if (myErrorInstance == 0) {
+    if (myErrorInstance == nullptr) {
         myErrorInstance = new MsgHandler(MT_ERROR);
     }
     return myErrorInstance;
@@ -83,7 +83,7 @@ MsgHandler::getErrorInstance() {
 
 MsgHandler*
 MsgHandler::getDebugInstance() {
-    if (myDebugInstance == 0) {
+    if (myDebugInstance == nullptr) {
         myDebugInstance = new MsgHandler(MT_DEBUG);
     }
     return myDebugInstance;
@@ -92,7 +92,7 @@ MsgHandler::getDebugInstance() {
 
 MsgHandler*
 MsgHandler::getGLDebugInstance() {
-    if (myGLDebugInstance == 0) {
+    if (myGLDebugInstance == nullptr) {
         myGLDebugInstance = new MsgHandler(MT_GLDEBUG);
     }
     return myGLDebugInstance;
@@ -111,7 +111,7 @@ MsgHandler::enableDebugGLMessages(bool enable) {
 
 void
 MsgHandler::inform(std::string msg, bool addType) {
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->lock();
     }
     // beautify progress output
@@ -126,7 +126,7 @@ MsgHandler::inform(std::string msg, bool addType) {
     }
     // set the information that something occurred
     myWasInformed = true;
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->unlock();
     }
 }
@@ -134,7 +134,7 @@ MsgHandler::inform(std::string msg, bool addType) {
 
 void
 MsgHandler::beginProcessMsg(std::string msg, bool addType) {
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->lock();
     }
     msg = build(msg, addType);
@@ -145,7 +145,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     }
     // set the information that something occurred
     myWasInformed = true;
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->unlock();
     }
 }
@@ -153,7 +153,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
 
 void
 MsgHandler::endProcessMsg(std::string msg) {
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->lock();
     }
     // inform all other receivers
@@ -163,7 +163,7 @@ MsgHandler::endProcessMsg(std::string msg) {
     // set the information that something occurred
     myWasInformed = true;
     myAmProcessingProcess = false;
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->unlock();
     }
 }
@@ -171,11 +171,11 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 void
 MsgHandler::clear() {
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->lock();
     }
     myWasInformed = false;
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->unlock();
     }
 }
@@ -183,13 +183,13 @@ MsgHandler::clear() {
 
 void
 MsgHandler::addRetriever(OutputDevice* retriever) {
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->lock();
     }
     if (!isRetriever(retriever)) {
         myRetrievers.push_back(retriever);
     }
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->unlock();
     }
 }
@@ -197,14 +197,14 @@ MsgHandler::addRetriever(OutputDevice* retriever) {
 
 void
 MsgHandler::removeRetriever(OutputDevice* retriever) {
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->lock();
     }
-    RetrieverVector::iterator i = find(myRetrievers.begin(), myRetrievers.end(), retriever);
+    RetrieverVector::iterator i = std::find(myRetrievers.begin(), myRetrievers.end(), retriever);
     if (i != myRetrievers.end()) {
         myRetrievers.erase(i);
     }
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->unlock();
     }
 }
@@ -212,7 +212,7 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
 
 bool
 MsgHandler::isRetriever(OutputDevice* retriever) const {
-    return find(myRetrievers.begin(), myRetrievers.end(), retriever) != myRetrievers.end();
+    return std::find(myRetrievers.begin(), myRetrievers.end(), retriever) != myRetrievers.end();
 }
 
 
@@ -270,20 +270,20 @@ MsgHandler::initOutputOptions() {
 
 void
 MsgHandler::cleanupOnEnd() {
-    if (myLock != 0) {
+    if (myLock != nullptr) {
         myLock->lock();
     }
     delete myMessageInstance;
-    myMessageInstance = 0;
+    myMessageInstance = nullptr;
     delete myWarningInstance;
-    myWarningInstance = 0;
+    myWarningInstance = nullptr;
     delete myErrorInstance;
-    myErrorInstance = 0;
+    myErrorInstance = nullptr;
     delete myDebugInstance;
-    myDebugInstance = 0;
+    myDebugInstance = nullptr;
     delete myGLDebugInstance;
-    myGLDebugInstance = 0;
-    if (myLock != 0) {
+    myGLDebugInstance = nullptr;
+    if (myLock != nullptr) {
         myLock->unlock();
     }
 }

@@ -21,7 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
 #include "GNEDetector.h"
 
@@ -153,7 +152,7 @@ protected:
     /// @brief E2 lanes (Single lanes uses only the first lane)
     std::vector<GNELane*> myLanes;
 
-    /// @brief E2 detector lenght
+    /// @brief E2 detector length
     double myLength;
 
     /// @brief end position over lane (only for Multilane E2 detectors)

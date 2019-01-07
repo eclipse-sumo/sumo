@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 27 12:57:06 2018 by Eclipse SUMO Version cac3710
+<!-- generated on Sun Nov 18 22:04:29 2018 by Eclipse SUMO Version eeef47f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -354,7 +354,6 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="39.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="187.66" speed="7.89"/>
                 <vehicle id="leader" pos="196.22" speed="8.28"/>
             </lane>
         </edge>

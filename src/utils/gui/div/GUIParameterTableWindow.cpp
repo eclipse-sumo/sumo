@@ -60,7 +60,7 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // method definitions
 // ===========================================================================
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o, int noRows) :
-    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), NULL, NULL, DECOR_ALL, 20, 20, 500, (FXint)((noRows + numParams(&o))  * 20 + 60)),
+    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 20, 500, (FXint)((noRows + numParams(&o))  * 20 + 60)),
     myObject(&o),
     myApplication(&app),
     myCurrentPos(0) {
@@ -98,7 +98,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
     for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); ++i) {
         delete(*i);
     }
-    if (myObject != 0) {
+    if (myObject != nullptr) {
         myObject->removeParameterTable(this);
     }
     myLock.unlock();
@@ -113,7 +113,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
 void
 GUIParameterTableWindow::removeObject(GUIGlObject* /*i*/) {
     AbstractMutex::ScopedLocker locker(myLock);
-    myObject = 0;
+    myObject = nullptr;
 }
 
 
@@ -150,12 +150,12 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender, FXSelector sel, vo
     if (!i->dynamic()) {
         return 1;
     }
-    if (myObject == 0) {
+    if (myObject == nullptr) {
         return 1;
     }
 
     GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), i->getdoubleSourceCopy());
-    new FXMenuCommand(p, "Open in new Tracker", 0, p, MID_OPENTRACKER);
+    new FXMenuCommand(p, "Open in new Tracker", nullptr, p, MID_OPENTRACKER);
     // set geometry
     p->setX(static_cast<FXEvent*>(eventData)->root_x);
     p->setY(static_cast<FXEvent*>(eventData)->root_y);
@@ -205,7 +205,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, long long int va
 void
 GUIParameterTableWindow::updateTable() {
     AbstractMutex::ScopedLocker locker(myLock);
-    if (myObject == 0) {
+    if (myObject == nullptr) {
         return;
     }
     for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); i++) {
@@ -217,16 +217,16 @@ GUIParameterTableWindow::updateTable() {
 void
 GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
     // add generic paramters if available
-    if (p == 0) {
+    if (p == nullptr) {
         p = dynamic_cast<const Parameterised*>(myObject);
     }
-    if (p != 0) {
+    if (p != nullptr) {
         const std::map<std::string, std::string>& map = p->getParametersMap();
         for (std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
     }
-    myApplication->addChild(this, true);
+    myApplication->addChild(this);
     create();
     show();
 }
@@ -235,7 +235,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
 int
 GUIParameterTableWindow::numParams(const GUIGlObject* obj) {
     const Parameterised* p = dynamic_cast<const Parameterised*>(obj);
-    return p != 0 ? (int)p->getParametersMap().size() : 0;
+    return p != nullptr ? (int)p->getParametersMap().size() : 0;
 }
 
 

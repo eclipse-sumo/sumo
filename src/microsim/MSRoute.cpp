@@ -145,7 +145,7 @@ MSRoute::dictionary(const std::string& id, std::mt19937* rng) {
     if (it == myDict.end()) {
         RouteDistDict::iterator it2 = myDistDict.find(id);
         if (it2 == myDistDict.end() || it2->second.first->getOverallProb() == 0) {
-            return 0;
+            return nullptr;
         }
         return it2->second.first->get(rng);
     }
@@ -160,7 +160,7 @@ MSRoute::distDictionary(const std::string& id) {
 #endif
     RouteDistDict::iterator it2 = myDistDict.find(id);
     if (it2 == myDistDict.end()) {
-        return 0;
+        return nullptr;
     }
     return it2->second.first;
 }
@@ -218,7 +218,7 @@ int
 MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo) const {
     int numWritten = 0;
     ConstMSEdgeVector::const_iterator i = myEdges.begin();
-    if (from != 0) {
+    if (from != nullptr) {
         i = std::find(myEdges.begin(), myEdges.end(), from);
     }
     for (; i != myEdges.end(); ++i) {
@@ -355,7 +355,7 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
 
 const RGBColor&
 MSRoute::getColor() const {
-    if (myColor == 0) {
+    if (myColor == nullptr) {
         return RGBColor::DEFAULT_COLOR;
     }
     return *myColor;

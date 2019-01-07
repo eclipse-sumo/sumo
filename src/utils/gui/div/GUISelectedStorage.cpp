@@ -101,6 +101,14 @@ GUISelectedStorage::isSelected(GUIGlObjectType type, GUIGlID id) {
     }
 }
 
+bool 
+GUISelectedStorage::isSelected(const GUIGlObject* o) {
+    if (o == nullptr) {
+        return false;
+    } else {
+        return isSelected(o->getType(), o->getGlID());
+    }
+}
 
 void
 GUISelectedStorage::select(GUIGlID id, bool update) {
@@ -256,7 +264,7 @@ GUISelectedStorage::add2Update(UpdateTarget* updateTarget) {
 
 void
 GUISelectedStorage::remove2Update() {
-    myUpdateTarget = 0;
+    myUpdateTarget = nullptr;
 }
 
 
@@ -265,7 +273,7 @@ GUISelectedStorage::save(const std::string& filename, const std::set<GUIGlID>& i
     OutputDevice& dev = OutputDevice::getDevice(filename);
     for (std::set<GUIGlID>::const_iterator i = ids.begin(); i != ids.end(); ++i) {
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(*i);
-        if (object != 0) {
+        if (object != nullptr) {
             std::string name = object->getFullName();
             dev << name << "\n";
             GUIGlObjectStorage::gIDStorage.unblockObject(*i);

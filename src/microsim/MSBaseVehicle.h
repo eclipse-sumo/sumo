@@ -39,6 +39,8 @@
 // ===========================================================================
 class MSLane;
 class MSDevice_Transportable;
+class MSVehicleDevice;
+
 
 // ===========================================================================
 // class definitions
@@ -317,7 +319,7 @@ public:
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */
-    inline const std::vector<MSDevice*>& getDevices() const {
+    inline const std::vector<MSVehicleDevice*>& getDevices() const {
         return myDevices;
     }
 
@@ -414,7 +416,7 @@ public:
     }
 
     /// @brief Returns a device of the given type if it exists or 0
-    MSDevice* getDevice(const std::type_info& type) const;
+    MSVehicleDevice* getDevice(const std::type_info& type) const;
 
 
     /** @brief Replaces the current vehicle type by the one given
@@ -459,6 +461,10 @@ public:
         return false;
     }
 
+    inline NumericalID getNumericalID() const {
+        return myNumericalID;
+    }
+
 protected:
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
@@ -500,7 +506,7 @@ protected:
     /// @}
 
     /// @brief The devices this vehicle has
-    std::vector<MSDevice*> myDevices;
+    std::vector<MSVehicleDevice*> myDevices;
 
     /// @brief The passengers this vehicle may have
     MSDevice_Transportable* myPersonDevice;
@@ -529,6 +535,11 @@ protected:
     static const SUMOTime NOT_YET_DEPARTED;
 
     static std::vector<MSTransportable*> myEmptyTransportableVector;
+
+private:
+    const NumericalID myNumericalID;
+
+    static NumericalID myCurrentNumericalIndex;
 
 private:
     /// invalidated assignment operator

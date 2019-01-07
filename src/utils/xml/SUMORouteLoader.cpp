@@ -31,7 +31,7 @@
 // method definitions
 // ===========================================================================
 SUMORouteLoader::SUMORouteLoader(SUMORouteHandler* handler)
-    : myParser(0), myMoreAvailable(true), myHandler(handler) {
+    : myParser(nullptr), myMoreAvailable(true), myHandler(handler) {
     myParser = XMLSubSys::getSAXReader(*myHandler);
     if (!myParser->parseFirst(myHandler->getFileName())) {
         throw ProcessError("Can not read XML-file '" + myHandler->getFileName() + "'.");

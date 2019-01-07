@@ -51,6 +51,7 @@ visum.net     text eol=lf
 png.complex binary
 png.sumo binary
 png2.sumo binary
+*.ico binary
 *.png binary
 *.jpg binary
 *.ttf binary

@@ -31,7 +31,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/iodevices/BinaryFormatter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "SUMOSAXAttributesImpl_Binary.h"
@@ -67,9 +67,9 @@ SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
 
 void
 SUMOSAXReader::setValidation(const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme) {
-    if (myXMLReader != 0 && validationScheme != myValidationScheme) {
+    if (myXMLReader != nullptr && validationScheme != myValidationScheme) {
         if (validationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never) {
-            myXMLReader->setEntityResolver(0);
+            myXMLReader->setEntityResolver(nullptr);
             myXMLReader->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesScannerName, (void*)XERCES_CPP_NAMESPACE::XMLUni::fgWFXMLScanner);
         } else {
             myXMLReader->setEntityResolver(&mySchemaResolver);
@@ -90,7 +90,7 @@ SUMOSAXReader::parse(std::string systemID) {
             while (parseNext());
         }
     } else {
-        if (myXMLReader == 0) {
+        if (myXMLReader == nullptr) {
             myXMLReader = getSAXReader();
         }
         myXMLReader->parse(systemID.c_str());
@@ -100,7 +100,7 @@ SUMOSAXReader::parse(std::string systemID) {
 
 void
 SUMOSAXReader::parseString(std::string content) {
-    if (myXMLReader == 0) {
+    if (myXMLReader == nullptr) {
         myXMLReader = getSAXReader();
     }
     XERCES_CPP_NAMESPACE::MemBufInputSource memBufIS((const XMLByte*)content.c_str(), content.size(), "registrySettings");
@@ -138,7 +138,7 @@ SUMOSAXReader::parseFirst(std::string systemID) {
         // !!! check followers here
         return parseNext();
     } else {
-        if (myXMLReader == 0) {
+        if (myXMLReader == nullptr) {
             myXMLReader = getSAXReader();
         }
         myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
@@ -149,12 +149,12 @@ SUMOSAXReader::parseFirst(std::string systemID) {
 
 bool
 SUMOSAXReader::parseNext() {
-    if (myBinaryInput != 0) {
+    if (myBinaryInput != nullptr) {
         int next = myBinaryInput->peek();
         switch (next) {
             case EOF:
                 delete myBinaryInput;
-                myBinaryInput = 0;
+                myBinaryInput = nullptr;
                 return false;
             case BinaryFormatter::BF_XML_TAG_START: {
                 int tag;
@@ -185,7 +185,7 @@ SUMOSAXReader::parseNext() {
         }
         return true;
     } else {
-        if (myXMLReader == 0) {
+        if (myXMLReader == nullptr) {
             throw ProcessError("The XML-parser was not initialized.");
         }
         return myXMLReader->parseNext(myToken);
@@ -196,7 +196,7 @@ SUMOSAXReader::parseNext() {
 XERCES_CPP_NAMESPACE::SAX2XMLReader*
 SUMOSAXReader::getSAXReader() {
     XERCES_CPP_NAMESPACE::SAX2XMLReader* reader = XERCES_CPP_NAMESPACE::XMLReaderFactory::createXMLReader();
-    if (reader == 0) {
+    if (reader == nullptr) {
         throw ProcessError("The XML-parser could not be build.");
     }
     // see here https://svn.apache.org/repos/asf/xerces/c/trunk/samples/src/SAX2Count/SAX2Count.cpp for the way to set features
@@ -216,7 +216,7 @@ SUMOSAXReader::getSAXReader() {
 
 XERCES_CPP_NAMESPACE::InputSource*
 SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
-    const std::string url = TplConvert::_2str(systemId);
+    const std::string url = StringUtils::transcode(systemId);
     const std::string::size_type pos = url.rfind("/");
     if (pos != std::string::npos) {
         const std::string dir = url.substr(0, pos);
@@ -224,9 +224,9 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
                 dir == "http://sumo.dlr.de/xsd" || dir == "http://sumo.dlr.de/xsd/amitran") {
             myHandler->setSchemaSeen();
             const char* sumoPath = std::getenv("SUMO_HOME");
-            if (sumoPath == 0) {
+            if (sumoPath == nullptr) {
                 WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
-                return 0;
+                return nullptr;
             }
             const std::string file = sumoPath + std::string("/data/xsd") + url.substr(url.find("/xsd/") + 4);
             if (FileHelpers::isReadable(file)) {
@@ -239,7 +239,7 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
             }
         }
     }
-    return 0;
+    return nullptr;
 }
 
 

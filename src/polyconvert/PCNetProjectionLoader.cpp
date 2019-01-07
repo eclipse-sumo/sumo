@@ -99,10 +99,10 @@ PCNetProjectionLoader::myStartElement(int element,
     }
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     myFoundLocation = true;
-    PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, 0, myFoundLocation);
-    Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, 0, myFoundLocation);
-    Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, 0, myFoundLocation);
-    std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, 0, myFoundLocation);
+    PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, nullptr, myFoundLocation);
+    Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, nullptr, myFoundLocation);
+    Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, nullptr, myFoundLocation);
+    std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, nullptr, myFoundLocation);
     if (myFoundLocation) {
         OptionsCont& oc = OptionsCont::getOptions();
         Position networkOffset = s[0] + Position(oc.getFloat("offset.x"), oc.getFloat("offset.y"));

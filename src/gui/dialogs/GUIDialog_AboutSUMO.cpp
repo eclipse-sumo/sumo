@@ -38,30 +38,30 @@
 GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     FXDialogBox(parent, "About Eclipse SUMO", GUIDesignDialogBox) {
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(ICON_SUMO));
+    setIcon(GUIIconSubSys::getIcon(ICON_SUMO_MINI));
 
     // create frame for main info
     FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // SUMO Icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO), GUIDesignLabelIcon64x64noSpacing);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO_LOGO), GUIDesignLabelIcon);
 
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
-    (new FXLabel(descriptionFrame, "SUMO GUI " VERSION_STRING, 0, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
-    new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", 0, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, HAVE_ENABLED, 0, GUIDesignLabelAboutInfo);
+    (new FXLabel(descriptionFrame, "SUMO GUI " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
+    new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, "Graphical user interface for the microscopic, multi-modal traffic simulation SUMO.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
 
     // copyright notice
-    new FXLabel(this, "Graphical user interface for the microscopic, multi-modal traffic simulation SUMO.", 0, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.", 0, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", 0, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", 0, GUIDesignLabelAboutInfo);
-    (new FXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", 0, GUIDesignLabelAboutInfo))->setTipText("http://www.eclipse.org/legal/epl-v20.html");
+    new FXLabel(this, "Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
+    (new FXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("http://www.eclipse.org/legal/epl-v20.html");
 
     // link to homepage
-    (new FXLinkLabel(this, "http://sumo.dlr.de", 0, GUIDesignLabelCenter))->setTipText("http://sumo.dlr.de");
+    (new FXLinkLabel(this, "http://sumo.dlr.de", nullptr, GUIDesignLabelCenter))->setTipText("http://sumo.dlr.de");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);

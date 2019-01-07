@@ -45,7 +45,7 @@ opts = [
     '--no-step-log',
     '--duration-log.statistics',
     '-S', '-Q',
-    ]
+]
 traci.start([sumo] + opts + ['--tripinfo-output', 'tripinfos.xml', '-l', 'log']
             # + ['--save-configuration', 'debug.sumocfg']
             )

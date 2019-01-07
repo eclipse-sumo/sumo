@@ -57,7 +57,7 @@ NBHeightMapper NBHeightMapper::Singleton;
 
 
 NBHeightMapper::NBHeightMapper():
-    myRTree(&Triangle::addSelf), myRaster(0) {
+    myRTree(&Triangle::addSelf) {
 }
 
 
@@ -74,7 +74,7 @@ NBHeightMapper::get() {
 
 bool
 NBHeightMapper::ready() const {
-    return myRaster != 0 || myTriangles.size() > 0;
+    return myRasters.size() > 0 || myTriangles.size() > 0;
 }
 
 
@@ -84,23 +84,25 @@ NBHeightMapper::getZ(const Position& geo) const {
         WRITE_WARNING("Cannot supply height since no height data was loaded");
         return 0;
     }
-    if (myRaster != 0) {
+    for (auto& item : myRasters) {
+        const Boundary& boundary = item.first;
+        int16_t* raster = item.second;
         double result = -1e6;
-        if (myBoundary.around(geo)) {
-            const int xSize = int((myBoundary.xmax() - myBoundary.xmin()) / mySizeOfPixel.x() + .5);
-            const double normX = (geo.x() - myBoundary.xmin()) / mySizeOfPixel.x();
-            const double normY = (geo.y() - myBoundary.ymax()) / mySizeOfPixel.y();
+        if (boundary.around(geo)) {
+            const int xSize = int((boundary.xmax() - boundary.xmin()) / mySizeOfPixel.x() + .5);
+            const double normX = (geo.x() - boundary.xmin()) / mySizeOfPixel.x();
+            const double normY = (geo.y() - boundary.ymax()) / mySizeOfPixel.y();
             PositionVector corners;
-            corners.push_back(Position(floor(normX) + 0.5, floor(normY) + 0.5, myRaster[(int)normY * xSize + (int)normX]));
+            corners.push_back(Position(floor(normX) + 0.5, floor(normY) + 0.5, raster[(int)normY * xSize + (int)normX]));
             if (normX - floor(normX) > 0.5) {
-                corners.push_back(Position(floor(normX) + 1.5, floor(normY) + 0.5, myRaster[(int)normY * xSize + (int)normX + 1]));
+                corners.push_back(Position(floor(normX) + 1.5, floor(normY) + 0.5, raster[(int)normY * xSize + (int)normX + 1]));
             } else {
-                corners.push_back(Position(floor(normX) - 0.5, floor(normY) + 0.5, myRaster[(int)normY * xSize + (int)normX - 1]));
+                corners.push_back(Position(floor(normX) - 0.5, floor(normY) + 0.5, raster[(int)normY * xSize + (int)normX - 1]));
             }
             if (normY - floor(normY) > 0.5) {
-                corners.push_back(Position(floor(normX) + 0.5, floor(normY) + 1.5, myRaster[((int)normY + 1) * xSize + (int)normX]));
+                corners.push_back(Position(floor(normX) + 0.5, floor(normY) + 1.5, raster[((int)normY + 1) * xSize + (int)normX]));
             } else {
-                corners.push_back(Position(floor(normX) + 0.5, floor(normY) - 0.5, myRaster[((int)normY - 1) * xSize + (int)normX]));
+                corners.push_back(Position(floor(normX) + 0.5, floor(normY) - 0.5, raster[((int)normY - 1) * xSize + (int)normX]));
             }
             result = Triangle(corners).getZ(Position(normX, normY));
         }
@@ -279,6 +281,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
         WRITE_ERROR("Cannot load GeoTIFF file.");
         return 0;
     }
+    Boundary boundary;
     const int xSize = poDataset->GetRasterXSize();
     const int ySize = poDataset->GetRasterYSize();
     double adfGeoTransform[6];
@@ -287,14 +290,14 @@ NBHeightMapper::loadTiff(const std::string& file) {
         mySizeOfPixel.set(adfGeoTransform[1], adfGeoTransform[5]);
         const double horizontalSize = xSize * mySizeOfPixel.x();
         const double verticalSize = ySize * mySizeOfPixel.y();
-        myBoundary.add(topLeft);
-        myBoundary.add(topLeft.x() + horizontalSize, topLeft.y() + verticalSize);
+        boundary.add(topLeft);
+        boundary.add(topLeft.x() + horizontalSize, topLeft.y() + verticalSize);
     } else {
         WRITE_ERROR("Could not parse geo information from " + file + ".");
         return 0;
     }
     const int picSize = xSize * ySize;
-    myRaster = (int16_t*)CPLMalloc(sizeof(int16_t) * picSize);
+    int16_t* raster = (int16_t*)CPLMalloc(sizeof(int16_t) * picSize);
     for (int i = 1; i <= poDataset->GetRasterCount(); i++) {
         GDALRasterBand* poBand = poDataset->GetRasterBand(i);
         if (poBand->GetColorInterpretation() != GCI_GrayIndex) {
@@ -308,13 +311,14 @@ NBHeightMapper::loadTiff(const std::string& file) {
             break;
         }
         assert(xSize == poBand->GetXSize() && ySize == poBand->GetYSize());
-        if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, myRaster, xSize, ySize, GDT_Int16, 0, 0) == CE_Failure) {
+        if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, raster, xSize, ySize, GDT_Int16, 0, 0) == CE_Failure) {
             WRITE_ERROR("Failure in reading " + file + ".");
             clearData();
             break;
         }
     }
     GDALClose(poDataset);
+    myRasters.push_back(std::make_pair(boundary, raster));
     return picSize;
 #else
     UNUSED_PARAMETER(file);
@@ -331,10 +335,10 @@ NBHeightMapper::clearData() {
     }
     myTriangles.clear();
 #ifdef HAVE_GDAL
-    if (myRaster != 0) {
-        CPLFree(myRaster);
-        myRaster = 0;
+    for (auto& item : myRasters) {
+        CPLFree(item.second);
     }
+    myRasters.clear();
 #endif
     myBoundary.reset();
 }

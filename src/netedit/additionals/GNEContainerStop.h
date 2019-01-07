@@ -21,14 +21,6 @@
 // included modules
 // ===========================================================================
 
-#include <config.h>
-
-#include <string>
-#include <vector>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <utils/geom/PositionVector.h>
-#include <netedit/GNEAttributeCarrier.h>
 #include "GNEStoppingPlace.h"
 
 

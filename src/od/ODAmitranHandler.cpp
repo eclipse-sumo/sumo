@@ -41,7 +41,7 @@ ODAmitranHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
         case SUMO_TAG_ACTORCONFIG:
-            myVehicleType = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            myVehicleType = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             break;
         case SUMO_TAG_TIMESLICE:
             myBegin = attrs.get<int>(SUMO_ATTR_STARTTIME, myVehicleType.c_str(), ok);

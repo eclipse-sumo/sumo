@@ -94,10 +94,10 @@ def main(options):
         for line in open(options.file):
             line = line.strip()
             if line and line[0] != '#':
-                l = line.split(SOURCE_DEST_SEP) + [""]
-                l[0] = join(dirname, l[0])
-                l[1] = join(dirname, l[1])
-                targets.append(l[:3])
+                ls = line.split(SOURCE_DEST_SEP) + [""]
+                ls[0] = join(dirname, ls[0])
+                ls[1] = join(dirname, ls[1])
+                targets.append(ls[:3])
     for val in options.args:
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])
@@ -202,7 +202,7 @@ def main(options):
                 call = ["netgenerate"] + appOptions
             elif app == "tools":
                 call = ["python"] + appOptions
-                call[1] = os.path.join(SUMO_HOME, call[1])
+                call[1] = join(SUMO_HOME, call[1])
             elif app == "complex":
                 call = ["python"]
                 for o in appOptions:
@@ -211,8 +211,8 @@ def main(options):
                     else:
                         call.append(o)
             else:
-                call = [app] + appOptions
-            pyBatch.write('subprocess.Popen(["%s"], cwd=r"%s"),\n' % ('", r"'.join(call), testPath))
+                call = [join(SUMO_HOME, "bin", app)] + appOptions
+            pyBatch.write('    subprocess.Popen([r"%s"], cwd=r"%s"),\n' % ('", r"'.join(call), testPath))
         if options.skip_configuration:
             continue
         oldWorkDir = os.getcwd()
@@ -237,7 +237,7 @@ def main(options):
                 open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
     if options.python_script:
-        pyBatch.write(']:\n  if p.wait() != 0:\n    sys.exit(1)\n')
+        pyBatch.write(']:\n    if p.wait() != 0:\n        sys.exit(1)\n')
 
 
 if __name__ == "__main__":

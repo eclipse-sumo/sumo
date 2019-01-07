@@ -18,35 +18,17 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <netbuild/NBEdge.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetectorEntry.h"
-#include "GNEDetectorE3.h"
 #include "GNEAdditionalHandler.h"
 
 
@@ -105,6 +87,7 @@ GNEDetectorEntry::moveGeometry(const Position& offset) {
     // Calculate new position using old position
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
+    // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
     // Update geometry
@@ -115,7 +98,7 @@ GNEDetectorEntry::moveGeometry(const Position& offset) {
 void
 GNEDetectorEntry::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(getTag()));
+    undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
     undoList->p_end();
 }
@@ -171,11 +154,11 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set initial values
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_E3Entry);
     }
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Push polygon matrix
@@ -183,21 +166,21 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
     glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-
-    // Draw polygon
-    glBegin(GL_LINES);
-    glVertex2d(1.7, 0);
-    glVertex2d(-1.7, 0);
-    glEnd();
-    glBegin(GL_QUADS);
-    glVertex2d(-1.7, .5);
-    glVertex2d(-1.7, -.5);
-    glVertex2d(1.7, -.5);
-    glVertex2d(1.7, .5);
-    glEnd();
-
+  
     // draw details if isn't being drawn for selecting
     if (!s.drawForSelecting) {
+        // Draw polygon
+        glBegin(GL_LINES);
+        glVertex2d(1.7, 0);
+        glVertex2d(-1.7, 0);
+        glEnd();
+        glBegin(GL_QUADS);
+        glVertex2d(-1.7, .5);
+        glVertex2d(-1.7, -.5);
+        glVertex2d(1.7, -.5);
+        glVertex2d(1.7, .5);
+        glEnd();
+
         // first Arrow
         glTranslated(1.5, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
@@ -207,6 +190,14 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(-3, 0, 0);
         GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
         GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
+    } else {
+        // Draw square in drawy for selecting mode
+        glBegin(GL_QUADS);
+        glVertex2d(-1.7, 4.3);
+        glVertex2d(-1.7, -.5);
+        glVertex2d(1.7, -.5);
+        glVertex2d(1.7, 4.3);
+        glEnd();
     }
 
     // Pop polygon matrix
@@ -216,7 +207,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Check if the distance is enought to draw details
-    if (((s.scale * exaggeration) >= 10)) {
+    if (!s.drawForSelecting && ((s.scale * exaggeration) >= 10)) {
         // Push matrix
         glPushMatrix();
         // Traslate to center of detector
@@ -230,7 +221,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("E3", Position(), .1, 2.8, myViewNet->getNet()->selectedAdditionalColor);
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.selectedAdditionalColor);
         } else {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Entry);
         }
@@ -243,7 +234,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("Entry", Position(), .1, 1, myViewNet->getNet()->selectedAdditionalColor);
+            GLHelper::drawText("Entry", Position(), .1, 1, s.selectedAdditionalColor);
         } else {
             GLHelper::drawText("Entry", Position(), .1, 1, s.SUMO_color_E3Entry);
         }
@@ -259,7 +250,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], 3.4, 5, myGeometry.shapeRotations[0], 0, 2);
     }
     // pop gl identificator
@@ -287,7 +278,7 @@ GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -309,7 +300,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -334,7 +325,7 @@ GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -370,10 +361,12 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

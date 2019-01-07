@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 18.06.2018 19:43:03 by Eclipse SUMO netedit Version b50f1d14b4
+<!-- generated on 03.12.2018 16:24:00 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poilane/delete\input_shapes.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poilane/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec162354.7180/netedit.gui/shapeElements/poilane/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poilane/delete\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poilane/delete\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poilane/delete\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec162354.7180/netedit.gui/shapeElements/poilane/delete\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec162354.7180/netedit.gui/shapeElements/poilane/delete\additionals.xml"/>
+        <sumo-shapes-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec162354.7180/netedit.gui/shapeElements/poilane/delete\input_shapes.add.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec162354.7180/netedit.gui/shapeElements/poilane/delete\shapes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poilane/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec162354.7180/netedit.gui/shapeElements/poilane/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,11 +43,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/shapeElements/poilane/delete\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec162354.7180/netedit.gui/shapeElements/poilane/delete\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="POI_nonDeleted" color="yellow" layer="20.00" lane="gneE1_0" pos="30.00" width="10.00" height="10.00"/>
 </additional>

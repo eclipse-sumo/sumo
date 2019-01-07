@@ -112,8 +112,18 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">
-        <lane id="CE_0" index="0" speed="13.89" length="91.95" shape="108.05,95.05 200.00,95.05"/>
-        <lane id="CE_1" index="1" speed="13.89" length="91.95" shape="108.05,98.35 200.00,98.35"/>
+        <param key="ek1" value="ev1"/>
+        <lane id="CE_0" index="0" speed="13.89" length="91.95" shape="108.05,95.05 200.00,95.05">
+            <param key="lk1" value="lv1"/>
+            <param key="lk2" value="lv2"/>
+        </lane>
+        <param key="ek2" value="ev2"/>
+        <lane id="CE_1" index="1" speed="13.89" length="91.95" shape="108.05,98.35 200.00,98.35">
+            <param key="lk3" value="lv3"/>
+            <param key="lk4" value="lv4"/>
+        </lane>
+        <param key="ek3" value="ev3"/>
+        <param key="ek4" value="ev4"/>
     </edge>
     <edge id="CN" from="C" to="N" priority="2">
         <lane id="CN_0" index="0" speed="13.89" length="91.95" shape="104.95,108.05 104.95,200.00"/>
@@ -145,6 +155,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
+        <param key="tk1" value="tv1"/>
         <phase duration="31" state="GGGggrrrrGGGggrrrr"/>
         <phase duration="4" state="yyyggrrrryyyggrrrr"/>
         <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
@@ -153,6 +164,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4" state="rrrrryyggrrrrryygg"/>
         <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
         <phase duration="4" state="rrrrrrryyrrrrrrryy"/>
+        <param key="tk2" value="tv2"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_18_0 :C_19_0 :C_5_0 :C_6_0 :C_20_0 :C_21_0 :C_9_0 :C_10_0 :C_10_1 :C_22_0 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_25_0" shape="93.45,108.05 106.55,108.05 108.05,106.55 108.05,93.45 106.55,91.95 93.45,91.95 91.95,93.45 91.95,106.55">
@@ -174,6 +186,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="15" response="000001111000001110" foes="000001111110001110" cont="0"/>
         <request index="16" response="000001110001101110" foes="000001110001111110" cont="1"/>
         <request index="17" response="000001000001000001" foes="000001000001000001" cont="1"/>
+        <param key="jk1" value="jv1"/>
+        <param key="jk2" value="jv2"/>
     </junction>
     <junction id="E" type="priority" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes=":E_0_0" shape="200.00,100.05 200.00,106.55 200.00,93.45 200.00,99.95">
         <request index="0" response="0" foes="0" cont="0"/>

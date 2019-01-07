@@ -25,9 +25,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# apply zoom (to see all POILaneS)
-netedit.setZoom("0", "0", "80")
-
 # save shapes
 netedit.saveShapes()
 

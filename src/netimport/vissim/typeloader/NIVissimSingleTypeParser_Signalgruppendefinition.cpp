@@ -25,7 +25,7 @@
 
 #include <cassert>
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/VectorHelper.h>
@@ -61,7 +61,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream& from) {
     int lsaid;
     from >> lsaid;
     NIVissimTL* tl = NIVissimTL::dictionary(lsaid);
-    if (tl == 0) {
+    if (tl == nullptr) {
         WRITE_ERROR("A traffic light group with an unknown traffic light occurred.\n  Group-ID: " + toString<int>(id)
                     + "\n  TrafficLight-ID: " + toString<int>(lsaid));
         return false;

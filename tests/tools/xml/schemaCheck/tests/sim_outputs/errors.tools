@@ -1,16 +1,3 @@
-Error on parsing 'complex/traci/pythonApi/bugs/ticket4645/data/state.txt'!
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/xml/schemaCheck.py", line 48, in validate
-    doc = etree.parse(f)
-  File "lxml.etree.pyx", line 3197, in lxml.etree.parse (src/lxml/lxml.etree.c:64816)
-  File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:92729)
-  File "parser.pxi", line 1600, in lxml.etree._parseDocumentFromURL (src/lxml/lxml.etree.c:93013)
-  File "parser.pxi", line 1500, in lxml.etree._parseDocFromFile (src/lxml/lxml.etree.c:92076)
-  File "parser.pxi", line 1047, in lxml.etree._BaseParser._parseDocFromFile (src/lxml/lxml.etree.c:88976)
-  File "parser.pxi", line 577, in lxml.etree._ParserContext._handleParseResultDoc (src/lxml/lxml.etree.c:84385)
-  File "parser.pxi", line 676, in lxml.etree._handleParseResult (src/lxml/lxml.etree.c:85488)
-  File "parser.pxi", line 616, in lxml.etree._raiseParseError (src/lxml/lxml.etree.c:84811)
-XMLSyntaxError: Start tag expected, '<' not found, line 1, column 1
 sumo/extended/simulation_routing/assignment/auto_trip_single_edge_depart_beyond_arrival/tripinfos.sumo:34:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'tripinfo', attribute 'waitSteps': The attribute 'waitSteps' is not allowed.
 sumo/extended/simulation_routing/assignment/auto_trip_single_edge_depart_beyond_arrival/tripinfos.sumo:34:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'tripinfo': The attribute 'waitingTime' is required but missing.
 sumo/extended/simulation_routing/assignment/auto_trip_single_edge_depart_beyond_arrival/tripinfos.sumo:34:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'tripinfo': The attribute 'waitingCount' is required but missing.

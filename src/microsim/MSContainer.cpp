@@ -59,7 +59,7 @@ MSContainer::MSContainerStage_Driving::~MSContainerStage_Driving() {}
 
 void
 MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous) {
-    if (previous->getDestinationStop() != 0) {
+    if (previous->getDestinationStop() != nullptr) {
         // the arrival stop may have an access point
         myWaitingEdge = &previous->getDestinationStop()->getLane().getEdge();
     } else {
@@ -68,7 +68,7 @@ MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* cont
     myWaitingPos = previous->getEdgePos(now);
     myWaitingSince = now;
     SUMOVehicle* availableVehicle = net->getVehicleControl().getWaitingVehicle(myWaitingEdge, myLines, myWaitingPos, container->getID());
-    if (availableVehicle != 0 && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED && !availableVehicle->hasDeparted()) {
+    if (availableVehicle != nullptr && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
         myVehicle->addContainer(container);
         net->getInsertionControl().add(myVehicle);
@@ -89,7 +89,7 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 
 std::string
 MSContainer::MSContainerStage_Driving::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ?
+    const std::string dest = (getDestinationStop() == nullptr ?
                               " edge '" + getDestination()->getID() + "'" :
                               " stop '" + getDestinationStop()->getID() + "'");
     return isWaiting4Vehicle() ?
@@ -133,7 +133,7 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
         double departPos, double arrivalPos) :
     MSTransportable::Stage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
                                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myRoute(route),
-    mySpeed(speed), myContainerState(0), myCurrentInternalEdge(0) {
+    mySpeed(speed), myContainerState(nullptr), myCurrentInternalEdge(nullptr) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());
 }
@@ -152,7 +152,7 @@ MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportabl
 
 const MSEdge*
 MSContainer::MSContainerStage_Tranship::getEdge() const {
-    if (myCurrentInternalEdge != 0) {
+    if (myCurrentInternalEdge != nullptr) {
         return myCurrentInternalEdge;
     } else {
         return *myRouteStep;
@@ -246,7 +246,7 @@ bool
 MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removeContainer(container);
     if (myRouteStep == myRoute.end() - 1) {
-        if (myDestinationStop != 0) {
+        if (myDestinationStop != nullptr) {
             myDestinationStop->addTransportable(container);    //jakob
         }
         if (!container->proceed(MSNet::getInstance(), currentTime)) {
@@ -254,9 +254,9 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* containe
         }
         return true;
     } else {
-        if (nextInternal == 0) {
+        if (nextInternal == nullptr) {
             ++myRouteStep;
-            myCurrentInternalEdge = 0;
+            myCurrentInternalEdge = nullptr;
         } else {
             myCurrentInternalEdge = nextInternal;
         }
@@ -267,7 +267,7 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* containe
 
 std::string
 MSContainer::MSContainerStage_Tranship::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ?
+    const std::string dest = (getDestinationStop() == nullptr ?
                               " edge '" + getDestination()->getID() + "'" :
                               " stop '" + getDestinationStop()->getID() + "'");
     return "transhipped to " + dest;
@@ -288,7 +288,7 @@ MSContainer::~MSContainer() {
 bool
 MSContainer::proceed(MSNet* net, SUMOTime time) {
     Stage* prior = *myStep;
-    prior->setArrived(time);
+    prior->setArrived(net, this, time);
     // must be done before increasing myStep to avoid invalid state for rendering
     prior->getEdge()->removeContainer(this);
     myStep++;

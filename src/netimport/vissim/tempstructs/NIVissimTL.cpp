@@ -98,11 +98,11 @@ NIVissimTL::NIVissimTLSignal*
 NIVissimTL::NIVissimTLSignal::dictionary(int lsaid, int id) {
     SignalDictType::iterator i = myDict.find(lsaid);
     if (i == myDict.end()) {
-        return 0;
+        return nullptr;
     }
     SSignalDictType::iterator j = (*i).second.find(id);
     if (j == (*i).second.end()) {
-        return 0;
+        return nullptr;
     }
     return (*j).second;
 }
@@ -133,10 +133,10 @@ bool
 NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
     NIVissimConnection* c = NIVissimConnection::dictionary(myEdgeID);
     NBConnectionVector assignedConnections;
-    if (c == 0) {
+    if (c == nullptr) {
         // What to do if on an edge? -> close all outgoing connections
         NBEdge* edge = ec.retrievePossiblySplit(toString<int>(myEdgeID), myPosition);
-        if (edge == 0) {
+        if (edge == nullptr) {
             WRITE_WARNING("Could not set tls signal at edge '" + toString(myEdgeID) + "' - the edge was not built.");
             return false;
         }
@@ -165,7 +165,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
         NBEdge* tmpFrom = ec.retrievePossiblySplit(toString<int>(c->getFromEdgeID()), toString<int>(c->getToEdgeID()), true);
         NBEdge* tmpTo = ec.retrievePossiblySplit(toString<int>(c->getToEdgeID()), toString<int>(c->getFromEdgeID()), false);
         // check whether the edges are known
-        if (tmpFrom != 0 && tmpTo != 0) {
+        if (tmpFrom != nullptr && tmpTo != nullptr) {
             // add connections this signal is responsible for
             assignedConnections.push_back(NBConnection(tmpFrom, -1, tmpTo, -1));
         } else {
@@ -240,11 +240,11 @@ NIVissimTL::NIVissimTLSignalGroup*
 NIVissimTL::NIVissimTLSignalGroup::dictionary(int lsaid, int id) {
     GroupDictType::iterator i = myDict.find(lsaid);
     if (i == myDict.end()) {
-        return 0;
+        return nullptr;
     }
     SGroupDictType::iterator j = (*i).second.find(id);
     if (j == (*i).second.end()) {
-        return 0;
+        return nullptr;
     }
     return (*j).second;
 }
@@ -306,7 +306,7 @@ NIVissimTL::NIVissimTL(int id, const std::string& type,
                        const std::string& name, SUMOTime absdur,
                        SUMOTime offset)
     : myID(id), myName(name), myAbsDuration(absdur), myOffset(offset),
-      myCurrentGroup(0), myType(type)
+      myCurrentGroup(nullptr), myType(type)
 
 {}
 
@@ -344,7 +344,7 @@ NIVissimTL*
 NIVissimTL::dictionary(int id) {
     DictType::iterator i = myDict.find(id);
     if (i == myDict.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second;
 }

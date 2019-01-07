@@ -1,0 +1,3 @@
+Warning: Ignoring stop at 'busStop0' until -0.00  for vehicle 'bus'.
+Warning: Ignoring stop at 'busStop1' until -0.00  for vehicle 'bus'.
+Warning: Not using public transport line 'l100' for routing persons. It has less than two usable stops.

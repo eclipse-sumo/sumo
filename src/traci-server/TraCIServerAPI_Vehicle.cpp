@@ -284,7 +284,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     int variable = inputStorage.readUnsignedByte();
     if (variable != CMD_STOP && variable != CMD_CHANGELANE
             && variable != CMD_REROUTE_TO_PARKING
-            && variable != CMD_CHANGESUBLANE
+            && variable != CMD_CHANGESUBLANE && variable != CMD_OPENGAP
             && variable != CMD_SLOWDOWN && variable != CMD_CHANGETARGET && variable != CMD_RESUME
             && variable != VAR_TYPE && variable != VAR_ROUTE_ID && variable != VAR_ROUTE
             && variable != VAR_UPDATE_BESTLANES
@@ -318,13 +318,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 #endif
     const bool shouldExist = variable != ADD && variable != ADD_FULL;
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
-    if (sumoVehicle == 0) {
+    if (sumoVehicle == nullptr) {
         if (shouldExist) {
             return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not known", outputStorage);
         }
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
-    if (v == 0 && shouldExist) {
+    if (v == nullptr && shouldExist) {
         return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Vehicle '" + id + "' is not a micro-simulation vehicle", outputStorage);
     }
     try {
@@ -479,6 +479,61 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Change target requires a string containing the id of the new destination edge as parameter.", outputStorage);
                 }
                 libsumo::Vehicle::changeTarget(id, edgeID);
+            }
+            break;
+            case CMD_OPENGAP: {
+                if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Create gap needs a compound object description.", outputStorage);
+                }
+                const int nParameter = inputStorage.readInt();
+                if (nParameter != 4 && nParameter != 5) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Create gap needs a compound object description of four or five items.", outputStorage);
+                }
+                double newTimeHeadway = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, newTimeHeadway)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The first create gap parameter must be the new desired time headway (tau) given as a double.", outputStorage);
+                }
+                double newSpaceHeadway = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, newSpaceHeadway)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The second create gap parameter must be the new desired space headway given as a double.", outputStorage);
+                }
+                double duration = 0.;
+                if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The third create gap parameter must be the duration given as a double.", outputStorage);
+                }
+                double changeRate = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, changeRate)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fourth create gap parameter must be the change rate given as a double.", outputStorage);
+                }
+
+                if (newTimeHeadway == -1 && newSpaceHeadway == -1 && duration == -1 && changeRate == -1) {
+                    libsumo::Vehicle::deactivateGapControl(id);
+                } else {
+                    if (newTimeHeadway <= 0) {
+                        if (newTimeHeadway != -1) {
+                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the new desired time headway (tau) must be positive for create gap", outputStorage);
+                        } // else if == -1: keep vehicles current headway, see libsumo::Vehicle::openGap
+                    }
+                    if (newSpaceHeadway < 0) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the new desired space headway must be non-negative for create gap", outputStorage);
+                    }
+                    if ((duration < 0 && duration != -1)  || SIMTIME + duration > STEPS2TIME(SUMOTime_MAX - DELTA_T)) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval for create gap", outputStorage);
+                    }
+                    if (changeRate <= 0) {
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the change rate must be positive for create gap", outputStorage);
+                    }
+                    double maxDecel = -1;
+                    if (nParameter == 5) {
+                        if (!server.readTypeCheckingDouble(inputStorage, maxDecel)) {
+                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth create gap parameter must be the maximal deceleration given as a double.", outputStorage);
+                        }
+                        if (changeRate <= 0) {
+                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the maximal deceleration must be positive for create gap", outputStorage);
+                        }
+                    }
+                    libsumo::Vehicle::openGap(id, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel);
+                }
             }
             break;
             case VAR_TYPE: {

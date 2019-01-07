@@ -17,6 +17,8 @@ copy_test_path:input_additionals.add.xml
 copy_test_path:input_shapes.add.xml
 copy_test_path:gui-settings.xml
 copy_test_path:berlin_icon.ico
+copy_test_path:fileA.txt
+copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 

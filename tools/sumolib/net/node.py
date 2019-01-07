@@ -32,6 +32,7 @@ class Node:
         self._intLanes = intLanes
         self._shape3D = None
         self._shape = None
+        self._params = {}
 
     def getID(self):
         return self._id
@@ -126,19 +127,40 @@ class Node:
         return self._type
 
     def getConnections(self, source=None, target=None):
-        incoming = list(self.getIncoming())
         if source:
             incoming = [source]
+        else:
+            incoming = list(self._incoming)
         conns = []
         for e in incoming:
-            for l in e.getLanes():
+            if (hasattr(e, "getLanes")):
+                lanes = e.getLanes()
+            else:
+                # assuming source is a lane
+                lanes = [e]
+            for l in lanes:
                 all_outgoing = l.getOutgoing()
                 outgoing = []
                 if target:
-                    for o in all_outgoing:
-                        if o.getTo() == target:
-                            outgoing.append(o)
+                    if hasattr(target, "getLanes"):
+                        for o in all_outgoing:
+                            if o.getTo() == target:
+                                outgoing.append(o)
+                    else:
+                        # assuming target is a lane
+                        for o in all_outgoing:
+                            if o.getToLane() == target:
+                                outgoing.append(o)
                 else:
                     outgoing = all_outgoing
                 conns.extend(outgoing)
         return conns
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params

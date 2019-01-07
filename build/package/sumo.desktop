@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Type=Application
-Exec=sumo-gui
+Exec=sumo-gui %F
 Icon=sumo
 Terminal=false
 Name=Sumo

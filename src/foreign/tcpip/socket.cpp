@@ -112,6 +112,36 @@ namespace tcpip
 #endif
 	}
 
+
+    int
+        Socket::
+        getFreeSocketPort()
+    {
+        // Create socket to find a random free port that can be handed to the app
+        int sock = static_cast<int>(socket( AF_INET, SOCK_STREAM, 0 ));
+        struct sockaddr_in self;
+        memset(&self, 0, sizeof(self));
+        self.sin_family = AF_INET;
+        self.sin_port = htons(0);
+        self.sin_addr.s_addr = htonl(INADDR_ANY);
+
+        socklen_t address_len = sizeof(self);
+        // bind with port==0 assigns free port
+        if ( bind(sock, (struct sockaddr*) &self, address_len) < 0)
+            BailOnSocketError("tcpip::Socket::getFreeSocketPort() Unable to bind socket");
+        // get the assigned port with getsockname
+        if ( getsockname(sock, (struct sockaddr*) &self, &address_len) < 0)
+            BailOnSocketError("tcpip::Socket::getFreeSocketPort() Unable to get socket name");
+        const int port = ntohs(self.sin_port);
+#ifdef WIN32
+        ::closesocket( sock );
+#else
+        ::close( sock );
+#endif
+        return port;
+    }
+
+
 	// ----------------------------------------------------------------------
 	Socket::
 		~Socket()
@@ -144,7 +174,7 @@ namespace tcpip
 	// ----------------------------------------------------------------------
 	void 
 		Socket::
-		BailOnSocketError( std::string context) const
+		BailOnSocketError( std::string context)
 	{
 #ifdef WIN32
 		int e = WSAGetLastError();
@@ -178,7 +208,7 @@ namespace tcpip
 		tv.tv_sec = 0;
 		tv.tv_usec = 0;
 
-		int r = select( sock+1, &fds, NULL, NULL, &tv);
+		int r = select( sock+1, &fds, nullptr, nullptr, &tv);
 
 		if (r < 0)
 			BailOnSocketError("tcpip::Socket::datawaiting @ select");
@@ -203,13 +233,13 @@ namespace tcpip
         hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
         hints.ai_flags = AI_PASSIVE; // fill in my IP for me
 
-        if ((status = getaddrinfo(address.c_str(), NULL, &hints, &servinfo)) != 0) {
+        if ((status = getaddrinfo(address.c_str(), nullptr, &hints, &servinfo)) != 0) {
             return false;
         }
         
         bool valid = false;
 
-        for (struct addrinfo *p = servinfo; p != NULL; p = p->ai_next) {
+        for (struct addrinfo *p = servinfo; p != nullptr; p = p->ai_next) {
             if (p->ai_family == AF_INET) { // IPv4
                 addr = *(struct sockaddr_in *)p->ai_addr;
                 addr.sin_port = htons((unsigned short)port_);
@@ -230,7 +260,7 @@ namespace tcpip
 		accept(const bool create)
 	{
 		if( socket_ >= 0 )
-			return 0;
+			return nullptr;
 
 		struct sockaddr_in client_addr;
 #ifdef WIN32
@@ -292,7 +322,7 @@ namespace tcpip
                 return result;
             }
 		}
-        return 0;
+        return nullptr;
 	}
 
 	// ----------------------------------------------------------------------
@@ -546,7 +576,6 @@ namespace tcpip
 	std::string 
 		Socket::
 		GetWinsockErrorString(int err) 
-		const
 	{
 
 		switch( err)

@@ -107,14 +107,14 @@ def getReachable(net, source_id, options, useIncoming=False):
                 cands = chain(chain(*edge.getIncoming().values()), chain(*edge.getOutgoing().values()))
             else:
                 cands = chain(*(edge.getIncoming().values() if useIncoming else edge.getOutgoing().values()))
-            #print("\n".join(map(str, list(cands))))
+            # print("\n".join(map(str, list(cands))))
             for conn in cands:
                 if options.vclass is None or (
                         conn.getFromLane().allows(options.vclass)
                         and conn.getToLane().allows(options.vclass)):
                     for reachable in [conn.getTo(), conn.getFrom()]:
                         if reachable not in found:
-                            #print("added %s via %s" % (reachable, conn))
+                            # print("added %s via %s" % (reachable, conn))
                             found.add(reachable)
                             new_fringe.append(reachable)
         fringe = new_fringe
@@ -138,9 +138,9 @@ def getReachable(net, source_id, options, useIncoming=False):
 if __name__ == "__main__":
     options = parse_args()
 
-    net = sumolib.net.readNet(options.net, 
-            withInternal=(options.vclass == "pedestrian"),
-            withPedestrianConnections=(options.vclass == "pedestrian"))
+    net = sumolib.net.readNet(options.net,
+                              withInternal=(options.vclass == "pedestrian"),
+                              withPedestrianConnections=(options.vclass == "pedestrian"))
     if options.source:
         getReachable(net, options.source, options)
     elif options.destination:

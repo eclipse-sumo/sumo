@@ -31,15 +31,15 @@ for root, dirs, files in os.walk(mRoot):
             out = open(full + ".hex", 'w')
             change = False
             for line in open(full):
-                l = line.split()
-                if l and l[0] in ["setvalue", "getvalue", "getvariable", "getvariable_plus"]:
-                    if not l[1][:2] == "0x":
-                        l[1] = "0x%x" % int(l[1])
+                ls = line.split()
+                if ls and ls[0] in ["setvalue", "getvalue", "getvariable", "getvariable_plus"]:
+                    if not ls[1][:2] == "0x":
+                        ls[1] = "0x%x" % int(ls[1])
                         change = True
-                    if not l[2][:2] == "0x":
-                        l[2] = "0x%x" % int(l[2])
+                    if not ls[2][:2] == "0x":
+                        ls[2] = "0x%x" % int(ls[2])
                         change = True
-                print(" ".join(l), file=out)
+                print(" ".join(ls), file=out)
             out.close()
             if change:
                 if os.name != "posix":

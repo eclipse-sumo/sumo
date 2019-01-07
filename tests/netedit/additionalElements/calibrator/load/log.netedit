@@ -1,9 +1,0 @@
-Warning: Essential unique string attribute 'id' of calibrator is missing; calibrator cannot be created
-Warning: Format of essential unique string attribute 'id' of calibrator is invalid; 'ID with spaces' contains invalid characters; calibrator cannot be created
-Warning: Format of essential unique string attribute 'id' of calibrator is invalid; ID cannot be empty; calibrator cannot be created
-Warning: There is another calibrator with the same ID='calibrator01'.
-Warning: additional calibrator must have either a lane or an edge attribute.
-Warning: The  edge 'dummyEdge' to use within the calibrator 'calibrator04' is not known.
-Warning: Essential positive float attribute 'pos' of calibrator with ID 'calibrator06' is missing; calibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of calibrator with ID 'calibrator07' is invalid; calibrator cannot be created
-Warning: Format of essential positive float attribute 'pos' of calibrator with ID 'calibrator08' is invalid; Cannot be negative; calibrator cannot be created

@@ -88,7 +88,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
     const std::string& name, GUILaneSpeedTrigger& o,
     int /*xpos*/, int /*ypos*/)
     : GUIManipulator(app, name, 0, 0),
-      myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, NULL, MID_OPTION),
+      myParent(&app), myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
       mySpeed(o.getDefaultSpeed()), mySpeedTarget(mySpeed),
       myObject(&o) {
     myChosenTarget.setTarget(this);
@@ -153,7 +153,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
         myUserDefinedSpeed->setValue(
             static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed() * 3.6);
     }
-    new FXButton(f1, "Close", NULL, this, MID_CLOSE,
+    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(true);
 }
@@ -318,7 +318,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     glTranslated(0, 0, getType());
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         double rot = myFGRotations[i];

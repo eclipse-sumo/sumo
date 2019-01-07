@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_0_1+0193-0616abb
+Eclipse SUMO netgenerate Version eeef47f
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -122,12 +122,25 @@ Processing Options:
   --turn-lanes INT                     Generate INT left-turn lanes
   --turn-lanes.length FLOAT            Set the length of generated turning
                                          lanes to FLOAT
+  --perturb-x STR                      Apply random spatial pertubation in x
+                                         direction according the the given
+                                         distribution
+  --perturb-y STR                      Apply random spatial pertubation in y
+                                         direction according the the given
+                                         distribution
+  --perturb-z STR                      Apply random spatial pertubation in z
+                                         direction according the the given
+                                         distribution
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
                                          integers
   --reserved-ids FILE                  Ensures that generated ids do not
                                          included any of the typed IDs from FILE
                                          (SUMO-GUI selection file format)
+  --geometry.max-grade FLOAT           Warn about edge geometries with a grade
+                                         in % above FLOAT.
+  --geometry.max-grade.fix             Smooth edge edge geometries with a grade
+                                         in above the warning threshold.
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions
@@ -156,6 +169,9 @@ Building Defaults Options:
                                          by default
   --default.junctions.radius FLOAT     The default turning radius of
                                          intersections
+  --default.right-of-way STR           The default algorithm for computing
+                                         right of way rules ('default',
+                                         'edgePriority')
   -j, --default-junction-type STR      [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
 
 TLS Building Options:
@@ -205,6 +221,10 @@ TLS Building Options:
                                          quarter-phase
   --tls.default-type STR               TLSs with unspecified type will use STR
                                          as their algorithm
+  --tls.layout STR                     Set phase layout four grouping opposite
+                                         directions or grouping all movements
+                                         for one incoming edge ['opposites',
+                                         'incoming']
   --tls.min-dur INT                    Default minimum phase duration for
                                          traffic lights with variable phase
                                          length

@@ -21,14 +21,6 @@
 // included modules
 // ===========================================================================
 
-#include <config.h>
-
-#include <string>
-#include <vector>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <utils/geom/PositionVector.h>
-#include <netedit/GNEAttributeCarrier.h>
 #include "GNEAdditional.h"
 
 // ===========================================================================
@@ -50,15 +42,13 @@ public:
     /**@brief Constructor
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] parkingAreaParent pointer to Parking Area parent
-     * @param[in] x ParkingSpace's X position
-     * @param[in] y ParkingSpace's Y position
-     * @param[in] z ParkingSpace's Z position
+     * @param[in] pos ParkingSpace's X-Y position
      * @param[in] width ParkingArea's width
      * @param[in] length ParkingArea's length
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement);
+    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position &pos, double width, double length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();
@@ -125,14 +115,8 @@ public:
     /// @}
 
 protected:
-    /// @brief x position of Parking Space
-    double myX;
-
-    /// @brief y position of Parking Space
-    double myY;
-
-    /// @brief z position of Parking Space
-    double myZ;
+    /// @brief position of Parking Space in view
+    Position myPosition;
 
     /// @brief width of Parking Space
     double myWidth;

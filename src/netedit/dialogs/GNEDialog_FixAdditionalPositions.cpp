@@ -68,7 +68,7 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create label for table
-    new FXLabel(mainFrame, "List of Stopping places and E2 detectors with conflicts", 0, GUIDesignLabelCenterThick);
+    new FXLabel(mainFrame, "List of Stopping places and E2 detectors with conflicts", nullptr, GUIDesignLabelCenterThick);
     // Create table, copy intervals and update table
     myTable = new FXTable(mainFrame, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
     myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
@@ -89,7 +89,7 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
     myTable->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over single lane additionals
     for (auto i : myInvalidSingleLaneAdditionals) {
         // Set icon
@@ -251,7 +251,7 @@ GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
 void 
 GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
     // create label for elements
-    new FXLabel(mainFrame, "Select a solution for StoppingPlaces and E2 detectors:", 0, GUIDesignLabelCenterThick);
+    new FXLabel(mainFrame, "Select a solution for StoppingPlaces and E2 detectors:", nullptr, GUIDesignLabelCenterThick);
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -318,7 +318,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::disablePositionOptions() {
 void 
 GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
     // create label for elements
-    new FXLabel(mainFrame, "Select a solution for Multilane E2 detectors:", 0, GUIDesignLabelCenterThick);
+    new FXLabel(mainFrame, "Select a solution for Multilane E2 detectors:", nullptr, GUIDesignLabelCenterThick);
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options

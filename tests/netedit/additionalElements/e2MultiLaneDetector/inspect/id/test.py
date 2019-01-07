@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -47,17 +47,17 @@ netedit.typeEnter()
 # go to additional mode
 netedit.inspectMode()
 
-#inspect first E2
+# inspect first E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "e2MultilaneDetector_1")
+# Change parameter id with a non valid value (Duplicated ID)
+netedit.modifyAttribute(3, "e2MultilaneDetector_1")
 
-# Change parameter 0 with a non valid value (Invalid ID)
-netedit.modifyAttribute(0, "Id with spaces")
+# Change parameter id with a non valid value (Invalid ID)
+netedit.modifyAttribute(3, "Id with spaces")
 
-# Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "correctID")
+# Change parameter id with a valid value
+netedit.modifyAttribute(3, "correctID")
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

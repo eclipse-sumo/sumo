@@ -1,0 +1,21 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 140
+25
+25
+25
+e3Detector
+TestFunctions: Clicked over position 554 - 240
+detEntry
+TestFunctions: Clicked over position 554 - 240
+TestFunctions: Clicked over position 484 - 340
+detExit
+TestFunctions: Clicked over position 554 - 240
+TestFunctions: Clicked over position 704 - 340
+TestFunctions: Clicked over position 504 - 340
+dummyLane
+
+gneE3_1
+TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 304 - 140
+TestFunctions: Netedit closed successfully

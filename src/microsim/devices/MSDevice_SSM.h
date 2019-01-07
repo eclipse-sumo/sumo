@@ -27,7 +27,7 @@
 #include <config.h>
 
 #include <queue>
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice_File.h>
 #include <utils/geom/Position.h>
@@ -53,7 +53,7 @@ class SUMOVehicle;
 
 class MSCrossSection;
 
-class MSDevice_SSM : public MSDevice {
+class MSDevice_SSM : public MSVehicleDevice {
 
 private:
     /// All currently existing SSM devices
@@ -302,7 +302,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 
     /** @brief returns all currently existing SSM devices

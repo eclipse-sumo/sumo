@@ -54,11 +54,14 @@ GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -5.00,-30.00,80.00,31.
 GLDebug: Inserted edge:gneE5 into SUMORTree with boundary -30.00,-30.00,55.00,31.60
 GLDebug: Removed object edge:gneE5 from SUMORTree with boundary -30.00,-30.00,55.00,31.60
 GLDebug: Inserted edge:gneE5 into SUMORTree with boundary -30.00,-30.00,55.00,31.60
-Debug: Selected additional 'e2MultilaneDetector' in AdditionalSelector
+Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'e2MultilaneDetector' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -66,18 +69,24 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute blockMovement 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute blockMovement 'false' into e2MultilaneDetector 'e2MultilaneDetector_0'
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 1, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -20.00,-21.60,46.00,18.40
 Debug: Setting new attribute pos '0.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
@@ -86,6 +95,7 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary 
 Debug: Setting new attribute endPos '0.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -20.00,-21.60,46.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -20.00,-21.60,46.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute endPos '11.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -20.00,-21.60,46.00,18.40
@@ -104,6 +114,7 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary 
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -9.00,-21.60,56.00,18.40
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -9.00,-21.60,56.00,18.40

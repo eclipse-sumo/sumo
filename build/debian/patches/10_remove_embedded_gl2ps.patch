@@ -1,0 +1,126 @@
+Description: Remove from compilation embedded copy of gl2ps, use packaged version instead.
+Author: Anton Gladky <gladk@debian.org>
+Last-Update: 2015-04-16
+
+Index: sumo-0.32.0/src/foreign/Makefile.am
+===================================================================
+--- sumo-0.32.0.orig/src/foreign/Makefile.am
++++ sumo-0.32.0/src/foreign/Makefile.am
+@@ -1,5 +1,5 @@
+ if WITH_GUI
+-GUIDIRS = gl2ps rtree fontstash
++GUIDIRS = rtree fontstash
+ endif
+ 
+ SUBDIRS = eulerspiral tcpip PHEMlight $(GUIDIRS) 
+Index: sumo-0.32.0/src/foreign/Makefile.in
+===================================================================
+--- sumo-0.32.0.orig/src/foreign/Makefile.in
++++ sumo-0.32.0/src/foreign/Makefile.in
+@@ -152,7 +152,7 @@ am__define_uniq_tagged_files = \
+   done | $(am__uniquify_input)`
+ ETAGS = etags
+ CTAGS = ctags
+-DIST_SUBDIRS = eulerspiral tcpip PHEMlight gl2ps rtree fontstash
++DIST_SUBDIRS = eulerspiral tcpip PHEMlight rtree fontstash
+ am__DIST_COMMON = $(srcdir)/Makefile.in
+ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+ am__relativize = \
+@@ -327,7 +327,7 @@ target_vendor = @target_vendor@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-@WITH_GUI_TRUE@GUIDIRS = gl2ps rtree fontstash
++@WITH_GUI_TRUE@GUIDIRS = rtree fontstash
+ SUBDIRS = eulerspiral tcpip PHEMlight $(GUIDIRS) 
+ all: all-recursive
+ 
+Index: sumo-0.32.0/src/utils/gui/windows/GUISUMOAbstractView.cpp
+===================================================================
+--- sumo-0.32.0.orig/src/utils/gui/windows/GUISUMOAbstractView.cpp
++++ sumo-0.32.0/src/utils/gui/windows/GUISUMOAbstractView.cpp
+@@ -37,7 +37,7 @@
+ #include <cassert>
+ #include <limits>
+ #include <fxkeys.h>
+-#include <foreign/gl2ps/gl2ps.h>
++#include <gl2ps.h>
+ #include <utils/foxtools/FXSingleEventThread.h>
+ #include <utils/foxtools/MFXCheckableButton.h>
+ #include <utils/foxtools/MFXImageHelper.h>
+Index: sumo-0.32.0/src/netedit/Makefile.am
+===================================================================
+--- sumo-0.32.0.orig/src/netedit/Makefile.am
++++ sumo-0.32.0/src/netedit/Makefile.am
+@@ -112,7 +112,6 @@ netedit_LDADD = ../netimport/libnetimpor
+ ../utils/gui/tracker/libguiutilstracker.a \
+ ../utils/foxtools/libfoxtools.a \
+ ../utils/distribution/libdistribution.a \
+-../foreign/gl2ps/libgl2ps.a \
+ ../foreign/eulerspiral/libeulerspiral.a \
+ ../utils/geom/libgeom.a \
+ ../utils/shapes/libshapes.a \
+Index: sumo-0.32.0/src/netedit/Makefile.in
+===================================================================
+--- sumo-0.32.0.orig/src/netedit/Makefile.in
++++ sumo-0.32.0/src/netedit/Makefile.in
+@@ -251,7 +251,6 @@ am__DEPENDENCIES_1 =
+ @WITH_GUI_TRUE@	../utils/gui/tracker/libguiutilstracker.a \
+ @WITH_GUI_TRUE@	../utils/foxtools/libfoxtools.a \
+ @WITH_GUI_TRUE@	../utils/distribution/libdistribution.a \
+-@WITH_GUI_TRUE@	../foreign/gl2ps/libgl2ps.a \
+ @WITH_GUI_TRUE@	../foreign/eulerspiral/libeulerspiral.a \
+ @WITH_GUI_TRUE@	../utils/geom/libgeom.a \
+ @WITH_GUI_TRUE@	../utils/shapes/libshapes.a \
+@@ -598,7 +597,6 @@ EXTRA_DIST = netedit64.ico netedit.rc
+ @WITH_GUI_TRUE@../utils/gui/tracker/libguiutilstracker.a \
+ @WITH_GUI_TRUE@../utils/foxtools/libfoxtools.a \
+ @WITH_GUI_TRUE@../utils/distribution/libdistribution.a \
+-@WITH_GUI_TRUE@../foreign/gl2ps/libgl2ps.a \
+ @WITH_GUI_TRUE@../foreign/eulerspiral/libeulerspiral.a \
+ @WITH_GUI_TRUE@../utils/geom/libgeom.a \
+ @WITH_GUI_TRUE@../utils/shapes/libshapes.a \
+Index: sumo-0.32.0/src/Makefile.am
+===================================================================
+--- sumo-0.32.0.orig/src/Makefile.am
++++ sumo-0.32.0/src/Makefile.am
+@@ -85,7 +85,6 @@ sumo_gui_LDADD =  ./gui/libgui.a \
+ ./mesogui/libmesogui.a \
+ ./osgview/libosgview.a \
+ $(sumo_LDADD) \
+-./foreign/gl2ps/libgl2ps.a \
+ ./gui/GUIManipulator.o \
+ ./gui/GUITLLogicPhasesTrackerWindow.o \
+ $(OSG_LIBS) $(FFMPEG_LIBS) \
+Index: sumo-0.32.0/src/Makefile.in
+===================================================================
+--- sumo-0.32.0.orig/src/Makefile.in
++++ sumo-0.32.0/src/Makefile.in
+@@ -178,7 +178,6 @@ am__DEPENDENCIES_3 = ./netload/libnetloa
+ @WITH_GUI_TRUE@	./utils/foxtools/libfoxtools.a \
+ @WITH_GUI_TRUE@	./mesogui/libmesogui.a ./osgview/libosgview.a \
+ @WITH_GUI_TRUE@	$(am__DEPENDENCIES_3) \
+-@WITH_GUI_TRUE@	./foreign/gl2ps/libgl2ps.a \
+ @WITH_GUI_TRUE@	./gui/GUIManipulator.o \
+ @WITH_GUI_TRUE@	./gui/GUITLLogicPhasesTrackerWindow.o \
+ @WITH_GUI_TRUE@	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+@@ -510,7 +509,6 @@ $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ
+ @WITH_GUI_TRUE@./mesogui/libmesogui.a \
+ @WITH_GUI_TRUE@./osgview/libosgview.a \
+ @WITH_GUI_TRUE@$(sumo_LDADD) \
+-@WITH_GUI_TRUE@./foreign/gl2ps/libgl2ps.a \
+ @WITH_GUI_TRUE@./gui/GUIManipulator.o \
+ @WITH_GUI_TRUE@./gui/GUITLLogicPhasesTrackerWindow.o \
+ @WITH_GUI_TRUE@$(OSG_LIBS) $(FFMPEG_LIBS) \
+Index: sumo-0.32.0/configure.ac
+===================================================================
+--- sumo-0.32.0.orig/configure.ac
++++ sumo-0.32.0/configure.ac
+@@ -450,7 +450,6 @@ src/activitygen/city/Makefile
+ src/foreign/Makefile
+ src/foreign/eulerspiral/Makefile
+ src/foreign/fontstash/Makefile
+-src/foreign/gl2ps/Makefile
+ src/foreign/PHEMlight/Makefile
+ src/foreign/PHEMlight/cpp/Makefile
+ src/foreign/rtree/Makefile

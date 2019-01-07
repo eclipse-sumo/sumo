@@ -65,5 +65,7 @@ double MSGlobals::gDefaultEmergencyDecel(-1); // default for unitTest
 bool MSGlobals::gUnitTests(false);
 
 bool MSGlobals::gComputeLC;
+
+double MSGlobals::gEmergencyDecelWarningThreshold(1);
 /****************************************************************************/
 

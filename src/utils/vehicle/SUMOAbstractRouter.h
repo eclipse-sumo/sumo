@@ -45,6 +45,49 @@
 template<class E, class V>
 class SUMOAbstractRouter {
 public:
+    /**
+    * @class EdgeInfo
+    * A definition about a route's edge with the effort needed to reach it and
+    *  the information about the previous edge.
+    */
+    class EdgeInfo {
+    public:
+        /// Constructor
+        EdgeInfo(const E* const e)
+            : edge(e), effort(std::numeric_limits<double>::max()),
+            heuristicEffort(std::numeric_limits<double>::max()),
+            leaveTime(0.), prev(nullptr), visited(false) {}
+
+        /// The current edge
+        const E* const edge;
+
+        /// Effort to reach the edge
+        double effort;
+
+        /// Estimated effort to reach the edge (effort + lower bound on remaining effort)
+        // only used by A*
+        double heuristicEffort;
+
+        /// The time the vehicle leaves the edge
+        double leaveTime;
+
+        /// The previous edge
+        const EdgeInfo* prev;
+
+        /// The previous edge
+        bool visited;
+
+        inline void reset() {
+            effort = std::numeric_limits<double>::max();
+            visited = false;
+        }
+
+    private:
+        /// @brief Invalidated assignment operator
+        EdgeInfo& operator=(const EdgeInfo& s) = delete;
+
+    };
+
     /// Type of the function that is used to retrieve the edge effort.
     typedef double(* Operation)(const E* const, const V* const, double);
 
@@ -82,18 +125,21 @@ public:
         return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
     }
 
+    inline void updateViaEdgeCost(const E* viaEdge, const V* const v, double& time, double& effort, double& length) const {
+        while (viaEdge != nullptr && viaEdge->isInternal()) {
+            const double viaEffortDelta = this->getEffort(viaEdge, v, time);
+            time += getTravelTime(viaEdge, v, time, viaEffortDelta);
+            effort += viaEffortDelta;
+            length += viaEdge->getLength();
+            viaEdge = viaEdge->getViaSuccessors().front().second;
+        }
+    }
+
     inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
         if (prev != nullptr) {
             for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
                 if (follower.first == e) {
-                    const E* viaEdge = follower.second;
-                    while (viaEdge != nullptr && viaEdge->isInternal()) {
-                        const double viaEffortDelta = this->getEffort(viaEdge, v, time);
-                        time += getTravelTime(viaEdge, v, time, viaEffortDelta);
-                        effort += viaEffortDelta;
-                        length += viaEdge->getLength();
-                        viaEdge = viaEdge->getViaSuccessors().front().first;
-                    }
+                    updateViaEdgeCost(follower.second, v, time, effort, length);
                     break;
                 }
             }
@@ -197,4 +243,3 @@ protected:
 #endif
 
 /****************************************************************************/
-

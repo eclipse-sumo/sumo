@@ -28,7 +28,7 @@
 #include <string>
 #include <map>
 #include "SUMOVehicleClass.h"
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -339,14 +339,14 @@ bool noVehicles(SVCPermissions permissions) {
 }
 
 std::map<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, 0, ok, "");
-    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, 0, ok, "");
+    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
+    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
     if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
         WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed!");
         ok = false;
         return std::map<SVCPermissions, double>();
     }
-    const double value = attrs.get<double>(SUMO_ATTR_VALUE, 0, ok);
+    const double value = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
 
     int vClassBitset;
     if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {

@@ -1,8 +1,8 @@
 # create connection
-create_default
+default
 
 # create invalid connection
-create_invalid
+invalid
 
 # create yield connection
-create_yield
+yield

@@ -101,7 +101,7 @@ public class SumoTraciConnection {
 	private String additional_file;
 	private String gui_settings;
 	
-	String sumoEXE = "/opt/sumo/sumo-0.32.0/bin/sumo";
+	String sumoEXE = "/opt/sumo/sumo-1.1.0/bin/sumo";
 	private CommandProcessor cp;
 	
 	private Process sumoProcess;
@@ -364,7 +364,21 @@ public class SumoTraciConnection {
 		
 		return output;
 	}
-	
+
+
+	public synchronized void setOrder(int index) throws Exception{
+
+		if (isClosed())
+			throw new IllegalStateException("connection is closed");
+
+		try {this.cp.do_setOrder(index);}
+		catch (Exception e) {
+			closeAndDontCareAboutInterruptedException();
+			throw e;
+		}
+
+	}
+
 	public synchronized void do_timestep() throws Exception{this.do_timestep(0);}
 	
 	public synchronized void do_timestep(double targetTime) throws Exception{

@@ -21,7 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SUMOTime.h>
@@ -51,7 +51,7 @@ MSDevice_Battery::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     // Check if vehicle should get a battery
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "battery", v, false)) {
         const HelpersEnergy& e = PollutantsInterface::getEnergyHelper();
@@ -65,7 +65,7 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         if (v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "-") == "-") {
             actualBatteryCapacity = maximumBatteryCapacity * DEFAULT_CHARGE_RATIO;
         } else {
-            actualBatteryCapacity = TplConvert::_2double(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0").c_str());
+            actualBatteryCapacity = StringUtils::toDouble(v.getParameter().getParameter(toString(SUMO_ATTR_ACTUALBATTERYCAPACITY), "0"));
         }
 
         const double powerMax = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100.);
@@ -183,12 +183,12 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
         myChargingStopped = false;
 
         // Disable charging vehicle
-        if (myActChargingStation != NULL) {
+        if (myActChargingStation != nullptr) {
             myActChargingStation->setChargingVehicle(false);
         }
 
         // Set charging station pointer to NULL
-        myActChargingStation = NULL;
+        myActChargingStation = nullptr;
 
         // Set energy charged to 0
         myEnergyCharged = 0.00;
@@ -207,7 +207,7 @@ bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double 
 // ---------------------------------------------------------------------------
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
                                    const double powerMax, const double stoppingTreshold, const std::map<int, double>& param) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myActualBatteryCapacity(0),         // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
     myPowerMax(0),                      // [maximumPower >= 0]
@@ -217,7 +217,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myChargingStopped(false),           // Initially vehicle don't charge stopped
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
     myConsum(0),                        // Initially the vehicle is stopped and therefore the consum is zero.
-    myActChargingStation(NULL),         // Initially the vehicle isn't over a Charging Station
+    myActChargingStation(nullptr),         // Initially the vehicle isn't over a Charging Station
     myEnergyCharged(0),                 // Initially the energy charged is zero
     myVehicleStopped(0) {               // Initially the vehicle is stopped and the corresponding variable is 0
 
@@ -381,7 +381,7 @@ MSDevice_Battery::getChargingStartTime() const {
 
 std::string
 MSDevice_Battery::getChargingStationID() const {
-    if (myActChargingStation != NULL) {
+    if (myActChargingStation != nullptr) {
         return myActChargingStation->getID();
     } else {
         return "NULL";
@@ -429,7 +429,7 @@ void
 MSDevice_Battery::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
-        doubleValue = TplConvert::_2double(value.c_str());
+        doubleValue = StringUtils::toDouble(value);
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }

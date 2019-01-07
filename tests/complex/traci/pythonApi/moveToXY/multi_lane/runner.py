@@ -17,7 +17,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 
 if 'SUMO_HOME' in os.environ:
@@ -32,10 +31,10 @@ import sumolib  # noqa
 sumoBinary = os.environ["SUMO_BINARY"]
 PORT = sumolib.miscutils.getFreeSocketPort()
 cmd = [sumoBinary,
-        '-n', 'input_net2.net.xml',
-        '--no-step-log',
-        #'-S', '-Q',
-        ]
+       '-n', 'input_net2.net.xml',
+       '--no-step-log',
+       # '-S', '-Q',
+       ]
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
 INVALID = traci.constants.INVALID_DOUBLE_VALUE
@@ -56,15 +55,15 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
             (exPos is not None and abs(exPos - pos2) > 0.1) or
             (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)):
         print(comment, ("failed: x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   " +
-              "posLat=%s posLat2=%s") % (x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
+                        "posLat=%s posLat2=%s") % (x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
     else:
         # (comment, "success")
         pass
-    print(traci.simulation.getTime(), 
-            " lane=%s" % lane2,
-            #" route=%s" % str(traci.vehicle.getRoute(vehID)),
-            " right=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID, -1),
-            " left=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID,  1))
+    print(traci.simulation.getTime(),
+          " lane=%s" % lane2,
+          # " route=%s" % str(traci.vehicle.getRoute(vehID)),
+          " right=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID, -1),
+          " left=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID,  1))
 
 
 traci.start(cmd)

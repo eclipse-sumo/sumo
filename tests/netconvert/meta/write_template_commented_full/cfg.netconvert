@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Oct  6 23:21:24 2018 by Eclipse SUMO netconvert Version v1_0_1+0193-0616abb
+<!-- generated on Thu Dec  6 21:23:27 2018 by Eclipse SUMO netconvert Version eeef47f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -243,11 +243,14 @@
         <!-- Ignore overlapping edges if they are separated vertically by the given threshold. -->
         <geometry.check-overlap.vertical-threshold value="4" type="FLOAT"/>
 
-        <!-- Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed. -->
-        <geometry.max-grade value="10" type="FLOAT"/>
-
         <!-- Modify edge geometries to avoid overlap at junctions -->
         <geometry.avoid-overlap value="true" type="BOOL"/>
+
+        <!-- Warn about edge geometries with a grade in % above FLOAT. -->
+        <geometry.max-grade value="10" type="FLOAT"/>
+
+        <!-- Smooth edge edge geometries with a grade in above the warning threshold. -->
+        <geometry.max-grade.fix value="true" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL"/>
@@ -315,6 +318,9 @@
         <!-- The default turning radius of intersections -->
         <default.junctions.radius value="4" type="FLOAT"/>
 
+        <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
+        <default.right-of-way value="default" type="STR"/>
+
     </building_defaults>
 
     <tls_building>
@@ -334,7 +340,7 @@
         <tls.guess value="false" synonymes="guess-tls" type="BOOL"/>
 
         <!-- Sets minimum value for the sum of all incoming lane speeds when guessing TLS -->
-        <tls.guess.threshold value="41.6667" type="FLOAT"/>
+        <tls.guess.threshold value="69.4444" type="FLOAT"/>
 
         <!-- Sets district nodes as tls-controlled -->
         <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL"/>
@@ -401,6 +407,9 @@
 
         <!-- TLSs with unspecified type will use STR as their algorithm -->
         <tls.default-type value="static" type="STR"/>
+
+        <!-- Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;] -->
+        <tls.layout value="opposites" type="STR"/>
 
         <!-- Default minimum phase duration for traffic lights with variable phase length -->
         <tls.min-dur value="5" type="INT"/>

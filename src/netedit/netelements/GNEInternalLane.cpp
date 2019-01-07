@@ -21,30 +21,15 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <time.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/common/RandHelper.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <netedit/GNENet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEInternalLane.h"
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -83,13 +68,13 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 // method definitions
 // ===========================================================================
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
-    GUIGlObject(editor == 0 ? GLO_JUNCTION : GLO_TLLOGIC, id),
+    GUIGlObject(editor == nullptr ? GLO_JUNCTION : GLO_TLLOGIC, id),
     myShape(shape),
     myState(state),
     myStateTarget(myState),
     myEditor(editor),
     myTlIndex(tlIndex),
-    myPopup(0) {
+    myPopup(nullptr) {
     int segments = (int) myShape.size() - 1;
     if (segments >= 0) {
         myShapeRotations.reserve(segments);
@@ -115,7 +100,7 @@ GNEInternalLane::~GNEInternalLane() {}
 
 long
 GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
-    if (myEditor != 0) {
+    if (myEditor != nullptr) {
         FXuint before = myState;
         myStateTarget.handle(obj, sel, data);
         if (myState != before) {
@@ -123,9 +108,9 @@ GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
         }
         // let GUISUMOAbstractView know about clicks so that the popup is properly destroyed
         if (FXSELTYPE(sel) == SEL_COMMAND) {
-            if (myPopup != 0) {
+            if (myPopup != nullptr) {
                 myPopup->getParentView()->destroyPopup();
-                myPopup = 0;
+                myPopup = nullptr;
             }
         }
     }
@@ -174,7 +159,7 @@ GUIGLObjectPopupMenu*
 GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     myPopup = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(myPopup, app);
-    if (myEditor != 0) {
+    if (myEditor != nullptr) {
         const std::vector<std::string> names = LinkStateNames.getStrings();
         for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
             FXuint state = LinkStateNames.get(*it);

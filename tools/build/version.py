@@ -26,9 +26,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sys
-import re
 import subprocess
-from os.path import dirname, exists, getmtime, join, isdir
+from os.path import dirname, exists, getmtime, join
 
 UNKNOWN_REVISION = "UNKNOWN"
 GITDIR = '.git'
@@ -64,7 +63,7 @@ def main():
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
         if sys.argv[1] == "-":
-            print(gitDescribe(gitDir=vcsDir))
+            sys.stdout.write(gitDescribe(gitDir=vcsDir))
             return
     else:
         versionDir = join(sumoRoot, "src")

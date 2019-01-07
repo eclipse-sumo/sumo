@@ -6,7 +6,6 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycl
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.lane|cycleway.track|highway.tertiary' (first occurence for edge '93704176#0').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '176006592').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '283006425#0').
-Warning: Referenced node: '1865877918' in relation: '4435074' does not exist. Probably OSM file is incomplete.
 Warning: Could not determine cross product
 Warning: Could not determine cross product
 Warning: Found sharp turn with radius 5.27 at the start of edge '-176023638#0'.

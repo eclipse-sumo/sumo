@@ -134,7 +134,7 @@ public:
             myCHInfos[i].updatePriority(mySPTree);
             queue.push_back(&(myCHInfos[i]));
         }
-        make_heap(queue.begin(), queue.end(), myCmp);
+        std::make_heap(queue.begin(), queue.end(), myCmp);
         int contractionRank = 0;
         // contraction loop
         while (!queue.empty()) {
@@ -170,9 +170,9 @@ public:
                 to->approaching.push_back(CHConnection(from, it->cost, it->permissions, it->underlying));
             }
             // if you need to debug the chrouter with MSVC uncomment the following line, hierarchy building will get slower and the hierarchy may change though
-            //make_heap(queue.begin(), queue.end(), myCmp);
+            //std::make_heap(queue.begin(), queue.end(), myCmp);
             // remove from queue
-            pop_heap(queue.begin(), queue.end(), myCmp);
+            std::pop_heap(queue.begin(), queue.end(), myCmp);
             queue.pop_back();
             /*
             if (contractionRank % 10000 == 0) {
@@ -180,7 +180,7 @@ public:
                 for (typename std::vector<CHInfo*>::iterator it = queue.begin(); it != queue.end(); ++it) {
                     (*it)->updatePriority(mySPTree);
                 }
-                make_heap(queue.begin(), queue.end(), myCmp);
+                std::make_heap(queue.begin(), queue.end(), myCmp);
             }
             */
             contractionRank++;
@@ -431,16 +431,21 @@ private:
         if (prune && ((edge->getPermissions() & mySVC) != mySVC)) {
             return;
         }
-        const double cost = effortProvider->getEffort(edge, vehicle, time);
+        const double baseCost = effortProvider->getEffort(edge, vehicle, time);
 
-        const std::vector<E*>& successors = edge->getSuccessors(mySVC);
-        for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-            const E* fEdge = *it;
+        for (const std::pair<const E*, const E*>& successor : edge->getViaSuccessors(mySVC)) {
+            const E* fEdge = successor.first;
             if (prune && ((fEdge->getPermissions() & mySVC) != mySVC)) {
                 continue;
             }
-            CHInfo* follower = getCHInfo(fEdge);
-            SVCPermissions permissions = (edge->getPermissions() & follower->edge->getPermissions());
+            CHInfo* const follower = getCHInfo(fEdge);
+            const SVCPermissions permissions = (edge->getPermissions() & fEdge->getPermissions());
+            double cost = baseCost;
+            const E* viaEdge = successor.second;
+            while (viaEdge != nullptr && viaEdge->isInternal()) {
+                cost += effortProvider->getEffort(viaEdge, vehicle, time);
+                viaEdge = viaEdge->getViaSuccessors().front().first;
+            }
             info.followers.push_back(CHConnection(follower, cost, permissions, 1));
             follower->approaching.push_back(CHConnection(&info, cost, permissions, 1));
         }
@@ -473,8 +478,8 @@ private:
         debugPrintQueue(queue);
 #endif
         if (max->updatePriority(mySPTree)) {
-            pop_heap(queue.begin(), queue.end(), myCmp);
-            push_heap(queue.begin(), queue.end(), myCmp);
+            std::pop_heap(queue.begin(), queue.end(), myCmp);
+            std::push_heap(queue.begin(), queue.end(), myCmp);
             return true;
         } else {
             return false;

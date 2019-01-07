@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
@@ -19,7 +16,8 @@ GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
-Debug: Selected additional 'vaporizer' in AdditionalSelector
+Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'vaporizer' in ItemSelector
 Debug: Adding vaporizer 'gneE3' in GNEChange_Additional
 GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
@@ -31,82 +29,40 @@ GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,
 GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Setting new attribute genericParameter '' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter '' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter '' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key2=value2|key3=value3|keyInvalid.;%>%$$=value1' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into vaporizer 'gneE3'
-GLDebug: Removed object vaporizer:gneE3 from SUMORTree with boundary 27.50,4.80,67.50,44.80
-GLDebug: Inserted vaporizer:gneE3 into SUMORTree with boundary 27.50,4.80,67.50,44.80
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

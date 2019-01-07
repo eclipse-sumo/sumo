@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    plotTrajectories.py
+# @file    plot_trajectories.py
 # @author  Jakob Erdmann
 # @date    2018-08-18
 # @version $Id$
@@ -23,25 +23,27 @@ Individual trajectories can be clicked in interactive mode to print the vehicle 
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
-import os
-import math
 from collections import defaultdict
 from optparse import OptionParser
 import matplotlib.pyplot as plt
 
 from sumolib.xml import parse_fast_nested
 
+
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select one of ('ds','ts', 'td', 'da', 'ta') for plotting" 
-                         + " distanceVsSpeed (default), timeVsSpeed, timeVsDistance, distanceVsAcceleration, timeVsAcceleration")
+                         help="select one of ('ds','ts', 'td', 'da', 'ta') for plotting distanceVsSpeed (default), " +
+                         "timeVsSpeed, timeVsDistance, distanceVsAcceleration, timeVsAcceleration")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
-    optParser.add_option("-b", "--ballistic", action="store_true", default=False, help="perform ballistic integration of distance")
-    optParser.add_option("--filter-route", dest="filterRoute", help="only export trajectories that pass the given list of edges (regardless of gaps)")
-    optParser.add_option("--pick-distance", dest="pickDist", type="float", default=1,  help="pick lines within the given distance in interactive plot mode")
+    optParser.add_option("-b", "--ballistic", action="store_true", default=False,
+                         help="perform ballistic integration of distance")
+    optParser.add_option("--filter-route", dest="filterRoute",
+                         help="only export trajectories that pass the given list of edges (regardless of gaps)")
+    optParser.add_option("--pick-distance", dest="pickDist", type="float", default=1,
+                         help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -53,6 +55,7 @@ def getOptions(args=None):
         options.filterRoute = options.filterRoute.split(',')
     return options
 
+
 def write_csv(data, fname):
     with open(fname, 'w') as f:
         for veh, vals in data.items():
@@ -61,8 +64,10 @@ def write_csv(data, fname):
                 f.write(" ".join(map(str, x)) + "\n")
             f.write('\n')
 
+
 def onpick(event):
     print(event.label)
+
 
 def main(options):
     fig = plt.figure(figsize=(14, 9), dpi=100)
@@ -96,9 +101,10 @@ def main(options):
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
-    routes = defaultdict(list) # vehID -> recorded edges
-    data = defaultdict(lambda : ([], [], [], [])) # vehID -> (times, speeds, distances, accelerations)
-    for timestep, vehicle  in parse_fast_nested(options.fcdfile, 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
+    routes = defaultdict(list)  # vehID -> recorded edges
+    data = defaultdict(lambda: ([], [], [], []))  # vehID -> (times, speeds, distances, accelerations)
+    for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
+                                               'vehicle', ['id', 'speed', 'lane']):
         time = float(timestep.time)
         speed = float(vehicle.speed)
         prevTime = time
@@ -127,30 +133,29 @@ def main(options):
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
             return False, dict()
-        for x,y in zip(line.get_xdata(), line.get_ydata()):
+        for x, y in zip(line.get_xdata(), line.get_ydata()):
             if (x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2 < options.pickDist:
                 return True, dict(label=line.get_label())
         return False, dict()
-
 
     for vehID, d in data.items():
         if options.filterRoute is not None:
             skip = False
             route = routes[vehID]
             for required in options.filterRoute:
-                if not required in route:
+                if required not in route:
                     skip = True
-                    break;
+                    break
             if skip:
                 continue
         plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
-
 
     plt.savefig(options.output)
     if options.csv_output is not None:
         write_csv(data, options.csv_output)
     if options.show:
         plt.show()
+
 
 if __name__ == "__main__":
     main(getOptions())

@@ -42,20 +42,20 @@ netedit.typeEnter()
 # go to additional mode
 netedit.inspectMode()
 
-#inspect E2
+# inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change parameter 3 with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyPos")
+# Change parameter pos with a non valid value (dummy)
+netedit.modifyAttribute(6, "dummyPos")
 
-# Change parameter 3 with a non valid value (negative)
-netedit.modifyAttribute(3, "-5")
+# Change parameter pos with a non valid value (negative)
+netedit.modifyAttribute(6, "-5")
 
-# Change parameter 3 with a non valid value (> endPos)
-netedit.modifyAttribute(3, "400")
+# Change parameter pos with a non valid value (> endPos)
+netedit.modifyAttribute(6, "400")
 
-# Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "20")
+# Change parameter pos with a valid value
+netedit.modifyAttribute(6, "20")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

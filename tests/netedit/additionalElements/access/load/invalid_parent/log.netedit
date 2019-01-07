@@ -1,0 +1,3 @@
+Warning: Essential unique string attribute 'id' of busStop is missing; busStop cannot be created
+Warning: busStop parent of access was not loaded sucesfully.
+Warning: A access must be declared within the definition of a busStop.

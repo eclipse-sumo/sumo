@@ -18,31 +18,14 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEStoppingPlace.h"
 #include "GNEAdditionalHandler.h"
@@ -157,6 +140,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
         // Calculate new position using old position
         Position newPosition = myMove.originalViewPosition;
         newPosition.add(offset);
+        // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         double offsetLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false) - myLane->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
         // check if start position must be moved  
@@ -177,7 +161,7 @@ void
 GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
     if (!myStartPosition.empty() || !myEndPosition.empty()) {
-        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_begin("position of " + getTagStr());
         if (!myStartPosition.empty()) {
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, myStartPosition, true, myMove.firstOriginalLanePosition));
         }
@@ -269,13 +253,13 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
 
 std::string
 GNEStoppingPlace::getPopUpID() const {
-    return toString(getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
 GNEStoppingPlace::getHierarchyName() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 /****************************************************************************/

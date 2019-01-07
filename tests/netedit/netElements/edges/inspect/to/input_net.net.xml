@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Sep  2 10:33:33 2018 by Eclipse SUMO netconvert Version d6cfaccbb6
+<!-- generated on Tue Dec  4 16:32:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netElements\edges\inspect\inspect_to\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netElements\edges\inspect\inspect_to\input_net.edg.xml"/>
-        <connection-files value=".\netedit\netElements\edges\inspect\inspect_to\input_net.con.xml"/>
+        <node-files value=".\netedit\netElements\edges\inspect\to\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netElements\edges\inspect\to\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netElements\edges\inspect\to\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netElements\edges\inspect\inspect_to\input_net.net.xml"/>
+        <output-file value=".\netedit\netElements\edges\inspect\to\input_net.net.xml"/>
     </output>
 
     <report>

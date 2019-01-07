@@ -23,6 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -30,7 +31,7 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSVehicleDevice.h>
 #include <guisim/GUILane.h>
 #include "GUIMEVehicle.h"
 
@@ -104,14 +105,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getFuelConsumption));
     //ret->mkItem("noise (Harmonoise) [dB]", true,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getHarmonoise_NoiseEmissions));
-    std::ostringstream str;
-    for (std::vector<MSDevice*>::const_iterator i = myDevices.begin(); i != myDevices.end(); ++i) {
-        if (i != myDevices.begin()) {
-            str << ' ';
-        }
-        str << (*i)->getID().substr(0, (*i)->getID().find(getID()));
-    }
-    ret->mkItem("devices", false, str.str());
+    ret->mkItem("devices", false, toString(myDevices));
     //ret->mkItem("persons", true,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,
@@ -155,7 +149,10 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
 
 bool
 GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, SUMOVehicleShape /* guiShape */, bool /* asImage */) const {
+    // undo scaling from GUIBaseVehicle::drawAction_drawVehicleAsPoly
+    glPopMatrix();
     drawAction_drawVehicleAsBoxPlus();
+    glPushMatrix();
     return true;
 }
 
@@ -208,7 +205,7 @@ GUIMEVehicle::getColorValue(int activeScheme) const {
 
 void
 GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const {
-    const double exaggeration = s.vehicleSize.getExaggeration(s);
+    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
     MSRouteIterator i = r.begin();
     for (; i != r.end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);

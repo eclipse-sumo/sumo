@@ -35,7 +35,7 @@
 #include "MSOffTrafficLightLogic.h"
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 
@@ -47,7 +47,7 @@
  * MSTLLogicControl::TLSLogicVariants - methods
  * ----------------------------------------------------------------------- */
 MSTLLogicControl::TLSLogicVariants::TLSLogicVariants()
-    : myCurrentProgram(0) {
+    : myCurrentProgram(nullptr) {
 }
 
 
@@ -98,7 +98,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string& programID,
     // assert the links are set
     if (netWasLoaded) {
         // this one has not yet its links set
-        if (myCurrentProgram == 0) {
+        if (myCurrentProgram == nullptr) {
             throw ProcessError("No initial signal plan loaded for tls '" + logic->getID() + "'.");
         }
         logic->adaptLinkInformationFrom(*myCurrentProgram);
@@ -123,7 +123,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string& programID,
 MSTrafficLightLogic*
 MSTLLogicControl::TLSLogicVariants::getLogic(const std::string& programID) const {
     if (myVariants.find(programID) == myVariants.end()) {
-        return 0;
+        return nullptr;
     }
     return myVariants.find(programID)->second;
 }
@@ -153,11 +153,11 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
         const std::string& state) {
     // build only once...
     MSTrafficLightLogic* logic = getLogic("online");
-    if (logic == 0) {
+    if (logic == nullptr) {
         MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state, -1);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), "online", phases, 0,
+        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), "online", TLTYPE_STATIC, phases, 0,
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
                                               std::map<std::string, std::string>());
         addLogic("online", logic, true, true);
@@ -223,6 +223,12 @@ MSTLLogicControl::TLSLogicVariants::addLink(MSLink* link, MSLane* lane, int pos)
     }
 }
 
+void
+MSTLLogicControl::TLSLogicVariants::ignoreLinkIndex(int pos) {
+    for (std::map<std::string, MSTrafficLightLogic*>::iterator i = myVariants.begin(); i != myVariants.end(); ++i) {
+        (*i).second->ignoreLinkIndex(pos);
+    }
+}
 
 
 /* -------------------------------------------------------------------------
@@ -237,7 +243,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(const MSTrafficLightLogic& lo
     if (val.length() == 0) {
         return 0;
     }
-    return TplConvert::_2int(val.c_str());
+    return StringUtils::toInt(val);
 }
 
 
@@ -395,7 +401,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
         assert(def.end >= def.begin);
         deltaPossible += TIME2STEPS(def.end - def.begin);
     }
-    int stretchUmlaufAnz = (int) TplConvert::_2double(myTo->getParameter("StretchUmlaufAnz", "").c_str());
+    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
     deltaPossible = stretchUmlaufAnz * deltaPossible;
     if ((deltaPossible > deltaToCut) && (deltaToCut < (cycleTime / 2))) {
         cutLogic(step, gspTo, deltaToCut);
@@ -460,7 +466,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     SUMOTime durOfPhase = myTo->getPhase(currStep).duration;
     SUMOTime remainingStretchTime = allStretchTime;
     SUMOTime StretchTimeOfPhase = 0;
-    int stretchUmlaufAnz = (int) TplConvert::_2double(myTo->getParameter("StretchUmlaufAnz", "").c_str());
+    int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
     double facSum = 0;
     int areasNo = getStretchAreaNo(myTo);
     for (int x = 0; x < areasNo; x++) {
@@ -528,9 +534,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchAreaNo(MSTrafficLightLo
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::StretchBereichDef
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLightLogic* from, int index) const {
     StretchBereichDef def;
-    def.begin = TplConvert::_2double(from->getParameter("B" + toString(index) + ".begin", "").c_str());
-    def.end = TplConvert::_2double(from->getParameter("B" + toString(index) + ".end", "").c_str());
-    def.fac = TplConvert::_2double(from->getParameter("B" + toString(index) + ".factor", "").c_str());
+    def.begin = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".begin", ""));
+    def.end = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".end", ""));
+    def.fac = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".factor", ""));
     return def;
 }
 
@@ -588,7 +594,7 @@ MSTrafficLightLogic*
 MSTLLogicControl::get(const std::string& id, const std::string& programID) const {
     std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i == myLogics.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second->getLogic(programID);
 }
@@ -652,7 +658,7 @@ MSTrafficLightLogic*
 MSTLLogicControl::getActive(const std::string& id) const {
     std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
     if (i == myLogics.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second->getActive();
 }
@@ -784,7 +790,7 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
         TLSLogicVariants* vars = myLogics.find((*i).junction)->second;
         MSTrafficLightLogic* from = vars->getActive();
         MSTrafficLightLogic* to = vars->getLogicInstantiatingOff(*this, s.to);
-        WAUTSwitchProcedure* proc = 0;
+        WAUTSwitchProcedure* proc = nullptr;
         if ((*i).procedure == "GSP") {
             proc = new WAUTSwitchProcedure_GSP(*this, *myWAUTs[wautid], from, to, (*i).synchron);
         } else if ((*i).procedure == "Stretch") {

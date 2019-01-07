@@ -374,6 +374,10 @@ private:
     /// @brief whether turning speed was limited in the network
     double myLimitTurnSpeed;
 
+    /// @brief whether foe-relationships where checked at lane-level
+    bool myCheckLaneFoesAll;
+    bool myCheckLaneFoesRoundabout;
+
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
 

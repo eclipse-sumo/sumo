@@ -1,26 +1,26 @@
 # create crossings with default values
-create_default
+default
 
 # create crossings with default values but invalid
-create_default_invalid
+default_invalid
 
 # create crossing manually
-create_manual
+manual
 
 # try to create a duplicated crossing
-create_duplicated
+duplicated
 
 # try to create single crossing (isn't allowed)
-create_single_crossing
+single_crossing
 
 # create single crossing
-create_split_crossing
+split_crossing
 
 # create crossing with different priority
-create_priority
+priority
 
 # create crossing with different width
-create_width
+width
 
 # check clear button
 button_clear

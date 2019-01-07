@@ -66,11 +66,10 @@ TrafficLight::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
     std::vector<TraCILogic> result;
     const std::vector<MSTrafficLightLogic*> logics = getTLS(tlsID).getAllLogics();
     for (MSTrafficLightLogic* logic : logics) {
-        TraCILogic l(logic->getProgramID(), 0, logic->getCurrentPhaseIndex());
+        TraCILogic l(logic->getProgramID(), (int)logic->getLogicType(), logic->getCurrentPhaseIndex());
         l.subParameter = logic->getParametersMap();
-        for (int j = 0; j < logic->getPhaseNumber(); ++j) {
-            MSPhaseDefinition phase = logic->getPhase(j);
-            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase.duration), STEPS2TIME(phase.minDuration), STEPS2TIME(phase.maxDuration), phase.getState(), phase.getNextPhase()));
+        for (const MSPhaseDefinition* const phase : logic->getPhases()) {
+            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase->duration), phase->getState(), STEPS2TIME(phase->minDuration), STEPS2TIME(phase->maxDuration), phase->getNextPhase(), phase->getName()));
         }
         result.emplace_back(l);
     }
@@ -117,9 +116,9 @@ TrafficLight::getControlledLinks(const std::string& tlsID) {
         for (int j = 0; j < (int)llanes.size(); ++j) {
             MSLink* link = llinks[j];
             // approached non-internal lane (if any)
-            const std::string to = link->getLane() != 0 ? link->getLane()->getID() : "";
+            const std::string to = link->getLane() != nullptr ? link->getLane()->getID() : "";
             // approached "via", internal lane (if any)
-            const std::string via = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
+            const std::string via = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
             subList.emplace_back(TraCILink(llanes[j]->getID(), via, to));
         }
         result.emplace_back(subList);
@@ -139,6 +138,11 @@ TrafficLight::getPhase(const std::string& tlsID) {
     return getTLS(tlsID).getActive()->getCurrentPhaseIndex();
 }
 
+
+std::string
+TrafficLight::getPhaseName(const std::string& tlsID) {
+    return getTLS(tlsID).getActive()->getCurrentPhaseDef().getName();
+}
 
 double
 TrafficLight::getPhaseDuration(const std::string& tlsID) {
@@ -176,6 +180,12 @@ TrafficLight::setPhase(const std::string& tlsID, const int index) {
     active->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, index, duration);
 }
 
+void
+TrafficLight::setPhaseName(const std::string& tlsID, const std::string& name) {
+    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    const_cast<MSPhaseDefinition&>(active->getCurrentPhaseDef()).setName(name);
+}
+
 
 void
 TrafficLight::setProgram(const std::string& tlsID, const std::string& programID) {
@@ -205,13 +215,13 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
     }
     std::vector<MSPhaseDefinition*> phases;
     for (TraCIPhase phase : logic.phases) {
-        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), TIME2STEPS(phase.duration1), TIME2STEPS(phase.duration2), phase.phase, phase.next));
+        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), phase.state, TIME2STEPS(phase.minDur), TIME2STEPS(phase.maxDur), phase.next, phase.name));
     }
-    if (vars.getLogic(logic.subID) == 0) {
-        MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.subID, phases, logic.currentPhaseIndex, 0, logic.subParameter);
-        vars.addLogic(logic.subID, mslogic, true, true);
+    if (vars.getLogic(logic.programID) == nullptr) {
+        MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.programID, TLTYPE_STATIC, phases, logic.currentPhaseIndex, 0, logic.subParameter);
+        vars.addLogic(logic.programID, mslogic, true, true);
     } else {
-        static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.subID))->setPhases(phases, logic.currentPhaseIndex);
+        static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID))->setPhases(phases, logic.currentPhaseIndex);
     }
 }
 
@@ -243,7 +253,7 @@ TrafficLight::makeWrapper() {
 bool
 TrafficLight::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
@@ -253,6 +263,8 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
             return wrapper->wrapStringList(objID, variable, getControlledLanes(objID));
         case TL_CURRENT_PHASE:
             return wrapper->wrapInt(objID, variable, getPhase(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getPhaseName(objID));
         case TL_CURRENT_PROGRAM:
             return wrapper->wrapString(objID, variable, getProgram(objID));
         case TL_PHASE_DURATION:

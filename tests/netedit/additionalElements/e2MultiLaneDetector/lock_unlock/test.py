@@ -45,8 +45,8 @@ netedit.inspectMode()
 # inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change boolean parameter 15
-netedit.modifyBoolAttribute(15)
+# Change boolean parameter block move
+netedit.modifyBoolAttribute(18)
 
 # go to move mode
 netedit.moveMode()
@@ -60,8 +60,8 @@ netedit.inspectMode()
 # inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change boolean parameter 15
-netedit.modifyBoolAttribute(15)
+# Change boolean parameter block move
+netedit.modifyBoolAttribute(18)
 
 # go to move mode
 netedit.moveMode()
@@ -81,4 +81,3 @@ netedit.saveNetwork()
 
 # quit netedit
 netedit.quit(neteditProcess)
-

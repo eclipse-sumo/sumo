@@ -19,10 +19,11 @@ from .storage import Storage
 from . import constants as tc
 
 
-_RETURN_VALUE_FUNC = {tc.ID_LIST: Storage.readStringList,
+_RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.ID_COUNT: Storage.readInt,
                       tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
+                      tc.VAR_POSITION3D: lambda result: result.read("!ddd"),
                       tc.VAR_ANGLE: Storage.readDouble,
                       tc.VAR_ROAD_ID: Storage.readString,
                       tc.VAR_TYPE: Storage.readString,

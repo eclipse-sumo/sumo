@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -42,11 +42,11 @@ netedit.typeEnter()
 # go to additional mode
 netedit.inspectMode()
 
-#inspect E2
+# inspect E2
 netedit.leftClick(referencePosition, 320, 240)
 
-# Change boolean parameter 12
-netedit.modifyBoolAttribute(11)
+# Change boolean parameter friendlyPos
+netedit.modifyBoolAttribute(14)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

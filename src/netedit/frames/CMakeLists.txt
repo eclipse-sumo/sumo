@@ -13,10 +13,14 @@ set(netedit_frames_SRCS
    GNEAdditionalFrame.cpp
    GNECrossingFrame.h
    GNECrossingFrame.cpp
+   GNETAZFrame.h
+   GNETAZFrame.cpp
    GNEDeleteFrame.h
    GNEDeleteFrame.cpp
    GNEPolygonFrame.h
    GNEPolygonFrame.cpp
+   GNECreateEdgeFrame.h
+   GNECreateEdgeFrame.cpp
    GNEProhibitionFrame.h
    GNEProhibitionFrame.cpp
    )

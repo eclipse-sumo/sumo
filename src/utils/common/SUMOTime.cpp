@@ -24,8 +24,8 @@
 #include <sstream>
 #include <iostream>
 #include "SUMOTime.h"
-#include "TplConvert.h"
 #include "StringTokenizer.h"
+#include "StringUtils.h"
 #include "StdDefs.h"
 
 
@@ -41,11 +41,9 @@ SUMOTime DELTA_T = 1000;
 SUMOTime
 string2time(const std::string& r) {
     if (r.find(":") == std::string::npos) {
-        double time;
-        std::istringstream buf(r);
-        buf >> time;
-        if (buf.fail() || time > STEPS2TIME(SUMOTime_MAX)) {
-            throw ProcessError("Input string '" + r + "' is not a valid number or exceeds the time value range.");
+        const double time = StringUtils::toDouble(r);
+        if (time > STEPS2TIME(SUMOTime_MAX)) {
+            throw ProcessError("Input string '" + r + "' exceeds the time value range.");
         }
         return TIME2STEPS(time);
     } else {
@@ -77,18 +75,19 @@ time2string(SUMOTime t) {
             s = fmod(s, 3600 * 24);
         }
         // hours, pad with zero
-        if (s / 3600 < 10) {
+        if (s / 3600 < 10 && s >= 0) {
             oss << "0";
         }
         oss << (int)(s / 3600) << ":";
         // minutes, pad with zero
         s = fmod(s, 3600);
-        if (s / 60 < 10) {
+        if (s / 60 < 10 && s >= 0) {
             oss << "0";
         }
         oss << (int)(s / 60) << ":";
+        // seconds, pad with zero
         s = fmod(s, 60);
-        if (s < 10) {
+        if (s < 10 && s >= 0) {
             oss << "0";
         }
         if (fmod(s, 1) == 0) {

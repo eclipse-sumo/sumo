@@ -20,27 +20,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEDetector.h"
 
@@ -99,13 +79,13 @@ GNEDetector::getParentName() const {
 
 std::string
 GNEDetector::getPopUpID() const {
-    return toString(getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
 GNEDetector::getHierarchyName() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 /****************************************************************************/

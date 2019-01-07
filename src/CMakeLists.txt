@@ -2,8 +2,8 @@ set(netconvertlibs
         netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
 
 set(sumolibs
-        netload microsim microsim_cfmodels microsim_lcmodels microsim_devices microsim_output microsim_pedestrians microsim_trigger microsim_actions
-        microsim_traffic_lights mesosim traciserver libsumostatic ${commonvehiclelibs} ${GRPC_LIBS}
+        traciserver libsumostatic netload microsim_cfmodels microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_pedestrians microsim_actions
+        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${GRPC_LIBS}
         ${PYTHON_LIBRARIES})
 
 add_subdirectory(activitygen)
@@ -37,26 +37,19 @@ if (FOX_FOUND)
 endif ()
 
 
-add_executable(sumo version.h sumo_main.cpp
-        microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h)
+add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
-target_link_libraries(sumo ${sumolibs})
+target_link_libraries(sumo microsim ${sumolibs})
+add_dependencies(sumo generate-version-h)
 
 if (FOX_FOUND)
-    set(sumoguiexec
-            guisim_main.cpp
-            microsim/MSMoveReminder.cpp microsim/MSMoveReminder.h
-            gui/GUIManipulator.h gui/GUIManipulator.cpp
-            gui/GUITLLogicPhasesTrackerWindow.h gui/GUITLLogicPhasesTrackerWindow.cpp
-            mesosim/MEVehicleControl.h mesosim/MEVehicleControl.cpp)
-
-    add_executable(sumo-gui version.h ${sumoguiexec} guisim.rc)
+    add_executable(sumo-gui guisim_main.cpp sumo-gui.rc)
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME sumo-gui${BINARY_SUFFIX})
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-gui${BINARY_SUFFIX}D)
-    target_link_libraries(sumo-gui gui guinetload guisim gui_dialogs
+    target_link_libraries(sumo-gui gui guinetload guisim gui gui_dialogs
         utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_tracker utils_foxtools osgview ${sumolibs} mesogui
+        utils_gui_images utils_gui_cursors utils_gui_tracker utils_foxtools osgview microsim ${sumolibs} mesogui
         ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
     if (MSVC)
         set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
@@ -65,22 +58,23 @@ if (FOX_FOUND)
         endif ()
         target_link_libraries(sumo-gui opengl32 glu32)
     endif ()
+    add_dependencies(sumo-gui generate-version-h)
+    install(TARGETS sumo-gui RUNTIME DESTINATION bin)
 endif ()
 
-add_executable(netconvert version.h netconvert_main.cpp)
+add_executable(netconvert netconvert_main.cpp)
 set_target_properties(netconvert PROPERTIES OUTPUT_NAME netconvert${BINARY_SUFFIX})
 set_target_properties(netconvert PROPERTIES OUTPUT_NAME_DEBUG netconvert${BINARY_SUFFIX}D)
 target_link_libraries(netconvert ${netconvertlibs})
+add_dependencies(netconvert generate-version-h)
 
-add_executable(od2trips version.h od2trips_main.cpp)
+add_executable(od2trips od2trips_main.cpp)
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME od2trips${BINARY_SUFFIX})
 set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2trips${BINARY_SUFFIX}D)
 target_link_libraries(od2trips od utils_vehicle ${commonlibs})
+add_dependencies(od2trips generate-version-h)
 
 install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin)
-if (FOX_FOUND)
-    install(TARGETS sumo-gui RUNTIME DESTINATION bin)
-endif ()
 
 configure_file(config.h.cmake config.h)
 

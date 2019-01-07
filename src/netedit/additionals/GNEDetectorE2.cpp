@@ -18,35 +18,17 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <netbuild/NBEdge.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetectorE2.h"
 #include "GNEAdditionalHandler.h"
@@ -60,8 +42,8 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* v
                              const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
     myLanes({lane}),
-    myEndPositionOverLane(0), 
     myLength(length),
+    myEndPositionOverLane(0.),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold),
@@ -214,6 +196,7 @@ GNEDetectorE2::moveGeometry(const Position& offset) {
     // Calculate new position using old position
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
+    // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     double offsetLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false) - myLanes.front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
     // move geometry depending of number of lanes
@@ -240,11 +223,11 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
     // commit geometry moving depending of number of lanes
     if(myLanes.size() == 1) {
         // commit new position allowing undo/redo
-        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_begin("position of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_end();
     } else {
-        undoList->p_begin("position of " + toString(getTag()));
+        undoList->p_begin("position of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, myMove.secondOriginalPosition));
         undoList->p_end();
@@ -424,7 +407,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
     // Set color of the base
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         // set color depending if is or isn't valid
         if(myE2valid) {
@@ -435,7 +418,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
 
     // check if we have to drawn a E2 single lane or a E2 multiLane
     if(myGeometry.shape.size() > 0) {
@@ -457,7 +440,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enougth to draw details and isn't being drawn for selecting
     if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // draw logo depending if this is an Multilane E2 detector
-        if(getTag() == SUMO_TAG_E2DETECTOR) {
+        if(myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
@@ -468,7 +451,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(-0.75, 0, 0);
             // draw E2 logo
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+                GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
             } else {
                 GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
             }
@@ -483,7 +466,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(-1.5, 0, 0);
             // draw E2 logo
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+                GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
             } else {
                 GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
             }
@@ -492,7 +475,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // Rotate depending of myBlockIcon.rotation
             glRotated(90, 0, 0, 1);
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("multi", Position(), .1, 0.9, myViewNet->getNet()->selectedAdditionalColor);
+                GLHelper::drawText("multi", Position(), .1, 0.9, s.selectedAdditionalColor);
             } else {
                 GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);
             }
@@ -509,7 +492,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         if(myGeometry.shape.size() > 0) {
             GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
         } else {
@@ -558,7 +541,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -589,7 +572,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -598,7 +581,7 @@ bool
 GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidDetectorID(value);
         case SUMO_ATTR_LANE:
             if (value.empty()) {
                 return false;
@@ -647,7 +630,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -713,10 +696,12 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

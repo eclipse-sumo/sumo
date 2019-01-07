@@ -499,34 +499,36 @@ public:
         }
     }
 
-    void addSchedule(const SUMOVehicleParameter& pars, const std::vector<SUMOVehicleParameter::Stop>* addStops = 0) {
+    void addSchedule(const SUMOVehicleParameter& pars, const std::vector<SUMOVehicleParameter::Stop>* addStops = nullptr) {
         SUMOTime lastUntil = 0;
         std::vector<SUMOVehicleParameter::Stop> validStops;
-        if (addStops != 0) {
+        if (addStops != nullptr) {
             // stops are part of a stand-alone route. until times are offsets from vehicle departure
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = addStops->begin(); s != addStops->end(); ++s) {
-                if (myStopConnections.count(s->busstop) > 0) {
+            for (const SUMOVehicleParameter::Stop& stop : *addStops) {
+                if (myStopConnections.count(stop.busstop) > 0) {
                     // compute stop times for the first vehicle
-                    SUMOVehicleParameter::Stop stop = *s;
-                    stop.until += pars.depart;
-                    if (stop.until >= lastUntil) {
+                    const SUMOTime newUntil = stop.until + pars.depart;
+                    if (newUntil >= lastUntil) {
                         validStops.push_back(stop);
-                        lastUntil = stop.until;
+                        validStops.back().until = newUntil;
+                        lastUntil = newUntil;
                     } else {
-                        WRITE_WARNING("Ignoring unordered stop at '" + stop.busstop + "' at " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                        WRITE_WARNING("Ignoring unordered stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
                     }
                 }
             }
         }
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
+        for (const SUMOVehicleParameter::Stop& stop : pars.stops) {
             // stops are part of the vehicle until times are absolute times for the first vehicle
-            if (myStopConnections.count(s->busstop) > 0 && s->until >= lastUntil) {
-                validStops.push_back(*s);
-                lastUntil = s->until;
+            if (myStopConnections.count(stop.busstop) > 0 && stop.until >= lastUntil) {
+                validStops.push_back(stop);
+                lastUntil = stop.until;
+            } else {
+                WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
             }
         }
         if (validStops.size() < 2) {
-            WRITE_WARNING("Ignoring public transport line '" + pars.line + "' with less than two usable stops.");
+            WRITE_WARNING("Not using public transport line '" + pars.line + "' for routing persons. It has less than two usable stops.");
             return;
         }
 

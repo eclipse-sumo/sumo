@@ -58,7 +58,7 @@
 MSMeanData::MeanDataValues::MeanDataValues(
     MSLane* const lane, const double length, const bool doAdd,
     const MSMeanData* const parent) :
-    MSMoveReminder("meandata_" + (lane == 0 ? "NULL" :  lane->getID()), lane, doAdd),
+    MSMoveReminder("meandata_" + (lane == nullptr ? "NULL" :  lane->getID()), lane, doAdd),
     myParent(parent),
     myLaneLength(length),
     sampleSeconds(0),
@@ -77,7 +77,7 @@ MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notifi
     UNUSED_PARAMETER(enteredLane);
 #endif
     UNUSED_PARAMETER(reason);
-    return myParent == 0 || myParent->vehicleApplies(veh);
+    return myParent == nullptr || myParent->vehicleApplies(veh);
 }
 
 
@@ -330,7 +330,7 @@ MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, con
 
 bool
 MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
+    if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
         myTrackedData[&veh]->myNumVehicleLeft++;
     }
     return myTrackedData[&veh]->myValues->notifyLeave(veh, lastPos, reason);
@@ -433,14 +433,14 @@ MSMeanData::init() {
             if (MSGlobals::gUseMesoSim) {
                 MeanDataValues* data;
                 if (myTrackVehicles) {
-                    data = new MeanDataValueTracker(0, lanes[0]->getLength(), this);
+                    data = new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this);
                 } else {
-                    data = createValues(0, lanes[0]->getLength(), false);
+                    data = createValues(nullptr, lanes[0]->getLength(), false);
                 }
                 data->setDescription("meandata_" + (*e)->getID());
                 myMeasures.back().push_back(data);
                 MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**e);
-                while (s != 0) {
+                while (s != nullptr) {
                     s->addDetector(data);
                     s->prepareDetectorForWriting(*data);
                     s = s->getNextSegment();
@@ -450,7 +450,7 @@ MSMeanData::init() {
                 continue;
             }
             if (myAmEdgeBased && myTrackVehicles) {
-                myMeasures.back().push_back(new MeanDataValueTracker(0, lanes[0]->getLength(), this));
+                myMeasures.back().push_back(new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this));
             }
             for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
                 if (myTrackVehicles) {
@@ -485,7 +485,7 @@ MSMeanData::resetOnly(SUMOTime stopTime) {
         for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge) {
             MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(**edge);
             MeanDataValues* data = i->front();
-            while (s != 0) {
+            while (s != nullptr) {
                 s->prepareDetectorForWriting(*data);
                 s = s->getNextSegment();
             }
@@ -514,7 +514,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
     if (MSGlobals::gUseMesoSim) {
         MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
         MeanDataValues* data = edgeValues.front();
-        while (s != 0) {
+        while (s != nullptr) {
             s->prepareDetectorForWriting(*data);
             s = s->getNextSegment();
         }
@@ -558,7 +558,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             }
             meanData.reset(true);
         } else {
-            MeanDataValues* sumData = createValues(0, edge->getLength(), false);
+            MeanDataValues* sumData = createValues(nullptr, edge->getLength(), false);
             for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
                 MeanDataValues& meanData = **lane;
                 meanData.addTo(*sumData);

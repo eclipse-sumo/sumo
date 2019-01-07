@@ -28,7 +28,7 @@
 #include <iostream>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -174,7 +174,7 @@ MSDevice_SSM::getInstances() {
 void
 MSDevice_SSM::cleanup() {
     // Close current encounters and flush conflicts to file for all existing devices
-    if (instances != 0) {
+    if (instances != nullptr) {
         for (std::set<MSDevice_SSM*>::iterator ii = instances->begin(); ii != instances->end(); ++ii) {
             (*ii)->resetEncounters();
             (*ii)->flushConflicts(true);
@@ -211,7 +211,7 @@ MSDevice_SSM::insertOptions(OptionsCont& oc) {
 }
 
 void
-MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "ssm", v, false)) {
         if (MSGlobals::gUseMesoSim) {
             WRITE_WARNING("SSM Device for vehicle '" + v.getID() + "' will not be built. (SSMs not supported in MESO)");
@@ -527,9 +527,9 @@ MSDevice_SSM::processEncounters(FoeInfoMap& foes, bool forceClose) {
     while (ei != myActiveEncounters.end()) {
         Encounter* e = *ei;
         // check whether foe is still on net
-        bool foeExists = !(MSNet::getInstance()->getVehicleControl().getVehicle(e->foeID) == 0);
+        bool foeExists = !(MSNet::getInstance()->getVehicleControl().getVehicle(e->foeID) == nullptr);
         if (!foeExists) {
-            e->foe = 0;
+            e->foe = nullptr;
         }
         if (foes.find(e->foe) != foes.end()) {
             FoeInfo* foeInfo = foes[e->foe];
@@ -542,7 +542,7 @@ MSDevice_SSM::processEncounters(FoeInfoMap& foes, bool forceClose) {
                 // Close encounter, extra time has expired (deletes e if it does not qualify as conflict)
                 e->closingRequested = true;
             } else {
-                updateEncounter(e, 0); // counts down extra time
+                updateEncounter(e, nullptr); // counts down extra time
             }
         }
 
@@ -592,8 +592,8 @@ MSDevice_SSM::qualifiesAsConflict(Encounter* e) {
 void
 MSDevice_SSM::closeEncounter(Encounter* e) {
     // erase pointers (encounter is stored before being destroyed and pointers could become invalid)
-    e->ego = 0;
-    e->foe = 0;
+    e->ego = nullptr;
+    e->foe = nullptr;
     e->end = e->timeSpan.back();
     bool wasConflict = qualifiesAsConflict(e);
     if (wasConflict) {
@@ -1391,7 +1391,7 @@ MSDevice_SSM::updatePassedEncounter(Encounter* e, FoeInfo* foeInfo, EncounterApp
               << std::endl;
 #endif
 
-    if (foeInfo == 0) {
+    if (foeInfo == nullptr) {
         // the foe is out of the device's range, proceed counting down the remaining extra time to trace
         e->countDownExtraTime(TS);
 #ifdef DEBUG_SSM
@@ -1414,7 +1414,7 @@ MSDevice_SSM::updatePassedEncounter(Encounter* e, FoeInfo* foeInfo, EncounterApp
 #ifdef DEBUG_SSM
         std::cout << "    This encounter wasn't classified as a potential conflict lately." << std::endl;
 #endif
-        if (foeInfo == 0) {
+        if (foeInfo == nullptr) {
             // Encounter was either never a potential conflict and foe is out of range
             // or the foe has left the network
             // -> no use in further tracing this encounter
@@ -1533,7 +1533,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
 #ifdef DEBUG_SSM
     std::cout << "classifyEncounter() called." << std::endl;
 #endif
-    if (foeInfo == 0) {
+    if (foeInfo == nullptr) {
         // foeInfo == 0 signalizes, that no corresponding foe info was returned by findSurroundingVehicles(),
         // i.e. the foe is actually out of range (This may also mean that it has left the network)
         return ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
@@ -1590,7 +1590,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
 
     EncounterType type;
 
-    if (foeConflictLane == 0) {
+    if (foeConflictLane == nullptr) {
         // foe vehicle is not on course towards the ego's route (see findFoeConflictLane)
         type = ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
 #ifdef DEBUG_SSM
@@ -1799,7 +1799,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
             const std::vector<MSLink*>& foeFoeLinks = foeEntryLink->getFoeLinks();
             // Determine whether ego and foe links are foes
             bool crossOrMerge = (find(egoFoeLinks.begin(), egoFoeLinks.end(), foeEntryLink) != egoFoeLinks.end()
-                                 || find(foeFoeLinks.begin(), foeFoeLinks.end(), egoEntryLink) != foeFoeLinks.end());
+                                 || std::find(foeFoeLinks.begin(), foeFoeLinks.end(), egoEntryLink) != foeFoeLinks.end());
             if (!crossOrMerge) {
 //                if (&(foeEntryLink->getLane()->getEdge()) == &(egoEntryLink->getLane()->getEdge())) {
 //                    // XXX: the situation of merging into adjacent lanes is disregarded for now <- the alleged situation appears to imply crossOrMerge!!!
@@ -1851,7 +1851,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 // for the ego
                 double egoDistToConflictFromJunctionEntry = INVALID;
                 double foeInternalLaneLengthsBeforeCrossing = 0.;
-                while (foeConflictLane != 0 && foeConflictLane->isInternal()) {
+                while (foeConflictLane != nullptr && foeConflictLane->isInternal()) {
                     egoDistToConflictFromJunctionEntry = egoEntryLink->getLengthsBeforeCrossing(foeConflictLane);
                     if (egoDistToConflictFromJunctionEntry != INVALID) {
                         // found correct foeConflictLane
@@ -1869,7 +1869,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 double foeDistToConflictFromJunctionEntry = INVALID;
                 double egoInternalLaneLengthsBeforeCrossing = 0.;
                 foeDistToConflictFromJunctionEntry = INVALID;
-                while (egoConflictLane != 0 && egoConflictLane->isInternal()) {
+                while (egoConflictLane != nullptr && egoConflictLane->isInternal()) {
                     foeDistToConflictFromJunctionEntry = foeEntryLink->getLengthsBeforeCrossing(egoConflictLane);
                     if (foeDistToConflictFromJunctionEntry != INVALID) {
                         // found correct egoConflictLane
@@ -1979,7 +1979,7 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
     distToConflictLane = -foe->getPositionOnLane();
 
     // Potential conflict lies on junction if egoConflictLane is internal
-    const MSJunction* conflictJunction = egoConflictLane->isInternal() ? egoConflictLane->getEdge().getToJunction() : 0;
+    const MSJunction* conflictJunction = egoConflictLane->isInternal() ? egoConflictLane->getEdge().getToJunction() : nullptr;
 #ifdef DEBUG_SSM
     if (conflictJunction != 0) {
         std::cout << "Potential conflict on junction '" << conflictJunction->getID()
@@ -1994,8 +1994,8 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
     // Foe is not on the conflict junction
 
     // Leading internal lanes in bestlanes are resembled as a single NULL-pointer skip them
-    if (*laneIter == 0) {
-        while (foeLane != 0 && foeLane->isInternal()) {
+    if (*laneIter == nullptr) {
+        while (foeLane != nullptr && foeLane->isInternal()) {
             distToConflictLane += foeLane->getLength();
             foeLane = foeLane->getLinkCont()[0]->getViaLane();
         }
@@ -2022,14 +2022,14 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         // set laneIter to next non internal lane along foeBestLanes
         ++laneIter;
         if (laneIter == foeBestLanesEnd) {
-            return 0;
+            return nullptr;
         }
         MSLane* nextNonInternalLane = *laneIter;
         MSLink* link = foeLane->getLinkTo(nextNonInternalLane);
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
         assert(foeLane == 0 || foeLane->isInternal());
-        if (foeLane == 0) {
+        if (foeLane == nullptr) {
             foeLane = nextNonInternalLane;
             continue;
         }
@@ -2046,7 +2046,7 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         foeLane = nextNonInternalLane;
     }
     // Didn't find conflicting lane on foeBestLanes within range.
-    return 0;
+    return nullptr;
 }
 
 void
@@ -2237,7 +2237,7 @@ MSDevice_SSM::makeStringWithNAs(std::vector<double> v, std::vector<double> NAs, 
 // ---------------------------------------------------------------------------
 MSDevice_SSM::MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
                            bool trajectories, double range, double extraTime, bool useGeoCoords) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myThresholds(thresholds),
     mySaveTrajectories(trajectories),
     myRange(range),
@@ -2366,7 +2366,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
     assert(lane->isInternal() || lane == *laneIter);
     assert(lane != 0);
     // next non-internal lane on the route
-    const MSLane* nextNonInternalLane = 0;
+    const MSLane* nextNonInternalLane = nullptr;
 
     const MSEdge* edge; // current edge in loop below
 
@@ -2475,7 +2475,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
                 // First lane of the connection
                 lane = link->getViaLane();
-                if (lane == 0) {
+                if (lane == nullptr) {
                     // link without internal lane
                     lane = nextNonInternalLane;
                     edge = &(lane->getEdge());
@@ -2646,7 +2646,7 @@ MSDevice_SSM::getVehiclesOnJunction(const MSJunction* junction, double egoDistTo
         lane->releaseVehicles();
 
         // If there is an internal continuation lane, also collect vehicles on that lane
-        if (lane->getLinkCont().size() > 1 && lane->getLinkCont()[0]->getViaLane() != 0) {
+        if (lane->getLinkCont().size() > 1 && lane->getLinkCont()[0]->getViaLane() != nullptr) {
             // There's a second internal lane of the connection
             lane = lane->getLinkCont()[0]->getViaLane();
             // This code must be modified, if more than two-piece internal lanes are allowed. Thus, assert:
@@ -2719,13 +2719,13 @@ MSDevice_SSM::useGeoCoords(const SUMOVehicle& v) {
     bool useGeo = false;
     if (v.getParameter().knowsParameter("device.ssm.geo")) {
         try {
-            useGeo = TplConvert::_2bool(v.getParameter().getParameter("device.ssm.geo", "no").c_str());
+            useGeo = StringUtils::toBool(v.getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.geo", "no") + "'for vehicle parameter 'ssm.geo'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.geo")) {
         try {
-            useGeo = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no").c_str());
+            useGeo = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.geo", "no") + "'for vType parameter 'ssm.geo'");
         }
@@ -2746,13 +2746,13 @@ MSDevice_SSM::getDetectionRange(const SUMOVehicle& v) {
     double range = -INVALID;
     if (v.getParameter().knowsParameter("device.ssm.range")) {
         try {
-            range = TplConvert::_2double(v.getParameter().getParameter("device.ssm.range", "").c_str());
+            range = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.range", "") + "'for vehicle parameter 'ssm.range'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.range")) {
         try {
-            range = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device.ssm.range", "").c_str());
+            range = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.range", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.range", "") + "'for vType parameter 'ssm.range'");
         }
@@ -2773,13 +2773,13 @@ MSDevice_SSM::getExtraTime(const SUMOVehicle& v) {
     double extraTime = INVALID;
     if (v.getParameter().knowsParameter("device.ssm.extratime")) {
         try {
-            extraTime = TplConvert::_2double(v.getParameter().getParameter("device.ssm.extratime", "").c_str());
+            extraTime = StringUtils::toDouble(v.getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.extratime", "") + "'for vehicle parameter 'ssm.extratime'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.extratime")) {
         try {
-            extraTime = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device.ssm.extratime", "").c_str());
+            extraTime = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device.ssm.extratime", ""));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.extratime", "") + "'for vType parameter 'ssm.extratime'");
         }
@@ -2804,13 +2804,13 @@ MSDevice_SSM::requestsTrajectories(const SUMOVehicle& v) {
     bool trajectories = false;
     if (v.getParameter().knowsParameter("device.ssm.trajectories")) {
         try {
-            trajectories = TplConvert::_2bool(v.getParameter().getParameter("device.ssm.trajectories", "no").c_str());
+            trajectories = StringUtils::toBool(v.getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.trajectories", "no") + "'for vehicle parameter 'ssm.trajectories'");
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.trajectories")) {
         try {
-            trajectories = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no").c_str());
+            trajectories = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no"));
         } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.trajectories", "no") + "'for vType parameter 'ssm.trajectories'");
         }
@@ -2895,7 +2895,7 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
     if (thresholds_str != "") {
         st = StringTokenizer(thresholds_str);
         while (count < (int)measures.size() && st.hasNext()) {
-            double thresh = TplConvert::_2double(st.next().c_str());
+            double thresh = StringUtils::toDouble(st.next());
             thresholds.insert(std::make_pair(measures[count], thresh));
             ++count;
         }

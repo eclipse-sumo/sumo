@@ -65,6 +65,8 @@ def get_options(args=None):
                          help="define replacement tls plans to be coordinated")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
+    optParser.add_option("-i", "--ignore-priority", dest="ignorePriority", action="store_true",
+                         default=False, help="Ignore road priority when sorting TLS pairs")
     optParser.add_option("--speed-factor", type="float",
                          default=0.8, help="avg ration of vehicle speed in relation to the speed limit")
     optParser.add_option("-e", "--evaluate", action="store_true",
@@ -247,16 +249,16 @@ def getFirstGreenOffset(tl, connection):
                            (len(tlp), connection._tls))
     phases = list(tlp.values())[0].getPhases()
     start = 0
-    for state, duration in phases:
-        if state[index] in ['G', 'g']:
+    for p in phases:
+        if p.state[index] in ['G', 'g']:
             return start
         else:
-            start += duration
+            start += p.duration
     raise RuntimeError(
         "No green light for tlIndex %s at tl %s" % (index, connection._tls))
 
 
-def getTLPairs(net, routeFile, speedFactor):
+def getTLPairs(net, routeFile, speedFactor, ignorePriority):
     # pairs of traffic lights
     TLPairs = {}  # PairKey -> PairData
 
@@ -280,8 +282,9 @@ def getTLPairs(net, routeFile, speedFactor):
             betweenOffset = travelTime + ogreen - green
             startOffset = 0
             # relevant data for a pair of traffic lights
+            prio = 1 if ignorePriority else edge.getPriority()
             TLPairs[key] = PairData(otl, oconnection, tl, connection, betweenOffset, startOffset, travelTime,
-                                    edge.getPriority(), numVehicles + 1, ogreen, green)
+                                    prio, numVehicles + 1, ogreen, green)
 
     return TLPairs
 
@@ -296,7 +299,7 @@ def main(options):
     if options.addfile is not None:
         sumolib.net.readNet(options.addfile, withLatestPrograms=True, net=net)
 
-    TLPairs = getTLPairs(net, options.routefile, options.speed_factor)
+    TLPairs = getTLPairs(net, options.routefile, options.speed_factor, options.ignorePriority)
     TLPairs = removeDuplicates(TLPairs)
 
     sortHelper = [(

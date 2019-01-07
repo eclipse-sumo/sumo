@@ -19,7 +19,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions, _vehicle, _person
+from traci import constants, exceptions, _vehicle, _person, _trafficlight
 
 def isLibsumo():
     return True
@@ -95,6 +95,7 @@ def simulationStep(step=0):
     }
     $1 = &vars;
 }
+
 %typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER) const std::vector<int>& {
     $1 = PySequence_Check($input) ? 1 : 0;
 }
@@ -239,8 +240,6 @@ def simulationStep(step=0):
 // ignore constant conditional expression warnings
 #pragma warning(disable:4127)
 #endif
-
-#include <libsumo/TraCIDefs.h>
 %}
 
 
@@ -248,9 +247,6 @@ def simulationStep(step=0):
 %include "std_string.i"
 %include "std_vector.i"
 %template(StringVector) std::vector<std::string>;
-%template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
-%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
-%template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 
 // exception handling
 %include "exception.i"
@@ -279,6 +275,7 @@ def simulationStep(step=0):
 
 // Add necessary symbols to generated header
 %{
+#include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
@@ -297,6 +294,9 @@ def simulationStep(step=0):
 
 // Process symbols in header
 %include "TraCIDefs.h"
+%template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
+%template(TraCILogicVector) std::vector<libsumo::TraCILogic>;
+%template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 %include "Edge.h"
 %include "InductionLoop.h"
 %include "Junction.h"
@@ -330,5 +330,6 @@ vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
 vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
 vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
+trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
 %}
 #endif

@@ -37,14 +37,14 @@ netedit.changeAdditional("e3Detector")
 # create E3
 netedit.leftClick(referencePosition, 250, 50)
 
-# select Exit detector
+# select Entry detector
 netedit.changeAdditional("detExit")
 
 # Create Entry detector
 netedit.leftClick(referencePosition, 250, 50)
 netedit.leftClick(referencePosition, 100, 200)
 
-# select exit detector
+# select Exit detector
 netedit.changeAdditional("detEntry")
 
 # Create Exit detector
@@ -64,7 +64,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 275, 190)
 
 # block additional
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(10)
 
 # change to move mode
 netedit.moveMode()
@@ -79,7 +79,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 275, 190)
 
 # unblock additional
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(10)
 
 # change to move mode
 netedit.moveMode()

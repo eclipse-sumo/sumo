@@ -165,11 +165,11 @@ class Net:
         if options.restrictionfile:
             for f in options.restrictionfile.split(","):
                 for line in open(f):
-                    l = line.split()
-                    if len(l) == 2:
-                        self._edgeRestriction[l[1]] = int(l[0])
+                    ls = line.split()
+                    if len(ls) == 2:
+                        self._edgeRestriction[ls[1]] = int(ls[0])
                     else:
-                        self._routeRestriction[tuple(l[1:])] = int(l[0])
+                        self._routeRestriction[tuple(ls[1:])] = int(ls[0])
             if options.verbose:
                 print("Loaded %s edge restrictions and %s route restrictions" %
                       (len(self._edgeRestriction), len(self._routeRestriction)))
@@ -203,7 +203,7 @@ class Net:
         edgeObj.target.inEdges.remove(edgeObj)
         if edgeObj.kind == "real":
             del self._edges[edgeObj.label]
-            checkEdges = edgeObj.source.inEdges.union(edgeObj.target.outEdges)
+            checkEdges = set(edgeObj.source.inEdges).union(edgeObj.target.outEdges)
             for edge in checkEdges:
                 if edge.kind != "real":
                     self.removeEdge(edge)
@@ -279,11 +279,11 @@ class Net:
                 freq = options.interval * 60 if options.interval else 24 * 3600
                 for source in foundSources:
                     outf.write(('    <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" ' +
-                               'file="NUL" freq="%s"/>\n') %
+                                'file="NUL" freq="%s"/>\n') %
                                (source, source, freq))
                 for sink in foundSinks:
                     outf.write(('    <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" ' +
-                               'file="NUL" freq="%s"/>\n') %
+                                'file="NUL" freq="%s"/>\n') %
                                (sink, sink, freq))
                 outf.write('</detectors>\n')
 
@@ -753,8 +753,8 @@ class Net:
                            int(route.frequency), begin, end, via), file=emitOut)
 
         if options.verbose:
-            print("Writing %s vehicles from %s sources between time %s and %s" % (
-                totalFlow, numSources, begin, end))
+            print("Writing %s vehicles from %s sources between time %s and %s (minutes)" % (
+                totalFlow, numSources, int(begin / 60), int(end / 60)))
             if len(unusedSources) > 0:
                 print("  unused sources:", " ".join(unusedSources))
 

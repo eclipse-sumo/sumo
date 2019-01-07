@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/PositionVector.h>
 #include "../NIImporter_Vissim.h"
 #include <utils/distribution/Distribution_Points.h>
@@ -52,9 +52,9 @@ NIVissimSingleTypeParser_Laengenverteilungsdefinition::parse(std::istream& from)
     do {
         tag = readEndSecure(from);
         if (tag != "DATAEND") {
-            double p1 = TplConvert::_2double(tag.c_str());
+            double p1 = StringUtils::toDouble(tag);
             from >> tag;
-            double p2 = TplConvert::_2double(tag.c_str());
+            double p2 = StringUtils::toDouble(tag);
             points->add(p1, p2);
         }
     } while (tag != "DATAEND");

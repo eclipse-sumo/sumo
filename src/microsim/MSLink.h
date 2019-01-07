@@ -198,7 +198,7 @@ public:
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
-    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorIdLess>& getApproaching() const {
+    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorNumericalIdLess>& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -447,17 +447,17 @@ public:
     /// @brief write information about all approaching vehicles to the given output device
     void writeApproaching(OutputDevice& od, const std::string fromLaneID) const;
 
-    /// @brief erase vehicle from myLinkLeaders of this links junction
-    void passedJunction(const MSVehicle* vehicle) const;
-
     /// @brief return the link that is parallel to this lane or 0
     MSLink* getParallelLink(int direction) const;
 
-    //// @brief @return whether the foe vehicle is a leader for ego
-    bool isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader = true) const;
-
     /// @brief return whether the fromLane of this link is an internal lane
     bool fromInternalLane() const;
+
+    /// @brief return whether the toLane of this link is an internal lane and fromLane is a normal lane
+    bool isEntryLink() const;
+
+    /// @brief return whether this link enters the conflict area (not a continuation link)
+    bool isConflictEntryLink() const;
 
     /// @brief return whether the fromLane of this link is an internal lane and toLane is a normal lane
     bool isExitLink() const;
@@ -544,7 +544,7 @@ private:
     /// @brief The lane approaching this link
     MSLane* myLaneBefore;
 
-    std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorIdLess> myApproachingVehicles;
+    std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorNumericalIdLess> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
@@ -615,6 +615,9 @@ private:
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
     const MSLane* myWalkingAreaFoe;
+
+    /// @brief whether on of myFoeLanes is a crossing
+    bool myHavePedestrianCrossingFoe;
 
     /* @brief Links with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */

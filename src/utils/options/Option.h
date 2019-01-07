@@ -39,6 +39,11 @@
  * @brief Definition of a vector of ints
  */
 typedef std::vector<int> IntVector;
+/**
+ * @typedef FloatVector
+ * @brief Definition of a vector of doubles
+ */
+typedef std::vector<double> FloatVector;
 
 
 /* -------------------------------------------------------------------------
@@ -139,6 +144,16 @@ public:
      * @exception InvalidArgument If the class is not an instance of Option_IntVector
      */
     virtual const IntVector& getIntVector() const;
+
+    /** @brief Returns the stored float vector
+     *
+     * Option_FloatVector returns the stored float vector in this method's reimplementation.
+     *  All other option classes do not override this method which throws an InvalidArgument-exception.
+     *
+     * @return Returns the stored float vector if being an instance of Option_FloatVector
+     * @exception InvalidArgument If the class is not an instance of Option_FloatVector
+     */
+    virtual const FloatVector& getFloatVector() const;
 
 
     /** @brief Stores the given value
@@ -702,6 +717,74 @@ private:
 };
 
 
+/* -------------------------------------------------------------------------
+ * Option_FloatVector
+ * ----------------------------------------------------------------------- */
+class Option_FloatVector : public Option {
+public:
+    /** @brief Constructor for an option with no default value
+     */
+    Option_FloatVector();
+
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_FloatVector(const FloatVector& value);
+
+
+    /** @brief Copy constructor */
+    Option_FloatVector(const Option_FloatVector& s);
+
+
+    /** @brief Destructor */
+    virtual ~Option_FloatVector();
+
+
+    /** @brief Assignment operator */
+    Option_FloatVector& operator=(const Option_FloatVector& s);
+
+
+    /** @brief Returns the stored float vector
+     * @see const FloatVector &Option::getFloatVector()
+     * @return Returns the stored float vector
+     */
+    const FloatVector& getFloatVector() const;
+
+
+    /** @brief Stores the given value after parsing it into a vector of integers
+     *
+     *  The value is converted into a vector of integers and stored in "myValue".
+     *  Then, "markSet" is called in order to know that a value has been set.
+     *
+     * The method returns whether the value could be set (the return value from
+     *  "markSet").
+     *
+     * If the string could not be converted into a vector of integers, an InvalidArgument
+     *  is thrown.
+     *
+     * @see bool Option::set(std::string v)
+     * @return Whether the new value could be set
+     * @exception InvalidArgument If the value could not be converted into a vector of integers
+     */
+    bool set(const std::string& v);
+
+
+    /** @brief Returns the string-representation of the value
+     *
+     * The stored value is encoded into a string and returned.
+     *
+     * @see std::string Option::getValueString()
+     * @return The stored value encoded into a string
+     */
+    std::string getValueString() const;
+
+
+private:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    FloatVector myValue;
+};
 #endif
 
 /****************************************************************************/

@@ -34,10 +34,10 @@ netedit.inspectMode()
 # inspect edge
 netedit.leftClick(referencePosition, 250, 180)
 
-# Change parameter 6 with a non valid value 
+# Change parameter 6 with a non valid value
 netedit.modifyAttribute(6, "%%$$&&&")
 
-# Change parameter 6 with a valid value 
+# Change parameter 6 with a valid value
 netedit.modifyAttribute(6, "customType")
 
 # recompute

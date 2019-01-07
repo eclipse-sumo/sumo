@@ -79,6 +79,9 @@ RODUAFrame::addImportOptions() {
     oc.doRegister("intermodal-weight-output", new Option_FileName());
     oc.addDescription("intermodal-weight-output", "Output", "Write intermodal edges with lengths and travel times to FILE");
 
+    oc.doRegister("write-trips", new Option_Bool(false));
+    oc.addDescription("write-trips", "Output", "Write trips instead of vehicles (for validating trip input)");
+
     // register import options
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");

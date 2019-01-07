@@ -1,1 +1,2 @@
-Warning: Missing green phase in tlLogic '0', program 'broken' for tl-index 0
+Error: Illegal character '0' in tlLogic '0', program 'broken' in phase 0
+Quitting (on error).

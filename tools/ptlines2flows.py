@@ -120,7 +120,7 @@ def createTrips(options):
         departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
         if options.randomBegin:
             departTimes = sorted([options.begin
-                                 + int(random.random() * options.period) for t in departTimes])
+                                  + int(random.random() * options.period) for t in departTimes])
 
         lineCount = collections.defaultdict(int)
         typeCount = collections.defaultdict(int)

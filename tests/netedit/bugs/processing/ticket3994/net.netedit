@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.08.2018 14:30:13 by Eclipse SUMO netedit Version b980bbd93f
+<!-- generated on 04.12.2018 14:58:14 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_31Aug090203.232/netedit.gui/bugs/processing/ticket3994\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/processing/ticket3994\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_31Aug090203.232/netedit.gui/bugs/processing/ticket3994\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/processing/ticket3994\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,12 +28,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_31Aug090203.232/netedit.gui/bugs/processing/ticket3994\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_31Aug090203.232/netedit.gui/bugs/processing/ticket3994\shapes.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/processing/ticket3994\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/processing/ticket3994\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_31Aug090203.232/netedit.gui/bugs/processing/ticket3994\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/processing/ticket3994\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -42,13 +42,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_31Aug090203.232/netedit.gui/bugs/processing/ticket3994\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/processing/ticket3994\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-5.93,-3.35,118.85,58.44" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -169,17 +169,17 @@
         <request index="3" response="0101" foes="0101" cont="0"/>
     </junction>
     <junction id="cluster_B_C" type="priority" x="65.83" y="28.02" incLanes="-gneE5_0 gneE9_0 gneE9_1 gneE9_2 gneE3_0 gneE11_0 gneE11_1 gneE11_2" intLanes=":cluster_B_C_0_0 :cluster_B_C_1_0 :cluster_B_C_2_0 :cluster_B_C_3_0 :cluster_B_C_4_0 :cluster_B_C_4_1 :cluster_B_C_4_2 :cluster_B_C_16_0 :cluster_B_C_8_0 :cluster_B_C_9_0 :cluster_B_C_10_0 :cluster_B_C_11_0 :cluster_B_C_12_0 :cluster_B_C_12_1 :cluster_B_C_12_2 :cluster_B_C_17_0" shape="81.44,31.71 81.39,25.31 77.64,20.63 54.58,20.19 50.44,24.14 50.35,30.54 54.21,35.27 77.07,35.74">
-        <request index="0"  response="0000000001110000" foes="0000010001110000" cont="0"/>
+        <request index="0"  response="0000000001110000" foes="0000000001110000" cont="0"/>
         <request index="1"  response="1111100011110000" foes="1111110011110000" cont="0"/>
-        <request index="2"  response="1111001111110000" foes="1111001111110000" cont="0"/>
+        <request index="2"  response="1111001011110000" foes="1111001011110000" cont="0"/>
         <request index="3"  response="0000000000000000" foes="1000001000000000" cont="0"/>
         <request index="4"  response="0000000000000000" foes="1000011000000111" cont="0"/>
         <request index="5"  response="0000000000000000" foes="1000011000000111" cont="0"/>
         <request index="6"  response="0000000000000000" foes="1000011000000111" cont="0"/>
         <request index="7"  response="0111100000000000" foes="0111111000000110" cont="1"/>
-        <request index="8"  response="0111000000000000" foes="0111000000000100" cont="0"/>
+        <request index="8"  response="0111000000000000" foes="0111000000000000" cont="0"/>
         <request index="9"  response="1111000011111000" foes="1111000011111100" cont="0"/>
-        <request index="10" response="1111000011110011" foes="1111000011110011" cont="0"/>
+        <request index="10" response="1111000011110010" foes="1111000011110010" cont="0"/>
         <request index="11" response="0000000000000000" foes="0000000010000010" cont="0"/>
         <request index="12" response="0000000000000000" foes="0000011110000110" cont="0"/>
         <request index="13" response="0000000000000000" foes="0000011110000110" cont="0"/>

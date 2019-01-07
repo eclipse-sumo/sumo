@@ -1,4 +1,4 @@
-Eclipse SUMO Version UNKNOWN
+Eclipse SUMO Version v1_0_1+0645-93703db
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -199,6 +199,9 @@ Processing Options:
                                          the deceleration value, a vClass-class
                                          specific default or the given FLOAT in
                                          m/s^2
+  --emergencydecel.warning-threshold FLOAT  Sets the fraction of emergency
+                                         decel capability that must be used to
+                                         trigger a warning.
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping',
                                          'remote']
@@ -373,13 +376,26 @@ ToC Device Options:
                                          to take back control.
   --device.toc.recoveryRate FLOAT      Recovery rate for the driver's awareness
                                          after a ToC.
+  --device.toc.lcAbstinence FLOAT      Attention level below which a driver
+                                         restrains from performing lane changes
+                                         (value in [0,1]).
   --device.toc.initialAwareness FLOAT  Average awareness a driver has initially
-                                         after a ToC.
+                                         after a ToC (value in [0,1]).
   --device.toc.mrmDecel FLOAT          Deceleration rate applied during a
                                          'minimum risk maneuver'.
+  --device.toc.ogNewTimeHeadway FLOAT  Timegap for ToC preparation phase.
+  --device.toc.ogNewSpaceHeadway FLOAT  Additional spacing for ToC preparation
+                                         phase.
+  --device.toc.ogMaxDecel FLOAT        Maximal deceleration applied for
+                                         establishing increased gap in ToC
+                                         preparation phase.
+  --device.toc.ogChangeRate FLOAT      Rate of adaptation towards the increased
+                                         headway during ToC preparation.
   --device.toc.useColorScheme          Whether a coloring scheme shall by
                                          applied to indicate the different ToC
                                          stages.
+  --device.toc.file STR                Switches on output by specifying an
+                                         output filename.
 
 Driver State Device Options:
   --device.driverstate.probability FLOAT  The probability for a vehicle to have
@@ -483,9 +499,14 @@ GUI Only Options:
   -Q, --quit-on-end                    Quits the GUI when the simulation stops
   -G, --game                           Start the GUI in gaming mode
   -S, --start                          Start the simulation after loading
+  --breakpoints STR                    Use TIME[] as times when the simulation
+                                         should halt
+  --edgedata-files FILE                Load edge/lane weights for visualization
+                                         from FILE
   -D, --demo                           Restart the simulation after ending
                                          (demo mode)
   -T, --disable-textures               Do not load background pictures
+  --registry-viewport                  Load current viewport from registry
   --window-size STR                    Create initial window with the given x,y
                                          size
   --window-pos STR                     Create initial window at the given x,y

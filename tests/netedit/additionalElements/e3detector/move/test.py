@@ -41,14 +41,14 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.changeAdditional("detEntry")
 
 # Create Entry detector (for saving)
-netedit.leftClick(referencePosition, 250, 250)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(referencePosition, 400, 250)
 
 # select entry detector
 netedit.changeAdditional("detExit")
 
 # Create detExit detector (for saving)
-netedit.leftClick(referencePosition, 250, 250)
+netedit.selectAdditionalChild(6, 0)
 netedit.leftClick(referencePosition, 600, 250)
 
 # change to move mode

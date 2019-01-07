@@ -13,40 +13,51 @@
 # @date    2016-15-04
 # @version $Id$
 
+"""
+Compare differences between tripinfo files that contain the same vehicles
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
+import argparse
 from collections import OrderedDict
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
-from sumolib.miscutils import Statistics  # noqa
+from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
-def write_diff(orig, new, out):
-    vehicles_orig = OrderedDict([(v.id, v) for v in parse(orig, 'tripinfo')])
+def get_options(args=None):
+    argParser = argparse.ArgumentParser()
+    argParser.add_argument("orig", help="the first tripinfo file")
+    argParser.add_argument("new", help="the second tripinfo file")
+    argParser.add_argument("output", help="the output file")
+    argParser.add_argument("--persons", action="store_true",
+                           default=False, help="compute personinfo differences")
+    return argParser.parse_args(args=args)
+
+
+def write_diff(options):
+    attrs = ["depart", "arrival", "timeLoss", "duration", "routeLength"]
+    # parseTime works just fine for floats
+    attr_conversions = dict([(a, parseTime) for a in attrs])
+    vehicles_orig = OrderedDict([(v.id, v) for v in parse(options.orig, 'tripinfo',
+                                                          attr_conversions=attr_conversions)])
     origDurations = Statistics('original durations')
     durations = Statistics('new durations')
     durationDiffs = Statistics('duration differences')
-    with open(out, 'w') as f:
+    with open(options.output, 'w') as f:
         f.write("<tripDiffs>\n")
-        for v in parse(new, 'tripinfo'):
+        for v in parse(options.new, 'tripinfo', attr_conversions=attr_conversions):
             if v.id in vehicles_orig:
                 vOrig = vehicles_orig[v.id]
-                departDiff = float(v.depart) - float(vOrig.depart)
-                arrivalDiff = float(v.arrival) - float(vOrig.arrival)
-                timeLossDiff = float(v.timeLoss) - float(vOrig.timeLoss)
-                durationDiff = float(v.duration) - float(vOrig.duration)
-                routeLengthDiff = float(v.routeLength) - \
-                    float(vOrig.routeLength)
-
-                durations.add(float(v.duration), v.id)
-                origDurations.add(float(vOrig.duration), v.id)
-                durationDiffs.add(durationDiff, v.id)
-
-                f.write(('''    <vehicle id="%s" departDiff="%s" arrivalDiff="%s" timeLossDiff="%s" \
-durationDiff="%s" routeLengthDiff="%s"/>\n''') % (
-                    v.id, departDiff, arrivalDiff, timeLossDiff, durationDiff, routeLengthDiff))
+                diffs = [v.getAttribute(a) - vOrig.getAttribute(a) for a in attrs]
+                durations.add(v.duration, v.id)
+                origDurations.add(vOrig.duration, v.id)
+                durationDiffs.add(v.duration - vOrig.duration, v.id)
+                diffAttrs = ''.join([' %sDiff="%s"' % (a, x) for a, x in zip(attrs, diffs)])
+                f.write('    <vehicle id="%s"%s/>\n' % (v.id, diffAttrs))
                 del vehicles_orig[v.id]
             else:
                 f.write('    <vehicle id="%s" comment="new"/>\n' % v.id)
@@ -59,5 +70,72 @@ durationDiff="%s" routeLengthDiff="%s"/>\n''') % (
     print(durationDiffs)
 
 
+def write_persondiff(options):
+    attrs = ["depart", "arrival", "timeLoss", "duration", "routeLength", "waitingTime"]
+    attr_conversions = dict([(a, parseTime) for a in attrs])
+    persons_orig = OrderedDict([(p.id, p) for p in parse(options.orig, 'personinfo',
+                                                         attr_conversions=attr_conversions)])
+    origDurations = Statistics('original durations')
+    durations = Statistics('new durations')
+    durationDiffs = Statistics('duration differences')
+    statAttrs = ["duration", "walkTimeLoss", "rideWait", "walks", "accesses", "rides", "stops"]
+    with open(options.output, 'w') as f:
+        f.write("<tripDiffs>\n")
+        for p in parse(options.new, 'personinfo', attr_conversions=attr_conversions):
+            if p.id in persons_orig:
+                pOrig = persons_orig[p.id]
+                stats = plan_stats(p)
+                statsOrig = plan_stats(pOrig)
+                diffs = [a - b for a, b in zip(stats, statsOrig)]
+                durations.add(stats[0], p.id)
+                origDurations.add(statsOrig[0], p.id)
+                durationDiffs.add(stats[0] - statsOrig[0], p.id)
+                diffAttrs = ''.join([' %sDiff="%s"' % (a, x) for a, x in zip(statAttrs, diffs)])
+                f.write('    <personinfo id="%s"%s/>\n' % (p.id, diffAttrs))
+                del persons_orig[p.id]
+            else:
+                f.write('    <personinfo id="%s" comment="new"/>\n' % p.id)
+        for id in persons_orig.keys():
+            f.write('    <personinfo id="%s" comment="missing"/>\n' % id)
+        f.write("</tripDiffs>\n")
+
+    print(origDurations)
+    print(durations)
+    print(durationDiffs)
+
+
+def plan_stats(pInfo):
+    duration = 0
+    timeLoss = 0
+    rideWait = 0
+    walks = 0
+    accesses = 0
+    rides = 0
+    stops = 0
+    if pInfo.walk:
+        walks = len(pInfo.walk)
+        for walk in pInfo.walk:
+            timeLoss += walk.timeLoss
+            duration += walk.duration
+    if pInfo.access:
+        accesses = len(pInfo.access)
+        for access in pInfo.access:
+            duration += access.duration
+    if pInfo.ride:
+        rides = len(pInfo.ride)
+        for ride in pInfo.ride:
+            duration += ride.duration
+            rideWait += ride.waitingTime
+    if pInfo.stop:
+        stops = len(pInfo.stop)
+        for stop in pInfo.stop:
+            duration += stop.duration
+    return (duration, timeLoss, rideWait, walks, accesses, rides, stops)
+
+
 if __name__ == "__main__":
-    write_diff(*sys.argv[1:])
+    options = get_options()
+    if options.persons:
+        write_persondiff(options)
+    else:
+        write_diff(options)

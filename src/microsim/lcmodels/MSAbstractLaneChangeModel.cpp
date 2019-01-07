@@ -158,7 +158,7 @@ MSAbstractLaneChangeModel::getManeuverDist() const {
 
 bool
 MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
-    if (neighLeader == 0) {
+    if (neighLeader == nullptr) {
         return false;
     }
     // Congested situation are relevant only on highways (maxSpeed > 70km/h)
@@ -235,7 +235,7 @@ MSAbstractLaneChangeModel::primaryLaneChanged(MSLane* source, MSLane* target, in
 }
 
 void
-MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction) {
+MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction, double maneuverDist) {
     if (myLCOutput) {
         OutputDevice& of = OutputDevice::getDeviceByOption("lanechange-output");
         of.openTag(tag);
@@ -261,6 +261,9 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
         if (MSGlobals::gLateralResolution > 0) {
             const double latGap = direction < 0 ? myLastLateralGapRight : myLastLateralGapLeft;
             of.writeAttr("latGap", latGap == NO_NEIGHBOR ? "None" : toString(latGap));
+            if (maneuverDist != 0) {
+                of.writeAttr("maneuverDistance", toString(maneuverDist));
+            }
         }
         of.closeTag();
         if (MSGlobals::gLaneChangeDuration > DELTA_T) {
@@ -330,10 +333,10 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane, double posLat) cons
             // "reserve" target lane even when there is no overlap yet
             return lane->getParallelLane(myLaneChangeDirection);
         } else {
-            return 0;
+            return nullptr;
         }
     } else {
-        return 0;
+        return nullptr;
     }
 }
 
@@ -346,12 +349,12 @@ MSAbstractLaneChangeModel::getShadowLane(const MSLane* lane) const {
 
 void
 MSAbstractLaneChangeModel::cleanupShadowLane() {
-    if (myShadowLane != 0) {
+    if (myShadowLane != nullptr) {
         if (debugVehicle()) {
             std::cout << SIMTIME << " cleanupShadowLane\n";
         }
         myShadowLane->resetPartialOccupation(&myVehicle);
-        myShadowLane = 0;
+        myShadowLane = nullptr;
     }
     for (std::vector<MSLane*>::const_iterator it = myShadowFurtherLanes.begin(); it != myShadowFurtherLanes.end(); ++it) {
         if (debugVehicle()) {
@@ -365,12 +368,12 @@ MSAbstractLaneChangeModel::cleanupShadowLane() {
 
 void
 MSAbstractLaneChangeModel::cleanupTargetLane() {
-    if (myTargetLane != 0) {
+    if (myTargetLane != nullptr) {
         if (debugVehicle()) {
             std::cout << SIMTIME << " cleanupTargetLane\n";
         }
         myTargetLane->resetManeuverReservation(&myVehicle);
-        myTargetLane = 0;
+        myTargetLane = nullptr;
     }
     for (std::vector<MSLane*>::const_iterator it = myFurtherTargetLanes.begin(); it != myFurtherTargetLanes.end(); ++it) {
         if (debugVehicle()) {
@@ -409,7 +412,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
         // assume each vehicle drives at the center of its lane and act as if it fits
         return;
     }
-    if (myShadowLane != 0) {
+    if (myShadowLane != nullptr) {
 #ifdef DEBUG_SHADOWLANE
         if (debugVehicle()) {
             std::cout << SIMTIME << " updateShadowLane()\n";
@@ -419,7 +422,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
     }
     myShadowLane = getShadowLane(myVehicle.getLane());
     std::vector<MSLane*> passed;
-    if (myShadowLane != 0) {
+    if (myShadowLane != nullptr) {
         myShadowLane->setPartialOccupation(&myVehicle);
         const std::vector<MSLane*>& further = myVehicle.getFurtherLanes();
         const std::vector<double>& furtherPosLat = myVehicle.getFurtherLanesPosLat();
@@ -432,7 +435,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
                 std::cout << SIMTIME << "   further=" << further[i]->getID() << " (posLat=" << furtherPosLat[i] << ") shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
             }
 #endif
-            if (shadowFurther != 0 && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != 0) {
+            if (shadowFurther != nullptr && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != nullptr) {
                 passed.push_back(shadowFurther);
             }
         }
@@ -468,7 +471,7 @@ MSAbstractLaneChangeModel::getShadowDirection() const {
         } else {
             return myLaneChangeDirection;
         }
-    } else if (myShadowLane == 0) {
+    } else if (myShadowLane == nullptr) {
         return 0;
     } else {
         assert(&myShadowLane->getEdge() == &myVehicle.getLane()->getEdge());

@@ -13,7 +13,7 @@ IF(FOX_CONFIG)
 endif(FOX_CONFIG)
 
 # Declare ab boolean flag to note if Fox library was found
-set(FOX_FOUND 0)
+set(FOX_FOUND FALSE)
 # if fox-config was executed successfully, fox was found
 if(FOX_LIBRARY AND FOX_CXX_FLAGS)
     SET(FOX_FOUND TRUE)
@@ -26,12 +26,14 @@ else()
     IF (FOX_INCLUDE_DIR AND FOX_LIBRARY)
         SET(FOX_FOUND TRUE)
     ELSE ()
+        if (FOX_FIND_REQUIRED)
+            message(FATAL_ERROR "Could NOT find Fox. GUI and threading will not be available. If it is installed, try to set the environment variables FOX_INCLUDE_DIR and FOX_LIBRARY.")
+        endif()
         SET(FOX_LIBRARY "")
+        message(STATUS "Could NOT find Fox. GUI and threading will not be available. If it is installed, try to set the environment variables FOX_INCLUDE_DIR and FOX_LIBRARY.")
     ENDIF (FOX_INCLUDE_DIR AND FOX_LIBRARY)
 endif()
-
-# if fox library wasn't found and it's required, stop cmake compilation and show error message
-if(FOX_FIND_REQUIRED AND NOT FOX_FOUND)
-    message(FATAL_ERROR "no fox. make sure that env variables FOX_INCLUDE_DIR and FOX_LIBRARY are set")
+IF (NOT FOX_FIND_QUIETLY)
+    message(STATUS "Found Fox: ${FOX_LIBRARY}")
 endif()
 

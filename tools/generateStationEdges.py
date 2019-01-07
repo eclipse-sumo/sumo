@@ -52,8 +52,8 @@ def main(options):
             for stop in sumolib.xml.parse(options.stopfile, 'busStop', heterogeneous=True):
                 edge_id = stop.id + "_access"
                 x, y = sumolib.geomhelper.positionAtShapeOffset(
-                        net.getLane(stop.lane).getShape(),
-                        (float(stop.startPos) + float(stop.endPos)) / 2)
+                    net.getLane(stop.lane).getShape(),
+                    (float(stop.startPos) + float(stop.endPos)) / 2)
                 from_id = edge_id + '_from'
                 to_id = edge_id + '_to'
                 out_n.write('    <node id="%s" x="%s" y="%s"/>\n' % (from_id, x - l2, y))

@@ -23,39 +23,39 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
 
-# select E1 Instant
+# select E1
 netedit.changeAdditional("instantInductionLoop")
 
-# create E1 Instant
+# create E1
 netedit.leftClick(referencePosition, 250, 250)
 
 # change to move mode
 netedit.moveMode()
 
-# move E1 Instant to left
+# move E1 to left
 netedit.moveElement(referencePosition, 120, 250, 50, 250)
 
 # move back
 netedit.moveElement(referencePosition, 50, 250, 120, 250)
 
-# move E1 Instant to right
+# move E1 to right
 netedit.moveElement(referencePosition, 120, 250, 250, 250)
 
 # move back
 netedit.moveElement(referencePosition, 250, 250, 120, 250)
 
-# move E1 Instant to left overpassing lane
+# move E1 to left overpassing lane
 netedit.moveElement(referencePosition, 120, 250, -150, 250)
 
 # move back
 netedit.moveElement(referencePosition, -100, 250, 120, 250)
 
-# move E1 Instant to right overpassing lane
+# move E1 to right overpassing lane
 netedit.moveElement(referencePosition, 120, 250, 580, 250)
 
 # move back to another different position of initial

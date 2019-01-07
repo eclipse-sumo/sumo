@@ -36,6 +36,11 @@ polygonID = "0"
 print("adding", polygonID)
 traci.polygon.add(
     polygonID, ((1, 1), (1, 10), (10, 10)), (1, 2, 3, 4), True, "test")
+try:
+    traci.polygon.add(
+        "invalidShape", ((1, 1), (float('nan'), 42), (1, 10), (10, 10)), (1, 2, 3, 4), True, "test")
+except traci.TraCIException:
+    pass
 
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
@@ -65,4 +70,12 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.polygon.getSubscriptionResults(polygonID))
+
+polygonID2 = "poly2"
+traci.polygon.add(
+    polygonID2, ((1, 1), (1, 10), (10, 10)), (1, 2, 3, 4), True, "test", lineWidth=3)
+print("new polygon lineWidth", traci.polygon.getLineWidth(polygonID2))
+traci.polygon.setLineWidth(polygonID2, 0.5)
+print("lineWidth modified", traci.polygon.getLineWidth(polygonID2))
+
 traci.close()

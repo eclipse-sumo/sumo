@@ -49,19 +49,19 @@ while traci.simulation.getMinExpectedNumber() > 0:
         currEdge = traci.vehicle.getRoadID(vehID)
         currLanePos = traci.vehicle.getLanePosition(vehID)
         print(("step=%s road=%s lane=%s pos=%.2f dist=%.2f simDist=%.2f simDistToEnd=%.2f distToInt=%.2f " +
-              "distToEnd=%.2f simDist2DToInt=%.2f simDist2DToEnd=%.2f") % (
-                traci.simulation.getCurrentTime() / 1000,
-                currEdge,
-                traci.vehicle.getLaneID(vehID),
-                traci.vehicle.getLanePosition(vehID),
-                traci.vehicle.getDistance(vehID),
-                traci.simulation.getDistance2D(firstPos[0], firstPos[1], currPos[0], currPos[1], isDriving=True),
-                traci.simulation.getDistance2D(currPos[0], currPos[1], endPos[0], endPos[1], isDriving=True),
-                traci.vehicle.getDrivingDistance(vehID, ":C_10", 13.8),
-                traci.vehicle.getDrivingDistance(vehID, "CN", 90),
-                traci.simulation.getDistanceRoad(currEdge, currLanePos, ":C_10", 13.8),
-                traci.simulation.getDistanceRoad(currEdge, currLanePos, "CN", 90)
-                ))
+               "distToEnd=%.2f simDist2DToInt=%.2f simDist2DToEnd=%.2f") % (
+            traci.simulation.getCurrentTime() / 1000,
+            currEdge,
+            traci.vehicle.getLaneID(vehID),
+            traci.vehicle.getLanePosition(vehID),
+            traci.vehicle.getDistance(vehID),
+            traci.simulation.getDistance2D(firstPos[0], firstPos[1], currPos[0], currPos[1], isDriving=True),
+            traci.simulation.getDistance2D(currPos[0], currPos[1], endPos[0], endPos[1], isDriving=True),
+            traci.vehicle.getDrivingDistance(vehID, ":C_10", 13.8),
+            traci.vehicle.getDrivingDistance(vehID, "CN", 90),
+            traci.simulation.getDistanceRoad(currEdge, currLanePos, ":C_10", 13.8),
+            traci.simulation.getDistanceRoad(currEdge, currLanePos, "CN", 90)
+        ))
 
     except traci.TraCIException:
         pass

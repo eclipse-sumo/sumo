@@ -34,6 +34,7 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/gui/div/libguiutilsdiv.a \
 ../utils/gui/settings/libguiutilssettings.a \
 ../utils/gui/images/libguiutilsimages.a \
+../utils/gui/cursors/libguiutilscursors.a \
 ../utils/gui/tracker/libguiutilstracker.a \
 ../utils/distribution/libdistribution.a \
 ../foreign/eulerspiral/libeulerspiral.a \

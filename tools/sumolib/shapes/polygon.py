@@ -93,7 +93,7 @@ class PolygonReader(handler.ContentHandler):
                 poly = Polygon(attrs['id'], attrs['type'], c, float(
                                attrs['layer']), attrs['fill'], cshape)
             else:
-                poly = Polygon(attrs['id'], shape=cshape)
+                poly = Polygon(attrs['id'], color=attrs.get('color'), shape=cshape)
             self._id2poly[poly.id] = poly
             self._polys.append(poly)
             self._lastPoly = poly

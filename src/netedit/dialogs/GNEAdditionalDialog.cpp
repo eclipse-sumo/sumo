@@ -54,7 +54,7 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* editedAdditional, bool u
     FXTopWindow(editedAdditional->getViewNet(), ("Edit '" + editedAdditional->getID() + "' data").c_str(), editedAdditional->getIcon(), editedAdditional->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4),
     myEditedAdditional(editedAdditional),
     myUpdatingElement(updatingElement),
-    myChangesDescription("change " + toString(editedAdditional->getTag()) + " values"),
+    myChangesDescription("change " + editedAdditional->getTagStr() + " values"),
     myNumberOfChanges(0) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);

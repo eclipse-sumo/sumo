@@ -1,0 +1,2 @@
+Warning: Essential unique string attribute 'lane' of busStop with ID 'busStop_01' is missing; busStop cannot be created
+Warning: The lane 'dummyLane' to use within the busStop 'busStop_02' is not known.

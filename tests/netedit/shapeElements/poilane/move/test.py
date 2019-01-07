@@ -31,36 +31,30 @@ netedit.shapeMode()
 # go to shape mode
 netedit.changeShape("poiLane")
 
-# create poi
-netedit.leftClick(referencePosition, 100, 100)
-
-# change color to white (To see icon)
-netedit.modifyShapeDefaultValue(3, "white")
-
-# Change parameter 6 with a valid value
-netedit.modifyAttribute(6, "10")
-
-# Change parameter 6 with a valid value
-netedit.modifyAttribute(7, "10")
-
-# change imgfile (valid)
-netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
-
-# create poi
-netedit.leftClick(referencePosition, 100, 350)
+# create poiLane
+netedit.leftClick(referencePosition, 150, 200)
 
 # go to move mode
 netedit.moveMode()
 
-# move first POILane to left down
-netedit.moveElement(referencePosition, -80, 55, 200, 60)
+# move first POILane to right
+netedit.moveElement(referencePosition, -20, 200, 200, 200)
 
-# move second POILane to left up
-netedit.moveElement(referencePosition, -80, 400, 200, 300)
+# move first POILane to left
+netedit.moveElement(referencePosition, 200, 200, 0, 200)
+
+# move first POILane to left
+netedit.moveElement(referencePosition, 0, 200, -180, 200)
+
+# move first POILane to left
+netedit.moveElement(referencePosition, -120, 200, 600, 200)
+
+# move first POILane to left
+netedit.moveElement(referencePosition, 540, 200, 300, 200)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save shapes
 netedit.saveShapes()

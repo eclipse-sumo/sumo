@@ -349,10 +349,14 @@ NIFrame::checkOptions() {
             // changed default since we wish to preserve the network as far as possible
             oc.set("offset.disable-normalization", "true");
         }
+        if (oc.isWriteable("geometry.max-grade.fix")) {
+            // changed default since we wish to preserve the network as far as possible
+            oc.set("geometry.max-grade.fix", "false");
+        }
     }
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
-        if (sumoPath == 0) {
+        if (sumoPath == nullptr) {
             WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
         } else {
             const std::string path = sumoPath + std::string("/data/typemap/");
@@ -372,6 +376,10 @@ NIFrame::checkOptions() {
         if (oc.isDefault("rectangular-lane-cut")) {
             // a better interpretation of imported geometries
             oc.set("rectangular-lane-cut", "true");
+        }
+        if (oc.isDefault("opendrive.advance-stopline") && oc.getBool("opendrive.internal-shapes")) {
+            // avoid mismatch between edge shapes and and internal edge shapes
+            oc.set("opendrive.advance-stopline", "0");
         }
     }
     return ok;

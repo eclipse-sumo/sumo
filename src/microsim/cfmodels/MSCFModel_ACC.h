@@ -37,6 +37,7 @@
 // ===========================================================================
 class MSVehicle;
 class MSVehicleType;
+class MSCFModel_CACC;
 
 // ===========================================================================
 // class definitions
@@ -116,6 +117,7 @@ public:
         return ret;
     }
 
+    friend class MSCFModel_CACC;
 
 private:
     class ACCVehicleVariables : public MSCFModel::VehicleVariables {

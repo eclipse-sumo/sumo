@@ -310,6 +310,9 @@ Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
         lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
     }
     e->rebuildAllowedLanes();
+    for (MSEdge* const pred : e->getPredecessors()) {
+        pred->rebuildAllowedTargets();
+    }
 }
 
 
@@ -362,7 +365,7 @@ Edge::makeWrapper() {
 bool
 Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());

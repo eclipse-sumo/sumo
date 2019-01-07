@@ -17,7 +17,7 @@
 // The class for SOTL sensors of "E2" type
 /****************************************************************************/
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicleType.h>
@@ -44,7 +44,7 @@ void MSSOTLE2Sensors::buildSensors(
     MSTrafficLightLogic::LaneVectorVector controlledLanes,
     NLDetectorBuilder& nb, double sensorLength) {
     //for each lane build an appropriate sensor on it
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
 
     //input and ouput lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
@@ -65,7 +65,7 @@ void MSSOTLE2Sensors::buildCountSensors(
     MSTrafficLightLogic::LaneVectorVector controlledLanes,
     NLDetectorBuilder& nb) {
     //for each lane build an appropriate sensor on it
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
     //input and ouput lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 controlledLanes.begin(); laneVector != controlledLanes.end();
@@ -82,7 +82,7 @@ void MSSOTLE2Sensors::buildCountOutSensors(
     MSTrafficLightLogic::LaneVectorVector controlledLanes,
     NLDetectorBuilder& nb) {
     //for each lane build an appropriate sensor on it
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
 
     //input and ouput lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
@@ -105,7 +105,7 @@ void MSSOTLE2Sensors::buildOutSensors(
     MSTrafficLightLogic::LaneVectorVector controlledLanes,
     NLDetectorBuilder& nb, double sensorLength) {
     //for each lane build an appropriate sensor on it
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
 
     //input and ouput lanes
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
@@ -122,7 +122,7 @@ void MSSOTLE2Sensors::buildOutSensors(
 void MSSOTLE2Sensors::buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& nb) {
     double sensorPos;
     double lensorLength;
-    MSE2Collector* newSensor = NULL;
+    MSE2Collector* newSensor = nullptr;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
 
@@ -164,7 +164,7 @@ void MSSOTLE2Sensors::buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& n
 void MSSOTLE2Sensors::buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder& nb) {
     double sensorPos;
     double lensorLength;
-    MSE2Collector* newSensor = NULL;
+    MSE2Collector* newSensor = nullptr;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
 
@@ -250,7 +250,7 @@ void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, do
     }
     double sensorPos;
     double lensorLength;
-    MSE2Collector* newSensor = NULL;
+    MSE2Collector* newSensor = nullptr;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
 
@@ -331,7 +331,7 @@ void MSSOTLE2Sensors::buildSensorForOutLane(MSLane* lane,
         NLDetectorBuilder& nb, double sensorLength) {
     double sensorPos;
     double lensorLength;
-    MSE2Collector* newSensor = NULL;
+    MSE2Collector* newSensor = nullptr;
     //Check not to have more than a sensor for lane
     if (m_sensorMap.find(lane->getID()) == m_sensorMap.end()) {
 
@@ -507,7 +507,7 @@ void MSSOTLE2Sensors::setVehicleWeigths(const std::string& weightString) {
         split(*typesIt, '=', typeWeight);
         if (typeWeight.size() == 2) {
             std::string type = trim(typeWeight[0]);
-            int value = TplConvert::_2int(typeWeight[1].c_str());
+            int value = StringUtils::toInt(typeWeight[1]);
             logstr << type << "=" << value << " ";
             m_typeWeightMap[type] = value;
         }

@@ -32,29 +32,26 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <utility>
+#include <fx.h>
 #include <foreign/rtree/SUMORTree.h>
-#include <netbuild/NBNetBuilder.h>
-#include <utils/common/IDSupplier.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/StringUtils.h>
-#include <utils/geom/Boundary.h>
-#include <utils/geom/Position.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIShapeContainer.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/options/OptionsCont.h>
+#include <netbuild/NBTrafficLightLogicCont.h>
 #include <netedit/changes/GNEChange.h>
+#include <utils/common/IDSupplier.h>
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/geom/Boundary.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIShapeContainer.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
+class NBNetBuilder;
 class GNEAdditional;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
@@ -90,21 +87,6 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_Additional;
 
 public:
-    /// @name color of selected objects
-    /// @{
-    /// @brief color of selection
-    static const RGBColor selectionColor;
-
-    /// @brief color of selected lane
-    static const RGBColor selectedLaneColor;
-
-    /// @brief color of selected connection
-    static const RGBColor selectedConnectionColor;
-
-    /// @brief color of selected additionals
-    static const RGBColor selectedAdditionalColor;
-    /// @}
-
     /**@brief Constructor
      * @param[in] netbuilder the netbuilder which may already have been filled
      * GNENet becomes responsible for cleaning this up
@@ -165,11 +147,12 @@ public:
     * @param[in] shape The shape of the polygon
     * @param[in] geo specify if shape was loaded as GEO coordinate
     * @param[in] fill Whether the polygon shall be filled
+    * @param[in] lineWidth The widht for drawing unfiled polygon
     * @return whether the polygon could be added
     */
     bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool fill,
-                    bool geo, bool ignorePruning = false);
+                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, 
+                    bool geo, bool fill, double lineWidth, bool ignorePruning = false);
 
     /**@brief Builds a POI using the given values and adds it to the container
     * @param[in] id The name of the POI
@@ -307,10 +290,11 @@ public:
     GNEJunction* splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction = 0);
 
     /**@brief split all edges at position by inserting one new junction
-     * @param[in] edges The edges to be split
+     * @param[in] edge The edge to be split
+     * @param[in] oppositeEdge The oppositeEdge to be split
      * @param[in] pos The position on which to insert the new junction
      */
-    void splitEdgesBidi(const std::set<GNEEdge*>& edges, const Position& pos, GNEUndoList* undoList);
+    void splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList);
 
     /**@brief reverse edge
      * @param[in] edge The edge to be reversed
@@ -696,6 +680,9 @@ protected:
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{
 
+    /// @brief return true if additional exist (use pointer instead ID)
+    bool additionalExist(GNEAdditional* additional);
+
     /**@brief Insert a additional element int GNENet container.
      * @throw processError if route was already inserted
      */
@@ -704,7 +691,7 @@ protected:
     /**@brief delete additional element of GNENet container
      * @throw processError if additional wasn't previously inserted
      */
-    void deleteAdditional(GNEAdditional* additional);
+    bool deleteAdditional(GNEAdditional* additional);
 
     /// @}
 

@@ -39,6 +39,7 @@
 class BaseSchemeInfoSource;
 class OutputDevice;
 class GUIVisualizationSettings;
+class GUIGlObject;
 
 
 // ===========================================================================
@@ -48,18 +49,20 @@ class GUIVisualizationSettings;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, bool _constSize = true) :
-        show(_show), size(_size), color(_color), constSize(_constSize) {}
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128,0,0,0), bool _constSize = true) :
+        show(_show), size(_size), color(_color), bgColor(_bgColor), constSize(_constSize) {}
 
     bool show;
     double size;
     RGBColor color;
+    RGBColor bgColor;
     bool constSize;
 
     bool operator==(const GUIVisualizationTextSettings& other) {
         return show == other.show &&
                size == other.size &&
                color == other.color &&
+               bgColor == other.bgColor &&
                constSize == other.constSize;
     }
     bool operator!=(const GUIVisualizationTextSettings& other) {
@@ -70,6 +73,7 @@ struct GUIVisualizationTextSettings {
         dev.writeAttr(name + "_show", show);
         dev.writeAttr(name + "_size", size);
         dev.writeAttr(name + "_color", color);
+        dev.writeAttr(name + "_bgColor", bgColor);
         dev.writeAttr(name + "_constantSize", constSize);
     }
 
@@ -80,8 +84,8 @@ struct GUIVisualizationTextSettings {
 
 
 struct GUIVisualizationSizeSettings {
-    GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false) :
-        minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize) {}
+    GUIVisualizationSizeSettings(double _minSize, double _exaggeration = 1.0, bool _constantSize = false, bool _constantSizeSelected = false) :
+        minSize(_minSize), exaggeration(_exaggeration), constantSize(_constantSize), constantSizeSelected(_constantSizeSelected) {}
 
     /// @brief The minimum size to draw this object
     double minSize;
@@ -89,9 +93,12 @@ struct GUIVisualizationSizeSettings {
     double exaggeration;
     // @brief whether the object shall be drawn with constant size regardless of zoom
     bool constantSize;
+    // @brief whether only selected objects shall be drawn with constant
+    bool constantSizeSelected;
 
     bool operator==(const GUIVisualizationSizeSettings& other) {
         return constantSize == other.constantSize &&
+               constantSizeSelected == other.constantSizeSelected &&
                minSize == other.minSize &&
                exaggeration == other.exaggeration;
     }
@@ -103,10 +110,11 @@ struct GUIVisualizationSizeSettings {
         dev.writeAttr(name + "_minSize", minSize);
         dev.writeAttr(name + "_exaggeration", exaggeration);
         dev.writeAttr(name + "_constantSize", constantSize);
+        dev.writeAttr(name + "_constantSizeSelected", constantSizeSelected);
     }
 
     /// @brief return the drawing size including exaggeration and constantSize values
-    double getExaggeration(const GUIVisualizationSettings& s, double factor = 20) const;
+    double getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor = 20) const;
 };
 
 
@@ -169,7 +177,7 @@ public:
     /// @brief Information whether rails shall be drawn
     bool showRails;
     // Setting bundles for optional drawing names with size and color
-    GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName;
+    GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue;
 
     bool hideConnectors;
     /// @brief The lane exaggeration (upscale thickness)
@@ -182,6 +190,13 @@ public:
     bool showSublanes;
     /// @brief Whether to improve visualisation of superposed (rail) edges
     bool spreadSuperposed;
+
+    /// @brief key for coloring by edge parameter
+    std::string edgeParam;
+    std::string laneParam;
+
+    /// @brief key for coloring by edgeData
+    std::string edgeData;
     //@}
 
 
@@ -202,8 +217,9 @@ public:
     bool showBTRange;
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
-    // Setting bundles for optional drawing vehicle names
+    // Setting bundles for optional drawing vehicle names or color value
     GUIVisualizationTextSettings vehicleName;
+    GUIVisualizationTextSettings vehicleValue;
     //@}
 
 
@@ -218,6 +234,7 @@ public:
     GUIVisualizationSizeSettings personSize;
     // Setting bundles for optional drawing person names
     GUIVisualizationTextSettings personName;
+    GUIVisualizationTextSettings personValue;
     //@}
 
 
@@ -241,7 +258,7 @@ public:
     /// @brief The junction colorer
     GUIColorer junctionColorer;
     // Setting bundles for optional drawing junction names and indices
-    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName;
+    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName, tlsPhaseIndex;
     /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
     /// @brief whether the shape of the junction should be drawn
@@ -304,6 +321,13 @@ public:
 
     /// @brief the current NETEDIT additional mode (temporary)
     int editAdditionalMode;
+
+    /// @brief NETEDIT special colors
+    RGBColor selectionColor;
+    RGBColor selectedEdgeColor;
+    RGBColor selectedLaneColor;
+    RGBColor selectedConnectionColor;
+    RGBColor selectedAdditionalColor;
 
     /// @brief the current selection scaling in NETEDIT (temporary)
     double selectionScale;
@@ -381,6 +405,10 @@ public:
 
     /// @brief color for Exits
     static const RGBColor SUMO_color_E3Exit;
+
+    static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
+    static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
+    static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
 
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;

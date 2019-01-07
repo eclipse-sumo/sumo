@@ -48,7 +48,7 @@
 template <class T>
 inline std::string toString(const T& t, std::streamsize accuracy = gPrecision) {
     std::ostringstream oss;
-    oss.setf(std::ios::fixed , std::ios::floatfield);
+    oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(accuracy);
     oss << t;
     return oss.str();
@@ -68,6 +68,7 @@ inline std::string toString(const Named* obj, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return Named::getIDSecure(obj);
 }
+
 
 template <>
 inline std::string toString<SumoXMLTag>(const SumoXMLTag& tag, std::streamsize accuracy) {
@@ -108,6 +109,12 @@ template <>
 inline std::string toString<LaneSpreadFunction>(const LaneSpreadFunction& lsf, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::LaneSpreadFunctions.getString(lsf);
+}
+
+template <>
+inline std::string toString<RightOfWay>(const RightOfWay& row, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::RightOfWayValues.getString(row);
 }
 
 

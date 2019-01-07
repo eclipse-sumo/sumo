@@ -126,7 +126,7 @@ InductionLoop::getVehicleData(const std::string& detID) {
 MSInductLoop*
 InductionLoop::getDetector(const std::string& id) {
     MSInductLoop* il = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
-    if (il == 0) {
+    if (il == nullptr) {
         throw TraCIException("Induction loop '" + id + "' is not known");
     }
     return il;
@@ -166,7 +166,7 @@ InductionLoop::makeWrapper() {
 bool
 InductionLoop::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());

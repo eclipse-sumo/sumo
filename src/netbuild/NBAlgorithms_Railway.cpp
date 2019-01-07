@@ -26,7 +26,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include <utils/vehicle/DijkstraRouter.h>
@@ -292,7 +292,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
                 brokenNodes.insert(n);
                 numBrokenType++;
             }
-            if (TplConvert::_2boolSec(n->getParameter("buffer_stop", "false").c_str(), false)) {
+            if (StringUtils::toBool(n->getParameter("buffer_stop", "false"))) {
                 device.writeAttr("buffer_stop", "true");
                 numBufferStops++;
             }
@@ -633,21 +633,21 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
     int numBufferStops = 0;
     int numAddedBidiTotal = 0;
     for (NBNode* node : railNodes) {
-        if (TplConvert::_2boolSec(node->getParameter("buffer_stop", "false").c_str(), false)) {
+        if (StringUtils::toBool(node->getParameter("buffer_stop", "false"))) {
             if (node->getEdges().size() != 1) {
                 WRITE_WARNING("Ignoring buffer stop junction '" + node->getID() + "' with " + toString(node->getEdges().size()) + " edges\n");
                 continue;
             }
             int numAddedBidi = 0;
             numBufferStops++;
-            NBEdge* prev = 0;
-            NBEdge* prev2 = 0;
+            NBEdge* prev = nullptr;
+            NBEdge* prev2 = nullptr;
             EdgeVector inRail, outRail;
             getRailEdges(node, inRail, outRail);
             bool addAway = true; // add new edges away from buffer stop
-            while (prev == 0 || (inRail.size() + outRail.size()) == 3) {
-                NBEdge* e = 0;
-                if (prev == 0) {
+            while (prev == nullptr || (inRail.size() + outRail.size()) == 3) {
+                NBEdge* e = nullptr;
+                if (prev == nullptr) {
                     assert(node->getEdges().size() == 1);
                     e = node->getEdges().front();
                     addAway = node == e->getToNode();
@@ -663,8 +663,8 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBNetBuilder& nb) {
                     }
                 }
                 e->setLaneSpreadFunction(LANESPREAD_CENTER);
-                NBNode* e2From = 0;
-                NBNode* e2To = 0;
+                NBNode* e2From = nullptr;
+                NBNode* e2To = nullptr;
                 if (addAway) {
                     e2From = node;
                     e2To = e->getFromNode();

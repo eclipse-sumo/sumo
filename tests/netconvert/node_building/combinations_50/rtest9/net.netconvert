@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:47 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:37 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-390376.93,-5819497.66" convBoundary="0.00,0.00,156.34,172.87" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -72,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":61050789_11_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="94.96,96.85 96.09,97.73 96.43,98.56"/>
     </edge>
     <edge id=":61050789_17" function="internal">
-        <lane id=":61050789_17_0" index="0" speed="3.65" length="2.34" shape="96.43,98.56 95.97,99.33 94.71,100.04"/>
+        <lane id=":61050789_17_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="96.43,98.56 95.97,99.33 94.71,100.04"/>
     </edge>
     <edge id=":61050789_12" function="internal">
         <lane id=":61050789_12_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.44" length="9.03" shape="99.50,109.27 99.41,106.79 98.54,104.95 96.90,103.77 94.47,103.23"/>
@@ -88,10 +88,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":61050789_16_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.08" shape="102.68,109.61 103.61,108.51 104.20,108.28"/>
     </edge>
     <edge id=":61050789_18" function="internal">
-        <lane id=":61050789_18_0" index="0" speed="9.60" length="14.38" shape="103.92,104.60 103.97,104.38 106.55,100.68 110.42,98.51 115.58,97.87"/>
+        <lane id=":61050789_18_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.60" length="14.38" shape="103.92,104.60 103.97,104.38 106.55,100.68 110.42,98.51 115.58,97.87"/>
     </edge>
     <edge id=":61050789_19" function="internal">
-        <lane id=":61050789_19_0" index="0" speed="3.65" length="2.59" shape="104.20,108.28 104.45,108.19 105.20,108.68 105.87,109.95"/>
+        <lane id=":61050789_19_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.59" shape="104.20,108.28 104.45,108.19 105.20,108.68 105.87,109.95"/>
     </edge>
     <edge id=":61050794_0" function="internal">
         <lane id=":61050794_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="156.37,98.74 157.56,99.57 157.94,100.37 157.52,101.17 156.31,101.94"/>
@@ -143,23 +143,23 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="61050789" type="priority" x="105.40" y="99.25" incLanes="-53500554_0 53500609_0 810268295_0 810268295_1 -572713710_0 -572713710_1" intLanes=":61050789_0_0 :61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_6_0 :61050789_7_0 :61050789_8_0 :61050789_9_0 :61050789_10_0 :61050789_17_0 :61050789_12_0 :61050789_13_0 :61050789_13_1 :61050789_18_0 :61050789_19_0" shape="115.48,102.67 115.62,96.27 113.58,96.03 111.96,95.43 110.75,94.45 109.94,93.11 109.54,91.39 109.55,89.30 99.99,88.41 99.31,90.58 98.64,91.31 97.75,91.80 96.65,92.05 95.33,92.06 94.35,104.82 96.52,105.43 97.23,106.05 97.70,106.86 97.93,107.88 97.91,109.10 110.64,110.46 111.01,108.06 111.55,106.09 112.27,104.57 113.16,103.49 114.23,102.86">
-        <request index="0"  response="00000010000000000" foes="10000010000100000" cont="0"/>
-        <request index="1"  response="01111010000000000" foes="01111110001100000" cont="0"/>
-        <request index="2"  response="01110001100000000" foes="01110001111100000" cont="0"/>
+        <request index="0"  response="00000000000000000" foes="00000000000000000" cont="0"/>
+        <request index="1"  response="01110010000000000" foes="01110110001100000" cont="0"/>
+        <request index="2"  response="01110001000000000" foes="01110001011100000" cont="0"/>
         <request index="3"  response="01000001000010000" foes="01000001000010000" cont="0"/>
         <request index="4"  response="01000001000000000" foes="01000001000001000" cont="0"/>
-        <request index="5"  response="01000011000000111" foes="11000011000000111" cont="0"/>
-        <request index="6"  response="00111011000000110" foes="00111111000000110" cont="0"/>
-        <request index="7"  response="00110000100000100" foes="00110000100000100" cont="0"/>
-        <request index="8"  response="00000000000000000" foes="00110000010000100" cont="0"/>
+        <request index="5"  response="01000011000000110" foes="11000011000000110" cont="0"/>
+        <request index="6"  response="00110011000000110" foes="00110111000000110" cont="0"/>
+        <request index="7"  response="00110000000000100" foes="00110000000000100" cont="0"/>
+        <request index="8"  response="00000000000000000" foes="00110000000000000" cont="0"/>
         <request index="9"  response="00000000000000000" foes="01110000001111100" cont="0"/>
-        <request index="10" response="00000000000000000" foes="11110000001100011" cont="0"/>
-        <request index="11" response="00001000001000010" foes="00001000001000010" cont="1"/>
-        <request index="12" response="00000000000000000" foes="00000100001000010" cont="0"/>
+        <request index="10" response="00000000000000000" foes="11110000001100010" cont="0"/>
+        <request index="11" response="00000000001000010" foes="00000000001000010" cont="1"/>
+        <request index="12" response="00000000000000000" foes="00000000000000000" cont="0"/>
         <request index="13" response="00000011100000000" foes="00000011111000110" cont="0"/>
         <request index="14" response="00000011100000000" foes="00000011111000110" cont="0"/>
         <request index="15" response="00000011000000000" foes="00000011000111110" cont="1"/>
-        <request index="16" response="00000010000100001" foes="00000010000100001" cont="1"/>
+        <request index="16" response="00000010000100000" foes="00000010000100000" cont="1"/>
     </junction>
     <junction id="61050794" type="priority" x="156.34" y="100.34" incLanes="53500554_0" intLanes=":61050794_0_0" shape="156.34,100.34 156.41,97.14 156.34,100.34">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -172,7 +172,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":61050789_18_0" type="internal" x="103.92" y="104.60" incLanes=":61050789_15_0 810268295_0 810268295_1" intLanes=":61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_9_0 :61050789_10_0"/>
     <junction id=":61050789_19_0" type="internal" x="104.20" y="108.28" incLanes=":61050789_16_0 -53500554_0 53500609_0 810268295_1" intLanes=":61050789_0_0 :61050789_5_0 :61050789_10_0"/>
 
-    <connection from="-53500554" to="572713710" fromLane="0" toLane="0" via=":61050789_0_0" dir="r" state="m"/>
+    <connection from="-53500554" to="572713710" fromLane="0" toLane="0" via=":61050789_0_0" dir="r" state="M"/>
     <connection from="-53500554" to="-724151417" fromLane="0" toLane="1" via=":61050789_1_0" dir="s" state="m"/>
     <connection from="-53500554" to="-53500609" fromLane="0" toLane="1" via=":61050789_2_0" dir="l" state="m"/>
     <connection from="-53500554" to="53500554" fromLane="0" toLane="0" via=":61050789_3_0" dir="t" state="m"/>

@@ -27,7 +27,7 @@
 #include <exception>
 #include <sstream>
 #include "Option.h"
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
@@ -100,6 +100,10 @@ Option::getIntVector() const {
     throw InvalidArgument("This is not an int vector-option");
 }
 
+const FloatVector&
+Option::getFloatVector() const {
+    throw InvalidArgument("This is not an float vector-option");
+}
 
 bool
 Option::markSet() {
@@ -212,7 +216,7 @@ Option_Integer::getInt() const {
 bool
 Option_Integer::set(const std::string& v) {
     try {
-        myValue = TplConvert::_2int(v.c_str());
+        myValue = StringUtils::toInt(v);
         return markSet();
     } catch (...) {
         std::string s = "'" + v + "' is not a valid integer.";
@@ -323,7 +327,7 @@ Option_Float::getFloat() const {
 bool
 Option_Float::set(const std::string& v) {
     try {
-        myValue = TplConvert::_2double(v.c_str());
+        myValue = StringUtils::toDouble(v);
         return markSet();
     } catch (...) {
         throw ProcessError("'" + v + "' is not a valid float.");
@@ -378,7 +382,7 @@ Option_Bool::getBool() const {
 bool
 Option_Bool::set(const std::string& v) {
     try {
-        myValue = TplConvert::_2bool(v.c_str());
+        myValue = StringUtils::toBool(v);
         return markSet();
     } catch (...) {
         throw ProcessError("'" + v + "' is not a valid bool.");
@@ -489,7 +493,7 @@ Option_IntVector::set(const std::string& v) {
         }
         StringTokenizer st(v, ";,", true);
         while (st.hasNext()) {
-            myValue.push_back(TplConvert::_2int(st.next().c_str()));
+            myValue.push_back(StringUtils::toInt(st.next()));
         }
         return markSet();
     } catch (EmptyData&) {
@@ -505,6 +509,67 @@ Option_IntVector::getValueString() const {
     return joinToString(myValue, ',');
 }
 
+
+/* -------------------------------------------------------------------------
+ * Option_UFloatVector - methods
+ * ----------------------------------------------------------------------- */
+Option_FloatVector::Option_FloatVector()
+    : Option() {
+    myTypeName = "FLOAT[]";
+}
+
+
+Option_FloatVector::Option_FloatVector(const FloatVector& value)
+    : Option(true), myValue(value) {
+    myTypeName = "FLOAT[]";
+}
+
+
+Option_FloatVector::Option_FloatVector(const Option_FloatVector& s)
+    : Option(s), myValue(s.myValue) {}
+
+
+Option_FloatVector::~Option_FloatVector() {}
+
+
+Option_FloatVector&
+Option_FloatVector::operator=(const Option_FloatVector& s) {
+    Option::operator=(s);
+    myValue = s.myValue;
+    return (*this);
+}
+
+
+const FloatVector&
+Option_FloatVector::getFloatVector() const {
+    return myValue;
+}
+
+
+bool
+Option_FloatVector::set(const std::string& v) {
+    myValue.clear();
+    try {
+        if (v.find(';') != std::string::npos) {
+            WRITE_WARNING("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
+        }
+        StringTokenizer st(v, ";,", true);
+        while (st.hasNext()) {
+            myValue.push_back(StringUtils::toDouble(st.next()));
+        }
+        return markSet();
+    } catch (EmptyData&) {
+        throw ProcessError("Empty element occurred in " + v);
+    } catch (...) {
+        throw ProcessError("'" + v + "' is not a valid float vector.");
+    }
+}
+
+
+std::string
+Option_FloatVector::getValueString() const {
+    return joinToString(myValue, ',');
+}
 
 
 /****************************************************************************/

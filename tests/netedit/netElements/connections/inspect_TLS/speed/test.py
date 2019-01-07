@@ -35,24 +35,24 @@ netedit.toogleShowConnectionsInspectorMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change speed with an invalid value
-netedit.modifyAttribute(6, "dummySpeed")
+netedit.modifyAttribute(9, "dummySpeed")
 
 # Change speed with an valid value
-netedit.modifyAttribute(6, "-3")
+netedit.modifyAttribute(9, "-3")
 
 # Change speed with an valid value
-netedit.modifyAttribute(6, "0")
+netedit.modifyAttribute(9, "0")
 
 # Change speed with an valid value
-netedit.modifyAttribute(6, "15.5")
+netedit.modifyAttribute(9, "15.5")
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 4)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

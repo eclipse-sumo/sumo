@@ -25,3 +25,5 @@ step 4
 {0: ('0',)}
 step 5
 {0: ('0',)}
+new polygon lineWidth 3.0
+lineWidth modified 0.5

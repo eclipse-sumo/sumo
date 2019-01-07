@@ -37,14 +37,14 @@ netedit.changeAdditional("busStop")
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, 375, 250)
 
-# select Access detector
+# select Access
 netedit.changeAdditional("access")
 
-# Create Access detector
+# Create Access
 netedit.selectAdditionalChild(7, 0)
 netedit.leftClick(referencePosition, 200, 50)
 
-# Try to create another Access in the same edge
+# Create second Access
 netedit.selectAdditionalChild(7, 0)
 netedit.leftClick(referencePosition, 200, 250)
 

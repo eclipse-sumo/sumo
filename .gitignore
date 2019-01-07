@@ -17,9 +17,16 @@
 /compile
 /latex
 /mirror
+# eclipse project files
+/.settings
+/.cproject
+/.project
+/.pydevproject
 # build dir 
 /cmake-build*
+/cmake_build*
 /build/cmake-build*
+/build/cmake_build*
 /build/cmake-codeblocks*
 # bin dir
 /bin/TraCITestClient*
@@ -93,6 +100,7 @@
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
+/tools/contributed/traas/examples/simulation/loops.out.xml
 /tools/libsumo/_libsumo.so
 /tools/libsumo/java/
 /tools/libsumo/libsumo.py

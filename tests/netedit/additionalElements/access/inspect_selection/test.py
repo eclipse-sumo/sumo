@@ -43,14 +43,14 @@ netedit.modifyAttribute(0, "-30")
 netedit.modifyAttribute(0, "5")
 
 # Change friendly position
-netedit.modifyBoolAttribute(1)
+netedit.modifyAttribute(1, "true")
 
 # Change block movement
 netedit.modifyBoolAttribute(5)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals()

@@ -1,42 +1,42 @@
 # all test check also the undo-redo of modifications and save the POI into a file
 # edit POI id
-inspect_id
+id
 
 # edit POI shape
-inspect_pos
+pos
 
 # edit POI color
-inspect_color
+color
 
 # edit POI type
-inspect_type
+type
 
 # edit POI layer
-inspect_layer
+layer
 
 # edit POI width
-inspect_width
+width
 
 # edit POI height
-inspect_height
+height
 
 # edit POI imgfile
-inspect_imgfile
+imgfile
 
 # edit POI relative path
-inspect_relativepath
+relativepath
 
 # edit POI angle
-inspect_angle
+angle
 
 # edit geo position
-inspect_geo_pos
+geo_pos
 
 # edit use geo
-inspect_geo_use
+geo_use
 
 # edit POI generic parameters
-inspect_genericparameters
+genericparameters
 
 # edit POI block move
-inspect_blockmove
+blockmove

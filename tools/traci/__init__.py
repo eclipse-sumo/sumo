@@ -119,7 +119,7 @@ def load(args):
 
 def simulationStep(step=0):
     """
-    Make a simulation step and simulate up to the given millisecond in sim time.
+    Make a simulation step and simulate up to the given second in sim time.
     If the given value is 0 or absent, exactly one step is performed.
     Values smaller than or equal to the current sim time result in no action.
     """

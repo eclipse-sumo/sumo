@@ -116,7 +116,6 @@ public:
     void handleEvent_SimulationStep(GUIEvent* e);
     void handleEvent_Message(GUIEvent* e);
     void handleEvent_SimulationEnded(GUIEvent* e);
-    void handleEvent_Screenshot(GUIEvent* e);
     /// @}
 
 
@@ -132,6 +131,9 @@ public:
 
     /// @brief Called on menu File->Load Shapes
     long onCmdOpenShapes(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu File->Load EdgeData
+    long onCmdOpenEdgeData(FXObject*, FXSelector, void*);
 
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);

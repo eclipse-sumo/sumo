@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.06.2018 14:02:30 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 24.10.2018 15:48:10 by Eclipse SUMO netedit Version v1_0_1+0296-2f18426848
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/volatileRecomputing\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/volatileRecomputing\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
         <sidewalks.guess value="true"/>
         <crossings.guess value="true"/>
         <walkingareas value="false"/>
-    </processing>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\shapes.xml"/>
+    </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>

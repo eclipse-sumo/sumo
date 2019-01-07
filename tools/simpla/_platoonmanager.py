@@ -127,7 +127,7 @@ class PlatoonManager(traci.StepListener):
                 if origLength != mappedLength:
                     if rp.VERBOSITY >= 1:
                         warn(("length of mapped vType '%s' (%sm.) does not equal length of original vType " +
-                             "'%s' (%sm.)\nThis will probably lead to collisions.") % (
+                              "'%s' (%sm.)\nThis will probably lead to collisions.") % (
                             typeID, mappedLength, origType, origLength), True)
                 if origEmergencyDecel != mappedEmergencyDecel:
                     if rp.VERBOSITY >= 1:
@@ -322,7 +322,7 @@ class PlatoonManager(traci.StepListener):
                         # the platoon order is violated.
                         if rp.VERBOSITY >= 2:
                             report(("Platoon order for platoon '%s' is violated: real leader '%s' is not registered " +
-                                   "as leader of '%s'") % (
+                                    "as leader of '%s'") % (
                                 pltnID, leaderID, veh.getID()), 1)
                         veh.setSplitConditions(False)
                     else:

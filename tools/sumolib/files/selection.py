@@ -35,4 +35,4 @@ def write(fdo, entries):
 
 def writeTyped(fdo, typeName, entries):
     for e in entries:
-        fdo.write("%s:%s" % (typeName, entries))
+        fdo.write("%s:%s\n" % (typeName, e))

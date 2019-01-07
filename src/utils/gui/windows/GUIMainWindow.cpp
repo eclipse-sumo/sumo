@@ -34,10 +34,8 @@
 #ifdef WIN32
 #undef NOMINMAX
 #endif
-#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplCheck.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/options/OptionsCont.h>
@@ -49,13 +47,13 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-GUIMainWindow* GUIMainWindow::myInstance = 0;
+GUIMainWindow* GUIMainWindow::myInstance = nullptr;
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 GUIMainWindow::GUIMainWindow(FXApp* a) :
-    FXMainWindow(a, "SUMO-gui main window", NULL, NULL, DECOR_ALL, 20, 20, 600, 400),
+    FXMainWindow(a, "SUMO-gui main window", nullptr, nullptr, DECOR_ALL, 20, 20, 600, 400),
     myAmFullScreen(false),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),
     myAmGaming(false),
@@ -72,7 +70,7 @@ GUIMainWindow::GUIMainWindow(FXApp* a) :
     myBottomDock = new FXDockSite(this, LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X);
     myLeftDock = new FXDockSite(this, LAYOUT_SIDE_LEFT | LAYOUT_FILL_Y);
     myRightDock = new FXDockSite(this, LAYOUT_SIDE_RIGHT | LAYOUT_FILL_Y);
-    if (myInstance != 0) {
+    if (myInstance != nullptr) {
         throw ProcessError("MainWindow initialized twice");
     }
     myInstance = this;
@@ -91,22 +89,22 @@ GUIMainWindow::~GUIMainWindow() {
 
 
 void
-GUIMainWindow::addChild(FXMDIChild* child, bool /*updateOnSimStep !!!*/) {
-    mySubWindows.push_back(child);
+GUIMainWindow::addGLChild(GUIGlChildWindow* child) {
+    myGLWindows.push_back(child);
 }
 
 
 void
-GUIMainWindow::removeChild(FXMDIChild* child) {
-    std::vector<FXMDIChild*>::iterator i = std::find(mySubWindows.begin(), mySubWindows.end(), child);
-    if (i != mySubWindows.end()) {
-        mySubWindows.erase(i);
+GUIMainWindow::removeGLChild(GUIGlChildWindow* child) {
+    std::vector<GUIGlChildWindow*>::iterator i = std::find(myGLWindows.begin(), myGLWindows.end(), child);
+    if (i != myGLWindows.end()) {
+        myGLWindows.erase(i);
     }
 }
 
 
 void
-GUIMainWindow::addChild(FXMainWindow* child, bool /*updateOnSimStep !!!*/) {
+GUIMainWindow::addChild(FXMainWindow* child) {
     myTrackerLock.lock();
     myTrackerWindows.push_back(child);
     myTrackerLock.unlock();
@@ -125,21 +123,21 @@ GUIMainWindow::removeChild(FXMainWindow* child) {
 std::vector<std::string>
 GUIMainWindow::getViewIDs() const {
     std::vector<std::string> ret;
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
-        ret.push_back((*i)->getTitle().text());
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        ret.push_back(window->getTitle().text());
     }
     return ret;
 }
 
 
-FXMDIChild*
+GUIGlChildWindow*
 GUIMainWindow::getViewByID(const std::string& id) const {
-    for (std::vector<FXMDIChild*>::const_iterator i = mySubWindows.begin(); i != mySubWindows.end(); ++i) {
-        if (std::string((*i)->getTitle().text()) == id) {
-            return *i;
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        if (std::string(window->getTitle().text()) == id) {
+            return window;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -152,11 +150,11 @@ GUIMainWindow::getBoldFont() {
 void
 GUIMainWindow::updateChildren() {
     // inform views
-    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
+    myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
     // inform other windows
     myTrackerLock.lock();
     for (int i = 0; i < (int)myTrackerWindows.size(); i++) {
-        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
+        myTrackerWindows[i]->handle(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), nullptr);
     }
     myTrackerLock.unlock();
 }
@@ -182,7 +180,7 @@ GUIMainWindow::getGeoLabel() {
 
 GUIMainWindow*
 GUIMainWindow::getInstance() {
-    if (myInstance != 0) {
+    if (myInstance != nullptr) {
         return myInstance;
     }
     throw ProcessError("A GUIMainWindow instance was not yet constructed.");
@@ -192,11 +190,12 @@ GUIMainWindow::getInstance() {
 GUISUMOAbstractView*
 GUIMainWindow::getActiveView() const {
     GUIGlChildWindow* w = dynamic_cast<GUIGlChildWindow*>(myMDIClient->getActiveChild());
-    if (w != 0) {
+    if (w != nullptr) {
         return w->getView();
     }
-    return 0;
+    return nullptr;
 }
+
 
 void
 GUIMainWindow::setWindowSizeAndPos() {
@@ -205,13 +204,15 @@ GUIMainWindow::setWindowSizeAndPos() {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("window-size")) {
         std::vector<std::string> windowSize = oc.getStringVector("window-size");
-        if (windowSize.size() != 2
-                || !TplCheck::_str2int(windowSize[0])
-                || !TplCheck::_str2int(windowSize[1])) {
+        if (windowSize.size() != 2) {
             WRITE_ERROR("option window-size requires INT,INT");
         } else {
-            windowWidth = TplConvert::_str2int(windowSize[0]);
-            windowHeight = TplConvert::_str2int(windowSize[1]);
+            try {
+                windowWidth = StringUtils::toInt(windowSize[0]);
+                windowHeight = StringUtils::toInt(windowSize[1]);
+            } catch (NumberFormatException& e) {
+                WRITE_ERROR("option window-size requires INT,INT " + toString(e.what()));
+            }
         }
     }
     if (oc.isSet("window-size") || getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 0 || oc.isSet("window-pos")) {
@@ -220,14 +221,15 @@ GUIMainWindow::setWindowSizeAndPos() {
         int y = MAX2(50, MIN2(getApp()->reg().readIntEntry("SETTINGS", "y", 150), getApp()->getRootWindow()->getHeight() - windowHeight));
         if (oc.isSet("window-pos")) {
             std::vector<std::string> windowPos = oc.getStringVector("window-pos");
-            if (windowPos.size() != 2
-                    || !TplCheck::_str2int(windowPos[0])
-                    || !TplCheck::_str2int(windowPos[1])
-               ) {
+            if (windowPos.size() != 2) {
                 WRITE_ERROR("option window-pos requires INT,INT");
             } else {
-                x = TplConvert::_str2int(windowPos[0]);
-                y = TplConvert::_str2int(windowPos[1]);
+                try {
+                    x = StringUtils::toInt(windowPos[0]);
+                    y = StringUtils::toInt(windowPos[1]);
+                } catch (NumberFormatException& e) {
+                    WRITE_ERROR("option window-pos requires INT,INT " + toString(e.what()));
+                }
             }
         }
         move(x, y);

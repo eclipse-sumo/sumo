@@ -1,35 +1,23 @@
-# create basic
-create_basic
+default
 
-# create basic non-consecutive
-create_basic_nonconsecutive
+default_nonconsecutive
 
-# create basic single-lane
-create_basic_singlelane
+default_singlelane
 
-# create freq
-create_freq
+freq
 
-# create name
-create_name
+name
 
-# create file
-create_file
+file
 
-# create vtypes
-create_vtypes
+vtypes
 
-# create timethreshold
-create_timethreshold
+timethreshold
 
-# create speedthreshold
-create_speedthreshold
+speedthreshold
 
-# create jamthreshold
-create_jamthreshold
+jamthreshold
 
-# create friendlypos
-create_friendlypos
+friendlypos
 
-# create blockmove
-create_blockmove
+blockmove

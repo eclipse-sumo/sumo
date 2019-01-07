@@ -37,7 +37,7 @@ public:
     // class DeleteOptions
     // ===========================================================================
 
-    class DeleteOptions : public FXGroupBox {
+    class DeleteOptions : protected FXGroupBox {
 
     public:
         /// @brief constructor

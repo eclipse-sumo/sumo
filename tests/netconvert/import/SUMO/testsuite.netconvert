@@ -92,3 +92,9 @@ limit-turn-speed
 
 # re-import limited speed on junctions based on radius and overwrite with a new limit argument
 limit-turn-speed_overwrite
+
+# import check-lane-foes options from .net.xml
+checkLaneFoes
+
+# test computation of lane shapes from edge shapes with elevation
+elevation

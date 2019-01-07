@@ -25,7 +25,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimEdge.h"
 #include "../tempstructs/NIVissimConnection.h"
@@ -79,11 +79,11 @@ NIVissimSingleTypeParser_VWunschentscheidungsdefinition::parse(std::istream& fro
         from >> tag;
         from >> tag;
     }
-    int numid = TplConvert::_2int(edgeid.c_str());
-    int numlane = TplConvert::_2int(lane.c_str()) - 1;
-    int numv = TplConvert::_2int(vwunsch.c_str());
+    int numid = StringUtils::toInt(edgeid);
+    int numlane = StringUtils::toInt(lane) - 1;
+    int numv = StringUtils::toInt(vwunsch);
     NIVissimEdge* e = NIVissimEdge::dictionary(numid);
-    if (e == 0) {
+    if (e == nullptr) {
         NIVissimConnection* c = NIVissimConnection::dictionary(numid);
         const std::vector<int>& lanes = c->getToLanes();
         e = NIVissimEdge::dictionary(c->getToEdgeID());

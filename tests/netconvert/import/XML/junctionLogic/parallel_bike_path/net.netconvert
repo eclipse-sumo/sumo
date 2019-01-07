@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:53 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:45 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.35" convBoundary="0.00,0.00,200.00,200.69" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -55,10 +55,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_4_0" index="0" disallow="bicycle" speed="3.65" length="2.34" shape="98.40,110.59 99.20,109.40 100.00,109.00"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_24" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_24_0" index="0" speed="9.26" length="12.55" shape="100.00,104.05 101.45,101.71 105.26,99.49 110.59,98.75"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_24_0" index="0" disallow="bicycle" speed="9.26" length="12.55" shape="100.00,104.05 101.45,101.71 105.26,99.49 110.59,98.75"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_25" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_25_0" index="0" speed="3.65" length="2.34" shape="100.00,109.00 100.80,109.40 101.60,110.60"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_25_0" index="0" disallow="bicycle" speed="3.65" length="2.34" shape="100.00,109.00 100.80,109.40 101.60,110.60"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_5" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_5_0" index="0" allow="bicycle" speed="13.89" length="18.64" width="1.00" shape="107.20,110.61 107.41,91.98"/>
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_6_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="107.20,110.61 107.45,110.24 107.70,110.12"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_26" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_26_0" index="0" speed="2.04" length="0.73" width="1.00" shape="107.70,110.12 107.95,110.24 108.20,110.62"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_26_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="107.70,110.12 107.95,110.24 108.20,110.62"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_7" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_7_0" index="0" disallow="bicycle" speed="6.52" length="9.07" shape="110.59,105.15 108.06,105.49 106.25,106.51 105.16,108.22 104.80,110.61"/>
@@ -89,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_13_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="108.41,91.98 108.16,92.36 107.91,92.48"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_27" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_27_0" index="0" speed="2.04" length="0.73" width="1.00" shape="107.91,92.48 107.66,92.36 107.41,91.98"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_27_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="107.91,92.48 107.66,92.36 107.41,91.98"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_14" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_14_0" index="0" disallow="bicycle" speed="6.04" length="7.63" shape="104.80,91.98 105.16,93.54 106.25,94.66 108.06,95.33 110.59,95.55"/>
@@ -105,10 +105,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_18_0" index="0" disallow="bicycle" speed="3.65" length="2.34" shape="101.60,91.98 100.80,93.18 100.00,93.58"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_28" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_28_0" index="0" speed="8.48" length="9.76" shape="100.00,97.97 99.11,99.46 96.00,101.33 91.65,101.95"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_28_0" index="0" disallow="bicycle" speed="8.48" length="9.76" shape="100.00,97.97 99.11,99.46 96.00,101.33 91.65,101.95"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_29" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_29_0" index="0" speed="3.65" length="2.34" shape="100.00,93.58 99.20,93.18 98.40,91.98"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_29_0" index="0" disallow="bicycle" speed="3.65" length="2.34" shape="100.00,93.58 99.20,93.18 98.40,91.98"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_19" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_19_0" index="0" disallow="bicycle" speed="5.34" length="5.73" shape="91.66,95.55 93.21,95.33 94.32,94.66 94.98,93.54 95.20,91.98"/>
@@ -188,30 +188,30 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="cluster_C_gneJ2_gneJ4" type="priority" x="105.20" y="101.64" incLanes="NC_0 NC_1 -CNb_0 EC_0 EC_1 SCb_0 SC_0 SC_1 WC_0 WC_1" intLanes=":cluster_C_gneJ2_gneJ4_0_0 :cluster_C_gneJ2_gneJ4_1_0 :cluster_C_gneJ2_gneJ4_1_1 :cluster_C_gneJ2_gneJ4_24_0 :cluster_C_gneJ2_gneJ4_25_0 :cluster_C_gneJ2_gneJ4_5_0 :cluster_C_gneJ2_gneJ4_26_0 :cluster_C_gneJ2_gneJ4_7_0 :cluster_C_gneJ2_gneJ4_8_0 :cluster_C_gneJ2_gneJ4_8_1 :cluster_C_gneJ2_gneJ4_10_0 :cluster_C_gneJ2_gneJ4_11_0 :cluster_C_gneJ2_gneJ4_12_0 :cluster_C_gneJ2_gneJ4_27_0 :cluster_C_gneJ2_gneJ4_14_0 :cluster_C_gneJ2_gneJ4_15_0 :cluster_C_gneJ2_gneJ4_15_1 :cluster_C_gneJ2_gneJ4_28_0 :cluster_C_gneJ2_gneJ4_29_0 :cluster_C_gneJ2_gneJ4_19_0 :cluster_C_gneJ2_gneJ4_20_0 :cluster_C_gneJ2_gneJ4_20_1 :cluster_C_gneJ2_gneJ4_22_0 :cluster_C_gneJ2_gneJ4_23_0" shape="92.78,91.98 91.67,93.51 91.63,107.58 92.87,110.58 109.44,110.62 110.59,107.39 110.59,93.46 109.44,91.98" customShape="1">
-        <request index="0"  response="000000000000000000000000" foes="100000100000001100000000" cont="0"/>
+        <request index="0"  response="000000000000000000000000" foes="000000000000001100000000" cont="0"/>
         <request index="1"  response="000000000000000000000000" foes="011111100000011100000000" cont="0"/>
         <request index="2"  response="000000000000000000000000" foes="011111100000011100000000" cont="0"/>
-        <request index="3"  response="000000011101000000100000" foes="011100011101111100100000" cont="1"/>
-        <request index="4"  response="010000011000000010000000" foes="010000011000000010000000" cont="1"/>
+        <request index="3"  response="000000011001000000100000" foes="011100011001111100100000" cont="1"/>
+        <request index="4"  response="010000011000000000000000" foes="010000011000000000000000" cont="1"/>
         <request index="5"  response="000000000000000000000000" foes="001100000110011110001000" cont="0"/>
         <request index="6"  response="000000000001000000000000" foes="000000000001000000000000" cont="1"/>
-        <request index="7"  response="000000011001000000100000" foes="010000011001000000110000" cont="0"/>
+        <request index="7"  response="000000011001000000100000" foes="000000011001000000100000" cont="0"/>
         <request index="8"  response="000000111001000000101111" foes="110000111001000000101111" cont="0"/>
         <request index="9"  response="000000111001000000101111" foes="110000111001000000101111" cont="0"/>
-        <request index="10" response="001110111001000000101110" foes="001111111001000000101110" cont="0"/>
-        <request index="11" response="001100000100000000001000" foes="001100000100000000001000" cont="0"/>
+        <request index="10" response="001100111001000000101110" foes="001101111001000000101110" cont="0"/>
+        <request index="11" response="001100000000000000001000" foes="001100000000000000001000" cont="0"/>
         <request index="12" response="000000000000000000000000" foes="001100000100011111001000" cont="0"/>
         <request index="13" response="000000000000000000100000" foes="000000000000000000100000" cont="1"/>
-        <request index="14" response="000000000001000000100000" foes="001100000001100000101000" cont="0"/>
+        <request index="14" response="000000000001000000100000" foes="001100000001000000100000" cont="0"/>
         <request index="15" response="000000000000000000000000" foes="011100000000011110011000" cont="0"/>
         <request index="16" response="000000000000000000000000" foes="011100000000011110011000" cont="0"/>
-        <request index="17" response="000000000000000000000111" foes="111100000000011100000111" cont="1"/>
-        <request index="18" response="000010000000010000000110" foes="000010000000010000000110" cont="1"/>
-        <request index="19" response="000000000000000000000110" foes="000001000000010000000110" cont="0"/>
+        <request index="17" response="000000000000000000000110" foes="111100000000011100000110" cont="1"/>
+        <request index="18" response="000000000000010000000110" foes="000000000000010000000110" cont="1"/>
+        <request index="19" response="000000000000000000000110" foes="000000000000000000000110" cont="0"/>
         <request index="20" response="000000111101000000101110" foes="000000111101110000101110" cont="0"/>
         <request index="21" response="000000111101000000101110" foes="000000111101110000101110" cont="0"/>
-        <request index="22" response="000000111000001110001110" foes="000000111000001110011110" cont="0"/>
-        <request index="23" response="000000100000001100000001" foes="000000100000001100000001" cont="0"/>
+        <request index="22" response="000000111000001100001110" foes="000000111000001100011110" cont="0"/>
+        <request index="23" response="000000100000001100000000" foes="000000100000001100000000" cont="0"/>
     </junction>
     <junction id="gneJ1" type="priority" x="107.89" y="0.00" incLanes="-SCb_0" intLanes=":gneJ1_0_0" shape="107.89,0.00 106.89,0.00 107.89,0.00">
         <request index="0" response="0" foes="0" cont="0"/>

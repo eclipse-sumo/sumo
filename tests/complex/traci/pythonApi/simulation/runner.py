@@ -106,7 +106,8 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
-print("getParameter charginStation.totalEnergyCharged", traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
+print("getParameter charginStation.totalEnergyCharged",
+      traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
 print("getParameter chargingStation.name", traci.simulation.getParameter("cs1", "chargingStation.name"))
 
 print("getParameter parkingArea.capacity", traci.simulation.getParameter("pa1", "parkingArea.capacity"))

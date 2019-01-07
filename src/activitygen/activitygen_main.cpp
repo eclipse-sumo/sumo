@@ -93,7 +93,7 @@ main(int argc, char* argv[]) {
     oc.setApplicationName("activitygen", "Eclipse SUMO activitygen Version " VERSION_STRING);
     oc.addCopyrightNotice("Copyright (C) 2010-2012 Technische Universitaet Muenchen");
     int ret = 0;
-    RONet* net = 0;
+    RONet* net = nullptr;
     try {
         // Initialise subsystems and process options
         XMLSubSys::init();

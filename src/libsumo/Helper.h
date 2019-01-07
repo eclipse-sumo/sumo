@@ -9,6 +9,7 @@
 /****************************************************************************/
 /// @file    Helper.h
 /// @author  Robert Hilbrich
+/// @author  Leonhard Luecken
 /// @date    15.09.2017
 /// @version $Id$
 ///
@@ -24,10 +25,9 @@
 #include <config.h>
 
 #include <vector>
+#include <memory>
 #include <libsumo/Subscription.h>
-#include <libsumo/TraCIDefs.h>
 #include <microsim/MSNet.h>
-
 
 // ===========================================================================
 // class declarations
@@ -36,9 +36,12 @@ class Position;
 class PositionVector;
 class RGBColor;
 class MSEdge;
-class MSLane;
 class MSPerson;
 
+// ===========================================================================
+// type definitions
+// ===========================================================================
+typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; // also declared in MSLane.h!
 
 // ===========================================================================
 // class definitions
@@ -121,6 +124,14 @@ public:
 
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
+    /// @brief Filter the given ID-Set (which was obtained from an R-Tree search)
+    ///        according to the filters set by the subscription or firstly build the object ID list if
+    ///        if the filters rather demand searching along the road network than considering a geometric range.
+    /// @param[in] s Subscription which holds the filter specification to be applied
+    /// @param[in/out] objIDs Set of object IDs that is to be filtered. Result is stored in place.
+    /// @note Currently this assumes that the objects are vehicles.
+    static void applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs);
+
     static void setRemoteControlled(MSVehicle* v, Position xyPos, MSLane* l, double pos, double posLat, double angle,
                                     int edgeOffset, ConstMSEdgeVector route, SUMOTime t);
 
@@ -191,6 +202,13 @@ public:
 
 private:
     static void handleSingleSubscription(const Subscription& s);
+
+    /// @brief Adds lane coverage information from newLaneCoverage into aggregatedLaneCoverage
+    /// @param[in/out] aggregatedLaneCoverage - aggregated lane coverage info, to which the new will be added
+    /// @param[in] newLaneCoverage - new lane coverage to be added
+    /// @todo Disjunct ranges are not handled (LaneCoverageInfo definition would need to allow several intervals per lane) but
+    ///       the intermediate range is simply assimilated.
+    static void fuseLaneCoverage(std::shared_ptr<LaneCoverageInfo> aggregatedLaneCoverage, const std::shared_ptr<LaneCoverageInfo> newLaneCoverage);
 
 private:
     class VehicleStateListener : public MSNet::VehicleStateListener {

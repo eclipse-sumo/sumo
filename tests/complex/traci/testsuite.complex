@@ -20,5 +20,8 @@ closingOutput
 contextSubscriptions
 ContextSubscriptionFilters
 
+# Tests the openGap() method.
+openGap
+
 # Test for many screenshots
 b50

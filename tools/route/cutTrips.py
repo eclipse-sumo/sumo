@@ -24,7 +24,6 @@ from __future__ import print_function
 import os
 import sys
 import codecs
-import copy
 
 from optparse import OptionParser
 from collections import defaultdict
@@ -70,19 +69,19 @@ def cut_trips(aEdges, options, validTaz):
         print("Parsing trips from %s" % routeFile)
         for trip in parse(routeFile, 'trip'):
             num_trips += 1
-            if trip.attr_from is not None and not trip.attr_from in areaEdges:
+            if trip.attr_from is not None and trip.attr_from not in areaEdges:
                 continue
-            if trip.to is not None and not trip.to in areaEdges:
+            if trip.to is not None and trip.to not in areaEdges:
                 continue
-            if trip.fromTaz is not None and not trip.fromTaz in validTaz:
+            if trip.fromTaz is not None and trip.fromTaz not in validTaz:
                 continue
-            if trip.toTaz is not None and not trip.toTaz in validTaz:
+            if trip.toTaz is not None and trip.toTaz not in validTaz:
                 continue
             yield float(trip.depart), trip
             num_returned += 1
 
         print("Parsing persontrips from %s" % routeFile)
-        ignored_planitems = defaultdict(lambda : 0)
+        ignored_planitems = defaultdict(lambda: 0)
         num_persons = 0
         num_persontrips = 0
         from_ok = 0
@@ -119,11 +118,10 @@ def cut_trips(aEdges, options, validTaz):
                     person.personTrip = kept_pt
                     yield float(person.depart), person
 
-
     print("Parsed %s trips and kept %s" % (num_trips, num_returned))
     if num_persons > 0:
         print("Parsed %s persons and kept %s persontrips" % (num_trips,
-            num_persontrips))
+                                                             num_persontrips))
         print("Discared %s person that departed in the area and %s persons that arrived in the area" % (
             from_ok, to_ok))
         if ignored_planitems:

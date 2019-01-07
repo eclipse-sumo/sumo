@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle 'veh6'; waited too long (yield), lane='E121_0', time=322.00.
+Warning: Teleporting vehicle 'veh10'; waited too long (yield), lane='E232_0', time=322.00.
+Warning: Vehicle 'veh6' ends teleporting on edge 'E131', time 322.00.
+Warning: Vehicle 'veh10' ends teleporting on edge 'E222', time 322.00.
+Warning: Teleporting vehicle 'veh4'; waited too long (yield), lane=':1_6_0', time=326.00.
+Warning: Teleporting vehicle 'veh1'; waited too long (yield), lane=':2_1_0', time=326.00.
+Warning: Vehicle 'veh4' ends teleporting on edge 'E131', time 326.00.
+Warning: Vehicle 'veh1' ends teleporting on edge 'E222', time 326.00.

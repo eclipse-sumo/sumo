@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: Adding busStop 'busStop_3_2_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -39,6 +36,8 @@ Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c2' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c3' in retrieveGNECrossing()
 Debug: Created crossing ':D_c0' in retrieveGNECrossing()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: net has to be saved
@@ -110,6 +109,8 @@ Debug: Created connection 'from7_2to4_2' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to2_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Removing connection '6_2->4_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Debug: Removing connection '6_2->1_2' from edge '6'
@@ -169,6 +170,8 @@ Debug: Created connection 'from7_1to5_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to5_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing connection '6_2->4_2' from edge '6'
@@ -225,6 +228,8 @@ Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to6_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to6_2' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Removing connection '6_2->4_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
 Debug: Removing connection '6_2->1_2' from edge '6'
@@ -271,6 +276,7 @@ Debug: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to5_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to5_2' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shapeStart '50.00,50.00' into edge '4'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
@@ -502,6 +508,7 @@ Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c3' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()

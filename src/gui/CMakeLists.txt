@@ -5,7 +5,6 @@ set(gui_STAT_SRCS
    GUIApplicationWindow.h
    GUIEvent_SimulationEnded.h
    GUIEvent_SimulationLoaded.h
-   GUIEvent_Screenshot.h
    GUIGlobals.cpp
    GUIGlobals.h
    GUIManipulator.h

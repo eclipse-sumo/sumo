@@ -26,7 +26,6 @@
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/RandHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #define FONTSTASH_IMPLEMENTATION // Expands implementation
@@ -39,6 +38,7 @@
 #endif
 #include <foreign/fontstash/fontstash.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
 #define GLFONTSTASH_IMPLEMENTATION // Expands implementation
 #include <foreign/fontstash/glfontstash.h>
 #include "Roboto.h"
@@ -51,7 +51,7 @@
 // ===========================================================================
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
-FONScontext* GLHelper::myFont = 0;
+FONScontext* GLHelper::myFont = nullptr;
 double GLHelper::myFontSize = 50.0;
 
 void APIENTRY combCallback(GLdouble coords[3],
@@ -104,7 +104,7 @@ GLHelper::drawFilledPolyTesselated(const PositionVector& v, bool close) {
     gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &glEnd);
     gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combCallback);
     gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
-    gluTessBeginPolygon(tobj, NULL);
+    gluTessBeginPolygon(tobj, nullptr);
     gluTessBeginContour(tobj);
     double* points = new double[(v.size() + int(close)) * 3];
 
@@ -589,21 +589,21 @@ GLHelper::getColor() {
 void
 GLHelper::resetFont() {
     glfonsDelete(myFont);
-    myFont = 0;
+    myFont = nullptr;
 }
 
 
 bool
 GLHelper::initFont() {
-    if (myFont == 0) {
+    if (myFont == nullptr) {
         myFont = glfonsCreate(2048, 2048, FONS_ZERO_BOTTOMLEFT);
-        if (myFont != 0) {
+        if (myFont != nullptr) {
             const int fontNormal = fonsAddFontMem(myFont, "medium", data_font_Roboto_Medium_ttf, data_font_Roboto_Medium_ttf_len, 0);
             fonsSetFont(myFont, fontNormal);
             fonsSetSize(myFont, (float)myFontSize);
         }
     }
-    return myFont != 0;
+    return myFont != nullptr;
 }
 
 
@@ -626,8 +626,24 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     glRotated(-angle, 0, 0, 1);
     fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE : align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
-    fonsDrawText(myFont, 0., 0., text.c_str(), NULL);
+    fonsDrawText(myFont, 0., 0., text.c_str(), nullptr);
     glPopMatrix();
+}
+
+
+void
+GLHelper::drawTextSettings(
+            const GUIVisualizationTextSettings& settings,
+            const std::string& text, const Position& pos,
+            const double scale,
+            const double angle,
+            const double layer) {
+    drawTextBox(text, pos, layer,
+            settings.scaledSize(scale),
+            settings.color,
+            settings.bgColor,
+            RGBColor::INVISIBLE,
+            angle, 0, 0.2);
 }
 
 
@@ -635,30 +651,32 @@ void
 GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const double layer, const double size,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
-                      const double angle) {
+                      const double angle,
+                      const double relBorder,
+                      const double relMargin)
+{
     if (!initFont()) {
         return;
     };
-    double boxAngle = angle + 90;
-    if (boxAngle > 360) {
-        boxAngle -= 360;
+    if (bgColor.alpha() != 0) {
+        const double boxAngle = 90;
+        const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
+        const double borderWidth = size * relBorder;
+        const double boxHeight = size * (0.32 + 0.6 * relMargin);
+        const double boxWidth = stringWidth + size * relMargin;
+        glPushMatrix();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glTranslated(pos.x(), pos.y(), layer);
+        glRotated(-angle, 0, 0, 1);
+        Position left(-boxWidth * 0.5, 0);
+        setColor(borderColor);
+        drawBoxLine(left, boxAngle, boxWidth, boxHeight);
+        left.add(borderWidth * 1.5, 0);
+        setColor(bgColor);
+        glTranslated(0, 0, 0.01);
+        drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
+        glPopMatrix();
     }
-    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), NULL, NULL);
-    const double borderWidth = size / 20;
-    const double boxHeight = size * 0.8;
-    const double boxWidth = stringWidth + size / 2;
-    glPushMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glTranslated(0, 0, layer);
-    setColor(borderColor);
-    Position left = pos;
-    left.sub(boxWidth / 2, 0);
-    drawBoxLine(left, boxAngle, boxWidth, boxHeight);
-    left.add(borderWidth * 1.5, 0);
-    setColor(bgColor);
-    glTranslated(0, 0, 0.01);
-    drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
-    glPopMatrix();
     drawText(text, pos, layer + 0.02, size, txtColor, angle);
 }
 
@@ -718,7 +736,7 @@ GLHelper::drawCrossTies(const PositionVector& geom,
 
 void
 GLHelper::debugVertices(const PositionVector& shape, double size, double layer) {
-    RGBColor color = RGBColor::fromHSV(RandHelper::rand(360), 1, 1);
+    RGBColor color = RGBColor::randomHue();
     for (int i = 0; i < (int)shape.size(); ++i) {
         GLHelper::drawText(toString(i), shape[i], layer, size, color, 0);
     }

@@ -68,7 +68,7 @@ MSVTypeProbe::execute(SUMOTime currentTime) {
                 Position pos = veh->getPosition();
                 myOutputDevice.openTag(SUMO_TAG_VEHICLE);
                 myOutputDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
-                if (microVeh != 0) {
+                if (microVeh != nullptr) {
                     myOutputDevice.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
                 }
                 myOutputDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());

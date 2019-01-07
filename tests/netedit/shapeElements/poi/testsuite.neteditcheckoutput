@@ -14,9 +14,6 @@ inspect_selected
 # load poi
 load
 
-# load pois with generic parameters
-load_genericparameters
-
 # lock/unlock poi
 lock_unlock
 

@@ -24,8 +24,10 @@ sys.path.append(os.path.join(
 import traci  # noqa
 import sumolib  # noqa
 
+
 def ppStages(comment, stages):
     print("%s\n  %s\n" % (comment, "\n  ".join(map(str, stages))))
+
 
 sumoBinary = sumolib.checkBinary('sumo')
 cmd = [
@@ -37,24 +39,23 @@ cmd = [
 traci.start(cmd)
 
 
-
 traci.simulationStep()
 
 for modes in [
     "car bicycle public",
     "public",
-    ""]:
+        ""]:
     for vType in [
             '', 'defaultCar', 'slowCar', 'slowCarFactor', 'fastCar']:
         for pType in [""]:
             ppStages("findIntermodalRoute modes='%s' vType=%s' pType='%s'" %
-                    (modes, vType, pType),
-                    traci.simulation.findIntermodalRoute("A0B0", "A1B1", 
-                        departPos=900,
-                        arrivalPos=100,
-                        pType=pType,
-                        vType=vType,
-                        modes=modes))
+                     (modes, vType, pType),
+                     traci.simulation.findIntermodalRoute("A0B0", "A1B1",
+                                                          departPos=900,
+                                                          arrivalPos=100,
+                                                          pType=pType,
+                                                          vType=vType,
+                                                          modes=modes))
 
     print()
     print()
@@ -63,13 +64,13 @@ for modes in ["public"]:
     for vType in ['']:
         for pType in ["", "defaultPed", "slowPed", "slowPedFactor", "fastPed", "fastPedFactor"]:
             ppStages("findIntermodalRoute modes='%s' vType=%s' pType='%s'" %
-                    (modes, vType, pType),
-                    traci.simulation.findIntermodalRoute("A0B0", "A1B1", 
-                        departPos=900,
-                        arrivalPos=100,
-                        pType=pType,
-                        vType=vType,
-                        modes=modes))
+                     (modes, vType, pType),
+                     traci.simulation.findIntermodalRoute("A0B0", "A1B1",
+                                                          departPos=900,
+                                                          arrivalPos=100,
+                                                          pType=pType,
+                                                          vType=vType,
+                                                          modes=modes))
 
     print()
     print()

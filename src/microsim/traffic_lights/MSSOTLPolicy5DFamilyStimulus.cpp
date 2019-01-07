@@ -62,7 +62,7 @@ MSSOTLPolicy5DFamilyStimulus::MSSOTLPolicy5DFamilyStimulus(std::string keyPrefix
     params_names.push_back("_STIM_COX_EXP_DISPERSION_OUT");
 
 
-    int size_family = int(readParameter(keyPrefix + "_SIZE_FAMILY", 1));
+    int size_family = int(getDouble(keyPrefix + "_SIZE_FAMILY", 1));
     DBG(
 
         std::ostringstream str;

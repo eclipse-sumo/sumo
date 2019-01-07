@@ -20,18 +20,10 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/additionals/GNEAdditional.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/additionals/GNEDetectorE3.h>
-#include <netedit/additionals/GNEDetectorEntry.h>
-#include <netedit/additionals/GNEDetectorExit.h>
-#include <netedit/additionals/GNEStoppingPlace.h>
-#include <netedit/additionals/GNERerouter.h>
-#include <netedit/additionals/GNEVariableSpeedSign.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
 
@@ -54,24 +46,22 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     myEdgeChilds(myAdditional->getEdgeChilds()),
     myLaneChilds(myAdditional->getLaneChilds()) {
     myAdditional->incRef("GNEChange_Additional");
-    // obtain tag properties
-    const auto &tagProperties = GNEAttributeCarrier::getTagProperties(myAdditional->getTag());
     // handle additionals with lane parent
-    if (tagProperties.canBePlacedOverLane()) {
+    if (additional->getTagProperty().canBePlacedOverLane()) {
         myLaneParents.push_back(myNet->retrieveLane(myAdditional->getAttribute(SUMO_ATTR_LANE)));
     }
-    if (tagProperties.canBePlacedOverLanes()) {
+    if (additional->getTagProperty().canBePlacedOverLanes()) {
         myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_LANES));
     }
     // handle additionals with edge parent (with an exception)
-    if (tagProperties.canBePlacedOverEdge() && (additional->getTag() != SUMO_TAG_VAPORIZER)) {
+    if (additional->getTagProperty().canBePlacedOverEdge() && (additional->getTagProperty().getTag() != SUMO_TAG_VAPORIZER)) {
         myEdgeParents.push_back(myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE)));
     }
-    if (tagProperties.canBePlacedOverEdges()) {
+    if (additional->getTagProperty().canBePlacedOverEdges()) {
         myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_EDGES));
     }
     // special case for Vaporizers
-    if (myAdditional->getTag() == SUMO_TAG_VAPORIZER) {
+    if (myAdditional->getTagProperty().getTag() == SUMO_TAG_VAPORIZER) {
         myEdgeParents.push_back(myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_ID)));
     }
 }
@@ -82,9 +72,9 @@ GNEChange_Additional::~GNEChange_Additional() {
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "'");
+        WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
         // make sure that additional isn't in net before removing
-        if (myNet->retrieveAdditional(myAdditional->getTag(), myAdditional->getID(), false)) {
+        if (myNet->additionalExist(myAdditional)) {
             myNet->deleteAdditional(myAdditional);
         }
         delete myAdditional;
@@ -96,7 +86,7 @@ void
 GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
@@ -125,7 +115,7 @@ GNEChange_Additional::undo() {
         }
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional of test
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
@@ -166,7 +156,7 @@ void
 GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
@@ -195,7 +185,7 @@ GNEChange_Additional::redo() {
         }
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myAdditional->getTag()) + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional of test
         myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
@@ -235,9 +225,9 @@ GNEChange_Additional::redo() {
 FXString
 GNEChange_Additional::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(myAdditional->getTag())).c_str();
+        return ("Undo create " + myAdditional->getTagStr()).c_str();
     } else {
-        return ("Undo delete " + toString(myAdditional->getTag())).c_str();
+        return ("Undo delete " + myAdditional->getTagStr()).c_str();
     }
 }
 
@@ -245,8 +235,8 @@ GNEChange_Additional::undoName() const {
 FXString
 GNEChange_Additional::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(myAdditional->getTag())).c_str();
+        return ("Redo create " + myAdditional->getTagStr()).c_str();
     } else {
-        return ("Redo delete " + toString(myAdditional->getTag())).c_str();
+        return ("Redo delete " + myAdditional->getTagStr()).c_str();
     }
 }

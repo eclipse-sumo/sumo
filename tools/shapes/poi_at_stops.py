@@ -8,6 +8,7 @@
 # SPDX-License-Identifier: EPL-2.0
 
 # @file    poi_at_stops.py
+# @author  Jakob Erdmann
 # @date    2018-08-31
 # @version $Id$
 
@@ -21,7 +22,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net  # noqa
-from sumolib.xml import parse
+from sumolib.xml import parse  # noqa
 
 
 if len(sys.argv) < 2:
@@ -37,11 +38,11 @@ print("Writing output...")
 with open('pois.add.xml', 'w') as f:
     f.write('<?xml version="1.0"?>\n')
     f.write('<additional>\n')
-    for stop in parse(stops, 'busStop'): 
+    for stop in parse(stops, 'busStop'):
         lane = net.getLane(stop.lane)
         pos = (float(stop.startPos) + float(stop.endPos)) / 2
         xypos = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), pos)
-        lon,lat = net.convertXY2LonLat(xypos[0], xypos[1])
+        lon, lat = net.convertXY2LonLat(xypos[0], xypos[1])
         f.write('    <poi id="%s" type="%s" color="1,0,0" layer="100" lon="%s" lat="%s"/>\n' % (
             stop.id, stop.name, lon, lat))
     f.write('</additional>\n')

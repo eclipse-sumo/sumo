@@ -36,7 +36,9 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/distribution/Distribution_Parameterized.h>
 #include "NGNet.h"
 
 
@@ -73,7 +75,7 @@ NGNet::findNode(int xID, int yID) {
             return *ni;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 std::string
@@ -213,12 +215,30 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
     myEdgeList.push_back(link2);
 }
 
+Distribution_Parameterized 
+NGNet::getDistribution(const std::string& option) {
+    std::string val = OptionsCont::getOptions().getString(option);
+    try {
+        return Distribution_Parameterized("peturb", 0, StringUtils::toDouble(val));
+    } catch (NumberFormatException) {
+        Distribution_Parameterized result("perturb", 0, 0);
+        result.parse(val);
+        return result;
+    }
+}
 
 void
 NGNet::toNB() const {
+    Distribution_Parameterized perturbx = getDistribution("perturb-x");
+    Distribution_Parameterized perturby = getDistribution("perturb-y");
+    Distribution_Parameterized perturbz = getDistribution("perturb-z");
     std::vector<NBNode*> nodes;
     for (NGNodeList::const_iterator i1 = myNodeList.begin(); i1 != myNodeList.end(); i1++) {
-        NBNode* node = (*i1)->buildNBNode(myNetBuilder);
+        Position perturb(
+                perturbx.sample(),
+                perturby.sample(),
+                perturbz.sample());
+        NBNode* node = (*i1)->buildNBNode(myNetBuilder, perturb);
         nodes.push_back(node);
         myNetBuilder.getNodeCont().insert(node);
     }
@@ -231,7 +251,7 @@ NGNet::toNB() const {
     for (std::vector<NBNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
         NBNode* node = *i;
         for (NBEdge* e : node->getIncomingEdges()) {
-            if (node->getConnectionTo(e->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
+            if (node->getConnectionTo(e->getFromNode()) == nullptr && RandHelper::rand() <= bidiProb) {
                 NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
                                           "", myNetBuilder.getTypeCont().getSpeed(""),
                                           e->getNumLanes(),
@@ -270,13 +290,13 @@ NGNet::toNB() const {
                 split.offset = -0.5 * split.offsetFactor * turnLanes * e->getLaneWidth(0);
                 if (e->getFromNode()->geometryLike()) {
                     // shift the reverse direction explicitly as it will not get a turn lane
-                    NBEdge* reverse = 0;
+                    NBEdge* reverse = nullptr;
                     for (NBEdge* reverseCand : e->getFromNode()->getIncomingEdges()) {
                         if (reverseCand->getFromNode() == e->getToNode()) {
                             reverse = reverseCand;
                         }
                     }
-                    if (reverse != 0) {
+                    if (reverse != nullptr) {
                         PositionVector g = reverse->getGeometry();
                         g.move2side(-split.offset);
                         reverse->setGeometry(g);

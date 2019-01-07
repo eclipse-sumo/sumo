@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/08/18 22:06:59 by Eclipse SUMO Version UNKNOWN
+<!-- generated on Thu Jan  3 12:55:23 2019 by Eclipse SUMO Version v1_0_1+1015-8e01b2d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -108,6 +108,7 @@
         <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR" help="Select default car following model (Krauss, IDM, ...)"/>
         <default.speeddev value="-1" type="FLOAT" help="Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class"/>
         <default.emergencydecel value="default" type="STR" help="Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2"/>
+        <emergencydecel.warning-threshold value="1" type="FLOAT" help="Sets the fraction of emergency decel capability that must be used to trigger a warning."/>
         <pedestrian.model value="striping" type="STR" help="Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;]"/>
         <pedestrian.striping.stripe-width value="0.64" type="FLOAT" help="Width of parallel stripes for segmenting a sidewalk (meters) for use with model &apos;striping&apos;"/>
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
@@ -127,8 +128,8 @@
         <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
         <device.rerouting.period value="0" synonymes="device.routing.period" type="TIME" help="The period with which the vehicle shall be rerouted"/>
         <device.rerouting.pre-period value="60" synonymes="device.routing.pre-period" type="TIME" help="The rerouting period before depart"/>
-        <device.rerouting.adaptation-weight value="0.5" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights for exponential moving average"/>
-        <device.rerouting.adaptation-steps value="0" synonymes="device.routing.adaptation-steps" type="INT" help="The number of steps for moving average weight of prior edge weights"/>
+        <device.rerouting.adaptation-weight value="0" synonymes="device.routing.adaptation-weight" type="FLOAT" help="The weight of prior edge weights for exponential moving average"/>
+        <device.rerouting.adaptation-steps value="180" synonymes="device.routing.adaptation-steps" type="INT" help="The number of steps for moving average weight of prior edge weights"/>
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing start- and endpoints"/>
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
@@ -206,9 +207,15 @@
         <device.toc.automatedType value="" type="STR" help="Vehicle type for automated driving regime."/>
         <device.toc.responseTime value="5" type="FLOAT" help="Average response time needed by a driver to take back control."/>
         <device.toc.recoveryRate value="0.1" type="FLOAT" help="Recovery rate for the driver&apos;s awareness after a ToC."/>
-        <device.toc.initialAwareness value="0.5" type="FLOAT" help="Average awareness a driver has initially after a ToC."/>
+        <device.toc.lcAbstinence value="0" type="FLOAT" help="Attention level below which a driver restrains from performing lane changes (value in [0,1])."/>
+        <device.toc.initialAwareness value="0.5" type="FLOAT" help="Average awareness a driver has initially after a ToC (value in [0,1])."/>
         <device.toc.mrmDecel value="1.5" type="FLOAT" help="Deceleration rate applied during a &apos;minimum risk maneuver&apos;."/>
+        <device.toc.ogNewTimeHeadway value="-1" type="FLOAT" help="Timegap for ToC preparation phase."/>
+        <device.toc.ogNewSpaceHeadway value="-1" type="FLOAT" help="Additional spacing for ToC preparation phase."/>
+        <device.toc.ogMaxDecel value="-1" type="FLOAT" help="Maximal deceleration applied for establishing increased gap in ToC preparation phase."/>
+        <device.toc.ogChangeRate value="-1" type="FLOAT" help="Rate of adaptation towards the increased headway during ToC preparation."/>
         <device.toc.useColorScheme value="true" type="BOOL" help="Whether a coloring scheme shall by applied to indicate the different ToC stages."/>
+        <device.toc.file value="" type="STR" help="Switches on output by specifying an output filename."/>
     </toc_device>
 
     <driver_state_device>
@@ -271,8 +278,11 @@
         <quit-on-end value="false" synonymes="Q" type="BOOL" help="Quits the GUI when the simulation stops"/>
         <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
         <start value="false" synonymes="S" type="BOOL" help="Start the simulation after loading"/>
+        <breakpoints value="" type="STR" help="Use TIME[] as times when the simulation should halt"/>
+        <edgedata-files value="" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
         <demo value="false" synonymes="D" type="BOOL" help="Restart the simulation after ending (demo mode)"/>
         <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
+        <registry-viewport value="false" type="BOOL" help="Load current viewport from registry"/>
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>

@@ -21,47 +21,10 @@ import logging
 import optparse
 import os
 import sys
+from generateTLSE2Detectors import adjust_detector_position
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
-
-
-def adjust_detector_length(requested_detector_length,
-                           requested_distance_to_tls,
-                           lane_length):
-    """ Adjusts requested detector's length according to
-        the lane length and requested distance to TLS.
-
-        If requested detector length is negative, the resulting detector length
-        will match the distance between requested distance to TLS and lane
-        beginning.
-
-
-        If the requested detector length is positive, it will be adjusted
-        according to the end of lane ending with TLS: the resulting length
-        will be either the requested detector length or, if it's too long
-        to be placed in requested distance from TLS, it will be shortened to
-        match the distance between requested distance to TLS
-        and lane beginning. """
-
-    if requested_detector_length == -1:
-        return lane_length - requested_distance_to_tls
-
-    return min(lane_length - requested_distance_to_tls,
-               requested_detector_length)
-
-
-def adjust_detector_position(final_detector_length,
-                             requested_distance_to_tls,
-                             lane_length):
-    """ Adjusts the detector's position. If the detector's length
-        and the requested distance to TLS together are longer than
-        the lane itself, the position will be 0; it will be
-        the maximum distance from lane end otherwise (taking detector's length
-        and requested distance to TLS into accout). """
-
-    return max(0,
-               lane_length - final_detector_length - requested_distance_to_tls)
 
 
 if __name__ == "__main__":
@@ -74,12 +37,6 @@ if __name__ == "__main__":
                              dest="net_file",
                              help="Network file to work with. Mandatory.",
                              type="string")
-    option_parser.add_option("-l", "--detector-length",
-                             dest="requested_detector_length",
-                             help="Length of the detector in meters "
-                             "(-1 for maximal length).",
-                             type="int",
-                             default=250)
     option_parser.add_option("-d", "--distance-to-TLS",
                              dest="requested_distance_to_tls",
                              help="Distance of the detector to the traffic "
@@ -103,8 +60,7 @@ if __name__ == "__main__":
                              "their output into. Defaults to e1output.xml.",
                              type="string",
                              default="e1output.xml")
-    option_parser.set_usage("generateTLSE1Detectors.py -n example.net.xml "
-                            "-l 250 -d .1 -f 60")
+    option_parser.set_usage("generateTLSE1Detectors.py -n example.net.xml -d .1 -f 60")
 
     (options, args) = option_parser.parse_args()
     if not options.net_file:
@@ -133,12 +89,8 @@ if __name__ == "__main__":
 
             lanes_with_detectors.add(lane_id)
 
-            final_detector_length = adjust_detector_length(
-                options.requested_detector_length,
-                options.requested_distance_to_tls,
-                lane_length)
             final_detector_position = adjust_detector_position(
-                final_detector_length,
+                0,
                 options.requested_distance_to_tls,
                 lane_length)
 
@@ -148,7 +100,6 @@ if __name__ == "__main__":
             detector_xml.setAttribute("friendlyPos", "x")
             detector_xml.setAttribute("id", "e1det_" + str(lane_id))
             detector_xml.setAttribute("lane", str(lane_id))
-            detector_xml.setAttribute("length", str(final_detector_length))
             detector_xml.setAttribute("pos", str(final_detector_position))
 
     detector_file = open(options.output, 'w')

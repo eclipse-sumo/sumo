@@ -357,7 +357,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         SUMOPolygon* poly = new SUMOPolygon(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),
-            def.color, vec, false, def.allowFill && closedShape, (double)def.layer);
+            def.color, vec, false, def.allowFill && closedShape, 1, def.layer);
         if (withAttributes) {
             poly->updateParameter(edge->myAttributes);
         }
@@ -411,7 +411,7 @@ PCLoaderOSM::NodesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     myParentElements.push_back(element);
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
-        long long int id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
+        long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
         if (!ok) {
             return;
         }
@@ -472,7 +472,7 @@ PCLoaderOSM::RelationsHandler::RelationsHandler(RelationsMap& additionalWays,
     myRelations(relations),
     myWithAttributes(withAttributes),
     myErrorHandler(errorHandler),
-    myCurrentRelation(0) {
+    myCurrentRelation(nullptr) {
 }
 
 
@@ -488,25 +488,25 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
         myCurrentWays.clear();
         const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete") {
-            myCurrentRelation = 0;
+            myCurrentRelation = nullptr;
         } else {
             myCurrentRelation = new PCOSMRelation();
             myCurrentRelation->keep = false;
             bool ok = true;
-            myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
+            myCurrentRelation->id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
             myRelations.push_back(myCurrentRelation);
         }
         return;
-    } else if (myCurrentRelation == 0) {
+    } else if (myCurrentRelation == nullptr) {
         return;
     }
     // parse member elements
     if (element == SUMO_TAG_MEMBER) {
         bool ok = true;
         std::string role = attrs.hasAttribute("role") ? attrs.getStringSecure("role", "") : "";
-        long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, 0, ok);
+        long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, nullptr, ok);
         if (role == "outer" || role == "inner") {
-            std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, 0, ok);
+            std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, nullptr, ok);
             if (memberType == "way") {
                 myCurrentWays.push_back(ref);
             }
@@ -515,7 +515,7 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
     }
     // parse values
     if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_RELATION
-            && myCurrentRelation != 0) {
+            && myCurrentRelation != nullptr) {
         bool ok = true;
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myCurrentRelation).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, "", false);
@@ -544,7 +544,7 @@ PCLoaderOSM::RelationsHandler::myEndElement(int element) {
     myParentElements.pop_back();
     if (element == SUMO_TAG_RELATION) {
         myCurrentRelation->myWays = myCurrentWays;
-        myCurrentRelation = 0;
+        myCurrentRelation = nullptr;
         myCurrentWays.clear();
     }
 }
@@ -576,7 +576,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse "way" elements
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
-        const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, 0, ok);
+        const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
         const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
         if (action == "delete" || !ok) {
             myCurrentEdge = nullptr;
@@ -591,7 +591,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     // parse "nd" (node) elements
     if (element == SUMO_TAG_ND && myCurrentEdge != nullptr) {
         bool ok = true;
-        const long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, 0, ok);
+        const long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, nullptr, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
                 WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
@@ -602,7 +602,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     }
     // parse values
     if (element == SUMO_TAG_TAG && myParentElements.size() > 2 && myParentElements[myParentElements.size() - 2] == SUMO_TAG_WAY
-            && myCurrentEdge != 0) {
+            && myCurrentEdge != nullptr) {
         bool ok = true;
         std::string key = attrs.getOpt<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, "", false);
         std::string value = attrs.getOpt<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, "", false);

@@ -53,8 +53,10 @@ elseif (MSVC)
     endif ()
 endif ()
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+# special debug flags
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
 endif ()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
@@ -115,6 +117,9 @@ endif ()
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
+if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+    set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+endif ()
 if (SUMO_LIBRARIES)
     # Special option for MinGW32
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
@@ -132,17 +137,21 @@ if (SUMO_LIBRARIES)
         message(STATUS "Using 32 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
         set(CHECK_OPTIONAL_LIBS false)
     endif()
-    # TODO: Use file(GLOB ...) to avoid explicit versions
-    # set Xerces
-    if(${MSVC_VERSION} AND ${MSVC_VERSION} STREQUAL "1800")
-        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/msvc12/xerces-c-3.2.0${LIB_VERSION}")
+    if("${MSVC_VERSION}" STREQUAL "1800")
+        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/msvc12/xerces-c-3.?.?${LIB_VERSION}")
     else()
-        set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/xerces-c-3.2.0${LIB_VERSION}")
+        file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?${LIB_VERSION}")
     endif()
-    # set Proj
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/proj_gdal-1911${LIB_VERSION}")
-    # set FOX
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/fox-1.6.55${LIB_VERSION}")
+    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj_gdal-????${LIB_VERSION}")
+    file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-1.6.??${LIB_VERSION}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${XERCES_PATH};${PROJ_PATH};${FOX_PATH}")
+    file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
+                                 "${PROJ_PATH}/bin/*.dll"
+                                 "${FOX_PATH}/lib/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-?.?.?${LIB_VERSION}/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-?.?.??${LIB_VERSION}/*/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-?.?.?${LIB_VERSION}/libtiff/*/*.dll"
+                                 "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}/*/*.dll")
     # set GoogleTest only if compiler isn't mingw32
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
         if(USE_MINGW_64BITS)
@@ -157,13 +166,16 @@ if (SUMO_LIBRARIES)
             message(STATUS "Disabled Google Test in Mingw32")
         endif()
     endif()
-    # set FFMPEG
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/FFMPEG-3.4.1${LIB_VERSION}")
-    # set OSG
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/OSG-3.4.0${LIB_VERSION}")
-    # set GL2PS
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SUMO_LIBRARIES}/gl2ps-1.4.0${LIB_VERSION}")
-    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${SUMO_LIBRARIES}/gl2ps-1.4.0${LIB_VERSION}/Release")
+    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?${LIB_VERSION}")
+    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?${LIB_VERSION}")
+    if("${MSVC_VERSION}" STREQUAL "1800")
+        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/msvc12/gl2ps-?.?.?${LIB_VERSION}")
+    else()
+        file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?${LIB_VERSION}")
+    endif()
+    set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};${GL2PS_PATH}/Release")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH}")
+    file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${FFMPEG_PATH}/bin/*.dll" "${GL2PS_PATH}/Release/*.dll")
     # set SWIG
     set(SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-3.0.12/swig.exe")
     # set GRPC
@@ -253,6 +265,7 @@ if (CHECK_OPTIONAL_LIBS)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} GRPC")
         endif (GRPC_FOUND AND Protobuf_FOUND)
     endif()
+    set(SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL};${SUMO_OPTIONAL_LIBRARIES_DLL}")
 endif (CHECK_OPTIONAL_LIBS)
 
 include_directories(${CMAKE_BINARY_DIR}/src)
@@ -272,8 +285,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 add_subdirectory(src)
+enable_testing()
 if (GTEST_FOUND)
-    enable_testing()
     add_subdirectory(unittest)
 endif ()
 
@@ -281,13 +294,28 @@ endif ()
 install(DIRECTORY data/ DESTINATION share/sumo/data)
 install(DIRECTORY tools/ DESTINATION share/sumo/tools
         PATTERN "calibration" EXCLUDE
-        PATTERN "lisum" EXCLUDE
+        PATTERN "lisum-core" EXCLUDE
+        PATTERN "lisum-gui" EXCLUDE
         PATTERN "sumolib4matlab/src" EXCLUDE
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
-        PATTERN ".git" EXCLUDE
-       )
+        PATTERN ".git" EXCLUDE)
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
+install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
+        COMPONENT pysumolib)
+install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
+        COMPONENT pytraci)
+
+string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
+add_custom_target(install_dll)
+add_custom_command(TARGET install_dll PRE_BUILD
+                   COMMAND ${PYTHON_EXECUTABLE} -c "import shutil;[shutil.copy('${SUMO_LIBRARIES}'+l, '${CMAKE_SOURCE_DIR}/bin') for l in '${SUMO_LIBRARIES_DLL}'.split(';')]")
+if (HAVE_OSG)
+    add_custom_command(TARGET install_dll PRE_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin ${CMAKE_SOURCE_DIR}/bin)
+endif ()
+set_property(TARGET install_dll PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 
 # doc targets
 add_custom_target(doxygen
@@ -295,11 +323,15 @@ add_custom_target(doxygen
     COMMAND mkdir docs/doxygen
     COMMAND doxygen sumo.doxyconf &> doxygen.log
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET doxygen PROPERTY FOLDER "doc")
 
 add_custom_target(userdoc
     COMMAND tools/build/buildHTMLDocs.py -o docs/userdoc -i docs/wiki/index.html -p docs/pydoc -c -r ${PACKAGE_VERSION}
     COMMAND cp docs/wiki/*.png docs/wiki/*.css docs/userdoc
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET userdoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET userdoc PROPERTY FOLDER "doc")
 
 add_custom_target(javadoc
     COMMAND rm -rf docs/javadoc
@@ -307,6 +339,8 @@ add_custom_target(javadoc
     COMMAND ant -f tools/contributed/traas/build.xml javadoc
     COMMAND mv tools/contributed/traas/javadoc docs/javadoc/traas
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET javadoc PROPERTY FOLDER "doc")
 
 add_custom_target(man
     COMMAND rm -rf docs/man
@@ -325,39 +359,55 @@ add_custom_target(man
     COMMAND help2man -N -n "Importer of polygons and POIs for the road traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
     COMMAND help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET man PROPERTY FOLDER "doc")
 
 add_custom_target(doc DEPENDS doxygen userdoc javadoc man)
+set_property(TARGET doc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET doc PROPERTY FOLDER "doc")
 
 # coverage targets
-add_custom_target(lcov
+if (COVERAGE)
+    add_custom_target(lcov
     COMMAND rm -rf docs/lcov
     COMMAND mkdir docs/lcov
     COMMAND lcov -d . -c --no-external --output-file docs/lcov/lcov.info
     COMMAND genhtml -o docs/lcov/html docs/lcov/lcov.info
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
-add_custom_target(lcov-reset
+    add_custom_target(lcov-reset
     COMMAND lcov -d . -z
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+endif()
 
 # example and dist targets
 add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_property(TARGET examples PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+set_property(TARGET examples PROPERTY FOLDER "doc")
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
-    add_custom_target(dist DEPENDS examples
+    add_custom_target(dist DEPENDS examples doc
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip sumo-${PACKAGE_VERSION}.zip
-        COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp -a docs/tutorial docs/examples docs/userdoc docs/pydoc docs/javadoc docs/man sumo-${PACKAGE_VERSION}/docs
         COMMAND zip -r sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
+        COMMAND cp -a docs/doxygen sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp -a tests sumo-${PACKAGE_VERSION}
+        COMMAND zip -r sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
+        COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    set_property(TARGET dist PROPERTY FOLDER "CMake") 
+    set_property(TARGET dist PROPERTY FOLDER "CMake")
     set_property(TARGET dist PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+    # alias for backward compatibility
+    add_custom_target(dist-complete DEPENDS dist)
+    set_property(TARGET dist-complete PROPERTY FOLDER "CMake")
+    set_property(TARGET dist-complete PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 
     add_custom_target(distcheck DEPENDS dist
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
@@ -369,7 +419,7 @@ if (GIT_FOUND)
                 && make install || (echo "ERROR: the install target failed." && false)
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    set_property(TARGET distcheck PROPERTY FOLDER "CMake") 
+    set_property(TARGET distcheck PROPERTY FOLDER "CMake")
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
 
@@ -398,4 +448,3 @@ if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
-

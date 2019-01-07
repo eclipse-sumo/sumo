@@ -18,8 +18,7 @@ SUMOTime.cpp SUMOTime.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
 SystemFrame.cpp SystemFrame.h \
 SysUtils.h SysUtils.cpp \
-ToString.h TplCheck.h \
-TplConvert.h UtilExceptions.h \
+ToString.h UtilExceptions.h \
 ValueRetriever.h ValueSource.h \
 ValueTimeLine.h VectorHelper.h \
 WrappingCommand.h SwarmDebug.h

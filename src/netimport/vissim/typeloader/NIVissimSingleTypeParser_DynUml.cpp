@@ -24,7 +24,7 @@
 
 #include <iostream>
 #include <vector>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "../NIImporter_Vissim.h"
 #include "NIVissimSingleTypeParser_DynUml.h"
 

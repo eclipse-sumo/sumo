@@ -74,8 +74,9 @@ public:
      */
     MSParkingArea(const std::string& id,
                   const std::vector<std::string>& lines, MSLane& lane,
-                  double begPos, double endPos, unsigned int capacity,
-                  double width, double length, double angle, const std::string& name);
+                  double begPos, double endPos, int capacity,
+                  double width, double length, double angle, const std::string& name,
+                  bool onRoad);
 
     /// @brief Destructor
     virtual ~MSParkingArea();
@@ -86,6 +87,11 @@ public:
      * @return The capacity
      */
     int getCapacity() const;
+
+    /// @brief whether vehicles park on the road
+    bool parkOnRoad() const {
+        return myOnRoad;
+    }
 
 
     /** @brief Returns the area occupancy
@@ -128,25 +134,26 @@ public:
     double getLastFreePos(const SUMOVehicle& forVehicle) const;
 
 
+    /** @brief Returns the last free position on this stop including
+     * reservatiosn from the current lane and time step
+     *
+     * @return The last free position of this bus stop
+     */
+    double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle);
+
+
     /** @brief Returns the position of parked vehicle
      *
      * @return The position of parked vehicle
      */
-    Position getVehiclePosition(const SUMOVehicle& forVehicle);
+    Position getVehiclePosition(const SUMOVehicle& forVehicle) const;
 
 
     /** @brief Returns the angle of parked vehicle
      *
      * @return The angle of parked vehicle
      */
-    double getVehicleAngle(const SUMOVehicle& forVehicle);
-
-
-    /** @brief Returns the space dimension
-     *
-     * @return The space dimension
-     */
-    double getSpaceDim() const;
+    double getVehicleAngle(const SUMOVehicle& forVehicle) const;
 
 
     /** @brief Add a lot entry to parking area
@@ -159,8 +166,8 @@ public:
      * @param[in] angle Angle of the lot rectangle
      * @return Whether the lot entry could be added
      */
-    void addLotEntry(double x, double y, double z,
-                     double width, double length, double angle);
+    virtual void addLotEntry(double x, double y, double z,
+            double width, double length, double angle);
 
 
     /** @brief Returns the lot rectangle width
@@ -190,7 +197,7 @@ protected:
     */
     struct LotSpaceDefinition {
         /// @brief the running index
-        unsigned int index;
+        int index;
         /// @brief The last parked vehicle or 0
         SUMOVehicle* vehicle;
         /// @brief The position of the vehicle when parking in this space
@@ -214,11 +221,14 @@ protected:
      */
     void computeLastFreePos();
 
-    /// @brief Last free lot number (0 no free lot)
+    /// @brief Last free lot number (-1 no free lot)
     int myLastFreeLot;
 
     /// @brief Stop area capacity
     int myCapacity;
+
+    /// @brief Whether vehicles stay on the road
+    bool myOnRoad;
 
     /// @brief The default width of each parking space
     double myWidth;
@@ -230,11 +240,16 @@ protected:
     double myAngle;
 
 
-    /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
-    std::map<unsigned int, LotSpaceDefinition > mySpaceOccupancies;
+    /// @brief All the spaces in this parking area
+    std::vector<LotSpaceDefinition> mySpaceOccupancies;
 
     /// @brief The roadside shape of this parkingArea
     PositionVector myShape;
+
+    /// @brief track parking reservations from the lane for the current time step
+    SUMOTime myReservationTime;
+    int myReservations;
+    double myReservationMaxLength;
 
 private:
 

@@ -20,36 +20,22 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/common/StringTokenizer.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEAdditional.h"
-
 
 // ===========================================================================
 // member method definitions
@@ -81,7 +67,7 @@ GNEAdditional::GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* 
     myBlockIcon(this),
     myChildConnections(this) {
     // check that additional parent is of expected type
-    assert(singleAdditionalParent->getTag() == getTagProperties(getTag()).getParentTag());
+    assert(singleAdditionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
 }
 
 
@@ -97,7 +83,7 @@ GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional
     myBlockIcon(this),
     myChildConnections(this) {
     // check that additional parent is of expected type
-    assert(firstAdditionalParent->getTag() == getTagProperties(getTag()).getParentTag());
+    assert(firstAdditionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
 }
 
 
@@ -137,23 +123,23 @@ GNEAdditional::~GNEAdditional() {}
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
     // obtain tag properties
-    const TagValues& tagProperties = getTagProperties(getTag());
+    const TagProperties& tagProperties = myTagProperty;
     // first check if minimum number of childs is correct
     if ((tagProperties.hasMinimumNumberOfChilds() || tagProperties.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
-        WRITE_WARNING(toString(getTag()) + " with ID='" + getID() + "' cannot be written");
+        WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
     } else {
-        // Open Tag or synonim Tag
+        // Open Tag or synonym Tag
         if (tagProperties.hasTagSynonym()) {
             device.openTag(tagProperties.getTagSynonym());
         } else {
-            device.openTag(getTag());
+            device.openTag(myTagProperty.getTag());
         }
         // iterate over attributes and write it
         for (auto i : tagProperties) {
             // obtain attribute
             std::string attribute = getAttribute(i.first);
             if (i.second.isOptional() && i.second.hasDefaultValue() && !i.second.isCombinable()) {
-                // Only write attributes with default value if is different of original
+                // Only write attributes with default value if is different from original
                 if (i.second.getDefaultValue() != attribute) {
                     // check if attribute must be written using a synonim
                     if (i.second.hasAttrSynonym()) {
@@ -164,6 +150,15 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             // disallow attribute musn't be written
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
+                            }
+                        } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                            // get position attribute and write it separate
+                            Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
+                            device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
+                            device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
+                            // write 0 only if is different from 0 (the default value)
+                            if(pos.z() != 0) {
+                                device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                             }
                         } else {
                             device.writeAttr(i.first, attribute);
@@ -181,14 +176,21 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
+                    } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        // get position attribute and write it separate
+                        Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
+                        device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
+                        device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
+                        // write 0 only if is different from 0 (the default value)
+                        if(pos.z() != 0) {
+                            device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
+                        }
                     } else {
                         device.writeAttr(i.first, attribute);
                     }
                 }
             }
         }
-        // save generic parameters
-        writeParams(device);
         // iterate over childs and write it in XML (or in a different file)
         if (tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
@@ -199,7 +201,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getSecondAdditionalParent() == nullptr) {
                     i->writeAdditional(deviceChilds);
-                } else if (getTag() == getTagProperties(i->getTag()).getParentTag()) {
+                } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
                     i->writeAdditional(deviceChilds);
                 }
             }
@@ -209,11 +211,13 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getSecondAdditionalParent() == nullptr) {
                     i->writeAdditional(device);
-                } else if (getTag() == getTagProperties(i->getTag()).getParentTag()) {
+                } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
                     i->writeAdditional(device);
                 }
             }
         }
+        // save generic parameters (Always after childs to avoid problems with additionals.xsd)
+        writeParams(device);
         // Close tag
         device.closeTag();
     }
@@ -234,13 +238,13 @@ GNEAdditional::getAdditionalProblem() const {
 
 void 
 GNEAdditional::fixAdditionalProblem() {
-    throw InvalidArgument(toString(getTag()) + " cannot fix any problem");
+    throw InvalidArgument(getTagStr() + " cannot fix any problem");
 }
 
 
 void
 GNEAdditional::openAdditionalDialog() {
-    throw InvalidArgument(toString(getTag()) + " doesn't have an additional dialog");
+    throw InvalidArgument(getTagStr() + " doesn't have an additional dialog");
 }
 
 
@@ -249,7 +253,7 @@ GNEAdditional::startGeometryMoving() {
     // always save original position over view
     myMove.originalViewPosition = getPositionInView();
     // obtain tag properties (to improve code legibility)
-    const TagValues& tagProperties = getTagProperties(getTag());
+    const TagProperties& tagProperties = myTagProperty;
     // check if position over lane or lanes has to be saved
     if (tagProperties.canBePlacedOverLane()) {
         if(tagProperties.canMaskStartEndPos()) {
@@ -330,13 +334,15 @@ void
 GNEAdditional::addAdditionalChild(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
     if (std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional) != myAdditionalChilds.end()) {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.push_back(additional);
         // Check if childs has to be sorted automatically
-        if (getTagProperties(getTag()).canAutomaticSortChilds()) {
+        if (myTagProperty.canAutomaticSortChilds()) {
             sortAdditionalChilds();
         }
+        // update additional parent after add additional (note: by default non-implemented)
+        updateAdditionalParent();
         // update geometry (for set geometry of lines between Parents and Childs)
         updateGeometry(true);
     }
@@ -348,13 +354,15 @@ GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
     // First check that additional was already inserted
     auto it = std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional);
     if (it == myAdditionalChilds.end()) {
-        throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.erase(it);
         // Check if childs has to be sorted automatically
-        if (getTagProperties(getTag()).canAutomaticSortChilds()) {
+        if (myTagProperty.canAutomaticSortChilds()) {
             sortAdditionalChilds();
         }
+        // update additional parent after add additional (note: by default non-implemented)
+        updateAdditionalParent();
         // update geometry (for remove geometry of lines between Parents and Childs)
         updateGeometry(true);
     }
@@ -369,24 +377,45 @@ GNEAdditional::getAdditionalChilds() const {
 
 void
 GNEAdditional::sortAdditionalChilds() {
-    if (getTag() == SUMO_TAG_E3DETECTOR) {
+    if (myTagProperty.getTag() == SUMO_TAG_E3DETECTOR) {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedEntryExits;
         // obtain all entrys
         for (auto i : myAdditionalChilds) {
-            if (i->getTag() == SUMO_TAG_DET_ENTRY) {
+            if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
                 sortedEntryExits.push_back(i);
             }
         }
         // obtain all exits
         for (auto i : myAdditionalChilds) {
-            if (i->getTag() == SUMO_TAG_DET_EXIT) {
+            if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
                 sortedEntryExits.push_back(i);
             }
         }
         // change myAdditionalChilds for sortedEntryExits
         if (sortedEntryExits.size() == myAdditionalChilds.size()) {
             myAdditionalChilds = sortedEntryExits;
+        } else {
+            throw ProcessError("Some additional childs were lost during sorting");
+        }
+    } else if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
+        // we need to sort Entry/Exits due additional.xds model
+        std::vector<GNEAdditional*> sortedTAZSourceSink;
+        // obtain all TAZSources
+        for (auto i : myAdditionalChilds) {
+            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                sortedTAZSourceSink.push_back(i);
+            }
+        }
+        // obtain all TAZSinks
+        for (auto i : myAdditionalChilds) {
+            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
+                sortedTAZSourceSink.push_back(i);
+            }
+        }
+        // change myAdditionalChilds for sortedEntryExits
+        if (sortedTAZSourceSink.size() == myAdditionalChilds.size()) {
+            myAdditionalChilds = sortedTAZSourceSink;
         } else {
             throw ProcessError("Some additional childs were lost during sorting");
         }
@@ -397,13 +426,13 @@ GNEAdditional::sortAdditionalChilds() {
         for (auto i : myAdditionalChilds) {
             sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
             // set begin/start attribute
-            if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
+            if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
                 sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-            } else if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
+            } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
                 sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
             }
             // set end attribute
-            if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
+            if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
                 sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
             } else {
                 sortedChilds.back().first.second = sortedChilds.back().first.first;
@@ -432,13 +461,13 @@ GNEAdditional::checkAdditionalChildsOverlapping() const {
     for (auto i : myAdditionalChilds) {
         sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
         // set begin/start attribute
-        if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
+        if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
             sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-        } else if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
+        } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
             sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
         }
         // set end attribute
-        if (getTagProperties(i->getTag()).hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
+        if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
             sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
         } else {
             sortedChilds.back().first.second = sortedChilds.back().first.first;
@@ -469,9 +498,9 @@ void
 GNEAdditional::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
     if (edge == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) != myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myEdgeChilds.push_back(edge);
     }
@@ -482,9 +511,9 @@ void
 GNEAdditional::removeEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and exist previously
     if (edge == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) == myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myEdgeChilds.erase(std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge));
     }
@@ -501,9 +530,9 @@ void
 GNEAdditional::addLaneChild(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) != myLaneChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myLaneChilds.push_back(lane);
     }
@@ -514,9 +543,9 @@ void
 GNEAdditional::removeLaneChild(GNELane* lane) {
     // Check that lane is valid and exist previously
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) == myLaneChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + toString(getTag()) + " with ID='" + getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myLaneChilds.erase(std::find(myLaneChilds.begin(), myLaneChilds.end(), lane));
     }
@@ -532,48 +561,46 @@ GNEAdditional::getLaneChilds() const {
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // obtain tag properties
-    const auto& tagProperties = getTagProperties(getTag());
     // build header
     buildPopupHeader(ret, app);
     // build menu command for center button and copy cursor position to clipboard
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     // buld menu commands for names
-    new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " name to clipboard").c_str(), 0, ret, MID_COPY_NAME);
-    new FXMenuCommand(ret, ("Copy " + toString(getTag()) + " typed name to clipboard").c_str(), 0, ret, MID_COPY_TYPED_NAME);
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myViewNet->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
-    if (getTagProperties(getTag()).hasDialog()) {
-        new FXMenuCommand(ret, ("Open " + toString(getTag()) + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+    if (myTagProperty.hasDialog()) {
+        new FXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     // Show position parameters
-    if (tagProperties.hasAttribute(SUMO_ATTR_LANE)) {
+    if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
         GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command lane position
         if (myGeometry.shape.size() > 0) {
             const double lanePos = lane->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
-            new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), 0, 0, 0);
+            new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
         }
-    } else if (tagProperties.hasAttribute(SUMO_ATTR_EDGE)) {
+    } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE)) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Cursor position inner additional: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command edge position
         if (myGeometry.shape.size() > 0) {
             const double edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
-            new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), 0, 0, 0);
+            new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
         }
     } else {
-        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     }
     return ret;
 }
@@ -582,9 +609,9 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 GUIParameterTableWindow*
 GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, getTagProperties(getTag()).getNumberOfAttributes());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, myTagProperty.getNumberOfAttributes());
     // Iterate over attributes
-    for (auto i : getTagProperties(getTag())) {
+    for (const auto &i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
         if (i.second.isUnique()) {
             ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
@@ -615,7 +642,7 @@ GNEAdditional::getCenteringBoundary() const {
     } else if (myFirstAdditionalParent) {
         return myFirstAdditionalParent->getCenteringBoundary();
     } else {
-        return Boundary(-0.1, 0.1, 0, 1, 0, 1);
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
 }
 
@@ -643,8 +670,8 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
                           currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
                           nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
                 if (report) {
-                    WRITE_WARNING("Parameter 'Route' invalid. " + toString(currentEdge->getTag()) + " '" + currentEdge->getID() +
-                                  "' ins't consecutive to " + toString(nextEdge->getTag()) + " '" + nextEdge->getID() + "'");
+                    WRITE_WARNING("Parameter 'Route' invalid. " + currentEdge->getTagStr() + " '" + currentEdge->getID() +
+                                  "' ins't consecutive to " + nextEdge->getTagStr() + " '" + nextEdge->getID() + "'");
                 }
                 return false;
             }
@@ -652,6 +679,12 @@ GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
         }
     }
     return true;
+}
+
+
+void 
+GNEAdditional::updateAdditionalParent() {
+    // by default nothing to do
 }
 
 
@@ -772,7 +805,7 @@ GNEAdditional::BlockIcon::draw(double size) const {
         glTranslated(offset.x(), offset.y(), 0);
         // Draw icon depending of the state of additional
         if (myAdditional->mySelected) {
-            if (!getTagProperties(myAdditional->getTag()).canBlockMovement()) {
+            if (!myAdditional->getTagProperty().canBlockMovement()) {
                 // Draw not movable texture if additional isn't movable and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED), size);
             } else if (myAdditional->myBlockMovement) {
@@ -783,7 +816,7 @@ GNEAdditional::BlockIcon::draw(double size) const {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
             }
         } else {
-            if (!getTagProperties(myAdditional->getTag()).canBlockMovement()) {
+            if (!myAdditional->getTagProperty().canBlockMovement()) {
                 // Draw not movable texture if additional isn't movable
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING), size);
             } else if (myAdditional->myBlockMovement) {
@@ -916,7 +949,7 @@ GNEAdditional::ChildConnections::draw() const {
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
-    for (auto i : getTagProperties(getTag())) {
+    for (const auto &i : myTagProperty) {
         if (i.second.hasDefaultValue()) {
             setAttribute(i.first, i.second.getDefaultValue());
         }
@@ -932,7 +965,17 @@ GNEAdditional::getAdditionalID() const {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidNetID(newID) && (myViewNet->getNet()->retrieveAdditional(getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidNetID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEAdditional::isValidDetectorID(const std::string& newID) const {
+    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -942,10 +985,8 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 
 void
 GNEAdditional::changeAdditionalID(const std::string& newID) {
-    if (myViewNet->getNet()->retrieveAdditional(getTag(), newID, false) != nullptr) {
-        throw InvalidArgument("An Additional with tag " + toString(getTag()) + " and ID = " + newID + " already exists");
-    } else if (!SUMOXMLDefinitions::isValidNetID(newID)) {
-        throw InvalidArgument("Additional ID " + newID + " contains invalid characters");
+    if (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) != nullptr) {
+        throw InvalidArgument("An Additional with tag " + getTagStr() + " and ID = " + newID + " already exists");
     } else {
         // Save old ID
         std::string oldID = getMicrosimID();
@@ -960,7 +1001,7 @@ GNEAdditional::changeAdditionalID(const std::string& newID) {
 GNEEdge*
 GNEAdditional::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
     if (oldEdge == nullptr) {
-        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
+        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
     } else {
         oldEdge->removeAdditionalChild(this);
         GNEEdge* newEdge = myViewNet->getNet()->retrieveEdge(newEdgeID);
@@ -974,7 +1015,7 @@ GNEAdditional::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
 GNELane*
 GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
     if (oldLane == nullptr) {
-        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
+        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
     } else {
         oldLane->removeAdditionalChild(this);
         GNELane* newLane = myViewNet->getNet()->retrieveLane(newLaneID);
@@ -988,12 +1029,12 @@ GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
 void
 GNEAdditional::changeFirstAdditionalParent(const std::string& newAdditionalParentID) {
     if (myFirstAdditionalParent == nullptr) {
-        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
+        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
         // remove this additional of the childs of parent additional
         myFirstAdditionalParent->removeAdditionalChild(this);
         // set new additional parent
-        myFirstAdditionalParent = myViewNet->getNet()->retrieveAdditional(myFirstAdditionalParent->getTag(), newAdditionalParentID);
+        myFirstAdditionalParent = myViewNet->getNet()->retrieveAdditional(myFirstAdditionalParent->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myFirstAdditionalParent->addAdditionalChild(this);
         updateGeometry(true);
@@ -1004,12 +1045,12 @@ GNEAdditional::changeFirstAdditionalParent(const std::string& newAdditionalParen
 void
 GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalParentID) {
     if (mySecondAdditionalParent == nullptr) {
-        throw InvalidArgument(toString(getTag()) + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
+        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
         // remove this additional of the childs of parent additional
         mySecondAdditionalParent->removeAdditionalChild(this);
         // set new additional parent
-        mySecondAdditionalParent = myViewNet->getNet()->retrieveAdditional(mySecondAdditionalParent->getTag(), newAdditionalParentID);
+        mySecondAdditionalParent = myViewNet->getNet()->retrieveAdditional(mySecondAdditionalParent->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         mySecondAdditionalParent->addAdditionalChild(this);
         updateGeometry(true);
@@ -1023,6 +1064,8 @@ GNEAdditional::selectAttributeCarrier(bool changeFlag) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // add object of list into selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONAL);
         if (changeFlag) {
             mySelected = true;
         }
@@ -1036,8 +1079,11 @@ GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // remove object of list of selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONAL);
         if (changeFlag) {
             mySelected = false;
+
         }
     }
 }
@@ -1052,7 +1098,7 @@ GNEAdditional::isAttributeCarrierSelected() const {
 bool
 GNEAdditional::checkAdditionalChildRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
-    throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + toString(getTag()) + ". It muss be reimplemented in child class");
+    throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
 }
 
 

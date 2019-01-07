@@ -73,3 +73,6 @@ roadMark
 
 # import paramPoly3 with specified pRange attribute
 pRange
+
+# tests for importin connectivity
+connections

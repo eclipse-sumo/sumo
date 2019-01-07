@@ -35,7 +35,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include <utils/distribution/RandomDistributor.h>
@@ -55,7 +55,7 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
         const std::string& outputFilename,
         const SUMOTime freq, const double length,
         const MSRouteProbe* probe) :
-    MSCalibrator(id, edge, (MSLane*)0, pos, aXMLFilename, outputFilename, freq, length, probe, false),
+    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, false),
     mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
     mySegment->addDetector(&myEdgeMeanData);
@@ -101,7 +101,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
             mySegment->getEdge().setMaxSpeed(myDefaultSpeed);
             MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
             const double jamThresh = OptionsCont::getOptions().getFloat("meso-jam-threshold");
-            while (first != 0) {
+            while (first != nullptr) {
                 first->setSpeed(myDefaultSpeed, currentTime, jamThresh);
                 first = first->getNextSegment();
             }
@@ -117,7 +117,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     if (!myDidSpeedAdaption && myCurrentStateInterval->v >= 0 && myCurrentStateInterval->v != mySegment->getEdge().getSpeedLimit()) {
         mySegment->getEdge().setMaxSpeed(myCurrentStateInterval->v);
         MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
-        while (first != 0) {
+        while (first != nullptr) {
             first->setSpeed(myCurrentStateInterval->v, currentTime, -1);
             first = first->getNextSegment();
         }
@@ -163,11 +163,11 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
             //std::cout << "time:" << STEPS2TIME(currentTime) << " w:" << wishedNum << " s:" << insertionSlack << " before:" << adaptedNum;
             while (wishedNum > adaptedNum + insertionSlack && remainingVehicleCapacity() > maximumInflow()) {
                 SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-                const MSRoute* route = myProbe != 0 ? myProbe->getRoute() : 0;
-                if (route == 0) {
+                const MSRoute* route = myProbe != nullptr ? myProbe->getRoute() : nullptr;
+                if (route == nullptr) {
                     route = MSRoute::dictionary(pars->routeid);
                 }
-                if (route == 0) {
+                if (route == nullptr) {
                     WRITE_WARNING("No valid routes in calibrator '" + myID + "'.");
                     break;
                 }
@@ -190,7 +190,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 } catch (const ProcessError& e) {
                     if (!MSGlobals::gCheckRoutes) {
                         WRITE_WARNING(e.what());
-                        vehicle = 0;
+                        vehicle = nullptr;
                         break;
                     } else {
                         throw e;

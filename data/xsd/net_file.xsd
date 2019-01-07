@@ -43,6 +43,8 @@
         <xsd:attribute name="rectangularLaneCut" type="boolType"/>
         <xsd:attribute name="walkingareas" type="boolType"/>
         <xsd:attribute name="limitTurnSpeed" type="xsd:float"/>
+        <xsd:attribute name="checkLaneFoesAll" type="boolType"/>
+        <xsd:attribute name="checkLaneFoesRoundabout" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">
@@ -68,6 +70,7 @@
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="priority" type="xsd:integer" use="optional"/>
         <xsd:attribute name="length" type="positiveFloatType" use="optional"/>
+        <xsd:attribute name="bidi" type="xsd:string" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="optional"/>
         <xsd:attribute name="spreadType" use="optional">
@@ -135,6 +138,14 @@
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="radius" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="customShape" type="boolType" use="optional"/>
+        <xsd:attribute name="rightOfWay" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="default"/>
+                    <xsd:enumeration value="edgePriority"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="requestType">

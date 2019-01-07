@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_0_1+0193-0616abb
+Eclipse SUMO netconvert Version eeef47f
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -147,12 +147,12 @@ Processing Options:
   --geometry.check-overlap.vertical-threshold FLOAT  Ignore overlapping edges
                                          if they are separated vertically by the
                                          given threshold.
-  --geometry.max-grade FLOAT           Warn about edge geometries with a grade
-                                         in % above FLOAT. The threshold applies
-                                         to roads with a speed limit of 50km/h
-                                         and is scaled according to road speed.
   --geometry.avoid-overlap             Modify edge geometries to avoid overlap
                                          at junctions
+  --geometry.max-grade FLOAT           Warn about edge geometries with a grade
+                                         in % above FLOAT.
+  --geometry.max-grade.fix             Smooth edge edge geometries with a grade
+                                         in above the warning threshold.
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions
@@ -186,6 +186,9 @@ Building Defaults Options:
                                          by default
   --default.junctions.radius FLOAT     The default turning radius of
                                          intersections
+  --default.right-of-way STR           The default algorithm for computing
+                                         right of way rules ('default',
+                                         'edgePriority')
 
 TLS Building Options:
   --tls.discard-loaded                 Does not instatiate traffic lights
@@ -247,6 +250,10 @@ TLS Building Options:
                                          quarter-phase
   --tls.default-type STR               TLSs with unspecified type will use STR
                                          as their algorithm
+  --tls.layout STR                     Set phase layout four grouping opposite
+                                         directions or grouping all movements
+                                         for one incoming edge ['opposites',
+                                         'incoming']
   --tls.min-dur INT                    Default minimum phase duration for
                                          traffic lights with variable phase
                                          length

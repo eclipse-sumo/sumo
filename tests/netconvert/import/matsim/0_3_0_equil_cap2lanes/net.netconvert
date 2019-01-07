@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:38 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:50 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="20000.00,10000.00" convBoundary="0.00,0.00,25000.00,15925.00" origBoundary="-20000.00,-10000.00,5000.00,5925.00" projParameter="!"/>
 
@@ -262,28 +262,28 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="12" type="priority" x="20000.00" y="10000.00" incLanes="19_0 17_0 18_0 16_0 15_0 14_0 13_0 12_0 11_0" intLanes="" shape="20003.46,10000.00 20003.46,9936.00 20000.49,9935.71 19997.98,9934.86 19995.91,9933.43 19994.29,9931.44 19993.12,9928.87 19992.39,9925.73 19989.23,9926.20 19990.81,9935.03 19993.50,9949.35 19996.35,9965.73 19998.45,9980.75 19998.87,9990.98 19996.66,9993.01 19994.60,9995.46 19998.20,9998.27 20000.62,9999.67 20001.87,9999.65 20001.94,9998.21 20000.84,9995.36 19998.56,9991.09 19995.79,9992.69 19995.81,9994.02 19994.97,9994.17 19993.56,9993.99 19991.59,9993.47 19989.06,9992.61 19987.96,9995.62 19987.19,9996.80 19987.19,10000.00 19986.87,10001.38 19987.96,10004.38 19988.13,10005.79 19990.19,10008.24 19991.11,10009.01 19993.88,10010.61 19995.17,10010.93 19998.34,10011.39 19998.94,10007.91 19999.65,10005.06 20000.45,10002.85 20001.35,10001.27 20002.36,10000.32">
-        <request index="0"  response="0000000000000000000000" foes="1111111111111111111100"/>
-        <request index="1"  response="0000000000000000000000" foes="1111111111111111111100"/>
-        <request index="2"  response="1100000000000000000011" foes="1111111111111111110011"/>
-        <request index="3"  response="1100000000000000000011" foes="1111111111111111110011"/>
-        <request index="4"  response="1100111111111100001111" foes="1111111111111100001111"/>
-        <request index="5"  response="1100111111111100001111" foes="1111111111111100001111"/>
-        <request index="6"  response="1100111111111100001111" foes="1111111111111100001111"/>
-        <request index="7"  response="1100111111111100001111" foes="1111111111111100001111"/>
-        <request index="8"  response="1100000000000000001111" foes="1111111111110011111111"/>
-        <request index="9"  response="1100000000000000001111" foes="1111111111110011111111"/>
-        <request index="10" response="1100000000001100001111" foes="1111111111001111111111"/>
-        <request index="11" response="1100000000001100001111" foes="1111111111001111111111"/>
-        <request index="12" response="1100000000111100001111" foes="1111111100111111111111"/>
-        <request index="13" response="1100000000111100001111" foes="1111111100111111111111"/>
-        <request index="14" response="1100000011111100001111" foes="1111000011111111111111"/>
-        <request index="15" response="1100000011111100001111" foes="1111000011111111111111"/>
-        <request index="16" response="1100000011111100001111" foes="1111000011111111111111"/>
-        <request index="17" response="1100000011111100001111" foes="1111000011111111111111"/>
-        <request index="18" response="1100111111111111111111" foes="1100111111111111111111"/>
-        <request index="19" response="1100111111111111111111" foes="1100111111111111111111"/>
-        <request index="20" response="0000000000000000000011" foes="0011111111111111111111"/>
-        <request index="21" response="0000000000000000000011" foes="0011111111111111111111"/>
+        <request index="0"  response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="1"  response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="2"  response="0000000000000000000000" foes="0000000000000011110000"/>
+        <request index="3"  response="0000000000000000000000" foes="0000000000000011110000"/>
+        <request index="4"  response="0000000000001100001100" foes="0000000000001100001100"/>
+        <request index="5"  response="0000000000001100001100" foes="0000000000001100001100"/>
+        <request index="6"  response="0000000000001100001100" foes="0000000000001100001100"/>
+        <request index="7"  response="0000000000001100001100" foes="0000000000001100001100"/>
+        <request index="8"  response="0000000000000000000000" foes="0000000000000011110000"/>
+        <request index="9"  response="0000000000000000000000" foes="0000000000000011110000"/>
+        <request index="10" response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="11" response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="12" response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="13" response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="14" response="0000000000000000000000" foes="0011000000000000000000"/>
+        <request index="15" response="0000000000000000000000" foes="0011000000000000000000"/>
+        <request index="16" response="0000000000000000000000" foes="0011000000000000000000"/>
+        <request index="17" response="0000000000000000000000" foes="0011000000000000000000"/>
+        <request index="18" response="0000111100000000000000" foes="0000111100000000000000"/>
+        <request index="19" response="0000111100000000000000" foes="0000111100000000000000"/>
+        <request index="20" response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="21" response="0000000000000000000000" foes="0000000000000000000000"/>
     </junction>
     <junction id="13" type="priority" x="25000.00" y="10000.00" incLanes="20_0 20_1 20_2 20_3 20_4 20_5 20_6 20_7 20_8 20_9 20_10 20_11 20_12 20_13 20_14 20_15 20_16 20_17 20_18 20_19" intLanes="" shape="25000.00,9936.00 24936.00,9936.00 24936.00,10000.00 24955.56,9998.22 24971.56,9992.89 24984.00,9984.00 24992.89,9971.56 24998.22,9955.56">
         <request index="0"  response="00000000000000000000" foes="00000000000000000000"/>
@@ -412,22 +412,22 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1" to="2" fromLane="18" toLane="0" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="19" toLane="1" dir="s" state="M"/>
     <connection from="10" to="19" fromLane="1" toLane="0" dir="l" state="M"/>
-    <connection from="11" to="20" fromLane="0" toLane="18" dir="l" state="m"/>
-    <connection from="11" to="20" fromLane="0" toLane="19" dir="l" state="m"/>
+    <connection from="11" to="20" fromLane="0" toLane="18" dir="l" state="M"/>
+    <connection from="11" to="20" fromLane="0" toLane="19" dir="l" state="M"/>
     <connection from="12" to="20" fromLane="0" toLane="16" dir="l" state="m"/>
     <connection from="12" to="20" fromLane="0" toLane="17" dir="l" state="m"/>
-    <connection from="13" to="20" fromLane="0" toLane="13" dir="s" state="m"/>
-    <connection from="13" to="20" fromLane="0" toLane="14" dir="s" state="m"/>
-    <connection from="13" to="20" fromLane="0" toLane="15" dir="s" state="m"/>
-    <connection from="13" to="20" fromLane="0" toLane="16" dir="s" state="m"/>
-    <connection from="14" to="20" fromLane="0" toLane="11" dir="s" state="m"/>
-    <connection from="14" to="20" fromLane="0" toLane="12" dir="s" state="m"/>
-    <connection from="15" to="20" fromLane="0" toLane="9" dir="s" state="m"/>
-    <connection from="15" to="20" fromLane="0" toLane="10" dir="s" state="m"/>
-    <connection from="16" to="20" fromLane="0" toLane="7" dir="s" state="m"/>
-    <connection from="16" to="20" fromLane="0" toLane="8" dir="s" state="m"/>
-    <connection from="17" to="20" fromLane="0" toLane="2" dir="s" state="m"/>
-    <connection from="17" to="20" fromLane="0" toLane="3" dir="s" state="m"/>
+    <connection from="13" to="20" fromLane="0" toLane="13" dir="s" state="M"/>
+    <connection from="13" to="20" fromLane="0" toLane="14" dir="s" state="M"/>
+    <connection from="13" to="20" fromLane="0" toLane="15" dir="s" state="M"/>
+    <connection from="13" to="20" fromLane="0" toLane="16" dir="s" state="M"/>
+    <connection from="14" to="20" fromLane="0" toLane="11" dir="s" state="M"/>
+    <connection from="14" to="20" fromLane="0" toLane="12" dir="s" state="M"/>
+    <connection from="15" to="20" fromLane="0" toLane="9" dir="s" state="M"/>
+    <connection from="15" to="20" fromLane="0" toLane="10" dir="s" state="M"/>
+    <connection from="16" to="20" fromLane="0" toLane="7" dir="s" state="M"/>
+    <connection from="16" to="20" fromLane="0" toLane="8" dir="s" state="M"/>
+    <connection from="17" to="20" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from="17" to="20" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from="18" to="20" fromLane="0" toLane="4" dir="r" state="m"/>
     <connection from="18" to="20" fromLane="0" toLane="5" dir="r" state="m"/>
     <connection from="18" to="20" fromLane="0" toLane="6" dir="r" state="m"/>

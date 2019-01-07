@@ -56,9 +56,7 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
         std::string fclass = veh->getVehicleType().getID();
         fclass = fclass.substr(0, fclass.find_first_of("@"));
 
-        Position pos = veh->getLane()->getShape().positionAtOffset(veh->getPositionOnLane());
-
-        if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != 0) {
+        if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != nullptr) {
             MSDevice_Battery* batteryToExport = dynamic_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery)));
             if (batteryToExport->getMaximumBatteryCapacity() > 0) {
                 // Open Row
@@ -91,12 +89,17 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
                 // Write Acceleration
                 of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
-                // Write pos x
+
+                Position pos = veh->getPosition();
                 of.writeAttr(SUMO_ATTR_X, veh->getPosition().x());
-                // Write pos y
                 of.writeAttr(SUMO_ATTR_Y, veh->getPosition().y());
-                // Write Lane ID
-                of.writeAttr(SUMO_ATTR_LANE, veh->getLane()->getID());
+
+                // Write Lane ID / edge ID
+                if (MSGlobals::gUseMesoSim) {
+                    of.writeAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID());
+                } else {
+                    of.writeAttr(SUMO_ATTR_LANE, veh->getLane()->getID());
+                }
                 // Write vehicle position in the lane
                 of.writeAttr(SUMO_ATTR_POSONLANE, veh->getPositionOnLane());
                 // Write Time stopped (In all cases)

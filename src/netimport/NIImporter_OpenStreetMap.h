@@ -426,6 +426,9 @@ protected:
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;
+        
+        /// @brief whether additional way attributes shall be added to the edge
+        bool myAllAttributes;
 
     private:
         /** @brief invalidated copy constructor */

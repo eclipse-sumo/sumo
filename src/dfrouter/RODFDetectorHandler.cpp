@@ -29,7 +29,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -56,7 +56,7 @@ RODFDetectorHandler::myStartElement(int element,
         try {
             bool ok = true;
             // get the id, report an error if not given or empty...
-            std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             if (!ok) {
                 throw ProcessError();
             }
@@ -65,8 +65,8 @@ RODFDetectorHandler::myStartElement(int element,
                 throw ProcessError();
             }
             ROEdge* edge = myNet->getEdge(lane.substr(0, lane.rfind('_')));
-            int laneIndex = TplConvert::_2intSec(lane.substr(lane.rfind('_') + 1).c_str(), std::numeric_limits<int>::max());
-            if (edge == 0 || laneIndex >= edge->getNumLanes()) {
+            int laneIndex = StringUtils::toIntSecure(lane.substr(lane.rfind('_') + 1), std::numeric_limits<int>::max());
+            if (edge == nullptr || laneIndex >= edge->getNumLanes()) {
                 throw ProcessError("Unknown lane '" + lane + "' for detector '" + id + "' in '" + getFileName() + "'.");
             }
             double pos = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);

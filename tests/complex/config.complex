@@ -64,7 +64,6 @@ detector:detector.xml
 [run_dependent_text]
 output:<!--{[->]}-->
 output:^Performance:{->}^Vehicles:
-output:visible boundary
 output:uncheck:
 output:@@[^@]*@@
 output:data\\{REPLACE data/}

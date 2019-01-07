@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:38 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:50 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="200.00,86.70" convBoundary="0.00,0.00,400.00,173.40" origBoundary="-200.00,-86.70,200.00,86.70" projParameter="!"/>
 
@@ -180,7 +180,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="501.0.00" to="-502.0.00" fromLane="1" toLane="1" tl="2" linkIndex="1" dir="r" state="O"/>
     <connection from="501.0.00" to="-514.0.00" fromLane="1" toLane="1" tl="2" linkIndex="2" dir="s" state="O"/>
     <connection from="501.0.00" to="-516.0.00" fromLane="1" toLane="1" tl="2" linkIndex="3" dir="l" state="o"/>
-    <connection from="502.0.00" to="-514.0.00" fromLane="0" toLane="0" tl="2" linkIndex="12" dir="r" state="o"/>
+    <connection from="502.0.00" to="-514.0.00" fromLane="0" toLane="0" tl="2" linkIndex="12" dir="r" state="O"/>
     <connection from="502.0.00" to="-514.0.00" fromLane="1" toLane="1" tl="2" linkIndex="13" dir="r" state="o"/>
     <connection from="502.0.00" to="-516.0.00" fromLane="1" toLane="1" tl="2" linkIndex="14" dir="s" state="o"/>
     <connection from="502.0.00" to="-501.0.00" fromLane="1" toLane="1" tl="2" linkIndex="15" dir="l" state="o"/>
@@ -192,7 +192,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="514.0.00" to="-516.0.00" fromLane="1" toLane="1" tl="2" linkIndex="9" dir="r" state="O"/>
     <connection from="514.0.00" to="-501.0.00" fromLane="1" toLane="1" tl="2" linkIndex="10" dir="s" state="O"/>
     <connection from="514.0.00" to="-502.0.00" fromLane="1" toLane="1" tl="2" linkIndex="11" dir="l" state="o"/>
-    <connection from="516.0.00" to="-501.0.00" fromLane="0" toLane="0" tl="2" linkIndex="4" dir="r" state="o"/>
+    <connection from="516.0.00" to="-501.0.00" fromLane="0" toLane="0" tl="2" linkIndex="4" dir="r" state="O"/>
     <connection from="516.0.00" to="-501.0.00" fromLane="1" toLane="1" tl="2" linkIndex="5" dir="r" state="o"/>
     <connection from="516.0.00" to="-502.0.00" fromLane="1" toLane="1" tl="2" linkIndex="6" dir="s" state="o"/>
     <connection from="516.0.00" to="-514.0.00" fromLane="1" toLane="1" tl="2" linkIndex="7" dir="l" state="o"/>

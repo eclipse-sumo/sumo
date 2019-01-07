@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 26 15:44:55 2018 by Eclipse SUMO netconvert Version a813078
+<!-- generated on Wed Jan  2 13:17:20 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
-        <osm-files value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_bbox.osm.xml"/>
+        <osm-files value="osm_bbox.osm.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm.net.xml"/>
+        <output-file value="osm.net.xml"/>
         <output.street-names value="true"/>
         <output.original-names value="true"/>
-        <ptstop-output value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
-        <ptline-output value="/scr2/texttest_tmp/tools.26Jul154452.2175/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
     </output>
 
     <projection>
         <proj.utm value="true"/>
     </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
 
     <tls_building>
         <tls.discard-simple value="true"/>
@@ -31,14 +36,18 @@
         <ramps.guess value="true"/>
     </ramp_guessing>
 
-    <processing>
-        <geometry.remove value="true"/>
-        <railway.topology.repair value="true"/>
-        <roundabouts.guess value="true"/>
+    <junctions>
         <junctions.join value="true"/>
         <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <pedestrian>
         <crossings.guess value="true"/>
-    </processing>
+    </pedestrian>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
 
     <report>
         <verbose value="true"/>
@@ -53,7 +62,7 @@
         <busStop id="30732068" name="Memhardstraße"/>
     </ptLine>
     <ptLine id="1" name="Buslinie N2: U Ruhleben =&gt; S+U Pankow" line="N2" type="bus" completeness="0.15">
-        <route edges="-326116285#2 -4402014#3 -4402014#2 -4402014#1 -4402014#0 -326116286#2 -326116286#1 -326116286#0 -24913267#3 -24913267#2 -24913267#1 -24913267#0 342968607#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 4611698#1 202156994#0 202156994#1 4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 -387892378 -275177453 -478396988 -370359204#2 -370359204#0 -316746323#2 -316746323#1 -316746323#0 46140376#1 -84960597#1 -84960597#0 11103418 23809678#0 23809678#1 23809678#4"/>
+        <route edges="-326116285#2 -4402014#3 -4402014#2 -4402014#1 -4402014#0 -326116286#2 -326116286#1 -326116286#0 -24913267#3 -24913267#2 -24913267#1 -24913267#0 342968607#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 -387892378 -275177453 -478396988 -370359204#2 -370359204#0 -316746323#2 -316746323#1 -316746323#0 46140376#1 -84960597#1 -84960597#0 11103418 23809678#0 23809678#1 23809678#4"/>
         <busStop id="-4692172068" name="Behrenstraße/Wilhelmstraße"/>
         <busStop id="3869306771" name="Unter den Linden/Friedrichstraße"/>
         <busStop id="3870475228" name="Staatsoper"/>
@@ -96,7 +105,7 @@
         <busStop id="2776873647" name="Berlin Alexanderplatz"/>
     </ptLine>
     <ptLine id="9" name="Buslinie TXL: Flughafen Tegel =&gt; S+U Alexanderplatz" line="TXL" type="bus" completeness="0.29">
-        <route edges="461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405"/>
+        <route edges="461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405"/>
         <busStop id="3869306771" name="Unter den Linden/Friedrichstraße"/>
         <busStop id="3870475228" name="Staatsoper"/>
         <busStop id="1827996414" name="Spandauer Straße/Marienkirche"/>
@@ -122,7 +131,7 @@
         <busStop id="271373068" name="S+U Brandenburger Tor"/>
     </ptLine>
     <ptLine id="12" name="Buslinie 100: S+U Zoologischer Garten =&gt; S+U Alexanderplatz" line="100" type="bus" completeness="0.28">
-        <route edges="461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405"/>
+        <route edges="461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405"/>
         <busStop id="3869306771" name="Unter den Linden/Friedrichstraße"/>
         <busStop id="3870475228" name="Staatsoper"/>
         <busStop id="3867910421" name="Lustgarten"/>
@@ -164,7 +173,7 @@
         <busStop id="272408975" name="Unter den Linden/Friedrichstraße"/>
     </ptLine>
     <ptLine id="19" name="Buslinie 200: S+U Zoologischer Garten =&gt; Michelangelostraße" line="200" type="bus" completeness="0.22">
-        <route edges="-326116285#2 -4402014#3 -4402014#2 -4402014#1 -4402014#0 -326116286#2 -326116286#1 -326116286#0 -24913267#3 -24913267#2 -24913267#1 -24913267#0 342968607#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405"/>
+        <route edges="-326116285#2 -4402014#3 -4402014#2 -4402014#1 -4402014#0 -326116286#2 -326116286#1 -326116286#0 -24913267#3 -24913267#2 -24913267#1 -24913267#0 342968607#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405"/>
         <busStop id="-4692172068" name="Behrenstraße/Wilhelmstraße"/>
         <busStop id="3869306771" name="Unter den Linden/Friedrichstraße"/>
         <busStop id="3870475228" name="Staatsoper"/>

@@ -239,11 +239,20 @@ public class Simulation {
 	
 	/**
 	 * getCurrentTime
-	 * @return current time
+	 * @return current time in ms (integer). Note: this method only supports a simulation time up to 24 days and is only kept for legacy reasons
 	 */
 
 	public static SumoCommand getCurrentTime(){
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_TIME_STEP, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	/**
+	 * getTime
+	 * @return current time in s (double)
+	 */
+
+	public static SumoCommand getTime(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_TIME, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -358,7 +367,7 @@ public class Simulation {
 	 * @return SumoCommand
 	 */
 	public static SumoCommand getNetBoundary(){
-		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_NET_BOUNDING_BOX, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_BOUNDINGBOX);
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_NET_BOUNDING_BOX, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_POLYGON);
 	}
 
 	/**

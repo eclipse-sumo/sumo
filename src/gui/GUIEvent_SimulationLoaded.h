@@ -54,12 +54,14 @@ public:
                               SUMOTime startTime, SUMOTime endTime,
                               const std::string& file,
                               const std::vector<std::string>& settingsFiles,
-                              const bool osgView)
+                              const bool osgView,
+                              const bool viewportFromRegistry)
         : GUIEvent(EVENT_SIMULATION_LOADED),
           myNet(net), myBegin(startTime), myEnd(endTime),
           myFile(file), mySettingsFiles(settingsFiles),
-          myOsgView(osgView) {
-    }
+          myOsgView(osgView),
+          myViewportFromRegistry(viewportFromRegistry)
+    { }
 
     /// destructor
     ~GUIEvent_SimulationLoaded() { }
@@ -82,6 +84,9 @@ public:
 
     /// whether to load the OpenSceneGraph view
     const bool myOsgView;
+
+    /// @brief whether loading viewport from registry
+    const bool myViewportFromRegistry;
 
 private:
     /// @brief Invalidated assignment operator

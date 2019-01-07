@@ -1,0 +1,66 @@
+Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Inserting generic parameter 'KeyA1|valueA1' into additional parkingArea.
+Debug: Inserting generic parameter 'KeyA2|valueA2' into additional parkingArea.
+Debug: Inserting generic parameter 'KeyA3|valueA3' into additional parkingArea.
+Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
+Debug: Inserting generic parameter 'KeyB1|valueB1' into additional parkingArea.
+Debug: Inserting generic parameter 'KeyB2|valueB2' into additional parkingArea.
+Debug: Inserting generic parameter 'KeyB3|valueB3' into additional parkingArea.
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
+Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
+Debug: Value '-5' for attribute roadsideCapacity of parkingArea isn't valid
+Debug: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaA'
+Debug: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaB'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
+Debug: Setting previous attribute roadsideCapacity '0' into parkingArea 'parkingAreaA'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute roadsideCapacity '10' into parkingArea 'parkingAreaB'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute selected '0' into parkingArea 'parkingAreaB'
+Debug: Setting previous attribute selected '0' into parkingArea 'parkingAreaA'
+Debug: Setting previous attribute selected '0' into edge 'gneE0'
+Debug: Setting previous attribute selected '0' into junction 'gneJ1'
+Debug: Setting previous attribute selected '0' into edge 'gneE1'
+Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
+Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute roadsideCapacity '0' into parkingArea 'parkingAreaB'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaA'
+Debug: Setting new attribute roadsideCapacity '7' into parkingArea 'parkingAreaB'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced parkingArea 'parkingAreaB'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced parkingArea 'parkingAreaA'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

@@ -121,7 +121,9 @@ public:
      *
      * @return the total number of cars on the segment
      */
-    int getCarNumber() const;
+    inline int getCarNumber() const {
+        return myNumCars;
+    }
 
     /// @brief return the number of queues
     inline int numQueues() const {
@@ -321,7 +323,7 @@ public:
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const int queIdx);
+    void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc, const SUMOTime blockTime, const int queIdx);
     /// @}
 
 
@@ -477,6 +479,9 @@ private:
 
     /// @brief The car queues. Vehicles are inserted in the front and removed in the back
     Queues myCarQues;
+
+    /// @brief The cached value for the number of cars
+    int myNumCars;
 
     /// @brief The follower edge to que index mapping for multi queue segments
     std::map<const MSEdge*, std::vector<int> > myFollowerMap;

@@ -323,7 +323,7 @@
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
         <xsd:attribute name="departPosLat" type="departPosLatType"/>
         <xsd:attribute name="arrivalPosLat" type="arrivalPosLatType"/>
-        <xsd:attribute name="arrival" type="nonNegativeFloatType"/>
+        <xsd:attribute name="arrival" type="timeType"/>
         <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
@@ -622,6 +622,7 @@
                     <xsd:attribute name="cost" type="xsd:float"/>
                     <xsd:attribute name="intended" type="xsd:string" use="optional"/>
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
+                    <xsd:attribute name="routeLength" type="xsd:float"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
@@ -637,6 +638,7 @@
                     <xsd:attribute name="departPosLat" type="xsd:float"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
+                    <xsd:attribute name="routeLength" type="xsd:float"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="stop" type="stopType"/>

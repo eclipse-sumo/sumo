@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/13/18 16:09:16 by SUMO Version v0_32_0+0193-b79a12bb06
+<!-- generated on Wed Oct 17 20:25:43 2018 by Eclipse SUMO Version v1_0_1+0313-d13dc10
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,10 @@ SPDX-License-Identifier: EPL-2.0
         <end value="1000"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -32,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p1" depart="25.00">
+    <personinfo id="p1" depart="25.00" type="DEFAULT_PEDTYPE">
         <ride waitingTime="2.00" vehicle="p" depart="27.00" arrival="210.00" arrivalPos="500.00" duration="183.00" routeLength="2835.86"/>
     </personinfo>
     <tripinfo id="p" depart="0.00" departLane="beg_0" departPos="3.00" departSpeed="7.00" departDelay="0.00" arrival="210.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="210.00" routeLength="3009.36" waitingTime="0.00" waitingCount="0" stopTime="13.00" timeLoss="15.37" rerouteNo="0" devices="tripinfo_p person_p" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

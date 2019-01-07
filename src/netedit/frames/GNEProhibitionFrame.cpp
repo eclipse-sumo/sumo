@@ -21,29 +21,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <iostream>
-#include <set>
-#include <utils/common/MsgHandler.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/foxtools/fxexdefs.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <netedit/GNEAttributeCarrier.h>
-#include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNEInternalLane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEProhibitionFrame.h"
 
@@ -73,11 +58,11 @@ RGBColor GNEProhibitionFrame::mutualConflictColor;
 // ===========================================================================
 
 GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"), myCurrentConn(0) {
+    GNEFrame(horizontalFrameParent, viewNet, "Prohibits"), myCurrentConn(nullptr) {
     getFrameHeaderLabel()->setText("Prohibitions");
 
     // init colors here
-    selectedColor = GNENet::selectedConnectionColor;
+    selectedColor = viewNet->getVisualisationSettings()->selectedConnectionColor;
     undefinedColor = RGBColor::GREY;
     prohibitedColor = RGBColor(0, 179, 0);
     prohibitingColor = RGBColor::RED;
@@ -88,25 +73,25 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     myGroupBoxDescription = new FXGroupBox(myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame);
 
     // Create label for current connection description and update it
-    myConnDescriptionLabel = new FXLabel(myGroupBoxDescription, "", 0, GUIDesignLabelFrameInformation);
+    myConnDescriptionLabel = new FXLabel(myGroupBoxDescription, "", nullptr, GUIDesignLabelFrameInformation);
     updateDescription();
 
     // Create groupbox for color legend
     myGroupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
 
     // Create labels for color legend
-    mySelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", 0, GUIDesignLabelFrameInformation);
+    mySelectedLabel = new FXLabel(myGroupBoxLegend, "Selected", nullptr, GUIDesignLabelFrameInformation);
     mySelectedLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     mySelectedLabel->setBackColor(MFXUtils::getFXColor(selectedColor));
-    myUndefinedLabel = new FXLabel(myGroupBoxLegend, "No conflict", 0, GUIDesignLabelFrameInformation);
+    myUndefinedLabel = new FXLabel(myGroupBoxLegend, "No conflict", nullptr, GUIDesignLabelFrameInformation);
     myUndefinedLabel->setBackColor(MFXUtils::getFXColor(undefinedColor));
-    myProhibitedLabel = new FXLabel(myGroupBoxLegend, "Yields", 0, GUIDesignLabelFrameInformation);
+    myProhibitedLabel = new FXLabel(myGroupBoxLegend, "Yields", nullptr, GUIDesignLabelFrameInformation);
     myProhibitedLabel->setBackColor(MFXUtils::getFXColor(prohibitedColor));
-    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Has right of way", 0, GUIDesignLabelFrameInformation);
+    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Has right of way", nullptr, GUIDesignLabelFrameInformation);
     myProhibitingLabel->setBackColor(MFXUtils::getFXColor(prohibitingColor));
-    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Unregulated conflict", 0, GUIDesignLabelFrameInformation);
+    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
     myProhibitingLabel->setBackColor(MFXUtils::getFXColor(unregulatedConflictColor));
-    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Mutual conflict", 0, GUIDesignLabelFrameInformation);
+    myProhibitingLabel = new FXLabel(myGroupBoxLegend, "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
     myProhibitingLabel->setBackColor(MFXUtils::getFXColor(mutualConflictColor));
 
     // Create "Cancel" button
@@ -124,7 +109,7 @@ GNEProhibitionFrame::~GNEProhibitionFrame() {}
 void
 GNEProhibitionFrame::handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
     // build prohibition
-    buildProhibition(objectsUnderCursor.connection, objectsUnderCursor.shiftKeyPressed(), objectsUnderCursor.controlKeyPressed(), true);
+    buildProhibition(objectsUnderCursor.getConnectionFront(), myViewNet->getKeyPressed().shiftKeyPressed(), myViewNet->getKeyPressed().controlKeyPressed(), true);
 }
 
 
@@ -142,7 +127,7 @@ GNEProhibitionFrame::hide() {
 
 void
 GNEProhibitionFrame::updateDescription() const {
-    if (myCurrentConn == 0) {
+    if (myCurrentConn == nullptr) {
         myConnDescriptionLabel->setText("No Connection selected\n");
     } else {
         myConnDescriptionLabel->setText(("from lane " + myCurrentConn->getLaneFrom()->getMicrosimID() + "\nto lane " + myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
@@ -152,12 +137,12 @@ GNEProhibitionFrame::updateDescription() const {
 
 long
 GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
-    if (myCurrentConn != 0) {
+    if (myCurrentConn != nullptr) {
         for (auto conn : myConcernedConns) {
-            conn->setSpecialColor(0);
+            conn->setSpecialColor(nullptr);
         }
-        myCurrentConn->setSpecialColor(0);
-        myCurrentConn = 0;
+        myCurrentConn->setSpecialColor(nullptr);
+        myCurrentConn = nullptr;
         myConcernedConns.clear();
         updateDescription();
         myViewNet->update();
@@ -168,7 +153,7 @@ GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
 
 void
 GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitelyPass */, bool /* allowConflict */, bool /* toggle */) {
-    if (myCurrentConn == 0) {
+    if (myCurrentConn == nullptr) {
         myCurrentConn = conn;
         myCurrentConn->setSpecialColor(&selectedColor);
 

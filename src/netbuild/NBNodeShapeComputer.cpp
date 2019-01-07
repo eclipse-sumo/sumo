@@ -519,7 +519,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
             return ret;
         }
         const double angle = GeomHelper::angleDiff(begShape2.angleAt2D(-2), endShape2.angleAt2D(0));
-        NBNode* recordError = 0;
+        NBNode* recordError = nullptr;
 #ifdef DEBUG_SMOOTH_CORNERS
         if (DEBUGCOND) {
             std::cout << "   angle=" << RAD2DEG(angle) << "\n";
@@ -712,7 +712,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     EdgeVector newAll = myNode.myAllEdges;
     for (NBEdge* e1 : all) {
         // determine which of the edges marks the outer boundary
-        auto e2NewAll = find(newAll.begin(), newAll.end(), e1);
+        auto e2NewAll = std::find(newAll.begin(), newAll.end(), e1);
 #ifdef DEBUG_NODE_SHAPE
         if (DEBUGCOND) std::cout << "computeUniqueDirectionList e1=" << e1->getID()
                                      << " deleted=" << (e2NewAll == newAll.end())
@@ -721,7 +721,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
         if (e2NewAll == newAll.end()) {
             continue;
         }
-        auto e1It = find(all.begin(), all.end(), e1);
+        auto e1It = std::find(all.begin(), all.end(), e1);
         auto bestCCW = e1It;
         auto bestCW = e1It;
         bool changed = true;
@@ -733,7 +733,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                     std::cout << "  e2=" << e2->getID() << "\n";
                 }
 #endif
-                auto e2It = find(all.begin(), all.end(), e2);
+                auto e2It = std::find(all.begin(), all.end(), e2);
                 if (e2It + 1 == bestCCW || (e2It == (all.end() - 1) && bestCCW == all.begin())) {
                     bestCCW = e2It;
                     changed = true;
@@ -763,7 +763,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
         }
         // clean up
         for (NBEdge* e2 : same[e1]) {
-            auto e2NewAll = find(newAll.begin(), newAll.end(), e2);
+            auto e2NewAll = std::find(newAll.begin(), newAll.end(), e2);
             if (e2NewAll != newAll.end()) {
                 newAll.erase(e2NewAll);
             }
@@ -894,7 +894,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
                         maxLeftAngle = angle;
                         // all edges clockwise between in and out count as extra width
                         extraWidthLeft = 0;
-                        EdgeVector::const_iterator pIn = find(myNode.getEdges().begin(), myNode.getEdges().end(), in);
+                        EdgeVector::const_iterator pIn = std::find(myNode.getEdges().begin(), myNode.getEdges().end(), in);
                         NBContHelper::nextCW(myNode.getEdges(), pIn);
                         while (*pIn != out) {
                             extraWidthLeft += (*pIn)->getTotalWidth();

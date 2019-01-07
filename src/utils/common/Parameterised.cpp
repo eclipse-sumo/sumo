@@ -21,10 +21,9 @@
 // ===========================================================================
 #include <config.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 
-#include "TplConvert.h"
 #include "Parameterised.h"
 
 
@@ -83,7 +82,7 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
     std::map<std::string, std::string>::const_iterator i = myMap.find(key);
     if (i != myMap.end()) {
         try {
-            return TplConvert::_2double(i->second.c_str());
+            return StringUtils::toDouble(i->second);
         } catch (NumberFormatException&) {
             WRITE_WARNING("Invalid conversion from string to double (" + i->second + ")");
             return defaultValue;

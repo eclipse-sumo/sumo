@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 27 12:57:08 2018 by Eclipse SUMO Version cac3710
+<!-- generated on Sun Nov 18 22:04:32 2018 by Eclipse SUMO Version eeef47f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,6 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 <instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
     <instantOut id="end3" time="4.86" state="enter" vehID="leader" speed="36.00" length="5.00" type="leader"/>
     <instantOut id="end3" time="5.00" state="leave" vehID="leader" speed="36.00" length="5.00" type="leader" occupancy="0.14"/>
-    <instantOut id="end3" time="6.61" state="enter" vehID="follower" speed="36.25" length="5.00" type="follower" gap="1.61"/>
-    <instantOut id="end3" time="6.74" state="leave" vehID="follower" speed="36.25" length="5.00" type="follower" occupancy="0.14"/>
+    <instantOut id="end3" time="6.46" state="enter" vehID="follower" speed="35.43" length="5.00" type="follower" gap="1.46"/>
+    <instantOut id="end3" time="6.60" state="leave" vehID="follower" speed="35.43" length="5.00" type="follower" occupancy="0.14"/>
 </instantE1>

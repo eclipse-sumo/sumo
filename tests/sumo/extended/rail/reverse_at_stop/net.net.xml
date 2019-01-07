@@ -1,45 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug  3 13:39:46 2018 by Eclipse SUMO netconvert Version 88eb374
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Fri Dec 14 09:21:54 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <ptstop-files value="input_ptstops.xml"/>
-        <ptline-files value="input_ptlines.xml"/>
-        <ptstop-output value="additional.xml"/>
-        <ptline-output value="ptlines.xml"/>
-        <railway.topology.output value="topology.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
-        <railway.topology.repair value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="5"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
-    <report>
-        <verbose value="true"/>
-        <xml-validation value="never"/>
-    </report>
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-100.00,-400.00,300.00,-100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -71,10 +63,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2_1_0" index="0" allow="rail_urban" speed="27.78" length="10.16" shape="191.72,-100.00 201.88,-100.00"/>
     </edge>
 
-    <edge id="-branch" from="12" to="11" priority="-1" spreadType="center">
+    <edge id="-branch" from="12" to="11" priority="-1" spreadType="center" bidi="branch">
         <lane id="-branch_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="100.00,-400.00 100.00,-300.00"/>
     </edge>
-    <edge id="-h" from="11" to="10" priority="-1" spreadType="center">
+    <edge id="-h" from="11" to="10" priority="-1" spreadType="center" bidi="h">
         <lane id="-h_0" index="0" allow="rail_urban" speed="27.78" length="98.12" shape="100.00,-300.00 100.00,-201.88"/>
     </edge>
     <edge id="b" from="1" to="2" priority="-1" spreadType="center">
@@ -83,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="beg" from="0" to="1" priority="-1" spreadType="center">
         <lane id="beg_0" index="0" allow="rail_urban" speed="27.78" length="98.12" shape="-100.00,-100.00 -1.88,-100.00"/>
     </edge>
-    <edge id="branch" from="11" to="12" priority="-1" spreadType="center">
+    <edge id="branch" from="11" to="12" priority="-1" spreadType="center" bidi="-branch">
         <lane id="branch_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="100.00,-300.00 100.00,-400.00"/>
     </edge>
     <edge id="end" from="2" to="3" priority="-1" spreadType="center">
@@ -95,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="g" from="10" to="2" priority="-1" spreadType="center" shape="100.00,-200.00 125.00,-150.00 150.00,-125.00 200.00,-100.00">
         <lane id="g_0" index="0" allow="rail_urban" speed="27.78" length="134.18" shape="102.10,-195.80 125.00,-150.00 150.00,-125.00 192.60,-103.70"/>
     </edge>
-    <edge id="h" from="10" to="11" priority="-1" spreadType="center">
+    <edge id="h" from="10" to="11" priority="-1" spreadType="center" bidi="-h">
         <lane id="h_0" index="0" allow="rail_urban" speed="27.78" length="98.12" shape="100.00,-201.88 100.00,-300.00"/>
     </edge>
 

@@ -35,15 +35,15 @@ def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicu
     p = point
     p1 = line_start
     p2 = line_end
-    l = distance(p1, p2)
+    d = distance(p1, p2)
     u = ((p[0] - p1[0]) * (p2[0] - p1[0])) + ((p[1] - p1[1]) * (p2[1] - p1[1]))
-    if l == 0 or u < 0.0 or u > l * l:
+    if d == 0. or u < 0. or u > d * d:
         if perpendicular:
             return INVALID_DISTANCE
-        if u < 0:
-            return 0
-        return l
-    return u / l
+        if u < 0.:
+            return 0.
+        return d
+    return u / d
 
 
 def polygonOffsetAndDistanceToPoint(point, polygon, perpendicular=False):
@@ -159,3 +159,93 @@ def isWithin(pos, shape):
     p2 = ((shape[0][0] - pos[0]), (shape[0][1] - pos[1]))
     angle = angle + angle2D(p1, p2)
     return math.fabs(angle) >= math.pi
+
+
+def sideOffset(fromPos, toPos, amount):
+    scale = amount / distance(fromPos, toPos)
+    return (scale * (fromPos[1] - toPos[1]),
+            scale * (toPos[0] - fromPos[0]))
+
+
+def sub(a, b):
+    return (a[0] - b[0], a[1] - b[1])
+
+
+def add(a, b):
+    return (a[0] + b[0], a[1] + b[1])
+
+
+def mul(a, x):
+    return (a[0] * x, a[1] * x)
+
+
+def dotProduct(a, b):
+    return a[0] * b[0] + a[1] * b[1]
+
+
+def orthoIntersection(a, b):
+    c = add(a, b)
+    quot = dotProduct(c, a)
+    if quot != 0:
+        return mul(mul(c, dotProduct(a, a)), 1 / quot)
+    else:
+        return None
+
+
+def length(a):
+    return math.sqrt(dotProduct(a, a))
+
+
+def norm(a):
+    return mul(a, 1 / length(a))
+
+
+def narrow(fromPos, pos, toPos, amount):
+    """detect narrow turns which cannot be shifted regularly"""
+    a = sub(toPos, pos)
+    b = sub(pos, fromPos)
+    c = add(a, b)
+    x = dotProduct(a, a) * length(c) / dotProduct(a, c)
+    return x < amount
+
+
+def move2side(shape, amount):
+    shape = [s for i, s in enumerate(shape) if i == 0 or shape[i-1] != s]
+    if len(shape) < 2:
+        return shape
+    if polyLength(shape) == 0:
+        return shape
+    result = []
+    for i, pos in enumerate(shape):
+        if i == 0:
+            fromPos = pos
+            toPos = shape[i + 1]
+            if fromPos != toPos:
+                result.append(sub(fromPos, sideOffset(fromPos, toPos, amount)))
+        elif i == len(shape) - 1:
+            fromPos = shape[i - 1]
+            toPos = pos
+            if fromPos != toPos:
+                result.append(sub(toPos, sideOffset(fromPos, toPos, amount)))
+        else:
+            fromPos = shape[i - 1]
+            toPos = shape[i + 1]
+            # check for narrow turns
+            if narrow(fromPos, pos, toPos, amount):
+                # print("narrow at i=%s pos=%s" % (i, pos))
+                pass
+            else:
+                a = sideOffset(fromPos, pos, -amount)
+                b = sideOffset(pos, toPos, -amount)
+                c = orthoIntersection(a, b)
+                if orthoIntersection is not None:
+                    pos2 = add(pos, c)
+                else:
+                    extend = norm(sub(pos, fromPos))
+                    pos2 = add(pos, mul(extend, amount))
+                result.append(pos2)
+    # print("move2side", amount)
+    # print(shape)
+    # print(result)
+    # print()
+    return result

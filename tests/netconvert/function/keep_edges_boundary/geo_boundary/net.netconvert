@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:42 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:53 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-399909.35,-5809365.68" convBoundary="0.00,0.00,1173.99,767.38" origBoundary="13.519602,52.425528,13.545248,52.432321" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -396,14 +396,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0001" foes="0001"/>
     </junction>
     <junction id="261636678" type="priority" x="551.47" y="53.11" incLanes="24152812#1_0 7216737#1_0 7216737#1_1 -7216737#2_0 -7216737#2_1" intLanes="" shape="550.66,63.47 553.85,63.22 554.12,61.03 554.60,60.22 555.31,59.62 556.25,59.21 557.43,58.99 556.26,46.24 545.86,46.97 546.48,59.76 548.67,60.09 549.47,60.59 550.07,61.32 550.46,62.28">
-        <request index="0" response="00001100" foes="10001100"/>
+        <request index="0" response="00001100" foes="00001100"/>
         <request index="1" response="01101100" foes="01111100"/>
         <request index="2" response="00000000" foes="10000011"/>
         <request index="3" response="00000000" foes="10000011"/>
         <request index="4" response="01100010" foes="01100010"/>
         <request index="5" response="00000000" foes="00010010"/>
         <request index="6" response="00000000" foes="00010010"/>
-        <request index="7" response="00001101" foes="00001101"/>
+        <request index="7" response="00001100" foes="00001100"/>
     </junction>
     <junction id="283719736" type="priority" x="489.32" y="520.80" incLanes="-5198585#8_0 5198585#7_0 -26004787#0_0 -26004868#0_0" intLanes="" shape="490.82,526.22 494.92,521.31 485.73,513.63 481.63,518.54 481.52,519.32 480.80,519.80 479.63,520.35 478.03,520.97 475.98,521.65 477.91,527.75 478.35,528.43 483.15,532.66 485.17,530.42 486.90,528.65 488.32,527.35 489.45,526.51 490.28,526.13">
         <request index="0" response="0000" foes="1000"/>

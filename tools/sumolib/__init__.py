@@ -18,17 +18,14 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
+import warnings
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
 try:
-    from . import visualization
+    from . import visualization  # noqa
 except ImportError as e:
-    class VisDummy:
-
-        def __getattr__(self, name):
-            raise e
-    visualization = VisDummy()
+    warnings.warn(str(e))
 from . import files, net, output, sensors, shapes  # noqa
 from . import color, geomhelper, miscutils, options, route  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa
@@ -133,7 +130,7 @@ def checkBinary(name, bindir=None):
         return binary
     if name[-1] != "D" and name[-5:] != "D.exe":
         if name[-4:] == ".exe":
-             return checkBinary(name[:-4] + "D")
+            return checkBinary(name[:-4] + "D")
         return checkBinary(name + "D")
     return name
 

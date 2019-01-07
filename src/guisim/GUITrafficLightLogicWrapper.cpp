@@ -149,13 +149,17 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         new FXMenuSeparator(ret);
     }
     new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH_OFF);
-    new FXMenuCommand(ret, "Track Phases", 0, ret, MID_TRACKPHASES);
-    new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
+    new FXMenuCommand(ret, "Track Phases", nullptr, ret, MID_TRACKPHASES);
+    new FXMenuCommand(ret, "Show Phases", nullptr, ret, MID_SHOWPHASES);
     new FXMenuSeparator(ret);
     MSTrafficLightLogic* tll = myTLLogicControl.getActive(myTLLogic.getID());
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
-    new FXMenuCommand(ret, ("phase: " + toString(tll->getCurrentPhaseIndex())).c_str(), 0, 0, 0);
+    new FXMenuCommand(ret, ("phase: " + toString(tll->getCurrentPhaseIndex())).c_str(), nullptr, nullptr, 0);
+    const std::string& name =  myTLLogic.getCurrentPhaseDef().getName();
+    if (name != "") {
+        new FXMenuCommand(ret, ("phase name: " + name).c_str(), nullptr, nullptr, 0);
+    }
     new FXMenuSeparator(ret);
     buildShowParamsPopupEntry(ret, false);
     buildPositionCopyEntry(ret, false);

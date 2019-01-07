@@ -72,6 +72,10 @@ Polygon::getFilled(const std::string& polygonID) {
     return getPolygon(polygonID)->getFill();
 }
 
+double
+Polygon::getLineWidth(const std::string& polygonID) {
+    return getPolygon(polygonID)->getLineWidth();
+}
 
 TraCIColor
 Polygon::getColor(const std::string& polygonID) {
@@ -109,11 +113,11 @@ Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
 
 
 void
-Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer) {
+Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, double lineWidth, const std::string& polygonType, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     PositionVector pShape = Helper::makePositionVector(shape);
     RGBColor col = Helper::makeRGBColor(color);
-    if (!shapeCont.addPolygon(polygonID, polygonType, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill)) {
+    if (!shapeCont.addPolygon(polygonID, polygonType, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill, lineWidth)) {
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
 }
@@ -135,11 +139,17 @@ Polygon::setFilled(std::string polygonID, bool filled) {
     p->setFill(filled);
 }
 
+void
+Polygon::setLineWidth(std::string polygonID, double lineWidth) {
+    SUMOPolygon* p = getPolygon(polygonID);
+    p->setLineWidth(lineWidth);
+}
+
 
 SUMOPolygon*
 Polygon::getPolygon(const std::string& id) {
     SUMOPolygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
-    if (p == 0) {
+    if (p == nullptr) {
         throw TraCIException("Polygon '" + id + "' is not known");
     }
     return p;
@@ -185,7 +195,7 @@ Polygon::makeWrapper() {
 bool
 Polygon::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
@@ -195,6 +205,8 @@ Polygon::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapColor(objID, variable, getColor(objID));
         case VAR_FILL:
             return wrapper->wrapInt(objID, variable, getFilled(objID));
+        case VAR_WIDTH:
+            return wrapper->wrapDouble(objID, variable, getLineWidth(objID));
         default:
             return false;
     }

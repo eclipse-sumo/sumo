@@ -31,22 +31,22 @@ netedit.additionalMode()
 # go to additional mode
 netedit.additionalMode()
 
-# select E1 Instant
+# select E1
 netedit.changeAdditional("instantInductionLoop")
 
-# create E1 Instant
+# create E1
 netedit.leftClick(referencePosition, 250, 250)
 
 # Change to delete
 netedit.deleteMode()
 
-# delete created E1 Instant
+# delete created E1
 netedit.leftClick(referencePosition, 250, 250)
 
-# delete loaded E1 Instant
+# delete loaded E1
 netedit.leftClick(referencePosition, 450, 250)
 
-# delete lane with the second loaded E1 Instant
+# delete lane with the second loaded E1
 netedit.leftClick(referencePosition, 200, 200)
 
 # Check undo
@@ -58,7 +58,7 @@ netedit.deleteMode()
 # disble 'Automatically delete additionals'
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
-# try to delete lane with the second loaded E1 Instant (doesn't allowed)
+# try to delete lane with the second loaded E1 (doesn't allowed)
 netedit.leftClick(referencePosition, 200, 200)
 
 # wait warning

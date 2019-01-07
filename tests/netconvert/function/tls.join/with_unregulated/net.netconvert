@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:02 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:57 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-345429.78,-3459708.22" convBoundary="0.00,0.00,1205.64,1246.66" origBoundary="120.623290,31.010815,121.575855,31.636432" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -58,10 +58,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_828110366_828110369_7_0" index="0" disallow="rail_urban rail rail_electric" speed="5.32" length="9.54" shape="1159.22,1036.87 1156.12,1034.63 1155.14,1032.47 1156.28,1030.40 1157.12,1029.88"/>
     </edge>
     <edge id=":cluster_828110366_828110369_12" function="internal">
-        <lane id=":cluster_828110366_828110369_12_0" index="0" speed="10.52" length="11.46" shape="1150.95,1029.58 1149.73,1026.48 1148.39,1018.46"/>
+        <lane id=":cluster_828110366_828110369_12_0" index="0" disallow="rail_urban rail rail_electric" speed="10.52" length="11.46" shape="1150.95,1029.58 1149.73,1026.48 1148.39,1018.46"/>
     </edge>
     <edge id=":cluster_828110366_828110369_13" function="internal">
-        <lane id=":cluster_828110366_828110369_13_0" index="0" speed="5.32" length="2.84" shape="1157.12,1029.88 1159.53,1028.40"/>
+        <lane id=":cluster_828110366_828110369_13_0" index="0" disallow="rail_urban rail rail_electric" speed="5.32" length="2.84" shape="1157.12,1029.88 1159.53,1028.40"/>
     </edge>
     <edge id=":cluster_828110366_828110369_8" function="internal">
         <lane id=":cluster_828110366_828110369_8_0" index="0" disallow="rail_urban rail rail_electric" speed="6.19" length="9.07" shape="1139.87,1024.23 1142.42,1024.04 1144.16,1023.06 1145.08,1021.31 1145.20,1018.77"/>
@@ -74,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_828110366_828110369_11_0" index="0" disallow="rail_urban rail rail_electric" speed="5.28" length="9.23" shape="1139.61,1027.42 1142.57,1029.77 1143.44,1031.95 1142.22,1033.95 1141.55,1034.32"/>
     </edge>
     <edge id=":cluster_828110366_828110369_14" function="internal">
-        <lane id=":cluster_828110366_828110369_14_0" index="0" speed="5.28" length="3.02" shape="1141.55,1034.32 1138.91,1035.78"/>
+        <lane id=":cluster_828110366_828110369_14_0" index="0" disallow="rail_urban rail rail_electric" speed="5.28" length="3.02" shape="1141.55,1034.32 1138.91,1035.78"/>
     </edge>
 
     <edge id="137082383#12" from="cluster_1129387341_1129387412" to="cluster_828110366_828110369" priority="9" type="highway.primary" spreadType="center" shape="0.00,1239.53 88.71,1217.32 258.96,1174.26 287.74,1166.99 337.40,1153.24 509.23,1110.05 835.74,1023.11 892.86,1016.59 953.28,1012.44 959.50,1012.70 1066.03,1020.85 1147.55,1026.35">
@@ -122,18 +122,18 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="cluster_828110201_828110211" type="dead_end" x="1079.49" y="0.00" incLanes="68992992#2_0 68992992#2_1" intLanes="" shape="1076.33,0.14 1082.72,-0.14"/>
     <junction id="cluster_828110366_828110369" type="traffic_light" x="1149.20" y="1032.37" incLanes="68992992#0_0 68992992#0_1 147676141#0_0 147676141#0_1 137082383#12_0 137082383#12_1" intLanes=":cluster_828110366_828110369_0_0 :cluster_828110366_828110369_1_0 :cluster_828110366_828110369_1_1 :cluster_828110366_828110369_3_0 :cluster_828110366_828110369_4_0 :cluster_828110366_828110369_4_1 :cluster_828110366_828110369_12_0 :cluster_828110366_828110369_13_0 :cluster_828110366_828110369_8_0 :cluster_828110366_828110369_9_0 :cluster_828110366_828110369_9_1 :cluster_828110366_828110369_14_0" shape="1149.90,1047.15 1156.08,1045.49 1155.94,1043.34 1156.30,1042.60 1156.93,1042.07 1157.84,1041.76 1159.04,1041.66 1159.71,1023.60 1156.87,1023.36 1154.52,1022.86 1152.66,1022.10 1151.28,1021.09 1150.39,1019.82 1149.98,1018.30 1143.61,1018.92 1143.38,1021.10 1142.90,1021.84 1142.18,1022.34 1141.22,1022.61 1140.01,1022.63 1138.51,1040.56 1141.56,1040.97 1144.15,1041.66 1146.27,1042.62 1147.94,1043.85 1149.15,1045.36">
-        <request index="0"  response="000000110000" foes="100000110000" cont="0"/>
+        <request index="0"  response="000000110000" foes="000000110000" cont="0"/>
         <request index="1"  response="011101110000" foes="011101110000" cont="0"/>
         <request index="2"  response="011101110000" foes="011101110000" cont="0"/>
         <request index="3"  response="011001110000" foes="011011110000" cont="0"/>
         <request index="4"  response="000000000000" foes="100000001111" cont="0"/>
         <request index="5"  response="000000000000" foes="100000001111" cont="0"/>
-        <request index="6"  response="011100000000" foes="011100001110" cont="1"/>
+        <request index="6"  response="011000000000" foes="011000001110" cont="1"/>
         <request index="7"  response="011000001000" foes="011000001000" cont="1"/>
-        <request index="8"  response="000000000000" foes="000001000110" cont="0"/>
+        <request index="8"  response="000000000000" foes="000000000110" cont="0"/>
         <request index="9"  response="000000000000" foes="000011001110" cont="0"/>
         <request index="10" response="000000000000" foes="000011001110" cont="0"/>
-        <request index="11" response="000000110001" foes="000000110001" cont="1"/>
+        <request index="11" response="000000110000" foes="000000110000" cont="1"/>
     </junction>
 
     <junction id=":cluster_828110366_828110369_12_0" type="internal" x="1150.95" y="1029.58" incLanes=":cluster_828110366_828110369_6_0 137082383#12_0 137082383#12_1" intLanes=":cluster_828110366_828110369_1_0 :cluster_828110366_828110369_1_1 :cluster_828110366_828110369_3_0 :cluster_828110366_828110369_8_0 :cluster_828110366_828110369_9_0 :cluster_828110366_828110369_9_1"/>

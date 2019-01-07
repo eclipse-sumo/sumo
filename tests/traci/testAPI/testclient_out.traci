@@ -1,5 +1,8 @@
-TraCITestClient output file. Date: Mon Sep 17 07:58:05 2018
+TraCITestClient output file. Date: Mon Jan  7 12:11:09 2019
 
+
+-> Command sent: <SetOrder>:
+.. Command acknowledged (3), [description: ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
@@ -26,6 +29,18 @@ testAPI:
     getFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: No connection from lane 'e_vu0_0' to lane 'e_m4_1'])
     getInternalFoes: :n_m4_7_0 :n_m4_0_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2
     getInternalFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: Lane 'dummy' is not known])
+  POI:
+    getIDList: poi0 poi1
+    getIDCount: 2
+    getPosition: TraCIPosition(1000,100,0)
+    getColor: TraCIColor(0,255,0,255)
+  polygon:
+    getIDList: poly0
+    getIDCount: 1
+    getLineWidth: 0.60
+    getShape: TraCIPosition(800,1000,0) TraCIPosition(1200,1000,0) TraCIPosition(1200,900,0) TraCIPosition(800,900,0) 
+    getColor: TraCIColor(0,255,255,255)
+    getShape after modification: TraCIPosition(42,1000,0) TraCIPosition(1200,1000,0) TraCIPosition(1200,900,0) TraCIPosition(800,900,0) 
   route:
     add:
     getIDList: e_m4 e_u1 r1
@@ -107,6 +122,12 @@ testAPI:
     getRemainingStages: 1
     getVehicle: 
     getEdges: e_m3 e_m4
+    getPosition: TraCIPosition(1500,490.47,0)
+    getPosition3D: TraCIPosition(1500,490.47,0)
+    getAngle: 90.00
+    getLanePosition: 0.00
+    getLength: 0.21
+    getColor: TraCIColor(255,255,0,128)
     param: bar
     getSpeed: 2.60
     getRemainingStages: 4
@@ -120,8 +141,9 @@ testAPI:
     state: ggGGrrr
     program: 0
     phase: 0
+    phaseName: nameSetByTraCI
     phaseDuration: 12.00
-    nextSwitch: 12.00
+    nextSwitch: 23.00
     controlledLanes: e_vo0_0 e_vo0_1 e_vu0_0 e_vu0_1 e_m3_0 e_m3_1 e_m3_2
     controlledLinks:
       index=0 link=0 fromLane=e_vo0_0 viaLane=:n_m4_0_0 toLane=e_m4_1

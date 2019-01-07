@@ -23,22 +23,17 @@
 
 #include <config.h>
 
-#include <string>
-#include <vector>
+#include <netedit/GNEAttributeCarrier.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <netedit/GNEAttributeCarrier.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEAdditionalDialog;
 class GNEEdge;
 class GNELane;
-class GNENet;
 class GNEViewNet;
 class GUIGLObjectPopupMenu;
 
@@ -304,6 +299,9 @@ public:
      */
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
+    /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
+    virtual void updateAdditionalParent();
+
 protected:
     /// @brief struct for pack all variables related with geometry of elemement
     struct AdditionalGeometry {
@@ -370,6 +368,11 @@ protected:
         /// @brief draw lock icon
         void draw(double size = 0.5) const;
 
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional *myAdditional;
+
+    public:
         /// @brief position of the block icon
         Position position;
 
@@ -378,10 +381,6 @@ protected:
 
         /// @brief The rotation of the block icon
         double rotation;
-
-    private:
-        /// @brief pointer to additional parent
-        GNEAdditional *myAdditional;
     };
 
     /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs
@@ -415,22 +414,16 @@ protected:
     /// @brief variable AdditionalMove
     AdditionalMove myMove;
 
-    /// @brief variable BlockIcon
-    BlockIcon myBlockIcon;
-
-    /// @brief variable ChildConnections
-    ChildConnections myChildConnections;
-
     /// @brief name of additional
     std::string myAdditionalName;
 
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
-    /// @brief pointer to first Addititional parent
+    /// @brief pointer to first Additional parent
     GNEAdditional* myFirstAdditionalParent;
 
-    /// @brief pointer to second Addititional parent
+    /// @brief pointer to second Additional parent
     GNEAdditional* mySecondAdditionalParent;
 
     /// @brief vector with the Additional childs
@@ -441,6 +434,12 @@ protected:
 
     /// @brief vector with the lane childs of this additional
     std::vector<GNELane*> myLaneChilds;
+
+    /// @brief variable BlockIcon
+    BlockIcon myBlockIcon;
+
+    /// @brief variable ChildConnections
+    ChildConnections myChildConnections;
 
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();
@@ -453,6 +452,9 @@ protected:
 
     /// @brief check if a new additional ID is valid
     bool isValidAdditionalID(const std::string& newID) const;
+
+    /// @brief check if a new detector ID is valid
+    bool isValidDetectorID(const std::string& newID) const;
 
     /**@brief change ID of additional
     * @throw exception if exist already an additional whith the same ID

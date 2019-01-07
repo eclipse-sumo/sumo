@@ -23,10 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <iostream>
 #include <utils/gui/events/GUIEvent.h>
-#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================

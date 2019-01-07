@@ -99,9 +99,11 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-        const std::string& programID, SUMOTime delay, const std::map<std::string, std::string>& parameters) :
+        const std::string& programID, const TrafficLightType logicType, const SUMOTime delay,
+        const std::map<std::string, std::string>& parameters) :
     Named(id), Parameterised(parameters),
     myProgramID(programID),
+    myLogicType(logicType),
     myCurrentDurationIncrement(-1),
     myDefaultCycleTime(0) {
     mySwitchCommand = new SwitchCommand(tlcontrol, this, delay);
@@ -119,7 +121,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         bool haveWarnedAboutUnusedStates = false;
         std::vector<bool> foundGreen(phases.front()->getState().size(), false);
         for (int i = 0; i < (int)phases.size(); ++i) {
-            // warn about unused stats
+            // warn about unused states
             const int iNext = phases[i]->nextPhase < 0 ? (i + 1) % phases.size() : phases[i]->nextPhase;
             if (iNext < 0 || iNext >= (int)phases.size()) {
                 throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
@@ -129,11 +131,17 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             const std::string& state1 = phases[i]->getState();
             const std::string& state2 = phases[iNext]->getState();
             assert(state1.size() == state2.size());
-            if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size()) {
+            if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
                 WRITE_WARNING("Unused states in tlLogic '" + getID()
                               + "', program '" + getProgramID() + "' in phase " + toString(i)
                               + " after tl-index " + toString((int)myLanes.size() - 1));
                 haveWarnedAboutUnusedStates = true;
+            }
+            // detect illegal states
+            const std::string::size_type illegal = state1.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
+            if (std::string::npos != illegal) {
+                throw ProcessError("Illegal character '" + toString(state1[illegal]) + "' in tlLogic '" + getID()
+                              + "', program '" + getProgramID() + "' in phase " + toString(i));
             }
             // warn about transitions from green to red without intermediate yellow
             for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()); ++j) {
@@ -198,6 +206,7 @@ void
 MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
     myLinks = logic.myLinks;
     myLanes = logic.myLanes;
+    myIgnoredIndices = logic.myIgnoredIndices;
 }
 
 
@@ -262,7 +271,7 @@ MSTrafficLightLogic::getLinkIndex(const MSLink* const link) const {
 // ----------- Dynamic Information Retrieval
 SUMOTime
 MSTrafficLightLogic::getNextSwitchTime() const {
-    return mySwitchCommand != 0 ? mySwitchCommand->getNextSwitchTime() : -1;
+    return mySwitchCommand != nullptr ? mySwitchCommand->getNextSwitchTime() : -1;
 }
 
 
@@ -342,6 +351,12 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         }
     }
 
+}
+
+
+void 
+MSTrafficLightLogic::ignoreLinkIndex(int pos) {
+    myIgnoredIndices.insert(pos);
 }
 
 /****************************************************************************/

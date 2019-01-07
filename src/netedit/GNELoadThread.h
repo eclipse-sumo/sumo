@@ -24,17 +24,15 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/SUMOTime.h>
-#include <utils/foxtools/FXSingleEventThread.h>
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/MFXEventQue.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/foxtools/MFXEventQue.h>
+#include <utils/foxtools/MFXInterThreadEventClient.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXInterThreadEventClient;
 class GNENet;
 class GUIEvent;
 
