@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Dec 14 09:27:49 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-edge_left" from="node_centertl" to="node_left" priority="2" numLanes="1" speed="10.00"/>
+    <edge id="-edge_right" from="node_centertl" to="node_right" priority="2" numLanes="1" speed="10.00"/>
+    <edge id="-edge_up" from="node_centertl" to="node_up" priority="2" numLanes="1" speed="10.00"/>
+    <edge id="edge_left" from="node_left" to="node_centertl" priority="2" numLanes="1" speed="10.00"/>
+    <edge id="edge_right" from="node_right" to="node_centertl" priority="2" numLanes="1" speed="10.00"/>
+    <edge id="edge_up" from="node_up" to="node_centertl" priority="2" numLanes="1" speed="10.00"/>
+</edges>
