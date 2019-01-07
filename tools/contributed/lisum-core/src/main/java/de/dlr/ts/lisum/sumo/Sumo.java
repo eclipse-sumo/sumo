@@ -101,7 +101,7 @@ public class Sumo {
 
                 //startSumoGUI();
 
-                conn = new SumoTraciConnection(sumoExec, sumoConfig);
+                conn = new SumoTraciConnection(sumoExec, sumoConfig, "--num-clients", "3");                
 
                 //Start Traci Server and Sumo
                 conn.runServer();

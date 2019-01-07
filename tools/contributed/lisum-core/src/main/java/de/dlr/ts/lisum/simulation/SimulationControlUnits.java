@@ -187,10 +187,10 @@ public class SimulationControlUnits
             
             String complexCode = "";
             for (SignalGroup sg : sgs) {
-                if (signalGroupIndex == debugIndex) {
+                
+                if (signalGroupIndex == debugIndex)
                     DLRLogger.info("  buildComplexState sg.lisa=" + sg.lisa + " ocit=" + 
-                            cui.getLightColor(sg.lisa).getOcitCode());
-                }                                
+                            cui.getLightColor(sg.lisa).getOcitCode());                
                 
                 complexCode += cui.getLightColor(sg.lisa).getSumoCode();
             }
@@ -200,6 +200,7 @@ public class SimulationControlUnits
                 DLRLogger.info("sumoLogic=" + sumoLogicName + " sumoIndex=" + 
                         signalGroupIndex + " complex=" + complexCode + " lc=" + lightColor);
             }
+            
             if (lightColor == null) {
                 DLRLogger.info("sumoLogic=" + sumoLogicName + " sumoIndex=" + signalGroupIndex + 
                         " complex=" + complexCode + " could not be interpreted");
@@ -230,9 +231,9 @@ public class SimulationControlUnits
                         continue;
                     
                     int sumoIndex = Integer.valueOf(s);
-                    if (!signalGroups.containsKey(sumoIndex)) {
+                    if (!signalGroups.containsKey(sumoIndex))
                         signalGroups.put(sumoIndex, new ArrayList<SignalGroup>());
-                    }
+                    
                     signalGroups.get(sumoIndex).add(new SignalGroup(sg.lisa, sg.ifOff));
                 }
             }
