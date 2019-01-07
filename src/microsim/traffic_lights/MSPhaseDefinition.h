@@ -116,10 +116,12 @@ private:
         this->nextPhase = nextPhase;
     }
 
-    void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, int nextPhase, LaneIdVector& targetLaneSetArg) {
+    void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg, int nextPhase, LaneIdVector* targetLaneSetArg) {
         init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhase);
         //For SOTL target phases
-        this->targetLaneSet = targetLaneSetArg;
+        if (targetLaneSetArg != nullptr) {
+            this->targetLaneSet = *targetLaneSetArg;
+        }
     }
 
 
@@ -167,34 +169,18 @@ public:
      * @param[in] targetLaneSet identifies the lane-set to be considered when deciding the target phase to jump to
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, int nextPhase,  bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
-        if (targetLaneSetArg.size() == 0) {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, int nextPhase,  bool transient_notdecisional, bool commit, LaneIdVector* targetLaneSetArg = nullptr) {
+        if (targetLaneSetArg != nullptr && targetLaneSetArg->size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 0;
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
-        phaseType[TARGET_BIT] = 1;
+        phaseType[TARGET_BIT] = targetLaneSetArg == nullptr ? 0 : 1;
         phaseType[COMMIT_BIT] = commit;
         init(durationArg, durationArg, durationArg, stateArg, nextPhase, targetLaneSetArg);
     }
-
-    /*
-     * @brief Constructor for definitions for SOTL non-target step
-     * In this phase the duration is fixed, because min and max duration are unspecified
-     * @param[in] phaseType Indicates the type of the step
-     */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, int nextPhase, bool transient_notdecisional, bool commit) {
-        //PhaseType phaseType;
-        phaseType = PhaseType();
-        phaseType[UNDEFINED_BIT] = 0;
-        phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
-        phaseType[TARGET_BIT] = 0;
-        phaseType[COMMIT_BIT] = commit;
-        init(durationArg, stateArg, durationArg, durationArg, nextPhase);
-    }
-
 
     /*
      * @brief Constructor for definitions for SOTL target step
@@ -203,8 +189,8 @@ public:
      * @param[in] targetLaneSet If not null, specifies this MSPhaseDefinition is a target step
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, int nextPhase, bool transient_notdecisional, bool commit, LaneIdVector& targetLaneSetArg) {
-        if (targetLaneSetArg.size() == 0) {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, int nextPhase, bool transient_notdecisional, bool commit, LaneIdVector* targetLaneSetArg = nullptr) {
+        if (targetLaneSetArg != nullptr && targetLaneSetArg->size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }
         //PhaseType phaseType;
@@ -212,28 +198,10 @@ public:
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 0;
         phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
-        phaseType[TARGET_BIT] = 1;
+        phaseType[TARGET_BIT] = targetLaneSetArg == nullptr ? 0 : 1;
         phaseType[COMMIT_BIT] = commit;
         init(durationArg, minDurationArg, maxDurationArg, stateArg, nextPhase, targetLaneSetArg);
     }
-
-    /*
-     * @brief Constructor for definitions for SOTL target step
-     * In this phase the duration is constrained between min and max duration
-     * @param[in] phaseType Indicates the type of the step
-     * @see MSPhaseDefinition::PhaseType
-     */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, int nextPhase, bool transient_notdecisional, bool commit) {
-        //PhaseType phaseType;
-        phaseType = PhaseType();
-        phaseType[UNDEFINED_BIT] = 0;
-        phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
-        phaseType[TARGET_BIT] = 0;
-        phaseType[COMMIT_BIT] = commit;
-        init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhase);
-
-    }
-
 
     /// @brief Destructor
     virtual ~MSPhaseDefinition() { }

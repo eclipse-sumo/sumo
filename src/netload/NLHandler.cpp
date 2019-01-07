@@ -767,7 +767,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                     pos = targetLanesString.find_first_of(delimiter, firstPos);
                 }
                 //Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for target phases
-                myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, transient_notdecisional_bit, commit_bit, targetLanesVector);
+                myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, transient_notdecisional_bit, commit_bit, &targetLanesVector);
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("Missing targetLane definition for the target phase.");
                 return;
