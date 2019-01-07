@@ -163,27 +163,6 @@ public:
 
     /*
      * @brief Constructor for definitions for SOTL target step
-     * In this phase the duration is fixed, because min and max duration are unspecified
-     * @param[in] transient_notdecisional true means this is a transient phase, false is a decisional one
-     * @param[in] commit true means this is a commit phase, i.e. the traffic light logic can jump to a target phase form this phase
-     * @param[in] targetLaneSet identifies the lane-set to be considered when deciding the target phase to jump to
-     * @see MSPhaseDefinition::PhaseType
-     */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, int nextPhase,  bool transient_notdecisional, bool commit, LaneIdVector* targetLaneSetArg = nullptr) {
-        if (targetLaneSetArg != nullptr && targetLaneSetArg->size() == 0) {
-            MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
-        }
-        //PhaseType phaseType;
-        phaseType = PhaseType();
-        phaseType[UNDEFINED_BIT] = 0;
-        phaseType[TRANSIENT_NOTDECISIONAL_BIT] = transient_notdecisional;
-        phaseType[TARGET_BIT] = targetLaneSetArg == nullptr ? 0 : 1;
-        phaseType[COMMIT_BIT] = commit;
-        init(durationArg, durationArg, durationArg, stateArg, nextPhase, targetLaneSetArg);
-    }
-
-    /*
-     * @brief Constructor for definitions for SOTL target step
      * In this phase the duration is constrained between min and max duration
      * @param[in] phaseType Indicates the type of the step
      * @param[in] targetLaneSet If not null, specifies this MSPhaseDefinition is a target step
