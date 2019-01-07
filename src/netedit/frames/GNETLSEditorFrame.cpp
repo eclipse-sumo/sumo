@@ -574,7 +574,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         // input error, reset value
         myTLSPhases->getPhaseTable()->setItemText(tp->row, 1, varDurString(getPhases()[tp->row].minDur).c_str());
     } else if (!fixedDuration() && tp->col == 2) {
-        // minDur edited
+        // maxDur edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
             SUMOTime maxDur = getSUMOTime(value);
             if (maxDur > 0) {
