@@ -430,6 +430,11 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+bool 
+GNETLSEditorFrame::fixedDuration() const {
+    assert(myEditedDef != nullptr);
+    return myEditedDef->getType() == TLTYPE_STATIC;
+}
 
 long
 GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
@@ -438,9 +443,8 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     int newIndex = myTLSPhases->getPhaseTable()->getSelStartRow() + 1;
     int oldIndex = MAX2(0, myTLSPhases->getPhaseTable()->getSelStartRow());
     // copy current row
-    const bool fixed = myEditedDef->getType() == TLTYPE_STATIC;
     SUMOTime duration = getSUMOTime(myTLSPhases->getPhaseTable()->getItemText(oldIndex, 0));
-    std::string state = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixed ? 1 : 3).text();
+    std::string state = myTLSPhases->getPhaseTable()->getItemText(oldIndex, fixedDuration() ? 1 : 3).text();
 
     std::set<int> crossingIndices;
     for (NBNode* n : myEditedDef->getNodes()) {
@@ -540,7 +544,6 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
      * click inside the cell and hit enter to actually update the value */
     FXTablePos* tp = (FXTablePos*)ptr;
     FXString value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col);
-    const bool fixed = myEditedDef->getType() == TLTYPE_STATIC;
     if (tp->col == 0) {
         // duration edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
@@ -554,7 +557,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         }
         // input error, reset value
         myTLSPhases->getPhaseTable()->setItemText(tp->row, 0, toString(STEPS2TIME(getPhases()[tp->row].duration)).c_str());
-    } else if (!fixed && tp->col == 1) {
+    } else if (!fixedDuration() && tp->col == 1) {
         // minDur edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
             SUMOTime minDur = getSUMOTime(value);
@@ -570,7 +573,7 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         }
         // input error, reset value
         myTLSPhases->getPhaseTable()->setItemText(tp->row, 1, varDurString(getPhases()[tp->row].minDur).c_str());
-    } else if (!fixed && tp->col == 2) {
+    } else if (!fixedDuration() && tp->col == 2) {
         // minDur edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
             SUMOTime maxDur = getSUMOTime(value);
@@ -1002,11 +1005,12 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
     myPhaseTable->setVisibleColumns(2);
     myPhaseTable->hide();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
-        const bool fixed = myTLSEditorParent->myEditedDef->getType() == TLTYPE_STATIC;
+        const bool fixed = myTLSEditorParent->fixedDuration();
+        const int cols = fixed ? 2 : 4;
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
-        myPhaseTable->setTableSize((int)phases.size(), fixed ? 2 : 4);
+        myPhaseTable->setTableSize((int)phases.size(), cols);
         myPhaseTable->setVisibleRows((int)phases.size());
-        myPhaseTable->setVisibleColumns(fixed ? 2 : 4);
+        myPhaseTable->setVisibleColumns(cols);
         for (int row = 0; row < (int)phases.size(); row++) {
             myPhaseTable->setItemText(row, 0, toString(STEPS2TIME(phases[row].duration)).c_str());
             if (!fixed) {
@@ -1016,7 +1020,7 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
             myPhaseTable->setItemText(row, fixed ? 1 : 3, phases[row].state.c_str());
             myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
         }
-        myPhaseTable->fitColumnsToContents(0, fixed ? 2 : 4);
+        myPhaseTable->fitColumnsToContents(0, cols);
         myPhaseTable->setHeight((int)phases.size() * 21); // experimental
         myPhaseTable->setCurrentItem(index, 0);
         myPhaseTable->selectRow(index, true);
