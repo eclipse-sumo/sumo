@@ -66,7 +66,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                         storage.writeInt((int)logic.phases.size());
                         for (const libsumo::TraCIPhase& phase : logic.phases) {
                             storage.writeUnsignedByte(TYPE_COMPOUND);
-                            storage.writeInt(5);
+                            storage.writeInt(6);
                             storage.writeUnsignedByte(TYPE_DOUBLE);
                             storage.writeDouble(phase.duration);
                             storage.writeUnsignedByte(TYPE_STRING);
@@ -77,6 +77,8 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                             storage.writeDouble(phase.maxDur);
                             storage.writeUnsignedByte(TYPE_INTEGER);
                             storage.writeInt(phase.next);
+                            storage.writeUnsignedByte(TYPE_STRING);
+                            storage.writeString(phase.name);
                         }
                         // subparameter
                         storage.writeUnsignedByte(TYPE_COMPOUND);
@@ -201,6 +203,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
     const int variable = inputStorage.readUnsignedByte();
     if (variable != TL_PHASE_INDEX && variable != TL_PROGRAM && variable != TL_PHASE_DURATION
             && variable != TL_RED_YELLOW_GREEN_STATE && variable != TL_COMPLETE_PROGRAM_RYG
+            && variable != VAR_NAME
             && variable != VAR_PARAMETER) {
         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "Change TLS State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -213,6 +216,14 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase index must be given as an integer.", outputStorage);
                 }
                 libsumo::TrafficLight::setPhase(id, index);
+            }
+            break;
+            case VAR_NAME: {
+                std::string name;
+                if (!server.readTypeCheckingString(inputStorage, name)) {
+                    return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "The phase name must be given as a string.", outputStorage);
+                }
+                libsumo::TrafficLight::setPhaseName(id, name);
             }
             break;
             case TL_PROGRAM: {
@@ -263,9 +274,13 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "A compound object is needed for every phase.", outputStorage);
                     }
-                    inputStorage.readInt();
+                    int items = inputStorage.readInt();
+                    if (items != 6 && items != 5) {
+                        return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "A phase compound object requires 5 or 6 items.", outputStorage);
+                    }
                     double duration = 0., minDuration = 0., maxDuration = 0.;
                     int next = -1;
+                    std::string name;
                     if (!server.readTypeCheckingDouble(inputStorage, duration)) {
                         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.1. parameter (duration) must be a double.", outputStorage);
                     }
@@ -282,7 +297,12 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     if (!server.readTypeCheckingInt(inputStorage, next)) {
                         return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be an int.", outputStorage);
                     }
-                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDuration, maxDuration, next));
+                    if (items == 6) {
+                        if (!server.readTypeCheckingString(inputStorage, name)) {
+                            return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 4.6. parameter (name) must be a string.", outputStorage);
+                        }
+                    }
+                    logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDuration, maxDuration, next, name));
                 }
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_TL_VARIABLE, "set program: 5. parameter (subparams) must be a compound object.", outputStorage);

@@ -549,9 +549,11 @@ public:
         int getPhase(const std::string& tlsID) const;
         double getPhaseDuration(const std::string& tlsID) const;
         double getNextSwitch(const std::string& tlsID) const;
+        std::string getPhaseName(const std::string& tlsID) const; 
 
         void setRedYellowGreenState(const std::string& tlsID, const std::string& state) const;
         void setPhase(const std::string& tlsID, int index) const;
+        void setPhaseName(const std::string& tlsID, const std::string& name) const;
         void setProgram(const std::string& tlsID, const std::string& programID) const;
         void setPhaseDuration(const std::string& tlsID, double phaseDuration) const;
         void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) const;

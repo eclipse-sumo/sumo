@@ -190,7 +190,13 @@ TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, t
     }
     tcpip::Storage outMsg;
     // command length (domID, varID, objID, dataType, data)
-    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + (int)content.size());
+    int length = 1 + 1 + 1 + 4 + (int) objID.length() + (int)content.size();
+    if (length <= 255) {
+        outMsg.writeUnsignedByte(length);
+    } else {
+        outMsg.writeUnsignedByte(0);
+        outMsg.writeInt(length + 4);
+    }
     // command id
     outMsg.writeUnsignedByte(domID);
     // variable id
@@ -1690,7 +1696,9 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
             const double maxDur = inMsg.readDouble();
             inMsg.readUnsignedByte();
             const int next = inMsg.readInt();
-            logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next));
+            inMsg.readUnsignedByte();
+            const std::string name = inMsg.readString();
+            logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next, name));
         }
         inMsg.readUnsignedByte();
         const int paramNumber = inMsg.readInt();
@@ -1747,6 +1755,11 @@ TraCIAPI::TrafficLightScope::getPhase(const std::string& tlsID) const {
     return myParent.getInt(CMD_GET_TL_VARIABLE, TL_CURRENT_PHASE, tlsID);
 }
 
+std::string
+TraCIAPI::TrafficLightScope::getPhaseName(const std::string& tlsID) const {
+    return myParent.getString(CMD_GET_TL_VARIABLE, VAR_NAME, tlsID);
+}
+
 double
 TraCIAPI::TrafficLightScope::getPhaseDuration(const std::string& tlsID) const {
     return myParent.getDouble(CMD_GET_TL_VARIABLE, TL_PHASE_DURATION, tlsID);
@@ -1774,6 +1787,16 @@ TraCIAPI::TrafficLightScope::setPhase(const std::string& tlsID, int index) const
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(index);
     myParent.send_commandSetValue(CMD_SET_TL_VARIABLE, TL_PHASE_INDEX, tlsID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_TL_VARIABLE);
+}
+
+void
+TraCIAPI::TrafficLightScope::setPhaseName(const std::string& tlsID, const std::string& name) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(name);
+    myParent.send_commandSetValue(CMD_SET_TL_VARIABLE, VAR_NAME, tlsID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_TL_VARIABLE);
 }
@@ -1813,7 +1836,7 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
     content.writeInt((int)logic.phases.size());
     for (const libsumo::TraCIPhase& p : logic.phases) {
         content.writeUnsignedByte(TYPE_COMPOUND);
-        content.writeInt(5);
+        content.writeInt(6);
         content.writeUnsignedByte(TYPE_DOUBLE);
         content.writeDouble(p.duration);
         content.writeUnsignedByte(TYPE_STRING);
@@ -1824,6 +1847,8 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
         content.writeDouble(p.maxDur);
         content.writeUnsignedByte(TYPE_INTEGER);
         content.writeInt(p.next);
+        content.writeUnsignedByte(TYPE_STRING);
+        content.writeString(p.name);
     }
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt((int)logic.subParameter.size());
