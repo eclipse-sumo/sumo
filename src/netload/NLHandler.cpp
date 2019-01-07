@@ -716,6 +716,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
 
 
     int nextPhase = attrs.getOpt<int>(SUMO_ATTR_NEXT, nullptr, ok, -1);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, "");
 
     //SOTL attributes
     //If the type attribute is not present, the parsed phase is of type "undefined" (MSPhaseDefinition constructor),
@@ -767,19 +768,19 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                     pos = targetLanesString.find_first_of(delimiter, firstPos);
                 }
                 //Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for target phases
-                myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, transient_notdecisional_bit, commit_bit, &targetLanesVector);
+                myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit, &targetLanesVector);
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("Missing targetLane definition for the target phase.");
                 return;
             }
         } else {
             //Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for non target phases
-            myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, transient_notdecisional_bit, commit_bit);
+            myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit);
         }
     } else {
         //Adding the standard parsed phase to have a new MSPhaseDefinition
 
-        myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration);
+        myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, name);
     }
 }
 

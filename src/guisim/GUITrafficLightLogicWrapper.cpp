@@ -156,6 +156,10 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     new FXMenuCommand(ret, ("phase: " + toString(tll->getCurrentPhaseIndex())).c_str(), nullptr, nullptr, 0);
+    const std::string& name =  myTLLogic.getCurrentPhaseDef().getName();
+    if (name != "") {
+        new FXMenuCommand(ret, ("phase name: " + name).c_str(), nullptr, nullptr, 0);
+    }
     new FXMenuSeparator(ret);
     buildShowParamsPopupEntry(ret, false);
     buildPositionCopyEntry(ret, false);
