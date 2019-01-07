@@ -87,9 +87,11 @@ public enum LightColor {
      * @return
      */
     public static LightColor getPerSumoCode(char code) {
-        for (LightColor sc : values())
-            if (sc.sumoCode == code)
+        for (LightColor sc : values()) {
+            if (sc.sumoCode == code) {
                 return sc;
+            }
+        }
 
         return null;
     }
