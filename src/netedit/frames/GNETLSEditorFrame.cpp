@@ -494,7 +494,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
         }
     }
 
-    myEditedDef->getLogic()->addStep(duration, state, newIndex);
+    myEditedDef->getLogic()->addStep(duration, state, -1, "", newIndex);
     myTLSPhases->getPhaseTable()->setCurrentItem(newIndex, 0);
     myTLSPhases->initPhaseTable(newIndex);
     myTLSPhases->getPhaseTable()->setFocus();
@@ -590,7 +590,8 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         // state edited
         try {
             // insert phase with new step and delete the old phase
-            myEditedDef->getLogic()->addStep(getPhases()[tp->row].duration, value.text(), tp->row);
+            const NBTrafficLightLogic::PhaseDefinition& phase = getPhases()[tp->row];
+            myEditedDef->getLogic()->addStep(phase.duration, value.text(), phase.next, phase.name, tp->row);
             myEditedDef->getLogic()->deletePhase(tp->row + 1);
             myTLSModifications->setHaveModifications(true);
             onCmdPhaseSwitch(nullptr, 0, nullptr);

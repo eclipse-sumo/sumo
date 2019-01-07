@@ -167,8 +167,8 @@ NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, 
 
 
 void
-NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur) {
-    myTLLogic->addStep(duration, state, minDur, maxDur);
+NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next, const std::string& name) {
+    myTLLogic->addStep(duration, state, minDur, maxDur, next, name);
 }
 
 
