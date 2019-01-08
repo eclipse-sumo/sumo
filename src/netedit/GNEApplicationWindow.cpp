@@ -1089,7 +1089,6 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::NetworkMenuCommands::NetworkMenuCommands(GNEApplicationWindow *GNEApp) :
-    myGNEApp(GNEApp),
     createEdgeMode(nullptr),
     moveMode(nullptr),
     deleteMode(nullptr),
@@ -1101,8 +1100,9 @@ GNEApplicationWindow::NetworkMenuCommands::NetworkMenuCommands(GNEApplicationWin
     additionalMode(nullptr),
     crossingMode(nullptr),
     TAZMode(nullptr),
-    shapeMode(nullptr) {
-}
+    shapeMode(nullptr),
+    myGNEApp(GNEApp) 
+{}
 
 
 void 
@@ -1192,9 +1192,9 @@ GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* 
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindow *GNEApp) :
-    myGNEApp(GNEApp),
-    routeMode(nullptr) {
-}
+    routeMode(nullptr),
+    myGNEApp(GNEApp) 
+{}
 
 
 void 
