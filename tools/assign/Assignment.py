@@ -37,12 +37,12 @@ from optparse import OptionParser
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib.net  # noqa
 
-from network import Net, DistrictsReader, ExtraSignalInformationReader
-from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra
-from inputs import getMatrix, getConnectionTravelTime
-from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, linkChoicesOutput
-from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
-from tables import updateCurveTable
+from network import Net, DistrictsReader, ExtraSignalInformationReader  # noqa
+from dijkstra import dijkstraBoost, dijkstraPlain, dijkstra  # noqa
+from inputs import getMatrix, getConnectionTravelTime  # noqa
+from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, linkChoicesOutput  # noqa
+from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign  # noqa
+from tables import updateCurveTable  # noqa
 
 
 def initLinkChoiceMap(net, startVertices, endVertices, matrixPshort, linkChoiceMap, odPairsMap):
