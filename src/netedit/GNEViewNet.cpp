@@ -781,7 +781,7 @@ GNEViewNet::changeAllPhases() const {
 
 bool
 GNEViewNet::showJunctionAsBubbles() const {
-    return (myEditMode == GNE_MODE_MOVE) && (myCreateEdgeOptions.showJunctionBubble->getCheck());
+    return (mySuperModes.networkEditMode == GNE_NMODE_MOVE) && (myCreateEdgeOptions.showJunctionBubble->getCheck());
 }
 
 
@@ -1253,7 +1253,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
     // steal focus from any text fields and place it over view net
     setFocus();
     // abort operation depending of current mode
-    if (myEditMode == GNE_MODE_CREATE_EDGE) {
+    if (mySuperModes.networkEditMode == GNE_NMODE_CREATE_EDGE) {
         // abort edge creation in create edge frame
         myViewParent->getCreateEdgeFrame()->abortEdgeCreation();
     } else if (mySuperModes.networkEditMode == GNE_NMODE_SELECT) {
@@ -2107,6 +2107,7 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
         case MID_GNE_LANE_REMOVE_GREENVERGE:
             return removeRestrictedLane(SVC_IGNORING);
         default:
+            return 0;
             break;
     }
 }
