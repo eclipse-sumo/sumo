@@ -309,13 +309,17 @@ public:
     long onCmdOptions(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief get build OpenGL Canvas
+    /// @name inherited from GUIMainWindow
+    /// @{
+    /// @brief get build OpenGL Canvas (due NETEDIT only uses a single View, it always return nullptr)
     FXGLCanvas* getBuildGLCanvas() const;
 
     /// @brief get current simulation time (pure virtual but we don't need it)
     SUMOTime getCurrentSimTime() const;
+
     /// @brief get current tracker interval (pure virtual but we don't need it)
     double getTrackerInterval() const;
+    /// @}
 
     /// @brief get default cursor
     FXCursor* getDefaultCursor();
@@ -405,6 +409,36 @@ protected:
     std::string myTLSProgramsFile;
 
 private:
+    
+    /// @brief struct for File menu commands
+    struct FileMenuCommands {
+
+        /// @brief constructor
+        FileMenuCommands(GNEApplicationWindow *GNEApp);
+
+        /// @brief build menu commands
+        void buildFileMenuCommands(FXMenuPane* editMenu);
+
+        /// @brief FXMenuCommand for enable or disable save additionals
+        FXMenuCommand* saveAdditionals;
+
+        /// @brief FXMenuCommand for enable or disable save additionals As
+        FXMenuCommand* saveAdditionalsAs;
+
+        /// @brief FXMenuCommand for enable or disable save shapes
+        FXMenuCommand* saveShapes;
+
+        /// @brief FXMenuCommand for enable or disable save shapes
+        FXMenuCommand* saveShapesAs;
+
+        /// @brief FXMenuCommand for enable or disable save additionals
+        FXMenuCommand* saveTLSPrograms;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow *myGNEApp;
+    };
+
     /// @brief struct for network menu commands
     struct NetworkMenuCommands {
 
@@ -487,26 +521,14 @@ private:
         FXMenuSeparator *myHorizontalSeparator;
     };
 
+    /// @brief File Menu Commands
+    FileMenuCommands myFileMenuCommands;
+
     /// @brief Network Menu Commands
     NetworkMenuCommands myNetworkMenuCommands;
 
     /// @brief Demand Menu Commands
     DemandMenuCommands myDemandMenuCommands;
-
-    /// @brief FXMenuCommand for enable or disable save additionals
-    FXMenuCommand* mySaveAdditionalsMenuCommand;
-
-    /// @brief FXMenuCommand for enable or disable save additionals As
-    FXMenuCommand* mySaveAdditionalsMenuCommandAs;
-
-    /// @brief FXMenuCommand for enable or disable save shapes
-    FXMenuCommand* mySaveShapesMenuCommand;
-
-    /// @brief FXMenuCommand for enable or disable save shapes
-    FXMenuCommand* mySaveShapesMenuCommandAs;
-
-    /// @brief FXMenuCommand for enable or disable save additionals
-    FXMenuCommand* mySaveTLSProgramsMenuCommand;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);
