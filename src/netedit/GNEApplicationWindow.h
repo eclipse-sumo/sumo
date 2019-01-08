@@ -103,9 +103,6 @@ public:
     /// @brief Creates the main window (required by FOX)
     virtual void create();
 
-    /// @brief detaches the tool/menu bar
-    virtual void detach();
-
     /// @brief load net on startup
     void loadOptionOnStartup();
 
@@ -329,6 +326,9 @@ public:
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
+    /// @brief The application menu bar
+    FXMenuBar* getMenuBar() const;
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow() {}
@@ -365,11 +365,6 @@ protected:
     /// @brief The splitter that divides the main window into view and the log window
     FXSplitter* myMainSplitter;
 
-    /// @brief for some menu detaching fun
-    FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-                    *myToolBarDrag4, *myToolBarDrag5,
-                    *myMenuBarDrag;
-
     /// @brief List of got requests
     MFXEventQue<GUIEvent*> myEvents;
 
@@ -378,9 +373,6 @@ protected:
 
     /// @brief The application menu bar
     FXMenuBar* myMenuBar;
-
-    /// @brief The application tool bar
-    FXToolBar* myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
 
     /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;

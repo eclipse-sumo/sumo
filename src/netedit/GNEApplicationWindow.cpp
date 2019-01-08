@@ -234,9 +234,7 @@ GNEApplicationWindow::dependentBuild() {
     setTarget(this);
     setSelector(MID_WINDOW);
     // build menu bar
-    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
-    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignBar);
-    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    myMenuBar = new FXMenuBar(myTopDock, this, GUIDesignBar);
     // build the thread - io
     myLoadThreadEvent.setTarget(this), myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
@@ -253,11 +251,6 @@ GNEApplicationWindow::dependentBuild() {
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
-    // Due netedit only have a view, this buttons must be disabled (see #2807)
-    //new FXMDIWindowButton(myMenuBar, myMDIMenu, myMDIClient, FXMDIClient::ID_MDI_MENUWINDOW, GUIDesignMDIButtonLeft);
-    //new FXMDIDeleteButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUCLOSE, GUIDesignMDIButtonRight);
-    //new FXMDIRestoreButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENURESTORE, GUIDesignMDIButtonRight);
-    //new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
     // build the message window
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
     myMainSplitter->setSplit(1, 65);
@@ -341,7 +334,7 @@ GNEApplicationWindow::create() {
     setWindowSizeAndPos();
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
-    myMenuBarDrag->create();
+    myMenuBar->create();
     myFileMenu->create();
     myEditMenu->create();
     myFileMenuShapes->create();
@@ -395,13 +388,6 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     }
     // delte undo list
     delete myUndoList;
-}
-
-
-void
-GNEApplicationWindow::detach() {
-    FXMainWindow::detach();
-    myMenuBarDrag->detach();
 }
 
 
@@ -2134,6 +2120,12 @@ GNEApplicationWindow::updateControls() {
     if (view != nullptr) {
         view->updateControls();
     }
+}
+
+
+FXMenuBar* 
+GNEApplicationWindow::getMenuBar() const {
+    return myMenuBar;
 }
 
 

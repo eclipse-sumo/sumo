@@ -40,7 +40,7 @@
 // ===========================================================================
 
 /// @brie enum for supermodes
-enum Supermodes {
+enum Supermode {
     /// @brief empty super mode
     GNE_SUPERMODE_NONE,
     /// @brief Network mode (Edges, junctions, etc..)
@@ -780,11 +780,14 @@ private:
         /// @brief default constructor
         SuperModes(GNEViewNet* viewNet);
         
+        /// @brief destructor
+        ~SuperModes();
+
         /// @brief build checkable buttons
         void buildSuperModeButtons();
       
         /// @brief the current supermode
-        Supermodes currentSupermode;
+        Supermode currentSupermode;
 
         /// @brief the current Network edit mode
         NetworkEditMode networkEditMode;
@@ -801,6 +804,9 @@ private:
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @brief separator between menu bar and Super mode buttons
+        FXVerticalSeparator *myVerticalSeparator;
     };
 
     /// @brief struct used to group all variables related with Network chekable Buttons
@@ -961,7 +967,7 @@ private:
     /// @}
 
     /// @brief set Network edit mode
-    void setSupermode(Supermodes supermode);
+    void setSupermode(Supermode supermode);
 
     /// @brief set Network edit mode
     void setNetworkEditMode(NetworkEditMode networkMode, bool force = false);
