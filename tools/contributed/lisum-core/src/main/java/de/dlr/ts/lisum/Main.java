@@ -31,7 +31,7 @@ public class Main
 {   
     private String sumoExec = "sumo";
     private String sumoConfig = null;
-    private final int sumoPort = 9100;
+    //private final int sumoPort = 9100;
     private String lisaRestFulServerDir = "localhost";
     private final int lisaPort = 9091;    
     private String lisumFile = "";
@@ -154,7 +154,7 @@ public class Main
             return;
         }
         
-        ls = new LisumSimulation(sumoExec, sumoPort, lisaRestFulServerDir, lisaPort);        
+        ls = new LisumSimulation(sumoExec, lisaRestFulServerDir, lisaPort);        
         ls.setSumoConfig(sumoConfig);
         ls.load(new File(lisumFile));
      
@@ -217,13 +217,13 @@ public class Main
         try {
             XMLAdmin2 x = new XMLAdmin2().load(this.lisumFile);
             
-            ControlUnitInterface controlUnit = null;
+            ControlUnitInterface controlUnit;
             SignalProgramInterface signalProgram = null;
-            boolean coordinated = false;
+            boolean coordinated;
             int ebene = 0;
-            boolean va = false;
-            boolean iv = false;
-            boolean ov = false;            
+            boolean va;
+            boolean iv;
+            boolean ov;            
             
             //DLRLogger.info("Reading default states in lisum.xml");
             /*
@@ -294,18 +294,19 @@ public class Main
             DLRLogger.info("");
             DLRLogger.info("******  Default states  ******");
 
-            for (int j = 0; j < ls.getCityInterface().getControlUnits().length; j++) 
-            {
-                controlUnit = ls.getCityInterface().getControlUnits()[j];                    
-                DLRLogger.info("> Control unit: " + controlUnit.getFullName() + " (enabled=" + controlUnit.isEnabled() + ")");
-
+            for (ControlUnitInterface cu : ls.getCityInterface().getControlUnits()) {
+                controlUnit = cu;
+                
+                DLRLogger.info("> Control unit: " + controlUnit.getFullName() + 
+                        " (enabled=" + controlUnit.isEnabled() + ")");
+                
                 if(!controlUnit.isEnabled())
-                    continue;                    
-
+                    continue;
+                
                 DLRLogger.info("     o Program: " + controlUnit.getCurrentSignalProgram().getName());                        
                 DLRLogger.info("     o Coordinated=" + (controlUnit.getCoordinated() == 1));
                 DLRLogger.info("     o Ebene=" + Constants.ebeneItems.get(ebene));
-                DLRLogger.info("     o va=" + controlUnit.isVA() + ", iv=" + 
+                DLRLogger.info("     o va=" + controlUnit.isVA() + ", iv=" +
                         controlUnit.isIV() + ", öv=" + controlUnit.isOV());                    
             }
 

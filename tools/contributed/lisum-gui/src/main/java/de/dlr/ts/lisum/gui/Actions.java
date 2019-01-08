@@ -119,7 +119,7 @@ public class Actions {
 
                 GlobalConfig g = GlobalConfig.getInstance();
 
-                LisumSimulation simulation = new LisumSimulation(g.getSumoExec(), g.getSumoPort(),
+                LisumSimulation simulation = new LisumSimulation(g.getSumoExec(), 
                         g.getLisaServerAddress(), g.getLisaServerPort());
                 simulation.load(selectedFile);
 

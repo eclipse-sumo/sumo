@@ -61,7 +61,7 @@ public class LisumSimulation implements SimulationListener {
 
     private final String sumoExec;
     private String sumoConfig;
-    private final int sumoPort;
+    //private final int sumoPort;
     private final String lisaServerAddress;
     private final int lisaServerPort;
     
@@ -72,9 +72,8 @@ public class LisumSimulation implements SimulationListener {
      * @param lisaServerAddress
      * @param lisaServerPort
      */
-    public LisumSimulation(String sumoExec, int sumoPort, String lisaServerAddress, int lisaServerPort) {
-        this.sumoExec = sumoExec;        
-        this.sumoPort = sumoPort;
+    public LisumSimulation(String sumoExec, String lisaServerAddress, int lisaServerPort) {
+        this.sumoExec = sumoExec;                
         this.lisaServerAddress = lisaServerAddress;
         this.lisaServerPort = lisaServerPort;
     }
@@ -165,7 +164,7 @@ public class LisumSimulation implements SimulationListener {
         /**
          *
          */
-        sumo = new Sumo(this, sumoExec, sumoConfig, sumoPort);
+        sumo = new Sumo(this, sumoExec, sumoConfig);
         sumo.initBeforePlay();
 
         /**

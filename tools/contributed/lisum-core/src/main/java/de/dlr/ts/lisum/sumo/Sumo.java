@@ -49,7 +49,7 @@ public class Sumo {
     private long stepsPerSecond = 0L;
     private final String sumoExec;
     private final String sumoConfig;
-    private final int sumoPort;
+    //private final int sumoPort;
     
     
     /**
@@ -59,11 +59,11 @@ public class Sumo {
      * @param sumoConfig
      * @param sumoPort
      */
-    public Sumo(LisumSimulation lisumSimulation, String sumoExec, String sumoConfig, int sumoPort) {
+    public Sumo(LisumSimulation lisumSimulation, String sumoExec, String sumoConfig) {
         this.lisumSimulation = lisumSimulation;
         this.sumoExec = sumoExec;
         this.sumoConfig = sumoConfig;
-        this.sumoPort = sumoPort;
+        //this.sumoPort = sumoPort;
     }
 
     /**
@@ -97,14 +97,16 @@ public class Sumo {
                 /**
                  *
                  */
-                DLRLogger.info("Sumo", "Starting SumoGUI instance, port " + sumoPort);
+                DLRLogger.info("Sumo", "Starting SumoGUI instance.");
 
                 //startSumoGUI();
 
-                conn = new SumoTraciConnection(sumoExec, sumoConfig, "--num-clients", "3");                
-
+                conn = new SumoTraciConnection(sumoExec, sumoConfig);
+                //conn.addOption("num-clients", "2");                
                 //Start Traci Server and Sumo
                 conn.runServer();
+                
+                conn.setOrder(0);
 
                 sumoDetectors = new SumoDetectors(conn);
 
