@@ -875,6 +875,12 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
                     into.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(j->maxDur));
                 }
             }
+            if (j->name != "") {
+                into.writeAttr(SUMO_ATTR_NAME, j->name);
+            }
+            if (j->next != -1) {
+                into.writeAttr(SUMO_ATTR_NEXT, j->next);
+            }
             into.closeTag();
         }
         // write params

@@ -1,0 +1,20 @@
+Description: drop msse2 buildfpags, unsupported by some platforms
+Author: Anton Gladky <gladk@debian.org>
+Last-Update: 2015-04-20
+
+Index: sumo-0.32.0/configure.ac
+===================================================================
+--- sumo-0.32.0.orig/configure.ac
++++ sumo-0.32.0/configure.ac
+@@ -96,11 +96,6 @@ dnl - - - - - - - - - - - - - - - - - -
+ case "$host" in
+    x86-*-linux* | ia64-*-linux* | i586-*-linux* | i686-*-linux* | x86_64-*-linux*)
+ dnl Make sure we are on architecture that supports SIMD
+-   if test x$CXX = xclang++; then
+-       CXXFLAGS="-msse2 $CXXFLAGS"
+-   else
+-       CXXFLAGS="-msse2 -mfpmath=sse $CXXFLAGS"
+-   fi
+    ;;
+    *-cygwin*)
+    AC_DEFINE([HAVE_CYGWIN], [1], [Define if compiling under cygwin])

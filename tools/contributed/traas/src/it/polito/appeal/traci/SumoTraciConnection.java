@@ -101,7 +101,7 @@ public class SumoTraciConnection {
 	private String additional_file;
 	private String gui_settings;
 	
-	String sumoEXE = "/opt/sumo/sumo-0.32.0/bin/sumo";
+	String sumoEXE = "/opt/sumo/sumo-1.1.0/bin/sumo";
 	private CommandProcessor cp;
 	
 	private Process sumoProcess;

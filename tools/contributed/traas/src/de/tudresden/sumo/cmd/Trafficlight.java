@@ -156,6 +156,17 @@ public class Trafficlight {
 	}
 
 	/**
+	 * Returns the name of the current phase in the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return name of the current phase
+	 */
+
+	public static SumoCommand getPhaseName(String tlsID){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.VAR_NAME, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRING);
+	}
+
+	/**
 	 * Returns the id of the current program.
 	 * 
 	 * @param tlsID a string identifying the traffic light
@@ -202,6 +213,19 @@ public class Trafficlight {
 	public static SumoCommand setPhase(String tlsID, int index){
 
 		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.TL_PHASE_INDEX, tlsID, index);
+	}
+
+	/**
+	 * Set the name of the current phase in the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @param name a string with the phase name
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setPhaseName(String tlsID, String name){
+
+		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.VAR_NAME, tlsID, name);
 	}
 
 	/**

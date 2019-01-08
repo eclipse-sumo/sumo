@@ -58,6 +58,7 @@
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
 #include "GNEViewParent.h"
+#include "GNEApplicationWindow.h"
 
 
 // ===========================================================================
@@ -68,21 +69,19 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     // Super Modes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETSUPERMODE_NETWORK,            GNEViewNet::onCmdSetSupermode),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SETSUPERMODE_DEMAND,             GNEViewNet::onCmdSetSupermode),
-    // Network Modes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE,             GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_MOVE,                    GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_DELETE,                  GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_INSPECT,                 GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_SELECT,                  GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CONNECT,                 GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TLS,                     GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL,              GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_CROSSING,                GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_TAZ,                     GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_POLYGON,                 GNEViewNet::onCmdSetNetworkMode),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION,             GNEViewNet::onCmdSetNetworkMode),
-    // Demand Modes
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SETMODE_ROUTES,                  GNEViewNet::onCmdSetDemandMode),
+    // Shortcuts
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_E,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_M,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_D,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_I,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_S,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_C,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_T,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_A,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_R,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_Z,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_P,                      GNEViewNet::onCmdSetNetworkMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_W,                      GNEViewNet::onCmdSetNetworkMode),
     // Viewnet
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
@@ -790,7 +789,7 @@ GNEViewNet::startEditCustomShape(GNENetElement* element, const PositionVector& s
     if ((myEditShapePoly == nullptr) && (element != nullptr) && (shape.size() > 1)) {
         // save current edit mode before starting
         myPreviousNetworkEditMode = mySuperModes.networkEditMode;
-        setEditModeFromHotkey(MID_GNE_SETMODE_MOVE);
+        setEditModeFromHotkey(MID_GNE_SHORTCUT_M);
         // add special GNEPoly fo edit shapes
         // color is taken from junction color settings
         RGBColor col = getVisualisationSettings()->junctionColorer.getSchemes()[0].getColor(3);
@@ -1371,46 +1370,58 @@ GNEViewNet::hotkeyFocusFrame() {
 
 void
 GNEViewNet::setEditModeFromHotkey(FXushort selid) {
-    switch (selid) {
-        case MID_GNE_SETMODE_CREATE_EDGE:
-            setNetworkEditMode(GNE_NMODE_CREATE_EDGE);
-            break;
-        case MID_GNE_SETMODE_MOVE:
-            setNetworkEditMode(GNE_NMODE_MOVE);
-            break;
-        case MID_GNE_SETMODE_DELETE:
-            setNetworkEditMode(GNE_NMODE_DELETE);
-            break;
-        case MID_GNE_SETMODE_INSPECT:
-            setNetworkEditMode(GNE_NMODE_INSPECT);
-            break;
-        case MID_GNE_SETMODE_SELECT:
-            setNetworkEditMode(GNE_NMODE_SELECT);
-            break;
-        case MID_GNE_SETMODE_CONNECT:
-            setNetworkEditMode(GNE_NMODE_CONNECT);
-            break;
-        case MID_GNE_SETMODE_TLS:
-            setNetworkEditMode(GNE_NMODE_TLS);
-            break;
-        case MID_GNE_SETMODE_ADDITIONAL:
-            setNetworkEditMode(GNE_NMODE_ADDITIONAL);
-            break;
-        case MID_GNE_SETMODE_CROSSING:
-            setNetworkEditMode(GNE_NMODE_CROSSING);
-            break;
-        case MID_GNE_SETMODE_TAZ:
-            setNetworkEditMode(GNE_NMODE_TAZ);
-            break;
-        case MID_GNE_SETMODE_POLYGON:
-            setNetworkEditMode(GNE_NMODE_POLYGON);
-            break;
-        case MID_GNE_SETMODE_PROHIBITION:
-            setNetworkEditMode(GNE_NMODE_PROHIBITION);
-            break;
-        default:
-            throw ProcessError("invalid edit mode called by hotkey");
-            break;
+    // first check what supermode is being edited
+    if (mySuperModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        switch (selid) {
+            case MID_GNE_SHORTCUT_E:
+                setNetworkEditMode(GNE_NMODE_CREATE_EDGE);
+                break;
+            case MID_GNE_SHORTCUT_M:
+                setNetworkEditMode(GNE_NMODE_MOVE);
+                break;
+            case MID_GNE_SHORTCUT_D:
+                setNetworkEditMode(GNE_NMODE_DELETE);
+                break;
+            case MID_GNE_SHORTCUT_I:
+                setNetworkEditMode(GNE_NMODE_INSPECT);
+                break;
+            case MID_GNE_SHORTCUT_S:
+                setNetworkEditMode(GNE_NMODE_SELECT);
+                break;
+            case MID_GNE_SHORTCUT_C:
+                setNetworkEditMode(GNE_NMODE_CONNECT);
+                break;
+            case MID_GNE_SHORTCUT_T:
+                setNetworkEditMode(GNE_NMODE_TLS);
+                break;
+            case MID_GNE_SHORTCUT_A:
+                setNetworkEditMode(GNE_NMODE_ADDITIONAL);
+                break;
+            case MID_GNE_SHORTCUT_R:
+                setNetworkEditMode(GNE_NMODE_CROSSING);
+                break;
+            case MID_GNE_SHORTCUT_Z:
+                setNetworkEditMode(GNE_NMODE_TAZ);
+                break;
+            case MID_GNE_SHORTCUT_P:
+                setNetworkEditMode(GNE_NMODE_POLYGON);
+                break;
+            case MID_GNE_SHORTCUT_W:
+                setNetworkEditMode(GNE_NMODE_PROHIBITION);
+                break;
+            default:
+                // Shortcut wasn't assigned in this Supermode
+                break;
+        }
+    } else if (mySuperModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        switch (selid) {
+            case MID_GNE_SHORTCUT_R:
+                setDemandEditMode(GNE_DMODE_ROUTES);
+                break;
+            default:
+                // Shortcut wasn't assigned in this Supermode
+                break;
+        }
     }
 }
 
@@ -1639,40 +1650,40 @@ long
 GNEViewNet::onCmdSetNetworkMode(FXObject*, FXSelector sel, void*) {
     // check what network mode will be set
     switch (FXSELID(sel)) {
-        case MID_GNE_SETMODE_CREATE_EDGE:
+        case MID_GNE_SHORTCUT_E:
             setNetworkEditMode(GNE_NMODE_CREATE_EDGE);
             break;
-        case MID_GNE_SETMODE_MOVE:
+        case MID_GNE_SHORTCUT_M:
             setNetworkEditMode(GNE_NMODE_MOVE);
             break;
-        case MID_GNE_SETMODE_DELETE:
+        case MID_GNE_SHORTCUT_D:
             setNetworkEditMode(GNE_NMODE_DELETE);
             break;
-        case MID_GNE_SETMODE_INSPECT:
+        case MID_GNE_SHORTCUT_I:
             setNetworkEditMode(GNE_NMODE_INSPECT);
             break;
-        case MID_GNE_SETMODE_SELECT:
+        case MID_GNE_SHORTCUT_S:
             setNetworkEditMode(GNE_NMODE_SELECT);
             break;
-        case MID_GNE_SETMODE_CONNECT:
+        case MID_GNE_SHORTCUT_C:
             setNetworkEditMode(GNE_NMODE_CONNECT);
             break;
-        case MID_GNE_SETMODE_TLS:
+        case MID_GNE_SHORTCUT_T:
             setNetworkEditMode(GNE_NMODE_TLS);
             break;
-        case MID_GNE_SETMODE_ADDITIONAL:
+        case MID_GNE_SHORTCUT_A:
             setNetworkEditMode(GNE_NMODE_ADDITIONAL);
             break;
-        case MID_GNE_SETMODE_CROSSING:
+        case MID_GNE_SHORTCUT_R:
             setNetworkEditMode(GNE_NMODE_CROSSING);
             break;
-        case MID_GNE_SETMODE_TAZ:
+        case MID_GNE_SHORTCUT_Z:
             setNetworkEditMode(GNE_NMODE_TAZ);
             break;
-        case MID_GNE_SETMODE_POLYGON:
+        case MID_GNE_SHORTCUT_P:
             setNetworkEditMode(GNE_NMODE_POLYGON);
             break;
-        case MID_GNE_SETMODE_PROHIBITION:
+        case MID_GNE_SHORTCUT_W:
             setNetworkEditMode(GNE_NMODE_PROHIBITION);
             break;
         default:
@@ -1686,7 +1697,7 @@ long
 GNEViewNet::onCmdSetDemandMode(FXObject*, FXSelector sel, void*) {
     // check what demand mode will be set
     switch (FXSELID(sel)) {
-        case MID_GNE_SETMODE_ROUTES:
+        case MID_GNE_SHORTCUT_R:
             setDemandEditMode(GNE_DMODE_ROUTES);
             break;
         default:
@@ -2095,7 +2106,8 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
         case MID_GNE_LANE_REMOVE_GREENVERGE:
             return removeRestrictedLane(SVC_IGNORING);
         default:
-            return 1;
+            return 0;
+            break;
     }
 }
 
@@ -2617,7 +2629,7 @@ GNEViewNet::onCmdShowGrid(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 void 
-GNEViewNet::setSupermode(Supermodes supermode) {
+GNEViewNet::setSupermode(Supermode supermode) {
     if (supermode == mySuperModes.currentSupermode) {
         setStatusBarText("Mode already selected");
         if (myCurrentFrame != nullptr) {
@@ -2656,6 +2668,8 @@ GNEViewNet::setSupermode(Supermodes supermode) {
         // update buttons
         mySuperModes.networkButton->update();
         mySuperModes.demandButton->update();
+        // update CommandButtons in GNEAppWindows
+        myViewParent->getGNEAppWindows()->updateSuperModeMenuCommands(mySuperModes.currentSupermode);
     }
 }
 
@@ -2863,7 +2877,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // enable selected controls
     switch (mySuperModes.demandEditMode) {
         case GNE_DMODE_ROUTES:
-            myViewParent->getRouteFrame()->show();
             myDemandCheckableButtons.routeButton->setChecked(true);
             break;
         default:
@@ -3950,12 +3963,36 @@ GNEViewNet::SuperModes::SuperModes(GNEViewNet* viewNet) :
 }
 
 
+GNEViewNet::SuperModes::~SuperModes() {
+    // destroy and delete vertical separator button
+    myVerticalSeparator->destroy();
+    delete myVerticalSeparator;
+    // destroy and delete network button
+    networkButton->destroy();
+    delete networkButton;
+    // destroy and delete demand button
+    demandButton->destroy();
+    delete demandButton;
+    // recalc menu bar because there is removed elements
+    myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar()->recalc();
+}
+
+
 void
 GNEViewNet::SuperModes::buildSuperModeButtons() {
-    networkButton = new MFXCheckableButton(false, myViewNet->myToolbar, "Network\t\tSet mode for edit network elements.",
+    // Create Vertical separator
+    myVerticalSeparator = new FXVerticalSeparator(myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar(), GUIDesignVerticalSeparator);
+    // create buttons
+    networkButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar(), "Network\t\tSet mode for edit network elements.",
         GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myViewNet, MID_GNE_SETSUPERMODE_NETWORK, GUIDesignButtonToolbarSupermode);
-    demandButton = new MFXCheckableButton(false, myViewNet->myToolbar, "Demand\t\tSet mode for edit traffic demand.",
+    demandButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar(), "Demand\t\tSet mode for edit traffic demand.",
         GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myViewNet, MID_GNE_SETSUPERMODE_DEMAND, GUIDesignButtonToolbarSupermode);
+    // new elements has to be created manually (because MenuBar already exists)
+    myVerticalSeparator->create();
+    networkButton->create();
+    demandButton->create();
+    // recalc menu bar because there is new elements
+    myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar()->recalc();
 }
 
 // ---------------------------------------------------------------------------
@@ -3981,29 +4018,29 @@ GNEViewNet::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet
 void
 GNEViewNet::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     createEdgeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SETMODE_CREATE_EDGE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SHORTCUT_E, GUIDesignButtonToolbarCheckable);
     moveButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset move mode\tMode for move elements.",
-        GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SETMODE_MOVE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SHORTCUT_M, GUIDesignButtonToolbarCheckable);
     deleteButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset delete mode\tMode for delete elements.",
-        GUIIconSubSys::getIcon(ICON_MODEDELETE), myViewNet, MID_GNE_SETMODE_DELETE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEDELETE), myViewNet, MID_GNE_SHORTCUT_D, GUIDesignButtonToolbarCheckable);
     inspectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
-        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myViewNet, MID_GNE_SETMODE_INSPECT, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myViewNet, MID_GNE_SHORTCUT_I, GUIDesignButtonToolbarCheckable);
     selectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset select mode\tMode for select elements.",
-        GUIIconSubSys::getIcon(ICON_MODESELECT), myViewNet, MID_GNE_SETMODE_SELECT, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODESELECT), myViewNet, MID_GNE_SHORTCUT_S, GUIDesignButtonToolbarCheckable);
     connectionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset connection mode\tMode for edit connections between lanes.",
-        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_GNE_SETMODE_CONNECT, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_GNE_SHORTCUT_C, GUIDesignButtonToolbarCheckable);
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset prohibition mode\tMode for editing connection prohibitions.",
-        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myViewNet, MID_GNE_SETMODE_PROHIBITION, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myViewNet, MID_GNE_SHORTCUT_W, GUIDesignButtonToolbarCheckable);
     trafficLightButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.",
-        GUIIconSubSys::getIcon(ICON_MODETLS), myViewNet, MID_GNE_SETMODE_TLS, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODETLS), myViewNet, MID_GNE_SHORTCUT_T, GUIDesignButtonToolbarCheckable);
     additionalButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset additional mode\tMode for adding additional elements.",
-        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_GNE_SETMODE_ADDITIONAL, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_GNE_SHORTCUT_A, GUIDesignButtonToolbarCheckable);
     crossingButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
-        GUIIconSubSys::getIcon(ICON_MODECROSSING), myViewNet, MID_GNE_SETMODE_CROSSING, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODECROSSING), myViewNet, MID_GNE_SHORTCUT_R, GUIDesignButtonToolbarCheckable);
     TAZButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
-        GUIIconSubSys::getIcon(ICON_MODETAZ), myViewNet, MID_GNE_SETMODE_TAZ, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODETAZ), myViewNet, MID_GNE_SHORTCUT_Z, GUIDesignButtonToolbarCheckable);
     shapeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
-        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_GNE_SETMODE_POLYGON, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_GNE_SHORTCUT_P, GUIDesignButtonToolbarCheckable);
 }
 
 
@@ -4086,8 +4123,8 @@ GNEViewNet::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) 
 
 void 
 GNEViewNet::DemandCheckableButtons::buildDemandCheckableButtons() {
-    routeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
-        GUIIconSubSys::getIcon(ICON_MODEROUTE), myViewNet, MID_GNE_SETMODE_ROUTES, GUIDesignButtonToolbarCheckable);
+    routeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tcreate route mode\tMode for creating routes.",
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SHORTCUT_R, GUIDesignButtonToolbarCheckable);
 }
 
 

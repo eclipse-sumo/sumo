@@ -113,9 +113,8 @@ def initOptions():
                            type=float, default=0, help="Start for incrementing scale")
     argParser.add_argument("--inc-max", dest="incMax",
                            type=float, default=1, help="Maximum for incrementing scale")
-    argParser.add_argument("--inc-base", dest="incBase",
-                           type=int, default=-1, help="Give the incrementation base. Negative values disable " +
-                                                      "incremental scaling")
+    argParser.add_argument("--inc-base", dest="incBase", type=int, default=-1,
+                           help="Give the incrementation base. Negative values disable incremental scaling")
     argParser.add_argument("--incrementation", dest="incValue",
                            type=int, default=1, help="Give the incrementation")
     argParser.add_argument("--time-inc", dest="timeInc",
@@ -128,8 +127,7 @@ def initOptions():
                            type=int, default=10, help="Number of iterations to use for convergence calculation")
     argParser.add_argument("--max-convergence-deviation", dest="convDev",
                            type=float, help="Maximum relative standard deviation in travel times")
-    argParser.add_argument(
-        "-D", "--districts", help="use districts as sources and targets", metavar="FILE")
+    argParser.add_argument("-D", "--districts", help="use districts as sources and targets", metavar="FILE")
     argParser.add_argument("-x", "--vehroute-file",  dest="routefile",
                            choices=['None', 'routesonly', 'detailed'],
                            default='None', help="choose the format of the route file")
@@ -137,10 +135,8 @@ def initOptions():
                            default=False, help="output the last routes")
     argParser.add_argument("-K", "--keep-allroutes", action="store_true", dest="allroutes",
                            default=False, help="save routes with near zero probability")
-    argParser.add_argument(
-        "--routing-algorithm", default="dijkstra", help="select the routing algorithm")
-    argParser.add_argument(
-        "--max-alternatives", default=5, help="prune the number of alternatives to INT")
+    argParser.add_argument("--routing-algorithm", default="dijkstra", help="select the routing algorithm")
+    argParser.add_argument("--max-alternatives", default=5, help="prune the number of alternatives to INT")
     argParser.add_argument("--skip-first-routing", action="store_true", dest="skipFirstRouting",
                            default=False, help="run simulation with demands before first routing")
     argParser.add_argument("--logit", action="store_true", dest="logit",
@@ -162,9 +158,8 @@ def initOptions():
                                                "travel times when using the external gawron calculation")
     argParser.add_argument("--weight-memory", action="store_true", default=False, dest="weightmemory",
                            help="smooth edge weights across iterations")
-    argParser.add_argument(
-        "--pessimism", default=1, type=float, help="give traffic jams a higher weight when using option " +
-                                                   " --weight-memory")
+    argParser.add_argument("--pessimism", default=1, type=float,
+                           help="give traffic jams a higher weight when using option --weight-memory")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                            default=False, help="Whether old rou.alt.xml files shall be removed")
     argParser.add_argument("--binary", action="store_true",

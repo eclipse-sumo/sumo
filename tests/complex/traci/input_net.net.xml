@@ -75,14 +75,14 @@
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGggrrrrGGggrrrr"/>
-        <phase duration="4" state="yyggrrrryyggrrrr"/>
-        <phase duration="6" state="rrGGrrrrrrGGrrrr"/>
-        <phase duration="4" state="rryyrrrrrryyrrrr"/>
-        <phase duration="31" state="rrrrGGggrrrrGGgg"/>
-        <phase duration="4" state="rrrryyggrrrryygg"/>
-        <phase duration="6" state="rrrrrrGGrrrrrrGG"/>
-        <phase duration="4" state="rrrrrryyrrrrrryy"/>
+        <phase duration="31" state="GGggrrrrGGggrrrr" name="major 1"/>
+        <phase duration="4" state="yyggrrrryyggrrrr" name="transition 1-2"/>
+        <phase duration="6" state="rrGGrrrrrrGGrrrr" name="major 2"/>
+        <phase duration="4" state="rryyrrrrrryyrrrr" name="transition 2-3"/>
+        <phase duration="31" state="rrrrGGggrrrrGGgg" name="major 3"/>
+        <phase duration="4" state="rrrryyggrrrryygg" name="transition 3-4"/>
+        <phase duration="6" state="rrrrrrGGrrrrrrGG" name="major 4"/>
+        <phase duration="4" state="rrrrrryyrrrrrryy" name="transition 4-1"/>
     </tlLogic>
 
     <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes="" shape="490.15,511.35 503.25,511.35 511.35,509.85 511.35,496.75 509.85,488.65 496.75,488.65 488.65,490.15 488.65,503.25">

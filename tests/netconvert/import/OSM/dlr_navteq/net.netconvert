@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan  4 12:19:23 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan  4 14:34:04 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2338,6 +2338,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="16942869_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="69.24" shape="928.96,362.93 963.98,360.84 997.75,354.93">
             <param key="origId" value="16942869 322724391"/>
         </lane>
+        <param key="origTo" value="57343510"/>
         <param key="postal_code" value="12487"/>
     </edge>
     <edge id="174657432" from="4167993272" to="1853142980" priority="2" type="highway.service" shape="1503.16,189.11 1505.73,189.02">
@@ -2402,6 +2403,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="206579057_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="56.33" shape="929.82,534.13 944.36,527.80 980.72,517.55 982.49,517.41">
             <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
+        <param key="origTo" value="492462300"/>
         <param key="postal_code" value="12487"/>
     </edge>
     <edge id="206579061" from="2007005083" to="2165987550" priority="6" type="highway.tertiary">
@@ -2445,6 +2447,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="224769565_0" index="0" allow="bicycle pedestrian" speed="2.78" length="419.04" width="2.00" shape="1041.89,334.17 1059.97,337.40 1458.37,294.73">
             <param key="origId" value="224769565 224769566"/>
         </lane>
+        <param key="origTo" value="2335739502"/>
     </edge>
     <edge id="225232900" from="2340420373" to="2340420372" priority="2" type="highway.service">
         <lane id="225232900_0" index="0" allow="delivery bicycle pedestrian" speed="5.56" length="7.86" shape="1048.95,427.59 1049.44,419.74">
@@ -2540,6 +2543,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="318210395_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="90.65" shape="1465.44,198.06 1468.78,240.94 1473.31,286.44 1473.41,288.35">
             <param key="origId" value="318210395 143308570 283317455"/>
         </lane>
+        <param key="origTo" value="2335739502"/>
         <param key="postal_code" value="12524"/>
     </edge>
     <edge id="319580807" from="1906766917" to="3260077364" priority="1" type="highway.path" spreadType="center" shape="981.50,384.28 994.20,388.65 1006.66,397.98 1016.46,412.47">
@@ -2839,6 +2843,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852857_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="38.87" shape="1016.55,402.80 1022.52,369.14 1022.58,366.56 1022.76,364.32">
             <param key="origId" value="-206579064#1"/>
         </lane>
+        <param key="origTo" value="1906766907"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852858" from="2007005083" to="3260077364" priority="6" type="highway.tertiary">
@@ -3113,6 +3118,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="143308532#8"/>
         </lane>
         <param key="origFrom" value="851573004"/>
+        <param key="origTo" value="671564296"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852902" from="4167993270" to="57343487" priority="7" type="highway.secondary" spreadType="center" shape="1491.58,567.89 1502.45,570.52 1538.16,579.94 1568.88,587.67 1596.85,595.96 1608.25,600.13 1635.96,610.98 1655.55,619.28 1677.49,630.18 1697.79,641.88 1713.49,652.06 1731.19,664.60 1764.72,689.57 1770.79,693.90 1814.91,726.44 1836.57,739.81 1884.31,766.21 1898.10,773.83 1908.12,779.70 1923.77,788.85 1940.21,800.56 1959.25,818.41 1992.41,851.53 1996.47,855.44 2028.95,887.64 2046.83,905.37 2052.94,911.42 2067.09,925.46 2075.68,933.97">
@@ -3141,6 +3147,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852904_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="52.95" shape="1547.52,591.66 1499.20,579.40 1496.19,578.60">
             <param key="origId" value="143308546#5"/>
         </lane>
+        <param key="origTo" value="301292612"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852905" from="664166095" to="1560223943" priority="5" type="highway.unclassified" shape="1276.93,835.11 1282.46,767.46 1284.53,749.09 1293.14,629.02">
@@ -3171,6 +3178,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="143308587#0"/>
         </lane>
         <param key="origFrom" value="1560223815"/>
+        <param key="origTo" value="1560223686"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852909" from="4167993267" to="4167993270" priority="7" type="highway.secondary" spreadType="center" shape="1489.36,499.55 1493.18,518.53 1493.96,542.40 1493.52,556.79 1491.58,567.89">
@@ -3181,6 +3189,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="143308590#0"/>
         </lane>
         <param key="origFrom" value="1560223686"/>
+        <param key="origTo" value="56231397"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852910" from="1568241281" to="1568241285" priority="4" type="highway.residential">
@@ -3269,6 +3278,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852922_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="50.14" shape="1475.55,371.99 1472.49,329.37 1472.33,324.26 1472.20,322.02">
             <param key="origId" value="190083618#0"/>
         </lane>
+        <param key="origTo" value="3273797701"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852923" from="2007005087" to="2007005089" priority="2" type="highway.service">
@@ -3312,6 +3322,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852929_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="36.71" shape="1007.97,469.11 1001.49,501.69 1000.76,505.07">
             <param key="origId" value="206579062#1"/>
         </lane>
+        <param key="origTo" value="492462300"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852930" from="2165987556" to="1560223789" priority="6" type="highway.tertiary">
@@ -3330,6 +3341,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852931_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="22.36" shape="989.55,557.41 989.61,557.03 991.31,546.54 992.54,535.19">
             <param key="origId" value="206579063#1"/>
         </lane>
+        <param key="origTo" value="671564296"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852932" from="4167993266" to="3260077364" priority="6" type="highway.tertiary" shape="1024.90,357.81 1024.18,366.64 1024.12,369.30 1016.46,412.47">
@@ -3471,6 +3483,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852955_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="67.43" shape="1391.68,310.51 1411.34,310.86 1450.28,308.02 1458.03,306.82 1459.19,306.68">
             <param key="origId" value="318210363#0"/>
         </lane>
+        <param key="origTo" value="1560223404"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852956" from="4167993265" to="3273797696" priority="9" type="highway.primary" spreadType="center" shape="1472.79,301.73 1487.18,300.78 1536.94,296.39 1597.23,291.62">
@@ -3493,6 +3506,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="415852957_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="118.04" shape="1597.48,296.40 1514.66,304.71 1491.15,307.35 1486.78,307.94 1480.26,309.05">
             <param key="origId" value="320741895#0"/>
         </lane>
+        <param key="origTo" value="3273797701"/>
         <param key="postal_code" value="12489"/>
     </edge>
     <edge id="415852958" from="4167993265" to="1560223468" priority="9" type="highway.primary" spreadType="center" shape="1473.33,313.48 1457.86,314.55 1452.71,314.90 1417.38,314.30 1387.66,315.14">
@@ -3534,6 +3548,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="46039050#0"/>
         </lane>
         <param key="origFrom" value="492462300"/>
+        <param key="origTo" value="851572267"/>
         <param key="postal_code" value="12489;12345;67890"/>
     </edge>
     <edge id="415852964" from="4167993268" to="4167993269" priority="6" type="highway.tertiary" spreadType="center" shape="1196.14,526.36 1230.89,528.57 1289.25,532.91">
@@ -3555,6 +3570,7 @@ SPDX-License-Identifier: EPL-2.0
             <param key="origId" value="46039050#7"/>
         </lane>
         <param key="origFrom" value="1568241357"/>
+        <param key="origTo" value="1560223815"/>
         <param key="postal_code" value="12489;12345;67890"/>
     </edge>
     <edge id="415852966" from="4167993273" to="301292499" priority="6" type="highway.tertiary" spreadType="center" shape="995.08,526.59 981.88,528.27 960.57,530.13 900.89,547.26">

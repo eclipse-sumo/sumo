@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 18 08:23:01 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Mon Jan  7 08:40:23 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,7 +31,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="36600"/>
+        <remote-port value="54538"/>
     </traci_server>
 
     <gui_only>
@@ -42,25 +42,25 @@
 -->
 
 <lanechanges>
-    <changeStarted id="v0" type="t0" time="0.10" from="beg_0" to="beg_0" dir="0" speed="0.26" pos="5.11" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.20" from="beg_0" to="beg_0" dir="0" speed="0.52" pos="5.15" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.30" from="beg_0" to="beg_0" dir="0" speed="0.78" pos="5.22" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.40" from="beg_0" to="beg_0" dir="0" speed="1.04" pos="5.31" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.50" from="beg_0" to="beg_0" dir="0" speed="1.30" pos="5.42" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.60" from="beg_0" to="beg_0" dir="0" speed="1.56" pos="5.57" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.70" from="beg_0" to="beg_0" dir="0" speed="1.82" pos="5.74" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.80" from="beg_0" to="beg_0" dir="0" speed="2.08" pos="5.93" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="0.90" from="beg_0" to="beg_0" dir="0" speed="2.34" pos="6.15" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="1.00" from="beg_0" to="beg_0" dir="0" speed="2.60" pos="6.40" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="0.10" from="beg_0" to="beg_0" dir="0" speed="0.26" pos="5.11" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.50"/>
+    <changeStarted id="v0" type="t0" time="0.20" from="beg_0" to="beg_0" dir="0" speed="0.52" pos="5.15" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.49"/>
+    <changeStarted id="v0" type="t0" time="0.30" from="beg_0" to="beg_0" dir="0" speed="0.78" pos="5.22" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.47"/>
+    <changeStarted id="v0" type="t0" time="0.40" from="beg_0" to="beg_0" dir="0" speed="1.04" pos="5.31" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.44"/>
+    <changeStarted id="v0" type="t0" time="0.50" from="beg_0" to="beg_0" dir="0" speed="1.30" pos="5.42" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.40"/>
+    <changeStarted id="v0" type="t0" time="0.60" from="beg_0" to="beg_0" dir="0" speed="1.56" pos="5.57" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.35"/>
+    <changeStarted id="v0" type="t0" time="0.70" from="beg_0" to="beg_0" dir="0" speed="1.82" pos="5.74" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.29"/>
+    <changeStarted id="v0" type="t0" time="0.80" from="beg_0" to="beg_0" dir="0" speed="2.08" pos="5.93" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.22"/>
+    <changeStarted id="v0" type="t0" time="0.90" from="beg_0" to="beg_0" dir="0" speed="2.34" pos="6.15" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.14"/>
+    <changeStarted id="v0" type="t0" time="1.00" from="beg_0" to="beg_0" dir="0" speed="2.60" pos="6.40" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="2.05"/>
     <change id="v0" type="t0" time="2.10" from="beg_0" to="beg_1" dir="1" speed="5.46" pos="10.83" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
     <changeEnded id="v0" type="t0" time="3.60" from="beg_1" to="beg_1" dir="0" speed="9.36" pos="21.95" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
     <change id="v0" type="t0" time="31.90" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="255.94" reason="traci" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
     <changeEnded id="v0" type="t0" time="33.40" from="beg_0" to="beg_0" dir="0" speed="13.89" pos="276.78" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="60.60" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="492.78" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="60.70" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="494.17" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="60.80" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="495.56" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="60.90" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="496.95" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
-    <changeStarted id="v0" type="t0" time="61.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="498.34" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
+    <changeStarted id="v0" type="t0" time="60.60" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="492.78" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="1.60"/>
+    <changeStarted id="v0" type="t0" time="60.70" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="494.17" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="1.59"/>
+    <changeStarted id="v0" type="t0" time="60.80" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="495.56" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="1.57"/>
+    <changeStarted id="v0" type="t0" time="60.90" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="496.95" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="1.54"/>
+    <changeStarted id="v0" type="t0" time="61.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="498.34" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None" maneuverDistance="1.50"/>
     <change id="v0" type="t0" time="61.90" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="510.84" reason="traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
     <changeEnded id="v0" type="t0" time="63.20" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="528.89" reason="stay|traci|sublane" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None" latGap="None"/>
 </lanechanges>

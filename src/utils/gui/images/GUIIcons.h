@@ -193,7 +193,7 @@ enum GUIIcon {
     ICON_LANEGREENVERGE,
     /// @}
 
-    /// @name NETEDIT supermode icons
+    /// @name netedit supermode icons
     /// @{
     ICON_SUPERMODENETWORK,
     ICON_SUPERMODEDEMAND,

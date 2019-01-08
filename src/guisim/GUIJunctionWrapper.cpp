@@ -164,8 +164,14 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         drawName(myJunction.getPosition(), s.scale, s.junctionName, s.angle);
         if (s.tlsPhaseIndex.show && myTLLID != "") {
-            const int index = MSNet::getInstance()->getTLSControl().getActive(myTLLID)->getCurrentPhaseIndex();
+            const MSTrafficLightLogic* active = MSNet::getInstance()->getTLSControl().getActive(myTLLID);
+            const int index = active->getCurrentPhaseIndex();
+            const std::string& name = active->getCurrentPhaseDef().getName();
             GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
+            if (name != "") {
+                const Position lower = myJunction.getPosition() - Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale));
+                GLHelper::drawTextSettings(s.tlsPhaseIndex, name, lower, s.scale, s.angle);
+            }
         }
     }
 }
