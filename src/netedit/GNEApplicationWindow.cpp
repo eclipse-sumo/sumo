@@ -109,29 +109,17 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
 
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CREATE_EDGE,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CREATE_EDGE,                    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_MOVE,                           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_MOVE,                           GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_DELETE,                         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_DELETE,                         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_INSPECT,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_INSPECT,                        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_SELECT,                         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_SELECT,                         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CONNECT,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CONNECT,                        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_TLS,                            GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_TLS,                            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_ADDITIONAL,                     GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_ADDITIONAL,                     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_TAZ,                            GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_TAZ,                            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
@@ -523,10 +511,14 @@ GNEApplicationWindow::fillMenuBar() {
 
     new FXMenuSeparator(myEditMenu);
 
-    // build modes command
+    // build Network modes commands and hide it
     myNetworkMenuCommands.buildNetworkMenuCommands(myEditMenu);
-    
-    new FXMenuSeparator(myEditMenu);
+    myNetworkMenuCommands.hideNetworkMenuCommands();
+
+    // build Demand Modes commands
+    myDemandMenuCommands.buildDemandMenuCommands(myEditMenu);
+    myDemandMenuCommands.hideDemandMenuCommands();
+
     new FXMenuCommand(myEditMenu,
                       "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
                       nullptr, this, MID_EDITVIEWSCHEME);
@@ -892,6 +884,9 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         disableSaveAdditionalsMenu();
         disableSaveShapesMenu();
         mySaveTLSProgramsMenuCommand->disable();
+        // hide all Network and demand commands
+        myNetworkMenuCommands.hideNetworkMenuCommands();
+        myDemandMenuCommands.hideDemandMenuCommands();
     }
     return 1;
 }
@@ -1111,6 +1106,8 @@ GNEApplicationWindow::NetworkMenuCommands::showNetworkMenuCommands() {
     crossingMode->show();
     TAZMode->show();
     shapeMode->show();
+    // also show separator
+    myHorizontalSeparator->show();
 }
 
 
@@ -1128,6 +1125,8 @@ GNEApplicationWindow::NetworkMenuCommands::hideNetworkMenuCommands() {
     crossingMode->hide();
     TAZMode->hide();
     shapeMode->hide();
+    // also hide separator
+    myHorizontalSeparator->hide();
 }
 
 
@@ -1169,6 +1168,9 @@ GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* 
     shapeMode = new FXMenuCommand(editMenu,
         "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
         GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_GNE_SETMODE_POLYGON);
+
+    // build separator alos
+    myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
 
 // ---------------------------------------------------------------------------
@@ -1182,19 +1184,22 @@ GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindo
 
 void 
 GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
-    //
+    // also show separator
+    myHorizontalSeparator->show();
 }
 
 
 void 
 GNEApplicationWindow::DemandMenuCommands::hideDemandMenuCommands() {
-    //
+    // also hide separator
+    myHorizontalSeparator->hide();
 }
 
 
 void 
-GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* /*editMenu*/) {
-    //
+GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* editMenu) {
+    // build separator alos
+    myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
 
 // ---------------------------------------------------------------------------
@@ -1218,6 +1223,9 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
         myLoadThread->loadConfigOrNet(file, isNet, useStartupOptions, newNet);
         setStatusBarText("Loading '" + file + "'.");
     }
+    // show Network command menus
+    myNetworkMenuCommands.showNetworkMenuCommands();
+    // update window
     update();
 }
 
@@ -2218,6 +2226,26 @@ GNEApplicationWindow::getMenuBar() const {
     return myMenuBar;
 }
 
+
+void 
+GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
+    // cast supermode
+    Supermode currentSupermode = static_cast<Supermode>(supermode);
+    if (currentSupermode == Supermode::GNE_SUPERMODE_NETWORK) {
+        myNetworkMenuCommands.showNetworkMenuCommands();
+        myDemandMenuCommands.hideDemandMenuCommands();
+    } else if (currentSupermode == Supermode::GNE_SUPERMODE_DEMAND) {
+        myNetworkMenuCommands.hideNetworkMenuCommands();
+        myDemandMenuCommands.showDemandMenuCommands();
+    } else {
+        myNetworkMenuCommands.hideNetworkMenuCommands();
+        myDemandMenuCommands.hideDemandMenuCommands();
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindow - protected methods
+// ---------------------------------------------------------------------------
 
 GNEApplicationWindow::GNEApplicationWindow() :
     myNetworkMenuCommands(this), 

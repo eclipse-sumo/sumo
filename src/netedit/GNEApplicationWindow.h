@@ -329,6 +329,9 @@ public:
     /// @brief The application menu bar
     FXMenuBar* getMenuBar() const;
 
+    /// @brief update FXMenuCommands
+    void updateSuperModeMenuCommands(int supermode);
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
@@ -456,6 +459,9 @@ private:
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow *myGNEApp;
+
+        /// @brief separator between sets of FXMenuCommand
+        FXMenuSeparator *myHorizontalSeparator;
     };
 
     /// @brief struct for Demand menu commands
@@ -476,6 +482,9 @@ private:
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow *myGNEApp;
+
+        /// @brief separator between sets of FXMenuCommand
+        FXMenuSeparator *myHorizontalSeparator;
     };
 
     /// @brief Network Menu Commands

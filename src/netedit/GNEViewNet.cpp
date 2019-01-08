@@ -2656,6 +2656,8 @@ GNEViewNet::setSupermode(Supermode supermode) {
         // update buttons
         mySuperModes.networkButton->update();
         mySuperModes.demandButton->update();
+        // update CommandButtons in GNEAppWindows
+        myViewParent->getGNEAppWindows()->updateSuperModeMenuCommands(mySuperModes.currentSupermode);
     }
 }
 
