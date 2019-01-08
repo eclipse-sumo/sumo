@@ -108,18 +108,18 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                                      GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar edit
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CREATE_EDGE,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_MOVE,                           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_DELETE,                         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_INSPECT,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_SELECT,                         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CONNECT,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_TLS,                            GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_ADDITIONAL,                     GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_TAZ,                            GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_E,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_M,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_D,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_I,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_S,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_C,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_T,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_A,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_R,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_Z,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_P,                             GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_W,                             GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
@@ -256,32 +256,32 @@ GNEApplicationWindow::dependentBuild() {
     // set Netedit ICON
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
     // initialize single hotkeys using decimal code (to avoid problems in Linux)
-    getAccelTable()->addAccel(101, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // e
-    getAccelTable()->addAccel(69,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // E
-    getAccelTable()->addAccel(109, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));         // m
-    getAccelTable()->addAccel(77,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));         // M
-    getAccelTable()->addAccel(100, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_DELETE));       // d
-    getAccelTable()->addAccel(68,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_DELETE));       // D
-    getAccelTable()->addAccel(105, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_INSPECT));      // i
-    getAccelTable()->addAccel(73,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_INSPECT));      // I
-    getAccelTable()->addAccel(115, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));       // s
-    getAccelTable()->addAccel(83,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));       // S
-    getAccelTable()->addAccel(99,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // c
-    getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // C
-    getAccelTable()->addAccel(119, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION));  // w
-    getAccelTable()->addAccel(87,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION));  // W
-    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // t
-    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // T
-    getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // a
-    getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // A
-    getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // r
-    getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // R
-    getAccelTable()->addAccel(122, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // z
-    getAccelTable()->addAccel(90,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // Z
-    getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // p
-    getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // P
-    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // v
-    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // V
+    getAccelTable()->addAccel(101, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_E));   // e
+    getAccelTable()->addAccel(69,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_E));   // E
+    getAccelTable()->addAccel(109, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_M));   // m
+    getAccelTable()->addAccel(77,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_M));   // M
+    getAccelTable()->addAccel(100, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_D));   // d
+    getAccelTable()->addAccel(68,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_D));   // D
+    getAccelTable()->addAccel(105, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_I));   // i
+    getAccelTable()->addAccel(73,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_I));   // I
+    getAccelTable()->addAccel(115, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_S));   // s
+    getAccelTable()->addAccel(83,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_S));   // S
+    getAccelTable()->addAccel(99,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_C));   // c
+    getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_C));   // C
+    getAccelTable()->addAccel(119, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_W));   // w
+    getAccelTable()->addAccel(87,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_W));   // W
+    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_T));   // t
+    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_T));   // T
+    getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_A));   // a
+    getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_A));   // A
+    getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_R));   // r
+    getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_R));   // R
+    getAccelTable()->addAccel(122, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_Z));   // z
+    getAccelTable()->addAccel(90,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_Z));   // Z
+    getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_P));   // p
+    getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_P));   // P
+    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));     // v
+    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));     // V
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_NEWNETWORK));        // Ctrl + N
     getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));                      // Ctrl + O
@@ -1147,40 +1147,40 @@ void
 GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* editMenu) {
     createEdgeMode = new FXMenuCommand(editMenu,
         "&Edge mode\tE\tCreate junction and edges.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SETMODE_CREATE_EDGE);
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SHORTCUT_E);
     moveMode = new FXMenuCommand(editMenu,
         "&Move mode\tM\tMove elements.",
-        GUIIconSubSys::getIcon(ICON_MODEMOVE), myGNEApp, MID_GNE_SETMODE_MOVE);
+        GUIIconSubSys::getIcon(ICON_MODEMOVE), myGNEApp, MID_GNE_SHORTCUT_M);
     deleteMode = new FXMenuCommand(editMenu,
         "&Delete mode\tD\tDelete elements.",
-        GUIIconSubSys::getIcon(ICON_MODEDELETE), myGNEApp, MID_GNE_SETMODE_DELETE);
+        GUIIconSubSys::getIcon(ICON_MODEDELETE), myGNEApp, MID_GNE_SHORTCUT_D);
     inspectMode = new FXMenuCommand(editMenu,
         "&Inspect mode\tI\tInspect elements and change their attributes.",
-        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myGNEApp, MID_GNE_SETMODE_INSPECT);
+        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myGNEApp, MID_GNE_SHORTCUT_I);
     selectMode = new FXMenuCommand(editMenu,
         "&Select mode\tS\tSelect elements.",
-        GUIIconSubSys::getIcon(ICON_MODESELECT), myGNEApp, MID_GNE_SETMODE_SELECT);
+        GUIIconSubSys::getIcon(ICON_MODESELECT), myGNEApp, MID_GNE_SHORTCUT_S);
     connectMode = new FXMenuCommand(editMenu,
         "&Connection mode\tC\tEdit connections between lanes.",
-        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myGNEApp, MID_GNE_SETMODE_CONNECT);
+        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myGNEApp, MID_GNE_SHORTCUT_C);
     prohibitionMode = new FXMenuCommand(editMenu,
         "Pro&hibition mode\tW\tEdit connection prohibitions.",
-        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myGNEApp, MID_GNE_SETMODE_PROHIBITION);
+        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myGNEApp, MID_GNE_SHORTCUT_W);
     TLSMode = new FXMenuCommand(editMenu,
         "&Traffic light mode\tT\tEdit traffic lights over junctions.",
-        GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp, MID_GNE_SETMODE_TLS);
+        GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp, MID_GNE_SHORTCUT_T);
     additionalMode = new FXMenuCommand(editMenu,
         "&Additional mode\tA\tCreate additional elements.",
-        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp, MID_GNE_SETMODE_ADDITIONAL);
+        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp, MID_GNE_SHORTCUT_A);
     crossingMode = new FXMenuCommand(editMenu,
         "C&rossing mode\tR\tCreate crossings between edges.",
-        GUIIconSubSys::getIcon(ICON_MODECROSSING), myGNEApp, MID_GNE_SETMODE_CROSSING);
+        GUIIconSubSys::getIcon(ICON_MODECROSSING), myGNEApp, MID_GNE_SHORTCUT_R);
     TAZMode = new FXMenuCommand(editMenu,
         "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
-        GUIIconSubSys::getIcon(ICON_MODETAZ), myGNEApp, MID_GNE_SETMODE_TAZ);
+        GUIIconSubSys::getIcon(ICON_MODETAZ), myGNEApp, MID_GNE_SHORTCUT_Z);
     shapeMode = new FXMenuCommand(editMenu,
         "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
-        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_GNE_SETMODE_POLYGON);
+        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_GNE_SHORTCUT_P);
 
     // build separator alos
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
@@ -1397,8 +1397,10 @@ GNEApplicationWindow::enableSaveTLSProgramsMenu() {
 
 long
 GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
-    if (getView()) {
-        getView()->setEditModeFromHotkey(FXSELID(sel));
+    // check that currently there is a View
+    GNEViewNet *viewNet = getView();
+    if (viewNet) {
+        viewNet->setEditModeFromHotkey(FXSELID(sel));
     }
     return 1;
 }

@@ -90,7 +90,6 @@ public:
         GNENet* myNet;
     };
 
-
     /**@brief Constructor
      * @param[in] a The FOX application
      * @param[in] configPattern The pattern used for loading configurations

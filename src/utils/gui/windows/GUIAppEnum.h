@@ -486,31 +486,30 @@ enum {
 
     /// @name Toolbar set network modes messages
     /// @{
-
-    /// @brief mode for adding edges
-    MID_GNE_SETMODE_CREATE_EDGE,
-    /// @brief mode for moving things
-    MID_GNE_SETMODE_MOVE,
-    /// @brief mode for deleting things
-    MID_GNE_SETMODE_DELETE,
-    /// @brief mode for inspecting object attributes
-    MID_GNE_SETMODE_INSPECT,
-    /// @brief mode for selecting objects
-    MID_GNE_SETMODE_SELECT,
-    /// @brief mode for connecting lanes
-    MID_GNE_SETMODE_CONNECT,
-    /// @brief mode for editing tls
-    MID_GNE_SETMODE_TLS,
-    /// @brief mode for editing additional
-    MID_GNE_SETMODE_ADDITIONAL,
-    /// @brief mode for editing crossing
-    MID_GNE_SETMODE_CROSSING,
-    /// @brief mode for editing TAZ
-    MID_GNE_SETMODE_TAZ,
-    /// @brief mode for creating polygons
-    MID_GNE_SETMODE_POLYGON,
-    /// @brief mode for editing connection prohibitions
-    MID_GNE_SETMODE_PROHIBITION,
+    /// @brief shortcut for mode adding edges
+    MID_GNE_SHORTCUT_E,
+    /// @brief shortcut for mode moving element
+    MID_GNE_SHORTCUT_M,
+    /// @brief shortcut for mode deleting things
+    MID_GNE_SHORTCUT_D,
+    /// @brief shortcut for mode inspecting object attributes
+    MID_GNE_SHORTCUT_I,
+    /// @brief shortcut for mode selecting objects
+    MID_GNE_SHORTCUT_S,
+    /// @brief shortcut for mode connecting lanes
+    MID_GNE_SHORTCUT_C,
+    /// @brief shortcut for mode editing TLS
+    MID_GNE_SHORTCUT_T,
+    /// @brief shortcut for mode editing additional
+    MID_GNE_SHORTCUT_A,
+    /// @brief shortcut for mode editing crossing AND routes
+    MID_GNE_SHORTCUT_R,
+    /// @brief shortcut for mode editing TAZ
+    MID_GNE_SHORTCUT_Z,
+    /// @brief shortcut for mode creating polygons
+    MID_GNE_SHORTCUT_P,
+    /// @brief shortcut for mode editing connection prohibitions
+    MID_GNE_SHORTCUT_W,
     /// @}
 
 
