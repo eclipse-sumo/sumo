@@ -210,7 +210,9 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
-    myTitlePrefix("NETEDIT " VERSION_STRING) {
+    myTitlePrefix("NETEDIT " VERSION_STRING),
+    myNetworkMenuCommands(this),
+    myDemandMenuCommands(this) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
@@ -522,43 +524,8 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
 
     // build modes command
-    new FXMenuCommand(myEditMenu,
-                      "&Edge mode\tE\tCreate junction and edges.",
-                      GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_SETMODE_CREATE_EDGE);
-    new FXMenuCommand(myEditMenu,
-                      "&Move mode\tM\tMove elements.",
-                      GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_SETMODE_MOVE);
-    new FXMenuCommand(myEditMenu,
-                      "&Delete mode\tD\tDelete elements.",
-                      GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_SETMODE_DELETE);
-    new FXMenuCommand(myEditMenu,
-                      "&Inspect mode\tI\tInspect elements and change their attributes.",
-                      GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_SETMODE_INSPECT);
-    new FXMenuCommand(myEditMenu,
-                      "&Select mode\tS\tSelect elements.",
-                      GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_SETMODE_SELECT);
-    new FXMenuCommand(myEditMenu,
-                      "&Connection mode\tC\tEdit connections between lanes.",
-                      GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_SETMODE_CONNECT);
-    new FXMenuCommand(myEditMenu,
-                      "Pro&hibition mode\tW\tEdit connection prohibitions.",
-                      GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), this, MID_GNE_SETMODE_PROHIBITION);
-    new FXMenuCommand(myEditMenu,
-                      "&Traffic light mode\tT\tEdit traffic lights over junctions.",
-                      GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_SETMODE_TLS);
-    new FXMenuCommand(myEditMenu,
-                      "&Additional mode\tA\tCreate additional elements.",
-                      GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_SETMODE_ADDITIONAL);
-    new FXMenuCommand(myEditMenu,
-                      "C&rossing mode\tR\tCreate crossings between edges.",
-                      GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING);
-    new FXMenuCommand(myEditMenu,
-                      "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
-                      GUIIconSubSys::getIcon(ICON_MODETAZ), this, MID_GNE_SETMODE_TAZ);
-    new FXMenuCommand(myEditMenu,
-                      "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
-                      GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON);
-
+    myNetworkMenuCommands.buildNetworkMenuCommands(myEditMenu);
+    
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
@@ -1025,15 +992,14 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
         setWindowSizeAndPos();
-        // initialise views
-        myViewNumber = 0;
-        GUISUMOAbstractView* view = openNewView();
-        if (view && ec->mySettingsFile != "") {
+        // initialise NETEDIT VIEW
+        GUISUMOAbstractView* neteditView = openNewView();
+        if (neteditView && ec->mySettingsFile != "") {
             GUISettingsHandler settings(ec->mySettingsFile, true, true);
-            std::string settingsName = settings.addSettings(view);
-            view->addDecals(settings.getDecals());
-            settings.applyViewport(view);
-            settings.setSnapshots(view);
+            std::string settingsName = settings.addSettings(neteditView);
+            neteditView->addDecals(settings.getDecals());
+            settings.applyViewport(neteditView);
+            settings.setSnapshots(neteditView);
         }
         // set network name on the caption
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
@@ -1110,6 +1076,131 @@ GNEApplicationWindow::handleEvent_Message(GUIEvent* e) {
 }
 
 
+// ---------------------------------------------------------------------------
+// GNEViewNet::NetworkCheckableButtons - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::NetworkMenuCommands::NetworkMenuCommands(GNEApplicationWindow *GNEApp) :
+    myGNEApp(GNEApp),
+    createEdgeMode(nullptr),
+    moveMode(nullptr),
+    deleteMode(nullptr),
+    inspectMode(nullptr),
+    selectMode(nullptr),
+    connectMode(nullptr),
+    prohibitionMode(nullptr),
+    TLSMode(nullptr),
+    additionalMode(nullptr),
+    crossingMode(nullptr),
+    TAZMode(nullptr),
+    shapeMode(nullptr) {
+}
+
+
+void 
+GNEApplicationWindow::NetworkMenuCommands::showNetworkMenuCommands() {
+    createEdgeMode->show();
+    moveMode->show();
+    deleteMode->show();
+    inspectMode->show();
+    selectMode->show();
+    connectMode->show();
+    prohibitionMode->show();
+    TLSMode->show();
+    additionalMode->show();
+    crossingMode->show();
+    TAZMode->show();
+    shapeMode->show();
+}
+
+
+void 
+GNEApplicationWindow::NetworkMenuCommands::hideNetworkMenuCommands() {
+    createEdgeMode->hide();
+    moveMode->hide();
+    deleteMode->hide();
+    inspectMode->hide();
+    selectMode->hide();
+    connectMode->hide();
+    prohibitionMode->hide();
+    TLSMode->hide();
+    additionalMode->hide();
+    crossingMode->hide();
+    TAZMode->hide();
+    shapeMode->hide();
+}
+
+
+void 
+GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* editMenu) {
+    createEdgeMode = new FXMenuCommand(editMenu,
+        "&Edge mode\tE\tCreate junction and edges.",
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SETMODE_CREATE_EDGE);
+    moveMode = new FXMenuCommand(editMenu,
+        "&Move mode\tM\tMove elements.",
+        GUIIconSubSys::getIcon(ICON_MODEMOVE), myGNEApp, MID_GNE_SETMODE_MOVE);
+    deleteMode = new FXMenuCommand(editMenu,
+        "&Delete mode\tD\tDelete elements.",
+        GUIIconSubSys::getIcon(ICON_MODEDELETE), myGNEApp, MID_GNE_SETMODE_DELETE);
+    inspectMode = new FXMenuCommand(editMenu,
+        "&Inspect mode\tI\tInspect elements and change their attributes.",
+        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myGNEApp, MID_GNE_SETMODE_INSPECT);
+    selectMode = new FXMenuCommand(editMenu,
+        "&Select mode\tS\tSelect elements.",
+        GUIIconSubSys::getIcon(ICON_MODESELECT), myGNEApp, MID_GNE_SETMODE_SELECT);
+    connectMode = new FXMenuCommand(editMenu,
+        "&Connection mode\tC\tEdit connections between lanes.",
+        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myGNEApp, MID_GNE_SETMODE_CONNECT);
+    prohibitionMode = new FXMenuCommand(editMenu,
+        "Pro&hibition mode\tW\tEdit connection prohibitions.",
+        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myGNEApp, MID_GNE_SETMODE_PROHIBITION);
+    TLSMode = new FXMenuCommand(editMenu,
+        "&Traffic light mode\tT\tEdit traffic lights over junctions.",
+        GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp, MID_GNE_SETMODE_TLS);
+    additionalMode = new FXMenuCommand(editMenu,
+        "&Additional mode\tA\tCreate additional elements.",
+        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp, MID_GNE_SETMODE_ADDITIONAL);
+    crossingMode = new FXMenuCommand(editMenu,
+        "C&rossing mode\tR\tCreate crossings between edges.",
+        GUIIconSubSys::getIcon(ICON_MODECROSSING), myGNEApp, MID_GNE_SETMODE_CROSSING);
+    TAZMode = new FXMenuCommand(editMenu,
+        "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
+        GUIIconSubSys::getIcon(ICON_MODETAZ), myGNEApp, MID_GNE_SETMODE_TAZ);
+    shapeMode = new FXMenuCommand(editMenu,
+        "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
+        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_GNE_SETMODE_POLYGON);
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::DemandCheckableButtons - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindow *GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void 
+GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
+    //
+}
+
+
+void 
+GNEApplicationWindow::DemandMenuCommands::hideDemandMenuCommands() {
+    //
+}
+
+
+void 
+GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* /*editMenu*/) {
+    //
+}
+
+// ---------------------------------------------------------------------------
+// private methods
+// ---------------------------------------------------------------------------
+
 void
 GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool useStartupOptions, bool newNet) {
     if (!continueWithUnsavedChanges()) {
@@ -1134,10 +1225,9 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
 
 GUISUMOAbstractView*
 GNEApplicationWindow::openNewView() {
-    std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     // create view parent
-    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(), myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
+    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, getBuildGLCanvas(), myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
     if (myMDIClient->numChildren() == 1) {
         viewParent->maximize();
     } else {
@@ -2126,6 +2216,12 @@ GNEApplicationWindow::updateControls() {
 FXMenuBar* 
 GNEApplicationWindow::getMenuBar() const {
     return myMenuBar;
+}
+
+
+GNEApplicationWindow::GNEApplicationWindow() :
+    myNetworkMenuCommands(this), 
+    myDemandMenuCommands(this) {
 }
 
 

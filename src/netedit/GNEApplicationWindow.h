@@ -331,19 +331,13 @@ public:
 
 protected:
     /// @brief FOX needs this for static members
-    GNEApplicationWindow() {}
+    GNEApplicationWindow();
 
     /// @brief Builds the menu bar
     virtual void fillMenuBar();
 
-    /// @brief the name of the simulation
-    std::string myName;
-
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread;
-
-    /// @brief The current view number
-    int myViewNumber;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading;
@@ -408,6 +402,88 @@ protected:
     std::string myTLSProgramsFile;
 
 private:
+    /// @brief struct for network menu commands
+    struct NetworkMenuCommands {
+
+        /// @brief constructor
+        NetworkMenuCommands(GNEApplicationWindow *GNEApp);
+
+        /// @brief build menu commands
+        void buildNetworkMenuCommands(FXMenuPane* editMenu);
+
+        /// @brief show all menu commands
+        void showNetworkMenuCommands();
+
+        /// @brief hide all menu commands
+        void hideNetworkMenuCommands();
+
+        /// @brief menu command for create edge
+        FXMenuCommand *createEdgeMode;
+
+        /// @brief menu command for move mode
+        FXMenuCommand *moveMode;
+
+        /// @brief menu command for delete mode
+        FXMenuCommand *deleteMode;
+
+        /// @brief menu command for inspect mode
+        FXMenuCommand *inspectMode;
+
+        /// @brief menu command for select mode
+        FXMenuCommand *selectMode;
+
+        /// @brief menu command for connect mode
+        FXMenuCommand *connectMode;
+
+        /// @brief menu command for prohibition mode
+        FXMenuCommand *prohibitionMode;
+
+        /// @brief menu command for TLS Mode
+        FXMenuCommand *TLSMode;
+
+        /// @brief menu command for additional mode
+        FXMenuCommand *additionalMode;
+
+        /// @brief menu command for crossing mode
+        FXMenuCommand *crossingMode;
+
+        /// @brief menu command for TAZ mode
+        FXMenuCommand *TAZMode;
+
+        /// @brief menu command for shape mode
+        FXMenuCommand *shapeMode;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow *myGNEApp;
+    };
+
+    /// @brief struct for Demand menu commands
+    struct DemandMenuCommands {
+
+        /// @brief constructor
+        DemandMenuCommands(GNEApplicationWindow *GNEApp);
+
+        /// @brief build menu commands
+        void buildDemandMenuCommands(FXMenuPane* editMenu);
+
+        /// @brief show all menu commands
+        void showDemandMenuCommands();
+
+        /// @brief hide all menu commands
+        void hideDemandMenuCommands();
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow *myGNEApp;
+    };
+
+    /// @brief Network Menu Commands
+    NetworkMenuCommands myNetworkMenuCommands;
+
+    /// @brief Demand Menu Commands
+    DemandMenuCommands myDemandMenuCommands;
+
     /// @brief FXMenuCommand for enable or disable save additionals
     FXMenuCommand* mySaveAdditionalsMenuCommand;
 
