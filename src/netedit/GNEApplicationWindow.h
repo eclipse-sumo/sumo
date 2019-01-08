@@ -512,6 +512,9 @@ private:
         /// @brief hide all menu commands
         void hideDemandMenuCommands();
 
+        /// @brief menu command for route mode
+        FXMenuCommand *routeMode;
+
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow *myGNEApp;

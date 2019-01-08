@@ -1145,6 +1145,7 @@ GNEApplicationWindow::NetworkMenuCommands::hideNetworkMenuCommands() {
 
 void 
 GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* editMenu) {
+    // build every FXMenuCommand giving it a shortcut
     createEdgeMode = new FXMenuCommand(editMenu,
         "&Edge mode\tE\tCreate junction and edges.",
         GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SHORTCUT_E);
@@ -1182,7 +1183,7 @@ GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* 
         "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
         GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_GNE_SHORTCUT_P);
 
-    // build separator alos
+    // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
 
@@ -1191,12 +1192,14 @@ GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* 
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindow *GNEApp) :
-    myGNEApp(GNEApp) {
+    myGNEApp(GNEApp),
+    routeMode(nullptr) {
 }
 
 
 void 
 GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
+    routeMode->show();
     // also show separator
     myHorizontalSeparator->show();
 }
@@ -1204,6 +1207,7 @@ GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
 
 void 
 GNEApplicationWindow::DemandMenuCommands::hideDemandMenuCommands() {
+    routeMode->hide();
     // also hide separator
     myHorizontalSeparator->hide();
 }
@@ -1211,7 +1215,11 @@ GNEApplicationWindow::DemandMenuCommands::hideDemandMenuCommands() {
 
 void 
 GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* editMenu) {
-    // build separator alos
+    // build every FXMenuCommand giving it a shortcut
+    routeMode = new FXMenuCommand(editMenu,
+        "&Route mode\tR\tCreate Routes.",
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SHORTCUT_R);
+    // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
 
