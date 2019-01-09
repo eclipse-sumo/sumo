@@ -152,7 +152,7 @@ class EdgeDomain(Domain):
     def getLastStepOccupancy(self, edgeID):
         """getLastStepOccupancy(string) -> double
 
-        Returns the occupancy in % for the last time step on the given edge.
+        Returns the net occupancy (excluding inter-vehicle gaps) in % for the last time step on the given edge.
         """
         return self._getUniversal(tc.LAST_STEP_OCCUPANCY, edgeID)
 
