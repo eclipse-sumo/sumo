@@ -2272,6 +2272,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     << " vLinkWait=" << vLinkWait
                     << " brakeDist=" << brakeDist
                     << " seen=" << seen
+                    << " leaveIntersection=" << leavingCurrentIntersection
+                    << " setRequest=" << setRequest
                     << "\n";
         }
 #endif
@@ -2605,10 +2607,16 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                         || leader->isStopped()
                         || leader->getWaitingTime() > TIME2STEPS(JUNCTION_BLOCKAGE_TIME))) {
                 setRequest = false;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                if (DEBUG_COND) std::cout << "   aborting request\n";
+#endif
                 if (lastLink != nullptr && leader->getLane()->getLogicalPredecessorLane() == myLane) {
                     // we are not yet on the junction so must abort that request as well
                     // (or maybe we are already on the junction and the leader is a partial occupator beyond)
                     lastLink->mySetRequest = false;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                    if (DEBUG_COND) std::cout << "      aborting previous request\n";
+#endif
                 }
             }
         }
