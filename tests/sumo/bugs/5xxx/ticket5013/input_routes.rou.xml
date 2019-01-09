@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="normal" accel="1.5" decel="2.5" sigma="0.0"/>
+    <vType id="sporty" accel="2.5" decel="5.0" sigma="0.0" minGap="0.5"/>
+    <vehicle id="SW" type="normal" depart="0" departSpeed="max">
+        <route edges="SC CW"/>
+    </vehicle>
+    <vehicle id="NE" type="normal" depart="0" departSpeed="max">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="SE" type="sporty" depart="0" departSpeed="max">
+        <route edges="SC CE"/>
+    </vehicle>
+    <vehicle id="NW" type="sporty" depart="0" departSpeed="max">
+        <route edges="NC CW"/>
+    </vehicle>
+
+</routes>
