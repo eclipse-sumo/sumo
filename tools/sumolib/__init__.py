@@ -124,14 +124,15 @@ def checkBinary(name, bindir=None):
         binary = join(env.get("SUMO_HOME"), "bin", name)
         if exeExists(binary):
             return binary
-    binary = os.path.abspath(
-        join(os.path.dirname(__file__), '..', '..', 'bin', name))
-    if exeExists(binary):
-        return binary
+    if bindir is None:
+        binary = os.path.abspath(join(os.path.dirname(__file__), '..', '..', 'bin', name))
+        if exeExists(binary):
+            return binary
     if name[-1] != "D" and name[-5:] != "D.exe":
-        if name[-4:] == ".exe":
-            return checkBinary(name[:-4] + "D")
-        return checkBinary(name + "D")
+        binaryD = (name[:-4] if name[-4:] == ".exe" else name) + "D"
+        found = checkBinary(binaryD, bindir)
+        if found != binaryD:
+            return found
     return name
 
 
