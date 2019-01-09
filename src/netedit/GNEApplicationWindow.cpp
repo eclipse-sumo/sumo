@@ -326,6 +326,7 @@ GNEApplicationWindow::create() {
     myFileMenuShapes->create();
     myFileMenuAdditionals->create();
     myFileMenuTLS->create();
+    myFileMenuDemandElements->create();
     //mySettingsMenu->create();
     myWindowsMenu->create();
     myHelpMenu->create();
@@ -357,6 +358,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myFileMenuShapes,
     delete myFileMenuAdditionals,
     delete myFileMenuTLS,
+    delete myFileMenuDemandElements,
     delete myFileMenu;
     delete myEditMenu;
     delete myLocatorMenu;
@@ -1043,6 +1045,20 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
                       "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
     new FXMenuCascade(fileMenu, "Traffic Lights", GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp->myFileMenuTLS);
+    // create DemandElements menu options
+    myGNEApp->myFileMenuDemandElements = new FXMenuPane(myGNEApp);
+    new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
+                      "Load demand elements...\t\tLoad demand elements.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_OPEN_ADDITIONALS);
+    saveDemandElements = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
+            "Save demand elements\t\tSave demand elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
+    saveDemandElements->disable();
+    saveDemandElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
+            "Save demand elements as...\t\tSave demand elements in another file.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+    saveDemandElementsAs->disable();
+    new FXMenuCascade(fileMenu, "Demand elements", GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp->myFileMenuDemandElements);
     // close network
     new FXMenuSeparator(fileMenu);
     new FXMenuCommand(fileMenu,
@@ -1391,6 +1407,20 @@ GNEApplicationWindow::disableSaveShapesMenu() {
 void
 GNEApplicationWindow::enableSaveTLSProgramsMenu() {
     myFileMenuCommands.saveTLSPrograms->enable();
+}
+
+
+void
+GNEApplicationWindow::enableSaveDemandElementsMenu() {
+    myFileMenuCommands.saveDemandElements->disable();
+    myFileMenuCommands.saveDemandElementsAs->disable();
+}
+
+
+void
+GNEApplicationWindow::disableSaveDemandElementsMenu() {
+    myFileMenuCommands.saveDemandElements->disable();
+    myFileMenuCommands.saveDemandElementsAs->disable();
 }
 
 

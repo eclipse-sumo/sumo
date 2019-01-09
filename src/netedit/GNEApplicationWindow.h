@@ -135,6 +135,12 @@ public:
     /// @brief enable save TLS Programs
     void enableSaveTLSProgramsMenu();
 
+    /// @brief enable save demand elements
+    void enableSaveDemandElementsMenu();
+
+    /// @brief disable save demand elements
+    void disableSaveDemandElementsMenu();
+
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred
@@ -338,6 +344,7 @@ protected:
                 *myFileMenuShapes,
                 *myFileMenuAdditionals,
                 *myFileMenuTLS,
+                *myFileMenuDemandElements,
                 *myEditMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
@@ -419,6 +426,12 @@ private:
 
         /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveTLSPrograms;
+
+        /// @brief FXMenuCommand for enable or disable save demand elements
+        FXMenuCommand* saveDemandElements;
+
+        /// @brief FXMenuCommand for enable or disable save demand elements as
+        FXMenuCommand* saveDemandElementsAs;
 
     private:
         /// @brief pointer to current GNEApplicationWindows

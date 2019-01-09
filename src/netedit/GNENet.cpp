@@ -2022,7 +2022,6 @@ GNENet::updateDemandElementID(const std::string& oldID, GNEDemandElement* demand
 
 void
 GNENet::requiereSaveDemandElements(bool value) {
-/*
     if (myDemandElementsSaved == true) {
         WRITE_DEBUG("DemandElements has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
@@ -2037,19 +2036,16 @@ GNENet::requiereSaveDemandElements(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDemandElementsMenu();
         }
     }
-*/
 }
 
 
 void
 GNENet::saveDemandElements(const std::string& filename) {
-/*
     saveDemandElementsConfirmed(filename);
     // change value of flag
     myDemandElementsSaved = true;
     // show debug information
     WRITE_DEBUG("DemandElements saved");
-*/
 }
 
 
@@ -2127,6 +2123,37 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
             }
         }
     }
+    device.close();
+}
+
+
+
+
+
+void
+GNENet::saveDemandElementsConfirmed(const std::string& filename) {
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    device.writeXMLHeader("routes", "route_file.xsd");
+    /*
+    // first write all vehicle types (Except DEFAULT_VTYPE_ID)
+    for (auto i : myAttributeCarriers.additionals) {
+        if (i.first == SUMO_TAG_VTYPE) {
+            for (auto j : i.second) {
+                if (j.second->getID() != DEFAULT_VTYPE_ID) {
+                    j.second->writeDemandElement(device);
+                }
+            }
+        }
+    }
+    // now write all routes
+    for (auto i : myAttributeCarriers.additionals) {
+        if (i.first == SUMO_TAG_ROUTE) {
+            for (auto j : i.second) {
+                j.second->writeDemandElement(device);
+            }
+        }
+    }
+    */
     device.close();
 }
 
