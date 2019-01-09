@@ -29,9 +29,6 @@
 // ===========================================================================
 class GNEAdditional;
 class GNEViewNet;
-class GNEDetectorEntry;
-class GNEDetectorExit;
-class GNEDetectorE3;
 class GNELane;
 class GNEEdge;
 
