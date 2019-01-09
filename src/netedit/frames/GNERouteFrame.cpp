@@ -42,11 +42,12 @@
 // ===========================================================================
 
 GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Route") {
+    GNEFrame(horizontalFrameParent, viewNet, "Routes") {
 }
 
 
 GNERouteFrame::~GNERouteFrame() {}
+
 
 void
 GNERouteFrame::show() {

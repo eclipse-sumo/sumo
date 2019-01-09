@@ -2877,6 +2877,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // enable selected controls
     switch (mySuperModes.demandEditMode) {
         case GNE_DMODE_ROUTES:
+            myViewParent->getRouteFrame()->show();
+            myViewParent->getRouteFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getRouteFrame();
             myDemandCheckableButtons.routeButton->setChecked(true);
             break;
         default:
@@ -4124,7 +4127,7 @@ GNEViewNet::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) 
 void 
 GNEViewNet::DemandCheckableButtons::buildDemandCheckableButtons() {
     routeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tcreate route mode\tMode for creating routes.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SHORTCUT_R, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEROUTE), myViewNet, MID_GNE_SHORTCUT_R, GUIDesignButtonToolbarCheckable);
 }
 
 

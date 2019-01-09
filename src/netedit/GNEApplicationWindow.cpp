@@ -1220,7 +1220,7 @@ GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* ed
     // build every FXMenuCommand giving it a shortcut
     routeMode = new FXMenuCommand(editMenu,
         "&Route mode\tR\tCreate Routes.",
-        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SHORTCUT_R);
+        GUIIconSubSys::getIcon(ICON_MODEROUTE), myGNEApp, MID_GNE_SHORTCUT_R);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
