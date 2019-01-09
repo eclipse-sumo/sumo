@@ -195,11 +195,12 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
-    myTitlePrefix("NETEDIT " VERSION_STRING),
     myFileMenuCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
-    myViewNet(nullptr) {
+    myViewNet(nullptr), 
+    myTitlePrefix("NETEDIT " VERSION_STRING) 
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
