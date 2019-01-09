@@ -131,7 +131,7 @@ enum {
     /// @brief Open in netedit
     MID_NETEDIT,
     /// @brief Open in SUMO GUI
-    MID_SUMOGUI,
+    MID_GNE_HOTKEY_CTRL_T,
     /// @}
 
 
@@ -413,16 +413,20 @@ enum {
     /// @name NETEDIT hotkeys
     /// @{
 
+    /// @brief hot key <F1> open online documentation
+    MID_GNE_HOTKEY_F1,    
+    /// @brief hot key <F2> open about dialog
+    MID_GNE_HOTKEY_F2,
     /// @brief hot key <ESC> abort current edit operation
     MID_GNE_HOTKEY_ESC,
     /// @brief hot key <F12> focus upper element of current frame
-    MID_GNE_HOTKEY_FOCUSFRAME,
+    MID_GNE_HOTKEY_F12,
     /// @brief hot key <DEL> delete selections or elements
     MID_GNE_HOTKEY_DEL,
     /// @brief hot key <ENTER> accept current operation
     MID_GNE_HOTKEY_ENTER,
     /// @brief hot key <Ctrl + G> for toogle grid
-    MID_GNE_HOTKEY_TOOGLE_GRID,
+    MID_GNE_HOTKEY_CTRL_G,
     /// @}
 
 
@@ -430,27 +434,27 @@ enum {
     /// @{
 
     /// @brief create new empty newtork
-    MID_GNE_TOOLBARFILE_NEWNETWORK,
+    MID_GNE_HOTKEY_CTRL_N,
     /// @brief open foreign network
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
     /// @brief save newtork
-    MID_GNE_TOOLBARFILE_SAVENETWORK,
+    MID_GNE_HOTKEY_CTRL_S,
     /// @brief save newtwork as
-    MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
+    MID_GNE_HOTKEY_CTRL_SHIFT_S,
     /// @brief save network as plain XML
-    MID_GNE_TOOLBARFILE_SAVEPLAINXML,
+    MID_GNE_HOTKEY_CTRL_L,
     /// @brief save joined junctions
-    MID_GNE_TOOLBARFILE_SAVEJOINED,
+    MID_GNE_HOTKEY_CTRL_J,
     /// @brief Save shapes
-    MID_GNE_TOOLBARFILE_SAVESHAPES,
+    MID_GNE_HOTKEY_CTRL_SHIFT_P,
     /// @brief save shapes as
     MID_GNE_TOOLBARFILE_SAVESHAPES_AS,
     /// @brief Save additionals
-    MID_GNE_TOOLBARFILE_SAVEADDITIONALS,
+    MID_GNE_HOTKEY_CTRL_SHIFT_D,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
     /// @brief save TLS Programs
-    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,
+    MID_GNE_HOTKEY_CTRL_SHIFT_K,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @}
@@ -460,17 +464,17 @@ enum {
     /// @{
 
     /// @brief compute junctions
-    MID_GNE_PROCESSING_COMPUTEJUNCTIONS,
+    MID_GNE_HOTKEY_F5,
     /// @brief compute junctions with volatile options
-    MID_GNE_PROCESSING_COMPUTEJUNCTIONS_VOLATILE,
+    MID_GNE_HOTKEY_SHIFT_F5,
     /// @brief clean junctions without edges
-    MID_GNE_PROCESSING_CLEANJUNCTIONS,
+    MID_GNE_HOTKEY_F6,
     /// @brief join selected junctions
-    MID_GNE_PROCESSING_JOINJUNCTIONS,
+    MID_GNE_HOTKEY_F7,
     /// @brief clean invalid crossings
-    MID_GNE_PROCESSING_CLEANINVALIDCROSSINGS,
+    MID_GNE_HOTKEY_F8,
     /// @brief open options menu
-    MID_GNE_PROCESSING_OPTIONS,
+    MID_GNE_HOTKEY_F10,
     /// @}
 
         
