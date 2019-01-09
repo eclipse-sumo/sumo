@@ -662,7 +662,7 @@ public:
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
      * @param[in] id TAZ ID
      * @param[in] shape TAZ shape
-     * @param[in] edges list of edges (note: This will create GNETAZSources/Sinks with default values)
+     * @param[in] edges list of edges (note: This will create GNETAZSourceSinks/Sinks with default values)
      * @param[in] blockMovemet enable or disable block movement
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous

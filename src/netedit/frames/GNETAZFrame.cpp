@@ -29,8 +29,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/additionals/GNETAZ.h>
-#include <netedit/additionals/GNETAZSink.h>
-#include <netedit/additionals/GNETAZSource.h>
+#include <netedit/additionals/GNETAZSourceSink.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/GNEUndoList.h>
 
@@ -1543,10 +1542,10 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge *edge) {
         // if wasn't found, then add it
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // create TAZ Sink using GNEChange_Additional and value of TAZChild default parameters
-        GNETAZSource* TAZSource = new GNETAZSource(myTAZCurrent->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
+        GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myTAZCurrent->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
         myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
         // create TAZ Sink using GNEChange_Additional and value of TAZChild default parameters
-        GNETAZSink* TAZSink = new GNETAZSink(myTAZCurrent->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
+        GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myTAZCurrent->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
         myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
         // always refresh TAZ Edges after adding TAZSources/Sinks
         myTAZCurrent->refreshTAZEdges();

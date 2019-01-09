@@ -189,7 +189,7 @@ public class SumoTraciConnection {
 		if (value != null)
 			args.add(value);
 	}
-	
+
 	/**
 	 * Runs a SUMO instance and tries to connect at it.
 	 * 
@@ -198,12 +198,26 @@ public class SumoTraciConnection {
 	 *             at it.
 	 */
 	public void runServer() throws IOException {
+        runServer(0);
+    }
+	
+	/**
+	 * Runs a SUMO instance and tries to connect at it.
+	 * 
+	 * @throws IOException
+	 *             if something wrong occurs while starting SUMO or connecting
+	 *             at it.
+	 */
+	public void runServer(int _remotePort) throws IOException {
 		
 		
 		
 		if(!this.remote){
 		
-		findAvailablePort();
+        remotePort = _remotePort;
+        if (remotePort == 0) {
+            findAvailablePort();
+        }
 
 		runSUMO();
 
@@ -229,7 +243,7 @@ public class SumoTraciConnection {
 			}
 
 			if (!socket.isConnected()) {
-				throw new IOException("can't connect to SUMO server");
+				throw new IOException("can't connect to SUMO server at " + remotePort);
 			}else{
 				this.cp = new CommandProcessor(socket);
 			}

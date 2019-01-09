@@ -185,10 +185,7 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4355)
-#endif
+
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
     myLoadThread(nullptr),
@@ -201,7 +198,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myTitlePrefix("NETEDIT " VERSION_STRING),
     myFileMenuCommands(this),
     myNetworkMenuCommands(this),
-    myDemandMenuCommands(this) {
+    myDemandMenuCommands(this),
+    myViewNet(nullptr) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
@@ -209,9 +207,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     // init cursors
     GUICursorSubSys::initCursors(a);
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 void
@@ -879,26 +874,33 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
         setWindowSizeAndPos();
-        // initialise NETEDIT VIEW
-        GUISUMOAbstractView* neteditView = openNewView();
-        if (neteditView && ec->mySettingsFile != "") {
+        // initialise NETEDIT View
+        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
+        // create it maximized
+        viewParent->maximize();
+        // mark it as Active child
+        myMDIClient->setActiveChild(viewParent);
+        // cast pointer myViewNet
+        myViewNet = dynamic_cast<GNEViewNet*>(viewParent->getView());
+        // set settings in view
+        if (viewParent->getView() && ec->mySettingsFile != "") {
             GUISettingsHandler settings(ec->mySettingsFile, true, true);
-            std::string settingsName = settings.addSettings(neteditView);
-            neteditView->addDecals(settings.getDecals());
-            settings.applyViewport(neteditView);
-            settings.setSnapshots(neteditView);
+            std::string settingsName = settings.addSettings(viewParent->getView());
+            viewParent->getView()->addDecals(settings.getDecals());
+            settings.applyViewport(viewParent->getView());
+            settings.setSnapshots(viewParent->getView());
         }
         // set network name on the caption
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
         // set supermode network
-        if(getView()) {
-            getView()->onCmdSetSupermode(0, MID_GNE_SETSUPERMODE_NETWORK, 0);
+        if(myViewNet) {
+            myViewNet->onCmdSetSupermode(0, MID_GNE_SETSUPERMODE_NETWORK, 0);
         }
-        if (ec->myViewportFromRegistry) {
+        if (myViewNet && ec->myViewportFromRegistry) {
             Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
             Position p(off.x(), off.y(), 0);
-            getView()->setViewportFromToRot(off, p, 0);
+            myViewNet->setViewportFromToRot(off, p, 0);
         }
     }
     getApp()->endWaitCursor();
@@ -1089,7 +1091,6 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::NetworkMenuCommands::NetworkMenuCommands(GNEApplicationWindow *GNEApp) :
-    myGNEApp(GNEApp),
     createEdgeMode(nullptr),
     moveMode(nullptr),
     deleteMode(nullptr),
@@ -1101,8 +1102,9 @@ GNEApplicationWindow::NetworkMenuCommands::NetworkMenuCommands(GNEApplicationWin
     additionalMode(nullptr),
     crossingMode(nullptr),
     TAZMode(nullptr),
-    shapeMode(nullptr) {
-}
+    shapeMode(nullptr),
+    myGNEApp(GNEApp) 
+{}
 
 
 void 
@@ -1192,9 +1194,9 @@ GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* 
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindow *GNEApp) :
-    myGNEApp(GNEApp),
-    routeMode(nullptr) {
-}
+    routeMode(nullptr),
+    myGNEApp(GNEApp) 
+{}
 
 
 void 
@@ -1251,23 +1253,9 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
 }
 
 
-
-GUISUMOAbstractView*
-GNEApplicationWindow::openNewView() {
-    // create GNE view parent
-    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
-    // create it maximized
-    viewParent->maximize();
-    // mark it as Active child
-    myMDIClient->setActiveChild(viewParent);
-    // return it
-    return viewParent->getView();
-}
-
-
 FXGLCanvas*
 GNEApplicationWindow::getBuildGLCanvas() const {
-    // NETEDIT uses only a single View
+    // NETEDIT uses only a single View, then return nullptr
     return nullptr;
 }
 
@@ -1298,7 +1286,10 @@ GNEApplicationWindow::closeAllWindows() {
         window->destroy();
         delete window;
     }
+    //clear gl windows
     myGLWindows.clear();
+    // set viewNet pointer to nullptr
+    myViewNet = nullptr;
     for (FXMainWindow* const window : myTrackerWindows) {
         window->destroy();
         delete window;
@@ -1406,9 +1397,8 @@ GNEApplicationWindow::enableSaveTLSProgramsMenu() {
 long
 GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
     // check that currently there is a View
-    GNEViewNet *viewNet = getView();
-    if (viewNet) {
-        viewNet->setEditModeFromHotkey(FXSELID(sel));
+    if (myViewNet) {
+        myViewNet->setEditModeFromHotkey(FXSELID(sel));
     }
     return 1;
 }
@@ -1416,57 +1406,54 @@ GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
-    if (myGLWindows.empty()) {
-        return 1;
-    }
-    FXRegistry reg("SUMO GUI", "Eclipse");
-    reg.read();
-    const GUISUMOAbstractView* const v = getView();
-    reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
-    reg.writeRealEntry("viewport", "y", v->getChanger().getYPos());
-    reg.writeRealEntry("viewport", "z", v->getChanger().getZPos());
-    reg.write();
-    std::string sumogui = "sumo-gui";
-    const char* sumoPath = getenv("SUMO_HOME");
-    if (sumoPath != nullptr) {
-        std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
-        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            sumogui = "\"" + newPath + "\"";
+    // check that currently there is a View
+    if (myViewNet) {
+        FXRegistry reg("SUMO GUI", "Eclipse");
+        reg.read();
+        reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
+        reg.writeRealEntry("viewport", "y", myViewNet->getChanger().getYPos());
+        reg.writeRealEntry("viewport", "z", myViewNet->getChanger().getZPos());
+        reg.write();
+        std::string sumogui = "sumo-gui";
+        const char* sumoPath = getenv("SUMO_HOME");
+        if (sumoPath != nullptr) {
+            std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
+            if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+                sumogui = "\"" + newPath + "\"";
+            }
         }
+        std::string cmd = sumogui + " --registry-viewport" + " -n "  + OptionsCont::getOptions().getString("output-file");
+        // start in background
+    #ifndef WIN32
+        cmd = cmd + " &";
+    #else
+        // see "help start" for the parameters
+        cmd = "start /B \"\" " + cmd;
+    #endif
+        WRITE_MESSAGE("Running " + cmd + ".");
+        // yay! fun with dangerous commands... Never use this over the internet
+        SysUtils::runHiddenCommand(cmd);
     }
-    std::string cmd = sumogui + " --registry-viewport" + " -n "  + OptionsCont::getOptions().getString("output-file");
-    // start in background
-#ifndef WIN32
-    cmd = cmd + " &";
-#else
-    // see "help start" for the parameters
-    cmd = "start /B \"\" " + cmd;
-#endif
-    WRITE_MESSAGE("Running " + cmd + ".");
-    // yay! fun with dangerous commands... Never use this over the internet
-    SysUtils::runHiddenCommand(cmd);
     return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
-    // obtain pointer to view net (only for improve code legibility)
-    GNEViewNet *viewNet = getView();
     // check that view exists
-    if (viewNet) {
+    if (myViewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key ESC (abort) pressed");
         // first check if we're selecting a subset of edges in TAZ Frame
-        if(viewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->getEdgeAndTAZChildsSelected().size() > 0) {
+        if(myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->getEdgeAndTAZChildsSelected().size() > 0) {
             // show extra information for tests
             WRITE_DEBUG("Cleaning current selected edges");
             // clear current selection
-            viewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->clearSelectedEdges();
+            myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->clearSelectedEdges();
         } else {
             // abort current operation
-            viewNet->abortOperation();
-            viewNet->update();
+            myViewNet->abortOperation();
+            myViewNet->update();
         }
     }
     return 1;
@@ -1475,10 +1462,11 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
-    if (getView()) {
+    // check that view exists
+    if (myViewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key DEL (delete) pressed");
-        getView()->hotkeyDel();
+        myViewNet->hotkeyDel();
     }
     return 1;
 }
@@ -1486,10 +1474,11 @@ GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
-    if (getView()) {
+    // check that view exists
+    if (myViewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key ENTER pressed");
-        getView()->hotkeyEnter();
+        myViewNet->hotkeyEnter();
     }
     return 1;
 }
@@ -1497,8 +1486,9 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
-    if (getView()) {
-        getView()->hotkeyFocusFrame();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->hotkeyFocusFrame();
     }
     return 1;
 }
@@ -1506,8 +1496,9 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
-    if (getView()) {
-        getView()->showViewportEditor();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->showViewportEditor();
     }
     return 1;
 }
@@ -1515,8 +1506,9 @@ GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
-    if (getView()) {
-        getView()->showViewschemeEditor();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->showViewschemeEditor();
     }
     return 1;
 }
@@ -1524,20 +1516,20 @@ GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
-    // only toogle grid if there is a GNEViewNet
-    if (getView() != nullptr) {
+    // check that view exists
+    if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if (getView()->getMenuCheckShowGrid()->getCheck() == 1) {
-            getView()->getMenuCheckShowGrid()->setCheck(0);
+        if (myViewNet->getMenuCheckShowGrid()->getCheck() == 1) {
+            myViewNet->getMenuCheckShowGrid()->setCheck(0);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            getView()->getMenuCheckShowGrid()->setCheck(1);
+            myViewNet->getMenuCheckShowGrid()->setCheck(1);
             // show extra information for tests
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
-        getView()->onCmdShowGrid(nullptr, 0, nullptr);
+        myViewNet->onCmdShowGrid(nullptr, 0, nullptr);
     }
     return 1;
 }
@@ -2073,20 +2065,10 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 }
 
 
-GNEViewNet*
-GNEApplicationWindow::getView() {
-    if (!myGLWindows.empty()) {
-        return dynamic_cast<GNEViewNet*>(myGLWindows[0]->getView());
-    } else {
-        return nullptr;
-    }
-}
-
-
 bool
 GNEApplicationWindow::continueWithUnsavedChanges() {
     FXuint answer = 0;
-    if (myNet && !myNet->isNetSaved()) {
+    if (myViewNet && myNet && !myNet->isNetSaved()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'Confirm closing network'");
         // open question box
@@ -2094,7 +2076,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                                         "Confirm closing Network", "%s",
                                         "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
         // restore focus to view net
-        getView()->setFocus();
+        myViewNet->setFocus();
         // if user close dialog box, check additionasl and shapes
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
@@ -2146,14 +2128,14 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
 bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
-    if (myFileMenuCommands.saveAdditionals->isEnabled()) {
+    if (myViewNet && myFileMenuCommands.saveAdditionals->isEnabled()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save additionals before exit'");
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save additionals before exit", "%s",
                                                "You have unsaved additionals. Do you wish to quit and discard all changes?");
         // restore focus to view net
-        getView()->setFocus();
+        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'Quit'");
@@ -2189,14 +2171,14 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
 bool
 GNEApplicationWindow::continueWithUnsavedShapeChanges() {
     // Check if there are non saved additionals
-    if (myFileMenuCommands.saveShapes->isEnabled()) {
+    if (myViewNet && myFileMenuCommands.saveShapes->isEnabled()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save shapes before exit'");
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save shapes before exit", "%s",
                                                "You have unsaved shapes. Do you wish to quit and discard all changes?");
         // restore focus to view net
-        getView()->setFocus();
+        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Quit'");
@@ -2230,9 +2212,9 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
 
 void
 GNEApplicationWindow::updateControls() {
-    GNEViewNet* view = getView();
-    if (view != nullptr) {
-        view->updateControls();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->updateControls();
     }
 }
 

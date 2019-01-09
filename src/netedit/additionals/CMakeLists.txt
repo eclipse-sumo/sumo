@@ -25,10 +25,8 @@ set(netedit_additionals_SRCS
    GNEParkingSpace.cpp
    GNETAZ.h
    GNETAZ.cpp 
-   GNETAZSource.h
-   GNETAZSource.cpp
-   GNETAZSink.h
-   GNETAZSink.cpp
+   GNETAZSourceSinkSink.h
+   GNETAZSourceSinkSink.cpp
    GNEDetector.h
    GNEDetector.cpp
    GNEDetectorE1.h
@@ -39,10 +37,8 @@ set(netedit_additionals_SRCS
    GNEDetectorE2.cpp
    GNEDetectorE3.h
    GNEDetectorE3.cpp
-   GNEDetectorEntry.h
-   GNEDetectorEntry.cpp
-   GNEDetectorExit.h
-   GNEDetectorExit.cpp
+   GNEDetectorEntryExitExit.h
+   GNEDetectorEntryExitExit.cpp
    GNERerouter.h
    GNERerouter.cpp
    GNERouteProbe.h

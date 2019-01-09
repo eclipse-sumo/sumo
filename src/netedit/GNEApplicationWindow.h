@@ -97,10 +97,10 @@ public:
     GNEApplicationWindow(FXApp* a, const std::string& configPattern);
 
     /// @brief Destructor
-    virtual ~GNEApplicationWindow();
+    ~GNEApplicationWindow();
 
     /// @brief Creates the main window (required by FOX)
-    virtual void create();
+    void create();
 
     /// @brief load net on startup
     void loadOptionOnStartup();
@@ -138,7 +138,7 @@ public:
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred
-    virtual void eventOccurred();
+    void eventOccurred();
 
     /// @brief handle event of type Network loaded
     void handleEvent_NetworkLoaded(GUIEvent* e);
@@ -241,17 +241,8 @@ public:
     /// @brief called when the command/FXCall edit chosen is executed
     long onCmdEditChosen(FXObject*, FXSelector, void*);
 
-    /// @brief Opens the application settings menu
-    long onCmdAppSettings(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall toogle gaming mode is executed
-    long onCmdGaming(FXObject*, FXSelector, void*);
-
     /// @brief called when the command/FXCall show about dialog is executed
     long onCmdAbout(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall new view is executed
-    long onCmdNewView(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall on update open executed
     long onUpdOpen(FXObject*, FXSelector, void*);
@@ -336,12 +327,6 @@ public:
     void updateSuperModeMenuCommands(int supermode);
 
 protected:
-    /// @brief FOX needs this for static members
-    GNEApplicationWindow();
-
-    /// @brief Builds the menu bar
-    virtual void fillMenuBar();
-
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread;
 
@@ -395,9 +380,6 @@ protected:
     /// @brief the one and only undo list
     GNEUndoList* myUndoList;
 
-    /// @brief the prefix for the window title
-    const FXString myTitlePrefix;
-
     /// @brief filename for load/save additionals
     std::string myAdditionalsFile;
 
@@ -407,8 +389,13 @@ protected:
     /// @brief filename for load/save TLS Programs
     std::string myTLSProgramsFile;
 
-private:
-    
+    /// @brief FOX needs this for static members
+    GNEApplicationWindow();
+
+    /// @brief Builds the menu bar
+    void fillMenuBar();
+
+private:    
     /// @brief struct for File menu commands
     struct FileMenuCommands {
 
@@ -532,17 +519,17 @@ private:
     /// @brief Demand Menu Commands
     DemandMenuCommands myDemandMenuCommands;
 
+    /// @brief pointer to current view net
+    GNEViewNet* myViewNet;
+
+    /// @brief the prefix for the window title
+    const FXString myTitlePrefix;
+
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);
 
     /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
-
-    /// @brief opens a new simulation display
-    GUISUMOAbstractView* openNewView();
-
-    /// @brief convenience method
-    GNEViewNet* getView();
 
     /// @brief warns about unsaved changes and gives the user the option to abort
     bool continueWithUnsavedChanges();
