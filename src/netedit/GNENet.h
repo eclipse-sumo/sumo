@@ -53,6 +53,7 @@
 
 class NBNetBuilder;
 class GNEAdditional;
+class GNEDemandElement;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
 class GNEConnection;
@@ -85,6 +86,7 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_Shape;
     friend class GNEChange_CalibratorItem;
     friend class GNEChange_Additional;
+    friend class GNEChange_DemandElement;
 
 public:
     /**@brief Constructor
@@ -580,6 +582,51 @@ public:
 
     /// @}
 
+    /// @name Functions related to DemandElement Items
+    /// @{
+
+    /**@brief Returns the named demand element
+     * @param[in] type tag with the type of demand element
+     * @param[in] id The id of the demand element to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting demand element should result in an exception
+     */
+    GNEDemandElement* retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief return all demand elements
+     * @param[in] onlySelected Whether to return only selected demand elements
+     */
+    std::vector<GNEDemandElement*> retrieveDemandElements(bool onlySelected = false) const;
+
+    /**@brief get map with IDs and pointers to demand elements
+     * @param[in] type type of demand element to get. SUMO_TAG_NOTHING will get all demand elements
+     * @return map with IDs and pointers to demand elements.
+     */
+    const std::map<std::string, GNEDemandElement*>& getDemandElementByType(SumoXMLTag type) const;
+
+    /**@brief Returns the number of demand elements of the net
+     * @param[in] type type of demand element to count. SUMO_TAG_NOTHING will count all demand elements
+     * @return Number of demand elements of the net
+     */
+    int getNumberOfDemandElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+
+    /**@brief update demand element ID in container
+    * @note this function is automatically called when user changes the ID of an demand element
+    */
+    void updateDemandElementID(const std::string& oldID, GNEDemandElement* demandElement);
+
+    /// @brief inform that demand elements has to be saved
+    void requiereSaveDemandElements(bool value);
+
+    /**@brief save demand element elements of the network
+    * @param[in] filename name of the file in wich save demand elements
+    */
+    void saveDemandElements(const std::string& filename);
+
+    /// @brief generate demand element id
+    std::string generateDemandElementID(SumoXMLTag type) const;
+
+    /// @}
+
     /// @name Functions related to Shapes
     /// @{
 
@@ -639,6 +686,9 @@ protected:
 
         /// @brief map with the name and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
+
+        /// @brief map with the name and pointer to demand elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
     };
 
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -676,6 +726,9 @@ protected:
 
     /// @brief Flag to check if shapes has to be saved
     bool myTLSProgramsSaved;
+
+    /// @brief Flag to check if demand elements has to be saved
+    bool myDemandElementsSaved;
 
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{

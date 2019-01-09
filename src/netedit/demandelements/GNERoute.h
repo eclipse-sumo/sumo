@@ -12,7 +12,7 @@
 /// @date    Jan 2019
 /// @version $Id$
 ///
-// A class for represent routes
+// A class for visualizing routes in Netedit
 /****************************************************************************/
 #ifndef GNERoute_h
 #define GNERoute_h

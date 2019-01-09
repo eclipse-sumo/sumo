@@ -12,7 +12,7 @@
 /// @date    Jan 2019
 /// @version $Id$
 ///
-// A class for visualizing connections between lanes
+// A class for visualizing routes in Netedit
 /****************************************************************************/
 
 

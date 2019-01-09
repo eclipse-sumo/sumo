@@ -33,6 +33,8 @@
 #include <netedit/additionals/GNECalibratorVehicleType.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
+#include <netedit/demandelements/GNEDemandHandler.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
@@ -92,6 +94,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myAdditionalsSaved(true),
     myShapesSaved(true),
     myTLSProgramsSaved(true),
+    myDemandElementsSaved(true),
     myAllowUndoShapes(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
@@ -1952,6 +1955,108 @@ std::string
 GNENet::generateAdditionalID(SumoXMLTag type) const {
     int counter = 0;
     while (myAttributeCarriers.additionals.at(type).count(toString(type) + "_" + toString(counter)) != 0) {
+        counter++;
+    }
+    return (toString(type) + "_" + toString(counter));
+}
+
+
+GNEDemandElement*
+GNENet::retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    if ((myAttributeCarriers.demandElements.count(type) > 0) && (myAttributeCarriers.demandElements.at(type).count(id) != 0)) {
+        return myAttributeCarriers.demandElements.at(type).at(id);
+    } else if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant demand element");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNEDemandElement*>
+GNENet::retrieveDemandElements(bool onlySelected) const {
+    std::vector<GNEDemandElement*> result;
+    // returns demand elements depending of selection
+    for (auto i : myAttributeCarriers.demandElements) {
+        for (auto j : i.second) {
+            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
+                result.push_back(j.second);
+            }
+        }
+    }
+    return result;
+}
+
+
+const std::map<std::string, GNEDemandElement*>&
+GNENet::getDemandElementByType(SumoXMLTag type) const {
+    return myAttributeCarriers.demandElements.at(type);
+}
+
+
+int
+GNENet::getNumberOfDemandElements(SumoXMLTag type) const {
+    int counter = 0;
+    for (auto i : myAttributeCarriers.demandElements) {
+        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
+            counter += (int)i.second.size();
+        }
+    }
+    return counter;
+}
+
+
+void
+GNENet::updateDemandElementID(const std::string& oldID, GNEDemandElement* demandElement) {
+    if (myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).count(oldID) == 0) {
+        throw ProcessError(demandElement->getTagStr() + " with old ID='" + oldID + "' doesn't exist");
+    } else {
+        // remove an insert demand element again into container
+        myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(oldID);
+        myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
+        // demand elements has to be saved
+        requiereSaveDemandElements(true);
+    }
+}
+
+
+void
+GNENet::requiereSaveDemandElements(bool value) {
+/*
+    if (myDemandElementsSaved == true) {
+        WRITE_DEBUG("DemandElements has to be saved");
+        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
+        std::string shapeSaved = (myShapesSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", demand elements unsaved, shapes " + shapeSaved);
+    }
+    myDemandElementsSaved = !value;
+    if (myViewNet != nullptr) {
+        if (myDemandElementsSaved) {
+            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDemandElementsMenu();
+        } else {
+            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDemandElementsMenu();
+        }
+    }
+*/
+}
+
+
+void
+GNENet::saveDemandElements(const std::string& filename) {
+/*
+    saveDemandElementsConfirmed(filename);
+    // change value of flag
+    myDemandElementsSaved = true;
+    // show debug information
+    WRITE_DEBUG("DemandElements saved");
+*/
+}
+
+
+std::string
+GNENet::generateDemandElementID(SumoXMLTag type) const {
+    int counter = 0;
+    while (myAttributeCarriers.demandElements.at(type).count(toString(type) + "_" + toString(counter)) != 0) {
         counter++;
     }
     return (toString(type) + "_" + toString(counter));
