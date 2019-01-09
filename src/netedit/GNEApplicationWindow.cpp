@@ -22,6 +22,7 @@
 
 #include <netbuild/NBFrame.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/demandelements/GNEDemandHandler.h>
 #include <netedit/dialogs/GNEDialog_About.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
@@ -84,6 +85,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_TLSPROGRAMS,                   GNEApplicationWindow::onCmdOpenTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_TLSPROGRAMS,                   GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_LOADDEMAND,         GNEApplicationWindow::onCmdOpenDemandElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_LOADDEMAND,         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                         GNEApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                         GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                             GNEApplicationWindow::onCmdReload),
@@ -104,6 +107,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_SHIFT_K,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onCmdSaveTLSProgramsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND,         GNEApplicationWindow::onCmdSaveDemandElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND,         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,      GNEApplicationWindow::onCmdSaveDemandElementsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,      GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                              GNEApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                              GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -747,6 +754,39 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
+    // get the demand element file name
+    FXFileDialog opendialog(this, "Open demand element file");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("Demand element files (*.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto");
+        // Create additional handler
+        GNEDemandHandler demandHandler(file, myNet->getViewNet());
+        // begin undoList operation
+        myUndoList->p_begin("Loading demand elements from '" + file + "'");
+        // Run parser for additionals
+        if (!XMLSubSys::runParser(demandHandler, file, false)) {
+            WRITE_MESSAGE("Loading of " + file + " failed.");
+        }
+        // end undoList operation and update view
+        myUndoList->p_end();
+        update();
+        // restore validation for demand
+        XMLSubSys::setValidation("auto", "auto");
+    }
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* fileData) {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
@@ -940,6 +980,22 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         XMLSubSys::setValidation("auto", "auto");
         myUndoList->p_end();
     }
+    // check if demand elements has to be loaded at start
+    if (oc.isSet("sumo-demandelements-file") && !oc.getString("sumo-demandelements-file").empty() && myNet) {
+        myDemandElementsFile = oc.getString("sumo-demand elements-file");
+        WRITE_MESSAGE("Loading demand elements from '" + myDemandElementsFile + "'");
+        GNEDemandHandler demandElementHandler(myDemandElementsFile, myNet->getViewNet());
+        // disable validation for demand elements
+        XMLSubSys::setValidation("never", "auto");
+        // Run parser
+        myUndoList->p_begin("Loading demand elements from '" + myDemandElementsFile + "'");
+        if (!XMLSubSys::runParser(demandElementHandler, myDemandElementsFile, false)) {
+            WRITE_ERROR("Loading of " + myDemandElementsFile + " failed.");
+        }
+        // disable validation for demand elements
+        XMLSubSys::setValidation("auto", "auto");
+        myUndoList->p_end();
+    }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
         myAdditionalsFile = oc.getString("additionals-output");
@@ -951,6 +1007,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     // check if TLSPrograms output must be changed
     if (oc.isSet("TLSPrograms-output")) {
         myTLSProgramsFile = oc.getString("TLSPrograms-output");
+    }
+    // check if demand elements output must be changed
+    if (oc.isSet("demandelements-output")) {
+        myDemandElementsFile = oc.getString("demandelements-output");
     }
     // after loading net shouldn't be saved
     if (myNet) {
@@ -1050,14 +1110,14 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
     myGNEApp->myFileMenuDemandElements = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
                       "Load demand elements...\t\tLoad demand elements.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_OPEN_ADDITIONALS);
+                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_GNE_TOOLBARFILE_LOADDEMAND);
     saveDemandElements = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
             "Save demand elements\t\tSave demand elements.",
-            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND);
     saveDemandElements->disable();
     saveDemandElementsAs = new FXMenuCommand(myGNEApp->myFileMenuDemandElements,
             "Save demand elements as...\t\tSave demand elements in another file.",
-            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
     new FXMenuCascade(fileMenu, "Demand elements", GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp->myFileMenuDemandElements);
     // close network
@@ -1378,6 +1438,12 @@ GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
 
 
 void
+GNEApplicationWindow::setDemandElementsFile(const std::string& demandElementsFile) {
+    myDemandElementsFile = demandElementsFile;
+}
+
+
+void
 GNEApplicationWindow::enableSaveAdditionalsMenu() {
     myFileMenuCommands.saveAdditionals->enable();
     myFileMenuCommands.saveAdditionalsAs->enable();
@@ -1587,9 +1653,10 @@ long
 GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
-    // declare string to save paths in wich additionals and shapes will be saved
-    std::string additionalSavePath = myAdditionalsFile;
-    std::string shapeSavePath = myShapesFile;
+    // declare string to save paths in wich additionals, shapes and demand will be saved
+    std::string additionalsSavePath = myAdditionalsFile;
+    std::string shapesSavePath = myShapesFile;
+    std::string demandElementsSavePath = myDemandElementsFile;
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Keys Shift + F5 (Compute with volatile options) pressed");
     WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
@@ -1632,19 +1699,19 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                                         "Select name of the additional file", ".xml",
                                         GUIIconSubSys::getIcon(ICON_MODETLS),
                                         gCurrentFolder).text();
-                    // set obtanied filename output into additionalSavePath (can be "")
-                    additionalSavePath = myAdditionalsFile;
+                    // set obtanied filename output into additionalsSavePath (can be "")
+                    additionalsSavePath = myAdditionalsFile;
                 }
             }
             // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
             if (myAdditionalsFile == "") {
                 // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
-                additionalSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
+                additionalsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
             }
             // Start saving additionals
             getApp()->beginWaitCursor();
             try {
-                myNet->saveAdditionals(additionalSavePath);
+                myNet->saveAdditionals(additionalsSavePath);
             } catch (IOError& e) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Error saving additionals before recomputing'");
@@ -1658,7 +1725,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             getApp()->endWaitCursor();
         } else {
             // clear additional path
-            additionalSavePath = "";
+            additionalsSavePath = "";
         }
         // Check if there are shapes in our net
         if (myNet->getNumberOfShapes() > 0) {
@@ -1684,19 +1751,19 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                                    "Select name of the shape file", ".xml",
                                    GUIIconSubSys::getIcon(ICON_MODEPOLYGON),
                                    gCurrentFolder).text();
-                    // set obtanied filename output into shapeSavePath (can be "")
-                    shapeSavePath = myShapesFile;
+                    // set obtanied filename output into shapesSavePath (can be "")
+                    shapesSavePath = myShapesFile;
                 }
             }
             // Check if shape must be saved in a temporal directory, if user didn't define a directory for shapes
             if (myShapesFile == "") {
                 // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
-                shapeSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpShapesNetedit.xml");
+                shapesSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpShapesNetedit.xml");
             }
             // Start saving shapes
             getApp()->beginWaitCursor();
             try {
-                myNet->saveShapes(shapeSavePath);
+                myNet->saveShapes(shapesSavePath);
             } catch (IOError& e) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Error saving shapes before recomputing'");
@@ -1710,10 +1777,62 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             getApp()->endWaitCursor();
         } else {
             // clear save path
-            shapeSavePath = "";
+            shapesSavePath = "";
+        }
+        // Check if there are demand elements in our net
+        if (myNet->getNumberOfDemandElements() > 0) {
+            // ask user if want to save demand elements if weren't saved previously
+            if (myDemandElementsFile == "") {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before recomputing'");
+                // open question dialog box
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save demand elements before recomputing with volatile options",
+                                                "Would you like to save demand elements before recomputing?");
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if (answer == 2) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'No'");
+                    } else if (answer == 4) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'ESC'");
+                    }
+                } else {
+                    // write warning if netedit is running in testing mode
+                    WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
+                    // Open a dialog to set filename output
+                    myDemandElementsFile = MFXUtils::getFilename2Write(this,
+                                        "Select name of the demand element file", ".xml",
+                                        GUIIconSubSys::getIcon(ICON_MODETLS),
+                                        gCurrentFolder).text();
+                    // set obtanied filename output into demand elementSavePath (can be "")
+                    demandElementsSavePath = myDemandElementsFile;
+                }
+            }
+            // Check if demand element must be saved in a temporal directory, if user didn't define a directory for demand elements
+            if (myDemandElementsFile == "") {
+                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                demandElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDemandElementsNetedit.xml");
+            }
+            // Start saving demand elements
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveDemandElements(demandElementsSavePath);
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Error saving demand elements before recomputing'");
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, "Saving demand elements in temporal folder failed!", "%s", e.what());
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'Error saving demand elements before recomputing' with 'OK'");
+            }
+            // end saving demand elements
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+        } else {
+            // clear demand element path
+            demandElementsSavePath = "";
         }
         // compute with volatile options
-        myNet->computeEverything(this, true, true, additionalSavePath, shapeSavePath);
+        myNet->computeEverything(this, true, true, additionalsSavePath, shapesSavePath);
         updateControls();
         return 1;
     }
@@ -2077,6 +2196,64 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
         myTLSProgramsFile = file.text();
         // save TLS Programs
         return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
+    } else {
+        return 1;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
+    // check if save demand element menu is enabled
+    if (myFileMenuCommands.saveDemandElements->isEnabled()) {
+        // Check if demand elements file was already set at start of netedit or with a previous save
+        if (myDemandElementsFile == "") {
+            FXString file = MFXUtils::getFilename2Write(this,
+                            "Select name of the demand element file", ".xml",
+                            GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
+                            gCurrentFolder);
+            if (file == "") {
+                // None demand elements file was selected, then stop function
+                return 0;
+            } else {
+                myDemandElementsFile = file.text();
+            }
+        }
+        // Start saving demand elements
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveDemandElements(myDemandElementsFile);
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Demand elements saved in " + myDemandElementsFile + ".\n");
+            myFileMenuCommands.saveDemandElements->disable();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, "Saving demand elements failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
+    // Open window to select additionasl file
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Select name of the demand element file", ".xml",
+                    GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND),
+                    gCurrentFolder);
+    if (file != "") {
+        // Set new demand element file
+        myDemandElementsFile = file.text();
+        // save demand elements
+        return onCmdSaveDemandElements(nullptr, 0, nullptr);
     } else {
         return 1;
     }

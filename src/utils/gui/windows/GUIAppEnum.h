@@ -457,6 +457,12 @@ enum {
     MID_GNE_HOTKEY_CTRL_SHIFT_K,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
+    /// @brief open demand elements
+    MID_GNE_TOOLBARFILE_LOADDEMAND,
+    /// @brief save demand elements
+    MID_GNE_TOOLBARFILE_SAVEDEMAND,
+    /// @brief save demand elements as
+    MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
     /// @}
 
 

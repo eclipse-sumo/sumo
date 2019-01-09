@@ -120,6 +120,9 @@ public:
     /// @brief set TLS Programs file
     void setTLSProgramsFile(const std::string& TLSProgramsFile);
 
+    /// @brief set demand elements file
+    void setDemandElementsFile(const std::string& demandElementsFile);
+
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
@@ -176,6 +179,9 @@ public:
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open demand is executed
+    long onCmdOpenDemandElements(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
 
@@ -208,6 +214,12 @@ public:
 
     /// @brief called when the command/FXCall save TLSPrograms as is executed
     long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save demand elements is executed
+    long onCmdSaveDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save demand elements as is executed
+    long onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save network is executed
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);
@@ -395,6 +407,9 @@ protected:
 
     /// @brief filename for load/save TLS Programs
     std::string myTLSProgramsFile;
+
+    /// @brief filename for load/save demand elemetns
+    std::string myDemandElementsFile;
 
     /// @brief FOX needs this for static members
     GNEApplicationWindow();

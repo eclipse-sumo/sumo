@@ -236,6 +236,12 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("TLSPrograms-output", new Option_String());
     oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
 
+    oc.doRegister("sumo-demandelements-file", 'd', new Option_String());
+    oc.addDescription("sumo-demandelements-file", "Netedit", "file in which demand elements are loaded");
+
+    oc.doRegister("demandelements-output", new Option_String());
+    oc.addDescription("demandelements-output", "Netedit", "file in which demand elements must be saved");
+
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
 
