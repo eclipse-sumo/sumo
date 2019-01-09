@@ -88,16 +88,19 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1):
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1, name=""):
         self.duration = duration
         self.state = state
         self.minDur = minDur  # minimum duration (only for actuated tls)
         self.maxDur = maxDur  # maximum duration (only for actuated tls)
         self.next = next
+        self.name = name
 
     def __repr__(self):
-        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s)" %
-                (self.duration, self.state, self.minDur, self.maxDur, self.next))
+        name = "" if self.name == "" else ", name='%s'" % self.name
+        next = "" if self.next == "" else ", next='%s'" % self.next
+        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s%s%s" %
+                (self.duration, self.state, self.minDur, self.maxDur, name, next))
 
 
 class TLSProgram:
@@ -109,8 +112,8 @@ class TLSProgram:
         self._phases = []
         self._params = {}
 
-    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=-1):
-        self._phases.append(Phase(duration, state, minDur, maxDur, next))
+    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=-1, name=""):
+        self._phases.append(Phase(duration, state, minDur, maxDur, next, name))
 
     def toXML(self, tlsID):
         ret = '  <tlLogic id="%s" type="%s" programID="%s" offset="%s">\n' % (
@@ -118,9 +121,11 @@ class TLSProgram:
         for p in self._phases:
             minDur = '' if p.minDur < 0 else ' minDur="%s"' % p.minDur
             maxDur = '' if p.maxDur < 0 else ' maxDur="%s"' % p.maxDur
+            name = '' if p.name == '' else ' name="%s"' % p.name
             next = '' if p.next < 0 else ' next="%s"' % p.next
             ret = ret + \
-                '    <phase duration="%s" state="%s"%s%s%s/>\n' % (p.duration, p.state, minDur, maxDur, next)
+                '    <phase duration="%s" state="%s"%s%s%s%s/>\n' % (
+                        p.duration, p.state, minDur, maxDur, name,next)
         ret = ret + '  </tlLogic>\n'
         return ret
 
@@ -639,7 +644,8 @@ class NetReader(handler.ContentHandler):
                 attrs['state'], int(attrs['duration']),
                 int(attrs['minDur']) if 'minDur' in attrs else -1,
                 int(attrs['maxDur']) if 'maxDur' in attrs else -1,
-                int(attrs['next']) if 'next' in attrs else -1
+                int(attrs['next']) if 'next' in attrs else -1,
+                attrs['name'] if 'name' in attrs else "" 
             )
         if name == 'roundabout':
             self._net.addRoundabout(

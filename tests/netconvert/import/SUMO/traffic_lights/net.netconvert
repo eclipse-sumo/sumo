@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:49 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Jan  7 14:30:12 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -123,12 +123,13 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyyrrrrr"/>
     </tlLogic>
     <tlLogic id="node_centertl" type="static" programID="alternative" offset="0">
-        <phase duration="31" state="rrrGGgGgg"/>
-        <phase duration="3"  state="rrryygygg"/>
-        <phase duration="6"  state="rrrrrGrGG"/>
-        <phase duration="3"  state="rrrrryryy"/>
-        <phase duration="31" state="GGgGrrrrr"/>
-        <phase duration="3"  state="yyyyrrrrr"/>
+        <phase duration="31" state="rrrGGgGgg" name="1"/>
+        <phase duration="3"  state="rrryygygg" name="1-2"/>
+        <phase duration="6"  state="rrrrrGrGG" name="2"/>
+        <phase duration="3"  state="rrrrryryy" name="2-3"/>
+        <phase duration="31" state="GGgGrrrrr" name="3"/>
+        <phase duration="3"  state="yyyyrrrrr" name="3-1" next="0"/>
+        <phase duration="3"  state="rrryyyyyy" name="1-3" next="5"/>
     </tlLogic>
 
     <junction id="node_centertl" type="traffic_light" x="0.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_1_0 :node_centertl_9_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_10_0 :node_centertl_6_0 :node_centertl_11_0 :node_centertl_12_0" shape="-3.20,7.20 3.20,7.20 7.20,3.20 7.20,-3.20 -7.20,-3.20 -7.20,3.20">

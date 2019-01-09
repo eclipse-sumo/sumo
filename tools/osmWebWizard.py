@@ -41,6 +41,12 @@ from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(os.path.abspath(__file__)), ".."))
 
+try:
+        basestring
+        # Allows isinstance(foo, basestring) to work in Python 3
+except:
+        basestring = str
+
 typemapdir = os.path.join(SUMO_HOME, "data", "typemap")
 typemaps = {
     "net": os.path.join(typemapdir, "osmNetconvert.typ.xml"),
@@ -161,7 +167,7 @@ class Builder(object):
         dirname = self.tmp
         l = len(dirname)
         for o in options:
-            if type(o) in [str, unicode] and o[0:l] == dirname:
+            if isinstance(o, basestring) and o[0:l] == dirname:
                 remove = o[:l+1]
                 result.append(o.replace(remove, ''))
             else:

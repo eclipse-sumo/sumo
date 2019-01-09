@@ -7,68 +7,50 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDetectorExit.h
+/// @file    GNETAZSourceSink.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 2015
+/// @date    Apr 2017
 /// @version $Id$
 ///
 //
 /****************************************************************************/
-#ifndef GNEDetectorExit_h
-#define GNEDetectorExit_h
+#ifndef GNETAZSourceSink_h
+#define GNETAZSourceSink_h
 
 
 // ===========================================================================
 // included modules
 // ===========================================================================
 
-#include "GNEDetector.h"
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEDetectorE3;
+
+class GNETAZ;
+class GNETAZSink;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class GNEDetectorExit
- * class for detector of type exit
+ * @class GNETAZSourceSink
+ * class used to represent a interval used in Traffic Assignment Zones
  */
-class GNEDetectorExit  : public GNEDetector {
+class GNETAZSourceSink : public GNEAdditional {
 
 public:
     /**@brief Constructor
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-     * @param[in] parent pointer to GNEDetectorE3 of this Exit belongs
-     * @param[in] lane Lane of this StoppingPlace belongs
-     * @param[in] pos position of the detector on the lane
-     * @param[in] friendlyPos enable or disable friendly positions
-     * @param[in] block movement enable or disable additional movement
+     * @param[in] sourceSinkTag Child Tag (Either SUMO_TAG_TAZSOURCE or SUMO_TAG_TAZINK)
+     * @param[in] parent pointer to TAZ of this TAZSourceSinks belongs
+     * @param[in] edge Edge of this TAZ Child belongs
+     * @param[in] departWeight depart weight of this TAZ child
      */
-    GNEDetectorExit(GNEViewNet* viewNet, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
+    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight);
 
     /// @brief destructor
-    ~GNEDetectorExit();
-
-    /// @name members and functions relative to write additionals into XML
-    /// @{
-    /// @brief check if current additional is valid to be writed into XML
-    bool isAdditionalValid() const;
-
-    /// @brief return a string with the current additional problem 
-    std::string getAdditionalProblem() const;
-
-    /// @brief fix additional problem
-    void fixAdditionalProblem();
-    /// @}
-
-    /// @name inherited from GNEDetector
-    /// @{
-    /// @brief get lane
-    GNELane* getLane() const;
-    /// @}
+    ~GNETAZSourceSink();
 
     /// @name Functions related with geometry of element
     /// @{
@@ -84,10 +66,18 @@ public:
 
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    std::string getParentName() const;
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
@@ -95,44 +85,59 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
-    /// @name inherited from GNEAttributeCarrier
+    /// @brief inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    * @param[in] net optionally the GNENet to inform about gui updates
+    */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /* @brief method for checking if the key and their correspond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
-     * @return true if the value is valid, false in other case
-     */
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
+
+    /**@brief Returns the boundary to which the view shall be centered in order to show the object
+     * @return The boundary the object is within
+     */
+    Boundary getCenteringBoundary() const;
     /// @}
 
 protected:
-    /// @brief The lane in which this detector is placed
-    GNELane* myLane;
+    /// @brief edge
+    GNEEdge *myEdge;
+
+    /// @brief depart Weight
+    double myDepartWeight;
 
 private:
-    /// @brief set attribute after validation
+    /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEDetectorExit(const GNEDetectorExit&);
+    GNETAZSourceSink(const GNETAZSourceSink&) = delete;
 
-    /// @brief Invalidated assignment operator.
-    GNEDetectorExit& operator=(const GNEDetectorExit&) = delete;
+    /// @brief Invalidated assignment operator
+    GNETAZSourceSink& operator=(const GNETAZSourceSink&) = delete;
 };
 
-
 #endif
+
 /****************************************************************************/

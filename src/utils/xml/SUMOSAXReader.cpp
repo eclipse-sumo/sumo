@@ -110,7 +110,7 @@ SUMOSAXReader::parseString(std::string content) {
 
 bool
 SUMOSAXReader::parseFirst(std::string systemID) {
-    if (systemID.substr(systemID.length() - 4) == ".sbx") {
+    if (systemID.length() >= 4 && systemID.substr(systemID.length() - 4) == ".sbx") {
         myBinaryInput = new BinaryInputDevice(systemID, true, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always);
         *myBinaryInput >> mySbxVersion;
         if (mySbxVersion < 1 || mySbxVersion > 2) {

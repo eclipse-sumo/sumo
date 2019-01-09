@@ -520,7 +520,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
-            if (myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE) {
+            if (myNet->getViewNet()->getCurrentNetworkEditMode() == GNE_NMODE_MOVE) {
                 if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
                         (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();

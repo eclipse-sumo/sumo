@@ -39,33 +39,52 @@
 // enum
 // ===========================================================================
 
-enum EditMode {
-    ///@brief placeholder mode
-    GNE_MODE_DUMMY,
+/// @brie enum for supermodes
+enum Supermode {
+    /// @brief empty super mode
+    GNE_SUPERMODE_NONE,
+    /// @brief Network mode (Edges, junctions, etc..)
+    GNE_SUPERMODE_NETWORK,
+    ///@brief Demanding mode (Routes, Vehicles etc..)
+    GNE_SUPERMODE_DEMAND
+};
+
+/// @brie enum for network edit modes
+enum NetworkEditMode {
+    /// @brief empty Network mode
+    GNE_NMODE_NONE,
     ///@brief mode for creating new edges
-    GNE_MODE_CREATE_EDGE,
+    GNE_NMODE_CREATE_EDGE,
     ///@brief mode for moving things
-    GNE_MODE_MOVE,
+    GNE_NMODE_MOVE,
     ///@brief mode for deleting things
-    GNE_MODE_DELETE,
+    GNE_NMODE_DELETE,
     ///@brief mode for inspecting object attributes
-    GNE_MODE_INSPECT,
+    GNE_NMODE_INSPECT,
     ///@brief mode for selecting objects
-    GNE_MODE_SELECT,
+    GNE_NMODE_SELECT,
     ///@brief mode for connecting lanes
-    GNE_MODE_CONNECT,
+    GNE_NMODE_CONNECT,
     ///@brief mode for editing tls
-    GNE_MODE_TLS,
+    GNE_NMODE_TLS,
     ///@brief Mode for editing additionals
-    GNE_MODE_ADDITIONAL,
+    GNE_NMODE_ADDITIONAL,
     ///@brief Mode for editing crossing
-    GNE_MODE_CROSSING,
+    GNE_NMODE_CROSSING,
     ///@brief Mode for editing TAZ
-    GNE_MODE_TAZ,
+    GNE_NMODE_TAZ,
     ///@brief Mode for editing Polygons
-    GNE_MODE_POLYGON,
-    ///@brief Mode for editing connection prohibits
-    GNE_MODE_PROHIBITION
+    GNE_NMODE_POLYGON,
+    ///@brief Mode for editing connection prohibitions
+    GNE_NMODE_PROHIBITION
+};
+
+/// @brie enum for demand edit modes
+enum DemandEditMode {
+    /// @brief empty Demand mode
+    GNE_DMODE_NONE,
+    ///@brief Mode for editing routes
+    GNE_DMODE_ROUTES
 };
 
 // ===========================================================================
@@ -295,43 +314,16 @@ public:
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     /// @}
 
-    /// @name set mode call backs
+    /// @name set modes call backs
     /// @{
-    /// @brief called when user press the button for create edge mode
-    long onCmdSetModeCreateEdge(FXObject*, FXSelector, void*);
+    /// @brief called when user press a supermode button
+    long onCmdSetSupermode(FXObject*, FXSelector sel, void*);
 
-    /// @brief called when user press the button for move mode
-    long onCmdSetModeMove(FXObject*, FXSelector, void*);
+    /// @brief called when user press a network mode button 
+    long onCmdSetNetworkMode(FXObject*, FXSelector sel, void*);
 
-    /// @brief called when user press the button for delete mode
-    long onCmdSetModeDelete(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for inspect mode
-    long onCmdSetModeInspect(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for select mode
-    long onCmdSetModeSelect(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for connect mode
-    long onCmdSetModeConnect(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for traffic lights mode
-    long onCmdSetModeTLS(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for additional mode
-    long onCmdSetModeAdditional(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for crossing mode
-    long onCmdSetModeCrossing(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for TAZ mode
-    long onCmdSetModeTAZ(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for polygon mode
-    long onCmdSetModePolygon(FXObject*, FXSelector, void*);
-
-    /// @brief called when user press the button for polygon mode
-    long onCmdSetModeProhibition(FXObject*, FXSelector, void*);
+    /// @brief called when user press a demand mode button 
+    long onCmdSetDemandMode(FXObject*, FXSelector sel, void*);
 
     /// @}
 
@@ -389,41 +381,8 @@ public:
     /// @brief reset custom shapes of selected lanes
     long onCmdResetLaneCustomShape(FXObject*, FXSelector, void*);
 
-    /// @brief restrict lane to pedestrians
-    long onCmdRestrictLaneSidewalk(FXObject*, FXSelector, void*);
-
-    /// @brief restrict lane to bikes
-    long onCmdRestrictLaneBikelane(FXObject*, FXSelector, void*);
-
-    /// @brief restrict lane to buslanes
-    long onCmdRestrictLaneBuslane(FXObject*, FXSelector, void*);
-
-    /// @brief restrict lane to all vehicles
-    long onCmdRestrictLaneGreenVerge(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for pedestrians
-    long onCmdAddRestrictedLaneSidewalk(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for bikes
-    long onCmdAddRestrictedLaneBikelane(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for buses
-    long onCmdAddRestrictedLaneBuslane(FXObject*, FXSelector, void*);
-
-    /// @brief Add restricted lane for all vehicles
-    long onCmdAddRestrictedLaneGreenVerge(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for pedestrians
-    long onCmdRemoveRestrictedLaneSidewalk(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for bikes
-    long onCmdRemoveRestrictedLaneBikelane(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for bus
-    long onCmdRemoveRestrictedLaneBuslane(FXObject*, FXSelector, void*);
-
-    /// @brief remove restricted lane for all vehicles
-    long onCmdRemoveRestrictedLaneGreenVerge(FXObject*, FXSelector, void*);
+    /// @brief add/remove/restrict lane
+    long onCmdLaneOperation(FXObject*, FXSelector sel, void*);
 
     /// @brief open additional dialog
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
@@ -499,8 +458,11 @@ public:
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
 
-    /// @brief get the current edit mode
-    EditMode getCurrentEditMode() const;
+    /// @brief get the current Network edit mode
+    NetworkEditMode getCurrentNetworkEditMode() const;
+
+    /// @brief get the current Demand edit mode
+    DemandEditMode getCurrentDemandEditMode() const;
 
     /// @brief get Key Pressed modul
     const KeyPressed &getKeyPressed() const;
@@ -812,14 +774,137 @@ private:
         GNEViewNet* myViewNet;
     };
 
+    /// @brief struct used to group all variables related with Supermodes
+    struct SuperModes {
+
+        /// @brief default constructor
+        SuperModes(GNEViewNet* viewNet);
+        
+        /// @brief destructor
+        ~SuperModes();
+
+        /// @brief build checkable buttons
+        void buildSuperModeButtons();
+      
+        /// @brief the current supermode
+        Supermode currentSupermode;
+
+        /// @brief the current Network edit mode
+        NetworkEditMode networkEditMode;
+
+        /// @brief the current Demand edit mode
+        DemandEditMode demandEditMode;
+
+        /// @brief chekable button for supermode Network
+        MFXCheckableButton* networkButton;
+
+        /// @brief chekable button for supermode Demand
+        MFXCheckableButton* demandButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief separator between menu bar and Super mode buttons
+        FXVerticalSeparator *myVerticalSeparator;
+    };
+
+    /// @brief struct used to group all variables related with Network chekable Buttons
+    struct NetworkCheckableButtons {
+        
+        /// @brief default constructor
+        NetworkCheckableButtons(GNEViewNet* viewNet);
+
+        /// @brief build checkable buttons
+        void buildNetworkCheckableButtons();
+
+        /// @brief show all Network Checkable Buttons
+        void showNetworkCheckableButtons();
+
+        /// @brief hide all Network Checkable Buttons
+        void hideNetworkCheckableButtons();
+
+        /// @brief hide all options menu checks
+        void disableNetworkCheckableButtons();
+
+        /// @brief update network checkable buttons
+        void updateNetworkCheckableButtons();
+
+        /// @brief chekable button for edit mode create edge
+        MFXCheckableButton* createEdgeButton;
+
+        /// @brief chekable button for edit mode move
+        MFXCheckableButton* moveButton;
+
+        /// @brief chekable button for edit mode delete
+        MFXCheckableButton* deleteButton;
+
+        /// @brief chekable button for edit mode inspect
+        MFXCheckableButton* inspectButton;
+
+        /// @brief chekable button for edit mode select
+        MFXCheckableButton* selectButton;
+
+        /// @brief chekable button for edit mode connection
+        MFXCheckableButton* connectionButton;
+
+        /// @brief chekable button for edit mode traffic light
+        MFXCheckableButton* trafficLightButton;
+
+        /// @brief chekable button for edit mode additional
+        MFXCheckableButton* additionalButton;
+
+        /// @brief chekable button for edit mode crossing
+        MFXCheckableButton* crossingButton;
+
+        /// @brief chekable button for edit mode TAZ
+        MFXCheckableButton* TAZButton;
+
+        /// @brief chekable button for edit mode shape
+        MFXCheckableButton* shapeButton;
+
+        /// @brief checkable button for edit mode polygon
+        MFXCheckableButton* prohibitionButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
+    /// @brief struct used to group all variables related with Demand checkable Buttons
+    struct DemandCheckableButtons {
+        
+        /// @brief default constructor
+        DemandCheckableButtons(GNEViewNet* viewNet);
+
+        /// @brief build checkable buttons
+        void buildDemandCheckableButtons();
+
+        /// @brief show all Demand Checkable Buttons
+        void showDemandCheckableButtons();
+
+        /// @brief hide all Demand Checkable Buttons
+        void hideDemandCheckableButtons();
+
+        /// @brief hide all options menu checks
+        void disableDemandCheckableButtons();
+
+        /// @brief update Demand checkable buttons
+        void updateDemandCheckableButtons();
+
+        /// @brief chekable button for edit mode create routes
+        MFXCheckableButton* routeButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
     /// @brief Pointer to current net. (We are not responsible for deletion)
     GNENet* myNet;
-
-    /// @brief the current edit mode
-    EditMode myEditMode;
 
     /// @brief the current frame
     GNEFrame* myCurrentFrame;
@@ -850,50 +935,19 @@ private:
     
     /// @brief variable used to save variables related with view options
     ViewOptions myViewOptions;
+
+    /// @brief variable used to save variables related with super modes
+    SuperModes mySuperModes;
+
+    /// @brief variable used to save checkable buttons for Supermode Network
+    NetworkCheckableButtons myNetworkCheckableButtons;
+
+    /// @brief variable used to save checkable buttons for Supermode Demand
+    DemandCheckableButtons myDemandCheckableButtons;
     // @}
 
-    /// @brief a reference to the toolbar in myParent
+    /// @brief a reference to the toolbar in View Parent
     FXToolBar* myToolbar;
-
-    /// @name buttons  for selecting the edit mode
-    /// @{
-    /// @brief chekable button for edit mode create edge
-    MFXCheckableButton* myEditModeCreateEdge;
-
-    /// @brief chekable button for edit mode move
-    MFXCheckableButton* myEditModeMove;
-
-    /// @brief chekable button for edit mode delete
-    MFXCheckableButton* myEditModeDelete;
-
-    /// @brief chekable button for edit mode inspect
-    MFXCheckableButton* myEditModeInspect;
-
-    /// @brief chekable button for edit mode select
-    MFXCheckableButton* myEditModeSelect;
-
-    /// @brief chekable button for edit mode connection
-    MFXCheckableButton* myEditModeConnection;
-
-    /// @brief chekable button for edit mode traffic light
-    MFXCheckableButton* myEditModeTrafficLight;
-
-    /// @brief chekable button for edit mode additional
-    MFXCheckableButton* myEditModeAdditional;
-
-    /// @brief chekable button for edit mode crossing
-    MFXCheckableButton* myEditModeCrossing;
-
-    /// @brief chekable button for edit mode TAZ
-    MFXCheckableButton* myEditModeTAZ;
-
-    /// @brief chekable button for edit mode polygon
-    MFXCheckableButton* myEditModePolygon;
-
-    /// @brief checkable button for edit mode polygon
-    MFXCheckableButton* myEditModeProhibition;
-
-    /// @}
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
@@ -909,17 +963,29 @@ private:
     GNEPoly* myEditShapePoly;
 
     /// @brief the previous edit mode before edit junction's shapes
-    EditMode myPreviousEditMode;
+    NetworkEditMode myPreviousNetworkEditMode;
     /// @}
 
-    /// @brief set edit mode
-    void setEditMode(EditMode mode);
+    /// @brief set Network edit mode
+    void setSupermode(Supermode supermode);
 
-    /// @brief adds controls for setting the edit mode
-    void buildEditModeControls();
+    /// @brief set Network edit mode
+    void setNetworkEditMode(NetworkEditMode networkMode, bool force = false);
 
-    /// @brief updates mode specific controls
-    void updateModeSpecificControls();
+    /// @brief set Demand edit mode
+    void setDemandEditMode(DemandEditMode demandMode, bool force = false);
+
+    /// @brief adds controls for setting the Network edit mode
+    void buildNetworkEditModeControls();
+
+    /// @brief updates Network mode specific controls
+    void updateNetworkModeSpecificControls();
+
+    /// @brief adds controls for setting the Demand edit mode
+    void buildDemandEditModeControls();
+
+    /// @brief updates Demand mode specific controls
+    void updateDemandModeSpecificControls();
 
     /// @brief delete all currently selected junctions
     void deleteSelectedJunctions();

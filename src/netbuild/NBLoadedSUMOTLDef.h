@@ -97,7 +97,7 @@ public:
      * @param[in] minDur The minimum duration of the phase to add
      * @param[in] maxDur The maximum duration of the phase to add
      */
-    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur);
+    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next, const std::string& name);
 
     /// @brief mark phases as load
     void phasesLoaded() {

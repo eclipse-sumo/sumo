@@ -43,8 +43,7 @@
 #include "GNEDetectorE1.h"
 #include "GNEDetectorE2.h"
 #include "GNEDetectorE3.h"
-#include "GNEDetectorEntry.h"
-#include "GNEDetectorExit.h"
+#include "GNEDetectorEntryExit.h"
 #include "GNEDetectorE1Instant.h"
 #include "GNEParkingArea.h"
 #include "GNEParkingSpace.h"
@@ -57,8 +56,7 @@
 #include "GNEVariableSpeedSign.h"
 #include "GNEVariableSpeedSignStep.h"
 #include "GNETAZ.h"
-#include "GNETAZSource.h"
-#include "GNETAZSink.h"
+#include "GNETAZSourceSink.h"
 
 
 // ===========================================================================
@@ -1791,7 +1789,7 @@ GNEAdditionalHandler::buildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo
     } else if (E3Parent == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
-        GNEDetectorEntry* entry = new GNEDetectorEntry(viewNet, E3Parent, lane, pos, friendlyPos, blockMovement);
+        GNEDetectorEntryExit* entry = new GNEDetectorEntryExit(SUMO_TAG_DET_ENTRY, viewNet, E3Parent, lane, pos, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_ENTRY));
             viewNet->getUndoList()->add(new GNEChange_Additional(entry, true), true);
@@ -1811,11 +1809,11 @@ GNEAdditional*
 GNEAdditionalHandler::buildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* E3Parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) {
     // Check if Detector E3 parent and lane is correct
     if (lane == nullptr) {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
+        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_EXIT) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
     } else if (E3Parent == nullptr) {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
+        throw ProcessError("Could not build " + toString(SUMO_TAG_DET_EXIT) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
-        GNEDetectorExit* exit = new GNEDetectorExit(viewNet, E3Parent, lane, pos, friendlyPos, blockMovement);
+        GNEDetectorEntryExit* exit = new GNEDetectorEntryExit(SUMO_TAG_DET_EXIT, viewNet, E3Parent, lane, pos, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_EXIT));
             viewNet->getUndoList()->add(new GNEChange_Additional(exit, true), true);
@@ -2199,10 +2197,10 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         // create TAZEdges
         for (auto i : edges) {
             // create TAZ Source using GNEChange_Additional
-            GNETAZSource* TAZSource = new GNETAZSource(TAZ, i, 1);
+            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, i, 1);
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
             // create TAZ Sink using GNEChange_Additional
-            GNETAZSink* TAZSink = new GNETAZSink(TAZ, i, 1);
+            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, i, 1);
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
         }
         viewNet->getUndoList()->p_end();
@@ -2211,11 +2209,11 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
         TAZ->incRef("buildTAZ");
         for (auto i : edges) {
             // create TAZ Source
-            GNETAZSource* TAZSource = new GNETAZSource(TAZ, i, 1);
+            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, i, 1);
             TAZSource->incRef("buildTAZ");
             TAZ->addAdditionalChild(TAZSource);
             // create TAZ Sink
-            GNETAZSink* TAZSink = new GNETAZSink(TAZ, i, 1);
+            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, i, 1);
             TAZSink->incRef("buildTAZ");
             TAZ->addAdditionalChild(TAZSink);
         }
@@ -2236,7 +2234,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
     // check if TAZSink has to be created
     if(TAZSink == nullptr) {
         // Create TAZ with weight 0 (default)
-        TAZSink = new GNETAZSink(TAZ, edge, 1);
+        TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
@@ -2257,7 +2255,7 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
     // check if TAZSource has to be created
     if(TAZSource == nullptr) {
         // Create TAZ only with departWeight
-        TAZSource = new GNETAZSource(TAZ, edge, departWeight);
+        TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, departWeight);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
@@ -2293,7 +2291,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
     // check if TAZSource has to be created
     if(TAZSource == nullptr) {
         // Create TAZ with empty value
-        TAZSource = new GNETAZSource(TAZ, edge, 1);
+        TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
@@ -2313,7 +2311,7 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
     // check if TAZSink has to be created
     if(TAZSink == nullptr) {
         // Create TAZ only with arrivalWeight
-        TAZSink = new GNETAZSink(TAZ, edge, arrivalWeight);
+        TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
             viewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);

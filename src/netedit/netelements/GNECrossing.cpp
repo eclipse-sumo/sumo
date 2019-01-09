@@ -101,7 +101,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             (myShapeLengths.size() > 0) &&
             (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-        if (s.editMode != GNE_MODE_TLS) {
+        if (s.editMode != GNE_NMODE_TLS) {
             // push first draw matrix
             glPushMatrix();
             // push name
@@ -207,8 +207,8 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
     // check if menu commands has to be disabled
-    EditMode editMode = myNet->getViewNet()->getCurrentEditMode();
-    const bool wrongMode = (editMode == GNE_MODE_CONNECT || editMode == GNE_MODE_TLS || editMode == GNE_MODE_CREATE_EDGE);
+    NetworkEditMode editMode = myNet->getViewNet()->getCurrentNetworkEditMode();
+    const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
     if (wrongMode) {
         mcCustomShape->disable();
     }

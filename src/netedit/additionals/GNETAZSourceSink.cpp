@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNETAZSource.cpp
+/// @file    GNETAZSourceSink.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Apr 2017
 /// @version $Id$
@@ -24,63 +24,67 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 
-#include "GNETAZSource.h"
+#include "GNETAZSourceSink.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNETAZSource::GNETAZSource(GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, SUMO_TAG_TAZSOURCE, "", false),
+GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
+    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false),
     myEdge(edge),
     myDepartWeight(departWeight) {
+    //check that this is a TAZ Source OR a TAZ Sink
+    if((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
+        throw InvalidArgument("Invalid TAZ Child Tag");
+    }
     // set edge as child
     addEdgeChild(edge);
 }
 
 
-GNETAZSource::~GNETAZSource() {}
+GNETAZSourceSink::~GNETAZSourceSink() {}
 
 
 void
-GNETAZSource::moveGeometry(const Position&) {
+GNETAZSourceSink::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNETAZSource::commitGeometryMoving(GNEUndoList*) {
+GNETAZSourceSink::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
 void
-GNETAZSource::updateGeometry(bool /*updateGrid*/) {
+GNETAZSourceSink::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
 Position
-GNETAZSource::getPositionInView() const {
+GNETAZSourceSink::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
 std::string
-GNETAZSource::getParentName() const {
+GNETAZSourceSink::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
 void
-GNETAZSource::drawGL(const GUIVisualizationSettings&) const {
+GNETAZSourceSink::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
 
 
 std::string
-GNETAZSource::getAttribute(SumoXMLAttr key) const {
+GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
@@ -119,7 +123,7 @@ GNETAZSource::getAttribute(SumoXMLAttr key) const {
 
 
 void
-GNETAZSource::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // this additional is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)
     if(undoList == nullptr) {
         setAttribute(key, value);
@@ -141,7 +145,7 @@ GNETAZSource::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
 
 
 bool
-GNETAZSource::isValid(SumoXMLAttr key, const std::string& value) {
+GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
@@ -156,18 +160,18 @@ GNETAZSource::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 std::string
-GNETAZSource::getPopUpID() const {
+GNETAZSourceSink::getPopUpID() const {
     return getTagStr();
 }
 
 
 std::string
-GNETAZSource::getHierarchyName() const {
+GNETAZSourceSink::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_WEIGHT);
 }
 
 Boundary 
-GNETAZSource::getCenteringBoundary() const {
+GNETAZSourceSink::getCenteringBoundary() const {
     return myEdge->getNBEdge()->getGeometry().getBoxBoundary();
 }
 
@@ -176,7 +180,7 @@ GNETAZSource::getCenteringBoundary() const {
 // ===========================================================================
 
 void
-GNETAZSource::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);

@@ -45,7 +45,7 @@ public class Main {
 			for(int i=0; i<3600; i++){
 			
 				conn.do_timestep();
-				conn.do_job_set(Vehicle.add("v"+i, "car", "r1", 0, 0, 13.8, (byte) 1));
+				conn.do_job_set(Vehicle.addFull("v"+i, "r1", "car", "now", "0", "0", "max", "current", "max", "current", "", "", "", 0, 0));
                 double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
                 int tlsPhase = (int)conn.do_job_get(Trafficlight.getPhase("gneJ1"));
                 String tlsPhaseName = (String)conn.do_job_get(Trafficlight.getPhaseName("gneJ1"));

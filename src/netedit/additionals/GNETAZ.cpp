@@ -265,7 +265,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * myHintSize > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
-        bool modeMove = myViewNet->getCurrentEditMode() == GNE_MODE_MOVE;
+        bool modeMove = myViewNet->getCurrentNetworkEditMode() == GNE_NMODE_MOVE;
         Position mousePosition = myViewNet->getPositionInformation();
         double distanceToShape = myGeometry.shape.distance2D(mousePosition);
         // set colors

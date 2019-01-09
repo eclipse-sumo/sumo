@@ -164,9 +164,6 @@ public:
     long onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief true if the object is selected (may include extra logic besides calling gSelected)
-    bool isSelected(GUIGlObject* o) const;
-
 protected:
     /// @brief FOX needs this
     GNEViewParent() {}

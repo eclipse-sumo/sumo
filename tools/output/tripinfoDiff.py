@@ -35,7 +35,11 @@ def get_options(args=None):
     argParser.add_argument("output", help="the output file")
     argParser.add_argument("--persons", action="store_true",
                            default=False, help="compute personinfo differences")
-    return argParser.parse_args(args=args)
+    argParser.add_argument("--histogram-scale", type=float, dest="histScale", 
+            help="compute data histogram with the FLOAT granularity")
+    options = argParser.parse_args(args=args)
+    options.useHist = options.histScale is not None
+    return options
 
 
 def write_diff(options):
@@ -44,9 +48,9 @@ def write_diff(options):
     attr_conversions = dict([(a, parseTime) for a in attrs])
     vehicles_orig = OrderedDict([(v.id, v) for v in parse(options.orig, 'tripinfo',
                                                           attr_conversions=attr_conversions)])
-    origDurations = Statistics('original durations')
-    durations = Statistics('new durations')
-    durationDiffs = Statistics('duration differences')
+    origDurations = Statistics('original durations',   histogram=options.useHist, scale=options.histScale)
+    durations = Statistics('new durations',            histogram=options.useHist, scale=options.histScale)
+    durationDiffs = Statistics('duration differences', histogram=options.useHist, scale=options.histScale)
     with open(options.output, 'w') as f:
         f.write("<tripDiffs>\n")
         for v in parse(options.new, 'tripinfo', attr_conversions=attr_conversions):

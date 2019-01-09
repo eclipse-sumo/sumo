@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDetectorEntry.cpp
+/// @file    GNEDetectorEntryExit.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2015
 /// @version $Id$
@@ -28,7 +28,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
-#include "GNEDetectorEntry.h"
+#include "GNEDetectorEntryExit.h"
 #include "GNEAdditionalHandler.h"
 
 
@@ -36,17 +36,21 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntry::GNEDetectorEntry(GNEViewNet* viewNet, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent, viewNet, GLO_DET_ENTRY, SUMO_TAG_DET_ENTRY, pos, 0, "", "", friendlyPos, blockMovement),
+GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* viewNet, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
+    GNEDetector(parent, viewNet, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement),
     myLane(lane) {
+    //check that this is a TAZ Source OR a TAZ Sink
+    if((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
+        throw InvalidArgument("Invalid E3 Child Tag");
+    }
 }
 
 
-GNEDetectorEntry::~GNEDetectorEntry() {}
+GNEDetectorEntryExit::~GNEDetectorEntryExit() {}
 
 
 bool 
-GNEDetectorEntry::isAdditionalValid() const {
+GNEDetectorEntryExit::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
@@ -57,7 +61,7 @@ GNEDetectorEntry::isAdditionalValid() const {
 
 
 std::string 
-GNEDetectorEntry::getAdditionalProblem() const {
+GNEDetectorEntryExit::getAdditionalProblem() const {
     // declare variable for error position 
     std::string errorPosition;
     // check positions over lane
@@ -72,7 +76,7 @@ GNEDetectorEntry::getAdditionalProblem() const {
 
 
 void 
-GNEDetectorEntry::fixAdditionalProblem() {
+GNEDetectorEntryExit::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and lenght  checkAndFixDetectorPosition
@@ -83,7 +87,7 @@ GNEDetectorEntry::fixAdditionalProblem() {
 
 
 void
-GNEDetectorEntry::moveGeometry(const Position& offset) {
+GNEDetectorEntryExit::moveGeometry(const Position& offset) {
     // Calculate new position using old position
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
@@ -96,7 +100,7 @@ GNEDetectorEntry::moveGeometry(const Position& offset) {
 
 
 void
-GNEDetectorEntry::commitGeometryMoving(GNEUndoList* undoList) {
+GNEDetectorEntryExit::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
@@ -105,7 +109,7 @@ GNEDetectorEntry::commitGeometryMoving(GNEUndoList* undoList) {
 
 
 void
-GNEDetectorEntry::updateGeometry(bool updateGrid) {
+GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
     if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
@@ -138,13 +142,13 @@ GNEDetectorEntry::updateGeometry(bool updateGrid) {
 
 
 GNELane*
-GNEDetectorEntry::getLane() const {
+GNEDetectorEntryExit::getLane() const {
     return myLane;
 }
 
 
 void
-GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
+GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // Start drawing adding gl identificator
     glPushName(getGlID());
 
@@ -152,12 +156,16 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, getType());
 
-    // Set initial values
+    // Set color
     if (isAttributeCarrierSelected()) {
         GLHelper::setColor(s.selectedAdditionalColor);
-    } else {
+    } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
         GLHelper::setColor(s.SUMO_color_E3Entry);
+    } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+        GLHelper::setColor(s.SUMO_color_E3Exit);
     }
+    
+    // Set initial values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -216,27 +224,37 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(myBlockIcon.rotation, 0, 0, -1);
         //move to logo position
         glTranslated(1.9, 0, 0);
-        // draw Entry logo if isn't being drawn for selecting
+        // draw Entry or Exit logo if isn't being drawn for selecting
         if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.selectedAdditionalColor);
-        } else {
+        } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Entry);
+        } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+            GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Exit);
         }
         //move to logo position
         glTranslated(1.7, 0, 0);
         // Rotate depending of myBlockIcon.rotation
         glRotated(90, 0, 0, 1);
-        // draw Entry text if isn't being drawn for selecting
+        // draw Entry or Exit text if isn't being drawn for selecting
         if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
         } else if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("Entry", Position(), .1, 1, s.selectedAdditionalColor);
+            if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+                GLHelper::drawText("Entry", Position(), .1, 1, s.selectedAdditionalColor);
+            } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+                GLHelper::drawText("Exit", Position(), .1, 1, s.selectedAdditionalColor);
+            }
         } else {
-            GLHelper::drawText("Entry", Position(), .1, 1, s.SUMO_color_E3Entry);
+            if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+                GLHelper::drawText("Entry", Position(), .1, 1, s.SUMO_color_E3Entry);
+            } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+                GLHelper::drawText("Exit", Position(), .1, 1, s.SUMO_color_E3Exit);
+            }
         }
         // pop matrix
         glPopMatrix();
@@ -259,7 +277,7 @@ GNEDetectorEntry::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
+GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
@@ -284,7 +302,7 @@ GNEDetectorEntry::getAttribute(SumoXMLAttr key) const {
 
 
 void
-GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -306,7 +324,7 @@ GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
 
 
 bool
-GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
+GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
@@ -330,7 +348,7 @@ GNEDetectorEntry::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 void
-GNEDetectorEntry::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
