@@ -293,7 +293,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         return;
     }
     // draw all links
-    double w = myWidth / (double) noLinks;
+    const double w = myWidth / (double) noLinks;
     double x1 = 0;
     const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = 0; i < noLinks; ++i) {
@@ -367,6 +367,8 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
         if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LINKSTATE_MAJOR) {
             // the white bar should be the default for most railway
             // links and looks ugly so we do not draw it
+            const double scale = isInternal() ? 0.5 : 1;
+            glScaled(scale, scale, 1);
             glBegin(GL_QUADS);
             glVertex2d(x1 - myHalfLaneWidth, 0.0);
             glVertex2d(x1 - myHalfLaneWidth, 0.5);
@@ -640,7 +642,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, 0, .1);
                 }
                 // make sure link rules are drawn so tls can be selected via right-click
-                if (s.showLinkRules && (drawDetails || s.drawForSelecting)) {
+                if (s.showLinkRules && (drawDetails || s.drawForSelecting)
+                        && (!myEdge->isInternal() || getLinkCont()[0]->isInternalJunctionLink())) {
                     drawLinkRules(s, *net);
                 }
                 if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
