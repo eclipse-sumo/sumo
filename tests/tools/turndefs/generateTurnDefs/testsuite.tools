@@ -1,3 +1,6 @@
+# unit tests for functions in init
+unit_tests
+
 # Tests plain output of the generateTurnDefs.py script
 plain
 
