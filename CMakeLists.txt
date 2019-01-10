@@ -152,19 +152,17 @@ if (SUMO_LIBRARIES)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-?.?.??${LIB_VERSION}/*/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-?.?.?${LIB_VERSION}/libtiff/*/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}/*/*.dll")
+    file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
     # set GoogleTest only if compiler isn't mingw32
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
-        if(USE_MINGW_64BITS)
-            # Prevent GoogleTest from overriding our compiler/linker options
-            set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-            add_subdirectory("${SUMO_LIBRARIES}/googletest-1.8.0/googletest"
-                             "${CMAKE_BINARY_DIR}/googletest-build")
-            include_directories("${SUMO_LIBRARIES}/googletest-1.8.0/googletest/include")
-            set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-            set(GTEST_FOUND true)
-        else()
-            message(STATUS "Disabled Google Test in Mingw32")
-        endif()
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32 AND NOT USE_MINGW_64BITS)
+        message(STATUS "Disabled Google Test in Mingw32")
+    else()
+        # Prevent GoogleTest from overriding our compiler/linker options
+        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+        add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
+        include_directories("${GTEST_ROOT}/include")
+        set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
+        set(GTEST_FOUND true)
     endif()
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?${LIB_VERSION}")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?${LIB_VERSION}")
