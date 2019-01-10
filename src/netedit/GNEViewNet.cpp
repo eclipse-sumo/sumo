@@ -898,203 +898,11 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     if (makeCurrent()) {
         // fill objects under cursor
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
-        // decide what to do based on mode
-        switch (mySuperModes.networkEditMode) {
-            case GNE_NMODE_CREATE_EDGE: {
-                // make sure that Control key isn't pressed
-                if (!myKeyPressed.controlKeyPressed()) {
-                    // process left click in create edge frame Frame
-                    myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), myObjectsUnderCursor, myCreateEdgeOptions.autoOppositeEdge->getCheck(), myCreateEdgeOptions.chainEdges->getCheck());
-                }
-                // process click
-                processClick(eventData);
-                break;
-            }
-            case GNE_NMODE_MOVE: {
-                // allways swap lane to edges in movement mode
-                if (myObjectsUnderCursor.getLaneFront()) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
-                // check if we're moving a set of selected items
-                if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    // move selected ACs
-                    myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
-                    // update view
-                    update();
-                } else if (!myMoveSingleElementValues.beginMoveSingleElement()) {
-                    // process click  if there isn't movable elements (to move camera using drag an drop)
-                    processClick(eventData);
-                }
-                break;
-            }
-            case GNE_NMODE_DELETE: {
-                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
-                    // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
-                    if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myKeyPressed.shiftKeyPressed()) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
-                    // check if we are deleting a selection or an single attribute carrier
-                    if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                        // before delete al selected attribute carriers, check if we clicked over a geometry point
-                        if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
-                                (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false, false) != -1)) 
-                              || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false, false) != -1)))) {
-                            myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
-                        } else {
-                            myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
-                        }
-                    } else {
-                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
-                    }
-                } else {
-                    // process click
-                    processClick(eventData);
-                }
-                break;
-            }
-            case GNE_NMODE_INSPECT: {
-                // process left click in Inspector Frame
-                myViewParent->getInspectorFrame()->processClick(getPositionInformation(), myObjectsUnderCursor);
-                // process click
-                processClick(eventData);
-                break;
-            }
-            case GNE_NMODE_SELECT:
-                // check if a rect for selecting is being created
-                if (myKeyPressed.shiftKeyPressed()) {
-                    // begin rectangle selection
-                    mySelectingArea.beginRectangleSelection();
-                } else {
-                    // first check that under cursor there is an attribute carrier and is selectable
-                    if (myObjectsUnderCursor.getAttributeCarrierFront()) {
-                        // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
-                        if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-                            myObjectsUnderCursor.swapLane2Edge();
-                        }
-                        // Check if this GLobject type is locked
-                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                            // toogle netElement selection
-                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                            } else {
-                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
-                            }
-                        }
-                    }
-                    // process click
-                    processClick(eventData);
-                }
-                break;
-            case GNE_NMODE_CONNECT: {
-                if (myObjectsUnderCursor.getLaneFront()) {
-                    // Handle laneclick (shift key may pass connections, Control key allow conflicts)
-                    myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
-                    update();
-                }
-                // process click
-                processClick(eventData);
-                break;
-            }
-            case GNE_NMODE_TLS: {
-                if (myObjectsUnderCursor.getJunctionFront()) {
-                    myViewParent->getTLSEditorFrame()->editJunction(myObjectsUnderCursor.getJunctionFront());
-                    update();
-                }
-                // process click
-                processClick(eventData);
-                break;
-            }
-            case GNE_NMODE_ADDITIONAL: {
-                // avoid create additionals if control key is pressed
-                if(!myKeyPressed.controlKeyPressed()) {
-                    if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
-                        // check if we need to start select lanes
-                        if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-                            // select getLaneFront() to create an additional with consecutive lanes
-                            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
-                        } else if (myObjectsUnderCursor.getLaneFront()) {
-                            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
-                        }
-                    } else {
-                        // call function addAdditional from additional frame
-                        myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
-                    }
-                    update();
-                }
-                // process click
-                processClick(eventData);
-                break;
-            }
-            case GNE_NMODE_CROSSING: {
-                // swap lanes to edges in crossingsMode
-                if (myObjectsUnderCursor.getLaneFront()) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
-                // call function addCrossing from crossing frame
-                myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor);
-                // process click
-                processClick(eventData);
-                break;
-            }
-            case GNE_NMODE_TAZ: {
-                // avoid create TAZs if control key is pressed
-                if(!myKeyPressed.controlKeyPressed()) {
-                    // swap laness to edges in TAZ Mode
-                    if (myObjectsUnderCursor.getLaneFront()) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
-                    // check if we want to create a rect for selecting edges
-                    if (myKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
-                        // begin rectangle selection
-                        mySelectingArea.beginRectangleSelection();
-                    } else {
-                        // check if process click was scuesfully
-                        if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
-                            // view net must be always update
-                            update();
-                        }
-                        // process click
-                        processClick(eventData);
-                    }
-                } else {
-                    // process click
-                    processClick(eventData);
-                }
-                break;
-            }
-            case GNE_NMODE_POLYGON: {
-                // avoid create shapes if control key is pressed
-                if(!myKeyPressed.controlKeyPressed()) {
-                    if (!myObjectsUnderCursor.getPOIFront()) {
-                        GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
-                        // view net must be always update
-                        update();
-                        // process click depending of the result of "process click"
-                        if ((result != GNEPolygonFrame::ADDSHAPE_UPDATEDTEMPORALSHAPE)) {
-                            // process click
-                            processClick(eventData);
-                        }
-                    }
-                } else {
-                    // process click
-                    processClick(eventData);
-                }
-                break;
-            }
-            case GNE_NMODE_PROHIBITION: {
-                if (myObjectsUnderCursor.getConnectionFront()) {
-                    // shift key may pass connections, Control key allow conflicts.
-                    myViewParent->getProhibitionFrame()->handleProhibitionClick(myObjectsUnderCursor);
-                    update();
-                }
-                // process click
-                processClick(eventData);
-                break;
-            }
-            default: {
-                // process click
-                processClick(eventData);
-            }
+        // process left button press function depending of supermode
+        if(mySuperModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+            processLeftButtonPressNetwork(eventData);
+        } else if(mySuperModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+            processLeftButtonPressDemand(eventData);
         }
         makeNonCurrent();
     }
@@ -1112,41 +920,11 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     myKeyPressed.update(eventData);
     // update cursor
     updateCursor();
-    // check moved items
-    if (myMoveMultipleElementValues.isMovingSelection()) {
-        myMoveMultipleElementValues.finishMoveSelection();
-    } else if (mySelectingArea.selectingUsingRectangle) {
-        // check if we're creating a rectangle selection or we want only to select a lane
-        if(mySelectingArea.startDrawing) {
-            // check if we're selecting all type of elements o we only want a set of edges for TAZ
-            if(mySuperModes.networkEditMode == GNE_NMODE_SELECT) { 
-                mySelectingArea.processRectangleSelection();
-            } else if(mySuperModes.networkEditMode == GNE_NMODE_TAZ) {  
-                // process edge selection
-                myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection());
-            }
-        } else if(myKeyPressed.shiftKeyPressed()) {
-            // obtain objects under cursor
-            if (makeCurrent()) {
-                // update objects under cursor again
-                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
-                makeNonCurrent();
-            }
-            // check if there is a lane in objects under cursor
-            if(myObjectsUnderCursor.getLaneFront()) {
-                // if we clicked over an lane with shift key pressed, select or unselect it
-                if(myObjectsUnderCursor.getLaneFront()->isAttributeCarrierSelected()) {
-                    myObjectsUnderCursor.getLaneFront()->unselectAttributeCarrier();
-                } else {
-                    myObjectsUnderCursor.getLaneFront()->selectAttributeCarrier();
-                }
-            }
-        }
-        // finish selection
-        mySelectingArea.finishRectangleSelection();
-    } else {
-        // finish moving of single elements
-        myMoveSingleElementValues.finishMoveSingleElement();
+    // process left button release function depending of supermode
+    if(mySuperModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        processLeftButtonReleaseNetwork();
+    } else if(mySuperModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        processLeftButtonReleaseDemand();
     }
     update();
     return 1;
@@ -1191,20 +969,11 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     myKeyPressed.update(eventData);
     // update cursor
     updateCursor();
-    // change "delete last created point" depending if during movement shift key is pressed
-    if ((mySuperModes.networkEditMode == GNE_NMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
-    }
-    // check what type of additional is moved
-    if (myMoveMultipleElementValues.isMovingSelection()) {
-        // move entire selection
-        myMoveMultipleElementValues.moveSelection();
-    } else if (mySelectingArea.selectingUsingRectangle) {
-        // update selection corner of selecting area
-        mySelectingArea.moveRectangleSelection();
-    } else {
-        // move single elements
-        myMoveSingleElementValues.moveSingleElement();
+    // process mouse move function depending of supermode
+    if(mySuperModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        processMoveMouseNetwork();
+    } else if(mySuperModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        processMoveMouseDemand();
     }
     // update view
     update();
@@ -4262,6 +4031,289 @@ GNEViewNet::drawTemporalDrawShape() const {
         GLHelper::drawLine(temporalShape.back(), snapToActiveGrid(getPositionInformation()));
         glPopMatrix();
     }
+}
+
+
+void 
+GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
+    // decide what to do based on mode
+    switch (mySuperModes.networkEditMode) {
+        case GNE_NMODE_CREATE_EDGE: {
+            // make sure that Control key isn't pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                // process left click in create edge frame Frame
+                myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), myObjectsUnderCursor, myCreateEdgeOptions.autoOppositeEdge->getCheck(), myCreateEdgeOptions.chainEdges->getCheck());
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_NMODE_MOVE: {
+            // allways swap lane to edges in movement mode
+            if (myObjectsUnderCursor.getLaneFront()) {
+                myObjectsUnderCursor.swapLane2Edge();
+            }
+            // check if we're moving a set of selected items
+            if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                // move selected ACs
+                myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
+                // update view
+                update();
+            } else if (!myMoveSingleElementValues.beginMoveSingleElement()) {
+                // process click  if there isn't movable elements (to move camera using drag an drop)
+                processClick(eventData);
+            }
+            break;
+        }
+        case GNE_NMODE_DELETE: {
+            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
+                if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myKeyPressed.shiftKeyPressed()) {
+                    myObjectsUnderCursor.swapLane2Edge();
+                }
+                // check if we are deleting a selection or an single attribute carrier
+                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    // before delete al selected attribute carriers, check if we clicked over a geometry point
+                    if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
+                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false, false) != -1)) 
+                            || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false, false) != -1)))) {
+                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
+                    } else {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
+                } else {
+                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
+                }
+            } else {
+                // process click
+                processClick(eventData);
+            }
+            break;
+        }
+        case GNE_NMODE_INSPECT: {
+            // process left click in Inspector Frame
+            myViewParent->getInspectorFrame()->processClick(getPositionInformation(), myObjectsUnderCursor);
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_NMODE_SELECT:
+            // check if a rect for selecting is being created
+            if (myKeyPressed.shiftKeyPressed()) {
+                // begin rectangle selection
+                mySelectingArea.beginRectangleSelection();
+            } else {
+                // first check that under cursor there is an attribute carrier and is selectable
+                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                    // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
+                    if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
+                    // Check if this GLobject type is locked
+                    if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                        // toogle netElement selection
+                        if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                            myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                        } else {
+                            myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                        }
+                    }
+                }
+                // process click
+                processClick(eventData);
+            }
+            break;
+        case GNE_NMODE_CONNECT: {
+            if (myObjectsUnderCursor.getLaneFront()) {
+                // Handle laneclick (shift key may pass connections, Control key allow conflicts)
+                myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
+                update();
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_NMODE_TLS: {
+            if (myObjectsUnderCursor.getJunctionFront()) {
+                myViewParent->getTLSEditorFrame()->editJunction(myObjectsUnderCursor.getJunctionFront());
+                update();
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_NMODE_ADDITIONAL: {
+            // avoid create additionals if control key is pressed
+            if(!myKeyPressed.controlKeyPressed()) {
+                if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
+                    // check if we need to start select lanes
+                    if(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
+                        // select getLaneFront() to create an additional with consecutive lanes
+                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->addSelectedLane(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
+                    } else if (myObjectsUnderCursor.getLaneFront()) {
+                        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
+                    }
+                } else {
+                    // call function addAdditional from additional frame
+                    myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
+                }
+                update();
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_NMODE_CROSSING: {
+            // swap lanes to edges in crossingsMode
+            if (myObjectsUnderCursor.getLaneFront()) {
+                myObjectsUnderCursor.swapLane2Edge();
+            }
+            // call function addCrossing from crossing frame
+            myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor);
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_NMODE_TAZ: {
+            // avoid create TAZs if control key is pressed
+            if(!myKeyPressed.controlKeyPressed()) {
+                // swap laness to edges in TAZ Mode
+                if (myObjectsUnderCursor.getLaneFront()) {
+                    myObjectsUnderCursor.swapLane2Edge();
+                }
+                // check if we want to create a rect for selecting edges
+                if (myKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
+                    // begin rectangle selection
+                    mySelectingArea.beginRectangleSelection();
+                } else {
+                    // check if process click was scuesfully
+                    if(myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
+                        // view net must be always update
+                        update();
+                    }
+                    // process click
+                    processClick(eventData);
+                }
+            } else {
+                // process click
+                processClick(eventData);
+            }
+            break;
+        }
+        case GNE_NMODE_POLYGON: {
+            // avoid create shapes if control key is pressed
+            if(!myKeyPressed.controlKeyPressed()) {
+                if (!myObjectsUnderCursor.getPOIFront()) {
+                    GNEPolygonFrame::AddShapeResult result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
+                    // view net must be always update
+                    update();
+                    // process click depending of the result of "process click"
+                    if ((result != GNEPolygonFrame::ADDSHAPE_UPDATEDTEMPORALSHAPE)) {
+                        // process click
+                        processClick(eventData);
+                    }
+                }
+            } else {
+                // process click
+                processClick(eventData);
+            }
+            break;
+        }
+        case GNE_NMODE_PROHIBITION: {
+            if (myObjectsUnderCursor.getConnectionFront()) {
+                // shift key may pass connections, Control key allow conflicts.
+                myViewParent->getProhibitionFrame()->handleProhibitionClick(myObjectsUnderCursor);
+                update();
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        default: {
+            // process click
+            processClick(eventData);
+        }
+    }
+}
+
+
+void 
+GNEViewNet::processLeftButtonReleaseNetwork() {
+    // check moved items
+    if (myMoveMultipleElementValues.isMovingSelection()) {
+        myMoveMultipleElementValues.finishMoveSelection();
+    } else if (mySelectingArea.selectingUsingRectangle) {
+        // check if we're creating a rectangle selection or we want only to select a lane
+        if(mySelectingArea.startDrawing) {
+            // check if we're selecting all type of elements o we only want a set of edges for TAZ
+            if(mySuperModes.networkEditMode == GNE_NMODE_SELECT) { 
+                mySelectingArea.processRectangleSelection();
+            } else if(mySuperModes.networkEditMode == GNE_NMODE_TAZ) {  
+                // process edge selection
+                myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection());
+            }
+        } else if(myKeyPressed.shiftKeyPressed()) {
+            // obtain objects under cursor
+            if (makeCurrent()) {
+                // update objects under cursor again
+                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
+                makeNonCurrent();
+            }
+            // check if there is a lane in objects under cursor
+            if(myObjectsUnderCursor.getLaneFront()) {
+                // if we clicked over an lane with shift key pressed, select or unselect it
+                if(myObjectsUnderCursor.getLaneFront()->isAttributeCarrierSelected()) {
+                    myObjectsUnderCursor.getLaneFront()->unselectAttributeCarrier();
+                } else {
+                    myObjectsUnderCursor.getLaneFront()->selectAttributeCarrier();
+                }
+            }
+        }
+        // finish selection
+        mySelectingArea.finishRectangleSelection();
+    } else {
+        // finish moving of single elements
+        myMoveSingleElementValues.finishMoveSingleElement();
+    }
+}
+
+
+void 
+GNEViewNet::processMoveMouseNetwork() {
+    // change "delete last created point" depending if during movement shift key is pressed
+    if ((mySuperModes.networkEditMode == GNE_NMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+    }
+    // check what type of additional is moved
+    if (myMoveMultipleElementValues.isMovingSelection()) {
+        // move entire selection
+        myMoveMultipleElementValues.moveSelection();
+    } else if (mySelectingArea.selectingUsingRectangle) {
+        // update selection corner of selecting area
+        mySelectingArea.moveRectangleSelection();
+    } else {
+        // move single elements
+        myMoveSingleElementValues.moveSingleElement();
+    }
+}
+
+
+void 
+GNEViewNet::processLeftButtonPressDemand(void* eventData) {
+    // process click
+    processClick(eventData);
+}
+
+
+void 
+GNEViewNet::processLeftButtonReleaseDemand() {
+    //
+}
+
+
+void 
+GNEViewNet::processMoveMouseDemand() {
+    //
 }
 
 /****************************************************************************/
