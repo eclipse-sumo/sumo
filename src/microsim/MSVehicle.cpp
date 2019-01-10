@@ -2858,7 +2858,7 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 break;
             }
         } else {
-            if (link != nullptr && link->isExitLink() && myLane->isInternal() && link->getJunction() == myLane->getEdge().getToJunction()) {
+            if (link != nullptr && link->getInternalLaneBefore() != nullptr && myLane->isInternal() && link->getJunction() == myLane->getEdge().getToJunction()) {
                 // blocked on the junction. yield request so other vehicles may
                 // become junction leader
 #ifdef DEBUG_EXEC_MOVE
