@@ -110,6 +110,8 @@
 // @todo Calibrate with real-world values / make configurable
 #define DIST_TO_STOPLINE_EXPECT_PRIORITY 1.0
 
+#define NUMERICAL_EPS_SPEED (0.1 * NUMERICAL_EPS * TS)
+
 // ===========================================================================
 // static value definitions
 // ===========================================================================
@@ -2262,7 +2264,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - do not issue a request to enter an intersection after we already slowed down for an earlier one
         const bool abortRequestAfterMinor = slowedDownForMinor && (*link)->getInternalLaneBefore() == nullptr;
         // - even if red, if we cannot break we should issue a request
-        bool setRequest = (v > 0 && !abortRequestAfterMinor) || (leavingCurrentIntersection);
+        bool setRequest = (v > NUMERICAL_EPS_SPEED && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
         double vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
 #ifdef DEBUG_PLAN_MOVE
@@ -2272,6 +2274,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     << " vLinkWait=" << vLinkWait
                     << " brakeDist=" << brakeDist
                     << " seen=" << seen
+                    << " leaveIntersection=" << leavingCurrentIntersection
+                    << " setRequest=" << setRequest
+                    //<< std::setprecision(16)
+                    //<< " v=" << v
+                    //<< " speedEps=" << NUMERICAL_EPS_SPEED
+                    //<< std::setprecision(gPrecision)
                     << "\n";
         }
 #endif
@@ -2605,10 +2613,16 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                         || leader->isStopped()
                         || leader->getWaitingTime() > TIME2STEPS(JUNCTION_BLOCKAGE_TIME))) {
                 setRequest = false;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                if (DEBUG_COND) std::cout << "   aborting request\n";
+#endif
                 if (lastLink != nullptr && leader->getLane()->getLogicalPredecessorLane() == myLane) {
                     // we are not yet on the junction so must abort that request as well
                     // (or maybe we are already on the junction and the leader is a partial occupator beyond)
                     lastLink->mySetRequest = false;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                    if (DEBUG_COND) std::cout << "      aborting previous request\n";
+#endif
                 }
             }
         }
@@ -2844,7 +2858,7 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 break;
             }
         } else {
-            if (link != nullptr && link->isExitLink() && myLane->isInternal() && link->getJunction() == myLane->getEdge().getToJunction()) {
+            if (link != nullptr && link->getInternalLaneBefore() != nullptr && myLane->isInternal() && link->getJunction() == myLane->getEdge().getToJunction()) {
                 // blocked on the junction. yield request so other vehicles may
                 // become junction leader
 #ifdef DEBUG_EXEC_MOVE
@@ -2862,6 +2876,13 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, braking)\n";
+                }
+#endif
+            } else if (vSafe < SUMO_const_haltingSpeed) {
+                myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, stopping)\n";
                 }
 #endif
             }
@@ -3424,7 +3445,7 @@ MSVehicle::executeMove() {
     }
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
-    if (fabs(vNext) < 0.1 * NUMERICAL_EPS * TS) {
+    if (fabs(vNext) < NUMERICAL_EPS_SPEED) {
         vNext = 0.;
     }
 #ifdef DEBUG_EXEC_MOVE

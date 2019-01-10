@@ -1463,6 +1463,12 @@ GUISUMOAbstractView::setDelay(double delay) {
 }
 
 
+void 
+GUISUMOAbstractView::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
+    myApp->setBreakpoints(breakpoints);
+}
+
+
 GUISUMOAbstractView::Decal::Decal() :
     filename(),
     centerX(0),

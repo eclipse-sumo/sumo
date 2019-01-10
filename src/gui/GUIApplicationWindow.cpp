@@ -1795,6 +1795,14 @@ GUIApplicationWindow::sendBlockingEvent(GUIEvent* event) {
     myEventMutex.unlock();
 }
 
+void 
+GUIApplicationWindow::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
+    if (myRunThread != nullptr) {
+        myRunThread->getBreakpointLock().lock();
+        myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
+        myRunThread->getBreakpointLock().unlock();
+    }
+}
 
 const std::vector<SUMOTime>
 GUIApplicationWindow::retrieveBreakpoints() const {
