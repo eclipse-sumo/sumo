@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSNet.h>
 #include <utils/shapes/PointOfInterest.h>
@@ -42,78 +38,30 @@
 bool
 TraCIServerAPI_POI::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                tcpip::Storage& outputStorage) {
-
-    // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST &&
-            variable != VAR_TYPE &&
-            variable != VAR_COLOR &&
-            variable != VAR_POSITION &&
-            variable != VAR_POSITION3D &&
-            variable != ID_COUNT &&
-            variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_POI_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_POI_VARIABLE, variable, id);
     try {
-        switch (variable) {
-            case ID_LIST:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::POI::getIDList());
-                break;
-            case ID_COUNT:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int) libsumo::POI::getIDCount());
-                break;
-            case VAR_TYPE:
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::POI::getType(id));
-                break;
-            case VAR_COLOR:
-                tempMsg.writeUnsignedByte(TYPE_COLOR);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).r);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).g);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).b);
-                tempMsg.writeUnsignedByte(libsumo::POI::getColor(id).a);
-                break;
-            case VAR_POSITION:
-                tempMsg.writeUnsignedByte(POSITION_2D);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).x);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).y);
-                break;
-            case VAR_POSITION3D:
-                tempMsg.writeUnsignedByte(POSITION_3D);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).x);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).y);
-                tempMsg.writeDouble(libsumo::POI::getPosition(id).z);
-                break;
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+        if (!libsumo::POI::handleVariable(id, variable, &server)) {
+            switch (variable) {
+                case VAR_PARAMETER: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::POI::getParameter(id, paramName));
+                    break;
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::POI::getParameter(id, paramName));
-                break;
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, "Get PoI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
-            default:
-                break;
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_POI_VARIABLE, e.what(), outputStorage);
     }
-
     server.writeStatusCmd(CMD_GET_POI_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
-
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 
@@ -158,7 +106,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The position must be given using an accoring type.", outputStorage);
                 }
-                libsumo::POI::setPosition(id, pos);
+                libsumo::POI::setPosition(id, pos.x, pos.y);
             }
             break;
             case ADD: {
@@ -184,7 +132,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
                 }
                 //
-                if (!libsumo::POI::add(id, pos, col, type, layer)) {
+                if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                 }
             }
@@ -224,23 +172,6 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     }
     server.writeStatusCmd(CMD_SET_POI_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
-}
-
-
-bool
-TraCIServerAPI_POI::getPosition(const std::string& id, Position& p) {
-    PointOfInterest* poi = getPoI(id);
-    if (poi == 0) {
-        return false;
-    }
-    p = *poi;
-    return true;
-}
-
-
-PointOfInterest*
-TraCIServerAPI_POI::getPoI(const std::string& id) {
-    return MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
 }
 
 

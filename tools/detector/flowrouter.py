@@ -270,17 +270,20 @@ class Net:
                     self.addSinkEdge(edgeObj)
                     foundSinks.append(edgeObj.label)
         if options.verbose:
-            print("Loaded %s sources and %s sinks from detector file. Added %s sources and %s sinks from the network" % (
+            print(("Loaded %s sources and %s sinks from detector file. Added %s sources and %s sinks " +
+                   "from the network") % (
                 len(sources), len(sinks), len(foundSources), len(foundSinks)))
         if options.source_sink_output:
             with open(options.source_sink_output, 'w') as outf:
                 outf.write('<detectors>\n')
                 freq = options.interval * 60 if options.interval else 24 * 3600
                 for source in foundSources:
-                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" file="NUL" freq="%s"/>\n' %
+                    outf.write(('    <e1Detector id="%s_0" lane="%s_0" pos="1" type="source" friendlyPos="true" ' +
+                               'file="NUL" freq="%s"/>\n') %
                                (source, source, freq))
                 for sink in foundSinks:
-                    outf.write('    <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" file="NUL" freq="%s"/>\n' %
+                    outf.write(('    <e1Detector id="%s_0" lane="%s_0" pos="-1" type="sink" friendlyPos="true" ' +
+                               'file="NUL" freq="%s"/>\n') %
                                (sink, sink, freq))
                 outf.write('</detectors>\n')
 
@@ -759,8 +762,7 @@ class Net:
             queue = [s]
             s.isOnSinkPath = True
             while queue:
-                edgeObj = queue.pop(0)
-
+                queue.pop(0)
 
     def writeFlowPOIs(self, poiOut, suffix=""):
         if not poiOut:
@@ -921,15 +923,19 @@ optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",
 optParser.add_option("--source-sink-output", dest="source_sink_output",
                      help="write sources and sinks in detector format to FILE", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
-                     default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
+                     default=0.0, help="only consider edges where the fastest lane allows at least this " +
+                                       "maxspeed (m/s)")
 optParser.add_option("-M", "--max-flow", type="int", dest="maxflow",
                      help="limit the number of vehicles per lane and hour to this value")
 optParser.add_option("--max-turn-flow", type="int", dest="maxturnflow",
                      help="limit the number of vehicles per turn-around connection and hour to this value")
 optParser.add_option("-r", "--flow-restrictions", dest="restrictionfile",
-                     help="read edge and route restrictions from FILEs (each line starts with '<maxHourlyFlow> ' followed by <edgeID> or '<originEdgeID> <destEdgeID>' or '<e1> <e2> ... <en>')", metavar="FILE+")
+                     help="read edge and route restrictions from FILEs (each line starts with '<maxHourlyFlow> ' " +
+                           "followed by <edgeID> or '<originEdgeID> <destEdgeID>' or '<e1> <e2> ... <en>')",
+                           metavar="FILE+")
 optParser.add_option("-s", "--synthetic-flows", dest="syntheticflowfile",
-                     help="read artificial detector values from FILE (lines of the form '<dailyFlow> <edgeID>')", metavar="FILE")
+                     help="read artificial detector values from FILE (lines of the form '<dailyFlow> <edgeID>')",
+                     metavar="FILE")
 optParser.add_option("--timeline", default=("0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8," +
                                             "4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9"),
                      help="use time line for artificial detector values")

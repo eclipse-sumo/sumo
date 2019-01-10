@@ -1,6 +1,12 @@
 # a stopped vehicle is overtaken
 overtaking_noconflict
 
+# a stopped vehicle cannot be overtaken because the neighboring lanes does not allow the vehicle in question
+overtaking_noconflict_forbidden
+
+# overtaking by non-emergency vehicle on a multi-lane road if only 1 lane is usable in the forward direction
+overtaking_multilane_unusable
+
 # a stopped vehicle is overtaken
 overtaking_noconflict_subsecond
 
@@ -9,6 +15,9 @@ overtaking_stopped
 
 # two stopped vehicles are overtake as soon as there is a safe gap in the oncoming traffic
 overtaking_2stopped
+
+# two stopped vehicles are overtake but there is a collision because the overaken vehicles prevent return to the forward laneas soon as there is a safe gap in the oncoming traffic
+overtaking_2stopped_collision
 
 # same as overtaking_stopped but with step-length 0.2
 overtaking_stopped_subsecond
@@ -61,3 +70,6 @@ long_queue_emergency
 
 # emergency vehicle may overtake queue before red light
 emergency_redlight
+
+# bugs specific to opposite-direction driving
+bugs

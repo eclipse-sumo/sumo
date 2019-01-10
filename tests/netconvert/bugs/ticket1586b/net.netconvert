@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:47 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Aug 16 15:52:06 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,56 +24,56 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="43.24,-44.37" convBoundary="0.00,0.00,299.61,35.08" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" disallow="rail" speed="13.89" length="4.83" shape="168.20,14.06 167.82,12.82 167.14,11.94 166.16,11.41 164.87,11.25"/>
+        <lane id=":gneJ0_0_0" index="0" disallow="rail" speed="6.54" length="8.08" shape="168.51,15.98 167.87,13.90 166.73,12.42 165.09,11.54 162.93,11.26"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" disallow="rail" speed="13.89" length="9.44" shape="171.36,13.56 170.62,11.13 169.29,9.40 167.37,8.38 164.85,8.05"/>
+        <lane id=":gneJ0_1_0" index="0" disallow="rail" speed="8.04" length="12.70" shape="171.67,15.48 170.67,12.21 168.88,9.89 166.29,8.50 162.91,8.06"/>
     </edge>
     <edge id=":gneJ0_2" function="internal">
-        <lane id=":gneJ0_2_0" index="0" disallow="rail" speed="13.89" length="8.59" shape="173.37,4.85 164.82,4.85"/>
-        <lane id=":gneJ0_2_1" index="1" disallow="rail" speed="13.89" length="8.59" shape="173.44,1.65 164.80,1.65"/>
+        <lane id=":gneJ0_2_0" index="0" disallow="rail" speed="13.89" length="12.47" shape="175.31,4.89 162.88,4.86"/>
+        <lane id=":gneJ0_2_1" index="1" disallow="rail" speed="13.89" length="12.47" shape="175.38,1.69 162.86,1.66"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" disallow="rail" speed="13.89" length="4.51" shape="82.93,11.89 81.76,12.04 80.78,12.48 79.98,13.20 79.37,14.21"/>
+        <lane id=":gneJ1_0_0" index="0" disallow="rail" speed="6.68" length="6.41" shape="83.99,11.88 82.33,12.10 80.93,12.72 79.80,13.75 78.93,15.18"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" disallow="rail" speed="13.89" length="8.17" shape="82.91,8.69 80.79,8.97 79.00,9.76 77.56,11.07 76.45,12.90"/>
+        <lane id=":gneJ1_1_0" index="0" disallow="rail" speed="8.22" length="10.07" shape="83.97,8.68 81.36,9.02 79.16,10.00 77.38,11.61 76.01,13.86"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
-        <lane id=":gneJ1_2_0" index="0" disallow="rail" speed="13.89" length="7.14" shape="82.88,5.49 75.76,5.58"/>
-        <lane id=":gneJ1_2_1" index="1" disallow="rail" speed="13.89" length="7.14" shape="82.86,2.29 75.70,2.38"/>
+        <lane id=":gneJ1_2_0" index="0" disallow="rail" speed="13.89" length="9.26" shape="83.94,5.48 74.69,5.60"/>
+        <lane id=":gneJ1_2_1" index="1" disallow="rail" speed="13.89" length="9.26" shape="83.92,2.28 74.64,2.40"/>
     </edge>
 
     <edge id="beg" from="gneJ4" to="gneJ0" priority="1">
-        <lane id="beg_0" index="0" disallow="rail" speed="13.89" length="126.17" shape="299.52,7.28 173.37,4.85"/>
-        <lane id="beg_1" index="1" disallow="rail" speed="13.89" length="126.17" shape="299.58,4.08 173.44,1.65"/>
+        <lane id="beg_0" index="0" disallow="rail" speed="13.89" length="124.23" shape="299.52,7.28 175.31,4.89"/>
+        <lane id="beg_1" index="1" disallow="rail" speed="13.89" length="124.23" shape="299.58,4.08 175.38,1.69"/>
     </edge>
     <edge id="beg2" from="gneJ5" to="gneJ0" priority="1" shape="294.58,35.08 173.87,19.13 170.82,0.00">
-        <lane id="beg2_0" index="0" disallow="rail" speed="13.89" length="132.43" shape="293.95,39.84 169.69,23.42 168.20,14.06"/>
-        <lane id="beg2_1" index="1" disallow="rail" speed="13.89" length="132.43" shape="294.37,36.67 172.48,20.56 171.36,13.56"/>
+        <lane id="beg2_0" index="0" disallow="rail" speed="13.89" length="130.49" shape="293.95,39.84 169.69,23.42 168.51,15.98"/>
+        <lane id="beg2_1" index="1" disallow="rail" speed="13.89" length="130.49" shape="294.37,36.67 172.48,20.56 171.67,15.48"/>
     </edge>
     <edge id="end" from="gneJ1" to="gneJ2" priority="1">
-        <lane id="end_0" index="0" disallow="rail" speed="13.89" length="75.45" shape="75.76,5.58 0.32,6.81"/>
-        <lane id="end_1" index="1" disallow="rail" speed="13.89" length="75.45" shape="75.70,2.38 0.27,3.61"/>
+        <lane id="end_0" index="0" disallow="rail" speed="13.89" length="74.39" shape="74.69,5.60 0.32,6.81"/>
+        <lane id="end_1" index="1" disallow="rail" speed="13.89" length="74.39" shape="74.64,2.40 0.27,3.61"/>
     </edge>
     <edge id="end2" from="gneJ1" to="gneJ3" priority="1" shape="80.19,0.71 68.21,27.28 0.00,30.01">
-        <lane id="end2_0" index="0" disallow="rail" speed="13.89" length="88.72" shape="79.37,14.21 71.37,31.96 0.19,34.81"/>
-        <lane id="end2_1" index="1" disallow="rail" speed="13.89" length="88.72" shape="76.45,12.90 69.26,28.84 0.06,31.61"/>
+        <lane id="end2_0" index="0" disallow="rail" speed="13.89" length="87.66" shape="78.93,15.18 71.37,31.96 0.19,34.81"/>
+        <lane id="end2_1" index="1" disallow="rail" speed="13.89" length="87.66" shape="76.01,13.86 69.26,28.84 0.06,31.61"/>
     </edge>
     <edge id="middle" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="middle_0" index="0" disallow="rail" speed="13.89" length="81.94" shape="164.87,11.25 82.93,11.89"/>
-        <lane id="middle_1" index="1" disallow="rail" speed="13.89" length="81.94" shape="164.85,8.05 82.91,8.69"/>
-        <lane id="middle_2" index="2" disallow="rail" speed="13.89" length="81.94" shape="164.82,4.85 82.88,5.49"/>
-        <lane id="middle_3" index="3" disallow="rail" speed="13.89" length="81.94" shape="164.80,1.65 82.86,2.29"/>
+        <lane id="middle_0" index="0" disallow="rail" speed="13.89" length="78.94" shape="162.93,11.26 83.99,11.88"/>
+        <lane id="middle_1" index="1" disallow="rail" speed="13.89" length="78.94" shape="162.91,8.06 83.97,8.68"/>
+        <lane id="middle_2" index="2" disallow="rail" speed="13.89" length="78.94" shape="162.88,4.86 83.94,5.48"/>
+        <lane id="middle_3" index="3" disallow="rail" speed="13.89" length="78.94" shape="162.86,1.66 83.92,2.28"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="beg2_0 beg2_1 beg_0 beg_1" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_2_0 :gneJ0_2_1" shape="166.62,14.32 172.94,13.31 173.34,6.45 173.47,0.05 164.79,0.05 164.89,12.85"/>
-    <junction id="gneJ1" type="priority" x="80.19" y="0.71" incLanes="middle_0 middle_1 middle_2 middle_3" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_2_1" shape="82.94,13.49 82.84,0.69 75.68,0.78 75.78,7.18 74.99,12.24 80.83,14.87">
+    <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="beg2_0 beg2_1 beg_0 beg_1" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_2_0 :gneJ0_2_1" shape="166.93,16.23 173.25,15.22 172.91,12.54 172.85,10.34 173.05,8.64 173.53,7.43 174.27,6.71 175.28,6.49 175.41,0.09 162.85,0.06 162.95,12.86 164.92,13.22 165.66,13.69 166.24,14.35 166.67,15.19"/>
+    <junction id="gneJ1" type="priority" x="80.19" y="0.71" incLanes="middle_0 middle_1 middle_2 middle_3" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_2_1" shape="84.01,13.48 83.91,0.68 74.62,0.80 74.72,7.20 75.84,7.85 75.96,8.68 75.79,9.85 75.32,11.36 74.56,13.21 80.39,15.84 81.26,14.54 81.82,14.08 82.47,13.75 83.19,13.55">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>

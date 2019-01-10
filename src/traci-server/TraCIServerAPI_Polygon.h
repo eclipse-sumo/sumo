@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
@@ -59,23 +55,6 @@ public:
      */
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
-
-
-    /** @brief Returns the named polygons's shape
-     *
-     * @param[in] id The id of the searched polygon
-     * @param[out] shape The shape, if the polygon is known
-     * @return Whether the polygon is known
-     */
-    static bool getShape(const std::string& id, PositionVector& shape);
-
-
-private:
-    /** @brief Returns the named polygon
-     * @param[in] id The id of the searched polygon
-     * @return The named polygon, or 0 if it is not known
-     */
-    static SUMOPolygon* getPolygon(const std::string& id);
 
 
 private:

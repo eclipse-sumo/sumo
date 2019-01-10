@@ -27,7 +27,7 @@ import os
 import sys
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 
 def parse_args():
@@ -40,13 +40,15 @@ def parse_args():
     optParser.add_option("-o", "--selection-output",
                          help="Write output to file(s) as a loadable selection")
     optParser.add_option("--ignore-connections", action="store_true",
-                         default=False, help="Assume full connectivity at each node when computing all connected components")
-    optParser.add_option(
-        "-l", "--vclass", help="Include only edges allowing VCLASS")
+                         default=False,
+                         help="Assume full connectivity at each node when computing all connected components")
+    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
     optParser.add_option("-c", "--component-output",
-                         default=None, help="Write components of disconnected network to file - not compatible with --source or --destination options")
+                         default=None, help="Write components of disconnected network to file - not compatible " +
+                                            "with --source or --destination options")
     optParser.add_option("-r", "--results-output",
-                         default=None, help="Write results summary of disconnected network to file - not compatible with --source or --destination options")
+                         default=None, help="Write results summary of disconnected network to file - not compatible " +
+                         "with --source or --destination options")
 
     options, args = optParser.parse_args()
     if len(args) != 1:

@@ -1,0 +1,15 @@
+<additionals>
+    <!-- Bus A -->
+    <busStop id="busStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="true">
+		<param key="keyA1" value="valueA1"/>
+		<param key="keyA2" value="valueA2"/>
+		<param key="keyA3" value="valueA3"/>
+	</busStop>
+
+	<!-- Bus B -->
+    <busStop id="busStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="busStop" friendlyPos="false">
+		<param key="keyB1" value="valueB1"/>
+		<param key="keyB2" value="valueB2"/>
+		<param key="keyB3" value="valueB3"/>
+	</busStop>
+</additionals>

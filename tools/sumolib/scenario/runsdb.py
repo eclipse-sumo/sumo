@@ -141,7 +141,6 @@ class RunsDB:
                 if row[1] not in ret[r]:
                     ret[r][row[1]] = {}
                 if row[2] in ret[r][row[1]]:
-                    pass
                     raise RuntimeError("set twice!!")
                 ret[r][row[1]][row[2]] = row[3]
         return ret

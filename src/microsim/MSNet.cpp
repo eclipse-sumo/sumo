@@ -27,11 +27,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -119,7 +115,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-MSNet* MSNet::myInstance = 0;
+MSNet* MSNet::myInstance = nullptr;
 
 const std::string MSNet::STAGE_EVENTS("events");
 const std::string MSNet::STAGE_MOVEMENTS("move");
@@ -162,7 +158,7 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
 // ---------------------------------------------------------------------------
 MSNet*
 MSNet::getInstance(void) {
-    if (myInstance != 0) {
+    if (myInstance != nullptr) {
         return myInstance;
     }
     throw ProcessError("A network was not yet constructed.");
@@ -170,7 +166,7 @@ MSNet::getInstance(void) {
 
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-             MSEventControl* endOfTimestepEvents, 
+             MSEventControl* endOfTimestepEvents,
              MSEventControl* insertionEvents,
              ShapeContainer* shapeCont):
     myVehiclesMoved(0),
@@ -179,8 +175,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHasElevation(false),
     myRouterTT(0),
     myRouterEffort(0),
-    myPedestrianRouter(0),
-    myIntermodalRouter(0) {
+    myPedestrianRouter(0) {
     if (myInstance != 0) {
         throw ProcessError("A network was already constructed.");
     }
@@ -189,8 +184,8 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myMaxTeleports = oc.getInt("max-num-teleports");
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
-    myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"), 
-            string2time(oc.getString("random-depart-offset")));
+    myInserter = new MSInsertionControl(*vc, string2time(oc.getString("max-depart-delay")), oc.getBool("eager-insert"), oc.getInt("max-num-vehicles"),
+                                        string2time(oc.getString("random-depart-offset")));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;
@@ -279,9 +274,11 @@ MSNet::~MSNet() {
     delete myEdgeWeights;
     delete myRouterTT;
     delete myRouterEffort;
-    if (myPedestrianRouter != nullptr) {
-        delete myPedestrianRouter;
+    delete myPedestrianRouter;
+    for (auto& router : myIntermodalRouter) {
+        delete router.second;
     }
+    myIntermodalRouter.clear();
     myLanesRTree.second.RemoveAll();
     clearAll();
     if (MSGlobals::gUseMesoSim) {
@@ -526,14 +523,12 @@ MSNet::simulationStep() {
     // execute endOfTimestepEvents
     myEndOfTimestepEvents->execute(myStep);
 
-    if (TraCIServer::getInstance() != 0) {
-        if (myLogExecutionTime) {
-            myTraCIStepDuration -= SysUtils::getCurrentMillis();
-        }
-        libsumo::Helper::postProcessRemoteControl();
-        if (myLogExecutionTime) {
-            myTraCIStepDuration += SysUtils::getCurrentMillis();
-        }
+    if (myLogExecutionTime) {
+        myTraCIStepDuration -= SysUtils::getCurrentMillis();
+    }
+    libsumo::Helper::postProcessRemoteControl();
+    if (myLogExecutionTime) {
+        myTraCIStepDuration += SysUtils::getCurrentMillis();
     }
     // update and write (if needed) detector values
     writeOutput();
@@ -622,6 +617,7 @@ MSNet::clearAll() {
         t->cleanup();
     }
     libsumo::Helper::cleanup();
+    OutputDevice::closeAll(true);
 }
 
 
@@ -735,8 +731,8 @@ MSNet::writeOutput() {
     }
 
     // write SSM output
-    for (std::set<MSDevice*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
-        MSDevice_SSM* dev = static_cast<MSDevice_SSM*>(*di);
+    for (std::set<MSDevice_SSM*>::iterator di = MSDevice_SSM::getInstances().begin(); di != MSDevice_SSM::getInstances().end(); ++di) {
+        MSDevice_SSM* dev = (*di);
         dev->updateAndWriteOutput();
     }
 }
@@ -828,9 +824,9 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 
 
 void
-MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to) {
+MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
     for (std::vector<VehicleStateListener*>::iterator i = myVehicleStateListeners.begin(); i != myVehicleStateListeners.end(); ++i) {
-        (*i)->vehicleStateChanged(vehicle, to);
+        (*i)->vehicleStateChanged(vehicle, to, info);
     }
 }
 
@@ -880,17 +876,17 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
     if (myRouterTT == 0) {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
-            myRouterTT = new DijkstraRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+            myRouterTT = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
             }
-            myRouterTT = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+            myRouterTT = new AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime);
         }
     }
-    dynamic_cast<prohibited_withPermissions<MSEdge, SUMOVehicle>*>(myRouterTT)->prohibit(prohibited);
+    dynamic_cast<SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle>*>(myRouterTT)->prohibit(prohibited);
     return *myRouterTT;
 }
 
@@ -898,10 +894,10 @@ MSNet::getRouterTT(const MSEdgeVector& prohibited) const {
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSNet::getRouterEffort(const MSEdgeVector& prohibited) const {
     if (myRouterEffort == 0) {
-        myRouterEffort = new DijkstraRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+        myRouterEffort = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSNet::getEffort, &MSNet::getTravelTime);
     }
-    dynamic_cast<prohibited_withPermissions<MSEdge, SUMOVehicle>*>(myRouterEffort)->prohibit(prohibited);
+    dynamic_cast<SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle>*>(myRouterEffort)->prohibit(prohibited);
     return *myRouterEffort;
 }
 
@@ -917,8 +913,8 @@ MSNet::getPedestrianRouter(const MSEdgeVector& prohibited) const {
 
 
 MSNet::MSIntermodalRouter&
-MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
-    if (myIntermodalRouter == 0) {
+MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited) const {
+    if (myIntermodalRouter.count(routingMode) == 0) {
         int carWalk = 0;
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
             if (opt == "parkingAreas") {
@@ -929,10 +925,16 @@ MSNet::getIntermodalRouter(const MSEdgeVector& prohibited) const {
                 carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS;
             }
         }
-        myIntermodalRouter = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk);
+        const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
+        if (routingMode == ROUTING_MODE_COMBINED) {
+            // replace nullptr here by your EffortCalculator
+            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, nullptr);
+        } else {
+            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode);
+        }
     }
-    myIntermodalRouter->prohibit(prohibited);
-    return *myIntermodalRouter;
+    myIntermodalRouter[routingMode]->prohibit(prohibited);
+    return *myIntermodalRouter[routingMode];
 }
 
 
@@ -980,7 +982,7 @@ MSNet::checkElevation() {
 }
 
 
-bool 
+bool
 MSNet::warnOnce(const std::string& typeAndID) {
     if (myWarnedOnce.find(typeAndID) == myWarnedOnce.end()) {
         myWarnedOnce[typeAndID] = true;

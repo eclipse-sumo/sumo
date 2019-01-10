@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_FFMPEG
 #include <utils/gui/div/GUIVideoEncoder.h>
@@ -456,7 +452,7 @@ GUIViewTraffic::checkSnapshots() {
 }
 
 
-const std::vector<SUMOTime> 
+const std::vector<SUMOTime>
 GUIViewTraffic::retrieveBreakpoints() const {
     return myApp->retrieveBreakpoints();
 }

@@ -22,11 +22,22 @@
 #include <microsim/MSTransportable.h>
 #include <microsim/MSVehicle.h>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include "Edge.h"
 
 
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Edge::mySubscriptionResults;
+ContextSubscriptionResults Edge::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Edge::getIDList() {
     std::vector<std::string> ids;
@@ -260,9 +271,15 @@ Edge::getLastStepLength(const std::string& id) {
 }
 
 
-int 
+int
 Edge::getLaneNumber(const std::string& id) {
     return (int)getEdge(id)->getLanes().size();
+}
+
+
+std::string
+Edge::getStreetName(const std::string& id) {
+    return getEdge(id)->getStreetName();
 }
 
 
@@ -297,13 +314,13 @@ Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
 
 
 void
-Edge::adaptTraveltime(const std::string& id, double begTime, double endTime, double value) {
+Edge::adaptTraveltime(const std::string& id, double value, double begTime, double endTime) {
     MSNet::getInstance()->getWeightsStorage().addTravelTime(getEdge(id), begTime, endTime, value);
 }
 
 
 void
-Edge::setEffort(const std::string& id, double begTime, double endTime, double value) {
+Edge::setEffort(const std::string& id, double value, double begTime, double endTime) {
     MSNet::getInstance()->getWeightsStorage().addEffort(getEdge(id), begTime, endTime, value);
 }
 
@@ -322,41 +339,75 @@ Edge::setParameter(const std::string& id, const std::string& name, const std::st
 }
 
 
-void
-Edge::subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-
-}
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 
 
 void
-Edge::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime) {
-
+Edge::storeShape(const std::string& id, PositionVector& shape) {
+    const MSEdge* const e = getEdge(id);
+    const std::vector<MSLane*>& lanes = e->getLanes();
+    shape = lanes.front()->getShape();
+    if (lanes.size() > 1) {
+        copy(lanes.back()->getShape().begin(), lanes.back()->getShape().end(), back_inserter(shape));
+    }
 }
 
 
-const SubscribedValues
-Edge::getSubscriptionResults() {
-    return SubscribedValues();
+std::shared_ptr<VariableWrapper>
+Edge::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
 }
 
 
-const TraCIValues
-Edge::getSubscriptionResults(const std::string& objID) {
-    return TraCIValues();
+bool
+Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_CURRENT_TRAVELTIME:
+            return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
+        case VAR_WAITING_TIME:
+            return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        case LAST_STEP_PERSON_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getLastStepPersonIDs(objID));
+        case LAST_STEP_VEHICLE_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        case VAR_CO2EMISSION:
+            return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
+        case VAR_COEMISSION:
+            return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
+        case VAR_HCEMISSION:
+            return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
+        case VAR_PMXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
+        case VAR_NOXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
+        case VAR_FUELCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
+        case VAR_NOISEEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
+        case VAR_ELECTRICITYCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
+        case LAST_STEP_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+        case LAST_STEP_MEAN_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case LAST_STEP_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
+        case LAST_STEP_VEHICLE_HALTING_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+        case LAST_STEP_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLastStepLength(objID));
+        case VAR_LANE_INDEX:
+            return wrapper->wrapInt(objID, variable, getLaneNumber(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getStreetName(objID));
+        default:
+            return false;
+    }
 }
-
-
-const SubscribedContextValues
-Edge::getContextSubscriptionResults() {
-    return SubscribedContextValues();
-}
-
-
-const SubscribedValues
-Edge::getContextSubscriptionResults(const std::string& objID) {
-    return SubscribedValues();
-}
-
 
 
 }

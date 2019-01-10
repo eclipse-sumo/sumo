@@ -18,20 +18,17 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo-gui')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -S -Q -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -51,9 +48,9 @@ traci.polygon.setShape(polygonID, ((11, 11), (11, 101), (101, 101)))
 print("shape modified", traci.polygon.getShape(polygonID))
 traci.polygon.setType(polygonID, "blub")
 print("type modified", traci.polygon.getType(polygonID))
-traci.polygon.setColor(polygonID, (5,6,7,8))
+traci.polygon.setColor(polygonID, (5, 6, 7, 8))
 print("color modified", traci.polygon.getColor(polygonID))
-traci.polygon.setColor(polygonID, (5,6,7))
+traci.polygon.setColor(polygonID, (5, 6, 7))
 print("color modified2", traci.polygon.getColor(polygonID))
 traci.polygon.setFilled(polygonID, False)
 print("filled modified", traci.polygon.getFilled(polygonID))
@@ -65,4 +62,3 @@ for step in range(3, 6):
     traci.simulationStep()
     print(traci.polygon.getSubscriptionResults(polygonID))
 traci.close()
-sumoProcess.wait()

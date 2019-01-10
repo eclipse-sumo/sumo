@@ -20,37 +20,40 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <cassert>
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include "MsgHandler.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
+
+#include "MsgHandler.h"
 #include "AbstractMutex.h"
 
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
+
+MsgHandler* MsgHandler::myDebugInstance = 0;
+MsgHandler* MsgHandler::myGLDebugInstance = 0;
 MsgHandler* MsgHandler::myErrorInstance = 0;
 MsgHandler* MsgHandler::myWarningInstance = 0;
 MsgHandler* MsgHandler::myMessageInstance = 0;
 bool MsgHandler::myAmProcessingProcess = false;
 AbstractMutex* MsgHandler::myLock = 0;
+bool MsgHandler::myWriteDebugMessages(false);
+bool MsgHandler::myWriteDebugGLMessages(false);
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 MsgHandler*
 MsgHandler::getMessageInstance() {
     if (myMessageInstance == 0) {
@@ -78,6 +81,34 @@ MsgHandler::getErrorInstance() {
 }
 
 
+MsgHandler*
+MsgHandler::getDebugInstance() {
+    if (myDebugInstance == 0) {
+        myDebugInstance = new MsgHandler(MT_DEBUG);
+    }
+    return myDebugInstance;
+}
+
+
+MsgHandler*
+MsgHandler::getGLDebugInstance() {
+    if (myGLDebugInstance == 0) {
+        myGLDebugInstance = new MsgHandler(MT_GLDEBUG);
+    }
+    return myGLDebugInstance;
+}
+
+
+void
+MsgHandler::enableDebugMessages(bool enable) {
+    myWriteDebugMessages = enable;
+}
+
+void
+MsgHandler::enableDebugGLMessages(bool enable) {
+    myWriteDebugGLMessages = enable;
+}
+
 void
 MsgHandler::inform(std::string msg, bool addType) {
     if (myLock != 0) {
@@ -90,8 +121,8 @@ MsgHandler::inform(std::string msg, bool addType) {
     }
     msg = build(msg, addType);
     // inform all receivers
-    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
-        (*i)->inform(msg);
+    for (auto i : myRetrievers) {
+        i->inform(msg);
     }
     // set the information that something occurred
     myWasInformed = true;
@@ -108,8 +139,8 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     }
     msg = build(msg, addType);
     // inform all other receivers
-    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
-        (*i)->inform(msg, ' ');
+    for (auto i : myRetrievers) {
+        i->inform(msg, ' ');
         myAmProcessingProcess = true;
     }
     // set the information that something occurred
@@ -126,8 +157,8 @@ MsgHandler::endProcessMsg(std::string msg) {
         myLock->lock();
     }
     // inform all other receivers
-    for (RetrieverVector::iterator i = myRetrievers.begin(); i != myRetrievers.end(); i++) {
-        (*i)->inform(msg);
+    for (auto i : myRetrievers) {
+        i->inform(msg);
     }
     // set the information that something occurred
     myWasInformed = true;
@@ -169,8 +200,7 @@ MsgHandler::removeRetriever(OutputDevice* retriever) {
     if (myLock != 0) {
         myLock->lock();
     }
-    RetrieverVector::iterator i =
-        find(myRetrievers.begin(), myRetrievers.end(), retriever);
+    RetrieverVector::iterator i = find(myRetrievers.begin(), myRetrievers.end(), retriever);
     if (i != myRetrievers.end()) {
         myRetrievers.erase(i);
     }
@@ -187,6 +217,25 @@ MsgHandler::isRetriever(OutputDevice* retriever) const {
 
 
 void
+MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
+    if (myDebugInstance != nullptr) {
+        myDebugInstance->removeRetriever(out);
+    }
+    if (myGLDebugInstance != nullptr) {
+        myGLDebugInstance->removeRetriever(out);
+    }
+    if (myErrorInstance != nullptr) {
+        myErrorInstance->removeRetriever(out);
+    }
+    if (myWarningInstance != nullptr) {
+        myWarningInstance->removeRetriever(out);
+    }
+    if (myMessageInstance != nullptr) {
+        myMessageInstance->removeRetriever(out);
+    }
+}
+
+void
 MsgHandler::initOutputOptions() {
     // initialize console properly
     OutputDevice::getDevice("stdout");
@@ -197,33 +246,21 @@ MsgHandler::initOutputOptions() {
     }
     // build the logger if possible
     if (oc.isSet("log", false)) {
-        try {
-            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
-            getErrorInstance()->addRetriever(logFile);
-            if (!oc.getBool("no-warnings")) {
-                getWarningInstance()->addRetriever(logFile);
-            }
-            getMessageInstance()->addRetriever(logFile);
-        } catch (IOError&) {
-            throw ProcessError("Could not build logging file '" + oc.getString("log") + "'");
+        OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("log"));
+        getErrorInstance()->addRetriever(logFile);
+        if (!oc.getBool("no-warnings")) {
+            getWarningInstance()->addRetriever(logFile);
         }
+        getMessageInstance()->addRetriever(logFile);
     }
     if (oc.isSet("message-log", false)) {
-        try {
-            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
-            getMessageInstance()->addRetriever(logFile);
-        } catch (IOError&) {
-            throw ProcessError("Could not build logging file '" + oc.getString("message-log") + "'");
-        }
+        OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("message-log"));
+        getMessageInstance()->addRetriever(logFile);
     }
     if (oc.isSet("error-log", false)) {
-        try {
-            OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
-            getErrorInstance()->addRetriever(logFile);
-            getWarningInstance()->addRetriever(logFile);
-        } catch (IOError&) {
-            throw ProcessError("Could not build logging file '" + oc.getString("error-log") + "'");
-        }
+        OutputDevice* logFile = &OutputDevice::getDevice(oc.getString("error-log"));
+        getErrorInstance()->addRetriever(logFile);
+        getWarningInstance()->addRetriever(logFile);
     }
     if (!oc.getBool("verbose")) {
         getMessageInstance()->removeRetriever(&OutputDevice::getDevice("stdout"));
@@ -242,14 +279,18 @@ MsgHandler::cleanupOnEnd() {
     myWarningInstance = 0;
     delete myErrorInstance;
     myErrorInstance = 0;
+    delete myDebugInstance;
+    myDebugInstance = 0;
+    delete myGLDebugInstance;
+    myGLDebugInstance = 0;
     if (myLock != 0) {
         myLock->unlock();
     }
 }
 
 
-MsgHandler::MsgHandler(MsgType type)
-    : myType(type), myWasInformed(false) {
+MsgHandler::MsgHandler(MsgType type) :
+    myType(type), myWasInformed(false) {
     if (type == MT_MESSAGE) {
         addRetriever(&OutputDevice::getDevice("stdout"));
     } else {
@@ -273,8 +314,6 @@ MsgHandler::assignLock(AbstractMutex* lock) {
     assert(myLock == 0);
     myLock = lock;
 }
-
-
 
 /****************************************************************************/
 

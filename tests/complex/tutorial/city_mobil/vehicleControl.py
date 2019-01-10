@@ -22,12 +22,19 @@ import sys
 import os
 from optparse import OptionParser
 
-from constants import *  # sys.path is modified here
-
-import traci
-import traci.constants as tc
-
+from constants import PREFIX, DOUBLE_ROWS, STOP_POS, SLOTS_PER_ROW, SLOT_LENGTH, BUS_CAPACITY, BREAK_DELAY
+from constants import CYBER_CAPACITY, PORT
 import statistics
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import traci  # noqa
+import traci.constants as tc  # noqa
+import sumolib  # noqa
 
 
 class Manager:
@@ -66,6 +73,7 @@ class Setting:
     verbose = False
     cyber = False
 
+
 setting = Setting()
 occupancy = {}
 vehicleStatus = {}
@@ -86,9 +94,9 @@ def init(manager, forTest=False):
     optParser.add_option("-b", "--break", type="int", dest="breakstep", metavar="TIMESTEP",
                          help="let a vehicle break for %s seconds at TIMESTEP" % BREAK_DELAY)
     (options, args) = optParser.parse_args()
-    sumoExe = SUMO
+    sumoExe = os.environ.get("SUMO_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo'))
     if options.gui:
-        sumoExe = SUMOGUI
+        sumoExe = os.environ.get("GUISIM_BINARY", os.path.join(os.environ['SUMO_HOME'], 'bin', 'sumo-gui'))
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)
@@ -124,7 +132,7 @@ def getPosition(vehicleID):
 
 
 def stopAt(vehicleID, edge, pos=None):
-    if pos == None:
+    if pos is None:
         pos = STOP_POS
         if edge.endswith("out") or edge.endswith("in"):
             pos = 90.
@@ -138,7 +146,7 @@ def stopAt(vehicleID, edge, pos=None):
     vehicleStatus[vehicleID].targetPos = pos
 
 
-def leaveStop(vehicleID, newTarget=None, delay=0.):
+def leaveStop(vehicleID, newTarget=None, delay=0):
     v = vehicleStatus[vehicleID]
     if newTarget:
         traci.vehicle.changeTarget(vehicleID, newTarget)
@@ -154,7 +162,7 @@ def _rerouteCar(vehicleID):
         for idx in range(SLOTS_PER_ROW):
             for dir in ["l", "r"]:
                 slotEdge = "slot%s-%s%s" % (rowIdx, idx, dir)
-                if not slotEdge in occupancy:
+                if slotEdge not in occupancy:
                     occupancy[slotEdge] = vehicleID
                     stopAt(vehicleID, slotEdge, SLOT_LENGTH - 5.)
                     return
@@ -188,7 +196,7 @@ def _checkInitialPositions(vehicleID, edge, pos):
         elif "foot" in edge:
             traci.vehicle.setStop(vehicleID, "-" + edge)
             parkEdge = edge.replace("foot", "slot")
-            if not parkEdge in persons:
+            if parkEdge not in persons:
                 persons[parkEdge] = []
             persons[parkEdge].append(vehicleID)
             vehicleStatus[vehicleID].parking = True
@@ -204,7 +212,7 @@ def doStep():
         print("step", setting.step)
     traci.simulationStep()
     moveNodes = []
-    for veh, subs in traci.vehicle.getSubscriptionResults().iteritems():
+    for veh, subs in traci.vehicle.getAllSubscriptionResults().items():
         moveNodes.append(
             (veh, subs[tc.VAR_ROAD_ID], subs[tc.VAR_LANEPOSITION]))
     departed = traci.simulation.getSubscriptionResults(

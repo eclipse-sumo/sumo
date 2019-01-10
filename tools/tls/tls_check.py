@@ -24,7 +24,7 @@ from __future__ import print_function
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 
 if len(sys.argv) < 2:

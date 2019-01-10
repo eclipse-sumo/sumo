@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -68,7 +64,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         tempMsg.writeStringList(ids);
     } else {
         GUISUMOAbstractView* v = getNamedView(id);
-        if (v == 0 && variable != VAR_HAS_VIEW) {
+        if (v == nullptr && variable != VAR_HAS_VIEW) {
             return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
@@ -81,14 +77,14 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeDouble(v->getChanger().getXPos());
                 tempMsg.writeDouble(v->getChanger().getYPos());
                 break;
-            case VAR_VIEW_SCHEMA: {
+            case VAR_VIEW_SCHEMA:
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(v->getVisualisationSettings()->name);
                 break;
-            }
             case VAR_VIEW_BOUNDARY: {
-                tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
+                tempMsg.writeUnsignedByte(TYPE_POLYGON);
                 Boundary b = v->getVisibleBoundary();
+                tempMsg.writeByte(2);
                 tempMsg.writeDouble(b.xmin());
                 tempMsg.writeDouble(b.ymin());
                 tempMsg.writeDouble(b.xmax());
@@ -96,8 +92,8 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 break;
             }
             case VAR_HAS_VIEW: {
-                tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                tempMsg.writeUnsignedByte(v != nullptr);
+                tempMsg.writeUnsignedByte(TYPE_INTEGER);
+                tempMsg.writeInt(v != nullptr ? 1 : 0);
                 break;
             }
             case VAR_TRACK_VEHICLE: {
@@ -179,11 +175,11 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case VAR_VIEW_BOUNDARY: {
-            Boundary b;
-            if (!server.readTypeCheckingBoundary(inputStorage, b)) {
+            PositionVector p;
+            if (!server.readTypeCheckingPolygon(inputStorage, p)) {
                 return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "The boundary must be specified by a bounding box.", outputStorage);
             }
-            v->centerTo(b);
+            v->centerTo(Boundary(p[0].x(), p[0].y(), p[1].x(), p[1].y()));
             break;
         }
         case VAR_SCREENSHOT: {

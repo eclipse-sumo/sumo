@@ -37,10 +37,11 @@ import os
 import argparse
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
+
 
 class Logic:
-    def __init__ (self, key):
+    def __init__(self, key):
         self.minTimes = []
         self.maxTimes = []
         self.normTimes = []
@@ -52,6 +53,7 @@ class Logic:
         self.offset = 0
         self.links2index = {}
         self.links2sigGrpPhase = {}
+
 
 def computeLinkPhasesAndTimes(logic):
     phases = {}
@@ -72,19 +74,18 @@ def computeLinkPhasesAndTimes(logic):
         lastTime = int(time)
     logic.normTimes = newTimes
     if args.debug:
-        print ('normTimes', newTimes, file=sys.stderr)
+        print('normTimes', newTimes, file=sys.stderr)
 
     # create the phase string
     for myKey, phaseDef in logic.links2sigGrpPhase.items():
-        currentPhaseIndex = 0
         newPhases = []
         sigGrpPhaseIndex = 1
         if args.debug:
-            print ('phaseDef', phaseDef, 'len', len(phaseDef), file=sys.stderr)
+            print('phaseDef', phaseDef, 'len', len(phaseDef), file=sys.stderr)
         for currentPhase in sortPhases:
             if args.debug:
-                print ('SGPIndex', sigGrpPhaseIndex, 'startCurrPhase', currentPhase,
-                       'endCurrPhase',  phaseDef[sigGrpPhaseIndex + 1], file=sys.stderr)
+                print('SGPIndex', sigGrpPhaseIndex, 'startCurrPhase', currentPhase,
+                      'endCurrPhase', phaseDef[sigGrpPhaseIndex + 1], file=sys.stderr)
             newPhases.append(phaseDef[sigGrpPhaseIndex])
             if int(phaseDef[sigGrpPhaseIndex + 1]) == currentPhase and sigGrpPhaseIndex + 2 < len(phaseDef):
                 sigGrpPhaseIndex += 2
@@ -92,6 +93,7 @@ def computeLinkPhasesAndTimes(logic):
             print(myKey, newPhases, file=sys.stderr)
         logic.links2index[myKey] = len(logic.defs)
         logic.defs.append(newPhases)
+
 
 parser = argparse.ArgumentParser(description='Create tls xml def from csv.')
 parser.add_argument('TLS_CSV', help='tls definition')

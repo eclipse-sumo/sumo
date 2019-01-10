@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
@@ -118,7 +114,7 @@ public:
 
     /// @brief return the name for this type of device
     const std::string deviceName() const {
-        return "example";
+        return "bluelight";
     }
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
@@ -149,8 +145,11 @@ private:
 
 
 private:
-    // @brief collects all vehicle which had to react to the emergency vehicle 
-    //std::vector<MSVehicle*>* influencedVehicles;
+    // @brief collects all vehicleIDs which had to react to the emergency vehicle
+    std::set<std::string> influencedVehicles;
+
+    // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle
+    std::map<std::string, std::string> influencedTypes;
 
     /// @brief a value which is initialised based on a commandline/configuration option
     double myCustomValue1;

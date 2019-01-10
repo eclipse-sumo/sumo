@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -54,11 +50,12 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, A
 // member method definitions
 // ===========================================================================
 
-GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* parent, int width, int height) :
-    FXTopWindow(parent->getViewNet(), ("Edit '" + parent->getID() + "' data").c_str(), parent->getIcon(), parent->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4),
-    myChangesDescription("change " + toString(parent->getTag()) + " values"),
-    myNumberOfChanges(0),
-    myUndoList(parent->getViewNet()->getUndoList()) {
+GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* editedAdditional, bool updatingElement, int width, int height) :
+    FXTopWindow(editedAdditional->getViewNet(), ("Edit '" + editedAdditional->getID() + "' data").c_str(), editedAdditional->getIcon(), editedAdditional->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4),
+    myEditedAdditional(editedAdditional),
+    myUpdatingElement(updatingElement),
+    myChangesDescription("change " + toString(editedAdditional->getTag()) + " values"),
+    myNumberOfChanges(0) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // Create frame for contents
@@ -92,6 +89,12 @@ GNEAdditionalDialog::openAsModalDialog(FXuint placement) {
 }
 
 
+GNEAdditional*
+GNEAdditionalDialog::getEditedAdditional() const {
+    return myEditedAdditional;
+}
+
+
 long
 GNEAdditionalDialog::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
     return FXTopWindow::onKeyPress(sender, sel, ptr);
@@ -114,34 +117,34 @@ GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) 
 void
 GNEAdditionalDialog::initChanges() {
     // init commandGroup
-    myUndoList->p_begin(myChangesDescription);
+    myEditedAdditional->getViewNet()->getUndoList()->p_begin(myChangesDescription);
     // save number of command group changes
-    myNumberOfChanges = myUndoList->currentCommandGroupSize();
+    myNumberOfChanges = myEditedAdditional->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
 
 
 void
 GNEAdditionalDialog::acceptChanges() {
     // commit changes or abort last command group depending of number of changes did
-    if (myNumberOfChanges < myUndoList->currentCommandGroupSize()) {
-        myUndoList->p_end();
+    if (myNumberOfChanges < myEditedAdditional->getViewNet()->getUndoList()->currentCommandGroupSize()) {
+        myEditedAdditional->getViewNet()->getUndoList()->p_end();
     } else {
-        myUndoList->p_abortLastCommandGroup();
+        myEditedAdditional->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     }
 }
 
 
 void
 GNEAdditionalDialog::cancelChanges() {
-    myUndoList->p_abortLastCommandGroup();
+    myEditedAdditional->getViewNet()->getUndoList()->p_abortLastCommandGroup();
 }
 
 
 void
 GNEAdditionalDialog::resetChanges() {
     // abort last command group an start editing again
-    myUndoList->p_abortLastCommandGroup();
-    myUndoList->p_begin(myChangesDescription);
+    myEditedAdditional->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedAdditional->getViewNet()->getUndoList()->p_begin(myChangesDescription);
 }
 
 /****************************************************************************/

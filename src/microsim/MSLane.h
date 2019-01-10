@@ -28,11 +28,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <deque>
@@ -98,20 +94,27 @@ public:
     ///        that may be of importance for the car-following dynamics along that lane. The relevant types of vehicles are:
     ///        1) vehicles with their front on the lane (myVehicles),
     ///        2) vehicles intersecting the lane but with front on another lane (myPartialVehicles)
+    ///
+    ///        In the context of retrieving linkLeaders during lane changing a third group of vehicles is checked:
+    ///        3) vehicles processed during lane changing (myTmpVehicles)
     class AnyVehicleIterator {
     public:
         AnyVehicleIterator(
             const MSLane* lane,
             int i1,
             int i2,
+            int i3,
             const int i1End,
             const int i2End,
+            const int i3End,
             bool downstream = true) :
             myLane(lane),
             myI1(i1),
             myI2(i2),
+            myI3(i3),
             myI1End(i1End),
             myI2End(i2End),
+            myI3End(i3End),
             myDownstream(downstream),
             myDirection(downstream ? 1 : -1) {
         }
@@ -119,8 +122,10 @@ public:
         bool operator== (AnyVehicleIterator const& other) const {
             return (myI1 == other.myI1
                     && myI2 == other.myI2
+                    && myI3 == other.myI3
                     && myI1End == other.myI1End
-                    && myI2End == other.myI2End);
+                    && myI2End == other.myI2End
+                    && myI3End == other.myI3End);
         }
 
         bool operator!= (AnyVehicleIterator const& other) const {
@@ -144,10 +149,14 @@ public:
         int myI1;
         /// @brief index for myPartialVehicles
         int myI2;
+        /// @brief index for myTmpVehicles
+        int myI3;
         /// @brief end index for myVehicles
         int myI1End;
         /// @brief end index for myPartialVehicles
         int myI2End;
+        /// @brief end index for myTmpVehicles
+        int myI3End;
         /// @brief iteration direction
         bool myDownstream;
         /// @brief index delta
@@ -394,22 +403,25 @@ public:
 
     /// @brief begin iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesBegin() const {
-        return AnyVehicleIterator(this, 0, 0, (int)myVehicles.size(), (int)myPartialVehicles.size(), true);
+        return AnyVehicleIterator(this, 0, 0, 0,
+                                  (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesEnd() const {
-        return AnyVehicleIterator(this, (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myVehicles.size(), (int)myPartialVehicles.size(), true);
+        return AnyVehicleIterator(this, (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(),
+                                  (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief begin iterator for iterating over all vehicles touching this lane in upstream direction
     AnyVehicleIterator anyVehiclesUpstreamBegin() const {
-        return AnyVehicleIterator(this, (int)myVehicles.size() - 1, (int)myPartialVehicles.size() - 1, -1, -1, false);
+        return AnyVehicleIterator(this, (int)myVehicles.size() - 1, (int)myPartialVehicles.size() - 1, (int)myTmpVehicles.size() - 1,
+                                  -1, -1, -1, false);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in upstream direction
     AnyVehicleIterator anyVehiclesUpstreamEnd() const {
-        return AnyVehicleIterator(this, -1, -1, -1, -1, false);
+        return AnyVehicleIterator(this, -1, -1, -1, -1, -1, -1, false);
     }
 
     /** @brief Allows to use the container for microsimulation again
@@ -730,8 +742,8 @@ public:
      * @param[in] permissions The new permissions
      * @param[in] transientID The id of the permission-modification or the special value PERMANENT
      */
-    void setPermissions(SVCPermissions permissions, long transientID);
-    void resetPermissions(long transientID);
+    void setPermissions(SVCPermissions permissions, long long transientID);
+    void resetPermissions(long long transientID);
 
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
@@ -760,13 +772,13 @@ public:
     double getStopOffset(const MSVehicle* veh) const;
 
     /// @brief Returns vehicle class specific stopOffsets
-    const std::map<SVCPermissions,double>& getStopOffsets() const {
+    const std::map<SVCPermissions, double>& getStopOffsets() const {
         return myStopOffsets;
     };
 
     /// @brief Set vehicle class specific stopOffsets
-    void setStopOffsets(std::map<SVCPermissions,double> stopOffsets) {
-        myStopOffsets=stopOffsets;
+    void setStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
+        myStopOffsets = stopOffsets;
     };
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
@@ -874,7 +886,7 @@ public:
     LinkState getIncomingLinkState() const;
 
     /// @brief get the list of outgoing lanes
-    std::vector<const MSLane*> getOutgoingLanes() const;
+    const std::vector<std::pair<const MSLane*, const MSEdge*> > getOutgoingViaLanes() const;
 
     /// @name Current state retrieval
     //@{
@@ -990,7 +1002,7 @@ public:
     /// @brief return the corresponding position on the opposite lane
     double getOppositePos(double pos) const;
 
-    /* @brief find leader for a vehicle depending the relative driving direction
+    /* @brief find leader for a vehicle depending on the relative driving direction
      * @param[in] ego The ego vehicle
      * @param[in] dist The look-ahead distance when looking at consecutive lanes
      * @param[in] oppositeDir Whether the lane has the opposite driving direction of ego
@@ -1107,13 +1119,13 @@ protected:
 
     /// @brief detect whether there is a collision between the two vehicles
     bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
-                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
+                                std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief take action upon collision
     void handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                 double gap, double latGap,
-                                std::set<const MSVehicle*, SUMOVehicle::ComparatorIdLess>& toRemove,
+                                std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief compute maximum braking distance on this lane
@@ -1135,9 +1147,6 @@ protected:
     /** @brief return the maximum safe speed for insertion behind leaders
      * (a negative value indicates that safe insertion is impossible) */
     double safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo& leaders, double speed);
-
-    /// @brief departure position where the vehicle fits fully onto the lane (if possible)
-    double basePos(const MSVehicle& veh) const;
 
     /// @brief check whether pedestrians on this lane interfere with vehicle insertion
     bool checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist, double pos, bool patchSpeed) const;
@@ -1206,7 +1215,7 @@ protected:
     /// Lane's vClass specific stop offset [m]. The map is either of length 0, which means no
     /// special stopOffset was set, or of length 1, where the key is a bitset representing a subset
     /// of the SUMOVehicleClass Enum and the value is the offset in meters.
-    std::map<SVCPermissions,double> myStopOffsets;
+    std::map<SVCPermissions, double> myStopOffsets;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;
@@ -1275,7 +1284,7 @@ protected:
     std::vector<std::string> myNeighs;
 
     // @brief transient changes in permissions
-    std::map<long, SVCPermissions> myPermissionChanges;
+    std::map<long long, SVCPermissions> myPermissionChanges;
 
     /// definition of the static dictionary type
     typedef std::map< std::string, MSLane* > DictType;

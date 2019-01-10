@@ -4,6 +4,9 @@ cross3l_noconnection
 # Test for the unconstrained network
 cross3l_unconstrained
 
+# test option no-turnarounds.except-deadend
+cross3l_no-turnarounds.except-deadend
+
 # Test for edge2edge connections
 cross3l_edge2edge_conns
 
@@ -75,6 +78,9 @@ double_con_bikelane
 
 # 3 connections from the same edge to the same lane. Bikelane should yield
 double_con_bikelane2
+
+# a bike lane ends and merges with the road. Priority depends on turning direction
+double_con_turns
 
 # custom position for internal junction
 contPos

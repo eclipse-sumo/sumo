@@ -10,51 +10,70 @@
 
 # @file    logger.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 import types
+from time import gmtime, strftime
 
 
 class Logger:
-
-    def __init__(self, filepath=None, is_stdout=True):
+    def __init__(self, filepath=None, is_stdout=True,
+                 timeformat="%a, %d %b %Y %H:%M:%S"):
         self._filepath = filepath
         self._logfile = None
         self._callbacks = {}
         self._is_stdout = is_stdout
+        self._timeformat = timeformat
 
-    def start(self, text=''):
-        if self._filepath != None:
+    def start(self, text="Start logging."):
+        # print 'Logger.start:',self._filepath,self._filepath is not None
+        if self._filepath is not None:
+            ttext = strftime(self._timeformat, gmtime())+' '+text
             self._logfile = open(self._filepath, 'w')
-            self._logfile.write(text + '\n')
-        else:
-            self._logfile = None
+            self._logfile.write(ttext+'\n')
+        if self._is_stdout:
             print text
 
     def add_callback(self, function, key='message'):
         self._callbacks[key] = function
 
+    def get_clallbackfunc(self, key):
+
+        return self._callbacks.get(key, None)
+
+    def del_callback(self, key):
+        del self._callbacks[key]
+
     def progress(self, percent):
         pass
 
     def w(self, data, key='message', **kwargs):
-        # print 'w:',data,self._callbacks
-        if self._logfile != None:
-            self._logfile.write(str(data) + '\n')
+        # print 'Logger.w:',self._logfile is not None,self._is_stdout,data
+
+        if key == 'progress':
+            text = '%d %% completed.' % data
+        else:
+            text = str(data)
+
+        if self._logfile is not None:
+            self._logfile.write(strftime(self._timeformat, gmtime())+' '+text+'\n')
+
         elif self._callbacks.has_key(key):
             kwargs['key'] = key
             self._callbacks[key](data, **kwargs)
         # elif type(data)==types.StringType:
         #    print data
         if self._is_stdout:
-            print str(data)
+            print text
 
-    def stop(self, text=''):
-        if self._logfile != None:
-            self._logfile.write(text + '\n')
+    def stop(self, text="End logging."):
+
+        if self._logfile is not None:
+            ttext = strftime(self._timeformat, gmtime())+' '+text
+            self._logfile.write(ttext+'\n')
             self._logfile.close()
             self._logfile = None
 
-        else:
+        if self._is_stdout:
             print text

@@ -10,18 +10,20 @@
 
 # @file    vehicles.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 import os
 import sys
 import string
 from collections import OrderedDict
+from xml.sax import saxutils, parse, handler
 import numpy as np
+from numpy import random
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
-from agilepy.lib_base.misc import get_inversemap
+from agilepy.lib_base.misc import random_choice, get_inversemap
 
 from coremodules.network.network import SumoIdsConf, MODES
 
@@ -107,22 +109,25 @@ ALIGNMMENTS_LAT = ['center', 'left', 'right', 'compact', 'nice', 'arbitrary']
 
 
 class VehicleTypes(am.ArrayObjman):
-
     def __init__(self, parent, net, is_add_default=True, **kwargs):
-
+        print 'VehicleTypes.__init__ is_add_default', is_add_default
         self._init_objman(ident='vtypes',
                           parent=parent,
                           name='Vehicle Types',
                           info='Table of all available vehicle types, each with specific physical characteristics. Each vehicle can be used multiple times in the simulation',
                           xmltag=('vTypes', 'vType', 'ids_sumo'),
-                          version=0.1,
+                          # version = 0.1, set later
                           **kwargs)
         self._init_attributes()
+
         if is_add_default:
             self.add_vtypes_default()
+        self.set_version(0.2)
 
     def _init_attributes(self):
+        print 'VehicleTypes._init_attributes', len(self), self.get_ident_abs()
         net = self.parent.get_net()
+        demand = self.parent
 
         # lanechange model is now centralized: all vehicle types have the same
         # lanechange model.
@@ -137,10 +142,36 @@ class VehicleTypes(am.ArrayObjman):
                              choices=LANECHANGEMODELS,
                              name='Lanechange model',
                              info="Lanechange model. The choice of the lanechange model will also determine the choice of lanechange parameters. With model SL2015, sublanes will be simulated.",
-                             #xmltag = 'laneChangeModel',
+                             # xmltag = 'laneChangeModel', # exported manually
                              ))
 
         self.add_col(SumoIdsConf('vtype', name='Type name', perm='rw'))
+
+        self.add_col(am.IdsArrayConf('ids_mode', net.modes,
+                                     perm='rw',
+                                     groupnames=['parameters'],
+                                     #choices = net.modes.names.get_indexmap(),
+                                     name='Mode',
+                                     info='ID of transport mode.',
+                                     xmltag='vClass',
+                                     xmlmap=get_inversemap(net.modes.names.get_indexmap())
+                                     ))
+        # for temporary upgrade
+        if hasattr(self.ids_mode, 'choices'):
+            del self.ids_mode.choices
+        self.ids_mode.set_perm('rw')
+
+        # if self.get_version() < 0.2:
+        #    ids_mode = getattr(self,'ids_mode')
+        #    ids_mode.xmlmap = get_inversemap(net.modes.names.get_indexmap())
+        #    ids_mode.groupnames = ['parameters']
+
+        self.add_col(am.ArrayConf('shares_in_mode', 1.0,
+                                  groupnames=['parameters'],
+                                  name='Share in mode',
+                                  info="Share of this vehicle type within the same transport mode",
+                                  xmltag='probability',
+                                  ))
 
         self.add_col(am.ArrayConf('lengths', 5.0,
                                   groupnames=['parameters'],
@@ -195,6 +226,20 @@ class VehicleTypes(am.ArrayObjman):
                                   xmltag='maxSpeed',
                                   ))
 
+        self.add_col(am.ArrayConf('factors_speed', 1.0,
+                                  groupnames=['parameters'],
+                                  name='Speed factor',
+                                  info="The vehicle's expected multiplicator for lane speed limits.",
+                                  xmltag='speedFactor',
+                                  ))
+
+        self.add_col(am.ArrayConf('deviations_speed', 0.0,
+                                  groupnames=['parameters'],
+                                  name='Speed dev.',
+                                  info="The deviation of the speed factor.",
+                                  xmltag='speedDev',
+                                  ))
+
         self.add_col(am.ArrayConf('accels', 0.8,
                                   groupnames=['parameters'],
                                   name='Max. accel.',
@@ -222,7 +267,7 @@ class VehicleTypes(am.ArrayObjman):
         self.add_col(am.ArrayConf('sigmas', 0.5,
                                   groupnames=['parameters'],
                                   name='Driver',
-                                  info='The driver imperfection (between 0 and 1). Used only in follower models  SUMOKrauss, SKOrig',
+                                  info='The driver imperfection in driving (between 0 and 1). Used only in follower models  SUMOKrauss, SKOrig',
                                   xmltag='sigma',
                                   ))
 
@@ -234,7 +279,7 @@ class VehicleTypes(am.ArrayObjman):
                                   xmltag='minGap',
                                   ))
 
-        self.add_col(am.ArrayConf('times_boarding', 0.5,
+        self.add_col(am.ArrayConf('times_boarding', 15.0,
                                   groupnames=['parameters'],
                                   name='boarding time',
                                   unit='s',
@@ -242,26 +287,17 @@ class VehicleTypes(am.ArrayObjman):
                                   xmltag='boardingDuration',
                                   ))
 
-        self.add_col(am.ArrayConf('times_loading',  	90.0,
+        self.add_col(am.ArrayConf('times_loading',  	180.0,
                                   groupnames=['parameters'],
                                   name='loading time',
                                   unit='s',
-                                  info="The time required by a person to board the vehicle.",
+                                  info="The time required to load the vehicle.",
                                   xmltag='loadingDuration',
                                   ))
 
-        self.add_col(am.IdsArrayConf('ids_mode', net.modes,
-                                     groupnames=['state'],
-                                     choices=MODES,
-                                     name='Mode',
-                                     info='ID of transport mode.',
-                                     xmltag='vClass',
-                                     ))
-
         emissionclasses_xml = {}
         for key in EMISSIONCLASSES.keys():
-            # yes, map onto itself, otherwise choice values are taken
-            emissionclasses_xml[key] = key
+            emissionclasses_xml[key] = key  # yes, map onto itself, otherwise choice values are taken
 
         self.add_col(am.ArrayConf('emissionclasses', 'HBEFA3/HDV_D_EU4',
                                   dtype='object',
@@ -363,76 +399,143 @@ class VehicleTypes(am.ArrayObjman):
                                   xmltag='lcPushy',
                                   ))
 
+        # this provides a link from public transport to vtypes
+        # demand.ptlines.set_vtypes(self)
+
+        self.add(cm.FuncConf('func_make_row', 'on_add_row', None,
+                             groupnames=['rowfunctions', '_private'],
+                             name='New type',
+                             info='Add a new vehicle type or dublicate when called with ID.',
+                             is_returnval=False,
+                             ))
+
+        self.add(cm.FuncConf('func_delete_row', 'on_del_row', None,
+                             groupnames=['rowfunctions', '_private'],
+                             name='Del type',
+                             info='Delete vehicle type.',
+                             is_returnval=False,
+                             ))
+
+        self.attrconfignames_pedestrian = ['lengths', 'widths', 'heights',
+                                           'speeds_max', 'factors_speed',
+                                           'deviations_speed', 'accels', 'decels',
+                                           'taus', 'dists_min', 'ids_mode',
+                                           'emissionclasses', 'impatiences', 'shapes_gui',
+                                           'colors']
+
+        self.do_not_save_attrs(['attrconfignames_pedestrian'])
+
+    def format_ids(self, ids):
+        return ','.join(self.ids_sumo[ids])
+
+    def get_id_from_formatted(self, idstr):
+        return self.ids_sumo.get_id_from_index(idstr)
+
+    def get_ids_from_formatted(self, idstrs):
+        return self.ids_sumo.get_ids_from_indices_save(idstrs.split(','))
+
+    def on_del_row(self, id_row=None):
+        if id_row is not None:
+            # print 'on_del_row', id_row
+            self.del_row(id_row)
+
+    def on_add_row(self, id_row=None):
+        # print 'on_add_row',id_row,len(self),(id_row is None)|(len(self)==0)
+        if (id_row is None) | (len(self) == 0):
+
+            _id = self.add_row()
+            # print '  add id=',_id
+        else:
+            # print '  dublicate'
+            row_last = self.get_row(self.get_ids()[-1])
+            row_last['ids_sumo'] += '_NEW'  # important for all indexed attrs!!
+            # print '  row_last',row_last
+            _id = self.add_row(**row_last)
+            # print '  _id',_id
+
     def clear_vtypes(self):
         self.clear()
 
+    def add_vtype_parser(self, vtype, **kwargs):
+        if self.ids_sumo.has_index(vtype):
+            # vtype already exist
+            id_vtype = self.ids_sumo.get_id_from_index(vtype)
+            self.set_row(id_vtype,  **kwargs)
+            return id_vtype
+        else:
+            id_vtype = self.add_row(ids_sumo=vtype, **kwargs)
+            return id_vtype
+
     def add_vtype(self, vtype, **kwargs):
         # print 'add_vtype',vtype
+        if self.ids_sumo.has_index(vtype):
+            # vtype already exist
+            _id = self.ids_sumo.get_id_from_index(vtype)
+        else:
+            _id = self.add_row(ids_sumo=vtype)
+
         if kwargs.has_key('mode'):
             id_mode = MODES.get(kwargs['mode'], 1)
             del kwargs['mode']
+        elif kwargs.has_key('id_mode'):
+            id_mode = kwargs['id_mode']
+            del kwargs['id_mode']
         else:
             id_mode = 1
 
         #_id = self.add_row( ids_sumo = vtype, ids_mode = id_mode,**kwargs)
 
-        _id = self.add_row(ids_sumo=vtype,
-                           accels=kwargs.get("accel", 2.9),
-                           decels=kwargs.get("decel", 7.5),
-                           taus=kwargs.get("tau", None),
-                           sigmas=kwargs.get("sigma", 0.5),
-                           lengths=kwargs.get("length", 4.3),
-                           widths=kwargs.get("width", 1.8),
-                           heights=kwargs.get("height", 1.50),
-                           dists_min=kwargs.get("dist_min", 1.0),
-                           speeds_max=kwargs.get("speed_max", 180.0 / 3.6),
-                           ids_mode=id_mode,  # specifies mode for demand
-                           colors=kwargs.get("color", np.array(
-                               (185, 85, 255, 255), np.float32) / 255.0),
-                           impatiences=kwargs.get("impatience", -1000),
-                           shapes_gui=kwargs.get("shape_gui", 'passenger'),
-                           numbers_persons=kwargs.get("number_persons", None),
-                           capacities_persons=kwargs.get(
-                               "capacity_persons", None),
-                           emissionclasses=kwargs.get("emissionclass", None),
-                           lanechanges=kwargs.get("lanechange", None),
-                           lanechange_strategies=kwargs.get(
-                               "lanechange_strategy", None),
-                           lanechange_coops=kwargs.get(
-                               "lanechange_coop", None),
-                           lanechange_gains=kwargs.get(
-                               "lanechange_gain", None),
-                           lanechange_rightkeepings=kwargs.get(
-                               "lanechange_rightkeeping", None),
-                           sublane_alignments_lat=kwargs.get(
-                               "sublane_alignment_lat", None),
-                           sublane_speeds_max_lat=kwargs.get(
-                               "sublane_speed_max_lat", None),
-                           sublane_gaps_min_lat=kwargs.get(
-                               "sublane_gap_min_lat", None),
-                           sublane_alignments_eager=kwargs.get(
-                               "sublane_alignment_eager", None),
-                           sublane_pushyfactors=kwargs.get(
-                               "sublane_pushyfactor", None),
-                           )
+        self.set_row(_id,
+                     shares_in_mode=kwargs.get("share_in_mode", 1.0),
+                     accels=kwargs.get("accel", 2.9),
+                     decels=kwargs.get("decel", 7.5),
+                     taus=kwargs.get("tau", None),
+                     sigmas=kwargs.get("sigma", 0.5),
+                     lengths=kwargs.get("length", 4.3),
+                     widths=kwargs.get("width", 1.8),
+                     heights=kwargs.get("height", 1.50),
+                     dists_min=kwargs.get("dist_min", 1.0),
+                     speeds_max=kwargs.get("speed_max", 180.0/3.6),
+                     factors_speed=kwargs.get("factor_speed", 1.0),
+                     deviations_speed=kwargs.get("deviation_speed", 0.0),
+                     ids_mode=id_mode,  # specifies mode for demand
+                     colors=kwargs.get("color", np.array((185, 85, 255, 255), np.float32)/255.0),
+                     impatiences=kwargs.get("impatience", -1000),
+                     shapes_gui=kwargs.get("shape_gui", 'passenger'),
+                     numbers_persons=kwargs.get("number_persons", None),
+                     capacities_persons=kwargs.get("capacity_persons", None),
+                     emissionclasses=kwargs.get("emissionclass", None),
+                     lanechanges=kwargs.get("lanechange", None),
+                     lanechange_strategies=kwargs.get("lanechange_strategy", None),
+                     lanechange_coops=kwargs.get("lanechange_coop", None),
+                     lanechange_gains=kwargs.get("lanechange_gain", None),
+                     lanechange_rightkeepings=kwargs.get("lanechange_rightkeeping", None),
+                     sublane_alignments_lat=kwargs.get("sublane_alignment_lat", None),
+                     sublane_speeds_max_lat=kwargs.get("sublane_speed_max_lat", None),
+                     sublane_gaps_min_lat=kwargs.get("sublane_gap_min_lat", None),
+                     sublane_alignments_eager=kwargs.get("sublane_alignment_eager", None),
+                     sublane_pushyfactors=kwargs.get("sublane_pushyfactor", None),
+                     )
 
         return _id
 
     def add_vtypes_default(self):
+        print 'add_vtypes_default'
         # self.del_rows(self.get_ids())
         self.add_vtype('pedestrian',
                        accel=1.5,
                        decel=2.0,
                        sigma=0.5,
-                       length=0.6,
-                       width=0.8,
+                       length=0.25,
+                       width=0.44,
                        height=1.719,
                        number_persons=1,
                        capacity_persons=1,
-                       dist_min=0.5,
-                       speed_max=5.4 / 3.6,
+                       dist_min=0.05,
+                       speed_max=5.4/3.6,
+                       deviation_speed=0.2,
                        mode='pedestrian',  # specifies mode for demand
-                       color=np.array((210, 128, 0, 255), np.float32) / 255.0,
+                       color=np.array((210, 128, 0, 255), np.float32)/255.0,
                        shape_gui='pedestrian',
                        impatience=1.0,
                        emissionclass='HBEFA3/zero',
@@ -455,13 +558,14 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=4,
                        dist_min=1.0,
-                       speed_max=180.0 / 3.6,
+                       speed_max=180.0/3.6,
+                       deviation_speed=0.1,
                        mode='passenger',  # specifies mode for demand
-                       color=np.array((185, 85, 255, 255), np.float32) / 255.0,
+                       color=np.array((185, 85, 255, 255), np.float32)/255.0,
                        shape_gui='passenger',
                        impatience=1.0,
                        emissionclass='HBEFA3/PC',
-                       times_boarding=0.5,
+                       times_boarding=10.0,
                        times_loading=90.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=1.0,
@@ -478,17 +582,18 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=1,
                        dist_min=0.5,
-                       speed_max=18.0 / 3.6,
+                       speed_max=18.0/3.6,
+                       deviation_speed=0.2,
                        mode='bicycle',  # specifies mode for demand
                        impatience=1.0,
                        emissionclass='HBEFA3/zero',
-                       color=np.array((94, 203, 57, 255), np.float32) / 255.0,
+                       color=np.array((94, 203, 57, 255), np.float32)/255.0,
                        shape_gui='bicycle',
                        lanechange_strategy=1.0,
                        lanechange_coop=1.0,
                        lanechange_gain=1.0,
                        lanechange_rightkeeping=1.0,
-                       times_boarding=20.0,
+                       times_boarding=15.0,
                        times_loading=0.0,
                        sublane_alignment_lat='right',
                        sublane_speed_max_lat=0.8,
@@ -507,14 +612,15 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=1,
                        dist_min=0.5,
-                       speed_max=60.0 / 3.6,
+                       speed_max=60.0/3.6,
+                       deviation_speed=0.1,
                        mode='moped',  # specifies mode for demand
                        impatience=1.0,
                        emissionclass='HBEFA3/LDV_G_EU3',
-                       color=np.array((205, 92, 0, 255), np.float32) / 255.0,
+                       color=np.array((205, 92, 0, 255), np.float32)/255.0,
                        shape_gui='motorcycle',
                        times_boarding=20.0,
-                       times_loading=90.0,
+                       times_loading=10.0,
                        sublane_alignment_lat='left',
                        sublane_speed_max_lat=1.0,
                        sublane_gap_min_lat=0.12,
@@ -532,14 +638,15 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=1,
                        dist_min=0.5,
-                       speed_max=180.0 / 3.6,
+                       speed_max=180.0/3.6,
+                       deviation_speed=0.1,
                        mode='motorcycle',  # specifies mode for demand
                        impatience=1.0,
                        emissionclass='HBEFA3/LDV_G_EU3',
-                       color=np.array((205, 92, 0, 255), np.float32) / 255.0,
+                       color=np.array((205, 92, 0, 255), np.float32)/255.0,
                        shape_gui='motorcycle',
                        times_boarding=20.0,
-                       times_loading=90.0,
+                       times_loading=10.0,
                        sublane_alignment_lat='left',
                        sublane_speed_max_lat=1.0,
                        sublane_gap_min_lat=0.12,
@@ -557,10 +664,10 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=4,
                        dist_min=1.0,
-                       speed_max=180.0 / 3.6,
+                       speed_max=180.0/3.6,
+                       deviation_speed=0.05,
                        mode='taxi',  # specifies mode for demand
-                       color=np.array((185, 185, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((185, 185, 255, 255), np.float32)/255.0,
                        shape_gui='passenger/sedan',
                        impatience=1.0,
                        emissionclass='HBEFA3/PC',
@@ -572,6 +679,7 @@ class VehicleTypes(am.ArrayObjman):
                        )
 
         self.add_vtype('bus',
+                       share_in_mode=0.5,
                        accel=1.2,
                        decel=4.0,
                        sigma=0.9,
@@ -581,14 +689,15 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=20,
                        capacity_persons=85,
                        dist_min=0.5,
-                       speed_max=80.0 / 3.6,
+                       speed_max=80.0/3.6,
+                       deviation_speed=0.05,
                        mode='bus',  # specifies mode for demand
                        impatience=1.0,
                        emissionclass='HBEFA3/Bus',
-                       color=np.array((255, 192, 0, 255), np.float32) / 255.0,
+                       color=np.array((255, 192, 0, 255), np.float32)/255.0,
                        shape_gui='bus',
                        times_boarding=2.0,
-                       times_loading=90.0,
+                       times_loading=0.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=0.5,
                        sublane_gap_min_lat=0.24,
@@ -596,6 +705,7 @@ class VehicleTypes(am.ArrayObjman):
                        )
 
         self.add_vtype('bus_flexible',
+                       share_in_mode=0.5,
                        accel=1.2,
                        decel=4.0,
                        sigma=0.9,
@@ -605,15 +715,15 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=40,
                        capacity_persons=140,
                        dist_min=0.5,
-                       speed_max=80.0 / 3.6,
+                       speed_max=80.0/3.6,
+                       deviation_speed=0.05,
                        mode='bus',  # specifies mode for demand
                        impatience=1.0,
                        emissionclass='HBEFA3/Bus',
-                       color=np.array((255, 192, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((255, 192, 255, 255), np.float32)/255.0,
                        shape_gui='bus/flexible',
                        times_boarding=2.0,
-                       times_loading=90.0,
+                       times_loading=0.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=0.5,
                        sublane_gap_min_lat=0.24,
@@ -630,15 +740,15 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=50,
                        capacity_persons=120,
                        dist_min=0.5,
-                       speed_max=80.0 / 3.6,
+                       speed_max=80.0/3.6,
+                       deviation_speed=0.05,
                        mode='tram',  # specifies mode for demand
                        impatience=1.0,
                        emissionclass='HBEFA3/zero',
-                       color=np.array((255, 192, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((255, 192, 255, 255), np.float32)/255.0,
                        shape_gui='rail/railcar',
                        times_boarding=1.5,
-                       times_loading=90.0,
+                       times_loading=0.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=0.5,
                        sublane_gap_min_lat=0.24,
@@ -655,14 +765,14 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=200,
                        capacity_persons=300,
                        dist_min=0.5,
-                       speed_max=100.0 / 3.6,
+                       speed_max=100.0/3.6,
+                       deviation_speed=0.005,
                        mode='rail_urban',  # specifies mode for demand
                        emissionclass='HBEFA3/zero',
-                       color=np.array((255, 192, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((255, 192, 255, 255), np.float32)/255.0,
                        shape_gui='rail/railcar',
                        times_boarding=1.5,
-                       times_loading=90.0,
+                       times_loading=0.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=0.5,
                        sublane_gap_min_lat=0.24,
@@ -679,14 +789,14 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=2,
                        dist_min=1.0,
-                       speed_max=100.0 / 3.6,
+                       speed_max=100.0/3.6,
+                       deviation_speed=0.1,
                        mode='delivery',  # specifies mode for demand
-                       color=np.array((185, 185, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((185, 185, 255, 255), np.float32)/255.0,
                        shape_gui='passenger/van',
                        impatience=1.0,
                        emissionclass='HBEFA3/LDV_D_EU3',
-                       times_boarding=5.0,
+                       times_boarding=15.0,
                        times_loading=90.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=1.0,
@@ -694,6 +804,7 @@ class VehicleTypes(am.ArrayObjman):
                        )
 
         self.add_vtype('truck',
+                       share_in_mode=1.0/3,
                        accel=1.5,
                        decel=2.5,
                        sigma=0.5,
@@ -703,14 +814,14 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=2,
                        dist_min=1.0,
-                       speed_max=90.0 / 3.6,
+                       speed_max=90.0/3.6,
+                       deviation_speed=0.05,
                        mode='truck',  # specifies mode for demand
-                       color=np.array((185, 185, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((185, 185, 255, 255), np.float32)/255.0,
                        shape_gui='truck',
                        impatience=1.0,
                        emissionclass='HBEFA3/HDV_D_EU2',
-                       times_boarding=5.0,
+                       times_boarding=10.0,
                        times_loading=180.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=1.0,
@@ -718,6 +829,7 @@ class VehicleTypes(am.ArrayObjman):
                        )
 
         self.add_vtype('truck_semitrailer',
+                       share_in_mode=1.0/3,
                        accel=1.0,
                        decel=2.0,
                        sigma=0.5,
@@ -727,14 +839,14 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=2,
                        dist_min=1.0,
-                       speed_max=90.0 / 3.6,
+                       speed_max=90.0/3.6,
+                       deviation_speed=0.05,
                        mode='truck',  # specifies mode for demand
-                       color=np.array((185, 185, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((185, 185, 255, 255), np.float32)/255.0,
                        shape_gui='truck/semitrailer',
                        impatience=1.0,
                        emissionclass='HBEFA3/HDV_D_EU2',
-                       times_boarding=5.0,
+                       times_boarding=10.0,
                        times_loading=300.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=1.0,
@@ -742,6 +854,7 @@ class VehicleTypes(am.ArrayObjman):
                        )
 
         self.add_vtype('truck_trailer',
+                       share_in_mode=1.0/3,
                        accel=1.0,
                        decel=2.0,
                        sigma=0.5,
@@ -751,14 +864,14 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=2,
                        dist_min=1.0,
-                       speed_max=90.0 / 3.6,
+                       speed_max=90.0/3.6,
+                       deviation_speed=0.05,
                        mode='truck',  # specifies mode for demand
-                       color=np.array((185, 185, 255, 255),
-                                      np.float32) / 255.0,
+                       color=np.array((185, 185, 255, 255), np.float32)/255.0,
                        shape_gui='truck/trailer',
                        impatience=1.0,
                        emissionclass='HBEFA3/HDV_D_EU2',
-                       times_boarding=5.0,
+                       times_boarding=10.0,
                        times_loading=600.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=1.0,
@@ -775,12 +888,13 @@ class VehicleTypes(am.ArrayObjman):
                        number_persons=1,
                        capacity_persons=4,
                        dist_min=0.5,
-                       speed_max=10.0,
+                       speed_max=120.0/3.6,
+                       deviation_speed=0.1,
                        emissionclass='HBEFA3/zero',
                        mode='evehicle',  # specifies mode for demand
-                       color=np.array((255, 240, 0, 255), np.float32) / 255.0,
+                       color=np.array((255, 240, 0, 255), np.float32)/255.0,
                        shape_gui='evehicle',
-                       times_boarding=1.5,
+                       times_boarding=15.0,
                        times_loading=20.0,
                        sublane_alignment_lat='center',
                        sublane_speed_max_lat=0.5,
@@ -788,41 +902,107 @@ class VehicleTypes(am.ArrayObjman):
                        sublane_alignment_eager=1000000.0,
                        )
 
-        self.add_vtype('PRT',
-                       accel=2.5,
-                       decel=2.5,
-                       sigma=1.0,
-                       length=3.5,
-                       width=1.6,
-                       height=1.7,
-                       number_persons=1,
-                       capacity_persons=4,
-                       dist_min=0.5,
-                       speed_max=10.0,
-                       emissionclass='HBEFA3/zero',
-                       mode='custom1',  # specifies mode for demand
-                       color=np.array((255, 240, 0, 255), np.float32) / 255.0,
-                       shape_gui='evehicle',
-                       times_boarding=1.5,
-                       times_loading=20.0,
-                       sublane_alignment_lat='center',
-                       sublane_speed_max_lat=0.5,
-                       sublane_gap_min_lat=0.24,
-                       sublane_alignment_eager=1000000.0,
-                       )
+    def normalize_shares(self):
+        """
+        Normalize the shares of all vehicle type within each mode.
+        """
+        for id_mode in self.get_modes():
+            ids_vtype = self.select_by_mode(id_mode)
+            if len(ids_vtype) > 0:
+                shares = self.shares_in_mode[ids_vtype]
+                self.shares_in_mode[ids_vtype] = shares/np.sum(shares)
 
-    def select_by_mode(self, id_mode=None, mode=None, is_sumoid=False):
-        if id_mode == None:
+    def get_vtype_for_mode(self,  id_mode=None, mode=None, is_sumoid=False):
+        """
+        Returns  vehicle type ID of mode id_mode,
+        chosen according to  predefined probabilities.
+        depricated? Used by mapmatching
+        """
+        # print 'get_vtypes_for_mode', id_mode, mode
+        #
+        if id_mode is None:
             id_mode = MODES[mode]
+
+        ids_veh_mode = self.select_ids(self.ids_mode.get_value() == id_mode)
+        if len(ids_veh_mode) == 0:
+            return -1  # no vehicle type of this mode
+
+        share_veh_mode = self.shares_in_mode[ids_veh_mode]
+
+        # print '  ids_veh_mode',ids_veh_mode
+        # print '  share_veh_mode',share_veh_mode
+        ind = np.argmax(random.rand(len(share_veh_mode))*share_veh_mode)
+        return ids_veh_mode[ind]
+
+    def select_by_mode(self, id_mode=None, mode=None, is_sumoid=False,
+                       is_share=False):
+        """
+        Returns a list with all vehice ids from a given mode.
+        If is_share is True then also a list with the 
+        respective shares for each type is returned.
+        """
+
+        if id_mode is None:
+            id_mode = MODES[mode]
+
+        # print 'select_by_mode',id_mode, mode
+        # print '  ids_mode',self.ids_mode.get_value()
         ids = self.select_ids(self.ids_mode.get_value() == id_mode)
         #print 'select_by_mode',id_mode,self.ids_sumo[ids]#
+        # print '  ids_mode',self.ids_mode.get_value()
         if is_sumoid:
-            return self.ids_sumo[ids]
+            idval = self.ids_sumo[ids]
         else:
-            return ids
+            idval = ids
 
-    # def get_vtypes_by_mode(self,mode):
-    #    return self.select_ids(self.modes.value == mode)
+        if is_share:
+            return idval, self.shares_in_mode[ids]
+        else:
+            return idval
+
+    def generate_vtypes_for_mode(self, n, id_mode=None, mode=None, is_sumoid=False):
+        """
+        Returns a list of n vehicle types for a given mode,  
+        Mode can be given as SUMO name or ID.
+        Vehicle types av be returned with SUMO names if is_sumoid = True
+        """
+
+        if id_mode is None:
+            id_mode = MODES[mode]
+        # print 'generate_vtypes_for_mode', id_mode, mode
+
+        # print '  ids_mode',self.ids_mode.get_value()
+        # print '  self.ids_mode.get_value()==id_mode',self.ids_mode.get_value()==id_mode
+        ids_veh_mode = self.select_ids(self.ids_mode.get_value() == id_mode)
+
+        if len(ids_veh_mode) == 0:
+            return []
+
+        share_veh_mode = self.shares_in_mode[ids_veh_mode]
+
+        ids_veh = ids_veh_mode[random_choice(n, share_veh_mode)]
+
+        if is_sumoid:
+            return self.ids_sumo[ids_veh]
+        else:
+            return ids_veh
+
+    # see select_by_mode
+    # def get_vtypes_by_mode(self, id_mode=None, mode=None, is_sumoid = False):
+    #    """
+    #    Returns a list of all vehicle types that are available for a given mode
+    #    Mode can be given as SUMO name or ID.
+    #    Vehicle types av be returned with SUMO names if is_sumoid = True
+    #    """
+    #    if id_mode is None:
+    #        id_mode = MODES[mode]
+    #
+    #    ids_veh_mode = self.select_ids(self.ids_mode.get_value()==id_mode)
+    #
+    #    if is_sumoid:
+    #        return self.ids_sumo[ids_veh_mode]
+    #    else:
+    #        return ids_veh_mode
 
     def get_modes(self):
         """
@@ -848,14 +1028,14 @@ class VehicleTypes(am.ArrayObjman):
     def _write_xml_body(self, fd,  indent, objconfigs, idcolconfig_include_tab, colconfigs,
                         objcolconfigs,
                         xmltag_item, attrconfig_id, xmltag_id, ids, ids_xml):
-        print '_write_xml_body ident,ids', self.ident, ids
-        print '  xmltag_item,xmltag_id,attrconfig_id',    xmltag_item, xmltag_id, attrconfig_id
+        # print '_write_xml_body ident,ids',self.ident,ids
+        # print '  xmltag_item,xmltag_id,attrconfig_id' ,    xmltag_item,xmltag_id ,attrconfig_id
 
         # ids_xml not used here!!
-        if ids == None:
+        if ids is None:
             ids = self.get_ids()
         for attrconfig in objconfigs:
-            attrconfig.get_value().write_xml(fd, indent + 2)
+            attrconfig.get_value().write_xml(fd, indent+2)
 
         # check if columns contain objects
         #objcolconfigs = []
@@ -867,7 +1047,7 @@ class VehicleTypes(am.ArrayObjman):
         #        scalarcolconfigs.append(attrconfig)
 
         for _id in ids:
-            fd.write(xm.start(xmltag_item, indent + 2))
+            fd.write(xm.start(xmltag_item, indent+2))
 
             # print '   make tag and id',_id
             if xmltag_id == '':
@@ -881,27 +1061,32 @@ class VehicleTypes(am.ArrayObjman):
                 # use id tag and values of attrconfig_id
                 attrconfig_id.write_xml(fd, _id)
 
-            # print ' write
-            # columns',len(scalarcolconfigs)>0,len(idcolconfig_include_tab)>0,len(objcolconfigs)>0
-            for attrconfig in scalarcolconfigs:
-                # print '    scalarcolconfig',attrconfig.attrname
-                attrconfig.write_xml(fd, _id)
+            if self.ids_mode[_id] == 1:
+                # write pedestrian mode
+                for attrconfigname in self.attrconfignames_pedestrian:
+                    getattr(self, attrconfigname).write_xml(fd, _id)
+            else:
+                # write all other modes
 
-            # insert lanechange model here:
-            fd.write(
-                xm.num('laneChangeModel', self.lanechangemodel.get_value()))
+                # print ' write columns',len(scalarcolconfigs)>0,len(idcolconfig_include_tab)>0,len(objcolconfigs)>0
+                for attrconfig in scalarcolconfigs:
+                    # print '    scalarcolconfig',attrconfig.attrname
+                    attrconfig.write_xml(fd, _id)
+
+                # insert lanechange model here:
+                fd.write(xm.num('laneChangeModel', self.lanechangemodel.get_value()))
 
             if (len(idcolconfig_include_tab) > 0) | (len(objcolconfigs) > 0):
                 fd.write(xm.stop())
 
                 for attrconfig in idcolconfig_include_tab:
                     # print '    include_tab',attrconfig.attrname
-                    attrconfig.write_xml(fd, _id, indent + 4)
+                    attrconfig.write_xml(fd, _id, indent+4)
 
                 for attrconfig in objcolconfigs:
                     # print '    objcolconfig',attrconfig.attrname
-                    attrconfig[_id].write_xml(fd, indent + 4)
-                fd.write(xm.end(xmltag_item, indent + 4))
+                    attrconfig[_id].write_xml(fd, indent+4)
+                fd.write(xm.end(xmltag_item, indent+4))
             else:
                 fd.write(xm.stopit())
 
@@ -912,18 +1097,61 @@ class VehicleTypes(am.ArrayObjman):
     #
     #    attrconfigs_excluded.append('lanechangemodel')
 
+    def import_xml(self, filepath):
+        print 'import_xml from %s' % (filepath)
+        reader = VtypeReader(self)
+        parse(filepath, reader)
+        self.normalize_shares()
 
-def parseColor(s):
-        # print 'parseColor',s
-    arr = s.split(',')
-    ret = []
-    for a in arr:
-            # adapt for old color information:
-        if a.find('.') >= 0:
-                # color in range 0.0...1.0
-            ret.append(float(a) * 255)
-        else:
-            # color in range 0...255
-            ret.append(int(a))
 
-    return tuple(ret)
+class VtypeReader(handler.ContentHandler):
+    """Parses vtype XML file and read into vtypes database."""
+
+    def __init__(self, vtypes):
+        self._vtypes = vtypes
+        self._add_vtype = vtypes.add_vtype_parser
+        xmlattrmap = {}
+        for attrconfig in vtypes.get_group('parameters'):
+            xmltag = attrconfig.xmltag
+
+            if xmltag not in ['laneChangeModel', 'vClass']:
+                xmlattrmap[xmltag] = attrconfig
+
+        self._xmlattrmap = xmlattrmap
+        self._id_vclass_dist = None
+
+    def startElement(self, name, attrs):
+        if name == 'vType':
+            params = {}
+
+            print 'startElement', attrs['id'], self._id_vclass_dist
+            if attrs.has_key('laneChangeModel'):
+                lanechangemodel = attrs['laneChangeModel']
+                if lanechangemodel in LANECHANGEMODELS:
+                    self._vtypes.lanechangemodel.set_value(lanechangemodel)
+
+            if attrs.has_key('vClass'):
+                if self._id_vclass_dist is None:
+                    params['ids_mode'] = self._vtypes.ids_mode.get_value_from_string(attrs['vClass'])
+                else:
+                    params['ids_mode'] = self._id_vclass_dist  # set vclass to distribution id
+
+            # for xmltag, xmlval in self._xmlattrmap.iteritems():
+            for xmltag in attrs.keys():
+                if self._xmlattrmap.has_key(xmltag):
+                    attrconfig = self._xmlattrmap[xmltag]
+                    params[attrconfig.attrname] = attrconfig.get_value_from_xmlattr(attrs)
+
+            print '   params', params
+            self._add_vtype(attrs['id'], **params)
+
+        elif name == 'vTypeDistribution':
+            # here we simply define the vclass of the following vtypes as distribution id
+            # print '  vTypeDistribution',attrs['id']
+            # print '  map', get_inversemap(self._vtypes.ids_mode.xmlmap)
+            self._id_vclass_dist = self._vtypes.ids_mode.get_value_from_string(attrs['id'])
+            # print '  self._id_vclass_dist',self._id_vclass_dist
+
+    def endElement(self, name):
+        if name == 'vTypeDistribution':
+            self._id_vclass_dist = None

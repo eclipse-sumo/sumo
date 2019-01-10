@@ -64,6 +64,8 @@ def get_allowed(allow, disallow):
         return SUMO_VEHICLE_CLASSES
     elif disallow is None:
         return allow.split()
+    elif disallow == "all":
+        return ()
     else:
         disallow = disallow.split()
         return tuple([c for c in SUMO_VEHICLE_CLASSES if c not in disallow])
@@ -182,7 +184,6 @@ class Lane:
             xmax = max(xmax, p[0])
             ymin = min(ymin, p[1])
             ymax = max(ymax, p[1])
-        assert(xmin != xmax or ymin != ymax)
         return (xmin, ymin, xmax, ymax)
 
     def getClosestLanePosAndDist(self, point, perpendicular=False):
@@ -207,8 +208,12 @@ class Lane:
         """
         Returns all incoming lanes for this lane, i.e. lanes, which have a connection to this lane.
         """
-        candidates = reduce(lambda x,y: x+y, [cons for e, cons in self._edge.getIncoming().items()],[])
+        candidates = reduce(lambda x, y: x + y, [cons for e, cons in self._edge.getIncoming().items()], [])
         return [c.getFromLane() for c in candidates if self == c.getToLane()]
+
+    def allows(self, vClass):
+        """true if this lane allows the given vehicle class"""
+        return vClass in self._allowed
 
     def setNeigh(self, neigh):
         self._neigh = neigh

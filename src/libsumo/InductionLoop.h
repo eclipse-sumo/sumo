@@ -21,13 +21,10 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -35,8 +32,10 @@
 // ===========================================================================
 class NamedRTree;
 class MSInductLoop;
+class PositionVector;
 namespace libsumo {
 struct TraCIVehicleData;
+class VariableWrapper;
 }
 
 
@@ -62,22 +61,33 @@ public:
     static double getTimeSinceDetection(const std::string& detID);
     static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
 
+    LIBSUMO_SUBSCRIPTION_API
+
     /** @brief Returns a tree filled with inductive loop instances
      * @return The rtree of inductive loops
      */
     static NamedRTree* getTree();
 
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the loop to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static MSInductLoop* getDetector(const std::string& detID);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
+private:
     /// @brief invalidated standard constructor
-    InductionLoop();
-
-    /// @brief invalidated copy constructor
-    InductionLoop(const InductionLoop& src);
-
-    /// @brief invalidated assignment operator
-    InductionLoop& operator=(const InductionLoop& src);
+    InductionLoop() = delete;
 
 };
 }

@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon May 28 09:13:01 2018
+TraCITestClient output file. Date: Mon Sep 17 07:58:05 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -12,6 +12,7 @@ testAPI:
     adaptedTravelTime: 42.00
     effort: 420.00
     laneNumber: 3
+    streetName: exampleStreetName1
   lane:
     getIDList: :n_m1_0_0 :n_m1_0_1 :n_m1_0_2 :n_m2_0_0 :n_m2_0_1 :n_m2_0_2 :n_m3_0_0 :n_m3_0_1 :n_m3_0_2 :n_m4_0_0 :n_m4_0_1 :n_m4_2_0 :n_m4_2_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2 :n_m4_7_0 :n_m5_0_0 :n_m5_0_1 :n_m5_2_0 :n_m5_2_1 :n_m5_4_0 :n_m5_4_1 :n_m5_4_2 :n_m6_0_0 :n_m6_0_1 :n_m6_2_0 :n_m6_2_1 :n_m6_4_0 :n_m6_4_1 :n_m6_4_2 :n_m7_0_0 :n_m7_0_1 :n_m7_0_2 :n_m7_3_0 :n_m7_3_1 :n_m7_3_2 :n_o0_0_0 :n_o0_0_1 :n_o1_0_0 :n_o1_0_1 :n_o1_0_2 :n_o1_3_0 :n_o1_3_1 :n_o2_0_0 :n_o2_0_1 :n_o2_0_2 :n_o2_3_0 :n_o2_3_1 :n_u0_0_0 :n_u0_0_1 :n_u1_0_0 :n_u1_0_1 :n_u1_2_0 :n_u1_2_1 :n_u1_2_2 :n_u2_0_0 :n_u2_0_1 :n_u2_2_0 :n_u2_2_1 :n_u2_2_2 :n_x1_0_0 :n_x1_0_1 e_m0_0 e_m0_1 e_m0_2 e_m1_0 e_m1_1 e_m1_2 e_m2_0 e_m2_1 e_m2_2 e_m3_0 e_m3_1 e_m3_2 e_m4_0 e_m4_1 e_m4_2 e_m5_0 e_m5_1 e_m5_2 e_m6_0 e_m6_1 e_m6_2 e_o0_0 e_o0_1 e_o0_2 e_o1_0 e_o1_1 e_o1_2 e_shape0_0 e_shape0_1 e_shape0_2 e_shape1_0 e_shape1_1 e_shape1_2 e_u0_0 e_u0_1 e_u0_2 e_u1_0 e_u1_1 e_u1_2 e_vo0_0 e_vo0_1 e_vo1_0 e_vo1_1 e_vo2_0 e_vo2_1 e_vu0_0 e_vu0_1 e_vu1_0 e_vu1_1 e_vu2_0 e_vu2_1 e_x0_0 e_x0_1 e_x1_0 e_x1_1
     getIDCount: 118
@@ -22,7 +23,9 @@ testAPI:
     approachedLane=e_shape1_2 hasPrio=1 isOpen=1 hasFoe=0 approachedInternal=:n_m7_0_2 state=M direction=r length=7.91
     approachedLane=e_shape0_0 hasPrio=1 isOpen=1 hasFoe=0 approachedInternal=:n_m7_3_0 state=M direction=l length=19.06
     getFoes: e_m3_0 e_m3_1 e_m3_2
+    getFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: No connection from lane 'e_vu0_0' to lane 'e_m4_1'])
     getInternalFoes: :n_m4_7_0 :n_m4_0_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2
+    getInternalFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: Lane 'dummy' is not known])
   route:
     add:
     getIDList: e_m4 e_u1 r1
@@ -57,6 +60,7 @@ testAPI:
     param: 42
     getColor:  r=255 g=255 b=0 a=128
     getSignals: 0
+    getRoutingMode: 1
     getNextTLS:
       tls=n_m4 tlIndex=4 dist=351.95 state=r
     moveToXY, simStep:
@@ -71,21 +75,28 @@ testAPI:
     getAccumulatedWaitingTime: 0.00
     getShapeClass: bicycle
     getLeader: 2, 494.88
+    getLaneChangeState (left): 1073741824, 1073741824
+    getLaneChangeState (right): 1073741824, 1073741824
     remove:
     getIDCount: 2
   inductionloop:
     getIDList: det1
     getVehicleData:
   simulation:
+    getDistance2D_air: 500.00
+    getDistance2D_driving: 3368.41
+    getDistanceRoad_air: 500.00
+    getDistanceRoad_driving: 3370.76
     getCurrentTime: 7000
+    getDeltaT: 1.00
     parkingArea param: 5
     subscribe to road and pos of vehicle '1':
     subscription results:
-      roadID=e_u1 pos=7.38
+      roadID=e_u1 pos=7.37825
     subscribe to vehicles around edge 'e_u1':
     context subscription results:
-      vehicle=1 pos=11.29
-      vehicle=2 pos=19.00
+      vehicle=1 pos=11.2878
+      vehicle=2 pos=19.0044
   person:
     getIDList: p0
     getRoadID: e_m3
@@ -109,8 +120,8 @@ testAPI:
     state: ggGGrrr
     program: 0
     phase: 0
-    phaseDuration: 12000
-    nextSwitch: 12000
+    phaseDuration: 12.00
+    nextSwitch: 12.00
     controlledLanes: e_vo0_0 e_vo0_1 e_vu0_0 e_vu0_1 e_m3_0 e_m3_1 e_m3_2
     controlledLinks:
       index=0 link=0 fromLane=e_vo0_0 viaLane=:n_m4_0_0 toLane=e_m4_1
@@ -123,18 +134,18 @@ testAPI:
     completeDefinition:
       subID=0 type=0 phase=0
       params=
-         phase=ggGGrrr dur=12000 minDur=12000 maxDur=12000
-         phase=ggyyrrr dur=20000 minDur=20000 maxDur=20000
-         phase=GGrrrrr dur=6000 minDur=6000 maxDur=6000
-         phase=yyrrrrr dur=20000 minDur=20000 maxDur=20000
-         phase=rrrrGGG dur=12000 minDur=12000 maxDur=12000
-         phase=rrrryyy dur=20000 minDur=20000 maxDur=20000
+         phase=ggGGrrr dur=12.00 minDur=12.00 maxDur=12.00
+         phase=ggyyrrr dur=20.00 minDur=20.00 maxDur=20.00
+         phase=GGrrrrr dur=6.00 minDur=6.00 maxDur=6.00
+         phase=yyrrrrr dur=20.00 minDur=20.00 maxDur=20.00
+         phase=rrrrGGG dur=12.00 minDur=12.00 maxDur=12.00
+         phase=rrrryyy dur=20.00 minDur=20.00 maxDur=20.00
       subID=custom type=0 phase=3
       params=
-         phase=rrrrrrr dur=5 minDur=5 maxDur=5
-         phase=ggggggg dur=10 minDur=5 maxDur=15
-         phase=GGGGGGG dur=3 minDur=3 maxDur=3
-         phase=yyyyyyy dur=3 minDur=3 maxDur=3
+         phase=rrrrrrr dur=5.00 minDur=5.00 maxDur=5.00
+         phase=ggggggg dur=10.00 minDur=5.00 maxDur=15.00
+         phase=GGGGGGG dur=3.00 minDur=3.00 maxDur=3.00
+         phase=yyyyyyy dur=3.00 minDur=3.00 maxDur=3.00
     state=ggggggg
     stateSet=gGyruoO
     program: online

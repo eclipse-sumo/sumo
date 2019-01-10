@@ -17,9 +17,7 @@ from __future__ import print_function
 
 import sys
 import os
-import math
 import random
-import numpy as np
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
@@ -139,8 +137,6 @@ def runSim():
 
 def analyzeData(pp):
     fp = open('gw.txt', 'w')
-    meanTT = 0.0
-    cntTT = 0
     n0 = 500
     for line in open(dumpFile):
         ll = line.split('id="')
@@ -161,11 +157,13 @@ def writeVSSFile():
     fp = open('input_vss.add.xml', 'w')
     print('<additional>', file=fp)
     s = '\t<variableSpeedSign id="vss" lanes="2to3_0'
+    maxLanes = None
     for lane in range(1, maxLanes):
         s = s + ' 2to3_' + repr(lane)
     print(s + '" file="laneFlows.vss.xml"/>', file=fp)
     print('</additional>', file=fp)
     fp.close()
+
 
 # here is "main"
 nLanes = 2

@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <string>
@@ -283,7 +279,7 @@ public:
                                 NBEdge* by, int byLane) = 0;
 
     /// @brief patches (loaded) signal plans by modifying lane indices
-    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1) {
+    virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1) {
         UNUSED_PARAMETER(edge);
         UNUSED_PARAMETER(offset);
         UNUSED_PARAMETER(threshold);

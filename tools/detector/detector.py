@@ -22,6 +22,7 @@ from xml.sax import make_parser, handler
 
 MAX_POS_DEVIATION = 10
 
+
 class LaneMap:
     def get(self, key, default):
         return key[0:-2]
@@ -36,37 +37,38 @@ def relError(actual, expected):
     else:
         return (actual - expected) / expected
 
+
 def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", speedCol="vPKW", begin=None, end=None):
-        detIdx = -1
-        flowIdx = -1
-        speedIdx = -1
-        timeIdx = -1
-        with open(flowFile) as f:
-            for l in f:
-                if ';' not in l:
-                    continue
-                flowDef = [e.strip() for e in l.split(';')]
-                if detIdx == -1 and detCol in flowDef:
-                    # init columns
-                    detIdx = flowDef.index(detCol)
-                    if flowCol in flowDef:
-                        flowIdx = flowDef.index(flowCol)
-                    if speedCol in flowDef:
-                        speedIdx = flowDef.index(speedCol)
-                    if timeCol in flowDef:
-                        timeIdx = flowDef.index(timeCol)
-                elif flowIdx != -1:
-                    # columns are initialized
-                    if timeIdx == -1 or begin is None:
-                        curTime = None
-                        timeIsValid = True
-                    else:
-                        curTime = float(flowDef[timeIdx])
-                        timeIsValid = (end is None and curTime == begin) or (
-                            curTime >= begin and curTime < end)
-                    if timeIsValid:
-                        speed = float(flowDef[speedIdx]) if speedIdx != -1 else None
-                        yield (flowDef[detIdx], curTime, float(flowDef[flowIdx]), speed)
+    detIdx = -1
+    flowIdx = -1
+    speedIdx = -1
+    timeIdx = -1
+    with open(flowFile) as f:
+        for l in f:
+            if ';' not in l:
+                continue
+            flowDef = [e.strip() for e in l.split(';')]
+            if detIdx == -1 and detCol in flowDef:
+                # init columns
+                detIdx = flowDef.index(detCol)
+                if flowCol in flowDef:
+                    flowIdx = flowDef.index(flowCol)
+                if speedCol in flowDef:
+                    speedIdx = flowDef.index(speedCol)
+                if timeCol in flowDef:
+                    timeIdx = flowDef.index(timeCol)
+            elif flowIdx != -1:
+                # columns are initialized
+                if timeIdx == -1 or begin is None:
+                    curTime = None
+                    timeIsValid = True
+                else:
+                    curTime = float(flowDef[timeIdx])
+                    timeIsValid = (end is None and curTime == begin) or (
+                        curTime >= begin and curTime < end)
+                if timeIsValid:
+                    speed = float(flowDef[speedIdx]) if speedIdx != -1 else None
+                    yield (flowDef[detIdx], curTime, float(flowDef[flowIdx]), speed)
 
 
 class DetectorGroupData:
@@ -105,16 +107,18 @@ class DetectorGroupData:
                 self.timeline = [[None, None] for i in range(index)]
                 self.timeline.append([0, 0])
             else:
-                sys.stderr.write("Gap in data for group=%s. Or data interval is higher than aggregation interval (i=%s, time=%s, begin=%s, lastTime=%s)\n" % (
-                    self.ids, self.interval, time ,self.begin, len(self.timeline) * self.interval))
+                sys.stderr.write(("Gap in data for group=%s. Or data interval is higher than aggregation interval " +
+                                 "(i=%s, time=%s, begin=%s, lastTime=%s)\n") % (
+                                     self.ids, self.interval, time, self.begin, len(self.timeline) * self.interval))
                 while len(self.timeline) < index:
                     self.timeline.append([None, None])
                 self.timeline.append([0, 0])
         if index == len(self.timeline):
             # new entry
             if time % self.interval != 0 and time > self.interval:
-                sys.stderr.write("Aggregation interval is not a multiple of data interval for group=%s (i=%s time=%s begin=%s)\n" % (
-                    self.ids, self.interval, time, self.begin))
+                sys.stderr.write(("Aggregation interval is not a multiple of data interval for group=%s (i=%s " +
+                                 "time=%s begin=%s)\n") % (
+                                     self.ids, self.interval, time, self.begin))
             self.timeline.append([0, 0])
         oldFlow, oldSpeed = self.timeline[index]
         newFlow = oldFlow + flow
@@ -181,9 +185,9 @@ class DetectorReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'detectorDefinition' or name == 'e1Detector':
-            detType = attrs['type'] if attrs.has_key('type') else None
+            detType = attrs['type'] if 'type' in attrs else None
             self.addDetector(attrs['id'], float(attrs['pos']),
-                    self._laneMap.get(attrs['lane'], self._currentEdge), detType)
+                             self._laneMap.get(attrs['lane'], self._currentEdge), detType)
         elif name == 'group':
             self._currentGroup = DetectorGroupData(float(attrs['pos']),
                                                    attrs.get('valid', "1") == "1")
@@ -209,15 +213,15 @@ class DetectorReader(handler.ContentHandler):
             group.addDetFlow(flow, speed)
 
     def clearFlows(self, begin=0, interval=None):
-        for groupList in self._edge2DetData.itervalues():
+        for groupList in self._edge2DetData.values():
             for group in groupList:
                 group.clearFlow(begin, interval)
 
-
     def readFlows(self, flowFile, det="Detector", flow="qPKW", speed=None, time=None, timeVal=None, timeMax=None):
-        values = parseFlowFile(flowFile, 
-                detCol=det, timeCol=time, flowCol=flow, 
-                speedCol=speed, begin=timeVal, end=timeMax)
+        values = parseFlowFile(
+            flowFile,
+            detCol=det, timeCol=time, flowCol=flow,
+            speedCol=speed, begin=timeVal, end=timeMax)
         hadFlow = False
         for det, time, flow, speed in values:
             hadFlow = True
@@ -252,11 +256,8 @@ class DetectorReader(handler.ContentHandler):
                         tMax = curTime
         return tMin, tMax
 
-
     def getGroups(self):
         for edge, detData in self._edge2DetData.items():
             for group in detData:
                 if group.isValid:
                     yield edge, group
-
-

@@ -27,11 +27,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <typeinfo>
 #include <vector>
@@ -67,6 +63,7 @@ class MSVehicle;
 class MSRoute;
 class MSLane;
 class MSTLLogicControl;
+class MSTrafficLightLogic;
 class MSDetectorControl;
 class ShapeContainer;
 class BinaryInputDevice;
@@ -119,6 +116,14 @@ public:
     static MSNet* getInstance();
 
 
+    /** @brief Returns whether the network was already constructed
+    * @return whether the network was already constructed
+    */
+    static bool hasInstance() {
+        return myInstance != nullptr;
+    }
+
+
     /** @brief Constructor
      *
      * This constructor builds a net of which only some basic structures are initialised.
@@ -134,7 +139,7 @@ public:
      * @see closeBuilding
      */
     MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-          MSEventControl* endOfTimestepEvents, 
+          MSEventControl* endOfTimestepEvents,
           MSEventControl* insertionEvents,
           ShapeContainer* shapeCont = 0);
 
@@ -472,6 +477,8 @@ public:
     /// @brief write charging station output
     void writeChargingStationOutput() const;
 
+    /// @brief creates a wrapper for the given logic (see GUINet)
+    virtual void createTLWrapper(MSTrafficLightLogic*) {};
 
     /// @name Notification about vehicle state changes
     /// @{
@@ -499,7 +506,9 @@ public:
         /// @brief The vehicle ends to stop
         VEHICLE_STATE_ENDING_STOP,
         /// @brief The vehicle is involved in a collision
-        VEHICLE_STATE_COLLISION
+        VEHICLE_STATE_COLLISION,
+        /// @brief The vehicle had to brake harder than permitted
+        VEHICLE_STATE_EMERGENCYSTOP
     };
 
 
@@ -517,8 +526,9 @@ public:
         /** @brief Called if a vehicle changes its state
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
+         * @param[in] info Additional information on the state change
          */
-        virtual void vehicleStateChanged(const SUMOVehicle* const vehicle, VehicleState to) = 0;
+        virtual void vehicleStateChanged(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "") = 0;
 
     };
 
@@ -538,9 +548,10 @@ public:
     /** @brief Informs all added listeners about a vehicle's state change
      * @param[in] vehicle The vehicle which changed its state
      * @param[in] to The state the vehicle has changed to
+     * @param[in] info Information regarding the replacement
      * @see VehicleStateListener:vehicleStateChanged
      */
-    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to);
+    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "");
     /// @}
 
 
@@ -573,7 +584,7 @@ public:
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSPedestrianRouter& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSIntermodalRouter& getIntermodalRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSIntermodalRouter& getIntermodalRouter(const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
     static void adaptIntermodalRouter(MSIntermodalRouter& router);
 
@@ -599,12 +610,12 @@ public:
     }
 
     /// @brief return the network version
-    double version() const {
+    double getNetworkVersion() const {
         return myVersion;
     }
 
     /// @brief return whether a warning regarding the given object shall be issued
-    bool warnOnce(const std::string& typeAndID); 
+    bool warnOnce(const std::string& typeAndID);
 
 
 protected:
@@ -731,7 +742,7 @@ protected:
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterTT;
     mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterEffort;
     mutable MSPedestrianRouter* myPedestrianRouter;
-    mutable MSIntermodalRouter* myIntermodalRouter;
+    mutable std::map<int, MSIntermodalRouter*> myIntermodalRouter;
 
 
     /// @brief An RTree structure holding lane IDs

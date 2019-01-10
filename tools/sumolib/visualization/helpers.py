@@ -17,13 +17,15 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import gc
+import sys
 import matplotlib
 if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
     matplotlib.use('Agg')
-from pylab import *
-from matplotlib.ticker import FuncFormatter as ff
-from matplotlib.collections import LineCollection
-import gc
+from pylab import arange, close, cm, get_cmap, figure, legend, log, plt, savefig, show, title  # noqa
+from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks  # noqa
+from matplotlib.ticker import FuncFormatter as ff  # noqa
+from matplotlib.collections import LineCollection  # noqa
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
 
@@ -45,7 +47,7 @@ def addPlotOptions(optParser):
     optParser.add_option("--colors", dest="colors",
                          default=None, help="Defines the colors to use")
     optParser.add_option("--colormap", dest="colormap",
-                         default="spectral", help="Defines the colormap to use")
+                         default="nipy_spectral", help="Defines the colormap to use")
     optParser.add_option("-l", "--labels", dest="labels",
                          default=None, help="Defines the labels to use")
     optParser.add_option("--xlim", dest="xlim",
@@ -177,7 +179,8 @@ def applyPlotOptions(fig, ax, options):
                 vals[1]), right=float(vals[2]), top=float(vals[3]))
         else:
             print(
-                "Error: adjust must be given as two floats (<LEFT>,<BOTTOM>) or four floats (<LEFT>,<BOTTOM>,<RIGHT>,<TOP>)")
+                "Error: adjust must be given as two floats (<LEFT>,<BOTTOM>) or four floats " +
+                "(<LEFT>,<BOTTOM>,<RIGHT>,<TOP>)")
             sys.exit()
 
 
@@ -313,10 +316,8 @@ def toColor(val, colormap):
 
 
 def parseColorMap(mapDef):
-    somedict = {}
     ret = {"red": [], "green": [], "blue": []}
     defs = mapDef.split(",")
-    lastValue = 0
     for d in defs:
         (value, color) = d.split(":")
         value = float(value)
@@ -328,7 +329,6 @@ def parseColorMap(mapDef):
         ret["green"].append((value, toFloat(g) / 255., toFloat(g) / 255.))
         ret["blue"].append((value, toFloat(b) / 255., toFloat(b) / 255.))
 
-        lastValue = value
         # ret.append( (value, color) )
     colormap = matplotlib.colors.LinearSegmentedColormap("CUSTOM", ret, 1024)
     return colormap

@@ -21,18 +21,14 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/RGBColor.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declaration
@@ -48,14 +44,17 @@ class GNECalibratorDialog;
  * @class GNECalibratorVehicleType
  * vehicleType vehicleType used by GNECalibrators
  */
-class GNECalibratorVehicleType : public GNEAttributeCarrier {
+class GNECalibratorVehicleType : public GNEAdditional {
 
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
-    GNECalibratorVehicleType(GNENet* net, const std::string& id="");
+    GNECalibratorVehicleType(GNEViewNet* viewNet);
+
+    /// @brief constructor in which ID can be specified
+    GNECalibratorVehicleType(GNEViewNet* viewNet, const std::string& id);
 
     /// @brief parameter constructor
-    GNECalibratorVehicleType(GNENet* net, std::string vehicleTypeID,
+    GNECalibratorVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
                              double accel, double decel, double sigma, double tau, double length, double minGap,
                              double maxSpeed, double speedFactor, double speedDev, const RGBColor& color,
                              SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape,
@@ -66,23 +65,43 @@ public:
     /// @brief destructor
     ~GNECalibratorVehicleType();
 
-    /// @brief write Flow values into a XML
-    void writeVehicleType(OutputDevice& device);
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position& oldPos, const Position& offset);
 
-    /// @brief get pointer to calibrator parent
-    GNENet* getNet() const;
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
+
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    std::string getParentName() const;
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
-    /// @brief select attribute carrier
-    void selectAttributeCarrier(bool);
-
-    /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(bool);
-
-    /// @brief check if attribute carrier is selected
-    bool isAttributeCarrierSelected() const;
-
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key
@@ -103,15 +122,15 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 private:
-    /// @brief pointer to the network
-    GNENet* myNet;
-
-    /// @brief vehicleType ID
-    std::string myVehicleTypeID;
-
     /// @brief The acceleration ability of vehicles of this type (in m/s^2)
     double myAccel;
 

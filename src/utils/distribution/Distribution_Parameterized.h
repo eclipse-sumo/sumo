@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <random>
@@ -81,6 +77,9 @@ public:
     const std::vector<double>& getParameter() const {
         return myParameter;
     }
+
+    /// @brief check whether the distribution is valid
+    bool isValid(std::string& error);
 
     /// Returns the string representation of this distribution
     std::string toStr(std::streamsize accuracy) const;

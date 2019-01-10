@@ -13,7 +13,7 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @date    2006-01-24
-/// @version $Id: SUMOVehicleParameter.h v0_32_0+0554-8006ddce48 oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/
@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/common/Parameterised.h>

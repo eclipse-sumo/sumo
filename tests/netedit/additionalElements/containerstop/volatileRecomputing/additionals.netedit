@@ -1,10 +1,53 @@
-<additionals>
-    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_1" startPos="26.54" endPos="36.54"/>
-    <containerStop id="containerStop_gneE1_0_1" lane="gneE1_1" startPos="27.24" endPos="37.24"/>
-    <containerStop id="containerStop_gneE2_0_7" lane="gneE2_1" startPos="18.65" endPos="28.65"/>
-    <containerStop id="containerStop_gneE2_1_6" lane="gneE2_2" startPos="22.60" endPos="32.60"/>
-    <containerStop id="containerStop_gneE2_2_5" lane="gneE2_3" startPos="25.95" endPos="35.95"/>
-    <containerStop id="containerStop_gneE2_3_4" lane="gneE2_4" startPos="29.30" endPos="39.30"/>
-    <containerStop id="containerStop_gneE2_4_3" lane="gneE2_5" startPos="31.53" endPos="41.53"/>
-    <containerStop id="containerStop_gneE4_0_2" lane="gneE4_0" startPos="19.84" endPos="29.84"/>
-</additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 02.08.2018 12:38:15 by Eclipse SUMO netedit Version 7115a4b324
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug123027.1464/netedit.gui/additionalElements/containerstop/volatileRecomputing\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug123027.1464/netedit.gui/additionalElements/containerstop/volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug123027.1464/netedit.gui/additionalElements/containerstop/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug123027.1464/netedit.gui/additionalElements/containerstop/volatileRecomputing\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug123027.1464/netedit.gui/additionalElements/containerstop/volatileRecomputing\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug123027.1464/netedit.gui/additionalElements/containerstop/volatileRecomputing\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.02Aug123027.1464/netedit.gui/additionalElements/containerstop/volatileRecomputing\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_1" startPos="19.75" endPos="29.75"/>
+    <containerStop id="containerStop_gneE1_0_1" lane="gneE1_1" startPos="28.41" endPos="38.41"/>
+    <containerStop id="containerStop_gneE2_0_7" lane="gneE2_1" startPos="16.48" endPos="26.48"/>
+    <containerStop id="containerStop_gneE2_1_6" lane="gneE2_2" startPos="21.73" endPos="31.73"/>
+    <containerStop id="containerStop_gneE2_2_5" lane="gneE2_3" startPos="23.79" endPos="33.79"/>
+    <containerStop id="containerStop_gneE2_3_4" lane="gneE2_4" startPos="27.13" endPos="37.13"/>
+    <containerStop id="containerStop_gneE2_4_3" lane="gneE2_5" startPos="31.03" endPos="41.03"/>
+    <containerStop id="containerStop_gneE4_0_2" lane="gneE4_0" startPos="17.90" endPos="27.90"/>
+</additional>

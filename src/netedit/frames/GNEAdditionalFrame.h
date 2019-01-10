@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEFrame.h"
 
@@ -67,7 +63,7 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalSelector(GNEAdditionalFrame *additionalFrameParent);
+        AdditionalSelector(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~AdditionalSelector();
@@ -90,7 +86,7 @@ public:
 
     private:
         /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief combo box with the list of additional elements
         FXComboBox* myAdditionalMatchBox;
@@ -109,22 +105,13 @@ public:
 
     public:
         /// @brief constructor
-        AdditionalAttributeSingle(AdditionalAttributes *additionalAttributesParent);
+        AdditionalAttributeSingle(AdditionalAttributes* additionalAttributesParent);
 
         /// @brief destructor
         ~AdditionalAttributeSingle();
 
         /// @brief show name and value of attribute of type string
         void showParameter(SumoXMLAttr additionalAttr, std::string value);
-
-        /// @brief show name and value of parameters of type int
-        void showParameter(SumoXMLAttr additionalAttr, int value);
-
-        /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLAttr additionalAttr, double value);
-
-        /// @brief show name and value of parameters of type bool
-        void showParameter(SumoXMLAttr additionalAttr, bool value);
 
         /// @brief hide all parameters
         void hideParameter();
@@ -178,75 +165,6 @@ public:
     };
 
     // ===========================================================================
-    // class AdditionalAttributeList
-    // ===========================================================================
-
-    class AdditionalAttributeList : protected FXVerticalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalAttributeList)
-
-    public:
-        /// @brief constructor
-        AdditionalAttributeList(AdditionalAttributes *additionalAttributesParent);
-
-        /// @brief destructor
-        ~AdditionalAttributeList();
-
-        /// @brief show name and value of parameters of type string
-        void showListParameter(SumoXMLAttr additionalAttr, std::vector<std::string> value);
-
-        /// @brief hide all parameters
-        void hideParameter();
-
-        /// @brief return attribute of list
-        SumoXMLAttr getAttr() const;
-
-        /// @brief return the value of list
-        std::string getListValues();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief add a new row int the list
-        long onCmdAddRow(FXObject*, FXSelector, void*);
-
-        /// @brief add a new row int the list
-        long onCmdRemoveRow(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AdditionalAttributeList() {}
-
-    private:
-        /// @brief current XML attribute
-        SumoXMLAttr myAdditionalAttr;
-
-        /// @brief Vector with HorizontalFrames
-        std::vector<FXHorizontalFrame*> myHorizontalFrames;
-
-        /// @brief vector with with the name of every parameter
-        std::vector<FXLabel*> myLabels;
-
-        /// @brief vector textField to modify the value of parameter
-        std::vector<FXTextField*> myTextFields;
-
-        /// @brief horizontal frame for buttons
-        FXHorizontalFrame* myHorizontalFrameButtons;
-
-        /// @brief Button to increase the number of textFields
-        FXButton* myAddButton;
-
-        /// @brief Button to decrease the number of textFields
-        FXButton* myRemoveButton;
-
-        /// @brief number of visible text fields
-        int myNumberOfVisibleTextfields;
-
-        /// @brief Number max of values in a parameter of type list
-        int myMaxNumberOfValuesInParameterList;
-    };
-
-    // ===========================================================================
     // class AdditionalAttributes
     // ===========================================================================
 
@@ -256,7 +174,6 @@ public:
 
         /// @brief friend class declaration
         friend class AdditionalAttributeSingle;
-        friend class AdditionalAttributeList;
 
     public:
         /// @brief constructor
@@ -286,11 +203,8 @@ public:
         /// @brief show warning message with information about non-valid attributes
         void showWarningMessage(std::string extra = "") const;
 
-        /// @brief get number of added attributes
-        int getNumberOfAddedAttributes() const;
-
         /// @brief get additional frame parent
-        GNEAdditionalFrame *getAdditionalFrameParent() const;
+        GNEAdditionalFrame* getAdditionalFrameParent() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -309,20 +223,6 @@ public:
         /// @brief vector with the additional parameters
         std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
 
-        /// @brief Index for myVectorOfsingleAdditionalParameter
-        int myIndexParameter;
-
-        /// @brief vector with the additional parameters of type list
-        std::vector<AdditionalAttributeList*> myVectorOfsingleAdditionalParameterList;
-
-        /// @brief index for myIndexParameterList
-        int myIndexParameterList;
-
-        /// @brief max number of parameters (Defined in constructor)
-        int myMaxNumberOfParameters;
-
-        /// @brief max number of parameters (Defined in constructor)
-        int myMaxNumberOfListParameters;
     };
 
     // ===========================================================================
@@ -343,7 +243,7 @@ public:
         };
 
         /// @brief constructor
-        NeteditAttributes(GNEAdditionalFrame *additionalFrameParent);
+        NeteditAttributes(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~NeteditAttributes();
@@ -418,7 +318,7 @@ public:
     class SelectorParentAdditional : protected FXGroupBox {
     public:
         /// @brief constructor
-        SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent);
+        SelectorParentAdditional(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentAdditional();
@@ -427,23 +327,29 @@ public:
         std::string getIdSelected() const;
 
         /// @brief select manually a element of the list
-        void setIDSelected(const std::string &id);
+        void setIDSelected(const std::string& id);
 
         /// @brief Show list of SelectorParentAdditional
-        void showListOfAdditionals(SumoXMLTag additionalType);
+        void showListOfAdditionalParents(SumoXMLTag additionalTypeParent);
 
         /// @brief hide SelectorParentAdditional
-        void hideListOfAdditionals();
+        void hideListOfAdditionalParents();
+
+        /// @brief Refresh list of Additional Parents
+        void refreshListOfAdditionalParents();
 
     private:
         /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
+
+        /// @brief current additional type parent
+        SumoXMLTag myAdditionalTypeParent;
 
         /// @brief Label with the name of additional
-        FXLabel* myAdditionalParentsLabel;
+        FXLabel* myFirstAdditionalParentsLabel;
 
         /// @brief List of additional sets
-        FXList* myAdditionalParentsList;
+        FXList* myFirstAdditionalParentsList;
     };
 
     // ===========================================================================
@@ -456,7 +362,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectorParentEdges(GNEAdditionalFrame *additionalFrameParent);
+        SelectorParentEdges(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentEdges();
@@ -500,7 +406,7 @@ public:
 
     private:
         /// @brief pointer to additional frame parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief CheckBox for selected edges
         FXCheckButton* myUseSelectedEdgesCheckButton;
@@ -528,7 +434,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectorParentLanes(GNEAdditionalFrame *additionalFrameParent);
+        SelectorParentLanes(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
         ~SelectorParentLanes();
@@ -572,7 +478,7 @@ public:
 
     private:
         /// @brief pointer to additional frame parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief CheckBox for selected lanes
         FXCheckButton* myUseSelectedLanesCheckButton;
@@ -619,13 +525,13 @@ public:
 
 protected:
     /// @brief get additional selector
-    AdditionalSelector *getAdditionalSelector() const;
+    AdditionalSelector* getAdditionalSelector() const;
 
     /// @brief get additional attributes
-    AdditionalAttributes *getAdditionalParameters() const;
+    AdditionalAttributes* getAdditionalParameters() const;
 
     /// @brief get netedit attributes
-    NeteditAttributes *getNeteditAttributes() const;
+    NeteditAttributes* getNeteditAttributes() const;
 
     /// @brief get additional parent selector
     SelectorParentAdditional* getAdditionalParentSelector() const;
@@ -656,7 +562,7 @@ private:
     GNEAdditionalFrame::NeteditAttributes* myNeteditParameters;
 
     /// @brief list of additional Set
-    GNEAdditionalFrame::SelectorParentAdditional* myAdditionalParentSelector;
+    GNEAdditionalFrame::SelectorParentAdditional* myFirstAdditionalParentSelector;
 
     /// @brief list of SelectorParentEdges
     GNEAdditionalFrame::SelectorParentEdges* myEdgeParentsSelector;

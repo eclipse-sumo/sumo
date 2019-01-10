@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:27 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Wed Aug 15 16:12:37 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,14 +19,21 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -35,38 +42,38 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-50.00,-50.00,50.00,50.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="gneE0" from="gneJ0" to="gneE0.40" priority="1" shape="-50.00,-6.40 -10.00,-6.40">
-        <lane id="gneE0_0" index="0" speed="13.89" length="46.40" shape="-50.00,-8.00 -11.50,-8.00"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="46.40" shape="-50.00,-8.00 -14.00,-8.00"/>
     </edge>
     <edge id="gneE0.40" from="gneE0.40" to="gneJ1" priority="1">
-        <lane id="gneE0.40_0" index="0" speed="13.89" length="15.07" shape="-8.50,-8.00 -4.70,-8.00"/>
-        <lane id="gneE0.40_1" index="1" speed="13.89" length="15.07" shape="-8.50,-4.80 -4.70,-4.80"/>
-        <lane id="gneE0.40_2" index="2" speed="13.89" length="15.07" shape="-8.50,-1.60 -4.70,-1.60"/>
+        <lane id="gneE0.40_0" index="0" speed="13.89" length="13.90" shape="-6.70,-8.00 -6.50,-8.00"/>
+        <lane id="gneE0.40_1" index="1" speed="13.89" length="13.90" shape="-6.70,-4.80 -6.50,-4.80"/>
+        <lane id="gneE0.40_2" index="2" speed="13.89" length="13.90" shape="-6.70,-1.60 -6.50,-1.60"/>
     </edge>
     <edge id="gneE2" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="50.00" shape="-4.70,1.60 -50.00,1.60"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="50.00" shape="-7.20,1.60 -50.00,1.60"/>
     </edge>
     <edge id="gneE3" from="gneJ1" to="gneJ3" priority="1">
-        <lane id="gneE3_0" index="0" speed="13.89" length="50.00" shape="4.70,-1.60 50.00,-1.60"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="50.00" shape="7.20,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="gneE4" from="gneJ3" to="gneJ1" priority="1">
-        <lane id="gneE4_0" index="0" speed="13.89" length="50.00" shape="50.00,1.60 4.70,1.60"/>
+        <lane id="gneE4_0" index="0" speed="13.89" length="50.00" shape="50.00,1.60 7.20,1.60"/>
     </edge>
     <edge id="gneE5" from="gneJ1" to="gneJ4" priority="1">
-        <lane id="gneE5_0" index="0" speed="13.89" length="50.00" shape="1.60,4.70 1.60,50.00"/>
+        <lane id="gneE5_0" index="0" speed="13.89" length="50.00" shape="1.60,7.20 1.60,50.00"/>
     </edge>
     <edge id="gneE6" from="gneJ4" to="gneJ1" priority="1">
-        <lane id="gneE6_0" index="0" speed="13.89" length="50.00" shape="-1.60,50.00 -1.60,4.70"/>
+        <lane id="gneE6_0" index="0" speed="13.89" length="50.00" shape="-1.60,50.00 -1.60,7.20"/>
     </edge>
     <edge id="gneE7" from="gneJ1" to="gneJ5" priority="1">
-        <lane id="gneE7_0" index="0" speed="13.89" length="50.00" shape="-1.60,-11.10 -1.60,-50.00"/>
+        <lane id="gneE7_0" index="0" speed="13.89" length="50.00" shape="-1.60,-13.60 -1.60,-50.00"/>
     </edge>
     <edge id="gneE8" from="gneJ5" to="gneJ1" priority="1">
-        <lane id="gneE8_0" index="0" speed="13.89" length="50.00" shape="1.60,-50.00 1.60,-11.10"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="50.00" shape="1.60,-50.00 1.60,-13.60"/>
     </edge>
 
     <tlLogic id="gneJ1" type="static" programID="0" offset="0">
@@ -78,13 +85,13 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyrrryyyrrr"/>
     </tlLogic>
 
-    <junction id="gneE0.40" type="priority" x="-10.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="-8.50,0.00 -8.50,-9.60 -11.50,-9.60 -11.50,-6.40">
+    <junction id="gneE0.40" type="priority" x="-10.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="-6.00,0.00 -6.00,-9.60 -14.00,-9.60 -14.00,-6.40">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="gneJ0" type="dead_end" x="-50.00" y="0.00" incLanes="gneE2_0" intLanes="" shape="-50.00,-6.40 -50.00,3.20 -50.00,0.00"/>
-    <junction id="gneJ1" type="traffic_light" x="0.00" y="0.00" incLanes="gneE6_0 gneE4_0 gneE8_0 gneE0.40_0 gneE0.40_1 gneE0.40_2" intLanes="" shape="-3.20,4.70 3.20,4.70 4.70,3.20 4.70,-3.20 3.20,-11.10 -3.20,-11.10 -4.70,-9.60 -4.70,3.20">
+    <junction id="gneJ1" type="traffic_light" x="0.00" y="0.00" incLanes="gneE6_0 gneE4_0 gneE8_0 gneE0.40_0 gneE0.40_1 gneE0.40_2" intLanes="" shape="-3.20,7.20 3.20,7.20 7.20,3.20 7.20,-3.20 3.20,-13.60 -3.20,-13.60 -7.20,-9.60 -7.20,3.20">
         <request index="0"  response="000000010000" foes="000100010000"/>
         <request index="1"  response="111000110000" foes="111100110000"/>
         <request index="2"  response="110011110000" foes="110011110000"/>

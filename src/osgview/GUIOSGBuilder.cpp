@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_OSG
 
@@ -172,25 +168,25 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         geode->addDrawable(geom);
         addTo.addChild(geode);
         const int shapeSize = (int)(edge.isWalkingArea() ? shape.size() : shape.size() * 2);
-        const double zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01 : 0;
+        const float zOffset = edge.isWalkingArea() || edge.isCrossing() ? 0.01f : 0.f;
         osg::Vec3Array* osg_coords = new osg::Vec3Array(shapeSize);
         geom->setVertexArray(osg_coords);
         if (edge.isWalkingArea()) {
             int index = 0;
             for (int k = 0; k < (int)shape.size(); ++k, ++index) {
-                (*osg_coords)[index].set(shape[k].x(), shape[k].y(), shape[k].z() + zOffset);
+                (*osg_coords)[index].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z() + zOffset);
             }
         } else {
             PositionVector rshape = shape;
             rshape.move2side(l->getWidth() / 2);
             int index = 0;
             for (int k = 0; k < (int)rshape.size(); ++k, ++index) {
-                (*osg_coords)[index].set(rshape[k].x(), rshape[k].y(), rshape[k].z() + zOffset);
+                (*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
             }
             PositionVector lshape = shape;
             lshape.move2side(-l->getWidth() / 2);
             for (int k = (int) lshape.size() - 1; k >= 0; --k, ++index) {
-                (*osg_coords)[index].set(lshape[k].x(), lshape[k].y(), lshape[k].z() + zOffset);
+                (*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
             }
         }
         osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
@@ -235,7 +231,7 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {
-        (*osg_coords)[k].set(shape[k].x(), shape[k].y(), shape[k].z());
+        (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z());
     }
     osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
     (*osg_normals)[0] = osg::Vec3(0, 0, 1);

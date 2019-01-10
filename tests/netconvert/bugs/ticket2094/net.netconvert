@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:48 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Aug 16 15:52:06 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,77 +19,74 @@ SPDX-License-Identifier: EPL-2.0
         <output.street-names value="true"/>
     </output>
 
-    <processing>
-        <ignore-errors.edge-type value="true"/>
-    </processing>
-
     <report>
         <xml-validation value="never"/>
+        <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-402199.24,-5810495.50" convBoundary="0.00,0.00,108.13,155.60" origBoundary="13.453860,52.362982,13.649158,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":597703133_0" function="internal">
-        <lane id=":597703133_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.67" shape="95.54,-0.29 96.54,-1.33 97.40,-1.57 98.12,-1.03 98.68,0.29"/>
+        <lane id=":597703133_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="95.54,-0.29 96.54,-1.33 97.40,-1.57 98.12,-1.03 98.68,0.29"/>
     </edge>
     <edge id=":cluster_2459197191_2459197195_294153466_74947181_0" function="internal">
-        <lane id=":cluster_2459197191_2459197195_294153466_74947181_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="9.54" shape="66.44,153.38 64.71,155.77 63.04,156.52 61.44,155.64 59.91,153.13"/>
+        <lane id=":cluster_2459197191_2459197195_294153466_74947181_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="4.76" length="9.54" shape="66.44,153.38 64.71,155.77 63.04,156.52 61.44,155.64 59.91,153.13"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_0" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="30.41" shape="56.51,125.09 54.43,117.98 50.98,111.39 46.64,105.19 41.91,99.29"/>
-        <lane id=":cluster_294152029_560899595_593898177_0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="30.41" shape="59.54,123.76 57.37,116.54 53.73,109.71 49.20,103.27 44.38,97.26"/>
+        <lane id=":cluster_294152029_560899595_593898177_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="35.20" shape="56.92,127.56 54.53,119.76 50.39,111.66 45.36,103.95 40.32,97.35"/>
+        <lane id=":cluster_294152029_560899595_593898177_0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="35.20" shape="59.95,126.24 57.47,118.33 53.14,109.98 47.92,102.03 42.80,95.32"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_2" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="29.18" shape="58.00,93.88 60.08,94.12 62.67,98.45 65.77,106.89 69.38,119.42"/>
+        <lane id=":cluster_294152029_560899595_593898177_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="31.72" shape="59.77,92.12 61.12,93.28 63.28,98.61 66.24,108.13 70.02,121.84"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_3" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="15.94" shape="58.00,93.88 53.76,97.46 50.08,99.21 46.95,99.15 44.38,97.26"/>
+        <lane id=":cluster_294152029_560899595_593898177_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.05" length="19.80" shape="59.77,92.12 54.66,96.35 50.13,98.29 46.17,97.95 42.80,95.32"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_4" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="2.50" shape="58.00,93.88 56.58,94.16 55.74,93.88 55.68,93.72"/>
+        <lane id=":cluster_294152029_560899595_593898177_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.53" shape="59.77,92.12 58.36,92.40 57.51,92.11 57.45,91.94"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_9" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_9_0" index="0" speed="13.89" length="2.17" shape="55.68,93.72 55.46,93.03 55.74,91.61"/>
+        <lane id=":cluster_294152029_560899595_593898177_9_0" index="0" speed="3.65" length="2.15" shape="57.45,91.94 57.23,91.27 57.52,89.85"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_5" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="6.12" shape="50.48,92.26 51.59,93.16 52.84,93.36 54.22,92.84 55.74,91.61"/>
+        <lane id=":cluster_294152029_560899595_593898177_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.62" length="10.04" shape="48.88,90.34 50.80,91.97 52.88,92.43 55.12,91.73 57.52,89.85"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_6" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="32.85" shape="50.48,92.26 55.59,97.72 60.89,103.29 65.71,110.15 69.38,119.42"/>
-        <lane id=":cluster_294152029_560899595_593898177_6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="32.85" shape="50.48,92.26 55.12,97.92 59.40,103.95 63.21,111.25 66.42,120.73"/>
-        <lane id=":cluster_294152029_560899595_593898177_6_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="32.85" shape="48.01,94.29 52.57,99.83 56.68,105.61 60.32,112.66 63.45,122.03"/>
+        <lane id=":cluster_294152029_560899595_593898177_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="37.66" shape="48.88,90.34 54.34,96.47 60.41,103.54 66.00,111.88 70.02,121.84"/>
+        <lane id=":cluster_294152029_560899595_593898177_6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="37.66" shape="48.88,90.34 53.88,96.67 58.92,104.18 63.49,112.97 67.05,123.13"/>
+        <lane id=":cluster_294152029_560899595_593898177_6_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="37.66" shape="46.41,92.37 51.32,98.59 56.20,105.85 60.60,114.38 64.08,124.43"/>
     </edge>
 
     <edge id="-26815091#2" from="597703133" to="cluster_294152029_560899595_593898177" name="Olmweg" priority="4" type="highway.residential" shape="97.11,0.00 88.55,45.97 76.83,72.92 55.48,94.13">
-        <lane id="-26815091#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="105.26" shape="98.68,0.29 90.09,46.44 78.18,73.84 58.00,93.88"/>
+        <lane id="-26815091#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="102.76" shape="98.68,0.29 90.09,46.44 78.18,73.84 59.77,92.12"/>
     </edge>
     <edge id="26814968#1" from="1656195449" to="cluster_294152029_560899595_593898177" name="Glienicker Straße" priority="7" type="highway.secondary" spreadType="center" shape="0.00,33.92 52.38,97.06">
-        <lane id="26814968#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="77.13" shape="1.23,32.90 50.48,92.26"/>
-        <lane id="26814968#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="77.13" shape="-1.23,34.94 48.01,94.29"/>
+        <lane id="26814968#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="74.63" shape="1.23,32.90 48.88,90.34"/>
+        <lane id="26814968#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="74.63" shape="-1.23,34.94 46.41,92.37"/>
     </edge>
     <edge id="26815091#2" from="cluster_294152029_560899595_593898177" to="597703133" name="Olmweg" priority="4" type="highway.residential" shape="55.48,94.13 76.83,72.92 88.55,45.97 97.11,0.00">
-        <lane id="26815091#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="103.31" shape="55.74,91.61 75.48,72.00 87.01,45.50 95.54,-0.29"/>
+        <lane id="26815091#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="100.81" shape="57.52,89.85 75.48,72.00 87.01,45.50 95.54,-0.29"/>
     </edge>
     <edge id="283006415#0" from="cluster_294152029_560899595_593898177" to="cluster_2459197191_2459197195_294153466_74947181" name="Glienicker Straße" priority="7" type="highway.secondary" spreadType="center" shape="55.41,95.01 65.17,116.02 69.75,133.33 70.29,135.71 69.77,149.84">
-        <lane id="283006415#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="33.29" shape="69.38,119.42 72.85,132.52 73.50,135.41 72.83,153.64"/>
-        <lane id="283006415#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="33.29" shape="66.42,120.73 69.75,133.33 70.29,135.71 69.63,153.51"/>
-        <lane id="283006415#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="33.29" shape="63.45,122.03 66.65,134.14 67.08,136.01 66.44,153.38"/>
+        <lane id="283006415#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="30.80" shape="70.02,121.84 72.85,132.52 73.50,135.41 72.83,153.64"/>
+        <lane id="283006415#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="30.80" shape="67.05,123.13 69.75,133.33 70.29,135.71 69.63,153.51"/>
+        <lane id="283006415#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="30.80" shape="64.08,124.43 66.65,134.14 67.08,136.01 66.44,153.38"/>
     </edge>
     <edge id="44150295" from="cluster_129255777_560899541" to="cluster_294152029_560899595_593898177" priority="1" type="highway.footway" spreadType="center" shape="108.13,154.64 96.99,146.23 76.93,124.80 55.48,94.13">
-        <lane id="44150295_0" index="0" allow="pedestrian" speed="2.78" length="51.24" width="2.00" shape="107.81,154.40 96.99,146.23 76.93,124.80 72.16,117.98"/>
+        <lane id="44150295_0" index="0" allow="pedestrian" speed="2.78" length="48.74" width="2.00" shape="107.81,154.40 96.99,146.23 76.93,124.80 73.59,120.03"/>
     </edge>
     <edge id="72312640#0" from="cluster_2459197191_2459197195_294153466_74947181" to="cluster_294152029_560899595_593898177" name="Glienicker Straße" priority="7" type="highway.secondary" spreadType="center" shape="58.58,146.87 59.24,131.77 57.05,118.52 50.88,109.03 47.29,103.33">
-        <lane id="72312640#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="28.76" shape="56.71,153.00 57.63,131.87 56.51,125.09"/>
-        <lane id="72312640#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="28.76" shape="59.91,153.13 60.85,131.67 59.54,123.76"/>
+        <lane id="72312640#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.25" shape="56.71,153.00 57.63,131.87 56.92,127.56"/>
+        <lane id="72312640#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.25" shape="59.91,153.13 60.85,131.67 59.95,126.24"/>
     </edge>
     <edge id="72312640#1" from="cluster_294152029_560899595_593898177" to="248074278" name="Glienicker Straße" priority="7" type="highway.secondary" spreadType="center" shape="47.29,103.33 30.75,83.14 11.54,61.28">
-        <lane id="72312640#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="48.66" shape="41.91,99.29 29.53,84.18 10.34,62.34"/>
-        <lane id="72312640#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="48.66" shape="44.38,97.26 31.97,82.10 12.74,60.22"/>
+        <lane id="72312640#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="46.16" shape="40.32,97.35 29.53,84.18 10.34,62.34"/>
+        <lane id="72312640#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="46.16" shape="42.80,95.32 31.97,82.10 12.74,60.22"/>
     </edge>
 
     <tlLogic id="cluster_294152029_560899595_593898177" type="static" programID="0" offset="0">
@@ -108,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="cluster_2459197191_2459197195_294153466_74947181" type="priority" x="62.49" y="153.26" incLanes="283006415#0_0 283006415#0_1 283006415#0_2" intLanes=":cluster_2459197191_2459197195_294153466_74947181_0_0" shape="61.51,153.22 55.11,152.94 74.43,153.70 64.84,153.35">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="cluster_294152029_560899595_593898177" type="traffic_light" x="51.72" y="98.17" incLanes="72312640#0_0 72312640#0_1 44150295_0 -26815091#2_0 26814968#1_0 26814968#1_1" intLanes=":cluster_294152029_560899595_593898177_0_0 :cluster_294152029_560899595_593898177_0_1 :cluster_294152029_560899595_593898177_2_0 :cluster_294152029_560899595_593898177_3_0 :cluster_294152029_560899595_593898177_9_0 :cluster_294152029_560899595_593898177_5_0 :cluster_294152029_560899595_593898177_6_0 :cluster_294152029_560899595_593898177_6_1 :cluster_294152029_560899595_593898177_6_2" shape="55.00,125.75 70.86,118.77 71.34,118.55 72.98,117.40 59.13,95.02 54.61,90.48 51.72,91.25 40.67,100.30">
+    <junction id="cluster_294152029_560899595_593898177" type="traffic_light" x="51.72" y="98.17" incLanes="72312640#0_0 72312640#0_1 44150295_0 -26815091#2_0 26814968#1_0 26814968#1_1" intLanes=":cluster_294152029_560899595_593898177_0_0 :cluster_294152029_560899595_593898177_0_1 :cluster_294152029_560899595_593898177_2_0 :cluster_294152029_560899595_593898177_3_0 :cluster_294152029_560899595_593898177_9_0 :cluster_294152029_560899595_593898177_5_0 :cluster_294152029_560899595_593898177_6_0 :cluster_294152029_560899595_593898177_6_1 :cluster_294152029_560899595_593898177_6_2" shape="55.41,128.22 71.50,121.19 72.77,120.60 74.41,119.45 69.49,112.23 65.64,106.15 62.86,101.22 61.14,97.42 60.49,94.77 60.90,93.26 56.39,88.72 54.04,90.42 52.97,90.71 51.95,90.63 51.01,90.16 50.12,89.33 39.09,98.37 43.85,103.98 47.49,108.22 50.25,111.93 52.34,115.94 53.99,121.09">
         <request index="0" response="000000000" foes="000001000" cont="0"/>
         <request index="1" response="000000000" foes="000001000" cont="0"/>
         <request index="2" response="111000000" foes="111000000" cont="0"/>
@@ -120,7 +117,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000000000" foes="000001100" cont="0"/>
     </junction>
 
-    <junction id=":cluster_294152029_560899595_593898177_9_0" type="internal" x="55.68" y="93.72" incLanes=":cluster_294152029_560899595_593898177_4_0 26814968#1_0" intLanes=":cluster_294152029_560899595_593898177_5_0"/>
+    <junction id=":cluster_294152029_560899595_593898177_9_0" type="internal" x="57.45" y="91.94" incLanes=":cluster_294152029_560899595_593898177_4_0 26814968#1_0" intLanes=":cluster_294152029_560899595_593898177_5_0"/>
 
     <connection from="-26815091#2" to="283006415#0" fromLane="0" toLane="0" via=":cluster_294152029_560899595_593898177_2_0" tl="cluster_294152029_560899595_593898177" linkIndex="2" dir="r" state="o"/>
     <connection from="-26815091#2" to="72312640#1" fromLane="0" toLane="1" via=":cluster_294152029_560899595_593898177_3_0" tl="cluster_294152029_560899595_593898177" linkIndex="3" dir="l" state="o"/>

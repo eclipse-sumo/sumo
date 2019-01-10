@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:30 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:34 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,40 +19,43 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <ignore-errors.edge-type value="true"/>
-        <no-internal-links value="true"/>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
     <report>
         <xml-validation value="never"/>
+        <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392124.73,-5819527.28" convBoundary="-100.00,-100.00,100.00,0.00" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="CE" from="C" to="E" priority="1">
-        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="100.00" width="1.00" shape="1.50,-4.70 100.00,-4.70"/>
-        <lane id="CE_1" index="1" allow="bicycle" speed="13.89" length="100.00" width="1.00" shape="1.50,-3.70 100.00,-3.70"/>
-        <lane id="CE_2" index="2" disallow="pedestrian" speed="13.89" length="100.00" shape="1.50,-1.60 100.00,-1.60"/>
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="100.00" width="1.00" shape="2.00,-4.70 100.00,-4.70"/>
+        <lane id="CE_1" index="1" allow="bicycle" speed="13.89" length="100.00" width="1.00" shape="2.00,-3.70 100.00,-3.70"/>
+        <lane id="CE_2" index="2" disallow="pedestrian" speed="13.89" length="100.00" shape="2.00,-1.60 100.00,-1.60"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="1">
-        <lane id="CS_0" index="0" allow="pedestrian" speed="13.89" length="100.00" width="1.00" shape="-3.70,-6.70 -3.70,-100.00"/>
-        <lane id="CS_1" index="1" disallow="pedestrian" speed="13.89" length="100.00" shape="-1.60,-6.70 -1.60,-100.00"/>
+        <lane id="CS_0" index="0" allow="pedestrian" speed="13.89" length="100.00" width="1.00" shape="-3.70,-7.20 -3.70,-100.00"/>
+        <lane id="CS_1" index="1" disallow="pedestrian" speed="13.89" length="100.00" shape="-1.60,-7.20 -1.60,-100.00"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="1">
-        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="100.00" width="1.00" shape="-100.00,-4.70 -5.70,-4.70"/>
-        <lane id="WC_1" index="1" allow="bicycle" speed="13.89" length="100.00" width="1.00" shape="-100.00,-3.70 -5.70,-3.70"/>
-        <lane id="WC_2" index="2" disallow="pedestrian" speed="13.89" length="100.00" shape="-100.00,-1.60 -5.70,-1.60"/>
+        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="100.00" width="1.00" shape="-100.00,-4.70 -6.20,-4.70"/>
+        <lane id="WC_1" index="1" allow="bicycle" speed="13.89" length="100.00" width="1.00" shape="-100.00,-3.70 -6.20,-3.70"/>
+        <lane id="WC_2" index="2" disallow="pedestrian" speed="13.89" length="100.00" shape="-100.00,-1.60 -6.20,-1.60"/>
     </edge>
 
-    <junction id="C" type="priority" x="0.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="1.50,0.00 1.50,-5.20 0.00,-6.70 -4.20,-6.70 -5.70,-5.20 -5.70,0.00">
-        <request index="0" response="000" foes="000"/>
+    <junction id="C" type="priority" x="0.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="2.00,0.00 2.00,-5.20 0.89,-5.42 0.50,-5.70 0.22,-6.09 0.06,-6.59 0.00,-7.20 -4.20,-7.20 -4.42,-6.09 -4.70,-5.70 -5.09,-5.42 -5.59,-5.26 -6.20,-5.20 -6.20,0.00">
+        <request index="0" response="000" foes="010"/>
         <request index="1" response="001" foes="001"/>
         <request index="2" response="000" foes="000"/>
     </junction>

@@ -20,7 +20,8 @@ and writes converted information to a SUMO routes (.rou.xml) file.
 (see source documentation)
 
 example usage:
-    python3 convert_vissimXML_flows_statRoutes.py my_VISSIM_scenario.inpx my_VISSIM_scenario.net.xml -o my_VISSIM_routes.rou.xml
+    python3 convert_vissimXML_flows_statRoutes.py my_VISSIM_scenario.inpx my_VISSIM_scenario.net.xml
+    -o my_VISSIM_routes.rou.xml
 
 see also:
     python3 convert_vissimXML_flows_statRoutes.py -h
@@ -64,7 +65,7 @@ def parse_flows(xmldoc):
             # keeping (timeInterval, volume, vehicle composition)
             #   time interval converted to [s]
             v_input_d["flow"].append(
-                [float(volume.getAttribute('timeInt').split(" ")[1])/1000,
+                [float(volume.getAttribute('timeInt').split(" ")[1]) / 1000,
                  float(volume.getAttribute('volume')),
                  float(volume.getAttribute('vehComp'))])        # FIXME: nasty, redundant
         v_input_d["flow"] = np.array(v_input_d["flow"])
@@ -201,7 +202,6 @@ def gen_verbinder_map(xmldoc):
     return is_verbinder_d
 
 
-
 def parse_routes(xmldoc, edge_id_list, verbinder_d):
     """parses the VISSIM route information of statically defined routes ONLY
     :param xmldoc:  input VISSIM xml
@@ -269,7 +269,7 @@ def parse_routes(xmldoc, edge_id_list, verbinder_d):
                 else:
                     # extension list *IS* ordered by its splitting sequence as generated
                     sumo_links.extend(e for e in split_edge_list
-                                      if e.startswith(link_key+'['))
+                                      if e.startswith(link_key + '['))
             # update with sumo ids info
             route_d["links"] = sumo_links
 
@@ -299,8 +299,8 @@ def calc_route_probability(routes_by_start_d, flow_d):
         # get all the startlink-route rel.flows-by-time-window lined up
         sl_rt_relF = np.stack([rt['rel_flow'] for rt in sl_routes])
         # all summed rel.flows by timeframe
-        #sl_sum_relF =  sl_rt_relF.sum(axis=0)[:, 1:]         # keep shape (n x timeframes)
-        sl_sum_relF =  sl_rt_relF.sum(axis=0)[:, 1]          # shape (timeframes, )
+        # sl_sum_relF =  sl_rt_relF.sum(axis=0)[:, 1:]         # keep shape (n x timeframes)
+        sl_sum_relF = sl_rt_relF.sum(axis=0)[:, 1]          # shape (timeframes, )
         for route in routes_by_start_d[start_link]:
             # set the vehicle type for each route
             route["type"] = veh_comp
@@ -348,7 +348,7 @@ def validate_rel_flow(routes_by_start_d, flow_d):
                 # check if the time frame starts are the same
                 assert np.array_equal(ref_time_shape[:, 0], route["rel_flow"][:, 0]),\
                     "\nPROBLEM: flow count and relative flow time frames are not aligned\n\t"\
-                    "for VISSIM start link id: "+start_link
+                    "for VISSIM start link id: " + start_link
         # copy back modifications
         routes_by_start_d[start_link] = sl_routes
 
@@ -383,7 +383,7 @@ def create_vTypeDistribution_elems(veh_comp_d, veh_type_d, speed_d, root):
             v_type.setAttribute("probability", comp["rel_flow"])
             v_type.setAttribute("maxSpeed", speed_d[comp["desSpeedDistr"]])
             v_type_dist.appendChild(v_type)
-    #return route_doc
+    # return route_doc
 
 
 def create_routeDistribution_elems(routes_by_start_d, root):
@@ -421,7 +421,7 @@ def create_routeDistribution_elems(routes_by_start_d, root):
                     route_dist.appendChild(route_node)
             if route_dist.hasChildNodes():
                 root.appendChild(route_dist)
-    #return route_doc
+    # return route_doc
 
 
 def create_flow_elems(routes_by_start_d, flow_d, root):
@@ -471,7 +471,7 @@ def create_flow_elems(routes_by_start_d, flow_d, root):
                         key=lambda dom: float(dom.getAttribute("begin")))
     for dom_obj in dom_flow_l:
         root.appendChild(dom_obj)
-    #return route_doc
+    # return route_doc
 
 
 # MAIN
@@ -487,7 +487,7 @@ if __name__ == '__main__':
     parser.add_argument('--sumo-net-file', '-n', dest="sumo_net_file", required=True,
                         help='SUMO net file path')
     args = parser.parse_args()
-    #print("\n", args, "\n")
+    # print("\n", args, "\n")
 
     #
     # Input data ##########
@@ -553,9 +553,9 @@ if __name__ == '__main__':
     result_doc.appendChild(routes_Elem)
 
     create_vTypeDistribution_elems(vehicle_comp_d, vehicle_type_d, speed_d, routes_Elem)
-    print('-'*3)
+    print('-' * 3)
     create_routeDistribution_elems(routes_by_start_d, routes_Elem)
-    print('-'*3)
+    print('-' * 3)
     create_flow_elems(routes_by_start_d, flow_d, routes_Elem)
     print('OK.\n---')
 
@@ -567,5 +567,4 @@ if __name__ == '__main__':
     with open(out_Fn, "w") as ofh:
         result_doc.writexml(ofh, addindent='    ', newl='\n')
         ofh.close()
-    print('. data written to:\n\t',out_Fn)
-
+    print('. data written to:\n\t', out_Fn)

@@ -24,3 +24,9 @@ blocker_without_enough_free_space
 
 # short edges behind a junction should not prevent vehicles from driving accross
 network_ends_behind_junction
+
+# the combination of a large junction followed by a short edge should not trigger the keepClear rule due to insufficient look-ahead (currently, the lookAhead is based on normal-edge-distance but does not take into account the number of vehicles that could be present on a large junction)
+large_junction_short_edge
+
+# the combination of a small junction followed by a tls junction should not trigger hard braking.
+small_junction_before_tls

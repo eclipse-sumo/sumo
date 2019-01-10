@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Position.h>
@@ -73,10 +69,10 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
                                 GUIIconSubSys::getIcon(ICON_SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
     // create horizontalframe for zoom elements and OSG
     FXHorizontalFrame* editElementsFrame = new FXHorizontalFrame(contentsFrame, GUIDesignAuxiliarHorizontalFrame);
-    
+
     // create vertical frame for XYZ values
     FXVerticalFrame* lookFromFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
-    
+
     // create zoom elements
     FXHorizontalFrame* zoomFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(zoomFrame, "Zoom:", 0, GUIDesignLabelLeftThick);
@@ -88,7 +84,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     FXHorizontalFrame* lookFromXFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookFromXFrame, "X:", 0, GUIDesignLabelLeftThick);
     myXOff = new FXRealSpinner(lookFromXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    
+
     // create lookFromY elements
     FXHorizontalFrame* lookFromYFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookFromYFrame, "Y:", 0, GUIDesignLabelLeftThick);
@@ -104,21 +100,21 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     FXHorizontalFrame* rotationFrame = new FXHorizontalFrame(lookFromFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(rotationFrame, "A:", 0, GUIDesignLabelLeftThick);
     myRotation = new FXRealSpinner(rotationFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    
+
     // create vertical frame for OSG
     FXVerticalFrame* lookAtFrame = new FXVerticalFrame(editElementsFrame, GUIDesignAuxiliarVerticalFrame);
     new FXLabel(lookAtFrame, "OSG", 0, GUIDesignLabelCenterThick);
-    
+
     // create lookAtX elements
     FXHorizontalFrame* lookAtXFrame = new FXHorizontalFrame(lookAtFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtXFrame, "LookAtX:", 0, GUIDesignLabelLeftThick);
     myLookAtX = new FXRealSpinner(lookAtXFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    
+
     // create lookAtY elements
     FXHorizontalFrame* lookAtYFrame = new FXHorizontalFrame(lookAtFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtYFrame, "LookAtY:", 0, GUIDesignLabelLeftThick);
     myLookAtY = new FXRealSpinner(lookAtYFrame, 16, this, MID_CHANGED, GUIDesignSpinDial | SPIN_NOMIN | SPIN_NOMAX);
-    
+
     // create lookAtZ elements
     FXHorizontalFrame* lookAtZFrame = new FXHorizontalFrame(lookAtFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(lookAtZFrame, "LookAtZ:", 0, GUIDesignLabelLeftThick);
@@ -162,17 +158,15 @@ long
 GUIDialog_EditViewport::onCmdOk(FXObject*, FXSelector, void*) {
     myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
-                                Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
+                                   Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
-                                Position::INVALID
+                                   Position::INVALID
 #endif
-                                , myRotation->getValue()
-                               );
+                                   , myRotation->getValue()
+                                  );
     // write information of current zoom status
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Current Viewport values: " + toString(myXOff->getValue()) + ", " + toString(myYOff->getValue()) + ", " + toString(myZOff->getValue()) +
-                      ". Zoom = '" + toString(myZoom->getValue()) + "'");
-    }
+    WRITE_DEBUG("Current Viewport values: " + toString(myXOff->getValue()) + ", " + toString(myYOff->getValue()) + ", " + toString(myZOff->getValue()) +
+                ". Zoom = '" + toString(myZoom->getValue()) + "'");
     saveWindowPos();
     hide();
     return 1;
@@ -197,12 +191,12 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
     }
     myParent->setViewportFromToRot(Position(myXOff->getValue(), myYOff->getValue(), myZOff->getValue()),
 #ifdef HAVE_OSG
-                                Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
+                                   Position(myLookAtX->getValue(), myLookAtY->getValue(), myLookAtZ->getValue())
 #else
-                                Position::INVALID
+                                   Position::INVALID
 #endif
-                                , myRotation->getValue()
-                               );
+                                   , myRotation->getValue()
+                                  );
     return 1;
 }
 

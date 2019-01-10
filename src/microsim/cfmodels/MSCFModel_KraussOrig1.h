@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -43,15 +39,9 @@
 class MSCFModel_KraussOrig1 : public MSCFModel {
 public:
     /** @brief Constructor
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] emergencyDecel The maximum emergency deceleration
-     * @param[in] apparentDecel The deceleration as expected by others (always equal to decel for the original model)
-     * @param[in] dawdle The driver imperfection
-     * @param[in] tau The driver's desired headway
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel_KraussOrig1(const MSVehicleType* vtype, double accel, double decel,
-                          double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);
+    MSCFModel_KraussOrig1(const MSVehicleType* vtype);
 
 
     /// @brief Destructor
@@ -82,21 +72,6 @@ public:
      * @todo generic Interface, models can call for the values they need
      */
     virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
-
-
-    /** @brief Computes the vehicle's safe speed (no dawdling)
-     * This method is used during the insertion stage. Whereas the method
-     * followSpeed returns the desired speed which may be lower than the safe
-     * speed, this method only considers safety constraints
-     *
-     * Returns the velocity of the vehicle in dependence to the vehicle's and its leader's values and the distance between them.
-     * @param[in] veh The vehicle (EGO)
-     * @param[in] speed The vehicle's speed
-     * @param[in] gap2pred The (netto) distance to the LEADER
-     * @param[in] predSpeed The speed of LEADER
-     * @return EGO's safe speed
-     */
-    double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
 
 
     /** @brief Returns the model's name

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
@@ -54,6 +50,7 @@
 // static member definitions
 // ===========================================================================
 std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
+std::vector<RGBColor> GLHelper::myDottedcontourColors;
 FONScontext* GLHelper::myFont = 0;
 double GLHelper::myFontSize = 50.0;
 
@@ -349,6 +346,20 @@ GLHelper::drawFilledCircle(double width, int steps) {
 }
 
 
+std::vector<Position>
+GLHelper::drawFilledCircleReturnVertices(double width, int steps) {
+    drawFilledCircle(width, steps, 0, 360);
+    std::vector<Position> result;
+    const double inc = 360 / (double)steps;
+    // obtain all vertices
+    for (int i = 0; i <= steps; ++i) {
+        const std::pair<double, double>& vertex = myCircleCoords[angleLookup(i * inc)];
+        result.push_back(Position(vertex.first * width, vertex.second * width));
+    }
+    return result;
+}
+
+
 void
 GLHelper::drawFilledCircle(double width, int steps, double beg, double end) {
     if (myCircleCoords.size() == 0) {
@@ -438,6 +449,122 @@ GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2,
     glVertex2d(-tWidth, 0);
     glVertex2d(+tWidth, 0);
     glEnd();
+    glPopMatrix();
+}
+
+
+const std::vector<RGBColor>&
+GLHelper::getDottedcontourColors(const int size) {
+    // check if more colors has to be added
+    while ((int)myDottedcontourColors.size() < size) {
+        if (myDottedcontourColors.empty() || myDottedcontourColors.back() == RGBColor::WHITE) {
+            myDottedcontourColors.push_back(RGBColor::BLACK);
+        } else {
+            myDottedcontourColors.push_back(RGBColor::WHITE);
+        }
+    }
+    return myDottedcontourColors;
+}
+
+
+void
+GLHelper::drawShapeDottedContour(const int type, const PositionVector& shape, const double width) {
+    glPushMatrix();
+    // build contour using shapes of first and last lane shapes
+    PositionVector contourFront = shape;
+    // only add an contourback if width is greather of 0
+    if (width > 0) {
+        PositionVector contourback = contourFront;
+        contourFront.move2side(width);
+        contourback.move2side(-width);
+        contourback = contourback.reverse();
+        for (auto i : contourback) {
+            contourFront.push_back(i);
+        }
+        contourFront.push_back(shape.front());
+    }
+    // resample shape
+    PositionVector resampledShape = contourFront.resample(1);
+    // draw contour over shape
+    glTranslated(0, 0, type + 2);
+    // set custom line width
+    glLineWidth(3);
+    // draw contour
+    drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
+    //restore line width
+    glLineWidth(1);
+    glPopMatrix();
+}
+
+
+void
+GLHelper::drawShapeDottedContour(const int type, const PositionVector& shape) {
+    glPushMatrix();
+    // resample junction shape
+    PositionVector resampledShape = shape.resample(1);
+    // draw contour over shape
+    glTranslated(0, 0, type + 0.1);
+    // set custom line width
+    glLineWidth(3);
+    // draw contour
+    GLHelper::drawLine(resampledShape, GLHelper::getDottedcontourColors((int)resampledShape.size()));
+    //restore line width
+    glLineWidth(1);
+    glPopMatrix();
+}
+
+
+void
+GLHelper::drawShapeDottedContour(const int type, const PositionVector& frontShape, const double offsetFrontShape, const PositionVector& backShape, const double offsetBackShape) {
+    glPushMatrix();
+    // build contour using shapes of first and last lane shapes
+    PositionVector contourFront = frontShape;
+    PositionVector contourback = backShape;
+    contourFront.move2side(offsetFrontShape);
+    contourback.move2side(offsetBackShape);
+    contourback = contourback.reverse();
+    for (auto i : contourback) {
+        contourFront.push_back(i);
+    }
+    contourFront.push_back(frontShape.front());
+    // resample shape
+    PositionVector resampledShape = contourFront.resample(1);
+    // draw contour over shape
+    glTranslated(0, 0, type + 2);
+    // set custom line width
+    glLineWidth(3);
+    // draw contour
+    GLHelper::drawLine(resampledShape, getDottedcontourColors((int)resampledShape.size()));
+    //restore line width
+    glLineWidth(1);
+    glPopMatrix();
+}
+
+
+void
+GLHelper::drawShapeDottedContour(const int type, const Position& center, const double width, const double height, const double rotation, const double offsetX, const double offsetY) {
+    glPushMatrix();
+    // create shape around center
+    PositionVector shape;
+    shape.push_back(Position(width / 2, height / 2));
+    shape.push_back(Position(width / -2, height / 2));
+    shape.push_back(Position(width / -2, height / -2));
+    shape.push_back(Position(width / 2, height / -2));
+    shape.push_back(Position(width / 2, height / 2));
+    // resample shape
+    shape = shape.resample(1);
+    // draw contour over shape
+    glTranslated(center.x(), center.y(), type + 2);
+    // set custom line width
+    glLineWidth(3);
+    // rotate
+    glRotated(rotation, 0, 0, 1);
+    // translate offset
+    glTranslated(offsetX, offsetY, 0);
+    // draw contour
+    GLHelper::drawLine(shape, getDottedcontourColors((int)shape.size()));
+    //restore line width
+    glLineWidth(1);
     glPopMatrix();
 }
 
@@ -553,8 +680,8 @@ void
 GLHelper::drawCrossTies(const PositionVector& geom,
                         const std::vector<double>& rots,
                         const std::vector<double>& lengths,
-                        double length, double spacing, 
-                        double halfWidth, bool drawForSelecting ) {
+                        double length, double spacing,
+                        double halfWidth, bool drawForSelecting) {
     glPushMatrix();
     // draw on top of of the white area between the rails
     glTranslated(0, 0, 0.1);
@@ -564,7 +691,7 @@ GLHelper::drawCrossTies(const PositionVector& geom,
         glTranslated(geom[i].x(), geom[i].y(), 0.0);
         glRotated(rots[i], 0, 0, 1);
         // draw crossing depending if isn't being drawn for selecting
-        if(!drawForSelecting) {
+        if (!drawForSelecting) {
             for (double t = 0; t < lengths[i]; t += spacing) {
                 glBegin(GL_QUADS);
                 glVertex2d(-halfWidth, -t);
@@ -581,7 +708,7 @@ GLHelper::drawCrossTies(const PositionVector& geom,
             glVertex2d(halfWidth, -lengths.back());
             glVertex2d(halfWidth, 0);
             glEnd();
-            }
+        }
         // pop three draw matrix
         glPopMatrix();
     }

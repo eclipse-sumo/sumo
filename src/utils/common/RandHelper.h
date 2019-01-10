@@ -23,16 +23,15 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <vector>
 #include <random>
+#include <sstream>
+#include <iostream>
 
+//#define DEBUG_RANDCALLS
 
 // ===========================================================================
 // class declarations
@@ -63,7 +62,15 @@ public:
         if (rng == 0) {
             rng = &myRandomNumberGenerator;
         }
-        return double((*rng)() / 4294967296.0);
+        const double res = double((*rng)() / 4294967296.0);
+#ifdef DEBUG_RANDCALLS
+        myCallCount++;
+        if (myCallCount == myDebugIndex) {
+            std::cout << "DEBUG\n"; // for setting breakpoint
+        }
+        std::cout << " rand call=" << myCallCount << " val=" << res << "\n";
+#endif
+        return res;
     }
 
     /// @brief Returns a random real number in [0, maxV)
@@ -150,10 +157,33 @@ public:
         return v[rand((int)v.size(), rng)];
     }
 
+    /// @brief save rng state to string
+    static std::string saveState(std::mt19937* rng = 0) {
+        if (rng == 0) {
+            rng = &myRandomNumberGenerator;
+        }
+        std::ostringstream oss;
+        oss << (*rng);
+        return oss.str();
+    }
+
+    /// @brief load rng state from string
+    static void loadState(const std::string& state, std::mt19937* rng = 0) {
+        if (rng == 0) {
+            rng = &myRandomNumberGenerator;
+        }
+        std::istringstream iss(state);
+        iss >> (*rng);
+    }
+
 
 protected:
     /// @brief the random number generator to use
     static std::mt19937 myRandomNumberGenerator;
+
+    /// @brief only used for debugging;
+    static int myCallCount;
+    static int myDebugIndex;
 
 };
 

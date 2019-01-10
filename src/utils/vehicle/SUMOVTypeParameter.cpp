@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <algorithm>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -43,16 +39,22 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass)
-    : id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
-      actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
-      speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
-      emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
-      vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
-      loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
-      cfModel(SUMO_TAG_CF_KRAUSS), lcModel(LCM_DEFAULT),
-      maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
-      parametersSet(0), saved(false), onlyReferenced(false) {
+SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) :
+    id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
+    actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
+    speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
+    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
+    vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
+    loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
+    cfModel(SUMO_TAG_CF_KRAUSS),
+    hasDriverState(false), lcModel(LCM_DEFAULT),
+    maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
+    parametersSet(0), saved(false), onlyReferenced(false) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.exists("carfollow.model")) {
+        // check for valid value has been performed in MSFrame
+        cfModel = SUMOXMLDefinitions::CarFollowModels.get(oc.getString("carfollow.model"));
+    }
     switch (vclass) {
         case SVC_PEDESTRIAN:
             length = 0.215;
@@ -62,6 +64,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             height = 1.719;
             shape = SVS_PEDESTRIAN;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
+            speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_BICYCLE:
             length = 1.6;
@@ -72,6 +75,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             shape = SVS_BICYCLE;
             personCapacity = 1;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
+            speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_MOPED:
             length = 2.1;
@@ -81,6 +85,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             shape = SVS_MOPED;
             personCapacity = 1;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV_G_EU6", vclass);
+            speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_MOTORCYCLE:
             length = 2.2;
@@ -89,6 +94,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             shape = SVS_MOTORCYCLE;
             personCapacity = 1;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV_G_EU6", vclass);
+            speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_TRUCK:
             length = 7.1;
@@ -100,6 +106,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             personCapacity = 2;
             containerCapacity = 1;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV", vclass);
+            speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_TRAILER:
             length = 16.5;
@@ -111,6 +118,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             personCapacity = 2;
             containerCapacity = 2;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV", vclass);
+            speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_BUS:
             length = 12.;
@@ -131,6 +139,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             osgFile = "car-minibus-citrus.obj";
             personCapacity = 70;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "Coach", vclass);
+            speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_TRAM:
             length = 22.;
@@ -176,6 +185,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             shape = SVS_DELIVERY;
             personCapacity = 2;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "LDV", vclass);
+            speedFactor.getParameter()[1] = 0.05;
             break;
         case SVC_EMERGENCY:
             length = 6.5;
@@ -187,10 +197,12 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             break;
         case SVC_PASSENGER:
             shape = SVS_PASSENGER;
+            speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_E_VEHICLE:
             shape = SVS_E_VEHICLE;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
+            speedFactor.getParameter()[1] = 0.1;
             break;
         case SVC_SHIP:
             length = 17;
@@ -200,9 +212,18 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             shape = SVS_SHIP;
             // slight understatement (-:
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV_D_EU0", vclass);
+            speedFactor.getParameter()[1] = 0.1;
             break;
         default:
             break;
+    }
+    if (oc.exists("default.speeddev")) {
+        const double defaultSpeedDev = oc.getFloat("default.speeddev");
+        if (defaultSpeedDev >= 0) {
+            speedFactor.getParameter()[1] = defaultSpeedDev;
+        }
+    } else {
+        speedFactor.getParameter()[1] = 0;
     }
 }
 
@@ -232,6 +253,10 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         // Note: action step length is only exposed in seconds to the user
         dev.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, STEPS2TIME(actionStepLength));
+    }
+    if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        // Note: action step length is only exposed in seconds to the user
+        dev.writeAttr(SUMO_ATTR_HASDRIVERSTATE, hasDriverState);
     }
     if (wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
         dev.writeAttr(SUMO_ATTR_VCLASS, toString(vehicleClass));
@@ -395,19 +420,14 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
         case SVC_MOTORCYCLE:
             return 10.;
         case SVC_TRUCK:
-            return 4.;
         case SVC_TRAILER:
-            return 4.;
         case SVC_BUS:
-            return 4.;
         case SVC_COACH:
             return 4.;
         case SVC_TRAM:
-            return 3.;
         case SVC_RAIL_URBAN:
             return 3.;
         case SVC_RAIL:
-            return 1.3;
         case SVC_RAIL_ELECTRIC:
             return 1.3;
         case SVC_SHIP:
@@ -419,36 +439,44 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
 
 
 double
-SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc) {
-    switch (vc) {
-        case SVC_PEDESTRIAN:
-            return 3.;
-        case SVC_BICYCLE:
-            return 5.;
-        case SVC_MOPED:
-            return 8.;
-        case SVC_MOTORCYCLE:
-            return 10.;
-        case SVC_TRUCK:
-            return 7.;
-        case SVC_TRAILER:
-            return 7.;
-        case SVC_BUS:
-            return 7.;
-        case SVC_COACH:
-            return 7.;
-        case SVC_TRAM:
-            return 5.;
-        case SVC_RAIL_URBAN:
-            return 5.;
-        case SVC_RAIL:
-            return 4;
-        case SVC_RAIL_ELECTRIC:
-            return 4;
-        case SVC_SHIP:
-            return 1;
-        default:
-            return 9;//7.5;
+SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel, double defaultOption) {
+    if (defaultOption == VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT) {
+        double vcDecel;
+        switch (vc) {
+            case SVC_PEDESTRIAN:
+                vcDecel = 5.;
+                break;
+            case SVC_BICYCLE:
+                vcDecel = 7.;
+                break;
+            case SVC_MOPED:
+            case SVC_MOTORCYCLE:
+                vcDecel = 10.;
+                break;
+            case SVC_TRUCK:
+            case SVC_TRAILER:
+            case SVC_BUS:
+            case SVC_COACH:
+            case SVC_TRAM:
+            case SVC_RAIL_URBAN:
+                vcDecel = 7.;
+                break;
+            case SVC_RAIL:
+            case SVC_RAIL_ELECTRIC:
+                vcDecel = 5.;
+                break;
+            case SVC_SHIP:
+                vcDecel = 1.;
+                break;
+            default:
+                vcDecel = 9.;
+        }
+        return MAX2(decel, vcDecel);
+    } else if (defaultOption == VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL) {
+        return decel;
+    } else {
+        // value already checked in MSFrame::checkOptions
+        return MAX2(decel, defaultOption);
     }
 }
 

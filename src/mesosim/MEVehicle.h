@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <cassert>
@@ -162,6 +158,9 @@ public:
     SUMOTime remainingStopDuration() const {
         return 0;
     }
+
+    ///@brief ends the current stop and performs loading/unloading
+    void processStop();
 
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop
@@ -319,7 +318,7 @@ public:
     double getCurrentStoppingTimeSeconds() const;
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
+    bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction
      * @return true iff the vehicle may drive over the next junction

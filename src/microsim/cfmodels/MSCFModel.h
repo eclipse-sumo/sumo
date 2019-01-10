@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <string>
@@ -35,6 +31,8 @@
 #include <utils/common/FileHelpers.h>
 
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
+// Factor that the minimum emergency decel is increased by in corresponding situations
+#define EMERGENCY_DECEL_AMPLIFIER 1.2
 
 // ===========================================================================
 // class declarations
@@ -66,9 +64,9 @@ public:
     };
 
     /** @brief Constructor
-     *  @param[in] rvtype a reference to the corresponding vtype
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double apparentDecel, double headwayTime);
+    MSCFModel(const MSVehicleType* vtype);
 
 
     /// @brief Destructor
@@ -88,10 +86,10 @@ public:
 
 
     /// @brief apply custom speed adaptations within the given speed bounds
-    virtual double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const { 
+    virtual double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(vMin);
-        return vMax; 
+        return vMax;
     }
 
 
@@ -237,6 +235,12 @@ public:
         return myApparentDecel;
     }
 
+    /** @brief Get the factor of minGap that must be maintained to avoid a collision event
+     */
+    inline double getCollisionMinGapFactor() const {
+        return myCollisionMinGapFactor;
+    }
+
 
     /// @name Virtual methods with default implementation
     /// @{
@@ -289,6 +293,17 @@ public:
      */
     virtual double minNextSpeed(double speed, const MSVehicle* const veh = 0) const;
 
+    /** @brief Returns the minimum speed after emergency braking, given the current speed
+     * (depends on the numerical update scheme and its step width)
+     * Note that it wouldn't have to depend on the numerical update
+     * scheme if the semantics would rely on acceleration instead of velocity.
+     *
+     * @param[in] speed The vehicle's current speed
+     * @param[in] speed The vehicle itself, for obtaining other values, if needed as e.g. road conditions.
+     * @return The minimum possible speed for the next step
+     */
+    virtual double minNextSpeedEmergency(double speed, const MSVehicle* const veh = 0) const;
+
 
     /** @brief Returns the distance the vehicle needs to halt including driver's reaction time tau (i.e. desired headway),
      * assuming that during the reaction time, the speed remains constant
@@ -310,12 +325,11 @@ public:
       * @param[in] leaderSpeed LEADER's speed
       * @param[in] leaderMaxDecel LEADER's max. deceleration rate
       */
-    inline double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+    inline virtual double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we use a value of leaderDecel which errs on the side of caution
         const double maxDecel = MAX2(myDecel, leaderMaxDecel);
-        // XXX: returning 0 can be wrong if the leader is slower than the follower! Why not return negative values? (Leo)
         double secureGap = MAX2((double) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
         return secureGap;
     }
@@ -505,6 +519,20 @@ public:
     double maximumSafeFollowSpeed(double gap,  double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
 
 
+    /** @brief Returns the minimal deceleration for following the given leader safely
+     * @param[in] gap The (netto) distance to the LEADER
+     * @param[in] egoSpeed The FOLLOWERS's speed
+     * @param[in] predSpeed The LEADER's speed
+     * @param[in] predMaxDecel The LEADER's maximum deceleration
+     * @return The minimal deceleration b>0 that, if applied constantly until a full stop,
+     *         asserts that the vehicle does not crash into the leader.
+     * @note   If b > predMaxDecel, this function actually does not calculate the tangency for the trajectories, i.e. a double root for the gap,
+     *         but applies a simpler approach following the spirit of maximumSafeFollowSpeed, where the
+     *         leader's decel is assumed as maximum of its actual value and the followers decel.
+     */
+    double calculateEmergencyDeceleration(double gap, double egoSpeed, double predSpeed, double predMaxDecel) const;
+
+
     /** @brief Returns the maximum next velocity for stopping within gap
      * @param[in] gap The (netto) distance to the desired stopping point
      * @param[in] currentSpeed The current speed of the ego vehicle
@@ -561,6 +589,26 @@ public:
     }
 
 protected:
+
+    /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,
+     *  @see MSCFModel_Krauss::stopSpeed() and MSCFModel_Krauss::followSpeed() for integration into a CF model
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in, out] gap2pred The (netto) distance to the LEADER
+     * @param[in, out] predSpeed The speed of LEADER
+     * @param[in] pred The leading vehicle (LEADER)
+     */
+    void applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const veh, double speed, double& gap, double& predSpeed, double predMaxDecel, const MSVehicle* const pred) const;
+
+    /** @brief Overwrites gap by the perceived value obtained from the vehicle's driver state
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in, out] gap The (netto) distance to the the obstacle
+     */
+    void applyHeadwayPerceptionError(const MSVehicle* const veh, double speed, double& gap) const;
+
+
+protected:
     /// @brief The type to which this model definition belongs to
     const MSVehicleType* myType;
 
@@ -573,9 +621,13 @@ protected:
     double myEmergencyDecel;
     /// @brief The vehicle's deceleration as expected by surrounding traffic [m/s^2]
     double myApparentDecel;
+    /// @brief The factor of minGap that must be maintained to avoid a collision event
+    double myCollisionMinGapFactor;
 
     /// @brief The driver's desired time headway (aka reaction time tau) [s]
     double myHeadwayTime;
+
+
 
 };
 

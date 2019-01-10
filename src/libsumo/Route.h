@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
@@ -37,6 +33,10 @@
 // class declarations
 // ===========================================================================
 class MSRoute;
+namespace libsumo {
+class VariableWrapper;
+}
+
 
 // ===========================================================================
 // class definitions
@@ -57,21 +57,24 @@ public:
     static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
     static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    LIBSUMO_SUBSCRIPTION_API
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static const MSRoute* getRoute(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    Route();
-
-    /// @brief invalidated copy constructor
-    Route(const Route& src);
-
-    /// @brief invalidated assignment operator
-    Route& operator=(const Route& src);
+    Route() = delete;
 };
+
+
 }
 
 

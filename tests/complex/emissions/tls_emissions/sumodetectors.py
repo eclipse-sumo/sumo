@@ -15,9 +15,7 @@
 from __future__ import absolute_import
 
 
-import cPickle
-import sys
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import handler, make_parser
 
 
 class ArealReader(handler.ContentHandler):

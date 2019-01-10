@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -56,12 +52,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double startTime, double end) :
-    GNEAdditional(viewNet->getNet()->generateVaporizerID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, ICON_VAPORIZER, false, false),
+GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string& name) :
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false),
     myEdge(edge),
-    myStartTime(startTime),
-    myEnd(end),
-    myRelativePositionY(0) {
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -70,7 +65,12 @@ GNEVaporizer::~GNEVaporizer() {
 
 
 void
-GNEVaporizer::updateGeometry() {
+GNEVaporizer::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if (updateGrid) {
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+    }
+
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -78,14 +78,8 @@ GNEVaporizer::updateGeometry() {
     // clear Shape
     myShape.clear();
 
-    // obtain relative position of vaporizer in edge
-    myRelativePositionY = 2 * myEdge->getVaporizerRelativePosition(this);
-
     // get lanes of edge
     GNELane* firstLane = myEdge->getLanes().at(0);
-
-    // Save number of lanes
-    myNumberOfLanes = int(myEdge->getLanes().size());
 
     // Get shape of lane parent
     double offset = firstLane->getShape().length() < 2.5 ? firstLane->getShape().length() : 2.5;
@@ -98,29 +92,35 @@ GNEVaporizer::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(offset) * -1);
+    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(0) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
+    myBlockIconOffset = Position(1.1, (-3.06));
 
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(firstLane);
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if (updateGrid) {
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
 }
 
 
 Position
 GNEVaporizer::getPositionInView() const {
-    Position A = myEdge->getLanes().front()->getShape().positionAtOffset(5);
-    Position B = myEdge->getLanes().back()->getShape().positionAtOffset(5);
+    if (myEdge->getLanes().front()->getShape().length() < 2.5) {
+        return myEdge->getLanes().front()->getShape().front();
+    } else {
+        Position A = myEdge->getLanes().front()->getShape().positionAtOffset(2.5);
+        Position B = myEdge->getLanes().back()->getShape().positionAtOffset(2.5);
 
-    // return Middle point
-    return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+        // return Middle point
+        return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+    }
 }
 
 
@@ -136,19 +136,7 @@ GNEVaporizer::commitGeometryMoving(const Position&, GNEUndoList*) {
 }
 
 
-void
-GNEVaporizer::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_EDGE);
-    writeAttribute(device, SUMO_ATTR_STARTTIME);
-    writeAttribute(device, SUMO_ATTR_END);
-    // Close tag
-    device.closeTag();
-}
-
-
-const std::string&
+std::string
 GNEVaporizer::getParentName() const {
     return myEdge->getMicrosimID();
 }
@@ -161,6 +149,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s);
+    const int numberOfLanes = int(myEdge->getLanes().size());
 
     // set color
     if (isAttributeCarrierSelected()) {
@@ -178,8 +167,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glBegin(GL_QUADS);
     glVertex2d(0,  0.25);
     glVertex2d(0, -0.25);
-    glVertex2d((myNumberOfLanes * 3.3), -0.25);
-    glVertex2d((myNumberOfLanes * 3.3),  0.25);
+    glVertex2d((numberOfLanes * 3.3), -0.25);
+    glVertex2d((numberOfLanes * 3.3),  0.25);
     glEnd();
     glTranslated(0, 0, .01);
     glBegin(GL_LINES);
@@ -197,7 +186,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         glRotated(90, 0, 0, -1);
         glBegin(GL_LINES);
         glVertex2d(0, 0);
-        glVertex2d(0, (myNumberOfLanes * 3.3));
+        glVertex2d(0, (numberOfLanes * 3.3));
         glEnd();
     }
 
@@ -208,10 +197,10 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(myShape[0].x(), myShape[0].y(), getType());
     glRotated(myShapeRotations[0], 0, 0, 1);
-    glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
+    glTranslated((-2.56), (-1.6), 0);
 
     // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::GREEN);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
@@ -233,8 +222,15 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         drawLockIcon(0.4);
     }
 
-    // Finish draw
+    // draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+
+    // check if dotted contour has to be drawn
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 2, myShapeRotations[0], -2.56, -1.6);
+    }
+
+    // pop name
     glPopName();
 }
 
@@ -244,14 +240,16 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_EDGE:
-            return myEdge->getID();
-        case SUMO_ATTR_STARTTIME:
-            return toString(myStartTime);
+        case SUMO_ATTR_BEGIN:
+            return toString(myBegin);
         case SUMO_ATTR_END:
             return toString(myEnd);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_GENERIC:
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -266,9 +264,11 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-        case SUMO_ATTR_STARTTIME:
+        case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
+        case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -281,14 +281,12 @@ bool
 GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
-        case SUMO_ATTR_EDGE:
             if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
-                return true;
+                return isValidAdditionalID(value);
             } else {
                 return false;
             }
-        case SUMO_ATTR_STARTTIME:
+        case SUMO_ATTR_BEGIN:
             if (canParse<double>(value) && (parse<double>(value) >= 0)) {
                 return (parse<double>(value) <= myEnd);
             } else {
@@ -296,45 +294,68 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_END:
             if (canParse<double>(value) && (parse<double>(value) >= 0)) {
-                return (myStartTime <= parse<double>(value));
+                return (myBegin <= parse<double>(value));
             } else {
                 return false;
             }
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
+std::string
+GNEVaporizer::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string
+GNEVaporizer::getHierarchyName() const {
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
 void
 GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
-            break;
-        case SUMO_ATTR_EDGE:
             myEdge = changeEdge(myEdge, value);
             break;
-        case SUMO_ATTR_STARTTIME:
-            myStartTime = parse<double>(value);
+        case SUMO_ATTR_BEGIN:
+            myBegin = parse<double>(value);
             break;
         case SUMO_ATTR_END:
             myEnd = parse<double>(value);
             break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
+            break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
             }
             break;
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 /****************************************************************************/

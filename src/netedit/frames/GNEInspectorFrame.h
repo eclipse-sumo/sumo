@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEFrame.h"
 
@@ -80,7 +76,7 @@ public:
             void hideAttribute();
 
             /// @brief refresh current attribute input
-            void refreshAttributeInput(const std::string &value, bool forceRefresh);
+            void refreshAttributeInput(const std::string& value, bool forceRefresh);
 
             /// @brief check if current attribute of TextField/ComboBox is valid
             bool isCurrentAttributeValid() const;
@@ -92,7 +88,7 @@ public:
             long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
             /// @brief open model dialog for more comfortable attribute editing
-            long onCmdOpenAllowDisallowEditor(FXObject*, FXSelector, void*);
+            long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
             /// @}
 
         protected:
@@ -110,13 +106,16 @@ public:
             void disableAttributeInputElements();
 
             /// @brief pointer to AttributesEditor parent
-            GNEInspectorFrame::AttributesEditor * myAttributesEditorParent;
+            GNEInspectorFrame::AttributesEditor* myAttributesEditorParent;
 
             /// @brief current tag
             SumoXMLTag myTag;
 
             /// @brief current Attr
             SumoXMLAttr myAttr;
+
+            /// @brief flag to check if input element contains multiple values
+            bool myMultiple;
 
             /// @brief pointer to attribute label
             FXLabel* myLabel;
@@ -138,6 +137,9 @@ public:
 
             /// @brief pointer to buttonCombinableChoices
             FXButton* myButtonCombinableChoices;
+
+            /// @brief Button for open color editor
+            FXButton* myColorEditor;
         };
 
         /// @brief constructor
@@ -161,20 +163,17 @@ public:
         /// @brief Called when user press the help button
         long onCmdAttributeHelp(FXObject*, FXSelector, void*);
         /// @}
-        
+
     protected:
         /// @brief FOX needs this
         AttributesEditor() {}
 
     private:
         /// @brief pointer to GNEInspectorFrame parent
-        GNEInspectorFrame * myInspectorFrameParent;
+        GNEInspectorFrame* myInspectorFrameParent;
 
         /// @brief list of Attribute inputs
         std::vector<GNEInspectorFrame::AttributesEditor::AttributeInput*> myVectorOfAttributeInputs;
-
-        /// @brief current parameter index
-        int myCurrentIndex;
 
         /// @brief button for help
         FXButton* myHelpButton;
@@ -372,7 +371,7 @@ public:
 
     private:
         /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame * myInspectorFrameParent;
+        GNEInspectorFrame* myInspectorFrameParent;
 
         /// @brief copy template button
         FXButton* myCopyTemplateButton;
@@ -412,16 +411,16 @@ public:
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
     /// @brief remove AC from current inspected ACs
-    void removeInspectedAC(GNEAttributeCarrier *ac);
+    void removeInspectedAC(GNEAttributeCarrier* ac);
 
     /// @brief Clear all current inspected ACs
     void clearInspectedAC();
 
     /// @brief get ACHierarchy
-    GNEFrame::ACHierarchy *getACHierarchy() const;
+    GNEFrame::ACHierarchy* getACHierarchy() const;
 
     /// @brief get template editor
-    TemplateEditor *getTemplateEditor() const;
+    TemplateEditor* getTemplateEditor() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -446,6 +445,9 @@ private:
 
     /// @brief GEO Attributes editor
     GEOAttributesEditor* myGEOAttributesEditor;
+
+    /// @brief Generic parameters editor
+    GenericParametersEditor* myGenericParametersEditor;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;

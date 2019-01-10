@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <gtest/gtest.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -48,8 +44,7 @@ class MSCFModelTest : public testing::Test {
             dawdle = 0;
             tau = 1;
             type = new MSVehicleType(SUMOVTypeParameter("0"));
-            m = new MSCFModel_Krauss(type,
-                    accel, decel, decel, decel, dawdle, tau);
+            m = new MSCFModel_Krauss(type);
             MSGlobals::gSemiImplicitEulerUpdate = true;
         }
 
@@ -93,19 +88,20 @@ TEST_F(MSCFModelTest, test_method_static_freeSpeed) {
     EXPECT_DOUBLE_EQ(22.25, MSCFModel::freeSpeed(vCur, 4.5, 40, 13.9, false, 1.0));
 }
 
-#ifdef HAVE_SUBSECOND_TIMESTEPS
+
 TEST_F(MSCFModelTest, test_method_static_freeSpeed_half) {
     DELTA_T = 500;
+    const double vCur = 10;
     const double b = 4;
     const double v = 0;
     const double g = 4;
-    EXPECT_DOUBLE_EQ(14./3., MSCFModel::freeSpeed(b, g, v, false, DELTA_T*0.001));
-    EXPECT_DOUBLE_EQ(6., MSCFModel::freeSpeed(b, 6, v, false, DELTA_T*0.001));
-    EXPECT_DOUBLE_EQ(18.75, MSCFModel::freeSpeed(5, 30, 10, false, DELTA_T*0.001));
-    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(4.5, 20, 13.9, false, DELTA_T*0.001));
-    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(4.5, 20, 13.9, true, DELTA_T*0.001));
-    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(4.5, 30, 13.9, false, DELTA_T*0.001));
-    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(4.5, 30, 13.9, true, DELTA_T*0.001));
-    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(4.5, 40, 13.9, false, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(14./3., MSCFModel::freeSpeed(vCur, b, g, v, false, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(6., MSCFModel::freeSpeed(vCur, b, 6, v, false, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(18.75, MSCFModel::freeSpeed(vCur, 5, 30, 10, false, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(18.4, MSCFModel::freeSpeed(vCur, 4.5, 20, 13.9, false, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(vCur, 4.5, 20, 13.9, true, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(20.65, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, false, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(vCur, 4.5, 30, 13.9, true, DELTA_T*0.001));
+    EXPECT_DOUBLE_EQ(22.9, MSCFModel::freeSpeed(vCur, 4.5, 40, 13.9, false, DELTA_T*0.001));
+    DELTA_T = 1000;
 }
-#endif

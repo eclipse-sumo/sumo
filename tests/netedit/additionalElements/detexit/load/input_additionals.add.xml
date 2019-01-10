@@ -1,7 +1,8 @@
-<additionals>
-	<!-- Exit with non valid E3 parent  (Without ID) -->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	<!-- Entry with non valid E3 parent  (Without ID) -->
 	<e3Detector freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="22.97,6.36">
 		<detExit lane="gneE1_0" pos="10" friendlyPos="0"/>
+		<detEntry lane="gneE1_0" pos="10" friendlyPos="1"/>
 	</e3Detector>
 	
 	<!-- Valid parent -->
@@ -13,7 +14,7 @@
 		<!-- non valid Lane (dummy) -->
 		<detExit lane="dummyLane" pos="10" friendlyPos="0"/>	
 		
-		<!-- Valid Exit -->
+		<!-- Valid Entry -->
         <detExit lane="gneE1_0" pos="15" friendlyPos="0"/>
 		
 		<!-- non valid Position (missing) -->
@@ -43,10 +44,13 @@
 		<!-- valid friendly position, invalid position-->
         <detExit lane="gneE1_0" pos="-200" friendlyPos="1"/>
 
-		<!-- Valid Exit -->
+		<!-- Valid Entry -->
         <detExit lane="gneE1_0" pos="50" friendlyPos="1"/>
+		
+		<!-- Valid Entry -->
+        <detEntry lane="gneE1_0" pos="50" friendlyPos="1"/>
     </e3Detector>
 	
-	<!-- Exit without E3 parent -->
+	<!-- Entry without E3 parent -->
 	<detExit lane="gneE1_0" pos="10"/>
-</additionals>
+</additional>

@@ -19,20 +19,20 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSTransportableControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/pedestrians/MSPerson.h>
+#include <traci-server/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/PedestrianRouter.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 #include "VehicleType.h"
 #include "Person.h"
 
@@ -41,10 +41,17 @@
 //#define DEBUG_MOVEXY
 //#define DEBUG_MOVEXY_ANGLE
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Person::mySubscriptionResults;
+ContextSubscriptionResults Person::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Person::getIDList() {
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
@@ -65,13 +72,8 @@ Person::getIDCount() {
 
 
 TraCIPosition
-Person::getPosition(const std::string& personID) {
-    MSTransportable* p = getPerson(personID);
-    TraCIPosition pos;
-    pos.x = p->getPosition().x();
-    pos.y = p->getPosition().y();
-    pos.z = p->getPosition().z();
-    return pos;
+Person::getPosition(const std::string& personID, const bool includeZ) {
+    return Helper::makeTraCIPosition(getPerson(personID)->getPosition(), includeZ);
 }
 
 
@@ -182,6 +184,123 @@ Person::getParameter(const std::string& personID, const std::string& param) {
 }
 
 
+std::string
+Person::getEmissionClass(const std::string& personID) {
+    return PollutantsInterface::getName(getPerson(personID)->getVehicleType().getEmissionClass());
+}
+
+
+std::string
+Person::getShapeClass(const std::string& personID) {
+    return getVehicleShapeName(getPerson(personID)->getVehicleType().getGuiShape());
+}
+
+
+double
+Person::getLength(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getLength();
+}
+
+
+double
+Person::getSpeedFactor(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter()[0];
+}
+
+
+double
+Person::getAccel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getMaxAccel();
+}
+
+
+double
+Person::getDecel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getMaxDecel();
+}
+
+
+double Person::getEmergencyDecel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getEmergencyDecel();
+}
+
+
+double Person::getApparentDecel(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getApparentDecel();
+}
+
+
+double Person::getActionStepLength(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getActionStepLengthSecs();
+}
+
+
+double
+Person::getTau(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getHeadwayTime();
+}
+
+
+double
+Person::getImperfection(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getCarFollowModel().getImperfection();
+}
+
+
+double
+Person::getSpeedDeviation(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getSpeedFactor().getParameter()[1];
+}
+
+
+std::string
+Person::getVehicleClass(const std::string& personID) {
+    return toString(getPerson(personID)->getVehicleType().getVehicleClass());
+}
+
+
+double
+Person::getMinGap(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMinGap();
+}
+
+
+double
+Person::getMinGapLat(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMinGapLat();
+}
+
+
+double
+Person::getMaxSpeed(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMaxSpeed();
+}
+
+
+double
+Person::getMaxSpeedLat(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMaxSpeedLat();
+}
+
+
+std::string
+Person::getLateralAlignment(const std::string& personID) {
+    return toString(getPerson(personID)->getVehicleType().getPreferredLateralAlignment());
+}
+
+
+double
+Person::getWidth(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getWidth();
+}
+
+
+double
+Person::getHeight(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getHeight();
+}
+
+
 
 
 void
@@ -227,10 +346,10 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
         throw TraCIException("Invalid edge '" + edgeID + "' for person: '" + personID + "'");
     }
 
-    if (depart < 0) {
-        const int proc = (int) - depart;
+    if (departInSecs < 0.) {
+        const int proc = (int) - departInSecs;
         if (proc >= static_cast<int>(DEPART_DEF_MAX)) {
-            throw TraCIException("Invalid departure time.");
+            throw TraCIException("Invalid departure time." + toString(depart) + " " + toString(proc));
         }
         vehicleParams.departProcedure = (DepartDefinition)proc;
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
@@ -253,7 +372,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 
     SUMOVehicleParameter* params = new SUMOVehicleParameter(vehicleParams);
     MSTransportable::MSTransportablePlan* plan = new MSTransportable::MSTransportablePlan();
-    plan->push_back(new MSTransportable::Stage_Waiting(*edge, 0, depart, pos, "awaiting departure", true));
+    plan->push_back(new MSTransportable::Stage_Waiting(edge, 0, depart, pos, "awaiting departure", true));
 
     try {
         MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, 0);
@@ -283,7 +402,7 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSPerson::MSPersonStage_Driving(*edge, bs, -NUMERICAL_EPS, StringTokenizer(lines).getVector()));
+    p->appendStage(new MSPerson::MSPersonStage_Driving(edge, bs, -NUMERICAL_EPS, StringTokenizer(lines).getVector()));
 }
 
 
@@ -300,7 +419,7 @@ Person::appendWaitingStage(const std::string& personID, double duration, const s
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSTransportable::Stage_Waiting(*p->getArrivalEdge(), TIME2STEPS(duration), 0, p->getArrivalPos(), description, false));
+    p->appendStage(new MSTransportable::Stage_Waiting(p->getArrivalEdge(), TIME2STEPS(duration), 0, p->getArrivalPos(), description, false));
 }
 
 
@@ -352,32 +471,52 @@ Person::removeStage(const std::string& personID, int nextStageIndex) {
 void
 Person::rerouteTraveltime(const std::string& personID) {
     MSPerson* p = getPerson(personID);
-    if (p->getNumRemainingStages() == 0 || p->getCurrentStageType() != MSTransportable::MOVING_WITHOUT_VEHICLE) {
-        throw TraCIException("Person '" + personID + "' is not currenlty walking.");
+    if (p->getNumRemainingStages() == 0) {
+        throw TraCIException("Person '" + personID + "' has no remaining stages.");
     }
     const MSEdge* from = p->getEdge();
     double  departPos = p->getEdgePos();
-    const MSEdge* to = p->getArrivalEdge();
-    double  arrivalPos = p->getArrivalPos();
+    // reroute to the start of the next-non-walking stage
+    int firstIndex;
+    if (p->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE) {
+        firstIndex = 0;
+    } else if (p->getCurrentStageType() == MSTransportable::WAITING) {
+        if (p->getNumRemainingStages() < 2 || p->getStageType(1) != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+            throw TraCIException("Person '" + personID + "' cannot reroute after the current stop.");
+        }
+        firstIndex = 1;
+    } else {
+        throw TraCIException("Person '" + personID + "' cannot reroute in stage type '" + toString(p->getCurrentStageType()) + "'.");
+    }
+    int nextIndex = firstIndex + 1;
+    for (; nextIndex < p->getNumRemainingStages(); nextIndex++) {
+        if (p->getStageType(nextIndex) != MSTransportable::MOVING_WITHOUT_VEHICLE) {
+            break;
+        }
+    }
+    MSTransportable::Stage* destStage = p->getNextStage(nextIndex - 1);
+    const MSEdge* to = destStage->getEdges().back();
+    double arrivalPos = destStage->getArrivalPos();
     double speed = p->getVehicleType().getMaxSpeed();
     ConstMSEdgeVector newEdges;
     MSNet::getInstance()->getPedestrianRouter().compute(from, to, departPos, arrivalPos, speed, 0, 0, newEdges);
     if (newEdges.empty()) {
         throw TraCIException("Could not find new route for person '" + personID + "'.");
     }
-    ConstMSEdgeVector oldEdges = p->getEdges(0);
+    ConstMSEdgeVector oldEdges = p->getEdges(firstIndex);
     assert(!oldEdges.empty());
     if (oldEdges.front()->getFunction() != EDGEFUNC_NORMAL) {
         oldEdges.erase(oldEdges.begin());
     }
-    if (newEdges == oldEdges) {
+    //std::cout << " remainingStages=" << p->getNumRemainingStages() << " oldEdges=" << toString(oldEdges) << " newEdges=" << toString(newEdges) << " firstIndex=" << firstIndex << " nextIndex=" << nextIndex << "\n";
+    if (newEdges == oldEdges && (firstIndex + 1 == nextIndex)) {
         return;
     }
     if (newEdges.front() != from) {
         // @note: maybe this should be done automatically by the router
         newEdges.insert(newEdges.begin(), from);
     }
-    p->reroute(newEdges);
+    p->reroute(newEdges, departPos, firstIndex, nextIndex);
 }
 
 
@@ -462,7 +601,6 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         found = Helper::moveToXYMap_matchingRoutePosition(pos, edgeID,
                 ev, routeIndex,
                 bestDistance, &lane, lanePos, routeOffset);
-        // @note silenty ignoring mapping failure
     } else {
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,
@@ -532,32 +670,128 @@ Person::setParameter(const std::string& personID, const std::string& key, const 
 
 void
 Person::setLength(const std::string& personID, double length) {
-    VehicleType::getVType(getSingularVType(personID))->setLength(length);
+    getPerson(personID)->getSingularType().setLength(length);
 }
+
+
+void
+Person::setMaxSpeed(const std::string& personID, double speed) {
+    getPerson(personID)->getSingularType().setMaxSpeed(speed);
+}
+
+
+void
+Person::setVehicleClass(const std::string& personID, const std::string& clazz) {
+    getPerson(personID)->getSingularType().setVClass(getVehicleClassID(clazz));
+}
+
+
+void
+Person::setShapeClass(const std::string& personID, const std::string& clazz) {
+    getPerson(personID)->getSingularType().setShape(getVehicleShapeID(clazz));
+}
+
+
+void
+Person::setEmissionClass(const std::string& personID, const std::string& clazz) {
+    getPerson(personID)->getSingularType().setEmissionClass(PollutantsInterface::getClassByName(clazz));
+}
+
 
 void
 Person::setWidth(const std::string& personID, double width) {
-    VehicleType::getVType(getSingularVType(personID))->setWidth(width);
+    getPerson(personID)->getSingularType().setWidth(width);
 }
+
 
 void
 Person::setHeight(const std::string& personID, double height) {
-    VehicleType::getVType(getSingularVType(personID))->setHeight(height);
+    getPerson(personID)->getSingularType().setHeight(height);
 }
+
 
 void
 Person::setMinGap(const std::string& personID, double minGap) {
-    VehicleType::getVType(getSingularVType(personID))->setMinGap(minGap);
+    getPerson(personID)->getSingularType().setMinGap(minGap);
 }
+
+
+void
+Person::setAccel(const std::string& personID, double accel) {
+    getPerson(personID)->getSingularType().setAccel(accel);
+}
+
+
+void
+Person::setDecel(const std::string& personID, double decel) {
+    getPerson(personID)->getSingularType().setDecel(decel);
+}
+
+
+void
+Person::setEmergencyDecel(const std::string& personID, double decel) {
+    getPerson(personID)->getSingularType().setEmergencyDecel(decel);
+}
+
+
+void
+Person::setApparentDecel(const std::string& personID, double decel) {
+    getPerson(personID)->getSingularType().setApparentDecel(decel);
+}
+
+
+void
+Person::setImperfection(const std::string& personID, double imperfection) {
+    getPerson(personID)->getSingularType().setImperfection(imperfection);
+}
+
+
+void
+Person::setTau(const std::string& personID, double tau) {
+    getPerson(personID)->getSingularType().setTau(tau);
+}
+
+
+void
+Person::setMinGapLat(const std::string& personID, double minGapLat) {
+    getPerson(personID)->getSingularType().setMinGapLat(minGapLat);
+}
+
+
+void
+Person::setMaxSpeedLat(const std::string& personID, double speed) {
+    getPerson(personID)->getSingularType().setMaxSpeedLat(speed);
+}
+
+
+void
+Person::setLateralAlignment(const std::string& personID, const std::string& latAlignment) {
+    getPerson(personID)->getSingularType().setPreferredLateralAlignment(SUMOXMLDefinitions::LateralAlignments.get(latAlignment));
+}
+
+
+void
+Person::setSpeedFactor(const std::string& personID, double factor) {
+    getPerson(personID)->getSingularType().setSpeedFactor(factor);
+}
+
+
+void
+Person::setActionStepLength(const std::string& personID, double actionStepLength, bool resetActionOffset) {
+    getPerson(personID)->getSingularType().setActionStepLength(SUMOVehicleParserHelper::processActionStepLength(actionStepLength), resetActionOffset);
+}
+
 
 void
 Person::setColor(const std::string& personID, const TraCIColor& c) {
-    VehicleType::getVType(getSingularVType(personID))->setColor(RGBColor(c.r, c.g, c.b, c.a));
+    const SUMOVehicleParameter& p = getPerson(personID)->getParameter();
+    p.color.set(c.r, c.g, c.b, c.a);
+    p.parametersSet |= VEHPARS_COLOR_SET;
 }
 
 
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Person, PERSON)
 
-/******** private functions *************/
 
 MSPerson*
 Person::getPerson(const std::string& personID) {
@@ -569,10 +803,56 @@ Person::getPerson(const std::string& personID) {
     return p;
 }
 
-std::string
-Person::getSingularVType(const std::string& personID) {
-    return getPerson(personID)->getSingularType().getID();
+
+void
+Person::storeShape(const std::string& id, PositionVector& shape) {
+    shape.push_back(getPerson(id)->getPosition());
 }
+
+
+std::shared_ptr<VariableWrapper>
+Person::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Person::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_POSITION:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID));
+        case VAR_POSITION3D:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
+        case VAR_ANGLE:
+            return wrapper->wrapDouble(objID, variable, getAngle(objID));
+        case VAR_SPEED:
+            return wrapper->wrapDouble(objID, variable, getSpeed(objID));
+        case VAR_ROAD_ID:
+            return wrapper->wrapString(objID, variable, getRoadID(objID));
+        case VAR_LANEPOSITION:
+            return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
+        case VAR_COLOR:
+            return wrapper->wrapColor(objID, variable, getColor(objID));
+        case VAR_WAITING_TIME:
+            return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        case VAR_TYPE:
+            return wrapper->wrapString(objID, variable, getTypeID(objID));
+        case VAR_NEXT_EDGE:
+            return wrapper->wrapString(objID, variable, getNextEdge(objID));
+        case VAR_STAGES_REMAINING:
+            return wrapper->wrapInt(objID, variable, getRemainingStages(objID));
+        case VAR_VEHICLE:
+            return wrapper->wrapString(objID, variable, getVehicle(objID));
+        default:
+            return false;
+    }
+}
+
+
 }
 
 

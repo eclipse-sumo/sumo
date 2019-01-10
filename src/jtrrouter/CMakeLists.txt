@@ -15,3 +15,5 @@ set(jtrrouter_SRCS
 add_executable(jtrrouter ${jtrrouter_SRCS})
 set_target_properties(jtrrouter PROPERTIES OUTPUT_NAME_DEBUG jtrrouterD)
 target_link_libraries(jtrrouter router ${commonvehiclelibs})
+
+install(TARGETS jtrrouter RUNTIME DESTINATION bin)

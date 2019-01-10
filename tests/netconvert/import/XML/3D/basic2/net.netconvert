@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:29 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Aug 16 15:51:53 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,12 +25,12 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="175.50,-42.11" convBoundary="0.00,0.00,393.41,148.74" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ4_0" function="internal">
-        <lane id=":gneJ4_0_0" index="0" speed="13.89" length="4.71" shape="394.51,98.94,80.00 395.48,100.09,80.00 395.62,100.93,80.00 394.96,101.47,80.00 393.47,101.70,80.00"/>
+        <lane id=":gneJ4_0_0" index="0" speed="4.11" length="4.71" shape="394.51,98.94,80.00 395.48,100.09,80.00 395.62,100.93,80.00 394.96,101.47,80.00 393.47,101.70,80.00"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
         <lane id=":gneJ5_0_0" index="0" speed="13.89" length="0.53" shape="296.25,105.54,40.00 296.10,105.55,40.00 295.99,105.56,40.00 295.89,105.59,40.00 295.74,105.64,40.00"/>
@@ -57,12 +57,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="gneJ0" type="dead_end" x="167.85" y="0.00" z="50.00" incLanes="" intLanes="" shape="169.36,0.00,50.00 169.36,-3.20,50.00 166.37,0.02,50.00 166.41,3.22,50.00"/>
     <junction id="gneJ1" type="dead_end" x="254.63" y="0.12" z="45.00" incLanes="gneE1_0 gneE0_0" intLanes="" shape="256.10,3.33,45.00 256.12,0.13,45.00 253.13,-3.08,45.00 253.13,0.12,45.00"/>
-    <junction id="gneJ2" type="dead_end" x="288.54" y="0.36" z="100.00" incLanes="" intLanes="" shape="293.02,4.62,100.00 295.22,2.30,100.00 290.45,0.37,100.00 290.43,3.57,100.00"/>
+    <junction id="gneJ2" type="dead_end" x="288.54" y="0.36" z="100.00" incLanes="" intLanes="" shape="293.02,4.62,100.00 295.22,2.30,100.00 293.73,1.02,100.00 293.10,0.68,100.00 292.42,0.49,100.00 291.57,0.40,100.00 290.45,0.37,100.00 290.43,3.57,100.00 291.50,3.63,100.00 291.87,3.74,100.00 292.21,3.92,100.00 292.57,4.21,100.00"/>
     <junction id="gneJ3" type="dead_end" x="0.00" y="2.35" incLanes="gneE2_0" intLanes="" shape="0.04,5.55 -0.00,2.35"/>
-    <junction id="gneJ4" type="priority" x="393.41" y="100.10" z="80.00" incLanes="gneE3_0" intLanes=":gneJ4_0_0" shape="395.62,97.78,80.00 393.41,100.10,80.00 393.54,103.30,80.00">
+    <junction id="gneJ4" type="priority" x="393.41" y="100.10" z="80.00" incLanes="gneE3_0" intLanes=":gneJ4_0_0" shape="395.62,97.78,80.00 393.41,100.10,80.00 393.54,103.30,80.00 395.70,103.06,80.00 397.13,102.55,80.00 397.84,101.77,80.00 397.82,100.71,80.00 397.08,99.38,80.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ5" type="priority" x="295.66" y="103.96" z="40.00" incLanes="gneE4_0" intLanes=":gneJ5_0_0" shape="296.32,107.14,40.00 296.19,103.94,40.00 295.16,104.15,40.00">
+    <junction id="gneJ5" type="priority" x="295.66" y="103.96" z="40.00" incLanes="gneE4_0" intLanes=":gneJ5_0_0" shape="296.32,107.14,40.00 296.19,103.94,40.00 295.80,103.96,40.00 295.66,103.98,40.00 295.53,104.02,40.00 295.37,104.07,40.00 295.16,104.15,40.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ6" type="dead_end" x="179.61" y="148.74" incLanes="gneE5_0" intLanes="" shape="180.76,151.73 179.61,148.74"/>

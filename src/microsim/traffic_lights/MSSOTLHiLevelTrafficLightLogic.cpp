@@ -46,7 +46,7 @@ void MSSOTLHiLevelTrafficLightLogic::addPolicy(MSSOTLPolicy* policy) {
     policies.push_back(policy);
 }
 
-void MSSOTLHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) throw(ProcessError) {
+void MSSOTLHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSSOTLTrafficLightLogic::init(nb);
 }
 

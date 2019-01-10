@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -139,6 +135,9 @@ public:
         /// @brief move forward and return whether the person arrived
         bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
+        /// @brief place person on a previously passed edge
+        void setRouteIndex(MSPerson* person, int routeOffset);
+
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSPerson* person) const;
@@ -230,13 +229,13 @@ public:
     };
 
     /**
-     * A "real" stage performing the travelling by a transport system
-     * The given route will be chosen. The travel time is computed by the simulation
-     */
+    * A "real" stage performing the travelling by a transport system
+    * The given route will be chosen. The travel time is computed by the simulation
+    */
     class MSPersonStage_Driving : public MSTransportable::Stage_Driving {
     public:
         /// constructor
-        MSPersonStage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
+        MSPersonStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
                               const double arrivalPos, const std::vector<std::string>& lines,
                               const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
@@ -251,18 +250,81 @@ public:
         std::string getStageSummary() const;
 
         /** @brief Called on writing tripinfo output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
+        *
+        * @param[in] os The stream to write the information into
+        * @param[in] transportable The person to write information about
+        * @exception IOError not yet implemented
+        */
         virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
 
         /** @brief Called on writing vehroute output
-         *
-         * @param[in] os The stream to write the information into
-         * @exception IOError not yet implemented
-         */
+        *
+        * @param[in] os The stream to write the information into
+        * @exception IOError not yet implemented
+        */
         virtual void routeOutput(OutputDevice& os) const;
+    };
+
+    /**
+     * An intermediate stage performing the access from or to public transport as given
+     * by the access elements of the public transport stop. The travel time is computed by the simulation
+     */
+    class MSPersonStage_Access : public MSTransportable::Stage {
+    public:
+        /// constructor
+        MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
+                             const double arrivalPos, const double dist, const bool isExit);
+
+        /// destructor
+        ~MSPersonStage_Access();
+
+        /// proceeds to the next step
+        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
+
+        /// @brief returns the stage description as a string
+        std::string getStageDescription() const;
+        std::string getStageSummary() const;
+
+        Position getPosition(SUMOTime now) const;
+
+        double getAngle(SUMOTime now) const;
+
+        /** @brief Called on writing tripinfo output
+        *
+        * @param[in] os The stream to write the information into
+        * @param[in] transportable The person to write information about
+        * @exception IOError not yet implemented
+        */
+        void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
+
+        /// @brief Called on writing vehroute output. Currently does nothing.
+        void routeOutput(OutputDevice&) const {};
+
+        /// @brief Called on writing events output (begin of an action). Currently does nothing.
+        void beginEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {};
+
+        /// @brief Called on writing events output (end of an action). Currently does nothing.
+        void endEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {};
+
+    private:
+        class ProceedCmd : public Command {
+        public:
+            ProceedCmd(MSTransportable* person, MSEdge* edge) : myPerson(person), myStopEdge(edge) {}
+            ~ProceedCmd() {}
+            SUMOTime execute(SUMOTime currentTime);
+        private:
+            MSTransportable* const myPerson;
+            MSEdge* myStopEdge;
+        private:
+            /// @brief Invalidated assignment operator.
+            ProceedCmd& operator=(const ProceedCmd&);
+        };
+
+    private:
+        const double myDist;
+        const bool myAmExit;
+        SUMOTime myEstimatedArrival;
+        PositionVector myPath;
     };
 
 public:
@@ -305,8 +367,8 @@ public:
         return myChosenSpeedFactor;
     }
 
-    /// @brief set new walk
-    void reroute(ConstMSEdgeVector& newEdges);
+    /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
+    void reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);
 
 
     /** @class Influencer

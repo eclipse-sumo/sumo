@@ -1,3 +1,6 @@
-<additionals>
-    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="30.00" endPos="40.00" width="3.20" length="5.00"/>
-</additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="30.00" endPos="40.00"/>
+</additional>

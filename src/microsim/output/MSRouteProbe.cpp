@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <microsim/MSEdge.h>
@@ -73,6 +69,9 @@ MSRouteProbe::~MSRouteProbe() {
 
 bool
 MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+    if (!vehicleApplies(veh)) {
+        return false;
+    }
     if (reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         if (myCurrentRouteDistribution.second->add(&veh.getRoute(), 1.)) {
             veh.getRoute().addReference();

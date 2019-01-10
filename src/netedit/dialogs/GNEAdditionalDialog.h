@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <vector>
@@ -52,10 +48,13 @@ class GNEAdditionalDialog : protected FXTopWindow {
 
 public:
     /// @brief constructor
-    GNEAdditionalDialog(GNEAdditional* parent, int width, int height);
+    GNEAdditionalDialog(GNEAdditional* parent, bool updatingElement, int width, int height);
 
     /// @brief destructor
     ~GNEAdditionalDialog();
+
+    /// @brief get edited Additional
+    GNEAdditional* getEditedAdditional() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -80,6 +79,12 @@ protected:
     /// @brief FOX needs this
     GNEAdditionalDialog() {}
 
+    /// @brief pointer to edited aditional
+    GNEAdditional* myEditedAdditional;
+
+    /// @brief flag to indicate if additional are being created or modified (cannot be changed after open dialog)
+    bool myUpdatingElement;
+
     /// @brief frame for contents
     FXVerticalFrame* myContentFrame;
 
@@ -100,11 +105,6 @@ protected:
 
     /// @brief reset changes did in this dialog.
     void resetChanges();
-
-protected:
-    /// @brief pointer to UndoList
-    GNEUndoList* myUndoList;
-
 
 private:
     /// @brief accept button

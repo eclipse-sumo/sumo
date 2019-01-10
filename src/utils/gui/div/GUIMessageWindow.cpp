@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utils/common/MsgHandler.h>
@@ -48,17 +44,18 @@ bool GUIMessageWindow::myLocateLinks = true;
 // ===========================================================================
 GUIMessageWindow::GUIMessageWindow(FXComposite* parent) :
     FXText(parent, 0, 0, 0, 0, 0, 0, 50),
-    myStyles(new FXHiliteStyle[7]),
+    myStyles(new FXHiliteStyle[8]),
     myErrorRetriever(0),
     myMessageRetriever(0),
     myWarningRetriever(0) {
     setStyled(true);
     setEditable(false);
-    const FXColor white = FXRGB(0xff, 0xff, 0xff);
-    const FXColor blue  = FXRGB(0x00, 0x00, 0x88);
-    const FXColor green = FXRGB(0x00, 0x88, 0x00);
-    const FXColor red   = FXRGB(0x88, 0x00, 0x00);
-    const FXColor yellow = FXRGB(0xe6, 0x98, 0x00);
+    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
+    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
+    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
+    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
+    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
+    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
     // set separator style
     myStyles[0].normalForeColor = blue;
     myStyles[0].normalBackColor = white;
@@ -89,6 +86,11 @@ GUIMessageWindow::GUIMessageWindow(FXComposite* parent) :
     myStyles[3].hiliteForeColor = yellow;
     myStyles[6] = myStyles[3];
     myStyles[6].style = STYLE_UNDERLINE;
+    // set GLDebug text style
+    myStyles[7] = myStyles[0];
+    myStyles[7].normalForeColor = fuchsia;
+    myStyles[7].selectBackColor = fuchsia;
+    myStyles[7].hiliteForeColor = fuchsia;
     //
     setHiliteStyles(myStyles);
 }
@@ -160,6 +162,14 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
     // build the styled message
     FXint style = 1;
     switch (eType) {
+        case EVENT_DEBUG_OCCURRED:
+            // color: blue
+            style = 0;
+            break;
+        case EVENT_GLDEBUG_OCCURRED:
+            // color: fuchsia
+            style = 7;
+            break;
         case EVENT_ERROR_OCCURRED:
             // color: red
             style = 2;
@@ -236,9 +246,13 @@ GUIMessageWindow::registerMsgHandlers() {
         // initialize only if registration is requested
         myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURRED);
         myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURRED);
+        myDebugRetriever = new MsgOutputDevice(this, EVENT_DEBUG_OCCURRED);
+        myGLDebugRetriever = new MsgOutputDevice(this, EVENT_GLDEBUG_OCCURRED);
         myWarningRetriever = new MsgOutputDevice(this, EVENT_WARNING_OCCURRED);
     }
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+    MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
+    MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 }
@@ -247,6 +261,8 @@ GUIMessageWindow::registerMsgHandlers() {
 void
 GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
+    MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
+    MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }

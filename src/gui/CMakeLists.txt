@@ -25,4 +25,5 @@ set(gui_STAT_SRCS
 )
 
 add_library(gui STATIC ${gui_STAT_SRCS})
+add_dependencies(gui generate-version-h)
 set_property(TARGET gui PROPERTY PROJECT_LABEL "z_gui")

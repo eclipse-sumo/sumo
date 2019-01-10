@@ -19,7 +19,6 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
-import time
 import shutil
 sys.path.append(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools"))
@@ -35,7 +34,7 @@ retcode = subprocess.call(
     [netconvertBinary, "-c", "data/circular.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
 try:
     shutil.copy("data/circular.net.xml", "net.net.xml")
-except:
+except IOError:
     print("Missing 'circular.net.xml'")
 print(">> Netbuilding closed with status %s" % retcode)
 sys.stdout.flush()

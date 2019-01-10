@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
@@ -82,7 +78,8 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCornerDetail(0),
       myLinkDetail(-1),
       myRectLaneCut(false),
-      myWalkingAreas(false) {
+      myWalkingAreas(false),
+      myLimitTurnSpeed(-1) {
 }
 
 
@@ -156,7 +153,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                                ed->priority, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                geom, ed->streetName, "", ed->lsf, true); // always use tryIgnoreNodePositions to keep original shape
         e->setLoadedLength(ed->length);
-        e->updateParameter(ed->getMap());
+        e->updateParameter(ed->getParametersMap());
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
             delete e;
@@ -169,6 +166,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     }
     // assign further lane attributes (edges are built)
     EdgeVector toRemove;
+    const bool dismissVclasses = oc.getBool("dismiss-vclasses");
     for (std::map<std::string, EdgeAttrs*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         EdgeAttrs* ed = (*i).second;
         NBEdge* nbe = ed->builtEdge;
@@ -215,14 +213,16 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
             }
             // allow/disallow XXX preferred
-            nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
+            if (!dismissVclasses) {
+                nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
+            }
             // width, offset
             nbe->setLaneWidth(fromLaneIndex, lane->width);
             nbe->setEndOffset(fromLaneIndex, lane->endOffset);
             nbe->setSpeed(fromLaneIndex, lane->maxSpeed);
             nbe->setAcceleration(fromLaneIndex, lane->accelRamp);
             nbe->getLaneStruct(fromLaneIndex).oppositeID = lane->oppositeID;
-            nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getMap());
+            nbe->getLaneStruct(fromLaneIndex).updateParameter(lane->getParametersMap());
             if (lane->customShape) {
                 nbe->setLaneShape(fromLaneIndex, lane->shape);
             }
@@ -277,8 +277,8 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 NBConnection(prohibitedFrom, prohibitedTo));
         }
     }
-    if (!myHaveSeenInternalEdge) {
-        myNetBuilder.haveLoadedNetworkWithoutInternalEdges();
+    if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
+        oc.set("no-internal-links", "true");
     }
     if (oc.isDefault("lefthand")) {
         oc.set("lefthand", toString(myAmLefthand));
@@ -294,6 +294,9 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     }
     if (oc.isDefault("walkingareas")) {
         oc.set("walkingareas", toString(myWalkingAreas));
+    }
+    if (oc.isDefault("junctions.limit-turn-speed")) {
+        oc.set("junctions.limit-turn-speed", toString(myLimitTurnSpeed));
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
@@ -391,6 +394,7 @@ NIImporter_SUMO::myStartElement(int element,
             myLinkDetail = attrs.getOpt<int>(SUMO_ATTR_LINKDETAIL, 0, ok, -1);
             myRectLaneCut = attrs.getOpt<bool>(SUMO_ATTR_RECTANGULAR_LANE_CUT, 0, ok, false);
             myWalkingAreas = attrs.getOpt<bool>(SUMO_ATTR_WALKINGAREAS, 0, ok, false);
+            myLimitTurnSpeed = attrs.getOpt<double>(SUMO_ATTR_LIMIT_TURN_SPEED, 0, ok, -1);
             break;
         }
         case SUMO_TAG_EDGE:
@@ -403,7 +407,7 @@ NIImporter_SUMO::myStartElement(int element,
             bool ok = true;
             addStopOffsets(attrs, ok);
         }
-            break;
+        break;
         case SUMO_TAG_NEIGH:
             myCurrentLane->oppositeID = attrs.getString(SUMO_ATTR_LANE);
             break;
@@ -572,6 +576,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         if (myCurrentLane->customShape) {
             WalkingAreaParsedCustomShape wacs;
             wacs.shape = myCurrentLane->shape;
+            NBNetBuilder::transformCoordinates(wacs.shape, true, myLocation);
             myWACustomShapes[myCurrentEdge->id] = wacs;
         }
         return;
@@ -586,7 +591,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     try {
         myCurrentLane->allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
-    } catch (EmptyData e) {
+    } catch (EmptyData&) {
         // !!! deprecated
         myCurrentLane->allow = "";
     }
@@ -601,18 +606,20 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
 
 void
 NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    std::map<SVCPermissions,double> offsets = parseStopOffsets(attrs, ok);
-    if (!ok) return;
-    assert(offsets.size()==1);
+    std::map<SVCPermissions, double> offsets = parseStopOffsets(attrs, ok);
+    if (!ok) {
+        return;
+    }
+    assert(offsets.size() == 1);
     // Admissibility of value will be checked in _loadNetwork(), when lengths are known
-    if (myCurrentLane==0) {
+    if (myCurrentLane == 0) {
         if (myCurrentEdge->stopOffsets.size() != 0) {
             std::stringstream ss;
             ss << "Duplicate definition of stopOffset for edge " << myCurrentEdge->id << ".\nIgnoring duplicate specification.";
             WRITE_WARNING(ss.str());
             return;
         } else {
-            myCurrentEdge->stopOffsets=offsets;
+            myCurrentEdge->stopOffsets = offsets;
         }
     } else {
         if (myCurrentLane->stopOffsets.size() != 0) {
@@ -621,7 +628,7 @@ NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
             WRITE_WARNING(ss.str());
             return;
         } else {
-            myCurrentLane->stopOffsets=offsets;
+            myCurrentLane->stopOffsets = offsets;
         }
     }
 }

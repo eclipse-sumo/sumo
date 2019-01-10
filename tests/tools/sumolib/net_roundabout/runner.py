@@ -9,7 +9,7 @@
 
 # @file    runner.py
 # @author  Jakob Erdmann
-# @date    
+# @date
 # @version $Id$
 
 from __future__ import absolute_import
@@ -19,7 +19,7 @@ from __future__ import print_function
 import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import sumolib.net
+import sumolib.net  # noqa
 
 net = sumolib.net.readNet(sys.argv[1])
 for r in net.getRoundabouts():

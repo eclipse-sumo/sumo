@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 19 09:34:57 2018 by Eclipse SUMO netconvert Version 3aa404f
+<!-- generated on Wed Aug 15 16:12:27 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,10 +17,10 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -29,28 +29,28 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-446255.54,-4331944.81" convBoundary="0.00,0.00,464.05,304.70" origBoundary="-75.760074,38.829851,-75.138461,39.387555" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="C" to="407629006" priority="0" spreadType="center">
-        <lane id="1_0" index="0" speed="13.90" length="72.35" shape="300.22,104.87 330.95,165.77"/>
+        <lane id="1_0" index="0" speed="13.90" length="72.35" shape="301.36,107.12 330.95,165.77"/>
     </edge>
     <edge id="2" from="408672323" to="C" priority="0" spreadType="center">
-        <lane id="2_0" index="0" speed="13.90" length="262.44" shape="464.05,304.70 300.92,104.33"/>
+        <lane id="2_0" index="0" speed="13.90" length="262.44" shape="464.05,304.70 302.49,106.25"/>
     </edge>
     <edge id="3" from="407629005" to="C" priority="0" spreadType="center" shape="0.00,0.00 66.87,9.53 218.84,24.92 271.20,47.43 298.36,101.18">
-        <lane id="3_0" index="0" speed="13.90" length="337.51" shape="-0.00,-0.00 66.87,9.53 218.84,24.92 271.20,47.43 297.29,99.07"/>
+        <lane id="3_0" index="0" speed="13.90" length="337.51" shape="-0.00,-0.00 66.87,9.53 218.84,24.92 271.20,47.43 296.16,96.83"/>
     </edge>
     <edge id="4" from="C" to="408672330" priority="0" spreadType="center">
-        <lane id="4_0" index="0" speed="13.90" length="34.95" shape="296.12,105.02 280.76,131.37"/>
+        <lane id="4_0" index="0" speed="13.90" length="34.95" shape="294.86,107.18 280.76,131.37"/>
     </edge>
 
     <junction id="407629005" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.23,1.58 0.23,-1.58"/>
     <junction id="407629006" type="dead_end" x="330.95" y="165.77" incLanes="1_0" intLanes="" shape="332.38,165.05 329.52,166.49"/>
     <junction id="408672323" type="dead_end" x="464.05" y="304.70" incLanes="" intLanes="" shape="465.29,303.69 462.81,305.71"/>
     <junction id="408672330" type="dead_end" x="280.76" y="131.37" incLanes="4_0" intLanes="" shape="282.14,132.18 279.38,130.56"/>
-    <junction id="C" type="priority" x="298.36" y="101.18" incLanes="2_0 3_0" intLanes="" shape="298.93,105.87 302.19,103.35 298.72,98.34 295.86,99.79 294.74,104.22 297.50,105.83">
+    <junction id="C" type="priority" x="298.36" y="101.18" incLanes="2_0 3_0" intLanes="" shape="300.06,108.10 303.76,105.28 302.27,103.46 301.17,102.10 300.30,100.94 299.52,99.73 298.67,98.21 297.59,96.11 294.74,97.56 295.40,100.12 295.32,101.55 294.98,103.06 294.36,104.67 293.48,106.37 296.24,107.99 297.56,106.46 298.21,106.29 298.84,106.50 299.45,107.11">
         <request index="0" response="0100" foes="0100"/>
         <request index="1" response="0100" foes="1100"/>
         <request index="2" response="0000" foes="0011"/>

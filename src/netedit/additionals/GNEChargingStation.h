@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEStoppingPlace.h"
 
@@ -51,59 +47,15 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement);
+    GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEChargingStation();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
-    /**@brief Returns the charging power of the chargingStation
-     * @return The charging power of the chargingStation
-     */
-    double getChargingPower();
-
-    /**@brief Returns the charging efficiency of the chargingStation
-     * @return The charging efficiency of the chargingStation
-     */
-    double getEfficiency();
-    /**@brief Returns the value of charge in transit of the chargingStation
-     * @return True if charge in transit is enabled, false in other case
-     */
-    bool getChargeInTransit();
-    /**@brief Returns the charge delay of the chargingStation
-     * @return The charge delay of the chargingStation
-     */
-    double getChargeDelay();
-
-    /**@brief Set a new charging power in the charging station
-     * @param[in] chargingPower new charging power
-     * @throws InvalidArgument if value of chargingPower isn't valid
-     */
-    void setChargingPower(double chargingPower);
-
-    /**@brief Set a new efficiency in the charging station
-     * @param[in] efficiency new efficiency
-     * @throws InvalidArgument if value of efficiency isn't valid
-     */
-    void setEfficiency(double efficiency);
-    /**@brief Enable or disable charge in transit in the charging station
-     * @param[in] chargeInTransit new charge in Transit value (0 or 1)
-     */
-    void setChargeInTransit(bool chargeInTransit);
-    /**@brief Set a new charge delay in the charging station
-     * @param[in] chargeDelay new charge delay value (true or false)
-     * @throws InvalidArgument if value of chargeDelay isn't valid
-     */
-    void setChargeDelay(double chargeDelay);
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -156,10 +108,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEChargingStation(const GNEChargingStation&);
+    GNEChargingStation(const GNEChargingStation&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEChargingStation& operator=(const GNEChargingStation&);
+    GNEChargingStation& operator=(const GNEChargingStation&) = delete;
 };
 
 

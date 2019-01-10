@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 11:59:24 2018 by Eclipse SUMO netconvert Version e9d22a3
+<!-- generated on Thu Aug 16 15:51:58 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-405213.33,-5803545.51" convBoundary="0.00,0.00,14260.81,350.76" origBoundary="13.607621,52.373967,13.817027,52.377232" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -53,7 +53,6 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.secondary|railway.tram" priority="15" numLanes="2" speed="27.78" disallow="rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian" oneway="0"/>
-    <type id="highway.services" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -71,16 +70,16 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian ship" speed="27.78" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
+        <lane id=":1_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian ship" speed="3.65" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" allow="tram" speed="20.84" length="4.85" shape="658.45,351.36 659.70,351.70 660.63,351.35 661.61,350.79 663.01,350.47"/>
+        <lane id=":2_0_0" index="0" allow="tram" speed="10.48" length="4.85" shape="658.45,351.36 659.70,351.70 660.63,351.35 661.61,350.79 663.01,350.47"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" allow="tram" speed="20.84" length="4.85" shape="658.45,351.36 659.70,351.70 660.63,351.35 661.61,350.80 663.01,350.49"/>
+        <lane id=":2_1_0" index="0" allow="tram" speed="10.49" length="4.85" shape="658.45,351.36 659.70,351.70 660.63,351.35 661.61,350.80 663.01,350.49"/>
     </edge>
     <edge id=":2_2" function="internal">
-        <lane id=":2_2_0" index="0" disallow="rail_urban rail rail_electric pedestrian ship" speed="27.78" length="4.67" shape="656.93,354.18 657.60,355.45 657.57,356.35 656.84,356.86 655.40,356.99"/>
+        <lane id=":2_2_0" index="0" disallow="rail_urban rail rail_electric pedestrian ship" speed="3.65" length="4.67" shape="656.93,354.18 657.60,355.45 657.57,356.35 656.84,356.86 655.40,356.99"/>
     </edge>
 
     <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="15" type="highway.secondary|railway.tram">
@@ -103,7 +102,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1 -10860201_2" intLanes=":1_0_0" shape="-0.00,-0.00 -4.00,7.39 -0.00,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1 10860201_2" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="663.04,352.07 662.99,348.89 660.17,348.20 652.16,362.97">
+    <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1 10860201_2" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="663.04,352.07 662.99,348.89 661.89,348.87 661.51,348.81 661.14,348.69 660.72,348.49 660.17,348.20 652.16,362.97 654.78,363.44 656.28,361.81 657.26,358.95 658.31,355.78 660.03,353.19">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>

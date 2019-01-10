@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <map>
@@ -74,6 +70,7 @@ class MSTransportable;
 
 typedef std::vector<MSEdge*> MSEdgeVector;
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
+typedef std::vector<std::pair<const MSEdge*, const MSEdge*> > MSConstEdgePairVector;
 
 class MSEdge : public Named, public Parameterised {
 public:
@@ -238,8 +235,8 @@ public:
     void checkAndRegisterBiDirEdge();
 
     /// @brief return opposite superposable/congruent edge, if it exist and 0 else
-    inline const MSEdge* getMyOppositeSuperposableEdge() const {
-        return myOppositingSuperposableEdge;
+    inline const MSEdge* getBidiEdge() const {
+        return myBidiEdge;
     }
 
     /// @brief return whether this edge is walking area
@@ -302,7 +299,7 @@ public:
      * This is mainly used by the taz (district) parsing
      * @param[in] edge The edge to add
      */
-    void addSuccessor(MSEdge* edge);
+    void addSuccessor(MSEdge* edge, const MSEdge* via = nullptr);
 
     /** @brief Returns the number of edges that may be reached from this edge
      * @return The number of following edges
@@ -312,18 +309,17 @@ public:
     }
 
 
-    /** @brief Returns the following edges
-     */
-    const MSEdgeVector& getSuccessors() const {
-        return mySuccessors;
-    }
-
-
     /** @brief Returns the following edges, restricted by vClass
      * @param[in] vClass The vClass for which to restrict the successors
      * @return The eligible following edges
      */
-    const MSEdgeVector& getSuccessors(SUMOVehicleClass vClass) const;
+    const MSEdgeVector& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+
+    /** @brief Returns the following edges with internal vias, restricted by vClass
+     * @param[in] vClass The vClass for which to restrict the successors
+     * @return The eligible following edges
+     */
+    const MSConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -590,6 +586,7 @@ public:
      */
     double getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
 
+
     virtual void addPerson(MSTransportable* p) const {
         myPersons.insert(p);
     }
@@ -626,6 +623,11 @@ public:
         myAmDelayed = true;
     }
 
+    // return whether there have been vehicles on this edge at least once
+    inline bool isDelayed() const {
+        return myAmDelayed;
+    }
+
     bool hasLaneChanger() const {
         return myLaneChanger != 0;
     }
@@ -645,6 +647,11 @@ public:
     /// @brief return whether this edge is at the fringe of the network
     bool isFringe() const {
         return myAmFringe;
+    }
+
+    /// @brief whether this lane is selected in the GUI
+    virtual bool isSelected() const {
+        return false;
     }
 
     /// @brief grant exclusive access to the mesoscopic state
@@ -747,7 +754,6 @@ protected:
     /// @brief lookup in map and return 0 if not found
     const std::vector<MSLane*>* getAllowedLanesWithDefault(const AllowedLanesCont& c, const MSEdge* dest) const;
 
-
     /// @brief return upper bound for the depart position on this edge
     double getDepartPosBound(const MSVehicle& veh, bool upper = true) const;
 
@@ -780,6 +786,8 @@ protected:
 
     /// @brief The succeeding edges
     MSEdgeVector mySuccessors;
+
+    MSConstEdgePairVector myViaSuccessors;
 
     /// @brief The preceeding edges
     MSEdgeVector myPredecessors;
@@ -861,13 +869,16 @@ protected:
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, MSEdgeVector> myClassesSuccessorMap;
 
+    /// @brief The successors available for a given vClass
+    mutable std::map<SUMOVehicleClass, MSConstEdgePairVector> myClassesViaSuccessorMap;
+
     /// @brief The bounding rectangle of incoming or outgoing edges for taz connectors
     Boundary myTazBoundary;
 
 private:
 
     /// @brief the oppositing superposble edge
-    const MSEdge* myOppositingSuperposableEdge;
+    const MSEdge* myBidiEdge;
 
     /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);

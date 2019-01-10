@@ -27,9 +27,8 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from sumolib.visualization import helpers
-
-import matplotlib.pyplot as plt
+from sumolib.visualization import helpers  # noqa
+import matplotlib.pyplot as plt  # noqa
 
 
 def readValues(files, verbose, measure):
@@ -69,7 +68,7 @@ def main(args=None):
     times = readValues(files, options.verbose, "time")
     for f in files:
         maxV = max(maxV, len(nums[f]))
-    ts = range(minV, maxV + 1)
+    range(minV, maxV + 1)
 
     fig, ax = helpers.openFigure(options)
     for i, f in enumerate(files):
@@ -79,6 +78,7 @@ def main(args=None):
         l = helpers.getLabel(f, i, options)
         plt.plot(t, v, label=l, color=c)
     helpers.closeFigure(fig, ax, options)
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))

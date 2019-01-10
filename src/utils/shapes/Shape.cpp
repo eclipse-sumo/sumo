@@ -20,11 +20,8 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
 
 #include "Shape.h"
 
@@ -33,6 +30,7 @@
 // ===========================================================================
 const std::string Shape::DEFAULT_TYPE = "";
 const double Shape::DEFAULT_LAYER = 128;
+const double Shape::DEFAULT_LAYER_POI = (double)GLO_POI;
 const double Shape::DEFAULT_ANGLE = 0;
 const std::string Shape::DEFAULT_IMG_FILE = "";
 const bool Shape::DEFAULT_RELATIVEPATH = false;

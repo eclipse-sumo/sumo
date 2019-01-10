@@ -21,11 +21,7 @@
 // ==========================================================================
 // included modules
 // ==========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
-#include <config.h>
-#endif // #ifdef _MSC_VER
+#include <config.h> // #ifdef _MSC_VER
 
 #ifdef WIN32
 #define NOMINMAX
@@ -68,6 +64,7 @@ OutputDevice_Network::OutputDevice_Network(const std::string& host,
 #endif
         }
     }
+    myFilename = host + ":" + toString(port);
 }
 
 

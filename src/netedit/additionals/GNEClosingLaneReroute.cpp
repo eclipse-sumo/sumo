@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/ToString.h>
 #include "GNEClosingLaneReroute.h"
@@ -43,20 +39,17 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE, ICON_EMPTY),
-    myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
-    myClosedLane(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getEdgeChilds().at(0)->getLanes().at(0)),
-    myAllowedVehicles(parseVehicleClasses(getDefaultValue<std::string>(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW))),
-    myDisallowedVehicles(parseVehicleClasses(getDefaultValue<std::string>(SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_DISALLOW))) {
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false),
+    myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getFirstAdditionalParent()->getEdgeChilds().at(0)->getLanes().at(0)) {
+    // fill closing lane reroute interval with default values
+    setDefaultValues();
 }
 
 
-GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterInterval* rerouterIntervalParent, GNELane* closedLane, SVCPermissions allowedVehicles, SVCPermissions disallowedVehicles) :
-    GNEAttributeCarrier(SUMO_TAG_CLOSING_LANE_REROUTE, ICON_EMPTY),
-    myRerouterIntervalParent(rerouterIntervalParent),
+GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
+    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false),
     myClosedLane(closedLane),
-    myAllowedVehicles(allowedVehicles),
-    myDisallowedVehicles(disallowedVehicles) {
+    myPermissions(permissions) {
 }
 
 
@@ -64,42 +57,38 @@ GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
 void
-GNEClosingLaneReroute::writeClosingLaneReroute(OutputDevice& device) const {
-    // open closing reroute tag
-    device.openTag(getTag());
-    // write Lane ID
-    writeAttribute(device, SUMO_ATTR_ID);
-    // write Allowed vehicles
-    writeAttribute(device, SUMO_ATTR_ALLOW);
-    // write disallowed vehicles
-    writeAttribute(device, SUMO_ATTR_DISALLOW);
-    // close closing reroute tag
-    device.closeTag();
+GNEClosingLaneReroute::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
-GNERerouterInterval*
-GNEClosingLaneReroute::getRerouterIntervalParent() const {
-    return myRerouterIntervalParent;
+void
+GNEClosingLaneReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-void 
-GNEClosingLaneReroute::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+void
+GNEClosingLaneReroute::updateGeometry(bool /*updateGrid*/) {
+    // Currently this additional doesn't own a Geometry
 }
 
 
-void 
-GNEClosingLaneReroute::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+Position
+GNEClosingLaneReroute::getPositionInView() const {
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
-bool 
-GNEClosingLaneReroute::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+std::string
+GNEClosingLaneReroute::getParentName() const {
+    return myFirstAdditionalParent->getID();
+}
+
+
+void
+GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
+    // Currently this additional isn't drawn
 }
 
 
@@ -107,11 +96,17 @@ std::string
 GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
+            return getAdditionalID();
+        case SUMO_ATTR_LANE:
             return myClosedLane->getID();
         case SUMO_ATTR_ALLOW:
-            return getVehicleClassNames(myAllowedVehicles);
+            return getVehicleClassNames(myPermissions);
         case SUMO_ATTR_DISALLOW:
-            return getVehicleClassNames(myDisallowedVehicles);
+            return getVehicleClassNames(invertPermissions(myPermissions));
+        case GNE_ATTR_PARENT:
+            return myFirstAdditionalParent->getID();
+        case GNE_ATTR_GENERIC:
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -125,8 +120,10 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_LANE:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -139,14 +136,29 @@ bool
 GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return (myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
+            return isValidAdditionalID(value);
+        case SUMO_ATTR_LANE:
+            return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
-            return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+std::string
+GNEClosingLaneReroute::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string
+GNEClosingLaneReroute::getHierarchyName() const {
+    return toString(getTag()) + ": " + myClosedLane->getID();
 }
 
 // ===========================================================================
@@ -156,18 +168,21 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID: {
-            myClosedLane = myRerouterIntervalParent->getRerouterParent()->getViewNet()->getNet()->retrieveLane(value);
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
             break;
-        }
-        case SUMO_ATTR_ALLOW: {
-            myAllowedVehicles = parseVehicleClasses(value);
+        case SUMO_ATTR_LANE:
+            myClosedLane = myViewNet->getNet()->retrieveLane(value);
             break;
-        }
-        case SUMO_ATTR_DISALLOW: {
-            myAllowedVehicles = parseVehicleClasses(value);
+        case SUMO_ATTR_ALLOW:
+            myPermissions = parseVehicleClasses(value);
             break;
-        }
+        case SUMO_ATTR_DISALLOW:
+            myPermissions = invertPermissions(parseVehicleClasses(value));
+            break;
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

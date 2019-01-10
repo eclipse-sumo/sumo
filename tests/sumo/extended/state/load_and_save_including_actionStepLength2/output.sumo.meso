@@ -1,4 +1,5 @@
-Loading net-file from 'net.net.xml'... done (1ms).
+Integration method was set to 'ballistic', since a default action step length was specified.
+Loading net-file from 'net.net.xml'... done (0ms).
 Loading state from 'input_meso_state.xml'... 
 done (1ms).
 Loading done.

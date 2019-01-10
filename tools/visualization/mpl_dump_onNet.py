@@ -26,7 +26,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 from matplotlib import rcParams
-from pylab import *
+from pylab import arange, figure, plot, savefig, show, xlim, xticks, ylim, yticks
 import math
 from optparse import OptionParser
 from xml.sax import make_parser, handler
@@ -170,7 +170,6 @@ class NetReader(handler.ContentHandler):
                 ys.append(float(self._node2y[self._edge2to[edge]]))
             else:
                 shape = self._edge2shape[edge].split(" ")
-                l = []
                 for s in shape:
                     p = s.split(",")
                     xs.append(float(p[0]))
@@ -214,9 +213,9 @@ class NetReader(handler.ContentHandler):
             rcParams['backend'] = 'Agg'
         # set figure size
         if options.size and not options.show:
-            f = figure(figsize=(options.size.split(",")))
+            figure(figsize=(options.size.split(",")))
         else:
-            f = figure()
+            figure()
         for edge in edge2plotLines:
             plot(edge2plotLines[edge][0], edge2plotLines[edge][
                  1], color=edge2plotColors[edge], linewidth=edge2plotWidth[edge])
@@ -382,9 +381,11 @@ class WeightsReader(handler.ContentHandler):
         else:
             for i in weights._intervalBegins:
                 self.valueDependantNorm(self._unaggEdge2value1[
-                                        i], self._minValue1, self._maxValue1, False, percSpeed and self._value1 == "speed")
+                                        i], self._minValue1, self._maxValue1, False, percSpeed and
+                                        self._value1 == "speed")
                 self.valueDependantNorm(self._unaggEdge2value2[
-                                        i], self._minValue2, self._maxValue2, tendency, percSpeed and self._value2 == "speed")
+                                        i], self._minValue2, self._maxValue2, tendency, percSpeed and
+                                        self._value2 == "speed")
 
 
 # initialise

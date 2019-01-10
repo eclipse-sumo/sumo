@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fstream>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -422,6 +418,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
         FXVerticalFrame* frame6 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
 
+        FXMatrix* m63 = new FXMatrix(frame6, 3, GUIDesignViewSettingsMatrix3);
+        new FXLabel(m63, "Color", 0, GUIDesignViewSettingsLabel1);
+        myPOIColorMode = new FXComboBox(m63, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+        mySettings->poiColorer.fill(*myPOIColorMode);
+        myPOIColorMode->setNumVisible(3);
+        myPOIColorInterpolation = new FXCheckButton(m63, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
+        myPOIColorSettingFrame = new FXVerticalFrame(frame6, GUIDesignViewSettingsVerticalFrame4);
+
+        new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
+
         FXMatrix* m61 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
         myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
         myPOITypePanel = new NamePanel(m61, this, "Show poi types", mySettings->poiType);
@@ -436,6 +442,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXTabItem(tabbook, "Polygons", NULL, GUIDesignViewSettingsTabItemBook1);
         FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
         FXVerticalFrame* frame9 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
+
+        FXMatrix* m63 = new FXMatrix(frame9, 3, GUIDesignViewSettingsMatrix3);
+        new FXLabel(m63, "Color", 0, GUIDesignViewSettingsLabel1);
+        myPolyColorMode = new FXComboBox(m63, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+        mySettings->polyColorer.fill(*myPolyColorMode);
+        myPolyColorMode->setNumVisible(3);
+        myPolyColorInterpolation = new FXCheckButton(m63, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
+        myPolyColorSettingFrame = new FXVerticalFrame(frame9, GUIDesignViewSettingsVerticalFrame4);
+
+        new FXHorizontalSeparator(frame9, GUIDesignHorizontalSeparator);
 
         FXMatrix* m91 = new FXMatrix(frame9, 2, GUIDesignMatrixViewSettings);
         myPolyNamePanel = new NamePanel(m91, this, "Show polygon names", mySettings->polyName);
@@ -741,6 +757,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     int prevPersonMode = mySettings->personColorer.getActive();
     int prevContainerMode = mySettings->containerColorer.getActive();
     int prevJunctionMode = mySettings->junctionColorer.getActive();
+    int prevPOIMode = mySettings->poiColorer.getActive();
+    int prevPolyMode = mySettings->polyColorer.getActive();
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
@@ -804,10 +822,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.addFullName = myAddFullNamePanel->getSettings();
     tmpSettings.addSize = myAddSizePanel->getSettings();
 
+    tmpSettings.poiColorer.setActive(myPOIColorMode->getCurrentItem());
     tmpSettings.poiName = myPOINamePanel->getSettings();
     tmpSettings.poiType = myPOITypePanel->getSettings();
     tmpSettings.poiSize = myPOISizePanel->getSettings();
 
+    tmpSettings.polyColorer.setActive(myPolyColorMode->getCurrentItem());
     tmpSettings.polyName = myPolyNamePanel->getSettings();
     tmpSettings.polyType = myPolyTypePanel->getSettings();
     tmpSettings.polySize = myPolySizePanel->getSettings();
@@ -905,6 +925,34 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         }
         if (sender == myJunctionColorInterpolation) {
             tmpSettings.junctionColorer.getScheme().setInterpolated(myJunctionColorInterpolation->getCheck() != FALSE);
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
+    }
+    // POIs
+    if (tmpSettings.poiColorer.getActive() == prevPOIMode) {
+        if (updateColorRanges(sender, myPOIColors.begin(), myPOIColors.end(),
+                              myPOIThresholds.begin(), myPOIThresholds.end(), myPOIButtons.begin(),
+                              tmpSettings.poiColorer.getScheme())) {
+            doRebuildColorMatrices = true;
+        }
+        if (sender == myPOIColorInterpolation) {
+            tmpSettings.poiColorer.getScheme().setInterpolated(myPOIColorInterpolation->getCheck() != FALSE);
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
+    }
+    // polygons
+    if (tmpSettings.polyColorer.getActive() == prevPolyMode) {
+        if (updateColorRanges(sender, myPolyColors.begin(), myPolyColors.end(),
+                              myPolyThresholds.begin(), myPolyThresholds.end(), myPolyButtons.begin(),
+                              tmpSettings.polyColorer.getScheme())) {
+            doRebuildColorMatrices = true;
+        }
+        if (sender == myPolyColorInterpolation) {
+            tmpSettings.polyColorer.getScheme().setInterpolated(myPolyColorInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {
@@ -1412,6 +1460,18 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         m->create();
     }
     myJunctionColorSettingFrame->getParent()->recalc();
+    // POIs
+    m = rebuildColorMatrix(myPOIColorSettingFrame, myPOIColors, myPOIThresholds, myPOIButtons, myPOIColorInterpolation, mySettings->poiColorer.getScheme());
+    if (doCreate) {
+        m->create();
+    }
+    myPOIColorSettingFrame->getParent()->recalc();
+    // polygons
+    m = rebuildColorMatrix(myPolyColorSettingFrame, myPolyColors, myPolyThresholds, myPolyButtons, myPolyColorInterpolation, mySettings->polyColorer.getScheme());
+    if (doCreate) {
+        m->create();
+    }
+    myPolyColorSettingFrame->getParent()->recalc();
 
     layout();
     update();
@@ -1566,10 +1626,10 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
 
 GUIVisualizationTextSettings
 GUIDialog_ViewSettings::NamePanel::getSettings() {
-    return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE, 
-            mySizeDial->getValue(), 
-            MFXUtils::getRGBColor(myColorWell->getRGBA()), 
-            myConstSizeCheck->getCheck() != FALSE);
+    return GUIVisualizationTextSettings(myCheck->getCheck() != FALSE,
+                                        mySizeDial->getValue(),
+                                        MFXUtils::getRGBColor(myColorWell->getRGBA()),
+                                        myConstSizeCheck->getCheck() != FALSE);
 }
 
 
@@ -1629,11 +1689,11 @@ GUIDialog_ViewSettings::loadWindowSize() {
     // ensure window is visible after switching screen resolutions
     const FXint minSize = 400;
     const FXint minTitlebarHeight = 20;
-    setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150), 
-                    getApp()->getRootWindow()->getWidth() - minSize)));
+    setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150),
+                      getApp()->getRootWindow()->getWidth() - minSize)));
     setY(MAX2(minTitlebarHeight,
-              MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150), 
-                  getApp()->getRootWindow()->getHeight() - minSize)));
+              MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150),
+                   getApp()->getRootWindow()->getHeight() - minSize)));
     setWidth(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "width", 700), minSize));
     setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
 }

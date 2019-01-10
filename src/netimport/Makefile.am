@@ -16,6 +16,7 @@ NIXMLConnectionsHandler.cpp NIXMLConnectionsHandler.h \
 NIXMLEdgesHandler.cpp NIXMLEdgesHandler.h \
 NIXMLNodesHandler.cpp NIXMLNodesHandler.h \
 NIXMLTypesHandler.cpp NIXMLTypesHandler.h \
+NIXMLPTHandler.cpp NIXMLPTHandler.h \
 NIXMLTrafficLightsHandler.cpp NIXMLTrafficLightsHandler.h \
 NINavTeqHelper.cpp NINavTeqHelper.h
 

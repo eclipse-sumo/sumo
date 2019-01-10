@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEShape.h"
 
@@ -92,6 +88,14 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] newPosition new position of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
@@ -103,11 +107,12 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    /// @}
 
     /// @name inherited from GNEShape
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
@@ -129,7 +134,7 @@ public:
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /**@brief Returns an own popup-menu
      *
@@ -182,16 +187,45 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @name Function related with generic parameters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string& key, const std::string& value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string& key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
+
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
+    /// @}
+
 protected:
     /// @brief Position of POI in GEO coordinates (Only used by POIs that aren't placed over lanes)
     Position myGEOPosition;
 
     /// @brief GNElane in which this POILane is placed (Only used by POIs placed over lanes)
-    GNELane * myGNELane;
+    GNELane* myGNELane;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for check if mouse is over objects
+    void mouseOverObject(const GUIVisualizationSettings& s) const;
 
     /// @brief Invalidated copy constructor.
     GNEPOI(const GNEPOI&) = delete;

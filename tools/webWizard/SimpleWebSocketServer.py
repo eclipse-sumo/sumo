@@ -17,17 +17,6 @@ Originally distributed under the MIT license at
 https://github.com/dpallot/simple-websocket-server/tree/master/SimpleWebSocketServer.
 """
 import sys
-
-VER = sys.version_info[0]
-if VER >= 3:
-    import socketserver
-    from http.server import BaseHTTPRequestHandler
-    from io import StringIO, BytesIO
-else:
-    import SocketServer
-    from BaseHTTPServer import BaseHTTPRequestHandler
-    from StringIO import StringIO
-
 import hashlib
 import base64
 import socket
@@ -38,6 +27,17 @@ import codecs
 from collections import deque
 from select import select
 
+VER = sys.version_info[0]
+if VER >= 3:
+    import socketserver  # noqa
+    from http.server import BaseHTTPRequestHandler
+    from io import StringIO, BytesIO
+else:
+    import SocketServer  # noqa
+    from BaseHTTPServer import BaseHTTPRequestHandler
+    from StringIO import StringIO
+
+
 __all__ = ['WebSocket',
            'SimpleWebSocketServer',
            'SimpleSSLWebSocketServer']
@@ -47,7 +47,8 @@ def _check_unicode(val):
     if VER >= 3:
         return isinstance(val, str)
     else:
-        return isinstance(val, unicode)
+        # python 2.7
+        return isinstance(val, unicode)  # noqa
 
 
 class HTTPRequest(BaseHTTPRequestHandler):
@@ -60,6 +61,7 @@ class HTTPRequest(BaseHTTPRequestHandler):
         self.raw_requestline = self.rfile.readline()
         self.error_code = self.error_message = None
         self.parse_request()
+
 
 _VALID_STATUS_CODES = [1000, 1001, 1002, 1003, 1007, 1008,
                        1009, 1010, 1011, 3000, 3999, 4000, 4999]
@@ -182,7 +184,7 @@ class WebSocket(object):
                 if len(reason) > 0:
                     try:
                         reason = reason.decode('utf8', errors='strict')
-                    except:
+                    except Exception:
                         status = 1002
             else:
                 status = 1002
@@ -252,7 +254,7 @@ class WebSocket(object):
                 if self.opcode == TEXT:
                     try:
                         self.data = self.data.decode('utf8', errors='strict')
-                    except Exception as exp:
+                    except Exception:
                         raise Exception('invalid utf-8 payload')
 
                 self.handleMessage()
@@ -645,7 +647,7 @@ class SimpleWebSocketServer(object):
                             if opcode == CLOSE:
                                 raise Exception('received client close')
 
-                except Exception as n:
+                except Exception:
                     client.client.close()
                     client.handleClose()
                     del self.connections[ready]
@@ -661,7 +663,7 @@ class SimpleWebSocketServer(object):
                         self.connections[fileno] = self._constructWebSocket(
                             newsock, address)
                         self.listeners.append(fileno)
-                    except Exception as n:
+                    except Exception:
                         if sock is not None:
                             sock.close()
                 else:
@@ -670,7 +672,7 @@ class SimpleWebSocketServer(object):
                     client = self.connections[ready]
                     try:
                         client._handleData()
-                    except Exception as n:
+                    except Exception:
                         client.client.close()
                         client.handleClose()
                         del self.connections[ready]

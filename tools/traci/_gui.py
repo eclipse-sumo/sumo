@@ -23,7 +23,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_VIEW_ZOOM: Storage.readDouble,
                       tc.VAR_VIEW_OFFSET: lambda result: result.read("!dd"),
                       tc.VAR_VIEW_SCHEMA: Storage.readString,
                       tc.VAR_VIEW_BOUNDARY: lambda result: (result.read("!dd"), result.read("!dd")),
-                      tc.VAR_HAS_VIEW: lambda result: result.read("!B") != 0,
+                      tc.VAR_HAS_VIEW: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_TRACK_VEHICLE: Storage.readString}
 
 
@@ -96,9 +96,8 @@ class GuiDomain(Domain):
         Set the current boundary for the given view (see getBoundary()).
         """
         self._connection._beginMessage(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1 + 8 + 8 + 8 + 8)
-        self._connection._string += struct.pack("!Bdddd",
-                                                tc.TYPE_BOUNDINGBOX, xmin, ymin, xmax, ymax)
+            tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1 + 1 + 8 + 8 + 8 + 8)
+        self._connection._string += struct.pack("!BBdddd", tc.TYPE_POLYGON, 2, xmin, ymin, xmax, ymax)
         self._connection._sendExact()
 
     def screenshot(self, viewID, filename, width=-1, height=-1):

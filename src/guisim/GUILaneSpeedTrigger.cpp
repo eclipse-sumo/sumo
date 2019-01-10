@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -149,7 +145,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
                           0, 0, 0, 0,   2, 2, 0, 0);
         myUserDefinedSpeed =
             new FXRealSpinner(gf12, 10, this, MID_USER_DEF,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+                              LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         //myUserDefinedSpeed->setFormatString("%.0f km/h");
         //myUserDefinedSpeed->setIncrements(1, 10, 10);
         myUserDefinedSpeed->setIncrement(10);

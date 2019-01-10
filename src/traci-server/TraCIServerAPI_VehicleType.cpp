@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <limits>
 #include <utils/emissions/PollutantsInterface.h>
@@ -45,42 +41,11 @@
 bool
 TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                        tcpip::Storage& outputStorage) {
-    // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_ACCEL
-            && variable != VAR_DECEL && variable != VAR_EMERGENCY_DECEL && variable != VAR_APPARENT_DECEL
-            && variable != VAR_TAU && variable != VAR_VEHICLECLASS && variable != VAR_EMISSIONCLASS
-            && variable != VAR_SHAPECLASS && variable != VAR_ACTIONSTEPLENGTH
-            && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_IMPERFECTION
-            && variable != VAR_MINGAP && variable != VAR_WIDTH && variable != VAR_COLOR && variable != ID_COUNT
-            && variable != VAR_HEIGHT
-            && variable != VAR_MINGAP_LAT
-            && variable != VAR_MAXSPEED_LAT
-            && variable != VAR_LATALIGNMENT
-            && variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
-                                          "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2)
-                                          + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_VEHICLETYPE_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
-    if (variable == ID_LIST) {
-        std::vector<std::string> ids = libsumo::VehicleType::getIDList();
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(ids);
-    } else if (variable == ID_COUNT) {
-        std::vector<std::string> ids = libsumo::VehicleType::getIDList();
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt((int) ids.size());
-    } else {
-        try {
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_VEHICLETYPE_VARIABLE, variable, id);
+    try {
+        if (!libsumo::VehicleType::handleVariable(id, variable, &server)) {
             switch (variable) {
                 case VAR_PARAMETER: {
                     std::string paramName = "";
@@ -88,140 +53,24 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
                         return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
                                                           "Retrieval of a parameter requires its name.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::VehicleType::getParameter(id, paramName));
-                }
-                break;
-                default:
-                    getVariable(variable, id, tempMsg);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::VehicleType::getParameter(id, paramName));
                     break;
+                }
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
+                                                      "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2)
+                                                      + " specified", outputStorage);
             }
-        } catch (libsumo::TraCIException& e) {
-            return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
         }
+    } catch (libsumo::TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 
-bool
-TraCIServerAPI_VehicleType::getVariable(const int variable, const std::string& id, tcpip::Storage& tempMsg) {
-    switch (variable) {
-        case VAR_LENGTH: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getLength(id));
-        }
-        break;
-        case VAR_HEIGHT: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getHeight(id));
-        }
-        break;
-        case VAR_MINGAP: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getMinGap(id));
-        }
-        break;
-        case VAR_MAXSPEED: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getMaxSpeed(id));
-        }
-        break;
-        case VAR_ACCEL: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getAccel(id));
-        }
-        break;
-        case VAR_DECEL: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getDecel(id));
-        }
-        break;
-        case VAR_EMERGENCY_DECEL: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getEmergencyDecel(id));
-        }
-        break;
-        case VAR_APPARENT_DECEL: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getApparentDecel(id));
-        }
-        break;
-        case VAR_ACTIONSTEPLENGTH: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getActionStepLength(id));
-        }
-        break;
-        case VAR_IMPERFECTION: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getImperfection(id));
-        }
-        break;
-        case VAR_TAU: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getTau(id));
-        }
-        break;
-        case VAR_SPEED_FACTOR: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getSpeedFactor(id));
-        }
-        break;
-        case VAR_SPEED_DEVIATION: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getSpeedDeviation(id));
-        }
-        break;
-        case VAR_VEHICLECLASS: {
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(libsumo::VehicleType::getVehicleClass(id));
-        }
-        break;
-        case VAR_EMISSIONCLASS: {
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(libsumo::VehicleType::getEmissionClass(id));
-        }
-        break;
-        case VAR_SHAPECLASS: {
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(libsumo::VehicleType::getShapeClass(id));
-        }
-        break;
-        case VAR_WIDTH: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getWidth(id));
-        }
-        break;
-        case VAR_COLOR: {
-            tempMsg.writeUnsignedByte(TYPE_COLOR);
-            const libsumo::TraCIColor& col = libsumo::VehicleType::getColor(id);
-            tempMsg.writeUnsignedByte(col.r);
-            tempMsg.writeUnsignedByte(col.g);
-            tempMsg.writeUnsignedByte(col.b);
-            tempMsg.writeUnsignedByte(col.a);
-        }
-        break;
-        case VAR_MINGAP_LAT: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getMinGapLat(id));
-        }
-        break;
-        case VAR_MAXSPEED_LAT: {
-            tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-            tempMsg.writeDouble(libsumo::VehicleType::getMaxSpeedLat(id));
-        }
-        break;
-        case VAR_LATALIGNMENT: {
-            tempMsg.writeUnsignedByte(TYPE_STRING);
-            tempMsg.writeString(libsumo::VehicleType::getLateralAlignment(id));
-        }
-        break;
-        default:
-            break;
-    }
-    return true;
-}
 
 bool
 TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
@@ -313,7 +162,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
             try {
                 libsumo::VehicleType::setVehicleClass(id, vclass);
-            } catch (InvalidArgument e) {
+            } catch (InvalidArgument&) {
                 return server.writeErrorStatusCmd(cmd, "Unknown vehicle class '" + vclass + "'.", outputStorage);
             }
         }
@@ -347,8 +196,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
             try {
                 libsumo::VehicleType::setEmissionClass(id, eclass);
-            } catch (InvalidArgument e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown emission class '" + eclass + "'.", outputStorage);
+            } catch (InvalidArgument& e) {
+                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
             }
         }
         break;
@@ -416,8 +265,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
             try {
                 libsumo::VehicleType::setShapeClass(id, sclass);
-            } catch (InvalidArgument e) {
-                return server.writeErrorStatusCmd(cmd, "Unknown vehicle shape " + sclass + "'.", outputStorage);
+            } catch (InvalidArgument& e) {
+                return server.writeErrorStatusCmd(cmd, e.what(), outputStorage);
             }
         }
         break;

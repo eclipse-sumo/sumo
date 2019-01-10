@@ -109,7 +109,7 @@ def _writeMissing(t, vIDm, seen, vehInfo, removed):
     for v in vIDm._m:
         if v in seen:
             continue
-        nid = vIDm.g(v)
+        vIDm.g(v)
         vehInfo[v][2] = t
         toDel.append(v)
         removed.add(v)

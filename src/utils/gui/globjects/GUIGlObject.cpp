@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <stack>
@@ -41,6 +37,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
 
@@ -60,6 +57,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"tlLogic",             GLO_TLLOGIC},
     {"additional",          GLO_ADDITIONAL},
     {"busStop",             GLO_BUS_STOP},
+    {"access",              GLO_ACCESS},
     {"containerStop",       GLO_CONTAINER_STOP},
     {"chargingStation",     GLO_CHARGING_STATION},
     {"parkingArea",         GLO_PARKING_AREA},
@@ -109,6 +107,7 @@ GUIGlObject::~GUIGlObject() {
     for (auto i : myParamWindows) {
         i->removeObject(this);
     }
+    GLObjectValuePassConnector<double>::removeObject(*this);
     GUIGlObjectStorage::gIDStorage.remove(getGlID());
 }
 
@@ -119,7 +118,7 @@ GUIGlObject::getFullName() const {
 }
 
 
-const std::string&
+std::string
 GUIGlObject::getParentName() const {
     return StringUtils::emptyString;
 }

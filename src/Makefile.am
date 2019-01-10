@@ -102,6 +102,4 @@ $(VERSION_H): ../.git
 	../tools/build/version.py $(CURDIR)
 endif
 
-EXTRA_DIST = config.h config.h.in \
-$(VERSION_H) guisim.rc \
-windows_config.h
+EXTRA_DIST = config.h config.h.in $(VERSION_H) guisim.rc

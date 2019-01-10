@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -218,7 +214,7 @@ GNEInternalLane::colorForLinksState(FXuint state) {
     } else {
         try {
             return GUIVisualizationSettings::getLinkColor((LinkState)state);
-        } catch (ProcessError) {
+        } catch (ProcessError&) {
             std::cout << "invalid link state='" << state << "'\n";
             return RGBColor::BLACK;
         }

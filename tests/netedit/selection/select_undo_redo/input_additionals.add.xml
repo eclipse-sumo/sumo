@@ -1,15 +1,19 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_3_1_0" lane="3_1" startPos="0.20" endPos="10.20"/>
     <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="0.00,100.00">
         <detEntry lane="6_1" pos="36.66" friendlyPos="0"/>
+		<detExit lane="6_1" pos="26.66" friendlyPos="0"/>
     </e3Detector>
     <e3Detector id="e3Detector_1" freq="100.00" file="e3Detector_1.txt" timeThreshold="1.00" speedThreshold="1.39" pos="100.00,100.00">
-        <detExit lane="2_1" pos="4.87" friendlyPos="0"/>
+        <detEntry lane="2_1" pos="4.87" friendlyPos="0"/>
+		<detExit lane="2_1" pos="5.87" friendlyPos="0"/>
     </e3Detector>
     <e3Detector id="e3Detector_2" freq="100.00" file="e3Detector_2.txt" timeThreshold="1.00" speedThreshold="1.39" pos="100.00,0.00">
         <detEntry lane="4_1" pos="6.40" friendlyPos="0"/>
+		<detExit lane="4_1" pos="7.40" friendlyPos="0"/>
     </e3Detector>
     <e3Detector id="e3Detector_3" freq="100.00" file="e3Detector_3.txt" timeThreshold="1.00" speedThreshold="1.39" pos="0.00,0.00">
-        <detExit lane="7_2" pos="36.48" friendlyPos="0"/>
+        <detEntry lane="7_2" pos="36.48" friendlyPos="0"/>
+		<detExit lane="7_2" pos="26.48" friendlyPos="0"/>
     </e3Detector>
-</additionals>
+</additional>

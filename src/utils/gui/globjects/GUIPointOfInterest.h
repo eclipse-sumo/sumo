@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/shapes/PointOfInterest.h>
@@ -116,6 +112,12 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
+protected:
+    /// @brief after every iteration of drawgl, position of vertices that make the circle are saved here. It used to drawn a dotted contour in Netedit)
+    static std::vector<Position> myPOIVertices;
+
+    /// @brief set color
+    void setColor(const GUIVisualizationSettings& s) const;
 };
 
 

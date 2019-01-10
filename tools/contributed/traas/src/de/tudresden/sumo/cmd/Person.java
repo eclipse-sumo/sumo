@@ -472,6 +472,30 @@ public class Person {
 		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.CMD_REROUTE_TRAVELTIME, personID, array);
 	}
 	
+	/**
+	 * Place person at the given x,y coordinates and force it's angle to
+        the given value (for drawing).
+        If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
+        natural angle of the edge on which it is driving.
+        If keepRoute is set to 1, the closest position
+        within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
+        any edge in the network but it's route then only consists of that edge.
+        If keepRoute is set to 2 the person has all the freedom of keepRoute=0
+        but in addition to that may even move outside the road network.
+        edgeID is an optional placement hint to resolve ambiguities
 
+	 * @param personID person id
+	 * @param edgeID edge id
+	 * @param x x
+	 * @param y y
+	 * @param angle angle
+	 * @param  keepRoute keepRoute 
+	 * @return SumoCommand
+	 */
+	public static SumoCommand moveToXY(String personID, String edgeID, double x, double y, double angle, byte keepRoute){
+
+		Object[] array = new Object[]{edgeID,  x, y, angle, keepRoute};
+		return new SumoCommand(Constants.CMD_SET_PERSON_VARIABLE, Constants.MOVE_TO_XY, personID, array);
+	}
 	
 }

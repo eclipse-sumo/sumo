@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSNet.h>
 #include <microsim/MSRoute.h>
@@ -41,51 +37,30 @@
 bool
 TraCIServerAPI_Route::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                  tcpip::Storage& outputStorage) {
-    // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != VAR_EDGES && variable != ID_COUNT && variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Get Route Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_ROUTE_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_ROUTE_VARIABLE, variable, id);
     try {
-        switch (variable) {
-            case ID_LIST:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::Route::getIDList());
-                break;
-            case ID_COUNT:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::Route::getIDCount());
-                break;
-            case VAR_EDGES:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::Route::getEdges(id));
-                break;
-            case VAR_PARAMETER: {
-                std::string paramName = "";
-                if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                    return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+        if (!libsumo::Route::handleVariable(id, variable, &server)) {
+            switch (variable) {
+                case VAR_PARAMETER: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::Route::getParameter(id, paramName));
+                    break;
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::Route::getParameter(id, paramName));
-                break;
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, "Get Route Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
-            default:
-                break;
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_ROUTE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_ROUTE_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 

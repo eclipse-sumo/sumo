@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
@@ -48,56 +44,14 @@
 bool
 TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                 tcpip::Storage& outputStorage) {
-    // variable
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != LANE_LINK_NUMBER && variable != LANE_EDGE_ID && variable != VAR_LENGTH
-            && variable != VAR_MAXSPEED && variable != LANE_LINKS && variable != VAR_SHAPE
-            && variable != VAR_CO2EMISSION && variable != VAR_COEMISSION && variable != VAR_HCEMISSION && variable != VAR_PMXEMISSION
-            && variable != VAR_NOXEMISSION && variable != VAR_FUELCONSUMPTION && variable != VAR_NOISEEMISSION
-            && variable != VAR_ELECTRICITYCONSUMPTION && variable != VAR_WAITING_TIME
-            && variable != LAST_STEP_MEAN_SPEED && variable != LAST_STEP_VEHICLE_NUMBER
-            && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_OCCUPANCY && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
-            && variable != LAST_STEP_LENGTH && variable != VAR_CURRENT_TRAVELTIME
-            && variable != LANE_ALLOWED && variable != LANE_DISALLOWED && variable != VAR_FOES
-            && variable != VAR_WIDTH && variable != ID_COUNT && variable != VAR_PARAMETER
-       ) {
-        return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_LANE_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    if (variable == ID_LIST) {
-        tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-        tempMsg.writeStringList(libsumo::Lane::getIDList());
-    } else if (variable == ID_COUNT) {
-        tempMsg.writeUnsignedByte(TYPE_INTEGER);
-        tempMsg.writeInt(libsumo::Lane::getIDCount());
-    } else {
-        try {
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_LANE_VARIABLE, variable, id);
+    try {
+        if (!libsumo::Lane::handleVariable(id, variable, &server)) {
             switch (variable) {
-                case LANE_LINK_NUMBER:
-                    tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                    tempMsg.writeUnsignedByte(libsumo::Lane::getLinkNumber(id));
-                    break;
-                case LANE_EDGE_ID:
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Lane::getEdgeID(id));
-                    break;
-                case VAR_LENGTH:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getLength(id));
-                    break;
-                case VAR_MAXSPEED:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getMaxSpeed(id));
-                    break;
                 case LANE_LINKS: {
-                    tempMsg.writeUnsignedByte(TYPE_COMPOUND);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
                     const std::vector<libsumo::TraCIConnection> links = libsumo::Lane::getLinks(id);
                     tcpip::Storage tempContent;
                     int cnt = 0;
@@ -138,134 +92,51 @@ TraCIServerAPI_Lane::processGet(TraCIServer& server, tcpip::Storage& inputStorag
                         tempContent.writeDouble(i->length);
                         ++cnt;
                     }
-                    tempMsg.writeInt(cnt);
-                    tempMsg.writeStorage(tempContent);
+                    server.getWrapperStorage().writeInt(cnt);
+                    server.getWrapperStorage().writeStorage(tempContent);
+                    break;
                 }
-                break;
-                case LANE_ALLOWED: {
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(libsumo::Lane::getAllowed(id));
-                }
-                break;
-                case LANE_DISALLOWED: {
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(libsumo::Lane::getDisallowed(id));
-                }
-                break;
                 case VAR_FOES: {
                     std::string toLane;
                     if (!server.readTypeCheckingString(inputStorage, toLane)) {
                         return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "foe retrieval requires a string.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRINGLIST);
                     if (toLane == "") {
-                        tempMsg.writeStringList(libsumo::Lane::getInternalFoes(id));
+                        server.getWrapperStorage().writeStringList(libsumo::Lane::getInternalFoes(id));
                     } else {
-                        tempMsg.writeStringList(libsumo::Lane::getFoes(id, toLane));
+                        server.getWrapperStorage().writeStringList(libsumo::Lane::getFoes(id, toLane));
                     }
+                    break;
                 }
-                break;
                 case VAR_SHAPE: {
-                    tempMsg.writeUnsignedByte(TYPE_POLYGON);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_POLYGON);
                     libsumo::TraCIPositionVector shp = libsumo::Lane::getShape(id);
-                    tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
+                    server.getWrapperStorage().writeUnsignedByte(MIN2(255, (int)shp.size()));
                     for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
-                        tempMsg.writeDouble(shp[iPoint].x);
-                        tempMsg.writeDouble(shp[iPoint].y);
+                        server.getWrapperStorage().writeDouble(shp[iPoint].x);
+                        server.getWrapperStorage().writeDouble(shp[iPoint].y);
                     }
+                    break;
                 }
-                break;
-                case VAR_CO2EMISSION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getCO2Emission(id));
-                    break;
-                case VAR_COEMISSION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getCOEmission(id));
-                    break;
-                case VAR_HCEMISSION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getHCEmission(id));
-                    break;
-                case VAR_PMXEMISSION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getPMxEmission(id));
-                    break;
-                case VAR_NOXEMISSION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getNOxEmission(id));
-                    break;
-                case VAR_FUELCONSUMPTION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getFuelConsumption(id));
-                    break;
-                case VAR_NOISEEMISSION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getNoiseEmission(id));
-                    break;
-                case VAR_ELECTRICITYCONSUMPTION:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getElectricityConsumption(id));
-                    break;
-                case LAST_STEP_VEHICLE_NUMBER:
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(libsumo::Lane::getLastStepVehicleNumber(id));
-                    break;
-                case LAST_STEP_MEAN_SPEED:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getLastStepMeanSpeed(id));
-                    break;
-                case LAST_STEP_VEHICLE_ID_LIST: {
-                    tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                    tempMsg.writeStringList(libsumo::Lane::getLastStepVehicleIDs(id));
-                }
-                break;
-                case LAST_STEP_OCCUPANCY:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getLastStepOccupancy(id));
-                    break;
-                case LAST_STEP_VEHICLE_HALTING_NUMBER: {
-                    tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                    tempMsg.writeInt(libsumo::Lane::getLastStepHaltingNumber(id));
-                }
-                break;
-                case LAST_STEP_LENGTH: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getLastStepLength(id));
-                }
-                break;
-                case VAR_WAITING_TIME: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getWaitingTime(id));
-                }
-                break;
-                case VAR_CURRENT_TRAVELTIME: {
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getTraveltime(id));
-                }
-                break;
-                case VAR_WIDTH:
-                    tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                    tempMsg.writeDouble(libsumo::Lane::getWidth(id));
-                    break;
                 case VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
                         return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Lane::getParameter(id, paramName));
-                }
-                break;
-                default:
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::Lane::getParameter(id, paramName));
                     break;
+                }
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, "Get Lane Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
-        } catch (libsumo::TraCIException& e) {
-            return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, e.what(), outputStorage);
         }
+    } catch (libsumo::TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_LANE_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_LANE_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 
@@ -341,17 +212,6 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             break;
     }
     server.writeStatusCmd(CMD_SET_LANE_VARIABLE, RTYPE_OK, warning, outputStorage);
-    return true;
-}
-
-
-bool
-TraCIServerAPI_Lane::getShape(const std::string& id, PositionVector& shape) {
-    const MSLane* const l = MSLane::dictionary(id);
-    if (l == 0) {
-        return false;
-    }
-    shape = l->getShape();
     return true;
 }
 

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNENetElement.h"
 
@@ -53,16 +49,19 @@ public:
      * @param[in] parentJunction GNEJunction in which this crossing is placed
      * @param[in] crossing Node::Crossing
      */
-    GNECrossing(GNEJunction* parentJunction, NBNode::Crossing* crossing);
+    GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> edges);
 
     /// @brief Destructor
-    virtual ~GNECrossing();
+    ~GNECrossing();
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;
+
+    /// @brief get crossingEdges
+    const std::vector<NBEdge*>& getCrossingEdges() const;
 
     ///@brief get referente to NBode::Crossing
     NBNode::Crossing* getNBCrossing() const;
@@ -115,6 +114,32 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @name Function related with Generic Parameters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string& key, const std::string& value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string& key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
+
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
+    /// @}
+
     /// @brief return true if a edge belongs to crossing's edges
     bool checkEdgeBelong(GNEEdge* edges) const;
 
@@ -125,10 +150,13 @@ protected:
     /// @brief the parent junction of this crossing
     GNEJunction* myParentJunction;
 
-    /// @brief the data for this crossing
-    NBNode::Crossing* myCrossing;
+    /// @brief Crossing Edges (It works as ID because a junction can only ONE Crossing with the same edges)
+    std::vector<NBEdge*> myCrossingEdges;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @brief crossingShape
+    PositionVector myShape;
+
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;
@@ -138,11 +166,11 @@ protected:
     /// @}
 
 private:
-    /// @brief flag used for force draw custom shape
-    bool myForceDrawCustomShape;
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for check if mouse is over objects
+    void mouseOverObject(const GUIVisualizationSettings& s) const;
 
     /// @brief draw TLS Link Number
     void drawTLSLinkNo(const GUIVisualizationSettings& s) const;

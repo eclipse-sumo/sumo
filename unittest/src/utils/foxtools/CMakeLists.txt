@@ -1,6 +1,7 @@
 add_executable(testfoxtools
         FXWorkerThreadTest.cpp
         )
+add_test(NAME testfoxtools COMMAND $<TARGET_FILE:testfoxtools>)
 set_target_properties(testfoxtools PROPERTIES OUTPUT_NAME_DEBUG testfoxtoolsD)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

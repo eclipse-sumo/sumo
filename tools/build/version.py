@@ -150,7 +150,7 @@ def main():
                 else:
                     svnInfo = subprocess.check_output(['svn', 'info', sumoSrc])
                     revision = "dev-SVN-r" + re.search('Revision: (\d*)', svnInfo).group(1)
-            except:
+            except Exception:
                 revision = parseRevision(vcsFile)
             create_version_file(versionFile, revision, vcsFile)
 

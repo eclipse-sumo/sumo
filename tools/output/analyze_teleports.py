@@ -49,7 +49,7 @@ def parse_log(logfile, edges=True, aggregate=3600):
                 else:
                     waitingCounts[edge] += 1
                     waitingStepCounts[int(time) / aggregate] += 1
-        except:
+        except Exception:
             print(sys.exc_info())
             sys.exit("error when parsing line '%s'" % line)
 
@@ -74,11 +74,12 @@ def main(logfile):
         max_step = max(waitingStepCounts.keys() + collisionStepCounts.keys())
         plotfile = logfile + '.plot'
         with open(plotfile, 'w') as f:
-            f.write("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title 'collisions'\n" % (
-                plotfile, plotfile))
+            f.write(("# plot '%s' using 1:2 with lines title 'waiting', '%s' using 1:3 with lines title " +
+                     "'collisions'\n") % (plotfile, plotfile))
             for step in range(min_step, max_step + 1):
                 print(' '.join(
                     map(str, [step, waitingStepCounts[step], collisionStepCounts[step]])), file=f)
+
 
 if __name__ == "__main__":
     main(*sys.argv[1:])

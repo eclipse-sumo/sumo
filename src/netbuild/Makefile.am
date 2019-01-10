@@ -2,6 +2,7 @@ noinst_LIBRARIES = libnetbuild.a
 
 libnetbuild_a_SOURCES = NBAlgorithms.cpp NBAlgorithms.h \
 NBAlgorithms_Ramps.cpp NBAlgorithms_Ramps.h \
+NBAlgorithms_Railway.cpp NBAlgorithms_Railway.h \
 NBCapacity2Lanes.h NBConnection.cpp NBConnection.h \
 NBConnectionDefs.h NBCont.h NBContHelper.cpp NBContHelper.h \
 NBDistrict.cpp NBDistrict.h \
@@ -25,6 +26,7 @@ NBLoadedTLDef.cpp NBLoadedTLDef.h \
 NBLoadedSUMOTLDef.cpp NBLoadedSUMOTLDef.h \
 NBNetBuilder.cpp NBNetBuilder.h \
 NBParking.h NBParking.cpp \
+NBVehicle.h \
 NBPTLine.h NBPTLine.cpp \
 NBPTLineCont.h NBPTLineCont.cpp \
 NBPTPlatform.h NBPTPlatform.cpp

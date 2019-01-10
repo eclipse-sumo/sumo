@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSInternalJunction.h"
 #include "MSRightOfWayJunction.h"
@@ -73,21 +69,27 @@ MSInternalJunction::postloadInit() {
     const MSLogicJunction::LinkBits& response = parent->getLogic()->getResponseFor(ownLinkIndex);
     // inform links where they have to report approaching vehicles to
     int requestPos = 0;
+    //std::cout << " special=" << specialLane->getID() << " incoming=" << toString(myIncomingLanes) << " internal=" << toString(myInternalLanes) << "\n";
     for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
             if ((*q)->getViaLane() != 0) {
                 const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
-                if (response.test(foeIndex)) {
+                //std::cout << "       response=" << response << " index=" << ownLinkIndex << " foeIndex=" << foeIndex << " ibct=" << indirectBicycleTurn(specialLane, thisLink, *i, *q) << "\n";
+                if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, *i, *q)) {
                     // only respect vehicles before internal junctions if they
                     // have priority (see the analogous foeLinks.test() when
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
+                    // Indirect left turns for bicycles are a special case
+                    // because they both intersect on their second part with the first part of the other one
+                    // and only one of the has priority
                     myInternalLaneFoes.push_back(*i);
                 }
                 myInternalLaneFoes.push_back((*q)->getViaLane());
             } else {
                 myInternalLaneFoes.push_back(*i);
             }
+            //std::cout << "  i=" << (*i)->getID() << " qLane=" << (*q)->getLane()->getID() << " qVia=" << Named::getIDSecure((*q)->getViaLane()) << " foes=" << toString(myInternalLaneFoes) << "\n";
         }
 
     }
@@ -114,6 +116,18 @@ MSInternalJunction::postloadInit() {
     }
 }
 
+
+bool
+MSInternalJunction::indirectBicycleTurn(const MSLane* specialLane, const MSLink* thisLink, const MSLane* foeFirstPart, const MSLink* foeLink) const {
+    if (specialLane->getPermissions() == SVC_BICYCLE && foeFirstPart->getPermissions() == SVC_BICYCLE
+            && thisLink->getDirection() == LINKDIR_LEFT && foeLink->getDirection() == LINKDIR_LEFT
+            && thisLink->getViaLane() != 0
+            && thisLink->getViaLane()->getShape().intersects(foeFirstPart->getShape())) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 /****************************************************************************/
 

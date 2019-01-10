@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <fstream>
@@ -96,6 +92,9 @@ bool
 ROJTRFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = ROFrame::checkOptions(oc);
+    if (oc.isDefault("no-internal-links")) {
+        oc.set("no-internal-links", "true");
+    }
 
     SUMOVehicleParameter p;
     std::string error;

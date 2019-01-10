@@ -29,7 +29,7 @@ import version
 
 
 optParser = optparse.OptionParser()
-optParser.add_option("-b", "--begin", default="51bb151", help="first revision to build")
+optParser.add_option("-b", "--begin", default="1e86430b48", help="first revision to build")
 optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
 options, args = optParser.parse_args()
 
@@ -63,6 +63,6 @@ try:
             for d in dups[1:]:
                 subprocess.call('ln -sf %s %s' % (dups[0], d), shell=True)
     subprocess.call(["git", "checkout", "-q", "master"])
-except:
+except Exception:
     traceback.print_exc()
 os.remove(LOCK)

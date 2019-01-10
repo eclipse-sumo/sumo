@@ -32,15 +32,15 @@ class CommandMock : public Command {
 public:
     /** @brief Constructor
      */
-	CommandMock() throw(){
+	CommandMock() {
 		hasRun = false;
 	}
 
     /// @brief Destructor
-	~CommandMock() throw(){}
+	~CommandMock() {}
 
 	/** @brief Executes the command.*/
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError) {
+    SUMOTime execute(SUMOTime currentTime) {
 		hasRun = true;
 		return currentTime;
 	} 

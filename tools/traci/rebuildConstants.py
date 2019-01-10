@@ -91,6 +91,7 @@ def translateFile(filePath, fdo, start, item, end):
                 if options.java:
                     fdo.write("public class TraCIConstants {")
 
+
 srcDir = os.path.join(dirname, "..", "..", "src")
 translateFile(os.path.join(srcDir, "traci-server", "TraCIConstants.h"),
               fdo, "#define TRACICONSTANTS_H", "#define ", "#endif")

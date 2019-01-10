@@ -89,6 +89,17 @@ public class Trafficlight {
 	}
 
 	/**
+	 * Returns the junctions controlled by the traffic light
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return list of controlled junctions
+	 */
+
+	public static SumoCommand getControlledJunctions(String tlsID){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_CONTROLLED_JUNCTIONS, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_COMPOUND);
+	}
+	
+	/**
 	 * Returns the external state
 	 * 
 	 * @param tlsID a string identifying the traffic light

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <fx.h>
@@ -171,27 +167,6 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* sender, FXSelector sel, vo
 
 
 void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic, ValueSource<unsigned>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<unsigned>(myTable, myCurrentPos++, name, dynamic, src);
-    myItems.push_back(i);
-}
-
-
-void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic, ValueSource<int>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<int>(myTable, myCurrentPos++, name, dynamic, src);
-    myItems.push_back(i);
-}
-
-
-void
-GUIParameterTableWindow::mkItem(const char* name, bool dynamic, ValueSource<double>* src) {
-    GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, src);
-    myItems.push_back(i);
-}
-
-
-void
 GUIParameterTableWindow::mkItem(const char* name, bool dynamic, std::string value) {
     // T = double is only a dummy type here
     GUIParameterTableItemInterface* i = new GUIParameterTableItem<double>(myTable, myCurrentPos++, name, dynamic, value);
@@ -246,7 +221,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
         p = dynamic_cast<const Parameterised*>(myObject);
     }
     if (p != 0) {
-        const std::map<std::string, std::string>& map = p->getMap();
+        const std::map<std::string, std::string>& map = p->getParametersMap();
         for (std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it) {
             mkItem(("param:" + it->first).c_str(), false, it->second);
         }
@@ -260,7 +235,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
 int
 GUIParameterTableWindow::numParams(const GUIGlObject* obj) {
     const Parameterised* p = dynamic_cast<const Parameterised*>(obj);
-    return p != 0 ? (int)p->getMap().size() : 0;
+    return p != 0 ? (int)p->getParametersMap().size() : 0;
 }
 
 

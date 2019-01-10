@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include "OutputDevice_CERR.h"
@@ -52,7 +48,9 @@ OutputDevice_CERR::getDevice() {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_CERR::OutputDevice_CERR() {}
+OutputDevice_CERR::OutputDevice_CERR() {
+    myFilename = "CERR";
+}
 
 
 OutputDevice_CERR::~OutputDevice_CERR() {

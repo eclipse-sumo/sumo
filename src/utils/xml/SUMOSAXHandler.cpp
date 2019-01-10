@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -37,9 +33,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOSAXHandler::SUMOSAXHandler(const std::string& file)
+SUMOSAXHandler::SUMOSAXHandler(const std::string& file, const std::string& expectedRoot)
     : GenericSAXHandler(SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING,
-                        SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING, file) {}
+                        SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING, file, expectedRoot) {}
 
 
 SUMOSAXHandler::~SUMOSAXHandler() {}

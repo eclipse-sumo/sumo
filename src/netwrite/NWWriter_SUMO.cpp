@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 #include <cmath>
 #include <algorithm>
 #include <utils/options/OptionsCont.h>
@@ -49,6 +45,7 @@
 #include "NWWriter_SUMO.h"
 
 
+//#define DEBUG_OPPOSITE_INTERNAL
 
 // ===========================================================================
 // method definitions
@@ -80,6 +77,9 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     if (oc.getBool("crossings.guess") || oc.getBool("walkingareas")) {
         attrs[SUMO_ATTR_WALKINGAREAS] = "true";
+    }
+    if (oc.getFloat("junctions.limit-turn-speed") > 0) {
+        attrs[SUMO_ATTR_LIMIT_TURN_SPEED] = toString(oc.getFloat("junctions.limit-turn-speed"));
     }
     device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
     device.lf();
@@ -227,10 +227,14 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 
 std::string
-NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con) {
+NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength) {
     const NBEdge::Lane& succ = con.toEdge->getLanes()[con.toLane];
     const NBEdge::Lane& pred = from->getLanes()[con.fromLane];
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     if (succ.oppositeID != "" && succ.oppositeID != "-" && pred.oppositeID != "" && pred.oppositeID != "-") {
+#ifdef DEBUG_OPPOSITE_INTERNAL
+        std::cout << "getOppositeInternalID con=" << con.getDescription(from) << " (" << con.getInternalLaneID() << ")\n";
+#endif
         // find the connection that connects succ.oppositeID to pred.oppositeID
         const NBEdge* succOpp = ec.retrieve(succ.oppositeID.substr(0, succ.oppositeID.rfind("_")));
         const NBEdge* predOpp = ec.retrieve(pred.oppositeID.substr(0, pred.oppositeID.rfind("_")));
@@ -239,13 +243,33 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
         const std::vector<NBEdge::Connection>& connections = succOpp->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator it_c = connections.begin(); it_c != connections.end(); it_c++) {
             const NBEdge::Connection& conOpp = *it_c;
-            if (succOpp != from && // turnaround
-                    succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID &&
-                    predOpp == conOpp.toEdge &&
-                    predOpp->getLaneID(conOpp.toLane) == pred.oppositeID &&
-                    // same lengths (@note: averaging is not taken into account)
-                    con.shape.length() == conOpp.shape.length()) {
+            if (succOpp != from // turnaround
+                    && predOpp == conOpp.toEdge
+                    && succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID
+                    && predOpp->getLaneID(conOpp.toLane) == pred.oppositeID
+                    && from->getToNode()->getDirection(from, con.toEdge, lefthand) == LINKDIR_STRAIGHT
+                    && from->getToNode()->getDirection(succOpp, predOpp, lefthand) == LINKDIR_STRAIGHT
+               ) {
+#ifdef DEBUG_OPPOSITE_INTERNAL
+                std::cout << "  found " << conOpp.getInternalLaneID() << "\n";
+#endif
+                oppositeLength = conOpp.length;
                 return conOpp.getInternalLaneID();
+            } else {
+                /*
+                #ifdef DEBUG_OPPOSITE_INTERNAL
+                std::cout << "  rejected " << conOpp.getInternalLaneID()
+                    << "\n     succ.oppositeID=" << succ.oppositeID
+                    << "\n         succOppLane=" << succOpp->getLaneID(conOpp.fromLane)
+                    << "\n     pred.oppositeID=" << pred.oppositeID
+                    << "\n         predOppLane=" << predOpp->getLaneID(conOpp.toLane)
+                    << "\n      predOpp=" << predOpp->getID()
+                    << "\n     conOppTo=" << conOpp.toEdge->getID()
+                    << "\n     len1=" << con.shape.length()
+                    << "\n     len2=" << conOpp.shape.length()
+                    << "\n";
+                #endif
+                */
             }
         }
         return "";
@@ -259,18 +283,34 @@ bool
 NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, const NBNode& n) {
     bool ret = false;
     const EdgeVector& incoming = n.getIncomingEdges();
+    // first pass: determine opposite internal edges and average their length
+    std::map<std::string, std::string> oppositeLaneID;
+    std::map<std::string, double> oppositeLengths;
+    for (NBEdge* e : incoming) {
+        for (const NBEdge::Connection& c : e->getConnections()) {
+            double oppositeLength = 0;
+            const std::string op = getOppositeInternalID(ec, e, c, oppositeLength);
+            oppositeLaneID[c.getInternalLaneID()] = op;
+            if (op != "") {
+                oppositeLengths[c.id] = oppositeLength;
+            }
+        }
+    }
+    if (oppositeLengths.size() > 0) {
+        for (NBEdge* e : incoming) {
+            for (NBEdge::Connection& c : e->getConnections()) {
+                if (oppositeLengths.count(c.id) > 0) {
+                    c.length = (c.length + oppositeLengths[c.id]) / 2;
+                }
+            }
+        }
+    }
+
     for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         if (elv.size() > 0) {
             bool haveVia = false;
             std::string edgeID = "";
-            // first pass: compute average lengths of non-via edges
-            std::map<std::string, double> lengthSum;
-            std::map<std::string, int> numLanes;
-            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-                lengthSum[(*k).id] += MAX2((*k).shape.length(), POSITION_EPS);
-                numLanes[(*k).id] += 1;
-            }
             // second pass: write non-via edges
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 if ((*k).toEdge == 0) {
@@ -291,15 +331,11 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 // to avoid changing to an internal lane which has a successor
                 // with the wrong permissions we need to inherit them from the successor
                 const NBEdge::Lane& successor = (*k).toEdge->getLanes()[(*k).toLane];
-                const double length = lengthSum[edgeID] / numLanes[edgeID];
-                // @note the actual length should be used once sumo supports lanes of
-                // varying length within the same edge
-                //const double length = MAX2((*k).shape.length(), POSITION_EPS);
                 const double width = n.isConstantWidthTransition() && (*i)->getNumLanes() > (*k).toEdge->getNumLanes() ? (*i)->getLaneWidth((*k).fromLane) : successor.width;
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
-                          NBEdge::UNSPECIFIED_OFFSET, std::map<int,double>(), width, (*k).shape, &(*k),
-                          length, (*k).internalLaneIndex, getOppositeInternalID(ec, *i, *k));
+                          NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), width, (*k).shape, &(*k),
+                          (*k).length, (*k).internalLaneIndex, oppositeLaneID[(*k).getInternalLaneID()]);
                 haveVia = haveVia || (*k).haveVia;
             }
             ret = true;
@@ -319,7 +355,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.writeAttr(SUMO_ATTR_ID, (*k).viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
                     writeLane(into, (*k).viaID + "_0", (*k).vmax, SVCAll, SVCAll,
-                              NBEdge::UNSPECIFIED_OFFSET, std::map<int,double>(), successor.width, (*k).viaShape, &(*k),
+                              NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), successor.width, (*k).viaShape, &(*k),
                               MAX2((*k).viaShape.length(), POSITION_EPS), // microsim needs positive length
                               0, "");
                     into.closeTag();
@@ -334,7 +370,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_CROSSING);
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0,
-                NBEdge::UNSPECIFIED_OFFSET, std::map<int,double>(), c->width, c->shape, 0, MAX2(c->shape.length(), POSITION_EPS), 0, "", false, c->customShape.size() != 0);
+                  NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), c->width, c->shape, 0, MAX2(c->shape.length(), POSITION_EPS), 0, "", false, c->customShape.size() != 0);
         into.closeTag();
     }
     // write pedestrian walking areas
@@ -345,7 +381,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_ID, wa.id);
         into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_WALKINGAREA);
         writeLane(into, wa.id + "_0", 1, SVC_PEDESTRIAN, 0,
-                  NBEdge::UNSPECIFIED_OFFSET, std::map<int,double>(), wa.width, wa.shape, 0, wa.length, 0, "", false, wa.hasCustomShape);
+                  NBEdge::UNSPECIFIED_OFFSET, std::map<int, double>(), wa.width, wa.shape, 0, wa.length, 0, "", false, wa.hasCustomShape);
         into.closeTag();
     }
     return ret;
@@ -388,8 +424,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     const double length = e.getFinalLength();
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
-        std::map<int,double> stopOffsets;
-        if (l.stopOffsets != e.getStopOffsets()){
+        std::map<int, double> stopOffsets;
+        if (l.stopOffsets != e.getStopOffsets()) {
             stopOffsets = l.stopOffsets;
         }
         writeLane(into, e.getLaneID(i), l.speed,
@@ -405,7 +441,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
 void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double speed, SVCPermissions permissions, SVCPermissions preferred,
-                         double endOffset, std::map<SVCPermissions,double> stopOffsets, double width, PositionVector shape,
+                         double endOffset, std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                          const Parameterised* params, double length, int index,
                          const std::string& oppositeID, bool accelRamp, bool customShape) {
     // output the lane's attributes
@@ -443,7 +479,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     into.writeAttr(SUMO_ATTR_SHAPE, endOffset > 0 ?
                    shape.getSubpart(0, shape.length() - endOffset) : shape);
 
-    if (stopOffsets.size()!=0) {
+    if (stopOffsets.size() != 0) {
         writeStopOffsets(into, stopOffsets);
     }
 
@@ -542,11 +578,13 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
     const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
     // build the list of internal lane ids
     std::vector<std::string> internalLaneIDs;
+    std::map<std::string, std::string> viaIDs;
     for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
         const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
         for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
             if ((*k).toEdge != 0) {
                 internalLaneIDs.push_back((*k).getInternalLaneID());
+                viaIDs[(*k).getInternalLaneID()] = ((*k).viaID);
             }
         }
     }
@@ -565,12 +603,16 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
             into.writeAttr(SUMO_ATTR_TYPE, NODETYPE_INTERNAL);
             NWFrame::writePositionLong(pos, into);
             std::string incLanes = (*k).getInternalLaneID();
-            if ((*k).foeIncomingLanes.length() != 0) {
-                incLanes += " " + (*k).foeIncomingLanes;
+            std::vector<std::string> foeIDs;
+            for (std::string incLane : (*k).foeIncomingLanes) {
+                incLanes += " " + incLane;
+                if (incLane[0] == ':' && viaIDs[incLane] != "") {
+                    // intersecting left turns
+                    foeIDs.push_back(viaIDs[incLane] + "_0");
+                }
             }
             into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
             const std::vector<int>& foes = (*k).foeInternalLinks;
-            std::vector<std::string> foeIDs;
             for (std::vector<int>::const_iterator it = foes.begin(); it != foes.end(); ++it) {
                 foeIDs.push_back(internalLaneIDs[*it]);
             }
@@ -846,12 +888,12 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
 
 
 void
-NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions,double>& stopOffsets) {
-    if(stopOffsets.size() == 0) {
+NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets) {
+    if (stopOffsets.size() == 0) {
         return;
     }
     assert(stopOffsets.size() == 1);
-    std::pair<int,double> offset = *stopOffsets.begin();
+    std::pair<int, double> offset = *stopOffsets.begin();
     std::string ss_vclasses = getVehicleClassNames(offset.first);
     if (ss_vclasses.length() == 0) {
         // This stopOffset would have no effect...

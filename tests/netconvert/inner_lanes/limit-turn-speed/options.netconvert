@@ -1,0 +1,4 @@
+--edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --output=net.net.xml
+--junctions.limit-turn-speed 2
+--junctions.limit-turn-speed.min-angle 0
+--plain-output-prefix plain

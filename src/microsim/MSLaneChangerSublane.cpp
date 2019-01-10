@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSLaneChangerSublane.h"
 #include "MSNet.h"
@@ -45,6 +41,7 @@
 // ===========================================================================
 #define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
 //#define DEBUG_COND (vehicle->getID() == "disabled")
+//#define DEBUG_DECISION
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
 //#define DEBUG_MANEUVER
@@ -111,9 +108,11 @@ MSLaneChangerSublane::change() {
     // variant of change() for the sublane case
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
+#ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
     std::cout << "\nCHANGE" << std::endl;
 }
+#endif
 assert(vehicle->getLane() == (*myCandi).lane);
     assert(!vehicle->getLaneChangeModel().isChangingLanes());
     if (/*!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() ||*/ vehicle->isStoppedOnLane()) {
@@ -182,9 +181,11 @@ assert(vehicle->getLane() == (*myCandi).lane);
 
     StateAndDist decision = vehicle->getLaneChangeModel().decideDirection(current,
                             vehicle->getLaneChangeModel().decideDirection(right, left));
+#ifdef DEBUG_DECISION
     if (vehicle->getLaneChangeModel().debugVehicle()) {
         std::cout << "\n" << SIMTIME << " decision=" << toString((LaneChangeAction)decision.state) << " dir=" << decision.dir << " latDist=" << decision.latDist << " maneuverDist=" << decision.maneuverDist << "\n";
     }
+#endif
     vehicle->getLaneChangeModel().setOwnState(decision.state);
     vehicle->getLaneChangeModel().setManeuverDist(decision.maneuverDist);
     if ((decision.state & LCA_WANTS_LANECHANGE) != 0 && (decision.state & LCA_BLOCKED) == 0) {
@@ -336,6 +337,13 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // (should happen last because primaryLaneChanged() also triggers angle computation)
     // this part of the angle comes from the orientation of our current lane
     double laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
+    if (vehicle->getLane()->getShape().length2D() == 0) {
+        if (vehicle->getFurtherLanes().size() == 0) {
+            laneAngle = vehicle->getAngle();
+        } else {
+            laneAngle = vehicle->getFurtherLanes().front()->getShape().rotationAtOffset(-NUMERICAL_EPS);
+        }
+    }
     // this part of the angle comes from the vehicle's lateral movement
     double changeAngle = 0;
     // avoid flicker
@@ -563,7 +571,7 @@ MSLaneChangerSublane::checkChangeSublane(
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " stateAfterTraCI=" << toString((LaneChangeAction)state) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
 #endif
-    vehicle->getLaneChangeModel().saveState(laneOffset, oldstate, state);
+    vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
     return state;
 }
 

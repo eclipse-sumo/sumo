@@ -20,8 +20,8 @@ import os
 import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-from sumolib.output import parse
-from sumolib.miscutils import uMax, Statistics
+from sumolib.output import parse  # noqa
+from sumolib.miscutils import uMax, Statistics  # noqa
 
 
 def update_earliest(earliest_diffs, diff, timestamp, tag):
@@ -76,6 +76,7 @@ def write_diff(orig, new, out, earliest_out=None):
     print(origDurations)
     print(durations)
     print(durationDiffs)
+
 
 if __name__ == "__main__":
     write_diff(*sys.argv[1:])

@@ -169,7 +169,6 @@ def getMatrix(verbose, matrix):  # , mtxplfile, mtxtfile):
                 elif len(startVertices) == zones:
                     if ODpairs % origins == 0:
                         matrixPshort.append([])
-                        subttotal = 0.
                     for item in line.split():
                         matrixPshort[-1].append(float(item))
                         ODpairs += 1
@@ -297,4 +296,6 @@ def main():
 
     if options.verbose:
         foutlog.close()
+
+
 main()

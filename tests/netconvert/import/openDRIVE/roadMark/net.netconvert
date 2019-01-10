@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:36 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Aug 16 15:51:57 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,10 +22,10 @@ SPDX-License-Identifier: EPL-2.0
         <tls.left-green.time value="0"/>
     </tls_building>
 
-    <processing>
+    <junctions>
         <no-internal-links value="false"/>
         <rectangular-lane-cut value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <verbose value="true"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" rectangularLaneCut="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="0.00,0.00,50.00,0.00" projParameter="!"/>
 
@@ -62,10 +62,10 @@ SPDX-License-Identifier: EPL-2.0
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id=":1.begin_0" function="internal">
-        <lane id=":1.begin_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="4.38" width="3.00" shape="0.00,1.50 -1.12,0.75 -1.50,0.00 -1.12,-0.75 0.00,-1.50"/>
+        <lane id=":1.begin_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="3.53" length="4.38" width="3.00" shape="0.00,1.50 -1.12,0.75 -1.50,0.00 -1.12,-0.75 0.00,-1.50"/>
     </edge>
     <edge id=":1.end_0" function="internal">
-        <lane id=":1.end_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="4.38" width="3.00" shape="50.00,-1.50 51.13,-0.75 51.50,0.00 51.13,0.75 50.00,1.50"/>
+        <lane id=":1.end_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="3.53" length="4.38" width="3.00" shape="50.00,-1.50 51.13,-0.75 51.50,0.00 51.13,0.75 50.00,1.50"/>
     </edge>
 
     <edge id="-1.0.00" from="1.begin" to="1.end" priority="1" type="driving">

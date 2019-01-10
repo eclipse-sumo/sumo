@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:46 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Aug 16 15:52:05 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,70 +25,70 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-51303.08,-53830.21" convBoundary="0.00,0.00,224.35,423.85" origBoundary="51303.08,53830.21,51527.43,54254.06" projParameter="!"/>
 
     <edge id=":6365_0" function="internal">
-        <lane id=":6365_0_0" index="0" speed="13.90" length="5.59" shape="152.01,251.40 150.41,251.93 149.23,252.69 148.49,253.68 148.17,254.90"/>
+        <lane id=":6365_0_0" index="0" speed="7.62" length="9.87" shape="154.40,250.86 151.74,251.78 149.78,253.17 148.53,255.04 147.99,257.39"/>
     </edge>
     <edge id=":6365_1" function="internal">
-        <lane id=":6365_1_0" index="0" speed="13.90" length="7.63" shape="152.01,251.40 149.02,251.60 146.98,250.65 145.89,248.53"/>
+        <lane id=":6365_1_0" index="0" speed="7.34" length="10.44" shape="154.40,250.86 150.38,251.14 147.63,249.89 146.16,247.10 146.15,246.86"/>
     </edge>
     <edge id=":6365_8" function="internal">
-        <lane id=":6365_8_0" index="0" speed="13.90" length="3.28" shape="145.89,248.53 145.75,245.26"/>
+        <lane id=":6365_8_0" index="0" speed="7.34" length="4.10" shape="146.15,246.86 145.96,242.77"/>
     </edge>
     <edge id=":6365_2" function="internal">
-        <lane id=":6365_2_0" index="0" speed="13.90" length="9.40" shape="148.93,245.53 148.17,254.90"/>
+        <lane id=":6365_2_0" index="0" speed="13.90" length="14.40" shape="149.15,243.04 147.99,257.39"/>
     </edge>
     <edge id=":6365_3" function="internal">
-        <lane id=":6365_3_0" index="0" speed="13.90" length="2.34" shape="148.93,245.53 148.03,246.66 147.20,246.99"/>
+        <lane id=":6365_3_0" index="0" speed="3.65" length="2.34" shape="149.15,243.04 148.25,244.17 147.42,244.50"/>
     </edge>
     <edge id=":6365_9" function="internal">
-        <lane id=":6365_9_0" index="0" speed="13.90" length="2.34" shape="147.20,246.99 146.44,246.52 145.75,245.26"/>
+        <lane id=":6365_9_0" index="0" speed="3.65" length="2.34" shape="147.42,244.50 146.65,244.03 145.96,242.77"/>
     </edge>
     <edge id=":6365_4" function="internal">
-        <lane id=":6365_4_0" index="0" speed="13.90" length="5.30" shape="142.08,247.70 143.57,247.93 144.68,247.60 145.41,246.71 145.75,245.26"/>
+        <lane id=":6365_4_0" index="0" speed="6.11" length="9.06" shape="139.73,246.99 142.27,247.37 144.15,246.80 145.38,245.26 145.96,242.77"/>
     </edge>
     <edge id=":6365_5" function="internal">
-        <lane id=":6365_5_0" index="0" speed="13.90" length="7.37" shape="142.08,247.70 144.89,248.88 146.85,250.48 147.71,252.05"/>
+        <lane id=":6365_5_0" index="0" speed="8.81" length="10.67" shape="139.73,246.99 143.56,248.64 146.21,250.92 147.57,253.61"/>
     </edge>
     <edge id=":6365_10" function="internal">
-        <lane id=":6365_10_0" index="0" speed="13.90" length="2.92" shape="147.71,252.05 147.94,252.48 148.17,254.90"/>
+        <lane id=":6365_10_0" index="0" speed="8.81" length="3.83" shape="147.57,253.61 147.69,253.84 147.99,257.39"/>
     </edge>
     <edge id=":6365_6" function="internal">
-        <lane id=":6365_6_0" index="0" speed="13.90" length="9.44" shape="144.98,254.66 145.75,245.26"/>
+        <lane id=":6365_6_0" index="0" speed="13.90" length="14.44" shape="144.80,257.15 145.96,242.77"/>
     </edge>
     <edge id=":6365_7" function="internal">
-        <lane id=":6365_7_0" index="0" speed="13.90" length="2.34" shape="144.98,254.66 145.87,253.52 146.70,253.18"/>
+        <lane id=":6365_7_0" index="0" speed="3.65" length="2.34" shape="144.80,257.15 145.69,256.02 146.51,255.68"/>
     </edge>
     <edge id=":6365_11" function="internal">
-        <lane id=":6365_11_0" index="0" speed="13.90" length="2.34" shape="146.70,253.18 147.47,253.64 148.17,254.90"/>
+        <lane id=":6365_11_0" index="0" speed="3.65" length="2.34" shape="146.51,255.68 147.28,256.14 147.99,257.39"/>
     </edge>
     <edge id=":6454_0" function="internal">
-        <lane id=":6454_0_0" index="0" speed="13.90" length="4.67" shape="157.43,109.12 158.33,108.00 159.16,107.67 159.92,108.13 160.61,109.40"/>
+        <lane id=":6454_0_0" index="0" speed="3.65" length="4.67" shape="157.43,109.12 158.33,108.00 159.16,107.67 159.92,108.13 160.61,109.40"/>
     </edge>
     <edge id=":6562_0" function="internal">
-        <lane id=":6562_0_0" index="0" speed="13.90" length="4.67" shape="135.61,423.97 134.72,425.11 133.89,425.45 133.12,424.99 132.41,423.73"/>
+        <lane id=":6562_0_0" index="0" speed="3.65" length="4.67" shape="135.61,423.97 134.72,425.11 133.89,425.45 133.12,424.99 132.41,423.73"/>
     </edge>
 
     <edge id="-1570" from="6366" to="6365" priority="-1" spreadType="center" shape="1.75,1.30 2.23,7.92 121.83,241.60 142.08,247.70">
-        <lane id="-1570_0" index="0" speed="13.90" length="291.72" shape="1.65,-0.12 2.23,7.92 121.83,241.60 142.08,247.70"/>
+        <lane id="-1570_0" index="0" speed="13.90" length="289.27" shape="1.65,-0.12 2.23,7.92 121.83,241.60 139.73,246.99"/>
     </edge>
     <edge id="-1839" from="6454" to="6365" priority="-1">
-        <lane id="-1839_0" index="0" speed="13.90" length="136.63" shape="160.61,109.40 148.93,245.53"/>
+        <lane id="-1839_0" index="0" speed="13.90" length="134.13" shape="160.61,109.40 149.15,243.04"/>
     </edge>
     <edge id="-1841" from="6365" to="6562" priority="-1">
-        <lane id="-1841_0" index="0" speed="13.90" length="169.54" shape="148.17,254.90 135.61,423.97"/>
+        <lane id="-1841_0" index="0" speed="13.90" length="167.04" shape="147.99,257.39 135.61,423.97"/>
     </edge>
     <edge id="1816" from="6564" to="6365" priority="-1" spreadType="center" shape="220.91,224.24 162.04,248.16 154.71,250.79 152.01,251.40">
-        <lane id="1816_0" index="0" speed="13.90" length="78.49" shape="224.98,222.59 162.04,248.16 154.71,250.79 152.01,251.40"/>
+        <lane id="1816_0" index="0" speed="13.90" length="76.04" shape="224.98,222.59 162.04,248.16 154.71,250.79 154.40,250.86"/>
     </edge>
     <edge id="1839" from="6365" to="6454" priority="-1">
-        <lane id="1839_0" index="0" speed="13.90" length="136.63" shape="145.75,245.26 157.43,109.12"/>
+        <lane id="1839_0" index="0" speed="13.90" length="134.13" shape="145.96,242.77 157.43,109.12"/>
     </edge>
     <edge id="1841" from="6562" to="6365" priority="-1">
-        <lane id="1841_0" index="0" speed="13.90" length="169.54" shape="132.41,423.73 144.98,254.66"/>
+        <lane id="1841_0" index="0" speed="13.90" length="167.04" shape="132.41,423.73 144.80,257.15"/>
     </edge>
 
     <tlLogic id="6365" type="static" programID="0" offset="0">
@@ -100,7 +100,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="ryrrryrr"/>
     </tlLogic>
 
-    <junction id="6365" type="traffic_light" x="146.87" y="250.87" incLanes="1816_0 -1839_0 -1570_0 1841_0" intLanes=":6365_0_0 :6365_8_0 :6365_2_0 :6365_9_0 :6365_4_0 :6365_10_0 :6365_6_0 :6365_11_0" shape="152.36,252.96 151.66,249.84 150.53,245.67 144.15,245.12 142.54,246.17 141.62,249.23 143.39,254.54 149.77,255.02">
+    <junction id="6365" type="traffic_light" x="146.87" y="250.87" incLanes="1816_0 -1839_0 -1570_0 1841_0" intLanes=":6365_0_0 :6365_8_0 :6365_2_0 :6365_9_0 :6365_4_0 :6365_10_0 :6365_6_0 :6365_11_0" shape="154.75,252.42 154.04,249.30 151.94,249.01 151.27,248.21 150.84,246.97 150.67,245.29 150.74,243.18 144.37,242.63 143.75,244.71 143.15,245.33 142.36,245.66 141.37,245.70 140.19,245.46 139.27,248.52 141.69,250.07 142.49,251.32 143.00,252.91 143.24,254.81 143.20,257.04 149.59,257.51 150.29,255.17 151.02,254.24 152.01,253.48 153.25,252.87">
         <request index="0" response="00000100" foes="10100100" cont="0"/>
         <request index="1" response="01010100" foes="01011100" cont="1"/>
         <request index="2" response="00100010" foes="10100011" cont="0"/>
@@ -119,10 +119,10 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="6564" type="dead_end" x="224.35" y="221.05" incLanes="" intLanes="" shape="224.37,221.11 225.58,224.07"/>
 
-    <junction id=":6365_8_0" type="internal" x="145.89" y="248.53" incLanes=":6365_1_0 -1570_0" intLanes=":6365_2_0 :6365_3_0 :6365_4_0 :6365_6_0"/>
-    <junction id=":6365_9_0" type="internal" x="147.20" y="246.99" incLanes=":6365_3_0 -1570_0 1816_0 1841_0" intLanes=":6365_1_0 :6365_4_0 :6365_6_0"/>
-    <junction id=":6365_10_0" type="internal" x="147.71" y="252.05" incLanes=":6365_5_0 1816_0" intLanes=":6365_0_0 :6365_2_0 :6365_6_0 :6365_7_0"/>
-    <junction id=":6365_11_0" type="internal" x="146.70" y="253.18" incLanes=":6365_7_0 -1570_0 -1839_0 1816_0" intLanes=":6365_0_0 :6365_2_0 :6365_5_0"/>
+    <junction id=":6365_8_0" type="internal" x="146.15" y="246.86" incLanes=":6365_1_0 -1570_0" intLanes=":6365_2_0 :6365_3_0 :6365_4_0 :6365_6_0"/>
+    <junction id=":6365_9_0" type="internal" x="147.42" y="244.50" incLanes=":6365_3_0 -1570_0 1816_0 1841_0" intLanes=":6365_1_0 :6365_4_0 :6365_6_0"/>
+    <junction id=":6365_10_0" type="internal" x="147.57" y="253.61" incLanes=":6365_5_0 1816_0" intLanes=":6365_0_0 :6365_2_0 :6365_6_0 :6365_7_0"/>
+    <junction id=":6365_11_0" type="internal" x="146.51" y="255.68" incLanes=":6365_7_0 -1570_0 -1839_0 1816_0" intLanes=":6365_0_0 :6365_2_0 :6365_5_0"/>
 
     <connection from="-1570" to="1839" fromLane="0" toLane="0" via=":6365_4_0" tl="6365" linkIndex="4" dir="r" state="o"/>
     <connection from="-1570" to="-1841" fromLane="0" toLane="0" via=":6365_5_0" tl="6365" linkIndex="5" dir="l" state="o"/>

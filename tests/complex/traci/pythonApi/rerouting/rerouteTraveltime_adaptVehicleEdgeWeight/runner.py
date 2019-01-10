@@ -17,28 +17,22 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
-
-
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 vehID = "ego"
-traci.init(PORT)
 traci.simulationStep()
-traci.vehicle.setAdaptedTraveltime(vehID, "middle", 20, 0, 3600 * 1000)
-traci.vehicle.setAdaptedTraveltime(vehID, "middle3", 14, 0, 3600 * 1000)
+traci.vehicle.setAdaptedTraveltime(vehID, "middle", 20, 0, 3600)
+traci.vehicle.setAdaptedTraveltime(vehID, "middle3", 10, 0, 3600)
 traci.vehicle.rerouteTraveltime(vehID, False)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 traci.close()
-sumoProcess.wait()

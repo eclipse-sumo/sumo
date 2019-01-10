@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed May 31 07:45:11 2017
+TraCITestClient output file. Date: Tue Aug 07 14:15:45 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -55,7 +55,7 @@ TraCITestClient output file. Date: Wed May 31 07:45:11 2017
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1001.00
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1073741824.00
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
@@ -69,7 +69,7 @@ TraCITestClient output file. Date: Wed May 31 07:45:11 2017
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1001.00
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1073741824.00
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
@@ -83,7 +83,7 @@ TraCITestClient output file. Date: Wed May 31 07:45:11 2017
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=0
 .. Command acknowledged (164), [description: ]
-  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1001.00
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1073741824.00
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

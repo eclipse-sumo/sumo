@@ -1,3 +1,9 @@
+# reject access  outside busStop
+access_invalid
+
+# reject multiple access definitions for the same edge
+access_double_invalid
+
 # two rides without pt but with route output
 unreachable_rides
 

@@ -8,4 +8,5 @@ GNETLSEditorFrame.cpp GNETLSEditorFrame.h \
 GNEAdditionalFrame.cpp GNEAdditionalFrame.h \
 GNECrossingFrame.cpp GNECrossingFrame.h \
 GNEDeleteFrame.cpp GNEDeleteFrame.h \
-GNEPolygonFrame.cpp GNEPolygonFrame.h
+GNEPolygonFrame.cpp GNEPolygonFrame.h \
+GNEProhibitionFrame.cpp GNEProhibitionFrame.h

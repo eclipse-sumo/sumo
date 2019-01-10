@@ -1,3 +1,43 @@
-<additionals>
-    <e2Detector id="e2Detector_gneE0_0_0" lane="gneE0_0" pos="32.00" file="e2Detector_gneE0_0_0.xml"/>
-</additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 25.06.2018 14:38:55 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/move\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/move\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/move\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/move\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/move\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jun140419.724/netedit.gui/additionalElements/e2detector/move\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e2Detector id="e2Detector_gneE0_0_0" length="10.00" lane="gneE0_0" pos="32.00" freq="900.00" file="e2Detector_gneE0_0_0.xml"/>
+</additional>

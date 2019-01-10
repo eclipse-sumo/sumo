@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 25 Jun 2018 08:55:09 PM CEST by Eclipse SUMO GUI Version e2c32ef
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="egoPerson" depart="0.00" arrival="203.00">
+        <ride from="A0B0" to="D0D1" lines="ego"/>
+        <walk edges="D0D1 C1D1"/>
+        <stop lane="C1D1_0" duration="100.00"/>
+    </person>
+
+    <vehicle id="ego" depart="triggered" arrivalPos="45.00" arrival="231.00">
+        <route edges="A0B0 B0C0 C0D0 D0D1"/>
+        <stop parkingArea="parkD0D1" duration="200.00"/>
+    </vehicle>
+
+</routes>

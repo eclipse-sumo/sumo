@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on Wed Apr 18 16:45:45 2018 by Eclipse SUMO netconvert Version 4b5eff6
+# <!-- generated on Wed Aug 15 14:52:45 2018 by Eclipse SUMO netconvert Version feccab3
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -27,6 +27,13 @@
 #         <proj.utm value="true"/>
 #     </projection>
 # 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <reserved-ids value="edge_ids.txt"/>
+#         <geometry.remove value="true"/>
+#         <roundabouts.guess value="true"/>
+#     </processing>
+# 
 #     <tls_building>
 #         <tls.discard-simple value="true"/>
 #         <tls.join value="true"/>
@@ -37,14 +44,13 @@
 #         <ramps.guess value="true"/>
 #     </ramp_guessing>
 # 
-#     <processing>
-#         <osm.all-attributes value="true"/>
-#         <numerical-ids value="true"/>
-#         <reserved-ids value="edge_ids.txt"/>
-#         <geometry.remove value="true"/>
-#         <roundabouts.guess value="true"/>
+#     <junctions>
 #         <junctions.join value="true"/>
-#     </processing>
+#     </junctions>
+# 
+#     <formats>
+#         <osm.all-attributes value="true"/>
+#     </formats>
 # 
 #     <report>
 #         <verbose value="true"/>

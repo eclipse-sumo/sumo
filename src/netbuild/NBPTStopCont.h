@@ -52,13 +52,17 @@ public:
         return myPTStops.begin();
     }
 
-
     /** @brief Returns the pointer to the end of the stored pt stops
      * @return The iterator to the end of stored pt stops
      */
     std::map<std::string, NBPTStop*>::const_iterator end() const {
         return myPTStops.end();
     }
+
+    const std::map<std::string, NBPTStop*>& getStops() const {
+        return myPTStops;
+    }
+
 
     /** @brief remove stops on non existing (removed) edges
      *
@@ -68,9 +72,12 @@ public:
 
     void assignLanes(NBEdgeCont& cont);
 
+    /// @brief duplicate stops for superposed rail edges and return the number of generated stops
+    int generateBidiStops(NBEdgeCont& cont);
+
     void localizePTStops(NBEdgeCont& cont);
 
-    void findAccessEdgesForRailStops(NBEdgeCont& cont, double d, int i);
+    void findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount, double accessFactor);
 
     void postprocess(std::set<std::string>& usedStops);
 
@@ -91,6 +98,8 @@ private:
     const NBPTPlatform* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
     NBPTStop* assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont);
     double computeCrossProductEdgePosition(const NBEdge* edge, const Position& closestPlatform) const;
+
+    static std::string getReverseID(const std::string& id);
 
 public:
     static NBEdge* getReverseEdge(NBEdge* edge);

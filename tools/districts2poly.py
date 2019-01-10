@@ -46,7 +46,7 @@ def parse_args():
         options.net, options.routefile = args
         options.colorgen = Colorgen(
             (options.hue, options.saturation, options.brightness))
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".poly.xml"
@@ -71,6 +71,7 @@ def main():
             generate_poly(net, taz.id, options.colorgen(),
                           options.layer, taz.edges.split(), outf)
         outf.write('</polygons>\n')
+
 
 if __name__ == "__main__":
     main()

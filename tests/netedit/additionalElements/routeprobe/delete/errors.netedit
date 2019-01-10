@@ -1,3 +1,199 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
+GLDebug: Inserted routeProbe:routeProbe_01 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object routeProbe:routeProbe_01 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted routeProbe:routeProbe_01 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object routeProbe:routeProbe_01 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_01 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
+GLDebug: Inserted routeProbe:routeProbe_02 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object routeProbe:routeProbe_02 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted routeProbe:routeProbe_02 into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:routeProbe_02 from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:routeProbe_02 into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Selected additional 'routeProbe' in AdditionalSelector
+Debug: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object routeProbe:routeProbe_01 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_01 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Removing routeProbe 'routeProbe_01' in GNEChange_Additional
+GLDebug: Removed object routeProbe:routeProbe_01 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Removing routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Removing routeProbe 'routeProbe_02' in GNEChange_Additional
+GLDebug: Removed object routeProbe:routeProbe_02 from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Setting new attribute type 'priority' into junction 'gneJ0'
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+Debug: Deleting TLS from junction 'gneJ1'
+Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+Debug: Removing edge 'gneE0' from net
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Adding edge 'gneE0' from net
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ1'
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+Debug: Adding TLS into junction 'gneJ1'
+Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Removing TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Adding connection 'gneE0_0->gneE1_0' into edge 'gneE0'
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Removing TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Adding connection 'gneE1_0->gneE0_0' into edge 'gneE1'
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
+GLDebug: Inserted routeProbe:routeProbe_02 into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:routeProbe_02 from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:routeProbe_02 into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:routeProbe_02 from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:routeProbe_02 into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Adding routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
+GLDebug: Inserted routeProbe:routeProbe_01 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object routeProbe:routeProbe_01 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_01 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object routeProbe:routeProbe_01 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_01 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Opening FXMessageBox 'Force deletion needed'
+Debug: Closed FXMessageBox 'Force deletion needed' with 'OK'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Removing routeProbe 'routeProbe_01' in GNEChange_Additional
+GLDebug: Removed object routeProbe:routeProbe_01 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted routeProbe:routeProbe_gneE1_2 into SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Removing routeProbe 'routeProbe_gneE1_2' in GNEChange_Additional
+GLDebug: Removed object routeProbe:routeProbe_gneE1_2 from SUMORTree with boundary 29.50,-18.40,69.50,21.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Removing routeProbe 'routeProbe_02' in GNEChange_Additional
+GLDebug: Removed object routeProbe:routeProbe_02 from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -19.00,-21.60,21.00,21.60
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in removeConnection()
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.00,-21.60,69.00,21.60
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Adding TLS into junction 'gneJ0'
+Debug: Deleting TLS from junction 'gneJ0'
+Debug: Setting new attribute type 'priority' into junction 'gneJ0'
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+Debug: Deleting TLS from junction 'gneJ1'
+Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+Debug: Removing edge 'gneE0' from net
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,23.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,23.20
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Deleting unreferenced edge 'gneE0' GNEChange_Edge
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_2'
+Debug: Deleting unreferenced routeProbe 'routeProbe_02'
+Debug: Deleting unreferenced routeProbe 'routeProbe_01'
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 3

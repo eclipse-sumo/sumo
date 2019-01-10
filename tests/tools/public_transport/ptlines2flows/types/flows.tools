@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-03-28 14:20:06.837287 by $Id$
+<!-- generated on 2018-07-31 13:14:39.986786 by $Id$
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>types bus,trolleybus -v
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -20,11 +20,11 @@
         <stop busStop="3959807201" duration="30.00" until="39.0"/> <!-- Dudenstraße/Katzbachstraße -->
         <stop busStop="3959807220" duration="30.00" until="105.0"/> <!-- Kolonnenbrücke -->
     </route>
-    <flow id="bus_104:0" type="bus" route="bus_104:0" begin="0.0" end="3600.0" period="600.0" line="104:0" >
+    <flow id="bus_104:0" type="bus" route="bus_104:0" begin="0.0" end="3600.0" period="600" line="104:0" >
         <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße"/>
         <param key="completeness" value="1.00"/>
     </flow>
-    <flow id="trolleybus_104:1" type="trolleybus" route="trolleybus_104:1" begin="0.0" end="3600.0" period="600.0" line="104:1" >
+    <flow id="trolleybus_104:1" type="trolleybus" route="trolleybus_104:1" begin="0.0" end="3600.0" period="600" line="104:1" >
         <param key="name" value="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz"/>
         <param key="completeness" value="1.00"/>
     </flow>

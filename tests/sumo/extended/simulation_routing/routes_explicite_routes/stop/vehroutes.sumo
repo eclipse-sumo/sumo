@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/24/17 10:19:53 by SUMO Version dev-SVN-r26691
+<!-- generated on Tue Jun 19 16:24:21 2018 by Eclipse SUMO Version eba7cf7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -37,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0" depart="0.00" arrival="110.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="0.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
         <stop lane="end_0" duration="5.00"/>
@@ -45,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="5" depart="100.00" arrival="210.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="100.00" probability="0" edges="beg beg2right right right2end end rend"/>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="100.00" probability="0" edges="beg beg2right right right2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
         <stop lane="end_0" duration="5.00"/>

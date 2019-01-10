@@ -1,7 +1,7 @@
-<additionals>
-    <!-- container A -->
-    <containerStop id="containerStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="container" friendlyPos="false"/>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Bus A -->
+    <containerStop id="containerStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="true"/>
 
-	<!-- container B -->
-    <containerStop id="containerStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="container" friendlyPos="true"/>
-</additionals>
+	<!-- Bus B -->
+    <containerStop id="containerStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="containerStop" friendlyPos="false"/>
+</additional>

@@ -116,7 +116,38 @@ public class Lane {
 	public static SumoCommand getElectricityConsumption(String laneID){
 		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_ELECTRICITYCONSUMPTION, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
+	
+	
+	/**
+	 * Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
+	 *  
+	 * @param laneID
+	 *            a string identifying a lane
+	 * @param toLane
+	 *            a string identifying the target lane
+	 * @return the energy consumption
+	 */
+	
+	public static SumoCommand getFoes(String laneID, String toLane){
+		Object[] array = new Object[]{toLane};
+		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_FOES, laneID, array, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
 
+	/**
+	 * Returns the ids of internal lanes that are in conflict with the given internal lane id
+	 *  
+	 * @param laneID
+	 *            a string identifying a lane
+	 * @return the energy consumption
+	 */
+	
+	public static SumoCommand getInternalFoes(String laneID){
+		Object[] array = new Object[]{""};
+		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_FOES, laneID, array, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+
+	
+	
 	/**
 	 * Returns the fuel consumption (in ml) on the given lane during the last
 	 * time step.

@@ -28,8 +28,8 @@ import math
 from optparse import OptionParser
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
-import netshiftadaptor
+import sumolib.net  # noqa
+import netshiftadaptor  # noqa
 
 
 def computeDistance(n1, n2):
@@ -428,7 +428,8 @@ for d in nmap1to2:
                 for i in range(0, outgoingLaneNo):
                     net1.addLane(e2, 18, 100.)
                     fdd.write('    <connection from="' + dn1i._incoming[
-                              0]._id + '" to="' + "i" + d + "#" + n2._id + '" lane="' + str(runningInLaneNumber) + ':' + str(i) + '"/>\n')
+                              0]._id + '" to="' + "i" + d + "#" + n2._id + '" lane="' + str(runningInLaneNumber) +
+                              ':' + str(i) + '"/>\n')
                     runningInLaneNumber = runningInLaneNumber + 1
                 if outgoingLaneNo == 0:
                     net1.addLane(e2, 18, 100.)
@@ -492,6 +493,7 @@ def writeEdges(net):
             writeEdge(fd, edge)
     fd.write("</edges>\n")
     fd.close()
+
 
 fdd.write("</connections>\n")
 writeNodes(net1)

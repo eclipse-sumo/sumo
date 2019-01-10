@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Aug  7 10:49:45 2018 by Eclipse SUMO netconvert Version 549516c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-files value="input_ptstops.xml"/>
+        <ptline-files value="input_ptlines.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+        <railway.topology.output value="topology.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <railway.topology.repair value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-stopA" name="Dudenstraße" lane="-a_0" startPos="20.00" endPos="90.00" friendlyPos="true"/>
+    <busStop id="-stopC" name="Kolonnenbrücke" lane="-c_0" startPos="30.00" endPos="80.00" friendlyPos="true"/>
+    <busStop id="stopA" name="Dudenstraße" lane="a_0" startPos="10.00" endPos="80.00" friendlyPos="true"/>
+    <busStop id="stopC" name="Kolonnenbrücke" lane="c_0" startPos="20.00" endPos="70.00" friendlyPos="true"/>
+</additional>

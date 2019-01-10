@@ -69,6 +69,9 @@ sumonet_customshape
 # custom walking area shapes
 4_arm_3_neighboring_split_customshape
 
+# test custom walking area shapes and shifting the network
+4_arm_3_neighboring_split_customshape_shifted
+
 # reimport .net.xml and keep the crossings and walkingareas with custom shape
 sumonet_custom_washape
 4_arm_mixed_priority
@@ -105,6 +108,9 @@ sumonet_custom_washape
 
 # duplicated crossings shall be rejected
 4_arm_duplicate
+
+# a walkingarea should not try to follow the connection shape if there can be no adjacent road connection
+sharp_angle_incompatible_vclass
 
 # a pedestrian path crosses a street with sidewalks
 path_across_street

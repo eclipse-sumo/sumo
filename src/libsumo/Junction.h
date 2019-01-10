@@ -23,14 +23,11 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
@@ -38,6 +35,10 @@
 // ===========================================================================
 class NamedRTree;
 class MSJunction;
+class PositionVector;
+namespace libsumo {
+class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -52,31 +53,36 @@ class Junction {
 public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
-    static TraCIPosition getPosition(const std::string& junctionID);
+    static TraCIPosition getPosition(const std::string& junctionID, const bool includeZ = false);
     static TraCIPositionVector getShape(const std::string& junctionID);
 
-    //static std::string getType(const std::string& poiID);
-    //static TraCIColor getColor(const std::string& poiID);
-
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Returns a tree filled with junction instances
      * @return The rtree of junctions
      */
     static NamedRTree* getTree();
 
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the poi to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static MSJunction* getJunction(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
+private:
     /// @brief invalidated standard constructor
-    Junction();
-
-    /// @brief invalidated copy constructor
-    Junction(const Junction& src);
-
-    /// @brief invalidated assignment operator
-    Junction& operator=(const Junction& src);
+    Junction() = delete;
 };
 }
 

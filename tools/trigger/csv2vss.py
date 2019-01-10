@@ -19,7 +19,7 @@ import sys
 import collections
 from optparse import OptionParser
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.output
+import sumolib.output  # noqa
 
 
 def parse_args():
@@ -32,7 +32,7 @@ def parse_args():
     options, args = optParser.parse_args()
     try:
         options.csvfile = args[0]
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.csvfile + ".add.xml"
@@ -54,7 +54,7 @@ def main():
                 if float(data[2]) > 0.:
                     timeline[data[0]].append(
                         (options.scale * float(data[1]), float(data[4]) / 3.6))
-            except:
+            except Exception:
                 pass
     # maybe we should sort the timeline here
     with open(options.outfile, 'w') as outf:
@@ -74,6 +74,7 @@ def main():
                     '        <step time="%.3f" speed="%.3f"/>\n' % entry)
             outf.write('    </variableSpeedSign>\n')
         outf.write("</additional>\n")
+
 
 if __name__ == "__main__":
     main()

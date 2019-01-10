@@ -21,14 +21,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
+#include <libsumo/Subscription.h>
 #include <libsumo/TraCIDefs.h>
+#include <microsim/MSNet.h>
 
 
 // ===========================================================================
@@ -93,53 +91,22 @@ inline LANE_RTREE_QUAL::Rect LANE_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a
     return newRect;
 }
 
-/**
- * @class Helper
- * @brief C++ TraCI client API implementation
- */
 namespace libsumo {
 
-/** @class StoringVisitor
- * @brief Allows to store the object; used as context while traveling the rtree in TraCI
- */
-
+/**
+* @class Helper
+* @brief C++ TraCI client API implementation
+*/
 class Helper {
 public:
-    /** @brief Connects to the specified SUMO server
-    * @param[in] host The name of the host to connect to
-    * @param[in] port The port to connect to
-    * @exception tcpip::SocketException if the connection fails
-    */
-    //void connect(const std::string& host, int port);
+    static void subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
+                          const double beginTime, const double endTime, const int contextDomain = 0, const double range = 0.);
 
-
-    /// @brief ends the Helper and closes the connection
-    void close();
-    /// @}
-
-    /// @brief load a Helper with the given arguments
-    static void load(const std::vector<std::string>& args);
-
-    /// @brief Advances by one step (or up to the given time)
-    static void HelperStep(const SUMOTime time = 0);
-
-    /// @brief {object->{variable->value}}
-    typedef std::map<int, TraCIValue> TraCIValues;
-    typedef std::map<std::string, TraCIValues> SubscribedValues;
-    typedef std::map<std::string, SubscribedValues> SubscribedContextValues;
-
-    //void subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const;
-    //void subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars) const;
-
-    const SubscribedValues& getSubscriptionResults() const;
-    const TraCIValues& getSubscriptionResults(const std::string& objID) const;
-
-    const SubscribedContextValues& getContextSubscriptionResults() const;
-    const SubscribedValues& getContextSubscriptionResults(const std::string& objID) const;
+    static void handleSubscriptions(const SUMOTime t);
 
     /// @brief helper functions
     static TraCIPositionVector makeTraCIPositionVector(const PositionVector& positionVector);
-    static TraCIPosition makeTraCIPosition(const Position& position);
+    static TraCIPosition makeTraCIPosition(const Position& position, const bool includeZ = false);
     static Position makePosition(const TraCIPosition& position);
 
     static PositionVector makePositionVector(const TraCIPositionVector& vector);
@@ -150,22 +117,7 @@ public:
     static const MSLane* getLaneChecking(const std::string& edgeID, int laneIndex, double pos);
     static std::pair<MSLane*, double> convertCartesianToRoadMap(Position pos);
 
-    static SUMOTime getCurrentTime();
-
-    static SUMOTime getDeltaT();
-
-    static TraCIBoundary getNetBoundary();
-
-    static int getMinExpectedNumber();
-
-    static TraCIStage findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode);
-
-    static std::vector<TraCIStage> findIntermodalRoute(const std::string& from, const std::string& to, const std::string& modes,
-            const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
-            const double departPos, const double arrivalPos, const double departPosLat,
-            const std::string& pType, const std::string& vehType);
-
-    static std::string getParameter(const std::string& objectID, const std::string& key);
+    static void findObjectShape(int domain, const std::string& id, PositionVector& shape);
 
     static void collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into);
 
@@ -178,6 +130,12 @@ public:
     static void postProcessRemoteControl();
 
     static void cleanup();
+
+    static void registerVehicleStateListener();
+
+    static const std::vector<std::string>& getVehicleStateChanges(const MSNet::VehicleState state);
+
+    static void clearVehicleStates();
 
     /// @name functions for moveToXY
     /// @{
@@ -212,10 +170,44 @@ public:
     };
     /// @}
 
-private:
+    class SubscriptionWrapper : public VariableWrapper {
+    public:
+        SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
+        void setContext(const std::string& refID);
+        bool wrapDouble(const std::string& objID, const int variable, const double value);
+        bool wrapInt(const std::string& objID, const int variable, const int value);
+        bool wrapString(const std::string& objID, const int variable, const std::string& value);
+        bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
+        bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value);
+        bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
+    private:
+        SubscriptionResults myResults;
+        ContextSubscriptionResults myContextResults;
+        SubscriptionResults& myActiveResults;
+    private:
+        /// @brief Invalidated assignment operator
+        SubscriptionWrapper& operator=(const SubscriptionWrapper& s) = delete;
+    };
 
-    SubscribedValues mySubscribedValues;
-    SubscribedContextValues mySubscribedContextValues;
+private:
+    static void handleSingleSubscription(const Subscription& s);
+
+private:
+    class VehicleStateListener : public MSNet::VehicleStateListener {
+    public:
+        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
+        /// @brief Changes in the states of simulated vehicles
+        std::map<MSNet::VehicleState, std::vector<std::string> > myVehicleStateChanges;
+    };
+
+    /// @brief The list of known, still valid subscriptions
+    static std::vector<Subscription> mySubscriptions;
+
+    /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
+    static std::map<int, std::shared_ptr<VariableWrapper> > myWrapper;
+
+    /// @brief Changes in the states of simulated vehicles
+    static VehicleStateListener myVehicleStateListener;
 
     /// @brief A storage of objects
     static std::map<int, NamedRTree*> myObjects;
@@ -227,13 +219,7 @@ private:
     static std::map<std::string, MSPerson*> myRemoteControlledPersons;
 
     /// @brief invalidated standard constructor
-    Helper();
-
-    /// @brief invalidated copy constructor
-    Helper(const Helper& src);
-
-    /// @brief invalidated assignment operator
-    Helper& operator=(const Helper& src);
+    Helper() = delete;
 };
 
 }

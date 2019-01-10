@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <algorithm>
@@ -69,7 +65,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const MSRouteProbe* probe,
                            bool addLaneMeanData) :
     MSTrigger(id),
-    MSRouteHandler(aXMLFilename, false),
+    MSRouteHandler(aXMLFilename, true),
     myEdge(edge),
     myLane(lane),
     myPos(pos), myProbe(probe),
@@ -179,9 +175,9 @@ MSCalibrator::myStartElement(int element,
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == 0) {
                 WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + myID + "'.");
             }
-        } catch (EmptyData) {
+        } catch (EmptyData&) {
             WRITE_ERROR("Mandatory attribute missing in definition of calibrator '" + myID + "'.");
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException&) {
             WRITE_ERROR("Non-numeric value for numeric attribute in definition of calibrator '" + myID + "'.");
         }
         if (state.q < 0 && state.v < 0) {

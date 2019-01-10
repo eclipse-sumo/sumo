@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
@@ -68,9 +64,7 @@ GNEChange_Crossing::~GNEChange_Crossing() {
 void GNEChange_Crossing::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
-        }
+        WRITE_DEBUG("removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         // remove crossing of NBNode
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
@@ -80,31 +74,25 @@ void GNEChange_Crossing::undo() {
             // change flag of NetBuilder (For build GNECrossing)
             myNet->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
-            }
+            WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
         }
         // Update view
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
-        }
+        WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         // add crossing of NBNode
-        NBNode::Crossing *c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
+        NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
-            }
+            WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // select if mySelected is enabled
-        if(mySelected) {
+        if (mySelected) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
         // Update view
@@ -115,39 +103,33 @@ void GNEChange_Crossing::undo() {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 
 void GNEChange_Crossing::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
-        }
+        WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         // add crossing of NBNode and update geometry
-        NBNode::Crossing *c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
+        NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
         if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
             myNet->getNetBuilder()->setHaveNetworkCrossings(true);
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
-            }
+            WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // select if mySelected is enabled
-        if(mySelected) {
+        if (mySelected) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
         // Update view
         myNet->getViewNet()->update();
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
-        }
+        WRITE_DEBUG("Removing " + toString(SUMO_TAG_CROSSING) + " from " + toString(myJunctionParent->getTag()) + " '" + myJunctionParent->getID() + "'");
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
@@ -157,9 +139,7 @@ void GNEChange_Crossing::redo() {
             // change flag of NetBuilder (For build GNECrossing)
             myNet->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
-            }
+            WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
         }
         // Update view
         myNet->getViewNet()->update();
@@ -169,7 +149,7 @@ void GNEChange_Crossing::redo() {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 

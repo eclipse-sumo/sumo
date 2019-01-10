@@ -19,12 +19,14 @@ from __future__ import print_function
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+if 'SUMO_HOME' in os.environ:
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 import sumolib  # noqa
-from sumolib.visualization import helpers
-
-import matplotlib.pyplot as plt
-import matplotlib
+from sumolib.visualization import helpers  # noqa
+import matplotlib.pyplot as plt  # noqa
+import matplotlib  # noqa
 
 
 def main(args=None):
@@ -86,8 +88,9 @@ def main(args=None):
     # drawing the legend, at least for the colors
     print("%s -> %s" % (minV, maxV))
     sm = matplotlib.cm.ScalarMappable(
-        cmap=matplotlib.cm.get_cmap(options.colormap), norm=matplotlib.colors.normalize(vmin=minV, vmax=maxV))
-    # "fake up the array of the scalar mappable. Urgh..." (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
+        cmap=matplotlib.cm.get_cmap(options.colormap), norm=matplotlib.colors.Normalize(vmin=minV, vmax=maxV))
+    # "fake up the array of the scalar mappable. Urgh..."
+    # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
     sm._A = []
     plt.colorbar(sm)
     options.nolegend = True

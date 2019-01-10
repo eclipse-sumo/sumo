@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -38,7 +34,9 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "SUMOAbstractRouter.h"
 #include "DijkstraRouter.h"
+#include "AStarRouter.h"
 #include "IntermodalNetwork.h"
+#include "EffortCalculator.h"
 #include "CarEdge.h"
 #include "StopEdge.h"
 #include "PedestrianRouter.h"
@@ -62,25 +60,33 @@ private:
     typedef void(*CreateNetCallback)(IntermodalRouter <E, L, N, V>&);
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalRouter;
+    typedef SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > _InternalRouter;
+    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalDijkstra;
+    typedef AStarRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, SUMOAbstractRouterPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalAStar;
 
 public:
     struct TripItem {
         TripItem(const std::string& _line = "") :
-            line(_line), intended(_line), depart(-1), cost(0.) {}
+            line(_line), intended(_line), depart(-1), traveltime(0.), cost(0.) {}
         std::string line;
         std::string destStop;
         std::string intended; // intended public transport vehicle id
         double depart; // intended public transport departure
         std::vector<const E*> edges;
+        double traveltime;
         double cost;
+        double departPos;
+        double arrivalPos;
+        std::string description;
     };
 
     /// Constructor
-    IntermodalRouter(CreateNetCallback callback, int carWalkTransfer) :
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "IntermodalRouter"),
-        myAmClone(false), myInternalRouter(0), myIntermodalNet(0),
-        myCallback(callback), myCarWalkTransfer(carWalkTransfer) {
+    IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const std::string& routingAlgorithm,
+                     const int routingMode = 0, EffortCalculator* calc = nullptr) :
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter"),
+        myAmClone(false), myInternalRouter(nullptr), myIntermodalNet(nullptr),
+        myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm),
+        myRoutingMode(routingMode), myExternalEffort(calc) {
     }
 
     /// Destructor
@@ -93,17 +99,17 @@ public:
 
     SUMOAbstractRouter<E, _IntermodalTrip>* clone() {
         createNet();
-        return new IntermodalRouter<E, L, N, V>(myIntermodalNet);
+        return new IntermodalRouter<E, L, N, V>(myIntermodalNet, myCarWalkTransfer, myRoutingAlgorithm, myRoutingMode, myExternalEffort);
     }
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
                  const std::string stopID, const double speed,
-                 const V* const vehicle, const SVCPermissions modeSet, SUMOTime msTime,
-                 std::vector<TripItem>& into) {
+                 const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
+                 std::vector<TripItem>& into, const double externalFactor = 0.) {
         createNet();
-        _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet);
+        _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet, myExternalEffort, externalFactor);
         std::vector<const _IntermodalEdge*> intoEdges;
         const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
                              stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
@@ -111,6 +117,8 @@ public:
         if (success) {
             std::string lastLine = "";
             double time = STEPS2TIME(msTime);
+            double effort = 0.;
+            const _IntermodalEdge* prev = nullptr;
             for (const _IntermodalEdge* iEdge : intoEdges) {
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
@@ -129,16 +137,20 @@ public:
                                 into.push_back(TripItem(lastLine));
                                 into.back().depart = iEdge->getIntended(time, into.back().intended);
                             }
+                            into.back().departPos = iEdge->getStartPos();
                         }
                         if (into.back().edges.empty() || into.back().edges.back() != iEdge->getEdge()) {
                             into.back().edges.push_back(iEdge->getEdge());
+                            into.back().arrivalPos = iEdge->getEndPos();
                         }
                     }
                 }
-                const double edgeEffort = myInternalRouter->getEffort(iEdge, &trip, time);
-                time += edgeEffort;
+                const double prevTime = time, prevEffort = effort;
+                myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort);
+                prev = iEdge;
                 if (!into.empty()) {
-                    into.back().cost += edgeEffort;
+                    into.back().traveltime += time - prevTime;
+                    into.back().cost += effort - prevEffort;
                 }
             }
         }
@@ -149,7 +161,7 @@ public:
             time += edgeEffort;
             std::cout << iEdge->getID() << "(" << iEdge->getLine() << "): " << edgeEffort << std::endl;
         }
-        std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << to->getID()
+        std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << (to != nullptr ? to->getID() : stopID)
                   << " departPos=" << trip.departPos
                   << " arrivalPos=" << trip.arrivalPos
                   << " edges=" << toString(intoEdges)
@@ -164,10 +176,6 @@ public:
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&) {
-        throw ProcessError("Do not use this method");
-    }
-
-    double recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
         throw ProcessError("Do not use this method");
     }
 
@@ -187,6 +195,7 @@ public:
         for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
+            dev.writeAttr(SUMO_ATTR_LINE, e->getLine());
             dev.writeAttr(SUMO_ATTR_LENGTH, e->getLength());
             dev.writeAttr("successors", toString(e->getSuccessors(SVC_IGNORING)));
             dev.closeTag();
@@ -195,11 +204,12 @@ public:
 
     void writeWeights(OutputDevice& dev) {
         createNet();
+        _IntermodalTrip trip(nullptr, nullptr, 0., 0., DEFAULT_PEDESTRIAN_SPEED, 0, 0, nullptr, SVC_PASSENGER | SVC_BICYCLE | SVC_BUS);
         for (_IntermodalEdge* e : myIntermodalNet->getAllEdges()) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
-            dev.writeAttr("traveltime", 0. /* e->getTravelTime() */);
-            dev.writeAttr("effort", 0. /* e->getEffort() */);
+            dev.writeAttr("traveltime", e->getTravelTime(&trip, 0.));
+            dev.writeAttr("effort", e->getEffort(&trip, 0.));
             dev.closeTag();
         }
     }
@@ -209,17 +219,50 @@ public:
     }
 
 private:
-    IntermodalRouter(Network* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true),
-        myInternalRouter(new _InternalRouter(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
-        myIntermodalNet(net), myCarWalkTransfer(0) {}
+    IntermodalRouter(Network* net, const int carWalkTransfer, const std::string& routingAlgorithm,
+                     const int routingMode, EffortCalculator* calc) :
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone"), myAmClone(true),
+        myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
+        myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
+
+    static inline double getEffortAggregated(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
+        return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
+    }
+
+    static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
+        return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge->getNumericalID());
+    }
 
     inline void createNet() {
         if (myIntermodalNet == nullptr) {
             myIntermodalNet = new Network(E::getAllEdges(), false, myCarWalkTransfer);
             myIntermodalNet->addCarEdges(E::getAllEdges());
             myCallback(*this);
-            myInternalRouter = new _InternalRouter(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+            switch (myRoutingMode) {
+                case 0:
+                    if (myRoutingAlgorithm == "astar") {
+                        myInternalRouter = new _InternalAStar(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+                    } else {
+                        myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
+                    }
+                    break;
+                case 1:
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic);
+                    break;
+                case 2:
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortStatic, &_IntermodalEdge::getTravelTimeStatic);
+                    break;
+                case 3:
+                    if (myExternalEffort != nullptr) {
+                        std::vector<std::string> edgeIDs;
+                        for (const auto e : myIntermodalNet->getAllEdges()) {
+                            edgeIDs.push_back(e->getID());
+                        }
+                        myExternalEffort->init(edgeIDs);
+                    }
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort);
+                    break;
+            }
         }
     }
 
@@ -229,6 +272,9 @@ private:
     Network* myIntermodalNet;
     CreateNetCallback myCallback;
     const int myCarWalkTransfer;
+    const std::string myRoutingAlgorithm;
+    const int myRoutingMode;
+    EffortCalculator* const myExternalEffort;
 
 
 private:

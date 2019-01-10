@@ -18,7 +18,7 @@ from __future__ import print_function
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 
 def renderHTML(values):
@@ -38,7 +38,7 @@ def renderHTML(values):
 
 
 def renderPNG(values):
-    from pylab import *
+    from pylab import bar, show
     bar([0], [values["edgeNumber"]], 1, color='r')
     show()
 

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <vector>
@@ -62,7 +58,6 @@
 #include "GUIEdge.h"
 #include "GUILane.h"
 
-//#define DRAW_BOUNDING_BOX
 //#define DEBUG_FOES
 
 // ===========================================================================
@@ -98,7 +93,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     const int sublaneParams = MSGlobals::gLateralResolution > 0 ? 4 : 0;
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
@@ -194,10 +189,10 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 25 
-                + (int)myType->getParameter().getMap().size()
-                + (int)myType->getParameter().lcParameter.size()
-                + (int)myType->getParameter().jmParameter.size());
+        new GUIParameterTableWindow(app, *this, 25
+                                    + (int)myType->getParameter().getParametersMap().size()
+                                    + (int)myType->getParameter().lcParameter.size()
+                                    + (int)myType->getParameter().jmParameter.size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -239,47 +234,6 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     return ret;
 }
 
-
-
-
-void
-GUIVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const {
-    if (myPersonDevice != 0) {
-        const std::vector<MSTransportable*>& ps = myPersonDevice->getTransportables();
-        int personIndex = 0;
-        for (std::vector<MSTransportable*>::const_iterator i = ps.begin(); i != ps.end(); ++i) {
-            GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
-            assert(person != 0);
-            person->setPositionInVehicle(getSeatPosition(personIndex++));
-            person->drawGL(s);
-        }
-    }
-    if (myContainerDevice != 0) {
-        const std::vector<MSTransportable*>& cs = myContainerDevice->getTransportables();
-        int containerIndex = 0;
-        for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
-            GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
-            assert(container != 0);
-            container->setPositionInVehicle(getSeatPosition(containerIndex++));
-            container->drawGL(s);
-        }
-    }
-#ifdef DRAW_BOUNDING_BOX
-    glPushName(getGlID());
-    glPushMatrix();
-    glTranslated(0, 0, getType());
-    PositionVector boundingBox = getBoundingBox();
-    boundingBox.push_back(boundingBox.front());
-    PositionVector smallBB = getBoundingPoly();
-    glColor3d(0, .8, 0);
-    GLHelper::drawLine(boundingBox);
-    glColor3d(0.5, .8, 0);
-    GLHelper::drawLine(smallBB);
-    //GLHelper::drawBoxLines(getBoundingBox(), 0.5);
-    glPopMatrix();
-    glPopName();
-#endif
-}
 
 
 void
@@ -452,7 +406,7 @@ GUIVehicle::getColorValue(int activeScheme) const {
         case 22:
             return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 23:
-            return getBestLaneOffset();
+            return getLaneChangeModel().isOpposite() ? -100 : getBestLaneOffset();
         case 24:
             return getAcceleration();
         case 25:
@@ -734,6 +688,8 @@ GUIVehicle::getStopInfo() const {
         result += ", containerTriggered";
     } else if (myStops.front().collision) {
         result += ", collision";
+    } else if (myStops.front().pars.until != -1) {
+        result += ", until=" + time2string(myStops.front().pars.until);
     } else {
         result += ", duration=" + time2string(myStops.front().duration);
     }
@@ -744,21 +700,26 @@ GUIVehicle::getStopInfo() const {
 void
 GUIVehicle::selectBlockingFoes() const {
     double dist = myLane->getLength() - getPositionOnLane();
+#ifdef DEBUG_FOES
+    std::cout << SIMTIME << " selectBlockingFoes veh=" << getID() << " dist=" << dist << " numLinks=" << myLFLinkLanes.size() << "\n";
+#endif
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
         const DriveProcessItem& dpi = *i;
         if (dpi.myLink == 0) {
+            /// XXX if the vehicle intends to stop on an intersection, there could be a relevant exitLink (see #4299)
             continue;
         }
         std::vector<const SUMOVehicle*> blockingFoes;
         std::vector<const MSPerson*> blockingPersons;
 #ifdef DEBUG_FOES
+        std::cout << "   foeLink=" << dpi.myLink->getViaLaneOrLane()->getID() << "\n";
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
                                getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes);
 #ifdef DEBUG_FOES
         if (!isOpen) {
-            std::cout << SIMTIME << " veh=" << getID() << " foes at link=" << dpi.myLink->getViaLaneOrLane()->getID() << ":\n";
+            std::cout << "     closed due to:\n";
             for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
                 std::cout << "   " << (*it)->getID() << "\n";
             }
@@ -778,7 +739,7 @@ GUIVehicle::selectBlockingFoes() const {
                                          getWaitingTime(), shadowLatPos, &blockingFoes);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
-                    std::cout << SIMTIME << " veh=" << getID() << " foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
+                    std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
                     for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
                         std::cout << "   " << (*it)->getID() << "\n";
                     }
@@ -789,7 +750,13 @@ GUIVehicle::selectBlockingFoes() const {
         for (std::vector<const SUMOVehicle*>::const_iterator it = blockingFoes.begin(); it != blockingFoes.end(); ++it) {
             gSelected.select(static_cast<const GUIVehicle*>(*it)->getGlID());
         }
+#ifdef DEBUG_FOES
+        gDebugFlag1 = true;
+#endif
         const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(this, dist, &blockingPersons);
+#ifdef DEBUG_FOES
+        gDebugFlag1 = false;
+#endif
         for (MSLink::LinkLeaders::const_iterator it = linkLeaders.begin(); it != linkLeaders.end(); ++it) {
             // the vehicle to enter the junction first has priority
             const GUIVehicle* leader = dynamic_cast<const GUIVehicle*>(it->vehAndGap.first);
@@ -797,7 +764,7 @@ GUIVehicle::selectBlockingFoes() const {
                 if (dpi.myLink->isLeader(this, leader)) {
                     gSelected.select(leader->getGlID());
 #ifdef DEBUG_FOES
-                    std::cout << SIMTIME << " veh=" << getID() << " linkLeader at link=" << dpi.myLink->getViaLaneOrLane()->getID() << " foe=" << leader->getID() << "\n";
+                    std::cout << "      linkLeader=" << leader->getID() << "\n";
 #endif
                 }
             } else {

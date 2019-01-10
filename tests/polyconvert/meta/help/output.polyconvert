@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version 4a35c4d
+Eclipse SUMO polyconvert Version f06adb7
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -30,6 +30,9 @@ Input Options:
                                      pair
   --osm.use-name                   The id will be set from the given 'name'
                                      attribute
+  --osm.merge-relations FLOAT      If FLOAT >= 0, assemble one polygon from all
+                                     ways of a relation if they all connect with
+                                     gaps below FLOAT
   --shapefile-prefixes FILE        Reads shapes from shapefiles FILE+
   --shapefile.guess-projection     Guesses the shapefile's projection
   --shapefile.id-column STR        Defines in which column the id can be found

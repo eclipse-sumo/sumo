@@ -26,7 +26,6 @@ import os
 import sys
 import optparse
 import subprocess
-import random
 
 
 # the directory in which this script resides
@@ -36,18 +35,14 @@ THISDIR = os.path.dirname(__file__)
 # we need to import python modules from the $SUMO_HOME/tools directory
 # If the the environment variable SUMO_HOME is not set, try to locate the python
 # modules relative to this script
-try:
-    # tutorial in tests
-    sys.path.append(os.path.join(THISDIR, '..', '..', '..', '..', "tools"))
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-        THISDIR, "..", "..", "..")), "tools"))  # tutorial in docs
-
-    import traci
-    from sumolib import checkBinary  # noqa
-    import randomTrips
-except ImportError:
-    sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+import traci  # noqa
+from sumolib import checkBinary  # noqa
+import randomTrips  # noqa
 
 # minimum green time for the vehicles
 MIN_GREEN_TIME = 15

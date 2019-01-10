@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utility>
@@ -506,10 +502,13 @@ GUISUMOAbstractView::displayLegend() {
     glLoadIdentity();
 
     // draw the scale bar
+    const double z = -1;
     glDisable(GL_TEXTURE_2D);
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
+    glPushMatrix();
+    glTranslated(0, 0, z);
 
     double len = (double) pixelSize / (double)(getWidth() - 1) * (double) 2.0;
     glColor3d(0, 0, 0);
@@ -527,14 +526,15 @@ GUISUMOAbstractView::displayLegend() {
     glVertex2d(-.98 + len, -1. + o);
     glVertex2d(-.98 + len, -1. + o2);
     glEnd();
+    glPopMatrix();
 
     const double fontHeight = 0.1 * 300. / getHeight();
     const double fontWidth = 0.1 * 300. / getWidth();
     // draw 0
-    GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), 0.1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
+    GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // draw current scale
-    GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), 0.1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
+    GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
@@ -741,9 +741,9 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
         myChanger->onMouseWheel(data);
         // upddate viewport
         if (myViewportChooser != 0) {
-            myViewportChooser->setValues(myChanger->getZoom(), 
-                    myChanger->getXPos(), myChanger->getYPos(), 
-                    myChanger->getRotation());
+            myViewportChooser->setValues(myChanger->getZoom(),
+                                         myChanger->getXPos(), myChanger->getYPos(),
+                                         myChanger->getRotation());
         }
         updatePositionInformation();
     }
@@ -762,9 +762,9 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
             myChanger->onMouseMove(data);
         }
         if (myViewportChooser != 0) {
-            myViewportChooser->setValues(myChanger->getZoom(), 
-                    myChanger->getXPos(), myChanger->getYPos(),
-                    myChanger->getRotation());
+            myViewportChooser->setValues(myChanger->getZoom(),
+                                         myChanger->getXPos(), myChanger->getYPos(),
+                                         myChanger->getRotation());
         }
         updatePositionInformation();
     }
@@ -944,8 +944,8 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, 
             glFinish();
         }
         fclose(fp);
-#else		
-		return "Could not save '" + destFile + "', gl2ps was not enabled at compile time.";
+#else
+        return "Could not save '" + destFile + "', gl2ps was not enabled at compile time.";
 #endif
     } else {
         doPaintGL(GL_RENDER, myChanger->getViewport());
@@ -1073,17 +1073,17 @@ GUISUMOAbstractView::getViewportEditor() {
         const FXint minSize = 100;
         const FXint minTitlebarHeight = 20;
         int x = MAX2(0, MIN2(getApp()->reg().readIntEntry(
-                        "VIEWPORT_DIALOG_SETTINGS", "x", 150), 
-                getApp()->getRootWindow()->getWidth() - minSize));
+                                 "VIEWPORT_DIALOG_SETTINGS", "x", 150),
+                             getApp()->getRootWindow()->getWidth() - minSize));
         int y = MAX2(minTitlebarHeight, MIN2(getApp()->reg().readIntEntry(
-                    "VIEWPORT_DIALOG_SETTINGS", "y", 150), 
-                    getApp()->getRootWindow()->getHeight() - minSize));
+                "VIEWPORT_DIALOG_SETTINGS", "y", 150),
+                                             getApp()->getRootWindow()->getHeight() - minSize));
         myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", x, y);
         myViewportChooser->create();
     }
-    myViewportChooser->setValues(myChanger->getZoom(), 
-            myChanger->getXPos(), myChanger->getYPos(), 
-            myChanger->getRotation());
+    myViewportChooser->setValues(myChanger->getZoom(),
+                                 myChanger->getXPos(), myChanger->getYPos(),
+                                 myChanger->getRotation());
     return myViewportChooser;
 }
 
@@ -1109,8 +1109,8 @@ void
 GUISUMOAbstractView::copyViewportTo(GUISUMOAbstractView* view) {
     // look straight down
     view->setViewportFromToRot(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()),
-                            Position(myChanger->getXPos(), myChanger->getYPos(), 0),
-                            myChanger->getRotation());
+                               Position(myChanger->getXPos(), myChanger->getYPos(), 0),
+                               myChanger->getRotation());
 }
 
 

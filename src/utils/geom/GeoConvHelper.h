@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <map>
 #include <string>
@@ -151,8 +147,11 @@ public:
     /// @brief Returns the network base
     const Position getOffsetBase() const;
 
-    /// @brief Returns the network offset
+    /// @brief Returns the original projection definition
     const std::string& getProjString() const;
+
+    /// @brief Returns the expanded projection definition
+    const std::string getProjStringExpaneded() const;
 
     /// @brief @brief writes the location element
     static void writeLocation(OutputDevice& into);

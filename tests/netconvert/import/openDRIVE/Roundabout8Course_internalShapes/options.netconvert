@@ -1,0 +1,4 @@
+--opendrive opendrive.xodr -v
+--roundabouts.guess 
+--junctions.corner-detail 5
+--opendrive.internal-shapes

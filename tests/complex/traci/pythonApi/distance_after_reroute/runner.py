@@ -18,30 +18,20 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-import subprocess
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path += [tools]
-    import sumolib  # noqa
-    import traci
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
 else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-
-# the port used for communicating with your sumo instance
-PORT_TRACI = sumolib.miscutils.getFreeSocketPort()
+    import traci  # noqa
+import sumolib  # noqa
 
 
 def main(args):
-    sumoBinary = sumolib.checkBinary('sumo')
-    sumo_call = [sumoBinary, "-c", "data/hello.sumocfg",
-                 "--remote-port", str(PORT_TRACI),
+    traci.start([sumolib.checkBinary('sumo'), "-c", "data/hello.sumocfg",
                  "--netstate-dump", "rawdump.xml",
-                 "--no-step-log"]
-    sumoProcess = subprocess.Popen(
-        sumo_call, stdout=sys.stdout, stderr=sys.stderr)
-    traci.init(PORT_TRACI)
+                 "--no-step-log"])
 
     for step in range(161):
         traci.simulationStep()
@@ -49,18 +39,16 @@ def main(args):
             print(traci.vehicle.getDistance('Stapler_00'))
             traci.vehicle.setRoute('Stapler_00', ('ed1', 'ed5'))
             print(traci.vehicle.getRoute('Stapler_00'))
-            assert(traci.vehicle.getRoute('Stapler_00')
-                   == ['ed0', 'ed1', 'ed5'])
+            assert(traci.vehicle.getRoute('Stapler_00') == ('ed0', 'ed1', 'ed5'))
             print(traci.vehicle.getDistance('Stapler_00'))
         if step == 122:
-            assert(traci.vehicle.getRoute('Stapler_00')
-                   == ['ed0', 'ed1', 'ed5'])
+            assert(traci.vehicle.getRoute('Stapler_00') == ('ed0', 'ed1', 'ed5'))
             print(traci.vehicle.getDistance('Stapler_00'))
             traci.vehicle.setRouteID('Stapler_00', "short")
             print(traci.vehicle.getRoute('Stapler_00'))
             print(traci.vehicle.getDistance('Stapler_00'))
     traci.close()
-    sumoProcess.wait()
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

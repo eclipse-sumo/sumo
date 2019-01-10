@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -47,8 +43,9 @@
 // method definitions
 // ===========================================================================
 SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme)
-    : myHandler(&handler), myValidationScheme(validationScheme),
-      myXMLReader(0), myBinaryInput(0)  {}
+    : myHandler(nullptr), myValidationScheme(validationScheme), myXMLReader(nullptr), myBinaryInput(nullptr) {
+    setHandler(handler);
+}
 
 
 SUMOSAXReader::~SUMOSAXReader() {
@@ -60,7 +57,8 @@ SUMOSAXReader::~SUMOSAXReader() {
 void
 SUMOSAXReader::setHandler(GenericSAXHandler& handler) {
     myHandler = &handler;
-    if (myXMLReader != 0) {
+    mySchemaResolver.setHandler(handler);
+    if (myXMLReader != nullptr) {
         myXMLReader->setContentHandler(&handler);
         myXMLReader->setErrorHandler(&handler);
     }
@@ -224,6 +222,7 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
         const std::string dir = url.substr(0, pos);
         if (dir == "http://sumo.sf.net/xsd" || dir == "http://sumo-sim.org/xsd" || dir == "http://sumo-sim.org/xsd/amitran" ||
                 dir == "http://sumo.dlr.de/xsd" || dir == "http://sumo.dlr.de/xsd/amitran") {
+            myHandler->setSchemaSeen();
             const char* sumoPath = std::getenv("SUMO_HOME");
             if (sumoPath == 0) {
                 WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
@@ -241,6 +240,12 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
         }
     }
     return 0;
+}
+
+
+void
+SUMOSAXReader::LocalSchemaResolver::setHandler(GenericSAXHandler& handler) {
+    myHandler = &handler;
 }
 
 

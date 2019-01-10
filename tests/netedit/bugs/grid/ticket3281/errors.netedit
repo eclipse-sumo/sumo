@@ -1,3 +1,31 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current Viewport values: 100.00, 0.00, 200.00. Zoom = '50.00'
+Debug: Adding junction 'gneJ0' into net
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Adding junction 'gneJ1' into net
+Debug: Adding edge 'gneE0' from net
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Setting new attribute shape '100.40,0.00' into edge 'gneE0'
+Debug: Setting new attribute shape '' into edge 'gneE0'
+Debug: Setting new attribute shape '100.40,0.00' into edge 'gneE0'
+Debug: Setting new attribute shape '100.00,-100.00' into edge 'gneE0'
+Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute shape '100.40,0.00' into edge 'gneE0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute shape '' into edge 'gneE0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute shape '100.40,0.00' into edge 'gneE0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute shape '100.00,-100.00' into edge 'gneE0'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

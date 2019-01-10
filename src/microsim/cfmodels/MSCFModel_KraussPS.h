@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel_Krauss.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -44,16 +40,9 @@
 class MSCFModel_KraussPS : public MSCFModel_Krauss {
 public:
     /** @brief Constructor
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] emergencyDecel The maximum emergency deceleration
-     * @param[in] apparentDecel The deceleration as expected by others
-     * @param[in] dawdle The driver imperfection
-     * @param[in] headwayTime The driver's desired headway
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel_KraussPS(const MSVehicleType* vtype, double accel,
-                       double decel, double emergencyDecel, double apparentDecel,
-                       double dawdle, double headwayTime);
+    MSCFModel_KraussPS(const MSVehicleType* vtype);
 
 
     /// @brief Destructor

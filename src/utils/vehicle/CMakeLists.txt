@@ -13,6 +13,7 @@ set(utils_vehicle_STAT_SRCS
    IntermodalNetwork.h
    IntermodalRouter.h
    IntermodalTrip.h
+   EffortCalculator.h
    GawronCalculator.h
    LogitCalculator.h
    RouteCostCalculator.h

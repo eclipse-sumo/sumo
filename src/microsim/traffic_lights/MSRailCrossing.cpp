@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utility>
@@ -96,10 +92,9 @@ MSRailCrossing::updateCurrentPhase() {
     // check rail links for approaching foes to determine whether and how long
     // the crossing must remain closed
     for (std::vector<MSLink*>::const_iterator it_link = myIncomingRailLinks.begin(); it_link != myIncomingRailLinks.end(); ++it_link) {
-        for (std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation>::const_iterator
-                it_avi = (*it_link)->getApproaching().begin();
-                it_avi != (*it_link)->getApproaching().end(); ++it_avi) {
-            const MSLink::ApproachingVehicleInformation& avi = it_avi->second;
+
+        for (auto it_avi : (*it_link)->getApproaching()) {
+            const MSLink::ApproachingVehicleInformation& avi = it_avi.second;
             if (avi.arrivalTime - myYellowTime - now < mySecurityGap) {
                 stayRedUntil = MAX2(stayRedUntil, avi.leavingTime);
             }

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <fstream>
@@ -64,8 +60,9 @@ MSTriggeredRerouter*
 GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
                                  MSEdgeVector& edges,
                                  double prob, const std::string& file, bool off,
-                                 SUMOTime timeThreshold) {
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off, timeThreshold,
+                                 SUMOTime timeThreshold,
+                                 const std::string& vTypes) {
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(id, edges, prob, file, off, timeThreshold, vTypes,
             dynamic_cast<GUINet&>(net).getVisualisationSpeedUp());
     return rr;
 }
@@ -85,7 +82,6 @@ GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<st
         myCurrentStop = 0;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
 }
 
 
@@ -108,9 +104,9 @@ GUITriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 
 
 void
-GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
                                         double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) {
-    GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
+    GUIChargingStation* chargingStation = new GUIChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
@@ -143,6 +139,15 @@ GUITriggerBuilder::endParkingArea() {
 }
 
 
+void
+GUITriggerBuilder::endStoppingPlace() {
+    if (myCurrentStop != 0) {
+        static_cast<GUINet*>(MSNet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
+        myCurrentStop = 0;
+    } else {
+        throw InvalidArgument("Could not end a stopping place that is not opened.");
+    }
+}
 
 /****************************************************************************/
 

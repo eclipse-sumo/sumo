@@ -3,6 +3,8 @@ set(microsim_devices_STAT_SRCS
    MSDevice.h
    MSDevice_SSM.cpp
    MSDevice_SSM.h
+   MSDevice_DriverState.cpp
+   MSDevice_DriverState.h
    MSDevice_ToC.cpp
    MSDevice_ToC.h
    MSDevice_BTreceiver.cpp

@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 
 #include <netedit/additionals/GNERerouterInterval.h>
@@ -60,13 +56,10 @@ class GNERerouterIntervalDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNERerouterIntervalDialog(GNERerouterInterval* rerouterInterval, bool updatingElement);
+    GNERerouterIntervalDialog(GNEAdditional* rerouterInterval, bool updatingElement);
 
     /// @brief destructor
     ~GNERerouterIntervalDialog();
-
-    /// @brief get edited Rerouter Interval
-    GNERerouterInterval* getEditedRerouterInterval() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -105,7 +98,7 @@ public:
 
     /// @brief remove route prob reroute
     long onCmdClickedRouteProbReroute(FXObject*, FXSelector, void*);
-    
+
     /// @brief remove parkingAreaReroute
     long onCmdClickedParkingAreaReroute(FXObject*, FXSelector, void*);
 
@@ -132,12 +125,6 @@ public:
 protected:
     /// @brief FOX needs this
     GNERerouterIntervalDialog() {}
-
-    /// @brief pointer to rerouter interval
-    GNERerouterInterval* myEditedRerouterInterval;
-
-    /// @brief flag to indicate if rerouter interval is being created or modified
-    bool myUpdatingElement;
 
     /// @brief begin time text field
     FXTextField* myBeginTextField;
@@ -178,6 +165,20 @@ protected:
     /// @brief list with parkingAreaReroutes
     FXTable* myParkingAreaRerouteTable;
 
+    /// @brief closing Reroutes edited
+    std::vector<GNEAdditional*> myClosingReroutesEdited;
+
+    /// @brief closing Lane Reroutes edited
+    std::vector<GNEAdditional*> myClosingLaneReroutesEdited;
+
+    /// @brief Dest Prob Reroutes edited
+    std::vector<GNEAdditional*> myDestProbReroutesEdited;
+
+    /// @brief Route Prob Reroutes edited
+    std::vector<GNEAdditional*> myRouteProbReroutesEdited;
+
+    /// @brief Parking Area reroute edited
+    std::vector<GNEAdditional*> myParkingAreaRerouteEdited;
 
     /// @brief flag to check if begin an end are valid
     bool myBeginEndValid;

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -90,10 +86,13 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
 GUIBusStop::~GUIBusStop() {}
 
 
-void
+bool
 GUIBusStop::addAccess(MSLane* lane, const double pos, const double length) {
-    MSStoppingPlace::addAccess(lane, pos, length);
-    myAccessCoords.push_back(lane->getShape().positionAtOffset(pos));
+    bool added = MSStoppingPlace::addAccess(lane, pos, length);
+    if (added) {
+        myAccessCoords.push_back(lane->geometryPositionAtOffset(pos));
+    }
+    return added;
 }
 
 
@@ -179,7 +178,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPopMatrix();
     glPopName();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(myFGSignPos, s.scale, s.addName);
 }
 
 
@@ -187,10 +186,11 @@ Boundary
 GUIBusStop::getCenteringBoundary() const {
     Boundary b = myFGShape.getBoxBoundary();
     b.grow(SUMO_const_laneWidth);
+    for (const Position& p : myAccessCoords) {
+        b.add(p);
+    }
     return b;
 }
 
 
-
 /****************************************************************************/
-

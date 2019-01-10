@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <deque>
@@ -126,7 +122,7 @@ public:
     /** @struct Crossing
      * @brief A definition of a pedestrian crossing
      */
-    struct Crossing {
+    struct Crossing : public Parameterised {
         /// @brief constructor
         Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex, int _customTLIndex2, const PositionVector& _customShape);
         /// @brief The parent node of this crossing
@@ -197,7 +193,7 @@ public:
     };
 
     struct WalkingAreaCustomShape {
-        std::set<const NBEdge*> edges;
+        std::set<const NBEdge*, ComparatorIdLess> edges;
         PositionVector shape;
     };
 
@@ -208,6 +204,10 @@ public:
     /// @brief unspecified lane width
     static const double UNSPECIFIED_RADIUS;
 
+    /// @brief flags for controlling shape generation
+    static const int AVOID_WIDE_RIGHT_TURN;
+    static const int AVOID_WIDE_LEFT_TURN;
+    static const int FOUR_CONTROL_POINTS;
 public:
     /**@brief Constructor
      * @param[in] id The id of the node
@@ -307,7 +307,7 @@ public:
     void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections);
 
     /// @brief patches loaded signal plans by modifying lane indices above threshold by the given offset
-    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1);
+    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1);
     /// @}
 
 
@@ -430,6 +430,11 @@ public:
                                   const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane,
                                   bool lefthand = false);
 
+    /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
+    bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
+                  const NBEdge* from2, const NBEdge* to2, int fromLane2,
+                  bool lefthand = false) const;
+
     /**@brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
      * @param[in] possProhibitedTo The maybe prohibited connection's end
@@ -510,8 +515,8 @@ public:
                    const NBEdge::Connection& c, const NBEdge::Connection& otherC) const;
 
     /// @brief whether the connection must yield if the foe remains on the intersection after its phase ends
-    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c, 
-        const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
+    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
+                         const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
 
 
     /**@brief Compute the shape for an internal lane
@@ -535,11 +540,12 @@ public:
      */
     PositionVector computeSmoothShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints,
                                       bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
-                                      NBNode* recordError = 0) const;
+                                      NBNode* recordError = 0, int shapeFlag = 0) const;
     /// @brief get bezier control points
     static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
             bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
-            bool& ok, NBNode* recordError = 0, double straightThresh = DEG2RAD(5));
+            bool& ok, NBNode* recordError = 0, double straightThresh = DEG2RAD(5),
+            int shapeFlag = 0);
 
 
     /// @brief compute the displacement error during s-curve computation
@@ -617,6 +623,9 @@ public:
     /// @brief discard all current (and optionally future) crossings
     void discardAllCrossings(bool rejectAll);
 
+    /// @brief discard previously built walkingareas (required for repeated computation by netedit)
+    void discardWalkingareas();
+
     /// @brief get num of crossings from sumo net
     int numCrossingsFromSumoNet() const {
         return myCrossingsLoadedFromSumoNet;
@@ -633,8 +642,15 @@ public:
         return myWalkingAreas;
     }
 
+    const std::vector<WalkingAreaCustomShape>& getWalkingAreaCustomShapes() const {
+        return myWalkingAreaCustomShapes;
+    }
+
     /// @brief return the crossing with the given id
     Crossing* getCrossing(const std::string& id) const;
+
+    /// @brief return the crossing with the given Edges
+    Crossing* getCrossing(const EdgeVector& edges, bool hardFail = true) const;
 
     /* @brief set tl indices of this nodes crossing starting at the given index
      * @return Whether a custom index was used
@@ -743,7 +759,7 @@ private:
     void removeJoinedTrafficLights();
 
     /// @brief displace lane shapes to account for change in lane width at this node
-    void displaceShapeAtWidthChange(const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
+    void displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
 
 private:
     /// @brief The position the node lies at

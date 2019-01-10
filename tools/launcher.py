@@ -17,8 +17,8 @@ from __future__ import absolute_import
 import os
 import re
 import subprocess
-from Tkinter import *
-from ttk import *
+from Tkinter import Canvas, Menu, StringVar, Tk, LEFT
+from ttk import Button, Frame, Menubutton, Label, Scrollbar, Entry
 import tkFileDialog
 from sumolib.options import Option, readOptions
 
@@ -187,6 +187,7 @@ def parse_help(app):
     options = []
     optName = None
     optHelp = ""
+    optType = ""
     for line in helpstring.split(os.linesep):
         if '--' in line:
             if optName is not None:
@@ -213,6 +214,7 @@ def main():
     root = Tk()
     app = Launcher(root, app, appOptions)
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()

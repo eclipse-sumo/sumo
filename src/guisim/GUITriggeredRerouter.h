@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <string>
@@ -67,6 +63,7 @@ public:
                          const MSEdgeVector& edges, double prob,
                          const std::string& aXMLFilename, bool off,
                          SUMOTime timeThreshold,
+                         const std::string& vTypes,
                          SUMORTree& rtree);
 
 

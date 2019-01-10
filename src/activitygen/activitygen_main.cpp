@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -73,7 +69,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         throw ProcessError("The network file '" + file + "' could not be accessed.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading net");
-    RONetHandler handler(toFill, eb);
+    RONetHandler handler(toFill, eb, true);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();

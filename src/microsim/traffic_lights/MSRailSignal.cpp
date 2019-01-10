@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utility>
@@ -42,13 +38,19 @@
 #include "MSTLLogicControl.h"
 
 // typical block length in germany on main lines is 3-5km on branch lines up to 7km
-// special branches that are used by one train exclusively could also be up to 20km in length 
+// special branches that are used by one train exclusively could also be up to 20km in length
 // minimum block size in germany is 37.5m (LZB)
 // larger countries (USA, Russia) might see blocks beyond 20km)
 #define MAX_BLOCK_LENGTH 20000
+#define MAX_SIGNAL_WARNINGS 10
 
 //#define DEBUG_SUCCEEDINGBLOCKS
 #define DEBUG_COND (getID() == "disabled")
+
+// ===========================================================================
+// static value definitions
+// ===========================================================================
+int MSRailSignal::myNumWarnings(0);
 
 class ApproachingVehicleInformation;
 // ===========================================================================
@@ -88,6 +90,14 @@ MSRailSignal::init(NLDetectorBuilder&) {
             double blockLength = approachingLane->getLength();
             while (noRailSignal) {
                 std::vector<MSLane::IncomingLaneInfo> incomingLanes = currentLane->getIncomingLanes();
+                // ignore incoming lanes for non-rail classes
+                for (auto it = incomingLanes.begin(); it != incomingLanes.end();) {
+                    if (((*it).lane->getPermissions() & SVC_RAIL_CLASSES) == 0) {
+                        it = incomingLanes.erase(it);
+                    } else {
+                        it++;
+                    }
+                }
                 MSLane* precedentLane;
                 if (!incomingLanes.empty()) {
                     precedentLane = incomingLanes.front().lane;
@@ -96,13 +106,13 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 }
                 if (precedentLane == 0) { //if there is no preceeding lane
                     noRailSignal = false;
-                }else if (blockLength >= MAX_BLOCK_LENGTH) { // avoid huge blocks
-                    WRITE_WARNING("Block before rail signal junction '" + getID() + 
-                            "' exceeds maximum length (stopped searching at lane '" + precedentLane->getID() + "' after " + toString(blockLength) + "m).");
+                } else if (blockLength >= MAX_BLOCK_LENGTH) { // avoid huge blocks
+                    WRITE_WARNING("Block before rail signal junction '" + getID() +
+                                  "' exceeds maximum length (stopped searching at lane '" + precedentLane->getID() + "' after " + toString(blockLength) + "m).");
                     noRailSignal = false;
                 } else {
                     const MSJunction* junction = precedentLane->getEdge().getToJunction();
-                    if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junction exists and if it has a rail signal
+                    if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL || junction->getType() == NODETYPE_TRAFFIC_LIGHT)) { //if this junction exists and if it has a rail signal
                         noRailSignal = false;
                     } else {
                         afferentBlock.push_back(precedentLane);
@@ -127,23 +137,34 @@ MSRailSignal::init(NLDetectorBuilder&) {
                     std::vector<MSLink*>::const_iterator j;
                     for (j = outGoingLinks.begin(); j != outGoingLinks.end(); j++) {
                         const MSJunction* junction = currentLane->getEdge().getToJunction();
-                        if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL)) { //if this junctions exists and if it has a rail signal
+                        if ((junction != 0) && (junction->getType() == NODETYPE_RAIL_SIGNAL || junction->getType() == NODETYPE_TRAFFIC_LIGHT)) { //if this junctions exists and if it has a rail signal
                             noRailSignalLocal = false;
                             break;
                         }
                     }
                     if (noRailSignalLocal) { //if currentLane is not ending at a railSignal
                         //get the next lane
-                        std::vector<const MSLane*> outGoingLanes = currentLane->getOutgoingLanes();
+                        std::vector<const MSLane*> outGoingLanes;
+                        // ignore outgoing lanes for non-rail classes
+                        for (auto it : currentLane->getOutgoingViaLanes()) {
+                            if ((it.first->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+                                outGoingLanes.push_back(it.first);
+                            }
+                        }
                         if (outGoingLanes.size() == 0) {    //if the current lane has no outgoing lanes (deadend)
                             noRailSignalLocal = false;
                         } else if (blockLength > MAX_BLOCK_LENGTH) {
-                            WRITE_WARNING("Block after rail signal junction '" + getID() + 
-                                    "' exceeds maximum length (stopped searching at lane '" + currentLane->getID() + "' after " + toString(blockLength) + "m).");
+                            WRITE_WARNING("Block after rail signal junction '" + getID() +
+                                          "' exceeds maximum length (stopped searching at lane '" + currentLane->getID() + "' after " + toString(blockLength) + "m).");
                             noRailSignalLocal = false;
                         } else {
                             if (outGoingLanes.size() > 1) {
-                                WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
+                                if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
+                                    WRITE_WARNING("Rail lane '" + currentLane->getID() + "' has more than one outgoing lane but does not have a rail signal at its end");
+                                } else if (myNumWarnings == MAX_SIGNAL_WARNINGS) {
+                                    WRITE_WARNING("Suppressing further signal warnings ...");
+                                }
+                                myNumWarnings++;
                             }
                             const MSLane* nextLane = outGoingLanes.front();
                             succeedingBlock.push_back(nextLane);
@@ -171,7 +192,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
         for (std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
             const MSLane* lane = *laneIt;
 
-            const MSEdge* reverseEdge = lane->getEdge().getMyOppositeSuperposableEdge();
+            const MSEdge* reverseEdge = lane->getEdge().getBidiEdge();
             if (reverseEdge != 0) {
                 const MSLane* revLane = reverseEdge->getLanes()[0];
                 revLanes.push(revLane);
@@ -217,34 +238,30 @@ MSRailSignal::trySwitch() {
 std::string
 MSRailSignal::getAppropriateState() {
     std::string state(myLinks.size(), 'G');   //the state of the phase definition (all signal are green)
-    std::vector<MSLane*>::const_iterator i;    //the iterator of outgoing lanes of this junction
-    for (i = myOutgoingLanes.begin(); i != myOutgoingLanes.end(); i++) {    //for every outgoing lane
-        MSLane* lane = (*i);
-
+    for (MSLane* lane : myOutgoingLanes) {
         //check if the succeeding block is used by a train
         bool succeedingBlockOccupied = false;
-        std::vector<const MSLane*>::const_iterator j;
-        for (j = mySucceedingBlocks.at(lane).begin(); j != mySucceedingBlocks.at(lane).end(); j++) { //for every lane in the block between the current signal and the next signal
-            if (!(*j)->isEmpty()) { //if this lane is not empty
+        const std::vector<const MSLane*>& block = mySucceedingBlocks.at(lane);
+        for (const MSLane* l : block) {
+            if (!l->isEmpty()) { //if this lane is not empty
                 succeedingBlockOccupied = true;
-            } else {
-                std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
-                if (it != mySucceedingBlocksIncommingLinks.end()) {
-                    const MSLink* inCommingLing = it->second;
-                    const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess> approaching = inCommingLing->getApproaching();
-                    std::map<const SUMOVehicle*,  MSLink::ApproachingVehicleInformation>::const_iterator apprIt = approaching.begin();
-                    for (; apprIt != approaching.end(); apprIt++) {
-                        MSLink::ApproachingVehicleInformation info = apprIt->second;
-                        if (info.arrivalSpeedBraking > 0) {
-                            succeedingBlockOccupied = true;
-                            break;
-                        }
-                    }
-
-                }
-            }
-            if (succeedingBlockOccupied) {
                 break;
+            }
+        }
+        if (!succeedingBlockOccupied) {
+            // check whether approaching vehicles reserve the block
+            std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
+            if (it != mySucceedingBlocksIncommingLinks.end()) {
+                const MSLink* inCommingLing = it->second;
+                const std::map<const SUMOVehicle*, MSLink::ApproachingVehicleInformation, ComparatorIdLess> approaching = inCommingLing->getApproaching();
+                for (auto apprIt : approaching) {
+                    MSLink::ApproachingVehicleInformation info = apprIt.second;
+                    if (info.arrivalSpeedBraking > 0) {
+                        succeedingBlockOccupied = true;
+                        break;
+                    }
+                }
+
             }
         }
 
@@ -293,7 +310,7 @@ MSRailSignal::getAppropriateState() {
 
 void
 MSRailSignal::updateCurrentPhase() {
-    myCurrentPhase = MSPhaseDefinition(DELTA_T, getAppropriateState());
+    myCurrentPhase.setState(getAppropriateState());
 }
 
 

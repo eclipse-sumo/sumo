@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <map>
 #include <fstream>
@@ -128,7 +124,7 @@ OutputDevice::getDeviceByOption(const std::string& optionName) {
 
 
 void
-OutputDevice::closeAll() {
+OutputDevice::closeAll(bool keepErrorRetrievers) {
     std::vector<OutputDevice*> errorDevices;
     std::vector<OutputDevice*> nonErrorDevices;
     for (std::map<std::string, OutputDevice*>::iterator i = myOutputDevices.begin(); i != myOutputDevices.end(); ++i) {
@@ -140,18 +136,21 @@ OutputDevice::closeAll() {
     }
     for (std::vector<OutputDevice*>::iterator i = nonErrorDevices.begin(); i != nonErrorDevices.end(); ++i) {
         try {
+            //std::cout << "  close '" << (*i)->getFilename() << "'\n";
             (*i)->close();
         } catch (const IOError& e) {
             WRITE_ERROR("Error on closing output devices.");
             WRITE_ERROR(e.what());
         }
     }
-    for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
-        try {
-            (*i)->close();
-        } catch (const IOError& e) {
-            std::cerr << "Error on closing error output devices." << std::endl;
-            std::cerr << e.what() << std::endl;
+    if (!keepErrorRetrievers) {
+        for (std::vector<OutputDevice*>::iterator i = errorDevices.begin(); i != errorDevices.end(); ++i) {
+            try {
+                (*i)->close();
+            } catch (const IOError& e) {
+                std::cerr << "Error on closing error output devices." << std::endl;
+                std::cerr << e.what() << std::endl;
+            }
         }
     }
 }
@@ -178,8 +177,9 @@ OutputDevice::realString(const double v, const int precision) {
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-OutputDevice::OutputDevice(const bool binary, const int defaultIndentation)
-    : myAmBinary(binary) {
+OutputDevice::OutputDevice(const bool binary, const int defaultIndentation, const std::string& filename) :
+    myAmBinary(binary),
+    myFilename(filename) {
     if (binary) {
         myFormatter = new BinaryFormatter();
     } else {
@@ -199,6 +199,11 @@ OutputDevice::ok() {
 }
 
 
+const std::string&
+OutputDevice::getFilename() {
+    return myFilename;
+}
+
 void
 OutputDevice::close() {
     while (closeTag()) {}
@@ -208,6 +213,7 @@ OutputDevice::close() {
             break;
         }
     }
+    MsgHandler::removeRetrieverFromAllInstances(this);
     delete this;
 }
 

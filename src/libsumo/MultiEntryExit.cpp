@@ -22,23 +22,26 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/MSNet.h>
-#include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 #include "MultiEntryExit.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults MultiEntryExit::mySubscriptionResults;
+ContextSubscriptionResults MultiEntryExit::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 MultiEntryExit::getIDList() {
     std::vector<std::string> ids;
@@ -78,6 +81,9 @@ MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(MultiEntryExit, MULTIENTRYEXIT)
+
+
 MSE3Collector*
 MultiEntryExit::getDetector(const std::string& id) {
     MSE3Collector* e3 = dynamic_cast<MSE3Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ENTRY_EXIT_DETECTOR).get(id));
@@ -86,6 +92,35 @@ MultiEntryExit::getDetector(const std::string& id) {
     }
     return e3;
 }
+
+
+std::shared_ptr<VariableWrapper>
+MultiEntryExit::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+MultiEntryExit::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case LAST_STEP_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+        case LAST_STEP_MEAN_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case LAST_STEP_VEHICLE_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        case LAST_STEP_VEHICLE_HALTING_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+        default:
+            return false;
+    }
+}
+
+
 }
 
 

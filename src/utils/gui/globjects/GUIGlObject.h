@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <set>
@@ -95,7 +91,7 @@ public:
 
     /// @brief Returns the name of the parent object (if any)
     /// @return This object's parent id
-    virtual const std::string& getParentName() const;
+    virtual std::string getParentName() const;
 
     /// @brief Returns the numerical id of the object
     /// @return This object's gl-id

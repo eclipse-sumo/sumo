@@ -15,12 +15,12 @@
 
 """
 # what does it do:
-- extract signal records from an xodr file that was converted 
-    to a SUMO net using netconvert 
-- generate an additionals file containing pois of type='signal' 
+- extract signal records from an xodr file that was converted
+    to a SUMO net using netconvert
+- generate an additionals file containing pois of type='signal'
 - ensure POIs are positioned and associated to the appropriate edge's lanes
 
-# example call: 
+# example call:
   signal_POIs_from_xodr.py data/OpenDrive/scen.xodr data/sumo/net.net.xml
   -> will create a file data/sumo/signals.add.xml
 """
@@ -56,7 +56,7 @@ def lol_T(lol):
 
 
 def find_upstream_lin_m(lm_soff, lim_lin_m):
-    """for a linear metrage array lm_soff, find the index 
+    """for a linear metrage array lm_soff, find the index
     of the max value, smaller lim_lin_m
     """
     # NOTE: more elegant; np.digitize()
@@ -78,7 +78,7 @@ def calculate_lin_m_width(wr_attribs, lin_m):
 
 
 def get_OD_lane_widths(lane_sec, cur_ls_sOff):
-    """takes a lane section element and its offest against the road 
+    """takes a lane section element and its offest against the road
     returns [(lane_id, width), ...]
     """
     global xodr_ns
@@ -93,7 +93,7 @@ def get_OD_lane_widths(lane_sec, cur_ls_sOff):
         l_soff = lane.xpath('.//ns:width/@sOffset', namespaces={'ns': xodr_ns})
         if len(l_soff) == 0:      # in case there is no width rec (xodr lane 0)
             l_soff = [0.0]
-            #width = 0.
+            # width = 0.
         else:
             l_soff = np.r_[l_soff].astype(float)
             l_soff += cur_ls_sOff         # to get actual linear meters along road
@@ -116,7 +116,7 @@ def extract_lanes_width_data(rte, ):
     global xodr_ns
 
     # get the lanes
-    #print(rte.xpath('.//ns:lane/@id', namespaces={'ns':xodr_ns}))
+    # print(rte.xpath('.//ns:lane/@id', namespaces={'ns':xodr_ns}))
     c_names = ['id', ]
     # fetch the lane ids
     ln_ids = rte.xpath('.//ns:lane/@id', namespaces={'ns': xodr_ns})
@@ -149,7 +149,7 @@ if __name__ == "__main__":
                         help="file path of open drive file")
     parser.add_argument("net_file", type=str,
                         help="file path of net file")
-    #parser.add_argument("workLog", type=str, help="work log file")
+    # parser.add_argument("workLog", type=str, help="work log file")
     args = parser.parse_args()
 
     net_Fp = args.net_file  # td_Dp+'/sumo/net.net.xml'
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     # get similarity ids incl. possible sign
     edge_ids = (e.attrib['id'].split('.', 1) for e in edges)
     # edge_df = pd.DataFrame(edge_ids, columns=('rd_ref','lin_m',))   # 'lane'))
-    #edge_df.lin_m = edge_df.lin_m.astype(float)
+    # edge_df.lin_m = edge_df.lin_m.astype(float)
 
     lane_ids = (l.attrib['id'].split('.', 1) for l in nlanes)
     lane_ids = ([c, l[0], ] + l[1].split('_') for c, l in enumerate(lane_ids))
@@ -200,7 +200,7 @@ if __name__ == "__main__":
 
         # find matching SUMO-net elements
         # edges matching the road-id
-        #edge_sel = edge_df['rd_ref'].apply(lambda s:road_id in s)
+        # edge_sel = edge_df['rd_ref'].apply(lambda s:road_id in s)
         # xsd: every edge must have at least 1 lane
         # lanes matching the road-id
         lane_id_sel = np.fromiter(map(lambda s: road_id in s, lane_ra.rd_ref),
@@ -211,9 +211,9 @@ if __name__ == "__main__":
         olane_ra = extract_lanes_width_data(r)
 
         # get the signals element for this road
-        #sigs = r.xpath('ns:signals', namespaces={'ns':xodr_ns})
+        # sigs = r.xpath('ns:signals', namespaces={'ns':xodr_ns})
         # expecting just 1 element in signals
-        #assert len(sigs) == 1
+        # assert len(sigs) == 1
         # can use relative addressing instead of: sigs[0].xpath('ns:signal',
 
         # TODO: preselect, as we dont want TLS @dynamic='no'
@@ -286,7 +286,7 @@ if __name__ == "__main__":
             posLat = nlane_wid / 2. + nlleft_wid + od_t_l0l
             poi['posLat'] = "%.2f" % posLat
             poi['lane'] = nlanes[lane_ra[lane_sel & lnid_sel].index[0]].attrib['id']
-            #print(od_t_l0l, lin_m_width, net_laneInds, nRef_lane)
+            # print(od_t_l0l, lin_m_width, net_laneInds, nRef_lane)
             # print(poi)
 
             #   signal:validity

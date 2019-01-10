@@ -10,7 +10,7 @@
 
 # @file    mainframe.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 
@@ -65,32 +65,28 @@ def make_moduleguilist(appdir, moduleguilist, modulesdir):
     #        #module = getattr(lib,mn)
     #        #print '  imported',mn,modulesdir+'.' + mn
 
-    # use walk module to get recursive
-    for modulename in os.listdir(os.path.join(appdir, modulesdir)):
-        # if os.path.isdir(os.path.join(os.getcwd(), pluginname)): # is never a
-        # dir???
+    for modulename in os.listdir(os.path.join(appdir, modulesdir)):  # use walk module to get recursive
+        # if os.path.isdir(os.path.join(os.getcwd(), pluginname)): # is never a dir???
 
-        is_noimport = (modulename in ['__init__.py', ]) | (
-            modulename.split('.')[-1] == 'pyc')
+        is_noimport = (modulename in ['__init__.py', ]) | (modulename.split('.')[-1] == 'pyc')
         is_dir = os.path.isdir(os.path.join(appdir, modulesdir, modulename))
 
         # print '  modulename',modulename,is_noimport,is_dir
         if (not is_noimport) & is_dir:
 
-            lib = __import__(modulesdir + '.' + modulename)
+            lib = __import__(modulesdir+'.'+modulename)
             module = getattr(lib, modulename)
             # print '   imported modulename',modulename,module,hasattr(module,'get_wxgui')
             # has  module gui support specified in __init__.py
             if hasattr(module, 'get_wxgui'):
                 wxgui = module.get_wxgui()
                 # print '    wxgui',wxgui
-                if wxgui != None:
+                if wxgui is not None:
                     # print '  append',(wxgui.get_initpriority(), wxgui)
                     moduleguilist.append((wxgui.get_initpriority(), wxgui))
 
 
 class MainSplitter(wx.SplitterWindow):
-
     def __init__(self, parent, ID=wx.ID_ANY):
         wx.SplitterWindow.__init__(self, parent, ID,
                                    style=wx.SP_LIVE_UPDATE
@@ -112,8 +108,7 @@ class MainSplitter(wx.SplitterWindow):
                                               #panelstyle = 'default',
                                               immediate_apply=True,
                                               buttons=[],
-                                              standartbuttons=[
-                                                  'apply', 'restore'],
+                                              standartbuttons=['apply', 'restore'],
                                               #defaultbutton = defaultbutton,
                                               )
 
@@ -136,6 +131,8 @@ class MainSplitter(wx.SplitterWindow):
                                      # | wx.NB_MULTILINE
                                      )
 
+        self._n_views = 0
+        self._viewnames = []
         #nbpanel = wx.Panel(splitter)
         #self._viewtabs = wx.Notebook(nbpanel,wx.ID_ANY, style=wx.CLIP_CHILDREN)
         #sizer = wx.BoxSizer(wx.VERTICAL)
@@ -169,13 +166,21 @@ class MainSplitter(wx.SplitterWindow):
 
         # Add network tab with editor
         p = self._viewtabs.AddPage(view, name.title())
+        self._viewnames.append(name)
         #self._views[name] = view
         # self._viewtabs.SetSelection(p)
         # self._viewtabs.Show(True)
         return view
 
-    def select_view(self, ind=0):
-        self._viewtabs.ChangeSelection(ind)
+    def select_view(self, ind=0, name=None):
+        if name is not None:
+            if name in self._viewnames:
+                ind = self._viewnames.index(name)
+                self._viewtabs.ChangeSelection(ind)
+            else:
+                return False
+        else:
+            self._viewtabs.ChangeSelection(ind)
 
     def browse_obj(self, obj, **kwargs):
         self._objbrowser.change_obj(obj, **kwargs)
@@ -193,7 +198,6 @@ class MainSplitter(wx.SplitterWindow):
 
 
 class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
-
     """
     Simple wx frame with some special features.
     """
@@ -280,7 +284,7 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         self._logger = Logger()
         self._logger.add_callback(self.write_message, 'message')
         self._logger.add_callback(self.write_action, 'action')
-
+        self._logger.add_callback(self.show_progress, 'progress')
         #################################################################
         self._moduleguis = make_moduleguis(appdir, moduledirs)
 
@@ -310,6 +314,9 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
     def write_action(self, text, **kwargs):
         self.statusbar.write_action(text)
         self.statusbar.write_message('')
+
+    def show_progress(self, percent, **kwargs):
+        self.statusbar.set_progress(percent)
 
     def get_logger(self):
         return self._logger
@@ -356,11 +363,11 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         # self._splitter._viewtabs.Show(True)
         return view
 
-    def select_view(self, ind=0):
-        self._splitter.select_view(ind=ind)
+    def select_view(self, ind=0, name=None):
+        self._splitter.select_view(ind=ind, name=name)
 
     def on_size(self, event=None):
-        print 'Mainframe.on_size'
+        # print 'Mainframe.on_size'
         # self.tc.SetSize(self.GetSize())
         # self.tc.SetSize(self.GetSize())
         # self._viewtabs.SetSize(self.GetSize())
@@ -371,8 +378,8 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         # important:
         #wx.LayoutAlgorithm().LayoutWindow(self, self._viewtabs)
         wx.LayoutAlgorithm().LayoutWindow(self, self._splitter)
-        if event:
-            event.Skip()
+        # if event:
+        #    event.Skip()
 
     def on_save(self, event):
         print 'save it!!'

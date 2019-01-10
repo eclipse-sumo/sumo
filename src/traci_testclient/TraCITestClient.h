@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <sstream>
@@ -73,7 +69,7 @@ protected:
     /** @brief Sends and validates a simulation step command
      * @param[in] time The time step to send
      */
-    void commandSimulationStep(SUMOTime time);
+    void commandSimulationStep(double time);
 
 
     /** @brief Sends and validates a Close command
@@ -112,7 +108,7 @@ protected:
      * @param[in] varNo The number of subscribed variables
      * @param[in] defFile The stream to read variable values from
      */
-    void commandSubscribeObjectVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int varNo, std::ifstream& defFile);
+    void commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, int varNo, std::ifstream& defFile);
 
 
     /** @brief Sends and validates a SubscribeContext command
@@ -125,7 +121,7 @@ protected:
      * @param[in] varNo The number of subscribed variables
      * @param[in] defFile The stream to read variable values from
      */
-    void commandSubscribeContextVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, int varNo, std::ifstream& defFile);
+    void commandSubscribeContextVariable(int domID, const std::string& objID, double beginTime, double endTime, int domain, double range, int varNo, std::ifstream& defFile);
     /// @}
 
 

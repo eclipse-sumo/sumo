@@ -17,8 +17,8 @@ from __future__ import print_function
 from __future__ import absolute_import
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
-from . import dump, inductionloop, convert
-from sumolib.xml import *
+from . import dump, inductionloop, convert  # noqa
+from sumolib.xml import *  # noqa
 
 
 class AbstractHandler__byID(ContentHandler):
@@ -58,13 +58,13 @@ class AbstractHandler__asList(ContentHandler):
             for a in self._attributes:
                 try:
                     tmp[a] = float(attrs[a])
-                except:
+                except ValueError:
                     tmp[a] = attrs[a]
         else:
             for a in attrs.keys():
                 try:
                     tmp[a] = float(attrs[a])
-                except:
+                except ValueError:
                     tmp[a] = attrs[a]
         self._values.append(tmp)
 

@@ -1,82 +1,11 @@
-Warning: Adding parkingArea 'parkingArea_00' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'id' of parkingArea is missing; parkingArea cannot be created
-Warning: Essential string attribute 'lane' of parkingArea is missing; parkingArea cannot be created
-Warning: Essential float attribute 'startPos' of parkingArea is missing; parkingArea cannot be created
-Warning: Essential float attribute 'endPos' of parkingArea is missing; parkingArea cannot be created
-Warning: Essential string attribute 'id' of parkingArea is missing; parkingArea cannot be created
-Warning: Format of essential string attribute 'id' of parkingArea is invalid; 'ID with spaces' contains invalid characters; parkingArea cannot be created
+Warning: Essential unique string attribute 'id' of parkingArea is missing; parkingArea cannot be created
+Warning: Essential unique string attribute 'lane' of parkingArea is missing; parkingArea cannot be created
+Warning: Essential unique string attribute 'id' of parkingArea is missing; parkingArea cannot be created
+Warning: Format of essential unique string attribute 'id' of parkingArea is invalid; 'ID with spaces' contains invalid characters; parkingArea cannot be created
 Warning: There is another parkingArea with the same ID='parkingArea_00'.
-Warning: Essential string attribute 'lane' of parkingArea with ID 'parkingArea_01' is missing; parkingArea cannot be created
+Warning: Essential unique string attribute 'lane' of parkingArea with ID 'parkingArea_01' is missing; parkingArea cannot be created
 Warning: The lane 'dummyLane' to use within the parkingArea 'parkingArea_02' is not known.
-Warning: Essential float attribute 'startPos' of parkingArea with ID 'parkingArea_03' is missing; parkingArea cannot be created
-Warning: Format of essential float attribute 'startPos' of parkingArea with ID 'parkingArea_04' is invalid; parkingArea cannot be created
 Warning: Invalid position for parkingArea with ID = 'parkingArea_05'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_06'.
-Warning: Essential float attribute 'endPos' of parkingArea with ID 'parkingArea_07' is missing; parkingArea cannot be created
-Warning: Format of essential float attribute 'endPos' of parkingArea with ID 'parkingArea_08' is invalid; parkingArea cannot be created
 Warning: Invalid position for parkingArea with ID = 'parkingArea_09'.
 Warning: Invalid position for parkingArea with ID = 'parkingArea_10'.
-Warning: Adding parkingArea 'parkingArea_11' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_12' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_13' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_14' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_15' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_16' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_17' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_18' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_19' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_20' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_21' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_22' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_23' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_24' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_25' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_26' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_27' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_28' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_29' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_30' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_31' in GNEChange_Additional
-Warning: Adding parkingArea 'parkingArea_32' in GNEChange_Additional
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting unreferenced parkingArea 'parkingArea_32'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced parkingArea 'parkingArea_31'
-Warning: Deleting unreferenced parkingArea 'parkingArea_30'
-Warning: Deleting unreferenced parkingArea 'parkingArea_29'
-Warning: Deleting unreferenced parkingArea 'parkingArea_28'
-Warning: Deleting unreferenced parkingArea 'parkingArea_27'
-Warning: Deleting unreferenced parkingArea 'parkingArea_26'
-Warning: Deleting unreferenced parkingArea 'parkingArea_25'
-Warning: Deleting unreferenced parkingArea 'parkingArea_24'
-Warning: Deleting unreferenced parkingArea 'parkingArea_23'
-Warning: Deleting unreferenced parkingArea 'parkingArea_22'
-Warning: Deleting unreferenced parkingArea 'parkingArea_21'
-Warning: Deleting unreferenced parkingArea 'parkingArea_20'
-Warning: Deleting unreferenced parkingArea 'parkingArea_19'
-Warning: Deleting unreferenced parkingArea 'parkingArea_18'
-Warning: Deleting unreferenced parkingArea 'parkingArea_17'
-Warning: Deleting unreferenced parkingArea 'parkingArea_16'
-Warning: Deleting unreferenced parkingArea 'parkingArea_15'
-Warning: Deleting unreferenced parkingArea 'parkingArea_14'
-Warning: Deleting unreferenced parkingArea 'parkingArea_13'
-Warning: Deleting unreferenced parkingArea 'parkingArea_12'
-Warning: Deleting unreferenced parkingArea 'parkingArea_11'
-Warning: Deleting unreferenced parkingArea 'parkingArea_00'
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor

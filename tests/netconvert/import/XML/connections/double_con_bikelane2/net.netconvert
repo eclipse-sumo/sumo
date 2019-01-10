@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:24 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:30 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,9 +19,9 @@ SPDX-License-Identifier: EPL-2.0
         <output-file value="net.net.xml"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -30,20 +30,20 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="200.00,0.00" convBoundary="0.00,0.00,400.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="CE" from="C" to="E" priority="1" spreadType="center">
-        <lane id="CE_0" index="0" speed="13.89" length="200.00" shape="201.50,0.00 400.00,0.00"/>
+        <lane id="CE_0" index="0" speed="13.89" length="200.00" shape="204.00,0.00 400.00,0.00"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="1" spreadType="center">
-        <lane id="WC_0" index="0" speed="13.89" length="200.00" shape="0.00,-3.20 198.50,-3.20"/>
-        <lane id="WC_1" index="1" speed="13.89" length="200.00" shape="0.00,0.00 198.50,0.00"/>
-        <lane id="WC_2" index="2" allow="bicycle" speed="13.89" length="200.00" shape="0.00,3.20 198.50,3.20"/>
+        <lane id="WC_0" index="0" speed="13.89" length="200.00" shape="0.00,-3.20 196.00,-3.20"/>
+        <lane id="WC_1" index="1" speed="13.89" length="200.00" shape="0.00,0.00 196.00,0.00"/>
+        <lane id="WC_2" index="2" allow="bicycle" speed="13.89" length="200.00" shape="0.00,3.20 196.00,3.20"/>
     </edge>
 
-    <junction id="C" type="priority" x="200.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="201.50,1.60 201.50,-1.60 198.50,-4.80 198.50,4.80">
+    <junction id="C" type="priority" x="200.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="204.00,1.60 204.00,-1.60 200.97,-2.43 199.03,-3.97 197.79,-4.56 196.00,-4.80 196.00,4.80 199.03,3.97 200.97,2.43 202.21,1.84">
         <request index="0" response="010" foes="110"/>
         <request index="1" response="000" foes="101"/>
         <request index="2" response="011" foes="011"/>

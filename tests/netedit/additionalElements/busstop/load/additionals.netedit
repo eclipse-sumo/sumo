@@ -1,12 +1,68 @@
-<additionals>
-    <busStop id="busStop_00" lane="gneE0_0" startPos="5.00" endPos="10.00" lines="line1 line2"/>
-    <busStop id="busStop_11" lane="gneE0_0" startPos="25.00" endPos="30.00" name="busStop"/>
-    <busStop id="busStop_12" lane="gneE0_0" startPos="35.00" endPos="40.00" name="busStop" lines="line1  line2"/>
-    <busStop id="busStop_13" lane="gneE0_0" startPos="45.00" endPos="50.00" name="busStop" lines="lineA lineB"/>
-    <busStop id="busStop_14" lane="gneE1_0" startPos="5.00" endPos="10.00" name="busStop" lines="lineA lineB"/>
-    <busStop id="busStop_15" lane="gneE1_0" startPos="15.00" endPos="20.00" name="busStop" friendlyPos="1" lines="lineA lineB"/>
-    <busStop id="busStop_16" lane="gneE1_0" startPos="30.00" endPos="40.00" name="busStop" friendlyPos="1" lines="lineA lineB"/>
-    <busStop id="busStop_17" lane="gneE1_0" startPos="49.90" endPos="50.00" name="busStop" friendlyPos="1" lines="lineA lineB"/>
-    <busStop id="busStop_18" lane="gneE1_0" startPos="19.90" endPos="20.00" name="busStop" friendlyPos="1" lines="lineA lineB"/>
-    <busStop id="busStop_19" lane="gneE1_0" startPos="19.90" endPos="20.00" name="busStop" friendlyPos="1" lines="lineA lineB"/>
-</additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 30.08.2018 09:13:17 by Eclipse SUMO netedit Version b980bbd93f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Aug090335.2848/netedit.gui/additionalElements/busstop/load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Aug090335.2848/netedit.gui/additionalElements/busstop/load\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Aug090335.2848/netedit.gui/additionalElements/busstop/load\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Aug090335.2848/netedit.gui/additionalElements/busstop/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Aug090335.2848/netedit.gui/additionalElements/busstop/load\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Aug090335.2848/netedit.gui/additionalElements/busstop/load\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Aug090335.2848/netedit.gui/additionalElements/busstop/load\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_00" lane="gneE0_0" lines="line1 line2" startPos="5.00" endPos="10.00"/>
+    <busStop id="busStop_03" name="busStop" lane="gneE0_0" lines="line1 line2" endPos="30.00"/>
+    <busStop id="busStop_04" name="busStop" lane="gneE0_0" lines="line1 line2" endPos="25.00"/>
+    <busStop id="busStop_07" name="busStop" lane="gneE0_0" lines="line1 line2" startPos="35.00"/>
+    <busStop id="busStop_08" name="busStop" lane="gneE0_0" lines="line1 line2" startPos="35.00"/>
+    <busStop id="busStop_11" name="busStop" lane="gneE0_0" startPos="25.00" endPos="30.00"/>
+    <busStop id="busStop_12" name="busStop" lane="gneE0_0" lines="line1, line2" startPos="35.00" endPos="40.00"/>
+    <busStop id="busStop_13" name="busStop" lane="gneE0_0" lines="lineA lineB" startPos="45.00" endPos="50.00"/>
+    <busStop id="busStop_14" name="busStop" lane="gneE1_0" lines="lineA lineB" startPos="5.00" endPos="10.00"/>
+    <busStop id="busStop_15" name="busStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="15.00" endPos="20.00"/>
+    <busStop id="busStop_16" name="busStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="30.00" endPos="40.00"/>
+    <busStop id="busStop_17" name="busStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="49.90" endPos="50.00"/>
+    <busStop id="busStop_18" name="busStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="19.90" endPos="20.00"/>
+    <busStop id="busStop_19" name="busStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="19.90" endPos="20.00"/>
+</additional>

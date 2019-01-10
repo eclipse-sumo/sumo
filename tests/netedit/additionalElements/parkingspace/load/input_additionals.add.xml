@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkingArea_gneE1_0_0" lane="gneE1_0" startPos="20.00" endPos="30.00" friendlyPos="0" roadsideCapacity="0" z="1" width="3.20" length="5.00" angle="0.00">
 		<!-- empty definition -->
 		<space/>
@@ -99,4 +99,4 @@
 	
 	<!-- non valid space (without parking area parent) -->
 	<space x="50.00" y="-15.00" z="1" width="3.30" length="6.00" angle="45.00"/>
-</additionals>
+</additional>

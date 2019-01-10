@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:30 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:34 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,10 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <output-file value="net.net.xml"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -30,28 +30,28 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="CE" from="C" to="E" priority="2">
-        <lane id="CE_0" index="0" disallow="bicycle" speed="13.89" length="99.90" shape="107.90,95.20 200.00,95.20"/>
-        <lane id="CE_1" index="1" disallow="bicycle" speed="13.89" length="99.90" shape="107.90,98.40 200.00,98.40"/>
+        <lane id="CE_0" index="0" disallow="bicycle" speed="13.89" length="101.77" shape="107.90,95.20 200.00,95.20"/>
+        <lane id="CE_1" index="1" disallow="bicycle" speed="13.89" length="101.77" shape="107.90,98.40 200.00,98.40"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="1">
-        <lane id="CS_0" index="0" allow="bicycle" speed="13.89" length="132.40" width="1.00" shape="104.75,85.49 195.12,-4.88"/>
-        <lane id="CS_1" index="1" disallow="bicycle" speed="13.89" length="132.40" shape="106.23,86.98 196.61,-3.39"/>
-        <lane id="CS_2" index="2" disallow="bicycle" speed="13.89" length="132.40" shape="108.50,89.24 198.87,-1.13"/>
+        <lane id="CS_0" index="0" allow="bicycle" speed="13.89" length="131.93" width="1.00" shape="104.75,85.49 195.12,-4.88"/>
+        <lane id="CS_1" index="1" disallow="bicycle" speed="13.89" length="131.93" shape="106.23,86.98 196.61,-3.39"/>
+        <lane id="CS_2" index="2" disallow="bicycle" speed="13.89" length="131.93" shape="108.50,89.24 198.87,-1.13"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="2">
-        <lane id="WC_0" index="0" allow="bicycle" speed="13.89" length="110.17" width="1.00" shape="0.00,86.70 101.83,86.70"/>
-        <lane id="WC_1" index="1" disallow="bicycle" speed="13.89" length="110.17" shape="0.00,88.80 101.83,88.80"/>
-        <lane id="WC_2" index="2" disallow="bicycle" speed="13.89" length="110.17" shape="0.00,92.00 101.83,92.00"/>
-        <lane id="WC_3" index="3" disallow="bicycle" speed="13.89" length="110.17" shape="0.00,95.20 101.83,95.20"/>
-        <lane id="WC_4" index="4" disallow="bicycle" speed="13.89" length="110.17" shape="0.00,98.40 101.83,98.40"/>
+        <lane id="WC_0" index="0" allow="bicycle" speed="13.89" length="111.90" width="1.00" shape="0.00,86.70 101.83,86.70"/>
+        <lane id="WC_1" index="1" disallow="bicycle" speed="13.89" length="111.90" shape="0.00,88.80 101.83,88.80"/>
+        <lane id="WC_2" index="2" disallow="bicycle" speed="13.89" length="111.90" shape="0.00,92.00 101.83,92.00"/>
+        <lane id="WC_3" index="3" disallow="bicycle" speed="13.89" length="111.90" shape="0.00,95.20 101.83,95.20"/>
+        <lane id="WC_4" index="4" disallow="bicycle" speed="13.89" length="111.90" shape="0.00,98.40 101.83,98.40"/>
     </edge>
 
-    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="WC_0 WC_1 WC_2 WC_3 WC_4" intLanes="" shape="107.90,100.00 107.90,93.60 109.63,90.37 104.40,85.14 101.83,86.20 101.83,100.00">
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="WC_0 WC_1 WC_2 WC_3 WC_4" intLanes="" shape="107.90,100.00 107.90,93.60 107.43,93.24 107.58,92.79 108.00,92.17 108.68,91.36 109.63,90.37 104.40,85.14 103.64,85.73 103.22,85.93 102.79,86.08 102.32,86.17 101.83,86.20 101.83,100.00">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00000" foes="00000"/>
         <request index="2" response="00000" foes="00000"/>

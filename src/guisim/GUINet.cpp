@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utility>
 #include <set>
@@ -76,7 +72,7 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinit
 // member method definitions
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-               MSEventControl* endOfTimestepEvents, 
+               MSEventControl* endOfTimestepEvents,
                MSEventControl* insertionEvents) :
     MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
     GUIGlObject(GLO_NETWORK, ""),
@@ -145,15 +141,15 @@ GUINet::initTLMap() {
 }
 
 
-GUIGlID
+void
 GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
     if (myLogics2Wrapper.count(tll) > 0) {
-        return myLogics2Wrapper[tll]->getGlID();
+        return;
     }
     // get the links
     const MSTrafficLightLogic::LinkVectorVector& links = tll->getLinks();
     if (links.size() == 0) { // @legacy this should never happen in 0.13.0+ networks
-        return 0;
+        return;
     }
     // build the wrapper
     GUITrafficLightLogicWrapper* tllw =
@@ -168,7 +164,7 @@ GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
     }
     myGrid.addAdditionalGLObject(tllw);
     myLogics2Wrapper[tll] = tllw;
-    return tllw->getGlID();
+    return;
 }
 
 

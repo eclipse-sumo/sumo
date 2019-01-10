@@ -17,7 +17,7 @@
 from __future__ import absolute_import
 import vehicleControl
 import statistics
-from constants import *
+from constants import DOUBLE_ROWS, WAIT_PER_PERSON
 
 
 class SimpleManager(vehicleControl.Manager):
@@ -27,7 +27,7 @@ class SimpleManager(vehicleControl.Manager):
         self.personsWaitingAt = {}
 
     def personArrived(self, personID, edge, target):
-        if not edge in self.personsWaitingAt:
+        if edge not in self.personsWaitingAt:
             self.personsWaitingAt[edge] = []
         self.personsWaitingAt[edge].append((personID, target))
 
@@ -59,6 +59,7 @@ class SimpleManager(vehicleControl.Manager):
         else:
             vehicleControl.stopAt(vehicleID, "cyberout")
         self.cyberCarLoad[vehicleID] = load
+
 
 if __name__ == "__main__":
     vehicleControl.init(SimpleManager())

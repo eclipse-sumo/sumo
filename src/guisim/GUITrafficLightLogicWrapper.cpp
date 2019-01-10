@@ -22,13 +22,10 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -192,7 +189,7 @@ GUIParameterTableWindow*
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3 + (int)myTLLogic.getMap().size());
+        new GUIParameterTableWindow(app, *this, 3 + (int)myTLLogic.getParametersMap().size());
     ret->mkItem("tlLogic [id]", false, myTLLogic.getID());
     ret->mkItem("program", false, myTLLogic.getProgramID());
     // close building
@@ -267,10 +264,15 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 const MSTrafficLightLogic::LaneVector& lanes = myTLLogic.getLanesAt(*it_idx);
                 for (MSTrafficLightLogic::LaneVector::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); it_lane++) {
                     glPushMatrix();
-                    glColor3d(0, 1, 0);
+                    // split circle in red and yellow
                     Position pos = (*it_lane)->getShape().back();
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
-                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2.);
+                    double rot = RAD2DEG((*it_lane)->getShape().angleAt2D((int)(*it_lane)->getShape().size() - 2)) - 90;
+                    glRotated(rot, 0, 0, 1);
+                    GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_RED));
+                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, -90, 90);
+                    GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_YELLOW_MAJOR));
+                    GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, 90, 270);
                     glPopMatrix();
                 }
             }

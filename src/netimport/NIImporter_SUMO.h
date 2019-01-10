@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -201,7 +197,7 @@ private:
         double speed;
         /// @brief custom shape connection
         PositionVector customShape;
-        /// @brief if set to true, This connection will not be TLS-controlled despite its node being controlled. 
+        /// @brief if set to true, This connection will not be TLS-controlled despite its node being controlled.
         bool uncontrolled;
     };
 
@@ -225,7 +221,7 @@ private:
         /// @brief This lane's offset from the intersection
         double endOffset;
         /// @brief This lane's vehicle specific stop offsets
-        std::map<SVCPermissions,double> stopOffsets;
+        std::map<SVCPermissions, double> stopOffsets;
         /// @brief Whether this lane is an acceleration lane
         bool accelRamp;
         /// @brief This lane's opposite lane
@@ -266,7 +262,7 @@ private:
         /// @brief The lane spread function
         LaneSpreadFunction lsf;
         /// @brief This edge's vehicle specific stop offsets (used for lanes, that do not have a specified stopOffset)
-        std::map<SVCPermissions,double> stopOffsets;
+        std::map<SVCPermissions, double> stopOffsets;
     };
 
 
@@ -374,6 +370,9 @@ private:
 
     /// @brief whether walkingareas must be built
     bool myWalkingAreas;
+
+    /// @brief whether turning speed was limited in the network
+    double myLimitTurnSpeed;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;

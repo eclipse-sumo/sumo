@@ -21,21 +21,23 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
+#include <memory>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSEdge;
+class PositionVector;
+namespace libsumo {
+class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -71,24 +73,39 @@ public:
     static int getLastStepHaltingNumber(const std::string& id);
     static double getLastStepLength(const std::string& id);
     static int getLaneNumber(const std::string& id);
+    static std::string getStreetName(const std::string& id);
     static std::string getParameter(const std::string& id, const std::string& paramName);
     static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
     static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);
     static void setAllowedSVCPermissions(const std::string& id, int permissions);
-    static void adaptTraveltime(const std::string& id, double value, double begTime=0., double endTime=SUMOTime_MAX);
-    static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = SUMOTime_MAX);
+    static void adaptTraveltime(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
+    static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& id, double value);
     static void setParameter(const std::string& id, const std::string& name, const std::string& value);
 
-    static void subscribe(const std::string& objID, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
-    static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, SUMOTime beginTime, SUMOTime endTime);
-    static const SubscribedValues getSubscriptionResults();
-    static const TraCIValues getSubscriptionResults(const std::string& objID);
-    static const SubscribedContextValues getContextSubscriptionResults();
-    static const SubscribedValues getContextSubscriptionResults(const std::string& objID);
+    LIBSUMO_SUBSCRIPTION_API
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the edge to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static MSEdge* getEdge(const std::string& id);
+
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
+private:
+    /// @brief invalidated standard constructor
+    Edge() = delete;
+
 };
 
 }

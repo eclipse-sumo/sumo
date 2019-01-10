@@ -3,6 +3,8 @@ set(netbuild_STAT_SRCS
    NBAlgorithms.h
    NBAlgorithms_Ramps.cpp
    NBAlgorithms_Ramps.h
+   NBAlgorithms_Railway.cpp
+   NBAlgorithms_Railway.h
    NBCapacity2Lanes.h
    NBConnection.cpp
    NBConnection.h
@@ -55,6 +57,7 @@ set(netbuild_STAT_SRCS
    NBLoadedTLDef.h
    NBLoadedSUMOTLDef.cpp
    NBLoadedSUMOTLDef.h
+   NBVehicle.h
    NBNetBuilder.cpp
    NBNetBuilder.h
         NBPTLine.cpp NBPTLine.h NBPTLineCont.cpp NBPTLineCont.h NBPTPlatform.cpp NBPTPlatform.h)

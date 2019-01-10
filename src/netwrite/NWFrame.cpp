@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/options/Option.h>
@@ -46,7 +42,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-const std::string NWFrame::MAJOR_VERSION = "0.27";
+const std::string NWFrame::MAJOR_VERSION = "1.0";
 
 
 // ===========================================================================
@@ -115,11 +111,8 @@ NWFrame::fillOptions(bool forNetgen) {
         oc.doRegister("parking-output", new Option_FileName());
         oc.addDescription("parking-output", "Output", "Writes parking areas to FILE");
 
-        oc.doRegister("osm.stop-output.footway-access-distance", new Option_Float(150.f));
-        oc.addDescription("osm.stop-output.footway-access-distance", "Output", "The search radius for finding suitable road accesses for rail stops");
-
-        oc.doRegister("osm.stop-output.footway-max-accesses", new Option_Integer(5));
-        oc.addDescription("osm.stop-output.footway-max-accesses", "Output", "The maximum roud accesses registered per rail stops");
+        oc.doRegister("railway.topology.output", new Option_FileName());
+        oc.addDescription("railway.topology.output", "Output", "Analyse topology of the railway network");
     }
 
     // register opendrive options

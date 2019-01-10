@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO Version 27b98ce
+<!-- generated on Tue Sep 11 12:11:52 2018 by Eclipse SUMO Version v1_0_0+0096-19e3d3b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -98,6 +98,9 @@
 
         <!-- Add the vehicle signal state to the FCD output (brake lights etc.) -->
         <fcd-output.signals value="false" type="BOOL"/>
+
+        <!-- Restrict fcd output to the edge selection from the given input file -->
+        <fcd-output.filter-edges.input-file value="" type="FILE"/>
 
         <!-- Save a lot of information for each timestep (very redundant) -->
         <full-output value="" type="FILE"/>
@@ -201,9 +204,6 @@
         <!-- Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane -->
         <lateral-resolution value="-1" type="FLOAT"/>
 
-        <!-- Select default car following model (Krauss, IDM, ...) -->
-        <carfollow.model value="Krauss" synonymes="carfollowing.model" type="STR"/>
-
         <!-- Load routes for the next number of seconds ahead -->
         <route-steps value="200" synonymes="s" type="TIME"/>
 
@@ -213,7 +213,7 @@
         <!-- Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore) -->
         <ignore-junction-blocker value="-1" type="TIME"/>
 
-        <!-- Do not check whether routes are connected -->
+        <!-- (1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking. -->
         <ignore-route-errors value="false" type="BOOL"/>
 
         <!-- Do not check whether accidents occur -->
@@ -228,8 +228,8 @@
         <!-- Enables collisions checks on junctions -->
         <collision.check-junctions value="false" type="BOOL"/>
 
-        <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. -->
-        <collision.mingap-factor value="1" type="FLOAT"/>
+        <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used -->
+        <collision.mingap-factor value="-1" type="FLOAT"/>
 
         <!-- Delay vehicle insertion to stay within the given maximum number -->
         <max-num-vehicles value="-1" type="INT"/>
@@ -276,6 +276,15 @@
         <!-- Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length. -->
         <default.action-step-length value="0" type="FLOAT"/>
 
+        <!-- Select default car following model (Krauss, IDM, ...) -->
+        <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR"/>
+
+        <!-- Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class -->
+        <default.speeddev value="-1" type="FLOAT"/>
+
+        <!-- Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2 -->
+        <default.emergencydecel value="default" type="STR"/>
+
         <!-- Select among pedestrian models [&apos;nonInteracting&apos;, &apos;striping&apos;, &apos;remote&apos;] -->
         <pedestrian.model value="striping" type="STR"/>
 
@@ -313,7 +322,7 @@
         <persontrip.transfer.car-walk value="parkingAreas" type="STR"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
-        <device.rerouting.probability value="0" type="FLOAT"/>
+        <device.rerouting.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;rerouting&apos; device to named vehicles -->
         <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR"/>
@@ -397,7 +406,7 @@
         <phemlight-path value="./PHEMlight/" type="FILE"/>
 
         <!-- The probability for a vehicle to have a &apos;emissions&apos; device -->
-        <device.emissions.probability value="0" type="FLOAT"/>
+        <device.emissions.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;emissions&apos; device to named vehicles -->
         <device.emissions.explicit value="" synonymes="device.emissions.knownveh" type="STR"/>
@@ -409,7 +418,7 @@
 
     <communication>
         <!-- The probability for a vehicle to have a &apos;btreceiver&apos; device -->
-        <device.btreceiver.probability value="0" type="FLOAT"/>
+        <device.btreceiver.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btreceiver&apos; device to named vehicles -->
         <device.btreceiver.explicit value="" synonymes="device.btreceiver.knownveh" type="STR"/>
@@ -427,7 +436,7 @@
         <device.btreceiver.offtime value="0.64" type="FLOAT"/>
 
         <!-- The probability for a vehicle to have a &apos;btsender&apos; device -->
-        <device.btsender.probability value="0" type="FLOAT"/>
+        <device.btsender.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;btsender&apos; device to named vehicles -->
         <device.btsender.explicit value="" synonymes="device.btsender.knownveh" type="STR"/>
@@ -439,7 +448,7 @@
 
     <battery>
         <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
-        <device.battery.probability value="0" type="FLOAT"/>
+        <device.battery.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;battery&apos; device to named vehicles -->
         <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR"/>
@@ -451,7 +460,7 @@
 
     <example_device>
         <!-- The probability for a vehicle to have a &apos;example&apos; device -->
-        <device.example.probability value="0" type="FLOAT"/>
+        <device.example.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;example&apos; device to named vehicles -->
         <device.example.explicit value="" synonymes="device.example.knownveh" type="STR"/>
@@ -466,7 +475,7 @@
 
     <ssm_device>
         <!-- The probability for a vehicle to have a &apos;ssm&apos; device -->
-        <device.ssm.probability value="0" type="FLOAT"/>
+        <device.ssm.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;ssm&apos; device to named vehicles -->
         <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR"/>
@@ -474,29 +483,101 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space seperated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)). -->
+        <!-- Specifies which measures will be logged (as a space separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)). -->
         <device.ssm.measures value="" type="STR"/>
 
         <!-- Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
         <device.ssm.thresholds value="" type="STR"/>
 
         <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported, this is the default). -->
-        <device.ssm.trajectories value="false" type="BOOL"/>
+        <device.ssm.trajectories value="" type="BOOL"/>
 
         <!-- Specifies the detection range in meters (default is 50.00m.). For vehicles below this distance from the equipped vehicle, SSM values are traced. -->
-        <device.ssm.range value="50" type="FLOAT"/>
+        <device.ssm.range value="" type="FLOAT"/>
 
         <!-- Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts. -->
-        <device.ssm.extratime value="5" type="FLOAT"/>
+        <device.ssm.extratime value="" type="FLOAT"/>
+
+        <!-- Give a global default filename for the SSM output. -->
+        <device.ssm.file value="" type="STR"/>
 
         <!-- Whether to use coordinates of the original reference system in output (default is false). -->
-        <device.ssm.geo value="false" type="BOOL"/>
+        <device.ssm.geo value="" type="BOOL"/>
 
     </ssm_device>
 
+    <toc_device>
+        <!-- The probability for a vehicle to have a &apos;toc&apos; device -->
+        <device.toc.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;toc&apos; device to named vehicles -->
+        <device.toc.explicit value="" synonymes="device.toc.knownveh" type="STR"/>
+
+        <!-- The &apos;toc&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.toc.deterministic value="false" type="BOOL"/>
+
+        <!-- Vehicle type for manual driving regime. -->
+        <device.toc.manualType value="" type="STR"/>
+
+        <!-- Vehicle type for automated driving regime. -->
+        <device.toc.automatedType value="" type="STR"/>
+
+        <!-- Average response time needed by a driver to take back control. -->
+        <device.toc.responseTime value="5" type="FLOAT"/>
+
+        <!-- Recovery rate for the driver&apos;s awareness after a ToC. -->
+        <device.toc.recoveryRate value="0.1" type="FLOAT"/>
+
+        <!-- Average awareness a driver has initially after a ToC. -->
+        <device.toc.initialAwareness value="0.5" type="FLOAT"/>
+
+        <!-- Deceleration rate applied during a &apos;minimum risk maneuver&apos;. -->
+        <device.toc.mrmDecel value="1.5" type="FLOAT"/>
+
+        <!-- Whether a coloring scheme shall by applied to indicate the different ToC stages. -->
+        <device.toc.useColorScheme value="true" type="BOOL"/>
+
+    </toc_device>
+
+    <driver_state_device>
+        <!-- The probability for a vehicle to have a &apos;driverstate&apos; device -->
+        <device.driverstate.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;driverstate&apos; device to named vehicles -->
+        <device.driverstate.explicit value="" synonymes="device.driverstate.knownveh" type="STR"/>
+
+        <!-- The &apos;driverstate&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.driverstate.deterministic value="false" type="BOOL"/>
+
+        <!-- Initial value assigned to the driver&apos;s awareness. -->
+        <device.driverstate.initialAwareness value="0.1" type="FLOAT"/>
+
+        <!-- Time scale for the error process. -->
+        <device.driverstate.errorTimeScaleCoefficient value="100" type="FLOAT"/>
+
+        <!-- Noise intensity driving the error process. -->
+        <device.driverstate.errorNoiseIntensityCoefficient value="0.2" type="FLOAT"/>
+
+        <!-- General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance). -->
+        <device.driverstate.speedDifferenceErrorCoefficient value="0.15" type="FLOAT"/>
+
+        <!-- General scaling coefficient for applying the error to the perceived distance (error also scales with distance). -->
+        <device.driverstate.headwayErrorCoefficient value="0.75" type="FLOAT"/>
+
+        <!-- Base threshold for recognizing changes in the speed difference (threshold also scales with distance). -->
+        <device.driverstate.speedDifferenceChangePerceptionThreshold value="0.1" type="FLOAT"/>
+
+        <!-- Base threshold for recognizing changes in the headway (threshold also scales with distance). -->
+        <device.driverstate.headwayChangePerceptionThreshold value="0.1" type="FLOAT"/>
+
+        <!-- Minimal admissible value for the driver&apos;s awareness. -->
+        <device.driverstate.minAwareness value="0.1" type="FLOAT"/>
+
+    </driver_state_device>
+
     <bluelight_device>
         <!-- The probability for a vehicle to have a &apos;bluelight&apos; device -->
-        <device.bluelight.probability value="0" type="FLOAT"/>
+        <device.bluelight.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;bluelight&apos; device to named vehicles -->
         <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR"/>
@@ -511,7 +592,7 @@
 
     <fcd_device>
         <!-- The probability for a vehicle to have a &apos;fcd&apos; device -->
-        <device.fcd.probability value="0" type="FLOAT"/>
+        <device.fcd.probability value="-1" type="FLOAT"/>
 
         <!-- Assign a &apos;fcd&apos; device to named vehicles -->
         <device.fcd.explicit value="" synonymes="device.fcd.knownveh" type="STR"/>
@@ -614,6 +695,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

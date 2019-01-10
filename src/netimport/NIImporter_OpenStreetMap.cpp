@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 #include <algorithm>
 #include <set>
 #include <functional>
@@ -300,6 +296,9 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
                 throw ProcessError("Could not allocate tls '" + toString(id) + "'.");
             }
         }
+        if (n->railwayBufferStop) {
+            node->setParameter("buffer_stop", "true");
+        }
     }
     return node;
 }
@@ -433,7 +432,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     width = MAX2(width, SUMO_const_laneWidth);
                 }
                 // ensure pedestrians don't run into trains
-                if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH 
+                if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH
                         && (permissions & SVC_PEDESTRIAN) != 0
                         && (permissions & SVC_RAIL_CLASSES) != 0) {
                     //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
@@ -602,7 +601,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
-            nbe->updateParameter(e->getMap());
+            nbe->updateParameter(e->getParametersMap());
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -626,7 +625,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0)) {
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
-            nbe->updateParameter(e->getMap());
+            nbe->updateParameter(e->getParametersMap());
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -746,17 +745,20 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, false);
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (key == "highway" || key == "ele" || key == "crossing" || key == "railway" || key == "public_transport"
-                || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station"
+                || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station" || key == "noexit"
                 || StringUtils::startsWith(key, "railway:signal")) {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
             } else if (key == "crossing" && value.find("traffic_signals") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
+            } else if ((key == "noexit" && value == "yes")
+                       || (key == "railway" && value == "buffer_stop")) {
+                myToFill[myLastNodeID]->railwayBufferStop = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myToFill[myLastNodeID]->railwayCrossing = true;
             } else if (StringUtils::startsWith(key, "railway:signal") && (
-                            value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
+                           value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
                 myToFill[myLastNodeID]->railwaySignal = true;
             } else if ((key == "public_transport" && value == "stop_position") ||
                        (key == "highway" && value == "bus_stop")) {
@@ -928,9 +930,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             // special sidewalk stuff
             if (key == "sidewalk") {
                 if (value == "no" || value == "none") {
-                    return;
-                }
-                if (value == "both") {
+                    myCurrentEdge->mySidewalkType = WAY_NONE;
+                } else if (value == "both") {
                     myCurrentEdge->mySidewalkType = WAY_BOTH;
                 } else if (value == "right") {
                     myCurrentEdge->mySidewalkType = WAY_FORWARD;
@@ -1135,6 +1136,10 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
         if (action == "delete" || !ok) {
             myCurrentRelation = INVALID_ID;
         }
+        myName = "";
+        myRef = "";
+        myInterval = -1;
+        myNightService = "";
         return;
     }
     if (myCurrentRelation == INVALID_ID) {
@@ -1237,11 +1242,13 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             }
 
         } else if (key == "name") {
-            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-            myName = value;
+            myName = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
         } else if (key == "ref") {
-            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-            myRef = value;
+            myRef = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+        } else if (key == "interval" || key == "headway") {
+            myInterval = attrs.get<int>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+        } else if (key == "by_night") {
+            myNightService = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
         }
     }
 }
@@ -1358,7 +1365,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1);;
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
-            NBPTLine* ptLine = new NBPTLine(myName, myPTRouteType);
+            NBPTLine* ptLine = new NBPTLine(myName, myPTRouteType, myRef, myInterval, myNightService);
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
@@ -1389,9 +1396,6 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     continue;
                 }
                 ptLine->addPTStop(ptStop);
-                if (myRef != "") {
-                    ptLine->setRef(myRef);
-                }
             }
             for (long long& myWay : myWays) {
                 auto entr = myOSMEdges.find(myWay);

@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/foxtools/fxexdefs.h>
@@ -220,19 +216,26 @@ GNECrossingFrame::crossingParameters::~crossingParameters() {}
 
 
 void
-GNECrossingFrame::crossingParameters::enableCrossingParameters() {
+GNECrossingFrame::crossingParameters::enableCrossingParameters(bool hasTLS) {
+    // obtain Tag Values
+    const auto& tagProperties = GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING);
     // Enable all elements of the crossing frames
     myCrossingEdgesLabel->enable();
     myCrossingEdges->enable();
     myCrossingPriorityLabel->enable();
-    myCrossingPriorityCheckButton->enable();
+    if (hasTLS) {
+        myCrossingPriorityCheckButton->disable();
+    } else {
+        myCrossingPriorityCheckButton->enable();
+    }
     myCrossingWidthLabel->enable();
     myCrossingWidth->enable();
     myHelpCrossingAttribute->enable();
     // set values of parameters
     onCmdSetAttribute(0, 0, 0);
-    myCrossingPriorityCheckButton->setCheck(GNEAttributeCarrier::getDefaultValue<bool>(SUMO_TAG_CROSSING, SUMO_ATTR_PRIORITY));
-    myCrossingWidth->setText(GNEAttributeCarrier::getDefaultValue<std::string>(SUMO_TAG_CROSSING, SUMO_ATTR_WIDTH).c_str());
+    myCrossingPriorityCheckButton->setCheck(hasTLS ? true :
+                                            GNEAttributeCarrier::parse<bool>(tagProperties.getDefaultValue(SUMO_ATTR_PRIORITY)));
+    myCrossingWidth->setText(tagProperties.getDefaultValue(SUMO_ATTR_WIDTH).c_str());
     myCrossingWidth->setTextColor(FXRGB(0, 0, 0));
 }
 
@@ -510,7 +513,7 @@ GNECrossingFrame::addCrossing(GNENetElement* netElement) {
         myCurrentJunctionLabel->setText((std::string("Current Junction: ") + currentJunction->getID()).c_str());
         // Enable edge selector and crossing parameters
         myEdgeSelector->enableEdgeSelector(currentJunction);
-        myCrossingParameters->enableCrossingParameters();
+        myCrossingParameters->enableCrossingParameters(currentJunction->getNBNode()->isTLControlled());
         // clears selected edges
         myCrossingParameters->clearEdges();
     } else if (selectedEdge != NULL) {
@@ -541,7 +544,7 @@ GNECrossingFrame::onCmdCreateCrossing(FXObject*, FXSelector, void*) {
                                           myCrossingParameters->getCrossingWidth(),
                                           myCrossingParameters->getCrossingPriority(),
                                           -1, -1,
-                                          PositionVector::EMPTY, 
+                                          PositionVector::EMPTY,
                                           false, true), true);
             // clear selected edges
             myEdgeSelector->onCmdClearSelection(0, 0, 0);

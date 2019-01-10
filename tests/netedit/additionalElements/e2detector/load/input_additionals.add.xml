@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors -->
     <e2Detector id="E2_01" lane="gneE0_0" pos="1" length="10.00" freq="100.00" file="e2Detector_01.txt" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
 
@@ -56,7 +56,7 @@
     <!-- non valid file (missing) -->
     <e2Detector id="E2_15" lane="gneE0_0" pos="14" length="10.00" freq="120.00" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
     
-	<!-- non valid file (dummy) -->
+	<!-- non valid file (invalid characters) -->
     <e2Detector id="E2_16" lane="gneE0_0" pos="15" length="10.00" freq="120.00" file="%%$$$%%" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
 	
     <!-- valid file (empty) -->
@@ -133,5 +133,11 @@
 	
 	<!-- valid friendlyPos, invalid lenght 2-->
     <e2Detector id="E2_41" lane="gneE0_0" pos="37" length="-200.00" freq="120.00" file="e2Detector_41.txt" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="12.00" friendlyPos="1"/>
+	
+	<!-- invalid name-->
+    <e2Detector id="E2_42" lane="gneE0_0" pos="36" length="5.00" freq="120.00" file="e2Detector_40.txt" name="$$%$%%$" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="12.00" friendlyPos="1"/>
+	
+	<!-- valid name-->
+    <e2Detector id="E2_43" lane="gneE0_0" pos="37" length="5.00" freq="120.00" file="e2Detector_41.txt" name="valid name" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="12.00" friendlyPos="1"/>
 
-</additionals>
+</additional>

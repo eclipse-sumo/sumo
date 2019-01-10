@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -61,23 +57,15 @@ public:
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, double width, double length, double angle, bool blockMovement);
+    GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, double width, const std::string& length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingArea();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
-    /// @brief gererate a new ID for an Parking Space child
-    std::string generateParkingSpaceID();
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -119,8 +107,8 @@ protected:
     /// @brief width of Parking Area
     double myWidth;
 
-    /// @brief Lenght of Parking Area
-    double myLength;
+    /// @brief Lenght of Parking Area (by default (endPos - startPos) / roadsideCapacity
+    std::string myLength;
 
     /// @brief Angle of Parking Area
     double myAngle;

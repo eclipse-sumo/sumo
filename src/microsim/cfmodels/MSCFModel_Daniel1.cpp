@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
@@ -37,13 +33,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype,  double accel,
-                                     double decel, double emergencyDecel, double apparentDecel,
-                                     double dawdle, double headwayTime,
-                                     double tmp1, double tmp2, double tmp3, double tmp4, double tmp5) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
-    myDawdle(dawdle), myTauDecel(decel * headwayTime),
-    myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) {
+MSCFModel_Daniel1::MSCFModel_Daniel1(const MSVehicleType* vtype) :
+    MSCFModel(vtype),
+    myDawdle(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(vtype->getParameter().vehicleClass))),
+    myTauDecel(myDecel * myHeadwayTime),
+    myTmp1(vtype->getParameter().getCFParam(SUMO_ATTR_TMP1, 1.0)),
+    myTmp2(vtype->getParameter().getCFParam(SUMO_ATTR_TMP2, 1.0)),
+    myTmp3(vtype->getParameter().getCFParam(SUMO_ATTR_TMP3, 1.0)),
+    myTmp4(vtype->getParameter().getCFParam(SUMO_ATTR_TMP4, 1.0)),
+    myTmp5(vtype->getParameter().getCFParam(SUMO_ATTR_TMP5, 1.0)) {
 }
 
 
@@ -105,6 +103,5 @@ double MSCFModel_Daniel1::_vsafe(double gap, double predSpeed) const {
 
 MSCFModel*
 MSCFModel_Daniel1::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Daniel1(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myDawdle, myHeadwayTime,
-                                 myTmp1, myTmp2, myTmp3, myTmp4, myTmp5);
+    return new MSCFModel_Daniel1(vtype);
 }

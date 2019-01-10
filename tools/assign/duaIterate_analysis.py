@@ -23,8 +23,8 @@ import glob
 from optparse import OptionParser
 from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from sumolib.miscutils import Statistics, uMax
-from sumolib.output import parse_fast
+from sumolib.miscutils import Statistics, uMax  # noqa
+from sumolib.output import parse_fast  # noqa
 
 
 def parse_args():
@@ -100,7 +100,7 @@ def parse_dualog(dualog, limit):
                 teleports = 0
                 step_counts.append(counts)
                 counts = defaultdict(lambda: 0)
-        except:
+        except Exception:
             sys.exit("error when parsing line '%s'" % line)
 
     print("  parsed %s steps" % len(step_values))
@@ -141,7 +141,6 @@ def gnuplot_teleport_edges(plotfile, step_counts, xlabel):
     datafile = plotfile + '.data'
     # an edge is interesting if a large proportion of teleports happen on it
     interestingness = defaultdict(lambda: 0)
-    all_edges = set()
     for counts in step_counts:
         teleports = float(sum(counts.itervalues()))
         if teleports == 0:
@@ -201,7 +200,7 @@ plot \\
 '%s' using 0:4 title 'teleports' with lines, \\
 '%s' using 0:3 title 'waiting' with lines, \\
 '%s' using 0:5 title 'loaded' with lines, \\
-'%s' using 0:2 title 'running' with lines 
+'%s' using 0:2 title 'running' with lines
 """ % ((xlabel,) + (datafile,) * 5))
 
 

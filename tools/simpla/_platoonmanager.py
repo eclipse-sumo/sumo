@@ -45,15 +45,15 @@ class PlatoonManager(traci.StepListener):
 
         Creates and initializes the PlatoonManager
         '''
-        if rp.VERBOSITY>=2:
+        if rp.VERBOSITY >= 2:
             report("Initializing simpla.PlatoonManager...", True)
         # Load parameters from config
         # vehicle type filter
         self._typeSubstrings = cfg.VEH_SELECTORS
-        if self._typeSubstrings == [""] and rp.VERBOSITY>=1:
+        if self._typeSubstrings == [""] and rp.VERBOSITY >= 1:
             warn("No typeSubstring given. Managing all vehicles.", True)
-        elif rp.VERBOSITY>=2:
-            report("Managing all vTypes selected by %s"%str(self._typeSubstrings),True)
+        elif rp.VERBOSITY >= 2:
+            report("Managing all vTypes selected by %s" % str(self._typeSubstrings), True)
         # max intra platoon gap
         self._maxPlatoonGap = cfg.MAX_PLATOON_GAP
         # max distance for trying to catch up
@@ -71,34 +71,37 @@ class PlatoonManager(traci.StepListener):
                 self._addVehicle(vehID)
 
         # integration step-length
-        self._DeltaT = traci.simulation.getDeltaT() / 1000.
+        self._DeltaT = traci.simulation.getDeltaT()
 
         # rate for executing the platoon logic
         if(1. / cfg.CONTROL_RATE < self._DeltaT):
-            if rp.VERBOSITY>=1:
-                warn("Restricting given control rate (= %d per sec.) to 1 per timestep (= %g per sec.)" %
-                 (cfg.CONTROL_RATE, 1./self._DeltaT), True)
+            if rp.VERBOSITY >= 1:
+                warn(
+                    "Restricting given control rate (= %d per sec.) to 1 per timestep (= %g per sec.)" %
+                    (cfg.CONTROL_RATE, 1. / self._DeltaT), True)
             self._controlInterval = self._DeltaT
         else:
             self._controlInterval = 1. / cfg.CONTROL_RATE
 
         self._timeSinceLastControl = 1000.
-        
+
         # Check for undefined vtypes and fill with defaults
         for origType, specialTypes in cfg.PLATOON_VTYPES.items():
             if specialTypes[PlatoonMode.FOLLOWER] is None:
-                if rp.VERBOSITY>=2:
-                    report("Setting unspecified follower vtype for '%s' to '%s'"%(origType, specialTypes[PlatoonMode.LEADER]),True)
-                specialTypes[PlatoonMode.FOLLOWER]=specialTypes[PlatoonMode.LEADER]
+                if rp.VERBOSITY >= 2:
+                    report("Setting unspecified follower vtype for '%s' to '%s'" %
+                           (origType, specialTypes[PlatoonMode.LEADER]), True)
+                specialTypes[PlatoonMode.FOLLOWER] = specialTypes[PlatoonMode.LEADER]
             if specialTypes[PlatoonMode.CATCHUP] is None:
-                if rp.VERBOSITY>=2:
-                    report("Setting unspecified catchup vtype for '%s' to '%s'"%(origType, origType),True)
-                specialTypes[PlatoonMode.CATCHUP]=origType
+                if rp.VERBOSITY >= 2:
+                    report("Setting unspecified catchup vtype for '%s' to '%s'" % (origType, origType), True)
+                specialTypes[PlatoonMode.CATCHUP] = origType
             if specialTypes[PlatoonMode.CATCHUP_FOLLOWER] is None:
-                if rp.VERBOSITY>=2:
-                    report("Setting unspecified catchup-follower vtype for '%s' to '%s'"%(origType, specialTypes[PlatoonMode.FOLLOWER]),True)                
-                specialTypes[PlatoonMode.CATCHUP_FOLLOWER]=specialTypes[PlatoonMode.FOLLOWER]
-## Commented snippet generated automatically a catchup follower type with a different color
+                if rp.VERBOSITY >= 2:
+                    report("Setting unspecified catchup-follower vtype for '%s' to '%s'" %
+                           (origType, specialTypes[PlatoonMode.FOLLOWER]), True)
+                specialTypes[PlatoonMode.CATCHUP_FOLLOWER] = specialTypes[PlatoonMode.FOLLOWER]
+# Commented snippet generated automatically a catchup follower type with a different color
 #                 catchupFollowerType = origType + "_catchupFollower"
 #                 specialTypes[PlatoonMode.CATCHUP]=catchupFollowerType
 #                 if rp.VERBOSITY >= 2:
@@ -107,33 +110,35 @@ class PlatoonManager(traci.StepListener):
 #                 traci.vehicletype.copy(specialTypes[PlatoonMode.CATCHUP_FOLLOWER] , catchupFollowerType)
 #                 traci.vehicletype.setColor(catchupFollowerType, (0, 255, 200, 0))
 
-            
-        
-
         # fill global lookup table for vType parameters (used below in safetycheck)
         knownVTypes = traci.vehicletype.getIDList()
         for origType, mappings in cfg.PLATOON_VTYPES.items():
             if origType not in knownVTypes:
-                raise SimplaException("vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % origType)
+                raise SimplaException(
+                    "vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % origType)
             origLength = traci.vehicletype.getLength(origType)
             origEmergencyDecel = traci.vehicletype.getEmergencyDecel(origType)
             for typeID in list(mappings.values()) + [origType]:
                 if typeID not in knownVTypes:
-                    raise SimplaException("vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % typeID)
+                    raise SimplaException(
+                        "vType '%s' is unknown to sumo! Note: Platooning vTypes must be defined at startup." % typeID)
                 mappedLength = traci.vehicletype.getLength(typeID)
                 mappedEmergencyDecel = traci.vehicletype.getEmergencyDecel(typeID)
                 if origLength != mappedLength:
-                    if rp.VERBOSITY>=1:
-                        warn("length of mapped vType '%s' (%sm.) does not equal length of original vType '%s' (%sm.)\nThis will probably lead to collisions." % (
-                        typeID, mappedLength, origType, origLength), True)
+                    if rp.VERBOSITY >= 1:
+                        warn(("length of mapped vType '%s' (%sm.) does not equal length of original vType " +
+                             "'%s' (%sm.)\nThis will probably lead to collisions.") % (
+                            typeID, mappedLength, origType, origLength), True)
                 if origEmergencyDecel != mappedEmergencyDecel:
-                    if rp.VERBOSITY>=1:
-                        warn("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original vType '%s' (%gm.)" % (
-                        typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
+                    if rp.VERBOSITY >= 1:
+                        warn(("emergencyDecel of mapped vType '%s' (%gm.) does not equal emergencyDecel of original " +
+                              "vType '%s' (%gm.)") % (
+                             typeID, mappedEmergencyDecel, origType, origEmergencyDecel), True)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_TAU] = traci.vehicletype.getTau(typeID)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_DECEL] = traci.vehicletype.getDecel(typeID)
                 simpla._pvehicle.vTypeParameters[typeID][tc.VAR_MINGAP] = traci.vehicletype.getMinGap(typeID)
-                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(typeID)
+                simpla._pvehicle.vTypeParameters[typeID][tc.VAR_EMERGENCY_DECEL] = traci.vehicletype.getEmergencyDecel(
+                    typeID)
 
     def step(self, t=0):
         '''step(int)
@@ -141,8 +146,9 @@ class PlatoonManager(traci.StepListener):
         Manages platoons at each time step.
         NOTE: argument t is unused, larger step sizes than DeltaT are not supported.
         '''
-        if not t==0 and rp.VERBOSITY >= 1: 
-            warn("Step lengths that differ from SUMO's simulation step length are not supported and probably lead to undesired behavior.\nConsider decreasing simpla's control rate instead.")
+        if not t == 0 and rp.VERBOSITY >= 1:
+            warn("Step lengths that differ from SUMO's simulation step length are not supported and probably lead " +
+                 "to undesired behavior.\nConsider decreasing simpla's control rate instead.")
         # Handle vehicles entering and leaving the simulation
         self._addDeparted()
         self._removeArrived()
@@ -154,6 +160,8 @@ class PlatoonManager(traci.StepListener):
             self._manageLeaders()
             self._adviseLanes()
             self._timeSinceLastControl = 0.
+        # platoon manager can only be removed by calling simpla.stop()
+        return True
 
     def stop(self):
         '''stop()
@@ -185,7 +193,7 @@ class PlatoonManager(traci.StepListener):
 
         This updates the vehicles' states with information from the simulation
         '''
-        self._subscriptionResults = traci.vehicle.getSubscriptionResults()
+        self._subscriptionResults = traci.vehicle.getAllSubscriptionResults()
         for veh in self._connectedVehicles.values():
             veh.state.speed = self._subscriptionResults[veh.getID()][tc.VAR_SPEED]
             veh.state.edgeID = self._subscriptionResults[veh.getID()][tc.VAR_ROAD_ID]
@@ -282,7 +290,6 @@ class PlatoonManager(traci.StepListener):
         self._connectedVehicles[vehID] = veh
         self._platoons[veh.getPlatoon().getID()] = veh.getPlatoon()
 
-
     def _manageFollowers(self):
         '''_manageFollowers()
 
@@ -314,7 +321,8 @@ class PlatoonManager(traci.StepListener):
                     elif leader.getPlatoon() == veh.getPlatoon():
                         # the platoon order is violated.
                         if rp.VERBOSITY >= 2:
-                            report("Platoon order for platoon '%s' is violated: real leader '%s' is not registered as leader of '%s'" % (
+                            report(("Platoon order for platoon '%s' is violated: real leader '%s' is not registered " +
+                                   "as leader of '%s'") % (
                                 pltnID, leaderID, veh.getID()), 1)
                         veh.setSplitConditions(False)
                     else:
@@ -333,8 +341,9 @@ class PlatoonManager(traci.StepListener):
                     newPlatoons.append(newPlatoon)
                     if rp.VERBOSITY >= 2:
                         report("Platoon '%s' splits (ID of new platoon: '%s'):\n" % (pltn.getID(), newPlatoon.getID()) +
-                               "    Platoon '%s': %s\n    Platoon '%s': %s" % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
-                                                                       newPlatoon.getID(), str([veh.getID() for veh in newPlatoon.getVehicles()])))
+                               "    Platoon '%s': %s\n    Platoon '%s': %s" % (
+                            pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
+                            newPlatoon.getID(), str([veh.getID() for veh in newPlatoon.getVehicles()])))
         for pltn in newPlatoons:
             self._platoons[pltn.getID()] = pltn
 
@@ -408,19 +417,25 @@ class PlatoonManager(traci.StepListener):
                     toRemove.append(pltnID)
                     # Debug
                     if rp.VERBOSITY >= 2:
-                        report("Platoon '%s' joined Platoon '%s', which now contains " % (pltn.getID(), leader.getPlatoon().getID()) +
+                        report("Platoon '%s' joined Platoon '%s', which now contains " % (pltn.getID(),
+                                                                                          leader.getPlatoon().getID()) +
                                "vehicles:\n%s" % str([veh.getID() for veh in leader.getPlatoon().getVehicles()]))
                     continue
                 else:
                     if rp.VERBOSITY >= 3:
-                        report("Merging of platoons '%s' (%s) and '%s' (%s) would not be safe." % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
-                                                                                                   leader.getPlatoon().getID(), str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
+                        report("Merging of platoons '%s' (%s) and '%s' (%s) would not be safe." %
+                               (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
+                                leader.getPlatoon().getID(),
+                                str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
             else:
                 # Join failed due to too large distance. Try to get closer (change to CATCHUP mode).
                 if not pltn.setMode(PlatoonMode.CATCHUP):
                     if rp.VERBOSITY >= 3:
-                        report("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing platoon '%s' (%s)." % (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
-                                                                                                                              leader.getPlatoon().getID(), str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
+                        report(("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing " +
+                                "platoon '%s' (%s).") %
+                               (pltn.getID(), str([veh.getID() for veh in pltn.getVehicles()]),
+                                leader.getPlatoon().getID(),
+                                str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
 
         # remove merged platoons
         for pltnID in toRemove:
@@ -458,7 +473,9 @@ class PlatoonManager(traci.StepListener):
 
                 if rp.VERBOSITY >= 4:
                     report("Platoon %s: Leader for veh '%s' is '%s' (%s)"
-                           % (pltn.getID(), veh.getID(), str(leaderID), ("same platoon" if (intraPlatoonLeaders[-1] is not None) else "not from same platoon")), 3)
+                           % (pltn.getID(), veh.getID(), str(leaderID),
+                              ("same platoon" if (intraPlatoonLeaders[-1] is not None) else "not from same platoon")),
+                           3)
 
             pltn.setVehicles(self.reorderVehicles(pltn.getVehicles(), intraPlatoonLeaders))
 
@@ -467,8 +484,9 @@ class PlatoonManager(traci.StepListener):
         '''
         reorderVehicles(list(pVehicle), list(pVehicle)) -> list(pVehicle)
 
-        This method reorders the given vehicles such that the newly ordered vehicles fulfill: [None] + vehicles[:-1] == actualLeaders
-        (if not several vehicles have the same actual leader. For those it is only guaranteed that one will be associated correctly, not specifying which one)
+        This method reorders the given vehicles such that the newly ordered vehicles fulfill:
+        [None] + vehicles[:-1] == actualLeaders (if not several vehicles have the same actual leader.
+        For those it is only guaranteed that one will be associated correctly, not specifying which one)
         '''
 
 #         if rp.VERBOSITY >= 4:
@@ -488,15 +506,18 @@ class PlatoonManager(traci.StepListener):
                 report("vehicles: %s" % rp.array2String(vehicles), 3)
                 report("Actual leaders: %s" % rp.array2String(actualLeaders), 3)
                 report("registered leaders: %s" % rp.array2String(registeredLeaders), 3)
-            for (ego, registeredLeader, actualLeader) in reversed(list(zip(vehicles, registeredLeaders, actualLeaders))):
+            for (ego, registeredLeader, actualLeader) in reversed(
+                    list(zip(vehicles, registeredLeaders, actualLeaders))):
                 if (ego == actualLeader):
                     if rp.VERBOSITY >= 1:
-                        warn("Platoon %s:\nVehicle '%s' was found as its own leader. Platoon order might be corrupted." % (
-                            rp.array2String(vehicles), str(ego)))
+                        warn(("Platoon %s:\nVehicle '%s' was found as its own leader. " +
+                              "Platoon order might be corrupted.") % (
+                             rp.array2String(vehicles), str(ego)))
                     return vehicles
 
                 if actualLeader is None:
-                    # No actual leader was found. Could be due to platoon LC maneuver or non-connected vehicle merging in
+                    # No actual leader was found. Could be due to platoon LC maneuver or non-connected vehicle
+                    # merging in
                     # -> no reordering implications.
                     continue
                 if actualLeader == registeredLeader:
@@ -557,16 +578,16 @@ class PlatoonManager(traci.StepListener):
                 if leader.state.edgeID == veh.state.edgeID:
                     # leader is on the same edge, advise follower to use the same lane
                     try:
-                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, int(self._controlInterval*1000))
+                        traci.vehicle.changeLane(veh.getID(), leader.state.laneIX, self._controlInterval)
                     except traci.exceptions.TraCIException as e:
-                        if rp.VERBOSITY>=1:
+                        if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
                 else:
                     # leader is on another edge, just stay on the current and hope it is the right one
                     try:
-                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, int(self._controlInterval*1000))
+                        traci.vehicle.changeLane(veh.getID(), veh.state.laneIX, self._controlInterval)
                     except traci.exceptions.TraCIException as e:
-                        if rp.VERBOSITY>=1:
+                        if rp.VERBOSITY >= 1:
                             warn("Lanechange advice for vehicle'%s' failed. Message:\n%s" % (veh.getID(), e.message))
 
     def _isConnected(self, vehID):
@@ -578,7 +599,7 @@ class PlatoonManager(traci.StepListener):
             return True
         else:
             return False
-        
+
     def _hasConnectedType(self, vehID):
         '''_hasConnectedType(string) -> bool
 
@@ -590,6 +611,3 @@ class PlatoonManager(traci.StepListener):
             if selector_str in vtype:
                 return True
         return False
-        
-        
-

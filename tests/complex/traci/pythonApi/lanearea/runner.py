@@ -18,35 +18,33 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(4):
     print("step", step)
     traci.simulationStep()
 print("laneareas", traci.lanearea.getIDList())
 print("lanearea count", traci.lanearea.getIDCount())
-detID = "det0"
-print("examining", detID)
-print("pos", traci.lanearea.getPosition(detID))
-print("length", traci.lanearea.getLength(detID))
-print("lane", traci.lanearea.getLaneID(detID))
-print("vehNum", traci.lanearea.getLastStepVehicleNumber(detID))
-print("haltNum", traci.lanearea.getLastStepHaltingNumber(detID))
-print("meanSpeed", traci.lanearea.getLastStepMeanSpeed(detID))
-print("vehIDs", traci.lanearea.getLastStepVehicleIDs(detID))
-print("occupancy", traci.lanearea.getLastStepOccupancy(detID))
+
+for detID in traci.lanearea.getIDList():
+    print("examining", detID)
+    print("pos", traci.lanearea.getPosition(detID))
+    print("length", traci.lanearea.getLength(detID))
+    print("lane", traci.lanearea.getLaneID(detID))
+    print("vehNum", traci.lanearea.getLastStepVehicleNumber(detID))
+    print("haltNum", traci.lanearea.getLastStepHaltingNumber(detID))
+    print("meanSpeed", traci.lanearea.getLastStepMeanSpeed(detID))
+    print("vehIDs", traci.lanearea.getLastStepVehicleIDs(detID))
+    print("occupancy", traci.lanearea.getLastStepOccupancy(detID))
 
 traci.lanearea.subscribe(detID)
 print(traci.lanearea.getSubscriptionResults(detID))
@@ -55,4 +53,3 @@ for step in range(3, 6):
     traci.simulationStep()
     print(traci.lanearea.getSubscriptionResults(detID))
 traci.close()
-sumoProcess.wait()

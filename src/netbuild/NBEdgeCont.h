@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <map>
 #include <iostream>
@@ -44,14 +40,15 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class OptionsCont;
+class OutputDevice;
 class NBNodeCont;
 class NBTypeCont;
 class NBEdge;
 class NBNode;
-class OptionsCont;
 class NBDistrictCont;
 class NBTrafficLightLogicCont;
-class OutputDevice;
+class NBPTStopCont;
 
 
 // ===========================================================================
@@ -207,7 +204,7 @@ public:
      * @brief A structure which describes changes of lane number or speed along the road
      */
     struct Split {
-        Split() : offset(0) {}
+        Split() : offset(0), offsetFactor(1) {}
         /// @brief The lanes after this change
         std::vector<int> lanes;
         /// @brief The position of this change
@@ -224,10 +221,12 @@ public:
         std::string nameID;
         /// @brief lateral offset to edge geometry
         double offset;
+        /// @brief direction in which to apply the offset (used by netgenerate for lefthand networks)
+        int offsetFactor;
     };
 
-    void processSplits(NBEdge* e, std::vector<Split> splits, 
-            NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc);
+    void processSplits(NBEdge* e, std::vector<Split> splits,
+                       NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Splits the edge at the position nearest to the given node
@@ -414,10 +413,11 @@ public:
      * Calls "NBEdge::appendTurnaround" for all edges within the container.
      *
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
+     * @param[in] exceptDeadends Whether the turnaround shall only be built at deadends
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(bool noTLSControlled);
+    void appendTurnarounds(bool noTLSControlled, bool onlyDeadends);
 
 
     /** @brief Appends turnarounds to all edges stored in the container
@@ -427,6 +427,10 @@ public:
      * @see NBEdge::appendTurnaround
      */
     void appendTurnarounds(const std::set<std::string>& ids, bool noTLSControlled);
+
+    /** @brief Appends turnarounds to all bidiRail edges with stops
+     */
+    void appendRailwayTurnarounds(const NBPTStopCont& sc);
 
 
     /** @brief Computes the shapes of all edges stored in the container
@@ -569,7 +573,7 @@ public:
     bool ignoreFilterMatch(NBEdge* edge);
 
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
-    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
+    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc);
 
     /// @brief check whether edges overlap
     void checkOverlap(double threshold, double zThreshold) const;
@@ -585,6 +589,9 @@ public:
      * @todo Recheck usage
      */
     EdgeVector getGeneratedFrom(const std::string& id) const;
+
+    /// @brief return all edges
+    EdgeVector getAllEdges() const;
 
 private:
     /// @brief compute the form factor for a loop of edges

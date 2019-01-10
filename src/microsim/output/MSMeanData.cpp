@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <limits>
 #include <microsim/MSEdgeControl.h>
@@ -579,7 +575,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
 
 void
 MSMeanData::openInterval(OutputDevice& dev, const SUMOTime startTime, const SUMOTime stopTime) {
-    dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(startTime)).writeAttr(SUMO_ATTR_END, STEPS2TIME(stopTime));
+    dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(startTime)).writeAttr(SUMO_ATTR_END, time2string(stopTime));
     dev.writeAttr(SUMO_ATTR_ID, myID);
 }
 
@@ -629,6 +625,7 @@ MSMeanData::writeXMLOutput(OutputDevice& dev,
             writeEdge(dev, (*i), *edge, startTime, stopTime);
         }
         dev.closeTag();
+        dev.flush();
     }
 }
 

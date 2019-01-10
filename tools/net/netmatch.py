@@ -22,7 +22,7 @@ from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib  # noqa
-from sumolib.geomhelper import distance
+from sumolib.geomhelper import distance  # noqa
 
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",

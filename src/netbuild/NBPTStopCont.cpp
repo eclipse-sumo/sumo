@@ -110,16 +110,65 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 }
 
 
+int
+NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
+    //scnd pass set correct lane
+    std::vector<NBPTStop*> toAdd;
+    for (auto i = myPTStops.begin(); i != myPTStops.end(); i++) {
+        NBPTStop* stop = i->second;
+        NBEdge* edge = ec.getByID(stop->getEdgeId());
+        if (edge != 0 && edge->isBidiRail()) {
+            NBEdge* bidiEdge = edge->getTurnDestination(true);
+            assert(bidiEdge != 0);
+            const std::string id = getReverseID(stop->getID());
+            if (myPTStops.count(id) > 0) {
+                if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
+                    WRITE_WARNING("Could not create reverse-direction stop for superposed edge '" + bidiEdge->getID()
+                                  + "' (origStop '" + i->first + "'). Stop id '" + id
+                                  + "' already in use by stop on edge '" + myPTStops[id]->getEdgeId() + "'.");
+                }
+                continue;
+            }
+            NBPTStop* bidiStop = new NBPTStop(id,
+                                              stop->getPosition(),
+                                              bidiEdge->getID(),
+                                              stop->getOrigEdgeId(),
+                                              stop->getLength(),
+                                              stop->getName(),
+                                              stop->getPermissions());
+            if (bidiStop->findLaneAndComputeBusStopExtend(ec)) {
+                toAdd.push_back(bidiStop);
+                stop->setBidiStop(bidiStop);
+                bidiStop->setBidiStop(stop);
+            } else {
+                // should not happen
+                assert(false);
+            }
+        }
+    }
+    for (NBPTStop* newStop : toAdd) {
+        myPTStops[newStop->getID()] = newStop;
+    }
+    if (toAdd.size() > 0) {
+        WRITE_MESSAGE("Added " + toString(toAdd.size()) + " stops for superposed rail edges.");
+    }
+    return (int)toAdd.size();
+}
+
+
 NBPTStop*
 NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
     std::string edgeId = pStop->getEdgeId();
     NBEdge* edge = cont.getByID(edgeId);
     NBEdge* reverse = NBPTStopCont::getReverseEdge(edge);
     if (reverse != nullptr) {
-        Position* pos = new Position(pStop->getPosition());
-        NBPTStop* ret = new NBPTStop("-" + pStop->getID(), *pos, reverse->getID(), reverse->getID(),
-                                     pStop->getLength(), pStop->getName(), pStop->getPermissions());
-        return ret;
+        const std::string reverseID = getReverseID(pStop->getID());
+        if (myPTStops.count(reverseID) == 0) {
+            return new NBPTStop(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
+                                pStop->getLength(), pStop->getName(), pStop->getPermissions());
+        } else {
+            return myPTStops[reverseID];
+        }
     }
     return nullptr;
 }
@@ -282,27 +331,29 @@ NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
     }
 }
 
+std::string
+NBPTStopCont::getReverseID(const std::string& id) {
+    return id.size() > 0 && id[0] == '-' ? id.substr(1) : "-" + id;
+}
 
 void
 NBPTStopCont::alignIdSigns() {
-    for (auto& i : myPTStops) {
+    PTStopsCont stops = myPTStops;
+    for (auto& i : stops) {
         const std::string& stopId = i.second->getID();
         const char edgeSign = i.second->getEdgeId().at(0);
         const char stopSign = stopId.at(0);
         if (edgeSign != stopSign && (edgeSign == '-' || stopSign == '-')) {
-            if (edgeSign == '-') {
-                i.second->setMyPTStopId("-" + stopId);
-            } else {
-                i.second->setMyPTStopId(stopId.substr(1, stopId.length()));
-            }
-            // TODO the map should be modified as well to hold the correct id
+            i.second->setMyPTStopId(getReverseID(stopId));
+            myPTStops.erase(stopId);
+            myPTStops[i.second->getID()] = i.second;
         }
     }
 }
 
 
 void
-NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount) {
+NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, int maxCount, double accessFactor) {
     NamedRTree r;
     for (auto edge : cont) {
         const Boundary& bound = edge.second->getGeometry().getBoxBoundary();
@@ -314,7 +365,8 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
         const std::string& stopEdgeID = ptStop.second->getEdgeId();
         NBEdge* stopEdge = cont.getByID(stopEdgeID);
         //std::cout << "findAccessEdgesForRailStops edge=" << stopEdgeID << " exists=" << (stopEdge != 0) << "\n";
-        if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
+        if (stopEdge != 0 && (stopEdge->getPermissions() & SVC_PEDESTRIAN) == 0) {
+            //if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
             std::set<std::string> ids;
             Named::StoringVisitor visitor(ids);
             const Position& pos = ptStop.second->getPosition();
@@ -327,7 +379,7 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
                 edgCants.push_back(e);
             }
             std::sort(edgCants.begin(), edgCants.end(), [pos](NBEdge * a, NBEdge * b) {
-                return a->getGeometry().distance2D(pos, false) < b->getGeometry().distance2D(pos, false);
+                return a->getLaneShape(0).distance2D(pos, false) < b->getLaneShape(0).distance2D(pos, false);
             });
             int cnt = 0;
             for (auto edge : edgCants) {
@@ -337,7 +389,8 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
                         double offset = lane.shape.nearest_offset_to_point2D(pos, false);
                         double finalLength = edge->getFinalLength();
                         double laneLength = lane.shape.length();
-                        ptStop.second->addAccess(edge->getLaneID(laneIdx), offset * finalLength / laneLength);
+                        double accessLength = pos.distanceTo2D(lane.shape.positionAtOffset2D(offset)) * accessFactor;
+                        ptStop.second->addAccess(edge->getLaneID(laneIdx), offset * finalLength / laneLength, accessLength);
                         cnt++;
                         break;
                     }

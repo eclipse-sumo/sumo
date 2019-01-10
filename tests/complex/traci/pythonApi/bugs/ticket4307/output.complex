@@ -1,0 +1,2 @@
+route initial: ('SC', 'NC')
+route computed: ('SC', 'CN', 'NC')

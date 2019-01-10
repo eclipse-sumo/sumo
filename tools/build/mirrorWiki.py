@@ -88,6 +88,7 @@ def getImages(page):
             b = page.find(t, b + 1)
     return images
 
+
 if __name__ == "__main__":
     optParser = OptionParser()
     optParser.add_option(
@@ -96,7 +97,7 @@ if __name__ == "__main__":
 
     try:
         os.makedirs(os.path.join(options.output, "images"))
-    except:
+    except Exception:
         pass
     images = set()
     for name in getAllPages(args):
@@ -106,7 +107,7 @@ if __name__ == "__main__":
             try:
                 os.makedirs(
                     os.path.join(options.output, name[:name.rfind("/")]))
-            except:
+            except Exception:
                 pass
             images.update(getImages(c))
         name = name + ".txt"

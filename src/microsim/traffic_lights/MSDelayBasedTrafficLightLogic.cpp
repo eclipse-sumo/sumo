@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <vector>
@@ -86,6 +82,10 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         const LaneVector& lanes = *i2;
         for (i = lanes.begin(); i != lanes.end(); i++) {
             MSLane* lane = (*i);
+            if (noVehicles(lane->getPermissions())) {
+                // do not build detectors on green verges or sidewalks
+                continue;
+            }
             // Build the detectors and register them at the detector control
             std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
             if (myLaneDetectors.find(lane) == myLaneDetectors.end()) {
@@ -117,13 +117,13 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
         const std::vector<MSLane*>& lanes = getLanesAt(i);
         for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
             LaneDetectorMap::iterator i = myLaneDetectors.find(*j);
-#ifdef DEBUG_TIMELOSS_CONTROL
             if (i == myLaneDetectors.end()) {
-                // no detector for this lane!?
+#ifdef DEBUG_TIMELOSS_CONTROL
+                // no detector for this lane!? maybe noVehicles allowed
                 std::cout << "no detector on lane '" << (*j)->getID() << std::endl;
+#endif
                 continue;
             }
-#endif
             MSE2Collector* detector = static_cast<MSE2Collector* >(i->second);
             const std::vector<MSE2Collector::VehicleInfo*> vehInfos = detector->getCurrentVehicles();
 #ifdef DEBUG_TIMELOSS_CONTROL

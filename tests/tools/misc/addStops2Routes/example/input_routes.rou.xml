@@ -1,0 +1,5 @@
+<routes>
+   <vehicle id="0_parkingA" type="type1" depart="0" color="1,0,0">
+      <route edges="beg middle end rend"/>
+   </vehicle>
+</routes>

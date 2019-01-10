@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/IDSupplier.h>
 #include <utils/common/SUMOTime.h>
@@ -55,7 +51,7 @@ class SUMOVTypeParameter;
 class SUMORouteHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    SUMORouteHandler(const std::string& file);
+    SUMORouteHandler(const std::string& file, const std::string& expectedRoot);
 
     /// standard destructor
     virtual ~SUMORouteHandler();
@@ -194,9 +190,6 @@ protected:
 
     /// @brief where stop edges can be inserted into the current route (-1 means no insertion)
     int myInsertStopEdgesAt;
-
-    /// @brief the default car following model
-    SumoXMLTag myDefaultCFModel;
 
 private:
     /// @brief Invalidated copy constructor

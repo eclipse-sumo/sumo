@@ -24,17 +24,21 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 #include <string>
 #include <cmath>
 #include <limits>
 
 /* avoiding compiler warning unreferenced parameter */
 #define UNUSED_PARAMETER(x)  ((void)(x))
+
+#ifdef _MSC_VER
+#define FALLTHROUGH /* do nothing */
+#elif __GNUC__ < 7
+#define FALLTHROUGH /* do nothing */
+#else
+#define FALLTHROUGH __attribute__((fallthrough))
+#endif
 
 /// @brief the maximum number of connections across an intersection
 #define  SUMO_MAX_CONNECTIONS 256
@@ -113,7 +117,8 @@ ISNAN(T a) {
 /// the precision for floating point outputs
 extern int gPrecision;
 extern int gPrecisionGeo; // for lon,lat
-extern bool gHumanReadableTime; 
+extern bool gHumanReadableTime;
+extern bool gSimulation; // whether the current application is sumo or sumo-gui (as opposed to a router)
 
 
 /// @brief global utility flags for debugging

@@ -20,8 +20,9 @@ from __future__ import print_function
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-from sumolib.output import parse
-from sumolib.miscutils import Statistics
+from sumolib.output import parse  # noqa
+from sumolib.miscutils import Statistics  # noqa
+
 
 def main(tag, attr, *xmlfiles):
     data = []
@@ -35,7 +36,7 @@ def main(tag, attr, *xmlfiles):
         import matplotlib.pyplot as plt
     except Exception as e:
         sys.exit(e)
-    fig = plt.figure()
+    plt.figure()
     plt.xticks(range(len(xmlfiles)), xmlfiles)
     plt.ylabel("%s %s" % (tag, attr))
     plt.boxplot(data)

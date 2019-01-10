@@ -82,13 +82,15 @@ def writeSUMOConf(step, options, files):
         <verbose value="True"/>
         <no-warnings value="%s"/>
     </reports>
-</configuration>""" % (step, options.updateInterval, options.withtaz, options.reroutingexplicit, options.lastRoutes, options.withexittime, options.routesorted, not options.withWarnings), file=fd)
+</configuration>""" % (step, options.updateInterval, options.withtaz, options.reroutingexplicit, options.lastRoutes,
+                       options.withexittime, options.routesorted, not options.withWarnings), file=fd)
     fd.close()
     if options.costmodifier != 'None':
         fd = open("%s_dump_%s.add.xml" % (options.costmodifier, step), "w")
         print("""<a>
         <edgeData id="%s_dump_%s_%s" freq="%s" file="%s_dump_%s_%s.xml" excludeEmpty="true"/>
-        </a>""" % (options.costmodifier, step, options.aggregation, options.aggregation, options.costmodifier, step, options.aggregation), file=fd)
+        </a>""" % (options.costmodifier, step, options.aggregation, options.aggregation, options.costmodifier, step,
+                   options.aggregation), file=fd)
         fd.close()
     else:
         fd = open("dump_%s.add.xml" % step, "w")
@@ -96,6 +98,7 @@ def writeSUMOConf(step, options, files):
         <edgeData id="dump_%s_%s" freq="%s" file="dump_%s_%s.xml" excludeEmpty="true"/>
         </a>""" % (step, options.aggregation, options.aggregation, step, options.aggregation), file=fd)
         fd.close()
+
 
 optParser = OptionParser()
 optParser.add_option("-W", "--with-warnings", action="store_true", dest="withWarnings",

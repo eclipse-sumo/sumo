@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNENetElement.h"
 
@@ -73,14 +69,26 @@ public:
     /// @brief returns a vector with the outgoing GNEConnections of this lane
     std::vector<GNEConnection*> getGNEOutcomingConnections();
 
-    // update IDs of incoming connections of this lane
+    /// @brief update IDs of incoming connections of this lane
     void updateConnectionIDs();
+
+    /// @brief get lenght geometry factor
+    double getLengthGeometryFactor() const;
+
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
     // @brief Returns the name of the parent object (if any)
     // @return This object's parent id
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /**@brief Returns an own popup-menu
      *
@@ -122,7 +130,7 @@ public:
 
     /// @brief update pre-computed geometry information
     //  @note: must be called when geometry changes (i.e. junction moved)
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /// @brief returns the index of the lane
     int getIndex() const;
@@ -179,6 +187,32 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @name Function related with Generic Parameters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string& key, const std::string& value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string& key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
+
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
+    /// @}
+
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color
      */
@@ -197,10 +231,13 @@ protected:
     /// @brief The Edge that to which this lane belongs
     GNEEdge& myParentEdge;
 
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
+
     /// @brief The index of this lane
     int myIndex;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// @brief The rotations of the shape parts
     std::vector<double> myShapeRotations;
@@ -224,12 +261,12 @@ protected:
     /// @brief The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
 
-    /// @brief the tls-editor for setting multiple links in TLS-mode
-    GNETLSEditorFrame* myTLSEditor;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for check if mouse is over objects
+    void mouseOverObject(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
     void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
@@ -262,7 +299,7 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators() const;
+    void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
 
     /// @brief set color according to edit mode and visualisation settings
     void setLaneColor(const GUIVisualizationSettings& s) const;

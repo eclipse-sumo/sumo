@@ -10,7 +10,7 @@
 
 # @file    test_glcanvas.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 '''
@@ -114,7 +114,6 @@ stockIDs = [
 
 
 class BaseTool(cm.BaseObjman):
-
     """
     This is a base tool class for Agilecanvas.
     It must handle all mouse or keyboard events,
@@ -127,15 +126,12 @@ class BaseTool(cm.BaseObjman):
         """
         To be overridden by specific tool.
         """
-        self.init_common('select', parent, 'Selection tool',
-                         mainframe, info='Select objects in cancvas')
+        self.init_common('select', parent, 'Selection tool', mainframe, info='Select objects in cancvas')
 
     def set_button_info(self, bsize=(32, 32)):
         # print 'set_button_info select tool'
-        self._bitmap = wx.Bitmap(os.path.join(
-            IMAGEDIR, 'selectIcon.bmp'), wx.BITMAP_TYPE_BMP)
-        self._bitmap_sel = wx.Bitmap(os.path.join(
-            IMAGEDIR, 'selectIconSel.bmp'), wx.BITMAP_TYPE_BMP)
+        self._bitmap = wx.Bitmap(os.path.join(IMAGEDIR, 'selectIcon.bmp'), wx.BITMAP_TYPE_BMP)
+        self._bitmap_sel = wx.Bitmap(os.path.join(IMAGEDIR, 'selectIconSel.bmp'), wx.BITMAP_TYPE_BMP)
 
     def get_button(self, parent, bottonsize=(32, 32), bottonborder=10):
 
@@ -146,19 +142,19 @@ class BaseTool(cm.BaseObjman):
         bitmap = self._bitmap
 
         #b=GenBitmapTextToggleButton(parent, id, bitmap,tool.name,name = self.get_name())
-        b = GenBitmapToggleButton(parent, id, bitmap, (bitmap.GetWidth(
-        ) + bottonborder, bitmap.GetHeight() + bottonborder), name=self.get_name())
+        b = GenBitmapToggleButton(parent, id, bitmap, (bitmap.GetWidth()+bottonborder,
+                                                       bitmap.GetHeight()+bottonborder), name=self.get_name())
         #b=GenBitmapToggleButton(self, wx.ID_DELETE)
         #b = GenBitmapTextToggleButton(self, id, None, tool.get('name',''), size = (200, 45))
 
-        if bitmap != None:
+        if bitmap is not None:
             #mask = wx.Mask(bitmap, wx.BLUE)
             # bitmap.SetMask(mask)
             b.SetBitmapLabel(bitmap)
             # bmp=wx.NullBitmap
 
         bitmap_sel = self._bitmap_sel
-        if bitmap_sel != None:
+        if bitmap_sel is not None:
             #mask = wx.Mask(bmp, wx.BLUE)
             # bmp.SetMask(mask)
             b.SetBitmapSelected(bitmap_sel)
@@ -213,7 +209,7 @@ class BaseTool(cm.BaseObjman):
         """
         Append new drawobject
         """
-        n = len(self.drawobjs) + 1
+        n = len(self.drawobjs)+1
         self.drawobjs[n] = drawobj
 
     def pop_drawobj(self):
@@ -268,11 +264,10 @@ class BaseTool(cm.BaseObjman):
 
         Can be used for example to change handle settings
         """
-        if setnames != None:
+        if setnames is not None:
             objsets = {}
             for name in setnames:
-                objsets[name] = self.metacanvas.get_objset_from_layer(
-                    layer, name)
+                objsets[name] = self.metacanvas.get_objset_from_layer(layer, name)
             self.targetsets = objsets
         else:
             self.targetsets = self.metacanvas.get_objset_from_layer(layer)
@@ -347,13 +342,11 @@ class BaseTool(cm.BaseObjman):
 
 
 class DelTool(BaseTool):
-
     def __init__(self, parent, mainframe=None):
         """
         To be overridden by specific tool.
         """
-        self.init_common('delete', parent, 'Delete', mainframe,
-                         info='Delete objects in cancvas')
+        self.init_common('delete', parent, 'Delete', mainframe, info='Delete objects in cancvas')
 
     def set_button_info(self, bsize=(32, 32)):
         # print 'set_button_info select tool'
@@ -374,7 +367,6 @@ class DelTool(BaseTool):
 
 
 class ToolPalett(wx.Panel):
-
     """
     This is a panel where tools are represented by images and/or text.
     The tools are selected in a radio-button-fashion.
@@ -416,12 +408,11 @@ class ToolPalett(wx.Panel):
         bottonborder = 10
         toolbarborder = 1
 
-        if tool == None:
+        if tool is None:
             self.sizer.Add()
             return None
         else:
-            b = tool.get_button(self, bottonsize=bottonsize,
-                                bottonborder=bottonborder)
+            b = tool.get_button(self, bottonsize=bottonsize, bottonborder=bottonborder)
             self.Bind(wx.EVT_BUTTON, self.on_select, b)
 
             self._id_to_tool[b.GetId()] = (tool, b)
@@ -440,7 +431,7 @@ class ToolPalett(wx.Panel):
         bottonborder = 10
         toolbarborder = 1
 
-        if tool == None:
+        if tool is None:
             self.sizer.Add()
             return None
         else:
@@ -450,8 +441,8 @@ class ToolPalett(wx.Panel):
             # print '\n add_tool',key,bitmap
             # print 'toolpallet.add_tool: key,name:',tool.key,tool.name
             #b=GenBitmapTextToggleButton(self, id, bitmap,tool.name,name = tool.name)
-            b = GenBitmapToggleButton(self, id, bitmap, (bitmap.GetWidth(
-            ) + bottonborder, bitmap.GetHeight() + bottonborder))
+            b = GenBitmapToggleButton(self, id, bitmap, (bitmap.GetWidth() +
+                                                         bottonborder, bitmap.GetHeight()+bottonborder))
             #b=GenBitmapToggleButton(self, wx.ID_DELETE)
             #b = GenBitmapTextToggleButton(self, id, None, tool.get('name',''), size = (200, 45))
             self.Bind(wx.EVT_BUTTON, self.on_select, b)
@@ -511,7 +502,7 @@ class ToolPalett(wx.Panel):
                 self.unselect()
                 self._id = _id
                 self.GetParent().set_options(tool)
-                if self._callback != None:
+                if self._callback is not None:
                     self._callback(tool)
 
     def unselect(self):
@@ -542,12 +533,11 @@ class ToolPalett(wx.Panel):
                 (tool, button) = self._id_to_tool[id]
                 button.SetToggle(True)
                 self._id = id
-                if self._callback != None:
+                if self._callback is not None:
                     self._callback(tool)
 
 
 class __ToggleMixin:
-
     def SetToggle(self, flag):
         self.up = not flag
         self.Refresh()
@@ -580,19 +570,16 @@ class __ToggleMixin:
 
 
 class GenBitmapTextToggleButton(__ToggleMixin, GenBitmapTextButton):
-
     """A generic toggle bitmap button with text label"""
     pass
 
 
 class GenBitmapToggleButton(__ToggleMixin, GenBitmapButton):
-
     """A generic toggle bitmap button with text label"""
     pass
 
 
 class ToolsPanel(wx.Panel):
-
     """
 
     Interactively navigates through objects and displays attributes 
@@ -635,8 +622,7 @@ class ToolsPanel(wx.Panel):
         self._optionspanel = objpanel.ObjPanel(self, obj=tool,
                                                attrconfigs=None,
                                                #tables = None,
-                                               # table = None, id=None,
-                                               # ids=None,
+                                               # table = None, id=None, ids=None,
                                                groupnames=None,
                                                func_change_obj=None,
                                                show_groupnames=False, show_title=True, is_modal=False,
@@ -644,7 +630,7 @@ class ToolsPanel(wx.Panel):
                                                pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                                                immediate_apply=False, panelstyle='default',
                                                standartbuttons=['apply', 'restore'])
-        # if id!=None:
+        # if id is not None:
         #    self.objpanel=ObjPanel(self,obj,id=id,func_change_obj=self.change_obj)
         # else:
         #    self.objpanel=ObjPanel(self,obj,func_change_obj=self.change_obj)
@@ -670,22 +656,22 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True):
 
     d = np.zeros(len(y1), dtype=np.float32)
 
-    dx21 = (x2 - x1)
-    dy21 = (y2 - y1)
+    dx21 = (x2-x1)
+    dy21 = (y2-y1)
 
-    lensq21 = dx21 * dx21 + dy21 * dy21
+    lensq21 = dx21*dx21 + dy21*dy21
 
     # indexvector for all zero length lines
     iz = (lensq21 == 0)
 
-    dy = y3 - y1[iz]
-    dx = x3 - x1[iz]
+    dy = y3-y1[iz]
+    dx = x3-x1[iz]
 
-    d[iz] = dx * dx + dy * dy
+    d[iz] = dx*dx + dy*dy
 
     lensq21[iz] = 1.0  # replace zeros with 1.0 to avoid div by zero error
 
-    u = (x3 - x1) * dx21 + (y3 - y1) * dy21
+    u = (x3-x1)*dx21 + (y3-y1)*dy21
     u = u / lensq21
 
     x = x1 + u * dx21
@@ -699,9 +685,9 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True):
         x[ie] = x2[ie]
         y[ie] = y2[ie]
 
-    dx30 = x3 - x
-    dy30 = y3 - y
-    d[~iz] = (dx30 * dx30 + dy30 * dy30)[~iz]
+    dx30 = x3-x
+    dy30 = y3-y
+    d[~iz] = (dx30*dx30 + dy30*dy30)[~iz]
     return d
 
 
@@ -711,22 +697,20 @@ def is_inside_triangles(p, x1, y1, x2, y2, x3, y3):
     inside a triangle.
     x1,y1,x2,y2,x3,y3 are vectors with the 3 coordiantes of the triangles.
     """
-    alpha = ((y2 - y3) * (p[0] - x3) + (x3 - x2) * (p[1] - y3)) \
-        / ((y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3))
+    alpha = ((y2 - y3)*(p[0] - x3) + (x3 - x2)*(p[1] - y3)) \
+        / ((y2 - y3)*(x1 - x3) + (x3 - x2)*(y1 - y3))
 
-    beta = ((y3 - y1) * (p[0] - x3) + (x1 - x3) * (p[1] - y3)) \
-        / ((y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3))
+    beta = ((y3 - y1)*(p[0] - x3) + (x1 - x3)*(p[1] - y3)) \
+        / ((y2 - y3)*(x1 - x3) + (x3 - x2)*(y1 - y3))
 
     gamma = 1.0 - alpha - beta
     return (alpha > 0) & (beta > 0) & (gamma > 0)
 
 
 class WxGLTest_orig(glcanvas.GLCanvas):
-
     def __init__(self, parent):
 
-        glcanvas.GLCanvas.__init__(
-            self, parent, -1, attribList=[glcanvas.WX_GL_DOUBLEBUFFER])
+        glcanvas.GLCanvas.__init__(self, parent, -1, attribList=[glcanvas.WX_GL_DOUBLEBUFFER])
         wx.EVT_PAINT(self, self.OnDraw)
         wx.EVT_SIZE(self, self.OnSize)
         wx.EVT_MOTION(self, self.OnMouseMotion)
@@ -749,16 +733,16 @@ class WxGLTest_orig(glcanvas.GLCanvas):
         # even if you are using glBegin/glEnd, sin/cos are fairly expensive functions
         # I've left it here as is to make the code simpler.
         radius = 1.0
-        x = radius * math.sin(0)
-        y = radius * math.cos(0)
+        x = radius*math.sin(0)
+        y = radius*math.cos(0)
         glColor(0.0, 1.0, 0.0)
         glBegin(GL_LINE_STRIP)
         for deg in xrange(1000):
             glVertex(x, y, 0.0)
             rad = math.radians(deg)
             radius -= 0.001
-            x = radius * math.sin(rad)
-            y = radius * math.cos(rad)
+            x = radius*math.sin(rad)
+            y = radius*math.cos(rad)
         glEnd()
 
         glEnableClientState(GL_VERTEX_ARRAY)
@@ -767,15 +751,15 @@ class WxGLTest_orig(glcanvas.GLCanvas):
 
         # Second Spiral using "array immediate mode" (i.e. Vertex Arrays)
         radius = 0.8
-        x = radius * math.sin(0)
-        y = radius * math.cos(0)
+        x = radius*math.sin(0)
+        y = radius*math.cos(0)
         glColor(1.0, 0.0, 0.0)
         for deg in xrange(820):
             spiral_array.append([x, y])
             rad = math.radians(deg)
             radius -= 0.001
-            x = radius * math.sin(rad)
-            y = radius * math.cos(rad)
+            x = radius*math.sin(rad)
+            y = radius*math.cos(rad)
 
         glVertexPointerf(spiral_array)
         glDrawArrays(GL_LINE_STRIP, 0, len(spiral_array))
@@ -822,7 +806,6 @@ class WxGLTest_orig(glcanvas.GLCanvas):
 
 
 class Lines:
-
     """Lines class."""
 
     def __init__(self, linewidth=3, vertices=None, colors=None):
@@ -844,13 +827,13 @@ class Lines:
 
     def _update_vertexvbo(self):
         self._vertexvbo = vbo.VBO(self.vertices.reshape((-1, 3)))
-        self._indexvbo = vbo.VBO(np.arange(
-            self.n_vert_per_elem * len(self.vertices), dtype=np.int32), target=GL_ELEMENT_ARRAY_BUFFER)
+        self._indexvbo = vbo.VBO(np.arange(self.n_vert_per_elem*len(self.vertices),
+                                           dtype=np.int32), target=GL_ELEMENT_ARRAY_BUFFER)
 
     def _update_colorvbo(self):
         #self._colorvbo = vbo.VBO( np.resize( np.repeat(np.clip((self.colors+self.c_highl*self.colors_highl) ,0.0,1.0), self.n_vert_per_elem),(len(self.colors),4)) )
-        self._colorvbo = vbo.VBO(np.clip((self.colors + self.colors_highl)[np.array(
-            np.arange(0, len(self.colors), 1.0 / self.n_vert_per_elem), int)], 0.0, 1.0))
+        self._colorvbo = vbo.VBO(np.clip((self.colors+self.colors_highl)
+                                         [np.array(np.arange(0, len(self.colors), 1.0/self.n_vert_per_elem), int)], 0.0, 1.0))
 
     def pick(self, p):
         """
@@ -869,8 +852,7 @@ class Lines:
         return get_dist_point_to_segs(p, x1, y1, x2, y2, is_ending=True) < self.detectwidth**2
 
     def highlight(self, inds_highl):
-        self.colors_highl = np.repeat(
-            self.c_highl * np.array(inds_highl, dtype=np.float32), 4).reshape(-1, 4)
+        self.colors_highl = np.repeat(self.c_highl*np.array(inds_highl, dtype=np.float32), 4).reshape(-1, 4)
         self._update_colorvbo()
 
     def draw(self):
@@ -889,8 +871,7 @@ class Lines:
         self._indexvbo.bind()
         glVertexPointer(3, GL_FLOAT, 0, None)
 
-        glDrawElements(GL_LINES, self.n_vert_per_elem *
-                       len(self.vertices), GL_UNSIGNED_INT, None)
+        glDrawElements(GL_LINES, self.n_vert_per_elem*len(self.vertices), GL_UNSIGNED_INT, None)
 
         glDisableClientState(GL_VERTEX_ARRAY)
         glDisableClientState(GL_COLOR_ARRAY)
@@ -942,8 +923,7 @@ class Rectangles(Lines):
         self._indexvbo.bind()
         glVertexPointer(3, GL_FLOAT, 0, None)
 
-        glDrawElements(GL_QUADS, self.n_vert_per_elem *
-                       len(self.vertices), GL_UNSIGNED_INT, None)
+        glDrawElements(GL_QUADS, self.n_vert_per_elem*len(self.vertices), GL_UNSIGNED_INT, None)
 
         glDisableClientState(GL_VERTEX_ARRAY)
         glDisableClientState(GL_COLOR_ARRAY)
@@ -953,7 +933,6 @@ class Rectangles(Lines):
 
 
 class Triangles(Lines):
-
     """Triangles class."""
 
     def __init__(self, linewidth=3, vertices=None, colors=None):
@@ -984,8 +963,7 @@ class Triangles(Lines):
         self._indexvbo.bind()
         glVertexPointer(3, GL_FLOAT, 0, None)
 
-        glDrawElements(GL_TRIANGLES, self.n_vert_per_elem *
-                       len(self.vertices), GL_UNSIGNED_INT, None)
+        glDrawElements(GL_TRIANGLES, self.n_vert_per_elem*len(self.vertices), GL_UNSIGNED_INT, None)
 
         glDisableClientState(GL_VERTEX_ARRAY)
         glDisableClientState(GL_COLOR_ARRAY)
@@ -995,7 +973,6 @@ class Triangles(Lines):
 
 
 class GLFrame(wx.Frame):
-
     """A simple class for using OpenGL with wxPython."""
 
     def __init__(self, parent, id=-1, title='', pos=wx.DefaultPosition,
@@ -1003,7 +980,7 @@ class GLFrame(wx.Frame):
                  name='frame', mainframe=None):
 
         print '\n\nGLFrame!!'
-        if mainframe == None:
+        if mainframe is None:
             self._mainframe = parent
         else:
             self._mainframe = mainframe
@@ -1046,8 +1023,7 @@ class GLFrame(wx.Frame):
         #   Should this include styles passed?
         style = wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
 
-        super(GLFrame, self).__init__(
-            parent, id, title, pos, size, style, name)
+        super(GLFrame, self).__init__(parent, id, title, pos, size, style, name)
         #wx.Frame.__init__(self, parent, id, title, pos, size, style, name)
 
         self.GLinitialized = False
@@ -1061,8 +1037,7 @@ class GLFrame(wx.Frame):
 
         #
         # Set the event handlers.
-        self.canvas.Bind(wx.EVT_ERASE_BACKGROUND,
-                         self.processEraseBackgroundEvent)
+        self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
         self.canvas.Bind(wx.EVT_SIZE, self.processSizeEvent)
         self.canvas.Bind(wx.EVT_PAINT, self.processPaintEvent)
 
@@ -1120,8 +1095,8 @@ class GLFrame(wx.Frame):
         # https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
         d = -v_near + v_far
 
-        t = -v_near[2] / d[2]
-        v_inter = v_near + t * d
+        t = -v_near[2]/d[2]
+        v_inter = v_near+t*d
 
         return v_inter
 
@@ -1149,7 +1124,7 @@ class GLFrame(wx.Frame):
         """
         mousex, mousey = event.GetPosition()
         x = mousex
-        y = self.g_Height - mousey
+        y = self.g_Height-mousey
 
         modelviewmatrix = glGetDoublev(GL_MODELVIEW_MATRIX)
         projectionmatrix = glGetDoublev(GL_PROJECTION_MATRIX)
@@ -1167,8 +1142,7 @@ class GLFrame(wx.Frame):
             projectionmatrix,
             viewport,), dtype=np.float32)
 
-        v_inter = self.get_intersection(
-            worldCoordinate_near, worldCoordinate_far)
+        v_inter = self.get_intersection(worldCoordinate_near, worldCoordinate_far)
         return v_inter
 
     def BeginGrap(self, event):
@@ -1179,8 +1153,8 @@ class GLFrame(wx.Frame):
     def MoveGrap(self, event):
         x, y = event.GetPosition()
 
-        self.xTrans += x - self.xStart
-        self.yTrans += y - self.yStart
+        self.xTrans += x-self.xStart
+        self.yTrans += y-self.yStart
         # print 'MoveGrap',self.xTrans,self.yTrans
         self.xStart, self.yStart = x, y
 
@@ -1261,7 +1235,7 @@ class GLFrame(wx.Frame):
         # the window corner OpenGL coordinates are (-+1, -+1)
         glOrtho(-1, 1, 1, -1, -1, 1)
 
-        aspect = float(self.g_Width) / float(self.g_Height)
+        aspect = float(self.g_Width)/float(self.g_Height)
 
         gluPerspective(self.zoom, aspect, self.g_nearPlane, self.g_farPlane)
         glMatrixMode(GL_MODELVIEW)
@@ -1274,17 +1248,16 @@ class GLFrame(wx.Frame):
         self.SwapBuffers()
 
     def polarView(self):
-        glTranslatef(self.yTrans / 100., 0.0, 0.0)
-        glTranslatef(0.0, -self.xTrans / 100., 0.0)
+        glTranslatef(self.yTrans/100., 0.0, 0.0)
+        glTranslatef(0.0, -self.xTrans/100., 0.0)
         glRotatef(-self.zRotate, 0.0, 0.0, 1.0)
         glRotatef(-self.xRotate, 1.0, 0.0, 0.0)
         glRotatef(-self.yRotate, .0, 1.0, 0.0)
 
 
 class WxGLTest2(glcanvas.GLCanvas):
-
     def __init__(self, parent, mainframe=None):
-        if mainframe == None:
+        if mainframe is None:
             self._mainframe = parent
         else:
             self._mainframe = mainframe
@@ -1403,8 +1376,8 @@ class WxGLTest2(glcanvas.GLCanvas):
         # https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
         d = -v_near + v_far
 
-        t = -v_near[2] / d[2]
-        v_inter = v_near + t * d
+        t = -v_near[2]/d[2]
+        v_inter = v_near+t*d
 
         return v_inter
 
@@ -1432,7 +1405,7 @@ class WxGLTest2(glcanvas.GLCanvas):
         """
         mousex, mousey = event.GetPosition()
         x = mousex
-        y = self.g_Height - mousey
+        y = self.g_Height-mousey
 
         modelviewmatrix = glGetDoublev(GL_MODELVIEW_MATRIX)
         projectionmatrix = glGetDoublev(GL_PROJECTION_MATRIX)
@@ -1450,8 +1423,7 @@ class WxGLTest2(glcanvas.GLCanvas):
             projectionmatrix,
             viewport,), dtype=np.float32)
 
-        v_inter = self.get_intersection(
-            worldCoordinate_near, worldCoordinate_far)
+        v_inter = self.get_intersection(worldCoordinate_near, worldCoordinate_far)
         return v_inter
 
     def BeginGrap(self, event):
@@ -1462,8 +1434,8 @@ class WxGLTest2(glcanvas.GLCanvas):
     def MoveGrap(self, event):
         x, y = event.GetPosition()
 
-        self.xTrans += x - self.xStart
-        self.yTrans += y - self.yStart
+        self.xTrans += x-self.xStart
+        self.yTrans += y-self.yStart
         # print 'MoveGrap',self.xTrans,self.yTrans
         self.xStart, self.yStart = x, y
 
@@ -1544,7 +1516,7 @@ class WxGLTest2(glcanvas.GLCanvas):
         # the window corner OpenGL coordinates are (-+1, -+1)
         glOrtho(-1, 1, 1, -1, -1, 1)
 
-        aspect = float(self.g_Width) / float(self.g_Height)
+        aspect = float(self.g_Width)/float(self.g_Height)
 
         gluPerspective(self.zoom, aspect, self.g_nearPlane, self.g_farPlane)
         glMatrixMode(GL_MODELVIEW)
@@ -1553,14 +1525,13 @@ class WxGLTest2(glcanvas.GLCanvas):
         # draw actual scene
         for element in self._elements:
             element.draw()
-            # causes bad things :AttributeError: 'Implementation' object has no
-            # attribute 'glGenBuffers'
+            # causes bad things :AttributeError: 'Implementation' object has no attribute 'glGenBuffers'
 
         self.SwapBuffers()
 
     def polarView(self):
-        glTranslatef(self.yTrans / 100., 0.0, 0.0)
-        glTranslatef(0.0, -self.xTrans / 100., 0.0)
+        glTranslatef(self.yTrans/100., 0.0, 0.0)
+        glTranslatef(0.0, -self.xTrans/100., 0.0)
         glRotatef(-self.zRotate, 0.0, 0.0, 1.0)
         glRotatef(-self.xRotate, 1.0, 0.0, 0.0)
         glRotatef(-self.yRotate, .0, 1.0, 0.0)
@@ -1698,8 +1669,7 @@ class GlEditor(wx.Panel):
         # p2.SetBackgroundColour("blue")
         #wx.StaticText(p2, -1, "GLeditor", (50,50))
 
-        sizer.Add(self._toolspanel, 0, wx.ALL | wx.ALIGN_LEFT |
-                  wx.GROW, 4)  # from NaviPanelTest
+        sizer.Add(self._toolspanel, 0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)  # from NaviPanelTest
         sizer.Add(self._canvas, 1, wx.GROW)  # from NaviPanelTest
 
         # finish panel setup
@@ -1725,7 +1695,6 @@ class GlEditor(wx.Panel):
 
 
 class MainSplitter(wx.SplitterWindow):
-
     def __init__(self, parent, ID=-1):
         wx.SplitterWindow.__init__(self, parent, ID,
                                    style=wx.SP_LIVE_UPDATE
@@ -1821,7 +1790,6 @@ class MainSplitter(wx.SplitterWindow):
 
 
 class TestMainframe(AgileToolbarFrameMixin, wx.Frame):
-
     """
     Simple wx frame with some special features.
     """
@@ -1833,8 +1801,7 @@ class TestMainframe(AgileToolbarFrameMixin, wx.Frame):
         # Forcing a specific style on the window.
         #   Should this include styles passed?
         style = wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
-        wx.Frame.__init__(self, parent, id, title, pos,
-                          size=size, style=style, name=name)
+        wx.Frame.__init__(self, parent, id, title, pos, size=size, style=style, name=name)
         #super(GLFrame, self).__init__(parent, id, title, pos, size, style, name)
         self._splitter = MainSplitter(self)
         self._views = {}
@@ -2003,17 +1970,14 @@ triangles = Triangles(linewidth=linewidth2, vertices=vertices2, colors=colors2)
 
 linewidth3 = 3
 vertices3 = [
-    [[0.5, 0.0, 0.0], [0.7, 0.0, 0.0],
-        [0.7, 0.3, 0.0], [0.5, 0.3, 0.0], ],  # 0
-    [[0.1, 0.0, 0.0], [0.3, 0.0, 0.0],
-        [0.3, 0.2, 0.0], [0.1, 0.2, 0.0], ],  # 1
+    [[0.5, 0.0, 0.0], [0.7, 0.0, 0.0], [0.7, 0.3, 0.0], [0.5, 0.3, 0.0], ],  # 0
+    [[0.1, 0.0, 0.0], [0.3, 0.0, 0.0], [0.3, 0.2, 0.0], [0.1, 0.2, 0.0], ],  # 1
 ]
 colors3 = [
     [0.8, 0.0, 0.8, 0.9],    # 0
     [0.0, 0.6, 0.6, 0.9],    # 1
 ]
-rectangles = Rectangles(linewidth=linewidth3,
-                        vertices=vertices3, colors=colors3)
+rectangles = Rectangles(linewidth=linewidth3, vertices=vertices3, colors=colors3)
 
 if __name__ == '__main__':
 

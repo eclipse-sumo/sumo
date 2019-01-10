@@ -8,10 +8,6 @@
         <additional-files value="input_additional.add.xml"/>
     </input>
 
-    <output>
-        <output-prefix value="ramp."/>
-    </output>
-
     <time>
         <begin value="0"/>
         <end value="400"/>

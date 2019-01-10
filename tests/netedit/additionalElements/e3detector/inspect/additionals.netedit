@@ -1,8 +1,50 @@
-<additionals>
-    <e3Detector id="correctID" freq="120.00" file="myOwnOutput.txt" timeThreshold="4.00" speedThreshold="6.30" pos="25.00,25.00">
-        <detEntry lane="gneE3_0" pos="33.00"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03.08.2018 11:11:15 by Eclipse SUMO netedit Version 7115a4b324
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.9_from_03Aug091602.332/netedit.gui/additionalElements/e3detector/inspect\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.9_from_03Aug091602.332/netedit.gui/additionalElements/e3detector/inspect\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.9_from_03Aug091602.332/netedit.gui/additionalElements/e3detector/inspect\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.9_from_03Aug091602.332/netedit.gui/additionalElements/e3detector/inspect\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.9_from_03Aug091602.332/netedit.gui/additionalElements/e3detector/inspect\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.9_from_03Aug091602.332/netedit.gui/additionalElements/e3detector/inspect\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e3Detector id="correctID" name="customName" vTypes="Type1 Type2 Type3" pos="25.00,25.00" freq="120.00" file="myOwnOutput.txt" timeThreshold="4.00" speedThreshold="6.30">
+        <detEntry lane="gneE3_0" pos="28.00"/>
+        <detExit lane="gneE2_1" pos="22.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_1" file="e3Detector_1.xml" pos="29.00,29.00">
-        <detEntry lane="gneE3_1" pos="22.00"/>
+    <e3Detector id="e3Detector_1" pos="29.00,29.00" freq="900.00" file="e3Detector_1.xml">
+        <detEntry lane="gneE3_0" pos="21.00"/>
+        <detExit lane="gneE2_1" pos="29.00"/>
     </e3Detector>
-</additionals>
+</additional>

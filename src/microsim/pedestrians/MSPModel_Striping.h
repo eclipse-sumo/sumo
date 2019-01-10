@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <limits>
@@ -66,6 +62,9 @@ public:
     /// @brief register the given person as a pedestrian
     PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now);
 
+    /// @brief put the given state on lane
+    void add(PedestrianState* pState, const MSLane* lane);
+
     /// @brief remove the specified person from the pedestrian simulation
     void remove(PedestrianState* state);
 
@@ -84,6 +83,7 @@ public:
     bool hasPedestrians(const MSLane* lane);
 
     /// @brief whether movements on intersections are modelled
+    //// @note function declared as member for sake of inheritance (delegates to static function)
     bool usingInternalLanes();
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
@@ -303,6 +303,10 @@ protected:
         WalkingAreaPath* myWalkingAreaPath;
         /// @brief whether the person is jammed
         bool myAmJammed;
+        /// @brief remote-controlled position
+        Position myRemoteXYPos;
+        /// @brief cached angle
+        mutable double myAngle;
 
         /// @brief return the minimum position on the lane
         double getMinX(const bool includeMinGap = true) const;
@@ -447,7 +451,9 @@ private:
     static bool addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& crossingVehs);
 
     ///@brief retrieve vehicle obstacles on the given lane
-    static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0); 
+    static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0);
+
+    static bool usingInternalLanesStatic();
 private:
     /// @brief the total number of active pedestrians
     int myNumActivePedestrians;

@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <set>
@@ -39,6 +35,8 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSNet.h>
 
 
 // ===========================================================================
@@ -141,7 +139,17 @@ public:
     * @return whether it should be measured
     */
     bool vehicleApplies(const SUMOVehicle& veh) const {
-        return myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0;
+        if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
+            return true;
+        } else {
+            std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getID());
+            for (auto vTypeDist : vTypeDists) {
+                if (myVehicleTypes.count(vTypeDist) > 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 

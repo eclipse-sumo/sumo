@@ -1,4 +1,4 @@
 <routes>
-    <route id="vehicle1" edges="beg rend"/>
-    <route id="vehicle2" edges="beg left2end rend"/>
+    <route id="vehicle1" edges="beg middle end rend"/>
+    <route id="vehicle2" edges="beg beg2left left left2end end rend"/>
 </routes>

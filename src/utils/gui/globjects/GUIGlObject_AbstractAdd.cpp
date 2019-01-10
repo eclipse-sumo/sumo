@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GUIGlObject_AbstractAdd.h"
 #include <cassert>
@@ -93,31 +89,30 @@ GUIGlObject_AbstractAdd::getObjectList() {
 std::vector<GUIGlID>
 GUIGlObject_AbstractAdd::getIDList(GUIGlObjectType typeFilter) {
     std::vector<GUIGlID> ret;
-    if(typeFilter == GLO_NETWORK) {
+    if (typeFilter == GLO_NETWORK) {
         return ret;
-    } else if(typeFilter == GLO_NETELEMENT) {
+    } else if (typeFilter == GLO_NETELEMENT) {
         // obtain all netElements
         for (auto i : myObjectList) {
             if ((i->getType() > GLO_NETELEMENT) && (i->getType() < GLO_ADDITIONAL)) {
                 ret.push_back(i->getGlID());
             }
         }
-    } else
-    if(typeFilter == GLO_ADDITIONAL) {
+    } else if (typeFilter == GLO_ADDITIONAL) {
         // obtain all additionals
         for (auto i : myObjectList) {
             if ((i->getType() > GLO_ADDITIONAL) && (i->getType() < GLO_SHAPE)) {
                 ret.push_back(i->getGlID());
             }
         }
-    } else if(typeFilter == GLO_SHAPE) {
+    } else if (typeFilter == GLO_SHAPE) {
         // obtain all Shapes
         for (auto i : myObjectList) {
             if ((i->getType() > GLO_SHAPE) && (i->getType() < GLO_ROUTEELEMENT)) {
                 ret.push_back(i->getGlID());
             }
         }
-    } else if(typeFilter == GLO_ROUTEELEMENT) {
+    } else if (typeFilter == GLO_ROUTEELEMENT) {
         // obtain all Shapes
         for (auto i : myObjectList) {
             if ((i->getType() > GLO_ROUTEELEMENT) && (i->getType() < GLO_MAX)) {

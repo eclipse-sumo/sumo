@@ -26,7 +26,7 @@ def parse_args():
     options, args = optParser.parse_args()
     try:
         options.routefiles = args
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".sel.txt"
@@ -58,6 +58,7 @@ def main():
     with open(options.outfile, 'w') as outf:
         for e in sorted(list(edges)):
             outf.write('edge:%s\n' % e)
+
 
 if __name__ == "__main__":
     main()

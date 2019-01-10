@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <map>
 #include <microsim/MSVehicle.h>
@@ -40,22 +36,24 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype,  double accel,
-                                     double decel, double emergencyDecel, double apparentDecel,
-                                     double dawdle, double headwayTime,
-                                     double tmp1, double tmp2, double tmp3, double tmp4, double tmp5) :
+MSCFModel_SmartSK::MSCFModel_SmartSK(const MSVehicleType* vtype) :
 // check whether setting these variables here with default values is ''good'' SUMO design
 //        double tmp1=0.0, double tmp2=5.0, double tmp3=0.0, double tmp4, double tmp5)
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
-    myDawdle(dawdle), myTauDecel(decel * headwayTime),
-    myTmp1(tmp1), myTmp2(tmp2), myTmp3(tmp3), myTmp4(tmp4), myTmp5(tmp5) {
+    MSCFModel(vtype),
+    myDawdle(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(vtype->getParameter().vehicleClass))),
+    myTauDecel(myDecel * myHeadwayTime),
+    myTmp1(vtype->getParameter().getCFParam(SUMO_ATTR_TMP1, 1.0)),
+    myTmp2(vtype->getParameter().getCFParam(SUMO_ATTR_TMP2, 1.0)),
+    myTmp3(vtype->getParameter().getCFParam(SUMO_ATTR_TMP3, 1.0)),
+    myTmp4(vtype->getParameter().getCFParam(SUMO_ATTR_TMP4, 1.0)),
+    myTmp5(vtype->getParameter().getCFParam(SUMO_ATTR_TMP5, 1.0)) {
     // the variable tmp1 is the acceleration delay time, e.g. two seconds (or something like this).
     // for use in the upate process, a rule like if (v<myTmp1) vsafe = 0; is needed.
     // To have this, we have to transform myTmp1 (which is a time) into an equivalent speed. This is done by the
     // using the vsafe formula and computing:
     // v(t=myTmp1) = -myTauDecel + sqrt(myTauDecel*myTauDecel + accel*(accel + decel)*t*t + accel*decel*t*TS);
     double t = myTmp1;
-    myS2Sspeed = -myTauDecel + sqrt(myTauDecel * myTauDecel + accel * (accel + decel) * t * t + accel * decel * t * TS);
+    myS2Sspeed = -myTauDecel + sqrt(myTauDecel * myTauDecel + myAccel * (myAccel + myDecel) * t * t + myAccel * myDecel * t * TS);
 #ifdef SmartSK_DEBUG
     std::cout << "# s2s-speed: " << myS2Sspeed << std::endl;
 #endif
@@ -163,6 +161,5 @@ double MSCFModel_SmartSK::_vsafe(const MSVehicle* const veh, double gap, double 
 
 MSCFModel*
 MSCFModel_SmartSK::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_SmartSK(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myDawdle, myHeadwayTime,
-                                 myTmp1, myTmp2, myTmp3, myTmp4, myTmp5);
+    return new MSCFModel_SmartSK(vtype);
 }

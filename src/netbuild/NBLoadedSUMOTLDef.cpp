@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <set>
@@ -72,6 +68,7 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     myControlledLinks = def->getControlledLinks();
     myControlledNodes = def->getNodes();
     NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
+    updateParameter(def->getParametersMap());
     if (sumoDef != 0) {
         myReconstructAddedConnections = sumoDef->myReconstructAddedConnections;
         myReconstructRemovedConnections = sumoDef->myReconstructRemovedConnections;
@@ -329,7 +326,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
         std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
         // do not rebuilt crossing states there are custom indices and the state string is long enough
         if (phases.size() > 0 && (
-                    (int)(phases.front().state.size()) < noLinksAll || 
+                    (int)(phases.front().state.size()) < noLinksAll ||
                     ((int)(phases.front().state.size()) > noLinksAll && !customIndex))) {
             // collect edges
             EdgeVector fromEdges(size, (NBEdge*)0);
@@ -473,7 +470,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                 newLogic->setType(getType());
                 newLogic->setOffset(getOffset());
                 setTLControllingInformation();
-                // reset crossing custom indices 
+                // reset crossing custom indices
                 for (NBNode* n : myControlledNodes) {
                     for (NBNode::Crossing* c : n->getCrossings()) {
                         c->customTLIndex = NBConnection::InvalidTlIndex;
@@ -553,7 +550,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 }
 
 
-int 
+int
 NBLoadedSUMOTLDef::getMaxIndex() {
     int maxIndex = -1;
     for (const NBConnection& c : myControlledLinks) {
@@ -569,13 +566,13 @@ NBLoadedSUMOTLDef::getMaxIndex() {
 }
 
 
-int 
+int
 NBLoadedSUMOTLDef::getMaxValidIndex() {
     return myTLLogic->getNumLinks() - 1;
 }
 
 
-bool 
+bool
 NBLoadedSUMOTLDef::hasValidIndices() const {
     for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() == NBConnection::InvalidTlIndex) {
@@ -604,17 +601,17 @@ NBLoadedSUMOTLDef::cleanupStates() {
     return false;
 }
 
-void 
+void
 NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
     def->setParticipantsInformation();
-    NBTrafficLightLogic* logic2 = def->compute(OptionsCont::getOptions());
+    def->compute(OptionsCont::getOptions());
     const int maxIndex = MAX2(getMaxIndex(), def->getMaxIndex());
     myTLLogic->setStateLength(maxIndex + 1);
     myControlledLinks.insert(myControlledLinks.end(), def->getControlledLinks().begin(), def->getControlledLinks().end());
     myOriginalNodes.insert(def->getNodes().begin(), def->getNodes().end());
 }
 
-bool 
+bool
 NBLoadedSUMOTLDef::usingSignalGroups() const {
     // count how often each index is used
     std::map<int, int> indexUsage;

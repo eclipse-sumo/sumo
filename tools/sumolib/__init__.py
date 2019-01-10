@@ -12,7 +12,7 @@
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2011-06-23
-# @version $Id: __init__.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 from __future__ import absolute_import
 import os
@@ -29,19 +29,19 @@ except ImportError as e:
         def __getattr__(self, name):
             raise e
     visualization = VisDummy()
-from . import files, net, output, sensors, shapes
-from . import color, geomhelper, miscutils, options, route
-from .xml import writeHeader as writeXMLHeader
+from . import files, net, output, sensors, shapes  # noqa
+from . import color, geomhelper, miscutils, options, route  # noqa
+from .xml import writeHeader as writeXMLHeader  # noqa
 
 
 class ConfigurationReader(handler.ContentHandler):
 
     """Reads a configuration template, storing the options in an OptionParser"""
 
-    def __init__(self, optParse, groups, options):
+    def __init__(self, optParse, groups, configoptions):
         self._opts = optParse
         self._groups = groups
-        self._options = options
+        self._options = configoptions
         self._group = self._opts
 
     def startElement(self, name, attrs):
@@ -75,22 +75,22 @@ class ConfigurationReader(handler.ContentHandler):
             self._group = self._opts
 
 
-def pullOptions(executable, optParse, groups=None, options=None):
-    output = subprocess.Popen(
+def pullOptions(executable, optParse, groups=None, configoptions=None):
+    optoutput = subprocess.Popen(
         [executable, "--save-template", "-"], stdout=subprocess.PIPE).communicate()[0]
-    parseString(output, ConfigurationReader(optParse, groups, options))
+    parseString(optoutput, ConfigurationReader(optParse, groups, configoptions))
 
 
-def saveConfiguration(executable, options, filename):
-    options.save_configuration = filename
-    call(executable, options)
+def saveConfiguration(executable, configoptions, filename):
+    configoptions.save_configuration = filename
+    call(executable, configoptions)
 
 
-def call(executable, options):
+def call(executable, args):
     optParser = OptionParser()
     pullOptions(executable, optParser)
     cmd = [executable]
-    for option, value in options.__dict__.iteritems():
+    for option, value in args.__dict__.iteritems():
         o = "--" + option.replace("_", "-")
         opt = optParser.get_option(o)
         if opt is not None and value is not None and opt.default != value:
@@ -164,7 +164,7 @@ class _Running:
                 if self.warn:
                     try:
                         int(id)
-                    except:
+                    except ValueError:
                         sys.stderr.write(
                             'Warning: ID "%s" is not an integer.\n' % id)
                         self.warn = False
@@ -188,8 +188,8 @@ class TeeFile:
 
     """A helper class which allows simultaneous writes to several files"""
 
-    def __init__(self, *files):
-        self.files = files
+    def __init__(self, *outputfiles):
+        self.files = outputfiles
 
     def write(self, txt):
         """Writes the text to all files"""

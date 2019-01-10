@@ -13,3 +13,10 @@ stopOffset
 
 # tests for the proper behavior on internal lanes
 internal_lanes
+
+# Tests for indirect left turns
+indirect_left_turn
+
+# vehicles turning left from opposite directions at the same time
+opposite_left_turn
+jmSigmaMinor

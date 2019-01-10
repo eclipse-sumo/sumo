@@ -14,6 +14,9 @@ create
 # load additional
 load
 
+# load additionals with generic parameters
+load_genericparameters
+
 # load calibrator's flow values
 load_values_flows
 

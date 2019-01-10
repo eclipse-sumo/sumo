@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 11:24:31 2018 by Eclipse SUMO netgenerate Version 4bf903e
+<!-- generated on Wed Aug 29 12:56:10 2018 by Eclipse SUMO netgenerate Version e9fcc9a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -74,6 +74,35 @@
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 
+    <processing>
+        <turn-lanes value="0" type="INT" help="Generate INT left-turn lanes"/>
+        <turn-lanes.length value="20" type="FLOAT" help="Set the length of generated turning lanes to FLOAT"/>
+        <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
+        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
+        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
+        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
+        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
+        <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
+        <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
+        <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
+        <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
+        <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
+        <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
+    </processing>
+
+    <building_defaults>
+        <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
+        <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
+        <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
+        <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
+        <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
+        <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
+        <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
+        <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
+        <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
+        <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"/>
+    </building_defaults>
+
     <tls_building>
         <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
@@ -117,33 +146,30 @@
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL" help="Do not regulate district nodes"/>
     </unregulated_nodes>
 
-    <processing>
-        <turn-lanes value="0" type="INT" help="Generate INT left-turn lanes"/>
-        <turn-lanes.length value="20" type="FLOAT" help="Set the length of generated turning lanes to FLOAT"/>
+    <junctions>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
-        <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
-        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
+        <no-turnarounds.except-deadend value="false" type="BOOL" help="Disables building turnarounds except at dead end junctions"/>
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
-        <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
-        <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
-        <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
-        <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
-        <roundabouts.guess value="false" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
-        <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
-        <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
-        <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
-        <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
-        <junctions.corner-detail value="0" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
+        <junctions.corner-detail value="5" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
         <junctions.internal-link-detail value="5" type="INT" help="Generate INT intermediate points to smooth out lanes within the intersection"/>
         <junctions.scurve-stretch value="0" type="FLOAT" help="Generate longer intersections to allow for smooth s-curves when the number of lanes changes"/>
         <junctions.join-turns value="false" type="BOOL" help="Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning"/>
+        <junctions.limit-turn-speed value="5.5" type="FLOAT" help="Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)"/>
+        <junctions.limit-turn-speed.min-angle value="15" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius."/>
+        <junctions.limit-turn-speed.min-angle.railway value="35" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius."/>
+        <junctions.limit-turn-speed.warn.straight value="5" type="FLOAT" help="Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT"/>
+        <junctions.limit-turn-speed.warn.turn value="22" type="FLOAT" help="Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"/>
+        <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
         <check-lane-foes.all value="false" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)"/>
+    </junctions>
+
+    <pedestrian>
         <sidewalks.guess value="false" type="BOOL" help="Guess pedestrian sidewalks based on edge speed"/>
         <sidewalks.guess.max-speed value="13.89" type="FLOAT" help="Add sidewalks for edges with a speed equal or below the given limit"/>
         <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
@@ -152,20 +178,7 @@
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
         <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
         <walkingareas value="false" type="BOOL" help="Always build walking areas even if there are no crossings"/>
-    </processing>
-
-    <building_defaults>
-        <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
-        <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
-        <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
-        <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
-        <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
-        <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
-        <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
-        <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
-        <default.junctions.radius value="1.5" type="FLOAT" help="The default turning radius of intersections"/>
-        <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"/>
-    </building_defaults>
+    </pedestrian>
 
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>

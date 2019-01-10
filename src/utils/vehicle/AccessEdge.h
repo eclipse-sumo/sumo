@@ -10,7 +10,7 @@
 /// @file    AccessEdge.h
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id: CarEdge.h v0_32_0+0478-2bb98619fa oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // The AccessEdge is a special intermodal edge connecting different modes
 /****************************************************************************/
@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "IntermodalEdge.h"
 

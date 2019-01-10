@@ -3,5 +3,5 @@
  we are changing to 0b 00 01 01 01 01 = 0x 0 5 5 %
 setvalue 0xc4 0xb6 veh1 <int> 0x055 
 repeat 55 simstep2 0
-setvalue 0xc4 0x13 veh1 <compound> 2 <byte> 0 <int> 1000
+setvalue 0xc4 0x13 veh1 <compound> 2 <byte> 0 <double> 1
 repeat 25 simstep2 0

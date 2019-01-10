@@ -15,3 +15,6 @@ devnull_output
 
 # Output at odd times
 odd_interval
+
+# only detect some vTypes
+vTypes

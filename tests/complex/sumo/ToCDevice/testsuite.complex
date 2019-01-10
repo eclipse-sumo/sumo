@@ -1,6 +1,9 @@
 # Test whether parameter values specified in xml are parsed correctly
 spec
 
+# Test whether manual and automated type can be vehType distributions
+spec_vTypeDist
+
 # Test failure for missing required device parameters
 incomplete_spec1
 

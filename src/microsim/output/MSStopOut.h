@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <map>
 #include <utils/common/SUMOTime.h>
@@ -74,7 +70,7 @@ public:
     /// @brief Destructor.
     virtual ~MSStopOut();
 
-    void stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers);
+    void stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time);
 
     void loadedPersons(const SUMOVehicle* veh, int n);
     void unloadedPersons(const SUMOVehicle* veh, int n);
@@ -82,7 +78,7 @@ public:
     void loadedContainers(const SUMOVehicle* veh, int n);
     void unloadedContainers(const SUMOVehicle* veh, int n);
 
-    void stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop);
+    void stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID);
 
 
 private:

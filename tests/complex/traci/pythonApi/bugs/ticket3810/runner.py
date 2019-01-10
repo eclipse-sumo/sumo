@@ -17,27 +17,24 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
-import traci.constants as tc
 
 sumoBinary = os.environ["SUMO_BINARY"]
 
-cmd = [sumoBinary,
-        '-n', 'input_net2.net.xml',
-        '-r', 'input_routes.rou.xml',
-        '--no-step-log',
-        ]
+cmd = [
+    sumoBinary,
+    '-n', 'input_net2.net.xml',
+    '-r', 'input_routes.rou.xml',
+    '--no-step-log', ]
 
 traci.start(cmd)
-traci.simulationStep() # insert vehicles
+traci.simulationStep()  # insert vehicles
 vehs = ['stratLeft', 'stratRight']
 for vehID in vehs:
-    traci.vehicle.setLaneChangeMode(vehID, 0);
+    traci.vehicle.setLaneChangeMode(vehID, 0)
 
 for i in range(8):
     t = traci.simulation.getCurrentTime() / 1000.0

@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utils/common/TplConvert.h>
@@ -43,8 +39,9 @@
 // ===========================================================================
 
 MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLane& lane, double startPos, double endPos,
+                                     const std::string& name,
                                      double chargingPower, double efficency, bool chargeInTransit, double chargeDelay) :
-    MSStoppingPlace(chargingStationID, std::vector<std::string>(), lane, startPos, endPos),
+    MSStoppingPlace(chargingStationID, std::vector<std::string>(), lane, startPos, endPos, name),
     myChargingPower(0),
     myEfficiency(0),
     myChargeInTransit(chargeInTransit),

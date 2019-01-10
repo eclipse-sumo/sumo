@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -62,15 +58,10 @@ public:
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingSpace(GNEViewNet* viewNet, GNEParkingArea* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement);
+    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();
-
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -87,7 +78,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -97,7 +88,7 @@ public:
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -127,6 +118,12 @@ public:
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 protected:

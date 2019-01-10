@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <string>
@@ -123,7 +119,7 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         throw ProcessError("The network file '" + file + "' is not accessible.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading net");
-    RONetHandler handler(toFill, eb);
+    RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"));
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();
@@ -226,7 +222,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
     }
     for (const std::string& fileIt : myOptions.getStringVector(optionName)) {
         try {
-            RORouteHandler* handler = new RORouteHandler(net, fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"));
+            RORouteHandler* handler = new RORouteHandler(net, fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"), !readAll);
             if (readAll) {
                 if (!XMLSubSys::runParser(*handler, fileIt)) {
                     WRITE_ERROR("Loading of " + fileIt + " failed.");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:20 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Aug 16 15:51:47 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,109 +25,109 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-390376.93,-5819497.66" convBoundary="0.00,0.00,156.34,172.87" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":61050774_0" function="internal">
-        <lane id=":61050774_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="4.67" shape="-0.12,93.19 -1.26,92.29 -1.60,91.47 -1.13,90.70 0.12,89.99"/>
+        <lane id=":61050774_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="-0.12,93.19 -1.26,92.29 -1.60,91.47 -1.13,90.70 0.12,89.99"/>
     </edge>
     <edge id=":61050787_0" function="internal">
-        <lane id=":61050787_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.67" shape="113.13,-0.15 114.04,-1.27 114.87,-1.59 115.63,-1.12 116.31,0.15"/>
+        <lane id=":61050787_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="113.13,-0.15 114.04,-1.27 114.87,-1.59 115.63,-1.12 116.31,0.15"/>
     </edge>
     <edge id=":61050789_0" function="internal">
-        <lane id=":61050789_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="8.37" shape="113.01,101.01 111.67,101.41 110.60,102.68 109.82,104.81 109.31,107.81"/>
+        <lane id=":61050789_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.76" length="12.41" shape="115.51,101.07 113.06,101.60 111.16,103.32 109.83,106.21 109.05,110.29"/>
     </edge>
     <edge id=":61050789_1" function="internal">
-        <lane id=":61050789_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="15.83" shape="113.01,101.01 97.21,100.23"/>
+        <lane id=":61050789_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="20.82" shape="115.51,101.07 94.71,100.04"/>
     </edge>
     <edge id=":61050789_2" function="internal">
-        <lane id=":61050789_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="14.92" shape="113.01,101.01 108.97,100.33 106.21,98.50 104.73,95.50 104.54,91.34"/>
+        <lane id=":61050789_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.92" length="18.87" shape="115.51,101.07 110.39,100.21 106.89,97.89 105.02,94.10 104.77,88.85"/>
     </edge>
     <edge id=":61050789_3" function="internal">
-        <lane id=":61050789_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.67" shape="113.01,101.01 111.83,100.19 111.45,99.38 111.87,98.59 113.08,97.81"/>
+        <lane id=":61050789_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="115.51,101.07 114.33,100.24 113.95,99.43 114.37,98.64 115.58,97.87"/>
     </edge>
     <edge id=":61050789_4" function="internal">
-        <lane id=":61050789_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="9.48" shape="107.72,91.64 107.84,94.29 108.78,96.21 110.52,97.38 113.08,97.81"/>
+        <lane id=":61050789_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.61" length="13.43" shape="107.96,89.15 108.13,92.90 109.46,95.60 111.95,97.26 115.58,97.87"/>
     </edge>
     <edge id=":61050789_5" function="internal">
-        <lane id=":61050789_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="15.91" shape="107.72,91.64 106.13,107.47"/>
+        <lane id=":61050789_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="20.91" shape="107.96,89.15 105.87,109.95"/>
     </edge>
     <edge id=":61050789_6" function="internal">
-        <lane id=":61050789_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="15.42" shape="107.72,91.64 106.74,95.68 104.66,98.45 101.48,99.97 97.21,100.23"/>
+        <lane id=":61050789_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.34" length="19.47" shape="107.96,89.15 106.71,94.26 104.09,97.78 100.09,99.70 94.71,100.04"/>
     </edge>
     <edge id=":61050789_7" function="internal">
-        <lane id=":61050789_7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.67" shape="107.72,91.64 106.81,92.76 105.98,93.09 105.22,92.61 104.54,91.34"/>
+        <lane id=":61050789_7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="107.96,89.15 107.05,90.27 106.21,90.60 105.45,90.12 104.77,88.85"/>
     </edge>
     <edge id=":61050789_8" function="internal">
-        <lane id=":61050789_8_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="5.23" shape="97.70,93.85 99.19,93.77 100.29,93.27 101.01,92.37 101.35,91.04"/>
+        <lane id=":61050789_8_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.63" length="9.28" shape="95.20,93.65 97.80,93.50 99.73,92.60 100.99,90.95 101.58,88.56"/>
     </edge>
     <edge id=":61050789_9" function="internal">
-        <lane id=":61050789_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="15.96" shape="97.70,93.85 102.74,94.71 106.49,96.02 109.68,97.23 113.08,97.81"/>
+        <lane id=":61050789_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="20.85" shape="95.20,93.65 101.89,94.62 107.26,96.01 111.69,97.27 115.58,97.87"/>
     </edge>
     <edge id=":61050789_10" function="internal">
-        <lane id=":61050789_10_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="15.58" shape="97.45,97.04 101.64,97.97 104.48,100.02 105.98,103.18 106.13,107.47"/>
+        <lane id=":61050789_10_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.21" length="19.58" shape="94.96,96.85 100.22,98.02 103.79,100.59 105.67,104.57 105.87,109.95"/>
     </edge>
     <edge id=":61050789_11" function="internal">
-        <lane id=":61050789_11_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="2.34" shape="97.45,97.04 98.59,97.93 98.92,98.75"/>
+        <lane id=":61050789_11_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.34" shape="94.96,96.85 96.09,97.73 96.43,98.56"/>
     </edge>
     <edge id=":61050789_17" function="internal">
-        <lane id=":61050789_17_0" index="0" speed="8.33" length="2.34" shape="98.92,98.75 98.46,99.52 97.21,100.23"/>
+        <lane id=":61050789_17_0" index="0" speed="3.65" length="2.34" shape="96.43,98.56 95.97,99.33 94.71,100.04"/>
     </edge>
     <edge id=":61050789_12" function="internal">
-        <lane id=":61050789_12_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="5.04" shape="99.77,106.79 99.72,105.40 99.23,104.38 98.32,103.72 96.96,103.42"/>
+        <lane id=":61050789_12_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.44" length="9.03" shape="99.50,109.27 99.41,106.79 98.54,104.95 96.90,103.77 94.47,103.23"/>
     </edge>
     <edge id=":61050789_13" function="internal">
-        <lane id=":61050789_13_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="15.84" shape="99.77,106.79 101.35,91.04"/>
-        <lane id=":61050789_13_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="15.84" shape="102.95,107.13 104.54,91.34"/>
+        <lane id=":61050789_13_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="20.84" shape="99.50,109.27 101.58,88.56"/>
+        <lane id=":61050789_13_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="20.84" shape="102.68,109.61 104.77,88.85"/>
     </edge>
     <edge id=":61050789_15" function="internal">
-        <lane id=":61050789_15_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.42" shape="102.95,107.13 103.96,102.98 104.05,102.85"/>
+        <lane id=":61050789_15_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.60" length="5.16" shape="102.68,109.61 103.92,104.60"/>
     </edge>
     <edge id=":61050789_16" function="internal">
-        <lane id=":61050789_16_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="2.08" shape="102.95,107.13 103.87,106.02 104.47,105.80"/>
+        <lane id=":61050789_16_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.08" shape="102.68,109.61 103.61,108.51 104.20,108.28"/>
     </edge>
     <edge id=":61050789_18" function="internal">
-        <lane id=":61050789_18_0" index="0" speed="13.89" length="10.99" shape="104.05,102.85 105.99,100.05 109.03,98.32 113.08,97.81"/>
+        <lane id=":61050789_18_0" index="0" speed="9.60" length="14.38" shape="103.92,104.60 103.97,104.38 106.55,100.68 110.42,98.51 115.58,97.87"/>
     </edge>
     <edge id=":61050789_19" function="internal">
-        <lane id=":61050789_19_0" index="0" speed="13.89" length="2.59" shape="104.47,105.80 104.71,105.71 105.46,106.19 106.13,107.47"/>
+        <lane id=":61050789_19_0" index="0" speed="3.65" length="2.59" shape="104.20,108.28 104.45,108.19 105.20,108.68 105.87,109.95"/>
     </edge>
     <edge id=":61050794_0" function="internal">
-        <lane id=":61050794_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.67" shape="156.37,98.74 157.56,99.57 157.94,100.37 157.52,101.17 156.31,101.94"/>
+        <lane id=":61050794_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="156.37,98.74 157.56,99.57 157.94,100.37 157.52,101.17 156.31,101.94"/>
     </edge>
     <edge id=":727608522_0" function="internal">
-        <lane id=":727608522_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="4.67" shape="99.13,173.04 98.21,174.15 97.37,174.46 96.62,173.98 95.95,172.70"/>
+        <lane id=":727608522_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="99.13,173.04 98.21,174.15 97.37,174.46 96.62,173.98 95.95,172.70"/>
     </edge>
 
     <edge id="-53500554" from="61050794" to="61050789" name="Behrenstrasse" priority="-4">
-        <lane id="-53500554_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="43.30" shape="156.31,101.94 113.01,101.01"/>
+        <lane id="-53500554_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="40.80" shape="156.31,101.94 115.51,101.07"/>
     </edge>
     <edge id="-53500609" from="61050789" to="61050787" name="Glinkastrasse" priority="-4">
-        <lane id="-53500609_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="91.90" shape="101.35,91.04 109.94,-0.45"/>
-        <lane id="-53500609_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="91.90" shape="104.54,91.34 113.13,-0.15"/>
+        <lane id="-53500609_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="89.40" shape="101.58,88.56 109.94,-0.45"/>
+        <lane id="-53500609_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="89.40" shape="104.77,88.85 113.13,-0.15"/>
     </edge>
     <edge id="-572713710" from="727608522" to="61050789" name="B2 / Glinkastrasse" priority="-1">
-        <lane id="-572713710_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="65.94" shape="92.77,172.36 99.77,106.79"/>
-        <lane id="-572713710_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="65.94" shape="95.95,172.70 102.95,107.13"/>
+        <lane id="-572713710_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="63.44" shape="92.77,172.36 99.50,109.27"/>
+        <lane id="-572713710_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="63.44" shape="95.95,172.70 102.68,109.61"/>
     </edge>
     <edge id="-724151417" from="61050789" to="61050774" name="B2 / Behrenstrasse" priority="-1" shape="105.40,99.25 82.96,97.53 44.21,95.05 0.00,91.59">
-        <lane id="-724151417_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="97.59" shape="96.96,103.42 82.62,102.32 43.87,99.84 -0.37,96.38"/>
-        <lane id="-724151417_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="97.59" shape="97.21,100.23 82.85,99.13 44.10,96.65 -0.12,93.19"/>
+        <lane id="-724151417_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="95.09" shape="94.47,103.23 82.62,102.32 43.87,99.84 -0.37,96.38"/>
+        <lane id="-724151417_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="95.09" shape="94.71,100.04 82.85,99.13 44.10,96.65 -0.12,93.19"/>
     </edge>
     <edge id="53500554" from="61050789" to="61050794" name="Behrenstrasse" priority="-4">
-        <lane id="53500554_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="43.30" shape="113.08,97.81 156.37,98.74"/>
+        <lane id="53500554_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="40.80" shape="115.58,97.87 156.37,98.74"/>
     </edge>
     <edge id="53500609" from="61050787" to="61050789" name="Glinkastrasse" priority="-4">
-        <lane id="53500609_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="91.90" shape="116.31,0.15 107.72,91.64"/>
+        <lane id="53500609_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="89.40" shape="116.31,0.15 107.96,89.15"/>
     </edge>
     <edge id="572713710" from="61050789" to="727608522" name="B2 / Glinkastrasse" priority="-1">
-        <lane id="572713710_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="65.94" shape="109.31,107.81 102.31,173.38"/>
-        <lane id="572713710_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="65.94" shape="106.13,107.47 99.13,173.04"/>
+        <lane id="572713710_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="63.44" shape="109.05,110.29 102.31,173.38"/>
+        <lane id="572713710_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="63.44" shape="105.87,109.95 99.13,173.04"/>
     </edge>
     <edge id="810268295" from="61050774" to="61050789" name="B2 / Behrenstrasse" priority="-1" shape="0.00,91.59 44.21,95.05 82.96,97.53 105.40,99.25">
-        <lane id="810268295_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="97.58" shape="0.37,86.80 44.55,90.26 83.30,92.74 97.70,93.85"/>
-        <lane id="810268295_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="97.58" shape="0.12,89.99 44.32,93.45 83.07,95.93 97.45,97.04"/>
+        <lane id="810268295_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="95.08" shape="0.37,86.80 44.55,90.26 83.30,92.74 95.20,93.65"/>
+        <lane id="810268295_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="95.08" shape="0.12,89.99 44.32,93.45 83.07,95.93 94.96,96.85"/>
     </edge>
 
     <tlLogic id="61050787" type="static" programID="0" offset="0">
@@ -142,7 +142,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="61050787" type="traffic_light" x="114.72" y="0.00" incLanes="-53500609_0 -53500609_1" intLanes=":61050787_0_0" shape="114.72,0.00 108.35,-0.60 114.72,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="61050789" type="priority" x="105.40" y="99.25" incLanes="-53500554_0 53500609_0 810268295_0 810268295_1 -572713710_0 -572713710_1" intLanes=":61050789_0_0 :61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_6_0 :61050789_7_0 :61050789_8_0 :61050789_9_0 :61050789_10_0 :61050789_17_0 :61050789_12_0 :61050789_13_0 :61050789_13_1 :61050789_18_0 :61050789_19_0" shape="112.98,102.61 113.12,96.21 109.31,91.79 99.76,90.89 97.82,92.25 96.84,105.01 98.18,106.62 110.90,107.98">
+    <junction id="61050789" type="priority" x="105.40" y="99.25" incLanes="-53500554_0 53500609_0 810268295_0 810268295_1 -572713710_0 -572713710_1" intLanes=":61050789_0_0 :61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_6_0 :61050789_7_0 :61050789_8_0 :61050789_9_0 :61050789_10_0 :61050789_17_0 :61050789_12_0 :61050789_13_0 :61050789_13_1 :61050789_18_0 :61050789_19_0" shape="115.48,102.67 115.62,96.27 113.58,96.03 111.96,95.43 110.75,94.45 109.94,93.11 109.54,91.39 109.55,89.30 99.99,88.41 99.31,90.58 98.64,91.31 97.75,91.80 96.65,92.05 95.33,92.06 94.35,104.82 96.52,105.43 97.23,106.05 97.70,106.86 97.93,107.88 97.91,109.10 110.64,110.46 111.01,108.06 111.55,106.09 112.27,104.57 113.16,103.49 114.23,102.86">
         <request index="0"  response="00000010000000000" foes="10000010000100000" cont="0"/>
         <request index="1"  response="01111010000000000" foes="01111110001100000" cont="0"/>
         <request index="2"  response="01110001100000000" foes="01110001111100000" cont="0"/>
@@ -168,9 +168,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":61050789_17_0" type="internal" x="98.92" y="98.75" incLanes=":61050789_11_0 -53500554_0 -572713710_0 53500609_0" intLanes=":61050789_1_0 :61050789_6_0 :61050789_12_0"/>
-    <junction id=":61050789_18_0" type="internal" x="104.05" y="102.85" incLanes=":61050789_15_0 810268295_0 810268295_1" intLanes=":61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_9_0 :61050789_10_0"/>
-    <junction id=":61050789_19_0" type="internal" x="104.47" y="105.80" incLanes=":61050789_16_0 -53500554_0 53500609_0 810268295_1" intLanes=":61050789_0_0 :61050789_5_0 :61050789_10_0"/>
+    <junction id=":61050789_17_0" type="internal" x="96.43" y="98.56" incLanes=":61050789_11_0 -53500554_0 -572713710_0 53500609_0" intLanes=":61050789_1_0 :61050789_6_0 :61050789_12_0"/>
+    <junction id=":61050789_18_0" type="internal" x="103.92" y="104.60" incLanes=":61050789_15_0 810268295_0 810268295_1" intLanes=":61050789_1_0 :61050789_2_0 :61050789_3_0 :61050789_4_0 :61050789_5_0 :61050789_9_0 :61050789_10_0"/>
+    <junction id=":61050789_19_0" type="internal" x="104.20" y="108.28" incLanes=":61050789_16_0 -53500554_0 53500609_0 810268295_1" intLanes=":61050789_0_0 :61050789_5_0 :61050789_10_0"/>
 
     <connection from="-53500554" to="572713710" fromLane="0" toLane="0" via=":61050789_0_0" dir="r" state="m"/>
     <connection from="-53500554" to="-724151417" fromLane="0" toLane="1" via=":61050789_1_0" dir="s" state="m"/>

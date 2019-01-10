@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -191,11 +187,6 @@ public:
         return myParkingCont;
     }
 
-    /// @brief notify about style of loaded network (Without internal edges
-    void haveLoadedNetworkWithoutInternalEdges() {
-        myHaveLoadedNetworkWithoutInternalEdges = true;
-    }
-
     /// @brief notify about style of loaded network (Without Crossings)
     bool haveNetworkCrossings() {
         return myNetworkHaveCrossings;
@@ -260,9 +251,6 @@ protected:
     NBPTLineCont myPTLineCont;
 
     NBParkingCont myParkingCont;
-
-    /// @brief whether a .net.xml without internal edges was loaded
-    bool myHaveLoadedNetworkWithoutInternalEdges;
 
     /// @brief flag to indicate that network has crossings
     bool myNetworkHaveCrossings;

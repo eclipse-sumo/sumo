@@ -6,3 +6,14 @@ interlocking
 
 # speed when passing tracks with different speed limits
 slow_fast_slow
+
+# train serving a public transport line must reverse direction at a branch stop
+# Input taken from
+# tests/netconvert/function/railway/repair/stops_reverse_en_route
+# tests/tools/public_transport/ptlines2flows/reverse_at_stop
+# 
+reverse_at_stop
+
+# train serving a public transport line must reverse direction at a branch stop without having a link
+# Input taken from reverse_at_stop
+reverse_no_link

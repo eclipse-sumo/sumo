@@ -24,6 +24,7 @@
     <polygonType id="leisure.park"            name="tourism"     color=".81,.96,.79" layer="-2"/>
     <polygonType id="aeroway"                 name="aeroway"     color=".50,.50,.50" layer="-2"/>
     <polygonType id="aerialway"               name="aerialway"   color=".20,.20,.20" layer="-2"/>
+    <polygonType id="highway.services"        name="services"    color=".93,.78,1.0" layer="-2"/>
 
     <polygonType id="shop"                    name="shop"        color=".93,.78,1.0" layer="-1"/>
     <polygonType id="historic"                name="historic"    color=".50,1.0,.50" layer="-1"/>
@@ -37,5 +38,7 @@
 
     <polygonType id="boundary"                name="boundary"    color="1.0,.33,.33" layer="0" fill="false" discard="true"/>
     <polygonType id="admin_level"             name="admin_level" color="1.0,.33,.33" layer="0" fill="false" discard="true"/>
-    <polygonType id="place"                   name="admin_level" color="1.0,.33,.33" layer="0" fill="false" discard="true"/>
+    <polygonType id="place"                   name="admin_level" color="1.0,.9,.0" layer="0" fill="false" discard="true"/>
+
+
 </polygonTypes>

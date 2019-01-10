@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/images/GUIIconSubSys.h>
@@ -40,12 +36,11 @@
 // method definitions
 // ===========================================================================
 
-GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlocked, bool shapeBlocked) :
-    GNEAttributeCarrier(tag, icon),
+GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked, bool shapeBlocked) :
+    GNEAttributeCarrier(tag),
     myNet(net),
     myBlockMovement(movementBlocked),
-    myBlockShape(shapeBlocked),
-    mySelected(false) {
+    myBlockShape(shapeBlocked) {
 }
 
 
@@ -105,35 +100,53 @@ GNEShape::drawLockIcon(const Position& pos, double layer, double size) const {
 }
 
 
-void 
+void
 GNEShape::selectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = true;
         }
-    } 
+    }
 }
 
 
-void 
+void
 GNEShape::unselectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = false;
         }
-    } 
+    }
 }
 
 
-bool 
+bool
 GNEShape::isAttributeCarrierSelected() const {
     return mySelected;
 }
+
+
+std::string
+GNEShape::getPopUpID() const {
+    return toString(getTag()) + ": " + getID();
+}
+
+
+std::string
+GNEShape::getHierarchyName() const {
+    return toString(getTag());
+}
+
+
+void
+GNEShape::mouseOverObject(const GUIVisualizationSettings&) const {
+}
+
 
 /****************************************************************************/

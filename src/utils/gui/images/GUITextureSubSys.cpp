@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <cassert>
@@ -53,7 +49,6 @@
 #include "GNETexture_LaneBus.cpp"
 #include "GNETexture_LanePedestrian.cpp"
 #include "GNETexture_LaneBike.cpp"
-
 
 
 // ===========================================================================
@@ -181,7 +176,7 @@ void
 GUITextureSubSys::resetTextures() {
     // Reset all textures
     GUITexturesHelper::clearTextures();
-    for (auto &i : myInstance->myTextures) {
+    for (auto& i : myInstance->myTextures) {
         i.second = 0;
     }
 }

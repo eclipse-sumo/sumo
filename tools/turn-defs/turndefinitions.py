@@ -17,10 +17,18 @@ from __future__ import absolute_import
 
 import logging
 import unittest
+import sys
+import os
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import sumolib  # noqa
-import connections
-import collectinghandler
+import connections  # noqa
+import collectinghandler  # noqa
 
 LOGGER = logging.getLogger(__name__)
 
@@ -300,6 +308,7 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
 
         self.assertEqual(turn_definitions,
                          from_connections(input_connections))
+
 
 if __name__ == "__main__":
     unittest.main()

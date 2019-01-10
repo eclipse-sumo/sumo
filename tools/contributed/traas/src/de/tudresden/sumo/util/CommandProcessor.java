@@ -69,7 +69,7 @@ public class CommandProcessor extends Query{
 		fireAndForget(cs.getCommand());
 	}
 	
-	public synchronized void do_SimulationStep(int targetTime) throws IOException {
+	public synchronized void do_SimulationStep(double targetTime) throws IOException {
 		doSimulationStep(targetTime);
 	}
 	
@@ -605,12 +605,63 @@ public class CommandProcessor extends Query{
 			
 				output = sl;
 				
+			}else if(sc.input2 == Constants.FIND_ROUTE){
+				
+				resp.content().readInt();
+				resp.content().readUnsignedByte();
+				resp.content().readInt();
+				resp.content().readUnsignedByte();
+				
+				resp.content().readStringASCII();
+				resp.content().readUnsignedByte();
+				resp.content().readStringASCII();
+				resp.content().readUnsignedByte();
+				
+				SumoStringList ssl = new SumoStringList();
+				int size = resp.content().readInt();
+				for(int i=0; i<size; i++){
+					ssl.add(resp.content().readStringASCII());
+				}
+				
+				resp.content().readDouble();
+				output = ssl;
+				
+			}else if(sc.input2 == Constants.FIND_INTERMODAL_ROUTE){
+				
+				LinkedList<SumoStringList> ll = new LinkedList<SumoStringList>();
+				int l = resp.content().readInt();
+				System.out.println("l: " + l);
+				
+				for(int i1=0; i1<l; i1++) {
+				
+					resp.content().readInt();
+					resp.content().readUnsignedByte();
+					resp.content().readInt();
+					resp.content().readUnsignedByte();
+					
+					resp.content().readStringASCII();
+					resp.content().readUnsignedByte();
+					resp.content().readStringASCII();
+					resp.content().readUnsignedByte();
+					
+					SumoStringList ssl = new SumoStringList();
+					int size = resp.content().readInt();
+					for(int i=0; i<size; i++){
+						ssl.add(resp.content().readStringASCII());
+					}
+					
+					resp.content().readDouble();
+					ll.add(ssl);
+				}
+				
+				output = ll;
+					
 			}else{
 				
-				int laenge = resp.content().readInt();
-				obj = new Object[laenge];
+				int size = resp.content().readInt();
+				obj = new Object[size];
 				
-				for(int i=0; i<laenge; i++){
+				for(int i=0; i<size; i++){
 					
 					//int k = resp.content().readUnsignedByte();
 					//obj[i] = this.get_value(k, resp);

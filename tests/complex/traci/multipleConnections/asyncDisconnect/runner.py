@@ -24,23 +24,14 @@ import time
 import math
 from multiprocessing import Process, freeze_support
 
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
-import traci
+import traci  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
-
-if sys.argv[1] == "sumo":
-    sumoBinary = os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    addOption = "--remote-port %s" % PORT
-else:
-    sumoBinary = os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-S -Q --remote-port %s" % PORT
+sumoBinary = sumolib.checkBinary(sys.argv[1])
 
 
 def traciLoop(port, traciEndTime, index, steplength=0):
@@ -58,13 +49,13 @@ def traciLoop(port, traciEndTime, index, steplength=0):
     try:
         traciEndStep = math.ceil(traciEndTime / steplength)
         while not step > traciEndStep:
-            traci.simulationStep(int(step * steplength * 1000))
-            #print(index, "asking for vehicles")
+            traci.simulationStep(step * steplength)
+            # print(index, "asking for vehicles")
             # sys.stdout.flush()
-            vehs = traci.vehicle.getIDList()
+            traci.vehicle.getIDList()
             nrEnteredVehicles += traci.simulation.getDepartedNumber()
-            #~ print(index, "Newly entered vehicles: ", traci.simulation.getDepartedNumber(), "(vehs: ", vehs, ")")
-            #~ sys.stdout.flush()
+            # ~ print(index, "Newly entered vehicles: ", traci.simulation.getDepartedNumber(), "(vehs: ", vehs, ")")
+            # ~ sys.stdout.flush()
             step += 1
         endTime = traci.simulation.getCurrentTime() / DELTA_T
         traci.close()
@@ -90,7 +81,8 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr):
     fdi.close()
     fdo.close()
     sumoProcess = subprocess.Popen(
-        "%s -v --num-clients %s -c used.sumocfg %s" % (sumoBinary, numClients, addOption), shell=True, stdout=sys.stdout)
+        "%s -v --num-clients %s -c used.sumocfg -S -Q --remote-port %s" %
+        (sumoBinary, numClients, PORT), shell=True, stdout=sys.stdout)
     # Alternate ordering
     indexRange = range(numClients) if (runNr % 2 == 0) else list(reversed(range(numClients)))
     procs = [Process(target=traciLoop, args=(

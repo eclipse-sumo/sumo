@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEAdditional.h"
 
@@ -51,38 +47,16 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] pos position (center) of the variable speed sign in the map
      * @param[in] lanes vector with the lanes of variable speed signal
-     * @param[in] filename The path to the definition file
+     * @param[in] name VSS name
      * @param[in] block movement enable or disable additional movement
      */
-    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNELane*> &lanes, const std::string& filename, bool blockMovement);
+    GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief open GNEVariableSpeedSignDialog
     void openAdditionalDialog();
-
-    /// @name Functions related with Variable Speed Sign Steps
-    /// @{
-
-    /// @brief insert a new step in variable speed signal
-    void addVariableSpeedSignStep(GNEVariableSpeedSignStep* step);
-
-    /// @brief remove an existent step of variable speed signal
-    void removeVariableSpeedSignStep(GNEVariableSpeedSignStep* step);
-
-    /// @brief get values of variable speed signal
-    const std::vector<GNEVariableSpeedSignStep*>& getVariableSpeedSignSteps() const;
-
-    /// @brief sort steps
-    void sortVariableSpeedSignSteps();
-
-    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
@@ -99,7 +73,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -110,7 +84,7 @@ public:
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -140,20 +114,17 @@ public:
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 protected:
     /// @brief position of VSS in view
     Position myPosition;
-
-    /// @brief filename of variable speed sign
-    std::string myFilename;
-
-    /// @brief values of variable speed signal
-    std::vector<GNEVariableSpeedSignStep*> mySteps;
-
-    /// @brief enable or disable save in external filename
-    bool mySaveInFilename;
 
 private:
     /// @brief set attribute after validation

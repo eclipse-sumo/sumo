@@ -13,5 +13,5 @@
 # @version $Id$
 
 from __future__ import absolute_import
-from . import pop2
-from . import scenarios
+from . import pop2  # noqa
+from . import scenarios  # noqa

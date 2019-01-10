@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/StdDefs.h>
 #include "MSLogicJunction.h"
@@ -83,6 +79,8 @@ public:
     }
 
 private:
+
+    bool indirectBicycleTurn(const MSLane* specialLane, const MSLink* thisLink, const MSLane* foeFirstPart, const MSLink* foeLink) const;
 
     std::vector<MSLink*> myInternalLinkFoes;
     std::vector<MSLane*> myInternalLaneFoes;

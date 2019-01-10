@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -53,8 +49,8 @@ public:
     typedef double(* Operation)(const E* const, const V* const, double);
 
     /// Constructor
-    SUMOAbstractRouter(Operation operation, const std::string& type):
-        myOperation(operation),
+    SUMOAbstractRouter(const std::string& type, Operation operation = nullptr, Operation ttOperation = nullptr) :
+        myOperation(operation), myTTOperation(ttOperation),
         myBulkMode(false),
         myType(type),
         myQueryVisits(0),
@@ -78,8 +74,49 @@ public:
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into) = 0;
 
-    virtual double recomputeCosts(const std::vector<const E*>& edges,
-                                  const V* const v, SUMOTime msTime) const = 0;
+    virtual bool isProhibited(const E* const /* edge */, const V* const /* vehicle */) const  {
+        return false;
+    }
+
+    inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
+        return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
+    }
+
+    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort) const {
+        if (prev != nullptr) {
+            for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
+                if (follower.first == e) {
+                    const E* viaEdge = follower.second;
+                    while (viaEdge != nullptr && viaEdge != e) {
+                        const double viaEffortDelta = this->getEffort(viaEdge, v, time);
+                        time += getTravelTime(viaEdge, v, time, viaEffortDelta);
+                        effort += viaEffortDelta;
+                        viaEdge = viaEdge->getViaSuccessors().front().first;
+                    }
+                    break;
+                }
+            }
+        }
+        const double effortDelta = this->getEffort(e, v, time);
+        effort += effortDelta;
+        time += getTravelTime(e, v, time, effortDelta);
+    }
+
+
+    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
+        double effort = 0.;
+        double time = STEPS2TIME(msTime);
+        const E* prev = nullptr;
+        for (const E* const e : edges) {
+            if (isProhibited(e, v)) {
+                return -1;
+            }
+            updateViaCost(prev, e, v, time, effort);
+            prev = e;
+        }
+        return effort;
+    }
+
 
     inline double getEffort(const E* const e, const V* const v, double t) const {
         return (*myOperation)(e, v, t);
@@ -103,6 +140,9 @@ protected:
     /// @brief The object's operation to perform.
     Operation myOperation;
 
+    /// @brief The object's operation to perform for travel times
+    Operation myTTOperation;
+
     /// @brief whether we are currently operating several route queries in a bulk
     bool myBulkMode;
 
@@ -123,9 +163,18 @@ private:
 
 
 template<class E, class V>
-struct prohibited_withPermissions {
+class SUMOAbstractRouterPermissions : public SUMOAbstractRouter<E, V> {
 public:
-    inline bool operator()(const E* edge, const V* vehicle) const {
+    /// Constructor
+    SUMOAbstractRouterPermissions(const std::string& type, typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
+        SUMOAbstractRouter<E, V>(type, operation, ttOperation) {
+    }
+
+    /// Destructor
+    virtual ~SUMOAbstractRouterPermissions() {
+    }
+
+    bool isProhibited(const E* const edge, const V* const vehicle) const {
         if (std::find(myProhibited.begin(), myProhibited.end(), edge) != myProhibited.end()) {
             return true;
         }
@@ -140,16 +189,6 @@ protected:
     std::vector<E*> myProhibited;
 
 };
-
-template<class E, class V>
-struct noProhibitions {
-public:
-    inline bool operator()(const E*, const V*) const {
-        return false;
-    }
-};
-
-
 
 
 #endif

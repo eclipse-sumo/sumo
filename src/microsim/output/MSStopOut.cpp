@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
@@ -48,7 +44,7 @@ MSStopOut::init() {
     }
 }
 
-void 
+void
 MSStopOut::cleanup() {
     delete myInstance;
     myInstance = 0;
@@ -65,12 +61,12 @@ MSStopOut::~MSStopOut() {}
 
 
 void
-MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers) {
+MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
     assert(veh != 0);
     if (myStopped.count(veh) != 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' stops on edge '" + veh->getEdge()->getID() 
-                + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) 
-                + " without ending the previous stop entered at time " + time2string(myStopped[veh].started));
+        WRITE_WARNING("Vehicle '" + veh->getID() + "' stops on edge '" + veh->getEdge()->getID()
+                      + "', time " + time2string(time)
+                      + " without ending the previous stop entered at time " + time2string(myStopped[veh].started));
     }
     StopInfo stopInfo(MSNet::getInstance()->getCurrentTimeStep(), numPersons, numContainers);
     myStopped[veh] = stopInfo;
@@ -100,24 +96,28 @@ MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
 }
 
 void
-MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
+MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID) {
     assert(veh != 0);
     if (myStopped.count(veh) == 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' ends stop on edge '" + veh->getEdge()->getID() 
-                + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " without entering the stop");
+        WRITE_WARNING("Vehicle '" + veh->getID() + "' ends stop on edge '" + veh->getEdge()->getID()
+                      + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " without entering the stop");
         return;
     }
     double delay = -1;
-    if (stop.pars.until >= 0) {
-        delay = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - stop.pars.until);
+    if (stop.until >= 0) {
+        delay = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - stop.until);
     }
     StopInfo& si = myStopped[veh];
     myDevice.openTag("stopinfo");
     myDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
     myDevice.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
-    myDevice.writeAttr(SUMO_ATTR_LANE, stop.lane->getID());
+    if (MSGlobals::gUseMesoSim) {
+        myDevice.writeAttr(SUMO_ATTR_EDGE, laneOrEdgeID);
+    } else {
+        myDevice.writeAttr(SUMO_ATTR_LANE, laneOrEdgeID);
+    }
     myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
-    myDevice.writeAttr(SUMO_ATTR_PARKING, stop.pars.parking);
+    myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
     myDevice.writeAttr("started", time2string(si.started));
     myDevice.writeAttr("ended", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     myDevice.writeAttr("delay", delay);
@@ -127,17 +127,17 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const MSVehicle::Stop& stop) {
     myDevice.writeAttr("initialContainers", si.initialNumContainers);
     myDevice.writeAttr("loadedContainers", si.loadedContainers);
     myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
-    if (stop.busstop != 0) {
-        myDevice.writeAttr(SUMO_ATTR_BUS_STOP, stop.busstop->getID());
+    if (stop.busstop != "") {
+        myDevice.writeAttr(SUMO_ATTR_BUS_STOP, stop.busstop);
     }
-    if (stop.containerstop != 0) {
-        myDevice.writeAttr(SUMO_ATTR_CONTAINER_STOP, stop.containerstop->getID());
+    if (stop.containerstop != "") {
+        myDevice.writeAttr(SUMO_ATTR_CONTAINER_STOP, stop.containerstop);
     }
-    if (stop.parkingarea != 0) {
-        myDevice.writeAttr(SUMO_ATTR_PARKING_AREA, stop.parkingarea->getID());
+    if (stop.parkingarea != "") {
+        myDevice.writeAttr(SUMO_ATTR_PARKING_AREA, stop.parkingarea);
     }
-    if (stop.chargingStation != 0) {
-        myDevice.writeAttr(SUMO_ATTR_CHARGING_STATION, stop.chargingStation->getID());
+    if (stop.chargingStation != "") {
+        myDevice.writeAttr(SUMO_ATTR_CHARGING_STATION, stop.chargingStation);
     }
     myDevice.closeTag();
     myStopped.erase(veh);

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSAbstractLaneChangeModel.h"
 #include <vector>
@@ -113,6 +109,8 @@ public:
                        const MSCFModel& cfModel);
 
     void changed();
+
+    double getSafetyFactor() const;
 
     void prepareStep();
 

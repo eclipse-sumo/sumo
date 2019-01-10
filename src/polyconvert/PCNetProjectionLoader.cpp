@@ -21,30 +21,27 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
 #include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
-#include <utils/common/StdDefs.h>
-#include <polyconvert/PCPolyContainer.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/StdDefs.h>
+#include <utils/common/SysUtils.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
+#include <polyconvert/PCPolyContainer.h>
 #include "PCNetProjectionLoader.h"
 
 
@@ -63,6 +60,7 @@ PCNetProjectionLoader::load(const std::string& file, double scale) {
     PCNetProjectionLoader handler(scale);
     handler.setFileName(file);
     SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
+    const long before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Parsing network projection from '" + file + "'");
     if (!parser->parseFirst(file)) {
         delete parser;
@@ -71,7 +69,7 @@ PCNetProjectionLoader::load(const std::string& file, double scale) {
     // parse
     while (parser->parseNext() && !handler.hasReadAll());
     // clean up
-    PROGRESS_DONE_MESSAGE();
+    PROGRESS_TIME_MESSAGE(before);
     if (!handler.hasReadAll()) {
         throw ProcessError("Could not find projection parameter in net.");
     }

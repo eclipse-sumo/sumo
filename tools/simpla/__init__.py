@@ -35,7 +35,8 @@ and generating vTypeMapping-files see the script generateModifiedVTypes.py.
 Usage:
 1) import simpla into your traci script.
 2) After establishing a connection to SUMO with traci, call simpla.load(<configuration_filename>)
-3) Only applies to SUMO version < 0.30: After starting simpla, call simpla.update() after each call to traci.simulationStep()
+3) Only applies to SUMO version < 0.30: After starting simpla, call simpla.update() after each call to
+   traci.simulationStep()
 
 Notes:
 1) simpla changes the vehicle types, speedfactors, and lane changemodes of all connected vehicles.
@@ -45,24 +46,26 @@ Notes:
 3) simpla adds subscriptions to VAR_ROAD_ID, VAR_LANE_INDEX (and currently VAR_LANE_ID) and removes them when stopped
 """
 
+import sys
+import os
 
-import traci
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
-class SimplaException(Exception):
-    '''
-    Simple exception raised by simpla.
-    '''
-    def __init__(self,*args,**kwargs):
-        super(SimplaException, self).__init__(*args,**kwargs)
-        
+import traci  # noqa
+from ._utils import openGap  # noqa
+from ._utils import SimplaException  # noqa
 
-
-import simpla._config
-import simpla._reporting as rp
-import simpla._platoonmanager
+import simpla._config  # noqa
+import simpla._reporting as rp  # noqa
+import simpla._platoonmanager  # noqa
 
 warn = rp.Warner("simpla")
 _mgr = None
+_mgr_listenerID = None
 _useStepListener = 'addStepListener' in dir(traci)
 _emergencyDecelImplemented = 'VAR_EMERGENCY_DECEL' in dir(traci.constants)
 
@@ -79,22 +82,22 @@ def load(config_filename):
     '''
     Load the config from file and create a Platoon Manager
     '''
-    global _mgr
-    _config.load(config_filename)
-    _mgr = _platoonmanager.PlatoonManager()
+    global _mgr, _mgr_listenerID
+    simpla._config.load(config_filename)
+    _mgr = simpla._platoonmanager.PlatoonManager()
     if _useStepListener:
         # For SUMO version >= 0.30
-        traci.addStepListener(_mgr)
+        _mgr_listenerID = traci.addStepListener(_mgr)
 
 
 def stop():
     '''
     Stop the PlatoonManager
     '''
-    global _mgr
+    global _mgr, _mgr_listenerID
     if _mgr is not None:
         _mgr.stop()
-        traci.removeStepListener(_mgr)
+        traci.removeStepListener(_mgr_listenerID)
     _mgr = None
 
 

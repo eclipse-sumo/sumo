@@ -22,16 +22,14 @@ import sys
 from xml.sax.handler import ContentHandler
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import sumolib  # noqa
-from sumolib.visualization import helpers
-
-import matplotlib.pyplot as plt
-import matplotlib
+from sumolib.visualization import helpers  # noqa
+import matplotlib.pyplot as plt  # noqa
+import matplotlib  # noqa
 
 
 class WeightsReader(ContentHandler):
@@ -199,9 +197,9 @@ def main(args=None):
                     v = options.widthMax
                 if options.widthMin is not None and v < options.widthMin:
                     v = options.widthMin
-                if not maxWidthValue or maxWidthValue < v:
+                if maxWidthValue is None or maxWidthValue < v:
                     maxWidthValue = v
-                if not minWidthValue or minWidthValue > v:
+                if minWidthValue is None or minWidthValue > v:
                     minWidthValue = v
                 widths[e] = v
         if options.widthMax is not None:
@@ -253,6 +251,7 @@ def main(args=None):
             helpers.closeFigure(fig, ax, options, False, expandedOutputNames)
 
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))

@@ -21,7 +21,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from sumolib.visualization import helpers
+from sumolib.visualization import helpers  # noqa
 
 
 def main(args=None):

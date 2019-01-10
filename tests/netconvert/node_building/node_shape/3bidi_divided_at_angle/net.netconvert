@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:21 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:27 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,20 +17,20 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
     </output>
 
-    <processing>
-        <ignore-errors.edge-type value="true"/>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
+        <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391480.55,-5819869.20" convBoundary="0.00,0.00,99.77,62.18" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -68,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1472911019" type="dead_end" x="90.29" y="60.88" incLanes="" intLanes="" shape="91.89,58.11 87.20,66.25"/>
     <junction id="2121324849" type="dead_end" x="8.09" y="47.46" incLanes="-23121445#5_0 -23121445#5_1" intLanes="" shape="8.09,47.46 12.53,50.17 8.09,47.46"/>
     <junction id="29207821" type="dead_end" x="99.00" y="56.48" incLanes="54048862#2_0 54048862#2_1 54048862#2_2 54048862#2_3" intLanes="" shape="103.00,49.78 96.54,60.60"/>
-    <junction id="cluster_1472911017_697323164" type="priority" x="25.92" y="18.35" incLanes="4067932_0 4067932_1 4067932_2 54048862#1_0 54048862#1_1 54048862#1_2 54048862#1_3 23121445#5_0 23121445#5_1" intLanes="" shape="25.98,31.02 38.04,10.98 24.37,2.84 14.06,24.86 14.63,26.77 23.51,32.19">
+    <junction id="cluster_1472911017_697323164" type="priority" x="25.92" y="18.35" incLanes="4067932_0 4067932_1 4067932_2 54048862#1_0 54048862#1_1 54048862#1_2 54048862#1_3 23121445#5_0 23121445#5_1" intLanes="" shape="25.98,31.02 38.04,10.98 24.37,2.84 14.06,24.86 14.72,25.35 14.88,25.65 14.92,25.99 14.83,26.36 14.63,26.77 23.51,32.19 24.31,31.21 24.72,30.94 25.13,30.82 25.55,30.84">
         <request index="0" response="0000000000" foes="0001000000"/>
         <request index="1" response="0000000000" foes="1111000000"/>
         <request index="2" response="0000000000" foes="1111000000"/>

@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEFrame.h"
 
@@ -169,7 +165,7 @@ private:
     /// @brief the internal lanes belonging the the current junction indexed by their tl-index
     std::map<int, GNEInternalLane*> myInternalLanes;
 
-    /// @brief vector of connections deleted in the current editing step 
+    /// @brief vector of connections deleted in the current editing step
     std::vector<NBEdge::Connection> myDeletedConnections;
 
     /// @brief color for the from-lane of a connection

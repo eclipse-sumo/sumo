@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEFrame.h"
 
@@ -304,7 +300,7 @@ public:
         bool checkTLSValids();
 
         /// @brief get loaded phases
-        const std::vector<NBLoadedSUMOTLDef*> &getLoadedTLS() const;
+        const std::vector<NBLoadedSUMOTLDef*>& getLoadedTLS() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -354,7 +350,7 @@ public:
     bool isTLSSaved();
 
     /// @brief parse TLS Programs from a file
-    bool parseTLSPrograms(const std::string &file);
+    bool parseTLSPrograms(const std::string& file);
 
     /// @name FOX-callbacks
     /// @{
@@ -457,13 +453,13 @@ private:
     GNETLSEditorFrame::TLSAttributes* myTLSAttributes;
 
     /// @brief modul for load/Save TLS Modifications
-    GNETLSEditorFrame::TLSModifications *myTLSModifications;
+    GNETLSEditorFrame::TLSModifications* myTLSModifications;
 
     /// @brief modul for TLS Phases
     GNETLSEditorFrame::TLSPhases* myTLSPhases;
 
     /// @brief modul for load/Save TLS Programs
-    GNETLSEditorFrame::TLSFile *myTLSFile;
+    GNETLSEditorFrame::TLSFile* myTLSFile;
 
     /// @brief the internal lanes belonging the the current junction indexed by their tl-index
     typedef std::map<int, std::vector<GNEInternalLane*> > TLIndexMap;

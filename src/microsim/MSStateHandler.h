@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/SUMOTime.h>
 #include "MSRouteHandler.h"
@@ -110,6 +106,9 @@ private:
     /// @brief vehicles that shall be removed when loading state
     std::set<std::string> myVehiclesToRemove;
 
+private:
+    /// @brief save the state of random number generators
+    static void saveRNGs(OutputDevice& out);
 
 private:
     /// @brief Invalidated copy constructor

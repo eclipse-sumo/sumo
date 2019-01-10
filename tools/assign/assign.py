@@ -15,7 +15,8 @@
 
 """
 This script is for executing traffic assignment according to the required assignment model.
-The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script.
+The incremental assignment model, the C-Logit assignment model and the Lohse assignment model
+are included in this script.
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -26,11 +27,13 @@ import elements
 from elements import Vehicle
 
 
-def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, start, startVertex, matrixPshort, smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand, linkChoiceMap, odPairsMap):
+def doIncAssign(net, vehicles, verbose, iteration, odestimation, endVertices, start, startVertex, matrixPshort,
+                smallDemand, D, P, AssignedVeh, AssignedTrip, vehID, assignSmallDemand, linkChoiceMap, odPairsMap):
 
     for end, endVertex in enumerate(endVertices):
         getlinkChoices = False
-        if (odestimation and matrixPshort[start][end] > 0.) or (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.)):
+        if ((odestimation and matrixPshort[start][end] > 0.) or
+           (matrixPshort[start][end] > 1. or (assignSmallDemand and smallDemand[start][end] > 0.))):
             getlinkChoices = True
 
         if startVertex._id != endVertex._id and getlinkChoices:
@@ -208,7 +211,8 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, lohse):
 # the vehicular data for each OD Pair
 
 
-def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse):
+def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh,
+                   AssignedTrip, vehID, lohse):
     if options.verbose:
         if counter == 0:
             foutpath = open('paths.txt', 'w')
@@ -336,7 +340,8 @@ def doLohseStopCheck(net, options, stable, iter, maxIter, foutlog):
         elif counts < int(net.geteffEdgeCounts() * 0.05) and float(iter) > options.maxiteration * 0.85:
             stable = True
             foutlog.write(
-                'The number of the links with convergence is 95% of the total links. The number of executed iterations:%s\n' % iter)
+                ('The number of the links with convergence is 95% of the total links.' +
+                 'The number of executed iterations:%s\n') % iter)
 
     if iter >= maxIter:
         print('The max. number of iterations is reached!')

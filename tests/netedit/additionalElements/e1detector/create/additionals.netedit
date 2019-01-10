@@ -1,6 +1,50 @@
-<additionals>
-    <e1Detector id="e1Detector_gneE0_0_0" lane="gneE0_0" pos="12.00" file="e1Detector_gneE0_0_0.xml"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08.08.2018 19:34:47 by Eclipse SUMO netedit Version 380f78341d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1detector/create\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1detector/create\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1detector/create\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1detector/create\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1detector/create\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1detector/create\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e1Detector id="e1Detector_gneE0_0_0" lane="gneE0_0" pos="12.00" freq="900.00" file="e1Detector_gneE0_0_0.xml"/>
     <e1Detector id="e1Detector_gneE0_0_1" lane="gneE0_0" pos="17.00" freq="150.00" file="e1Detector_gneE0_0_1.xml"/>
-    <e1Detector id="e1Detector_gneE0_0_2" lane="gneE0_0" pos="22.00" freq="150.00" file="e1Detector_gneE0_0_2.xml" vTypes="private passenger taxi bus"/>
-    <e1Detector id="e1Detector_gneE0_0_3" lane="gneE0_0" pos="27.00" freq="150.00" file="e1Detector_gneE0_0_3.xml" vTypes="private passenger taxi bus" friendlyPos="1"/>
-</additionals>
+    <e1Detector id="e1Detector_gneE0_0_2" name="customName" lane="gneE0_0" pos="22.00" freq="150.00" file="e1Detector_gneE0_0_2.xml"/>
+    <e1Detector id="e1Detector_gneE0_0_3" name="customName" lane="gneE0_0" pos="27.00" freq="150.00" file="myOwnFilename.txt"/>
+    <e1Detector id="e1Detector_gneE0_0_4" name="customName" vTypes="%%;$$$ %%$$ type.3" lane="gneE0_0" pos="32.00" freq="150.00" file="myOwnFilename.txt"/>
+    <e1Detector id="e1Detector_gneE0_0_5" name="customName" vTypes="private passenger taxi bus" lane="gneE0_0" pos="37.00" freq="150.00" file="myOwnFilename.txt" friendlyPos="1"/>
+    <e1Detector id="e1Detector_gneE0_0_6" name="customName" vTypes="private passenger taxi bus" lane="gneE0_0" pos="42.00" freq="150.00" file="myOwnFilename.txt" friendlyPos="1"/>
+</additional>

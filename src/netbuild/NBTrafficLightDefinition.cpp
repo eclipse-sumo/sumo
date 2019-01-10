@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <string>
@@ -127,7 +123,7 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
         brakingTime = oc.getInt("tls.yellow.time");
     }
     NBTrafficLightLogic* ret = myCompute(brakingTime);
-    ret->updateParameter(getMap());
+    ret->updateParameter(getParametersMap());
     return ret;
 }
 

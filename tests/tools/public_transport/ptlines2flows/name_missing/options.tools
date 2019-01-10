@@ -1,0 +1,3 @@
+-n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600
+--verbose
+tools/ptlines2flows.py

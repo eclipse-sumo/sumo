@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -63,7 +59,7 @@ GUIParameterTableWindow*
 GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 21 + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 21 + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("segment [#]", false, getSegment()->getIndex());
@@ -136,7 +132,7 @@ GUIParameterTableWindow*
 GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 9 + (int)myType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 9 + (int)myType->getParameter().getParametersMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());

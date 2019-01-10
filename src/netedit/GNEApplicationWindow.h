@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -135,8 +131,14 @@ public:
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
+    /// @brief disable save additionals
+    void disableSaveAdditionalsMenu();
+
     /// @brief enable save shapes
     void enableSaveShapesMenu();
+
+    /// @brief disable save shapes
+    void disableSaveShapesMenu();
 
     /// @brief enable save TLS Programs
     void enableSaveTLSProgramsMenu();
@@ -185,10 +187,10 @@ public:
     /// @brief called when the command/FXCall close is executed
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Visualization 
+    /// @brief Called on menu Edit->Visualization
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Viewport 
+    /// @brief Called on menu Edit->Viewport
     long onCmdEditViewport(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall locate is executed
@@ -273,6 +275,9 @@ public:
 
     /// @brief called if the user hits an edit-mode hotkey
     long onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief called if the user hints ctrl + T
+    long onCmdOpenSUMOGUI(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user hits esc
     long onCmdAbort(FXObject* sender, FXSelector sel, void* ptr);

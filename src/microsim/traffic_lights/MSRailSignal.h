@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 //#include <utility>
 //#include <vector>
@@ -235,6 +231,8 @@ protected:
 
     /// @brief The current phase
     MSPhaseDefinition myCurrentPhase;
+
+    static int myNumWarnings;
 
 };
 

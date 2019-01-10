@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:45 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:48 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,9 +19,9 @@ SPDX-License-Identifier: EPL-2.0
         <plain-output-prefix value="plain"/>
     </output>
 
-    <processing>
+    <pedestrian>
         <crossings.guess value="true"/>
-    </processing>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,50.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="50.00" incLanes="NC_0 SC_0 WC_0 WC_1 WC_2 WC_3 :C_w1_0" intLanes=":C_0_0 :C_0_1 :C_0_2 :C_c0_0" shape="98.50,51.50 101.50,51.50 103.00,50.00 103.00,38.40 101.50,36.90 98.50,36.90 97.00,38.40 97.00,50.00">
+    <junction id="C" type="traffic_light" x="100.00" y="50.00" incLanes="NC_0 SC_0 WC_0 WC_1 WC_2 WC_3 :C_w1_0" intLanes=":C_0_0 :C_0_1 :C_0_2 :C_c0_0" shape="98.50,51.50 101.50,51.50 101.67,50.67 101.88,50.38 102.17,50.17 102.54,50.04 103.00,50.00 103.00,38.40 102.17,38.23 101.88,38.02 101.67,37.73 101.54,37.36 101.50,36.90 98.50,36.90 98.33,37.73 98.12,38.03 97.83,38.23 97.46,38.36 97.00,38.40 97.00,50.00 97.83,50.17 98.12,50.38 98.33,50.67 98.46,51.04">
         <request index="0" response="1000" foes="1000" cont="0"/>
         <request index="1" response="1000" foes="1000" cont="0"/>
         <request index="2" response="1000" foes="1000" cont="0"/>

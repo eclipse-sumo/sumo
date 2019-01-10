@@ -22,39 +22,36 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
 #include <vector>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/XMLSubSys.h>
 #include "SUMORouteHandler.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMORouteHandler::SUMORouteHandler(const std::string& file) :
-    SUMOSAXHandler(file),
+SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& expectedRoot) :
+    SUMOSAXHandler(file, XMLSubSys::isValidating() ? expectedRoot : ""),
     myVehicleParameter(0),
     myLastDepart(-1),
     myActiveRouteColor(0),
     myCurrentVType(0),
     myBeginDefault(string2time(OptionsCont::getOptions().getString("begin"))),
     myEndDefault(string2time(OptionsCont::getOptions().getString("end"))),
-    myFirstDepart(-1), myInsertStopEdgesAt(-1), myDefaultCFModel(SUMO_TAG_NOTHING) {
+    myFirstDepart(-1), myInsertStopEdgesAt(-1) {
 }
 
 
@@ -116,7 +113,7 @@ SUMORouteHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VTYPE:
             // XXX: Where is this deleted? Delegated to subclasses?! MSRouteHandler takes care of this, in case of RORouteHandler this is not obvious. Consider introduction of a shared_ptr
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName(), myDefaultCFModel);
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             openVehicleTypeDistribution(attrs);
@@ -188,6 +185,7 @@ SUMORouteHandler::myEndElement(int element) {
             if (myVehicleParameter->repetitionNumber > 0) {
                 myVehicleParameter->repetitionNumber++; // for backwards compatibility
                 // it is a flow, thus no break here
+                FALLTHROUGH;
             } else {
                 closeVehicle();
                 delete myVehicleParameter;

@@ -24,23 +24,27 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <traci-server/TraCIConstants.h>
 #include "Lane.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Lane::mySubscriptionResults;
+ContextSubscriptionResults Lane::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Lane::getIDList() {
     std::vector<std::string> ids;
@@ -82,17 +86,15 @@ Lane::getLinkNumber(std::string laneID) {
 std::vector<TraCIConnection>
 Lane::getLinks(std::string laneID) {
     std::vector<TraCIConnection> v;
-    const MSLane* lane = getLane(laneID);
+    const MSLane* const lane = getLane(laneID);
     const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
-    const MSLinkCont& links = lane->getLinkCont();
-    for (MSLinkCont::const_iterator i = links.begin(); i != links.end(); ++i) {
-        MSLink* link = (*i);
+    for (const MSLink* const link : lane->getLinkCont()) {
         const std::string approachedLane = link->getLane() != 0 ? link->getLane()->getID() : "";
-        const bool hasPrio = link->havePriority() ? 1 : 0;
+        const bool hasPrio = link->havePriority();
         const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
         const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
-                                         SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0) ? 1 : 0;
-        const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel()) ? 1 : 0;
+                                         SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+        const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
         const std::string approachedInternal = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
         const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
         const std::string direction = SUMOXMLDefinitions::LinkDirections.getString(link->getDirection());
@@ -265,6 +267,7 @@ Lane::getLastStepVehicleIDs(std::string laneID) {
     return vehIDs;
 }
 
+
 std::vector<std::string>
 Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
     std::vector<std::string> foeIDs;
@@ -305,6 +308,9 @@ Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
+    for (MSEdge* pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedLanes();
+    }
 }
 
 
@@ -343,6 +349,9 @@ Lane::setParameter(const std::string& laneID, const std::string& key, const std:
 }
 
 
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Lane, LANE)
+
+
 const MSLane*
 Lane::getLane(const std::string& id) {
     const MSLane* r = MSLane::dictionary(id);
@@ -351,6 +360,79 @@ Lane::getLane(const std::string& id) {
     }
     return r;
 }
+
+
+void
+Lane::storeShape(const std::string& id, PositionVector& shape) {
+    shape = getLane(id)->getShape();
+}
+
+
+std::shared_ptr<VariableWrapper>
+Lane::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case LANE_LINK_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLinkNumber(objID));
+        case LANE_EDGE_ID:
+            return wrapper->wrapString(objID, variable, getEdgeID(objID));
+        case VAR_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLength(objID));
+        case VAR_MAXSPEED:
+            return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case LANE_ALLOWED:
+            return wrapper->wrapStringList(objID, variable, getAllowed(objID));
+        case LANE_DISALLOWED:
+            return wrapper->wrapStringList(objID, variable, getDisallowed(objID));
+        case VAR_CO2EMISSION:
+            return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
+        case VAR_COEMISSION:
+            return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
+        case VAR_HCEMISSION:
+            return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
+        case VAR_PMXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
+        case VAR_NOXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
+        case VAR_FUELCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
+        case VAR_NOISEEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
+        case VAR_ELECTRICITYCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
+        case LAST_STEP_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+        case LAST_STEP_MEAN_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case LAST_STEP_VEHICLE_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        case LAST_STEP_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
+        case LAST_STEP_VEHICLE_HALTING_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+        case LAST_STEP_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLastStepLength(objID));
+        case VAR_WAITING_TIME:
+            return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        case VAR_CURRENT_TRAVELTIME:
+            return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
+        case VAR_WIDTH:
+            return wrapper->wrapDouble(objID, variable, getWidth(objID));
+        default:
+            return false;
+    }
+}
+
+
 }
 
 

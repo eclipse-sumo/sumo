@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10/24/17 11:12:01 by SUMO Version dev-SVN-r26691
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Thu Jun 21 08:18:41 2018 by Eclipse SUMO Version bb06134
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +24,7 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="57064"/>
+        <remote-port value="59362"/>
     </traci_server>
 
     <gui_only>
@@ -43,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="1" depart="6.00" arrival="19.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="6.00" probability="0" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>
+            <route replacedOnEdge="" reason="traci:changeTarget" replacedAtTime="6.00" probability="0" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>
             <route edges="2fi 2si 4o 4fi"/>
         </routeDistribution>
         <stop lane="2fi_0" startPos="49.90" endPos="50.00" duration="1.00" parking="1"/>
@@ -51,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="movedVeh" depart="125.00" arrival="133.00">
         <routeDistribution>
-            <route replacedOnEdge="1si" replacedAtTime="126.00" probability="0" edges="3fi 3si 4o"/>
+            <route replacedOnEdge="1si" reason="traci:moveToXY" replacedAtTime="126.00" probability="0" edges="3fi 3si 4o"/>
             <route edges="3fi 3si 4o 1si"/>
         </routeDistribution>
     </vehicle>

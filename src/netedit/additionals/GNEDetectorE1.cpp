@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -55,9 +51,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, ICON_E1, lane, pos, freq, filename, friendlyPos, nullptr, blockMovement),
-    myVehicleTypes(vehicleTypes) {
+GNEDetectorE1::GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E1DETECTOR, SUMO_TAG_E1DETECTOR, lane, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement) {
 }
 
 
@@ -66,7 +61,12 @@ GNEDetectorE1::~GNEDetectorE1() {
 
 
 void
-GNEDetectorE1::updateGeometry() {
+GNEDetectorE1::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if (updateGrid) {
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+    }
+
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -75,8 +75,8 @@ GNEDetectorE1::updateGeometry() {
     myShape.clear();
 
     // obtain position over lane
-    double fixedPositionOverLane = myPositionOverLane > 1 ? 1 : myPositionOverLane < 0 ? 0 : myPositionOverLane;
-    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getShape().length()));
+    double fixedPositionOverLane = myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength() ? myLane->getParentEdge().getNBEdge()->getFinalLength() : myPositionOverLane < 0 ? 0 : myPositionOverLane;
+    myShape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor()));
 
     // Obtain first position
     Position f = myShape[0] - Position(1, 0);
@@ -85,7 +85,7 @@ GNEDetectorE1::updateGeometry() {
     Position s = myShape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane * myLane->getShape().length()) * -1);
+    myShapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
     myBlockIconPosition = myShape.getLineCenter();
@@ -96,42 +96,18 @@ GNEDetectorE1::updateGeometry() {
     // Set block icon rotation, and using their rotation for logo
     setBlockIconRotation(myLane);
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if (updateGrid) {
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
 }
-
-
-void
-GNEDetectorE1::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    writeAttribute(device, SUMO_ATTR_FREQUENCY);
-    if (!myFilename.empty()) {
-        writeAttribute(device, SUMO_ATTR_FILE);
-    }
-    if (!myVehicleTypes.empty()) {
-        writeAttribute(device, SUMO_ATTR_VTYPES);
-    }
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // write block movement attribute only if it's enabled
-    if(myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
-    // Close tag
-    device.closeTag();
-}
-
 
 bool GNEDetectorE1::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        // floors are needed to avoid precision problems
-        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor(myPositionOverLane * 1000) / 1000) <= 1);
+        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
 }
 
@@ -227,9 +203,16 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Finish draw if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
+
+    // check if dotted contour has to be drawn
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 4, myShapeRotations[0]);
+    }
+
+    // pop name
     glPopName();
 }
 
@@ -242,9 +225,11 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_POSITION:
-            return toString(getAbsolutePositionOverLane());
+            return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
         case SUMO_ATTR_VTYPES:
@@ -255,6 +240,8 @@ GNEDetectorE1::getAttribute(SumoXMLAttr key) const {
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_GENERIC:
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -271,11 +258,13 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -300,16 +289,24 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
-            return isValidFilename(value);
+            return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_VTYPES:
-            return true;
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -329,13 +326,16 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
+            myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_VTYPES:
             myVehicleTypes = value;
@@ -347,17 +347,20 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
             }
             break;
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 /****************************************************************************/

@@ -46,12 +46,20 @@ visum.net     text eol=lf
 
 # Declare files that will always have CRLF line endings on checkout.
 *.bat     text eol=crlf
-*.props   text eol=crlf
-*.sln     text eol=crlf
-*.vcxproj text eol=crlf
-*.filters text eol=crlf
 
 # Denote all files that are truly binary and should not be modified.
+png.complex binary
+png.sumo binary
+png2.sumo binary
 *.png binary
 *.jpg binary
+*.ttf binary
 
+# files to ignore on export / archive / dist building
+/.appveyor.yml export-ignore
+/.gitattributes export-ignore
+/.git_filters export-ignore
+/.gitignore export-ignore
+/.gitmodules export-ignore
+/.travis.yml export-ignore
+/tests export-ignore

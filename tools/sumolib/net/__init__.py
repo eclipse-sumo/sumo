@@ -26,19 +26,19 @@ from __future__ import absolute_import
 import os
 import sys
 import math
-import re
-from xml.sax import saxutils, parse, handler
+import heapq
+from xml.sax import handler, parse
 from copy import copy
-from itertools import *
+from itertools import *  # noqa
 from collections import defaultdict
 
 import sumolib
 from . import lane, edge, node, connection, roundabout
-from .lane import Lane
-from .edge import Edge
-from .node import Node
-from .connection import Connection
-from .roundabout import Roundabout
+from .lane import Lane  # noqa
+from .edge import Edge  # noqa
+from .node import Node  # noqa
+from .connection import Connection  # noqa
+from .roundabout import Roundabout  # noqa
 
 
 class TLS:
@@ -64,10 +64,10 @@ class TLS:
 
     def getLinks(self):
         links = {}
-        for connection in self._connections:
-            if connection[2] not in links:
-                links[connection[2]] = []
-            links[connection[2]].append(connection)
+        for the_connection in self._connections:
+            if the_connection[2] not in links:
+                links[the_connection[2]] = []
+            links[the_connection[2]].append(the_connection)
         return links
 
     def getEdges(self):
@@ -198,7 +198,7 @@ class Net:
                 viaEdge._addIncoming(connection.Connection(
                     fromEdge, viaEdge, fromlane, viaLane, direction, tls,
                     tllink, state, ''))
-            except:
+            except Exception:
                 pass
 
     def getEdges(self):
@@ -242,11 +242,11 @@ class Net:
                     "Warning: Module 'rtree' not available. Using brute-force fallback")
                 self.hasWarnedAboutMissingRTree = True
 
-            for edge in self._edges:
+            for the_edge in self._edges:
                 d = sumolib.geomhelper.distancePointToPolygon(
-                    (x, y), edge.getShape(includeJunctions))
+                    (x, y), the_edge.getShape(includeJunctions))
                 if d < r:
-                    edges.append((edge, d))
+                    edges.append((the_edge, d))
         return edges
 
     def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True):
@@ -254,8 +254,8 @@ class Net:
         try:
             if self._rtree is None:
                 if not self._allLanes:
-                    for edge in self._edges:
-                        self._allLanes += edge.getLanes()
+                    for the_edge in self._edges:
+                        self._allLanes += the_edge.getLanes()
                 self._initRTree(self._allLanes, includeJunctions)
             for i in self._rtree.intersection((x - r, y - r, x + r, y + r)):
                 l = self._allLanes[i]
@@ -264,8 +264,8 @@ class Net:
                 if d < r:
                     lanes.append((l, d))
         except ImportError:
-            for edge in self._edges:
-                for l in edge.getLanes():
+            for the_edge in self._edges:
+                for l in the_edge.getLanes():
                     d = sumolib.geomhelper.distancePointToPolygon(
                         (x, y), l.getShape(includeJunctions))
                     if d < r:
@@ -312,7 +312,16 @@ class Net:
     def forbids(self, possProhibitor, possProhibited):
         return possProhibitor.getFrom().getToNode().forbids(possProhibitor, possProhibited)
 
-    def getDownstreamEdges(self, edge, distance, stopOnTLS):
+    def getDownstreamEdges(self, edge, distance, stopOnTLS, stopOnTurnaround):
+        """return a list of lists of the form
+           [[firstEdge, pos, [edge_0, edge_1, ..., edge_k], aborted], ...]
+           where
+             firstEdge: is the downstream edge furthest away from the intersection,
+             [edge_0, ..., edge_k]: is the list of edges from the intersection downstream to firstEdge
+             pos: is the position on firstEdge with distance to the end of the input edge
+             aborted: a flag indicating whether the downstream
+                 search stopped at a TLS or a node without incoming edges before reaching the distance threshold
+        """
         ret = []
         seen = set()
         toProc = []
@@ -330,27 +339,31 @@ class Net:
                 ret.append([ie[0], ie[0].getLength() + ie[1], ie[2], True])
                 continue
             mn = []
-            hadTLS = False
+            stop = False
             for ci in ie[0]._incoming:
                 if ci not in seen:
                     prev = copy(ie[2])
-                    if stopOnTLS and ci._tls and ci != edge and not hadTLS:
+                    if stopOnTLS and ci._tls and ci != edge and not stop:
                         ret.append([ie[0], ie[1], prev, True])
-                        hadTLS = True
+                        stop = True
+                    elif (stopOnTurnaround and ie[0]._incoming[ci][0].getDirection() == Connection.LINKDIR_TURN and
+                          not stop):
+                        ret.append([ie[0], ie[1], prev, True])
+                        stop = True
                     else:
                         prev.append(ie[0])
                         mn.append([ci, ie[0].getLength() + ie[1], prev])
-            if not hadTLS:
+            if not stop:
                 toProc.extend(mn)
         return ret
 
     def getEdgesByOrigID(self, origID):
         if self._origIdx is None:
             self._origIdx = defaultdict(set)
-            for edge in self._edges:
-                for lane in edge.getLanes():
-                    for oID in lane.getParam("origId", "").split():
-                        self._origIdx[oID].add(edge)
+            for the_edge in self._edges:
+                for the_lane in the_edge.getLanes():
+                    for oID in the_lane.getParam("origId", "").split():
+                        self._origIdx[oID].add(the_edge)
         return self._origIdx[origID]
 
     def getBBoxXY(self):
@@ -409,6 +422,27 @@ class Net:
                             for p in l.getShape3D()]
             e.rebuildShape()
 
+    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400):
+        q = [(0, fromEdge.getID(), fromEdge, ())]
+        seen = set()
+        dist = {fromEdge: fromEdge.getLength()}
+        while q:
+            cost, _, e1, path = heapq.heappop(q)
+            if e1 in seen:
+                continue
+            seen.add(e1)
+            path += (e1,)
+            if e1 == toEdge:
+                return path, cost
+            if cost > maxCost:
+                return None, cost
+            for e2 in e1.getOutgoing():
+                if e2 not in seen:
+                    newCost = cost + e2.getLength()
+                    if e2 not in dist or newCost < dist[e2]:
+                        dist[e2] = newCost
+                        heapq.heappush(q, (newCost, e2.getID(), e2, path))
+        return None, 1e400
 
 class NetReader(handler.ContentHandler):
 
@@ -474,7 +508,8 @@ class NetReader(handler.ContentHandler):
                     intLanes = attrs["intLanes"].split(" ")
                 self._currentNode = self._net.addNode(attrs['id'], attrs['type'],
                                                       tuple(
-                                                          map(float, [attrs['x'], attrs['y'], attrs['z'] if 'z' in attrs else '0'])),
+                                                          map(float, [attrs['x'], attrs['y'],
+                                                              attrs['z'] if 'z' in attrs else '0'])),
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
@@ -610,13 +645,5 @@ def readNet(filename, **others):
         'withInternal' : import internal edges and lanes (default False)
     """
     netreader = NetReader(**others)
-    try:
-        if not os.path.isfile(filename):
-            print("Network file '%s' not found" % filename, file=sys.stderr)
-            sys.exit(1)
-        parse(filename, netreader)
-    except None:
-        print(
-            "Please mind that the network format has changed in 0.13.0, you may need to update your network!", file=sys.stderr)
-        sys.exit(1)
+    parse(filename, netreader)
     return netreader.getNet()

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
@@ -59,11 +55,14 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     }
     of.openTag("timestep").writeAttr(SUMO_ATTR_TIME, time2string(timestep));
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled()) 
-                && veh->getDevice(typeid(MSDevice_FCD)) != nullptr) {
+        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
+                && veh->getDevice(typeid(MSDevice_FCD)) != nullptr
+                // only filter on normal edges
+                && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {
             Position pos = veh->getPosition();
             if (useGeo) {
                 of.setPrecision(gPrecisionGeo);
@@ -88,16 +87,16 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 of.writeAttr("signals", toString(microVeh->getSignals()));
             }
             of.closeTag();
-            if (microVeh != 0) {
-                // write persons and containers
-                const std::vector<MSTransportable*>& persons = microVeh->getPersons();
-                for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
-                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_p, SUMO_TAG_PERSON, useGeo, elevation);
-                }
-                const std::vector<MSTransportable*>& containers = microVeh->getContainers();
-                for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
-                    writeTransportable(of, &microVeh->getLane()->getEdge(), *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
-                }
+            // write persons and containers
+            const MSEdge* edge = microVeh == 0 ? veh->getEdge() : &veh->getLane()->getEdge();
+
+            const std::vector<MSTransportable*>& persons = veh->getPersons();
+            for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+                writeTransportable(of, edge, *it_p, SUMO_TAG_PERSON, useGeo, elevation);
+            }
+            const std::vector<MSTransportable*>& containers = veh->getContainers();
+            for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
+                writeTransportable(of, edge, *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
             }
         }
     }
@@ -106,6 +105,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
         const MSEdgeVector& edges = ec.getEdges();
         for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+            if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {
+                continue;
+            }
             const std::vector<MSTransportable*>& persons = (*e)->getSortedPersons(timestep);
             for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
                 writeTransportable(of, *e, *it_p, SUMO_TAG_PERSON, useGeo, elevation);
@@ -117,6 +119,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
         MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
         const std::vector<MSEdge*>& edges = ec.getEdges();
         for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
+            if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {
+                continue;
+            }
             const std::vector<MSTransportable*>& containers = (*e)->getSortedContainers(timestep);
             for (std::vector<MSTransportable*>::const_iterator it_c = containers.begin(); it_c != containers.end(); ++it_c) {
                 writeTransportable(of, *e, *it_c, SUMO_TAG_CONTAINER, useGeo, elevation);
@@ -129,6 +134,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
 void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation) {
+    if (!MSDevice::equippedByParameter(p, "fcd", true)) {
+        return;
+    }
     Position pos = p->getPosition();
     if (useGeo) {
         of.setPrecision(gPrecisionGeo);

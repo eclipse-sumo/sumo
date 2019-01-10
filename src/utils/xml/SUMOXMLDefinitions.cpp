@@ -24,16 +24,13 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
-#include "SUMOXMLDefinitions.h"
 #include <utils/common/StringBijection.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
+#include "SUMOXMLDefinitions.h"
 
 // ===========================================================================
 // definitions
@@ -159,6 +156,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "colorScheme",                SUMO_TAG_COLORSCHEME },
     { "scalingScheme",              SUMO_TAG_SCALINGSCHEME },
     { "entry",                      SUMO_TAG_ENTRY },
+    { "rngState",                   SUMO_TAG_RNGSTATE },
     { "vehicleTransfer",            SUMO_TAG_VEHICLETRANSFER },
     { "device",                     SUMO_TAG_DEVICE },
     // Cars
@@ -173,8 +171,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-PWagner2009",   SUMO_TAG_CF_PWAGNER2009 },
     { "carFollowing-BKerner",       SUMO_TAG_CF_BKERNER },
     { "carFollowing-Wiedemann",     SUMO_TAG_CF_WIEDEMANN },
-    { "carFollowing-TCI",           SUMO_TAG_CF_TCI },
     { "carFollowing-Rail",          SUMO_TAG_CF_RAIL },
+    { "carFollowing-ACC",           SUMO_TAG_CF_ACC },
     { "carFollowing-CC",            SUMO_TAG_CF_CC },
     // Person
     { "person",                     SUMO_TAG_PERSON },
@@ -276,6 +274,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "emergencyDecel",         SUMO_ATTR_EMERGENCYDECEL },
     { "apparentDecel",          SUMO_ATTR_APPARENTDECEL },
     { "actionStepLength",       SUMO_ATTR_ACTIONSTEPLENGTH },
+    { "hasDriverState",         SUMO_ATTR_HASDRIVERSTATE },
     { "vClass",                 SUMO_ATTR_VCLASS },
     { "vClasses",               SUMO_ATTR_VCLASSES },
     { "exceptions",             SUMO_ATTR_EXCEPTIONS },
@@ -285,6 +284,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "laneChangeModel",        SUMO_ATTR_LANE_CHANGE_MODEL },
     { "carFollowModel",         SUMO_ATTR_CAR_FOLLOW_MODEL },
     { "minGap",                 SUMO_ATTR_MINGAP },
+    { "collisionMinGapFactor",  SUMO_ATTR_COLLISION_MINGAP_FACTOR },
     { "boardingDuration",       SUMO_ATTR_BOARDING_DURATION },
     { "loadingDuration",        SUMO_ATTR_LOADING_DURATION },
     // Charging Station
@@ -331,6 +331,14 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "tmp4",                   SUMO_ATTR_TMP4 },
     { "tmp5",                   SUMO_ATTR_TMP5 },
 
+    { "speedControlGain", SUMO_ATTR_SC_GAIN },
+    { "gapClosingControlGainSpeed", SUMO_ATTR_GCC_GAIN_SPEED },
+    { "gapClosingControlGainSpace", SUMO_ATTR_GCC_GAIN_SPACE },
+    { "gapControlGainSpeed", SUMO_ATTR_GC_GAIN_SPEED },
+    { "gapControlGainSpace", SUMO_ATTR_GC_GAIN_SPACE },
+    { "collisionAvoidanceGainSpeed", SUMO_ATTR_CA_GAIN_SPEED },
+    { "collisionAvoidanceGainSpace", SUMO_ATTR_CA_GAIN_SPACE },
+
     { "trainType",               SUMO_ATTR_TRAIN_TYPE },
 
     { "lcStrategic",            SUMO_ATTR_LCA_STRATEGIC_PARAM },
@@ -344,7 +352,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcImpatience",           SUMO_ATTR_LCA_IMPATIENCE },
     { "lcTimeToImpatience",     SUMO_ATTR_LCA_TIME_TO_IMPATIENCE },
     { "lcAccelLat",             SUMO_ATTR_LCA_ACCEL_LAT },
-    { "lcTurnAlignmentDistance",SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE },
+    { "lcTurnAlignmentDistance", SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE },
     { "lcLookaheadLeft",        SUMO_ATTR_LCA_LOOKAHEADLEFT },
     { "lcSpeedGainRight",       SUMO_ATTR_LCA_SPEEDGAINRIGHT },
     { "lcMaxSpeedLatStanding",  SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },
@@ -432,6 +440,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "timeThreshold",          SUMO_ATTR_HALTING_TIME_THRESHOLD },
     { "speedThreshold",         SUMO_ATTR_HALTING_SPEED_THRESHOLD },
     { "jamThreshold",           SUMO_ATTR_JAM_DIST_THRESHOLD },
+    // E3 detector
+    { "openEntry",              SUMO_ATTR_OPEN_ENTRY },
 
     { "wautID",                 SUMO_ATTR_WAUT_ID },
     { "junctionID",             SUMO_ATTR_JUNCTION_ID },
@@ -489,7 +499,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lat",                    SUMO_ATTR_LAT },
     { "geo",                    SUMO_ATTR_GEO },
     { "geoShape",               SUMO_ATTR_GEOSHAPE },
-    { "geoPosition",            SUMO_ATTR_GEOPOSITION },
+    { "lon/lat",                SUMO_ATTR_GEOPOSITION },
     { "k",                      SUMO_ATTR_K },
     { "v",                      SUMO_ATTR_V },
     { "ref",                    SUMO_ATTR_REF },
@@ -542,6 +552,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "rectangularLaneCut",     SUMO_ATTR_RECTANGULAR_LANE_CUT },
     { "walkingareas",           SUMO_ATTR_WALKINGAREAS },
     { "lefthand",               SUMO_ATTR_LEFTHAND },
+    { "limitTurnSpeed",         SUMO_ATTR_LIMIT_TURN_SPEED },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "vehicle",                SUMO_ATTR_VEHICLE },
@@ -552,6 +563,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "amount",                 SUMO_ATTR_AMOUNT },
     { "origin",                 SUMO_ATTR_ORIGIN },
     { "destination",            SUMO_ATTR_DESTINATION },
+    { "visible",                SUMO_ATTR_VISIBLE },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },
@@ -600,12 +612,23 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "blockShape",                         GNE_ATTR_BLOCK_SHAPE },
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
+    { "genericParameter",                   GNE_ATTR_GENERIC },
 
     { "targetLanes", SUMO_ATTR_TARGETLANE },
     { "crossing", SUMO_ATTR_CROSSING },
 
     { "xmlns:xsi", SUMO_ATTR_XMLNS },
     { "xsi:noNamespaceSchemaLocation", SUMO_ATTR_SCHEMA_LOCATION },
+
+    //@name RNG state saving attributes
+    // @{
+    { "default",           SUMO_ATTR_RNG_DEFAULT },
+    { "routeHandler",      SUMO_ATTR_RNG_ROUTEHANDLER },
+    { "insertionControl",  SUMO_ATTR_RNG_INSERTIONCONTROL },
+    { "device",            SUMO_ATTR_RNG_DEVICE },
+    { "device.btreceiver", SUMO_ATTR_RNG_DEVICE_BT },
+    { "driverState",       SUMO_ATTR_RNG_DRIVERSTATE },
+    // @}
 
     // Other
     { "",                       SUMO_ATTR_NOTHING } //< must be the last one
@@ -717,8 +740,8 @@ StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = 
     { "PWagner2009", SUMO_TAG_CF_PWAGNER2009 },
     { "BKerner",     SUMO_TAG_CF_BKERNER },
     { "Rail",        SUMO_TAG_CF_RAIL },
-    { "TCI",         SUMO_TAG_CF_TCI },
     { "CC",          SUMO_TAG_CF_CC },
+    { "ACC",         SUMO_TAG_CF_ACC },
     { "Wiedemann",   SUMO_TAG_CF_WIEDEMANN } //< must be the last one
 };
 
@@ -742,7 +765,16 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
     { "sublane",     LCA_SUBLANE },
     { "traci",       LCA_TRACI },
     { "urgent",      LCA_URGENT },
-    { "blocked",     LCA_BLOCKED } //< must be the last one
+    { "overlapping", LCA_OVERLAPPING },
+    { "blocked",     LCA_BLOCKED },
+    { "amBL",        LCA_AMBLOCKINGLEADER },
+    { "amBF",        LCA_AMBLOCKINGFOLLOWER },
+    { "amBB",        LCA_AMBACKBLOCKER },
+    { "amBBS",       LCA_AMBACKBLOCKER_STANDING },
+    { "MR",          LCA_MRIGHT },
+    { "ML",          LCA_MLEFT },
+
+    { "unknown",     LCA_UNKNOWN } //< must be the last one
 };
 
 StringBijection<int> SUMOXMLDefinitions::Tags(
@@ -779,7 +811,8 @@ StringBijection<LateralAlignment> SUMOXMLDefinitions::LateralAlignments(
     SUMOXMLDefinitions::lateralAlignmentValues, LATALIGN_LEFT);
 
 StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
-    SUMOXMLDefinitions::laneChangeActionValues, LCA_BLOCKED);
+    SUMOXMLDefinitions::laneChangeActionValues, LCA_UNKNOWN);
+
 
 std::string
 SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge) {
@@ -787,9 +820,92 @@ SUMOXMLDefinitions::getJunctionIDFromInternalEdge(const std::string internalEdge
     return internalEdge.substr(1, internalEdge.rfind('_') - 1);
 }
 
+
 std::string
 SUMOXMLDefinitions::getEdgeIDFromLane(const std::string laneID) {
     return laneID.substr(0, laneID.rfind('_'));
+}
+
+
+bool
+SUMOXMLDefinitions::isValidNetID(const std::string& value) {
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,:!<>&*?") == std::string::npos;
+}
+
+
+bool
+SUMOXMLDefinitions::isValidVehicleID(const std::string& value) {
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,!<>&*?") == std::string::npos;
+}
+
+
+bool
+SUMOXMLDefinitions::isValidTypeID(const std::string& value) {
+    return (value.size() > 0) && value.find_first_of(" \t\n\r|\\'\";,<>&*?") == std::string::npos;
+}
+
+
+bool
+SUMOXMLDefinitions::isValidAttribute(const std::string& value) {
+    return value.find_first_of("\t\n\r@$%^&/|\\{}*'\";:<>") == std::string::npos;
+}
+
+
+bool
+SUMOXMLDefinitions::isValidFilename(const std::string& value) {
+    return (value.find_first_of("\t\n\r@$%^&|\\{}*'\";:<>") == std::string::npos);
+}
+
+
+bool
+SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
+    std::vector<std::string> typeIDs;
+    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    if (typeIDs.empty()) {
+        return false;
+    } else {
+        // check that gives IDs are valid
+        for (auto i : typeIDs) {
+            if (!SUMOXMLDefinitions::isValidNetID(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+bool
+SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
+    std::vector<std::string> typeIDs;
+    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    if (typeIDs.empty()) {
+        return false;
+    } else {
+        // check that gives IDs are valid
+        for (auto i : typeIDs) {
+            if (!SUMOXMLDefinitions::isValidTypeID(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+bool
+SUMOXMLDefinitions::isValidGenericParameterKey(const std::string& value) {
+    // Generic parameters keys cannot be empty
+    return (value.size() > 0);
+}
+
+
+bool
+SUMOXMLDefinitions::isValidGenericParameterValue(const std::string& /*value*/) {
+    // Generic parameters should not be restricted (characters such as <>'" only
+    // reach this function if they are properly escaped in the xml inputs (and
+    // they are also escaped when writing)
+    return true;
 }
 
 /****************************************************************************/

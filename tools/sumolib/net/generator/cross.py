@@ -20,7 +20,7 @@ sys.path.append(
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(__file__), '..', '..', '..', '..')), 'tools'))
 
-from . import network
+from . import network  # noqa
 
 
 def cross(defaultNode=None, defaultEdge=None, centralReservation=0):
@@ -35,6 +35,7 @@ def cross(defaultNode=None, defaultEdge=None, centralReservation=0):
     net.connectNodes("2/1", "1/1", True, centralReservation)
     net.connectNodes("1/2", "1/1", True, centralReservation)
     return net
+
 
 if __name__ == "__main__":
     net = cross()

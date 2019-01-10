@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
@@ -59,9 +55,7 @@ GNEChange_Edge::~GNEChange_Edge() {
     myEdge->decRef("GNEChange_Edge");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' GNEChange_Edge");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' GNEChange_Edge");
         delete myEdge;
     }
 }
@@ -71,16 +65,12 @@ void
 GNEChange_Edge::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edge from net
         myNet->deleteSingleEdge(myEdge);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
         myNet->insertEdge(myEdge);
     }
@@ -89,7 +79,7 @@ GNEChange_Edge::undo() {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 
@@ -97,16 +87,12 @@ void
 GNEChange_Edge::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
         myNet->insertEdge(myEdge);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // delte edge from net
         myNet->deleteSingleEdge(myEdge);
     }
@@ -115,7 +101,7 @@ GNEChange_Edge::redo() {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:45 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:48 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,14 +19,21 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
         <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
         <crossings.guess value="true"/>
         <walkingareas value="false"/>
-    </processing>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -35,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -106,7 +113,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="C" type="traffic_light" x="100.00" y="0.00" incLanes="NC_0 NC_1 NC_2 NC_3 WC_0 WC_1 WC_2 WC_3" intLanes=":C_6_0 :C_7_0 :C_2_0 :C_2_1 :C_4_0 :C_5_0" shape="89.10,1.50 110.90,1.50 112.40,0.00 112.40,-10.90 87.60,-10.90 87.60,0.00">
         <request index="0" response="111100" foes="111100" cont="1"/>
         <request index="1" response="111100" foes="111100" cont="1"/>
-        <request index="2" response="000011" foes="000011" cont="0"/>
+        <request index="2" response="000001" foes="000001" cont="0"/>
         <request index="3" response="000011" foes="000011" cont="0"/>
         <request index="4" response="000000" foes="000011" cont="0"/>
         <request index="5" response="000000" foes="000011" cont="0"/>

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <foreign/tcpip/storage.h>
 
@@ -64,13 +60,6 @@ public:
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
 
-
-    /** @brief Returns the named persons's position
-     * @param[in] id The id of the searched person
-     * @param[out] p The position, if the person is on the network
-     * @return Whether the person is known
-     */
-    static bool getPosition(const std::string& id, Position& p);
 
 private:
     /// @brief invalidated copy constructor

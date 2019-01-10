@@ -19,15 +19,13 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
+#include <utils/options/OptionsCont.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/vehicle/IntermodalRouter.h>
@@ -40,6 +38,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/devices/MSDevice_Routing.h>
@@ -49,106 +48,373 @@
 #include <libsumo/TraCIDefs.h>
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Simulation::mySubscriptionResults;
+ContextSubscriptionResults Simulation::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 void
 Simulation::load(const std::vector<std::string>& args) {
-    XMLSubSys::init(); // this may be not good for multiple loads
+    close();
+    XMLSubSys::init();
     OptionsIO::setArgs(args);
     NLBuilder::init();
+    Helper::registerVehicleStateListener();
+}
+
+
+bool
+Simulation::isLoaded() {
+    return MSNet::hasInstance();
 }
 
 
 void
-Simulation::step(const SUMOTime time) {
-    if (time == 0) {
+Simulation::step(const double time) {
+    Helper::clearVehicleStates();
+    const SUMOTime t = TIME2STEPS(time);
+    if (t == 0) {
         MSNet::getInstance()->simulationStep();
     } else {
-        while (MSNet::getInstance()->getCurrentTimeStep() < time) {
+        while (MSNet::getInstance()->getCurrentTimeStep() < t) {
             MSNet::getInstance()->simulationStep();
         }
     }
+    Helper::handleSubscriptions(t);
 }
 
-
-/* void
-Simulation::subscribe(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars) const {
-}
 
 void
-Simulation::subscribeContext(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<
-int>& vars) const {
-} */
-
-
-const Simulation::SubscribedValues
-Simulation::getSubscriptionResults() const {
-    return mySubscribedValues;
-}
-
-
-const Simulation::TraCIValues
-Simulation::getSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedValues.find(objID) != mySubscribedValues.end()) {
-        return mySubscribedValues.find(objID)->second;
-    } else {
-        return TraCIValues();
+Simulation::close() {
+    if (MSNet::hasInstance()) {
+        MSNet::getInstance()->closeSimulation(0);
+        delete MSNet::getInstance();
+        XMLSubSys::close();
+        SystemFrame::close();
     }
 }
 
 
-const Simulation::SubscribedContextValues
-Simulation::getContextSubscriptionResults() const {
-    return mySubscribedContextValues;
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Simulation, SIM)
+
+
+void
+Simulation::subscribe(const std::vector<int>& vars, double beginTime, double endTime) {
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_SIM_VARIABLE, "", vars, beginTime, endTime);
 }
 
 
-const Simulation::SubscribedValues
-Simulation::getContextSubscriptionResults(const std::string& objID) const {
-    if (mySubscribedContextValues.find(objID) != mySubscribedContextValues.end()) {
-        return mySubscribedContextValues.find(objID)->second;
-    } else {
-        return SubscribedValues();
-    }
+const TraCIResults
+Simulation::getSubscriptionResults() {
+    return mySubscriptionResults[""];
 }
 
 
-SUMOTime
+int
 Simulation::getCurrentTime() {
-    return MSNet::getInstance()->getCurrentTimeStep();
+    return (int)MSNet::getInstance()->getCurrentTimeStep();
 }
 
 
-SUMOTime
+double
+Simulation::getTime() {
+    return SIMTIME;
+}
+
+
+int
+Simulation::getLoadedNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_BUILT).size();
+}
+
+
+std::vector<std::string>
+Simulation::getLoadedIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_BUILT);
+}
+
+
+int
+Simulation::getDepartedNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_DEPARTED).size();
+}
+
+
+std::vector<std::string>
+Simulation::getDepartedIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_DEPARTED);
+}
+
+
+int
+Simulation::getArrivedNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED).size();
+}
+
+
+std::vector<std::string>
+Simulation::getArrivedIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED);
+}
+
+
+int
+Simulation::getParkingStartingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_PARKING).size();
+}
+
+
+std::vector<std::string>
+Simulation::getParkingStartingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_PARKING);
+}
+
+
+int
+Simulation::getParkingEndingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_PARKING).size();
+}
+
+
+std::vector<std::string>
+Simulation::getParkingEndingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_PARKING);
+}
+
+
+int
+Simulation::getStopStartingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_STOP).size();
+}
+
+
+std::vector<std::string>
+Simulation::getStopStartingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_STOP);
+}
+
+
+int
+Simulation::getStopEndingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_STOP).size();
+}
+
+
+std::vector<std::string>
+Simulation::getStopEndingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_STOP);
+}
+
+
+int
+Simulation::getCollidingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_COLLISION).size();
+}
+
+
+std::vector<std::string>
+Simulation::getCollidingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_COLLISION);
+}
+
+
+int
+Simulation::getEmergencyStoppingVehiclesNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_EMERGENCYSTOP).size();
+}
+
+
+std::vector<std::string>
+Simulation::getEmergencyStoppingVehiclesIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+}
+
+
+int
+Simulation::getStartingTeleportNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_TELEPORT).size();
+}
+
+
+std::vector<std::string>
+Simulation::getStartingTeleportIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+}
+
+
+int
+Simulation::getEndingTeleportNumber() {
+    return (int)Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_TELEPORT).size();
+}
+
+
+std::vector<std::string>
+Simulation::getEndingTeleportIDList() {
+    return Helper::getVehicleStateChanges(MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+}
+
+
+int
+Simulation::getBusStopWaiting(const std::string& id) {
+    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
+    if (s == nullptr) {
+        throw TraCIException("Unknown bus stop '" + id + "'.");
+    }
+    return s->getTransportableNumber();
+}
+
+
+double
 Simulation::getDeltaT() {
-    return DELTA_T;
+    return TS;
 }
 
 
-TraCIBoundary
+TraCIPositionVector
 Simulation::getNetBoundary() {
     Boundary b = GeoConvHelper::getFinal().getConvBoundary();
-    TraCIBoundary tb;
-    tb.xMin = b.xmin();
-    tb.xMax = b.xmax();
-    tb.yMin = b.ymin();
-    tb.yMax = b.ymax();
-    tb.zMin = b.zmin();
-    tb.zMax = b.zmax();
+    TraCIPositionVector tb({ TraCIPosition(), TraCIPosition() });
+    tb[0].x = b.xmin();
+    tb[1].x = b.xmax();
+    tb[0].y = b.ymin();
+    tb[1].y = b.ymax();
+    tb[0].z = b.zmin();
+    tb[1].z = b.zmax();
     return tb;
 }
 
 
 int
 Simulation::getMinExpectedNumber() {
-    return MSNet::getInstance()->getVehicleControl().getActiveVehicleCount() + MSNet::getInstance()->getInsertionControl().getPendingFlowCount();
+    MSNet* net = MSNet::getInstance();
+    return (net->getVehicleControl().getActiveVehicleCount()
+            + net->getInsertionControl().getPendingFlowCount()
+            + (net->hasPersons() ? net->getPersonControl().getActiveCount() : 0)
+            + (net->hasContainers() ? net->getContainerControl().getActiveCount() : 0));
+}
+
+
+TraCIPosition
+Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
+    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->getShape().positionAtOffset(pos);
+    if (toGeo) {
+        GeoConvHelper::getFinal().cartesian2geo(result);
+    }
+    result.setz(0.);
+    return Helper::makeTraCIPosition(result);
+}
+
+
+TraCIPosition
+Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
+    Position result = Helper::getLaneChecking(edgeID, laneIndex, pos)->getShape().positionAtOffset(pos);
+    if (toGeo) {
+        GeoConvHelper::getFinal().cartesian2geo(result);
+    }
+    return Helper::makeTraCIPosition(result, true);
+}
+
+
+TraCIRoadPosition
+Simulation::convertRoad(double x, double y, bool isGeo) {
+    Position pos(x, y);
+    if (isGeo) {
+        GeoConvHelper::getFinal().x2cartesian_const(pos);
+    }
+    std::pair<MSLane*, double> roadPos = libsumo::Helper::convertCartesianToRoadMap(pos);
+    if (roadPos.first == nullptr) {
+        throw TraCIException("Cannot convert position to road.");
+    }
+    TraCIRoadPosition result;
+    result.edgeID = roadPos.first->getEdge().getID();
+    result.laneIndex = roadPos.first->getIndex();
+    result.pos = roadPos.second;
+    return result;
+}
+
+
+TraCIPosition
+Simulation::convertGeo(double x, double y, bool fromGeo) {
+    Position pos(x, y);
+    if (fromGeo) {
+        GeoConvHelper::getFinal().x2cartesian_const(pos);
+    } else {
+        GeoConvHelper::getFinal().cartesian2geo(pos);
+    }
+    return Helper::makeTraCIPosition(pos);
+}
+
+
+double
+Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo, bool isDriving) {
+    Position pos1(x1, y1);
+    Position pos2(x2, y2);
+    if (isGeo) {
+        GeoConvHelper::getFinal().x2cartesian_const(pos1);
+        GeoConvHelper::getFinal().x2cartesian_const(pos2);
+    }
+    if (isDriving) {
+        std::pair<const MSLane*, double> roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1);
+        std::pair<const MSLane*, double> roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2);
+        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
+            // same edge
+            return roadPos2.second - roadPos1.second;
+        } else {
+            double distance = 0.;
+            ConstMSEdgeVector newRoute;
+            if (roadPos2.first->isInternal()) {
+                distance = roadPos2.second;
+                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+                roadPos2.second = roadPos2.first->getLength();
+            }
+            MSNet::getInstance()->getRouterTT().compute(
+                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+            MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());
+            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+        }
+    } else {
+        return pos1.distanceTo(pos2);
+    }
+}
+
+
+double
+Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving) {
+    std::pair<const MSLane*, double> roadPos1 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID1, 0, pos1), pos1);
+    std::pair<const MSLane*, double> roadPos2 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID2, 0, pos2), pos2);
+    if (isDriving) {
+        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
+            // same edge
+            return roadPos2.second - roadPos1.second;
+        } else {
+            double distance = 0.;
+            ConstMSEdgeVector newRoute;
+            if (roadPos2.first->isInternal()) {
+                distance = roadPos2.second;
+                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+                roadPos2.second = roadPos2.first->getLength();
+            }
+            MSNet::getInstance()->getRouterTT().compute(
+                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+            MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());
+            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+        }
+    } else {
+        Position pos1 = roadPos1.first->getShape().positionAtOffset(roadPos1.second);
+        Position pos2 = roadPos2.first->getShape().positionAtOffset(roadPos2.second);
+        return pos1.distanceTo(pos2);
+    }
 }
 
 
 TraCIStage
-Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const SUMOTime depart, const int routingMode) {
+Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const double depart, const int routingMode) {
     TraCIStage result(MSTransportable::DRIVING);
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == 0) {
@@ -165,11 +431,17 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         if (type == 0) {
             throw TraCIException("The vehicle type '" + typeID + "' is not known.");
         }
-        const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-        vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+        try {
+            const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+            vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+            // we need to fix the speed factor here for deterministic results
+            vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
+        } catch (ProcessError& e) {
+            throw TraCIException("Invalid departure edge for vehicle type '" + typeID + "' (" + e.what() + ")");
+        }
     }
     ConstMSEdgeVector edges;
-    const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
+    const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSDevice_Routing::getRouterTT() : MSNet::getInstance()->getRouterTT();
     router.compute(fromEdge, toEdge, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
@@ -185,10 +457,9 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
 
 std::vector<TraCIStage>
 Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
-                                const std::string& modes, const SUMOTime depart, const int routingMode, const double speed, const double walkFactor,
-                                const double departPos, const double arrivalPos, const double departPosLat,
-                                const std::string& pType, const std::string& vehType, const std::string& destStop) {
-    UNUSED_PARAMETER(routingMode);
+                                const std::string& modes, double depart, const int routingMode, double speed, double walkFactor,
+                                double departPos, double arrivalPos, const double departPosLat,
+                                const std::string& pType, const std::string& vType, const std::string& destStop) {
     UNUSED_PARAMETER(departPosLat);
     std::vector<TraCIStage> result;
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
@@ -201,61 +472,108 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     SVCPermissions modeSet = 0;
+    std::vector<SUMOVehicleParameter*> pars;
+    if (vType != "") {
+        pars.push_back(new SUMOVehicleParameter());
+        pars.back()->vtypeid = vType;
+        pars.back()->id = vType;
+        modeSet |= SVC_PASSENGER;
+    }
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();
         if (mode == "car") {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->vtypeid = DEFAULT_VTYPE_ID;
+            pars.back()->id = mode;
             modeSet |= SVC_PASSENGER;
         } else if (mode == "bicycle") {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
+            pars.back()->id = mode;
             modeSet |= SVC_BICYCLE;
         } else if (mode == "public") {
+            pars.push_back(nullptr);
             modeSet |= SVC_BUS;
         } else {
             throw TraCIException("Unknown person mode '" + mode + "'.");
         }
     }
+    if (pars.empty()) {
+        pars.push_back(nullptr);
+    }
+    // interpret default arguments
     const MSVehicleType* pedType = vehControl.hasVType(pType) ? vehControl.getVType(pType) : vehControl.getVType(DEFAULT_PEDTYPE_ID);
-    const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : depart;
-    if (modeSet == 0) {
-        ConstMSEdgeVector edges;
-        const double cost = MSNet::getInstance()->getPedestrianRouter().compute(fromEdge, toEdge, departPos, arrivalPos, speed > 0 ? speed : pedType->getMaxSpeed(), dep, 0, edges);
-        if (cost < 0) {
-            return result;
-        }
-        result.emplace_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
-        for (const MSEdge* e : edges) {
-            result.back().edges.push_back(e->getID());
-        }
-        result.back().travelTime = result.back().cost = cost;
-    } else {
-        SUMOVehicleParameter* pars = new SUMOVehicleParameter();
-        SUMOVehicle* vehicle = 0;
-        if (vehType != "") {
-            MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehType);
-            if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0) {
-                throw TraCIException("Invalid vehicle type '" + type->getID() + "', it is not allowed on the start edge.");
+    SUMOTime departStep = TIME2STEPS(depart);
+    if (depart < 0) {
+        departStep = MSNet::getInstance()->getCurrentTimeStep();
+    }
+    if (speed < 0) {
+        speed =  pedType->getMaxSpeed();
+    }
+    if (walkFactor < 0) {
+        walkFactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
+    }
+    const double externalFactor = TplConvert::_str2double(pedType->getParameter().getParameter("externalEffortFactor", "1.0"));
+    if (departPos < 0) {
+        departPos += fromEdge->getLength();
+    }
+    if (arrivalPos == INVALID_DOUBLE_VALUE) {
+        arrivalPos = toEdge->getLength() / 2;
+    } else if (arrivalPos < 0) {
+        arrivalPos += toEdge->getLength();
+    }
+    if (departPos < 0 || departPos >= fromEdge->getLength()) {
+        throw TraCIException("Invalid depart position " + toString(departPos) + " for edge '" + to + "'.");
+    }
+    if (arrivalPos < 0 || arrivalPos >= toEdge->getLength()) {
+        throw TraCIException("Invalid arrival position " + toString(arrivalPos) + " for edge '" + to + "'.");
+    }
+    double minCost = std::numeric_limits<double>::max();
+    MSNet::MSIntermodalRouter& router = MSNet::getInstance()->getIntermodalRouter(routingMode);
+    for (SUMOVehicleParameter* vehPar : pars) {
+        std::vector<TraCIStage> resultCand;
+        SUMOVehicle* vehicle = nullptr;
+        if (vehPar != nullptr) {
+            MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vehPar->vtypeid);
+            if (type == 0) {
+                throw TraCIException("Unknown vehicle type '" + vehPar->vtypeid + "'.");
             }
-            const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
-            vehicle = vehControl.buildVehicle(pars, routeDummy, type, !MSGlobals::gCheckRoutes);
+            if (type->getVehicleClass() != SVC_IGNORING && (fromEdge->getPermissions() & type->getVehicleClass()) == 0) {
+                WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when performing intermodal routing because it is not allowed on the start edge '" + from + "'.");
+            } else {
+                const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ fromEdge }), false, 0, std::vector<SUMOVehicleParameter::Stop>());
+                vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
+                // we need to fix the speed factor here for deterministic results
+                vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
+            }
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
-        if (MSNet::getInstance()->getIntermodalRouter().compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
-                pedType->getMaxSpeed() * walkFactor, vehicle, modeSet, dep, items)) {
+        if (router.compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
+                           speed * walkFactor, vehicle, modeSet, departStep, items, externalFactor)) {
+            double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {
-                    if (it->line == "") {
-                        result.emplace_back(TraCIStage(MSTransportable::MOVING_WITHOUT_VEHICLE));
-                    } else if (vehicle != 0 && it->line == vehicle->getID()) {
-                        result.emplace_back(TraCIStage(MSTransportable::DRIVING));
-                    }
-                    result.back().destStop = it->destStop;
-                    result.back().line = it->line;
+                    resultCand.push_back(TraCIStage(it->line == ""
+                                                    ? MSTransportable::MOVING_WITHOUT_VEHICLE
+                                                    : MSTransportable::DRIVING));
+                    resultCand.back().destStop = it->destStop;
+                    resultCand.back().line = it->line;
                     for (const MSEdge* e : it->edges) {
-                        result.back().edges.push_back(e->getID());
+                        resultCand.back().edges.push_back(e->getID());
                     }
-                    result.back().travelTime = result.back().cost = it->cost;
-                    result.back().intended = it->intended;
-                    result.back().depart = it->depart;
+                    resultCand.back().travelTime = it->traveltime;
+                    resultCand.back().cost = it->cost;
+                    resultCand.back().intended = it->intended;
+                    resultCand.back().depart = it->depart;
+                    resultCand.back().departPos = it->departPos;
+                    resultCand.back().arrivalPos = it->arrivalPos;
+                    resultCand.back().description = it->description;
                 }
+                cost += it->cost;
+            }
+            if (cost < minCost) {
+                minCost = cost;
+                result = resultCand;
             }
         }
         if (vehicle != 0) {
@@ -276,6 +594,8 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         }
         if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
             return toString(cs->getTotalCharged());
+        } else if (attrName == toString(SUMO_ATTR_NAME)) {
+            return toString(cs->getMyName());
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
         }
@@ -289,13 +609,109 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(pa->getCapacity());
         } else if (attrName == "occupancy") {
             return toString(pa->getOccupancy());
+        } else if (attrName == toString(SUMO_ATTR_NAME)) {
+            return toString(pa->getMyName());
         } else {
             throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
+        }
+    } else if (StringUtils::startsWith(key, "busStop.")) {
+        const std::string attrName = key.substr(8);
+        MSStoppingPlace* bs = static_cast<MSStoppingPlace*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_BUS_STOP));
+        if (bs == 0) {
+            throw TraCIException("Invalid busStop '" + objectID + "'");
+        }
+        if (attrName == toString(SUMO_ATTR_NAME)) {
+            return toString(bs->getMyName());
+        } else {
+            throw TraCIException("Invalid busStop parameter '" + attrName + "'");
         }
     } else {
         throw TraCIException("Parameter '" + key + "' is not supported.");
     }
 }
+
+
+void
+Simulation::clearPending(const std::string& routeID) {
+    MSNet::getInstance()->getInsertionControl().clearPendingVehicles(routeID);
+}
+
+
+void
+Simulation::saveState(const std::string& fileName) {
+    MSStateHandler::saveState(fileName, MSNet::getInstance()->getCurrentTimeStep());
+}
+
+
+std::shared_ptr<VariableWrapper>
+Simulation::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Simulation::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case VAR_TIME:
+            return wrapper->wrapDouble(objID, variable, getTime());
+        case VAR_TIME_STEP:
+            return wrapper->wrapInt(objID, variable, (int)getCurrentTime());
+        case VAR_LOADED_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLoadedNumber());
+        case VAR_LOADED_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getLoadedIDList());
+        case VAR_DEPARTED_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getDepartedNumber());
+        case VAR_DEPARTED_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getDepartedIDList());
+        case VAR_TELEPORT_STARTING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getStartingTeleportNumber());
+        case VAR_TELEPORT_STARTING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getStartingTeleportIDList());
+        case VAR_TELEPORT_ENDING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getEndingTeleportNumber());
+        case VAR_TELEPORT_ENDING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getEndingTeleportIDList());
+        case VAR_ARRIVED_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getArrivedNumber());
+        case VAR_ARRIVED_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getArrivedIDList());
+        case VAR_PARKING_STARTING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getParkingStartingVehiclesNumber());
+        case VAR_PARKING_STARTING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getParkingStartingVehiclesIDList());
+        case VAR_PARKING_ENDING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getParkingEndingVehiclesNumber());
+        case VAR_PARKING_ENDING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getParkingEndingVehiclesIDList());
+        case VAR_STOP_STARTING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getStopStartingVehiclesNumber());
+        case VAR_STOP_STARTING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getStopStartingVehiclesIDList());
+        case VAR_STOP_ENDING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getStopEndingVehiclesNumber());
+        case VAR_STOP_ENDING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getStopEndingVehiclesIDList());
+        case VAR_COLLIDING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getCollidingVehiclesNumber());
+        case VAR_COLLIDING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getCollidingVehiclesIDList());
+        case VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getEmergencyStoppingVehiclesNumber());
+        case VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getEmergencyStoppingVehiclesIDList());
+        case VAR_DELTA_T:
+            return wrapper->wrapDouble(objID, variable, getDeltaT());
+        case VAR_MIN_EXPECTED_VEHICLES:
+            return wrapper->wrapInt(objID, variable, getMinExpectedNumber());
+        case VAR_BUS_STOP_WAITING:
+            return wrapper->wrapInt(objID, variable, getBusStopWaiting(objID));
+        default:
+            return false;
+    }
+}
+
+
 }
 
 

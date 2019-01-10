@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -157,10 +153,10 @@ public:
     /// @brief Called on menu Edit->Edit Breakpoints
     long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Visualization 
+    /// @brief Called on menu Edit->Visualization
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Viewport 
+    /// @brief Called on menu Edit->Viewport
     long onCmdEditViewport(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects help->Documentation
@@ -286,7 +282,7 @@ public:
      */
     virtual void sendBlockingEvent(GUIEvent* event);
 
-    const std::vector<SUMOTime> retrieveBreakpoints() const; 
+    const std::vector<SUMOTime> retrieveBreakpoints() const;
 
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
@@ -343,7 +339,7 @@ protected:
                 *myWindowsMenu, *myHelpMenu;
 
     /// @brief the menu cascades
-    FXMenuCascade* mySelectLanesMenuCascade; 
+    FXMenuCascade* mySelectLanesMenuCascade;
 
     /// @brief Buttons showing and running values and triggering statistic windows
     std::vector<FXButton*> myStatButtons;

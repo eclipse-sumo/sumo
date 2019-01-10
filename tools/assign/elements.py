@@ -28,7 +28,7 @@ import math
 import os
 from tables import crCurveTable, laneTypeTable
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 # This class is used for finding the k shortest paths.
 
@@ -172,7 +172,8 @@ class Edge(sumolib.net.Edge):
         cap = str(self.capacity)
         if self.capacity == sys.maxsize or self.connection != 0:
             cap = "inf"
-        return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self._function, self._id, self._from, self._to, self.junctiontype, self._speed,
+        return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self._function, self._id, self._from, self._to,
+                                                            self.junctiontype, self._speed,
                                                             self.flow, self._length, self._lanes,
                                                             self.CRcurve, self.estcapacity, cap, self.ratio)
 
@@ -270,7 +271,8 @@ class Edge(sumolib.net.Edge):
                     (1 + (curve[0] * (self.flow /
                                       (self.estcapacity * curve[2]))**curve[1]))
 
-            if (self.flow > self.estcapacity or self.flow == self.estcapacity) and self.flow > 0. and self.connection == 0:
+            if ((self.flow > self.estcapacity or self.flow == self.estcapacity) and
+               self.flow > 0. and self.connection == 0):
                 self.queuetime = self.queuetime + options.lamda * \
                     (self.actualtime - self.freeflowtime * (1 + curve[0]))
                 if self.queuetime < 1.:
@@ -388,7 +390,9 @@ class Vehicle:
         self.rank = 0.
 
     def __repr__(self):
-        return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength, self.route)
+        return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed,
+                                          self.traveltime, self.travellength, self.route)
+
 
 pathNum = 0
 
@@ -422,7 +426,8 @@ class Path:
         self.currentshortest = True
 
     def __repr__(self):
-        return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.edges)
+        return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime,
+                                          self.pathflow, self.actpathtime, self.edges)
 
     def getPathLength(self):
         for edge in self.edges:

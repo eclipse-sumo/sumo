@@ -28,7 +28,7 @@ from xml.sax import make_parser
 
 sys.path.append(
     os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])), "../../lib"))
-import sumonet
+import sumonet  # noqa
 
 
 if len(sys.argv) < 4:
@@ -61,6 +61,7 @@ found = 0
 foundN = 0
 missing = 0
 missingN = 0
+attributes = []
 fd = open(sys.argv[2])
 for line in fd:
     if line.find("$") == 0 or line.find("*") == 0 or line.find(";") < 0:

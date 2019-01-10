@@ -52,7 +52,7 @@ def parseObsTimes():
 
 
 def validate(sumoBinary):
-    retcode = subprocess.call(
+    subprocess.call(
         [sumoBinary, "-c", "data/spd-road.sumocfg"], stdout=sys.stdout, stderr=sys.stderr)
     sys.stdout.flush()
     sys.stderr.flush()
@@ -83,7 +83,6 @@ def validate(sumoBinary):
 
     # compute final statistics
     err = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    averTT = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     errAll = 0.0
     cntAll = 0
     if verbose:

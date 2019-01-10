@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <random>
 #include <string>
@@ -89,13 +85,11 @@ public:
      *
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] file The name of the file being parsed (for resolving paths)
-     * @param[in] defaultCFModel The XML tag of the default car following model (SUMO_TAG_NOTHING means no default)
      * @exception ProcessError If an attribute's value is invalid
      * @see SUMOVTypeParameter
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file,
-            const SumoXMLTag defaultCFModel);
+    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const std::string& file);
 
 
     /** @brief Parses an element embedded in vtype definition

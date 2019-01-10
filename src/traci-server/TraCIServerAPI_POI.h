@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
@@ -59,22 +55,6 @@ public:
      */
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
-
-
-    /** @brief Returns the named PoI's position
-     * @param[in] id The id of the searched PoI
-     * @param[out] p The position, if the PoI is known
-     * @return Whether the PoI is known (and on road)
-     */
-    static bool getPosition(const std::string& id, Position& p);
-
-
-private:
-    /** @brief Returns the named PoI
-     * @param[in] id The id of the searched PoI
-     * @return The named PoI, or 0 if it is not known
-     */
-    static PointOfInterest* getPoI(const std::string& id);
 
 
 private:

@@ -198,6 +198,7 @@ def tinyPath(xmlStruct, path, newValue):
         else:
             print("Unsupported modification defined", file=sys.stderr)
 
+
 if sys.argv[1] == "sumo":
     call = [checkBinary('sumo'), "--no-step-log", "--no-duration-log"]
 elif sys.argv[1] == "dfrouter":

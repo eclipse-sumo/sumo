@@ -2,10 +2,10 @@
 
 ###### Run 0 ######
 Loading configuration... done.
-***Starting server on port 44159 ***
+***Starting server on port 50251 ***
 Starting process 1 (order: 1) with steplength 1.0
 Starting process 2 (order: 2) with steplength 1.0
-Loading net-file from 'input_net.net.xml'... done (2ms).
+Loading net-file from 'input_net.net.xml'... done (1ms).
 Loading done.
 Simulation started with time: 0.00
 Process 1:
@@ -1485,7 +1485,7 @@ Process 2 (order 2) ended at step 123
 
 ###### Run 1 ######
 Loading configuration... done.
-***Starting server on port 44159 ***
+***Starting server on port 50251 ***
 Starting process 1 (order: 9) with steplength 1.0
 Starting process 2 (order: 8) with steplength 1.0
 Loading net-file from 'input_net.net.xml'... done (2ms).
@@ -2213,25 +2213,25 @@ Process 1:
    Retrieving speed for vehicle 'horiz' -> 5.0
 Process 2:
    stepping (step 61)...
-   Retrieving position for vehicle 'horiz' -> 56.6 on lane '2si_0'
+   Retrieving position for vehicle 'horiz' -> 56.6 on lane '2si_1'
    Retrieving speed for vehicle 'horiz' -> 5.0
    Setting speed for vehicle 'horiz' -> 10
    Retrieving speed for vehicle 'horiz' -> 5.0
 Process 1:
    stepping (step 61)...
-   Retrieving position for vehicle 'horiz' -> 56.6 on lane '2si_0'
+   Retrieving position for vehicle 'horiz' -> 56.6 on lane '2si_1'
    Retrieving speed for vehicle 'horiz' -> 5.0
    Setting speed for vehicle 'horiz' -> 5
    Retrieving speed for vehicle 'horiz' -> 5.0
 Process 2:
    stepping (step 62)...
-   Retrieving position for vehicle 'horiz' -> 61.6 on lane '2si_0'
+   Retrieving position for vehicle 'horiz' -> 61.6 on lane '2si_1'
    Retrieving speed for vehicle 'horiz' -> 5.0
    Setting speed for vehicle 'horiz' -> 10
    Retrieving speed for vehicle 'horiz' -> 5.0
 Process 1:
    stepping (step 62)...
-   Retrieving position for vehicle 'horiz' -> 61.6 on lane '2si_0'
+   Retrieving position for vehicle 'horiz' -> 61.6 on lane '2si_1'
    Retrieving speed for vehicle 'horiz' -> 5.0
    Setting speed for vehicle 'horiz' -> 5
    Retrieving speed for vehicle 'horiz' -> 5.0

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEFrame.h"
 
@@ -53,7 +49,7 @@ public:
 
     public:
         /// @brief constructor
-        LockGLObjectTypes(GNESelectorFrame *selectorFrameParent);
+        LockGLObjectTypes(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~LockGLObjectTypes();
@@ -99,7 +95,7 @@ public:
         };
 
         /// @brief constructor
-        ModificationMode(GNESelectorFrame *selectorFrameParent);
+        ModificationMode(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~ModificationMode();
@@ -156,7 +152,7 @@ public:
         };
 
         /// @brief constructor
-        ElementSet(GNESelectorFrame *selectorFrameParent);
+        ElementSet(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~ElementSet();
@@ -197,15 +193,15 @@ public:
 
     public:
         /// @brief constructor
-        MatchAttribute(GNESelectorFrame *selectorFrameParent);
+        MatchAttribute(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~MatchAttribute();
 
-        /// @brief enable match attributes 
+        /// @brief enable match attributes
         void enableMatchAttribute();
 
-        /// @brief disable match attributes 
+        /// @brief disable match attributes
         void disableMatchAttribute();
 
         /// @name FOX-callbacks
@@ -267,7 +263,7 @@ public:
 
     public:
         /// @brief constructor
-        VisualScaling(GNESelectorFrame *selectorFrameParent);
+        VisualScaling(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~VisualScaling();
@@ -302,7 +298,7 @@ public:
 
     public:
         /// @brief constructor
-        SelectionOperation(GNESelectorFrame *selectorFrameParent);
+        SelectionOperation(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~SelectionOperation();
@@ -367,7 +363,7 @@ public:
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
-    void handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
+    void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
 
     /// @brief get modification mode modul
     ModificationMode* getModificationModeModul() const;

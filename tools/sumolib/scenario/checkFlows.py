@@ -15,7 +15,7 @@
 from __future__ import absolute_import
 import sys
 import sumolib.output
-from pylab import *
+from pylab import legend, plot, show
 
 
 f = {}

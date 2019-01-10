@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <netload/NLDetectorBuilder.h>
@@ -125,7 +121,7 @@ public:
             const CrossSectionVector& entries,
             const CrossSectionVector& exits,
             double haltingSpeedThreshold,
-            SUMOTime haltingTimeThreshold, const std::string& vTypes);
+            SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry);
     /// @}
 
 

@@ -62,15 +62,18 @@ class RouteReader(handler.ContentHandler):
                 self._routeString = attrs['edges']
         elif name == 'vType':
             # XXX does not handle child elements (for carFollowing, the next case copies the input)
-            print('    <vType %s>' % (' '.join(['%s="%s"' % (key, value) for key, value in sorted(dict(attrs).items())])),
+            print('    <vType %s>' % (' '.join(['%s="%s"' % (
+                  key, value) for key, value in sorted(dict(attrs).items())])),
                   file=self.outfile)
         elif name[0:12] == 'carFollowing':
-            print('        <%s %s />' % (name, ' '.join(['%s="%s"' % (key, value) for key, value in sorted(dict(attrs).items())])),
+            print('        <%s %s />' % (name, ' '.join(['%s="%s"' % (
+                  key, value) for key, value in sorted(dict(attrs).items())])),
                   file=self.outfile)
         elif name == 'routes':
             sumolib.writeXMLHeader(
                 self.outfile,
-                "$Id$%s" % self.calledBy, "routes")
+                "$Id$%s" % self.calledBy,
+                "routes")
 
     def endElement(self, name):
         if name == 'route':
@@ -85,7 +88,8 @@ class RouteReader(handler.ContentHandler):
             via = self.vias.get(self._vID, "")
             if self._attrList:
                 print('    <trip %s%s/>' % (' '.join(['%s="%s"' % (key,
-                                                                   self._vehicleAttrs[key]) for key in self._attrList]), via),
+                                                                   self._vehicleAttrs[key]) for key in self._attrList]),
+                                            via),
                       file=self.outfile)
             else:
                 del self._vehicleAttrs['id']

@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/05/2017 11:33:21 by Netedit Version dev-SVN-r22880
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 15.08.2018 20:10:46 by Eclipse SUMO netedit Version 7d8cd284aa
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <new value="true"/>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May113307.6312/netedit.gui/basic/about-dialog\additionals.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May113307.6312/netedit.gui/basic/about-dialog\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/basic/about-dialog\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/basic/about-dialog\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/basic/about-dialog\shapes.xml"/>
+    </netedit>
+
     <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/basic/about-dialog\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.06May113307.6312/netedit.gui/basic/about-dialog\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/basic/about-dialog\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 

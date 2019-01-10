@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <string>
@@ -389,13 +385,20 @@ public:
      * @param[in] into The vector to fill with ids
      */
     void insertVTypeIDs(std::vector<std::string>& into) const;
+
+
+    /** @brief Return the distribution IDs the vehicle type is a member of
+    * @param[in] vehType The vehicle type to look for membership in distributions
+    */
+    std::set<std::string> getVTypeDistributionMembership(const std::string& id) const;
+
     /// @}
 
     /// @brief Adds a vehicle to the list of waiting vehiclse to a given edge
     void addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
 
     /// @brief Removes a vehicle from the list of waiting vehicles to a given edge
-    void removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle);
+    void removeWaiting(const MSEdge* const edge, const SUMOVehicle* vehicle);
 
     /* @brief returns a vehicle of the given lines that is waiting for a for a person or a container at this edge at the given positions
      * @param[in] edge The edge at which the vehicle is positioned.
@@ -574,6 +577,9 @@ private:
     typedef std::map< std::string, RandomDistributor<MSVehicleType*>* > VTypeDistDictType;
     /// @brief A distribution of vehicle types (probability->vehicle type)
     VTypeDistDictType myVTypeDistDict;
+
+    /// @brief Inverse lookup from vehicle type to distributions it is a member of
+    std::map<std::string, std::set<std::string>> myVTypeToDist;
 
     /// @brief Whether the default vehicle type was already used or can still be replaced
     bool myDefaultVTypeMayBeDeleted;

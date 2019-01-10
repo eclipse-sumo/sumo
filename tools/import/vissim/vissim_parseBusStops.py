@@ -25,16 +25,13 @@ The read routes are saved as <OUTPUT_PREFIX>_stops.add.xml
 """
 from __future__ import absolute_import
 from __future__ import print_function
+import sys
 
 edgemap = {}
 edgemap["203"] = "203[0]"
 edgemap["78"] = "78[0]"
 edgemap["77"] = "77[0]"
 edgemap["203"] = "203[0]"
-
-
-import sys
-from random import *
 
 
 def getName(vals, beg):
@@ -83,7 +80,7 @@ def parseBusRoute(br, stops):
             i = vals.index("HALTESTELLE", i)
             i = i + 1
             stops.insert(0, int(vals[i]))
-        except:
+        except Exception:
             i = len(vals) + 1
     return (id, name, startKante, ziel, zeiten, stops)
 

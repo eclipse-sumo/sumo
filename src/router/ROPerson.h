@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -69,7 +65,7 @@ public:
                  const std::string& vTypes, const double departPos, const double arrivalPos, const std::string& busStop,
                  double walkFactor);
 
-    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, const std::string& destStop);
+    void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, double arrivalPos, const std::string& destStop);
 
     void addWalk(const ConstROEdgeVector& edges, const double duration, const double speed,
                  const double departPos, const double arrivalPos, const std::string& busStop);
@@ -91,6 +87,7 @@ public:
         }
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
+        virtual double getDestinationPos() const = 0;
         virtual void saveVehicles(OutputDevice& /* os */, OutputDevice* const /* typeos */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
         virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
         virtual bool isStop() const {
@@ -114,6 +111,9 @@ public:
         }
         const ROEdge* getDestination() const {
             return edge;
+        }
+        double getDestinationPos() const {
+            return stopDesc.endPos;
         }
         void saveAsXML(OutputDevice& os, const bool /* extended */) const {
             stopDesc.write(os);
@@ -146,6 +146,7 @@ public:
 
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
+        virtual double getDestinationPos() const = 0;
         virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
     protected:
         double cost;
@@ -158,19 +159,25 @@ public:
     class Ride : public TripItem {
     public:
         Ride(const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const double _cost, const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) : 
-            TripItem(_cost), 
-            from(_from), to(_to), 
-            lines(_lines), 
+             const std::string& _lines, const double _cost, const double arrivalPos,
+             const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) :
+            TripItem(_cost),
+            from(_from), to(_to),
+            lines(_lines),
             destStop(_destStop),
-            intended(_intended), 
-            depart(_depart) {}
+            intended(_intended),
+            depart(_depart),
+            arr(arrivalPos) {
+        }
 
         const ROEdge* getOrigin() const {
             return from;
         }
         const ROEdge* getDestination() const {
             return to;
+        }
+        double getDestinationPos() const {
+            return arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended) const;
 
@@ -181,6 +188,7 @@ public:
         const std::string destStop;
         const std::string intended;
         const SUMOTime depart;
+        const double arr;
 
     private:
         /// @brief Invalidated assignment operator
@@ -208,6 +216,9 @@ public:
         const ROEdge* getDestination() const {
             return edges.back();
         }
+        double getDestinationPos() const {
+            return arr;
+        }
         void saveAsXML(OutputDevice& os, const bool extended) const;
 
     private:
@@ -231,7 +242,7 @@ public:
             : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), stopDest(""), walkFactor(1.0) {}
         PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
                    const double departPos, const double arrivalPos, const std::string& _stopDest, double _walkFactor)
-                   : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor) {}
+            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -257,6 +268,13 @@ public:
         }
         const ROEdge* getDestination() const {
             return to;
+        }
+        double getDestinationPos() const {
+            if (myTripItems.empty()) {
+                return getArrivalPos(true);
+            } else {
+                return myTripItems.back()->getDestinationPos();
+            }
         }
         double getDepartPos(bool replaceDefault = true) const {
             return dep == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : dep;

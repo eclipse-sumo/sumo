@@ -1,3 +1,407 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'chargingStation' in AdditionalSelector
+Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+Debug: Value 'chargingStation_gneE2_1_1' for attribute id of chargingStation isn't valid
+Debug: Value 'Id with spaces' for attribute id of chargingStation isn't valid
+Debug: Setting new attribute id 'correctID' into chargingStation 'chargingStation_gneE2_1_0'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Value 'dummy lane' for attribute lane of chargingStation isn't valid
+Debug: Setting new attribute lane 'gneE0_0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+Debug: Setting new attribute lane 'gneE2_1' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Setting new attribute lane 'gneE2_0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-4.80,42.00,35.20
+Debug: Setting new attribute startPos '-5' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -20.00,-4.80,42.00,35.20
+Debug: Value '400' for attribute startPos of chargingStation isn't valid
+Debug: Setting new attribute startPos '20' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -20.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,42.00,35.20
+Debug: Setting new attribute endPos '3000' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,70.00,35.20
+Debug: Value '10' for attribute endPos of chargingStation isn't valid
+Debug: Setting new attribute endPos '30' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,70.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Setting new attribute name 'chargingStation' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Setting new attribute friendlyPos 'true' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Value '-100' for attribute power of chargingStation isn't valid
+Debug: Setting new attribute power '10000' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Value '-1' for attribute efficiency of chargingStation isn't valid
+Debug: Value '2' for attribute efficiency of chargingStation isn't valid
+Debug: Setting new attribute efficiency '0.90' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Setting new attribute chargeInTransit 'true' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Value '-10' for attribute chargeDelay of chargingStation isn't valid
+Debug: Setting new attribute chargeDelay '3' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Setting new attribute blockMovement 'true' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute chargeDelay '0.00' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute chargeInTransit '0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute efficiency '0.95' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute power '22000.00' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute friendlyPos '0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute name '' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute endPos '3000' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,70.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute endPos '22.00' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,70.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,42.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute startPos '-5' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -20.00,-4.80,42.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute startPos '12.00' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -20.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-4.80,42.00,35.20
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE2_1' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-4.80,42.00,35.20
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-4.80,42.00,35.20
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE0_0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lane 'gneE2_1' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute id 'chargingStation_gneE2_1_0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_0 from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_0 into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute id 'correctID' into chargingStation 'chargingStation_gneE2_1_0'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE0_0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE2_1' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-21.60,42.00,18.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lane 'gneE2_0' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-1.60,42.00,38.40
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -8.00,-4.80,42.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute startPos '-5' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -8.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary -20.00,-4.80,42.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute startPos '20' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary -20.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,42.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute endPos '3000' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,42.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,70.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute endPos '30' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,70.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute name 'chargingStation' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute friendlyPos 'true' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute power '10000' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute efficiency '0.90' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute chargeInTransit 'true' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute chargeDelay '3' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE2_1togneE3_1 into SUMORTree with boundary 29.90,-0.10,70.10,70.10
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE3_1togneE2_1 into SUMORTree with boundary -20.10,-19.90,20.10,39.90
+Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -11.50,-13.20,8.50,10.00
+Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+GLDebug: Inserted crossing::gneJ0_c1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object crossing::gneJ0_c1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted crossing::gneJ0_c1 into SUMORTree with boundary -11.50,-10.00,8.50,13.20
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
+GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -11.50,-13.20,8.50,10.00
+GLDebug: Removed object crossing::gneJ0_c1 from SUMORTree with boundary -11.50,-10.00,8.50,13.20
+GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -11.50,-13.20,8.50,10.00
+GLDebug: Removed object crossing::gneJ0_c0 from SUMORTree with boundary -11.50,-13.20,8.50,10.00
+GLDebug: Inserted crossing::gneJ0_c0 into SUMORTree with boundary -11.50,-13.20,8.50,10.00
+GLDebug: Inserted crossing::gneJ0_c1 into SUMORTree with boundary -11.50,-10.00,8.50,13.20
+GLDebug: Removed object crossing::gneJ0_c1 from SUMORTree with boundary -11.50,-10.00,8.50,13.20
+GLDebug: Inserted crossing::gneJ0_c1 into SUMORTree with boundary -11.50,-10.00,8.50,13.20
+Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 49.90,-0.10,50.10,50.10
+GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 49.90,-0.10,50.10,50.10
+GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 41.50,-10.00,61.50,13.20
+Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+GLDebug: Inserted crossing::gneJ1_c1 into SUMORTree with boundary 49.90,-0.10,50.10,50.10
+GLDebug: Removed object crossing::gneJ1_c1 from SUMORTree with boundary 49.90,-0.10,50.10,50.10
+GLDebug: Inserted crossing::gneJ1_c1 into SUMORTree with boundary 41.50,-13.20,61.50,10.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
+GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 41.50,-10.00,61.50,13.20
+GLDebug: Removed object crossing::gneJ1_c1 from SUMORTree with boundary 41.50,-13.20,61.50,10.00
+GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 41.50,-10.00,61.50,13.20
+GLDebug: Removed object crossing::gneJ1_c0 from SUMORTree with boundary 41.50,-10.00,61.50,13.20
+GLDebug: Inserted crossing::gneJ1_c0 into SUMORTree with boundary 41.50,-10.00,61.50,13.20
+GLDebug: Inserted crossing::gneJ1_c1 into SUMORTree with boundary 41.50,-13.20,61.50,10.00
+GLDebug: Removed object crossing::gneJ1_c1 from SUMORTree with boundary 41.50,-13.20,61.50,10.00
+GLDebug: Inserted crossing::gneJ1_c1 into SUMORTree with boundary 41.50,-13.20,61.50,10.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-6.40,22.00,46.40
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-6.40,72.00,46.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Inserted chargingStation:correctID into SUMORTree with boundary 0.00,-4.80,50.00,35.20
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Inserted chargingStation:chargingStation_gneE2_1_1 into SUMORTree with boundary 12.00,-1.60,62.00,38.40
+GLDebug: Removed object connection:fromgneE3_1togneE2_1 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
+GLDebug: Inserted connection:fromgneE3_1togneE2_1 into SUMORTree with boundary -19.00,-1.60,21.00,41.60
+GLDebug: Removed object connection:fromgneE2_1togneE3_1 from SUMORTree with boundary 29.90,-0.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE2_1togneE3_1 into SUMORTree with boundary 29.00,-1.60,69.00,41.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_1'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_1 from SUMORTree with boundary 12.00,-1.60,62.00,38.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced chargingStation 'correctID'
+GLDebug: Removed object chargingStation:correctID from SUMORTree with boundary 0.00,-4.80,50.00,35.20
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 16

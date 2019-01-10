@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:30 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:34 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,10 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <output-file value="net.net.xml"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -30,32 +30,32 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="300.00,0.00" convBoundary="0.00,0.00,400.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="CE" from="C" to="E" priority="1">
-        <lane id="CE_0" index="0" speed="13.89" length="100.00" shape="301.50,-8.00 400.00,-8.00"/>
-        <lane id="CE_1" index="1" speed="13.89" length="100.00" shape="301.50,-4.80 400.00,-4.80"/>
-        <lane id="CE_2" index="2" speed="13.89" length="100.00" shape="301.50,-1.60 400.00,-1.60"/>
+        <lane id="CE_0" index="0" speed="13.89" length="100.00" shape="304.00,-8.00 400.00,-8.00"/>
+        <lane id="CE_1" index="1" speed="13.89" length="100.00" shape="304.00,-4.80 400.00,-4.80"/>
+        <lane id="CE_2" index="2" speed="13.89" length="100.00" shape="304.00,-1.60 400.00,-1.60"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="1">
-        <lane id="WC_0" index="0" allow="bus" speed="13.89" length="100.00" shape="201.50,-4.80 298.50,-4.80"/>
-        <lane id="WC_1" index="1" speed="13.89" length="100.00" shape="201.50,-1.60 298.50,-1.60"/>
+        <lane id="WC_0" index="0" allow="bus" speed="13.89" length="100.00" shape="204.00,-4.80 296.00,-4.80"/>
+        <lane id="WC_1" index="1" speed="13.89" length="100.00" shape="204.00,-1.60 296.00,-1.60"/>
     </edge>
     <edge id="beg" from="gneJ0" to="W" priority="1">
-        <lane id="beg_0" index="0" speed="13.89" length="200.00" shape="0.00,-8.00 198.50,-8.00"/>
-        <lane id="beg_1" index="1" speed="13.89" length="200.00" shape="0.00,-4.80 198.50,-4.80"/>
-        <lane id="beg_2" index="2" speed="13.89" length="200.00" shape="0.00,-1.60 198.50,-1.60"/>
+        <lane id="beg_0" index="0" speed="13.89" length="200.00" shape="0.00,-8.00 196.00,-8.00"/>
+        <lane id="beg_1" index="1" speed="13.89" length="200.00" shape="0.00,-4.80 196.00,-4.80"/>
+        <lane id="beg_2" index="2" speed="13.89" length="200.00" shape="0.00,-1.60 196.00,-1.60"/>
     </edge>
 
-    <junction id="C" type="priority" x="300.00" y="0.00" incLanes="WC_0 WC_1" intLanes="" shape="301.50,0.00 301.50,-9.60 298.50,-6.40 298.50,0.00">
+    <junction id="C" type="priority" x="300.00" y="0.00" incLanes="WC_0 WC_1" intLanes="" shape="304.00,0.00 304.00,-9.60 300.97,-8.77 299.03,-7.23 297.79,-6.64 296.00,-6.40 296.00,0.00">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
     <junction id="E" type="dead_end" x="400.00" y="0.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="400.00,-9.60 400.00,0.00"/>
-    <junction id="W" type="unregulated" x="200.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="201.50,0.00 201.50,-6.40 198.50,-9.60 198.50,0.00"/>
+    <junction id="W" type="unregulated" x="200.00" y="0.00" incLanes="beg_0 beg_1 beg_2" intLanes="" shape="204.00,0.00 204.00,-6.40 200.97,-7.23 199.03,-8.77 197.79,-9.36 196.00,-9.60 196.00,0.00"/>
     <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
 
     <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>

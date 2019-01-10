@@ -1,12 +1,56 @@
-<additionals>
-    <e3Detector id="e3Detector_0" file="e3Detector_0.txt" pos="-9.88,24.71">
-        <detExit lane="gneE2_1" pos="9.55"/>
-        <detExit lane="gneE2_2" pos="14.36"/>
-        <detExit lane="gneE2_3" pos="19.42"/>
-        <detExit lane="gneE2_4" pos="23.72"/>
-        <detExit lane="gneE2_5" pos="27.15"/>
-        <detExit lane="gneE4_0" pos="17.69"/>
-        <detExit lane="gneE1_1" pos="34.80"/>
-        <detExit lane="gneE0_1" pos="12.11"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03.08.2018 16:04:32 by Eclipse SUMO netedit Version 7115a4b324
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug155723.2792/netedit.gui/additionalElements/detexit/volatileRecomputing\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug155723.2792/netedit.gui/additionalElements/detexit/volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug155723.2792/netedit.gui/additionalElements/detexit/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug155723.2792/netedit.gui/additionalElements/detexit/volatileRecomputing\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug155723.2792/netedit.gui/additionalElements/detexit/volatileRecomputing\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug155723.2792/netedit.gui/additionalElements/detexit/volatileRecomputing\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug155723.2792/netedit.gui/additionalElements/detexit/volatileRecomputing\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e3Detector id="e3Detector_0" pos="-9.88,24.71" freq="100.00" file="e3Detector_0.txt">
+        <detEntry lane="gneE0_1" pos="10.69"/>
+        <detExit lane="gneE2_1" pos="19.25"/>
+        <detExit lane="gneE2_2" pos="21.14"/>
+        <detExit lane="gneE2_3" pos="23.63"/>
+        <detExit lane="gneE2_4" pos="26.64"/>
+        <detExit lane="gneE2_5" pos="28.96"/>
+        <detExit lane="gneE4_0" pos="18.55"/>
+        <detExit lane="gneE1_1" pos="33.51"/>
+        <detExit lane="gneE0_1" pos="14.69"/>
     </e3Detector>
-</additionals>
+</additional>

@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSVehicle.h>
@@ -38,10 +34,8 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype, double accel,
-                                       double decel, double emergencyDecel, double apparentDecel,
-                                       double dawdle, double headwayTime) :
-    MSCFModel_Krauss(vtype, accel, decel, emergencyDecel, apparentDecel, dawdle, headwayTime) {
+MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype) :
+    MSCFModel_Krauss(vtype) {
 }
 
 
@@ -60,7 +54,7 @@ MSCFModel_KraussPS::maxNextSpeed(double speed, const MSVehicle* const veh) const
 
 MSCFModel*
 MSCFModel_KraussPS::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_KraussPS(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myDawdle, myHeadwayTime);
+    return new MSCFModel_KraussPS(vtype);
 }
 
 

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
@@ -73,18 +69,25 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 // GUIE2Collector::MyWrapper-methods
 // -------------------------------------------------------------------------
 
-GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) : 
+GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
     myDetector(detector) {
     // collect detector shape into one vector (v)
     PositionVector v;
     const std::vector<MSLane*> lanes = detector.getLanes();
+    double detectorLength = detector.getLength();
     for (std::vector<MSLane*>::const_iterator li = lanes.begin(); li != lanes.end(); ++li) {
         const PositionVector& shape = (*li)->getShape();
+        // account for gaps between lanes (e.g. in networks without internal lanes)
+        if (v.size() > 0) {
+            detectorLength += v.back().distanceTo2D(shape.front());
+        }
         v.insert(v.end(), shape.begin(), shape.end());
     }
     // build geometry
-    myFullGeometry = v.getSubpart(detector.getStartPos(), detector.getStartPos() + detector.getLength());
+    myFullGeometry = v.getSubpart(
+                         lanes.front()->interpolateLanePosToGeometryPos(detector.getStartPos()),
+                         lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detectorLength));
     //
     myShapeRotations.reserve(myFullGeometry.size() - 1);
     myShapeLengths.reserve(myFullGeometry.size() - 1);

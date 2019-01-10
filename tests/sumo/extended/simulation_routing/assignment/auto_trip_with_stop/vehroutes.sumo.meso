@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 13:31:08 2017 by SUMO Version v0_31_0-859-gf5a680f
+<!-- generated on Fri Sep 14 11:26:12 2018 by Eclipse SUMO Version v1_0_0+0200-4343eb6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,12 +14,18 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <time>
         <begin value="0"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -37,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="no_stop" depart="0.00" arrival="20.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="0.00" probability="0" edges="SC NC"/>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="0.00" probability="0" edges="SC NC"/>
             <route edges="SC CN NC"/>
         </routeDistribution>
     </vehicle>
@@ -49,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="stop_first" depart="10.00" arrival="38.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="10.00" probability="0" edges="SC SC NC"/>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="10.00" probability="0" edges="SC SC NC"/>
             <route edges="SC CN NC"/>
         </routeDistribution>
         <stop lane="SC_0" endPos="81.95" duration="5.00"/>
@@ -57,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="stop_last" depart="14.00" arrival="44.00">
         <routeDistribution>
-            <route replacedOnEdge="" replacedAtTime="14.00" probability="0" edges="SC NC NC"/>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="14.00" probability="0" edges="SC NC NC"/>
             <route edges="SC CN NC"/>
         </routeDistribution>
         <stop lane="NC_0" endPos="81.95" duration="5.00"/>

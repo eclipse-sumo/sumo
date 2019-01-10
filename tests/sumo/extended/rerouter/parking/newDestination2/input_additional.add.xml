@@ -7,8 +7,8 @@
 	
 	<rerouter id="rr" edges="e a">
 		<interval begin="0" end="2000">
-			<parkingAreaReroute id="ParkAreaA" />
-			<parkingAreaReroute id="ParkAreaB" />
+			<parkingAreaReroute id="ParkAreaA" visible="true"/>
+			<parkingAreaReroute id="ParkAreaB" visible="true"/>
 		</interval>
 	</rerouter>
 	

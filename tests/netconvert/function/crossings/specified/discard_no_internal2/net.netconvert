@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:34 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Wed Aug 15 16:12:47 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,10 +20,10 @@ SPDX-License-Identifier: EPL-2.0
         <plain-output-prefix value="plain"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3" intLanes="" shape="89.10,112.40 110.90,112.40 112.40,110.90 112.40,89.10 110.90,87.60 89.10,87.60 87.60,89.10 87.60,110.90">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3" intLanes="" shape="89.10,112.40 110.90,112.40 111.07,111.57 111.28,111.28 111.57,111.07 111.94,110.94 112.40,110.90 112.40,89.10 111.57,88.93 111.28,88.72 111.07,88.43 110.94,88.06 110.90,87.60 89.10,87.60 88.93,88.43 88.72,88.72 88.43,88.93 88.06,89.06 87.60,89.10 87.60,110.90 88.43,111.07 88.72,111.28 88.93,111.57 89.06,111.94">
         <request index="0"  response="0000000000000000" foes="0000100001100000"/>
         <request index="1"  response="0000000000000000" foes="1111100011100000"/>
         <request index="2"  response="0000000000000000" foes="1111100011100000"/>

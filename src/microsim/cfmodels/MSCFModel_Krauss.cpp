@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
@@ -42,22 +38,22 @@
 // DEBUG constants
 // ===========================================================================
 //#define DEBUG_COND (true)
+#define DEBUG_COND (veh->isSelected())
+#define DEBUG_DRIVER_ERRORS
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel,
-                                   double emergencyDecel, double apparentDecel,
-                                   double dawdle, double headwayTime) :
-    MSCFModel_KraussOrig1(vtype, accel, decel, emergencyDecel, apparentDecel, dawdle, headwayTime) {
+MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
+    MSCFModel_KraussOrig1(vtype) {
 }
 
 
 MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
-double 
+double
 MSCFModel_Krauss::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     const double sigma = (veh->passingMinor()
                           ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle)
@@ -72,14 +68,25 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
+    if (veh->hasDriverState()) {
+        // @todo: Provide objectID (e.g. pointer address for the relevant object at the given distance(gap))
+        //        This is for item related management of known object and perception updates when the distance
+        //        changes significantly. (Should not be too important for stationary objects though.)
+        applyHeadwayPerceptionError(veh, speed, gap);
+    }
     return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 
 double
-MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    //gDebugFlag1 = DEBUG_COND;
+    if (veh->hasDriverState()) {
+        applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
+    }
+
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
-    const double vmin = minNextSpeed(speed);
+    const double vmin = minNextSpeedEmergency(speed);
     const double vmax = maxNextSpeed(speed, veh);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe, vmax);
@@ -89,7 +96,6 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
         return MAX2(MIN2(vsafe, vmax), vmin);
     }
 }
-
 
 double
 MSCFModel_Krauss::dawdle2(double speed, double sigma) const {
@@ -118,7 +124,7 @@ MSCFModel_Krauss::dawdle2(double speed, double sigma) const {
 
 MSCFModel*
 MSCFModel_Krauss::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Krauss(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myDawdle, myHeadwayTime);
+    return new MSCFModel_Krauss(vtype);
 }
 
 

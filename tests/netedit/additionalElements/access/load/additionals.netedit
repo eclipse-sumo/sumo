@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 23.06.2018 21:35:36 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/access/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/access/load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/access/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/access/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/access/load\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/access/load\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/access/load\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_0" lane="1_0" startPos="23.00" endPos="33.00">
+        <access length="10" lane="1_0" pos="15.00"/>
+        <access length="10" lane="2_0" pos="0.00"/>
+        <access length="10" lane="3_0" pos="0.00"/>
+        <access lane="4_0" pos="10.00"/>
+        <access lane="5_0" pos="10.00"/>
+        <access lane="6_0" pos="10.00"/>
+        <access length="40" lane="7_0" pos="10.00"/>
+        <access lane="8_0" pos="10.00"/>
+        <access length="10" lane="9_0" pos="10.00"/>
+        <access length="10" lane="10_0" pos="50.00" friendlyPos="1"/>
+        <access length="10" lane="11_0" pos="0.00" friendlyPos="1"/>
+        <access length="10" lane="12_0" pos="10.00" friendlyPos="1"/>
+    </busStop>
+</additional>

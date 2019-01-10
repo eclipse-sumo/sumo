@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEDetector.h"
 
@@ -48,34 +44,30 @@ public:
      * @param[in] length The length of the detector in meters.
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
-     * @param[in] cont attribute to enable or disable splitByType
+     * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] name E2 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
-                  bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+    GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
+                  const std::string& name , const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetectorE2();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
+    /// @brief get length of E2 Detector
+    double getLength() const;
 
     /// @brief check if Position of detector is fixed
     bool isDetectorPositionFixed() const;
 
-    /// @brief get absolute lenght
-    double getAbsoluteLenght() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -111,11 +103,8 @@ public:
     /// @}
 
 protected:
-    /// @brief relative length [0,1]
-    double myRelativeLength;
-
-    /// @brief attribute to enable or disable splitByType
-    bool myCont;
+    /// @brief E2 detector lenght
+    double myLength;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     double myTimeThreshold;

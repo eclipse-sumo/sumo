@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <ctime>
 #include "NWWriter_OpenDrive.h"
@@ -96,6 +92,19 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.writeAttr("maxPrg", 0);
     */
     device.closeTag();
+    // write optional geo reference
+    const GeoConvHelper& gch = GeoConvHelper::getFinal();
+    if (gch.usingGeoProjection()) {
+        if (gch.getOffsetBase() == Position(0, 0)) {
+            device.openTag("geoReference");
+            device.writePreformattedTag(" <![CDATA[\n "
+                                        + gch.getProjString()
+                                        + "\n]]>\n");
+            device.closeTag();
+        } else {
+            WRITE_WARNING("Could not write OpenDRIVE geoReference. Only unshifted Coordinate systems are supported (offset=" + toString(gch.getOffsetBase()) + ")");
+        }
+    }
 
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {

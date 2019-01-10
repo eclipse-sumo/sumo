@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -38,6 +34,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
@@ -46,6 +43,7 @@
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSDriverState.h>
 #include "MSStateHandler.h"
 
 #include <mesosim/MESegment.h>
@@ -78,6 +76,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     out.writeHeader<MSEdge>(SUMO_TAG_SNAPSHOT);
     out.writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/state_file.xsd");
     out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step));
+    //saveRNGs(out);
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getInsertionControl().saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
@@ -110,6 +109,27 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const std::string& version = attrs.getString(SUMO_ATTR_VERSION);
             if (version != VERSION_STRING) {
                 WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
+            }
+            break;
+        }
+        case SUMO_TAG_RNGSTATE: {
+            if (attrs.hasAttribute(SUMO_ATTR_RNG_DEFAULT)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT));
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_RNG_ROUTEHANDLER)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSRouteHandler::getParsingRNG());
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_RNG_INSERTIONCONTROL)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSNet::getInstance()->getInsertionControl().getFlowRNG());
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSDevice::getEquipmentRNG());
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE_BT)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSDevice_BTreceiver::getEquipmentRNG());
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_RNG_DRIVERSTATE)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), OUProcess::getRNG());
             }
             break;
         }
@@ -242,6 +262,19 @@ MSStateHandler::closeVehicle() {
     delete myAttrs;
 }
 
+
+void
+MSStateHandler::saveRNGs(OutputDevice& out) {
+    out.openTag(SUMO_TAG_RNGSTATE);
+    out.writeAttr(SUMO_ATTR_RNG_DEFAULT, RandHelper::saveState());
+    out.writeAttr(SUMO_ATTR_RNG_ROUTEHANDLER, RandHelper::saveState(MSRouteHandler::getParsingRNG()));
+    out.writeAttr(SUMO_ATTR_RNG_INSERTIONCONTROL, RandHelper::saveState(MSNet::getInstance()->getInsertionControl().getFlowRNG()));
+    out.writeAttr(SUMO_ATTR_RNG_DEVICE, RandHelper::saveState(MSDevice::getEquipmentRNG()));
+    out.writeAttr(SUMO_ATTR_RNG_DEVICE_BT, RandHelper::saveState(MSDevice_BTreceiver::getRNG()));
+    out.writeAttr(SUMO_ATTR_RNG_DRIVERSTATE, RandHelper::saveState(OUProcess::getRNG()));
+    out.closeTag();
+
+}
 
 
 /****************************************************************************/

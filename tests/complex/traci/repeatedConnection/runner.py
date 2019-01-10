@@ -19,25 +19,14 @@ from __future__ import print_function
 import os
 import subprocess
 import sys
-import time
 
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
-import traci
+import traci  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-DELTA_T = 1000
-
-if sys.argv[1] == "sumo":
-    sumoBinary = os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    addOption = "--remote-port %s" % PORT
-else:
-    sumoBinary = os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-S -Q --remote-port %s" % PORT
+sumoBinary = sumolib.checkBinary(sys.argv[1])
 
 
 def runSingle(sumoEndTime, traciEndTime):
@@ -46,10 +35,9 @@ def runSingle(sumoEndTime, traciEndTime):
     fdo.write(fdi.read() % {"end": sumoEndTime})
     fdi.close()
     fdo.close()
-    doClose = True
     step = 0
     sumoProcess = subprocess.Popen(
-        "%s -c used.sumocfg %s" % (sumoBinary, addOption), shell=True, stdout=sys.stdout)
+        "%s -c used.sumocfg -S -Q --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
     traci.init(PORT)
     while not step > traciEndTime:
         traci.simulationStep()
@@ -57,11 +45,11 @@ def runSingle(sumoEndTime, traciEndTime):
         if vehs.index("horiz") < 0 or len(vehs) > 3:
             print("Something is wrong")
         step += 1
-    print("Print ended at step %s" %
-          (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
     sumoProcess.wait()
     sys.stdout.flush()
+
 
 print("----------- SUMO ends first -----------")
 sys.stdout.flush()

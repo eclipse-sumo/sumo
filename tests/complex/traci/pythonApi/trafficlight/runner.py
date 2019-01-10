@@ -18,26 +18,22 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import shutil
-import struct
-import random
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
-print("trafficlights deprecated", traci.trafficlights.getIDList())
+if not traci.isLibsumo():
+    print("trafficlights deprecated", traci.trafficlights.getIDList())
 print("trafficlight", traci.trafficlight.getIDList())
 print("trafficlight count", traci.trafficlight.getIDCount())
 tlsID = "0"
@@ -53,6 +49,7 @@ def check():
     print("phase", traci.trafficlight.getPhase(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
 
+
 phases = []
 phases.append(traci.trafficlight.Phase(30, 0, 0, "rrrrGGggrrrrGGgg"))
 phases.append(traci.trafficlight.Phase(10, 0, 0, "rrrrGGggrrrrGGgg"))
@@ -67,7 +64,7 @@ traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseDuration(tlsID, 23)
 check()
 defs = traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID)
-print("numDefs=%s numPhases=%s" % (len(defs), map(lambda d : len(d.getPhases()), defs)))
+print("numDefs=%s numPhases=%s" % (len(defs), map(lambda d: len(d.getPhases()), defs)))
 traci.trafficlight.subscribe(tlsID)
 print(traci.trafficlight.getSubscriptionResults(tlsID))
 for step in range(3, 6):
@@ -83,6 +80,7 @@ check()
 traci.trafficlight.setRedYellowGreenState(tlsID, "gGyruOorrrrrrrrr")
 print("set ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
 print("program", traci.trafficlight.getProgram(tlsID))
+traci.trafficlight.setProgram(tlsID, "off")
+print("ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
 
 traci.close()
-sumoProcess.wait()

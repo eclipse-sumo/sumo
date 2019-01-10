@@ -17,11 +17,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -63,16 +59,29 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 addPoly(attrs, false, false);
                 break;
             case SUMO_TAG_POI:
-                myDefaultLayer = (double)GLO_POI;
+                myDefaultLayer = Shape::DEFAULT_LAYER_POI;
                 addPOI(attrs, false, false);
                 break;
             case SUMO_TAG_PARAM:
                 if (myLastParameterised != 0) {
                     bool ok = true;
                     const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
-                    // circumventing empty string test
-                    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-                    myLastParameterised->setParameter(key, val);
+                    // continue if key awas sucesfully loaded
+                    if (ok) {
+                        // circumventing empty string value
+                        const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                        // show warnings if values are invalid
+                        if (key.empty()) {
+                            WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
+                        } else if (!SUMOXMLDefinitions::isValidGenericParameterKey(key)) {
+                            WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");
+                        } else if (!SUMOXMLDefinitions::isValidGenericParameterValue(val)) {
+                            WRITE_WARNING("Error parsing value from shape generic parameter. Value contains invalid characters");
+                        } else {
+                            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
+                            myLastParameterised->setParameter(key, val);
+                        }
+                    }
                 }
             default:
                 break;
@@ -125,6 +134,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
         }
     }
     Position pos(x, y);
+    bool useGeo = false;
     if (x == INVALID_POSITION || y == INVALID_POSITION) {
         // try computing x,y from lane,pos
         if (laneID != "") {
@@ -139,6 +149,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                 return;
             }
             pos.set(lon, lat);
+            useGeo = true;
             bool success = true;
             if (useProcessing) {
                 success = GeoConvHelper::getProcessing().x2cartesian(pos);
@@ -151,7 +162,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
             }
         }
     }
-    if (!myShapeContainer.addPOI(id, type, color, pos, gch.usingGeoProjection(), laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
+    if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
         WRITE_ERROR("PoI '" + id + "' already exists.");
     }
     myLastParameterised = myShapeContainer.getPOIs().get(id);

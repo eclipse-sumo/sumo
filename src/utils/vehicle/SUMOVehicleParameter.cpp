@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "SUMOVehicleParameter.h"
 #include <utils/common/ToString.h>
@@ -239,7 +235,7 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     //  arrivalPosLat
     if (wasSet(VEHPARS_ARRIVALPOSLAT_SET)) {
         std::string val;
-        switch (arrivalPosProcedure) {
+        switch (arrivalPosLatProcedure) {
             case ARRIVAL_POSLAT_GIVEN:
                 val = toString(arrivalPos);
                 break;

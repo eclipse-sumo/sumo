@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:25 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:30 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,44 +25,44 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,3.20" convBoundary="0.00,0.00,100.00,3.20" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id=":1.30_0" function="internal">
-        <lane id=":1.30_0_0" index="0" speed="28.00" length="3.00" shape="28.50,-4.80 31.50,-4.80"/>
-        <lane id=":1.30_0_1" index="1" speed="28.00" length="3.00" shape="28.50,-1.60 31.50,-1.60"/>
-        <lane id=":1.30_0_2" index="2" speed="28.00" length="3.00" shape="28.50,1.60 31.50,1.60"/>
+        <lane id=":1.30_0_0" index="0" speed="28.00" length="8.00" shape="26.00,-4.80 34.00,-4.80"/>
+        <lane id=":1.30_0_1" index="1" speed="28.00" length="8.00" shape="26.00,-1.60 34.00,-1.60"/>
+        <lane id=":1.30_0_2" index="2" speed="28.00" length="8.00" shape="26.00,1.60 34.00,1.60"/>
     </edge>
     <edge id=":1.70_0" function="internal">
-        <lane id=":1.70_0_0" index="0" speed="28.00" length="3.00" shape="68.50,-4.80 71.50,-4.80"/>
-        <lane id=":1.70_0_1" index="1" speed="28.00" length="3.00" shape="68.50,-1.60 71.50,-1.60"/>
+        <lane id=":1.70_0_0" index="0" speed="28.00" length="8.00" shape="66.00,-4.80 74.00,-4.80"/>
+        <lane id=":1.70_0_1" index="1" speed="28.00" length="8.00" shape="66.00,-1.60 74.00,-1.60"/>
     </edge>
 
     <edge id="1" from="0" to="1.30" priority="-1">
-        <lane id="1_0" index="0" speed="28.00" length="28.50" shape="0.00,-8.00 28.50,-8.00"/>
-        <lane id="1_1" index="1" speed="28.00" length="28.50" shape="0.00,-4.80 28.50,-4.80"/>
-        <lane id="1_2" index="2" speed="28.00" length="28.50" shape="0.00,-1.60 28.50,-1.60"/>
-        <lane id="1_3" index="3" speed="28.00" length="28.50" shape="0.00,1.60 28.50,1.60"/>
+        <lane id="1_0" index="0" speed="28.00" length="26.00" shape="0.00,-8.00 26.00,-8.00"/>
+        <lane id="1_1" index="1" speed="28.00" length="26.00" shape="0.00,-4.80 26.00,-4.80"/>
+        <lane id="1_2" index="2" speed="28.00" length="26.00" shape="0.00,-1.60 26.00,-1.60"/>
+        <lane id="1_3" index="3" speed="28.00" length="26.00" shape="0.00,1.60 26.00,1.60"/>
     </edge>
     <edge id="1.30" from="1.30" to="1.70" priority="-1">
-        <lane id="1.30_0" index="0" speed="28.00" length="37.00" shape="31.50,-4.80 68.50,-4.80"/>
-        <lane id="1.30_1" index="1" speed="28.00" length="37.00" shape="31.50,-1.60 68.50,-1.60"/>
-        <lane id="1.30_2" index="2" speed="28.00" length="37.00" shape="31.50,1.60 68.50,1.60"/>
+        <lane id="1.30_0" index="0" speed="28.00" length="32.00" shape="34.00,-4.80 66.00,-4.80"/>
+        <lane id="1.30_1" index="1" speed="28.00" length="32.00" shape="34.00,-1.60 66.00,-1.60"/>
+        <lane id="1.30_2" index="2" speed="28.00" length="32.00" shape="34.00,1.60 66.00,1.60"/>
     </edge>
     <edge id="1.70" from="1.70" to="1" priority="-1" shape="70.00,0.00 100.00,0.00">
-        <lane id="1.70_0" index="0" speed="28.00" length="28.50" shape="71.50,-4.80 100.00,-4.80"/>
-        <lane id="1.70_1" index="1" speed="28.00" length="28.50" shape="71.50,-1.60 100.00,-1.60"/>
+        <lane id="1.70_0" index="0" speed="28.00" length="26.00" shape="74.00,-4.80 100.00,-4.80"/>
+        <lane id="1.70_1" index="1" speed="28.00" length="26.00" shape="74.00,-1.60 100.00,-1.60"/>
     </edge>
 
     <junction id="0" type="dead_end" x="0.00" y="3.20" incLanes="" intLanes="" shape="0.00,3.20 0.00,-9.60"/>
     <junction id="1" type="dead_end" x="100.00" y="3.20" incLanes="1.70_0 1.70_1" intLanes="" shape="100.00,-6.40 100.00,0.00"/>
-    <junction id="1.30" type="priority" x="30.00" y="3.20" incLanes="1_0 1_1 1_2 1_3" intLanes=":1.30_0_0 :1.30_0_1 :1.30_0_2" shape="31.50,3.20 31.50,-6.40 28.50,-9.60 28.50,3.20">
+    <junction id="1.30" type="priority" x="30.00" y="3.20" incLanes="1_0 1_1 1_2 1_3" intLanes=":1.30_0_0 :1.30_0_1 :1.30_0_2" shape="34.00,3.20 34.00,-6.40 30.97,-7.23 29.03,-8.77 27.79,-9.36 26.00,-9.60 26.00,3.20">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="1.70" type="priority" x="70.00" y="3.20" incLanes="1.30_0 1.30_1 1.30_2" intLanes=":1.70_0_0 :1.70_0_1" shape="71.50,0.00 71.50,-6.40 68.50,-6.40 68.50,3.20">
+    <junction id="1.70" type="priority" x="70.00" y="3.20" incLanes="1.30_0 1.30_1 1.30_2" intLanes=":1.70_0_0 :1.70_0_1" shape="74.00,0.00 74.00,-6.40 66.00,-6.40 66.00,3.20 69.03,2.37 70.97,0.83 72.21,0.24">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

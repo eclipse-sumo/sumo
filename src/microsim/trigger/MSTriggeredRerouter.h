@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -79,12 +75,14 @@ public:
     MSTriggeredRerouter(const std::string& id,
                         const MSEdgeVector& edges,
                         double prob, const std::string& file, bool off,
-                        SUMOTime timeThreshold);
+                        SUMOTime timeThreshold,
+                        const std::string& vTypes);
 
 
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
+    typedef std::pair<MSParkingArea*, bool> ParkingAreaVisible;
 
     /**
      * @struct RerouteInterval
@@ -92,7 +90,7 @@ public:
      */
     struct RerouteInterval {
         /// unique ID for this interval
-        long id;
+        long long id;
         /// The begin time these definitions are valid
         SUMOTime begin;
         /// The end time these definitions are valid
@@ -110,7 +108,7 @@ public:
         /// The permissions to use
         SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
-        RandomDistributor<MSParkingArea*> parkProbs;
+        RandomDistributor<ParkingAreaVisible> parkProbs;
     };
 
     /** @brief Tries to reroute the vehicle
@@ -181,6 +179,7 @@ public:
     MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                       SUMOVehicle& veh, bool& newDestination) const;
 
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -205,6 +204,14 @@ protected:
     virtual void myEndElement(int element);
     //@}
 
+    /** @brief Checks whether the detector measures vehicles of the given type.
+    *
+    * @param[in] veh the vehicle of which the type is checked.
+    * @return whether it should be measured
+    */
+    bool vehicleApplies(const SUMOVehicle& veh) const;
+
+
 protected:
     /// List of rerouting definition intervals
     std::vector<RerouteInterval> myIntervals;
@@ -218,6 +225,9 @@ protected:
     // @brief waiting time threshold for activation
     SUMOTime myTimeThreshold;
 
+    /// @brief The vehicle types to look for (empty means all)
+    std::set<std::string> myVehicleTypes;
+
     /// @name members used during loading
     //@{
 
@@ -230,7 +240,7 @@ protected:
     /// List of permissions for closed edges
     SVCPermissions myCurrentPermissions;
     /// new destinations with probabilities
-    RandomDistributor<MSParkingArea*> myCurrentParkProb;
+    RandomDistributor<ParkingAreaVisible> myCurrentParkProb;
     /// new destinations with probabilities
     RandomDistributor<MSEdge*> myCurrentEdgeProb;
     /// new routes with probabilities

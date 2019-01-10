@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -57,8 +53,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,  double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) :
-    MSChargingStation(id, lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay),
+GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
+                                       const std::string& name,
+                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) :
+    MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
@@ -158,6 +156,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // pop charging power matrix
         glPopMatrix();
 
+        glPushMatrix();
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
@@ -177,7 +176,11 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         glTranslated(5, 0, 0);
+        glPopMatrix();
 
+    }
+    if (s.addFullName.show && getMyName() != "") {
+        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(myFGSignRot));
     }
     glPopMatrix();
     glPopName();

@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <queue>
 #include <vector>
@@ -86,7 +82,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
         if (onSegment != 0) {
-            onSegment->send(veh, toSegment, leaveTime);
+            onSegment->send(veh, toSegment, leaveTime, toSegment == nullptr ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_VAPORIZED);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' teleports beyond arrival edge '" + veh->getEdge()->getID() + "', time " + time2string(leaveTime) + ".");
         }
@@ -96,7 +92,7 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
     }
     if (toSegment->hasSpaceFor(veh, leaveTime) && (ignoreLink || veh->mayProceed())) {
         if (onSegment != 0) {
-            onSegment->send(veh, toSegment, leaveTime);
+            onSegment->send(veh, toSegment, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
             toSegment->receive(veh, leaveTime, false, ignoreLink);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' ends teleporting on edge '" + toSegment->getEdge().getID()
@@ -121,7 +117,7 @@ MELoop::checkCar(MEVehicle* veh) {
     if (changeSegment(veh, leaveTime, toSegment, teleporting)) {
         return;
     }
-    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock && !veh->isStopped()) {
+    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
         teleportVehicle(veh, toSegment);
         return;
     }
@@ -177,12 +173,12 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
                           + "':" + toString(onSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
             // remove from current segment
-            onSegment->send(veh, 0, leaveTime);
+            onSegment->send(veh, 0, leaveTime, MSMoveReminder::NOTIFICATION_TELEPORT);
             // mark veh as teleporting
             veh->setSegment(0, 0);
         }
         // @caution microsim uses current travel time teleport duration
-        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / veh->getEdge()->getSpeedLimit());
+        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / MAX2(veh->getEdge()->getSpeedLimit(), NUMERICAL_EPS));
         const bool atDest = veh->moveRoutePointer();
         if (atDest) {
             // teleporting to end of route
@@ -263,7 +259,7 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     MESegment* newSegment = 0;
     MESegment* nextSegment = 0;
     bool multiQueue = oc.getBool("meso-multi-queue");
-    bool junctionControl = oc.getBool("meso-junction-control");
+    bool junctionControl = oc.getBool("meso-junction-control") || isEnteringRoundabout(e);
     for (int s = no - 1; s >= 0; s--) {
         std::string id = e.getID() + ":" + toString(s);
         newSegment =
@@ -296,5 +292,15 @@ MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
     return s;
 }
 
+
+bool
+MELoop::isEnteringRoundabout(const MSEdge& e) {
+    for (const MSEdge* succ : e.getSuccessors()) {
+        if (succ->isRoundabout()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /****************************************************************************/

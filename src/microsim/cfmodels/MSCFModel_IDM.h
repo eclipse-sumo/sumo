@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel.h"
 #include <microsim/MSLane.h>
@@ -45,16 +41,10 @@
 class MSCFModel_IDM : public MSCFModel {
 public:
     /** @brief Constructor
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] emergencyDecel The maximum emergency deceleration
-     * @param[in] apparentDecel The deceleration as expected by others
-     * @param[in] headwayTime the headway gap
-     * @param[in] delta a model constant
-     * @param[in] internalStepping internal time step size
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
+     *  @param[in] idmm Wether IDM or IDMM shall be built
      */
-    MSCFModel_IDM(const MSVehicleType* vtype, double accel, double decel, double emergencyDecel, double apparentDecel,
-                  double headwayTime, double delta, double internalStepping);
+    MSCFModel_IDM(const MSVehicleType* vtype, bool idmm);
 
 
     /** @brief Constructor
@@ -105,7 +95,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const;
 
 
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
@@ -119,6 +109,12 @@ public:
      */
     double interactionGap(const MSVehicle* const , double vL) const;
 
+    /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
+      * @param[in] speed EGO's speed
+      * @param[in] leaderSpeed LEADER's speed
+      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
+      */
+    double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
     /** @brief Returns the model's name
      * @return The model's name
@@ -161,6 +157,9 @@ private:
 
 
 private:
+    /// @brief whether the model is IDMM or IDM
+    const bool myIDMM;
+
     /// @brief The IDM delta exponent
     const double myDelta;
 

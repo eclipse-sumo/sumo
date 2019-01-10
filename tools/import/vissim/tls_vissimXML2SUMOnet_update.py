@@ -268,7 +268,7 @@ def get_sg_connection_data(
                     link = signal['link']
                     lane = str(int(signal['lane']) - 1)
                     # tls on normal edge or verbinder?
-                    if is_verbinder_d[link] == False:
+                    if is_verbinder_d[link] is False:
                         if link in edge_list:
                             connection = conn_tab[
                                 (conn_tab["from"] == link) & (

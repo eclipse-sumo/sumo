@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <foreign/tcpip/storage.h>
 
@@ -65,15 +61,6 @@ public:
      */
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
-
-
-    /** @brief Returns the named lane's shape
-     *
-     * @param[in] id The id of the searched lane
-     * @param[out] shape The shape, if the lane is known
-     * @return Whether the lane is known
-     */
-    static bool getShape(const std::string& id, PositionVector& shape);
 
 
 private:

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
@@ -63,7 +59,7 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 // GUIInstantInductLoop::MyWrapper-methods
 // -------------------------------------------------------------------------
 
-GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) : 
+GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID()),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);

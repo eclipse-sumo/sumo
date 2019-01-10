@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:22 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Thu Aug 16 15:51:48 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,9 +19,9 @@ SPDX-License-Identifier: EPL-2.0
         <output-file value="net.net.xml"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -30,16 +30,16 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,200.00" convBoundary="0.00,0.00,2125.42,400.00" origBoundary="-100.00,-200.00,2025.42,200.00" projParameter="!"/>
 
     <edge id=":AltglienickerBreit_0" function="internal">
-        <lane id=":AltglienickerBreit_0_0" index="0" speed="14.00" length="3.00" shape="1906.87,181.50 1906.87,178.50"/>
+        <lane id=":AltglienickerBreit_0_0" index="0" speed="14.00" length="8.00" shape="1906.87,184.00 1906.87,176.00"/>
     </edge>
     <edge id=":AltglienickerBreit_1" function="internal">
-        <lane id=":AltglienickerBreit_1_0" index="0" speed="14.00" length="3.69" shape="1910.07,178.50 1913.27,181.50"/>
-        <lane id=":AltglienickerBreit_1_1" index="1" speed="14.00" length="3.69" shape="1910.07,178.50 1910.07,181.50"/>
+        <lane id=":AltglienickerBreit_1_0" index="0" speed="14.00" length="8.40" shape="1910.07,176.00 1910.57,178.46 1911.67,180.00 1912.77,181.54 1913.27,184.00"/>
+        <lane id=":AltglienickerBreit_1_1" index="1" speed="14.00" length="8.40" shape="1910.07,176.00 1910.07,184.00"/>
     </edge>
     <edge id=":AltglienickerEnd_0" function="internal">
         <lane id=":AltglienickerEnd_0_0" index="0" speed="14.00" length="0.10" shape="1906.87,100.00 1906.87,100.00"/>
@@ -54,50 +54,50 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":EinsteinEnd_1_0" index="0" speed="14.00" length="0.10" shape="296.51,300.00 296.51,300.00"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_0" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_0_0" index="0" speed="19.00" length="13.13" shape="1916.37,208.00 1912.57,207.50 1910.07,206.40 1907.57,205.30 1903.77,204.80"/>
-        <lane id=":ErnstRuskaAltglienicker_0_1" index="1" speed="19.00" length="13.13" shape="1916.37,204.80 1912.57,204.30 1910.07,203.20 1907.57,202.10 1903.77,201.60"/>
+        <lane id=":ErnstRuskaAltglienicker_0_0" index="0" speed="19.00" length="17.98" shape="1918.87,208.00 1913.60,207.50 1910.07,206.40 1906.54,205.30 1901.27,204.80"/>
+        <lane id=":ErnstRuskaAltglienicker_0_1" index="1" speed="19.00" length="17.98" shape="1918.87,204.80 1913.60,204.30 1910.07,203.20 1906.54,202.10 1901.27,201.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_2" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_2_0" index="0" speed="16.50" length="6.15" shape="1916.37,201.60 1912.21,201.01 1910.54,200.00"/>
+        <lane id=":ErnstRuskaAltglienicker_2_0" index="0" speed="9.26" length="6.96" shape="1918.87,201.60 1913.62,200.85 1912.20,200.00"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_8" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_8_0" index="0" speed="16.50" length="9.17" shape="1910.54,200.00 1909.25,199.22 1907.46,196.26 1906.87,192.10"/>
+        <lane id=":ErnstRuskaAltglienicker_8_0" index="0" speed="9.26" length="12.40" shape="1912.20,200.00 1909.87,198.60 1907.62,194.85 1906.87,189.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_3" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_3_0" index="0" speed="16.50" length="5.00" shape="1913.27,192.10 1913.46,193.46 1914.04,194.43 1915.01,195.01 1916.37,195.20"/>
+        <lane id=":ErnstRuskaAltglienicker_3_0" index="0" speed="6.51" length="9.03" shape="1913.27,189.60 1913.62,192.05 1914.67,193.80 1916.42,194.85 1918.87,195.20"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_4" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_4_0" index="0" speed="16.50" length="12.84" shape="1910.07,192.10 1909.68,196.26 1908.50,199.22 1906.53,201.01 1903.77,201.60"/>
+        <lane id=":ErnstRuskaAltglienicker_4_0" index="0" speed="8.67" length="16.85" shape="1910.07,189.60 1909.52,194.85 1907.87,198.60 1905.12,200.85 1901.27,201.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_5" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_5_0" index="0" speed="16.50" length="5.00" shape="1903.77,195.20 1905.13,195.01 1906.10,194.42 1906.68,193.46 1906.87,192.10"/>
+        <lane id=":ErnstRuskaAltglienicker_5_0" index="0" speed="6.51" length="9.03" shape="1901.27,195.20 1903.72,194.85 1905.47,193.80 1906.52,192.05 1906.87,189.60"/>
     </edge>
     <edge id=":ErnstRuskaAltglienicker_6" function="internal">
-        <lane id=":ErnstRuskaAltglienicker_6_0" index="0" speed="19.00" length="12.60" shape="1903.77,195.20 1916.37,195.20"/>
-        <lane id=":ErnstRuskaAltglienicker_6_1" index="1" speed="19.00" length="12.60" shape="1903.77,198.40 1916.37,198.40"/>
+        <lane id=":ErnstRuskaAltglienicker_6_0" index="0" speed="19.00" length="17.60" shape="1901.27,195.20 1918.87,195.20"/>
+        <lane id=":ErnstRuskaAltglienicker_6_1" index="1" speed="19.00" length="17.60" shape="1901.27,198.40 1918.87,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_0" function="internal">
-        <lane id=":ErnstRuskaEinstein_0_0" index="0" speed="16.50" length="5.00" shape="293.31,207.90 293.12,206.54 292.54,205.57 291.57,204.99 290.21,204.80"/>
+        <lane id=":ErnstRuskaEinstein_0_0" index="0" speed="6.51" length="9.03" shape="293.31,210.40 292.96,207.95 291.91,206.20 290.16,205.15 287.71,204.80"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_1" function="internal">
-        <lane id=":ErnstRuskaEinstein_1_0" index="0" speed="16.50" length="12.84" shape="293.31,207.90 293.71,203.74 294.89,200.78 296.86,198.99 299.62,198.40"/>
+        <lane id=":ErnstRuskaEinstein_1_0" index="0" speed="8.67" length="16.85" shape="293.31,210.40 293.86,205.15 295.51,201.40 298.26,199.15 302.12,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_2" function="internal">
-        <lane id=":ErnstRuskaEinstein_2_0" index="0" speed="16.50" length="5.00" shape="299.62,204.80 298.26,204.99 297.29,205.58 296.71,206.54 296.51,207.90"/>
+        <lane id=":ErnstRuskaEinstein_2_0" index="0" speed="6.51" length="9.03" shape="302.12,204.80 299.67,205.15 297.91,206.20 296.87,207.95 296.51,210.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_3" function="internal">
-        <lane id=":ErnstRuskaEinstein_3_0" index="0" speed="19.00" length="9.40" shape="299.62,204.80 290.21,204.80"/>
-        <lane id=":ErnstRuskaEinstein_3_1" index="1" speed="19.00" length="9.40" shape="299.62,201.60 290.21,201.60"/>
+        <lane id=":ErnstRuskaEinstein_3_0" index="0" speed="19.00" length="14.40" shape="302.12,204.80 287.71,204.80"/>
+        <lane id=":ErnstRuskaEinstein_3_1" index="1" speed="19.00" length="14.40" shape="302.12,201.60 287.71,201.60"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_5" function="internal">
-        <lane id=":ErnstRuskaEinstein_5_0" index="0" speed="19.00" length="9.40" shape="290.21,195.20 299.62,195.20"/>
-        <lane id=":ErnstRuskaEinstein_5_1" index="1" speed="19.00" length="9.40" shape="290.21,198.40 299.62,198.40"/>
+        <lane id=":ErnstRuskaEinstein_5_0" index="0" speed="19.00" length="14.40" shape="287.71,195.20 302.12,195.20"/>
+        <lane id=":ErnstRuskaEinstein_5_1" index="1" speed="19.00" length="14.40" shape="287.71,198.40 302.12,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_7" function="internal">
-        <lane id=":ErnstRuskaEinstein_7_0" index="0" speed="16.50" length="4.32" shape="290.21,198.40 292.97,198.99 294.08,200.00"/>
+        <lane id=":ErnstRuskaEinstein_7_0" index="0" speed="8.67" length="5.26" shape="287.71,198.40 291.56,199.15 292.60,200.00"/>
     </edge>
     <edge id=":ErnstRuskaEinstein_8" function="internal">
-        <lane id=":ErnstRuskaEinstein_8_0" index="0" speed="16.50" length="8.53" shape="294.08,200.00 294.94,200.78 296.12,203.74 296.51,207.90"/>
+        <lane id=":ErnstRuskaEinstein_8_0" index="0" speed="8.67" length="11.59" shape="292.60,200.00 294.31,201.40 295.96,205.15 296.51,210.40"/>
     </edge>
     <edge id=":ErnstRuskaEnd1_0" function="internal">
         <lane id=":ErnstRuskaEnd1_0_0" index="0" speed="19.00" length="0.10" shape="100.00,204.80 100.00,204.80"/>
@@ -108,79 +108,79 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":ErnstRuskaEnd1_2_1" index="1" speed="19.00" length="0.10" shape="100.00,198.40 100.00,198.40"/>
     </edge>
     <edge id=":ErnstRuskaEnd2_0" function="internal">
-        <lane id=":ErnstRuskaEnd2_0_0" index="0" speed="19.00" length="3.92" shape="2026.92,204.80 2023.92,208.00"/>
-        <lane id=":ErnstRuskaEnd2_0_1" index="1" speed="19.00" length="3.92" shape="2026.92,201.60 2023.92,204.80"/>
-        <lane id=":ErnstRuskaEnd2_0_2" index="2" speed="19.00" length="3.92" shape="2026.92,201.60 2023.92,201.60"/>
+        <lane id=":ErnstRuskaEnd2_0_0" index="0" speed="19.00" length="8.54" shape="2029.42,204.80 2026.96,205.30 2025.42,206.40 2023.88,207.50 2021.42,208.00"/>
+        <lane id=":ErnstRuskaEnd2_0_1" index="1" speed="19.00" length="8.54" shape="2029.42,201.60 2026.96,202.10 2025.42,203.20 2023.88,204.30 2021.42,204.80"/>
+        <lane id=":ErnstRuskaEnd2_0_2" index="2" speed="19.00" length="8.54" shape="2029.42,201.60 2021.42,201.60"/>
     </edge>
     <edge id=":ErnstRuskaEnd2_3" function="internal">
-        <lane id=":ErnstRuskaEnd2_3_0" index="0" speed="19.00" length="3.00" shape="2023.92,195.20 2026.92,195.20"/>
-        <lane id=":ErnstRuskaEnd2_3_1" index="1" speed="19.00" length="3.00" shape="2023.92,198.40 2026.92,198.40"/>
+        <lane id=":ErnstRuskaEnd2_3_0" index="0" speed="19.00" length="8.00" shape="2021.42,195.20 2029.42,195.20"/>
+        <lane id=":ErnstRuskaEnd2_3_1" index="1" speed="19.00" length="8.00" shape="2021.42,198.40 2029.42,198.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_0" function="internal">
-        <lane id=":ErnstRuskaHavestadt_0_0" index="0" speed="16.50" length="5.00" shape="1010.45,207.90 1010.26,206.54 1009.68,205.57 1008.71,204.99 1007.35,204.80"/>
+        <lane id=":ErnstRuskaHavestadt_0_0" index="0" speed="6.51" length="9.03" shape="1010.45,210.40 1010.10,207.95 1009.05,206.20 1007.30,205.15 1004.85,204.80"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_1" function="internal">
-        <lane id=":ErnstRuskaHavestadt_1_0" index="0" speed="16.50" length="17.98" shape="1013.65,207.90 1014.24,202.34 1016.02,198.38 1018.99,195.99 1023.15,195.20"/>
+        <lane id=":ErnstRuskaHavestadt_1_0" index="0" speed="9.84" length="21.99" shape="1013.65,210.40 1014.40,203.75 1016.65,199.00 1020.40,196.15 1025.65,195.20"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_2" function="internal">
-        <lane id=":ErnstRuskaHavestadt_2_0" index="0" speed="16.50" length="15.32" shape="1013.65,207.90 1014.24,203.74 1016.02,200.78 1018.99,198.99 1023.15,198.40"/>
+        <lane id=":ErnstRuskaHavestadt_2_0" index="0" speed="9.26" length="19.35" shape="1013.65,210.40 1014.40,205.15 1016.65,201.40 1020.40,199.15 1025.65,198.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_3" function="internal">
-        <lane id=":ErnstRuskaHavestadt_3_0" index="0" speed="16.50" length="5.00" shape="1023.15,204.80 1021.79,204.99 1020.83,205.58 1020.24,206.54 1020.05,207.90"/>
+        <lane id=":ErnstRuskaHavestadt_3_0" index="0" speed="6.51" length="9.03" shape="1025.65,204.80 1023.20,205.15 1021.45,206.20 1020.40,207.95 1020.05,210.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_4" function="internal">
-        <lane id=":ErnstRuskaHavestadt_4_0" index="0" speed="19.00" length="15.80" shape="1023.15,204.80 1007.35,204.80"/>
-        <lane id=":ErnstRuskaHavestadt_4_1" index="1" speed="19.00" length="15.80" shape="1023.15,201.60 1007.35,201.60"/>
+        <lane id=":ErnstRuskaHavestadt_4_0" index="0" speed="19.00" length="20.80" shape="1025.65,204.80 1004.85,204.80"/>
+        <lane id=":ErnstRuskaHavestadt_4_1" index="1" speed="19.00" length="20.80" shape="1025.65,201.60 1004.85,201.60"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_6" function="internal">
-        <lane id=":ErnstRuskaHavestadt_6_0" index="0" speed="19.00" length="15.80" shape="1007.35,192.00 1023.15,192.00"/>
-        <lane id=":ErnstRuskaHavestadt_6_1" index="1" speed="19.00" length="15.80" shape="1007.35,195.20 1023.15,195.20"/>
+        <lane id=":ErnstRuskaHavestadt_6_0" index="0" speed="19.00" length="20.80" shape="1004.85,192.00 1025.65,192.00"/>
+        <lane id=":ErnstRuskaHavestadt_6_1" index="1" speed="19.00" length="20.80" shape="1004.85,195.20 1025.65,195.20"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_8" function="internal">
-        <lane id=":ErnstRuskaHavestadt_8_0" index="0" speed="16.50" length="6.15" shape="1007.35,198.40 1011.51,198.99 1013.18,200.00"/>
+        <lane id=":ErnstRuskaHavestadt_8_0" index="0" speed="9.26" length="6.96" shape="1004.85,198.40 1010.10,199.15 1011.52,200.00"/>
     </edge>
     <edge id=":ErnstRuskaHavestadt_9" function="internal">
-        <lane id=":ErnstRuskaHavestadt_9_0" index="0" speed="16.50" length="9.17" shape="1013.18,200.00 1014.48,200.78 1016.26,203.74 1016.85,207.90"/>
+        <lane id=":ErnstRuskaHavestadt_9_0" index="0" speed="9.26" length="12.40" shape="1011.52,200.00 1013.85,201.40 1016.10,205.15 1016.85,210.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv1_0" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv1_0_0" index="0" speed="19.00" length="3.00" shape="986.75,204.80 983.75,204.80"/>
-        <lane id=":ErnstRuskaHavestadtDiv1_0_1" index="1" speed="19.00" length="3.00" shape="986.75,201.60 983.75,201.60"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_0_0" index="0" speed="19.00" length="8.00" shape="989.25,204.80 981.25,204.80"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_0_1" index="1" speed="19.00" length="8.00" shape="989.25,201.60 981.25,201.60"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv1_2" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv1_2_0" index="0" speed="19.00" length="3.92" shape="983.75,195.20 986.75,192.00"/>
-        <lane id=":ErnstRuskaHavestadtDiv1_2_1" index="1" speed="19.00" length="3.92" shape="983.75,198.40 986.75,195.20"/>
-        <lane id=":ErnstRuskaHavestadtDiv1_2_2" index="2" speed="19.00" length="3.92" shape="983.75,198.40 986.75,198.40"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_2_0" index="0" speed="19.00" length="8.54" shape="981.25,195.20 983.71,194.70 985.25,193.60 986.79,192.50 989.25,192.00"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_2_1" index="1" speed="19.00" length="8.54" shape="981.25,198.40 983.71,197.90 985.25,196.80 986.79,195.70 989.25,195.20"/>
+        <lane id=":ErnstRuskaHavestadtDiv1_2_2" index="2" speed="19.00" length="8.54" shape="981.25,198.40 989.25,198.40"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv2_0" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv2_0_0" index="0" speed="19.00" length="3.00" shape="1046.75,204.80 1043.75,204.80"/>
-        <lane id=":ErnstRuskaHavestadtDiv2_0_1" index="1" speed="19.00" length="3.00" shape="1046.75,201.60 1043.75,201.60"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_0_0" index="0" speed="19.00" length="8.00" shape="1049.25,204.80 1041.25,204.80"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_0_1" index="1" speed="19.00" length="8.00" shape="1049.25,201.60 1041.25,201.60"/>
     </edge>
     <edge id=":ErnstRuskaHavestadtDiv2_2" function="internal">
-        <lane id=":ErnstRuskaHavestadtDiv2_2_0" index="0" speed="19.00" length="4.39" shape="1043.75,192.00 1046.75,195.20"/>
-        <lane id=":ErnstRuskaHavestadtDiv2_2_1" index="1" speed="19.00" length="4.39" shape="1043.75,195.20 1046.75,198.40"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_2_0" index="0" speed="19.00" length="8.81" shape="1041.25,192.00 1043.71,192.50 1045.25,193.60 1046.79,194.70 1049.25,195.20"/>
+        <lane id=":ErnstRuskaHavestadtDiv2_2_1" index="1" speed="19.00" length="8.81" shape="1041.25,195.20 1043.71,195.70 1045.25,196.80 1046.79,197.90 1049.25,198.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_0" function="internal">
-        <lane id=":ErnstRuskaVolmer_0_0" index="0" speed="16.50" length="5.00" shape="1583.15,207.90 1582.96,206.54 1582.38,205.57 1581.41,204.99 1580.05,204.80"/>
+        <lane id=":ErnstRuskaVolmer_0_0" index="0" speed="6.51" length="9.03" shape="1583.15,210.40 1582.80,207.95 1581.75,206.20 1580.00,205.15 1577.55,204.80"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_1" function="internal">
-        <lane id=":ErnstRuskaVolmer_1_0" index="0" speed="16.50" length="12.84" shape="1583.15,207.90 1583.54,203.74 1584.73,200.77 1586.69,198.99 1589.45,198.40"/>
+        <lane id=":ErnstRuskaVolmer_1_0" index="0" speed="8.67" length="16.85" shape="1583.15,210.40 1583.70,205.15 1585.35,201.40 1588.10,199.15 1591.95,198.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_2" function="internal">
-        <lane id=":ErnstRuskaVolmer_2_0" index="0" speed="16.50" length="5.00" shape="1589.45,204.80 1588.09,204.99 1587.12,205.58 1586.54,206.54 1586.35,207.90"/>
+        <lane id=":ErnstRuskaVolmer_2_0" index="0" speed="6.51" length="9.03" shape="1591.95,204.80 1589.50,205.15 1587.75,206.20 1586.70,207.95 1586.35,210.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_3" function="internal">
-        <lane id=":ErnstRuskaVolmer_3_0" index="0" speed="19.00" length="9.40" shape="1589.45,204.80 1580.05,204.80"/>
-        <lane id=":ErnstRuskaVolmer_3_1" index="1" speed="19.00" length="9.40" shape="1589.45,201.60 1580.05,201.60"/>
+        <lane id=":ErnstRuskaVolmer_3_0" index="0" speed="19.00" length="14.40" shape="1591.95,204.80 1577.55,204.80"/>
+        <lane id=":ErnstRuskaVolmer_3_1" index="1" speed="19.00" length="14.40" shape="1591.95,201.60 1577.55,201.60"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_5" function="internal">
-        <lane id=":ErnstRuskaVolmer_5_0" index="0" speed="19.00" length="9.40" shape="1580.05,195.20 1589.45,195.20"/>
-        <lane id=":ErnstRuskaVolmer_5_1" index="1" speed="19.00" length="9.40" shape="1580.05,198.40 1589.45,198.40"/>
+        <lane id=":ErnstRuskaVolmer_5_0" index="0" speed="19.00" length="14.40" shape="1577.55,195.20 1591.95,195.20"/>
+        <lane id=":ErnstRuskaVolmer_5_1" index="1" speed="19.00" length="14.40" shape="1577.55,198.40 1591.95,198.40"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_7" function="internal">
-        <lane id=":ErnstRuskaVolmer_7_0" index="0" speed="16.50" length="4.32" shape="1580.05,198.40 1582.81,198.99 1583.92,200.00"/>
+        <lane id=":ErnstRuskaVolmer_7_0" index="0" speed="8.67" length="5.26" shape="1577.55,198.40 1581.40,199.15 1582.44,200.00"/>
     </edge>
     <edge id=":ErnstRuskaVolmer_8" function="internal">
-        <lane id=":ErnstRuskaVolmer_8_0" index="0" speed="16.50" length="8.53" shape="1583.92,200.00 1584.78,200.78 1585.96,203.74 1586.35,207.90"/>
+        <lane id=":ErnstRuskaVolmer_8_0" index="0" speed="8.67" length="11.59" shape="1582.44,200.00 1584.15,201.40 1585.80,205.15 1586.35,210.40"/>
     </edge>
     <edge id=":HavestadtEnd_0" function="internal">
         <lane id=":HavestadtEnd_0_0" index="0" speed="14.00" length="0.10" shape="1010.45,300.00 1010.45,300.00"/>
@@ -198,17 +198,17 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="AltglienickerBreitN" from="AltglienickerBreit" to="ErnstRuskaAltglienicker" priority="-1">
-        <lane id="AltglienickerBreitN_0" index="0" speed="14.00" length="10.60" shape="1913.27,181.50 1913.27,192.10"/>
-        <lane id="AltglienickerBreitN_1" index="1" speed="14.00" length="10.60" shape="1910.07,181.50 1910.07,192.10"/>
+        <lane id="AltglienickerBreitN_0" index="0" speed="14.00" length="5.60" shape="1913.27,184.00 1913.27,189.60"/>
+        <lane id="AltglienickerBreitN_1" index="1" speed="14.00" length="5.60" shape="1910.07,184.00 1910.07,189.60"/>
     </edge>
     <edge id="AltglienickerBreitS" from="ErnstRuskaAltglienicker" to="AltglienickerBreit" priority="-1">
-        <lane id="AltglienickerBreitS_0" index="0" speed="14.00" length="10.60" shape="1906.87,192.10 1906.87,181.50"/>
+        <lane id="AltglienickerBreitS_0" index="0" speed="14.00" length="5.60" shape="1906.87,189.60 1906.87,184.00"/>
     </edge>
     <edge id="AltglienickerN" from="AltglienickerEnd" to="AltglienickerBreit" priority="-1">
-        <lane id="AltglienickerN_0" index="0" speed="14.00" length="78.50" shape="1910.07,100.00 1910.07,178.50"/>
+        <lane id="AltglienickerN_0" index="0" speed="14.00" length="76.00" shape="1910.07,100.00 1910.07,176.00"/>
     </edge>
     <edge id="AltglienickerS" from="AltglienickerBreit" to="AltglienickerEnd" priority="-1">
-        <lane id="AltglienickerS_0" index="0" speed="14.00" length="78.50" shape="1906.87,178.50 1906.87,100.00"/>
+        <lane id="AltglienickerS_0" index="0" speed="14.00" length="76.00" shape="1906.87,176.00 1906.87,100.00"/>
     </edge>
     <edge id="AltglienickerSinkN" from="AltglienickerSinkEnd" to="AltglienickerEnd" priority="-1">
         <lane id="AltglienickerSinkN_0" index="0" speed="14.00" length="100.00" shape="1910.07,0.00 1910.07,100.00"/>
@@ -217,10 +217,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="AltglienickerSinkS_0" index="0" speed="14.00" length="100.00" shape="1906.87,100.00 1906.87,0.00"/>
     </edge>
     <edge id="EinsteinN" from="ErnstRuskaEinstein" to="EinsteinEnd" priority="-1">
-        <lane id="EinsteinN_0" index="0" speed="14.00" length="92.10" shape="296.51,207.90 296.51,300.00"/>
+        <lane id="EinsteinN_0" index="0" speed="14.00" length="89.60" shape="296.51,210.40 296.51,300.00"/>
     </edge>
     <edge id="EinsteinS" from="EinsteinEnd" to="ErnstRuskaEinstein" priority="-1">
-        <lane id="EinsteinS_0" index="0" speed="14.00" length="92.10" shape="293.31,300.00 293.31,207.90"/>
+        <lane id="EinsteinS_0" index="0" speed="14.00" length="89.60" shape="293.31,300.00 293.31,210.40"/>
     </edge>
     <edge id="EinsteinSinkN" from="EinsteinEnd" to="EinsteinSinkEnd" priority="-1">
         <lane id="EinsteinSinkN_0" index="0" speed="14.00" length="100.00" shape="296.51,300.00 296.51,400.00"/>
@@ -229,63 +229,63 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="EinsteinSinkS_0" index="0" speed="14.00" length="100.00" shape="293.31,400.00 293.31,300.00"/>
     </edge>
     <edge id="ErnstRuska1O" from="ErnstRuskaEnd1" to="ErnstRuskaEinstein" priority="1">
-        <lane id="ErnstRuska1O_0" index="0" speed="19.00" length="190.21" shape="100.00,195.20 290.21,195.20"/>
-        <lane id="ErnstRuska1O_1" index="1" speed="19.00" length="190.21" shape="100.00,198.40 290.21,198.40"/>
+        <lane id="ErnstRuska1O_0" index="0" speed="19.00" length="187.71" shape="100.00,195.20 287.71,195.20"/>
+        <lane id="ErnstRuska1O_1" index="1" speed="19.00" length="187.71" shape="100.00,198.40 287.71,198.40"/>
     </edge>
     <edge id="ErnstRuska1W" from="ErnstRuskaEinstein" to="ErnstRuskaEnd1" priority="1">
-        <lane id="ErnstRuska1W_0" index="0" speed="19.00" length="190.21" shape="290.21,204.80 100.00,204.80"/>
-        <lane id="ErnstRuska1W_1" index="1" speed="19.00" length="190.21" shape="290.21,201.60 100.00,201.60"/>
+        <lane id="ErnstRuska1W_0" index="0" speed="19.00" length="187.71" shape="287.71,204.80 100.00,204.80"/>
+        <lane id="ErnstRuska1W_1" index="1" speed="19.00" length="187.71" shape="287.71,201.60 100.00,201.60"/>
     </edge>
     <edge id="ErnstRuska231O" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaHavestadt" priority="1">
-        <lane id="ErnstRuska231O_0" index="0" speed="19.00" length="20.60" shape="986.75,192.00 1007.35,192.00"/>
-        <lane id="ErnstRuska231O_1" index="1" speed="19.00" length="20.60" shape="986.75,195.20 1007.35,195.20"/>
-        <lane id="ErnstRuska231O_2" index="2" speed="19.00" length="20.60" shape="986.75,198.40 1007.35,198.40"/>
+        <lane id="ErnstRuska231O_0" index="0" speed="19.00" length="15.60" shape="989.25,192.00 1004.85,192.00"/>
+        <lane id="ErnstRuska231O_1" index="1" speed="19.00" length="15.60" shape="989.25,195.20 1004.85,195.20"/>
+        <lane id="ErnstRuska231O_2" index="2" speed="19.00" length="15.60" shape="989.25,198.40 1004.85,198.40"/>
     </edge>
     <edge id="ErnstRuska231W" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv1" priority="1">
-        <lane id="ErnstRuska231W_0" index="0" speed="19.00" length="20.60" shape="1007.35,204.80 986.75,204.80"/>
-        <lane id="ErnstRuska231W_1" index="1" speed="19.00" length="20.60" shape="1007.35,201.60 986.75,201.60"/>
+        <lane id="ErnstRuska231W_0" index="0" speed="19.00" length="15.60" shape="1004.85,204.80 989.25,204.80"/>
+        <lane id="ErnstRuska231W_1" index="1" speed="19.00" length="15.60" shape="1004.85,201.60 989.25,201.60"/>
     </edge>
     <edge id="ErnstRuska232O" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv2" priority="1">
-        <lane id="ErnstRuska232O_0" index="0" speed="19.00" length="20.60" shape="1023.15,192.00 1043.75,192.00"/>
-        <lane id="ErnstRuska232O_1" index="1" speed="19.00" length="20.60" shape="1023.15,195.20 1043.75,195.20"/>
-        <lane id="ErnstRuska232O_2" index="2" speed="19.00" length="20.60" shape="1023.15,198.40 1043.75,198.40"/>
+        <lane id="ErnstRuska232O_0" index="0" speed="19.00" length="15.60" shape="1025.65,192.00 1041.25,192.00"/>
+        <lane id="ErnstRuska232O_1" index="1" speed="19.00" length="15.60" shape="1025.65,195.20 1041.25,195.20"/>
+        <lane id="ErnstRuska232O_2" index="2" speed="19.00" length="15.60" shape="1025.65,198.40 1041.25,198.40"/>
     </edge>
     <edge id="ErnstRuska232W" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaHavestadt" priority="1">
-        <lane id="ErnstRuska232W_0" index="0" speed="19.00" length="20.60" shape="1043.75,204.80 1023.15,204.80"/>
-        <lane id="ErnstRuska232W_1" index="1" speed="19.00" length="20.60" shape="1043.75,201.60 1023.15,201.60"/>
+        <lane id="ErnstRuska232W_0" index="0" speed="19.00" length="15.60" shape="1041.25,204.80 1025.65,204.80"/>
+        <lane id="ErnstRuska232W_1" index="1" speed="19.00" length="15.60" shape="1041.25,201.60 1025.65,201.60"/>
     </edge>
     <edge id="ErnstRuska2O" from="ErnstRuskaEinstein" to="ErnstRuskaHavestadtDiv1" priority="1">
-        <lane id="ErnstRuska2O_0" index="0" speed="19.00" length="684.13" shape="299.62,195.20 983.75,195.20"/>
-        <lane id="ErnstRuska2O_1" index="1" speed="19.00" length="684.13" shape="299.62,198.40 983.75,198.40"/>
+        <lane id="ErnstRuska2O_0" index="0" speed="19.00" length="679.13" shape="302.12,195.20 981.25,195.20"/>
+        <lane id="ErnstRuska2O_1" index="1" speed="19.00" length="679.13" shape="302.12,198.40 981.25,198.40"/>
     </edge>
     <edge id="ErnstRuska2W" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaEinstein" priority="1">
-        <lane id="ErnstRuska2W_0" index="0" speed="19.00" length="684.13" shape="983.75,204.80 299.62,204.80"/>
-        <lane id="ErnstRuska2W_1" index="1" speed="19.00" length="684.13" shape="983.75,201.60 299.62,201.60"/>
+        <lane id="ErnstRuska2W_0" index="0" speed="19.00" length="679.13" shape="981.25,204.80 302.12,204.80"/>
+        <lane id="ErnstRuska2W_1" index="1" speed="19.00" length="679.13" shape="981.25,201.60 302.12,201.60"/>
     </edge>
     <edge id="ErnstRuska3O" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaVolmer" priority="1">
-        <lane id="ErnstRuska3O_0" index="0" speed="19.00" length="533.30" shape="1046.75,195.20 1580.05,195.20"/>
-        <lane id="ErnstRuska3O_1" index="1" speed="19.00" length="533.30" shape="1046.75,198.40 1580.05,198.40"/>
+        <lane id="ErnstRuska3O_0" index="0" speed="19.00" length="528.30" shape="1049.25,195.20 1577.55,195.20"/>
+        <lane id="ErnstRuska3O_1" index="1" speed="19.00" length="528.30" shape="1049.25,198.40 1577.55,198.40"/>
     </edge>
     <edge id="ErnstRuska3W" from="ErnstRuskaVolmer" to="ErnstRuskaHavestadtDiv2" priority="1">
-        <lane id="ErnstRuska3W_0" index="0" speed="19.00" length="533.30" shape="1580.05,204.80 1046.75,204.80"/>
-        <lane id="ErnstRuska3W_1" index="1" speed="19.00" length="533.30" shape="1580.05,201.60 1046.75,201.60"/>
+        <lane id="ErnstRuska3W_0" index="0" speed="19.00" length="528.30" shape="1577.55,204.80 1049.25,204.80"/>
+        <lane id="ErnstRuska3W_1" index="1" speed="19.00" length="528.30" shape="1577.55,201.60 1049.25,201.60"/>
     </edge>
     <edge id="ErnstRuska4O" from="ErnstRuskaVolmer" to="ErnstRuskaAltglienicker" priority="1">
-        <lane id="ErnstRuska4O_0" index="0" speed="19.00" length="314.32" shape="1589.45,195.20 1903.77,195.20"/>
-        <lane id="ErnstRuska4O_1" index="1" speed="19.00" length="314.32" shape="1589.45,198.40 1903.77,198.40"/>
+        <lane id="ErnstRuska4O_0" index="0" speed="19.00" length="309.32" shape="1591.95,195.20 1901.27,195.20"/>
+        <lane id="ErnstRuska4O_1" index="1" speed="19.00" length="309.32" shape="1591.95,198.40 1901.27,198.40"/>
     </edge>
     <edge id="ErnstRuska4W" from="ErnstRuskaAltglienicker" to="ErnstRuskaVolmer" priority="1">
-        <lane id="ErnstRuska4W_0" index="0" speed="19.00" length="314.32" shape="1903.77,204.80 1589.45,204.80"/>
-        <lane id="ErnstRuska4W_1" index="1" speed="19.00" length="314.32" shape="1903.77,201.60 1589.45,201.60"/>
+        <lane id="ErnstRuska4W_0" index="0" speed="19.00" length="309.32" shape="1901.27,204.80 1591.95,204.80"/>
+        <lane id="ErnstRuska4W_1" index="1" speed="19.00" length="309.32" shape="1901.27,201.60 1591.95,201.60"/>
     </edge>
     <edge id="ErnstRuska5O" from="ErnstRuskaAltglienicker" to="ErnstRuskaEnd2" priority="1">
-        <lane id="ErnstRuska5O_0" index="0" speed="19.00" length="107.55" shape="1916.37,195.20 2023.92,195.20"/>
-        <lane id="ErnstRuska5O_1" index="1" speed="19.00" length="107.55" shape="1916.37,198.40 2023.92,198.40"/>
+        <lane id="ErnstRuska5O_0" index="0" speed="19.00" length="102.55" shape="1918.87,195.20 2021.42,195.20"/>
+        <lane id="ErnstRuska5O_1" index="1" speed="19.00" length="102.55" shape="1918.87,198.40 2021.42,198.40"/>
     </edge>
     <edge id="ErnstRuska5W" from="ErnstRuskaEnd2" to="ErnstRuskaAltglienicker" priority="1">
-        <lane id="ErnstRuska5W_0" index="0" speed="19.00" length="107.55" shape="2023.92,208.00 1916.37,208.00"/>
-        <lane id="ErnstRuska5W_1" index="1" speed="19.00" length="107.55" shape="2023.92,204.80 1916.37,204.80"/>
-        <lane id="ErnstRuska5W_2" index="2" speed="19.00" length="107.55" shape="2023.92,201.60 1916.37,201.60"/>
+        <lane id="ErnstRuska5W_0" index="0" speed="19.00" length="102.55" shape="2021.42,208.00 1918.87,208.00"/>
+        <lane id="ErnstRuska5W_1" index="1" speed="19.00" length="102.55" shape="2021.42,204.80 1918.87,204.80"/>
+        <lane id="ErnstRuska5W_2" index="2" speed="19.00" length="102.55" shape="2021.42,201.60 1918.87,201.60"/>
     </edge>
     <edge id="ErnstRuskaSink1O" from="ErnstRuskaSink1" to="ErnstRuskaEnd1" priority="1">
         <lane id="ErnstRuskaSink1O_0" index="0" speed="19.00" length="100.00" shape="0.00,195.20 100.00,195.20"/>
@@ -296,20 +296,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="ErnstRuskaSink1W_1" index="1" speed="19.00" length="100.00" shape="100.00,201.60 0.00,201.60"/>
     </edge>
     <edge id="ErnstRuskaSink5O" from="ErnstRuskaEnd2" to="ErnstRuskaSink2" priority="1">
-        <lane id="ErnstRuskaSink5O_0" index="0" speed="19.00" length="98.50" shape="2026.92,195.20 2125.42,195.20"/>
-        <lane id="ErnstRuskaSink5O_1" index="1" speed="19.00" length="98.50" shape="2026.92,198.40 2125.42,198.40"/>
+        <lane id="ErnstRuskaSink5O_0" index="0" speed="19.00" length="96.00" shape="2029.42,195.20 2125.42,195.20"/>
+        <lane id="ErnstRuskaSink5O_1" index="1" speed="19.00" length="96.00" shape="2029.42,198.40 2125.42,198.40"/>
     </edge>
     <edge id="ErnstRuskaSink5W" from="ErnstRuskaSink2" to="ErnstRuskaEnd2" priority="1">
-        <lane id="ErnstRuskaSink5W_0" index="0" speed="19.00" length="98.50" shape="2125.42,204.80 2026.92,204.80"/>
-        <lane id="ErnstRuskaSink5W_1" index="1" speed="19.00" length="98.50" shape="2125.42,201.60 2026.92,201.60"/>
+        <lane id="ErnstRuskaSink5W_0" index="0" speed="19.00" length="96.00" shape="2125.42,204.80 2029.42,204.80"/>
+        <lane id="ErnstRuskaSink5W_1" index="1" speed="19.00" length="96.00" shape="2125.42,201.60 2029.42,201.60"/>
     </edge>
     <edge id="HavestadtN" from="ErnstRuskaHavestadt" to="HavestadtEnd" priority="-1">
-        <lane id="HavestadtN_0" index="0" speed="14.00" length="92.10" shape="1020.05,207.90 1020.05,300.00"/>
-        <lane id="HavestadtN_1" index="1" speed="14.00" length="92.10" shape="1016.85,207.90 1016.85,300.00"/>
+        <lane id="HavestadtN_0" index="0" speed="14.00" length="89.60" shape="1020.05,210.40 1020.05,300.00"/>
+        <lane id="HavestadtN_1" index="1" speed="14.00" length="89.60" shape="1016.85,210.40 1016.85,300.00"/>
     </edge>
     <edge id="HavestadtS" from="HavestadtEnd" to="ErnstRuskaHavestadt" priority="-1">
-        <lane id="HavestadtS_0" index="0" speed="14.00" length="92.10" shape="1010.45,300.00 1010.45,207.90"/>
-        <lane id="HavestadtS_1" index="1" speed="14.00" length="92.10" shape="1013.65,300.00 1013.65,207.90"/>
+        <lane id="HavestadtS_0" index="0" speed="14.00" length="89.60" shape="1010.45,300.00 1010.45,210.40"/>
+        <lane id="HavestadtS_1" index="1" speed="14.00" length="89.60" shape="1013.65,300.00 1013.65,210.40"/>
     </edge>
     <edge id="HavestadtSinkN" from="HavestadtEnd" to="HavestadtSinkEnd" priority="-1">
         <lane id="HavestadtSinkN_0" index="0" speed="14.00" length="100.00" shape="1020.05,300.00 1020.05,400.00"/>
@@ -320,10 +320,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="HavestadtSinkS_1" index="1" speed="14.00" length="100.00" shape="1013.65,400.00 1013.65,300.00"/>
     </edge>
     <edge id="VolmerN" from="ErnstRuskaVolmer" to="VolmerEnd" priority="-1">
-        <lane id="VolmerN_0" index="0" speed="14.00" length="92.10" shape="1586.35,207.90 1586.35,300.00"/>
+        <lane id="VolmerN_0" index="0" speed="14.00" length="89.60" shape="1586.35,210.40 1586.35,300.00"/>
     </edge>
     <edge id="VolmerS" from="VolmerEnd" to="ErnstRuskaVolmer" priority="-1">
-        <lane id="VolmerS_0" index="0" speed="14.00" length="92.10" shape="1583.15,300.00 1583.15,207.90"/>
+        <lane id="VolmerS_0" index="0" speed="14.00" length="89.60" shape="1583.15,300.00 1583.15,210.40"/>
     </edge>
     <edge id="VolmerSinkN" from="VolmerEnd" to="VolmerSinkEnd" priority="-1">
         <lane id="VolmerSinkN_0" index="0" speed="14.00" length="100.00" shape="1586.35,300.00 1586.35,400.00"/>
@@ -341,7 +341,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="rrryyyrr"/>
     </tlLogic>
 
-    <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes=":AltglienickerBreit_0_0 :AltglienickerBreit_1_0 :AltglienickerBreit_1_1" shape="1905.27,181.50 1914.87,181.50 1911.67,178.50 1905.27,178.50">
+    <junction id="AltglienickerBreit" type="priority" x="1908.47" y="180.00" incLanes="AltglienickerBreitS_0 AltglienickerN_0" intLanes=":AltglienickerBreit_0_0 :AltglienickerBreit_1_0 :AltglienickerBreit_1_1" shape="1905.27,184.00 1914.87,184.00 1914.04,180.97 1912.50,179.03 1911.91,177.79 1911.67,176.00 1905.27,176.00">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -356,7 +356,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="EinsteinSinkEnd" type="dead_end" x="294.91" y="400.00" incLanes="EinsteinSinkN_0" intLanes="" shape="294.91,400.00 298.12,400.00 294.91,400.00"/>
-    <junction id="ErnstRuskaAltglienicker" type="traffic_light" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_0_1 :ErnstRuskaAltglienicker_8_0 :ErnstRuskaAltglienicker_3_0 :ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1" shape="1916.37,209.60 1916.37,193.60 1914.87,192.10 1905.27,192.10 1903.77,193.60 1903.77,206.40">
+    <junction id="ErnstRuskaAltglienicker" type="traffic_light" x="1908.47" y="200.00" incLanes="ErnstRuska5W_0 ErnstRuska5W_1 ErnstRuska5W_2 AltglienickerBreitN_0 AltglienickerBreitN_1 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_0_0 :ErnstRuskaAltglienicker_0_1 :ErnstRuskaAltglienicker_8_0 :ErnstRuskaAltglienicker_3_0 :ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1" shape="1918.87,209.60 1918.87,193.60 1916.65,193.16 1915.87,192.60 1915.31,191.82 1914.98,190.82 1914.87,189.60 1905.27,189.60 1904.83,191.82 1904.27,192.60 1903.49,193.16 1902.49,193.49 1901.27,193.60 1901.27,206.40 1905.06,206.64 1907.82,207.23 1912.32,208.77 1915.08,209.36">
         <request index="0" response="00000000" foes="00010000" cont="0"/>
         <request index="1" response="00000000" foes="00010000" cont="0"/>
         <request index="2" response="11100000" foes="11110000" cont="1"/>
@@ -366,7 +366,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="6" response="00000000" foes="00011100" cont="0"/>
         <request index="7" response="00000000" foes="00011100" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes=":ErnstRuskaEinstein_0_0 :ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1 :ErnstRuskaEinstein_5_0 :ErnstRuskaEinstein_5_1 :ErnstRuskaEinstein_8_0" shape="291.71,207.90 298.12,207.90 299.62,206.40 299.62,193.60 290.21,193.60 290.21,206.40">
+    <junction id="ErnstRuskaEinstein" type="priority" x="294.91" y="200.00" incLanes="EinsteinS_0 ErnstRuska2W_0 ErnstRuska2W_1 ErnstRuska1O_0 ErnstRuska1O_1" intLanes=":ErnstRuskaEinstein_0_0 :ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1 :ErnstRuskaEinstein_5_0 :ErnstRuskaEinstein_5_1 :ErnstRuskaEinstein_8_0" shape="291.71,210.40 298.12,210.40 298.56,208.18 299.12,207.40 299.89,206.84 300.89,206.51 302.12,206.40 302.12,193.60 287.71,193.60 287.71,206.40 289.94,206.84 290.71,207.40 291.27,208.18 291.60,209.18">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
@@ -382,14 +382,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0000" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaEnd2" type="priority" x="2025.42" y="200.00" incLanes="ErnstRuskaSink5W_0 ErnstRuskaSink5W_1 ErnstRuska5O_0 ErnstRuska5O_1" intLanes=":ErnstRuskaEnd2_0_0 :ErnstRuskaEnd2_0_1 :ErnstRuskaEnd2_0_2 :ErnstRuskaEnd2_3_0 :ErnstRuskaEnd2_3_1" shape="2026.92,206.40 2026.92,193.60 2023.92,193.60 2023.92,209.60">
+    <junction id="ErnstRuskaEnd2" type="priority" x="2025.42" y="200.00" incLanes="ErnstRuskaSink5W_0 ErnstRuskaSink5W_1 ErnstRuska5O_0 ErnstRuska5O_1" intLanes=":ErnstRuskaEnd2_0_0 :ErnstRuskaEnd2_0_1 :ErnstRuskaEnd2_0_2 :ErnstRuskaEnd2_3_0 :ErnstRuskaEnd2_3_1" shape="2029.42,206.40 2029.42,193.60 2021.42,193.60 2021.42,209.60 2024.45,208.77 2026.39,207.23 2027.63,206.64">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes=":ErnstRuskaHavestadt_0_0 :ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_2_0 :ErnstRuskaHavestadt_3_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1 :ErnstRuskaHavestadt_6_0 :ErnstRuskaHavestadt_6_1 :ErnstRuskaHavestadt_9_0" shape="1008.85,207.90 1021.65,207.90 1023.15,206.40 1023.15,190.40 1007.35,190.40 1007.35,206.40">
+    <junction id="ErnstRuskaHavestadt" type="priority" x="1015.25" y="200.00" incLanes="HavestadtS_0 HavestadtS_1 ErnstRuska232W_0 ErnstRuska232W_1 ErnstRuska231O_0 ErnstRuska231O_1 ErnstRuska231O_2" intLanes=":ErnstRuskaHavestadt_0_0 :ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_2_0 :ErnstRuskaHavestadt_3_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1 :ErnstRuskaHavestadt_6_0 :ErnstRuskaHavestadt_6_1 :ErnstRuskaHavestadt_9_0" shape="1008.85,210.40 1021.65,210.40 1022.09,208.18 1022.65,207.40 1023.43,206.84 1024.43,206.51 1025.65,206.40 1025.65,190.40 1004.85,190.40 1004.85,206.40 1007.07,206.84 1007.85,207.40 1008.41,208.18 1008.74,209.18">
         <request index="0" response="000110000" foes="000110000" cont="0"/>
         <request index="1" response="111110000" foes="111110000" cont="0"/>
         <request index="2" response="111110000" foes="111110000" cont="0"/>
@@ -400,14 +400,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000000110" cont="0"/>
         <request index="8" response="000110000" foes="000110110" cont="1"/>
     </junction>
-    <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes=":ErnstRuskaHavestadtDiv1_0_0 :ErnstRuskaHavestadtDiv1_0_1 :ErnstRuskaHavestadtDiv1_2_0 :ErnstRuskaHavestadtDiv1_2_1 :ErnstRuskaHavestadtDiv1_2_2" shape="986.75,206.40 986.75,190.40 983.75,193.60 983.75,206.40">
+    <junction id="ErnstRuskaHavestadtDiv1" type="priority" x="985.25" y="200.00" incLanes="ErnstRuska231W_0 ErnstRuska231W_1 ErnstRuska2O_0 ErnstRuska2O_1" intLanes=":ErnstRuskaHavestadtDiv1_0_0 :ErnstRuskaHavestadtDiv1_0_1 :ErnstRuskaHavestadtDiv1_2_0 :ErnstRuskaHavestadtDiv1_2_1 :ErnstRuskaHavestadtDiv1_2_2" shape="989.25,206.40 989.25,190.40 986.22,191.23 984.28,192.77 983.04,193.36 981.25,193.60 981.25,206.40">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="ErnstRuskaHavestadtDiv2" type="priority" x="1045.25" y="200.00" incLanes="ErnstRuska3W_0 ErnstRuska3W_1 ErnstRuska232O_0 ErnstRuska232O_1 ErnstRuska232O_2" intLanes=":ErnstRuskaHavestadtDiv2_0_0 :ErnstRuskaHavestadtDiv2_0_1 :ErnstRuskaHavestadtDiv2_2_0 :ErnstRuskaHavestadtDiv2_2_1" shape="1046.75,206.40 1046.75,193.60 1043.75,190.40 1043.75,206.40">
+    <junction id="ErnstRuskaHavestadtDiv2" type="priority" x="1045.25" y="200.00" incLanes="ErnstRuska3W_0 ErnstRuska3W_1 ErnstRuska232O_0 ErnstRuska232O_1 ErnstRuska232O_2" intLanes=":ErnstRuskaHavestadtDiv2_0_0 :ErnstRuskaHavestadtDiv2_0_1 :ErnstRuskaHavestadtDiv2_2_0 :ErnstRuskaHavestadtDiv2_2_1" shape="1049.25,206.40 1049.25,193.60 1046.22,192.77 1044.28,191.23 1043.04,190.64 1041.25,190.40 1041.25,206.40">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -415,7 +415,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="ErnstRuskaSink1" type="dead_end" x="0.00" y="200.00" incLanes="ErnstRuskaSink1W_0 ErnstRuskaSink1W_1" intLanes="" shape="0.00,200.00 0.00,206.40 0.00,200.00"/>
     <junction id="ErnstRuskaSink2" type="dead_end" x="2125.42" y="200.00" incLanes="ErnstRuskaSink5O_0 ErnstRuskaSink5O_1" intLanes="" shape="2125.42,200.00 2125.42,193.60 2125.42,200.00"/>
-    <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes=":ErnstRuskaVolmer_0_0 :ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1 :ErnstRuskaVolmer_5_0 :ErnstRuskaVolmer_5_1 :ErnstRuskaVolmer_8_0" shape="1581.55,207.90 1587.95,207.90 1589.45,206.40 1589.45,193.60 1580.05,193.60 1580.05,206.40">
+    <junction id="ErnstRuskaVolmer" type="priority" x="1584.75" y="200.00" incLanes="VolmerS_0 ErnstRuska4W_0 ErnstRuska4W_1 ErnstRuska3O_0 ErnstRuska3O_1" intLanes=":ErnstRuskaVolmer_0_0 :ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1 :ErnstRuskaVolmer_5_0 :ErnstRuskaVolmer_5_1 :ErnstRuskaVolmer_8_0" shape="1581.55,210.40 1587.95,210.40 1588.39,208.18 1588.95,207.40 1589.73,206.84 1590.73,206.51 1591.95,206.40 1591.95,193.60 1577.55,193.60 1577.55,206.40 1579.77,206.84 1580.55,207.40 1581.11,208.18 1581.44,209.18">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="10000000" cont="0"/>
@@ -438,10 +438,10 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="VolmerSinkEnd" type="dead_end" x="1584.75" y="400.00" incLanes="VolmerSinkN_0" intLanes="" shape="1584.75,400.00 1587.95,400.00 1584.75,400.00"/>
 
-    <junction id=":ErnstRuskaAltglienicker_8_0" type="internal" x="1910.54" y="200.00" incLanes=":ErnstRuskaAltglienicker_2_0 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1"/>
-    <junction id=":ErnstRuskaEinstein_8_0" type="internal" x="294.08" y="200.00" incLanes=":ErnstRuskaEinstein_7_0 ErnstRuska2W_0 ErnstRuska2W_1" intLanes=":ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1"/>
-    <junction id=":ErnstRuskaHavestadt_9_0" type="internal" x="1013.18" y="200.00" incLanes=":ErnstRuskaHavestadt_8_0 ErnstRuska232W_0 ErnstRuska232W_1" intLanes=":ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_2_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1"/>
-    <junction id=":ErnstRuskaVolmer_8_0" type="internal" x="1583.92" y="200.00" incLanes=":ErnstRuskaVolmer_7_0 ErnstRuska4W_0 ErnstRuska4W_1" intLanes=":ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1"/>
+    <junction id=":ErnstRuskaAltglienicker_8_0" type="internal" x="1912.20" y="200.00" incLanes=":ErnstRuskaAltglienicker_2_0 ErnstRuska4O_0 ErnstRuska4O_1" intLanes=":ErnstRuskaAltglienicker_4_0 :ErnstRuskaAltglienicker_5_0 :ErnstRuskaAltglienicker_6_0 :ErnstRuskaAltglienicker_6_1"/>
+    <junction id=":ErnstRuskaEinstein_8_0" type="internal" x="292.60" y="200.00" incLanes=":ErnstRuskaEinstein_7_0 ErnstRuska2W_0 ErnstRuska2W_1" intLanes=":ErnstRuskaEinstein_1_0 :ErnstRuskaEinstein_2_0 :ErnstRuskaEinstein_3_0 :ErnstRuskaEinstein_3_1"/>
+    <junction id=":ErnstRuskaHavestadt_9_0" type="internal" x="1011.52" y="200.00" incLanes=":ErnstRuskaHavestadt_8_0 ErnstRuska232W_0 ErnstRuska232W_1" intLanes=":ErnstRuskaHavestadt_1_0 :ErnstRuskaHavestadt_2_0 :ErnstRuskaHavestadt_4_0 :ErnstRuskaHavestadt_4_1"/>
+    <junction id=":ErnstRuskaVolmer_8_0" type="internal" x="1582.44" y="200.00" incLanes=":ErnstRuskaVolmer_7_0 ErnstRuska4W_0 ErnstRuska4W_1" intLanes=":ErnstRuskaVolmer_1_0 :ErnstRuskaVolmer_2_0 :ErnstRuskaVolmer_3_0 :ErnstRuskaVolmer_3_1"/>
 
     <connection from="AltglienickerBreitN" to="ErnstRuska5O" fromLane="0" toLane="0" via=":ErnstRuskaAltglienicker_3_0" tl="ErnstRuskaAltglienicker" linkIndex="3" dir="r" state="o"/>
     <connection from="AltglienickerBreitN" to="ErnstRuska4W" fromLane="1" toLane="1" via=":ErnstRuskaAltglienicker_4_0" tl="ErnstRuskaAltglienicker" linkIndex="4" dir="l" state="o"/>

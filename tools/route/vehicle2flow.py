@@ -36,7 +36,7 @@ def parse_args():
     options, args = optParser.parse_args()
     try:
         options.routefile = args[0]
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".rou.xml"
@@ -47,7 +47,6 @@ def main():
     options = parse_args()
     with open(options.routefile) as f:
         with open(options.outfile, 'w') as outf:
-            headerSeen = False
             for line in f:
                 if options.with_entities:
                     if "<routes " in line or "<routes>" in line:
@@ -57,12 +56,15 @@ def main():
     ]>
     """ % (options.repeat, options.end))
                     line = re.sub(
-                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="&RepeatEnd;" period="&RepeatInterval;"', line)
+                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="&RepeatEnd;" ' +
+                        'period="&RepeatInterval;"', line)
                 else:
                     line = re.sub(
-                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="%s" period="%s"' % (options.end, options.repeat), line)
+                        r'<vehicle(.*)depart( ?= ?"[^"]*")', r'<flow\1begin\2 end="%s" period="%s"' %
+                        (options.end, options.repeat), line)
                 line = re.sub(r'</vehicle>', '</flow>', line)
                 outf.write(line)
+
 
 if __name__ == "__main__":
     main()

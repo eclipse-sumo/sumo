@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/output/MSDetectorControl.h>
 #include "TraCIConstants.h"
@@ -38,55 +34,18 @@
 bool
 TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
         tcpip::Storage& outputStorage) {
-    // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != LAST_STEP_VEHICLE_NUMBER && variable != LAST_STEP_MEAN_SPEED
-            && variable != LAST_STEP_VEHICLE_ID_LIST && variable != LAST_STEP_VEHICLE_HALTING_NUMBER
-            && variable != ID_COUNT) {
-        return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, "Get MeMeDetector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_MULTIENTRYEXIT_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, variable, id);
     try {
-        switch (variable) {
-            case ID_LIST:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::MultiEntryExit::getIDList());
-                break;
-            case ID_COUNT:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::MultiEntryExit::getIDCount());
-                break;
-            case LAST_STEP_VEHICLE_NUMBER:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::MultiEntryExit::getLastStepVehicleNumber(id));
-                break;
-            case LAST_STEP_MEAN_SPEED:
-                tempMsg.writeUnsignedByte(TYPE_DOUBLE);
-                tempMsg.writeDouble(libsumo::MultiEntryExit::getLastStepMeanSpeed(id));
-                break;
-            case LAST_STEP_VEHICLE_ID_LIST:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::MultiEntryExit::getLastStepVehicleIDs(id));
-                break;
-            case LAST_STEP_VEHICLE_HALTING_NUMBER:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::MultiEntryExit::getLastStepHaltingNumber(id));
-                break;
-            default:
-                break;
+        if (!libsumo::MultiEntryExit::handleVariable(id, variable, &server)) {
+            return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, "Get Multi Entry Exit Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 

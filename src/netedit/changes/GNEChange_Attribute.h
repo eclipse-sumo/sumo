@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
@@ -39,6 +35,7 @@ class GNEAttributeCarrier;
 class GNENetElement;
 class GNEAdditional;
 class GNEShape;
+class GNENet;
 
 // ===========================================================================
 // class definitions
@@ -51,18 +48,41 @@ class GNEChange_Attribute : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Attribute)
 
 public:
-    /**@brief Constructor
+    /**@brief Constructor for NetElements
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] testingMode flag to indicate if netedit is running in testing mode
      */
-    GNEChange_Attribute(GNEAttributeCarrier* ac,
+    GNEChange_Attribute(GNENetElement* netElement,
                         const SumoXMLAttr key,
                         const std::string& value,
                         bool customOrigValue = false,
                         const std::string& origValue = "");
 
+    /**@brief Constructor for Additionals
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] testingMode flag to indicate if netedit is running in testing mode
+     */
+    GNEChange_Attribute(GNEAdditional* additional,
+                        const SumoXMLAttr key,
+                        const std::string& value,
+                        bool customOrigValue = false,
+                        const std::string& origValue = "");
+
+    /**@brief Constructor for Shapes
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] testingMode flag to indicate if netedit is running in testing mode
+     */
+    GNEChange_Attribute(GNEShape* shape,
+                        const SumoXMLAttr key,
+                        const std::string& value,
+                        bool customOrigValue = false,
+                        const std::string& origValue = "");
 
     /// @brief Destructor
     ~GNEChange_Attribute();
@@ -99,6 +119,9 @@ private:
 
     /// @brief the original value
     std::string myNewValue;
+
+    /// @brief pointer to Net (used to simplify code)
+    GNENet* myNet;
 
     /// @brief used if AC is an net element
     GNENetElement* myNetElement;

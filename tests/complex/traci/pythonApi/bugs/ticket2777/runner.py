@@ -21,9 +21,8 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import random
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
@@ -40,7 +39,7 @@ def check(vehID, steps=1):
             traci.simulationStep()
         try:
             print("%s vehicle %s on lane=%s pos=%s speed=%s" % (
-                traci.simulation.getCurrentTime() / 1000.0,
+                traci.simulation.getTime(),
                 vehID,
                 traci.vehicle.getLaneID(vehID),
                 traci.vehicle.getLanePosition(vehID),
@@ -56,42 +55,38 @@ traci.init(PORT)
 traci.simulationStep()
 check(vehID)
 try:
-    print("%s setStop for %s" %
-          (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "beg", pos=1.0, laneIndex=0, duration=5000)
+    print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
+    traci.vehicle.setStop(vehID, "beg", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)
 
-traci.simulationStep(21 * 1000)
+traci.simulationStep(21)
 vehID = "v1"
 check(vehID)
 try:
-    print("%s setStop for %s" %
-          (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "end", pos=1.0, laneIndex=0, duration=5000)
+    print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
+    traci.vehicle.setStop(vehID, "end", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)
 
-traci.simulationStep(41 * 1000)
+traci.simulationStep(41)
 vehID = "v2"
 check(vehID)
 try:
-    print("%s setStop for %s" %
-          (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5000)
+    print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
+    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)
 
-traci.simulationStep(61 * 1000)
+traci.simulationStep(61)
 vehID = "v3"
 check(vehID)
 try:
-    print("%s setStop for %s" %
-          (traci.simulation.getCurrentTime() / 1000.0, vehID))
-    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5000)
+    print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
+    traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
 except traci.TraCIException:
     pass
 check(vehID, 10)

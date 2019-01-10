@@ -1,120 +1,12 @@
-Warning: Key F5 (Compute) pressed
-Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
-Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()
-Warning: Created connection 'from7_1to4_1' in retrieveGNEConnection()
-Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '240.00'
-Warning: Removing connection '8_1->3_1' from edge '8'
-Warning: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
-Warning: Removing edge '3' from net
-Warning: Removing connection '7_1->4_1' from edge '7'
-Warning: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()
-Warning: Removing edge '7' from net
-Warning: Key F5 (Compute) pressed
 Warning: Lane '4_1' is not connected from any incoming edge at junction 'Center'.
 Warning: Edge '8' is not connected to outgoing edges at junction 'Center'.
 Warning: could not prohibit 8->UNKNOWN by UNKNOWN->4
 Warning: 1 of 4 prohibitions were not build.
-Warning: Removing edge '8' from net
-Warning: Removing edge '4' from net
-Warning: Key F5 (Compute) pressed
 Warning: could not prohibit UNKNOWN->UNKNOWN by UNKNOWN->UNKNOWN
 Warning: 2 of 6 prohibitions were not build.
-Warning: Removing connection '6_1->1_1' from edge '6'
-Warning: Deleting unreferenced connection 'from6_1to1_1' in removeConnection()
-Warning: Removing edge '6' from net
-Warning: Removing connection '5_1->2_1' from edge '5'
-Warning: Deleting unreferenced connection 'from5_1to2_1' in removeConnection()
-Warning: Removing edge '2' from net
-Warning: Key F5 (Compute) pressed
 Warning: could not prohibit UNKNOWN->1 by 5->UNKNOWN
 Warning: could not prohibit UNKNOWN->UNKNOWN by UNKNOWN->UNKNOWN
 Warning: 4 of 8 prohibitions were not build.
-Warning: Removing edge '1' from net
-Warning: Removing edge '5' from net
-Warning: Key F5 (Compute) pressed
 Warning: 4 of 8 prohibitions were not build.
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '5' from net
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '1' from net
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '2' from net
-Warning: Adding connection '5_1->2_1' into edge '5'
-Warning: Created connection 'from5_1to2_1' in retrieveGNEConnection()
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '6' from net
-Warning: Adding connection '6_1->1_1' into edge '6'
-Warning: Created connection 'from6_1to1_1' in retrieveGNEConnection()
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '4' from net
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '8' from net
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '7' from net
-Warning: Adding connection '7_1->4_1' into edge '7'
-Warning: Created connection 'from7_1to4_1' in retrieveGNEConnection()
-Warning: Keys Ctrl + Z (Undo) pressed
-Warning: Adding edge '3' from net
-Warning: Adding connection '8_1->3_1' into edge '8'
-Warning: Created connection 'from8_1to3_1' in retrieveGNEConnection()
-Warning: Key F5 (Compute) pressed
 Warning: 4 of 10 prohibitions were not build.
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing connection '8_1->3_1' from edge '8'
-Warning: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
-Warning: Removing edge '3' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing connection '7_1->4_1' from edge '7'
-Warning: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()
-Warning: Removing edge '7' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing edge '8' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing edge '4' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing connection '6_1->1_1' from edge '6'
-Warning: Deleting unreferenced connection 'from6_1to1_1' in removeConnection()
-Warning: Removing edge '6' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing connection '5_1->2_1' from edge '5'
-Warning: Deleting unreferenced connection 'from5_1to2_1' in removeConnection()
-Warning: Removing edge '2' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing edge '1' from net
-Warning: Keys Ctrl + Y (Redo) pressed
-Warning: Removing edge '5' from net
 Warning: 4 of 10 prohibitions were not build.
-Warning: Deleting unreferenced edge '5' GNEChange_Edge
-Warning: Deleting unreferenced lane '5_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '5_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '1' GNEChange_Edge
-Warning: Deleting unreferenced lane '1_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '1_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '2' GNEChange_Edge
-Warning: Deleting unreferenced lane '2_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '2_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '6' GNEChange_Edge
-Warning: Deleting unreferenced lane '6_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '6_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '4' GNEChange_Edge
-Warning: Deleting unreferenced lane '4_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '4_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '8' GNEChange_Edge
-Warning: Deleting unreferenced lane '8_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '8_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '7' GNEChange_Edge
-Warning: Deleting unreferenced lane '7_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '7_1' in GNEEdge destructor
-Warning: Deleting unreferenced edge '3' GNEChange_Edge
-Warning: Deleting unreferenced lane '3_0' in GNEEdge destructor
-Warning: Deleting unreferenced lane '3_1' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'A' in GNENet destructor
-Warning: Deleting unreferenced junction 'B' in GNENet destructor
-Warning: Deleting unreferenced junction 'C' in GNENet destructor
-Warning: Deleting unreferenced junction 'Center' in GNENet destructor
-Warning: Deleting unreferenced junction 'D' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor

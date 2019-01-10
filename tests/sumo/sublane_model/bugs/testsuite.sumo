@@ -41,3 +41,9 @@ ticket3618
 
 # collision on parallel internal edges
 ticket3619
+ticket4071
+ticket4100
+ticket4168
+
+# Bicycle wrongly recognizes vehicle as leader
+ticket4223

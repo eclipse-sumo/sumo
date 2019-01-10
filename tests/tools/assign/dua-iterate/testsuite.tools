@@ -24,3 +24,6 @@ binary
 
 # testing convergence of travel times
 convergence
+
+# testing external gawron calculation
+external_gawron

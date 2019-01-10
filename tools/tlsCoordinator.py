@@ -29,12 +29,12 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-from sumolib.output import parse_fast
+from sumolib.output import parse_fast  # noqa
 
 TLTuple = namedtuple('TLTuple', ['edgeID', 'dist', 'time', 'connection'])
 PairKey = namedtuple('PairKey', ['edgeID', 'edgeID2', 'dist'])
-PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'betweenOffset', 'startOffset', 'travelTime',
-                                   'prio', 'numVehicles', 'ogreen', 'green'])
+PairData = namedtuple('PairData', ['otl', 'oconnection', 'tl', 'connection', 'betweenOffset', 'startOffset',
+                                   'travelTime', 'prio', 'numVehicles', 'ogreen', 'green'])
 
 
 def pair2str(p, full=True):
@@ -66,7 +66,7 @@ def get_options(args=None):
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     optParser.add_option("--speed-factor", type="float",
-                         default=0.9, help="avg ration of vehicle speed in relation to the speed limit")
+                         default=0.8, help="avg ration of vehicle speed in relation to the speed limit")
     optParser.add_option("-e", "--evaluate", action="store_true",
                          default=False, help="run the scenario and print duration statistics")
     (options, args) = optParser.parse_args(args=args)
@@ -336,6 +336,7 @@ def main(options):
                          '-r', options.routefile,
                          '-a', ','.join(additionals),
                          '-v', '--no-step-log', '--duration-log.statistics'], stdout=sys.stdout)
+
 
 if __name__ == "__main__":
     options = get_options(sys.argv)

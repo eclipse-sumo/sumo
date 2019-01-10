@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_OSG
 
@@ -498,7 +494,7 @@ GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
     view->setViewportFromToRot(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
-                            Position(lookAt[0], lookAt[1], lookAt[2]), 0);
+                               Position(lookAt[0], lookAt[1], lookAt[2]), 0);
 }
 
 

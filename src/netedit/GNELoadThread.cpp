@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <ctime>
@@ -59,6 +55,8 @@
 GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev) :
     FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
     myEventThrow(ev) {
+    myDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_DEBUG);
+    myGLDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_GLDEBUG);
     myErrorRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_ERROR);
     myMessageRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
     myWarningRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_WARNING);
@@ -67,6 +65,8 @@ GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEvent
 
 
 GNELoadThread::~GNELoadThread() {
+    delete myDebugRetriever;
+    delete myGLDebugRetriever;
     delete myErrorRetriever;
     delete myMessageRetriever;
     delete myWarningRetriever;
@@ -77,6 +77,8 @@ FXint
 GNELoadThread::run() {
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+    MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
+    MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 
@@ -99,6 +101,8 @@ GNELoadThread::run() {
         submitEndAndCleanup(net);
         return 0;
     }
+    MsgHandler::getGLDebugInstance()->clear();
+    MsgHandler::getDebugInstance()->clear();
     MsgHandler::getErrorInstance()->clear();
     MsgHandler::getWarningInstance()->clear();
     MsgHandler::getMessageInstance()->clear();
@@ -110,6 +114,10 @@ GNELoadThread::run() {
         return 0;
     }
     XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+    // check if Debug has to be enabled
+    MsgHandler::enableDebugMessages(oc.getBool("gui-testing-debug"));
+    // check if GL Debug has to be enabled
+    MsgHandler::enableDebugGLMessages(oc.getBool("gui-testing-debug-gl"));
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
 
@@ -147,6 +155,13 @@ GNELoadThread::run() {
                     net->computeAndUpdate(oc, false);
                 }
             }
+            if (myFile == "") {
+                if (oc.isSet("configuration-file")) {
+                    myFile = oc.getString("configuration-file");
+                } else if (oc.isSet("sumo-net-file")) {
+                    myFile = oc.getString("sumo-net-file");
+                }
+            }
 
         } catch (ProcessError& e) {
             if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
@@ -176,6 +191,8 @@ GNELoadThread::run() {
 void
 GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
+    MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
+    MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
@@ -197,31 +214,36 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     GeoConvHelper::addProjectionOptions(oc);
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("TLS Building");
     oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");
     oc.addOptionSubTopic("Unregulated Nodes");
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("Junctions");
+    oc.addOptionSubTopic("Pedestrian");
+    oc.addOptionSubTopic("Railway");
+    oc.addOptionSubTopic("Formats");
+    oc.addOptionSubTopic("Netedit");
     oc.addOptionSubTopic("Visualisation");
 
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
-    oc.doRegister("sumo-additionals-file", new Option_String());
-    oc.addDescription("sumo-additionals-file", "Input", "file in which additionals are loaded");
+    oc.doRegister("sumo-additionals-file", 'a', new Option_String());
+    oc.addDescription("sumo-additionals-file", "Netedit", "file in which additionals are loaded");
 
     oc.doRegister("additionals-output", new Option_String());
-    oc.addDescription("additionals-output", "Output", "file in which additionals must be saved");
+    oc.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
 
     oc.doRegister("sumo-shapes-file", new Option_String());
-    oc.addDescription("sumo-shapes-file", "Input", "file in which shapes are loaded");
+    oc.addDescription("sumo-shapes-file", "Netedit", "file in which shapes are loaded");
 
     oc.doRegister("shapes-output", new Option_String());
-    oc.addDescription("shapes-output", "Output", "file in which shapes must be saved");
+    oc.addDescription("shapes-output", "Netedit", "file in which shapes must be saved");
 
     oc.doRegister("TLSPrograms-output", new Option_String());
-    oc.addDescription("TLSPrograms-output", "Output", "file in which TLS Programs must be saved");
+    oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
@@ -229,7 +251,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
     oc.addDescription("disable-textures", "Visualisation", "");
 
-    oc.doRegister("gui-settings-file", new Option_FileName());
+    oc.doRegister("gui-settings-file", 'g', new Option_FileName());
     oc.addDescription("gui-settings-file", "Visualisation", "Load visualisation settings from FILE");
 
     oc.doRegister("registry-viewport", new Option_Bool(false));
@@ -246,6 +268,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("gui-testing-debug", new Option_Bool(false));
     oc.addDescription("gui-testing-debug", "Visualisation", "Enable output messages during GUI-Testing");
+
+    oc.doRegister("gui-testing-debug-gl", new Option_Bool(false));
+    oc.addDescription("gui-testing-debug-gl", "Visualisation", "Enable output messages during GUI-Testing specific of gl functions");
 
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
@@ -266,7 +291,9 @@ GNELoadThread::setDefaultOptions(OptionsCont& oc) {
 bool
 GNELoadThread::initOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
+    // fill all optiones
     fillOptions(oc);
+    // set manually the net file
     if (myFile != "") {
         if (myLoadNet) {
             oc.set("sumo-net-file", myFile);
@@ -274,9 +301,14 @@ GNELoadThread::initOptions() {
             oc.set("configuration-file", myFile);
         }
     }
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
     setDefaultOptions(oc);
     try {
+        // set all values writables, because certain attributes already setted can be updated throught console
+        oc.resetWritable();
+        // load options from console
         OptionsIO::getOptions();
+        // if output file wasn't defined in the command line manually, set value of "sumo-net-file"
         if (!oc.isSet("output-file")) {
             oc.set("output-file", oc.getString("sumo-net-file"));
         }
@@ -286,8 +318,8 @@ GNELoadThread::initOptions() {
             WRITE_ERROR(e.what());
         }
         WRITE_ERROR("Failed to parse options.");
+        return false;
     }
-    return false;
 }
 
 

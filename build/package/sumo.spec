@@ -29,6 +29,8 @@ Source1:        sumo-doc-%{version}.zip
 Source2:        %{name}.desktop
 Source3:        %{name}.png
 Source4:        %{name}.xml
+Source5:        %{name}.sh
+Source6:        %{name}.csh
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
@@ -92,6 +94,8 @@ install -Dm644 %{SOURCE4} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
+install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
+install -m 644 %{SOURCE5} %{SOURCE6} %{buildroot}%{_sysconfdir}/profile.d
 
 %files
 %defattr(-,root,root)

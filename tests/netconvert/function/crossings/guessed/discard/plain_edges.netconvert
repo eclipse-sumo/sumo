@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 20 15:44:39 2016 by SUMO netconvert Version dev-SVN-r20491
+<!-- generated on Wed Aug 15 16:12:48 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,13 +15,17 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <plain-output-prefix value="plain"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-turnarounds value="true"/>
+    </junctions>
+
+    <pedestrian>
         <crossings.guess value="true"/>
-    </processing>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -30,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="CE" from="C" to="E" priority="2" numLanes="4" speed="13.89">
         <lane index="0" allow="pedestrian" width="3.00"/>
         <lane index="1" disallow="all" width="1.50"/>

@@ -26,6 +26,9 @@ traffic_light_actuated
 # handle shape, allow, disallow, type
 attributes
 
+# dismiss vclass information
+dismiss-vclasses
+
 # handle non-default spreadType
 spreadType
 
@@ -83,3 +86,9 @@ merge
 
 # merge 2 geo-referenced networks
 merge_geo
+
+# re-import limited speed on junctions based on radius
+limit-turn-speed
+
+# re-import limited speed on junctions based on radius and overwrite with a new limit argument
+limit-turn-speed_overwrite

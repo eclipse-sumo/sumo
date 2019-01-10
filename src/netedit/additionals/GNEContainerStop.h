@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -58,23 +54,15 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
+    GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEContainerStop();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
-    /// @brief get string vector with the lines of the busStop
-    const std::vector<std::string>& getLines() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -118,10 +106,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNEContainerStop(const GNEContainerStop&);
+    GNEContainerStop(const GNEContainerStop&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEContainerStop& operator=(const GNEContainerStop&);
+    GNEContainerStop& operator=(const GNEContainerStop&) = delete;
 };
 
 

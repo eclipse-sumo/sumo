@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  1 13:00:58 2018 by SUMO Version v0_32_0+0635-8a87e73
+<!-- generated on Fri Aug 17 18:06:26 2018 by Eclipse SUMO Version 6229c1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -31,6 +32,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="follower" depart="4.00" departLane="SC_0" departPos="66.75" departSpeed="0.00" departDelay="3.00" arrival="37.00" arrivalLane="CN_1" arrivalPos="76.75" arrivalSpeed="13.89" duration="33.00" routeLength="133.26" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="23.06" rerouteNo="0" devices="tripinfo_follower" vType="fast" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="follower" depart="4.00" departLane="SC_0" departPos="66.75" departSpeed="0.00" departDelay="3.00" arrival="38.00" arrivalLane="CN_1" arrivalPos="76.75" arrivalSpeed="13.89" duration="34.00" routeLength="133.26" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="23.92" rerouteNo="0" devices="tripinfo_follower" vType="fast" speedFactor="1.00" vaporized=""/>
     <tripinfo id="leader" depart="0.00" departLane="SC_0" departPos="66.75" departSpeed="0.00" departDelay="0.00" arrival="67.00" arrivalLane="CN_0" arrivalPos="76.75" arrivalSpeed="2.00" duration="67.00" routeLength="133.26" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_leader" vType="slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>

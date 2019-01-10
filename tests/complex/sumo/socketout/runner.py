@@ -50,6 +50,7 @@ def main(bailOut=False):
             msg = msg + chunk
         sys.stdout.write(msg)
 
+
 threading.Thread(target=main).start()
 time.sleep(1)
 subprocess.call([sumoBinary, "sumo.sumocfg"])

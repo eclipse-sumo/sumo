@@ -24,23 +24,14 @@ import time
 import math
 from multiprocessing import Process, freeze_support
 
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
-import traci
+import traci  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
-
-if sys.argv[1] == "sumo":
-    sumoBinary = os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    addOption = "--remote-port %s" % PORT
-else:
-    sumoBinary = os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui'))
-    addOption = "-S -Q --remote-port %s" % PORT
+sumoBinary = sumolib.checkBinary(sys.argv[1])
 
 
 def traciLoop(port, traciEndTime, i, runNr, steplength=0):
@@ -60,7 +51,7 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
     while not step > traciEndStep:
         print("Process %s:" % (i))
         print("   stepping (step %s)..." % step)
-        traci.simulationStep(int(step * steplength * 1000))
+        traci.simulationStep(step * steplength)
         vehs = traci.vehicle.getIDList()
         if len(vehs) != 0:
             vehID = vehs[0]
@@ -91,7 +82,8 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
 
 def runSingle(sumoEndTime, traciEndTime, numClients, runNr):
     sumoProcess = subprocess.Popen(
-        "%s -v --num-clients %s -c sumo.sumocfg %s" % (sumoBinary, numClients, addOption), shell=True, stdout=sys.stdout)  # Alternate ordering
+        "%s -v --num-clients %s -c sumo.sumocfg -S -Q --remote-port %s" %
+        (sumoBinary, numClients, PORT), shell=True, stdout=sys.stdout)  # Alternate ordering
     procs = [Process(target=traciLoop, args=(PORT, traciEndTime, (i + 1), runNr)) for i in range(numClients)]
     for p in procs:
         p.start()

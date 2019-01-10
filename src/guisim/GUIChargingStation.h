@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <string>
@@ -80,6 +76,7 @@ public:
      * @param[in] chargeDelay delay in the charge
      */
     GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
+                       const std::string& name,
                        double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
 
     /// @brief Destructor

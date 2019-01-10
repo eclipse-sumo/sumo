@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSNet.h>
@@ -63,6 +59,18 @@ MSDevice_Transportable::MSDevice_Transportable(SUMOVehicle& holder, const std::s
 MSDevice_Transportable::~MSDevice_Transportable() {
 }
 
+void
+MSDevice_Transportable::notifyMoveInternal(const SUMOVehicle& veh,
+        const double /* frontOnLane */,
+        const double /* timeOnLane*/,
+        const double /* meanSpeedFrontOnLane */,
+        const double /*meanSpeedVehicleOnLane */,
+        const double /* travelledDistanceFrontOnLane */,
+        const double /* travelledDistanceVehicleOnLane */,
+        const double /* meanLengthOnLane */) {
+    notifyMove(const_cast<SUMOVehicle&>(veh), -1, -1, -1);
+}
+
 
 bool
 MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
@@ -77,7 +85,7 @@ MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /
         if (veh.isStopped()) {
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
-                if (&(transportable->getDestination()) == veh.getEdge()) {
+                if (transportable->getDestination() == veh.getEdge()) {
                     if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                         if (myAmContainer) {
                             MSNet::getInstance()->getContainerControl().erase(transportable);
@@ -121,10 +129,10 @@ MSDevice_Transportable::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
             MSTransportable* transportable = *i;
-            if (&(transportable->getDestination()) != veh.getEdge()) {
+            if (transportable->getDestination() != veh.getEdge()) {
                 WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
-                              "' to intended destination edge '" + transportable->getDestination().getID() + "'");
+                              "' to intended destination edge '" + transportable->getDestination()->getID() + "'");
             }
             if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
                 if (myAmContainer) {

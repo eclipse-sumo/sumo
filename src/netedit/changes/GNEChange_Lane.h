@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
@@ -59,7 +55,7 @@ public:
      * @param[in] forward Whether to create/delete (true/false)
      * @param[in] recomputeConnections Whether to recompute all connections for the affected edge
      */
-    GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections=true);
+    GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections = true);
 
     /// @brief Destructor
     ~GNEChange_Lane();
@@ -97,7 +93,7 @@ private:
     std::vector<GNEShape*> myShapeChilds;
 
     /// @brief we need to preserve the list of additional sets in which this lane is a child
-    std::vector<GNEAdditional*> myAdditionalParents;
+    std::vector<GNEAdditional*> myFirstAdditionalParents;
 
     /// @bried whether to recompute connection when adding a new lane
     bool myRecomputeConnections;

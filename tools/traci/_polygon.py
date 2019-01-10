@@ -20,7 +20,7 @@ from . import constants as tc
 
 _RETURN_VALUE_FUNC = {tc.VAR_TYPE: Storage.readString,
                       tc.VAR_SHAPE: Storage.readShape,
-                      tc.VAR_FILL: lambda result: bool(result.read("!B")[0]),
+                      tc.VAR_FILL: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 
 
@@ -95,15 +95,16 @@ class PolygonDomain(Domain):
         self._connection._sendExact()
 
     def setFilled(self, polygonID, filled):
-        """setFilled(string) -> bool
-        Returns whether the polygon is filled
+        """setFilled(string, bool) -> None
+        Sets the filled status of the polygon
         """
-        self._connection._sendUByteCmd(
+        self._connection._sendIntCmd(
             tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_FILL, polygonID, (1 if filled else 0))
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0):
         self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.ADD, polygonID, 1 + 4 + 1 + 4 +
-                                       len(polygonType) + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 1 + len(shape) * (8 + 8))
+                                       len(polygonType) + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 1 +
+                                       len(shape) * (8 + 8))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(polygonType)
         self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),

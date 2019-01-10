@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:46 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:49 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,36 +18,33 @@ SPDX-License-Identifier: EPL-2.0
         <output-file value="net.net.xml"/>
     </output>
 
-    <processing>
-        <ignore-errors value="true"/>
-    </processing>
-
     <report>
         <xml-validation value="never"/>
+        <ignore-errors value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,30.00,0.00" origBoundary="0.00,0.00,30.00,0.00" projParameter="!"/>
 
     <edge id=":1_0" function="internal">
-        <lane id=":1_0_0" index="0" allow="bus" speed="13.90" length="0.10" shape="10.00,-1.60 10.00,-1.60"/>
+        <lane id=":1_0_0" index="0" allow="bus" speed="13.89" length="0.10" shape="10.00,-1.60 10.00,-1.60"/>
     </edge>
 
     <edge id="0" from="0" to="1" priority="-1">
-        <lane id="0_0" index="0" allow="bus" speed="13.90" length="10.00" shape="0.00,-1.60 10.00,-1.60"/>
+        <lane id="0_0" index="0" allow="bus" speed="13.89" length="10.00" shape="0.00,-1.60 10.00,-1.60"/>
     </edge>
     <edge id="1" from="1" to="2" priority="-1">
-        <lane id="1_0" index="0" allow="bus" speed="13.90" length="10.00" shape="10.00,-1.60 20.00,-1.60"/>
+        <lane id="1_0" index="0" allow="bus" speed="13.89" length="10.00" shape="10.00,-1.60 20.00,-1.60"/>
     </edge>
     <edge id="2" from="2" to="3" priority="-1">
-        <lane id="2_0" index="0" disallow="bus" speed="13.90" length="10.00" shape="20.00,-1.60 30.00,-1.60"/>
+        <lane id="2_0" index="0" disallow="bus" speed="13.89" length="10.00" shape="20.00,-1.60 30.00,-1.60"/>
     </edge>
     <edge id="3" from="0" to="3" priority="-1">
-        <lane id="3_0" index="0" speed="13.90" length="30.00" shape="0.00,-1.60 30.00,-1.60"/>
+        <lane id="3_0" index="0" speed="13.89" length="30.00" shape="0.00,-1.60 30.00,-1.60"/>
     </edge>
 
     <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20 0.00,0.00 0.00,-3.20"/>

@@ -24,3 +24,5 @@ set(dfrouter_SRCS
 add_executable(dfrouter ${dfrouter_SRCS})
 set_target_properties(dfrouter PROPERTIES OUTPUT_NAME_DEBUG dfrouterD)
 target_link_libraries(dfrouter router ${commonvehiclelibs})
+
+install(TARGETS dfrouter RUNTIME DESTINATION bin)

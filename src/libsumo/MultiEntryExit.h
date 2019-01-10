@@ -21,19 +21,19 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
+#include <libsumo/TraCIDefs.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSE3Collector;
+namespace libsumo {
+class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -53,19 +53,25 @@ public:
     static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
     static int getLastStepHaltingNumber(const std::string& detID);
 
+    LIBSUMO_SUBSCRIPTION_API
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static MSE3Collector* getDetector(const std::string& detID);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    MultiEntryExit();
-
-    /// @brief invalidated copy constructor
-    MultiEntryExit(const MultiEntryExit& src);
-
-    /// @brief invalidated assignment operator
-    MultiEntryExit& operator=(const MultiEntryExit& src);
+    MultiEntryExit() = delete;
 
 };
+
+
 }
 
 

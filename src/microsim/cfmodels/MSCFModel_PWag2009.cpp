@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
@@ -37,14 +33,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype,  double accel,
-                                       double decel, double emergencyDecel, double apparentDecel,
-                                       double dawdle, double headwayTime, double tauLast, double apProb) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDawdle(dawdle),
-    myTauDecel(decel * headwayTime),
-    myDecelDivTau(decel / headwayTime),
-    myTauLastDecel(decel * tauLast),
-    myActionPointProbability(apProb) {
+MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype) :
+    MSCFModel(vtype),
+    myDawdle(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(vtype->getParameter().vehicleClass))),
+    myTauDecel(myDecel * myHeadwayTime),
+    myDecelDivTau(myDecel / myHeadwayTime),
+    myTauLastDecel(myDecel * vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3)),
+    myActionPointProbability(vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5)) {
 }
 
 
@@ -138,6 +133,5 @@ MSCFModel_PWag2009::dawdle(double speed) const {
 
 MSCFModel*
 MSCFModel_PWag2009::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_PWag2009(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel,
-                                  myDawdle, myHeadwayTime, myTauLastDecel / myDecel, myActionPointProbability);
+    return new MSCFModel_PWag2009(vtype);
 }

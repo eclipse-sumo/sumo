@@ -12,6 +12,5 @@
         <end value="180"/>
         <step-length value=".1"/>
     </time>
-    <output-prefix value="square."/>
 
 </configuration>

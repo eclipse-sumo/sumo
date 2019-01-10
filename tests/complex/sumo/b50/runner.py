@@ -18,8 +18,6 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import time
-import shutil
 sumoHome = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 if "SUMO_HOME" in os.environ:

@@ -1,126 +1,27 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
-[log]  TYPE "v"
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log] ( Alt )  TYPE "o"
-[log]  TYPE "a"
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(554,540)@S(0)[0,0 1280x720] (234 msec)
+25
+25
+25
+e3Detector
 TestFunctions: Clicked over position 554 - 540
-[log] CLICK on L(654,540)@S(0)[0,0 1280x720] (235 msec)
 TestFunctions: Clicked over position 654 - 540
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE " "
-[log]  TYPE "#TAB."
-[log] CLICK on L(504,340)@S(0)[0,0 1280x720] (234 msec)
+detEntry
+TestFunctions: Clicked over position 554 - 540
 TestFunctions: Clicked over position 504 - 340
-[log]  TYPE "i"
-[log] CLICK on L(504,340)@S(0)[0,0 1280x720] (234 msec)
+detExit
+TestFunctions: Clicked over position 654 - 540
+TestFunctions: Clicked over position 704 - 340
 TestFunctions: Clicked over position 504 - 340
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE " "
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE " "
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
+dummyLane
+
+gneE3_1
+dummy position
+
+25
+invalidE3
+e3Detector_1
 TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (235 msec)
 TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl+Shift )  TYPE "d"
-[log] ( Ctrl )  TYPE "s"
-[log] ( Ctrl )  TYPE "q"
 TestFunctions: Netedit closed successfully

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSDevice.h"
 #include <utils/common/SUMOTime.h>
@@ -73,18 +69,24 @@ public:
     /// @brief Destructor.
     ~MSDevice_FCD();
 
-
-    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
-    /// @{
-
-    bool notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/ ) {
+    bool notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/) {
         return false;
+    }
+
+    void saveState(OutputDevice& /* out */) const {
     }
 
     /// @brief return the name for this type of device
     const std::string deviceName() const {
         return "fcd";
     }
+
+    static const std::set<const MSEdge*>& getEdgeFilter() {
+        return myEdgeFilter;
+    }
+
+    /// @brief resets the edge filter
+    static void cleanup();
 
 private:
     /** @brief Constructor
@@ -95,7 +97,12 @@ private:
     MSDevice_FCD(SUMOVehicle& holder, const std::string& id);
 
 
+    /// @brief spatial filter for FCD output
+    static std::set<const MSEdge*> myEdgeFilter;
+    static bool myEdgeFilterInitialized;
 
+    /// @brief initialize edge filter (once)
+    static void initEdgeFilter();
 
 private:
     /// @brief Invalidated copy constructor.

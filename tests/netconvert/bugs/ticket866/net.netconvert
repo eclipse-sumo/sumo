@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:47 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:50 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,9 +21,9 @@ SPDX-License-Identifier: EPL-2.0
         <ramps.guess value="true"/>
     </ramp_guessing>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -32,25 +32,25 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-358214.00,-5643940.29" convBoundary="0.00,0.00,490.35,245.24" origBoundary="6.977606,50.924605,6.993985,50.936346" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="bug_in_osm_db" from="cluster_35916474_35916475_443246" to="443238" priority="9" spreadType="center" shape="490.02,243.75 472.22,225.80 438.38,192.83 422.32,177.95 405.57,164.02 376.21,141.49 344.54,121.64 320.33,109.04 294.12,95.53 271.94,79.51 246.73,70.41">
-        <lane id="bug_in_osm_db_0" index="0" speed="13.89" length="305.33" shape="489.79,245.79 471.09,226.94 437.28,193.99 421.26,179.15 404.57,165.27 375.30,142.81 343.74,123.03 319.59,110.46 293.28,96.90 271.19,80.94 247.91,72.54"/>
-        <lane id="bug_in_osm_db_1" index="1" speed="13.89" length="305.33" shape="492.06,243.54 473.35,224.66 439.48,191.67 423.38,176.75 406.57,162.77 377.12,140.17 345.34,120.25 321.07,107.62 294.96,94.16 272.69,78.08 248.90,69.49"/>
+        <lane id="bug_in_osm_db_0" index="0" speed="13.89" length="304.38" shape="489.79,245.79 471.09,226.94 437.28,193.99 421.26,179.15 404.57,165.27 375.30,142.81 343.74,123.03 319.59,110.46 293.28,96.90 271.19,80.94 250.26,73.38"/>
+        <lane id="bug_in_osm_db_1" index="1" speed="13.89" length="304.38" shape="492.06,243.54 473.35,224.66 439.48,191.67 423.38,176.75 406.57,162.77 377.12,140.17 345.34,120.25 321.07,107.62 294.96,94.16 272.69,78.08 251.25,70.34"/>
     </edge>
     <edge id="exit_with_only_one_lane" from="443238" to="324321646" priority="10" spreadType="center" shape="248.57,66.00 273.14,73.96 294.31,77.97 306.29,78.24 316.96,75.87 326.73,71.93 334.60,66.29 341.45,57.35 345.11,48.69 346.35,39.52 346.17,31.67 344.86,23.54 341.67,17.30 336.14,10.25 328.81,4.33 314.83,0.45 303.97,0.00 291.35,3.21 280.38,10.06 275.41,19.79">
-        <lane id="exit_with_only_one_lane_0" index="0" speed="22.22" length="224.53" shape="249.89,66.43 273.14,73.96 294.31,77.97 306.29,78.24 316.96,75.87 326.73,71.93 334.60,66.29 341.45,57.35 345.11,48.69 346.35,39.52 346.17,31.67 344.86,23.54 341.67,17.30 336.14,10.25 328.81,4.33 314.83,0.45 303.97,0.00 291.35,3.21 280.38,10.06 275.54,19.53"/>
+        <lane id="exit_with_only_one_lane_0" index="0" speed="22.22" length="224.09" shape="252.27,67.20 273.14,73.96 294.31,77.97 306.29,78.24 316.96,75.87 326.73,71.93 334.60,66.29 341.45,57.35 345.11,48.69 346.35,39.52 346.17,31.67 344.86,23.54 341.67,17.30 336.14,10.25 328.81,4.33 314.83,0.45 303.97,0.00 291.35,3.21 280.38,10.06 275.54,19.53"/>
     </edge>
     <edge id="motorway" from="2159689627" to="443238" priority="9" spreadType="center" shape="0.00,49.16 60.99,48.56 139.39,50.79 190.61,56.09 219.76,60.90 248.17,67.55">
-        <lane id="motorway_0" index="0" speed="13.89" length="249.64" shape="-0.02,47.56 61.00,46.96 139.50,49.19 190.82,54.50 220.07,59.33 247.21,65.68"/>
-        <lane id="motorway_1" index="1" speed="13.89" length="249.64" shape="0.02,50.76 60.98,50.16 139.28,52.39 190.40,57.68 219.45,62.47 246.48,68.80"/>
+        <lane id="motorway_0" index="0" speed="13.89" length="249.64" shape="-0.02,47.56 61.00,46.96 139.50,49.19 190.82,54.50 220.07,59.33 244.78,65.11"/>
+        <lane id="motorway_1" index="1" speed="13.89" length="249.64" shape="0.02,50.76 60.98,50.16 139.28,52.39 190.40,57.68 219.45,62.47 244.05,68.23"/>
     </edge>
 
     <junction id="2159689627" type="dead_end" x="0.00" y="49.16" incLanes="" intLanes="" shape="0.03,52.36 -0.03,45.96"/>
     <junction id="324321646" type="dead_end" x="272.57" y="18.01" incLanes="exit_with_only_one_lane_0" intLanes="" shape="276.97,20.26 274.12,18.80"/>
-    <junction id="443238" type="priority" x="248.17" y="67.55" incLanes="bug_in_osm_db_0 bug_in_osm_db_1 motorway_0 motorway_1" intLanes="" shape="247.42,74.06 250.38,64.91 247.58,64.12 246.12,70.36">
+    <junction id="443238" type="priority" x="248.17" y="67.55" incLanes="bug_in_osm_db_0 bug_in_osm_db_1 motorway_0 motorway_1" intLanes="" shape="249.77,74.91 252.76,65.68 245.14,63.55 243.68,69.79 246.15,71.22 246.78,72.18 247.39,73.18 248.29,74.12">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>

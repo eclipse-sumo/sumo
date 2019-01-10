@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cstdint>
 #include <xercesc/util/PlatformUtils.hpp>
@@ -79,6 +75,15 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
     } else {
         throw ProcessError("Unknown network validation scheme + '" + netValidationScheme + "'.");
     }
+}
+
+
+bool
+XMLSubSys::isValidating(const bool net) {
+    if (net) {
+        return myNetValidationScheme != XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
+    }
+    return myValidationScheme != XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
 }
 
 

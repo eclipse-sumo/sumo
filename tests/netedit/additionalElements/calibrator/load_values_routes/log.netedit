@@ -1,47 +1,10 @@
-Warning: Adding calibrator 'calibratorRoutes' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Essential string attribute 'id' of route is missing; route cannot be created
-Warning: Format of essential string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
+Warning: Essential unique string attribute 'id' of route is missing; route cannot be created
+Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
 Warning: There is another route with the same ID='route01'.
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
-Warning: Error parsing parameter edges. edge 'dummyEdge1'  doesn't exist.
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator route into calibrator 'calibratorRoutes'
-Warning: Adding calibrator vehicle type 'typeWithoutCalibrator'
-Warning: route with ID = 'typeWithoutCalibrator' cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting calibrator route
-Warning: Deleting unreferenced calibrator 'calibratorRoutes'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting unreferenced vType 'typeWithoutCalibrator' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor
+Warning: Essential list of unique strings attribute 'edges' of route with ID 'route03' is missing; route cannot be created
+Warning: Error parsing parameter edges. edge 'dummyEdge1' doesn't exist.
+Warning: Routes needs at least one edge.
+Warning: Error parsing parameter edges. edge 'dummyEdge1' doesn't exist.
+Warning: Routes needs at least one edge.
+Warning: A flow must be declared within the definition of a calibrator.
+Warning: flow cannot be created; their route with ID = 'typeWithoutCalibrator' doesn't exist

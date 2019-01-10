@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <cassert>
@@ -326,7 +322,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
         }
         //std::cout << " state after correcting left movers=" << state << "\n";
-        
+
         std::vector<bool> leftGreen(pos, false);
         // check whether at least one left-turn lane exist
         bool foundLeftTurnLane = false;
@@ -343,10 +339,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 leftGreen[i1] = true;
                 if (fromEdges[i1]->getSpeed() > minorLeftSpeedThreshold) {
                     if (buildLeftGreenPhase) {
-                        state[i1] = 'r'; 
+                        state[i1] = 'r';
                     } else if (!isTurnaround[i1]) {
-                        WRITE_WARNING("Minor green from edge '" + fromEdges[i1]->getID() + "' to edge '" + toEdges[i1]->getID() + "' exceeds " 
-                                + toString(minorLeftSpeedThreshold) + "m/s. Maybe a left-turn lane is missing.");
+                        WRITE_WARNING("Minor green from edge '" + fromEdges[i1]->getID() + "' to edge '" + toEdges[i1]->getID() + "' exceeds "
+                                      + toString(minorLeftSpeedThreshold) + "m/s. Maybe a left-turn lane is missing.");
                     }
                 }
             }
@@ -496,9 +492,9 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, SUMOTime greenTime,
                                 SUMOTime minDur, SUMOTime maxDur,
                                 std::string state, const std::vector<NBNode::Crossing*>& crossings, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
     // compute based on length of the crossing if not set by the user
-    const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time")); 
+    const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time"));
     // compute if not set by user: must be able to reach the middle of the second "Richtungsfahrbahn"
-    const SUMOTime minPedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-min.time")); 
+    const SUMOTime minPedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-min.time"));
     const std::string orig = state;
     state = patchStateForCrossings(state, crossings, fromEdges, toEdges);
     if (orig == state) {
@@ -749,8 +745,8 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SU
                     logic->addStep(brakingTime, state);
                 }
             }
-            const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time")); 
-            const SUMOTime scrambleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.scramble.time")); 
+            const SUMOTime pedClearingTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.crossing-clearance.time"));
+            const SUMOTime scrambleTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.scramble.time"));
             addPedestrianPhases(logic, scrambleTime + pedClearingTime, UNSPECIFIED_DURATION, UNSPECIFIED_DURATION, std::string(noLinksAll, 'r'), crossings, fromEdges, toEdges);
             break;
         }
@@ -789,14 +785,14 @@ NBOwnTLDef::checkCustomCrossingIndices(NBTrafficLightLogic* logic) const {
     // custom crossing linkIndex could lead to longer states. ensure that every index has a state
     if (maxCustomIndex >= logic->getNumLinks()) {
         logic->setStateLength(maxCustomIndex + 1);
-    } 
+    }
     // XXX shorter state vectors are possible as well
     // XXX if the indices are shuffled the guessed crossing states should be shuffled correspondingly
     // XXX initialize the backward index to the same state as the forward index
 }
 
 
-int 
+int
 NBOwnTLDef::getMaxIndex() {
     setParticipantsInformation();
     NBTrafficLightLogic* logic = compute(OptionsCont::getOptions());

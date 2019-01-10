@@ -1,5 +1,5 @@
-[![MacOS Build Status](https://travis-ci.org/eclipse/sumo.svg?branch=master)](https://travis-ci.org/eclipse/sumo)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/b1vrhimigencm2kw?svg=true)](https://ci.appveyor.com/project/behrisch/sumo)
+[![Linux and MacOS Build Status](https://travis-ci.org/eclipse/sumo.svg?branch=master)](https://travis-ci.org/eclipse/sumo)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo)
 
 
 
@@ -42,7 +42,7 @@ you can subscribe to this list at https://dev.eclipse.org/mailman/listinfo/sumo-
 Build and Installation
 ----------------------
 
-For Windows we provide pre-compiled binaries and Visual Studio project files.
+For Windows we provide pre-compiled binaries and CMake files to generate Visual Studio projects.
 Using Linux a simple "./configure && make" should be enough for the distributions, if you
 have installed all needed libraries properly. Using the repository checkout you
 need to issue "make -f Makefile.cvs" before "./configure && make" in order to run
@@ -77,22 +77,3 @@ License
 SUMO is licensed under the [Eclipse Public License Version 2](https://eclipse.org/legal/epl-v20.html).
 For the licenses of the different libraries and supplementary code information is in the
 subdirectories and the [wiki](http://sumo.dlr.de/wiki/License).
-
-
-Derivative Works
-----------------
-EPL requires that "derivative works" be licensed under the terms of the EPL
-whereas "separate modules of software" may be licensed arbitrarily. Please follow the links
-below for lists of files where modifications are considered derivative work.
-
-We currently consider all modifications to [src](src/README_Contributing.md) and [tools](tools/README_Contributing.md) (including the subdirectories) as derivative work except for the following cases:
-- TraCI client applications that use the public TraCI client libraries
-- separate modules residing in [src](src/README_Contributing.md)
-- car following models that inherit from MSCFModel (excluding [modifications of the existing models](src/microsim/cfmodels/README_Contributing.md))
-- lane changing models that inherit from MSAbstractLaneChangeModel (excluding [modifications of the existing models](src/microsim/lcmodels/README_Contributing.md))
-- simulation output modules (excluding [changes to the existing classes](src/microsim/output/README_Contributing.md))
-- vehicle device modules (excluding [changes to the existing classes](src/microsim/devices/README_Contributing.md))
-- network import modules (excluding [changes to the existing classes](src/netimport/README_Contributing.md))
-- network export modules (excluding [changes to the existing classes](src/netwrite/README_Contributing.md))
-- software that build upon the existing Python and Java tools libraries (excluding [changes to the existing](tools/README_Contributing.md))
-

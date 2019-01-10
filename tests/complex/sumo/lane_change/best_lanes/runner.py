@@ -23,7 +23,7 @@ import shutil
 import random
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
@@ -61,7 +61,7 @@ for root in sorted(roots):
         print("  length: %s" % (l[1]))
         print("  offset: %s" % (l[3]))
         print("  allowsContinuation: %s" % (l[4]))
-        print("  over: %s" % (l[5]))
+        print("  over: %s" % (l[5],))
     traci.close()
     sys.stdout.flush()
 

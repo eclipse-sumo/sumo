@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -136,7 +132,7 @@ public:
 
     /* @brief @return whether the foe vehicle is a leader for ego
      * @note vehicles are added to myLinkLeaders when first seen as a foe */
-    bool isLeader(const MSVehicle* ego, const MSVehicle* foe);
+    bool isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader);
 
 protected:
     /// @brief Tye type of this junction

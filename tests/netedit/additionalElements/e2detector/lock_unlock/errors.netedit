@@ -1,3 +1,49 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected additional 'e2Detector' in AdditionalSelector
+Debug: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Setting new attribute pos '25.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting new attribute blockMovement 'true' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting new attribute blockMovement 'false' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Setting new attribute pos '35.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '25.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '1' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute blockMovement '0' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '16.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '25.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'true' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute blockMovement 'false' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '35.00' into e2Detector 'e2Detector_gneE0_0_0'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

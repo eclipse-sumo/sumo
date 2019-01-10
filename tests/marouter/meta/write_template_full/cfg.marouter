@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO marouter Version 27b98ce
+<!-- generated on Wed Aug 15 14:26:50 2018 by Eclipse SUMO marouter Version 7cc56db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -42,7 +42,6 @@
 
     <processing>
         <aggregation-interval value="3600" type="TIME" help="Defines the time interval when aggregating single vehicle input; Defaults to one hour"/>
-        <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL" help="Continue if a route could not be build"/>
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
@@ -100,6 +99,7 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL" help="Continue if a route could not be build"/>
     </report>
 
     <random_number>

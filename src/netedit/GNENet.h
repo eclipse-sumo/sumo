@@ -30,28 +30,24 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utility>
-#include <utils/gui/globjects/GLIncludes.h>
+#include <foreign/rtree/SUMORTree.h>
 #include <netbuild/NBNetBuilder.h>
+#include <utils/common/IDSupplier.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
-#include <foreign/rtree/SUMORTree.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/RGBColor.h>
-#include <utils/common/IDSupplier.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/options/OptionsCont.h>
 #include <netedit/changes/GNEChange.h>
 
 
@@ -62,8 +58,6 @@
 class GNEAdditional;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
-class GNECalibratorRoute;
-class GNECalibratorVehicleType;
 class GNEConnection;
 class GNECrossing;
 class GNEEdge;
@@ -72,7 +66,6 @@ class GNELane;
 class GNENetElement;
 class GNEPOI;
 class GNEPoly;
-class GNERerouterInterval;
 class GNEShape;
 class GNEUndoList;
 class GNEViewNet;
@@ -297,7 +290,7 @@ public:
      * @param[in] edge The edge in which insert restricted lane
      * @param[in] undoList The undolist in which to mark changes
      */
-    bool addSRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, GNEUndoList* undoList);
+    bool addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNEUndoList* undoList);
 
     /**@brief remove restricted lane
      * @param[in] vclass vehicle class to restrict
@@ -444,7 +437,7 @@ public:
     std::vector<GNEShape*> retrieveShapes(bool onlySelected = false);
 
     /// @brief inform that net has to be saved
-    void requiereSaveNet();
+    void requiereSaveNet(bool value);
 
     /// @brief return if net has to be saved
     bool isNetSaved() const;
@@ -467,11 +460,11 @@ public:
     /// @brief Set the viewNet to be notified of network changes
     void setViewNet(GNEViewNet* viewNet);
 
-    /// @brief refreshes boundary information for o and update
-    void refreshElement(GUIGlObject* o);
+    /// @brief add GL Object into net
+    void addGLObjectIntoGrid(GUIGlObject* o);
 
-    /// @brief generate an ID for vaporizers
-    std::string generateVaporizerID() const;
+    /// @brief add GL Object into net
+    void removeGLObjectFromGrid(GUIGlObject* o);
 
     /// @brief updates the map and reserves new id
     void renameEdge(GNEEdge* edge, const std::string& newID);
@@ -559,34 +552,22 @@ public:
     /// @{
 
     /**@brief Returns the named additional
+     * @param[in] type tag with the type of additional
      * @param[in] id The id of the additional to return.
      * @param[in] failHard Whether attempts to retrieve a nonexisting additional should result in an exception
      */
-    GNEAdditional* retrieveAdditional(const std::string& id, bool hardFail = true) const;
+    GNEAdditional* retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
 
     /**@brief return all additionals
      * @param[in] onlySelected Whether to return only selected additionals
      */
-    std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false);
+    std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false) const;
 
-    /**@brief Returns the named additional
-     * @param[in] type tag with the type of additional
-     * @param[in] id The id of the additional to return.
-     * @return The named additional, or 0 if don't exists
-     */
-    GNEAdditional* getAdditional(SumoXMLTag type, const std::string& id) const;
-
-    /**@brief get vector with additionals
+    /**@brief get map with IDs and pointers to additionals
      * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
-     * @return vector with pointers to additionals.
+     * @return map with IDs and pointers to additionals.
      */
-    std::vector<GNEAdditional*> getAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
-
-    /* @brief retrieve Rerouter Interval
-     * @param rerouterIntervalID ID of rerouter interval
-     * @param rerouter interval if was found, or nullptr in other case
-     */
-    GNERerouterInterval* getRerouterInterval(const std::string& rerouterIntervalID) const;
+    const std::map<std::string, GNEAdditional*>& getAdditionalByType(SumoXMLTag type) const;
 
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
@@ -600,45 +581,16 @@ public:
     void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
 
     /// @brief inform that additionals has to be saved
-    void requiereSaveAdditionals();
+    void requiereSaveAdditionals(bool value);
 
     /**@brief save additional elements of the network
     * @param[in] filename name of the file in wich save additionals
     */
     void saveAdditionals(const std::string& filename);
 
-    /// @}
+    /// @brief generate additional id
+    std::string generateAdditionalID(SumoXMLTag type) const;
 
-    /// @name Functions related to Calibrator Items
-    /// @note all three duplicates functions will be unified using GNERoute class
-    /// @{
-
-    /**@brief Returns the named calibrator route
-    * @param[in] id The id of the calibrator route to return.
-    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator route should result in an exception
-    */
-    GNECalibratorRoute* retrieveCalibratorRoute(const std::string& id, bool hardFail = true) const;
-
-    /**@brief Returns the named calibrator vehicle type
-    * @param[in] id The id of the calibrator vehicle type to return.
-    * @param[in] failHard Whether attempts to retrieve a nonexisting calibrator vehicle type should result in an exception
-    */
-    GNECalibratorVehicleType* retrieveCalibratorVehicleType(const std::string& id, bool hardFail = true) const;
-
-    /// @brief get calibrator vehicleTypes
-    std::vector<GNECalibratorVehicleType*> getCalibratorVehicleTypes() const;
-
-    /// @brief generate a new Calibrator Route ID
-    std::string generateCalibratorRouteID() const;
-
-    /// @brief generate a new Calibrator Vehicle Type ID
-    std::string generateCalibratorVehicleTypeID() const;
-
-    /// @brief change Calibrator Route ID
-    void changeCalibratorRouteID(GNECalibratorRoute* route, const std::string& oldID);
-
-    /// @brief change Calibrator Vehicle Type ID
-    void changeCalibratorVehicleTypeID(GNECalibratorVehicleType* vehicleType, const std::string& oldID);
     /// @}
 
     /// @name Functions related to Shapes
@@ -664,7 +616,7 @@ public:
     void changeShapeID(GNEShape* s, const std::string& OldID);
 
     /// @brief inform that shapes has to be saved
-    void requiereSaveShapes();
+    void requiereSaveShapes(bool value);
 
     /**@brief save shapes elements of the network
      * @param[in] filename name of the file in wich save shapes
@@ -699,13 +651,7 @@ protected:
         std::map<std::string, GNEEdge*> edges;
 
         /// @brief map with the name and pointer to additional elements of net
-        std::map<std::pair<std::string, SumoXMLTag>, GNEAdditional*> additionals;
-
-        /// @brief map with the name and pointer to Calibrator Routes of net
-        std::map<std::string, GNECalibratorRoute*> calibratorRoutes;
-
-        /// @brief map with the name and pointer to Calibrator Vehicle Types of net
-        std::map<std::string, GNECalibratorVehicleType*> calibratorVehicleTypes;
+        std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
     };
 
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -759,31 +705,6 @@ protected:
 
     /// @}
 
-    /// @name Insertion and erasing of GNECalibrator items
-    /// @{
-
-    /**@brief insert Calibrator Route in net
-     * @throw processError if route was already inserted
-     */
-    void insertCalibratorRoute(GNECalibratorRoute* route);
-
-    /**@brief delete Calibrator Route in net
-    * @throw processError if route wasn't previously inserted
-    */
-    void deleteCalibratorRoute(GNECalibratorRoute* route);
-
-    /**@brief insert Calibrator VehicleType in net
-    * @throw processError if vehicleType was already inserted
-    */
-    void insertCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /**@brief delete Calibrator VehicleType in net
-    * @throw processError if vehicleType wasn't previously inserted
-    */
-    void deleteCalibratorVehicleType(GNECalibratorVehicleType* vehicleType);
-
-    /// @}
-
 private:
     /// @brief Init Junctions and edges
     void initJunctionsAndEdges();
@@ -825,7 +746,7 @@ private:
     bool checkJunctionPosition(const Position& pos);
 
     /// @brief save additionals after confirming invalid objects
-    void saveAdditionalsConfirmed(const std::string& filename); 
+    void saveAdditionalsConfirmed(const std::string& filename);
 
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 

@@ -1,0 +1,3 @@
+Error: Invalid node id 'broken id'.
+Error: Edge's '5' to-node 'broken id' is not known.
+Quitting (on error).

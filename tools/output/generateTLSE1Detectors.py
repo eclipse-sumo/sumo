@@ -26,19 +26,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib  # noqa
 
 
-def get_net_file_directory(net_file):
-    """ Returns the directory containing the net file given. """
-
-    dirname = os.path.split(net_file)[0]
-    return dirname
-
-
-def open_detector_file(destination_dir, detector_file_name):
-    """ Opens a new detector file in given directory. """
-
-    return open(os.path.join(destination_dir, detector_file_name), "w")
-
-
 def adjust_detector_length(requested_detector_length,
                            requested_distance_to_tls,
                            lane_length):
@@ -75,6 +62,7 @@ def adjust_detector_position(final_detector_length,
 
     return max(0,
                lane_length - final_detector_length - requested_distance_to_tls)
+
 
 if __name__ == "__main__":
     # pylint: disable-msg=C0103
@@ -163,9 +151,7 @@ if __name__ == "__main__":
             detector_xml.setAttribute("length", str(final_detector_length))
             detector_xml.setAttribute("pos", str(final_detector_position))
 
-    detector_file = open_detector_file(
-        get_net_file_directory(options.net_file),
-        options.output)
+    detector_file = open(options.output, 'w')
     detector_file.write(detectors_xml.toXML())
     detector_file.close()
 

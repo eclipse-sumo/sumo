@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -58,8 +54,8 @@
 // method definitions
 // ===========================================================================
 
-GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, viewNet, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, ICON_CONTAINERSTOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
+GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
+    GNEStoppingPlace(id, viewNet, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myLines(lines) {
 }
 
@@ -68,12 +64,17 @@ GNEContainerStop::~GNEContainerStop() {}
 
 
 void
-GNEContainerStop::updateGeometry() {
+GNEContainerStop::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if (updateGrid) {
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+    }
+
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex())/2);
+    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex()) / 2);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myShape;
@@ -90,38 +91,10 @@ GNEContainerStop::updateGeometry() {
     // Set block icon rotation, and using their rotation for sign
     setBlockIconRotation(myLane);
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
-}
-
-
-void
-GNEContainerStop::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_STARTPOS);
-    writeAttribute(device, SUMO_ATTR_ENDPOS);
-    if (myName.empty() == false) {
-        writeAttribute(device, SUMO_ATTR_NAME);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if (updateGrid) {
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    if (myLines.size() > 0) {
-        writeAttribute(device, SUMO_ATTR_LINES);
-    }
-    // write block movement attribute only if it's enabled
-    if (myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
-    // Close tag
-    device.closeTag();
-}
-
-
-const std::vector<std::string>&
-GNEContainerStop::getLines() const {
-    return myLines;
 }
 
 
@@ -146,9 +119,9 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
     // Check if the distance is enought to draw details and if is being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         // only draw circle depending of distance between sign and mouse cursor
-        if(myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+        if (myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
             // Add a draw matrix for details
             glPushMatrix();
             // Start drawing sign traslating matrix to signal position
@@ -219,8 +192,12 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // pop draw matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
+    // check if dotted contour has to be drawn
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
     }
     // Pop name
     glPopName();
@@ -235,11 +212,11 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_STARTPOS:
-            return toString(getAbsoluteStartPosition());
+            return toString(myStartPosition);
         case SUMO_ATTR_ENDPOS:
-            return toString(getAbsoluteEndPosition());
+            return myEndPosition;
         case SUMO_ATTR_NAME:
-            return myName;
+            return myAdditionalName;
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case SUMO_ATTR_LINES:
@@ -248,6 +225,8 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_GENERIC:
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -269,6 +248,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
         case SUMO_ATTR_LINES:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -289,21 +269,37 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if (canParse<double>(value)) {
-                // Check that new start Position is smaller that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) < myEndPosRelative);
+            if (value.empty()) {
+                return true;
             } else {
-                return false;
+                if (canParse<double>(value)) {
+                    if (canParse<double>(myEndPosition)) {
+                        // Check that new start Position is smaller that end position
+                        return (parse<double>(value) < parse<double>(myEndPosition));
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
         case SUMO_ATTR_ENDPOS:
-            if (canParse<double>(value)) {
-                // Check that new end Position is larger that end position
-                return ((parse<double>(value) / myLane->getLaneParametricLength()) > myStartPosRelative);
+            if (value.empty()) {
+                return true;
             } else {
-                return false;
+                if (canParse<double>(value)) {
+                    if (canParse<double>(myStartPosition)) {
+                        // Check that new start Position is smaller that end position
+                        return (parse<double>(myStartPosition) < parse<double>(value));
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
         case SUMO_ATTR_NAME:
-            return true;
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case SUMO_ATTR_LINES:
@@ -312,6 +308,8 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -331,13 +329,13 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myStartPosition = value;
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosRelative = parse<double>(value) / myLane->getLaneParametricLength();
+            myEndPosition = value;
             break;
         case SUMO_ATTR_NAME:
-            myName = value;
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);
@@ -349,17 +347,20 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
             }
             break;
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 /****************************************************************************/

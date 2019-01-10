@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSGlobals.h"
 
@@ -63,5 +59,11 @@ bool MSGlobals::gSemiImplicitEulerUpdate;
 SUMOTime MSGlobals::gWaitingTimeMemory;
 
 SUMOTime MSGlobals::gActionStepLength;
+
+double MSGlobals::gDefaultEmergencyDecel(-1); // default for unitTest
+
+bool MSGlobals::gUnitTests(false);
+
+bool MSGlobals::gComputeLC;
 /****************************************************************************/
 

@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <ctime>
 #include <utils/options/OptionsCont.h>
@@ -36,6 +32,8 @@
 // static member variables
 // ===========================================================================
 std::mt19937 RandHelper::myRandomNumberGenerator;
+int RandHelper::myCallCount(0);
+int RandHelper::myDebugIndex(7);
 
 
 // ===========================================================================

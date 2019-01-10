@@ -21,44 +21,27 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel_IDM.h"
 #include <microsim/MSVehicle.h>
-#include <microsim/MSLane.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOTime.h>
 
+//#define DEBUG_V
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
-                             double accel, double decel, double emergencyDecel, double apparentDecel,
-                             double headwayTime, double delta,
-                             double internalStepping) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDelta(delta),
-    myAdaptationFactor(1.), myAdaptationTime(0.),
-    myIterations(MAX2(1, int(TS / internalStepping + .5))),
-    myTwoSqrtAccelDecel(double(2 * sqrt(accel * decel))) {
+MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
+    MSCFModel(vtype),
+    myIDMM(idmm),
+    myDelta(idmm ? 4.0 : vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_DELTA, 4.)),
+    myAdaptationFactor(idmm ? vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 1.8) : 1.0),
+    myAdaptationTime(idmm ? vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_TIME, 600.0) : 0.0),
+    myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
+    myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))) {
+    // IDM does not drive very precise and may violate minGap on occasion
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.5);
 }
-
-
-MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype,
-                             double accel, double decel, double emergencyDecel, double apparentDecel,
-                             double headwayTime,
-                             double adaptationFactor, double adaptationTime,
-                             double internalStepping) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime), myDelta(4.),
-    myAdaptationFactor(adaptationFactor), myAdaptationTime(adaptationTime),
-    myIterations(MAX2(1, int(TS / internalStepping + .5))),
-    myTwoSqrtAccelDecel(double(2 * sqrt(accel * decel))) {
-}
-
 
 MSCFModel_IDM::~MSCFModel_IDM() {}
 
@@ -76,16 +59,24 @@ MSCFModel_IDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 double
 MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+#ifdef DEBUG_V
+    gDebugFlag1 = veh->isSelected();
+#endif
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
 
 
 double
-MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const {
-    if (gap2pred < 0.01) {
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
+    if (gap < 0.01) {
         return 0;
     }
-    return _v(veh, gap2pred, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
+    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
+    if (gap > 0 && speed < NUMERICAL_EPS) {
+        // ensure that stops can be reached:
+        result = maximumSafeStopSpeed(gap, speed, false, 0);
+    }
+    return result;
 }
 
 
@@ -103,6 +94,12 @@ MSCFModel_IDM::interactionGap(const MSVehicle* const veh, double vL) const {
     return MAX2(gap, SPEED2DIST(vNext));
 }
 
+double
+MSCFModel_IDM::getSecureGap(const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
+    const double delta_v = speed - leaderSpeed;
+    return MAX2(0.0, speed * myHeadwayTime + speed * delta_v / myTwoSqrtAccelDecel);
+}
+
 
 double
 MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const double egoSpeed,
@@ -117,23 +114,37 @@ MSCFModel_IDM::_v(const MSVehicle* const veh, const double gap2pred, const doubl
     }
     double newSpeed = egoSpeed;
     double gap = gap2pred;
+    if (respectMinGap) {
+        // gap2pred comes with minGap already subtracted so we need to add it here again
+        gap += myType->getMinGap();
+    }
     for (int i = 0; i < myIterations; i++) {
         const double delta_v = newSpeed - predSpeed;
         double s = MAX2(0., newSpeed * headwayTime + newSpeed * delta_v / myTwoSqrtAccelDecel);
         if (respectMinGap) {
             s += myType->getMinGap();
         }
+        gap = MAX2(NUMERICAL_EPS, gap); // avoid singularity
         const double acc = myAccel * (1. - pow(newSpeed / desSpeed, myDelta) - (s * s) / (gap * gap));
+#ifdef DEBUG_V
+        if (gDebugFlag1) {
+            std::cout << " gap=" << gap << " t=" << myHeadwayTime << " t2=" << headwayTime << " s=" << s << " pow=" << pow(newSpeed / desSpeed, myDelta) << " gapDecel=" << (s * s) / (gap * gap) << " a=" << acc;
+        }
+#endif
         newSpeed += ACCEL2SPEED(acc) / myIterations;
+#ifdef DEBUG_V
+        if (gDebugFlag1) {
+            std::cout << " v2=" << newSpeed << "\n";
+        }
+#endif
         //TODO use more realistic position update which takes accelerated motion into account
         gap -= MAX2(0., SPEED2DIST(newSpeed - predSpeed) / myIterations);
     }
-//    return MAX2(getSpeedAfterMaxDecel(egoSpeed), newSpeed);
     return MAX2(0., newSpeed);
 }
 
 
 MSCFModel*
 MSCFModel_IDM::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_IDM(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myHeadwayTime, myDelta, TS / myIterations);
+    return new MSCFModel_IDM(vtype, myIDMM);
 }

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNENetElement.h"
 
@@ -77,7 +73,7 @@ public:
     /**@brief update pre-computed geometry information
      * @note if current editing mode is Move, connection's geometry will not be updated
      */
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /// @name functions for edit start and end positions of shapes
     /// @{
@@ -98,6 +94,15 @@ public:
 
     /// @brief commit position changing in shape end
     void commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList);
+    /// @}
+
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
     /// @}
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
@@ -137,13 +142,10 @@ public:
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
 
     /// @brief update edge geometry after junction move
-    void updateJunctionPosition(GNEJunction* junction, const Position& origPos);
+    void updateJunctionPosition(GNEJunction* junction, const Position& origPos, bool updateGrid);
 
     /// @brief Returns the street's geometry
     Boundary getBoundary() const;
-
-    /// @brief return true if edge is inverted (Angle between origin and destiny junction is -PI/2 <= angle < PI/2
-    bool isInverted() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -212,6 +214,32 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @name Function related with Generic Parameters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string& key, const std::string& value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string& key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
+
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
+    /// @}
+
     /// @brief set responsibility for deleting internal strctures
     void setResponsible(bool newVal);
 
@@ -219,7 +247,7 @@ public:
      * @param[in] geom The new geometry
      * @param[in] inner Whether geom is only the inner points
      */
-    void setGeometry(PositionVector geom, bool inner);
+    void setGeometry(PositionVector geom, bool inner, bool updateGrid);
 
     /// @brief remake connections
     void remakeGNEConnections();
@@ -261,9 +289,6 @@ public:
     /// @brief obtain relative positions of RouteProbes
     int getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const;
 
-    /// @brief obtain relative positions of Vaporizer
-    int getVaporizerRelativePosition(GNEVaporizer* vaporizer) const;
-
     /// @brief get GNECrossings vinculated with this Edge
     std::vector<GNECrossing*> getGNECrossings();
 
@@ -285,6 +310,9 @@ public:
 protected:
     /// @brief the underlying NBEdge
     NBEdge& myNBEdge;
+
+    /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
+    PositionVector myMovingShape;
 
     /// @brief pointer to GNEJunction source
     GNEJunction* myGNEJunctionSource;
@@ -314,6 +342,9 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief method for check if mouse is over objects
+    void mouseOverObject(const GUIVisualizationSettings& s) const;
+
     /**@brief changes the number of lanes.
      * When reducing the number of lanes, higher-numbered lanes are removed first.
      * When increasing the number of lanes, the last known attributes for a lane
@@ -338,10 +369,10 @@ private:
     void removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList);
 
     /// @brief change Shape StartPos
-    void setShapeStartPos(const Position &pos);
+    void setShapeStartPos(const Position& pos);
 
     /// @brief change Shape EndPos
-    void setShapeEndPos(const Position &pos);
+    void setShapeEndPos(const Position& pos);
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

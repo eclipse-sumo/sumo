@@ -10,6 +10,6 @@ Static parameters:
   initialAwareness = 0.25
   mrmDecel = 1.20
 Dynamic parameters:
-  currentAwareness = 0.00
+  currentAwareness = 1.00
   currentSpeed = 0.0
   state = AUTOMATED

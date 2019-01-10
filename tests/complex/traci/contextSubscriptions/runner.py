@@ -17,25 +17,15 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import subprocess
 import sys
-import time
 import math
 
-sumoHome = os.path.abspath(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..'))
-sys.path.append(os.path.join(sumoHome, "tools"))
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
-import traci
+import traci  # noqa
 
-DELTA_T = 1000
-
-if sys.argv[1] == "sumo":
-    sumoCall = [os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
-else:
-    sumoCall = [os.environ.get(
-        "GUISIM_BINARY", os.path.join(sumoHome, 'bin', 'sumo-gui')), '-S', '-Q']
+sumoCall = [sumolib.checkBinary(sys.argv[1]), '-S', '-Q']
 
 
 def dist2(v, w):
@@ -66,19 +56,17 @@ def runSingle(traciEndTime, viewRange, module, objID):
     while not step > traciEndTime:
         responses = traci.simulationStep()
         near1 = set()
-        if objID in module.getContextSubscriptionResults():
-            for v in module.getContextSubscriptionResults()[objID]:
-                #print(objID, "context:", v)
+        if objID in module.getAllContextSubscriptionResults():
+            for v in module.getContextSubscriptionResults(objID):
+                # print(objID, "context:", v)
                 near1.add(v)
         vehs = traci.vehicle.getIDList()
         persons = traci.person.getIDList()
         pos = {}
         for v in vehs:
-            if v != objID:
-                pos[v] = traci.vehicle.getPosition(v)
+            pos[v] = traci.vehicle.getPosition(v)
         for p in persons:
-            if p != objID:
-                pos[p] = traci.person.getPosition(p)
+            pos[p] = traci.person.getPosition(p)
         shape = None
         egoPos = None
         if hasattr(module, "getPosition"):
@@ -127,8 +115,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         print("Error: Unsubscribe did not work")
     else:
         print("Ok: Unsubscribe successful")
-    print("Print ended at step %s" %
-          (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" % traci.simulation.getTime())
     traci.close()
     sys.stdout.flush()
     print("uncheck: seen %s vehicles via subscription, %s in surrounding" %
@@ -137,6 +124,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
         print("Ok: Subscription and computed are same")
     else:
         print("Error: subscribed number and computed number differ")
+
 
 sys.stdout.flush()
 if sys.argv[3] == "vehicle":

@@ -1,45 +1,10 @@
-Warning: Essential string attribute 'id' of e3Detector is missing; e3Detector cannot be created
+Warning: Essential unique string attribute 'id' of e3Detector is missing; e3Detector cannot be created
 Warning: A detEntry must be declared within the definition of a e3Detector.
-Warning: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'lane' of detEntry is missing; detEntry cannot be created
+Warning: A detExit must be declared within the definition of a e3Detector.
+Warning: Essential unique string attribute 'lane' of detEntry is missing; detEntry cannot be created
 Warning: The lane 'dummyLane' to use within the detEntry is not known.
-Warning: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Warning: Essential float attribute 'pos' of detEntry is missing; detEntry cannot be created
-Warning: Format of essential float attribute 'pos' of detEntry is invalid; detEntry cannot be created
-Warning: Format of essential float attribute 'pos' of detEntry is invalid; Cannot be parsed to float; detEntry cannot be created
+Warning: Essential unique float attribute 'pos' of detEntry is missing; detEntry cannot be created
+Warning: Format of essential unique float attribute 'pos' of detEntry is invalid; detEntry cannot be created
+Warning: Format of essential unique float attribute 'pos' of detEntry is invalid; Cannot be parsed to float; detEntry cannot be created
 Warning: Invalid position for detEntry.
-Warning: Adding detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry2' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry3' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry4' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry5' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry6' in GNEChange_Additional
-Warning: Adding detEntry 'e3Detector_0detEntry7' in GNEChange_Additional
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry7'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry6'
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry5'
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry4'
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry3'
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry2'
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry1'
-Warning: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
-Warning: Deleting unreferenced e3Detector 'e3Detector_0'
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor
+Warning: A detEntry must be declared within the definition of a e3Detector.

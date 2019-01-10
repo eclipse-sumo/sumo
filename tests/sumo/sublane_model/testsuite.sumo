@@ -54,7 +54,7 @@ push_for_merge_ignored
 # a vehicle urgently needs to change lanes and pushes a blocker by using a lower minGapLat. The blocker is constraint by a neighboring vehicle to the left and equalizes left and right lateral gaps
 push_for_merge_equalize_gaps
 
-# lots of heterogeneous traffic at on ramp (some pushy) 
+# lots of heterogeneous traffic at on ramp (some pushy)
 push_for_merge_ramp_mixed
 
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing
@@ -74,12 +74,10 @@ nopush_for_merge_impatience_growth
 
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. 
 # To merge in front of the foe vehicle it would have to keep an unsafe gap to the acceleration lane end
-# 
 nopush_for_merge_end_gap
 
 # a vehicle urgently needs to change lanes but is configured to refrain from pushing. 
 # To merge in front of the foe vehicle it would have to keep an unsafe gap to the leader on its own lane
-# 
 nopush_for_merge_undercut_frontgap
 
 # test whether cooperative changing works fluidly
@@ -120,9 +118,11 @@ junction_leader_sibling_pass
 junction_leader_sibling_block
 
 # when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
-# 
 # ego is blocked before entering the internal edge
 junction_leader_sibling_block2
+
+# handling of sibling internal lanes with different widths
+junction_leader_sibling_diffWidth
 
 # a wide lane splits into three turning lanes
 wide_lane_split

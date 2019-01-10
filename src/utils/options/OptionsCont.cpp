@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <map>
 #include <string>
@@ -288,6 +284,12 @@ OptionsCont::getSynonymes(const std::string& name) const {
         }
     }
     return v;
+}
+
+
+const std::string&
+OptionsCont::getDescription(const std::string& name) const {
+    return getSecure(name)->getDescription();
 }
 
 

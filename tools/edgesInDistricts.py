@@ -12,7 +12,7 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2007-07-26
-# @version $Id: edgesInDistricts.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 """
 Parsing a number of networks and taz (district) files with shapes
@@ -43,7 +43,8 @@ class DistrictEdgeComputer:
             districtBoxes[district.id] = district.getBoundingBox()
         for idx, edge in enumerate(self._net.getEdges()):
             shape = edge.getShape()
-            if edge.getSpeed() < options.maxspeed and edge.getSpeed() > options.minspeed and (options.internal or edge.getFunction() != "internal"):
+            if (edge.getSpeed() < options.maxspeed and edge.getSpeed() > options.minspeed and
+               (options.internal or edge.getFunction() != "internal")):
                 if options.vclass is None or edge.allows(options.vclass):
                     if options.assign_from:
                         xmin, ymin = shape[0]
@@ -82,10 +83,10 @@ class DistrictEdgeComputer:
 
     def writeResults(self, options):
         fd = open(options.output, "w")
-        sumolib.xml.writeHeader(fd, "$Id: $", "tazs", "taz_file.xsd")
+        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")
         lastId = None
         lastEdges = None
-        key = (lambda i:i[0].attributes[options.merge_param]) if options.merge_param else None
+        key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None
         for idx, (district, edges) in enumerate(sorted(self._districtEdges.items(), key=key)):
             filtered = [edge for edge in edges if edge not in self._invalidatedEdges]
             if len(filtered) == 0:
@@ -148,13 +149,15 @@ def fillOptions(optParser):
     optParser.add_option("-o", "--output", default="districts.taz.xml",
                          help="write results to FILE (default: %default)", metavar="FILE")
     optParser.add_option("-x", "--max-speed", type="float", dest="maxspeed",
-                         default=1000.0, help="use lanes where speed is not greater than this (m/s) (default: %default)")
+                         default=1000.0, help="use lanes where speed is not greater than this (m/s) " +
+                         "(default: %default)")
     optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
                          default=0., help="use lanes where speed is greater than this (m/s) (default: %default)")
     optParser.add_option("-w", "--weighted", action="store_true",
                          default=False, help="Weights sources/sinks by lane number and length")
     optParser.add_option("-f", "--assign-from", action="store_true",
-                         default=False, help="Assign the edge always to the district where the \"from\" node is located")
+                         default=False, help="Assign the edge always to the district where the \"from\" node " +
+                         "is located")
     optParser.add_option("-i", "--internal", action="store_true",
                          default=False, help="Include internal edges in output")
     optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
@@ -178,7 +181,8 @@ if __name__ == "__main__":
         print("Reading net '" + options.net_file + "'")
     nets = options.net_file.split(",")
     if len(nets) > 1:
-        print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for taz only.")
+        print("Warning! Multiple networks specified. Parsing the first one for edges and tazs, the others for " +
+              "taz only.")
     reader = DistrictEdgeComputer(sumolib.net.readNet(nets[0]))
     tazFiles = nets + options.taz_files.split(",")
     polyReader = sumolib.shapes.polygon.PolygonReader(True)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 24 15:34:30 2017 by SUMO Version svn
+<!-- generated on Mon Aug 27 12:40:38 2018 by Eclipse SUMO Version 1e23198
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,10 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <step-length value="0.1"/>
     </time>
@@ -21,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <default.action-step-length value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -39,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
     <instantOut id="end3" time="4.86" state="enter" vehID="leader" speed="36.00" length="5.00" type="leader"/>
     <instantOut id="end3" time="4.90" state="stay" vehID="leader" speed="36.00" length="5.00" type="leader"/>
     <instantOut id="end3" time="5.00" state="leave" vehID="leader" speed="36.00" length="5.00" type="leader" occupancy="0.14"/>
-    <instantOut id="end3" time="6.44" state="enter" vehID="follower" speed="34.03" length="5.00" type="follower" gap="1.44"/>
-    <instantOut id="end3" time="6.50" state="stay" vehID="follower" speed="34.19" length="5.00" type="follower"/>
-    <instantOut id="end3" time="6.58" state="leave" vehID="follower" speed="34.45" length="5.00" type="follower" occupancy="0.15"/>
+    <instantOut id="end3" time="6.60" state="enter" vehID="follower" speed="35.29" length="5.00" type="follower" gap="1.61"/>
+    <instantOut id="end3" time="6.70" state="stay" vehID="follower" speed="35.55" length="5.00" type="follower"/>
+    <instantOut id="end3" time="6.74" state="leave" vehID="follower" speed="35.81" length="5.00" type="follower" occupancy="0.14"/>
 </instantE1>

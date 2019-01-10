@@ -28,5 +28,5 @@ quit_noSave
 # Check that all save dialogs of Netedit works saving all elements
 quit_saveAll
 
-# provoke an error with sikulix
-sikulix_error
+# provoke an error with pyautogui
+pyautogui_error

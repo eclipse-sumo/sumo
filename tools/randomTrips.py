@@ -50,27 +50,31 @@ def get_options(args=None):
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="generates route file with duarouter")
     optParser.add_option("--weights-prefix", dest="weightsprefix",
-                         help="loads probabilities for being source, destination and via-edge from the files named <prefix>.src.xml, <prefix>.sink.xml and <prefix>.via.xml")
+                         help="loads probabilities for being source, destination and via-edge from the files named " +
+                         "<prefix>.src.xml, <prefix>.sink.xml and <prefix>.via.xml")
     optParser.add_option("--weights-output-prefix", dest="weights_outprefix",
                          help="generates weights files for visualisation")
     optParser.add_option("--pedestrians", action="store_true",
                          default=False, help="create a person file with pedestrian trips instead of vehicle trips")
     optParser.add_option("--persontrips", action="store_true",
                          default=False, help="create a person file with person trips instead of vehicle trips")
-    optParser.add_option("--persontrip.transfer.car-walk", dest="carWalkMode", 
-            help="Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)")
-    optParser.add_option("--persontrip.walkfactor", dest="walkfactor", 
-            help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
+    optParser.add_option("--persontrip.transfer.car-walk", dest="carWalkMode",
+                         help="Where are mode changes from car to walking allowed " +
+                         "(possible values: 'ptStops', 'allJunctions' and combinations)")
+    optParser.add_option("--persontrip.walkfactor", dest="walkfactor",
+                         help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
     optParser.add_option("--prefix", dest="tripprefix",
                          default="", help="prefix for the trip ids")
     optParser.add_option("-t", "--trip-attributes", dest="tripattrs",
-                         default="", help="additional trip attributes. When generating pedestrians, attributes for <person> and <walk> are supported.")
+                         default="", help="additional trip attributes. When generating pedestrians, attributes for " +
+                         "<person> and <walk> are supported.")
     optParser.add_option(
         "-b", "--begin", type="float", default=0, help="begin time")
     optParser.add_option(
         "-e", "--end", type="float", default=3600, help="end time (default 3600)")
     optParser.add_option(
-        "-p", "--period", type="float", default=1, help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
+        "-p", "--period", type="float", default=1, help="Generate vehicles with equidistant departure times and " +
+        "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
     optParser.add_option("-s", "--seed", type="int", help="random seed")
     optParser.add_option("-l", "--length", action="store_true",
                          default=False, help="weight edge probability by length")
@@ -83,11 +87,13 @@ def get_options(args=None):
     optParser.add_option("--fringe-threshold", type="float", dest="fringe_threshold",
                          default=0.0, help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
     optParser.add_option("--allow-fringe", dest="allow_fringe", action="store_true",
-                         default=False, help="Allow departing on edges that leave the network and arriving on edges that enter the network (via turnarounds or as 1-edge trips")
+                         default=False, help="Allow departing on edges that leave the network and arriving on edges " +
+                         "that enter the network (via turnarounds or as 1-edge trips")
     optParser.add_option("--min-distance", type="float", dest="min_distance",
                          default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m appart")
     optParser.add_option("--max-distance", type="float", dest="max_distance",
-                         default=None, help="require start and end edges for each trip to be at most <FLOAT> m appart (default 0 which disables any checks)")
+                         default=None, help="require start and end edges for each trip to be at most <FLOAT> m " +
+                         "appart (default 0 which disables any checks)")
     optParser.add_option("-i", "--intermediate", type="int",
                          default=0, help="generates the given number of intermediate way points")
     optParser.add_option("--flows", type="int",
@@ -95,12 +101,15 @@ def get_options(args=None):
     optParser.add_option("--maxtries", type="int",
                          default=100, help="number of attemps for finding a trip which meets the distance constraints")
     optParser.add_option("--binomial", type="int", metavar="N",
-                         help="If this is set, the number of departures per seconds will be drawn from a binomial distribution with n=N and p=PERIOD/N where PERIOD is the argument given to option --period. Tnumber of attemps for finding a trip which meets the distance constraints")
+                         help="If this is set, the number of departures per seconds will be drawn from a binomial " +
+                         "distribution with n=N and p=PERIOD/N where PERIOD is the argument given to " +
+                         "option --period. Tnumber of attemps for finding a trip which meets the distance constraints")
     optParser.add_option(
         "-c", "--vclass", "--edge-permission", default="passenger",
         help="only from and to edges which permit the given vehicle class")
     optParser.add_option(
-        "--vehicle-class", help="The vehicle class assigned to the generated trips (adds a standard vType definition to the output file).")
+        "--vehicle-class", help="The vehicle class assigned to the generated trips (adds a standard vType definition " +
+        "to the output file).")
     optParser.add_option("--validate", default=False, action="store_true",
                          help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -125,6 +134,17 @@ def get_options(args=None):
     if options.period <= 0:
         print("Error: Period must be positive", file=sys.stderr)
         sys.exit(1)
+
+    if options.vehicle_class:
+        if options.tripprefix:
+            options.vtypeID = "%s_%s" % (options.tripprefix, options.vehicle_class)
+        else:
+            options.vtypeID = options.vehicle_class
+
+        if 'type=' in options.tripattrs:
+            print("Error: trip-attribute 'type' cannot be used together with option --vehicle-class", file=sys.stderr)
+            sys.exit(1)
+
     return options
 
 
@@ -157,12 +177,14 @@ class RandomEdgeGenerator:
     def write_weights(self, fname):
         # normalize to [0,100]
         normalizer = 100.0 / max(1, max(map(self.weight_fun, self.net._edges)))
+        weights = [(self.weight_fun(e) * normalizer, e.getID()) for e in self.net.getEdges()]
+        weights.sort(reverse=True)
         with open(fname, 'w+') as f:
             f.write('<edgedata>\n')
             f.write('    <interval begin="0" end="10">\n')
-            for i, edge in enumerate(self.net._edges):
+            for weight, edgeID in weights:
                 f.write('        <edge id="%s" value="%0.2f"/>\n' %
-                        (edge.getID(), self.weight_fun(edge) * normalizer))
+                        (edgeID, weight))
             f.write('    </interval>\n')
             f.write('</edgedata>\n')
 
@@ -360,8 +382,9 @@ def main(options):
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
         options.intermediate = int(
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
-        print("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of %s in a network with diameter %.2f." % (
-            options.intermediate, options.min_distance, net.getBBoxDiameter()))
+        print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " +
+               "%s in a network with diameter %.2f.") % (
+               options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     trip_generator = buildTripGenerator(net, options)
     idx = 0
@@ -387,7 +410,8 @@ def main(options):
                     '    <person id="%s" depart="%.2f"%s>\n' % (label, depart, personattrs))
                 if options.persontrips:
                     fouttrips.write(
-                        '        <personTrip from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
+                        '        <personTrip from="%s" to="%s"%s/>\n' % (
+                            source_edge.getID(), sink_edge.getID(), otherattrs))
                 else:
                     fouttrips.write(
                         '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
@@ -395,11 +419,15 @@ def main(options):
             elif options.flows > 0:
                 if options.binomial:
                     for j in range(options.binomial):
-                        fouttrips.write('    <flow id="%s#%s" begin="%s" end="%s" probability="%s" from="%s" to="%s"%s%s/>\n' % (
-                            label, j, options.begin, options.end, 1.0 / options.period / options.binomial, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
+                        fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s" ' +
+                                         'from="%s" to="%s"%s%s/>\n') % (
+                            label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
+                            source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
                 else:
-                    fouttrips.write('    <flow id="%s" begin="%s" end="%s" period="%s" from="%s" to="%s"%s%s/>\n' % (
-                        label, options.begin, options.end, options.period * options.flows, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
+                    fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s" from="%s" ' +
+                                     'to="%s"%s%s/>\n') % (
+                        label, options.begin, options.end, options.period * options.flows, source_edge.getID(),
+                        sink_edge.getID(), via, options.tripattrs))
             else:
                 fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s"%s%s/>\n' % (
                     label, depart, source_edge.getID(), sink_edge.getID(), via, options.tripattrs))
@@ -412,8 +440,9 @@ def main(options):
             fouttrips, "$Id$", "routes")
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s"%s/>\n' %
-                            (options.vehicle_class, options.vehicle_class, vtypeattrs))
-            options.tripattrs += ' type="%s"' % options.vehicle_class
+                            (options.vtypeID, options.vehicle_class, vtypeattrs))
+            options.tripattrs += ' type="%s"' % options.vtypeID
+            personattrs += ' type="%s"' % options.vtypeID
         depart = options.begin
         if trip_generator:
             if options.flows == 0:
@@ -463,6 +492,7 @@ def main(options):
 
     # return wether trips could be generated as requested
     return trip_generator is not None
+
 
 if __name__ == "__main__":
     if not main(get_options()):

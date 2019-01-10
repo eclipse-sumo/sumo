@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <algorithm>
 #include <utils/vehicle/RouteCostCalculator.h>
@@ -675,9 +671,9 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     // fill the public transport router with pre-parsed public transport lines
     for (const auto& i : myInstance->myFlows) {
         if (i.second->line != "") {
-            RORouteDef* route = myInstance->getRouteDef(i.second->routeid);
-            const std::vector<SUMOVehicleParameter::Stop>* addStops = 0;
-            if (route != 0 && route->getFirstRoute() != 0) {
+            const RORouteDef* const route = myInstance->getRouteDef(i.second->routeid);
+            const std::vector<SUMOVehicleParameter::Stop>* addStops = nullptr;
+            if (route != nullptr && route->getFirstRoute() != nullptr) {
                 addStops = &route->getFirstRoute()->getStops();
             }
             router.getNetwork()->addSchedule(*i.second, addStops);
@@ -685,6 +681,7 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     }
     for (const RORoutable* const veh : myInstance->myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
+        // no need to add route stops here, they have been added to the vehicle before
         router.getNetwork()->addSchedule(veh->getParameter());
     }
 }

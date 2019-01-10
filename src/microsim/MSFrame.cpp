@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <iomanip>
@@ -40,6 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
@@ -143,6 +140,10 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.geo", "Output", "Save the Floating Car Data using geo-coordinates (lon/lat)");
     oc.doRegister("fcd-output.signals", new Option_Bool(false));
     oc.addDescription("fcd-output.signals", "Output", "Add the vehicle signal state to the FCD output (brake lights etc.)");
+    oc.doRegister("fcd-output.filter-edges.input-file", new Option_FileName());
+    oc.addDescription("fcd-output.filter-edges.input-file", "Output", "Restrict fcd output to the edge selection from the given input file");
+
+
     oc.doRegister("full-output", new Option_FileName());
     oc.addDescription("full-output", "Output", "Save a lot of information for each timestep (very redundant)");
     oc.doRegister("queue-output", new Option_FileName());
@@ -250,10 +251,6 @@ MSFrame::fillOptions() {
     oc.doRegister("lateral-resolution", new Option_Float(-1));
     oc.addDescription("lateral-resolution", "Processing", "Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane");
 
-    oc.doRegister("carfollow.model", new Option_String("Krauss"));
-    oc.addDescription("carfollow.model", "Processing", "Select default car following model (Krauss, IDM, ...)");
-    oc.addSynonyme("carfollow.model", "carfollowing.model", false);
-
     // register the processing options
     oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
     oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
@@ -265,7 +262,7 @@ MSFrame::fillOptions() {
     oc.addDescription("ignore-junction-blocker", "Processing", "Ignore vehicles which block the junction after they have been standing for SECONDS (-1 means never ignore)");
 
     oc.doRegister("ignore-route-errors", new Option_Bool(false));
-    oc.addDescription("ignore-route-errors", "Processing", "Do not check whether routes are connected");
+    oc.addDescription("ignore-route-errors", "Processing", "(1) Do not check whether routes are connected. (2) Allow inserting a vehicle in a situation which requires emergency braking.");
 
     oc.doRegister("ignore-accidents", new Option_Bool(false));
     oc.addDescription("ignore-accidents", "Processing", "Do not check whether accidents occur");
@@ -279,8 +276,8 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.check-junctions", new Option_Bool(false));
     oc.addDescription("collision.check-junctions", "Processing", "Enables collisions checks on junctions");
 
-    oc.doRegister("collision.mingap-factor", new Option_Float(1.0));
-    oc.addDescription("collision.mingap-factor", "Processing", "Sets the fraction of minGap that must be maintained to avoid collision detection.");
+    oc.doRegister("collision.mingap-factor", new Option_Float(-1));
+    oc.addDescription("collision.mingap-factor", "Processing", "Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used");
 
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", "Delay vehicle insertion to stay within the given maximum number");
@@ -326,6 +323,16 @@ MSFrame::fillOptions() {
 
     oc.doRegister("default.action-step-length", new Option_Float(0.0));
     oc.addDescription("default.action-step-length", "Processing", "Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.");
+
+    oc.doRegister("default.carfollowmodel", new Option_String("Krauss"));
+    oc.addDescription("default.carfollowmodel", "Processing", "Select default car following model (Krauss, IDM, ...)");
+    oc.addSynonyme("default.carfollowmodel", "carfollow.model", false);
+
+    oc.doRegister("default.speeddev", new Option_Float(-1));
+    oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
+
+    oc.doRegister("default.emergencydecel", new Option_String("default"));
+    oc.addDescription("default.emergencydecel", "Processing", "Select default emergencyDecel value among ('decel', 'default', FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
 
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
@@ -600,6 +607,17 @@ MSFrame::checkOptions() {
         WRITE_ERROR("Unknown model '" + oc.getString("carfollow.model")  + "' for option 'carfollow.model'.");
         ok = false;
     }
+    if (oc.isSet("default.emergencydecel")) {
+        const std::string val = oc.getString("default.emergencydecel");
+        if (val != "default" && val != "decel") {
+            try {
+                TplConvert::_2double(val.c_str());
+            } catch (NumberFormatException) {
+                WRITE_ERROR("Invalid value '" + val + "' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'");
+                ok = false;
+            }
+        }
+    }
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions();
 
@@ -650,6 +668,16 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     }
     double givenDefaultActionStepLength = oc.getFloat("default.action-step-length");
     MSGlobals::gActionStepLength = SUMOVehicleParserHelper::processActionStepLength(givenDefaultActionStepLength);
+
+    const std::string defaultEmergencyDecelOption = OptionsCont::getOptions().getString("default.emergencydecel");
+    if (defaultEmergencyDecelOption == "default") {
+        MSGlobals::gDefaultEmergencyDecel = VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT;
+    } else if (defaultEmergencyDecelOption == "decel") {
+        MSGlobals::gDefaultEmergencyDecel = VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL;
+    } else {
+        // value already checked in checkOptions()
+        MSGlobals::gDefaultEmergencyDecel = TplConvert::_2double(defaultEmergencyDecelOption.c_str());
+    }
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {

@@ -1,4 +1,4 @@
-Eclipse SUMO Version 27b98ce
+Eclipse SUMO Version v1_0_0+0117-9fdb064
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -56,6 +56,8 @@ Output Options:
                                          geo-coordinates (lon/lat)
   --fcd-output.signals                 Add the vehicle signal state to the FCD
                                          output (brake lights etc.)
+  --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge
+                                         selection from the given input file
   --full-output FILE                   Save a lot of information for each
                                          timestep (very redundant)
   --queue-output FILE                  Save the vehicle queues at the junctions
@@ -117,16 +119,16 @@ Processing Options:
                                          handling lateral positioning within a
                                          lane (with -1 all vehicles drive at the
                                          center of their lane
-  --carfollow.model STR                Select default car following model
-                                         (Krauss, IDM, ...)
   -s, --route-steps TIME               Load routes for the next number of
                                          seconds ahead
   --no-internal-links                  Disable (junction) internal links
   --ignore-junction-blocker TIME       Ignore vehicles which block the junction
                                          after they have been standing for
                                          SECONDS (-1 means never ignore)
-  --ignore-route-errors                Do not check whether routes are
-                                         connected
+  --ignore-route-errors                (1) Do not check whether routes are
+                                         connected. (2) Allow inserting a
+                                         vehicle in a situation which requires
+                                         emergency braking.
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
                                          [none,warn,teleport,remove]
@@ -136,7 +138,9 @@ Processing Options:
   --collision.check-junctions          Enables collisions checks on junctions
   --collision.mingap-factor FLOAT      Sets the fraction of minGap that must be
                                          maintained to avoid collision
-                                         detection.
+                                         detection. If a negative value is
+                                         given, the carFollowModel parameter is
+                                         used
   --max-num-vehicles INT               Delay vehicle insertion to stay within
                                          the given maximum number
   --max-num-teleports INT              Abort the simulation if the given
@@ -182,6 +186,18 @@ Processing Options:
                                          settings override the default. Must be
                                          a multiple of the simulation
                                          step-length.
+  --default.carfollowmodel STR         Select default car following model
+                                         (Krauss, IDM, ...)
+  --default.speeddev FLOAT             Select default speed deviation. A
+                                         negative value implies vClass specific
+                                         defaults (0.1 for the default passenger
+                                         class
+  --default.emergencydecel STR         Select default emergencyDecel value
+                                         among ('decel', 'default', FLOAT) which
+                                         sets the value either to the same as
+                                         the deceleration value, a vClass-class
+                                         specific default or the given FLOAT in
+                                         m/s^2
   --pedestrian.model STR               Select among pedestrian models
                                          ['nonInteracting', 'striping',
                                          'remote']
@@ -315,7 +331,7 @@ SSM Device Options:
   --device.ssm.deterministic           The 'ssm' devices are set deterministic
                                          using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
-                                         (as a space seperated sequence of IDs
+                                         (as a space separated sequence of IDs
                                          in ('TTC', 'DRAC', 'PET')).
   --device.ssm.thresholds STR          Specifies thresholds corresponding to
                                          the specified measures (see
@@ -335,9 +351,63 @@ SSM Device Options:
                                          (default is 5.00secs.). Required >0 if
                                          PET is to be calculated for crossing
                                          conflicts.
+  --device.ssm.file STR                Give a global default filename for the
+                                         SSM output.
   --device.ssm.geo                     Whether to use coordinates of the
                                          original reference system in output
                                          (default is false).
+
+ToC Device Options:
+  --device.toc.probability FLOAT       The probability for a vehicle to have a
+                                         'toc' device
+  --device.toc.explicit STR            Assign a 'toc' device to named vehicles
+  --device.toc.deterministic           The 'toc' devices are set deterministic
+                                         using a fraction of 1000
+  --device.toc.manualType STR          Vehicle type for manual driving regime.
+  --device.toc.automatedType STR       Vehicle type for automated driving
+                                         regime.
+  --device.toc.responseTime FLOAT      Average response time needed by a driver
+                                         to take back control.
+  --device.toc.recoveryRate FLOAT      Recovery rate for the driver's awareness
+                                         after a ToC.
+  --device.toc.initialAwareness FLOAT  Average awareness a driver has initially
+                                         after a ToC.
+  --device.toc.mrmDecel FLOAT          Deceleration rate applied during a
+                                         'minimum risk maneuver'.
+  --device.toc.useColorScheme          Whether a coloring scheme shall by
+                                         applied to indicate the different ToC
+                                         stages.
+
+Driver State Device Options:
+  --device.driverstate.probability FLOAT  The probability for a vehicle to have
+                                         a 'driverstate' device
+  --device.driverstate.explicit STR    Assign a 'driverstate' device to named
+                                         vehicles
+  --device.driverstate.deterministic   The 'driverstate' devices are set
+                                         deterministic using a fraction of 1000
+  --device.driverstate.initialAwareness FLOAT  Initial value assigned to the
+                                         driver's awareness.
+  --device.driverstate.errorTimeScaleCoefficient FLOAT  Time scale for the
+                                         error process.
+  --device.driverstate.errorNoiseIntensityCoefficient FLOAT  Noise intensity
+                                         driving the error process.
+  --device.driverstate.speedDifferenceErrorCoefficient FLOAT  General scaling
+                                         coefficient for applying the error to
+                                         the perceived speed difference (error
+                                         also scales with distance).
+  --device.driverstate.headwayErrorCoefficient FLOAT  General scaling
+                                         coefficient for applying the error to
+                                         the perceived distance (error also
+                                         scales with distance).
+  --device.driverstate.speedDifferenceChangePerceptionThreshold FLOAT  Base
+                                         threshold for recognizing changes in
+                                         the speed difference (threshold also
+                                         scales with distance).
+  --device.driverstate.headwayChangePerceptionThreshold FLOAT  Base threshold
+                                         for recognizing changes in the headway
+                                         (threshold also scales with distance).
+  --device.driverstate.minAwareness FLOAT  Minimal admissible value for the
+                                         driver's awareness.
 
 Bluelight Device Options:
   --device.bluelight.probability FLOAT  The probability for a vehicle to have a
@@ -419,6 +489,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

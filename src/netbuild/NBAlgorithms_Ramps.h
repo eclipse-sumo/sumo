@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 
@@ -93,7 +89,7 @@ private:
      * @param[in] dontSplit Whether no edges shall be split
      * @param[in, filled] incremented The list of edges which lane number was already incremented
      */
-    static void buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit);
+    static void buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit, bool addLanes);
 
 
     /** @brief Builds an off-ramp ending at the given node
@@ -138,6 +134,9 @@ private:
 
     /// @brief whether the edge has a mode that does not indicate a ramp edge
     static bool hasWrongMode(NBEdge* edge);
+
+    /// @brief shift ramp geometry to merge smoothly with the motorway
+    static void patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp);
 };
 
 

@@ -44,6 +44,7 @@ for refModel in sys.argv[2:]:
         if line[:7] == "Running":
             model = line.split()[1][1:-1]
             relDiff = 0.
+            fuelDiff = 0.
         elif model != refModel and line[:7] == "Success":
             if "HDV" in model:
                 print(refModel, model, relDiff / len(minDiff), fuelDiff)

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <ctime>
@@ -89,7 +85,7 @@ ROFrame::fillOptions(OptionsCont& oc) {
     // register the processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "continue-on-unbuild", true);
-    oc.addDescription("ignore-errors", "Processing", "Continue if a route could not be build");
+    oc.addDescription("ignore-errors", "Report", "Continue if a route could not be build");
 
     oc.doRegister("unsorted-input", new Option_Bool(false));
     oc.addSynonyme("unsorted-input", "unsorted");
@@ -97,6 +93,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
     oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
+
+    oc.doRegister("no-internal-links", new Option_Bool(false));
+    oc.addDescription("no-internal-links", "Processing", "Disable (junction) internal links");
 
     oc.doRegister("randomize-flows", new Option_Bool(false));
     oc.addDescription("randomize-flows", "Processing", "generate random departure times for flow input");

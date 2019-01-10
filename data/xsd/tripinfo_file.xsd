@@ -77,6 +77,7 @@
                 <xsd:element minOccurs="0" ref="stop"/>
                 <xsd:element minOccurs="0" ref="ride"/>
                 <xsd:element minOccurs="0" ref="walk"/>
+                <xsd:element minOccurs="0" ref="access"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
@@ -111,8 +112,8 @@
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="duration" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -129,6 +130,14 @@
         </xsd:complexType>
     </xsd:element>
 
+    <xsd:element name="access">
+        <xsd:complexType>
+            <xsd:attribute name="stop" type="xsd:string"/>
+            <xsd:attribute name="duration" type="nonNegativeFloatType"/>
+            <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+
     <xsd:element name="transport">
         <xsd:complexType>
             <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
@@ -136,8 +145,8 @@
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="duration" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
         </xsd:complexType>
     </xsd:element>
 

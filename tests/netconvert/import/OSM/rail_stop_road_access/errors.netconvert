@@ -34,4 +34,4 @@ Warning: Found sharp turn with radius 6.44 at the end of edge '50319231#0'.
 Warning: Found sharp turn with radius 4.16 at the end of edge '514693706#0'.
 Warning: Found sharp turn with radius 3.17 at the start of edge '57898977'.
 Warning: The rail crossing '1865677206' does not have any roads.
-Warning: Connection '23531766_0->205388263_0' is only 0.00 short.
+Warning: Speed of straight connection '177960923#3_0->177960923#4_0' reduced by 8.90 due to turning radius of 4.52 (length=9.42 angle=179.90)

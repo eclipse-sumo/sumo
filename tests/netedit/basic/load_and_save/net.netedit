@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.04.2018 10:29:30 by Netedit Version b46590447d
+<!-- generated on 03.09.2018 08:52:23 by Eclipse SUMO netedit Version d6cfaccbb6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/basic/load_and_save\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/basic/load_and_save\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/basic/load_and_save\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/basic/load_and_save\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/basic/load_and_save\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/basic/load_and_save\net.net.xml"/>
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/basic/load_and_save\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/basic/load_and_save\shapes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/basic/load_and_save\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/basic/load_and_save\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,13 +43,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/basic/load_and_save\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/basic/load_and_save\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -87,7 +97,7 @@
     <junction id="A" type="dead_end" x="50.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="50.00,0.00 40.40,0.00 50.00,0.00"/>
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1 2_2" intLanes="" shape="50.00,100.00 59.60,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1 3_2" intLanes="" shape="0.00,50.00 0.00,59.60 0.00,50.00"/>
-    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 8_2 5_0 5_1 5_2 7_0 7_1 7_2" intLanes="" shape="40.40,61.10 59.60,61.10 61.10,59.60 61.10,40.40 59.60,38.90 40.40,38.90 38.90,40.40 38.90,59.60">
+    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 6_2 8_0 8_1 8_2 5_0 5_1 5_2 7_0 7_1 7_2" intLanes="" shape="40.40,61.10 59.60,61.10 59.77,60.27 59.98,59.97 60.27,59.77 60.64,59.64 61.10,59.60 61.10,40.40 60.27,40.23 59.97,40.02 59.77,39.73 59.64,39.36 59.60,38.90 40.40,38.90 40.23,39.73 40.02,40.03 39.73,40.23 39.36,40.36 38.90,40.40 38.90,59.60 39.73,59.77 40.03,59.98 40.23,60.27 40.36,60.64">
         <request index="0"  response="0000000000000000" foes="0000100001100000"/>
         <request index="1"  response="0000000000000000" foes="1111100011100000"/>
         <request index="2"  response="0000000000000000" foes="1111100011100000"/>

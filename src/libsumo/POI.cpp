@@ -23,25 +23,27 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
+#include <traci-server/TraCIConstants.h>
 #include "POI.h"
 #include "Helper.h"
 
 
-
-
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults POI::mySubscriptionResults;
+ContextSubscriptionResults POI::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 POI::getIDList() {
     std::vector<std::string> ids;
@@ -70,13 +72,8 @@ POI::getColor(const std::string& poiID) {
 
 
 TraCIPosition
-POI::getPosition(const std::string& poiID) {
-    TraCIPosition pos;
-    PointOfInterest* p = getPoI(poiID);
-    pos.x = p->x();
-    pos.y = p->y();
-    pos.z = p->z();
-    return pos;
+POI::getPosition(const std::string& poiID, const bool includeZ) {
+    return Helper::makeTraCIPosition(*getPoI(poiID), includeZ);
 }
 
 
@@ -93,10 +90,10 @@ POI::setType(const std::string& poiID, const std::string& type) {
 
 
 void
-POI::setPosition(const std::string& poiID, const TraCIPosition& pos) {
+POI::setPosition(const std::string& poiID, double x, double y) {
     // try to retrieve so that the correct error is generated for unknown poiIDs
     getPoI(poiID);
-    MSNet::getInstance()->getShapeContainer().movePOI(poiID, Helper::makePosition(pos));
+    MSNet::getInstance()->getShapeContainer().movePOI(poiID, Position(x, y));
 }
 
 
@@ -107,9 +104,9 @@ POI::setColor(const std::string& poiID, const TraCIColor& c) {
 
 
 bool
-POI::add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer) {
+POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.addPOI(poiID, type, Helper::makeRGBColor(c), Helper::makePosition(pos), false, "", 0, 0, (double)layer,
+    return shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color), Position(x, y), false, "", 0, 0, (double)layer,
                             Shape::DEFAULT_ANGLE,
                             Shape::DEFAULT_IMG_FILE,
                             Shape::DEFAULT_RELATIVEPATH,
@@ -132,10 +129,13 @@ POI::setParameter(const std::string& poiID, const std::string& param, const std:
 }
 
 
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(POI, POI)
+
+
 PointOfInterest*
 POI::getPoI(const std::string& id) {
     PointOfInterest* sumoPoi = MSNet::getInstance()->getShapeContainer().getPOIs().get(id);
-    if (sumoPoi == 0) {
+    if (sumoPoi == nullptr) {
         throw TraCIException("POI '" + id + "' is not known");
     }
     return sumoPoi;
@@ -152,6 +152,39 @@ POI::getTree() {
         t->Insert(cmin, cmax, i.second);
     }
     return t;
+}
+
+
+void
+POI::storeShape(const std::string& id, PositionVector& shape) {
+    shape.push_back(*getPoI(id));
+}
+
+
+std::shared_ptr<VariableWrapper>
+POI::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+POI::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_TYPE:
+            return wrapper->wrapString(objID, variable, getType(objID));
+        case VAR_COLOR:
+            return wrapper->wrapColor(objID, variable, getColor(objID));
+        case VAR_POSITION:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID));
+        case VAR_POSITION3D:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
+        default:
+            return false;
+    }
 }
 
 

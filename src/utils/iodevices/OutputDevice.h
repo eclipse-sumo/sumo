@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -123,7 +119,7 @@ public:
 
     /**  Closes all registered devices
      */
-    static void closeAll();
+    static void closeAll(bool keepErrorRetrievers = false);
     /// @}
 
 
@@ -141,7 +137,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const bool binary = false, const int defaultIndentation = 0);
+    OutputDevice(const bool binary = false, const int defaultIndentation = 0, const std::string& filename = "");
 
 
     /// @brief Destructor
@@ -153,6 +149,8 @@ public:
      */
     virtual bool ok();
 
+    /// @brief get filename or suitable description of this device
+    const std::string& getFilename();
 
     /** @brief Closes the device and removes it from the dictionary
      */
@@ -331,6 +329,10 @@ public:
         return *this;
     }
 
+    void flush() {
+        getOStream().flush();
+    }
+
 protected:
     /// @brief Returns the associated ostream
     virtual std::ostream& getOStream() = 0;
@@ -353,6 +355,9 @@ private:
     OutputFormatter* myFormatter;
 
     const bool myAmBinary;
+
+protected:
+    std::string myFilename;
 
 public:
     /// @brief Invalidated copy constructor.

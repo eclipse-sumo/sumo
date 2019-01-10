@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <cassert>
@@ -33,6 +29,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <microsim/pedestrians/MSPerson.h>
 #include "MSGlobals.h"
 #include "MSTransportable.h"
 #include "MSVehicleControl.h"
@@ -51,6 +48,7 @@
 // static members
 // ===========================================================================
 const SUMOTime MSBaseVehicle::NOT_YET_DEPARTED = SUMOTime_MAX;
+std::vector<MSTransportable*> MSBaseVehicle::myEmptyTransportableVector;
 #ifdef _DEBUG
 std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 #endif
@@ -129,6 +127,11 @@ MSBaseVehicle::getParameter() const {
     return *myParameter;
 }
 
+void
+MSBaseVehicle::replaceParameter(const SUMOVehicleParameter* newParameter) {
+    delete myParameter;
+    myParameter = newParameter;
+}
 
 double
 MSBaseVehicle::getMaxSpeed() const {
@@ -153,7 +156,7 @@ MSBaseVehicle::getEdge() const {
 
 
 void
-MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz) {
+MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz) {
     // check whether to reroute
     const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : getRerouteOrigin();
     if (source == 0) {
@@ -207,7 +210,9 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
     if (!edges.empty() && edges.back()->isTazConnector()) {
         edges.pop_back();
     }
-    replaceRouteEdges(edges, onInit);
+    replaceRouteEdges(edges, info, onInit);
+    const double routeCost = router.recomputeCosts(edges, this, t);
+    const_cast<MSRoute*>(myRoute)->setCosts(routeCost);
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {
@@ -225,7 +230,7 @@ MSBaseVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& rout
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool check, bool removeStops) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit, bool check, bool removeStops) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;
@@ -268,7 +273,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit, bool che
             return false;
         }
     }
-    if (!replaceRoute(newRoute, onInit, (int)edges.size() - oldSize, false, removeStops)) {
+    if (!replaceRoute(newRoute, info, onInit, (int)edges.size() - oldSize, false, removeStops)) {
         newRoute->addReference();
         newRoute->release();
         return false;
@@ -313,6 +318,9 @@ MSBaseVehicle::addPerson(MSTransportable* person) {
     if (myPersonDevice == 0) {
         myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
         myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
+        if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
+            const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
+        }
     }
     myPersonDevice->addTransportable(person);
 }
@@ -322,6 +330,9 @@ MSBaseVehicle::addContainer(MSTransportable* container) {
     if (myContainerDevice == 0) {
         myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
         myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
+        if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
+            const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
+        }
     }
     myContainerDevice->addTransportable(container);
 }
@@ -506,6 +517,60 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
 }
 
 
+int
+MSBaseVehicle::getPersonNumber() const {
+    int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
+    return boarded + myParameter->personNumber;
+}
+
+std::vector<std::string>
+MSBaseVehicle::getPersonIDList() const {
+    std::vector<std::string> ret;
+    const std::vector<MSTransportable*>& persons = getPersons();
+    for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {
+        ret.push_back((*it_p)->getID());
+    }
+    return ret;
+}
+
+int
+MSBaseVehicle::getContainerNumber() const {
+    int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
+    return loaded + myParameter->containerNumber;
+}
+
+
+void
+MSBaseVehicle::removeTransportable(MSTransportable* t) {
+    const bool isPerson = dynamic_cast<MSPerson*>(t) != 0;
+    MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
+    if (device != 0) {
+        device->removeTransportable(t);
+    }
+}
+
+
+const std::vector<MSTransportable*>&
+MSBaseVehicle::getPersons() const {
+    if (myPersonDevice == 0) {
+        return myEmptyTransportableVector;
+    } else {
+        return myPersonDevice->getTransportables();
+    }
+}
+
+
+const std::vector<MSTransportable*>&
+MSBaseVehicle::getContainers() const {
+    if (myContainerDevice == 0) {
+        return myEmptyTransportableVector;
+    } else {
+        return myContainerDevice->getTransportables();
+    }
+}
+
+
+
 bool
 MSBaseVehicle::hasDevice(const std::string& deviceName) const {
     for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
@@ -561,7 +626,8 @@ MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::stri
 
 void
 MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
-    if (myType->isVehicleSpecific()) {
+    assert(type != nullptr);
+    if (myType->isVehicleSpecific() && type != myType) {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
     myType = type;

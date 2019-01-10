@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBEdge.h>
@@ -334,6 +330,17 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             cdevice.closeTag();
         }
     }
+    // write custom walkingarea shapes to the connections file
+    for (std::map<std::string, NBNode*>::const_iterator it_node = nc.begin(); it_node != nc.end(); ++it_node) {
+        for (const auto& wacs : it_node->second->getWalkingAreaCustomShapes()) {
+            cdevice.openTag(SUMO_TAG_WALKINGAREA);
+            cdevice.writeAttr(SUMO_ATTR_NODE, it_node->first);
+            cdevice.writeAttr(SUMO_ATTR_EDGES, joinNamedToString(wacs.edges, " "));
+            cdevice.writeAttr(SUMO_ATTR_SHAPE, wacs.shape);
+            cdevice.closeTag();
+        }
+    }
+
     edevice.close();
     cdevice.close();
 }

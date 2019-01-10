@@ -25,9 +25,7 @@ import os
 import sys
 from os.path import join
 import optparse
-import os
 import glob
-import sys
 import shutil
 import subprocess
 from collections import defaultdict
@@ -49,11 +47,12 @@ def get_options(args=None):
         "-o", "--output", default=".", help="send output to directory")
     optParser.add_option(
         "-f", "--file", help="read list of source and target dirs from")
+    optParser.add_option(
+        "-p", "--python-script", help="name of a python script to generate for a batch run")
     optParser.add_option("-i", "--intelligent-names", dest="names", action="store_true",
                          default=False, help="generate cfg name from directory name")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="more information")
-    optParser.add_option(
-        "-a", "--application", help="sets the application to be used")
+    optParser.add_option("-a", "--application", help="sets the application to be used")
     optParser.add_option("-s", "--skip-configuration",
                          dest="skip_configuration", default=False, action="store_true",
                          help="skips creation of an application config from the options.app file")
@@ -104,6 +103,11 @@ def main(options):
         source_and_maybe_target = val.split(SOURCE_DEST_SEP) + ["", ""]
         targets.append(source_and_maybe_target[:3])
 
+    if options.python_script:
+        if not os.path.exists(os.path.dirname(options.python_script)):
+            os.makedirs(os.path.dirname(options.python_script))
+        pyBatch = open(options.python_script, 'w')
+        pyBatch.write('import subprocess,sys\nfor p in [\n')
     for source, target, app in targets:
         outputFiles = glob.glob(join(source, "output.[0-9a-z]*"))
         # print source, target, outputFiles
@@ -117,7 +121,7 @@ def main(options):
             elif app in appName:
                 appName = set([app])
             else:
-                print("Skipping %s because the application was not unique (found %s)." % (
+                print(("Skipping %s because the application was not unique (found %s).") % (
                     source, appName), file=sys.stderr)
                 continue
         app = next(iter(appName))
@@ -194,6 +198,22 @@ def main(options):
                                     toCopy, join(testPath, os.path.basename(toCopy)), merge, exclude)
                         else:
                             shutil.copy2(toCopy, testPath)
+        if options.python_script:
+            if app == "netgen":
+                call = ["netgenerate"] + appOptions
+            elif app == "tools":
+                call = ["python"] + appOptions
+                call[1] = os.path.join(SUMO_HOME, call[1])
+            elif app == "complex":
+                call = ["python"]
+                for o in appOptions:
+                    if o.endswith(".py"):
+                        call.insert(1, os.path.join(".", os.path.basename(o)))
+                    else:
+                        call.append(o)
+            else:
+                call = [app] + appOptions
+            pyBatch.write('subprocess.Popen(["%s"], cwd=r"%s"),\n' % ('", r"'.join(call), testPath))
         if options.skip_configuration:
             continue
         oldWorkDir = os.getcwd()
@@ -203,22 +223,23 @@ def main(options):
             appOptions += ['--save-configuration', '%s.%scfg' %
                            (nameBase, app[:4])]
             if app == "netgen":
-                # binary is now called differently but app still has the old
-                # name
+                # binary is now called differently but app still has the old name
                 app = "netgenerate"
             if options.verbose:
-                print("calling %s for testPath '%s' with  options '%s'" % (checkBinary(app), testPath, " ".join(appOptions)))
+                print(("calling %s for testPath '%s' with  options '%s'") %
+                      (checkBinary(app), testPath, " ".join(appOptions)))
             subprocess.call([checkBinary(app)] + appOptions)
         elif app == "tools":
             if os.name == "posix" or options.file:
                 tool = join("$SUMO_HOME", appOptions[-1])
-                open(nameBase + ".sh", "w").write(tool +
-                                                  " " + " ".join(appOptions[:-1]))
+                open(nameBase + ".sh", "w").write(tool + " " + " ".join(appOptions[:-1]))
             if os.name != "posix" or options.file:
                 tool = join("%SUMO_HOME%", appOptions[-1])
-                open(nameBase + ".bat", "w").write(tool +
-                                                   " " + " ".join(appOptions[:-1]))
+                open(nameBase + ".bat", "w").write(tool + " " + " ".join(appOptions[:-1]))
         os.chdir(oldWorkDir)
+    if options.python_script:
+        pyBatch.write(']:\n  if p.wait() != 0:\n    sys.exit(1)\n')
+
 
 if __name__ == "__main__":
     main(get_options())

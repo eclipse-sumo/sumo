@@ -16,7 +16,6 @@
 # @version $Id$
 
 
-
 class Node:
 
     """ Nodes from a sumo network """
@@ -98,12 +97,15 @@ class Node:
     def getLinkIndex(self, conn):
         ret = 0
         for lane_id in self._incLanes:
-            (edge_id, index) = lane_id.split("_")
-            edge = [e for e in self._incoming if e.getID() == edge_id][0]
-            for candidate_conn in edge.getLane(int(index)).getOutgoing():
-                if candidate_conn == conn:
-                    return ret
-                ret += 1
+            lastUnderscore = lane_id.rfind("_")
+            if lastUnderscore > 0:
+                edge_id = lane_id[:lastUnderscore]
+                index = lane_id[lastUnderscore+1:]
+                edge = [e for e in self._incoming if e.getID() == edge_id][0]
+                for candidate_conn in edge.getLane(int(index)).getOutgoing():
+                    if candidate_conn == conn:
+                        return ret
+                    ret += 1
         return -1
 
     def forbids(self, possProhibitor, possProhibited):

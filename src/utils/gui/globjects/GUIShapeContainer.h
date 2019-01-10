@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -135,6 +131,10 @@ public:
     std::vector<GUIGlID> getPolygonIDs() const;
 
 
+    void allowReplacement() {
+        myAllowReplacement = true;
+    }
+
 private:
     /// @brief The mutex for adding/removing operations
     mutable MFXMutex myLock;
@@ -142,6 +142,9 @@ private:
     /// @brief The RTree structure to add and remove visualization elements
     SUMORTree& myVis;
 
+
+    /// @brief whether existing ids shall be replaced
+    bool myAllowReplacement;
 };
 
 

@@ -17,9 +17,19 @@ from __future__ import absolute_import
 
 import logging
 import unittest
+import os
+import sys
+import collectinghandler
+import xml
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import sumolib  # noqa
-import collectinghandler
+
 
 LOGGER = logging.getLogger(__name__)
 
@@ -409,6 +419,7 @@ class ConnectionXMLTestCase(unittest.TestCase):
     def test_get_destination_with_missing_destination(self):
         self.set_up_connection_xml_without(self.DESTINATION_ATTRIBUTE)
         self.assertRaises(AttributeError, self.connection_xml.get_destination)
+
 
 if __name__ == "__main__":
     unittest.main()

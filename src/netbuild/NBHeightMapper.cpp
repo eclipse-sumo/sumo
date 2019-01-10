@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -263,7 +259,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
 #else
     GDALClose(ds);
 #endif
-    OCTDestroyCoordinateTransformation(toWGS84);
+    OCTDestroyCoordinateTransformation(reinterpret_cast<OGRCoordinateTransformationH>(toWGS84));
     OGRCleanupAll();
     return numFeatures;
 #else

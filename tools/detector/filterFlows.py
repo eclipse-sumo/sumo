@@ -12,9 +12,9 @@
 # @date    2017-09-06
 # @version $Id$
 
-
 from __future__ import print_function
 from __future__ import absolute_import
+import sys
 from optparse import OptionParser
 
 optParser = OptionParser(usage="usage: %prog [options]")

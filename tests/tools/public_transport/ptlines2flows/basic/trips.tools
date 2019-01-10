@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-04-20 10:30:28.292662 by $Id$
-  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600
+<!-- generated on 2018-07-31 13:14:39.555881 by $Id$
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>

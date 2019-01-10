@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(sumo, git)
+AC_INIT(sumo, 1.0.1)
 AC_CONFIG_SRCDIR(src/sumo_main.cpp)
 AC_CANONICAL_SYSTEM
 
@@ -342,10 +342,10 @@ if test x"$with_python" == x; then
     with_python=no
 fi
 if test x"$with_python" != xno; then
-    PYTHON_LIBS=`python -c "import distutils.sysconfig; bl = distutils.sysconfig.get_config_var('BLDLIBRARY'); print bl if bl else '-lpython2.7'"`
+    PYTHON_LIBS=`python -c "import distutils.sysconfig; bl = distutils.sysconfig.get_config_var('BLDLIBRARY'); print(bl if bl else '-lpython2.7')"`
     AC_SUBST(PYTHON_LIBS)
     save_cppflags=$CPPFLAGS
-    PYTHON_INCLUDES=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('INCLUDEPY')"`
+    PYTHON_INCLUDES=`python -c "import distutils.sysconfig; print(distutils.sysconfig.get_config_var('INCLUDEPY'))"`
     CPPFLAGS="$CPPFLAGS -I$PYTHON_INCLUDES"
     export CPPFLAGS
     AC_CHECK_HEADER([Python.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],

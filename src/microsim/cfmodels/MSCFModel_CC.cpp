@@ -44,27 +44,36 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype,
-                           double accel, double decel,
-                           double ccDecel, double headwayTime, double constantSpacing,
-                           double kp, double lambda, double c1, double xi,
-                           double omegaN, double tau, int lanesCount, double ccAccel,
-                           double ploegH, double ploegKp, double ploegKd,
-                           double flatbedKa, double flatbedKv, double flatbedKp, double flatbedH, double flatbedD)
-    : MSCFModel(vtype, accel, decel, decel, decel, headwayTime), myCcDecel(ccDecel), myCcAccel(ccAccel), myConstantSpacing(constantSpacing)
-    , myKp(kp), myLambda(lambda), myC1(c1), myXi(xi), myOmegaN(omegaN), myTau(tau), myLanesCount(lanesCount),
-    myPloegH(ploegH), myPloegKp(ploegKp), myPloegKd(ploegKd),
-    myFlatbedKa(flatbedKa), myFlatbedKv(flatbedKv), myFlatbedKp(flatbedKp), myFlatbedH(flatbedH), myFlatbedD(flatbedD) {
+MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
+    myCcDecel         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CCDECEL, 1.5)),
+    myCcAccel         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CCACCEL, 1.5)),
+    myConstantSpacing (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CONSTSPACING, 5.0)),
+    myKp              (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_KP, 1.0)),
+    myLambda          (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LAMBDA, 0.1)),
+    myC1              (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_C1, 0.5)),
+    myXi              (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_XI, 1)),
+    myOmegaN          (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_OMEGAN, 0.2)),
+    myTau             (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_TAU, 0.5)),
+    myLanesCount      (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LANES_COUNT, -1)),
+    myPloegH          (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_H, 0.5)),
+    myPloegKp         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KP, 0.2)),
+    myPloegKd         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KD, 0.7)),
+    myFlatbedKa       (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KA, 2.4)),
+    myFlatbedKv       (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KV, 0.6)),
+    myFlatbedKp       (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KP, 12.0)),
+    myFlatbedH        (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_H, 4)),
+    myFlatbedD        (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_D, 5.0))
+{
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
-    if (lanesCount == -1) {
+    if (myLanesCount == -1) {
         std::cerr << "The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute\n";
         WRITE_ERROR("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
         assert(false);
     }
 
     //instantiate the driver model. For now, use Krauss as default, then needs to be parameterized
-    myHumanDriver = new MSCFModel_Krauss(vtype, accel, decel, decel, decel, 0.5, 1.5);
+    myHumanDriver = new MSCFModel_Krauss(vtype);
 
 }
 
@@ -1065,11 +1074,5 @@ int MSCFModel_CC::getMyLanesCount() const {
 
 MSCFModel*
 MSCFModel_CC::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_CC(vtype,
-                            myAccel, myDecel,
-                            myCcDecel, myHeadwayTime, myConstantSpacing,
-                            myKp, myLambda, myC1, myXi,
-                            myOmegaN, myTau, myLanesCount, myCcAccel,
-                            myPloegH, myPloegKp, myPloegKd,
-                            myFlatbedKa, myFlatbedKv, myFlatbedKp, myFlatbedH, myFlatbedD);
+    return new MSCFModel_CC(vtype);
 }

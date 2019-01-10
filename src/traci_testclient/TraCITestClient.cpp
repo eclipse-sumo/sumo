@@ -22,11 +22,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <iostream>
@@ -45,8 +41,6 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include "TraCITestClient.h"
-
-using namespace libsumo;
 
 
 // ===========================================================================
@@ -111,10 +105,10 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         }
         if (lineCommand.compare("simstep2") == 0) {
             // read parameter for command simulation step and trigger command
-            std::string time;
+            double time;
             defFile >> time;
             for (int i = 0; i < repNo; i++) {
-                commandSimulationStep(string2time(time));
+                commandSimulationStep(time);
             }
         } else if (lineCommand.compare("getvariable") == 0) {
             // trigger command GetXXXVariable
@@ -138,18 +132,18 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
         } else if (lineCommand.compare("subscribevariable") == 0) {
             // trigger command SubscribeXXXVariable
             int domID, varNo;
-            std::string beginTime, endTime;
+            double beginTime, endTime;
             std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> varNo;
-            commandSubscribeObjectVariable(domID, objID, string2time(beginTime), string2time(endTime), varNo, defFile);
+            commandSubscribeObjectVariable(domID, objID, beginTime, endTime, varNo, defFile);
         }  else if (lineCommand.compare("subscribecontext") == 0) {
             // trigger command SubscribeXXXVariable
             int domID, varNo, domain;
             double range;
-            std::string beginTime, endTime;
+            double beginTime, endTime;
             std::string objID;
             defFile >> domID >> objID >> beginTime >> endTime >> domain >> range >> varNo;
-            commandSubscribeContextVariable(domID, objID, string2time(beginTime), string2time(endTime), domain, range, varNo, defFile);
+            commandSubscribeContextVariable(domID, objID, beginTime, endTime, domain, range, varNo, defFile);
         }  else if (lineCommand.compare("setvalue") == 0) {
             // trigger command SetXXXValue
             int domID, varID;
@@ -181,7 +175,7 @@ TraCITestClient::run(std::string fileName, int port, std::string host) {
 
 // ---------- Commands handling
 void
-TraCITestClient::commandSimulationStep(SUMOTime time) {
+TraCITestClient::commandSimulationStep(double time) {
     try {
         send_commandSimulationStep(time);
         answerLog << std::endl << "-> Command sent: <SimulationStep>:" << std::endl;
@@ -190,7 +184,7 @@ TraCITestClient::commandSimulationStep(SUMOTime time) {
         check_resultState(inMsg, CMD_SIMSTEP, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSimulationStep2(inMsg);
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -205,7 +199,7 @@ TraCITestClient::commandClose() {
         std::string acknowledgement;
         check_resultState(inMsg, CMD_CLOSE, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -220,7 +214,7 @@ TraCITestClient::commandSetOrder(int order) {
         std::string acknowledgement;
         check_resultState(inMsg, CMD_SETORDER, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -237,7 +231,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string& obj
         std::string acknowledgement;
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
         return;
     }
@@ -250,7 +244,7 @@ TraCITestClient::commandGetVariable(int domID, int varID, const std::string& obj
         int valueDataType = inMsg.readUnsignedByte();
         answerLog << " valueDataType=" << valueDataType;
         readAndReportTypeDependent(inMsg, valueDataType);
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         std::stringstream msg;
         msg << "Error while receiving command: " << e.what();
         errorMsg(msg);
@@ -276,14 +270,14 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
         std::string acknowledgement;
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
     }
 }
 
 
 void
-TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int varNo, std::ifstream& defFile) {
+TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {
         int var;
@@ -300,14 +294,14 @@ TraCITestClient::commandSubscribeObjectVariable(int domID, const std::string& ob
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSubscription(inMsg);
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
     }
 }
 
 
 void
-TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, SUMOTime beginTime, SUMOTime endTime,
+TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& objID, double beginTime, double endTime,
         int domain, double range, int varNo, std::ifstream& defFile) {
     std::vector<int> vars;
     for (int i = 0; i < varNo; ++i) {
@@ -326,7 +320,7 @@ TraCITestClient::commandSubscribeContextVariable(int domID, const std::string& o
         check_resultState(inMsg, domID, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSubscription(inMsg);
-    } catch (tcpip::SocketException& e) {
+    } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
     }
 }
@@ -475,11 +469,6 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         into.writeUnsignedByte(TYPE_UBYTE);
         into.writeUnsignedByte(valI);
         return 1 + 1;
-    } else if (dataTypeS == "<float>") {
-        defFile >> valF;
-        into.writeUnsignedByte(TYPE_FLOAT);
-        into.writeFloat(float(valF));
-        return 4 + 1;
     } else if (dataTypeS == "<double>") {
         defFile >> valF;
         into.writeUnsignedByte(TYPE_DOUBLE);
@@ -582,26 +571,9 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
     } else if (valueDataType == TYPE_INTEGER) {
         int integer = inMsg.readInt();
         answerLog << " Int value: " << integer << std::endl;
-    } else if (valueDataType == TYPE_FLOAT) {
-        float floatv = inMsg.readFloat();
-        if (floatv < 0.1 && floatv > 0) {
-            answerLog.setf(std::ios::scientific, std::ios::floatfield);
-        }
-        answerLog << " float value: " << floatv << std::endl;
-        answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
-        answerLog.setf(std::ios::showpoint); // print decimal point
-        answerLog << std::setprecision(2);
     } else if (valueDataType == TYPE_DOUBLE) {
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << std::endl;
-    } else if (valueDataType == TYPE_BOUNDINGBOX) {
-        double lowerLeftX = inMsg.readDouble();
-        double lowerLeftY = inMsg.readDouble();
-        double upperRightX = inMsg.readDouble();
-        double upperRightY = inMsg.readDouble();
-        answerLog << " BoundaryBoxValue: lowerLeft x=" << lowerLeftX
-                  << " y=" << lowerLeftY << " upperRight x=" << upperRightX
-                  << " y=" << upperRightY << std::endl;
     } else if (valueDataType == TYPE_POLYGON) {
         int length = inMsg.readUnsignedByte();
         answerLog << " PolygonValue: ";
@@ -703,6 +675,7 @@ TraCITestClient::testAPI() {
     answerLog << "    adaptedTravelTime: " << edge.getAdaptedTraveltime(edgeID, 0) << "\n";
     answerLog << "    effort: " << edge.getEffort(edgeID, 0) << "\n";
     answerLog << "    laneNumber: " << edge.getLaneNumber(edgeID) << "\n";
+    answerLog << "    streetName: " << edge.getStreetName(edgeID) << "\n";
 
     // lane
     answerLog << "  lane:\n";
@@ -710,10 +683,10 @@ TraCITestClient::testAPI() {
     answerLog << "    getIDCount: " << lane.getIDCount() << "\n";
     const std::string laneID = "e_m6_0";
     answerLog << "    getLinkNumber: " << lane.getLinkNumber(laneID) << "\n";
-    std::vector<TraCIConnection> connections = lane.getLinks(laneID);
+    std::vector<libsumo::TraCIConnection> connections = lane.getLinks(laneID);
     answerLog << "    getLinks:\n";
     for (int i = 0; i < (int)connections.size(); ++i) {
-        const TraCIConnection& c = connections[i];
+        const libsumo::TraCIConnection& c = connections[i];
         answerLog << "    approachedLane=" << c.approachedLane
                   << " hasPrio=" << c.hasPrio
                   << " isOpen=" << c.isOpen
@@ -726,12 +699,18 @@ TraCITestClient::testAPI() {
     }
     answerLog << "    getFoes: " << joinToString(lane.getFoes("e_vu0_0", "e_m4_0"), " ") << "\n";
     try {
-        answerLog << "    getFoes (invalid): " << joinToString(lane.getFoes("e_vu0_0", "e_m4_1"), " ") << "\n";
-    } catch (tcpip::SocketException&) {}
+        answerLog << "    getFoes (invalid): ";
+        answerLog << joinToString(lane.getFoes("e_vu0_0", "e_m4_1"), " ") << "\n";
+    } catch (libsumo::TraCIException& e) {
+        answerLog << "    caught TraCIException(" << e.what() << ")\n";
+    }
     answerLog << "    getInternalFoes: " << joinToString(lane.getInternalFoes(":n_m4_2_0"), " ") << "\n";
     try {
-        answerLog << "    getInternalFoes (invalid): " << joinToString(lane.getInternalFoes("dummy"), " ") << "\n";
-    } catch (tcpip::SocketException&) {}
+        answerLog << "    getInternalFoes (invalid): ";
+        answerLog << joinToString(lane.getInternalFoes("dummy"), " ") << "\n";
+    } catch (libsumo::TraCIException& e) {
+        answerLog << "    caught TraCIException(" << e.what() << ")\n";
+    }
 
     // route
     answerLog << "  route:\n";
@@ -793,21 +772,23 @@ TraCITestClient::testAPI() {
     answerLog << "    isRouteValid: " << vehicle.isRouteValid("0") << "\n";
     vehicle.setParameter("0", "meaningOfLife", "42");
     answerLog << "    param: " << vehicle.getParameter("0", "meaningOfLife") << "\n";
-    TraCIColor col1;
+    libsumo::TraCIColor col1;
     col1.r = 255;
     col1.g = 255;
     col1.b = 0;
     col1.a = 128;
     vehicle.setColor("0", col1);
-    TraCIColor col2 = vehicle.getColor("0");
+    libsumo::TraCIColor col2 = vehicle.getColor("0");
     answerLog << "    getColor:  r=" << (int)col2.r << " g=" << (int)col2.g << " b=" << (int)col2.b << " a=" << (int)col2.a << "\n";
     int signals = vehicle.getSignals("0");
     answerLog << "    getSignals: " << signals << "\n";
     vehicle.setSignals("0", signals ^ TraCIAPI::VehicleScope::SIGNAL_FOGLIGHT);
+    vehicle.setRoutingMode("0", ROUTING_MODE_AGGREGATED);
+    answerLog << "    getRoutingMode: " << vehicle.getRoutingMode("0") << "\n";
     answerLog << "    getNextTLS:\n";
-    std::vector<TraCINextTLSData> result = vehicle.getNextTLS("0");
+    std::vector<libsumo::TraCINextTLSData> result = vehicle.getNextTLS("0");
     for (int i = 0; i < (int)result.size(); ++i) {
-        const TraCINextTLSData& d = result[i];
+        const libsumo::TraCINextTLSData& d = result[i];
         answerLog << "      tls=" << d.id << " tlIndex=" << d.tlIndex << " dist=" << d.dist << " state=" << d.state << "\n";
     }
     answerLog << "    moveToXY, simStep:\n";
@@ -816,12 +797,12 @@ TraCITestClient::testAPI() {
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     vehicle.changeTarget("0", "e_o0");
-    std::vector<std::string> edges2 = vehicle.getEdges("0");
+    std::vector<std::string> edges2 = vehicle.getRoute("0");
     answerLog << "    edges: " << joinToString(edges2, " ") << "\n";
     vehicle.setRouteID("0", "e_m4");
-    answerLog << "    edges: " << joinToString(vehicle.getEdges("0"), " ") << "\n";
+    answerLog << "    edges: " << joinToString(vehicle.getRoute("0"), " ") << "\n";
     vehicle.setRoute("0", edges2);
-    answerLog << "    edges: " << joinToString(vehicle.getEdges("0"), " ") << "\n";
+    answerLog << "    edges: " << joinToString(vehicle.getRoute("0"), " ") << "\n";
     answerLog << "    add:\n";
     vehicle.add("1", "e_u1");
     vehicle.add("2", "e_u1");
@@ -834,6 +815,10 @@ TraCITestClient::testAPI() {
     answerLog << "    getShapeClass: " << vehicle.getShapeClass("0") << "\n";
     std::pair<std::string, double> leader = vehicle.getLeader("1", 1000);
     answerLog << "    getLeader: " << leader.first << ", " << leader.second << "\n";
+    std::pair<int, int> state = vehicle.getLaneChangeState("1", 1);
+    answerLog << "    getLaneChangeState (left): " << state.first << ", " << state.second << "\n";
+    state = vehicle.getLaneChangeState("1", -1);
+    answerLog << "    getLaneChangeState (right): " << state.first << ", " << state.second << "\n";
     vehicle.rerouteTraveltime("0");
     vehicle.setSpeedFactor("0", 0.8);
     answerLog << "    remove:\n";
@@ -844,35 +829,40 @@ TraCITestClient::testAPI() {
     answerLog << "  inductionloop:\n";
     answerLog << "    getIDList: " << joinToString(inductionloop.getIDList(), " ") << "\n";
     answerLog << "    getVehicleData:\n";
-    std::vector<TraCIVehicleData> result2 = inductionloop.getVehicleData("det1");
+    std::vector<libsumo::TraCIVehicleData> result2 = inductionloop.getVehicleData("det1");
     for (int i = 0; i < (int)result2.size(); ++i) {
-        const TraCIVehicleData& vd = result2[i];
+        const libsumo::TraCIVehicleData& vd = result2[i];
         answerLog << "      veh=" << vd.id << " length=" << vd.length << " entered=" << vd.entryTime << " left=" << vd.leaveTime << " type=" << vd.typeID << "\n";
     }
 
-    // simulaton
+    // simulation
     answerLog << "  simulation:\n";
+    answerLog << "    getDistance2D_air: " << simulation.getDistance2D(2500, 500, 2000, 500, false, false) << "\n";
+    answerLog << "    getDistance2D_driving: " << simulation.getDistance2D(2500, 500, 2000, 500, false, true) << "\n";
+    answerLog << "    getDistanceRoad_air: " << simulation.getDistanceRoad("e_m5", 0, "e_m4", 0, false) << "\n";
+    answerLog << "    getDistanceRoad_driving: " << simulation.getDistanceRoad("e_m5", 0, "e_m4", 0, true) << "\n";
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
+    answerLog << "    getDeltaT: " << simulation.getDeltaT() << "\n";
     answerLog << "    parkingArea param: " << simulation.getParameter("park1", "parkingArea.capacity") << "\n";
     answerLog << "    subscribe to road and pos of vehicle '1':\n";
     std::vector<int> vars;
     vars.push_back(VAR_ROAD_ID);
     vars.push_back(VAR_LANEPOSITION);
-    simulation.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "1", 0, TIME2STEPS(100), vars);
+    vehicle.subscribe("1", vars, 0, 100);
     simulationStep();
     answerLog << "    subscription results:\n";
-    TraCIValues result3 = simulation.getSubscriptionResults("1");
-    answerLog << "      roadID=" << result3[VAR_ROAD_ID].string << " pos=" << result3[VAR_LANEPOSITION].scalar << "\n";
+    libsumo::TraCIResults result3 = vehicle.getSubscriptionResults("1");
+    answerLog << "      roadID=" << result3[VAR_ROAD_ID]->getString() << " pos=" << result3[VAR_LANEPOSITION]->getString() << "\n";
 
     answerLog << "    subscribe to vehicles around edge 'e_u1':\n";
     std::vector<int> vars2;
     vars2.push_back(VAR_LANEPOSITION);
-    simulation.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
+    edge.subscribeContext("e_u1", CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, 100);
     simulationStep();
     answerLog << "    context subscription results:\n";
-    SubscribedValues result4 = simulation.getContextSubscriptionResults("e_u1");
-    for (SubscribedValues::iterator it = result4.begin(); it != result4.end(); ++it) {
-        answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION].scalar << "\n";
+    libsumo::SubscriptionResults result4 = edge.getContextSubscriptionResults("e_u1");
+    for (libsumo::SubscriptionResults::iterator it = result4.begin(); it != result4.end(); ++it) {
+        answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION]->getString() << "\n";
     }
 
     // person
@@ -927,21 +917,19 @@ TraCITestClient::testAPI() {
     answerLog << "    phaseDuration: " << trafficlights.getPhaseDuration("n_m4") << "\n";
     answerLog << "    nextSwitch: " << trafficlights.getNextSwitch("n_m4") << "\n";
     answerLog << "    controlledLanes: " << joinToString(trafficlights.getControlledLanes("n_m4"), " ") << "\n";
-    std::vector<std::vector<TraCILink> > links = trafficlights.getControlledLinks("n_m4");
+    std::vector<std::vector<libsumo::TraCILink> > links = trafficlights.getControlledLinks("n_m4");
     answerLog << "    controlledLinks:\n";
     for (int i = 0; i < (int)links.size(); ++i) {
         for (int j = 0; j < (int)links[i].size(); ++j) {
             answerLog << "      index=" << i << " link=" << j << " fromLane=" << links[i][j].fromLane << " viaLane=" << links[i][j].viaLane << " toLane=" << links[i][j].toLane << "\n";
         }
     }
-    TraCILogic newLogic("custom", 0, 3);
-    newLogic.phases.push_back(TraCIPhase(5, 5, 5,   "rrrrrrr"));
-    newLogic.phases.push_back(TraCIPhase(10, 5, 15, "ggggggg"));
-    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "GGGGGGG"));
-    newLogic.phases.push_back(TraCIPhase(3, 3, 3,   "yyyyyyy"));
-    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", newLogic);
+    std::vector<libsumo::TraCIPhase> phases({ libsumo::TraCIPhase(5, 5, 5, "rrrrrrr"), libsumo::TraCIPhase(10, 5, 15, "ggggggg"),
+                                            libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"), libsumo::TraCIPhase(3, 3, 3, "yyyyyyy")
+                                            });
+    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", libsumo::TraCILogic("custom", 0, 3, phases));
 
-    std::vector<TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
+    std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {
         answerLog << "      subID=" << logics[i].subID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
@@ -970,8 +958,8 @@ TraCITestClient::testAPI() {
     load(args);
     simulationStep();
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
-    simulation.subscribe(CMD_SUBSCRIBE_VEHICLE_VARIABLE, "0", 0, TIME2STEPS(100), vars);
-    simulation.subscribeContext(CMD_SUBSCRIBE_EDGE_CONTEXT, "e_u1", 0, TIME2STEPS(100), CMD_GET_VEHICLE_VARIABLE, 100, vars2);
+    vehicle.subscribe("0", vars, 0, TIME2STEPS(100));
+    edge.subscribeContext("e_u1", CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, TIME2STEPS(100));
 
     answerLog << "  gui:\n";
     try {
@@ -980,7 +968,7 @@ TraCITestClient::testAPI() {
         answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
         answerLog << "    take screenshot: \n";
         gui.screenshot("View #0", "image.png", 500, 500);
-    } catch (tcpip::SocketException&) {
+    } catch (libsumo::TraCIException&) {
         answerLog << "    no support for gui commands\n";
     }
 }

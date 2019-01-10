@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:47 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:50 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,9 +19,12 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
         <roundabouts.guess value="true"/>
     </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -30,110 +33,110 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392704.85,-5815104.73" convBoundary="0.00,0.00,259.16,356.63" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-53477973" from="cluster_61042033_61042034" to="61042031" name="Selchower Strasse" priority="-4" shape="102.39,354.75 85.34,351.78">
-        <lane id="-53477973_0" index="0" speed="8.33" length="23.83" shape="102.12,356.33 89.68,354.16"/>
+        <lane id="-53477973_0" index="0" speed="8.33" length="25.19" shape="102.12,356.33 89.68,354.16"/>
     </edge>
     <edge id="-53478295" from="61042031" to="61041996" name="Schillerpromenade" priority="-4" spreadType="center">
-        <lane id="-53478295_0" index="0" speed="8.33" length="135.70" shape="84.54,346.89 106.09,219.50"/>
-        <lane id="-53478295_1" index="1" speed="8.33" length="135.70" shape="87.70,347.43 109.25,220.03"/>
+        <lane id="-53478295_0" index="0" speed="8.33" length="137.06" shape="84.54,346.89 105.82,221.14"/>
+        <lane id="-53478295_1" index="1" speed="8.33" length="137.06" shape="87.70,347.43 108.97,221.68"/>
     </edge>
     <edge id="-53478384" from="61042083" to="61042004" name="Herrfurthstrasse" priority="-4">
-        <lane id="-53478384_0" index="0" speed="8.33" length="76.57" shape="258.92,192.67 185.77,181.36"/>
+        <lane id="-53478384_0" index="0" speed="8.33" length="76.57" shape="258.92,192.67 187.60,181.64"/>
     </edge>
     <edge id="-53478418" from="61041996" to="61041992" name="KREISVERKEHR / Herrfurthplatz" priority="-4" spreadType="center" shape="108.20,216.64 100.66,213.47 93.75,208.06 86.81,201.53 82.57,193.83 79.03,187.24 76.79,178.38 76.65,171.71 77.04,158.35">
-        <lane id="-53478418_0" index="0" speed="8.33" length="71.93" shape="104.13,214.93 100.66,213.47 93.75,208.06 86.81,201.53 82.57,193.83 79.03,187.24 76.79,178.38 76.65,171.71 76.91,162.88"/>
+        <lane id="-53478418_0" index="0" speed="8.33" length="71.93" shape="102.59,214.28 100.66,213.47 93.75,208.06 86.81,201.53 82.57,193.83 79.03,187.24 76.79,178.38 76.65,171.71 76.84,165.27"/>
     </edge>
     <edge id="-53478448" from="61041992" to="61041982" name="Herrfurthstrasse" priority="-4">
-        <lane id="-53478448_0" index="0" speed="8.33" length="77.92" shape="73.82,159.48 -0.24,148.26"/>
+        <lane id="-53478448_0" index="0" speed="8.33" length="77.92" shape="71.46,159.12 -0.24,148.26"/>
     </edge>
     <edge id="-53478500" from="61041992" to="61041994" name="KREISVERKEHR / Herrfurthplatz" priority="-4" spreadType="center" shape="77.04,158.35 78.25,151.64 81.47,143.79 85.40,137.02 91.34,129.10 100.71,122.22 108.78,118.71 118.92,116.26 125.01,115.02">
-        <lane id="-53478500_0" index="0" speed="8.33" length="70.10" shape="77.87,153.77 78.25,151.64 81.47,143.79 85.40,137.02 91.34,129.10 100.71,122.22 108.78,118.71 118.92,116.26 120.78,115.88"/>
+        <lane id="-53478500_0" index="0" speed="8.33" length="70.10" shape="78.34,151.43 81.47,143.79 85.40,137.02 91.34,129.10 100.71,122.22 108.78,118.71 118.92,116.26 119.54,116.13"/>
     </edge>
     <edge id="-53478773" from="61041994" to="61041990" name="Schillerpromenade" priority="-4" spreadType="center">
-        <lane id="-53478773_0" index="0" speed="8.33" length="115.12" shape="124.02,111.10 141.23,4.40"/>
-        <lane id="-53478773_1" index="1" speed="8.33" length="115.12" shape="127.18,111.61 144.39,4.91"/>
+        <lane id="-53478773_0" index="0" speed="8.33" length="116.51" shape="124.22,109.85 141.23,4.40"/>
+        <lane id="-53478773_1" index="1" speed="8.33" length="116.51" shape="127.38,110.36 144.39,4.91"/>
     </edge>
     <edge id="-923797607" from="61042005" to="61041996" name="KREISVERKEHR / Herrfurthplatz" priority="-4" spreadType="center" shape="139.54,220.41 123.90,219.64 108.20,216.64">
-        <lane id="-923797607_0" index="0" speed="8.33" length="31.64" shape="134.66,220.17 123.90,219.64 112.85,217.53"/>
+        <lane id="-923797607_0" index="0" speed="8.33" length="31.64" shape="133.84,220.13 123.90,219.64 114.49,217.84"/>
     </edge>
     <edge id="-923797612" from="61041991" to="61041990" name="Kienitzer Strasse" priority="-4" shape="175.62,5.97 161.29,2.95 143.56,0.00">
-        <lane id="-923797612_0" index="0" speed="8.33" length="29.95" shape="170.81,6.59 160.99,4.52 147.95,2.35"/>
+        <lane id="-923797612_0" index="0" speed="8.33" length="32.62" shape="170.81,6.59 160.99,4.52 147.95,2.35"/>
     </edge>
     <edge id="53477973" from="61042031" to="cluster_61042033_61042034" name="Selchower Strasse" priority="-4" shape="85.34,351.78 102.39,354.75">
-        <lane id="53477973_0" index="0" speed="8.33" length="23.83" shape="90.23,351.01 102.66,353.17"/>
+        <lane id="53477973_0" index="0" speed="8.33" length="25.19" shape="90.23,351.01 102.66,353.17"/>
     </edge>
     <edge id="53478287" from="61042005" to="cluster_61042033_61042034" name="Schillerpromenade" priority="-4" spreadType="center" shape="139.54,220.41 118.06,356.63">
-        <lane id="53478287_0" index="0" speed="8.33" length="142.93" shape="140.58,224.07 120.25,353.01"/>
-        <lane id="53478287_1" index="1" speed="8.33" length="142.93" shape="137.42,223.57 117.09,352.51"/>
+        <lane id="53478287_0" index="0" speed="8.33" length="142.93" shape="140.46,224.88 120.25,353.01"/>
+        <lane id="53478287_1" index="1" speed="8.33" length="142.93" shape="137.29,224.38 117.09,352.51"/>
     </edge>
     <edge id="53478384" from="61042004" to="61042083" name="Herrfurthstrasse" priority="-4">
-        <lane id="53478384_0" index="0" speed="8.33" length="76.57" shape="186.26,178.20 259.40,189.51"/>
+        <lane id="53478384_0" index="0" speed="8.33" length="76.57" shape="188.09,178.48 259.40,189.51"/>
     </edge>
     <edge id="53478385" from="61042004" to="61042005" name="KREISVERKEHR / Herrfurthplatz" priority="-4" spreadType="center" shape="183.49,179.39 178.30,190.63 171.07,201.92 164.42,208.74 155.04,214.51 139.54,220.41">
-        <lane id="53478385_0" index="0" speed="8.33" length="62.91" shape="181.66,183.36 178.30,190.63 171.07,201.92 164.42,208.74 155.04,214.51 143.53,218.89"/>
+        <lane id="53478385_0" index="0" speed="8.33" length="62.91" shape="180.88,185.04 178.30,190.63 171.07,201.92 164.42,208.74 155.04,214.51 144.30,218.60"/>
     </edge>
     <edge id="53478448" from="61041982" to="61041992" name="Herrfurthstrasse" priority="-4">
-        <lane id="53478448_0" index="0" speed="8.33" length="77.92" shape="0.24,145.10 74.30,156.32"/>
+        <lane id="53478448_0" index="0" speed="8.33" length="77.92" shape="0.24,145.10 71.94,155.96"/>
     </edge>
     <edge id="53478758" from="61041991" to="61041997" name="Schillerpromenade" priority="-4" spreadType="center">
-        <lane id="53478758_0" index="0" speed="8.33" length="116.57" shape="176.42,10.75 158.11,117.79"/>
-        <lane id="53478758_1" index="1" speed="8.33" length="116.57" shape="173.27,10.21 154.95,117.25"/>
+        <lane id="53478758_0" index="0" speed="8.33" length="117.85" shape="176.42,10.75 158.21,117.18"/>
+        <lane id="53478758_1" index="1" speed="8.33" length="117.85" shape="173.27,10.21 155.06,116.64"/>
     </edge>
     <edge id="53665664" from="61041997" to="61042004" name="KREISVERKEHR / Herrfurthplatz" priority="-4" spreadType="center" shape="155.74,122.13 164.76,130.84 169.64,136.30 175.92,143.95 179.51,152.77 181.77,162.74 183.34,172.72 183.49,179.39">
-        <lane id="53665664_0" index="0" speed="8.33" length="66.28" shape="158.82,125.10 164.76,130.84 169.64,136.30 175.92,143.95 179.51,152.77 181.77,162.74 183.34,172.72 183.39,174.93"/>
+        <lane id="53665664_0" index="0" speed="8.33" length="66.28" shape="159.26,125.53 164.76,130.84 169.64,136.30 175.92,143.95 179.51,152.77 181.77,162.74 183.34,172.72 183.35,173.07"/>
     </edge>
     <edge id="923797609" from="61041994" to="61041997" name="KREISVERKEHR / Herrfurthplatz" priority="-4" spreadType="center" shape="125.01,115.02 133.16,114.84 141.33,115.77 150.91,118.90 155.74,122.13">
-        <lane id="923797609_0" index="0" speed="8.33" length="32.26" shape="130.06,114.91 133.16,114.84 141.33,115.77 150.99,118.95"/>
+        <lane id="923797609_0" index="0" speed="8.33" length="32.25" shape="131.32,114.88 133.16,114.84 141.33,115.77 150.41,118.74"/>
     </edge>
     <edge id="923797611" from="61041990" to="61041991" name="Kienitzer Strasse" priority="-4" shape="143.56,0.00 161.29,2.95 175.62,5.97">
-        <lane id="923797611_0" index="0" speed="8.33" length="29.95" shape="148.47,-0.80 161.59,1.38 171.47,3.46"/>
+        <lane id="923797611_0" index="0" speed="8.33" length="32.62" shape="148.47,-0.80 161.59,1.38 171.47,3.46"/>
     </edge>
 
     <junction id="61041982" type="priority" x="0.00" y="146.68" incLanes="-53478448_0" intLanes="" shape="0.00,146.68 -0.48,149.84 0.00,146.68">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="61041990" type="right_before_left" x="143.56" y="0.00" incLanes="-923797612_0 -53478773_0 -53478773_1" intLanes="" shape="147.69,3.93 148.74,-2.38 139.65,4.15 145.97,5.17">
+    <junction id="61041990" type="right_before_left" x="143.56" y="0.00" incLanes="-923797612_0 -53478773_0 -53478773_1" intLanes="" shape="147.69,3.93 148.74,-2.38 146.31,-2.56 144.25,-2.24 142.55,-1.40 141.22,-0.06 140.25,1.79 139.65,4.15 145.97,5.17 146.27,4.37 146.52,4.12 146.84,3.96 147.23,3.90">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="61041991" type="priority" x="175.62" y="5.97" incLanes="923797611_0" intLanes="" shape="171.80,1.89 170.48,8.16 171.69,9.94 178.00,11.02">
+    <junction id="61041991" type="priority" x="175.62" y="5.97" incLanes="923797611_0" intLanes="" shape="171.80,1.89 170.48,8.16 171.27,8.49 171.52,8.76 171.67,9.09 171.73,9.48 171.69,9.94 178.00,11.02 178.19,8.67 177.89,6.65 177.10,4.97 175.82,3.61 174.05,2.59">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="61041992" type="priority" x="77.04" y="158.35" incLanes="53478448_0 -53478418_0" intLanes="" shape="79.44,154.05 76.29,153.48 74.54,154.74 73.58,161.06 75.31,162.83 78.51,162.92">
+    <junction id="61041992" type="priority" x="77.04" y="158.35" incLanes="53478448_0 -53478418_0" intLanes="" shape="79.95,151.72 76.73,151.14 75.54,153.16 74.83,153.81 74.03,154.23 73.15,154.42 72.18,154.38 71.22,160.71 73.50,161.48 74.29,162.15 74.84,162.99 75.16,164.01 75.24,165.22 78.44,165.31 78.44,162.37 78.34,160.16 78.29,158.33 78.45,156.54 78.95,154.45">
         <request index="0" response="100" foes="100"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="001"/>
     </junction>
-    <junction id="61041994" type="priority" x="125.01" y="115.02" incLanes="-53478500_0" intLanes="" shape="130.09,116.51 130.02,113.31 128.76,111.86 122.44,110.84 120.46,114.31 121.10,117.45">
+    <junction id="61041994" type="priority" x="125.01" y="115.02" incLanes="-53478500_0" intLanes="" shape="131.36,116.48 131.29,113.28 129.80,113.01 129.32,112.64 129.02,112.12 128.90,111.44 128.96,110.61 122.64,109.59 121.95,112.11 121.43,113.05 120.81,113.77 120.07,114.27 119.22,114.57 119.86,117.70 122.28,117.22 124.07,116.90 125.57,116.71 127.07,116.60 128.89,116.53">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="61041996" type="priority" x="108.20" y="216.64" incLanes="-923797607_0 -53478295_0 -53478295_1" intLanes="" shape="112.55,219.10 113.15,215.96 104.75,213.46 103.51,216.41 104.52,219.23 110.83,220.30">
+    <junction id="61041996" type="priority" x="108.20" y="216.64" incLanes="-923797607_0 -53478295_0 -53478295_1" intLanes="" shape="114.19,219.41 114.79,216.27 112.26,215.78 110.39,215.39 108.87,214.99 107.37,214.49 105.59,213.80 103.21,212.81 101.97,215.76 103.52,216.87 104.00,217.65 104.28,218.58 104.36,219.65 104.24,220.88 110.55,221.94 111.19,220.27 111.72,219.75 112.40,219.43 113.22,219.32">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="61041997" type="priority" x="155.74" y="122.13" incLanes="53478758_0 53478758_1 923797609_0" intLanes="" shape="157.71,126.26 159.93,123.95 159.68,118.06 153.38,116.98 151.88,117.62 150.08,120.31">
+    <junction id="61041997" type="priority" x="155.74" y="122.13" incLanes="53478758_0 53478758_1 923797609_0" intLanes="" shape="158.15,126.68 160.37,124.38 159.63,122.96 159.47,121.91 159.44,120.65 159.54,119.16 159.79,117.45 153.48,116.37 153.12,117.19 152.81,117.41 152.40,117.52 151.91,117.50 151.33,117.35 149.50,120.12 151.66,120.93 153.17,121.73 154.29,122.62 155.32,123.68 156.51,125.00">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
-    <junction id="61042004" type="priority" x="183.49" y="179.39" incLanes="-53478384_0 53665664_0" intLanes="" shape="185.53,182.94 186.51,176.62 184.99,174.89 181.79,174.96 180.21,182.69 183.11,184.03">
+    <junction id="61042004" type="priority" x="183.49" y="179.39" incLanes="-53478384_0 53665664_0" intLanes="" shape="187.36,183.23 188.34,176.90 186.49,176.24 185.83,175.68 185.36,174.96 185.06,174.08 184.95,173.04 181.75,173.11 181.79,175.58 181.74,177.42 181.54,178.94 181.13,180.41 180.45,182.12 179.43,184.37 182.33,185.71 183.52,184.08 184.29,183.57 185.19,183.25 186.21,183.14">
         <request index="0" response="100" foes="100"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="001"/>
     </junction>
-    <junction id="61042005" type="priority" x="139.54" y="220.41" incLanes="53478385_0" intLanes="" shape="144.10,220.39 142.96,217.40 134.73,218.57 134.58,221.77 135.84,223.32 142.16,224.32">
+    <junction id="61042005" type="priority" x="139.54" y="220.41" incLanes="53478385_0" intLanes="" shape="144.87,220.09 143.73,217.10 141.74,217.84 140.23,218.31 138.94,218.57 137.63,218.66 136.04,218.63 133.92,218.53 133.76,221.73 135.01,222.05 135.41,222.39 135.66,222.85 135.76,223.43 135.71,224.13 142.04,225.13 142.64,222.70 143.08,221.77 143.59,221.02 144.19,220.46">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="61042031" type="priority" x="85.34" y="351.78" incLanes="-53477973_0" intLanes="" shape="89.41,355.74 90.50,349.43 89.28,347.69 82.97,346.63">
+    <junction id="61042031" type="priority" x="85.34" y="351.78" incLanes="-53477973_0" intLanes="" shape="89.41,355.74 90.50,349.43 89.71,349.12 89.46,348.87 89.30,348.55 89.24,348.15 89.28,347.69 82.97,346.63 82.78,349.04 83.10,351.09 83.92,352.78 85.24,354.12 87.07,355.11">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
@@ -141,7 +144,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="61042083" type="priority" x="259.16" y="191.09" incLanes="53478384_0" intLanes="" shape="259.16,191.09 259.65,187.93 259.16,191.09">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="cluster_61042033_61042034" type="right_before_left" x="110.22" y="355.69" incLanes="53478287_0 53478287_1 53477973_0" intLanes="" shape="121.83,353.26 115.51,352.26 102.94,351.60 101.84,357.90">
+    <junction id="cluster_61042033_61042034" type="right_before_left" x="110.22" y="355.69" incLanes="53478287_0 53478287_1 53477973_0" intLanes="" shape="121.83,353.26 115.51,352.26 114.01,352.85 112.25,352.84 109.82,352.63 106.71,352.21 102.94,351.60 101.84,357.90 107.60,358.68 112.39,358.84 116.21,358.37 119.06,357.29 120.93,355.59">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

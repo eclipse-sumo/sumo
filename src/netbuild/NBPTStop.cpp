@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
@@ -36,8 +32,7 @@
 // method definitions
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
-                   std::string name, SVCPermissions svcPermissions)
-    :
+                   std::string name, SVCPermissions svcPermissions) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
@@ -45,6 +40,7 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myPTStopLength(length),
     myName(name),
     myPermissions(svcPermissions),
+    myBidiStop(nullptr),
     myIsMultipleStopPositions(false) {
 }
 
@@ -54,30 +50,30 @@ NBPTStop::getID() const {
 }
 
 const std::string
-NBPTStop::getOrigEdgeId() {
+NBPTStop::getOrigEdgeId() const {
     return myOrigEdgeId;
 }
 
 
 const std::string
-NBPTStop::getEdgeId() {
+NBPTStop::getEdgeId() const {
     return myEdgeId;
 }
 
 
 const std::string
-NBPTStop::getName() {
+NBPTStop::getName() const {
     return myName;
 }
 
 
-const Position& 
-NBPTStop::getPosition() {
+const Position&
+NBPTStop::getPosition() const {
     return myPosition;
 }
 
 
-void 
+void
 NBPTStop::computExtent(double center, double edgeLength) {
     myStartPos = MAX2(0.0, center - myPTStopLength / 2.);
     myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
@@ -93,7 +89,7 @@ NBPTStop::addLine(const std::string& line) {
 }
 
 
-void 
+void
 NBPTStop::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_BUS_STOP);
     device.writeAttr(SUMO_ATTR_ID, myPTStopId);
@@ -108,10 +104,12 @@ NBPTStop::write(OutputDevice& device) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
     if (!myAccesses.empty()) {
+        std::sort(myAccesses.begin(), myAccesses.end());
         for (auto tuple : myAccesses) {
             device.openTag(SUMO_TAG_ACCESS);
             device.writeAttr(SUMO_ATTR_LANE, std::get<0>(tuple));
             device.writeAttr(SUMO_ATTR_POSITION, std::get<1>(tuple));
+            device.writeAttr(SUMO_ATTR_LENGTH, std::get<2>(tuple));
             device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
             device.closeTag();
         }
@@ -129,38 +127,38 @@ NBPTStop::reshiftPosition(const double offsetX, const double offsetY) {
 }
 
 
-SVCPermissions 
-NBPTStop::getPermissions() {
+SVCPermissions
+NBPTStop::getPermissions() const {
     return myPermissions;
 }
 
 
-void 
+void
 NBPTStop::addPlatformCand(NBPTPlatform platform) {
     myPlatformCands.push_back(platform);
 }
 
 
-const std::vector<NBPTPlatform>& 
+const std::vector<NBPTPlatform>&
 NBPTStop::getPlatformCands() {
     return myPlatformCands;
 }
 
 
-bool 
-NBPTStop::getIsMultipleStopPositions() {
+bool
+NBPTStop::getIsMultipleStopPositions() const {
     return myIsMultipleStopPositions;
 }
 
 
-void 
+void
 NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
     myIsMultipleStopPositions = multipleStopPositions;
 }
 
 
-double 
-NBPTStop::getLength() {
+double
+NBPTStop::getLength() const {
     return myPTStopLength;
 }
 
@@ -178,19 +176,19 @@ NBPTStop::registerAdditionalEdge(std::string wayId, std::string edgeId) {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 NBPTStop::getMyAdditionalEdgeCandidates() const {
     return myAdditionalEdgeCandidates;
 }
 
 
-void 
+void
 NBPTStop::setMyOrigEdgeId(const std::string& myOrigEdgeId) {
     NBPTStop::myOrigEdgeId = myOrigEdgeId;
 }
 
 
-void 
+void
 NBPTStop::setMyPTStopLength(double myPTStopLength) {
     NBPTStop::myPTStopLength = myPTStopLength;
 }
@@ -220,15 +218,28 @@ NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
 }
 
 
-void 
+void
 NBPTStop::setMyPTStopId(std::string id) {
     myPTStopId = id;
 }
 
+void
+NBPTStop::clearAccess() {
+    myAccesses.clear();
+}
 
-void 
-NBPTStop::addAccess(std::string laneID, double offset) {
-    myAccesses.push_back(std::make_tuple(laneID, offset));
+void
+NBPTStop::addAccess(std::string laneID, double offset, double length) {
+    const std::string newEdgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
+    // avoid duplicate access
+    for (auto it = myAccesses.begin(); it != myAccesses.end();) {
+        if (SUMOXMLDefinitions::getEdgeIDFromLane(std::get<0>(*it)) == newEdgeID) {
+            it = myAccesses.erase(it);
+        } else {
+            it++;
+        }
+    }
+    myAccesses.push_back(std::make_tuple(laneID, offset, length));
 }
 
 

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEAdditional.h"
 
@@ -54,11 +50,12 @@ public:
     * @param[in] edge Edge of this calibrator belongs
     * @param[in] pos position of the calibrator on the edge (Currently not used)
     * @param[in] frequency the aggregation interval in which to calibrate the flows
+    * @param[in] name Calibrator name
     * @param[in] output The output file for writing calibrator information
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
     */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& output);
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output);
 
     /**@brief Constructor using lane
     * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -66,51 +63,18 @@ public:
     * @param[in] lane Lane of this calibrator belongs
     * @param[in] pos position of the calibrator on the edge (Currently not used)
     * @param[in] frequency the aggregation interval in which to calibrate the flows
+    * @param[in] name Calibrator name
     * @param[in] output The output file for writing calibrator information
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
     */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& output);
+    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output);
 
     /// @brief Destructor
     ~GNECalibrator();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
     /// @brief open Calibrator Dialog
     void openAdditionalDialog();
-
-    /// @name Functions related with Calibrator items
-    /// @{
-
-    /// @brief add calibrator route
-    void addCalibratorRoute(GNECalibratorRoute* route);
-
-    /// @brief add calibrator route
-    void removeCalibratorRoute(GNECalibratorRoute* route);
-
-    /// @brief get calibrator routes
-    const std::vector<GNECalibratorRoute*>& getCalibratorRoutes() const;
-
-    /// @brief add calibrator flow
-    void addCalibratorFlow(GNECalibratorFlow* flow);
-
-    /// @brief remove calibrator flow
-    void removeCalibratorFlow(GNECalibratorFlow* flow);
-
-    /// @brief get calibrator flows
-    const std::vector<GNECalibratorFlow*>& getCalibratorFlows() const;
-
-    /// @brief check if calibrator flow exists
-    bool calibratorFlowExist(GNECalibratorFlow* calibratorFlow, bool failHard) const;
-
-    /// @brief obtain calibrator flow index
-    int getCalibratorFlowIndex(const GNECalibratorFlow* calibratorFlow) const;
-
-    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
@@ -127,7 +91,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -138,7 +102,7 @@ public:
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -167,7 +131,13 @@ public:
      * @param[in] value The value asociated to key key
      * @return true if the value is valid, false in other case
      */
-    bool isValid(SumoXMLAttr key, const std::string& value) ;
+    bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 protected:
@@ -188,12 +158,6 @@ protected:
 
     /// @brief pointer to current RouteProbe
     GNERouteProbe* myRouteProbe;
-
-    /// @brief calibrator route values
-    std::vector<GNECalibratorRoute*> myCalibratorRoutes;
-
-    /// @brief calibrator flow values
-    std::vector<GNECalibratorFlow*> myCalibratorFlows;
 
 private:
     /// @brief set attribute after validation

@@ -35,7 +35,8 @@ import sumolib  # noqa
 
 
 def initOptions():
-    jars = glob.glob(os.path.join(TOOLS_DIR, "contributed", "calibration", "*", "target", "*.jar")) + glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
+    jars = glob.glob(os.path.join(TOOLS_DIR, "contributed", "calibration", "*", "target", "*.jar")) + \
+        glob.glob(os.path.join(TOOLS_DIR, "..", "bin", "*.jar"))
     argParser = ArgumentParser()
     addGenericOptions(argParser)
     argParser.add_argument("-r", "--route-alternatives", dest="routes",
@@ -49,9 +50,11 @@ def initOptions():
     argParser.add_argument("-S", "--demandscale", dest="demandscale",
                            type=float, default=2., help="scaled demand [default: %default]")
     argParser.add_argument("-F", "--freezeit",  dest="freezeit",
-                           type=int, default=85, help="define the number of iterations for stablizing the results in the DTA-calibration")
+                           type=int, default=85, help="define the number of iterations for stablizing the results " +
+                                                      "in the DTA-calibration")
     argParser.add_argument("-V", "--varscale",  dest="varscale",
-                           type=float, default=1., help="define variance of the measured traffic flows for the DTA-calibration")
+                           type=float, default=1., help="define variance of the measured traffic flows for the" +
+                                                        "DTA-calibration")
     argParser.add_argument("-P", "--PREPITS",  type=int, dest="PREPITS",
                            default=5, help="number of preparatory iterations")
     argParser.add_argument("-W", "--evaluation-prefix", dest="evalprefix",
@@ -71,9 +74,11 @@ def initOptions():
     argParser.add_argument("-N", "--clone-postfix", dest="clonepostfix",
                            default='-CLONE', help="postfix attached to clone ids")
     argParser.add_argument("-X", "--cntfirstlink", action="store_true", dest="cntfirstlink",
-                           default=False, help="if entering vehicles are assumed to cross the upstream sensor of their entry link")
+                           default=False, help="if entering vehicles are assumed to cross the upstream sensor of" +
+                                               "their entry link")
     argParser.add_argument("-K", "--cntlastlink", action="store_true", dest="cntlastlink",
-                           default=False, help="if exiting vehicles are assumed to cross the upstream sensor of their exit link")
+                           default=False, help="if exiting vehicles are assumed to cross the upstream sensor of" +
+                           "their exit link")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -105,14 +110,16 @@ def main():
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
                            "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                            "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
-                           "-mincountstddev", options.mincountstddev, "-overridett", options.overridett, "-clonepostfix", options.clonepostfix,
-                           "-fmaprefix", options.fmaprefix, "-cntfirstlink", options.cntfirstlink, "-cntlastlink", options.cntlastlink], log)
+                           "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
+                           "-clonepostfix", options.clonepostfix, "-fmaprefix", options.fmaprefix,
+                           "-cntfirstlink", options.cntfirstlink, "-cntlastlink", options.cntlastlink], log)
     else:
         call(calibrator + ["INIT", "-varscale", options.varscale, "-freezeit", options.freezeit,
                            "-measfile", options.detvals, "-binsize", options.aggregation, "-PREPITS", options.PREPITS,
                            "-bruteforce", options.bruteforce, "-demandscale", options.demandscale,
                            "-mincountstddev", options.mincountstddev, "-overridett", options.overridett,
-                           "-clonepostfix", options.clonepostfix, "-cntfirstlink", options.cntfirstlink, "-cntlastlink", options.cntlastlink], log)
+                           "-clonepostfix", options.clonepostfix, "-cntfirstlink", options.cntfirstlink,
+                           "-cntlastlink", options.cntlastlink], log)
 
     for step in range(options.calibStep):
         print('calibration step:', step)
@@ -135,8 +142,7 @@ def main():
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
         writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
-        retCode = call(
-            [sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
+        call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
@@ -156,6 +162,7 @@ def main():
 
     print("calibration ended (duration: %s)" % (datetime.now() - starttime))
     log.close()
+
 
 if __name__ == "__main__":
     main()

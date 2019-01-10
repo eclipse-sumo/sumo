@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -49,11 +45,11 @@
 /* -------------------------------------------------------------------------
  * MSContainer::MSContainerStage_Driving - methods
  * ----------------------------------------------------------------------- */
-MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge& destination,
+MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge* destination,
         MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines) :
     MSTransportable::Stage_Driving(destination, toStop,
                                    SUMOVehicleParameter::interpretEdgePos(
-                                       arrivalPos, destination.getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transported to " + destination.getID()),
+                                       arrivalPos, destination->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transported to " + destination->getID()),
                                    lines) {
 }
 
@@ -93,12 +89,12 @@ MSContainer::MSContainerStage_Driving::getStageDescription() const {
 
 std::string
 MSContainer::MSContainerStage_Driving::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ? 
-        " edge '" + getDestination().getID() + "'" : 
-        " stop '" + getDestinationStop()->getID() + "'");
-    return isWaiting4Vehicle() ? 
-        "waiting for " + joinToString(myLines, ",") + " then transported to " + dest: 
-        "transported to " + dest;
+    const std::string dest = (getDestinationStop() == 0 ?
+                              " edge '" + getDestination()->getID() + "'" :
+                              " stop '" + getDestinationStop()->getID() + "'");
+    return isWaiting4Vehicle() ?
+           "waiting for " + joinToString(myLines, ",") + " then transported to " + dest :
+           "transported to " + dest;
 }
 
 
@@ -111,7 +107,7 @@ MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, MSTransp
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", toString(myArrivalPos));
-    os.writeAttr("duration", time2string(myArrived - myDeparted));
+    os.writeAttr("duration", myArrived > 0 ? time2string(myArrived - myDeparted) : "-1");
     os.writeAttr("routeLength", myVehicleDistance);
     os.closeTag();
 }
@@ -119,7 +115,7 @@ MSContainer::MSContainerStage_Driving::tripInfoOutput(OutputDevice& os, MSTransp
 
 void
 MSContainer::MSContainerStage_Driving::routeOutput(OutputDevice& os) const {
-    os.openTag("transport").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination().getID());
+    os.openTag("transport").writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID()).writeAttr(SUMO_ATTR_TO, getDestination()->getID());
     os.writeAttr(SUMO_ATTR_LINES, myLines).closeTag();
 }
 
@@ -132,7 +128,7 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
         MSStoppingPlace* toStop,
         double speed,
         double departPos, double arrivalPos) :
-    MSTransportable::Stage(*route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
+    MSTransportable::Stage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
                                arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myRoute(route),
     mySpeed(speed), myContainerState(0), myCurrentInternalEdge(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
@@ -265,9 +261,9 @@ MSContainer::MSContainerStage_Tranship::moveToNextEdge(MSTransportable* containe
 
 std::string
 MSContainer::MSContainerStage_Tranship::getStageSummary() const {
-    const std::string dest = (getDestinationStop() == 0 ? 
-        " edge '" + getDestination().getID() + "'" : 
-        " stop '" + getDestinationStop()->getID() + "'");
+    const std::string dest = (getDestinationStop() == 0 ?
+                              " edge '" + getDestination()->getID() + "'" :
+                              " stop '" + getDestinationStop()->getID() + "'");
     return "transhipped to " + dest;
 }
 

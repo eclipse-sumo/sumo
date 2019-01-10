@@ -30,11 +30,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <list>
 #include <deque>
@@ -273,10 +269,11 @@ public:
      *  contain the vehicle's current edge.
      *
      * @param[in] route The new route to pass
+     * @param[in] info Information regarding the replacement
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
+    bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
 
     /** @brief Returns whether the vehicle wil pass the given edge
@@ -895,10 +892,8 @@ public:
      *
      * @return The vehicle driver's state
      *
-     * @note Currently only used (i.e. !=nullptr) if the car following model is the TCIModel, @see MSCFModel_TCI
      */
-//    inline const std::shared_ptr<MSDriverState> getDriverState() const {
-    inline const std::shared_ptr<MSSimpleDriverState> getDriverState() const {
+    inline std::shared_ptr<MSSimpleDriverState> getDriverState() const {
         return myDriverState;
     }
 
@@ -996,13 +991,19 @@ public:
         return !myStops.empty();
     }
 
+    /** @brief Whether this vehicle is equipped with a MSDriverState
+     */
+    inline bool hasDriverState() const {
+        return (myDriverState != nullptr);
+    }
+
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the vehicle has stopped
      */
     bool isStopped() const;
 
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
-    SUMOTime remainingStopDuration() const; 
+    SUMOTime remainingStopDuration() const;
 
     /** @brief Returns whether the vehicle will stop on the current edge
      */
@@ -1159,25 +1160,6 @@ public:
      */
     void addContainer(MSTransportable* container);
 
-    /// @brief removes a person or container
-    void removeTransportable(MSTransportable* t);
-
-    /// @brief retrieve riding persons
-    const std::vector<MSTransportable*>& getPersons() const;
-
-    /// @brief retrieve riding containers
-    const std::vector<MSTransportable*>& getContainers() const;
-
-    /** @brief Returns the number of persons
-     * @return The number of passengers on-board
-     */
-    int getPersonNumber() const;
-
-    /** @brief Returns the number of containers
-     * @return The number of contaiers on-board
-     */
-    int getContainerNumber() const;
-
     /// @name Access to bool signals
     /// @{
 
@@ -1290,6 +1272,12 @@ public:
     double getSpeedWithoutTraciInfluence() const;
 
     /**
+     * reroute the vehicle to the new parking area, updating routes and passengers/containers associated trips
+     * @param parkingAreaID    id of the new parking area
+     */
+    bool rerouteParkingArea(const std::string& parkingAreaID, std::string& errorMsg);
+
+    /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
      * will wait for the given duration before continuing on its route
      * @param lane     lane on wich to stop
@@ -1323,6 +1311,12 @@ public:
     * @return the upcoming stop
     */
     Stop& getNextStop();
+
+    /**
+    * returns the list of stops not yet reached in the stop queue
+    * @return the list of upcoming stops
+    */
+    std::list<Stop> getMyStops();
 
     /**
     * resumes a vehicle from stopping
@@ -1390,6 +1384,7 @@ public:
         int getRoutingMode() const {
             return myRoutingMode;
         }
+        SUMOTime getLaneTimeLineDuration();
 
         /** @brief Applies stored velocity information on the speed to use
          *
@@ -1584,6 +1579,8 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
+    /// @brief departure position where the vehicle fits fully onto the edge (if possible)
+    double basePos(const MSEdge* edge) const;
 
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
@@ -1676,6 +1673,8 @@ protected:
      */
     void updateTimeLoss(double vNext);
 
+    /// @brief whether the vehicle is a train that can reverse its direction at the current point in its route
+    bool canReverse() const;
 
     /** @brief sets the braking lights on/off
      */
@@ -1745,7 +1744,6 @@ protected:
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
 
     static std::vector<MSLane*> myEmptyLaneVector;
-    static std::vector<MSTransportable*> myEmptyTransportableVector;
 
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;
@@ -1858,8 +1856,11 @@ protected:
     /// @todo: documentation
     void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const;
 
-    /// @todo: documentation
+    /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;
+
+    /// @brief registers computed approach information with all links
+    void setApproachingForAllLinks(DriveItemVector& lfLinks) const;
 
     /// @brief unregister approach from all upcoming links
     void removeApproachingInformation(DriveItemVector& lfLinks) const;
@@ -1909,6 +1910,10 @@ protected:
     void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                          DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
                          bool isShadowLink = false) const;
+
+    /// @brief checks for link leaders of the current link as well as the parallel link (if there is one)
+    void checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
+                                           DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest) const;
 
 
     // @brief return the lane on which the back of this vehicle resides

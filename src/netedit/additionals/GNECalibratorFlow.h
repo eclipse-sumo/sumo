@@ -21,17 +21,13 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/RGBColor.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declaration
@@ -49,14 +45,14 @@ class GNECalibratorRoute;
  * @class GNECalibratorFlow
  * flow flow used by GNECalibrators
  */
-class GNECalibratorFlow : public GNEAttributeCarrier {
+class GNECalibratorFlow : public GNEAdditional {
 
 public:
-    /// @brief constructor (used only in GNECalibratorDialog)
-    GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net);
+    /// @brief default constructor (used only in GNECalibratorDialog)
+    GNECalibratorFlow(GNEAdditional* calibratorParent);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, double vehsPerHour, double speed,
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string& vehsPerHour, const std::string& speed,
                       const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                       const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                       const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end);
@@ -64,23 +60,43 @@ public:
     /// @brief destructor
     ~GNECalibratorFlow();
 
-    /// @brief write Flow values into a XML
-    void writeFlow(OutputDevice& device);
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position& oldPos, const Position& offset);
 
-    /// @brief get pointer to calibrator parent
-    GNECalibrator* getCalibratorParent() const;
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
+
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    std::string getParentName() const;
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
-    /// @brief select attribute carrier
-    void selectAttributeCarrier(bool);
-
-    /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(bool);
-
-    /// @brief check if attribute carrier is selected
-    bool isAttributeCarrierSelected() const;
-
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key
@@ -101,23 +117,26 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 protected:
-    /// @brief pointer to calibrator parent
-    GNECalibrator* myCalibratorParent;
-
     /// @brief type of flow
-    GNECalibratorVehicleType* myVehicleType;
+    GNEAdditional* myVehicleType;
 
     /// @brief route in which this flow is used
-    GNECalibratorRoute* myRoute;
+    GNEAdditional* myRoute;
 
-    /// @brief flows per hour
-    double myVehsPerHour;
+    /// @brief flows per hour (String instead float because can be empty)
+    std::string myVehsPerHour;
 
-    /// @brief flow speed
-    double mySpeed;
+    /// @brief flow speed (String instead float because can be empty)
+    std::string mySpeed;
 
     /// @brief color of flow
     RGBColor myColor;

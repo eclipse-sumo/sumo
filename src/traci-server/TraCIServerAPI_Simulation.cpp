@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id: TraCIServerAPI_Simulation.cpp v0_32_0+0483-665b60c05f oss@behrisch.de 2018-02-20 17:38:42 +0100 $
+/// @version $Id$
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -51,121 +47,107 @@
 bool
 TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                       tcpip::Storage& outputStorage) {
-    // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != VAR_TIME_STEP
-            && variable != VAR_LOADED_VEHICLES_NUMBER && variable != VAR_LOADED_VEHICLES_IDS
-            && variable != VAR_DEPARTED_VEHICLES_NUMBER && variable != VAR_DEPARTED_VEHICLES_IDS
-            && variable != VAR_TELEPORT_STARTING_VEHICLES_NUMBER && variable != VAR_TELEPORT_STARTING_VEHICLES_IDS
-            && variable != VAR_TELEPORT_ENDING_VEHICLES_NUMBER && variable != VAR_TELEPORT_ENDING_VEHICLES_IDS
-            && variable != VAR_ARRIVED_VEHICLES_NUMBER && variable != VAR_ARRIVED_VEHICLES_IDS
-            && variable != VAR_DELTA_T && variable != VAR_NET_BOUNDING_BOX
-            && variable != VAR_MIN_EXPECTED_VEHICLES
-            && variable != POSITION_CONVERSION && variable != DISTANCE_REQUEST
-            && variable != FIND_ROUTE && variable != FIND_INTERMODAL_ROUTE
-            && variable != VAR_BUS_STOP_WAITING
-            && variable != VAR_PARKING_STARTING_VEHICLES_NUMBER && variable != VAR_PARKING_STARTING_VEHICLES_IDS
-            && variable != VAR_PARKING_ENDING_VEHICLES_NUMBER && variable != VAR_PARKING_ENDING_VEHICLES_IDS
-            && variable != VAR_STOP_STARTING_VEHICLES_NUMBER && variable != VAR_STOP_STARTING_VEHICLES_IDS
-            && variable != VAR_STOP_ENDING_VEHICLES_NUMBER && variable != VAR_STOP_ENDING_VEHICLES_IDS
-            && variable != VAR_COLLIDING_VEHICLES_NUMBER && variable != VAR_COLLIDING_VEHICLES_IDS
-            && variable != VAR_PARAMETER
-       ) {
-        return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_SIM_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_SIM_VARIABLE, variable, id);
     try {
         switch (variable) {
+            case VAR_TIME:
+                server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                server.getWrapperStorage().writeDouble(SIMTIME);
+                break;
             case VAR_TIME_STEP:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int)libsumo::Simulation::getCurrentTime());
+                server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
+                server.getWrapperStorage().writeInt((int)libsumo::Simulation::getCurrentTime());
                 break;
             case VAR_LOADED_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_BUILT);
                 break;
             case VAR_LOADED_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_BUILT);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_BUILT);
                 break;
             case VAR_DEPARTED_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_DEPARTED);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_DEPARTED);
                 break;
             case VAR_DEPARTED_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_DEPARTED);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_DEPARTED);
                 break;
             case VAR_TELEPORT_STARTING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_TELEPORT);
                 break;
             case VAR_TELEPORT_STARTING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_TELEPORT);
                 break;
             case VAR_TELEPORT_ENDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_TELEPORT);
                 break;
             case VAR_TELEPORT_ENDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_TELEPORT);
                 break;
             case VAR_ARRIVED_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ARRIVED);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ARRIVED);
                 break;
             case VAR_ARRIVED_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ARRIVED);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ARRIVED);
                 break;
             case VAR_PARKING_STARTING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_PARKING);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_PARKING);
                 break;
             case VAR_PARKING_STARTING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_PARKING);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_PARKING);
                 break;
             case VAR_PARKING_ENDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_PARKING);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_PARKING);
                 break;
             case VAR_PARKING_ENDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_PARKING);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_PARKING);
                 break;
             case VAR_STOP_STARTING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_STOP);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_STOP);
                 break;
             case VAR_STOP_STARTING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_STARTING_STOP);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_STARTING_STOP);
                 break;
             case VAR_STOP_ENDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_STOP);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_STOP);
                 break;
             case VAR_STOP_ENDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_ENDING_STOP);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_ENDING_STOP);
                 break;
             case VAR_COLLIDING_VEHICLES_NUMBER:
-                writeVehicleStateNumber(server, tempMsg, MSNet::VEHICLE_STATE_COLLISION);
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_COLLISION);
                 break;
             case VAR_COLLIDING_VEHICLES_IDS:
-                writeVehicleStateIDs(server, tempMsg, MSNet::VEHICLE_STATE_COLLISION);
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_COLLISION);
+                break;
+            case VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER:
+                writeVehicleStateNumber(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_EMERGENCYSTOP);
+                break;
+            case VAR_EMERGENCYSTOPPING_VEHICLES_IDS:
+                writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_EMERGENCYSTOP);
                 break;
             case VAR_DELTA_T:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt((int)libsumo::Simulation::getDeltaT());
+                server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                server.getWrapperStorage().writeDouble(libsumo::Simulation::getDeltaT());
+                break;
+            case VAR_MIN_EXPECTED_VEHICLES:
+                server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
+                server.getWrapperStorage().writeInt(libsumo::Simulation::getMinExpectedNumber());
+                break;
+            case VAR_BUS_STOP_WAITING:
+                server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
+                server.getWrapperStorage().writeInt(libsumo::Simulation::getBusStopWaiting(id));
                 break;
             case VAR_NET_BOUNDING_BOX: {
-                tempMsg.writeUnsignedByte(TYPE_BOUNDINGBOX);
-                libsumo::TraCIBoundary tb = libsumo::Simulation::getNetBoundary();
-                tempMsg.writeDouble(tb.xMin);
-                tempMsg.writeDouble(tb.yMin);
-                tempMsg.writeDouble(tb.xMax);
-                tempMsg.writeDouble(tb.yMax);
+                server.getWrapperStorage().writeUnsignedByte(TYPE_POLYGON);
+                libsumo::TraCIPositionVector tb = libsumo::Simulation::getNetBoundary();
+                server.getWrapperStorage().writeByte(2);
+                server.getWrapperStorage().writeDouble(tb[0].x);
+                server.getWrapperStorage().writeDouble(tb[0].y);
+                server.getWrapperStorage().writeDouble(tb[1].x);
+                server.getWrapperStorage().writeDouble(tb[1].y);
                 break;
             }
-            break;
-            case VAR_MIN_EXPECTED_VEHICLES:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::Simulation::getMinExpectedNumber());
-                break;
             case POSITION_CONVERSION:
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Position conversion requires a compound object.", outputStorage);
@@ -173,7 +155,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (inputStorage.readInt() != 2) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Position conversion requires a source position and a position type as parameter.", outputStorage);
                 }
-                if (!commandPositionConversion(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
+                if (!commandPositionConversion(server, inputStorage, server.getWrapperStorage(), CMD_GET_SIM_VARIABLE)) {
                     return false;
                 }
                 break;
@@ -184,7 +166,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (inputStorage.readInt() != 3) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of distance requires two positions and a distance type as parameter.", outputStorage);
                 }
-                if (!commandDistanceRequest(server, inputStorage, tempMsg, CMD_GET_SIM_VARIABLE)) {
+                if (!commandDistanceRequest(server, inputStorage, server.getWrapperStorage(), CMD_GET_SIM_VARIABLE)) {
                     return false;
                 }
                 break;
@@ -213,7 +195,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
                 }
-                writeStage(tempMsg, libsumo::Simulation::findRoute(from, to, vtype, TIME2STEPS(depart), routingMode));
+                writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
                 break;
             }
             case FIND_INTERMODAL_ROUTE: {
@@ -265,21 +247,12 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, destStop)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a route requires a string as thirteenth parameter.", outputStorage);
                 }
-                const std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute(from, to, modes, TIME2STEPS(depart), routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype, destStop);
-                tempMsg.writeUnsignedByte(TYPE_COMPOUND);
-                tempMsg.writeInt((int)result.size());
+                const std::vector<libsumo::TraCIStage> result = libsumo::Simulation::findIntermodalRoute(from, to, modes, depart, routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype, destStop);
+                server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
+                server.getWrapperStorage().writeInt((int)result.size());
                 for (const libsumo::TraCIStage s : result) {
-                    writeStage(tempMsg, s);
+                    writeStage(server.getWrapperStorage(), s);
                 }
-                break;
-            }
-            case VAR_BUS_STOP_WAITING: {
-                MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
-                if (s == 0) {
-                    return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Unknown bus stop '" + id + "'.", outputStorage);
-                }
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(s->getTransportableNumber());
                 break;
             }
             case VAR_PARAMETER: {
@@ -287,16 +260,18 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, paramName)) {
                     return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                 }
-                tempMsg.writeUnsignedByte(TYPE_STRING);
-                tempMsg.writeString(libsumo::Simulation::getParameter(id, paramName));
+                server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                server.getWrapperStorage().writeString(libsumo::Simulation::getParameter(id, paramName));
+                break;
             }
-            break;
+            default:
+                return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, "Get Simulation Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_SIM_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_SIM_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 
@@ -322,7 +297,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, route)) {
                     return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "A string is needed for clearing pending vehicles.", outputStorage);
                 }
-                MSNet::getInstance()->getInsertionControl().clearPendingVehicles(route);
+                libsumo::Simulation::clearPending(route);
             }
             break;
             case CMD_SAVE_SIMSTATE: {
@@ -331,7 +306,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingString(inputStorage, file)) {
                     return server.writeErrorStatusCmd(CMD_SET_SIM_VARIABLE, "A string is needed for saving simulation state.", outputStorage);
                 }
-                MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep());
+                libsumo::Simulation::saveState(file);
             }
             break;
             default:

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 01 Aug 2018 12:30:52 PM CEST by Eclipse SUMO netedit Version 4179c84
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/netconvert/function/railway/repair/stops/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/netconvert/function/railway/repair/stops/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+</configuration>
+-->
+
+<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.95,-200.00,200.00,-100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ38_0" function="internal">
+        <lane id=":gneJ38_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
+    </edge>
+    <edge id=":gneJ39_0" function="internal">
+        <lane id=":gneJ39_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-100.00 100.00,-100.00"/>
+    </edge>
+
+    <edge id="a" from="gneJ40" to="gneJ38" priority="-1" spreadType="center">
+        <lane id="a_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="-100.00,-100.00 0.00,-100.00"/>
+    </edge>
+    <edge id="b" from="gneJ38" to="gneJ39" priority="-1" spreadType="center">
+        <lane id="b_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="0.00,-100.00 100.00,-100.00"/>
+    </edge>
+    <edge id="c" from="gneJ39" to="gneJ43" priority="-1" spreadType="center">
+        <lane id="c_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="100.00,-100.00 200.00,-100.00"/>
+    </edge>
+
+    <junction id="gneJ38" type="priority" x="0.00" y="-100.00" incLanes="a_0" intLanes=":gneJ38_0_0" shape="0.00,-98.40 0.00,-101.60 0.00,-98.40">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ39" type="priority" x="100.00" y="-100.00" incLanes="b_0" intLanes=":gneJ39_0_0" shape="100.00,-98.40 100.00,-101.60 100.00,-98.40">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ40" type="dead_end" x="-100.00" y="-100.00" incLanes="" intLanes="" shape="-100.00,-98.40 -100.00,-101.60"/>
+    <junction id="gneJ43" type="dead_end" x="200.00" y="-100.00" incLanes="c_0" intLanes="" shape="200.00,-101.60 200.00,-98.40"/>
+    <junction id="gneJ44" type="dead_end" x="-100.00" y="-200.00" incLanes="" intLanes="" shape="-100.00,-200.00"/>
+    <junction id="gneJ45" type="dead_end" x="0.00" y="-200.00" incLanes="" intLanes="" shape="0.00,-200.00"/>
+    <junction id="gneJ46" type="dead_end" x="100.00" y="-200.00" incLanes="" intLanes="" shape="100.00,-200.00"/>
+    <junction id="gneJ47" type="dead_end" x="200.00" y="-200.00" incLanes="" intLanes="" shape="200.00,-200.00">
+        <param key="buffer_stop" value="true"/>
+    </junction>
+    <junction id="gneJ48" type="dead_end" x="-0.62" y="-176.21" incLanes="" intLanes="" shape="-0.62,-176.21"/>
+    <junction id="gneJ49" type="dead_end" x="-100.95" y="-176.82" incLanes="" intLanes="" shape="-100.95,-176.82"/>
+
+    <connection from="a" to="b" fromLane="0" toLane="0" via=":gneJ38_0_0" dir="s" state="M"/>
+    <connection from="b" to="c" fromLane="0" toLane="0" via=":gneJ39_0_0" dir="s" state="M"/>
+
+    <connection from=":gneJ38_0" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ39_0" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

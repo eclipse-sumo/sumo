@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:20 2018 by Eclipse SUMO od2trips Version 27b98ce
+<!-- generated on Wed Aug 15 14:29:15 2018 by Eclipse SUMO od2trips Version 7cc56db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -46,7 +46,6 @@
         <prefix value="" type="STR" help="Defines the prefix for vehicle names"/>
         <timeline value="" type="STR" help="Uses STR as a timeline definition"/>
         <timeline.day-in-hours value="false" type="BOOL" help="Uses STR as a 24h-timeline definition"/>
-        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of current time step"/>
     </processing>
 
@@ -70,6 +69,7 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL" help="Continue on broken input"/>
     </report>
 
     <random_number>

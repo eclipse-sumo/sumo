@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include "OutputDevice_COUT.h"
@@ -52,7 +48,9 @@ OutputDevice_COUT::getDevice() {
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_COUT::OutputDevice_COUT() {}
+OutputDevice_COUT::OutputDevice_COUT() {
+    myFilename = "COUT";
+}
 
 
 OutputDevice_COUT::~OutputDevice_COUT() {

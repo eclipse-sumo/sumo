@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <set>
@@ -202,7 +198,7 @@ public:
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
-    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess>& getApproaching() const {
+    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorIdLess>& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -378,7 +374,7 @@ public:
     }
 
     // @brief return whether the vehicle may continute past this link to wait within the intersection
-    bool isCont() const; 
+    bool isCont() const;
 
 
     /// @brief whether the junction after this link must be kept clear
@@ -458,13 +454,16 @@ public:
     MSLink* getParallelLink(int direction) const;
 
     //// @brief @return whether the foe vehicle is a leader for ego
-    bool isLeader(const MSVehicle* ego, const MSVehicle* foe) const;
+    bool isLeader(const MSVehicle* ego, const MSVehicle* foe, bool updateLeader = true) const;
 
     /// @brief return whether the fromLane of this link is an internal lane
     bool fromInternalLane() const;
 
     /// @brief return whether the fromLane of this link is an internal lane and toLane is a normal lane
     bool isExitLink() const;
+
+    /// @brief return whether the fromLane of this link is an internal lane and its incoming lane is also an internal lane
+    bool isExitLinkAfterInternalJunction() const;
 
     /// @brief returns the corresponding exit link for entryLinks to a junction.
     MSLink* getCorrespondingExitLink() const;
@@ -535,6 +534,9 @@ private:
     /// @brief figure out whether the cont status remains in effect when switching off the tls
     bool checkContOff() const;
 
+    /// @brief check if the lane intersects with a foe cont-lane
+    bool contIntersect(const MSLane* lane, const MSLane* foe);
+
 private:
     /// @brief The lane behind the junction approached by this link
     MSLane* myLane;
@@ -542,7 +544,7 @@ private:
     /// @brief The lane approaching this link
     MSLane* myLaneBefore;
 
-    std::map<const SUMOVehicle*, ApproachingVehicleInformation, SUMOVehicle::ComparatorIdLess> myApproachingVehicles;
+    std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorIdLess> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
@@ -617,6 +619,9 @@ private:
     /* @brief Links with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */
     std::vector<MSLink*> mySublaneFoeLinks;
+    /* @brief Links with the same origin lane and different destination edge that may
+       be in conflict for sublane simulation */
+    std::vector<MSLink*> mySublaneFoeLinks2;
 
     /* @brief Internal Lanes with the same origin lane and the same destination edge that may
        be in conflict for sublane simulation */

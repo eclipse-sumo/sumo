@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
@@ -49,14 +45,6 @@ public:
      */
     static bool processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
-
-
-    /** @brief Returns the named inductive loop's position
-     * @param[in] id The id of the searched inductive loop
-     * @param[out] p The position, if the inductive loop is known
-     * @return Whether the inductive loop is known (and on road)
-     */
-    static bool getPosition(const std::string& id, Position& p);
 
 
 private:

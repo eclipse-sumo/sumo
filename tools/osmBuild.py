@@ -29,7 +29,9 @@ vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
                 "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
-DEFAULT_NETCONVERT_OPTS = "--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,--tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,--junctions.corner-detail,5,--output.street-names"
+DEFAULT_NETCONVERT_OPTS = '''--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,\
+--tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,--junctions.corner-detail,\
+5,--output.street-names'''
 
 
 optParser = optparse.OptionParser()
@@ -83,8 +85,8 @@ def build(args=None, bindir=None):
     if options.netconvert_typemap:
         netconvertOpts += ["-t", options.netconvert_typemap]
     netconvertOpts += options.netconvert_options.split(',') + ['--osm-files']
-    polyconvertOpts = ([polyconvert] + options.polyconvert_options.split(',') 
-            + ['--type-file', options.typemap, '--osm-files'])
+    polyconvertOpts = ([polyconvert] + options.polyconvert_options.split(',') +
+                       ['--type-file', options.typemap, '--osm-files'])
 
     prefix = options.oldapi_prefix
     if prefix:  # used old API

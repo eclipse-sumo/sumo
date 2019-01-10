@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -40,11 +36,11 @@
 // ===========================================================================
 
 
-GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon) :
+GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag, icon),
-    myNet(net)
-{ }
+    GNEAttributeCarrier(tag),
+    myNet(net),
+    myMovingGeometryBoundary() {}
 
 
 GNENetElement::~GNENetElement() {}
@@ -59,12 +55,12 @@ GNENetElement::getNet() const {
 void
 GNENetElement::addAdditionalParent(GNEAdditional* additional) {
     // First check that additional wasn't already inserted
-    if (std::find(myAdditionalParents.begin(), myAdditionalParents.end(), additional) != myAdditionalParents.end()) {
+    if (std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional) != myFirstAdditionalParents.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' was already inserted in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
-        myAdditionalParents.push_back(additional);
+        myFirstAdditionalParents.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -72,13 +68,13 @@ GNENetElement::addAdditionalParent(GNEAdditional* additional) {
 void
 GNENetElement::removeAdditionalParent(GNEAdditional* additional) {
     // First check that additional was already inserted
-    auto it = std::find(myAdditionalParents.begin(), myAdditionalParents.end(), additional);
-    if (it == myAdditionalParents.end()) {
+    auto it = std::find(myFirstAdditionalParents.begin(), myFirstAdditionalParents.end(), additional);
+    if (it == myFirstAdditionalParents.end()) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
-        myAdditionalParents.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        myFirstAdditionalParents.erase(it);
+        // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
+        updateGeometry(true);
     }
 }
 
@@ -91,7 +87,7 @@ GNENetElement::addAdditionalChild(GNEAdditional* additional) {
     } else {
         myAdditionalChilds.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        updateGeometry(true);
     }
 }
 
@@ -104,15 +100,15 @@ GNENetElement::removeAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(toString(additional->getTag()) + " with ID='" + additional->getID() + "' doesn't exist in " + toString(getTag()) + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry();
+        // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
+        updateGeometry(true);
     }
 }
 
 
 const std::vector<GNEAdditional*>&
 GNENetElement::getAdditionalParents() const {
-    return myAdditionalParents;
+    return myFirstAdditionalParents;
 }
 
 
@@ -122,25 +118,17 @@ GNENetElement::getAdditionalChilds() const {
 }
 
 
-const std::string&
-GNENetElement::getParentName() const {
-    return myNet->getMicrosimID();
-}
-
-
 GUIParameterTableWindow*
 GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // get attributes
-    std::vector<SumoXMLAttr> attributes = getAttrs();
     // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, (int)attributes.size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, getTagProperties(getTag()).getNumberOfAttributes());
     // Iterate over attributes
-    for (auto i : attributes) {
+    for (auto i : getTagProperties(getTag())) {
         // Add attribute and set it dynamic if aren't unique
-        if (GNEAttributeCarrier::isUnique(getTag(), i)) {
-            ret->mkItem(toString(i).c_str(), false, getAttribute(i));
+        if (i.second.isUnique()) {
+            ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
         } else {
-            ret->mkItem(toString(i).c_str(), true, getAttribute(i));
+            ret->mkItem(toString(i.first).c_str(), true, getAttribute(i.first));
         }
     }
     // close building
@@ -149,35 +137,59 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-void 
+void
 GNENetElement::selectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = true;
         }
-    } 
+    }
 }
 
 
-void 
+void
 GNENetElement::unselectAttributeCarrier(bool changeFlag) {
-    if(!myNet) {
+    if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        if(changeFlag) {
+        if (changeFlag) {
             mySelected = false;
         }
-    } 
+    }
 }
 
 
-bool 
+bool
 GNENetElement::isAttributeCarrierSelected() const {
     return mySelected;
+}
+
+
+std::string
+GNENetElement::getPopUpID() const {
+    if (getTag() == SUMO_TAG_CONNECTION) {
+        return getAttribute(SUMO_ATTR_FROM) + "_" + getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO) + "_" + getAttribute(SUMO_ATTR_TO_LANE);
+    } else {
+        return toString(getTag()) + ": " + getID();
+    }
+}
+
+
+std::string
+GNENetElement::getHierarchyName() const {
+    if (getTag() == SUMO_TAG_LANE) {
+        return toString(SUMO_TAG_LANE) + " " + getAttribute(SUMO_ATTR_INDEX);
+    } else if (getTag() == SUMO_TAG_CONNECTION) {
+        return getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO_LANE);
+    } else if (getTag() == SUMO_TAG_CROSSING) {
+        return toString(SUMO_TAG_CROSSING) + " " + getAttribute(SUMO_ATTR_ID);
+    } else {
+        return toString(getTag());
+    }
 }
 
 /****************************************************************************/

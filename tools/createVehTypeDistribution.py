@@ -16,19 +16,22 @@
 
 """
 
-Creates a vehicle type distribution with a number of representative car-following parameter sets. Optional parameters can be viewed by using the --help switch.
+Creates a vehicle type distribution with a number of representative car-following parameter sets. \
+Optional parameters can be viewed by using the --help switch.
 Mandatory input:
 path to config file - defines the car-following model parameter distributions for one single vehicle type distribution
 
 In the config file, one line is used per vehicle type attribute. The syntax is:
 nameOfAttribute; valueOfAttribute [; limits]
 
-ValueOfAttribute can be a string, a scalar value or a distribution definition. Available distributions and its syntax are:
+ValueOfAttribute can be a string, a scalar value or a distribution definition. \
+Available distributions and its syntax are:
 "normal(mu,sd)" with mu and sd being floating numbers: Normal distribution with mean mu and standard deviation sd.
 "uniform(a,b)" with limits a and b being floating numbers: Uniform distribution between a and b.
 "gamma(alpha,beta)" with parameters alpha and beta: Gamma distribution.
 
-Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]". By default, no negative values are accepted but have to be enabled by
+Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]". \
+By default, no negative values are accepted but have to be enabled by
 a negative lower limit.
 
 """
@@ -51,18 +54,32 @@ class FixDistribution(object):
             self._params = params
         self._limits = (0, None)
         self._isNumeric = isNumeric
+        self._maxSampleAttempts = 10
+
+    def setMaxSamplingAttempts(self, n):
+        if n is not None:
+            self._maxSampleAttempts = n
 
     def setLimits(self, limits):
         self._limits = limits
 
     def sampleValue(self):
-        value = self._sampleValue()
         if self._isNumeric:
+            value = None
+            nrSampleAttempts = 0
+            # Sample until value falls into limits
+            while nrSampleAttempts < self._maxSampleAttempts \
+                    and (value is None or (self._limits[1] is not None and value > self._limits[1]) or
+                         (self._limits[0] is not None and value < self._limits[0])):
+                value = self._sampleValue()
+                nrSampleAttempts += 1
+            # Eventually apply fallback cutting value to limits
             if self._limits[0] is not None and value < self._limits[0]:
                 value = self._limits[0]
             elif self._limits[1] is not None and value > self._limits[1]:
                 value = self._limits[1]
-
+        else:
+            value = self._sampleValue()
         return value
 
     def sampleValueString(self, decimalPlaces):
@@ -107,20 +124,27 @@ def get_options(args=None):
     argParser.add_argument(
         "configFile", help="file path of the config file which defines the car-following parameter distributions")
     argParser.add_argument(
-        "-o", "--output-file", dest="outputFile", default="vTypeDistributions.add.xml", help="file path of the output file (if the file already exists, the script tries to insert the distribution node into it)")
+        "-o", "--output-file", dest="outputFile", default="vTypeDistributions.add.xml", help="file path of the " +
+        "output file (if the file already exists, the script tries to insert the distribution node into it)")
     argParser.add_argument(
-        "-n", "--name", dest="vehDistName", default="vehDist", help="alphanumerical ID used for the created vehicle type distribution")
+        "-n", "--name", dest="vehDistName", default="vehDist", help="alphanumerical ID used for the created " +
+        "vehicle type distribution")
     argParser.add_argument(
         "-s", "--size", type=int, default=100, dest="vehicleCount", help="number of vTypes in the distribution")
     argParser.add_argument(
-        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for numeric attribute values")
+        "-d", "--decimal-places", type=int, default=3, dest="decimalPlaces", help="number of decimal places for " +
+        "numeric attribute values")
+    argParser.add_argument(
+        "--resampling", type=int, default=100, dest="nrSamplingAttempts", help="number of attempts to resample a " +
+        "value until it lies in the specified bounds")
     argParser.add_argument("--seed", type=int, help="random seed", default=42)
 
     options = argParser.parse_args()
     return options
 
 
-def readConfigFile(filePath):
+def readConfigFile(options):
+    filePath = options.configFile
     result = {}
 
     distSyntaxes = {'normal': 'normal\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)',
@@ -130,14 +154,24 @@ def readConfigFile(filePath):
     with open(filePath) as f:
         reader = csv.reader(f, delimiter=';')
         for row in reader:
-            parName = None
+            attName = None
             lowerLimit = 0
             upperLimit = None
             value = None
 
             if len(row) >= 2:
                 if len(row[0].strip()) > 0:
-                    parName = row[0].strip()
+                    attName = row[0].strip()
+                    if attName == "param":
+                        # this indicates that a parameter child-element is to be created for the vTypes
+                        isParameter = True
+                        del row[0]
+                        if len(row) < 2:
+                            # a parameter needs a name and a value specification
+                            continue
+                        attName = row[0].strip()
+                    else:
+                        isParameter = False
                     # check if attribute value matches given distribution
                     # syntax
                     attValue = row[1].strip()
@@ -171,14 +205,16 @@ def readConfigFile(filePath):
                             lowerLimit = float(items[0][0])
                             upperLimit = float(items[0][2])
                     value.setLimits((lowerLimit, upperLimit))
-                    result[parName] = value
+                    value.setMaxSamplingAttempts(options.nrSamplingAttempts)
+                    res = {"value": value, "isParameter": isParameter}
+                    result[attName] = res
     return result
 
 
 def main(options):
     if options.seed:
         random.seed(options.seed)
-    vTypeParameters = readConfigFile(options.configFile)
+    vTypeParameters = readConfigFile(options)
     useExistingFile = False
     if os.path.exists(options.outputFile):
         try:
@@ -195,9 +231,17 @@ def main(options):
     for i in range(0, options.vehicleCount):
         vTypeNode = domTree.createElement("vType")
         vTypeNode.setAttribute("id", options.vehDistName + str(i))
-        for attName, attValue in vTypeParameters.items():
-            vTypeNode.setAttribute(
-                attName, attValue.sampleValueString(options.decimalPlaces))
+        for attName, d in vTypeParameters.items():
+            attValue = d["value"]
+            isParameter = d["isParameter"]
+            if isParameter:
+                paramNode = domTree.createElement("param")
+                paramNode.setAttribute("key", attName)
+                paramNode.setAttribute("value", attValue.sampleValueString(options.decimalPlaces))
+                vTypeNode.appendChild(paramNode)
+            else:
+                vTypeNode.setAttribute(
+                    attName, attValue.sampleValueString(options.decimalPlaces))
         vTypeDistNode.appendChild(vTypeNode)
 
     existingDistNodes = domTree.getElementsByTagName("vTypeDistribution")

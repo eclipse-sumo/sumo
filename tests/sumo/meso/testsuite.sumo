@@ -6,7 +6,6 @@ tau
 
 # controlling traffic lights and priority junctions
 junction_control
-bugs
 teleport
 
 # modelling of jamming and jam resolution
@@ -17,3 +16,4 @@ tls_penalty_routing
 
 # minor_penalty should affect empty-network travel times
 minor_penalty_routing
+bugs

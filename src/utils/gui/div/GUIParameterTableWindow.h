@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <string>
@@ -37,6 +33,7 @@
 #include <utils/foxtools/MFXMutex.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/SUMOTime.h>
+#include "GUIParameterTableItem.h"
 
 
 // ===========================================================================
@@ -103,31 +100,17 @@ public:
     /// @name Row adding functions
     /// @{
 
-    /** @brief Adds a row which obtains its value from an unsigned-ValueSource
+    /** @brief Adds a row which obtains its value from a ValueSource
      *
      * @param[in] name The name of the row entry
      * @param[in] dynamic Information whether the entry is dynamic
      * @param[in] src The value source to use
      */
-    void mkItem(const char* name, bool dynamic, ValueSource<unsigned>* src);
-
-    /** @brief Adds a row which obtains its value from an integer-ValueSource
-     *
-     * @param[in] name The name of the row entry
-     * @param[in] dynamic Information whether the entry is dynamic
-     * @param[in] src The value source to use
-     */
-    void mkItem(const char* name, bool dynamic, ValueSource<int>* src);
-
-
-    /** @brief Adds a row which obtains its value from an double-ValueSource
-     *
-     * @param[in] name The name of the row entry
-     * @param[in] dynamic Information whether the entry is dynamic
-     * @param[in] src The value source to use
-     */
-    void mkItem(const char* name, bool dynamic, ValueSource<double>* src);
-
+    template<class T>
+    void mkItem(const char* name, bool dynamic, ValueSource<T>* src) {
+        GUIParameterTableItemInterface* i = new GUIParameterTableItem<T>(myTable, myCurrentPos++, name, dynamic, src);
+        myItems.push_back(i);
+    }
 
     /** @brief Adds a row which shows a string-value
      *

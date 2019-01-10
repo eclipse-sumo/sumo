@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNENetElement.h"
 
@@ -122,7 +118,7 @@ private:
     /// @brief the shape of the edge
     const PositionVector myShape;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;

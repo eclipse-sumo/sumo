@@ -95,6 +95,11 @@
                     <xsd:enumeration value="grey"/>
                 </xsd:restriction>
             </xsd:simpleType>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]"/>
+                </xsd:restriction>
+            </xsd:simpleType>
         </xsd:union>
     </xsd:simpleType>
 
@@ -300,5 +305,11 @@
             </xsd:simpleType> 
         </xsd:union>
     </xsd:simpleType>
+
+	<xsd:simpleType name="idType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[^ \t\n\r|\\;,']+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
 
 </xsd:schema>

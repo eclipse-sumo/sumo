@@ -1,0 +1,11 @@
+# edit attribute type
+type
+
+# edit attribute radius
+inspect_selected_radius
+
+# edit attribute keep clear
+inspect_selected_keepclear
+
+# edit attribute genericparameters
+inspect_selected_genericparameters

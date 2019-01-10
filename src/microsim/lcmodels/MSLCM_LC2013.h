@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSAbstractLaneChangeModel.h"
 #include <vector>
@@ -104,6 +100,8 @@ public:
                        const MSCFModel& cfModel);
 
     void changed();
+
+    double getSafetyFactor() const;
 
     void prepareStep();
 
@@ -271,6 +269,9 @@ protected:
     double myLookaheadLeft;
     // @brief the factor by which the speedGain-threshold for the leftdiffers from the threshold for the right
     double mySpeedGainRight;
+
+    // @brief willingness to undercut longitudinal safe gaps
+    double myAssertive;
 
     const double myExperimentalParam1; // for feature testing
     //@}

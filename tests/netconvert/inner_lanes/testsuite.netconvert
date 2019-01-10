@@ -10,6 +10,9 @@ cross
 # Simple test using the cross junction but join internal edges of turning connections
 join-turns
 
+# limit speed on junctions based on radius
+limit-turn-speed
+
 # more geometry points for internal lanes
 cross_more_detail
 internal_junctions_for_multiple_tls_programs
@@ -19,6 +22,12 @@ changeWidth_merge2
 
 # split 1 lane into 2 lanes while keeping total width
 changeWidth_split2
+
+# split 1 wide lane into a car lane and a bicycle lane at an intersection
+changeWidth_split_bikelane
+
+# Tests if links on internal junctions for indirect left turning bicycles are assigned to the correct traffic light indices
+indirect_left_turns_tl_control
 
 # networks that have dedicated bicycle lanes
 bicycle_lanes

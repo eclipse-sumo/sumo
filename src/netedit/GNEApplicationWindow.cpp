@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -143,10 +139,14 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                               GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_SUMOGUI,                                    GNEApplicationWindow::onCmdOpenSUMOGUI),
+    FXMAPFUNC(SEL_UPDATE,   MID_SUMOGUI,                                    GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar processing
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_COMPUTEJUNCTIONS,            GNEApplicationWindow::onCmdComputeJunctions),
@@ -217,7 +217,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myRecentNets(a, "nets"),
     myConfigPattern(configPattern),
     hadDependentBuild(false),
-    myNet(0),
+    myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
     myTitlePrefix("NETEDIT " VERSION_STRING) {
     // init icons
@@ -238,18 +238,14 @@ GNEApplicationWindow::dependentBuild() {
         return;
     }
     hadDependentBuild = true;
-
     setTarget(this);
     setSelector(MID_WINDOW);
-
     // build menu bar
     myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
     myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignBar);
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build the thread - io
-    myLoadThreadEvent.setTarget(this),
-                                myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
-
+    myLoadThreadEvent.setTarget(this), myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     {
@@ -269,7 +265,6 @@ GNEApplicationWindow::dependentBuild() {
     //new FXMDIDeleteButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUCLOSE, GUIDesignMDIButtonRight);
     //new FXMDIRestoreButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENURESTORE, GUIDesignMDIButtonRight);
     //new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
-
     // build the message window
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
     myMainSplitter->setSplit(1, 65);
@@ -281,10 +276,9 @@ GNEApplicationWindow::dependentBuild() {
     myStatusbar->getStatusLine()->setText("Ready.");
     // set the caption
     setTitle(myTitlePrefix);
-
+    // set Netedit ICON
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
-
-    //initialize some hotkeys using decimal code
+    // initialize single hotkeys using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(101, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // e
     getAccelTable()->addAccel(69,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // E
     getAccelTable()->addAccel(109, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));         // m
@@ -297,6 +291,8 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(83,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));       // S
     getAccelTable()->addAccel(99,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // c
     getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // C
+    getAccelTable()->addAccel(119, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION));  // w
+    getAccelTable()->addAccel(87,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION));  // W
     getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // t
     getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // T
     getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // a
@@ -307,12 +303,43 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // P
     getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // v
     getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // V
+    // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
+    getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_NEWNETWORK));        // Ctrl + N
+    getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));                      // Ctrl + O
+    getAccelTable()->addAccel(327691, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));                       // Ctrl + Shift + O
+    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_RELOAD));                            // Ctrl + R
+    getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK));       // Ctrl + S
+    getAccelTable()->addAccel(327695, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK_AS));    // Ctrl + Shift + S
+    getAccelTable()->addAccel(262220, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEPLAINXML));      // Ctrl + L
+    getAccelTable()->addAccel(262218, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEJOINED));        // Ctrl + J
+    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));                       // Ctrl + P
+    getAccelTable()->addAccel(327692, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVESHAPES));        // Ctrl + Shift + P
+    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                  // Ctrl + D
+    getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEADDITIONALS));   // Ctrl + Shift + D
+    getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                  // Ctrl + K
+    getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS));   // Ctrl + Shift + K
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_CLOSE));                             // Ctrl + W
+    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_QUIT));                              // Ctrl + Q
+    getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                   // Ctrl + Z
+    getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                   // Ctrl + Y
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                    // Ctrl + V
+    getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                      // Ctrl + I
+    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID));            // Ctrl + G
+    getAccelTable()->addAccel(262228, this, FXSEL(SEL_COMMAND, MID_SUMOGUI));                           // Ctrl + S
+    // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
+    getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
+    getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
+    getAccelTable()->addAccel(65652, this, FXSEL(SEL_COMMAND, MID_LOCATETLS));      // Shift + T
+    getAccelTable()->addAccel(65633, this, FXSEL(SEL_COMMAND, MID_LOCATEADD));      // Shift + A
+    getAccelTable()->addAccel(65647, this, FXSEL(SEL_COMMAND, MID_LOCATEPOI));      // Shift + O
+    getAccelTable()->addAccel(65644, this, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));     // Shift + L
+    // initialize rest of hotkeys
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
     getAccelTable()->addAccel(parseAccel("F12"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_FOCUSFRAME));
-    getAccelTable()->addAccel(parseAccel("ctrl+G"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID)); 
 }
+
 
 void
 GNEApplicationWindow::create() {
@@ -354,9 +381,9 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
     delete myFileMenuShapes,
-    delete myFileMenuAdditionals,
-    delete myFileMenuTLS,
-    delete myFileMenu;
+           delete myFileMenuAdditionals,
+           delete myFileMenuTLS,
+           delete myFileMenu;
     delete myEditMenu;
     delete myLocatorMenu;
     delete myProcessingMenu;
@@ -421,12 +448,12 @@ GNEApplicationWindow::fillMenuBar() {
                       "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
                       GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
     mySaveShapesMenuCommand = new FXMenuCommand(myFileMenuShapes,
-                      "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
+            "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
     mySaveShapesMenuCommand->disable();
     mySaveShapesMenuCommandAs = new FXMenuCommand(myFileMenuShapes,
-                      "Save Shapes As...\t\tSave shapes elements in another files.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
+            "Save Shapes As...\t\tSave shapes elements in another files.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
     mySaveShapesMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myFileMenuShapes);
     // create Additionals menu options
@@ -435,12 +462,12 @@ GNEApplicationWindow::fillMenuBar() {
                       "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
                       GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), this, MID_OPEN_ADDITIONALS);
     mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenuAdditionals,
-                      "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
+            "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
     mySaveAdditionalsMenuCommand->disable();
     mySaveAdditionalsMenuCommandAs = new FXMenuCommand(myFileMenuAdditionals,
-                      "Save Additionals As...\t\tSave additional elements in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+            "Save Additionals As...\t\tSave additional elements in another file.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     mySaveAdditionalsMenuCommandAs->disable();
     new FXMenuCascade(myFileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myFileMenuAdditionals);
     // create TLS menu options
@@ -449,8 +476,8 @@ GNEApplicationWindow::fillMenuBar() {
                       "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
                       GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_OPEN_TLSPROGRAMS);
     mySaveTLSProgramsMenuCommand = new FXMenuCommand(myFileMenuTLS,
-                      "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
+            "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
+            GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
     mySaveTLSProgramsMenuCommand->disable();
     new FXMenuCommand(myFileMenuTLS,
                       "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
@@ -533,6 +560,9 @@ GNEApplicationWindow::fillMenuBar() {
                       "&Connection mode\tC\tEdit connections between lanes.",
                       GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_SETMODE_CONNECT);
     new FXMenuCommand(myEditMenu,
+                      "Pro&hibition mode\tW\tEdit connection prohibitions.",
+                      GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), this, MID_GNE_SETMODE_PROHIBITION);
+    new FXMenuCommand(myEditMenu,
                       "&Traffic light mode\tT\tEdit traffic lights over junctions.",
                       GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_SETMODE_TLS);
     new FXMenuCommand(myEditMenu,
@@ -552,6 +582,13 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myEditMenu,
                       "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
                       0, this, MID_EDITVIEWPORT);
+    new FXMenuCommand(myEditMenu,
+                      "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                      0, this, MID_GNE_HOTKEY_TOOGLE_GRID);
+    new FXMenuSeparator(myEditMenu);
+    new FXMenuCommand(myEditMenu,
+                      "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
+                      GUIIconSubSys::getIcon(ICON_APP), this, MID_SUMOGUI);
 
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
@@ -641,9 +678,7 @@ GNEApplicationWindow::fillMenuBar() {
 
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar,
-                    "&Help",
-                    0, myHelpMenu);
+    new FXMenuTitle(myMenuBar, "&Help", 0, myHelpMenu);
     new FXMenuCommand(myHelpMenu,
                       "&Online Documentation\tF1\tOpen Online documentation.",
                       0, this, MID_HELP);
@@ -729,10 +764,8 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         loadConfigOrNet(file, true);
         myRecentNets.appendFile(file.c_str());
         // when a net is loaded, save additional, shapes an TLSPrograms are disabled
-        mySaveAdditionalsMenuCommand->disable();
-        mySaveAdditionalsMenuCommandAs->disable();
-        mySaveShapesMenuCommand->disable();
-        mySaveShapesMenuCommandAs->disable();
+        disableSaveAdditionalsMenu();
+        disableSaveShapesMenu();
         mySaveTLSProgramsMenuCommand->disable();
     }
     return 1;
@@ -794,12 +827,20 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         GNEShapeHandler handler(file, myNet);
+        // disable validation for shapes
+        XMLSubSys::setValidation("never", "auto");
+        // begin undo operation
         myUndoList->p_begin("Loading shapes from '" + file + "'");
+        // run parser for shapes
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
-        update();
+        // end undoList operation and update view
         myUndoList->p_end();
+        update();
+        // enable validation for shapes
+        XMLSubSys::setValidation("auto", "auto");
+        update();
     }
     return 1;
 }
@@ -818,19 +859,21 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto");
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
-        // Run parser
+        // begin undoList operation
         myUndoList->p_begin("Loading additionals from '" + file + "'");
+        // Run parser for additionals
         if (!XMLSubSys::runParser(additionalHandler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
-            // Abort undo/redo
-            myUndoList->abort();
-        } else {
-            // commit undo/redo operation
-            myUndoList->p_end();
-            update();
         }
+        // end undoList operation and update view
+        myUndoList->p_end();
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto");
     }
     return 1;
 }
@@ -851,7 +894,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         // Run parser
         myUndoList->p_begin("Loading TLS Programs from '" + file + "'");
-        if(myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
+        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
             // Abort undo/redo
             myUndoList->abort();
         } else {
@@ -889,8 +932,8 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges()) {
         closeAllWindows();
         // disable save additionals, shapes and TLS menu
-        mySaveAdditionalsMenuCommand->disable();
-        mySaveShapesMenuCommand->disable();
+        disableSaveAdditionalsMenu();
+        disableSaveShapesMenu();
         mySaveTLSProgramsMenuCommand->disable();
     }
     return 1;
@@ -925,17 +968,13 @@ GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening about dialog");
-    }
+    WRITE_DEBUG("Opening about dialog");
     // create and open about dialog
     GNEDialog_About* about = new GNEDialog_About(this);
     about->create();
     about->show(PLACEMENT_OWNER);
     // write warning if netedit is running in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Closed about dialog");
-    }
+    WRITE_DEBUG("Closed about dialog");
     return 1;
 }
 
@@ -969,6 +1008,8 @@ GNEApplicationWindow::eventOccurred() {
             case EVENT_MESSAGE_OCCURRED:
             case EVENT_WARNING_OCCURRED:
             case EVENT_ERROR_OCCURRED:
+            case EVENT_DEBUG_OCCURRED:
+            case EVENT_GLDEBUG_OCCURRED:
                 handleEvent_Message(e);
                 break;
             default:
@@ -981,13 +1022,15 @@ GNEApplicationWindow::eventOccurred() {
 
 void
 GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
+    OptionsCont& oc = OptionsCont::getOptions();
     myAmLoading = false;
     GNEEvent_NetworkLoaded* ec = static_cast<GNEEvent_NetworkLoaded*>(e);
     // check whether the loading was successfull
-    if (ec->myNet == 0) {
+    if (ec->myNet == nullptr) {
         // report failure
         setStatusBarText("Loading of '" + ec->myFile + "' failed!");
     } else {
+        // set new Net
         myNet = ec->myNet;
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
@@ -1015,42 +1058,53 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
     // check if additionals has to be loaded at start
-    if (OptionsCont::getOptions().isSet("sumo-additionals-file") && myNet) {
-        myAdditionalsFile = OptionsCont::getOptions().getString("sumo-additionals-file");
+    if (oc.isSet("sumo-additionals-file") && !oc.getString("sumo-additionals-file").empty() && myNet) {
+        myAdditionalsFile = oc.getString("sumo-additionals-file");
         WRITE_MESSAGE("Loading additionals from '" + myAdditionalsFile + "'");
         GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto");
         // Run parser
         myUndoList->p_begin("Loading additionals from '" + myAdditionalsFile + "'");
         if (!XMLSubSys::runParser(additionalHandler, myAdditionalsFile, false)) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         }
+        // disable validation for additionals
+        XMLSubSys::setValidation("auto", "auto");
         myUndoList->p_end();
     }
     // check if shapes has to be loaded at start
-    if (OptionsCont::getOptions().isSet("sumo-shapes-file") && myNet) {
-        myShapesFile = OptionsCont::getOptions().getString("sumo-shapes-file");
+    if (oc.isSet("sumo-shapes-file") && !oc.getString("sumo-shapes-file").empty() && myNet) {
+        myShapesFile = oc.getString("sumo-shapes-file");
         WRITE_MESSAGE("Loading shapes");
         GNEShapeHandler shapeHandler(myShapesFile, myNet);
+        // disable validation for shapes
+        XMLSubSys::setValidation("never", "auto");
         // Run parser
         myUndoList->p_begin("Loading shapes from '" + myShapesFile + "'");
         if (!XMLSubSys::runParser(shapeHandler, myShapesFile, false)) {
             WRITE_ERROR("Loading of shapes failed.");
         }
+        // enable validation for shapes
+        XMLSubSys::setValidation("auto", "auto");
         myUndoList->p_end();
     }
     // check if additionals output must be changed
-    if (OptionsCont::getOptions().isSet("additionals-output")) {
-        myAdditionalsFile = OptionsCont::getOptions().getString("additionals-output");
+    if (oc.isSet("additionals-output")) {
+        myAdditionalsFile = oc.getString("additionals-output");
     }
     // check if shapes output must be changed
-    if (OptionsCont::getOptions().isSet("shapes-output")) {
-        myShapesFile = OptionsCont::getOptions().getString("shapes-output");
+    if (oc.isSet("shapes-output")) {
+        myShapesFile = oc.getString("shapes-output");
     }
     // check if TLSPrograms output must be changed
-    if (OptionsCont::getOptions().isSet("TLSPrograms-output")) {
-        myTLSProgramsFile = OptionsCont::getOptions().getString("TLSPrograms-output");
+    if (oc.isSet("TLSPrograms-output")) {
+        myTLSProgramsFile = oc.getString("TLSPrograms-output");
     }
-
+    // after loading net shouldn't be saved
+    if (myNet) {
+        myNet->requiereSaveNet(false);
+    }
     update();
 }
 
@@ -1088,8 +1142,8 @@ GUISUMOAbstractView*
 GNEApplicationWindow::openNewView() {
     std::string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
-    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(),
-            myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
+    // create view parent
+    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(), myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
     if (myMDIClient->numChildren() == 1) {
         viewParent->maximize();
     } else {
@@ -1158,9 +1212,10 @@ GNEApplicationWindow::closeAllWindows() {
     myCartesianCoordinate->setText("N/A");
 
     myUndoList->p_clear();
-    if (myNet != 0) {
+    // check if net can be deleted
+    if (myNet != nullptr) {
         delete myNet;
-        myNet = 0;
+        myNet = nullptr;
         GeoConvHelper::resetLoaded();
     }
     myMessageWindow->unregisterMsgHandlers();
@@ -1169,10 +1224,8 @@ GNEApplicationWindow::closeAllWindows() {
     // reset fonts
     GLHelper::resetFont();
     // disable saving commmand
-    mySaveAdditionalsMenuCommand->disable();
-    mySaveAdditionalsMenuCommandAs->disable();
-    mySaveShapesMenuCommand->disable();
-    mySaveShapesMenuCommandAs->disable();
+    disableSaveAdditionalsMenu();
+    disableSaveShapesMenu();
 }
 
 
@@ -1208,7 +1261,7 @@ GNEApplicationWindow::setShapesFile(const std::string& shapesFile) {
 }
 
 
-void 
+void
 GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
     myTLSProgramsFile = TLSProgramsFile;
 }
@@ -1222,9 +1275,23 @@ GNEApplicationWindow::enableSaveAdditionalsMenu() {
 
 
 void
+GNEApplicationWindow::disableSaveAdditionalsMenu() {
+    mySaveAdditionalsMenuCommand->disable();
+    mySaveAdditionalsMenuCommandAs->disable();
+}
+
+
+void
 GNEApplicationWindow::enableSaveShapesMenu() {
     mySaveShapesMenuCommand->enable();
     mySaveShapesMenuCommandAs->enable();
+}
+
+
+void
+GNEApplicationWindow::disableSaveShapesMenu() {
+    mySaveShapesMenuCommand->disable();
+    mySaveShapesMenuCommandAs->disable();
 }
 
 
@@ -1244,12 +1311,38 @@ GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
 
 
 long
+GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
+    if (mySubWindows.empty()) {
+        return 1;
+    }
+    std::string sumogui = "sumo-gui";
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath != 0) {
+        std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            sumogui = "\"" + newPath + "\"";
+        }
+    }
+    std::string cmd = sumogui + " -n "  + OptionsCont::getOptions().getString("output-file");
+    // start in background
+#ifndef WIN32
+    cmd = cmd + " &";
+#else
+    // see "help start" for the parameters
+    cmd = "start /B \"\" " + cmd;
+#endif
+    WRITE_MESSAGE("Running " + cmd + ".");
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
     if (getView()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Key ESC (abort) pressed");
-        }
+        WRITE_DEBUG("Key ESC (abort) pressed");
         // abort current operation
         getView()->abortOperation();
         getView()->update();
@@ -1262,9 +1355,7 @@ long
 GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
     if (getView()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Key DEL (delete) pressed");
-        }
+        WRITE_DEBUG("Key DEL (delete) pressed");
         getView()->hotkeyDel();
     }
     return 1;
@@ -1275,9 +1366,7 @@ long
 GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
     if (getView()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Key ENTER pressed");
-        }
+        WRITE_DEBUG("Key ENTER pressed");
         getView()->hotkeyEnter();
     }
     return 1;
@@ -1311,26 +1400,22 @@ GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
     // only toogle grid if there is a GNEViewNet
     if (getView() != nullptr) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if(getView()->getMenuCheckShowGrid()->getCheck() == 1) {
+        if (getView()->getMenuCheckShowGrid()->getCheck() == 1) {
             getView()->getMenuCheckShowGrid()->setCheck(0);
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Disabled grid throught Ctrl+g hotkey");
-            }
+            WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
             getView()->getMenuCheckShowGrid()->setCheck(1);
             // show extra information for tests
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
-            }
+            WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
-        getView()->onCmdShowGrid(0,0,0);
+        getView()->onCmdShowGrid(0, 0, 0);
     }
     return 1;
 }
@@ -1346,9 +1431,7 @@ GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Key F5 (Compute) pressed");
-    }
+    WRITE_DEBUG("Key F5 (Compute) pressed");
     myNet->computeEverything(this, true, false);
     updateControls();
     return 1;
@@ -1363,48 +1446,42 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
     std::string additionalSavePath = myAdditionalsFile;
     std::string shapeSavePath = myShapesFile;
     // write warning if netedit is running in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Keys Shift + F5 (Compute with volatile options) pressed");
-        WRITE_WARNING("Opening FXMessageBox 'Volatile Recomputing'");
-    }
+    WRITE_DEBUG("Keys Shift + F5 (Compute with volatile options) pressed");
+    WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
     // open question dialog box
     answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
                                     "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?");
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
-        if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'Volatile Recomputing' with 'No'");
-        } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'Volatile Recomputing' with 'ESC'");
+        if (answer == 2) {
+            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'No'");
+        } else if (answer == 4) {
+            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'ESC'");
         }
         // abort recompute with volatile options
         return 0;
     } else {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
         // Check if there are additionals in our net
         if (myNet->getNumberOfAdditionals() > 0) {
             // ask user if want to save additionals if weren't saved previously
             if (myAdditionalsFile == "") {
                 // write warning if netedit is running in testing mode
-                WRITE_WARNING("Opening FXMessageBox 'Save additionals before recomputing'");
+                WRITE_DEBUG("Opening FXMessageBox 'Save additionals before recomputing'");
                 // open question dialog box
                 answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
                                                 "Would you like to save additionals before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox 'Save additionals before recomputing' with 'No'");
-                    } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox 'Save additionals before recomputing' with 'ESC'");
+                    if (answer == 2) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'No'");
+                    } else if (answer == 4) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'ESC'");
                     }
                 } else {
                     // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
-                    }
+                    WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     myAdditionalsFile = MFXUtils::getFilename2Write(this,
                                         "Select name of the additional file", ".xml",
@@ -1425,15 +1502,11 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                 myNet->saveAdditionals(additionalSavePath);
             } catch (IOError& e) {
                 // write warning if netedit is running in testing mode
-                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox 'Error saving additionals before recomputing'");
-                }
+                WRITE_DEBUG("Opening FXMessageBox 'Error saving additionals before recomputing'");
                 // open error message box
                 FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
                 // write warning if netedit is running in testing mode
-                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
-                }
+                WRITE_DEBUG("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
             }
             // end saving additionals
             myMessageWindow->addSeparator();
@@ -1447,22 +1520,20 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             // ask user if want to save shapes if weren't saved previously
             if (myShapesFile == "") {
                 // write warning if netedit is running in testing mode
-                WRITE_WARNING("Opening FXMessageBox 'Save shapes before recomputing'");
+                WRITE_DEBUG("Opening FXMessageBox 'Save shapes before recomputing'");
                 // open question dialog box
                 answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save shapes before recomputing with volatile options",
                                                 "Would you like to save shapes before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
-                    if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox 'Save shapes before recomputing' with 'No'");
-                    } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox 'Save shapes before recomputing' with 'ESC'");
+                    if (answer == 2) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save shapes before recomputing' with 'No'");
+                    } else if (answer == 4) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save shapes before recomputing' with 'ESC'");
                     }
                 } else {
                     // write warning if netedit is running in testing mode
-                    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                        WRITE_WARNING("Closed FXMessageBox 'Save shapes before recomputing' with 'Yes'");
-                    }
+                    WRITE_DEBUG("Closed FXMessageBox 'Save shapes before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     myShapesFile = MFXUtils::getFilename2Write(this,
                                    "Select name of the shape file", ".xml",
@@ -1483,15 +1554,11 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                 myNet->saveShapes(shapeSavePath);
             } catch (IOError& e) {
                 // write warning if netedit is running in testing mode
-                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Opening FXMessageBox 'Error saving shapes before recomputing'");
-                }
+                WRITE_DEBUG("Opening FXMessageBox 'Error saving shapes before recomputing'");
                 // open error message box
                 FXMessageBox::error(this, MBOX_OK, "Saving shapes in temporal folder failed!", "%s", e.what());
                 // write warning if netedit is running in testing mode
-                if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                    WRITE_WARNING("Closed FXMessageBox 'Error saving shapes before recomputing' with 'OK'");
-                }
+                WRITE_DEBUG("Closed FXMessageBox 'Error saving shapes before recomputing' with 'OK'");
             }
             // end saving shapes
             myMessageWindow->addSeparator();
@@ -1511,9 +1578,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
 long
 GNEApplicationWindow::onCmdCleanJunctions(FXObject*, FXSelector, void*) {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Key F6 (Clean junction) pressed");
-    }
+    WRITE_DEBUG("Key F6 (Clean junction) pressed");
     myNet->removeSolitaryJunctions(myUndoList);
     return 1;
 }
@@ -1522,9 +1587,7 @@ GNEApplicationWindow::onCmdCleanJunctions(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdJoinJunctions(FXObject*, FXSelector, void*) {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Key F7 (Join junctions) pressed");
-    }
+    WRITE_DEBUG("Key F7 (Join junctions) pressed");
     myNet->joinSelectedJunctions(myUndoList);
     return 1;
 }
@@ -1533,9 +1596,7 @@ GNEApplicationWindow::onCmdJoinJunctions(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdCleanInvalidCrossings(FXObject*, FXSelector, void*) {
     // show extra information for tests
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Key F8 (Clean invalid crossings) pressed");
-    }
+    WRITE_DEBUG("Key F8 (Clean invalid crossings) pressed");
     myNet->cleanInvalidCrossings(myUndoList);
     return 1;
 }
@@ -1603,15 +1664,11 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         myUndoList->mark();
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'Error saving plainXML'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
         // open message box
         FXMessageBox::error(this, MBOX_OK, "Saving plain xml failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
     }
     myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
     myMessageWindow->addSeparator();
@@ -1646,15 +1703,11 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
         myNet->saveJoined(oc);
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'error saving joined'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
         // opening error message
         FXMessageBox::error(this, MBOX_OK, "Saving joined junctions failed!", "%s", e.what());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox 'error saving joined' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
     }
     myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Joined junctions saved to '" + filename + "'.\n");
     myMessageWindow->addSeparator();
@@ -1693,15 +1746,11 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
             mySaveShapesMenuCommand->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox 'Error saving shapes'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox 'Error saving shapes'");
             // open error dialog box
             FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Error saving shapes' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'Error saving shapes' with 'OK'");
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -1757,15 +1806,11 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             myUndoList->mark();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox 'error saving network'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox 'error saving network'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'error saving network' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
         myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
         // After saveing a net sucesfully, add it into Recent Nets list.
@@ -1802,15 +1847,11 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             mySaveAdditionalsMenuCommand->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox 'error saving additionals'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'error saving additionals' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -1864,15 +1905,11 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             mySaveTLSProgramsMenuCommand->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Opening FXMessageBox 'error saving TLS Programs'");
-            }
+            WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
             // open error message box
             FXMessageBox::error(this, MBOX_OK, "Saving TLS Programs failed!", "%s", e.what());
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
         }
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
@@ -1917,9 +1954,14 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 GNEViewNet*
 GNEApplicationWindow::getView() {
     if (mySubWindows.size() != 0) {
-        return (GNEViewNet*)(((GUIGlChildWindow*)mySubWindows[0])->getView());
+        GUIGlChildWindow* childWindows = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
+        if (childWindows != nullptr) {
+            return dynamic_cast<GNEViewNet*>(childWindows->getView());
+        } else {
+            return nullptr;
+        }
     } else {
-        return 0;
+        return nullptr;
     }
 }
 
@@ -1929,9 +1971,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
     FXuint answer = 0;
     if (myNet && !myNet->isNetSaved()) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'Confirm closing network'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'Confirm closing network'");
         // open question box
         answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                         "Confirm closing Network", "%s",
@@ -1941,9 +1981,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         // if user close dialog box, check additionasl and shapes
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'Quit'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'Confirm closing network' with 'Quit'");
             if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
                 // clear undo list and return true to continue with closing/reload
                 myUndoList->p_clear();
@@ -1967,10 +2005,10 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             }
         } else {
             // write warning if netedit is running in testing mode
-            if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'No'");
-            } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Confirm closing network' with 'ESC'");
+            if (answer == 2) {
+                WRITE_DEBUG("Closed FXMessageBox 'Confirm closing network' with 'No'");
+            } else if (answer == 4) {
+                WRITE_DEBUG("Closed FXMessageBox 'Confirm closing network' with 'ESC'");
             }
             // return false to stop closing/reloading
             return false;
@@ -1992,9 +2030,7 @@ bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
     if (mySaveAdditionalsMenuCommand->isEnabled()) {
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'Save additionals before exit'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'Save additionals before exit'");
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save additionals before exit", "%s",
@@ -2003,16 +2039,12 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
         getView()->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'Quit'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'Quit'");
             // nothing to save, return true
             return true;
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'Yes'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'Yes'");
             if (onCmdSaveAdditionals(0, 0, 0) == 1) {
                 // additionals sucesfully saved
                 return true;
@@ -2022,10 +2054,10 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
             }
         } else {
             // write warning if netedit is running in testing mode
-            if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'No'");
-            } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save additionals before exit' with 'ESC'");
+            if (answer == 2) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'No'");
+            } else if (answer == 4) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'ESC'");
             }
             // abort saving
             return false;
@@ -2041,9 +2073,7 @@ bool
 GNEApplicationWindow::continueWithUnsavedShapeChanges() {
     // Check if there are non saved additionals
     if (mySaveShapesMenuCommand->isEnabled()) {
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox 'Save shapes before exit'");
-        }
+        WRITE_DEBUG("Opening FXMessageBox 'Save shapes before exit'");
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save shapes before exit", "%s",
@@ -2052,15 +2082,11 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
         getView()->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'Quit'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Quit'");
             return true;
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
-            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'Yes'");
-            }
+            WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Yes'");
             if (onCmdSaveShapes(0, 0, 0) == 1) {
                 // shapes sucesfully saved
                 return true;
@@ -2070,10 +2096,10 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
             }
         } else {
             // write warning if netedit is running in testing mode
-            if (answer == 2 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'No'");
-            } else if (answer == 4 && OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                WRITE_WARNING("Closed FXMessageBox 'Save shapes before exit' with 'ESC'");
+            if (answer == 2) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'No'");
+            } else if (answer == 4) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'ESC'");
             }
             // abort saving
             return false;

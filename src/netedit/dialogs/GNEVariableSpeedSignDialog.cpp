@@ -18,17 +18,13 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_VariableSpeedSignItem.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/additionals/GNEVariableSpeedSign.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
@@ -58,12 +54,11 @@ FXIMPLEMENT(GNEVariableSpeedSignDialog, GNEAdditionalDialog, GNERerouterDialogMa
 // ===========================================================================
 
 GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* editedVariableSpeedSign) :
-    GNEAdditionalDialog(editedVariableSpeedSign, 300, 400),
-    myEditedVariableSpeedSign(editedVariableSpeedSign),
+    GNEAdditionalDialog(editedVariableSpeedSign, false, 300, 400),
     myStepsValids(false) {
 
     // create Horizontal frame for row elements
-    myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
     myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
     new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), 0, GUIDesignLabelThick);
@@ -90,17 +85,11 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
 GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
 
 
-GNEVariableSpeedSign*
-GNEVariableSpeedSignDialog::getEditedVariableSpeedSign() const {
-    return myEditedVariableSpeedSign;
-}
-
-
 long
 GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
     GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(this);
-    myEditedVariableSpeedSign->getViewNet()->getUndoList()->add(new GNEChange_VariableSpeedSignItem(step, true), true);
+    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
     // Update table
     updateTableSteps();
     return 1;
@@ -112,7 +101,7 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
     myStepsValids = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myStepsTable->getNumRows(); i++) {
-        GNEVariableSpeedSignStep* step = myEditedVariableSpeedSign->getVariableSpeedSignSteps().at(i);
+        GNEAdditional* step = myEditedAdditional->getAdditionalChilds().at(i);
         if (step->isValid(SUMO_ATTR_TIME, myStepsTable->getItem(i, 0)->getText().text()) == false) {
             myStepsValids = false;
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_ERROR));
@@ -124,8 +113,8 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
             double speed = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 1)->getText().text());
             // set new values in Closing  reroute
-            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedVariableSpeedSign->getViewNet()->getUndoList());
-            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedVariableSpeedSign->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedAdditional->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedAdditional->getViewNet()->getUndoList());
             // set Correct label
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(ICON_CORRECT));
         }
@@ -139,10 +128,10 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
 long
 GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedVariableSpeedSign->getVariableSpeedSignSteps().size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
         if (myStepsTable->getItem(i, 3)->hasFocus()) {
             myStepsTable->removeRows(i);
-            myEditedVariableSpeedSign->getViewNet()->getUndoList()->add(new GNEChange_VariableSpeedSignItem(myEditedVariableSpeedSign->getVariableSpeedSignSteps().at(i), false), true);
+            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getAdditionalChilds().at(i), false), true);
             // Update table
             updateTableSteps();
             return 1;
@@ -152,36 +141,32 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
-    myEditedVariableSpeedSign->sortVariableSpeedSignSteps();
+    myEditedAdditional->sortAdditionalChilds();
     // update table
     updateTableSteps();
     return 1;
 }
 
+
 long
 GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     if (myStepsValids == false) {
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Opening FXMessageBox of type 'warning'");
-        }
-        //
+        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
         FXMessageBox::warning(getApp(), MBOX_OK, ("Error updating " + toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP)).c_str(), "%s",
                               (toString(SUMO_TAG_VSS) + " " + toString(SUMO_TAG_STEP) + "cannot be updated because there are invalid values").c_str());
         // write warning if netedit is running in testing mode
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Closed FXMessageBox of type 'warning' with 'OK'");
-        }
+        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
         return 0;
     } else {
         // accept changes before closing dialog
         acceptChanges();
         // sort steps after finish
-        myEditedVariableSpeedSign->sortVariableSpeedSignSteps();
+        myEditedAdditional->sortAdditionalChilds();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;
@@ -214,7 +199,7 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     // clear table
     myStepsTable->clearItems();
     // set number of rows
-    myStepsTable->setTableSize(int(myEditedVariableSpeedSign->getVariableSpeedSignSteps().size()), 4);
+    myStepsTable->setTableSize(int(myEditedAdditional->getAdditionalChilds().size()), 4);
     // Configure list
     myStepsTable->setVisibleColumns(4);
     myStepsTable->setColumnWidth(0, 115);
@@ -229,12 +214,12 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     // Declare index for rows and pointer to FXTableItem
     FXTableItem* item = 0;
     // iterate over values
-    for (int i = 0; i < (int)myEditedVariableSpeedSign->getVariableSpeedSignSteps().size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
         // Set time
-        item = new FXTableItem(myEditedVariableSpeedSign->getVariableSpeedSignSteps().at(i)->getAttribute(SUMO_ATTR_TIME).c_str());
+        item = new FXTableItem(myEditedAdditional->getAdditionalChilds().at(i)->getAttribute(SUMO_ATTR_TIME).c_str());
         myStepsTable->setItem(i, 0, item);
         // Set speed
-        item = new FXTableItem(myEditedVariableSpeedSign->getVariableSpeedSignSteps().at(i)->getAttribute(SUMO_ATTR_SPEED).c_str());
+        item = new FXTableItem(myEditedAdditional->getAdditionalChilds().at(i)->getAttribute(SUMO_ATTR_SPEED).c_str());
         myStepsTable->setItem(i, 1, item);
         // set valid icon
         item = new FXTableItem("");

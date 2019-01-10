@@ -10,7 +10,7 @@
 
 # @file    maps.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 import os
@@ -66,8 +66,8 @@ def download_googlemap(filepath, bbox, proj, size=640, filetype='gif', maptype='
     lon11, lat11 = proj(x_ne, y_ne, inverse=True)
     lon01, lat01 = proj(x_sw, y_ne, inverse=True)
 
-    size_x = size_y = size / 2
-    urllib.urlretrieve(URL_GOOGLEMAP + "size=%dx%d&visible=%.6f,%.6f|%.6f,%.6f&format=%s&maptype=%s&scale=2"
+    size_x = size_y = size/2
+    urllib.urlretrieve(URL_GOOGLEMAP+"size=%dx%d&visible=%.6f,%.6f|%.6f,%.6f&format=%s&maptype=%s&scale=2"
                        % (size_x, size_y, lat00, lon00, lat11, lon11, filetype.upper(), maptype), filepath)
 
     bbox_lonlat = np.array([[lon00, lat00], [lon11, lat11]])
@@ -88,10 +88,11 @@ def download_googlemap_bb(filepath, bbox, proj, size=640, filetype='gif', maptyp
     lon11, lat11 = proj(x_ne, y_ne, inverse=True)
     lon01, lat01 = proj(x_sw, y_ne, inverse=True)
 
-    size_x = size_y = size / 2
+    size_x = size_y = size/2
 
-    url = URL_GOOGLEMAP + "size=%dx%d&format=%s&maptype=%s&scale=2&path=color:%s|weight:1" % (
-        size_x, size_y, filetype.upper(), maptype, color)
+    url = URL_GOOGLEMAP + \
+        "size=%dx%d&format=%s&maptype=%s&scale=2&path=color:%s|weight:1" % (
+            size_x, size_y, filetype.upper(), maptype, color)
     url += "|%.6f,%.6f" % (lat00, lon00)
     url += "|%.6f,%.6f" % (lat10, lon10)
     url += "|%.6f,%.6f" % (lat11, lon11)
@@ -115,18 +116,15 @@ def estimate_angle(filepath,
     imr, img, imb = im.split()
 
     # calculate width and height of bbox in pixel from measured rectangle
-    wr = int(np.sqrt((rect[1][0] - rect[0][0]) **
-                     2 + (rect[1][1] - rect[0][1])**2))
+    wr = int(np.sqrt((rect[1][0]-rect[0][0])**2+(rect[1][1]-rect[0][1])**2))
     #wr_check = int(np.sqrt((rect[2][0]-rect[3][0])**2+(rect[2][1]-rect[3][1])**2))
-    hr = int(np.sqrt((rect[3][0] - rect[0][0]) **
-                     2 + (rect[3][1] - rect[0][1])**2))
+    hr = int(np.sqrt((rect[3][0]-rect[0][0])**2+(rect[3][1]-rect[0][1])**2))
     #h_check = int(np.sqrt((rect[2][0]-rect[1][0])**2+(rect[2][1]-rect[1][1])**2))
 
-    xcb = im.size[0] / 2
-    ycb = im.size[1] / 2
+    xcb = im.size[0]/2
+    ycb = im.size[1]/2
 
-    bbox = [(xcb - wr / 2, ycb - hr / 2), (xcb + wr / 2, ycb - hr / 2), (xcb + wr / 2,
-                                                                         ycb + hr / 2), (xcb - wr / 2, ycb + hr / 2), (xcb - wr / 2, ycb - hr / 2)]
+    bbox = [(xcb-wr/2, ycb-hr/2), (xcb+wr/2, ycb-hr/2), (xcb+wr/2, ycb+hr/2), (xcb-wr/2, ycb+hr/2), (xcb-wr/2, ycb-hr/2)]
     im_bbox = ImageChops.constant(im, 0)
     draw = ImageDraw.Draw(im_bbox)
     draw.line(bbox, fill=255)
@@ -139,7 +137,7 @@ def estimate_angle(filepath,
         im_corr = ImageChops.multiply(imr, im_bbox_rot)
         # im_corr.show()
         im_corr_arr = np.asarray(im_corr)
-        matches[i] = np.sum(im_corr_arr) / 255
+        matches[i] = np.sum(im_corr_arr)/255
         # print ' angles[i],matches[i]',angles[i],matches[i]
 
     angle_opt = angles[np.argmax(matches)]
@@ -149,7 +147,6 @@ def estimate_angle(filepath,
 
 
 class MapsImporter(Process):
-
     def __init__(self,  maps, logger=None, **kwargs):
         print 'MapsImporter.__init__', maps, maps.parent.get_ident()
         self._init_common('mapsimporter', name='Background maps importer',
@@ -171,14 +168,10 @@ class MapsImporter(Process):
         self.width_tile = attrsman.add(cm.AttrConf('width_tile', kwargs.get('width_tile', 500.0),
                                                    groupnames=['options'],
                                                    choices=OrderedDict([("500", 500.0),
-                                                                        ("1000",
-                                                                         1000.0),
-                                                                        ("2000",
-                                                                         2000.0),
-                                                                        ("4000",
-                                                                         4000.0),
-                                                                        ("8000",
-                                                                         8000.0),
+                                                                        ("1000", 1000.0),
+                                                                        ("2000", 2000.0),
+                                                                        ("4000", 4000.0),
+                                                                        ("8000", 8000.0),
                                                                         ]),
                                                    perm='rw',
                                                    name='Tile width',
@@ -259,6 +252,7 @@ class MapsImporter(Process):
         #import_xml(self, rootname, dirname, is_clean_nodes = True)
         # self.run_cml(cml)
         # if self.status == 'success':
+        return True
 
     def update_params(self):
         """
@@ -270,7 +264,6 @@ class MapsImporter(Process):
 
 
 class Maps(am.ArrayObjman):
-
     def __init__(self, landuse, **kwargs):
 
         self._init_objman(ident='maps',
@@ -325,9 +318,9 @@ class Maps(am.ArrayObjman):
                                   ))
 
     def write_decals(self, fd, indent=4,  rootdir=None):
-        print 'write_decals'
+        print 'write_decals', len(self)
         net = self.parent.get_net()
-        if rootdir == None:
+        if rootdir is None:
             rootdir = os.path.dirname(net.parent.get_rootfilepath())
 
         #proj = pyproj.Proj(str(net.get_projparams()))
@@ -345,22 +338,21 @@ class Maps(am.ArrayObjman):
 
             #bbox = np.array([[x0, y0, 0.0],[x1, y1 ,0.0]],np.float32)
             # print '  bbox decal',bbox
-            xc, yc = 0.5 * (bbox[0] + bbox[1])
+            xc, yc = 0.5*(bbox[0]+bbox[1])
             zc = 0.0
             width_tile = bbox[1, 0] - bbox[0, 0]
-            print '  xc,yc', xc, yc
-            print '  width_tile', width_tile, bbox
+            # print '  xc,yc',xc,yc
+            # print '  width_tile',width_tile,bbox
             if filename == os.path.basename(filename):
                 # filename does not contain path info
                 filepath = filename  # os.path.join(rootdir,filename)
             else:
-                # filename contains path info (can happen if interactively
-                # inserted)
+                # filename contains path info (can happen if interactively inserted)
                 filepath = filename
 
             calxml = '<decal filename="%s" centerX="%.2f" centerY="%.2f" centerZ="0.00" width="%.2f" height="%.2f" altitude="0.00" rotation="0.00" tilt="0.00" roll="0.00" layer="0.00"/>\n' % (
                 filepath, xc, yc, width_tile, width_tile)
-            fd.write(indent * ' ' + calxml)
+            fd.write(indent*' '+calxml)
 
     def clear_all(self):
         """
@@ -385,11 +377,11 @@ class Maps(am.ArrayObjman):
         bbox_sumo, bbox_lonlat = net.get_boundaries()
         x0 = bbox_sumo[0]  # -0.5*width_tile
         y0 = bbox_sumo[1]  # -0.5*width_tile
-        width = bbox_sumo[2] - x0
-        height = bbox_sumo[3] - y0
-        nx = int(width / width_tile + 0.5)
-        ny = int(height / width_tile + 0.5)
-        return nx * ny
+        width = bbox_sumo[2]-x0
+        height = bbox_sumo[3]-y0
+        nx = int(width/width_tile+0.5)
+        ny = int(height/width_tile+0.5)
+        return nx*ny
 
     def download(self, maptype='satellite', mapserver='google',
                  filetype='png', rootfilepath=None,
@@ -398,7 +390,7 @@ class Maps(am.ArrayObjman):
 
         self.clear_rows()
         net = self.parent.get_net()
-        if rootfilepath == None:
+        if rootfilepath is None:
             rootfilepath = net.parent.get_rootfilepath()
 
         bbox_sumo, bbox_lonlat = net.get_boundaries()
@@ -409,8 +401,8 @@ class Maps(am.ArrayObjman):
 
         x0 = bbox_sumo[0]  # -0.5*width_tile
         y0 = bbox_sumo[1]  # -0.5*width_tile
-        width = bbox_sumo[2] - x0
-        height = bbox_sumo[3] - y0
+        width = bbox_sumo[2]-x0
+        height = bbox_sumo[3]-y0
 
         print 'download to', rootfilepath
 
@@ -421,15 +413,14 @@ class Maps(am.ArrayObjman):
         # print '  params_proj',params_proj,IS_MAPSUPPORT
         # these values are measured manually and are only valid for  size_tile = 256/640
         # width_tile_eff= width_tile#*float(2*size_tile)/238.0#500m 1205.0*width_tile#m 1208
-        # height_tile_eff = width_tile#*float(2*size_tile)/238.0#
-        # 500m1144.0*width_tile#m 1140
+        # height_tile_eff = width_tile#*float(2*size_tile)/238.0# 500m1144.0*width_tile#m 1140
 
-        nx = int(width / width_tile + 0.5)
-        ny = int(height / width_tile + 0.5)
+        nx = int(width/width_tile+0.5)+1
+        ny = int(height/width_tile+0.5)+1
         print '  offset', offset
         print '  bbox_sumo', bbox_sumo
         print '  width_tile', width_tile, 'm'
-        print '  Will download %dx%d= %d maps' % (nx, ny, nx * ny)
+        print '  Will download %dx%d= %d maps' % (nx, ny, nx*ny)
         #latlon_tile = np.array([(latlon_ne[0]-latlon_sw[0])/ny, (latlon_ne[1]-latlon_sw[1])/nx])
         #filepaths = []
         #centers = []
@@ -447,25 +438,23 @@ class Maps(am.ArrayObjman):
             for iy in xrange(ny):
 
                 # tile in SUMO network coords. These are the saved coords
-                x_tile = x0 + ix * width_tile
-                y_tile = y0 + iy * width_tile
+                x_tile = x0+ix*width_tile
+                y_tile = y0+iy*width_tile
                 print '  x_tile,y_tile', x_tile, y_tile
-                bb = np.array(
-                    [[x_tile, y_tile], [x_tile + width_tile, y_tile + width_tile]], np.float32)
+                bb = np.array([[x_tile, y_tile], [x_tile+width_tile, y_tile+width_tile]], np.float32)
 
                 # tile in absolute coordinates. Coords used for download
-                x_sw = x_tile - offset[0]
-                y_sw = y_tile - offset[1]
+                x_sw = x_tile-offset[0]
+                y_sw = y_tile-offset[1]
 
-                x_ne = x_sw + width_tile
-                y_ne = y_sw + width_tile
+                x_ne = x_sw+width_tile
+                y_ne = y_sw+width_tile
                 bbox_tile = [[x_sw, y_sw], [x_ne, y_ne]]
 
-                filepath = rootfilepath + \
-                    '_map%04dx%04d.%s' % (ix, iy, filetype)
+                filepath = rootfilepath+'_map%04dx%04d.%s' % (ix, iy, filetype)
                 # print '  filepath=',filepath
 
-                if angle == None:
+                if angle is None:
                     download_googlemap_bb(filepath, bbox_tile, proj,
                                           size=size_tile,
                                           filetype=filetype, maptype=maptype)
@@ -487,19 +476,16 @@ class Maps(am.ArrayObjman):
                 # print '  start rotation'
                 im_rot = im.rotate(angle)  # gimp 1.62
                 # im_rot.show()
-                region = im_rot.crop(
-                    [bbox[0][0], bbox[0][1], bbox[2][0], bbox[2][1]])
+                region = im_rot.crop([bbox[0][0], bbox[0][1], bbox[2][0], bbox[2][1]])
                 regsize = region.size
                 # print ' regsize',regsize
                 im_crop = Image.new('RGB', (regsize[0], regsize[1]), (0, 0, 0))
                 im_crop.paste(region, (0, 0, regsize[0], regsize[1]))
                 im_tile = im_crop.resize((1024, 1024))
                 # im_crop.show()
-                outfilepath = rootfilepath + \
-                    '_rot%04dx%04d.%s' % (ix, iy, filetype)
+                outfilepath = rootfilepath+'_rot%04dx%04d.%s' % (ix, iy, filetype)
 
-                # print 'save ',outfilepath,"%dx%d" %
-                # im_crop.size,im_crop.getbands()
+                # print 'save ',outfilepath,"%dx%d" % im_crop.size,im_crop.getbands()
                 im_tile.save(outfilepath, filetype.upper())
 
                 # print '  bb_orig=',bb
@@ -512,8 +498,7 @@ class Maps(am.ArrayObjman):
                 # print '  saved bbox',np.array([[x_tile-offset[0], y_tile-offset[1]],[x_tile+width_tile-offset[0], y_tile+width_tile-offset[1]]],np.float32)
                 # print '  saved bbox',bbox_tile_lonlat
                 id_map = self.add_row(filenames=os.path.basename(outfilepath),
-                                      # bbox_tile,#bbox_tile_lonlat#np.array([[lon0,
-                                      # lat0],[lon1, lat1]],np.float32),
+                                      # bbox_tile,#bbox_tile_lonlat#np.array([[lon0, lat0],[lon1, lat1]],np.float32),
                                       bboxes=bb,
                                       )
                 ids_map.append(id_map)
@@ -526,6 +511,6 @@ class Maps(am.ArrayObjman):
 
 
 if __name__ == '__main__':
-    ##########################################################################
+    ############################################################################
     ###
     pass

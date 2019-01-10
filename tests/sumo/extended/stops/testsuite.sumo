@@ -75,6 +75,7 @@ bestLaneStop0
 # error handling
 not_allowed
 too_short
+too_close
 until_order
 
 # tests  defining a stop on an internal lane
@@ -96,7 +97,6 @@ looped_route2
 # - with until-attribute 
 # - inside a stand-alone route
 # - used within a flow
-# 
 flow_until
 
 # Tests for flexible assignment of stopping positions (#3937)
@@ -104,3 +104,9 @@ busstop_stopping_position_assignment
 
 # Tests for flexible assignment of stopping positions (#3937)
 busstop_stopping_position_assignment_parking
+
+# check consistency of stop positions and depar/arrival position
+departPos_arrivalPos
+
+# long stopping times should not trigger teleport, but teleports should possible after the stop
+long_stop

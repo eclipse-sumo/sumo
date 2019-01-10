@@ -79,29 +79,32 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
     def checkDoxyLines(self, lines, idx, comment="///"):
         fileRef = "%s @file    %s\n" % (comment, os.path.basename(self._file))
-        s = lines[idx].split()
-        if s != fileRef.split():
-            print(self._file, "broken @file reference", lines[idx].rstrip())
-            if self._fix and lines[idx].startswith("%s @file" % comment):
-                lines[idx] = fileRef
-                self._haveFixed = True
-        idx += 1
-        s = lines[idx].split()
-        if s[:2] != [comment, "@author"]:
-            print(self._file, "broken @author reference", s)
-        idx += 1
-        while lines[idx].split()[:2] == [comment, "@author"]:
+        try:
+            s = lines[idx].split()
+            if s != fileRef.split():
+                print(self._file, "broken @file reference", lines[idx].rstrip())
+                if self._fix and lines[idx].startswith("%s @file" % comment):
+                    lines[idx] = fileRef
+                    self._haveFixed = True
             idx += 1
-        s = lines[idx].split()
-        if s[:2] != [comment, "@date"]:
-            print(self._file, "broken @date reference", s)
-        idx += 1
-        s = lines[idx].split()
-        if s[:2] != [comment, "@version"]:
-            print(self._file, "broken @version reference", s)
-        idx += 1
-        if lines[idx] not in (comment + "\n", "\n"):
-            print(self._file, "missing empty line", idx, lines[idx].rstrip())
+            s = lines[idx].split()
+            if s[:2] != [comment, "@author"]:
+                print(self._file, "broken @author reference", s)
+            idx += 1
+            while lines[idx].split()[:2] == [comment, "@author"]:
+                idx += 1
+            s = lines[idx].split()
+            if s[:2] != [comment, "@date"]:
+                print(self._file, "broken @date reference", s)
+            idx += 1
+            s = lines[idx].split()
+            if s[:2] != [comment, "@version"]:
+                print(self._file, "broken @version reference", s)
+            idx += 1
+            if lines[idx] not in (comment + "\n", "\n"):
+                print(self._file, "missing empty line", idx, lines[idx].rstrip())
+        except IndexError:
+            print(self._file, "seems to be empty")
         idx += 1
         while idx < len(lines) and lines[idx].split()[:1] == ["//"]:
             idx += 1
@@ -116,8 +119,6 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         idx = 0
         if ext in (".cpp", ".h"):
             if lines[idx] == SEPARATOR:
-                if lines[idx] != SEPARATOR:
-                    print(self._file, "missing license start", idx, lines[idx].rstrip())
                 year = lines[idx + 2][17:21]
                 end = idx + 9
                 license = EPL_HEADER.replace("2001", year)
@@ -146,6 +147,9 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 idx += 1
             license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
             end = idx + 7
+            if len(lines) < 13:
+                print(self._file, "is too short (%s lines, at least 13 required for valid header)" % len(lines))
+                return
             year = lines[idx + 1][16:20]
             license = license.replace("2001", year).replace(SEPARATOR, "")
             if "module" in lines[idx + 2]:
@@ -159,7 +163,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
                     print(fileLicense)
                     print(license)
-            self.checkDoxyLines(lines, end+1, "#")
+            self.checkDoxyLines(lines, end + 1, "#")
         if self._haveFixed:
             open(self._file, "w").write("".join(lines))
 
@@ -243,6 +247,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             if HAVE_AUTOPEP and self._fix:
                 subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
 
+
 sumoRoot = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 svnRoots = [sumoRoot]
@@ -264,7 +269,7 @@ for svnRoot in svnRoots:
     try:
         output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
         xml.sax.parseString(output, propRead)
-    except subprocess.CalledProcessError as e:
+    except (OSError, subprocess.CalledProcessError) as e:
         print("This seems to be no valid svn repository", svnRoot, e)
         if options.verbose:
             print("trying git at", svnRoot)

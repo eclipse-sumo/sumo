@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
@@ -49,15 +45,6 @@ public:
      */
     static bool processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
-
-
-    /** @brief Processes a value request for the given type
-     *
-     * @param[in] variable The type variable asked for
-     * @param[in] v The vehicle type to get the value from
-     * @param[out] tempMsg The storage to write the result to
-     */
-    static bool getVariable(const int variable, const std::string& v, tcpip::Storage& tempMsg);
 
 
     /** @brief Processes a set value command (Command 0xc5: Change Vehicle Type State)

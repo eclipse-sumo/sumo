@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <set>
 #include <vector>
@@ -165,6 +161,17 @@ public:
         return "rerouting";
     }
 
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs);
 
     /// @brief initiate the rerouting, create router / thread pool on first use
     void reroute(const SUMOTime currentTime, const bool onInit = false);
@@ -244,6 +251,9 @@ private:
 
     /// @brief initialize the edge weights if not done before
     static void initEdgeWeights();
+
+    /// @brief intialize period edge weight update
+    static void initWeightUpdate();
 
     /** @brief Performs rerouting before insertion into the network
      *
@@ -361,7 +371,7 @@ private:
     static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
 
     /// @brief The router to use by rerouter elements
-    static AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
+    static AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
 
     /// @brief Whether to disturb edge weights dynamically
     static double myRandomizeWeightsFactor;

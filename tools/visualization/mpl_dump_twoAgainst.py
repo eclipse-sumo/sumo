@@ -24,7 +24,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 from matplotlib import rcParams
-from pylab import *
+from pylab import arange, figure, iterable, plot, savefig, show, xlim, xticks, ylim, yticks
 from optparse import OptionParser
 from xml.sax import make_parser, handler
 
@@ -69,6 +69,7 @@ class WeightsReader(handler.ContentHandler):
                 self._edge2value[self._time][self._id] = 0.
             self._edge2value[self._time][self._id] = self._edge2value[
                 self._time][self._id] + float(attrs[self._value])
+
 
 # initialise
 optParser = OptionParser()

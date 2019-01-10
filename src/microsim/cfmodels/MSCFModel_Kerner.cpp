@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
@@ -36,12 +32,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype, double accel,
-                                   double decel, double emergencyDecel, double apparentDecel,
-                                   double headwayTime, double k, double phi) :
-    MSCFModel(vtype, accel, decel, emergencyDecel, apparentDecel, headwayTime),
-    myK(k), myPhi(phi),
-    myTauDecel(decel * headwayTime) {
+MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype) :
+    MSCFModel(vtype),
+    myK(vtype->getParameter().getCFParam(SUMO_ATTR_K, 0.5)),
+    myPhi(vtype->getParameter().getCFParam(SUMO_ATTR_CF_KERNER_PHI, 5.0)),
+    myTauDecel(myDecel * myHeadwayTime) {
 }
 
 
@@ -95,5 +90,5 @@ MSCFModel_Kerner::_v(const MSVehicle* const veh, double speed, double vfree, dou
 
 MSCFModel*
 MSCFModel_Kerner::duplicate(const MSVehicleType* vtype) const {
-    return new MSCFModel_Kerner(vtype, myAccel, myDecel, myEmergencyDecel, myApparentDecel, myHeadwayTime, myK, myPhi);
+    return new MSCFModel_Kerner(vtype);
 }

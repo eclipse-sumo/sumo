@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <algorithm>
@@ -57,9 +53,9 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myMaxDepartDelay(maxDepartDelay),
     myEagerInsertionCheck(eagerInsertionCheck),
     myMaxVehicleNumber(maxVehicleNumber),
-    myPendingEmitsUpdateTime(SUMOTime_MIN) 
-{
+    myPendingEmitsUpdateTime(SUMOTime_MIN) {
     myMaxRandomDepartOffset = randomDepartOffset;
+    RandHelper::initRandGlobal(&myFlowRNG);
 }
 
 
@@ -205,7 +201,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     && pars->depart < time + DELTA_T
                     && pars->repetitionEnd > time
                     // only call rand if all other conditions are met
-                    && RandHelper::rand() < (pars->repetitionProbability * TS))
+                    && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
               ) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
@@ -225,8 +221,8 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     while (--quota > 0) {
                         SUMOVehicleParameter* quotaPars = new SUMOVehicleParameter(*pars);
                         quotaPars->id = pars->id + "." + toString(i->index);
-                        quotaPars->depart = pars->repetitionProbability > 0 ? time : 
-                            (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset) + computeRandomDepartOffset();
+                        quotaPars->depart = pars->repetitionProbability > 0 ? time :
+                                            (SUMOTime)(pars->depart + pars->repetitionsDone * pars->repetitionOffset) + computeRandomDepartOffset();
                         SUMOVehicle* vehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, vehicle);
                         add(vehicle);
@@ -282,7 +278,7 @@ MSInsertionControl::alreadyDeparted(SUMOVehicle* veh) {
 
 
 void
-MSInsertionControl::clearPendingVehicles(std::string& route) {
+MSInsertionControl::clearPendingVehicles(const std::string& route) {
     //clear out the refused vehicle list, deleting the vehicles entirely
     MSVehicleContainer::VehicleVector::iterator veh;
     for (veh = myPendingEmits.begin(); veh != myPendingEmits.end();) {
@@ -326,12 +322,8 @@ MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) con
     // fill the public transport router with pre-parsed public transport lines
     for (const Flow& f : myFlows) {
         if (f.pars->line != "") {
-            const MSRoute* route = MSRoute::dictionary(f.pars->routeid);
-            const std::vector<SUMOVehicleParameter::Stop>* addStops = 0;
-            if (route != 0) {
-                addStops = &route->getStops();
-            }
-            router.getNetwork()->addSchedule(*f.pars, addStops);
+            const MSRoute* const route = MSRoute::dictionary(f.pars->routeid);
+            router.getNetwork()->addSchedule(*f.pars, route == nullptr ? nullptr : &route->getStops());
         }
     }
 }

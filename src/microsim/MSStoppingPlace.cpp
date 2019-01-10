@@ -11,7 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 13.12.2005
-/// @version $Id: MSStoppingPlace.cpp v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // A lane area vehicles can halt at
 /****************************************************************************/
@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <map>
@@ -99,7 +95,7 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
                 //    std::cout << SIMTIME << " fitPosFor " << forVehicle.getID() << " l=" << vehLength << " prev=" << prev << " vehBeg=" << it.first << " vehEnd=" << it.second.first << " found=" << (prev - it.first >= vehLength) << "\n";
                 //}
                 if (prev - it.first >= vehLength && (
-                            it.second.second->isParking() 
+                            it.second.second->isParking()
                             || it.second.second->remainingStopDuration() > TIME2STEPS(10))) {
                     return prev;
                 }
@@ -111,7 +107,7 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
     return myLastFreePos;
 }
 
-bool 
+bool
 MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
     // always fit at the default position or if at least half the vehicle length
     // is within the stop range (debatable)
@@ -215,6 +211,19 @@ MSStoppingPlace::getAccessDistance(const MSEdge* edge) const {
 const std::string&
 MSStoppingPlace::getMyName() const {
     return myName;
+}
+
+
+bool
+MSStoppingPlace::addAccess(MSLane* lane, const double pos, const double length) {
+    // prevent multiple accesss on the same lane
+    for (const auto& access : myAccessPos) {
+        if (lane == std::get<0>(access)) {
+            return false;
+        }
+    }
+    myAccessPos.push_back(std::make_tuple(lane, pos, length));
+    return true;
 }
 
 

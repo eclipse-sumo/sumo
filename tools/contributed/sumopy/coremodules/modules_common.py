@@ -10,6 +10,9 @@
 
 # @file    modules_common.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
+import os
+
+COREMODULEDIRPATH = os.path.dirname(os.path.abspath(__file__))

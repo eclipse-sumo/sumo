@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <vector>
@@ -124,7 +120,7 @@ public:
     GUISUMOAbstractView* getActiveView() const;
 
     /// @brief Toggle full screen mode
-    virtual long onCmdFullScreen(FXObject*, FXSelector, void*) { 
+    virtual long onCmdFullScreen(FXObject*, FXSelector, void*) {
         return 1;
     }
 

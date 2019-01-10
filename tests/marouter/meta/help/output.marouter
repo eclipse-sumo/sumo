@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version 27b98ce
+Eclipse SUMO marouter Version 7cc56db
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -53,7 +53,6 @@ Output Options:
 Processing Options:
   --aggregation-interval TIME       Defines the time interval when aggregating
                                       single vehicle input; Defaults to one hour
-  --ignore-errors                   Continue if a route could not be build
   --max-alternatives INT            Prune the number of alternatives to INT
   --weights.interpolate             Interpolate edge weights at interval
                                       boundaries
@@ -141,6 +140,7 @@ Report Options:
   --message-log FILE                Writes all non-error messages to FILE
                                       (implies verbose)
   --error-log FILE                  Writes all warnings and errors to FILE
+  --ignore-errors                   Continue if a route could not be build
 
 Random Number Options:
   --random                          Initialises the random number generator

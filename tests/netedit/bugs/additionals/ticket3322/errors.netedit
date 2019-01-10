@@ -1,3 +1,126 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
+Debug: Adding laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
+Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
+Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
+Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
+Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
+Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
+Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
+Debug: Removing e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
+Debug: Removing connection 'gneE1_2->gneE0_2' from edge 'gneE1'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Removing connection 'gneE0_2->gneE1_2' from edge 'gneE0'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Removing edge 'gneE0' from net
+Debug: Removing rerouter 'rerouter_0' in GNEChange_Additional
+Debug: Removing calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Debug: Removing routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Removing vaporizer 'gneE1' in GNEChange_Additional
+Debug: Setting new attribute lanes 'gneE1_1' into variableSpeedSign 'variableSpeedSign_0'
+Debug: Removing busStop 'busStop_gneE1_0_0' in GNEChange_Additional
+Debug: Removing laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
+Debug: Removing variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Removing laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
+Debug: Removing containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
+Debug: Removing chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Removing edge 'gneE1' from net
+Debug: Removing junction 'gneJ1' from net
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Adding junction 'gneJ1' into net
+Debug: Adding edge 'gneE1' from net
+Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
+Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
+Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
+Debug: Adding laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
+Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
+Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
+Debug: Setting previous attribute lanes 'gneE1_0 gneE1_1' into variableSpeedSign 'variableSpeedSign_0'
+Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
+Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
+Debug: Adding edge 'gneE0' from net
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
+Debug: declaring connections of edge 'gneE0' as loaded (It will not be removed)
+Debug: Adding connection 'gneE0_2->gneE1_2' into edge 'gneE0'
+Debug: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE1'
+Debug: declaring connections of edge 'gneE1' as loaded (It will not be removed)
+Debug: Adding connection 'gneE1_2->gneE0_2' into edge 'gneE1'
+Debug: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
+Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
+Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
+Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Opening FXMessageBox 'Force deletion needed'
+Debug: Closed FXMessageBox 'Force deletion needed' with 'OK'
+Debug: Key F5 (Compute) pressed
+Debug: Additionals saved
+Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced vaporizer 'gneE1'
+Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
+Debug: Deleting unreferenced rerouter 'rerouter_0'
+Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
+Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_1_0'
+Debug: Deleting unreferenced e1Detector 'e1Detector_gneE0_2_0'
+Debug: Deleting unreferenced containerStop 'containerStop_gneE1_1_0'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_2_0'
+Debug: Deleting unreferenced calibrator 'calibrator_gneE1_2'
+Debug: Deleting unreferenced laneCalibrator 'calibrator_gneE1_1_1'
+Debug: Deleting unreferenced laneCalibrator 'calibrator_gneE1_0_0'
+Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_2' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_2togneE1_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE1_2' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_2togneE0_2' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

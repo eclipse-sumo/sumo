@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version a355048
+Eclipse SUMO netconvert Version 0b587be
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -20,6 +20,8 @@ Input Options:
   -x, --connection-files FILE          Read XML-connection defs from FILE
   -i, --tllogic-files FILE             Read XML-traffic light defs from FILE
   -t, --type-files FILE                Read XML-type defs from FILE
+  --ptstop-files FILE                  Reads public transport stops from FILE
+  --ptline-files FILE                  Reads public transport lines from FILE
   --shapefile-prefix FILE              Read shapefiles (ArcView, Tiger, ...)
                                          from files starting with 'FILE'
   --dlr-navteq-prefix FILE             Read converted Navteq GDF data
@@ -77,11 +79,7 @@ Output Options:
   --ptline-clean-up                    Clean-up pt stops that are not served by
                                          any line
   --parking-output FILE                Writes parking areas to FILE
-  --osm.stop-output.footway-access-distance FLOAT  The search radius for
-                                         finding suitable road accesses for rail
-                                         stops
-  --osm.stop-output.footway-max-accesses INT  The maximum roud accesses
-                                         registered per rail stops
+  --railway.topology.output FILE       Analyse topology of the railway network
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees
@@ -104,12 +102,97 @@ Projection Options:
   --proj.dhdnutm                       Convert from Gauss-Krueger to UTM
   --proj.plain-geo                     Write geo coordinates in plain-xml
 
+Processing Options:
+  --speed-in-kmh                       vmax is parsed as given in km/h (some)
+  --construction-date STR              Use YYYY-MM-DD date to determine the
+                                         readiness of features under
+                                         construction
+  --plain.extend-edge-shape            If edge shapes do not end at the node
+                                         positions, extend them
+  --numerical-ids                      Remaps alphanumerical IDs of nodes and
+                                         edges to ensure that all IDs are
+                                         integers
+  --reserved-ids FILE                  Ensures that generated ids do not
+                                         included any of the typed IDs from FILE
+                                         (SUMO-GUI selection file format)
+  --dismiss-vclasses                   Removes vehicle class restrictions from
+                                         imported edges
+  --geometry.split                     Splits edges across geometry nodes
+  -R, --geometry.remove                Replace nodes which only define edge
+                                         geometry by geometry points (joins
+                                         edges)
+  --geometry.remove.keep-edges.explicit STR  Ensure that the given list of
+                                         edges is not modified
+  --geometry.remove.keep-edges.input-file FILE  Ensure that the edges in FILE
+                                         are not modified (Each id on a single
+                                         line. Selection files from SUMO-GUI are
+                                         also supported)
+  --geometry.max-segment-length FLOAT  splits geometry to restrict segment
+                                         length
+  --geometry.min-dist FLOAT            reduces too similar geometry points
+  --geometry.max-angle FLOAT           Warn about edge geometries with an angle
+                                         above DEGREES in successive segments
+  --geometry.min-radius FLOAT          Warn about edge geometries with a
+                                         turning radius less than METERS at the
+                                         start or end
+  --geometry.min-radius.fix            Straighten edge geometries to avoid
+                                         turning radii less than
+                                         geometry.min-radius
+  --geometry.junction-mismatch-threshold FLOAT  Warn if the junction shape is
+                                         to far away from the original node
+                                         position
+  --geometry.check-overlap FLOAT       Warn if edges overlap by more than the
+                                         given threshold value
+  --geometry.check-overlap.vertical-threshold FLOAT  Ignore overlapping edges
+                                         if they are separated vertically by the
+                                         given threshold.
+  --geometry.max-grade FLOAT           Warn about edge geometries with a grade
+                                         in % above FLOAT. The threshold applies
+                                         to roads with a speed limit of 50km/h
+                                         and is scaled according to road speed.
+  --geometry.avoid-overlap             Modify edge geometries to avoid overlap
+                                         at junctions
+  --offset.disable-normalization       Turn off normalizing node positions
+  --offset.x FLOAT                     Adds FLOAT to net x-positions
+  --offset.y FLOAT                     Adds FLOAT to net y-positions
+  --flip-y-axis                        Flips the y-coordinate along zero
+  --roundabouts.guess                  Enable roundabout-guessing
+  --opposites.guess                    Enable guessing of opposite direction
+                                         lanes usable for overtaking
+  --opposites.guess.fix-lengths        Ensure that opposite edges have the same
+                                         length
+  --lefthand                           Assumes left-hand traffic on the network
+  --edges.join                         Merges edges which connect the same
+                                         nodes and are close to each other
+                                         (recommended for VISSIM import)
+  --speed.offset FLOAT                 Modifies all edge speeds by adding FLOAT
+  --speed.factor FLOAT                 Modifies all edge speeds by multiplying
+                                         by FLOAT
+  --speed.minimum FLOAT                Modifies all edge speeds to at least
+                                         FLOAT
+
+Building Defaults Options:
+  -L, --default.lanenumber INT         The default number of lanes in an edge
+  --default.lanewidth FLOAT            The default width of lanes
+  -S, --default.speed FLOAT            The default speed on an edge (in m/s)
+  -P, --default.priority INT           The default priority of an edge
+  --default.sidewalk-width FLOAT       The default width of added sidewalks
+  --default.crossing-width FLOAT       The default width of a pedestrian
+                                         crossing
+  --default.disallow STR               The default for disallowed vehicle
+                                         classes
+  --default.junctions.keep-clear       Whether junctions should be kept clear
+                                         by default
+  --default.junctions.radius FLOAT     The default turning radius of
+                                         intersections
+
 TLS Building Options:
   --tls.discard-loaded                 Does not instatiate traffic lights
-                                         loaded from other formats than XML
+                                         loaded from other formats than
+                                         plain-XML
   --tls.discard-simple                 Does not instatiate traffic lights at
                                          geometry-like nodes loaded from other
-                                         formats than XML
+                                         formats than plain-XML
   --tls.set STR                        Interprets STR as list of junctions to
                                          be controlled by TLS
   --tls.unset STR                      Interprets STR as list of junctions to
@@ -170,6 +253,9 @@ TLS Building Options:
 
 Ramp Guessing Options:
   --ramps.guess                        Enable ramp-guessing
+  --ramps.guess-acceleration-lanes     Guess on-ramps and mark acceleration
+                                         lanes if they exist but do not add new
+                                         lanes
   --ramps.max-ramp-speed FLOAT         Treat edges with speed > FLOAT as no
                                          ramps
   --ramps.min-highway-speed FLOAT      Treat edges with speed < FLOAT as no
@@ -220,19 +306,125 @@ Unregulated Nodes Options:
   --keep-nodes-unregulated.explicit STR  Do not regulate nodes in STR
   --keep-nodes-unregulated.district-nodes  Do not regulate district nodes
 
-Processing Options:
-  --ignore-errors                      Continue on broken input
-  --ignore-errors.connections          Continue on invalid connections
-  --show-errors.connections-first-try  Show errors in connections at parsing
-  --ignore-errors.edge-type            Continue on unknown edge types
-  --lanes-from-capacity.norm FLOAT     The factor for flow to no. lanes
-                                         conversion
-  --speed-in-kmh                       vmax is parsed as given in km/h (some)
-  --construction-date STR              Use YYYY-MM-DD date to determine the
-                                         readiness of features under
-                                         construction
-  --plain.extend-edge-shape            If edge shapes do not end at the node
-                                         positions, extend them
+Junctions Options:
+  --no-internal-links                  Omits internal links
+  --no-turnarounds                     Disables building turnarounds
+  --no-turnarounds.tls                 Disables building turnarounds at
+                                         tls-controlled junctions
+  --no-turnarounds.except-deadend      Disables building turnarounds except at
+                                         dead end junctions
+  --no-left-connections                Disables building connections to left
+  --junctions.join                     Joins junctions that are close to each
+                                         other (recommended for OSM import)
+  --junctions.join-dist FLOAT          Determines the maximal distance for
+                                         joining junctions (defaults to 10)
+  --junctions.join-exclude STR         Interprets STR as list of junctions to
+                                         exclude from joining
+  --junctions.corner-detail INT        Generate INT intermediate points to
+                                         smooth out intersection corners
+  --junctions.internal-link-detail INT  Generate INT intermediate points to
+                                         smooth out lanes within the
+                                         intersection
+  --junctions.scurve-stretch FLOAT     Generate longer intersections to allow
+                                         for smooth s-curves when the number of
+                                         lanes changes
+  --junctions.join-turns               Builds common edges for turning
+                                         connections with common from- and
+                                         to-edge. This causes discrepancies
+                                         between geometrical length and assigned
+                                         length due to averaging but enables
+                                         lane-changing while turning
+  --junctions.limit-turn-speed FLOAT   Limits speed on junctions to an average
+                                         lateral acceleration of at most FLOAT
+                                         m/s^2)
+  --junctions.limit-turn-speed.min-angle FLOAT  Do not limit turn speed for
+                                         angular changes below FLOAT (degrees).
+                                         The value is subtracted from the
+                                         geometric angle before computing the
+                                         turning radius.
+  --junctions.limit-turn-speed.min-angle.railway FLOAT  Do not limit turn speed
+                                         for angular changes below FLOAT
+                                         (degrees) on railway edges. The value
+                                         is subtracted from the geometric angle
+                                         before computing the turning radius.
+  --junctions.limit-turn-speed.warn.straight FLOAT  Warn about turn speed
+                                         limits that reduce the speed of
+                                         straight connections by more than FLOAT
+  --junctions.limit-turn-speed.warn.turn FLOAT  Warn about turn speed limits
+                                         that reduce the speed of turning
+                                         connections (no u-turns) by more than
+                                         FLOAT
+  --junctions.small-radius FLOAT       Default radius for junctions that do not
+                                         require wide vehicle turns
+  --rectangular-lane-cut               Forces rectangular cuts between lanes
+                                         and intersections
+  --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
+                                         there are foes on other lanes (at
+                                         roundabouts)
+  --check-lane-foes.all                Allow driving onto a multi-lane road if
+                                         there are foes on other lanes
+                                         (everywhere)
+
+Pedestrian Options:
+  --sidewalks.guess                    Guess pedestrian sidewalks based on edge
+                                         speed
+  --sidewalks.guess.max-speed FLOAT    Add sidewalks for edges with a speed
+                                         equal or below the given limit
+  --sidewalks.guess.min-speed FLOAT    Add sidewalks for edges with a speed
+                                         above the given limit
+  --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
+                                         pedestrians on any of their lanes
+                                         regardless of speed
+  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
+                                         list of edges
+  --crossings.guess                    Guess pedestrian crossings based on the
+                                         presence of sidewalks
+  --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
+                                         crossings across edges with a speed
+                                         above the threshold
+  --walkingareas                       Always build walking areas even if there
+                                         are no crossings
+
+Railway Options:
+  --railway.signals.discard            Discard all railway signal information
+                                         loaded from other formats than
+                                         plain-xml
+  --railway.topology.repair            Repair topology of the railway network
+  --railway.topology.repair.connect-straight  Allow bidiretional rail use
+                                         wherever rails with opposite directions
+                                         meet at a straight angle
+  --railway.topology.all-bidi          Make all rails usable in both direction
+  --railway.access-distance FLOAT      The search radius for finding suitable
+                                         road accesses for rail stops
+  --railway.max-accesses INT           The maximum roud accesses registered per
+                                         rail stops
+  --railway.access-factor FLOAT        The walking length of the access is
+                                         computed as air-line distance
+                                         multiplied by FLOAT
+
+Formats Options:
+  --osm.skip-duplicates-check          Skips the check for duplicate nodes and
+                                         edges
+  --osm.elevation                      Imports elevation data
+  --osm.layer-elevation FLOAT          Reconstruct (relative) elevation based
+                                         on layer data. Each layer is raised by
+                                         FLOAT m
+  --osm.layer-elevation.max-grade FLOAT  Maximum grade threshold in % at 50km/h
+                                         when reconstrucing elevation based on
+                                         layer data. The value is scaled
+                                         according to road speed.
+  --osm.oneway-spread-right            Whether one-way roads should be spread
+                                         to the side instead of centered
+  --osm.stop-output.length FLOAT       The default length of a public transport
+                                         stop in FLOAT m
+  --osm.stop-output.length.bus FLOAT   The default length of a bus stop in
+                                         FLOAT m
+  --osm.stop-output.length.tram FLOAT  The default length of a tram stop in
+                                         FLOAT m
+  --osm.stop-output.length.train FLOAT  The default length of a train stop in
+                                         FLOAT m
+  --osm.all-attributes                 Whether additional attributes shall be
+                                         imported
   --matsim.keep-length                 The edge lengths given in the
                                          MATSIM-file will be kept
   --matsim.lanes-from-capacity         The lane number will be computed from
@@ -268,28 +460,8 @@ Processing Options:
                                          edges' capacities
   --visum.verbose-warnings             Prints all warnings, some of which are
                                          due to VISUM misbehaviour
-  --osm.skip-duplicates-check          Skips the check for duplicate nodes and
-                                         edges
-  --osm.elevation                      Imports elevation data
-  --osm.layer-elevation FLOAT          Reconstruct (relative) elevation based
-                                         on layer data. Each layer is raised by
-                                         FLOAT m
-  --osm.layer-elevation.max-grade FLOAT  Maximum grade threshold in % at 50km/h
-                                         when reconstrucing elevation based on
-                                         layer data. The value is scaled
-                                         according to road speed.
-  --osm.oneway-spread-right            Whether one-way roads should be spread
-                                         to the side instead of centered
-  --osm.stop-output.length FLOAT       The default length of a public transport
-                                         stop in FLOAT m
-  --osm.stop-output.length.bus FLOAT   The default length of a bus stop in
-                                         FLOAT m
-  --osm.stop-output.length.tram FLOAT  The default length of a tram stop in
-                                         FLOAT m
-  --osm.stop-output.length.train FLOAT  The default length of a train stop in
-                                         FLOAT m
-  --osm.all-attributes                 Whether additional attributes shall be
-                                         imported
+  --visum.lanes-from-capacity.norm FLOAT  The factor for flow to no. lanes
+                                         conversion
   --opendrive.import-all-lanes         Imports all lane types
   --opendrive.ignore-widths            Whether lane widths shall be ignored.
   --opendrive.curve-resolution FLOAT   The geometry resolution in m when
@@ -300,131 +472,7 @@ Processing Options:
                                          allow so
   --opendrive.min-width FLOAT          The minimum lane width for determining
                                          start or end of variable-width lanes
-  --no-internal-links                  Omits internal links
-  --numerical-ids                      Remaps alphanumerical IDs of nodes and
-                                         edges to ensure that all IDs are
-                                         integers
-  --reserved-ids FILE                  Ensures that generated ids do not
-                                         included any of the typed IDs from FILE
-                                         (SUMO-GUI selection file format)
-  --dismiss-vclasses                   Removes vehicle class restrictions from
-                                         imported edges
-  --no-turnarounds                     Disables building turnarounds
-  --no-turnarounds.tls                 Disables building turnarounds at
-                                         tls-controlled junctions
-  --no-left-connections                Disables building connections to left
-  --geometry.split                     Splits edges across geometry nodes
-  -R, --geometry.remove                Replace nodes which only define edge
-                                         geometry by geometry points (joins
-                                         edges)
-  --geometry.remove.keep-edges.explicit STR  Ensure that the given list of
-                                         edges is not modified
-  --geometry.remove.keep-edges.input-file FILE  Ensure that the edges in FILE
-                                         are not modified (Each id on a single
-                                         line. Selection files from SUMO-GUI are
-                                         also supported)
-  --geometry.max-segment-length FLOAT  splits geometry to restrict segment
-                                         length
-  --geometry.min-dist FLOAT            reduces too similar geometry points
-  --geometry.max-angle FLOAT           Warn about edge geometries with an angle
-                                         above DEGREES in successive segments
-  --geometry.min-radius FLOAT          Warn about edge geometries with a
-                                         turning radius less than METERS at the
-                                         start or end
-  --geometry.min-radius.fix            Straighten edge geometries to avoid
-                                         turning radii less than
-                                         geometry.min-radius
-  --geometry.junction-mismatch-threshold FLOAT  Warn if the junction shape is
-                                         to far away from the original node
-                                         position
-  --geometry.check-overlap FLOAT       Warn if edges overlap by more than the
-                                         given threshold value
-  --geometry.check-overlap.vertical-threshold FLOAT  Ignore overlapping edges
-                                         if they are separated vertically by the
-                                         given threshold.
-  --geometry.max-grade FLOAT           Warn about edge geometries with a grade
-                                         in % above FLOAT. The threshold applies
-                                         to roads with a speed limit of 50km/h
-                                         and is scaled according to road speed.
-  --offset.disable-normalization       Turn off normalizing node positions
-  --offset.x FLOAT                     Adds FLOAT to net x-positions
-  --offset.y FLOAT                     Adds FLOAT to net y-positions
-  --flip-y-axis                        Flips the y-coordinate along zero
-  --roundabouts.guess                  Enable roundabout-guessing
-  --opposites.guess                    Enable guessing of opposite direction
-                                         lanes usable for overtaking
-  --opposites.guess.fix-lengths        Ensure that opposite edges have the same
-                                         length
-  --lefthand                           Assumes left-hand traffic on the network
-  --edges.join                         Merges edges which connect the same
-                                         nodes and are close to each other
-                                         (recommended for VISSIM import)
-  --junctions.join                     Joins junctions that are close to each
-                                         other (recommended for OSM import)
-  --junctions.join-dist FLOAT          Determines the maximal distance for
-                                         joining junctions (defaults to 10)
-  --junctions.join-exclude STR         Interprets STR as list of junctions to
-                                         exclude from joining
-  --speed.offset FLOAT                 Modifies all edge speeds by adding FLOAT
-  --speed.factor FLOAT                 Modifies all edge speeds by multiplying
-                                         by FLOAT
-  --speed.minimum FLOAT                Modifies all edge speeds to at least
-                                         FLOAT
-  --junctions.corner-detail INT        Generate INT intermediate points to
-                                         smooth out intersection corners
-  --junctions.internal-link-detail INT  Generate INT intermediate points to
-                                         smooth out lanes within the
-                                         intersection
-  --junctions.scurve-stretch FLOAT     Generate longer intersections to allow
-                                         for smooth s-curves when the number of
-                                         lanes changes
-  --junctions.join-turns               Builds common edges for turning
-                                         connections with common from- and
-                                         to-edge. This causes discrepancies
-                                         between geometrical length and assigned
-                                         length due to averaging but enables
-                                         lane-changing while turning
-  --rectangular-lane-cut               Forces rectangular cuts between lanes
-                                         and intersections
-  --check-lane-foes.roundabout         Allow driving onto a multi-lane road if
-                                         there are foes on other lanes (at
-                                         roundabouts)
-  --check-lane-foes.all                Allow driving onto a multi-lane road if
-                                         there are foes on other lanes
-                                         (everywhere)
-  --sidewalks.guess                    Guess pedestrian sidewalks based on edge
-                                         speed
-  --sidewalks.guess.max-speed FLOAT    Add sidewalks for edges with a speed
-                                         equal or below the given limit
-  --sidewalks.guess.min-speed FLOAT    Add sidewalks for edges with a speed
-                                         above the given limit
-  --sidewalks.guess.from-permissions   Add sidewalks for edges that allow
-                                         pedestrians on any of their lanes
-                                         regardless of speed
-  --sidewalks.guess.exclude STR        Do not guess sidewalks for the given
-                                         list of edges
-  --crossings.guess                    Guess pedestrian crossings based on the
-                                         presence of sidewalks
-  --crossings.guess.speed-threshold FLOAT  At uncontrolled nodes, do not build
-                                         crossings across edges with a speed
-                                         above the threshold
-  --walkingareas                       Always build walking areas even if there
-                                         are no crossings
-
-Building Defaults Options:
-  -L, --default.lanenumber INT         The default number of lanes in an edge
-  --default.lanewidth FLOAT            The default width of lanes
-  -S, --default.speed FLOAT            The default speed on an edge (in m/s)
-  -P, --default.priority INT           The default priority of an edge
-  --default.sidewalk-width FLOAT       The default width of added sidewalks
-  --default.crossing-width FLOAT       The default width of a pedestrian
-                                         crossing
-  --default.disallow STR               The default for disallowed vehicle
-                                         classes
-  --default.junctions.keep-clear       Whether junctions should be kept clear
-                                         by default
-  --default.junctions.radius FLOAT     The default turning radius of
-                                         intersections
+  --opendrive.internal-shapes          Import internal lane shapes
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -442,6 +490,10 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                          (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --ignore-errors                      Continue on broken input
+  --ignore-errors.connections          Continue on invalid connections
+  --show-errors.connections-first-try  Show errors in connections at parsing
+  --ignore-errors.edge-type            Continue on unknown edge types
 
 Random Number Options:
   --random                             Initialises the random number generator

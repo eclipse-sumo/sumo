@@ -11,5 +11,4 @@ Ignoring duplicate specification.
 Warning: Duplicate definition of stopOffset for edge 3si.
 Ignoring duplicate specification.
 Warning: Ignoring invalid stopOffset for edge 2si (negative offset).
-Warning: Ignoring invalid stopOffset for lane 1 on edge 1si (offset larger than the lane length).
 Quitting (on error).

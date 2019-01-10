@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/27/18 08:29:49 by Eclipse SUMO duarouter Version v0_32_0+1246-dd15d61b19
+<!-- generated on 07/06/18 17:30:50 by Eclipse SUMO duarouter Version UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,14 +29,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="p0_b0" depart="triggered">
+    <vehicle id="p0_b0" type="DEFAULT_BIKETYPE" depart="triggered">
         <routeDistribution last="0">
             <route cost="0.00" probability="0.00000000" edges="beg beg2left"/>
         </routeDistribution>
     </vehicle>
     <person id="p0" depart="0.00">
-        <ride cost="134.74" from="beg" to="beg2left" busStop="beg2left" lines="p0_b0"/>
-        <ride cost="225.26" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
+        <ride cost="135.64" from="beg" to="beg2left" busStop="beg2left" lines="p0_b0"/>
+        <ride cost="224.36" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
         <walk cost="241.57" edges="left2end end"/>
     </person>
 </routes>

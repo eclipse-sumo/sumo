@@ -23,6 +23,9 @@ vclass_additional_file
 # generate vType with the given vehicle_class and extra attributes
 vehicle_class
 
+# handle conflict between generated vType and user-defined vType attribute
+vehicle_class_trip_attribute_vType
+
 # generate vType with the given vehicle_class and extra attributes
 vehicle_class_persontrips
 

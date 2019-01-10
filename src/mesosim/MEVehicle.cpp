@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <cassert>
@@ -33,12 +29,16 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/output/MSStopOut.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <microsim/devices/MSDevice.h>
 #include "MELoop.h"
 #include "MEVehicle.h"
@@ -175,7 +175,7 @@ MEVehicle::isParking() const {
 
 
 bool
-MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool addStops, bool removeStops) {
+MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addStops, bool removeStops) {
     UNUSED_PARAMETER(addStops); // @todo recheck!
     UNUSED_PARAMETER(removeStops); // @todo recheck!
     const ConstMSEdgeVector& edges = newRoute->getEdges();
@@ -211,7 +211,7 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, bool onInit, int offset, bool a
     calculateArrivalParams();
     // save information that the vehicle was rerouted
     myNumberReroutes++;
-    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE);
+    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE, info);
     calculateArrivalParams();
     return true;
 }
@@ -224,7 +224,9 @@ MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*err
     assert(edge != 0);
     MESegment* stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(*edge, stopPar.endPos);
     myStops[stopSeg].push_back(stopPar);
-    myStops[stopSeg].back().until += untilOffset;
+    if (myStops[stopSeg].back().until >= 0) {
+        myStops[stopSeg].back().until += untilOffset;
+    }
     myStopEdges.push_back(edge);
     return true;
 }
@@ -265,7 +267,7 @@ MEVehicle::getStoptime(const MESegment* const seg, SUMOTime time) const {
 }
 
 
-double 
+double
 MEVehicle::getCurrentStoppingTimeSeconds() const {
     return STEPS2TIME(getStoptime(mySegment, myLastEntryTime) - myLastEntryTime);
 }
@@ -275,6 +277,37 @@ const ConstMSEdgeVector
 MEVehicle::getStopEdges() const {
 // TODO: myStopEdges still needs to be updated when leaving a stop
     return myStopEdges;
+}
+
+
+void
+MEVehicle::processStop() {
+    assert(isStopped());
+    MSEdge* edge = const_cast<MSEdge*>(getEdge());
+    for (const SUMOVehicleParameter::Stop& stop : myStops.find(mySegment)->second) {
+        //SUMOTime started = MSNet::getInstance()->getCurrentTimeStep() - TIME2STEPS(getCurrentStoppingTimeSeconds());
+        SUMOTime started = myLastEntryTime;
+        //std::cout << SIMTIME << " veh=" << getID() << " lastEntry=" << STEPS2TIME(myLastEntryTime) << " stopStarted=" << STEPS2TIME(started) << "\n";
+        if (MSStopOut::active()) {
+            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), started);
+        }
+        MSNet* const net = MSNet::getInstance();
+        SUMOTime dummyDuration; // boarding- and loading-time are not considered
+        if (net->hasPersons()) {
+            net->getPersonControl().boardAnyWaiting(edge, this, stop, started, dummyDuration);
+        }
+        if (net->hasContainers()) {
+            net->getContainerControl().loadAnyWaiting(edge, this, stop, started, dummyDuration);
+        }
+        MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
+        if (vehroutes != 0) {
+            vehroutes->stopEnded(stop);
+        }
+        if (MSStopOut::active()) {
+            MSStopOut::getInstance()->stopEnded(this, stop, mySegment->getEdge().getID());
+        }
+    }
+    MSNet::getInstance()->getVehicleControl().removeWaiting(&mySegment->getEdge(), this);
 }
 
 

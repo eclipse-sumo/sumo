@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/14/16 16:02:21 by SUMO Version dev-SVN-r21978
+<!-- generated on Sat Jun 30 00:10:22 2018 by Eclipse SUMO Version 4bc4520
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,10 @@ SPDX-License-Identifier: EPL-2.0
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <report>
         <xml-validation value="never"/>
@@ -114,8 +118,8 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="87.00" id="C" programID="0" phase="2" state="rr"/>
     <tlsState time="88.00" id="C" programID="0" phase="2" state="rr"/>
     <tlsState time="89.00" id="C" programID="0" phase="2" state="rr"/>
-    <tlsState time="90.00" id="C" programID="0" phase="0" state="GG"/>
-    <tlsState time="91.00" id="C" programID="0" phase="0" state="GG"/>
+    <tlsState time="90.00" id="C" programID="0" phase="2" state="rr"/>
+    <tlsState time="91.00" id="C" programID="0" phase="2" state="rr"/>
     <tlsState time="92.00" id="C" programID="0" phase="0" state="GG"/>
     <tlsState time="93.00" id="C" programID="0" phase="0" state="GG"/>
     <tlsState time="94.00" id="C" programID="0" phase="0" state="GG"/>
@@ -170,4 +174,6 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="143.00" id="C" programID="0" phase="0" state="GG"/>
     <tlsState time="144.00" id="C" programID="0" phase="0" state="GG"/>
     <tlsState time="145.00" id="C" programID="0" phase="0" state="GG"/>
+    <tlsState time="146.00" id="C" programID="0" phase="0" state="GG"/>
+    <tlsState time="147.00" id="C" programID="0" phase="0" state="GG"/>
 </tlsStates>

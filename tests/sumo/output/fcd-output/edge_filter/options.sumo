@@ -1,0 +1,3 @@
+--fcd-output=fcd.xml --no-step-log --no-duration-log --net-file=net.net.xml
+-a input_routes.rou.xml 
+--fcd-output.filter-edges.input-file input_selection.txt

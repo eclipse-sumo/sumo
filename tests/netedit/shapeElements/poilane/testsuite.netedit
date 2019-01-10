@@ -5,14 +5,17 @@ create
 # delete poi
 delete
 
-# inspect shape
+# inspect poilanes
 inspect
 
-# inspect selection
-inspect_selection
+# inspect selected poilanes
+inspect_selected
 
 # load poi
 #load
+
+# load pois with generic parameters
+#load_genericparameters
 
 # move poi
 #move

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -57,8 +53,9 @@
 RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
                                const bool tryRepair,
                                const bool emptyDestinationsAllowed,
-                               const bool ignoreErrors) :
-    SUMORouteHandler(file),
+                               const bool ignoreErrors,
+                               const bool checkSchema) :
+    SUMORouteHandler(file, checkSchema ? "routes" : ""),
     myNet(net),
     myActivePerson(0),
     myActiveContainerPlan(0),
@@ -163,14 +160,28 @@ RORouteHandler::myStartElement(int element,
             } else if (plan.empty()) {
                 throw ProcessError("The start edge for person '" + pid + "' is not known.");
             }
-            const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, pid.c_str(), ok);
-            ROEdge* to = myNet.getEdge(toID);
-            if (to == 0) {
-                throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+            ROEdge* to = 0;
+            const SUMOVehicleParameter::Stop* stop = 0;
+            const std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, pid.c_str(), ok, "");
+            const std::string busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, pid.c_str(), ok, "");
+            if (toID != "") {
+                to = myNet.getEdge(toID);
+                if (to == 0) {
+                    throw ProcessError("The to edge '" + toID + "' within a ride of person '" + pid + "' is not known.");
+                }
+            } else if (busStopID != "") {
+                stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
+                if (stop == nullptr) {
+                    throw ProcessError("Unknown bus stop '" + busStopID + "' within a ride of '" + myVehicleParameter->id + "'.");
+                }
+                to = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop->lane));
+            } else {
+                throw ProcessError("The to edge '' within a ride of '" + myVehicleParameter->id + "' is not known.");
             }
+            double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
+                                stop == 0 ? -NUMERICAL_EPS : stop->endPos);
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
-            const std::string busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, pid.c_str(), ok, "");
-            myActivePerson->addRide(from, to, desc, busStop);
+            myActivePerson->addRide(from, to, desc, arrivalPos, busStopID);
             break;
         }
         case SUMO_TAG_CONTAINER:
@@ -351,6 +362,23 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
         myActiveRouteID = "";
         myActiveRouteStops.clear();
         return;
+    }
+    if (!mayBeDisconnected && OptionsCont::getOptions().exists("no-internal-links") && !OptionsCont::getOptions().getBool("no-internal-links")) {
+        // fix internal edges which did not get parsed
+        const ROEdge* last = nullptr;
+        ConstROEdgeVector fullRoute;
+        for (const ROEdge* roe : myActiveRoute) {
+            if (last != nullptr) {
+                for (const ROEdge* intern : last->getSuccessors()) {
+                    if (intern->isInternal() && intern->getSuccessors().size() == 1 && intern->getSuccessors().front() == roe) {
+                        fullRoute.push_back(intern);
+                    }
+                }
+            }
+            fullRoute.push_back(roe);
+            last = roe;
+        }
+        myActiveRoute = fullRoute;
     }
     RORoute* route = new RORoute(myActiveRouteID, myCurrentCosts, myActiveRouteProbability, myActiveRoute,
                                  myActiveRouteColor, myActiveRouteStops);
@@ -670,11 +698,11 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const char* const id = myVehicleParameter->id.c_str();
     assert(!attrs.hasAttribute(SUMO_ATTR_EDGES));
-    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, id, ok);
+    const std::string fromID = attrs.getOpt<std::string>(SUMO_ATTR_FROM, id, ok, "");
     std::string toID = attrs.getOpt<std::string>(SUMO_ATTR_TO, id, ok, "");
     const std::string busStopID = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, id, ok, "");
 
-    const ROEdge* from = myNet.getEdge(fromID);
+    const ROEdge* from = fromID != "" || myActivePerson->getPlan().empty() ? myNet.getEdge(fromID) : myActivePerson->getPlan().back()->getDestination();
     if (from == nullptr) {
         myErrorOutput->inform("The edge '" + fromID + "' within a walk or personTrip of '" + myVehicleParameter->id + "' is not known."
                               + "\n The route can not be build.");
@@ -694,7 +722,11 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         ok = false;
     }
 
-    double departPos = 0.;
+    double departPos = myActivePerson->getParameter().departPos;
+    if (!myActivePerson->getPlan().empty()) {
+        departPos = myActivePerson->getPlan().back()->getDestinationPos();
+    }
+
     double arrivalPos = 0.;
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");

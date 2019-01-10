@@ -11,17 +11,22 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-06-23
-# @version $Id: xml.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+# @version $Id$
 
 from __future__ import print_function
 from __future__ import absolute_import
 import sys
 import re
 import datetime
-import xml.etree.cElementTree as ET
+try:
+    import xml.etree.cElementTree as ET
+except ImportError as e:
+    print("recovering from ImportError '%s'" % e)
+    import xml.etree.ElementTree as ET
 from collections import namedtuple, OrderedDict
 from keyword import iskeyword
 from functools import reduce
+import xml.sax.saxutils
 
 
 def _prefix_keyword(name, warn=False):
@@ -122,10 +127,10 @@ def compound_object(element_name, attrnames, warn=False):
             return "<%s,child_dict=%s>" % (self.getAttributes(), dict(self._child_dict))
 
         def toXML(self, initialIndent="", indent="    "):
-            fields = ['%s="%s"' % (self._original_fields[i], str(getattr(self, k)))
-                      for i, k in enumerate(self._fields) if getattr(self, k) is not None 
+            fields = ['%s="%s"' % (self._original_fields[i], str_possibly_unicode(getattr(self, k)))
+                      for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
-                      and not '{' in self._original_fields[i]]
+                      '{' not in self._original_fields[i]]
             if not self._child_dict:
                 return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
             else:
@@ -140,6 +145,13 @@ def compound_object(element_name, attrnames, warn=False):
             return str(self)
 
     return CompoundObject
+
+def str_possibly_unicode(val):
+    # there is probably a better way to do this
+    try:
+        return str(val)
+    except UnicodeEncodeError:
+        return val.encode('utf8')
 
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
@@ -179,7 +191,10 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
 
 
 _NO_CHILDREN = {}
-_IDENTITY = lambda x: x
+
+
+def _IDENTITY(x):
+    return x
 
 
 def _get_compound_object(node, elementTypes, element_name, element_attrs, attr_conversions, heterogeneous, warn):
@@ -230,6 +245,18 @@ def average(elements, attrname):
     else:
         raise Exception("average of 0 elements is not defined")
 
+def _createRecordAndPattern(element_name, attrnames, warn, optional):
+    prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
+    if optional:
+        pattern = ''.join(['<%s' % element_name] +
+                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
+    else:
+        pattern = '.*'.join(['<%s' % element_name] +
+                            ['%s="([^"]*)"' % attr for attr in attrnames])
+    Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
+    reprog = re.compile(pattern)
+    return Record, reprog
+
 
 def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
     """
@@ -238,15 +265,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
     the given order.
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
-    prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
-    if optional:
-        pattern = ''.join(['<%s' % element_name] +
-                          ['(\\s+%s="(?P<%s>[^"]*?)")?' % a for a in zip(attrnames, prefixedAttrnames)])
-    else:
-        pattern = '.*'.join(['<%s' % element_name] +
-                            ['%s="([^"]*)"' % attr for attr in attrnames])
-    Record = namedtuple(element_name, prefixedAttrnames)
-    reprog = re.compile(pattern)
+    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     for line in open(xmlfile):
         m = reprog.search(line)
         if m:
@@ -254,6 +273,33 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
                 yield Record(**m.groupdict())
             else:
                 yield Record(*m.groups())
+
+
+def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2, warn=False, optional=False):
+    """
+    Parses the given attrnames from all elements with element_name
+    And attrnames2 from element_name2 where element_name2 is a child element of element_name
+    @Note: The element must be on its own line and the attributes must appear in
+    the given order.
+    @Example: parse_fast_nested('fcd.xml', 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
+    """
+    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
+    Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
+    record = None
+    for line in open(xmlfile):
+        m2 = reprog2.search(line)
+        if m2:
+            if optional:
+                yield record, Record2(**m2.groupdict())
+            else:
+                yield record, Record2(*m2.groups())
+        else:
+            m = reprog.search(line)
+            if m:
+                if optional:
+                    record = Record(**m.groupdict())
+                else:
+                    record = Record(*m.groups())
 
 
 def writeHeader(outf, script, root=None, schemaPath=None):
@@ -266,4 +312,11 @@ def writeHeader(outf, script, root=None, schemaPath=None):
     if root is not None:
         if schemaPath is None:
             schemaPath = root + "_file.xsd"
-        outf.write('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n' % (root, schemaPath))
+        outf.write(('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                   'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
+
+
+def quoteattr(val):
+    # saxutils sometimes uses single quotes around the attribute
+    # we can prevent this by adding an artificial single quote to the value and removing it again
+    return '"' + xml.sax.saxutils.quoteattr("'" + val)[2:]

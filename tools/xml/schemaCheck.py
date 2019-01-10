@@ -63,7 +63,7 @@ def validate(root, f):
                 s = s[s.find(f.replace('\\', '/')) + len(f):]
                 print(os.path.abspath(
                     f)[len(root) + 1:].replace('\\', '/') + s, file=sys.stderr)
-    except:
+    except Exception:
         print("Error on parsing '%s'!" % os.path.abspath(
             f)[len(root) + 1:].replace('\\', '/'), file=sys.stderr)
         traceback.print_exc()
@@ -116,6 +116,7 @@ def main(srcRoot, toCheck, err):
                 print(scheme.error_log, file=err)
                 return 1
     return 0
+
 
 if __name__ == "__main__":
     if os.name == "posix" and not haveLxml:

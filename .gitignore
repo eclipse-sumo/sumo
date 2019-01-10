@@ -7,7 +7,6 @@
 /config.sub
 /configure
 /depcomp
-/examples
 /install-sh
 /libtool
 /ltmain.sh
@@ -19,7 +18,9 @@
 /latex
 /mirror
 # build dir 
+/cmake-build*
 /build/cmake-build*
+/build/cmake-codeblocks*
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
@@ -41,16 +42,20 @@
 /bin/testgeom*
 /bin/testmicrosim*
 /bin/testnetbuild*
+/bin/testlibsumo*
 /bin/*.dll
 /bin/*.so
 /bin/*.pyd
 /bin/osgPlugins*
 /bin/TraaS.jar
 /bin/RelWithDebInfo
+/bin/libsumo.py
 # docs dir, make artifacts
 /docs/doxygen
+/docs/examples
 /docs/javadoc
 /docs/pydoc
+/docs/tutorial
 /docs/userdoc
 # src dir, mostly configure / make stuff
 /src/config.h
@@ -80,9 +85,19 @@
 # tools dir
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
+/tools/game/racing/log
+/tools/game/racing/tripinfos.xml
+/tools/game/A10KW/*
+/tools/contributed/lisum/target
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
+/tools/libsumo/_libsumo.so
+/tools/libsumo/java/
+/tools/libsumo/libsumo.py
+/tools/libsumo/_libsumo.pyd
+/tools/libsumo/libsumoPYTHON_wrap.cxx
+/tools/libsumo/setup.py
 # extracted tests
 /tests/_*
 # global patterns
@@ -114,4 +129,4 @@ lib*.a
 *.lib
 *.res
 *.ipch
-/bin/libsumo.py
+

@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -86,6 +82,7 @@ protected:
             tlsControlled(false),
             railwayCrossing(false),
             railwaySignal(false),
+            railwayBufferStop(false),
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
             node(0) { }
@@ -104,6 +101,8 @@ protected:
         bool railwayCrossing;
         /// @brief Whether this is a railway (main) signal
         bool railwaySignal;
+        /// @brief Whether this is a railway buffer stop
+        bool railwayBufferStop;
         /// @brief Whether this is a public transport stop position
         bool ptStopPosition;
         /// @brief The length of the pt stop
@@ -583,6 +582,12 @@ protected:
 
         /// @brief ref of the pt line
         std::string myRef;
+
+        /// @brief service interval of the pt line in seconds
+        int myInterval;
+
+        /// @brief night service information of the pt line
+        std::string myNightService;
     };
 
 };

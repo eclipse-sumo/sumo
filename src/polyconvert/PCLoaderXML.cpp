@@ -22,28 +22,25 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
 #include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
-#include <utils/common/StdDefs.h>
-#include <polyconvert/PCPolyContainer.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/StdDefs.h>
+#include <utils/common/SysUtils.h>
+#include <polyconvert/PCPolyContainer.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/FileHelpers.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "PCLoaderXML.h"
 
@@ -67,11 +64,12 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         if (!FileHelpers::isReadable(*file)) {
             throw ProcessError("Could not open xml-file '" + *file + "'.");
         }
+        const long before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Parsing XML from '" + *file + "'");
         if (!XMLSubSys::runParser(handler, *file)) {
             throw ProcessError();
         }
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
     }
 }
 

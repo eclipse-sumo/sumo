@@ -44,3 +44,18 @@ ticket3648
 
 # vehicle.getLaneChangeState() with setLaneChangeMode()
 ticket3810
+
+# use busStop as shortcut without intending to use public transport
+ticket4141
+
+# crash on first call to simulationStep(time)
+ticket4214
+
+# add trip
+ticket4307
+ticket4418
+ticket4432
+
+# closing and re-opening a lane
+ticket4514
+ticket4563

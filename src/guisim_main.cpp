@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -64,6 +60,7 @@ main(int argc, char** argv) {
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the microscopic, multi-modal traffic simulation SUMO.");
     oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
+    gSimulation = true;
     int ret = 0;
     try {
         // initialise subsystems

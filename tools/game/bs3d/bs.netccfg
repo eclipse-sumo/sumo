@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+<!-- generated on Thu Sep  6 09:28:02 2018 by Eclipse SUMO netconvert Version v1_0_0+0032-77a1026
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="bsplain.nod.xml"/>
@@ -13,8 +16,8 @@
         <output-file value="bs.net.xml"/>
     </output>
 
-    <processing>
+    <report>
         <ignore-errors.edge-type value="true"/>
-    </processing>
+    </report>
 
 </configuration>

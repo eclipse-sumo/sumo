@@ -1,0 +1,9 @@
+shortcut via trainStop:
+  Stage(stageType=2, line='', destStop='trainstop1', edges=('beg2left',), travelTime=240.00192, cost=240.00192, intended='', depart=-1.0)
+  Stage(stageType=2, line='', destStop='', edges=('beg2left2',), travelTime=95.61120000000001, cost=95.61120000000001, intended='', depart=-1.0)
+
+train ride
+  Stage(stageType=2, line='', destStop='trainstop1', edges=('beg2left',), travelTime=240.00096000000002, cost=240.00096000000002, intended='', depart=-1.0)
+  Stage(stageType=3, line='train', destStop='trainstop2', edges=('gneE0',), travelTime=89.99999999999999, cost=89.99999999999999, intended='train.0', depart=300.0)
+  Stage(stageType=2, line='', destStop='', edges=('left2end',), travelTime=0.38880000000000114, cost=0.38880000000000114, intended='', depart=-1.0)
+

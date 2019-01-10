@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <utils/common/MsgHandler.h>
@@ -221,7 +217,7 @@ public:
     }
 
     /// @brief return the name for the given stopping place id
-    const std::string getStoppingPlaceName(const std::string& id) const; 
+    const std::string getStoppingPlaceName(const std::string& id) const;
     //@}
 
 

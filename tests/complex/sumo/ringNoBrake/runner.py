@@ -22,9 +22,9 @@ import sys
 import time
 sys.path.append(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-import traci
+import traci  # noqa
 import sumolib  # noqa
-
+from traci.exceptions import FatalTraCIError  # noqa
 
 DELTA_T = 1000
 
@@ -44,7 +44,7 @@ def runSingle(addOption):
             for v in vehs:
                 timeline[-1][v] = traci.vehicle.getSpeed(v)
             step += 1
-        except traciControl.FatalTraCIError:
+        except FatalTraCIError:
             print("Closed by SUMO")
             break
     traci.close()
@@ -62,6 +62,7 @@ def evalTimeline(timeline):
                     print(
                         " Mismatching velocity of vehicle %s at time %s (%s)" % (v, ct, s))
         ct = ct + 1
+
 
 print(">>> Building the network (with internal)")
 sys.stdout.flush()

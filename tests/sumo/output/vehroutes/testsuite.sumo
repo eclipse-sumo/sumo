@@ -61,5 +61,8 @@ route_dist
 # one vehicle with route distribution which is written completely
 dua
 
+# one vehicle with a single route that is written with costs
+dua_trip
+
 # Testing error cases
 errors

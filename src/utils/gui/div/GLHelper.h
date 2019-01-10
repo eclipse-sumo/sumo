@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <utility>
@@ -221,6 +217,14 @@ public:
      */
     static void drawFilledCircle(double width, int steps = 8);
 
+    /** @brief Draws a filled circle around (0,0) returning circle vertex
+     *
+     * The circle is drawn by calling drawFilledCircle(width, steps, 0, 360) and saving values of myCircleCoords.
+     *
+     * @param[in] width The width of the circle
+     * @param[in] steps The number of steps to divide the circle into
+     */
+    static std::vector<Position> drawFilledCircleReturnVertices(double width, int steps = 8);
 
     /** @brief Draws a filled circle around (0,0)
      *
@@ -271,6 +275,21 @@ public:
     static void drawTriangleAtEnd(const Position& p1, const Position& p2,
                                   double tLength, double tWidth);
 
+    /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
+    static const std::vector<RGBColor>& getDottedcontourColors(const int size);
+
+    /// @brief draw a dotted contour around the given Non closed shape with certain width
+    static void drawShapeDottedContour(const int type, const PositionVector& shape, const double width);
+
+    /// @brief draw a dotted contour around the given closed shape with certain width
+    static void drawShapeDottedContour(const int type, const PositionVector& shape);
+
+    /// @brief draw a dotted contour around the given non closed shapes with certain width
+    static void drawShapeDottedContour(const int type, const PositionVector& frontShape, const double offsetFrontShape, const PositionVector& backShape, const double offsetBackShape);
+
+    /// @brief draw a dotted contour around the given Position with certain width and height
+    static void drawShapeDottedContour(const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
+
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
 
@@ -300,9 +319,9 @@ public:
 
     /// @brief draw crossties for railroads or pedestrian crossings
     static void drawCrossTies(const PositionVector& geom,
-                       const std::vector<double>& rots,
-                       const std::vector<double>& lengths,
-                       double length, double spacing, double halfWidth, bool drawForSelecting ); 
+                              const std::vector<double>& rots,
+                              const std::vector<double>& lengths,
+                              double length, double spacing, double halfWidth, bool drawForSelecting);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);
@@ -328,6 +347,8 @@ private:
     static struct FONScontext* myFont;
     static double myFontSize;
 
+    /// @brief static vector with a list of alternated black/white colors (used for contourns)
+    static std::vector<RGBColor> myDottedcontourColors;
 };
 
 

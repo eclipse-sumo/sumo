@@ -1,7 +1,49 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08.08.2018 22:43:40 by Eclipse SUMO netedit Version 380f78341d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug224245.2860/netedit.gui/additionalElements/calibrator/create\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug224245.2860/netedit.gui/additionalElements/calibrator/create\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug224245.2860/netedit.gui/additionalElements/calibrator/create\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug224245.2860/netedit.gui/additionalElements/calibrator/create\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug224245.2860/netedit.gui/additionalElements/calibrator/create\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug224245.2860/netedit.gui/additionalElements/calibrator/create\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <calibrator id="calibrator_gneE0_0" edge="gneE0" pos="0.00"/>
     <calibrator id="calibrator_gneE0_1" edge="gneE0" pos="10.00"/>
     <calibrator id="calibrator_gneE1_2" edge="gneE1" pos="10.00" freq="250.00"/>
-    <calibrator id="calibrator_gneE1_3" edge="gneE1" pos="10.00" freq="250.00"/>
-    <calibrator id="calibrator_gneE1_4" edge="gneE1" pos="10.00" freq="250.00" output="myOwnOutput"/>
-</additionals>
+    <calibrator id="calibrator_gneE1_3" name="customName" edge="gneE1" pos="10.00" freq="250.00"/>
+    <calibrator id="calibrator_gneE1_4" name="customName" edge="gneE1" pos="10.00" freq="250.00"/>
+    <calibrator id="calibrator_gneE1_5" name="customName" edge="gneE1" pos="10.00" freq="250.00" output="myOwnOutput"/>
+</additional>

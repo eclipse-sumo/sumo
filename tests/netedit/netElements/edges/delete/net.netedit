@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.04.2018 10:48:06 by Netedit Version b46590447d
+<!-- generated on 03.09.2018 09:52:27 by Eclipse SUMO netedit Version d6cfaccbb6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/edges/delete\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/edges/delete\additionals.xml"/>
-        <shapes-output value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/edges/delete\shapes.xml"/>
-        <output-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/edges/delete\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/delete\net.net.xml"/>
     </output>
 
     <processing>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/delete\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/delete\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/delete\shapes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/edges/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,24 +44,24 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/Palcraft/.texttest/tmp/netedit.gui.12Apr091237.2220/netedit.gui/netElements/edges/delete\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/delete\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,50.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <edge id=":A_0" function="internal">
-        <lane id=":A_0_0" index="0" speed="13.90" length="4.67" shape="48.40,0.00 49.20,-1.20 50.00,-1.60 50.80,-1.20 51.60,0.00"/>
+        <lane id=":A_0_0" index="0" speed="3.65" length="4.67" shape="48.40,0.00 49.20,-1.20 50.00,-1.60 50.80,-1.20 51.60,0.00"/>
     </edge>
     <edge id=":A_w0" function="walkingarea">
         <lane id=":A_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.60" width="3.20" shape="50.00,0.00 53.20,0.00 53.20,0.00 56.40,0.00 43.60,0.00 46.80,0.00 46.80,0.00 50.00,0.00"/>
     </edge>
     <edge id=":B_0" function="internal">
-        <lane id=":B_0_0" index="0" speed="13.90" length="4.67" shape="51.60,100.00 50.80,101.20 50.00,101.60 49.20,101.20 48.40,100.00"/>
+        <lane id=":B_0_0" index="0" speed="3.65" length="4.67" shape="51.60,100.00 50.80,101.20 50.00,101.60 49.20,101.20 48.40,100.00"/>
     </edge>
     <edge id=":B_w0" function="walkingarea">
         <lane id=":B_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.60" width="3.20" shape="50.00,100.00 46.80,100.00 46.80,100.00 43.60,100.00 56.40,100.00 53.20,100.00 53.20,100.00 50.00,100.00"/>
@@ -65,16 +75,16 @@
         <lane id=":Center_2_1" index="1" speed="13.90" length="15.80" shape="51.60,35.70 51.60,51.50"/>
     </edge>
     <edge id=":Center_4" function="internal">
-        <lane id=":Center_4_0" index="0" speed="13.90" length="7.76" shape="42.10,42.00 43.46,41.61 44.42,40.42 45.01,38.46 45.20,35.70"/>
+        <lane id=":Center_4_0" index="0" speed="6.08" length="7.76" shape="42.10,42.00 43.46,41.61 44.42,40.42 45.01,38.46 45.20,35.70"/>
     </edge>
     <edge id=":Center_5" function="internal">
-        <lane id=":Center_5_0" index="0" speed="13.90" length="17.98" shape="42.10,42.00 47.66,42.59 51.63,44.38 54.01,47.34 54.80,51.50"/>
+        <lane id=":Center_5_0" index="0" speed="8.94" length="17.98" shape="42.10,42.00 47.66,42.59 51.63,44.38 54.01,47.34 54.80,51.50"/>
     </edge>
     <edge id=":Center_6" function="internal">
-        <lane id=":Center_6_0" index="0" speed="13.90" length="12.84" shape="42.10,45.20 44.86,44.61 46.83,42.83 48.01,39.86 48.40,35.70"/>
+        <lane id=":Center_6_0" index="0" speed="7.64" length="12.84" shape="42.10,45.20 44.86,44.61 46.83,42.83 48.01,39.86 48.40,35.70"/>
     </edge>
     <edge id=":Center_7" function="internal">
-        <lane id=":Center_7_0" index="0" speed="13.90" length="10.69" shape="42.10,48.40 46.26,48.59 49.22,49.17 51.01,50.14 51.60,51.50"/>
+        <lane id=":Center_7_0" index="0" speed="7.02" length="10.69" shape="42.10,48.40 46.26,48.59 49.22,49.17 51.01,50.14 51.60,51.50"/>
     </edge>
     <edge id=":Center_c0" function="crossing" crossingEdges="7">
         <lane id=":Center_c0_0" index="0" allow="pedestrian" speed="1.00" length="9.60" width="4.00" shape="44.10,50.00 44.10,40.40"/>
@@ -113,13 +123,13 @@
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,50.00 0.00,37.20"/>
-    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 5_0 5_1 7_0 7_1 7_2 7_3 :Center_w0_0" intLanes=":Center_0_0 :Center_0_1 :Center_2_0 :Center_2_1 :Center_4_0 :Center_5_0 :Center_6_0 :Center_7_0 :Center_c0_0" shape="43.60,51.50 56.40,51.50 56.40,35.70 43.60,35.70 42.10,37.20 42.10,50.00">
+    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 5_0 5_1 7_0 7_1 7_2 7_3 :Center_w0_0" intLanes=":Center_0_0 :Center_0_1 :Center_2_0 :Center_2_1 :Center_4_0 :Center_5_0 :Center_6_0 :Center_7_0 :Center_c0_0" shape="43.60,51.50 56.40,51.50 56.40,35.70 43.60,35.70 43.43,36.53 43.23,36.82 42.93,37.03 42.56,37.16 42.10,37.20 42.10,50.00 42.93,50.17 43.22,50.38 43.43,50.67 43.56,51.04">
         <request index="0" response="011110000" foes="011110000" cont="0"/>
-        <request index="1" response="011110000" foes="011110000" cont="0"/>
+        <request index="1" response="011100000" foes="011100000" cont="0"/>
         <request index="2" response="010100000" foes="010100000" cont="0"/>
         <request index="3" response="010100000" foes="010100000" cont="0"/>
         <request index="4" response="000000000" foes="100000011" cont="0"/>
-        <request index="5" response="000000000" foes="100001111" cont="0"/>
+        <request index="5" response="000000000" foes="101001111" cont="0"/>
         <request index="6" response="000100000" foes="100100011" cont="0"/>
         <request index="7" response="000000000" foes="100001111" cont="0"/>
         <request index="8" response="011110000" foes="011110000" cont="0"/>

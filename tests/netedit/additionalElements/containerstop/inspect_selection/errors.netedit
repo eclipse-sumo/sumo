@@ -1,3 +1,159 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding containerStop 'containerStopA' in GNEChange_Additional
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Setting new attribute selected 'true' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Setting new attribute selected 'true' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Current selection: 2 Junctions, 2 Edges, 0 Lanes, 0 connections, 2 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: Setting new attribute name 'commonName' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Setting new attribute name 'commonName' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute lines 'line3 line4' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Setting previous attribute lines 'line1 line2' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute friendlyPos '0' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Setting previous attribute friendlyPos '1' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute name 'containerStop' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Setting previous attribute name 'containerStop' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute name 'commonName' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Setting new attribute name 'commonName' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Setting new attribute lines 'commonLine1 commonLine2' into containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Inserted containerStop:containerStopA into SUMORTree with boundary -15.00,-23.20,30.00,16.80
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Inserted containerStop:containerStopB into SUMORTree with boundary -5.00,-23.20,40.00,16.80
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Deleting unreferenced containerStop 'containerStopB'
+GLDebug: Removed object containerStop:containerStopB from SUMORTree with boundary -5.00,-23.20,40.00,16.80
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced containerStop 'containerStopA'
+GLDebug: Removed object containerStop:containerStopA from SUMORTree with boundary -15.00,-23.20,30.00,16.80
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 6

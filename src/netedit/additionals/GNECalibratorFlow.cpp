@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -57,36 +53,20 @@
 // ===========================================================================
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibratorDialog* calibratorDialog, GNENet* net) :
-    GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
-    myCalibratorParent(calibratorDialog->getEditedCalibrator()),
-    myVehicleType(net->retrieveCalibratorVehicleType(DEFAULT_VTYPE_ID)),
-    myRoute(calibratorDialog->getEditedCalibrator()->getCalibratorRoutes().front()),
-    myVehsPerHour(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_VEHSPERHOUR)),
-    mySpeed(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_SPEED)),
-    myColor(getDefaultValue<RGBColor>(SUMO_TAG_FLOW, SUMO_ATTR_COLOR)),
-    myDepartLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTLANE)),
-    myDepartPos(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS)),
-    myDepartSpeed(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTSPEED)),
-    myArrivalLane(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_ARRIVALLANE)),
-    myArrivalPos(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_ARRIVALPOS)),
-    myArrivalSpeed(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_ARRIVALSPEED)),
-    myLine(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_LINE)),
-    myPersonNumber(getDefaultValue<int>(SUMO_TAG_FLOW, SUMO_ATTR_PERSON_NUMBER)),
-    myContainerNumber(getDefaultValue<int>(SUMO_TAG_FLOW, SUMO_ATTR_CONTAINER_NUMBER)),
-    myReroute(getDefaultValue<bool>(SUMO_TAG_FLOW, SUMO_ATTR_CONTAINER_NUMBER)),
-    myDepartPosLat(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_DEPARTPOS_LAT)),
-    myArrivalPosLat(getDefaultValue<std::string>(SUMO_TAG_FLOW, SUMO_ATTR_ARRIVALPOS_LAT)),
-    myBegin(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_BEGIN)),
-    myEnd(getDefaultValue<double>(SUMO_TAG_FLOW, SUMO_ATTR_END)) {}
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
+    GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, "", false),
+    myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
+    myRoute(calibratorParent->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).begin()->second) {
+    // fill calibrator flows with default values
+    setDefaultValues();
+}
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibratorVehicleType* vehicleType, GNECalibratorRoute* route, double vehsPerHour, double speed,
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string& vehsPerHour, const std::string& speed,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
-    GNEAttributeCarrier(SUMO_TAG_FLOW, ICON_EMPTY),
-    myCalibratorParent(calibratorParent),
+    GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW, "", false),
     myVehicleType(vehicleType),
     myRoute(route),
     myVehsPerHour(vehsPerHour),
@@ -109,86 +89,42 @@ GNECalibratorFlow::GNECalibratorFlow(GNECalibrator* calibratorParent, GNECalibra
 }
 
 
-GNECalibratorFlow::~GNECalibratorFlow() {
-    if(myCalibratorParent->calibratorFlowExist(this, false)) {
-        myCalibratorParent->removeCalibratorFlow(this);
-    }
+GNECalibratorFlow::~GNECalibratorFlow() {}
+
+
+void
+GNECalibratorFlow::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
 void
-GNECalibratorFlow::writeFlow(OutputDevice& device) {
-    // Open flow tag
-    device.openTag(getTag());
-    // Write begin
-    writeAttribute(device, SUMO_ATTR_BEGIN);
-    // Write end
-    writeAttribute(device, SUMO_ATTR_END);
-    // Write type
-    writeAttribute(device, SUMO_ATTR_TYPE);
-    // Write route
-    writeAttribute(device, SUMO_ATTR_ROUTE);
-    // write vehs per hour only if is different of -1
-    if(myVehsPerHour > 0) {
-        writeAttribute(device, SUMO_ATTR_VEHSPERHOUR);
-    }
-    // write speed only if is different of -1
-    if(mySpeed > 0) {
-        writeAttribute(device, SUMO_ATTR_SPEED);
-    }
-    // Write color
-    writeAttribute(device, SUMO_ATTR_COLOR);
-    // Write depart lane
-    writeAttribute(device, SUMO_ATTR_DEPARTLANE);
-    // Write depart pos
-    writeAttribute(device, SUMO_ATTR_DEPARTPOS);
-    // Write depart speed
-    writeAttribute(device, SUMO_ATTR_DEPARTSPEED);
-    // Write arrival lane
-    writeAttribute(device, SUMO_ATTR_ARRIVALLANE);
-    // Write arrival pos
-    writeAttribute(device, SUMO_ATTR_ARRIVALPOS);
-    // Write arrival speed
-    writeAttribute(device, SUMO_ATTR_ARRIVALSPEED);
-    // Write line
-    writeAttribute(device, SUMO_ATTR_LINE);
-    // Write person number
-    writeAttribute(device, SUMO_ATTR_PERSON_NUMBER);
-    // Write container number
-    writeAttribute(device, SUMO_ATTR_CONTAINER_NUMBER);
-    // Write reroute
-    writeAttribute(device, SUMO_ATTR_REROUTE);
-    // Write departPosLat
-    writeAttribute(device, SUMO_ATTR_DEPARTPOS_LAT);
-    // Write arrivalPosLat
-    writeAttribute(device, SUMO_ATTR_ARRIVALPOS_LAT);
-    // Close flow tag
-    device.closeTag();
+GNECalibratorFlow::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-GNECalibrator*
-GNECalibratorFlow::getCalibratorParent() const {
-    return myCalibratorParent;
+void
+GNECalibratorFlow::updateGeometry(bool /*updateGrid*/) {
+    // Currently this additional doesn't own a Geometry
 }
 
 
-void 
-GNECalibratorFlow::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+Position
+GNECalibratorFlow::getPositionInView() const {
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
-void 
-GNECalibratorFlow::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+std::string
+GNECalibratorFlow::getParentName() const {
+    return myFirstAdditionalParent->getID();
 }
 
 
-bool 
-GNECalibratorFlow::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+void
+GNECalibratorFlow::drawGL(const GUIVisualizationSettings& /* s */) const {
+    // Currently This additional isn't drawn
 }
 
 
@@ -196,7 +132,7 @@ std::string
 GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return myCalibratorParent->getID() + "_CalibratorFlow_" + toString(myCalibratorParent->getCalibratorFlowIndex(this));
+            return getAdditionalID();
         case SUMO_ATTR_TYPE:
             return myVehicleType->getID();
         case SUMO_ATTR_ROUTE:
@@ -235,6 +171,10 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             return myDepartPosLat;
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return myArrivalPosLat;
+        case GNE_ATTR_PARENT:
+            return myFirstAdditionalParent->getID();
+        case GNE_ATTR_GENERIC:
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -247,6 +187,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_COLOR:
@@ -266,6 +207,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_REROUTE:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -277,14 +219,38 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
 bool
 GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            return isValidAdditionalID(value);
         case SUMO_ATTR_TYPE:
-            return isValidID(value) && (value == DEFAULT_VTYPE_ID || (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value, false) != nullptr));
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return isValidID(value) && (myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
-            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (mySpeed != -1)));
+            if (value.empty()) {
+                // speed and vehsPerHour cannot be empty at the same time
+                if (mySpeed.empty()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (myVehsPerHour != -1)));
+            if (value.empty()) {
+                // speed and vehsPerHour cannot be empty at the same time
+                if (myVehsPerHour.empty()) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
@@ -295,7 +261,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
                 return true;
             } else {
-                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
+                return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_DEPARTPOS:
             if ((value == "random") || (value == "free") || (value == "random_free") || (value == "base") || (value == "last")) {
@@ -313,7 +279,7 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == "current") {
                 return true;
             } else {
-                return (myCalibratorParent->getViewNet()->getNet()->retrieveLane(value, false) != nullptr);
+                return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
             }
         case SUMO_ATTR_ARRIVALPOS:
             if ((value == "random") || (value == "max")) {
@@ -336,20 +302,26 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_REROUTE:
             return canParse<bool>(value);
         case SUMO_ATTR_DEPARTPOS_LAT:
-            if ((value == "left") || (value == "right") || (value == "center") || (value == "compact") || (value == "nice") || (value == "arbitrary")) {
-                return true;
-            } else {
-                return false;
-            }
+            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
         case SUMO_ATTR_ARRIVALPOS_LAT:
-            if ((value == "") || (value == "left") || (value == "right") || (value == "center")) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
+            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+std::string
+GNECalibratorFlow::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string
+GNECalibratorFlow::getHierarchyName() const {
+    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 // ===========================================================================
@@ -359,17 +331,20 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
+            break;
         case SUMO_ATTR_TYPE:
-            myVehicleType = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorVehicleType(value);
+            myVehicleType = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, value);
             break;
         case SUMO_ATTR_ROUTE:
-            myRoute = myCalibratorParent->getViewNet()->getNet()->retrieveCalibratorRoute(value);
+            myRoute = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            myVehsPerHour = parse<double>(value);
+            myVehsPerHour = value;
             break;
         case SUMO_ATTR_SPEED:
-            mySpeed = parse<double>(value);
+            mySpeed = value;
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
@@ -415,6 +390,9 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
             myArrivalPosLat = value;
+            break;
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
             break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");

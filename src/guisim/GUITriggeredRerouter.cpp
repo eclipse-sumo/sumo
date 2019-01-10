@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -117,7 +113,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
                           0, 0, 0, 0,   2, 2, 0, 0);
         myUsageProbabilityDial =
             new FXRealSpinner(gf12, 10, this, MID_USER_DEF,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+                              LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         //myUsageProbabilityDial->setFormatString("%.2f");
         //myUsageProbabilityDial->setIncrements(.1, .1, .1);
         myUsageProbabilityDial->setIncrement(.1);
@@ -218,9 +214,9 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
 // GUITriggeredRerouter - methods
 // -------------------------------------------------------------------------
 
-GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob, 
-    const std::string& aXMLFilename, bool off, SUMOTime timeThreshold, SUMORTree& rtree) :
-    MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold),
+GUITriggeredRerouter::GUITriggeredRerouter(const std::string& id, const MSEdgeVector& edges, double prob,
+        const std::string& aXMLFilename, bool off, SUMOTime timeThreshold, const std::string& vTypes, SUMORTree& rtree) :
+    MSTriggeredRerouter(id, edges, prob, aXMLFilename, off, timeThreshold, vTypes),
     GUIGlObject_AbstractAdd(GLO_REROUTER, id) {
     // add visualisation objects for edges which trigger the rerouter
     for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {

@@ -25,26 +25,21 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <utils/common/AbstractMutex.h>
 
 #ifndef WIN32
-typedef void* FXThreadMutex;        // handle to a mutex
+// handle to a mutex
+typedef void* FXThreadMutex;
 #else
 #define NOMINMAX
 #include <windows.h>
 #undef NOMINMAX
-typedef HANDLE FXThreadMutex;        // handle to a mutex
+// handle to a mutex
+typedef HANDLE FXThreadMutex;
 #endif
-
-
-
 
 /**
  * Recursive mutual exclusion object.
@@ -52,33 +47,41 @@ typedef HANDLE FXThreadMutex;        // handle to a mutex
  */
 class MFXMutex : public AbstractMutex {
 public:
-    /// create me a mutex :-)
+    /// @brief constructor
     MFXMutex();
 
-    /// lock mutex
-    void lock();
-
-    /// release mutex lock
-    void unlock();
-
-    /// dtor
+    /// @brief destructor
     virtual ~MFXMutex();
 
+    /// @brief lock mutex
+    void lock();
+
+    /// @brief release mutex lock
+    void unlock();
+
+    /// @brief check if mutex is locked
     inline FXbool locked() {
         return lock_ ? TRUE : FALSE;
     }
 
+    /// @brief return current lock value
+    inline FXuint lockCount() {
+        return lock_;
+    }
+
 protected:
-    FXuint lock_;          // lock count
+    /// @brief lock count
+    FXuint lock_;
 
 private:
+    /// @brief mutex handler
     FXThreadMutex mutexHandle;
 
-private:
-    // dummy copy constructor and operator= to prevent copying
-    MFXMutex(const MFXMutex&);
-    MFXMutex& operator=(const MFXMutex&);
+    // @brief invalidate copy constructor
+    MFXMutex(const MFXMutex&) = delete ;
 
+    // @brief invalidate asignment operators
+    MFXMutex& operator=(const MFXMutex&) = delete ;
 };
 
 #endif // FXMUTEX_H

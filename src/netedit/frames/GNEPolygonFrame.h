@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEFrame.h"
 
@@ -49,10 +45,10 @@ public:
 
     /// @brief enum with all possible values after try to create an shape using frame
     enum AddShapeResult {
-        ADDSHAPE_SUCCESS,   // Shape was successfully created
-        ADDSHAPE_NEWPOINT,  // New point was sucesfully added to temporal shape
-        ADDSHAPE_INVALID,   // Shape wasn't created
-        ADDSHAPE_NOTHING    // Nothing to do
+        ADDSHAPE_SUCCESS,               // Shape was successfully created
+        ADDSHAPE_UPDATEDTEMPORALSHAPE,  // Added or removed a new point to temporal shape
+        ADDSHAPE_INVALID,               // Shape wasn't created
+        ADDSHAPE_NOTHING                // Nothing to do
     };
 
     /// @brief class declaration
@@ -68,7 +64,7 @@ public:
 
     public:
         /// @brief constructor
-        ShapeSelector(GNEPolygonFrame *shapeFrameParent);
+        ShapeSelector(GNEPolygonFrame* shapeFrameParent);
 
         /// @brief destructor
         ~ShapeSelector();
@@ -91,7 +87,7 @@ public:
 
     private:
         /// @brief pointer to Shape Frame Parent
-        GNEPolygonFrame * myShapeFrameParent;
+        GNEPolygonFrame* myShapeFrameParent;
 
         /// @brief combo box with the list of shape elements
         FXComboBox* myShapeMatchBox;
@@ -110,25 +106,13 @@ public:
 
     public:
         /// @brief constructor
-        ShapeAttributeSingle(ShapeAttributes *shapeAttributesParent);
+        ShapeAttributeSingle(ShapeAttributes* shapeAttributesParent);
 
         /// @brief destructor
         ~ShapeAttributeSingle();
 
         /// @brief show name and value of attribute of type string
         void showParameter(SumoXMLAttr shapeAttr, std::string value);
-
-        /// @brief show name and value of parameters of type int
-        void showParameter(SumoXMLAttr shapeAttr, int value);
-
-        /// @brief show name and value of parameters of type float/real/time
-        void showParameter(SumoXMLAttr shapeAttr, double value);
-
-        /// @brief show name and value of parameters of type bool
-        void showParameter(SumoXMLAttr shapeAttr, bool value);
-
-        /// @brief show name and value of parameters of type Color
-        void showParameter(SumoXMLAttr shapeAttr, RGBColor value);
 
         /// @brief hide all parameters
         void hideParameter();
@@ -143,7 +127,7 @@ public:
         const std::string& isAttributeValid() const;
 
         /// @brief get shape attributes parent
-        ShapeAttributes *getShapeAttributesParent() const;
+        ShapeAttributes* getShapeAttributesParent() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -163,7 +147,7 @@ public:
 
     private:
         /// @brief pointer to ShapeAttributes
-        ShapeAttributes *myShapeAttributesParent;
+        ShapeAttributes* myShapeAttributesParent;
 
         /// @brief current XML attribute
         SumoXMLAttr myShapeAttr;
@@ -184,7 +168,7 @@ public:
         FXCheckButton* myBoolCheckButton;
 
         /// @brief Button for open color editor
-        FXButton* mycolorEditor;
+        FXButton* myColorEditor;
 
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
@@ -230,7 +214,7 @@ public:
         int getNumberOfAddedAttributes() const;
 
         /// @brief get PolygonFrame parent
-        GNEPolygonFrame * getPolygonFrameParent() const;
+        GNEPolygonFrame* getPolygonFrameParent() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -244,19 +228,10 @@ public:
 
     private:
         /// @brief pointer to Polygon Frame Parent
-        GNEPolygonFrame * myPolygonFrameParent;
+        GNEPolygonFrame* myPolygonFrameParent;
 
         /// @brief vector with the shape parameters
         std::vector<ShapeAttributeSingle*> myVectorOfsingleShapeParameter;
-
-        /// @brief Index for myVectorOfsingleShapeParameter
-        int myIndexParameter;
-
-        /// @brief index for myIndexParameterList
-        int myIndexParameterList;
-
-        /// @brief max number of parameters (Defined in constructor)
-        int myMaxNumberOfParameters;
     };
 
     // ===========================================================================
@@ -304,7 +279,7 @@ public:
 
     private:
         /// @brief Label for block movement
-        FXLabel * myBlockMovementLabel;
+        FXLabel* myBlockMovementLabel;
 
         /// @brief checkBox for block movement
         FXCheckButton* myBlockMovementCheckButton;
@@ -370,6 +345,12 @@ public:
         /// @brief return true if currently a shape is drawed
         bool isDrawing() const;
 
+        /// @brief enable or disable delete last created point
+        void setDeleteLastCreatedPoint(bool value);
+
+        /// @brief get flag delete last created point
+        bool getDeleteLastCreatedPoint();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press start drawing button
@@ -388,7 +369,10 @@ public:
 
     private:
         /// @brief frame frame parent
-        GNEPolygonFrame * myPolygonFrameParent;
+        GNEPolygonFrame* myPolygonFrameParent;
+
+        /// @brief flag to enable/disable delete point mode
+        bool myDeleteLastCreatedPoint;
 
         /// @brief button for start drawing
         FXButton* myStartDrawingButton;

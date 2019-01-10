@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 23 10:09:34 2018 by Eclipse SUMO netconvert Version cc0b5f1
+<!-- generated on Thu Aug 16 15:52:03 2018 by Eclipse SUMO netconvert Version c310b0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,9 +19,9 @@ SPDX-License-Identifier: EPL-2.0
         <output-file value="net.net.xml"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -30,145 +30,145 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" allow="bicycle pedestrian" speed="13.89" length="3.63" width="1.50" shape="89.85,112.40 89.71,111.42 89.29,110.71 88.58,110.29 87.60,110.15"/>
+        <lane id=":C_0_0" index="0" allow="bicycle pedestrian" speed="4.16" length="3.63" width="1.50" shape="89.85,112.40 89.71,111.42 89.29,110.71 88.58,110.29 87.60,110.15"/>
     </edge>
     <edge id=":C_1" function="internal">
         <lane id=":C_1_0" index="0" allow="bicycle pedestrian" speed="13.89" length="26.30" width="1.50" shape="89.85,112.40 89.85,86.10"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" allow="bicycle pedestrian" speed="13.89" length="24.02" width="3.00" shape="89.85,112.40 91.26,102.21 95.49,94.93 100.00,92.13"/>
+        <lane id=":C_2_0" index="0" allow="bicycle pedestrian" speed="12.16" length="2.42" width="3.00" shape="89.85,112.40 90.48,110.06"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" allow="pedestrian" speed="13.89" length="21.74" width="3.00" shape="89.85,112.40 91.26,103.52 95.49,97.18 100.00,94.74"/>
+        <lane id=":C_3_0" index="0" allow="pedestrian" speed="11.81" length="2.45" width="3.00" shape="89.85,112.40 90.52,110.05"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="7.53" shape="95.20,112.40 94.72,109.08 93.30,106.70 92.10,105.98"/>
+        <lane id=":C_4_0" index="0" allow="passenger" speed="7.48" length="7.53" shape="95.20,112.40 94.72,109.08 93.30,106.70 92.10,105.98"/>
     </edge>
     <edge id=":C_5" function="internal">
         <lane id=":C_5_0" index="0" allow="passenger" speed="13.89" length="26.30" shape="95.20,112.40 95.20,86.10"/>
         <lane id=":C_5_1" index="1" allow="passenger" speed="13.89" length="26.30" shape="98.40,112.40 98.40,86.10"/>
     </edge>
     <edge id=":C_7" function="internal">
-        <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" length="7.60" shape="98.40,112.40 99.28,106.28 100.00,105.07"/>
+        <lane id=":C_7_0" index="0" allow="passenger" speed="9.96" length="7.60" shape="98.40,112.40 99.28,106.28 100.00,105.07"/>
     </edge>
     <edge id=":C_32" function="internal">
-        <lane id=":C_32_0" index="0" speed="13.89" length="12.95" width="3.00" shape="100.00,92.13 102.53,90.56 112.40,89.10"/>
+        <lane id=":C_32_0" index="0" speed="12.16" length="32.28" width="3.00" shape="90.48,110.06 91.97,104.54 97.38,97.00 104.66,91.33 112.40,89.10"/>
     </edge>
     <edge id=":C_33" function="internal">
-        <lane id=":C_33_0" index="0" speed="13.89" length="12.83" width="3.00" shape="100.00,94.74 102.53,93.37 112.40,92.10"/>
+        <lane id=":C_33_0" index="0" speed="11.81" length="30.27" width="3.00" shape="90.52,110.05 91.97,105.01 97.38,98.50 104.66,93.87 112.40,92.10"/>
     </edge>
     <edge id=":C_34" function="internal">
-        <lane id=":C_34_0" index="0" speed="13.89" length="4.73" shape="92.10,105.98 90.93,105.28 87.60,104.80"/>
+        <lane id=":C_34_0" index="0" speed="7.48" length="4.73" shape="92.10,105.98 90.93,105.28 87.60,104.80"/>
     </edge>
     <edge id=":C_35" function="internal">
-        <lane id=":C_35_0" index="0" speed="13.89" length="14.98" shape="100.00,105.07 101.90,101.90 106.28,99.28 112.40,98.40"/>
+        <lane id=":C_35_0" index="0" speed="9.96" length="14.98" shape="100.00,105.07 101.90,101.90 106.28,99.28 112.40,98.40"/>
     </edge>
     <edge id=":C_8" function="internal">
-        <lane id=":C_8_0" index="0" allow="bicycle pedestrian" speed="13.89" length="3.63" width="1.50" shape="112.40,110.15 111.42,110.29 110.71,110.71 110.29,111.42 110.15,112.40"/>
+        <lane id=":C_8_0" index="0" allow="bicycle pedestrian" speed="4.16" length="3.63" width="1.50" shape="112.40,110.15 111.42,110.29 110.71,110.71 110.29,111.42 110.15,112.40"/>
     </edge>
     <edge id=":C_9" function="internal">
         <lane id=":C_9_0" index="0" allow="bicycle pedestrian" speed="13.89" length="24.80" width="1.50" shape="112.40,110.15 87.60,110.15"/>
     </edge>
     <edge id=":C_10" function="internal">
-        <lane id=":C_10_0" index="0" allow="bicycle pedestrian" speed="13.89" length="23.09" width="1.50" shape="112.40,110.15 102.53,108.65 95.49,104.14 93.16,100.00"/>
+        <lane id=":C_10_0" index="0" allow="bicycle pedestrian" speed="12.25" length="19.76" width="1.50" shape="112.40,110.15 104.66,107.80 97.38,101.88 96.07,100.00"/>
     </edge>
     <edge id=":C_11" function="internal">
-        <lane id=":C_11_0" index="0" allow="pedestrian" speed="13.89" length="21.43" width="3.00" shape="112.40,110.15 103.52,108.65 97.18,104.14 95.08,100.00"/>
+        <lane id=":C_11_0" index="0" allow="pedestrian" speed="12.00" length="18.74" width="3.00" shape="112.40,110.15 105.01,107.80 98.50,101.88 97.39,100.00"/>
     </edge>
     <edge id=":C_12" function="internal">
-        <lane id=":C_12_0" index="0" allow="passenger" speed="13.89" length="7.53" shape="112.40,104.80 109.08,105.28 106.70,106.70 105.98,107.90"/>
+        <lane id=":C_12_0" index="0" allow="passenger" speed="7.48" length="7.53" shape="112.40,104.80 109.08,105.28 106.70,106.70 105.98,107.90"/>
     </edge>
     <edge id=":C_13" function="internal">
         <lane id=":C_13_0" index="0" allow="passenger" speed="13.89" length="24.80" shape="112.40,104.80 87.60,104.80"/>
         <lane id=":C_13_1" index="1" allow="passenger" speed="13.89" length="24.80" shape="112.40,101.60 87.60,101.60"/>
     </edge>
     <edge id=":C_15" function="internal">
-        <lane id=":C_15_0" index="0" allow="passenger" speed="13.89" length="7.34" shape="112.40,101.60 106.28,100.63 105.32,100.00"/>
+        <lane id=":C_15_0" index="0" allow="passenger" speed="10.22" length="7.34" shape="112.40,101.60 106.28,100.63 105.32,100.00"/>
     </edge>
     <edge id=":C_36" function="internal">
-        <lane id=":C_36_0" index="0" speed="13.89" length="14.49" width="1.50" shape="93.16,100.00 91.26,96.62 89.85,86.10"/>
+        <lane id=":C_36_0" index="0" speed="12.25" length="15.46" width="1.50" shape="96.07,100.00 91.97,94.08 89.85,86.10"/>
     </edge>
     <edge id=":C_37" function="internal">
-        <lane id=":C_37_0" index="0" speed="13.89" length="14.38" width="3.00" shape="95.08,100.00 93.37,96.62 92.10,86.10"/>
+        <lane id=":C_37_0" index="0" speed="12.00" length="15.06" width="3.00" shape="97.39,100.00 93.87,94.08 92.10,86.10"/>
     </edge>
     <edge id=":C_38" function="internal">
-        <lane id=":C_38_0" index="0" speed="13.89" length="4.73" shape="105.98,107.90 105.28,109.07 104.80,112.40"/>
+        <lane id=":C_38_0" index="0" speed="7.48" length="4.73" shape="105.98,107.90 105.28,109.07 104.80,112.40"/>
     </edge>
     <edge id=":C_39" function="internal">
-        <lane id=":C_39_0" index="0" speed="13.89" length="16.46" shape="105.32,100.00 101.90,97.72 99.28,92.88 98.40,86.10"/>
+        <lane id=":C_39_0" index="0" speed="10.22" length="16.46" shape="105.32,100.00 101.90,97.72 99.28,92.88 98.40,86.10"/>
     </edge>
     <edge id=":C_16" function="internal">
-        <lane id=":C_16_0" index="0" allow="bicycle pedestrian" speed="13.89" length="4.25" width="3.00" shape="110.15,86.10 110.29,87.41 110.71,88.35 111.42,88.91 112.40,89.10"/>
+        <lane id=":C_16_0" index="0" allow="bicycle pedestrian" speed="4.46" length="4.25" width="3.00" shape="110.15,86.10 110.29,87.41 110.71,88.35 111.42,88.91 112.40,89.10"/>
     </edge>
     <edge id=":C_17" function="internal">
         <lane id=":C_17_0" index="0" allow="bicycle pedestrian" speed="13.89" length="26.30" width="1.50" shape="110.15,86.10 110.15,112.40"/>
     </edge>
     <edge id=":C_18" function="internal">
-        <lane id=":C_18_0" index="0" allow="bicycle pedestrian" speed="13.89" length="24.60" width="1.50" shape="110.15,86.10 108.74,96.62 104.51,104.14 100.00,107.03"/>
+        <lane id=":C_18_0" index="0" allow="bicycle pedestrian" speed="12.25" length="2.34" width="1.50" shape="110.15,86.10 109.55,88.36"/>
     </edge>
     <edge id=":C_19" function="internal">
-        <lane id=":C_19_0" index="0" allow="pedestrian" speed="13.89" length="22.88" width="3.00" shape="110.15,86.10 108.74,95.64 104.51,102.45 100.00,105.07"/>
+        <lane id=":C_19_0" index="0" allow="pedestrian" speed="11.98" length="2.36" width="3.00" shape="110.15,86.10 109.52,88.37"/>
     </edge>
     <edge id=":C_20" function="internal">
-        <lane id=":C_20_0" index="0" allow="passenger" speed="13.89" length="8.67" shape="104.80,86.10 105.28,90.08 106.70,92.92 107.90,93.79"/>
+        <lane id=":C_20_0" index="0" allow="passenger" speed="7.81" length="8.67" shape="104.80,86.10 105.28,90.08 106.70,92.92 107.90,93.79"/>
     </edge>
     <edge id=":C_21" function="internal">
         <lane id=":C_21_0" index="0" allow="passenger" speed="13.89" length="26.30" shape="104.80,86.10 104.80,112.40"/>
         <lane id=":C_21_1" index="1" allow="passenger" speed="13.89" length="26.30" shape="101.60,86.10 101.60,112.40"/>
     </edge>
     <edge id=":C_23" function="internal">
-        <lane id=":C_23_0" index="0" allow="passenger" speed="13.89" length="8.36" shape="101.60,86.10 100.72,92.88 100.00,94.22"/>
+        <lane id=":C_23_0" index="0" allow="passenger" speed="10.22" length="6.40" shape="101.60,86.10 100.78,92.45"/>
     </edge>
     <edge id=":C_40" function="internal">
-        <lane id=":C_40_0" index="0" speed="13.89" length="12.99" width="1.50" shape="100.00,107.03 97.47,108.65 87.60,110.15"/>
+        <lane id=":C_40_0" index="0" speed="12.25" length="32.88" width="1.50" shape="109.55,88.36 108.03,94.08 102.62,101.88 95.34,107.80 87.60,110.15"/>
     </edge>
     <edge id=":C_41" function="internal">
-        <lane id=":C_41_0" index="0" speed="13.89" length="12.89" width="3.00" shape="100.00,105.07 97.47,106.54 87.60,107.90"/>
+        <lane id=":C_41_0" index="0" speed="11.98" length="31.34" width="3.00" shape="109.52,88.37 108.03,93.72 102.62,100.75 95.34,105.90 87.60,107.90"/>
     </edge>
     <edge id=":C_42" function="internal">
-        <lane id=":C_42_0" index="0" speed="13.89" length="4.82" shape="107.90,93.79 109.07,94.63 112.40,95.20"/>
+        <lane id=":C_42_0" index="0" speed="7.81" length="4.82" shape="107.90,93.79 109.07,94.63 112.40,95.20"/>
     </edge>
     <edge id=":C_43" function="internal">
-        <lane id=":C_43_0" index="0" speed="13.89" length="15.44" shape="100.00,94.22 98.10,97.72 93.72,100.63 87.60,101.60"/>
+        <lane id=":C_43_0" index="0" speed="10.22" length="17.40" shape="100.78,92.45 100.72,92.88 98.10,97.72 93.72,100.63 87.60,101.60"/>
     </edge>
     <edge id=":C_24" function="internal">
-        <lane id=":C_24_0" index="0" allow="bicycle pedestrian" speed="13.89" length="4.90" width="1.50" shape="87.60,89.85 88.58,89.62 89.29,88.91 89.71,87.74 89.85,86.10"/>
+        <lane id=":C_24_0" index="0" allow="bicycle pedestrian" speed="4.76" length="4.90" width="1.50" shape="87.60,89.85 88.58,89.62 89.29,88.91 89.71,87.74 89.85,86.10"/>
     </edge>
     <edge id=":C_25" function="internal">
         <lane id=":C_25_0" index="0" allow="bicycle pedestrian" speed="13.89" length="24.81" width="3.00" shape="87.60,89.85 112.40,89.10"/>
     </edge>
     <edge id=":C_26" function="internal">
-        <lane id=":C_26_0" index="0" allow="bicycle pedestrian" speed="13.89" length="23.45" width="1.50" shape="87.60,89.85 97.47,91.26 104.51,95.49 107.22,100.00"/>
+        <lane id=":C_26_0" index="0" allow="bicycle pedestrian" speed="12.07" length="20.37" width="1.50" shape="87.60,89.85 95.34,91.97 102.62,97.38 104.57,100.00"/>
     </edge>
     <edge id=":C_27" function="internal">
-        <lane id=":C_27_0" index="0" allow="pedestrian" speed="13.89" length="21.74" width="3.00" shape="87.60,89.85 96.48,91.26 102.82,95.49 105.26,100.00"/>
+        <lane id=":C_27_0" index="0" allow="pedestrian" speed="11.81" length="19.26" width="3.00" shape="87.60,89.85 94.99,91.97 101.50,97.38 103.17,100.00"/>
     </edge>
     <edge id=":C_28" function="internal">
-        <lane id=":C_28_0" index="0" allow="passenger" speed="13.89" length="8.28" shape="87.60,95.20 90.92,94.63 93.30,92.93 94.19,91.15"/>
+        <lane id=":C_28_0" index="0" allow="passenger" speed="7.81" length="8.28" shape="87.60,95.20 90.92,94.63 93.30,92.93 94.19,91.15"/>
     </edge>
     <edge id=":C_29" function="internal">
         <lane id=":C_29_0" index="0" allow="passenger" speed="13.89" length="24.80" shape="87.60,95.20 112.40,95.20"/>
         <lane id=":C_29_1" index="1" allow="passenger" speed="13.89" length="24.80" shape="87.60,98.40 112.40,98.40"/>
     </edge>
     <edge id=":C_31" function="internal">
-        <lane id=":C_31_0" index="0" allow="passenger" speed="13.89" length="7.60" shape="87.60,98.40 93.72,99.28 94.93,100.00"/>
+        <lane id=":C_31_0" index="0" allow="passenger" speed="9.96" length="7.60" shape="87.60,98.40 93.72,99.28 94.93,100.00"/>
     </edge>
     <edge id=":C_44" function="internal">
-        <lane id=":C_44_0" index="0" speed="13.89" length="12.92" width="1.50" shape="107.22,100.00 108.74,102.53 110.15,112.40"/>
+        <lane id=":C_44_0" index="0" speed="12.07" length="13.83" width="1.50" shape="104.57,100.00 108.03,104.66 110.15,112.40"/>
     </edge>
     <edge id=":C_45" function="internal">
-        <lane id=":C_45_0" index="0" speed="13.89" length="12.83" width="3.00" shape="105.26,100.00 106.63,102.53 107.90,112.40"/>
+        <lane id=":C_45_0" index="0" speed="11.81" length="13.46" width="3.00" shape="103.17,100.00 106.13,104.66 107.90,112.40"/>
     </edge>
     <edge id=":C_46" function="internal">
-        <lane id=":C_46_0" index="0" speed="13.89" length="5.21" shape="94.19,91.15 94.73,90.08 95.20,86.10"/>
+        <lane id=":C_46_0" index="0" speed="7.81" length="5.21" shape="94.19,91.15 94.73,90.08 95.20,86.10"/>
     </edge>
     <edge id=":C_47" function="internal">
-        <lane id=":C_47_0" index="0" speed="13.89" length="14.98" shape="94.93,100.00 98.10,101.90 100.72,106.28 101.60,112.40"/>
+        <lane id=":C_47_0" index="0" speed="9.96" length="14.98" shape="94.93,100.00 98.10,101.90 100.72,106.28 101.60,112.40"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CN NC">
         <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.50" shape="106.40,110.15 93.60,110.15"/>
@@ -183,16 +183,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_c3_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.50" shape="89.85,106.40 89.85,93.60"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="4.50" shape="92.10,106.40 87.60,106.40 87.60,109.40 87.60,109.40 87.60,110.90 89.10,112.40 90.60,112.40 90.60,112.40 93.60,112.40 93.60,107.90"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="4.50" shape="87.60,106.40 87.60,109.40 87.60,109.40 87.60,110.90 89.10,112.40 90.60,112.40 90.60,112.40 93.60,112.40 93.43,110.57 92.93,109.07 92.10,107.90 90.93,107.07 89.43,106.57"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="4.50" shape="106.40,107.90 106.40,112.40 109.40,112.40 109.40,112.40 110.90,112.40 112.40,110.90 112.40,109.40 112.40,109.40 112.40,106.40 107.90,106.40"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.87" width="4.50" shape="106.40,112.40 109.40,112.40 109.40,112.40 110.90,112.40 112.40,110.90 112.40,109.40 112.40,109.40 112.40,106.40 110.57,106.57 109.07,107.07 107.90,107.90 107.07,109.07 106.57,110.57"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
-        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="5.53" width="4.50" shape="107.90,93.60 112.40,93.60 112.40,90.60 112.40,90.60 112.40,87.60 110.90,86.10 109.40,86.10 109.40,86.10 106.40,86.10 106.40,90.60"/>
+        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="5.53" width="4.50" shape="112.40,93.60 112.40,90.60 112.40,90.60 112.40,87.60 110.90,86.10 109.40,86.10 109.40,86.10 106.40,86.10 106.57,88.39 107.07,90.27 107.90,91.73 109.07,92.77 110.57,93.39"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="5.54" width="4.50" shape="93.60,90.60 93.60,86.10 90.60,86.10 90.60,86.10 89.10,86.10 87.60,89.10 87.60,90.60 87.60,90.60 87.60,93.60 92.10,93.60"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="5.54" width="4.50" shape="93.60,86.10 90.60,86.10 90.60,86.10 89.10,86.10 87.60,89.10 87.60,90.60 87.60,90.60 87.60,93.60 89.43,93.39 90.93,92.77 92.10,91.72 92.93,90.27 93.43,88.39"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
         <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="21.05" width="3.00" shape="200.00,106.40 200.00,109.40 200.00,109.40 200.00,110.90 200.00,87.60 200.00,90.60 200.00,90.60 200.00,93.60"/>
@@ -265,39 +265,39 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrrrrryyyyyyyyrrrrrrrryyyyyyyyrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_0_0 :C_1_0 :C_32_0 :C_33_0 :C_34_0 :C_5_0 :C_5_1 :C_35_0 :C_8_0 :C_9_0 :C_36_0 :C_37_0 :C_38_0 :C_13_0 :C_13_1 :C_39_0 :C_16_0 :C_17_0 :C_40_0 :C_41_0 :C_42_0 :C_21_0 :C_21_1 :C_43_0 :C_24_0 :C_25_0 :C_44_0 :C_45_0 :C_46_0 :C_29_0 :C_29_1 :C_47_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="89.10,112.40 110.90,112.40 112.40,110.90 112.40,87.60 110.90,86.10 89.10,86.10 87.60,89.10 87.60,110.90">
-        <request index="0"  response="100100000000000000000000000000000000" foes="100100000000100011000110001000000000" cont="0"/>
-        <request index="1"  response="010110011100000000001000110000000000" foes="010111111111100011001110111000000000" cont="0"/>
-        <request index="2"  response="001110001100011100111000110001100000" foes="001111101110011100111110111001100000" cont="1"/>
-        <request index="3"  response="001110001100011100111000110001100000" foes="001111101110011100111110111001100000" cont="1"/>
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 EC_0 EC_1 EC_2 EC_3 SC_0 SC_1 SC_2 SC_3 WC_0 WC_1 WC_2 WC_3 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_0_0 :C_1_0 :C_32_0 :C_33_0 :C_34_0 :C_5_0 :C_5_1 :C_35_0 :C_8_0 :C_9_0 :C_36_0 :C_37_0 :C_38_0 :C_13_0 :C_13_1 :C_39_0 :C_16_0 :C_17_0 :C_40_0 :C_41_0 :C_42_0 :C_21_0 :C_21_1 :C_43_0 :C_24_0 :C_25_0 :C_44_0 :C_45_0 :C_46_0 :C_29_0 :C_29_1 :C_47_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="89.10,112.40 110.90,112.40 111.07,111.57 111.28,111.28 111.57,111.07 111.94,110.94 112.40,110.90 112.40,87.60 111.57,87.43 111.28,87.22 111.07,86.93 110.94,86.56 110.90,86.10 89.10,86.10 88.93,87.77 88.72,88.35 88.43,88.77 88.06,89.02 87.60,89.10 87.60,110.90 88.43,111.07 88.72,111.28 88.93,111.57 89.06,111.94">
+        <request index="0"  response="100100000000000000000000000000000000" foes="100100000000000001000000001000000000" cont="0"/>
+        <request index="1"  response="010110011100000000000000010000000000" foes="010111111111100011000110011000010000" cont="0"/>
+        <request index="2"  response="001110001100111111111000110001100000" foes="001111101110111111111110111001110000" cont="1"/>
+        <request index="3"  response="001110001100111111101000110001100000" foes="001111101100111111101110111001110000" cont="1"/>
         <request index="4"  response="100100000000000000000000000000001110" foes="100100000000100011000110001000001110" cont="1"/>
-        <request index="5"  response="010110011100000000001000110000000000" foes="010111111111100011001110111000000000" cont="0"/>
-        <request index="6"  response="010110011100000000001000110000000000" foes="010111111111100011001110111000000000" cont="0"/>
-        <request index="7"  response="001110001100011100111000110000000000" foes="001111101110011100111110111000000000" cont="1"/>
-        <request index="8"  response="001100000000011000100000000000000000" foes="001110001100011000100000000000000000" cont="0"/>
-        <request index="9"  response="101000000000111011100000000011111111" foes="101010001100111011100000000011111111" cont="0"/>
-        <request index="10" response="011001110011111011100110000011101110" foes="011001110011111011100110000011101110" cont="1"/>
-        <request index="11" response="011001110011111011100110000011101110" foes="011001110011111011100110000011101110" cont="1"/>
+        <request index="5"  response="010110011100000000001000110000000000" foes="010111111110100011001110111000001100" cont="0"/>
+        <request index="6"  response="010110011100000000001000110000000000" foes="010111111110100011001110111000001100" cont="0"/>
+        <request index="7"  response="001110001100011111101000110000000000" foes="001111101100011111101110111000000000" cont="1"/>
+        <request index="8"  response="001100000000000000100000000000000000" foes="001100000100000000100000000000000000" cont="0"/>
+        <request index="9"  response="101000000000011001100000000011111111" foes="101010001100011001100001000011111111" cont="0"/>
+        <request index="10" response="011011111111111011100110000011101110" foes="011011111111111011100111000011101110" cont="1"/>
+        <request index="11" response="011011111110111011100110000011101100" foes="011011111110111011100111000011101100" cont="1"/>
         <request index="12" response="001100000000011000100000111000000000" foes="001110001100011000100000111000000000" cont="1"/>
-        <request index="13" response="101000000000111011100000000011111111" foes="101010001100111011100000000011111111" cont="0"/>
-        <request index="14" response="101000000000111011100000000011111111" foes="101010001100111011100000000011111111" cont="0"/>
-        <request index="15" response="011001110011111011100000000011101110" foes="011001110011111011100000000011101110" cont="1"/>
-        <request index="16" response="011000000000000000000000000000000000" foes="011001100010000000000000000010001100" cont="0"/>
-        <request index="17" response="010110001100000000001001110000000000" foes="010111101110000000001111111110001100" cont="0"/>
-        <request index="18" response="110010001100011000001000110001110011" foes="110011101110011000001110111001110011" cont="1"/>
-        <request index="19" response="110010001100011000001000110001110011" foes="110011101110011000001110111001110011" cont="1"/>
+        <request index="13" response="101000000000111011100000000011111110" foes="101010001100111011100000110011111110" cont="0"/>
+        <request index="14" response="101000000000111011100000000011111110" foes="101010001100111011100000110011111110" cont="0"/>
+        <request index="15" response="011001111110111011100000000011101100" foes="011001111110111011100000000011101100" cont="1"/>
+        <request index="16" response="011000000000000000000000000000000000" foes="011000000010000000000000000000000100" cont="0"/>
+        <request index="17" response="010100000100000000001001110000000000" foes="010101100110000100001111111110001100" cont="0"/>
+        <request index="18" response="110010001100011000001000110001110011" foes="110011101110011100001110111011111111" cont="1"/>
+        <request index="19" response="110010001100011000001000110001110010" foes="110011101110011100001110110011111110" cont="1"/>
         <request index="20" response="011000000000000011100000000000000000" foes="011001100010000011100000000010001100" cont="1"/>
-        <request index="21" response="010110001100000000001001110000000000" foes="010111101110000000001111111110001100" cont="0"/>
-        <request index="22" response="010110001100000000001001110000000000" foes="010111101110000000001111111110001100" cont="0"/>
-        <request index="23" response="110010001100000000001000110001110011" foes="110011101110000000001110111001110011" cont="1"/>
-        <request index="24" response="110000000000000000000000000001100010" foes="110000000000000000001000110001100010" cont="0"/>
-        <request index="25" response="101000000000111111110000000011101110" foes="101000000000111111111000110011101110" cont="0"/>
-        <request index="26" response="100101100000111011100111001111101110" foes="100101100000111011100111001111101110" cont="1"/>
-        <request index="27" response="100101100000111011100111001111101110" foes="100101100000111011100111001111101110" cont="1"/>
+        <request index="21" response="010110001100000000001001110000000000" foes="010111101110000011001111111010001100" cont="0"/>
+        <request index="22" response="010110001100000000001001110000000000" foes="010111101110000011001111111010001100" cont="0"/>
+        <request index="23" response="110010001100000000001000110001110010" foes="110011101110000000001110110001111110" cont="1"/>
+        <request index="24" response="110000000000000000000000000000000010" foes="110000000000000000000000010000000010" cont="0"/>
+        <request index="25" response="101000000000111111110000000001100110" foes="101000010000111111111000110001100110" cont="0"/>
+        <request index="26" response="100101100000111011100111001111101110" foes="100101110000111011101111111111101110" cont="1"/>
+        <request index="27" response="100101100000111011000111001011101110" foes="100101110000111011001111111011101110" cont="1"/>
         <request index="28" response="110000001110000000000000000001100010" foes="110000001110000000001000110001100010" cont="1"/>
-        <request index="29" response="101000000000111111110000000011101110" foes="101000000000111111111000110011101110" cont="0"/>
-        <request index="30" response="101000000000111111110000000011101110" foes="101000000000111111111000110011101110" cont="0"/>
-        <request index="31" response="100100000000111011100111001111101110" foes="100100000000111011100111001111101110" cont="1"/>
+        <request index="29" response="101000000000111111100000000011101110" foes="101000001100111111101000110011101110" cont="0"/>
+        <request index="30" response="101000000000111111100000000011101110" foes="101000001100111111101000110011101110" cont="0"/>
+        <request index="31" response="100100000000111011000111001011101110" foes="100100000000111011000111111011101110" cont="1"/>
         <request index="32" response="000000000000000000000000000000000000" foes="000010001100011000100001000111111111" cont="0"/>
         <request index="33" response="000000000000000000000000000000000000" foes="000001100010000100011111111110001100" cont="0"/>
         <request index="34" response="000000000000000000000000000000000000" foes="000000010001111111111000110001100010" cont="0"/>
@@ -308,22 +308,22 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0 CS_1 CS_2 CS_3" intLanes="" shape="100.00,0.00 89.10,0.00 100.00,0.00"/>
     <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="CW_0 CW_1 CW_2 CW_3" intLanes="" shape="0.00,100.00 0.00,110.90 0.00,100.00"/>
 
-    <junction id=":C_32_0" type="internal" x="100.00" y="92.13" incLanes=":C_2_0 SC_0 SC_2 SC_3" intLanes=":C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
-    <junction id=":C_33_0" type="internal" x="100.00" y="94.74" incLanes=":C_3_0 SC_0 SC_2 SC_3" intLanes=":C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
+    <junction id=":C_32_0" type="internal" x="90.48" y="110.06" incLanes=":C_2_0 :C_18_0 :C_19_0 :C_23_0 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_41_0 :C_43_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_19_0 :C_20_0 :C_21_0 :C_21_1 :C_23_0 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
+    <junction id=":C_33_0" type="internal" x="90.52" y="110.05" incLanes=":C_3_0 :C_18_0 :C_19_0 :C_23_0 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_41_0 :C_43_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_19_0 :C_20_0 :C_21_0 :C_21_1 :C_23_0 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
     <junction id=":C_34_0" type="internal" x="92.10" y="105.98" incLanes=":C_4_0 NC_0" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_9_0 :C_13_0 :C_13_1 :C_18_0 :C_19_0 :C_23_0 :C_c0_0 :C_c3_0"/>
-    <junction id=":C_35_0" type="internal" x="100.00" y="105.07" incLanes=":C_7_0 SC_0 SC_2 SC_3" intLanes=":C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
-    <junction id=":C_36_0" type="internal" x="93.16" y="100.00" incLanes=":C_10_0 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_28_0 :C_29_0 :C_29_1 :C_c1_0 :C_c2_0"/>
-    <junction id=":C_37_0" type="internal" x="95.08" y="100.00" incLanes=":C_11_0 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_28_0 :C_29_0 :C_29_1 :C_c1_0 :C_c2_0"/>
+    <junction id=":C_35_0" type="internal" x="100.00" y="105.07" incLanes=":C_7_0 :C_18_0 :C_19_0 SC_0 SC_2 SC_3" intLanes=":C_40_0 :C_41_0 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_16_0 :C_17_0 :C_18_0 :C_19_0 :C_20_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c0_0 :C_c1_0"/>
+    <junction id=":C_36_0" type="internal" x="96.07" y="100.00" incLanes=":C_10_0 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_26_0 :C_27_0 :C_28_0 :C_29_0 :C_29_1 :C_31_0 :C_c1_0 :C_c2_0"/>
+    <junction id=":C_37_0" type="internal" x="97.39" y="100.00" incLanes=":C_11_0 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_26_0 :C_27_0 :C_28_0 :C_29_0 :C_29_1 :C_31_0 :C_c1_0 :C_c2_0"/>
     <junction id=":C_38_0" type="internal" x="105.98" y="107.90" incLanes=":C_12_0 EC_0" intLanes=":C_9_0 :C_10_0 :C_11_0 :C_17_0 :C_21_0 :C_21_1 :C_26_0 :C_27_0 :C_31_0 :C_c0_0 :C_c1_0"/>
-    <junction id=":C_39_0" type="internal" x="105.32" y="100.00" incLanes=":C_15_0 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_28_0 :C_29_0 :C_29_1 :C_c1_0 :C_c2_0"/>
-    <junction id=":C_40_0" type="internal" x="100.00" y="107.03" incLanes=":C_18_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_1_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c2_0 :C_c3_0"/>
-    <junction id=":C_41_0" type="internal" x="100.00" y="105.07" incLanes=":C_19_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_1_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c2_0 :C_c3_0"/>
+    <junction id=":C_39_0" type="internal" x="105.32" y="100.00" incLanes=":C_15_0 WC_0 WC_2 WC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_24_0 :C_25_0 :C_26_0 :C_27_0 :C_28_0 :C_29_0 :C_29_1 :C_c1_0 :C_c2_0"/>
+    <junction id=":C_40_0" type="internal" x="109.55" y="88.36" incLanes=":C_18_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_7_0 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c2_0 :C_c3_0"/>
+    <junction id=":C_41_0" type="internal" x="109.52" y="88.37" incLanes=":C_19_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_7_0 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_21_0 :C_21_1 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c2_0 :C_c3_0"/>
     <junction id=":C_42_0" type="internal" x="107.90" y="93.79" incLanes=":C_20_0 SC_0" intLanes=":C_2_0 :C_3_0 :C_7_0 :C_17_0 :C_18_0 :C_19_0 :C_25_0 :C_29_0 :C_29_1 :C_c1_0 :C_c2_0"/>
-    <junction id=":C_43_0" type="internal" x="100.00" y="94.22" incLanes=":C_23_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_1_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c2_0 :C_c3_0"/>
-    <junction id=":C_44_0" type="internal" x="107.22" y="100.00" incLanes=":C_26_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_29_0 :C_29_1 :C_c0_0 :C_c3_0"/>
-    <junction id=":C_45_0" type="internal" x="105.26" y="100.00" incLanes=":C_27_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_29_0 :C_29_1 :C_c0_0 :C_c3_0"/>
+    <junction id=":C_43_0" type="internal" x="100.78" y="92.45" incLanes=":C_23_0 NC_0 NC_2 NC_3" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_5_1 :C_9_0 :C_10_0 :C_11_0 :C_13_0 :C_13_1 :C_15_0 :C_25_0 :C_26_0 :C_27_0 :C_29_0 :C_29_1 :C_31_0 :C_c2_0 :C_c3_0"/>
+    <junction id=":C_44_0" type="internal" x="104.57" y="100.00" incLanes=":C_26_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_15_0 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_29_0 :C_29_1 :C_c0_0 :C_c3_0"/>
+    <junction id=":C_45_0" type="internal" x="103.17" y="100.00" incLanes=":C_27_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_15_0 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_29_0 :C_29_1 :C_c0_0 :C_c3_0"/>
     <junction id=":C_46_0" type="internal" x="94.19" y="91.15" incLanes=":C_28_0 WC_0" intLanes=":C_1_0 :C_5_0 :C_5_1 :C_10_0 :C_11_0 :C_15_0 :C_25_0 :C_26_0 :C_27_0 :C_c2_0 :C_c3_0"/>
-    <junction id=":C_47_0" type="internal" x="94.93" y="100.00" incLanes=":C_31_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_c0_0 :C_c3_0"/>
+    <junction id=":C_47_0" type="internal" x="94.93" y="100.00" incLanes=":C_31_0 EC_0 EC_2 EC_3" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_5_0 :C_5_1 :C_7_0 :C_8_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_13_0 :C_13_1 :C_17_0 :C_18_0 :C_19_0 :C_21_0 :C_21_1 :C_23_0 :C_c0_0 :C_c3_0"/>
 
     <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_8_0" tl="C" linkIndex="8" dir="r" state="o"/>
     <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="o"/>

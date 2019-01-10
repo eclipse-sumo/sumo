@@ -12,7 +12,6 @@
 # @version $Id$
 
 
-
 def constant(edge, weight):
     if edge == "middle" or edge == "left":
         return weight

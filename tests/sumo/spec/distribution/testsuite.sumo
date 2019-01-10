@@ -1,6 +1,9 @@
 # checks using basic vtype distribution
 vtype_basic
 
+# checks using  vtype distribution with existing types
+vtypeDist_useExisting
+
 # checks using basic route distribution
 route_basic
 
@@ -27,6 +30,9 @@ speed_basic
 
 # tests the effect of using speedDev > 0
 speedDev
+
+# tests setting speeddev by option
+speedDev_option
 
 # tests the effect of using speedFactor distributions
 speedFactorNormc

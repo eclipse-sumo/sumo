@@ -20,11 +20,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -51,7 +47,7 @@
 // ===========================================================================
 
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
-    GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), getGLIds(ACs), GUIGlObjectStorage::gIDStorage), 
+    GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), getGLIds(ACs), GUIGlObjectStorage::gIDStorage),
     myACs(ACs),
     myViewParent(viewParent) {
 }
@@ -62,7 +58,7 @@ GNEDialogACChooser::~GNEDialogACChooser() {
 }
 
 
-void 
+void
 GNEDialogACChooser::toggleSelection(int listIndex) {
     GNEAttributeCarrier* ac = myACs[listIndex];
     if (ac->isAttributeCarrierSelected()) {
@@ -73,7 +69,7 @@ GNEDialogACChooser::toggleSelection(int listIndex) {
 }
 
 
-std::vector<GUIGlID> 
+std::vector<GUIGlID>
 GNEDialogACChooser::getGLIds(const std::vector<GNEAttributeCarrier*>& ACs) {
     std::vector<GUIGlID> ids;
     for (auto ac : ACs) {

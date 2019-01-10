@@ -18,7 +18,7 @@ import os
 import subprocess
 import sys
 try:
-    import texttestlib
+    import texttestlib  # noqa
     haveTextTestLib = True
 except ImportError:
     haveTextTestLib = False
@@ -54,7 +54,8 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
     env["MAROUTER_BINARY"] = os.path.join(
         root, "..", "bin", "marouter" + suffix)
-    apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,netconvert.gdal,polyconvert.gdal,complex.meso,complex.libsumo,duarouter.astar"
+    apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,netconvert.gdal,polyconvert.gdal"
+    apps += ",complex.meso,complex.libsumo,duarouter.astar"
     if chrouter:
         apps += ",duarouter.chrouter"
     ttBin = 'texttest.py'
@@ -69,12 +70,13 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
     try:
         subprocess.call(['python3', '-V'])
         apps += ',complex.python3,tools.python3'
-    except:
+    except Exception:
         pass
     if guiTests:
         apps += ",sumo.meso.gui"
     subprocess.call("%s %s -a %s" % (ttBin, args, apps), env=os.environ,
                     stdout=out, stderr=out, shell=True)
+
 
 if __name__ == "__main__":
     optParser = optparse.OptionParser()

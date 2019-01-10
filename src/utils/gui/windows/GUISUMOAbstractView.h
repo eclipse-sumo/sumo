@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -174,7 +170,7 @@ public:
      * @param[in] destFile The name of the file to write the snapshot into
      * @return The error message, if an error occcured; "" otherwise
      */
-    std::string makeSnapshot(const std::string& destFile, const int width=-1, const int height=-1);
+    std::string makeSnapshot(const std::string& destFile, const int width = -1, const int height = -1);
 
     ///@brief Adds a frame to a video snapshot which will be initialized if neccessary
     virtual void saveFrame(const std::string& destFile, FXColor* buf);

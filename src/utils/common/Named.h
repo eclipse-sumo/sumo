@@ -22,15 +22,21 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <string>
 #include <set>
+
+
+/// @brief Function-object for stable sorting of objects acting like Named without being derived (SUMOVehicle)
+// @note Numbers of different lenghts will not be ordered by alphanumerical sorting
+struct ComparatorIdLess {
+    template<class T>
+    bool operator()(const T* const a, const T* const b) const {
+        return a->getID() < b->getID();
+    }
+};
 
 
 // ===========================================================================
@@ -71,17 +77,6 @@ public:
     void setID(const std::string& newID) {
         myID = newID;
     }
-
-
-    /// @brief Function-object for stable sorting of objects acting like Named without being derived (SUMOVehicle)
-    // @note Numbers of different lenghts will not be ordered by alphanumerical sorting
-    template <class NamedLike>
-    struct NamedLikeComparatorIdLess {
-        bool operator()(const NamedLike* const a, const NamedLike* const b) const {
-            return a->getID() < b->getID();
-        }
-    };
-    typedef NamedLikeComparatorIdLess<Named> ComparatorIdLess;
 
 
     /** @class StoringVisitor

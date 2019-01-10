@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
@@ -199,7 +195,11 @@ public:
         return mySavedStates.find(dir)->second;
     }
 
-    void saveState(const int dir, const int stateWithoutTraCI, const int state) {
+    bool hasSavedState(const int dir) const {
+        return mySavedStates.find(dir) != mySavedStates.end();
+    }
+
+    void saveLCState(const int dir, const int stateWithoutTraCI, const int state) {
         mySavedStates[dir] = std::make_pair(stateWithoutTraCI | myCanceledStates[dir], state);
     }
 
@@ -211,20 +211,22 @@ public:
     void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
     virtual void prepareStep() {
-        saveState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveState(0, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveState(1, LCA_UNKNOWN, LCA_UNKNOWN);
         myCanceledStates[-1] = LCA_NONE;
         myCanceledStates[0] = LCA_NONE;
         myCanceledStates[1] = LCA_NONE;
+        saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
         myLastLateralGapRight = NO_NEIGHBOR;
         myLastLateralGapLeft = NO_NEIGHBOR;
-        myLastLeaderGap = NO_NEIGHBOR;
-        myLastLeaderSecureGap = NO_NEIGHBOR;
-        myLastFollowerGap = NO_NEIGHBOR;
-        myLastFollowerSecureGap = NO_NEIGHBOR;
-        myLastOrigLeaderGap = NO_NEIGHBOR;
-        myLastOrigLeaderSecureGap = NO_NEIGHBOR;
+        if (!myDontResetLCGaps) {
+            myLastLeaderGap = NO_NEIGHBOR;
+            myLastLeaderSecureGap = NO_NEIGHBOR;
+            myLastFollowerGap = NO_NEIGHBOR;
+            myLastFollowerSecureGap = NO_NEIGHBOR;
+            myLastOrigLeaderGap = NO_NEIGHBOR;
+            myLastOrigLeaderSecureGap = NO_NEIGHBOR;
+        }
         myCommittedSpeed = 0;
     }
 
@@ -324,6 +326,11 @@ public:
      * the custom variables of each child implementation */
     virtual void changed() = 0;
 
+
+    /// @brief return factor for modifying the safety constraints of the car-following model
+    virtual double getSafetyFactor() const {
+        return 1.0;
+    }
 
     /// @brief whether the current vehicles shall be debugged
     virtual bool debugVehicle() const {
@@ -438,6 +445,10 @@ public:
     /// @brief start the lane change maneuver and return whether it continues
     bool startLaneChangeManeuver(MSLane* source, MSLane* target, int direction);
 
+    /// @brief Control for resetting the memorized values for LC relevant gaps until the LC output is triggered in the case of continuous LC.
+    void memorizeGapsAtLCInit();
+    void clearGapsAtLCInit();
+
     /* @brief continue the lane change maneuver and return whether the midpoint
      * was passed in this step
      */
@@ -514,7 +525,7 @@ public:
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    virtual double computeSpeedLat(double latDist, double& maneuverDist); 
+    virtual double computeSpeedLat(double latDist, double& maneuverDist);
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
@@ -631,6 +642,10 @@ protected:
     /// @brief acutal and secure distance to closest leader vehicle on the original when performing lane change
     double myLastOrigLeaderGap;
     double myLastOrigLeaderSecureGap;
+
+    /// @brief Flag to prevent resetting the memorized values for LC relevant gaps until the LC output is triggered
+    ///        in the case of continuous LC.
+    bool myDontResetLCGaps;
 
     // @brief the maximum lateral speed when standing
     double myMaxSpeedLatStanding;

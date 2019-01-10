@@ -22,23 +22,27 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
 #include "InductionLoop.h"
+
+
+namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults InductionLoop::mySubscriptionResults;
+ContextSubscriptionResults InductionLoop::myContextSubscriptionResults;
 
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-namespace libsumo {
 std::vector<std::string>
 InductionLoop::getIDList() {
     std::vector<std::string> ids;
@@ -128,6 +132,10 @@ InductionLoop::getDetector(const std::string& id) {
     return il;
 }
 
+
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(InductionLoop, INDUCTIONLOOP)
+
+
 NamedRTree*
 InductionLoop::getTree() {
     NamedRTree* t = new NamedRTree();
@@ -140,6 +148,49 @@ InductionLoop::getTree() {
     }
     return t;
 }
+
+
+void
+InductionLoop::storeShape(const std::string& id, PositionVector& shape) {
+    MSInductLoop* const il = getDetector(id);
+    shape.push_back(il->getLane()->getShape().positionAtOffset(il->getPosition()));
+}
+
+
+std::shared_ptr<VariableWrapper>
+InductionLoop::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+InductionLoop::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_POSITION:
+            return wrapper->wrapDouble(objID, variable, getPosition(objID));
+        case VAR_LANE_ID:
+            return wrapper->wrapString(objID, variable, getLaneID(objID));
+        case LAST_STEP_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+        case LAST_STEP_MEAN_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case LAST_STEP_VEHICLE_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        case LAST_STEP_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
+        case LAST_STEP_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanLength(objID));
+        case LAST_STEP_TIME_SINCE_DETECTION:
+            return wrapper->wrapDouble(objID, variable, getTimeSinceDetection(objID));
+        default:
+            return false;
+    }
+}
+
 
 }
 

@@ -56,7 +56,8 @@ class OutputHandler(handler.ContentHandler):
 
 def generateDetectorDef(out, freq, enableLoop, laneIDs):
     print(
-        '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">', file=out)
+        '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=' +
+        '"http://sumo.dlr.de/xsd/additional_file.xsd">', file=out)
     for laneId in laneIDs:
         if enableLoop:
             print('    <e1Detector id="e1_%s" lane="%s" pos="200" freq="%s" file="detector.xml"/>' %
@@ -92,6 +93,7 @@ def checkOutput(freq, args, withLoop, lanes):
 def flush():
     sys.stdout.flush()
     sys.stderr.flush()
+
 
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))

@@ -1,0 +1,22 @@
+java version "1.8.0_161"
+Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
+Java HotSpot(TM) Client VM (build 25.161-b12, mixed mode)
+Feb 06, 2018 11:50:58 AM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+Warning: Cleaning textures in GUITextureSubSys::resetTextures
+Warning: Cleaning textures in GUITexturesHelper::clearTextures
+Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
+Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
+Error: Attribute 'color' in definition of poi 'POI_14' is empty.
+Error: Attribute 'layer' in definition of poi 'POI_17' is not of type float.
+Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_19'.
+Error: Attribute 'x' in definition of poi 'POI_2' is not of type float.
+Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_21'.
+Error: Attribute 'y' in definition of poi 'POI_22' is not of type float.
+Error: Attribute 'width' in definition of poi 'POI_25' is not of type float.
+Error: Attribute 'height' in definition of poi 'POI_5' is not of type float.
+Error: Attribute 'imgFile' in definition of poi 'POI_7' is not of type bool.
+Error: Attribute 'imgFile' in definition of poi 'POI_8' is not of type bool.
+Error: Attribute 'imgFile' in definition of poi 'POI_9' is not of type bool.
+Error: Attribute 'imgFile' in definition of poi 'POI_10' is not of type bool.
+Error: Loading of shapes failed.

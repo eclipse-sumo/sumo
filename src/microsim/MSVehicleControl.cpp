@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
@@ -64,8 +60,7 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
-    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) 
-{
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -270,6 +265,9 @@ MSVehicleControl::removeVType(const MSVehicleType* vehType) {
     assert(vehType != 0);
     assert(myVTypeDict.find(vehType->getID()) != myVTypeDict.end());
     myVTypeDict.erase(vehType->getID());
+    if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
+        myVTypeToDist.erase(vehType->getID());
+    }
     delete vehType;
 }
 
@@ -278,6 +276,14 @@ bool
 MSVehicleControl::addVTypeDistribution(const std::string& id, RandomDistributor<MSVehicleType*>* vehTypeDistribution) {
     if (checkVType(id)) {
         myVTypeDistDict[id] = vehTypeDistribution;
+        std::vector<MSVehicleType*> vehTypes = vehTypeDistribution->getVals();
+        for (auto vehType : vehTypes) {
+            if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
+                myVTypeToDist[vehType->getID()].insert(id);
+            } else {
+                myVTypeToDist[vehType->getID()] = { id };
+            }
+        }
         return true;
     }
     return false;
@@ -327,6 +333,16 @@ MSVehicleControl::insertVTypeIDs(std::vector<std::string>& into) const {
 }
 
 
+std::set<std::string>
+MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
+    std::map<std::string, std::set<std::string>>::const_iterator it = myVTypeToDist.find(id);
+    if (it == myVTypeToDist.end()) {
+        return std::set<std::string>();
+    }
+    return it->second;
+}
+
+
 void
 MSVehicleControl::addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) {
     if (myWaiting.find(edge) == myWaiting.end()) {
@@ -337,7 +353,7 @@ MSVehicleControl::addWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) {
 
 
 void
-MSVehicleControl::removeWaiting(const MSEdge* const edge, SUMOVehicle* vehicle) {
+MSVehicleControl::removeWaiting(const MSEdge* const edge, const SUMOVehicle* vehicle) {
     if (myWaiting.find(edge) != myWaiting.end()) {
         std::vector<SUMOVehicle*>::iterator it = std::find(myWaiting[edge].begin(), myWaiting[edge].end(), vehicle);
         if (it != myWaiting[edge].end()) {
@@ -450,7 +466,8 @@ void
 MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
     for (const SUMOVehicle* const veh : myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
-        router.getNetwork()->addSchedule(veh->getParameter());
+        const MSRoute* const route = MSRoute::dictionary(veh->getParameter().routeid);
+        router.getNetwork()->addSchedule(veh->getParameter(), route == nullptr ? nullptr : &route->getStops());
     }
 }
 

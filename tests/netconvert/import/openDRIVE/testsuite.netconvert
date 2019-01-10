@@ -6,6 +6,9 @@ Crossing8Course_leftgreen
 CrossingComplex8Course
 Roundabout8Course
 
+# import internal lane shapes
+Roundabout8Course_internalShapes
+
 # test whether loading further edge types works
 C8C_add_sidewalk
 

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -225,7 +221,10 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
         }
     } catch (NumberFormatException&) {
         std::string msg = "The value must be a number, is:" + value;
-        FXMessageBox::error(this, MBOX_OK, "Number format error", "%s", msg.c_str());
+        FXMessageBox::error(this, MBOX_OK, "Time format error", "%s", msg.c_str());
+    } catch (ProcessError&) {
+        std::string msg = "The value must be a number or a string of the form hh:mm:ss, is:" + value;
+        FXMessageBox::error(this, MBOX_OK, "Time format error", "%s", msg.c_str());
     }
     rebuildList();
     return 1;

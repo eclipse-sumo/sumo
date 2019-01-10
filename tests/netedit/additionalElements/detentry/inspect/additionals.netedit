@@ -1,5 +1,46 @@
-<additionals>
-    <e3Detector id="e3Detector_1" file="e3Detector_1.xml" pos="26.00,19.00">
-        <detEntry lane="gneE3_1" pos="25.00" friendlyPos="1" blockMovement="1"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 09.07.2018 14:02:51 by Eclipse SUMO netedit Version 88bb7b0b92
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_07Jul095923.2996/netedit.gui/additionalElements/detentry/inspect\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_07Jul095923.2996/netedit.gui/additionalElements/detentry/inspect\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_07Jul095923.2996/netedit.gui/additionalElements/detentry/inspect\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_07Jul095923.2996/netedit.gui/additionalElements/detentry/inspect\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_07Jul095923.2996/netedit.gui/additionalElements/detentry/inspect\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_07Jul095923.2996/netedit.gui/additionalElements/detentry/inspect\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e3Detector id="e3Detector_1" pos="26.00,19.00" freq="900.00" file="e3Detector_1.xml">
+        <detEntry lane="gneE3_1" pos="25.00" friendlyPos="1"/>
+        <detExit lane="gneE3_0" pos="22.00"/>
     </e3Detector>
-</additionals>
+</additional>

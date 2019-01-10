@@ -72,13 +72,14 @@ def convert(vehRoutes, routeOut, odOut, interval):
                         od.write('            <odPair origin="%s" destination="%s" amount="%s">\n' % (
                             orig, dest, total))
                         for idx, (amount, ttSum) in routeMap.iteritems():
-                            od.write('                <routeCost routeId="%s" amount="%s" averageTraveltime="%s"/>\n' % (
-                                idx, amount, int(1000. * ttSum / amount)))
+                            od.write(('                <routeCost routeId="%s" amount="%s" ' +
+                                     'averageTraveltime="%s"/>\n') % (idx, amount, int(1000. * ttSum / amount)))
                             total += amount
                         od.write('            </odPair>\n')
                     od.write('        </timeSlice>\n')
             od.write('    <actorConfig/>\n')
         od.write("</demand>\n")
+
 
 if __name__ == "__main__":
     optParser = OptionParser()

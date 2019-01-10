@@ -21,20 +21,23 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <libsumo/VehicleType.h>
 #include <traci-server/TraCIConstants.h>
+
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSPerson;
+class PositionVector;
+namespace libsumo {
+class VariableWrapper;
+}
+
 
 // ===========================================================================
 // class definitions
@@ -49,7 +52,7 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static double getSpeed(const std::string& personID);
-    static TraCIPosition getPosition(const std::string& personID);
+    static TraCIPosition getPosition(const std::string& personID, const bool includeZ = false);
     static std::string getRoadID(const std::string& personID);
     static std::string getTypeID(const std::string& personID);
     static double getWaitingTime(const std::string& personID);
@@ -61,9 +64,9 @@ public:
     static std::string getParameter(const std::string& routeID, const std::string& param);
     static double getAngle(const std::string& personID);
     static double getLanePosition(const std::string& personID);
-    static TraCIColor getColor(const std::string& personID);
 
-    //static void removeStages(const std::string& personID);
+    LIBSUMO_VEHICLE_TYPE_GETTER
+
     static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
     static void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
     static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edgeIDs, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
@@ -75,28 +78,35 @@ public:
     static void setParameter(const std::string& personID, const std::string& key, const std::string& value);
     static void setSpeed(const std::string& personID, double speed);
     static void setType(const std::string& personID, const std::string& typeID);
-    static void setLength(const std::string& personID, double length);
-    static void setWidth(const std::string& personID, double width);
-    static void setHeight(const std::string& personID, double height);
-    static void setMinGap(const std::string& personID, double minGap);
-    static void setColor(const std::string& personID, const TraCIColor& c);
 
-    // This does not only return the person's vType, but makes it singular.
-    static std::string getSingularVType(const std::string& personID);
+    LIBSUMO_VEHICLE_TYPE_SETTER
+
+    LIBSUMO_SUBSCRIPTION_API
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the poi to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
+private:
+    static MSPerson* getPerson(const std::string& id);
+
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
 
 private:
     /// @brief invalidated standard constructor
-    Person();
-
-    /// @brief invalidated copy constructor
-    Person(const Person& src);
-
-    /// @brief invalidated assignment operator
-    Person& operator=(const Person& src);
-
-    static MSPerson* getPerson(const std::string& id);
+    Person() = delete;
 
 };
+
+
 }
 
 

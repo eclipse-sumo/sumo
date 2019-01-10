@@ -17,10 +17,6 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import time
-import threading
-import socket
-import difflib
 toolDir = os.path.join(
     os.path.dirname(__file__), '..', '..', '..', '..', "tools")
 sys.path.append(toolDir)

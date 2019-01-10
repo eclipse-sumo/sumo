@@ -12,7 +12,7 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
-/// @version $Id: IntermodalTrip.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // The "vehicle" definition for the Intermodal Router
 /****************************************************************************/
@@ -23,14 +23,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
+
+#include "EffortCalculator.h"
 
 
 // ===========================================================================
@@ -42,7 +40,8 @@ class IntermodalTrip {
 public:
     IntermodalTrip(const E* _from, const E* _to, double _departPos, double _arrivalPos,
                    double _speed, SUMOTime _departTime, const N* _node,
-                   const V* _vehicle = 0, const SVCPermissions _modeSet = SVC_PEDESTRIAN) :
+                   const V* _vehicle = 0, const SVCPermissions _modeSet = SVC_PEDESTRIAN,
+                   const EffortCalculator* const _calc = nullptr, const double _externalFactor = 0.) :
         from(_from),
         to(_to),
         departPos(_departPos < 0 ? _from->getLength() + _departPos : _departPos),
@@ -51,7 +50,9 @@ public:
         departTime(_departTime),
         node(_node),
         vehicle(_vehicle),
-        modeSet(_modeSet) {
+        modeSet(_modeSet),
+        calc(_calc),
+        externalFactor(_externalFactor) {
     }
 
     // exists just for debugging purposes
@@ -64,6 +65,16 @@ public:
         return vehicle != 0 ? vehicle->getVClass() : SVC_PEDESTRIAN;
     }
 
+    // only used by AStar
+    inline double getMaxSpeed() const {
+        return vehicle != nullptr ? vehicle->getMaxSpeed() : speed;
+    }
+
+    // only used by AStar
+    inline double getChosenSpeedFactor() const {
+        return vehicle != nullptr ? vehicle->getChosenSpeedFactor() : 1.0;
+    }
+
     const E* const from;
     const E* const to;
     const double departPos;
@@ -73,6 +84,9 @@ public:
     const N* const node; // indicates whether only routing across this node shall be performed
     const V* const vehicle; // indicates which vehicle may be used
     const SVCPermissions modeSet;
+    const EffortCalculator* const calc;
+    const double externalFactor;
+
 private:
     /// @brief Invalidated assignment operator.
     IntermodalTrip& operator=(const IntermodalTrip&);

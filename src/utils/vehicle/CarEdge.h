@@ -10,7 +10,7 @@
 /// @file    CarEdge.h
 /// @author  Michael Behrisch
 /// @date    Mon, 03 March 2014
-/// @version $Id: CarEdge.h v0_32_0+0478-2bb98619fa oss@behrisch.de 2018-01-11 12:40:22 +0100 $
+/// @version $Id$
 ///
 // The CarEdge is a special intermodal edge representing the SUMO network edge
 /****************************************************************************/
@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_FOX
 #include <fx.h>
@@ -51,7 +47,7 @@ public:
         return true;
     }
 
-    const std::vector<_IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass) const {
+    const std::vector<_IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
         if (vClass == SVC_IGNORING) {
             return this->myFollowingEdges;
         }
@@ -72,9 +68,31 @@ public:
             }
             return myClassesSuccessorMap[vClass];
         }
-
     }
 
+    virtual const std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+        if (vClass == SVC_IGNORING) {
+            return this->myFollowingViaEdges;
+        }
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        typename std::map<SUMOVehicleClass, std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> > >::const_iterator i = myClassesViaSuccessorMap.find(vClass);
+        if (i != myClassesViaSuccessorMap.end()) {
+            // can use cached value
+            return i->second;
+        } else {
+            // this vClass is requested for the first time. rebuild all successors
+            const std::set<std::pair<const E*, const E*> > classedCarFollowers = std::set<std::pair<const E*, const E*> >(this->getEdge()->getViaSuccessors(vClass).begin(), this->getEdge()->getViaSuccessors(vClass).end());
+            for (const std::pair<const _IntermodalEdge*, const _IntermodalEdge*>& e : this->myFollowingViaEdges) {
+                const auto viaPair = std::make_pair(e.first->getEdge(), e.second == nullptr ? nullptr : e.second->getEdge());
+                if (!e.first->includeInRoute(false) || e.first->getEdge() == this->getEdge() || classedCarFollowers.count(viaPair) > 0) {
+                    myClassesViaSuccessorMap[vClass].push_back(e);
+                }
+            }
+            return myClassesViaSuccessorMap[vClass];
+        }
+    }
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
         return trip->vehicle == 0 || this->getEdge()->prohibits(trip->vehicle);
@@ -93,12 +111,23 @@ public:
         return travelTime * distTravelled / this->getEdge()->getLength();
     }
 
+    double getStartPos() const {
+        return myStartPos;
+    }
+
+    double getEndPos() const {
+        return myStartPos + this->getLength();
+    }
+
 private:
     /// @brief the starting position for split edges
     const double myStartPos;
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, std::vector<_IntermodalEdge*> > myClassesSuccessorMap;
+
+    /// @brief The successors available for a given vClass
+    mutable std::map<SUMOVehicleClass, std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> > > myClassesViaSuccessorMap;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap

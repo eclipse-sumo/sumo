@@ -10,30 +10,40 @@
 
 # @file    misc.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 
-# oh my god....:
-import platform
 import types
-global IS_WIN
-if platform.system() == 'Windows':
-    IS_WIN = True
-else:
-    IS_WIN = False
-
 import numpy as np
+import time
+
+# default file path priming
+# this did depend on operating system, now " for all
+P = '"'
+#import platform
+# if platform.system()=='Windows':
+#    P = '"'
+# else:
+#    P=''
 
 
-def get_inversemap(map):
-    return {v: k for k, v in map.items()}
+def get_inversemap(m):
+    return {v: k for k, v in m.items()}
+
+
+def random_choice_dist2(n, b):
+    """
+    Returns the absolute distribution of a random choice sample of size n
+    having the choice between len(b) options where each option has
+    the probability represented in vector b.
+    """
 
 
 def random_choice_dist(n, b):
     """
     Returns the absolute distribution of a random choice sample of size n
-    having the choice between len(b) options where each option has 
+    having the choice between len(b) options where each option has
     the probability represented in vector b.
     """
     if np.__version__ >= '1.7.0':
@@ -46,21 +56,65 @@ def random_choice_dist(n, b):
 def random_choice(n, b):
     """
     Returns the  random choice sample of size n
-    having the choice between len(b) options where each option has 
+    having the choice between len(b) options where each option has
     the probability represented in vector b.
     """
+    # print 'misc.random_choice'
     if np.__version__ >= '1.7.0':
-        return np.random.choice(b.size, n, p=b.flat)
+        # print '  b',b.size,b,b.flat
+        # print '  n',n
+        return np.clip(np.random.choice(b.size, n, p=b.flat), 0, len(b)-1)
     else:
-        return np.searchsorted(np.cumsum(b), np.random.random(n))
+        return np.clip(np.searchsorted(np.cumsum(b), np.random.random(n)), 0, len(b)-1)
+
+# def random_choice1d(n, b):
+#    """
+#    Returns the  random choice sample of size n
+#    having the choice between len(b) options where each option has
+#    the probability represented in vector b.
+#    """
+#
+#    return np.argmax(np.random.rand(n)*b.flat)
 
 
-def filepathlist_to_filepathstring(filepathlist, sep=',', is_primed=False):
-    if IS_WIN & is_primed:
-        p = '"'
+def get_seconds_from_timestr(t_data, t_offset=None,
+                             sep_date_clock=' ', sep_date='-', sep_clock=':',
+                             is_float=True):
+    """
+    Returns time in seconds after t_offset.
+    If no offset is geven, the year 1970 is used.
+    Time string format:
+        2012-05-02 12:57:08.0
+    """
+    if t_offset is None:
+        t_offset = time.mktime((1970, 1, 1, 0, 0, 0, 0, 0, 0))  # year 2000
+
+    if len(t_data.split(sep_date_clock)) != 2:
+        return None
+    (date, clock) = t_data.split(sep_date_clock)
+
+    if (len(clock.split(sep_clock)) == 3) & (len(date.split(sep_date)) == 3):
+        (day_str, month_str, year_str) = date.split(sep_date)
+        (hours_str, minutes_str, seconds_str) = clock.split(sep_clock)
+        t = time.mktime((int(year_str), int(month_str), int(day_str),
+                         int(hours_str), int(minutes_str), int(float(seconds_str)), 0, 0, 0))-t_offset
+        if is_float:
+            return float(t)
+        else:
+            return int(t)
     else:
-        p = ''
-    # print 'filepathlist_to_filepathstring',IS_WIN,p,filepathlist
+        return None
+
+
+def format_filepath(filepath):
+    return ff(filepath)
+
+
+def ff(filepath):
+    return P+filepath+P
+
+
+def filepathlist_to_filepathstring(filepathlist, sep=','):
     if type(filepathlist) == types.ListType:
         if len(filepathlist) == 0:
             return ''
@@ -68,20 +122,16 @@ def filepathlist_to_filepathstring(filepathlist, sep=',', is_primed=False):
             filepathstring = ''
             for filepath in filepathlist[:-1]:
                 fp = filepath.replace('"', '')
-                filepathstring += p + fp + p + sep
-            filepathstring += p + filepathlist[-1] + p
+                filepathstring += P+fp+P+sep
+            filepathstring += P+filepathlist[-1]+P
             return filepathstring
     else:
         fp = filepathlist.replace('"', '')
-        return p + filepathlist + p
+        return P+filepathlist+P
 
 
-def filepathstring_to_filepathlist(filepathstring, sep=',', is_primed=False):
-    if IS_WIN & is_primed:
-        p = '"'
-    else:
-        p = ''
+def filepathstring_to_filepathlist(filepathstring, sep=','):
     filepaths = []
     for filepath in filepathstring.split(sep):
-        filepaths.append(p + filepath.strip().replace('"', '') + p)
+        filepaths.append(P+filepath.strip().replace('"', '')+P)
     return filepaths

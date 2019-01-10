@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
@@ -81,14 +77,22 @@ public:
 
 
     /**
-     * @brief Enables or disables validation.
-     *
-     * The setting is only valid for parsers created after the call. Existing parsers are not adapted.
-     *
-     * @param[in] validationScheme Whether validation of XML-documents against schemata shall be enabled
-     * @param[in] netValidationScheme Whether validation of SUMO networks against schemata shall be enabled
-     */
+    * @brief Enables or disables validation.
+    *
+    * The setting is only valid for parsers created after the call. Existing parsers are not adapted.
+    *
+    * @param[in] validationScheme Whether validation of XML-documents against schemata shall be enabled
+    * @param[in] netValidationScheme Whether validation of SUMO networks against schemata shall be enabled
+    */
     static void setValidation(const std::string& validationScheme, const std::string& netValidationScheme);
+
+
+    /**
+    * @brief Returns whether validation is enabled.
+    *
+    * @param[in] net Whether validation of SUMO networks is reported
+    */
+    static bool isValidating(const bool net = false);
 
 
     /**

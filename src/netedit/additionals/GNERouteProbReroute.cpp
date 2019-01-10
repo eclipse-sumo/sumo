@@ -18,38 +18,36 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/ToString.h>
-#include "GNERouteProbReroute.h"
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
-
 #include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
+
+#include "GNERouteProbReroute.h"
+#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
-    myRerouterIntervalParent(rerouterIntervalDialog->getEditedRerouterInterval()),
-    myNewRouteId(rerouterIntervalDialog->getEditedRerouterInterval()->getRerouterParent()->getViewNet()->getNet()->generateCalibratorRouteID()),
-    myProbability(getDefaultValue<double>(SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB)) {
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false) {
+    // if exist a reroute, set newRoute ID
+    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() > 0) {
+        myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).begin()->first;
+    }
+    // fill route prob reroute interval with default values
+    setDefaultValues();
 }
 
 
-GNERouteProbReroute::GNERouteProbReroute(GNERerouterInterval* rerouterIntervalParent, const std::string& newRouteId, double probability) :
-    GNEAttributeCarrier(SUMO_TAG_ROUTE_PROB_REROUTE, ICON_EMPTY),
-    myRerouterIntervalParent(rerouterIntervalParent),
+GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) :
+    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false),
     myNewRouteId(newRouteId),
     myProbability(probability) {
 }
@@ -59,40 +57,38 @@ GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
 void
-GNERouteProbReroute::writeRouteProbReroute(OutputDevice& device) const {
-    // open Tag
-    device.openTag(getTag());
-    // write Route ID
-    writeAttribute(device, SUMO_ATTR_ID);
-    // write Probability
-    writeAttribute(device, SUMO_ATTR_PROB);
-    // close tag
-    device.closeTag();
+GNERouteProbReroute::moveGeometry(const Position&, const Position&) {
+    // This additional cannot be moved
 }
 
 
-GNERerouterInterval*
-GNERouteProbReroute::getRerouterIntervalParent() const {
-    return myRerouterIntervalParent;
+void
+GNERouteProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+    // This additional cannot be moved
 }
 
 
-void 
-GNERouteProbReroute::selectAttributeCarrier(bool) {
-    // this AC cannot be selected
+void
+GNERouteProbReroute::updateGeometry(bool /*updateGrid*/) {
+    // Currently this additional doesn't own a Geometry
 }
 
 
-void 
-GNERouteProbReroute::unselectAttributeCarrier(bool) {
-    // this AC cannot be unselected
+Position
+GNERouteProbReroute::getPositionInView() const {
+    return myFirstAdditionalParent->getPositionInView();
 }
 
 
-bool 
-GNERouteProbReroute::isAttributeCarrierSelected() const {
-    // this AC doesn't own a select flag
-    return false;
+std::string
+GNERouteProbReroute::getParentName() const {
+    return myFirstAdditionalParent->getID();
+}
+
+
+void
+GNERouteProbReroute::drawGL(const GUIVisualizationSettings&) const {
+    // Currently This additional isn't drawn
 }
 
 
@@ -100,9 +96,15 @@ std::string
 GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
+            return getAdditionalID();
+        case SUMO_ATTR_ROUTE:
             return myNewRouteId;
         case SUMO_ATTR_PROB:
             return toString(myProbability);
+        case GNE_ATTR_PARENT:
+            return myFirstAdditionalParent->getID();
+        case GNE_ATTR_GENERIC:
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -116,7 +118,9 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNE
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_PROB:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -129,12 +133,28 @@ bool
 GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidID(value);
+            return isValidAdditionalID(value);
+        case SUMO_ATTR_ROUTE:
+            return SUMOXMLDefinitions::isValidVehicleID(value);
         case SUMO_ATTR_PROB:
             return canParse<double>(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+std::string
+GNERouteProbReroute::getPopUpID() const {
+    return toString(getTag());
+}
+
+
+std::string
+GNERouteProbReroute::getHierarchyName() const {
+    return toString(getTag()) + ": " + myNewRouteId;
 }
 
 // ===========================================================================
@@ -144,14 +164,18 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
 void
 GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID: {
+        case SUMO_ATTR_ID:
+            changeAdditionalID(value);
+            break;
+        case SUMO_ATTR_ROUTE:
             myNewRouteId = value;
             break;
-        }
-        case SUMO_ATTR_PROB: {
+        case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);
             break;
-        }
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }

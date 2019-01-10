@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -124,7 +120,7 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) {
 
 double
 MSParkingArea::getSpaceDim() const {
-    return myLane.interpolateLanePosToGeometryPos((myEndPos - myBegPos) / myCapacity);
+    return myCapacity > 0 ? myLane.interpolateLanePosToGeometryPos((myEndPos - myBegPos) / myCapacity) : 7.5;
 }
 
 

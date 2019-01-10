@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <string>
@@ -92,7 +88,7 @@ public:
      * @note Inherited from GUIGlObject
      * @return This object's parent id
      */
-    const std::string& getParentName() const {
+    std::string getParentName() const {
         return getEdge().getID();
     }
 
@@ -221,7 +217,7 @@ public:
     void drawBikeMarkings() const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators() const;
+    void drawDirectionIndicators(double exaggeration) const;
 
     /// @brief draw intersection positions of foe internal lanes with this one
     void debugDrawFoeIntersections() const;
@@ -290,6 +286,9 @@ private:
 
     /// @brief add intermediate points at segment borders
     PositionVector splitAtSegments(const PositionVector& shape);
+
+    /// @brief get number of vehicles waiting for departure on this lane
+    double getPendingEmits() const;
 
 private:
 

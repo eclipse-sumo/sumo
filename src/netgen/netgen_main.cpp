@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -75,12 +71,13 @@ fillOptions() {
     oc.addOptionSubTopic("Spider Network");
     oc.addOptionSubTopic("Random Network");
     oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("TLS Building");
-    //oc.addOptionSubTopic("Ramp Guessing");
-    oc.addOptionSubTopic("Edge Removal");
-    oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("TLS Building");
+    oc.addOptionSubTopic("Edge Removal");
+    oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Junctions");
+    oc.addOptionSubTopic("Pedestrian");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();

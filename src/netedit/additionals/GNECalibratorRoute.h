@@ -21,25 +21,19 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/RGBColor.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNECalibrator;
 class GNEEdge;
-class GNECalibratorDialog;
 
 // ===========================================================================
 // class definitions
@@ -48,38 +42,58 @@ class GNECalibratorDialog;
  * @class GNECalibratorRoute
  * vehicle route used by GNECalibrators
  */
-class GNECalibratorRoute : public GNEAttributeCarrier {
+class GNECalibratorRoute : public GNEAdditional {
 
 public:
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorRoute(GNECalibratorDialog* calibratorDialog);
+    GNECalibratorRoute(GNEViewNet* viewNet);
 
     /// @brief parameter constructor
-    GNECalibratorRoute(GNECalibrator* calibratorParent, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
+    GNECalibratorRoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /// @brief destructor
     ~GNECalibratorRoute();
 
-    /// @brief write Route values into a XML
-    void writeRoute(OutputDevice& device);
-
-    /// @brief get pointer to calibrator parent
-    GNECalibrator* getCalibratorParent() const;
-
     /// @brief get GNEEdges of Calibrator ROute
     const std::vector<GNEEdge*>& getGNEEdges() const;
 
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position& oldPos, const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+
+    /// @brief update pre-computed geometry information
+    void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
+
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    std::string getParentName() const;
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
+
     /// @brief inherited from GNEAttributeCarrier
     /// @{
-    /// @brief select attribute carrier
-    void selectAttributeCarrier(bool);
-
-    /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(bool);
-
-    /// @brief check if attribute carrier is selected
-    bool isAttributeCarrierSelected() const;
-
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key
@@ -100,15 +114,15 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 protected:
-    /// @brief pointer to calibrator parent
-    GNECalibrator* myCalibratorParent;
-
-    /// @brief route in which this flow is used
-    std::string myRouteID;
-
     /// @brief edges of route
     std::vector<GNEEdge*> myEdges;
 

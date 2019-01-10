@@ -23,20 +23,25 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <traci-server/TraCIConstants.h>
+#ifndef SWIGJAVA
+#ifndef SWIGPYTHON
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#endif
+#endif
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSRoute;
+namespace libsumo {
+class VariableWrapper;
+}
+
 
 // ===========================================================================
 // class definitions
@@ -58,16 +63,22 @@ public:
     static std::vector<std::vector<TraCILink> > getControlledLinks(const std::string& tlsID);
     static std::string getProgram(const std::string& tlsID);
     static int getPhase(const std::string& tlsID);
-    static SUMOTime getPhaseDuration(const std::string& tlsID);
-    static SUMOTime getNextSwitch(const std::string& tlsID);
+    static double getPhaseDuration(const std::string& tlsID);
+    static double getNextSwitch(const std::string& tlsID);
     static std::string getParameter(const std::string& tlsID, const std::string& paramName);
 
     static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
     static void setPhase(const std::string& tlsID, const int index);
     static void setProgram(const std::string& tlsID, const std::string& programID);
-    static void setPhaseDuration(const std::string& tlsID, const SUMOTime phaseDuration);
+    static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
     static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
     static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
+
+    LIBSUMO_SUBSCRIPTION_API
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
 #ifndef SWIGJAVA
@@ -76,15 +87,15 @@ private:
 #endif
 #endif
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    TrafficLight();
-
-    /// @brief invalidated copy constructor
-    TrafficLight(const TrafficLight& src);
-
-    /// @brief invalidated assignment operator
-    TrafficLight& operator=(const TrafficLight& src);
+    TrafficLight() = delete;
 };
+
+
 }
 
 

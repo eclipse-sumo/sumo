@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
@@ -44,7 +40,7 @@
 // GUIE3Collector::MyWrapper-methods
 // -------------------------------------------------------------------------
 
-GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) : 
+GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector& detector) :
     GUIDetectorWrapper(GLO_E3DETECTOR, detector.getID()),
     myDetector(detector) {
     const CrossSectionVector& entries = detector.getEntries();
@@ -98,7 +94,7 @@ void
 GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     GLHelper::setColor(s.SUMO_color_E3Entry);
@@ -165,8 +161,8 @@ GUIE3Collector::MyWrapper::getDetector() {
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                double haltingSpeedThreshold,
-                               SUMOTime haltingTimeThreshold, const std::string& vTypes)
-    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes) {}
+                               SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry)
+    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry) {}
 
 
 GUIE3Collector::~GUIE3Collector() {}

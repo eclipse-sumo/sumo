@@ -20,10 +20,21 @@ of the CityMobil parking lot.
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import os
 import random
 import subprocess
-from constants import *
+import os
+import sys
+from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, STOP_POS, SLOTS_PER_ROW, SLOT_WIDTH
+from constants import SLOT_LENGTH, SLOT_FOOT_LENGTH, CAR_CAPACITY, CYBER_CAPACITY, BUS_CAPACITY, TOTAL_CAPACITY
+from constants import CYBER_SPEED, CYBER_LENGTH, OCCUPATION_PROBABILITY, PORT
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import sumolib  # noqa
 
 occupied = 0
 nodes = open("%s.nod.xml" % PREFIX, "w")
@@ -33,10 +44,11 @@ print("<edges>", file=edges)
 connections = open("%s.con.xml" % PREFIX, "w")
 print("<connections>", file=connections)
 routes = open("%s.rou.xml" % PREFIX, "w")
-print("""<routes>
+print(("""<routes>
     <vType id="car" length="3" minGap=".5" guiShape="passenger" maxSpeed="50" color="0.7,0.7,0.7"/>
     <vType id="person" length=".25" minGap="0" guiShape="pedestrian" width=".25" maxSpeed="5" color="1,0.2,0.2"/>
-    <vType id="cybercar" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s" color="0,1,0" emissionClass="HBEFA2/P_7_7"/>""" % (CYBER_LENGTH, CYBER_SPEED), file=routes)
+    <vType id="cybercar" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s" color="0,1,0" \
+emissionClass="HBEFA2/P_7_7"/>""") % (CYBER_LENGTH, CYBER_SPEED), file=routes)
 # streets
 nodeID = "main-0"
 print('<node id="in" x="-100" y="0"/>', file=nodes)
@@ -198,6 +210,8 @@ edges.close()
 print("</connections>", file=connections)
 connections.close()
 
+NETCONVERT = os.environ.get(
+    "NETCONVERT_BINARY", os.path.join(os.environ["SUMO_HOME"], 'bin', 'netconvert'))
 subprocess.call([NETCONVERT,
                  '--no-internal-links',
                  '-n', '%s.nod.xml' % PREFIX,
@@ -241,6 +255,7 @@ stops.close()
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 bat = open("%s.bat" % PREFIX, "w")
 breakbat = open("%s_break.bat" % PREFIX, "w")
+
 for period in range(5, 50, 5):
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
     print("<routes>", file=routes)

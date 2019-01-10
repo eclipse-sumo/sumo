@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 
 // ===========================================================================
@@ -52,6 +48,7 @@ enum GUIIcon {
     ICON_RELOAD,
     ICON_SAVE,
     ICON_CLOSE,
+    ICON_HELP,
     /// @}
 
     /// @name simulation control icons
@@ -191,6 +188,7 @@ enum GUIIcon {
     ICON_LANEPEDESTRIAN,
     ICON_LANEBUS,
     ICON_LANEBIKE,
+    ICON_LANEGREENVERGE,
     /// @}
 
     /// @name netedit modes icons
@@ -205,6 +203,7 @@ enum GUIIcon {
     ICON_MODESELECT,
     ICON_MODETLS,
     ICON_MODEPOLYGON,
+    ICON_MODEPROHIBITION,
     /// @}
 
     /// @name netedit processing icons
@@ -228,6 +227,7 @@ enum GUIIcon {
     /// @name netedit additional icons
     /// @{
     ICON_BUSSTOP,
+    ICON_ACCESS,
     ICON_CONTAINERSTOP,
     ICON_CHARGINGSTATION,
     ICON_E1,
@@ -235,6 +235,7 @@ enum GUIIcon {
     ICON_E3,
     ICON_E3ENTRY,
     ICON_E3EXIT,
+    ICON_E1INSTANT,
     ICON_REROUTER,
     ICON_ROUTEPROBE,
     ICON_VAPORIZER,
@@ -242,6 +243,20 @@ enum GUIIcon {
     ICON_CALIBRATOR,
     ICON_PARKINGAREA,
     ICON_PARKINGSPACE,
+    ICON_REROUTERINTERVAL,
+    ICON_VSSSTEP,
+    ICON_CLOSINGREROUTE,
+    ICON_CLOSINGLANEREROUTE,
+    ICON_DESTPROBREROUTE,
+    ICON_PARKINGZONEREROUTE,
+    ICON_ROUTEPROBREROUTE,
+    /// @}
+
+    /// @name netedit routeElements icons
+    /// @{
+    ICON_FLOW,
+    ICON_ROUTE,
+    ICON_VTYPE,
     /// @}
 
     /// @name vehicle Class icons

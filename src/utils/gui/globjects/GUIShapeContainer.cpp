@@ -21,13 +21,10 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GUIShapeContainer.h"
+#include <utils/common/MsgHandler.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
@@ -36,8 +33,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIShapeContainer::GUIShapeContainer(SUMORTree& vis)
-    : myVis(vis) {}
+GUIShapeContainer::GUIShapeContainer(SUMORTree& vis) :
+    myVis(vis),
+    myAllowReplacement(false) {
+}
 
 
 GUIShapeContainer::~GUIShapeContainer() {}
@@ -50,12 +49,19 @@ GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const 
     GUIPointOfInterest* p = new GUIPointOfInterest(id, type, color, pos, geo, lane, posOverLane, posLat, layer, angle, imgFile, relativePath, width, height);
     AbstractMutex::ScopedLocker locker(myLock);
     if (!myPOIs.add(id, p)) {
-        delete p;
-        return false;
-    } else {
-        myVis.addAdditionalGLObject(p);
-        return true;
+        if (myAllowReplacement) {
+            GUIPointOfInterest* oldP = dynamic_cast<GUIPointOfInterest*>(myPOIs.get(id));
+            myVis.removeAdditionalGLObject(oldP);
+            myPOIs.remove(id);
+            myPOIs.add(id, p);
+            WRITE_WARNING("Replacing POI '" + id + "'");
+        } else {
+            delete p;
+            return false;
+        }
     }
+    myVis.addAdditionalGLObject(p);
+    return true;
 }
 
 
@@ -67,12 +73,19 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
     GUIPolygon* p = new GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile, relativePath);
     AbstractMutex::ScopedLocker locker(myLock);
     if (!myPolygons.add(id, p)) {
-        delete p;
-        return false;
-    } else {
-        myVis.addAdditionalGLObject(p);
-        return true;
+        if (myAllowReplacement) {
+            GUIPolygon* oldP = dynamic_cast<GUIPolygon*>(myPolygons.get(id));
+            myVis.removeAdditionalGLObject(oldP);
+            myPolygons.remove(id);
+            myPolygons.add(id, p);
+            WRITE_WARNING("Replacing polygon '" + id + "'");
+        } else {
+            delete p;
+            return false;
+        }
     }
+    myVis.addAdditionalGLObject(p);
+    return true;
 }
 
 

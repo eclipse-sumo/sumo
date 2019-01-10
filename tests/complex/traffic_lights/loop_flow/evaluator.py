@@ -16,13 +16,8 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sumolib.output
-from matplotlib.pyplot import figure, show, axes, sci
-from matplotlib import cm, colors
-from pylab import *
-import numpy as np
-from mpl_toolkits.mplot3d import axes3d
-
-from runner import types, flow1def, flow2def, fillSteps, measureSteps, simSteps
+from pylab import clf, colorbar, imshow, legend, savefig, title, xticks, yticks
+from runner import flow1def, flow2def, types
 
 
 durationM = {}
@@ -67,23 +62,23 @@ for t in types:
                 waitStepsMinMax[1] = waitSteps
 
     """
-   <interval begin="0.00" end="60.00" id="2i_l0" nSamples="55" 
-   meanSpeed="13.89" meanOccupancy="1.19" maxOccupancy="3.90" 
-   meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0" maxJamLengthInMeters="0.00" 
-   jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00" maxHaltingDuration="0.00" 
-   haltingDurationSum="0.00" meanIntervalHaltingDuration="0.00" maxIntervalHaltingDuration="0.00" intervalHaltingDurationSum="0.00" 
+   <interval begin="0.00" end="60.00" id="2i_l0" nSamples="55"
+   meanSpeed="13.89" meanOccupancy="1.19" maxOccupancy="3.90"
+   meanMaxJamLengthInVehicles="0.00" meanMaxJamLengthInMeters="0.00" maxJamLengthInVehicles="0"
+   maxJamLengthInMeters="0.00" jamLengthInVehiclesSum="0" jamLengthInMetersSum="0.00" meanHaltingDuration="0.00"
+   maxHaltingDuration="0.00" haltingDurationSum="0.00" meanIntervalHaltingDuration="0.00"
+   maxIntervalHaltingDuration="0.00" intervalHaltingDurationSum="0.00"
    startedHalts="0.00" meanVehicleNumber="0.92" maxVehicleNumber="3" />
     """
 
 
 def makeIMSHOWfigure(matrix, oname, t, rangeX, rangeY, minMax=None):
     if minMax:
-        im = imshow(
-            matrix, vmin=minMax[0], vmax=minMax[1], interpolation='nearest')
+        imshow(matrix, vmin=minMax[0], vmax=minMax[1], interpolation='nearest')
     else:
-        im = imshow(matrix, interpolation='nearest')
+        imshow(matrix, interpolation='nearest')
     legend()
-    cb = colorbar(shrink=0.5)
+    colorbar(shrink=0.5)
     xticks(range(0, len(matrix)), rangeX, size=14)
     yticks(range(0, len(matrix[0])), rangeY, size=14)
     title(t)

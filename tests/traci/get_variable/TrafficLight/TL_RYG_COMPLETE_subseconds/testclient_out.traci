@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:24:51 2013
+TraCITestClient output file. Date: Fri Aug 17 11:12:51 2018
 
 
 -> Command sent: <SimulationStep>:
@@ -15,37 +15,37 @@ TraCITestClient output file. Date: Mon Jul 01 13:24:51 2013
  ]
  valueDataType=9 Int value: 0
  valueDataType=9 Int value: 8
- valueDataType=9 Int value: 31000
- valueDataType=9 Int value: 31000
- valueDataType=9 Int value: 31000
+ valueDataType=11 Double value: 31.00
+ valueDataType=11 Double value: 31.00
+ valueDataType=11 Double value: 31.00
  valueDataType=12 string value: GGggrrrrGGggrrrr
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
  valueDataType=12 string value: yyggrrrryyggrrrr
- valueDataType=9 Int value: 6000
- valueDataType=9 Int value: 6000
- valueDataType=9 Int value: 6000
+ valueDataType=11 Double value: 6.00
+ valueDataType=11 Double value: 6.00
+ valueDataType=11 Double value: 6.00
  valueDataType=12 string value: rrGGrrrrrrGGrrrr
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
  valueDataType=12 string value: rryyrrrrrryyrrrr
- valueDataType=9 Int value: 31000
- valueDataType=9 Int value: 31000
- valueDataType=9 Int value: 31000
+ valueDataType=11 Double value: 31.00
+ valueDataType=11 Double value: 31.00
+ valueDataType=11 Double value: 31.00
  valueDataType=12 string value: rrrrGGggrrrrGGgg
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
  valueDataType=12 string value: rrrryyggrrrryygg
- valueDataType=9 Int value: 6000
- valueDataType=9 Int value: 6000
- valueDataType=9 Int value: 6000
+ valueDataType=11 Double value: 6.00
+ valueDataType=11 Double value: 6.00
+ valueDataType=11 Double value: 6.00
  valueDataType=12 string value: rrrrrrGGrrrrrrGG
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
- valueDataType=9 Int value: 4000
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
+ valueDataType=11 Double value: 4.00
  valueDataType=12 string value: rrrrrryyrrrrrryy
  ]
 

@@ -1,56 +1,11 @@
-Warning: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'id' of routeProbe is missing; routeProbe cannot be created
-Warning: Format of essential string attribute 'id' of routeProbe is invalid; 'id with spaces' contains invalid characters; routeProbe cannot be created
-Warning: Format of essential string attribute 'id' of routeProbe is invalid; ID cannot be empty; routeProbe cannot be created
+Warning: Essential unique string attribute 'id' of routeProbe is missing; routeProbe cannot be created
+Warning: Format of essential unique string attribute 'id' of routeProbe is invalid; 'id with spaces' contains invalid characters; routeProbe cannot be created
+Warning: Format of essential unique string attribute 'id' of routeProbe is invalid; ID cannot be empty; routeProbe cannot be created
 Warning: There is another routeProbe with the same ID='routeProbe_01'.
-Warning: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
 Warning: The edge 'dummyEdge' to use within the routeProbe 'routeProbe_04' is not known.
-Warning: Adding routeProbe 'routeProbe_05' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_06' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_07' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_08' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_09' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_10' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_11' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_12' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_13' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
-Warning: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting unreferenced routeProbe 'routeProbe_17'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced routeProbe 'routeProbe_16'
-Warning: Deleting unreferenced routeProbe 'routeProbe_15'
-Warning: Deleting unreferenced routeProbe 'routeProbe_14'
-Warning: Deleting unreferenced routeProbe 'routeProbe_13'
-Warning: Deleting unreferenced routeProbe 'routeProbe_12'
-Warning: Deleting unreferenced routeProbe 'routeProbe_11'
-Warning: Deleting unreferenced routeProbe 'routeProbe_10'
-Warning: Deleting unreferenced routeProbe 'routeProbe_09'
-Warning: Deleting unreferenced routeProbe 'routeProbe_08'
-Warning: Deleting unreferenced routeProbe 'routeProbe_07'
-Warning: Deleting unreferenced routeProbe 'routeProbe_06'
-Warning: Deleting unreferenced routeProbe 'routeProbe_05'
-Warning: Deleting unreferenced routeProbe 'routeProbe_03'
-Warning: Deleting unreferenced routeProbe 'routeProbe_02'
-Warning: Deleting unreferenced routeProbe 'routeProbe_01'
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor
+Warning: Essential positive time attribute 'freq' of routeProbe with ID 'routeProbe_06' is missing; routeProbe cannot be created
+Warning: Format of essential positive time attribute 'freq' of routeProbe with ID 'routeProbe_07' is invalid; Cannot be parsed to time; routeProbe cannot be created
+Warning: Format of essential positive time attribute 'freq' of routeProbe with ID 'routeProbe_08' is invalid; Time cannot be negative; routeProbe cannot be created
+Warning: Essential filename attribute 'file' of routeProbe with ID 'routeProbe_10' is missing; routeProbe cannot be created
+Warning: Format of essential filename attribute 'file' of routeProbe with ID 'routeProbe_11' is invalid; Filename contains invalid characters; routeProbe cannot be created
+Warning: Format of essential filename attribute 'file' of routeProbe with ID 'routeProbe_12' is invalid; Filename cannot be empty; routeProbe cannot be created

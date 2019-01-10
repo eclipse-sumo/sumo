@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/geom/Position.h>
@@ -58,29 +54,41 @@ public:
     NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name, SVCPermissions svcPermissions);
     std::string getID() const;
 
-    const std::string getEdgeId();
-    const std::string getOrigEdgeId();
-    const std::string getName();
-    const Position& getPosition();
-    SVCPermissions getPermissions();
+    const std::string getEdgeId() const;
+    const std::string getOrigEdgeId() const;
+    const std::string getName() const;
+    const Position& getPosition() const;
+    SVCPermissions getPermissions() const;
     void computExtent(double center, double d);
     void write(OutputDevice& device);
     void reshiftPosition(const double offsetX, const double offsetY);
 
     const std::vector<NBPTPlatform>& getPlatformCands();
-    bool getIsMultipleStopPositions();
+    bool getIsMultipleStopPositions() const;
     void setIsMultipleStopPositions(bool multipleStopPositions);
-    double getLength();
+    double getLength() const;
     bool setEdgeId(std::string edgeId, NBEdgeCont& ec);
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
     void addPlatformCand(NBPTPlatform platform);
     bool findLaneAndComputeBusStopExtend(NBEdgeCont& ec);
 
     void setMyPTStopId(std::string id);
-    void addAccess(std::string laneID, double offset);
+    void addAccess(std::string laneID, double offset, double length);
+
+    /// @brief remove all access definitions
+    void clearAccess();
 
     /// @brief register line that services this stop (for displaying)
     void addLine(const std::string& line);
+
+    void setBidiStop(NBPTStop* bidiStop) {
+        myBidiStop = bidiStop;
+    }
+
+    NBPTStop* getBidiStop() const {
+        return myBidiStop;
+    }
+
 private:
     std::string myPTStopId;
     Position myPosition;
@@ -104,10 +112,13 @@ private:
     double myStartPos;
     double myEndPos;
 
-    std::vector<std::tuple<std::string, double>> myAccesses;
+    /// @brief laneId, lanePos, accessLength
+    std::vector<std::tuple<std::string, double, double>> myAccesses;
 
     /// @brief list of public transport lines (for displaying)
     std::vector<std::string> myLines;
+
+    NBPTStop* myBidiStop;
 
 
 private:

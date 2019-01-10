@@ -31,11 +31,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <bitset>
 #include <string>
@@ -244,6 +240,10 @@ public:
      */
     const std::string& getState() const {
         return state;
+    }
+
+    void setState(const std::string& _state) {
+        state = _state;
     }
 
     const LaneIdVector& getTargetLaneSet() const {

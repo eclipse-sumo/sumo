@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:26 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:31 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,13 +19,20 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -34,23 +41,23 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-11.14,-5.47,198.95,139.68" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":beg.30_0" function="internal">
-        <lane id=":beg.30_0_0" index="0" speed="13.89" length="3.00" shape="17.37,33.52 20.37,33.54"/>
+        <lane id=":beg.30_0_0" index="0" speed="13.89" length="8.00" shape="14.87,33.51 22.87,33.56"/>
     </edge>
     <edge id=":beg.60_0" function="internal">
-        <lane id=":beg.60_0_0" index="0" speed="13.89" length="3.69" shape="47.37,33.71 50.39,30.53"/>
-        <lane id=":beg.60_0_1" index="1" speed="13.89" length="3.69" shape="47.37,33.71 50.37,33.73"/>
+        <lane id=":beg.60_0_0" index="0" speed="13.89" length="8.40" shape="44.87,33.69 47.33,33.21 48.88,32.12 50.42,31.03 52.89,30.54"/>
+        <lane id=":beg.60_0_1" index="1" speed="13.89" length="8.40" shape="44.87,33.69 52.87,33.74"/>
     </edge>
     <edge id=":end.30_0" function="internal">
-        <lane id=":end.30_0_0" index="0" speed="13.89" length="3.00" shape="113.40,24.23 116.22,23.19"/>
+        <lane id=":end.30_0_0" index="0" speed="13.89" length="8.00" shape="111.06,25.09 118.57,22.33"/>
     </edge>
     <edge id=":end.60_0" function="internal">
-        <lane id=":end.60_0_0" index="0" speed="13.89" length="3.69" shape="141.57,13.89 143.28,9.85"/>
-        <lane id=":end.60_0_1" index="1" speed="13.89" length="3.69" shape="141.57,13.89 144.38,12.86"/>
+        <lane id=":end.60_0_0" index="0" speed="13.89" length="8.40" shape="139.22,14.75 141.36,13.43 142.42,11.87 143.49,10.31 145.63,8.99"/>
+        <lane id=":end.60_0_1" index="1" speed="13.89" length="8.40" shape="139.22,14.75 146.73,11.99"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" speed="13.89" length="10.14" shape="82.65,37.69 82.71,35.22 83.63,33.14 85.41,31.44 88.04,30.13"/>
@@ -64,30 +71,30 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="beg" from="beg.30" to="beg.60" priority="1">
-        <lane id="beg_0" index="0" speed="13.89" length="27.00" shape="20.37,33.54 47.37,33.71"/>
+        <lane id="beg_0" index="0" speed="13.89" length="22.00" shape="22.87,33.56 44.87,33.69"/>
     </edge>
     <edge id="beg.begin" from="gneJ0" to="beg.30" priority="1">
-        <lane id="beg.begin_0" index="0" speed="13.89" length="28.50" shape="-11.11,30.15 17.39,30.32"/>
-        <lane id="beg.begin_1" index="1" speed="13.89" length="28.50" shape="-11.13,33.35 17.37,33.52"/>
+        <lane id="beg.begin_0" index="0" speed="13.89" length="26.00" shape="-11.11,30.15 14.89,30.31"/>
+        <lane id="beg.begin_1" index="1" speed="13.89" length="26.00" shape="-11.13,33.35 14.87,33.51"/>
     </edge>
     <edge id="beg.end" from="beg.60" to="gneJ1" priority="1">
-        <lane id="beg.end_0" index="0" speed="13.89" length="28.88" shape="50.39,30.53 79.26,30.70"/>
-        <lane id="beg.end_1" index="1" speed="13.89" length="28.88" shape="50.37,33.73 79.25,33.90"/>
+        <lane id="beg.end_0" index="0" speed="13.89" length="26.38" shape="52.89,30.54 79.26,30.70"/>
+        <lane id="beg.end_1" index="1" speed="13.89" length="26.38" shape="52.87,33.74 79.25,33.90"/>
     </edge>
     <edge id="beg2" from="gneJ2" to="gneJ1" priority="1">
         <lane id="beg2_0" index="0" speed="13.89" length="103.60" shape="96.66,140.33 82.65,37.69"/>
         <lane id="beg2_1" index="1" speed="13.89" length="103.60" shape="99.83,139.90 85.82,37.25"/>
     </edge>
     <edge id="end" from="end.30" to="end.60" priority="1">
-        <lane id="end_0" index="0" speed="13.89" length="27.00" shape="116.22,23.19 141.57,13.89"/>
+        <lane id="end_0" index="0" speed="13.89" length="22.00" shape="118.57,22.33 139.22,14.75"/>
     </edge>
     <edge id="end.begin" from="gneJ1" to="end.30" priority="1">
-        <lane id="end.begin_0" index="0" speed="13.89" length="25.84" shape="88.04,30.13 112.30,21.22"/>
-        <lane id="end.begin_1" index="1" speed="13.89" length="25.84" shape="89.14,33.13 113.40,24.23"/>
+        <lane id="end.begin_0" index="0" speed="13.89" length="23.34" shape="88.04,30.13 109.95,22.08"/>
+        <lane id="end.begin_1" index="1" speed="13.89" length="23.34" shape="89.14,33.13 111.06,25.09"/>
     </edge>
     <edge id="end.end" from="end.60" to="gneJ3" priority="1">
-        <lane id="end.end_0" index="0" speed="13.89" length="57.54" shape="143.28,9.85 197.30,-9.98"/>
-        <lane id="end.end_1" index="1" speed="13.89" length="57.54" shape="144.38,12.86 198.40,-6.97"/>
+        <lane id="end.end_0" index="0" speed="13.89" length="55.04" shape="145.63,8.99 197.30,-9.98"/>
+        <lane id="end.end_1" index="1" speed="13.89" length="55.04" shape="146.73,11.99 198.40,-6.97"/>
     </edge>
 
     <tlLogic id="gneJ1" type="static" programID="0" offset="0">
@@ -97,17 +104,17 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="rryy"/>
     </tlLogic>
 
-    <junction id="beg.30" type="priority" x="18.86" y="35.13" incLanes="beg.begin_0 beg.begin_1" intLanes=":beg.30_0_0" shape="20.36,35.14 20.38,31.94 17.40,28.72 17.36,35.12">
+    <junction id="beg.30" type="priority" x="18.86" y="35.13" incLanes="beg.begin_0 beg.begin_1" intLanes=":beg.30_0_0" shape="22.86,35.16 22.88,31.96 14.90,28.71 14.86,35.11">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="beg.60" type="priority" x="48.86" y="35.32" incLanes="beg_0" intLanes=":beg.60_0_0 :beg.60_0_1" shape="50.36,35.33 50.40,28.93 47.38,32.11 47.36,35.31">
+    <junction id="beg.60" type="priority" x="48.86" y="35.32" incLanes="beg_0" intLanes=":beg.60_0_0 :beg.60_0_1" shape="52.86,35.34 52.90,28.94 44.88,32.09 44.86,35.29">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="end.30" type="priority" x="115.36" y="25.21" incLanes="end.begin_0 end.begin_1" intLanes=":end.30_0_0" shape="116.77,24.70 115.67,21.69 111.75,19.72 113.95,25.73">
+    <junction id="end.30" type="priority" x="115.36" y="25.21" incLanes="end.begin_0 end.begin_1" intLanes=":end.30_0_0" shape="119.12,23.83 118.01,20.83 109.40,20.58 111.61,26.59">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="end.60" type="priority" x="143.53" y="14.87" incLanes="end_0" intLanes=":end.60_0_0 :end.60_0_1" shape="144.93,14.36 142.73,8.35 141.01,12.39 142.12,15.39">
+    <junction id="end.60" type="priority" x="143.53" y="14.87" incLanes="end_0" intLanes=":end.60_0_0 :end.60_0_1" shape="147.28,13.50 145.07,7.49 138.67,13.25 139.77,16.25">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>

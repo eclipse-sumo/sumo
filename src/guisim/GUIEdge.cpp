@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <cmath>
@@ -167,7 +163,7 @@ GUIParameterTableWindow*
 GUIEdge::getParameterWindow(GUIMainWindow& app,
                             GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret = 0;
-    ret = new GUIParameterTableWindow(app, *this, 18);
+    ret = new GUIParameterTableWindow(app, *this, 19);
     // add edge items
     ret->mkItem("length [m]", false, (*myLanes)[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
@@ -190,6 +186,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment #vehicles", true, new CastingFunctionBinding<MESegment, double, int>(segment, &MESegment::getCarNumber));
     ret->mkItem("segment leader leave time", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEventTimeSeconds));
     ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
+    ret->mkItem("segment entry blocktime [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEntryBlockTimeSeconds));
 
     // close building
     ret->closeBuilding();
@@ -256,22 +253,20 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     if (s.scale * s.personSize.getExaggeration(s) > s.personSize.minSize) {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         for (std::set<MSTransportable*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
             assert(person != 0);
             person->drawGL(s);
         }
-        myLock.unlock();
     }
     if (s.scale * s.containerSize.getExaggeration(s) > s.containerSize.minSize) {
-        myLock.lock();
+        AbstractMutex::ScopedLocker locker(myLock);
         for (std::set<MSTransportable*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
             assert(container != 0);
             container->drawGL(s);
         }
-        myLock.unlock();
     }
 }
 
@@ -530,7 +525,7 @@ void
 GUIEdge::addRerouter() {
     MSEdgeVector edges;
     edges.push_back(this);
-    GUITriggeredRerouter* rr = new GUITriggeredRerouter(getID() + "_dynamic_rerouter", edges, 1, "", false, 0,
+    GUITriggeredRerouter* rr = new GUITriggeredRerouter(getID() + "_dynamic_rerouter", edges, 1, "", false, 0, "",
             GUINet::getGUIInstance()->getVisualisationSpeedUp());
 
     MSTriggeredRerouter::RerouteInterval ri;
@@ -552,5 +547,10 @@ GUIEdge::addRerouter() {
     }
 }
 
+
+bool
+GUIEdge::isSelected() const {
+    return gSelected.isSelected(GLO_EDGE, getGlID());
+}
 /****************************************************************************/
 

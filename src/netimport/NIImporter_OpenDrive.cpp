@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 #include <string>
 #include <cmath>
 #include <iterator>
@@ -94,6 +90,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "width",            NIImporter_OpenDrive::OPENDRIVE_TAG_WIDTH },
     { "speed",            NIImporter_OpenDrive::OPENDRIVE_TAG_SPEED },
     { "elevation",        NIImporter_OpenDrive::OPENDRIVE_TAG_ELEVATION },
+    { "geoReference",     NIImporter_OpenDrive::OPENDRIVE_TAG_GEOREFERENCE },
 
     { "",                 NIImporter_OpenDrive::OPENDRIVE_TAG_NOTHING }
 };
@@ -149,6 +146,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
 bool NIImporter_OpenDrive::myImportAllTypes;
 bool NIImporter_OpenDrive::myImportWidths;
 double NIImporter_OpenDrive::myMinWidth;
+bool NIImporter_OpenDrive::myImportInternalShapes;
 
 // ===========================================================================
 // method definitions
@@ -166,6 +164,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportAllTypes = oc.getBool("opendrive.import-all-lanes");
     myImportWidths = !oc.getBool("opendrive.ignore-widths");
     myMinWidth = oc.getFloat("opendrive.min-width");
+    myImportInternalShapes = oc.getBool("opendrive.internal-shapes");
     NBTypeCont& tc = nb.getTypeCont();
     // build the handler
     std::map<std::string, OpenDriveEdge*> edges;
@@ -422,9 +421,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
                         if (sumoLane.width < myMinWidth
-                                && sumoLane.permissions != SVC_BICYCLE
-                                && sumoLane.permissions != SVC_PEDESTRIAN
+                                && (sumoLane.permissions & SVC_PASSENGER) != 0
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
+                            // avoid narrow passenger car lanes (especially at sections with varying width)
                             sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
@@ -471,9 +470,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         sumoLane.permissions = tc.getPermissions(odLane.type);
                         sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
                         if (sumoLane.width < myMinWidth
-                                && sumoLane.permissions != SVC_BICYCLE
-                                && sumoLane.permissions != SVC_PEDESTRIAN
+                                && (sumoLane.permissions & SVC_PASSENGER) != 0
                                 && sumoLane.width < tc.getWidth(odLane.type)) {
+                            // avoid narrow passenger car lanes (especially at sections with varying width)
                             sumoLane.permissions = SVC_EMERGENCY | SVC_AUTHORITY;
                         }
                     }
@@ -589,7 +588,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::cout << "addCon3 from=" << from->getID() << "_" << fromLane << " to=" << to->getID() << "_" << toLane << "\n";
         }
 #endif
-        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER);
+        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, false, false, true,
+                                     NBEdge::UNSPECIFIED_CONTPOS,
+                                     NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
+                                     NBEdge::UNSPECIFIED_SPEED,
+                                     (*i).shape);
 
         if ((*i).origID != "" && saveOrigIDs) {
             // @todo: this is the most silly way to determine the connection
@@ -734,7 +737,8 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
     seen.insert(c);
     const std::set<Connection>& conts = dest->connections;
     for (std::set<Connection>::const_iterator i = conts.begin(); i != conts.end(); ++i) {
-        if (innerEdges.find((*i).toEdge) != innerEdges.end()) {
+        auto innerEdgesIt = innerEdges.find((*i).toEdge);
+        if (innerEdgesIt != innerEdges.end()) {
             std::vector<Connection> t;
             if (seen.count(*i) == 0) {
                 buildConnectionsToOuter(*i, innerEdges, t, seen);
@@ -745,6 +749,9 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     cn.fromLane = c.fromLane;
                     cn.fromCP = c.fromCP;
                     cn.all = c.all; // @todo "all" is a hack trying to avoid the "from is zero" problem;
+                    if (myImportInternalShapes) {
+                        cn.shape = innerEdgesIt->second->geom + c.shape;
+                    }
                     into.push_back(cn);
                 }
             } else {
@@ -759,6 +766,24 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 cn.all = c.all;
                 cn.origID = c.toEdge;
                 cn.origLane = c.toLane;
+                if (myImportInternalShapes) {
+                    cn.shape = dest->geom;
+                    double offset = 0;
+                    for (const auto& rightLane : dest->laneSections.front().lanesByDir[OPENDRIVE_TAG_RIGHT]) {
+                        if (rightLane.predecessor < c.fromLane) {
+                            offset += rightLane.width;
+                        } else if (rightLane.predecessor == c.fromLane) {
+                            offset += rightLane.width / 2;
+                            break;
+                        }
+                    }
+                    try {
+                        cn.shape.move2side(offset);
+                    } catch (InvalidArgument&) {
+                        WRITE_WARNING("Could not import internal lane shape from edge '" + c.fromEdge + "' to edge '" + c.toEdge);
+                        cn.shape.clear();
+                    }
+                }
                 into.push_back(cn);
             }
         }
@@ -1099,6 +1124,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
         if (cDot == 0 || g.length == 0) {
             WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (cDot=" + toString(cDot) + " length=" + toString(g.length) + ").");
             ret.push_back(Position(g.x, g.y));
+            return ret;
         }
         double sStart = curveStart / cDot;
         double sEnd = curveEnd / cDot;
@@ -1762,6 +1788,34 @@ NIImporter_OpenDrive::myStartElement(int element,
             break;
     }
     myElementStack.push_back(element);
+}
+
+
+void
+NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
+    if (element == OPENDRIVE_TAG_GEOREFERENCE) {
+        size_t i = cdata.find("+proj");
+        if (i != std::string::npos) {
+            const std::string proj = cdata.substr(i);
+            if (proj != "") {
+                GeoConvHelper* result = 0;
+                Boundary convBoundary;
+                Boundary origBoundary;
+                Position networkOffset(0, 0);
+                // XXX read values from the header
+                convBoundary.add(Position(0, 0));
+                origBoundary.add(Position(0, 0));
+                try {
+                    result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+                    GeoConvHelper::setLoaded(*result);
+                } catch (ProcessError& e) {
+                    WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
+                }
+            }
+        } else {
+            WRITE_WARNING("geoReference format '" + cdata + "' currently not supported");
+        }
+    }
 }
 
 

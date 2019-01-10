@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:30 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:34 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,27 +19,27 @@ SPDX-License-Identifier: EPL-2.0
         <output.street-names value="true"/>
     </output>
 
-    <processing>
-        <ignore-errors.edge-type value="true"/>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
+        <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391652.43,-5820235.10" convBoundary="0.00,0.00,114.37,55.52" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-156364570#0" from="275525455" to="614674365" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary">
-        <lane id="-156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.33" width="3.00" shape="91.42,39.82 97.48,42.97"/>
-        <lane id="-156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.33" width="1.00" shape="90.50,41.59 96.56,44.75"/>
-        <lane id="-156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.33" shape="89.53,43.46 95.59,46.61"/>
+        <lane id="-156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.22" width="3.00" shape="91.42,39.82 97.48,42.97"/>
+        <lane id="-156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.22" width="1.00" shape="90.50,41.59 96.56,44.75"/>
+        <lane id="-156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.22" shape="89.53,43.46 95.59,46.61"/>
     </edge>
     <edge id="-156364570#1" from="cluster_160503146_2314394457_27411250" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" shape="12.44,6.14 35.62,18.12 80.71,40.67">
         <lane id="-156364570#1_0" index="0" allow="pedestrian" speed="13.89" length="90.63" width="3.00" shape="2.74,-5.29 38.20,13.04 79.09,33.49"/>
@@ -51,13 +51,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-25294729#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="51.98" shape="115.76,7.04 89.25,34.21"/>
     </edge>
     <edge id="-77348147" from="614674365" to="2796688606" name="An der Spandauer Brücke" priority="6" type="highway.tertiary" shape="93.56,47.36 97.84,51.25 100.04,55.52">
-        <lane id="-77348147_0" index="0" allow="pedestrian" speed="13.89" length="6.80" width="3.00" shape="101.29,48.04 101.63,48.34 104.22,53.37"/>
-        <lane id="-77348147_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="6.80" shape="99.17,50.34 101.46,54.79"/>
+        <lane id="-77348147_0" index="0" allow="pedestrian" speed="13.89" length="6.92" width="3.00" shape="101.29,48.04 101.63,48.34 104.22,53.37"/>
+        <lane id="-77348147_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="6.92" shape="99.17,50.34 101.46,54.79"/>
     </edge>
     <edge id="156364570#0" from="614674365" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary">
-        <lane id="156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.33" width="3.00" shape="92.22,53.09 86.15,49.93"/>
-        <lane id="156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.33" width="1.00" shape="93.14,51.31 87.08,48.16"/>
-        <lane id="156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.33" shape="94.11,49.45 88.05,46.29"/>
+        <lane id="156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.22" width="3.00" shape="92.22,53.09 86.15,49.93"/>
+        <lane id="156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.22" width="1.00" shape="93.14,51.31 87.08,48.16"/>
+        <lane id="156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.22" shape="94.11,49.45 88.05,46.29"/>
     </edge>
     <edge id="156364570#1" from="275525455" to="cluster_160503146_2314394457_27411250" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" shape="80.71,40.67 35.62,18.12 12.44,6.14">
         <lane id="156364570#1_0" index="0" allow="pedestrian" speed="13.89" length="90.63" width="3.00" shape="74.00,43.68 33.04,23.20 -2.50,4.84"/>
@@ -69,24 +69,24 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="25294729#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="51.98" shape="86.96,31.97 113.47,4.81"/>
     </edge>
     <edge id="77348147" from="2796688606" to="614674365" name="An der Spandauer Brücke" priority="6" type="highway.tertiary" shape="100.04,55.52 97.84,51.25 93.56,47.36">
-        <lane id="77348147_0" index="0" allow="pedestrian" speed="13.89" length="6.80" width="3.00" shape="95.86,57.67 94.62,55.27"/>
-        <lane id="77348147_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="6.80" shape="98.62,56.25 96.86,52.84"/>
+        <lane id="77348147_0" index="0" allow="pedestrian" speed="13.89" length="6.92" width="3.00" shape="95.86,57.67 94.62,55.27"/>
+        <lane id="77348147_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="6.92" shape="98.62,56.25 96.86,52.84"/>
     </edge>
 
-    <junction id="275525455" type="priority" x="80.71" y="40.67" incLanes="156364570#0_0 156364570#0_1 156364570#0_2 -25294729#0_0 -25294729#0_1 -156364570#1_0 -156364570#1_1 -156364570#1_2" intLanes="" shape="85.46,51.26 92.11,38.49 91.83,36.72 84.39,29.46 79.77,32.15 73.32,45.03">
-        <request index="0" response="0000000000" foes="0001100000"/>
+    <junction id="275525455" type="priority" x="80.71" y="40.67" incLanes="156364570#0_0 156364570#0_1 156364570#0_2 -25294729#0_0 -25294729#0_1 -156364570#1_0 -156364570#1_1 -156364570#1_2" intLanes="" shape="85.46,51.26 92.11,38.49 91.49,37.98 91.38,37.70 91.39,37.40 91.55,37.07 91.83,36.72 84.39,29.46 82.42,31.25 81.59,31.81 80.87,32.15 80.27,32.26 79.77,32.15 73.32,45.03">
+        <request index="0" response="0000000000" foes="0000100000"/>
         <request index="1" response="0000000000" foes="0001100000"/>
         <request index="2" response="1110000000" foes="1111100000"/>
-        <request index="3" response="1010000000" foes="1010000000"/>
+        <request index="3" response="0010000000" foes="0010000000"/>
         <request index="4" response="1010000000" foes="1010000000"/>
         <request index="5" response="1010000111" foes="1010000111"/>
-        <request index="6" response="1010000111" foes="1010000111"/>
-        <request index="7" response="0000000000" foes="0001111100"/>
+        <request index="6" response="1010000110" foes="1010000110"/>
+        <request index="7" response="0000000000" foes="0101111100"/>
         <request index="8" response="0010000000" foes="0010000100"/>
-        <request index="9" response="0000000000" foes="0001111100"/>
+        <request index="9" response="0000000000" foes="0001110100"/>
     </junction>
     <junction id="2796688606" type="dead_end" x="100.04" y="55.52" incLanes="-77348147_0 -77348147_1" intLanes="" shape="100.04,55.52 105.55,52.68 100.04,55.52"/>
-    <junction id="614674365" type="priority" x="93.56" y="47.36" incLanes="77348147_0 77348147_1 -156364570#0_0 -156364570#0_1 -156364570#0_2" intLanes="" shape="93.54,56.44 102.31,46.94 98.17,41.64 91.52,54.42">
+    <junction id="614674365" type="priority" x="93.56" y="47.36" incLanes="77348147_0 77348147_1 -156364570#0_0 -156364570#0_1 -156364570#0_2" intLanes="" shape="93.54,56.44 102.31,46.94 100.80,44.91 100.43,44.02 100.02,43.20 99.34,42.42 98.17,41.64 91.52,54.42 92.46,54.95 92.76,55.20 93.01,55.50 93.25,55.90">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

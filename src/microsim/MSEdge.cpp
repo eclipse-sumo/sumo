@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <algorithm>
 #include <iostream>
@@ -77,9 +73,9 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myStreetName(streetName),
     myEdgeType(edgeType),
     myPriority(priority),
-    myWidth(0),
-    myLength(-1.),
-    myEmptyTraveltime(-1.),
+    myWidth(0.),
+    myLength(0.),
+    myEmptyTraveltime(0.),
     myAmDelayed(false),
     myAmRoundabout(false),
     myAmFringe(true) {
@@ -161,12 +157,14 @@ MSEdge::closeBuilding() {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
             (*j)->initParallelLinks();
-            MSLane* toL = (*j)->getLane();
+            MSLane* const toL = (*j)->getLane();
+            MSLane* const viaL = (*j)->getViaLane();
             if (toL != 0) {
                 MSEdge& to = toL->getEdge();
                 //
                 if (std::find(mySuccessors.begin(), mySuccessors.end(), &to) == mySuccessors.end()) {
                     mySuccessors.push_back(&to);
+                    myViaSuccessors.push_back(std::make_pair(&to, (viaL == nullptr ? nullptr : &viaL->getEdge())));
                 }
                 if (std::find(to.myPredecessors.begin(), to.myPredecessors.end(), this) == to.myPredecessors.end()) {
                     to.myPredecessors.push_back(this);
@@ -180,9 +178,8 @@ MSEdge::closeBuilding() {
                     myAmFringe = false;
                 }
             }
-            toL = (*j)->getViaLane();
-            if (toL != 0) {
-                MSEdge& to = toL->getEdge();
+            if (viaL != nullptr) {
+                MSEdge& to = viaL->getEdge();
                 if (std::find(to.myPredecessors.begin(), to.myPredecessors.end(), this) == to.myPredecessors.end()) {
                     to.myPredecessors.push_back(this);
                 }
@@ -416,6 +413,7 @@ MSEdge::getFreeLane(const std::vector<MSLane*>* allowed, const SUMOVehicleClass 
     }
     return res;
 }
+
 
 double
 MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
@@ -688,8 +686,8 @@ const MSEdge*
 MSEdge::getNormalBefore() const {
     const MSEdge* result = this;
     while (result->isInternal()) {
-        assert(myPredecessors.size() == 1);
-        result = myPredecessors.front();
+        assert(result->getPredecessors().size() == 1);
+        result = result->getPredecessors().front();
     }
     return result;
 }
@@ -700,9 +698,11 @@ MSEdge::getMeanSpeed() const {
     double no = 0;
     if (MSGlobals::gUseMesoSim) {
         for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this); segment != 0; segment = segment->getNextSegment()) {
-            const double vehNo = (double) segment->getCarNumber();
-            v += vehNo * segment->getMeanSpeed();
-            no += vehNo;
+            const int vehNo = segment->getCarNumber();
+            if (vehNo > 0) {
+                v += vehNo * segment->getMeanSpeed();
+                no += vehNo;
+            }
         }
         if (no == 0) {
             return getLength() / myEmptyTraveltime; // may include tls-penalty
@@ -908,8 +908,9 @@ MSEdge::transportable_by_position_sorter::operator()(const MSTransportable* cons
 
 
 void
-MSEdge::addSuccessor(MSEdge* edge) {
+MSEdge::addSuccessor(MSEdge* edge, const MSEdge* via) {
     mySuccessors.push_back(edge);
+    myViaSuccessors.push_back(std::make_pair(edge, via));
     if (isTazConnector() && edge->getFromJunction() != 0) {
         myTazBoundary.add(edge->getFromJunction()->getPosition());
     }
@@ -958,6 +959,48 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
 }
 
 
+const MSConstEdgePairVector&
+MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
+    if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == EDGEFUNC_CONNECTOR) {
+        return myViaSuccessors;
+    }
+#ifdef HAVE_FOX
+    if (MSDevice_Routing::isParallel()) {
+        MSDevice_Routing::lock();
+    }
+#endif
+    auto i = myClassesViaSuccessorMap.find(vClass);
+    if (i != myClassesViaSuccessorMap.end()) {
+        // can use cached value
+#ifdef HAVE_FOX
+        if (MSDevice_Routing::isParallel()) {
+            MSDevice_Routing::unlock();
+        }
+#endif
+        return i->second;
+    }
+    // instantiate vector
+    MSConstEdgePairVector& result = myClassesViaSuccessorMap[vClass];
+    // this vClass is requested for the first time. rebuild all successors
+    for (const auto& viaPair : myViaSuccessors) {
+        if (viaPair.first->isTazConnector()) {
+            result.push_back(viaPair);
+        } else {
+            const std::vector<MSLane*>* allowed = allowedLanes(viaPair.first, vClass);
+            if (allowed != nullptr && allowed->size() > 0) {
+                result.push_back(viaPair);
+            }
+        }
+    }
+#ifdef HAVE_FOX
+    if (MSDevice_Routing::isParallel()) {
+        MSDevice_Routing::unlock();
+    }
+#endif
+    return result;
+}
+
+
 bool
 MSEdge::canChangeToOpposite() {
     return (!myLanes->empty() && myLanes->back()->getOpposite() != 0 &&
@@ -969,7 +1012,7 @@ MSEdge::canChangeToOpposite() {
 
 const MSEdge*
 MSEdge::getOppositeEdge() const {
-    if (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr){
+    if (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr) {
         return &(myLanes->back()->getEdge());
     } else {
         return nullptr;
@@ -992,18 +1035,18 @@ MSEdge::hasMinorLink() const {
 
 
 void MSEdge::checkAndRegisterBiDirEdge() {
-    myOppositingSuperposableEdge = 0;
+    myBidiEdge = 0;
     if (getFunction() != EDGEFUNC_NORMAL) {
         return;
     }
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();
     for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++) {
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
-            if (myOppositingSuperposableEdge != 0 && isSuperposable(*it)) {
+            if (myBidiEdge != 0 && isSuperposable(*it)) {
                 WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
                 break;
             }
-            myOppositingSuperposableEdge = isSuperposable(*it) ? *it : 0;
+            myBidiEdge = isSuperposable(*it) ? *it : 0;
         }
     }
 }

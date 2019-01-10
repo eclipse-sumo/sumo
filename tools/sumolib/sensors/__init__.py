@@ -15,4 +15,4 @@
 
 from __future__ import absolute_import
 
-from . import inductive_loop
+from . import inductive_loop  # noqa

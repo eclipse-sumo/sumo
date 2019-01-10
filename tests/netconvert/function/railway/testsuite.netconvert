@@ -1,0 +1,8 @@
+topology.output
+
+# make all tracks usable in both directions
+all-bidi
+
+# test for option railway.topology.repair
+repair
+signals

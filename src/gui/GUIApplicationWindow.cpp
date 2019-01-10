@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -78,6 +74,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
@@ -428,8 +425,8 @@ GUIApplicationWindow::fillMenuBar() {
                       "Edit Selected...\tCtrl+E\tOpens a dialog for editing the list of selected items.",
                       GUIIconSubSys::getIcon(ICON_FLAG), this, MID_EDITCHOSEN);
     mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu,
-                      "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by which to selected lanes.",
-                      GUIIconSubSys::getIcon(ICON_FLAG), mySelectByPermissions);
+            "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by which to selected lanes.",
+            GUIIconSubSys::getIcon(ICON_FLAG), mySelectByPermissions);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Edit Breakpoints...\tCtrl+B\tOpens a dialog for editing breakpoints.",
@@ -560,6 +557,29 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myHelpMenu, "&Online Documentation\tF1\tOpen Online documentation", 0, this, MID_HELP);
     new FXMenuCommand(myHelpMenu, "&About\tF2\tAbout sumo-gui", GUIIconSubSys::getIcon(ICON_APP),
                       this, MID_ABOUT);
+
+    // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
+    getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));  // Ctrl + N
+    getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));   // Ctrl + O
+    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_RELOAD));        // Ctrl + R
+    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));   // Ctrl + P
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_CLOSE));         // Ctrl + W
+    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_QUIT));          // Ctrl + Q
+    getAccelTable()->addAccel(262214, this, FXSEL(SEL_COMMAND, MID_FULLSCREEN));    // Ctrl + F
+    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_GAMING));        // Ctrl + G
+    getAccelTable()->addAccel(262209, this, FXSEL(SEL_COMMAND, MID_START));         // Ctrl + A
+    getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_STOP));          // Ctrl + S
+    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_STEP));          // Ctrl + D
+
+    /** Disabled shorcuts for Locate dialog due #4261
+    // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
+    getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
+    getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
+    getAccelTable()->addAccel(65652, this, FXSEL(SEL_COMMAND, MID_LOCATETLS));      // Shift + T
+    getAccelTable()->addAccel(65633, this, FXSEL(SEL_COMMAND, MID_LOCATEADD));      // Shift + A
+    getAccelTable()->addAccel(65647, this, FXSEL(SEL_COMMAND, MID_LOCATEPOI));      // Shift + O
+    getAccelTable()->addAccel(65644, this, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));     // Shift + L
+    **/
 }
 
 
@@ -605,7 +625,7 @@ GUIApplicationWindow::buildToolBars() {
         myToolBarDrag4 = new FXToolBarShell(this, GUIDesignToolBarShell3);
         myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GUIDesignToolBarShell2);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-        new FXButton(myToolBar4, "Delay (ms):\t\tToggle between alternative delay values", 0, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
+        new FXButton(myToolBar4, "Delay (ms):\t\tDelay per simulated second. Click to toggle between the last two delay values", 0, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
 
         mySimDelay = 0;
         mySimDelayTarget = new FXDataTarget(mySimDelay);
@@ -619,7 +639,7 @@ GUIApplicationWindow::buildToolBars() {
         //mySimDelayTarget->setNumberFormat(0);
         //mySimDelayTarget->setIncrements(1, 10, 10);
         mySimDelaySpinner->setIncrement(10);
-        mySimDelaySpinner->setRange(0, 1000);
+        mySimDelaySpinner->setRange(0, 10000);
         mySimDelaySpinner->setValue(mySimDelay);
     }
     {
@@ -853,6 +873,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
 
+        dynamic_cast<GUIShapeContainer&>(myRunThread->getNet().getShapeContainer()).allowReplacement();
         NLShapeHandler handler(file, myRunThread->getNet().getShapeContainer());
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
@@ -995,8 +1016,8 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
         return 1;
     }
 
-    FXString file = MFXUtils::assureExtension(opendialog.getFilename(), 
-            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')'));
+    FXString file = MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')'));
     MSStateHandler::saveState(file.text(), MSNet::getInstance()->getCurrentTimeStep());
     myStatusbar->getStatusLine()->setText("Simulation saved to " + file);
     return 1;
@@ -1073,7 +1094,7 @@ GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* p
     bool disable = !myRunThread->simulationAvailable() || myAmLoading;
     sender->handle(this, disable ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
     // mySelectLanesMenuCascade has to be disabled manually
-    if(disable) {
+    if (disable) {
         mySelectLanesMenuCascade->disable();
     } else {
         mySelectLanesMenuCascade->enable();
@@ -1125,6 +1146,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar5->hide();
         myToolBar6->show();
         myToolBar7->show();
+        myToolBar8->hide();
         myMessageWindow->hide();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
@@ -1139,6 +1161,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar5->show();
         myToolBar6->hide();
         myToolBar7->hide();
+        myToolBar8->show();
         myMessageWindow->show();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
         gSchemeStorage.getDefault().gaming = false;
@@ -1174,6 +1197,7 @@ GUIApplicationWindow::onCmdFullScreen(FXObject*, FXSelector, void*) {
         myToolBar5->hide();
         myToolBar6->hide();
         myToolBar7->hide();
+        myToolBar8->hide();
         myMessageWindow->hide();
         if (myMDIClient->numChildren() > 0) {
             GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
@@ -1284,6 +1308,8 @@ GUIApplicationWindow::eventOccurred() {
             case EVENT_MESSAGE_OCCURRED:
             case EVENT_WARNING_OCCURRED:
             case EVENT_ERROR_OCCURRED:
+            case EVENT_DEBUG_OCCURRED:
+            case EVENT_GLDEBUG_OCCURRED:
             case EVENT_STATUS_OCCURRED:
                 handleEvent_Message(e);
                 break;

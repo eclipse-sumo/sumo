@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/StdDefs.h>
 #include <microsim/MSNet.h>
@@ -44,79 +40,40 @@
 bool
 TraCIServerAPI_Polygon::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                    tcpip::Storage& outputStorage) {
-    // variable & id
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != VAR_TYPE && variable != VAR_COLOR && variable != VAR_SHAPE && variable != VAR_FILL
-            && variable != ID_COUNT && variable != VAR_PARAMETER) {
-        return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE,
-                                          "Get Polygon Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_POLYGON_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-    // process request
-    if (variable == ID_LIST || variable == ID_COUNT) {
-        std::vector<std::string> ids = libsumo::Polygon::getIDList();
-        if (variable == ID_LIST) {
-            tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-            tempMsg.writeStringList(ids);
-        } else {
-            tempMsg.writeUnsignedByte(TYPE_INTEGER);
-            tempMsg.writeInt((int) ids.size());
-        }
-    } else {
-        try {
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_POLYGON_VARIABLE, variable, id);
+    try {
+        if (!libsumo::Polygon::handleVariable(id, variable, &server)) {
             switch (variable) {
-                case VAR_TYPE: {
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Polygon::getType(id));
-                }
-                break;
-                case VAR_COLOR: {
-                    libsumo::TraCIColor tc = libsumo::Polygon::getColor(id);
-                    tempMsg.writeUnsignedByte(TYPE_COLOR);
-                    tempMsg.writeUnsignedByte(tc.r);
-                    tempMsg.writeUnsignedByte(tc.g);
-                    tempMsg.writeUnsignedByte(tc.b);
-                    tempMsg.writeUnsignedByte(tc.a);
-                }
-                break;
                 case VAR_SHAPE: {
-                    tempMsg.writeUnsignedByte(TYPE_POLYGON);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_POLYGON);
                     libsumo::TraCIPositionVector tp = libsumo::Polygon::getShape(id);
-                    tempMsg.writeUnsignedByte((int) tp.size());
+                    server.getWrapperStorage().writeUnsignedByte((int)tp.size());
                     for (int iPoint = 0; iPoint < (int)tp.size(); ++iPoint) {
-                        tempMsg.writeDouble(tp[iPoint].x);
-                        tempMsg.writeDouble(tp[iPoint].y);
+                        server.getWrapperStorage().writeDouble(tp[iPoint].x);
+                        server.getWrapperStorage().writeDouble(tp[iPoint].y);
                     }
+                    break;
                 }
-                break;
-                case VAR_FILL: {
-                    tempMsg.writeUnsignedByte(TYPE_UBYTE);
-                    tempMsg.writeUnsignedByte(libsumo::Polygon::getFilled(id) ? 1 : 0);
-                }
-                break;
                 case VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
                         return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
                     }
-                    tempMsg.writeUnsignedByte(TYPE_STRING);
-                    tempMsg.writeString(libsumo::Polygon::getParameter(id, paramName));
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::Polygon::getParameter(id, paramName));
+                    break;
                 }
-                break;
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, "Get Polygon Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
-        } catch (libsumo::TraCIException& e) {
-            return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, e.what(), outputStorage);
         }
+    } catch (libsumo::TraCIException& e) {
+        return server.writeErrorStatusCmd(CMD_GET_POLYGON_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_POLYGON_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 
@@ -155,15 +112,15 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             case VAR_SHAPE: {
                 PositionVector shape;
                 if (!server.readTypeCheckingPolygon(inputStorage, shape)) {
-                    return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The shape must be given using an accoring type.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "The shape must be given using an according type.", outputStorage);
                 }
                 libsumo::Polygon::setShape(id, libsumo::Helper::makeTraCIPositionVector(shape));
             }
             break;
             case VAR_FILL: {
                 int value = 0;
-                if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an unsigned byte.", outputStorage);
+                if (!server.readTypeCheckingInt(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(CMD_SET_POLYGON_VARIABLE, "'fill' must be defined using an integer.", outputStorage);
                 }
                 libsumo::Polygon::setFilled(id, value != 0);
             }
@@ -237,23 +194,6 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
     }
     server.writeStatusCmd(CMD_SET_POLYGON_VARIABLE, RTYPE_OK, warning, outputStorage);
     return true;
-}
-
-
-bool
-TraCIServerAPI_Polygon::getShape(const std::string& id, PositionVector& shape) {
-    SUMOPolygon* poly = getPolygon(id);
-    if (poly == 0) {
-        return false;
-    }
-    shape = poly->getShape();
-    return true;
-}
-
-
-SUMOPolygon*
-TraCIServerAPI_Polygon::getPolygon(const std::string& id) {
-    return MSNet::getInstance()->getShapeContainer().getPolygons().get(id);
 }
 
 

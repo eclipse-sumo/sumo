@@ -10,7 +10,7 @@
 
 # @file    network.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 # size limit at 1280x1280
@@ -36,14 +36,16 @@ from collections import OrderedDict
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
+from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist
 
 from agilepy.lib_base.processes import Process, CmlMixin, P
 
 from agilepy.lib_base.geometry import *
-from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist
+
+import netconvert
+import publictransportnet as pt
 
 
-#TESTNODES = [294,295]
 MODES = OrderedDict([
                     ("ignoring", 0),
                     ("pedestrian", 1),
@@ -73,6 +75,10 @@ MODES = OrderedDict([
                     ("ship", 25),
                     ])
 
+ID_MODE_PED = MODES['pedestrian']
+ID_MODE_BIKE = MODES['bicycle']
+ID_MODE_CAR = MODES['passenger']
+
 OSMEDGETYPE_TO_MODES = {'highway.cycleway': ([MODES['bicycle']], 5.6),
                         'highway.pedestrian': ([MODES['pedestrian']], 0.8),
                         'highway.footway': ([MODES['pedestrian']], 0.8),
@@ -82,7 +88,6 @@ OSMEDGETYPE_TO_MODES = {'highway.cycleway': ([MODES['bicycle']], 5.6),
 
 
 class SumoIdsConf(am.ArrayConf):
-
     """
     Sumo id array coniguration
     """
@@ -90,9 +95,9 @@ class SumoIdsConf(am.ArrayConf):
     #    print 'ColConf',attrs
 
     def __init__(self, refname, name=None, info=None, perm='rw',  xmltag='id'):
-        if name == None:
-            name = 'ID ' + refname
-        if info == None:
+        if name is None:
+            name = 'ID '+refname
+        if info is None:
             info = refname + ' ID of SUMO network'
         am.ArrayConf.__init__(self, attrname='ids_sumo', default='',
                               dtype='object',
@@ -106,12 +111,17 @@ class SumoIdsConf(am.ArrayConf):
 
 class Modes(am.ArrayObjman):
     # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
-
     def __init__(self, parent, **kwargs):
         ident = 'modes'
         self._init_objman(ident=ident, parent=parent, name='Transport Modes',
                           xmltag=('vClasses', 'vClass', 'names'),
+                          version=0.1,
                           **kwargs)
+
+        self._init_attributes()
+        self.add_default()
+
+    def _init_attributes(self):
         self.add_col(am.ArrayConf('names', '',
                                   dtype=np.object,
                                   perm='r',
@@ -121,12 +131,79 @@ class Modes(am.ArrayObjman):
                                   xmltag='vClass',
                                   ))
 
+        self.add_col(am.ArrayConf('speeds_max', 50.0/3.6,
+                                  dtype=np.float32,
+                                  perm='rw',
+                                  name='Max. Speed',
+                                  unit='m/s',
+                                  info='Maximum possible speed for this mode. Speed is used to estimate free flow link travel times, mainly for routig purposes. Note that speeds are usully limited by the lane speed attribute',
+                                  ))
+        if self.get_version() < 0.1:
+            self.clear()
+            self.add_default()
+            self.set_version(0.1)
+
     def get_id_mode(self, modename):
         return self.names.get_id_from_index(modename)
 
+    def has_modename(self, modename):
+        return self.names.has_index(modename)
+
+    def format_ids(self, ids):
+        return ','.join(self.names[ids])
+
+    def get_id_from_formatted(self, idstr):
+        return self.names.get_id_from_index(idstr)
+
+    def get_ids_from_formatted(self, idstrs):
+        return self.names.get_ids_from_indices_save(idstrs.split(','))
+
+    def add_default(self):
+        """
+        Sets the default maximum possible speed for certain modes.
+        """
+        # print 'MODES.add_default'
+        self.add_rows(ids=MODES.values(), names=MODES.keys())
+
+        # these speeds are used to estimate free flow link travel times
+        # mainly for routig purposes
+        # note that speed limits are usully limited by the lane speed attribute
+        speeds_max_kmph = OrderedDict([
+            ("ignoring", 100.0),
+            ("pedestrian", 3.6),
+            ("bicycle", 25.0),
+            ("motorcycle", 130.0),
+            ("passenger", 160.0),
+            ("bus", 90.0),
+            ("tram", 50.0),
+            ("rail_urban", 160.0),
+            ("delivery", 100),
+            ("private", 160),
+            ("taxi", 160),
+            ("hov", 160),
+            ("evehicle", 160),
+            ("emergency", 160),
+            ("authority", 160),
+            ("army", 130),
+            ("vip", 160),
+            ("coach", 90),
+            ("truck", 90),
+            ("trailer", 90),
+            ("rail", 250),
+            ("rail_electric", 300),
+            ("moped", 25),
+            ("custom1", 100),
+            ("custom2", 160),
+            ("ship", 30),
+        ])
+
+        for mode, speed_kmph in speeds_max_kmph.iteritems():
+            self.speeds_max[self.get_id_mode(mode)] = float(speed_kmph)/3.6
+
+        # print '  self.speeds_max',self.speeds_max.get_value()
+
 
 class TrafficLightProgram(am.ArrayObjman):
-
     def __init__(self, ident, parent, **kwargs):
         self._init_objman(ident, parent=parent,
                           name='TLL Program',
@@ -187,7 +264,6 @@ class TrafficLightProgram(am.ArrayObjman):
 
 
 class TrafficLightLogics(am.ArrayObjman):
-
     def __init__(self, ident, tlss, **kwargs):
         self._init_objman(ident, parent=tlss,
                           name='Traffic Light Logics',
@@ -199,9 +275,7 @@ class TrafficLightLogics(am.ArrayObjman):
                                      groupnames=['state'],
                                      name='ID tls',
                                      info='ID of traffic light system.  Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection.',
-                                     # this will be ID TLS tag used as ID in
-                                     # xml file
-                                     xmltag='id',
+                                     xmltag='id',  # this will be ID TLS tag used as ID in xml file
                                      ))
 
         self.add_col(am.ArrayConf('ids_prog', '',
@@ -266,9 +340,8 @@ class TrafficLightSystems(am.ArrayObjman):
 
         self._init_objman(ident='tlss', parent=net,
                           name='Traffic Light Systems',
-                          # actually tlls table is exported, but ids_sumo is
-                          # required for ID
-                          xmltag=('tlSystems', 'tlSystem', 'ids_sumo'),
+                                # actually tlls table is exported, but ids_sumo is required for ID
+                                xmltag=('tlSystems', 'tlSystem', 'ids_sumo'),
                           **kwargs)
 
         self.add_col(SumoIdsConf('TLS', info='SUMO ID of traffic light system.',
@@ -288,7 +361,12 @@ class TrafficLightSystems(am.ArrayObjman):
                                          info='ID list of controlled connections. These connections corrispond to the elements of the state vector within the program-phases.',
                                          ))
 
+    # def clear_tlss(self):
+    #    #self.tlls.get_value().clear()
+    #    self.clear()
+
     def make(self, id_sumo, **kwargs):
+
         if self.ids_sumo.has_index(id_sumo):
             # recycle ID from existing
             id_tls = self.ids_sumo.get_id_from_index(id_sumo)
@@ -300,15 +378,61 @@ class TrafficLightSystems(am.ArrayObjman):
         id_tll = self.tlls.get_value().make(id_tls, **kwargs)
         # append new logic to list
         self.ids_tlls[id_tls].append(id_tll)
+        # print 'TLS.make',id_sumo,id_tls,self.ids_tlls[id_tls]
         return id_tls
+
+    def clear_tlss(self):
+        """
+        Delete all TLS systems of the network
+        """
+
+        # this will clear the pointer from nodes to a tls
+        # but the node type tls will remain
+        self.parent.nodes.ids_tls.reset()
+        self.parent.connections.are_uncontrolled.reset()
+        self.clear()
 
     def set_connections(self, id_tls, ids_con):
         """
         Set connections, which represent the controlled links of TLD with id_tls
         Called after connections in ttl file have been parsed.
         """
+        # print 'set_connections',id_tls,len(ids_con)
+
         #id_tls = self.ids_sumo.get_id_from_index(id_sumo)
         self.ids_cons[id_tls] = ids_con
+
+        # check whether the number of connections equals to the number of
+        # dignals in the states
+        #
+        # Attention: they are not equal because there is no connection for
+        # pedestrian crossings! Thos links are under crossins,
+        # but have no link index :(...so just be tolerant
+        #
+        #n_signals = len(ids_con)
+        # print '  ids',self.get_ids(), id_tls in self.get_ids()
+        #tlls = self.tlls.get_value()
+        # print '  self.ids_tlls[id_tls]:',self.ids_tlls[id_tls]
+        # for id_tll in self.ids_tlls[id_tls]:
+        #    prog = tlls.programs[id_tll]
+        #    states = prog.states.get_value()
+        #    #print '  len(state0),n_signals',len(state0),n_signals
+        #    if len(states[0]) != n_signals:
+        #        print 'WARNING: tls %s has inconsistant program. \n  Signals =%d, states=%d'%(self.ids_sumo[id_tls],n_signals,len(states[0]))
+        #        print '  ids_con=',ids_con
+        #        for state in states:
+        #            print '  state',state
+
+    def change_states(self, state_current, state_new):
+        """
+        Change traffic light state is all traffic light programms
+        from state_current to state_new
+        """
+        tlls = self.tlls.get_value()
+        for program in tlls.programs[tlls.get_ids()]:
+            ids_phases = program.get_ids()
+            for id_phase, state in zip(ids_phases, program.states[ids_phases]):
+                program.states[id_phase] = state.replace(state_current, state_new)
 
     def export_sumoxml(self, filepath=None, encoding='UTF-8'):
         """
@@ -322,8 +446,8 @@ class TrafficLightSystems(am.ArrayObjman):
         edges = self.parent.edges
 
         # this is the preferred way to specify default filepath
-        if filepath == None:
-            filepath = self.parent.get_rootfilepath() + '.tll.xml'
+        if filepath is None:
+            filepath = self.parent.get_rootfilepath()+'.tll.xml'
 
         print 'export_sumoxml', filepath
         try:
@@ -377,21 +501,27 @@ class TrafficLightSystems(am.ArrayObjman):
 
 class Crossings(am.ArrayObjman):
     # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
-
     def __init__(self, parent, **kwargs):
         ident = 'crossings'
         self._init_objman(ident=ident, parent=parent, name='Crossings',
                           xmltag=('crossings', 'crossing', ''),
+                          is_plugin=True,
+                          version=0.1,
                           **kwargs)
 
-        self.add_col(am.IdsArrayConf('ids_node', parent.nodes,
+        self._init_attributes()
+
+    def _init_attributes(self):
+        net = self.parent
+
+        self.add_col(am.IdsArrayConf('ids_node', net.nodes,
                                      groupnames=['state'],
                                      name='ID node',
                                      info='ID of node where crossings are located.',
                                      xmltag='node',
                                      ))
 
-        self.add_col(am.IdlistsArrayConf('ids_edges', parent.edges,
+        self.add_col(am.IdlistsArrayConf('ids_edges', net.edges,
                                          groupnames=['state'],
                                          name='IDs Edge',
                                          info='Edge IDs at specific node, where street crossing is possible.',
@@ -423,6 +553,9 @@ class Crossings(am.ArrayObjman):
                                   xmltag='discard',
                                   ))
 
+        if self.get_version() < 0.1:
+            self.init_plugin(True)
+
     def multimake(self, ids_node=[], **kwargs):
         n = len(ids_node)
         return self.add_rows(n=n,
@@ -438,10 +571,13 @@ class Crossings(am.ArrayObjman):
                             are_discard=kwargs.get('is_discard', None),
                             )
 
+    def del_element(self, _id):
+        # print 'del_element',id_zone
+        self.del_row(_id)
+
 
 class Connections(am.ArrayObjman):
     # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
-
     def __init__(self, parent, **kwargs):
         ident = 'connections'
         self._init_objman(ident=ident, parent=parent, name='Connections',
@@ -469,7 +605,7 @@ class Connections(am.ArrayObjman):
                                   dtype=np.bool,
                                   perm='rw',
                                   name='Pass',
-                                  info=' if set, vehicles which pass this (lane-to-lane) connection) will not wait.',
+                                  info=' if set, vehicles which pass this (lane-to-lane) connection will not wait.',
                                   xmltag='pass',
                                   ))
 
@@ -505,8 +641,7 @@ class Connections(am.ArrayObjman):
                             are_passes=kwargs.get('is_passes', None),
                             are_keep_clear=kwargs.get('is_keep_clear', None),
                             positions_cont=kwargs.get('position_cont', None),
-                            are_uncontrolled=kwargs.get(
-                                'is_uncontrolled', None),
+                            are_uncontrolled=kwargs.get('is_uncontrolled', None),
                             )
 
     def multimake(self, ids_fromlane=[], ids_tolane=[], **kwargs):
@@ -522,8 +657,7 @@ class Connections(am.ArrayObjman):
         get_id_lane = self.parent.edges.get_id_lane_from_sumoinfo
         id_fromlane = get_id_lane(id_sumo_fromedge, ind_fromlane)
         id_tolane = get_id_lane(id_sumo_toedge, ind_tolane)
-        ids_con = self.select_ids((self.ids_fromlane.value == id_fromlane) & (
-            self.ids_tolane.value == id_tolane))
+        ids_con = self.select_ids((self.ids_fromlane.value == id_fromlane) & (self.ids_tolane.value == id_tolane))
         if len(ids_con) == 1:
             return ids_con[0]
         else:
@@ -561,7 +695,7 @@ class Connections(am.ArrayObjman):
         fd.write(xm.stop())
 
         for _id in self.get_ids():
-            fd.write(xm.start(xmltag_item, indent + 2))
+            fd.write(xm.start(xmltag_item, indent+2))
 
             # print ' make tag and id',_id
             # fd.write(xm.num(xmltag_id,attrconfig_id[_id]))
@@ -570,34 +704,37 @@ class Connections(am.ArrayObjman):
             for attrconfig in colconfigs:
                 # print '    colconfig',attrconfig.attrname
                 if attrconfig == self.ids_fromlane:
-                    fd.write(xm.num('from', ids_sumoedges[
-                             ids_laneedge[self.ids_fromlane[_id]]]))
+                    fd.write(xm.num('from', ids_sumoedges[ids_laneedge[self.ids_fromlane[_id]]]))
                     attrconfig.write_xml(fd, _id)
 
                 elif attrconfig == self.ids_tolane:
-                    fd.write(xm.num('to', ids_sumoedges[
-                             ids_laneedge[self.ids_tolane[_id]]]))
+                    fd.write(xm.num('to', ids_sumoedges[ids_laneedge[self.ids_tolane[_id]]]))
                     attrconfig.write_xml(fd, _id)
 
                 else:
                     attrconfig.write_xml(fd, _id)
             fd.write(xm.stopit())
 
-        self.parent.crossings.write_xml(
-            fd, indent=indent + 2, is_print_begin_end=False)
+        self.parent.crossings.write_xml(fd, indent=indent+2, is_print_begin_end=False)
 
         fd.write(xm.end(xmltag, indent))
 
 
 class Lanes(am.ArrayObjman):
     # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
-
-    def __init__(self, parent, edges, modes, **kwargs):
+    def __init__(self, parent, **kwargs):
         ident = 'lanes'
         self._init_objman(ident=ident, parent=parent, name='Lanes',
                           is_plugin=True,
                           xmltag=('lanes', 'lane', 'indexes'),
+                          version=0.1,
                           **kwargs)
+
+        self._init_attributes()
+
+    def _init_attributes(self):
+        modes = self.parent.modes
+        edges = self.parent.edges
 
         self.add_col(am.ArrayConf('indexes', 0,
                                   dtype=np.int32,
@@ -617,7 +754,7 @@ class Lanes(am.ArrayObjman):
                                   xmltag='width',
                                   ))
 
-        self.add_col(am.NumArrayConf('speeds_max', 50.0 / 3.6,
+        self.add_col(am.NumArrayConf('speeds_max', 50.0/3.6,
                                      dtype=np.float32,
                                      groupnames=['state'],
                                      perm='rw',
@@ -637,17 +774,23 @@ class Lanes(am.ArrayObjman):
                                      xmltag='endOffset',
                                      ))
 
-        self.add_col(am.IdlistsArrayConf('modes_allow', modes,
+        self.add_col(am.IdlistsArrayConf('ids_modes_allow', modes,
                                          name='IDs allowed',
-                                         info='Allowed modes on this lane.',
+                                         info='Allowed mode IDs on this lane.',
                                          xmltag='allow',
                                          ))
 
-        self.add_col(am.IdlistsArrayConf('modes_disallow', modes,
+        self.add_col(am.IdlistsArrayConf('ids_modes_disallow', modes,
                                          name='IDs disallow',
-                                         info='Disallowed modes on this lane.',
+                                         info='Disallowed mode IDs on this lane.',
                                          xmltag='disallow',
                                          ))
+
+        # if self.get_version() < 0.1:
+        #    self.ids_modes_allow.set_value(self.modes_allow.get_value().copy())
+        #    self.ids_modes_disallow.set_value(self.modes_disallow.get_value().copy())
+        #    self.delete('modes_allow')
+        #    self.delete('modes_disallow')
 
         self.add_col(am.IdsArrayConf('ids_mode', modes,
                                      groupnames=['state'],
@@ -670,9 +813,17 @@ class Lanes(am.ArrayObjman):
                                       info='List of 3D Shape coordinates to describe polyline.',
                                       is_plugin=True,
                                       ))
+        self.set_version(0.2)
+        # print 'Lanes._init_attributes ids_modes_allow',self.ids_modes_allow.get_value()
 
     def get_edges(self):
         return self.parent.edges
+
+    def get_id_sumo(self, id_lane):
+        return self.parent.edges.ids_sumo[self.ids_edge[id_lane]]+'_%d' % self.indexes[id_lane]
+
+    def get_lengths(self, ids_lane):
+        return self.parent.edges.lengths[self.ids_edge[ids_lane]]
 
     def multimake(self, indexes=[], **kwargs):
 
@@ -687,12 +838,11 @@ class Lanes(am.ArrayObjman):
                              widths=kwargs['widths'],
                              speeds_max=kwargs['speeds_max'],
                              offsets_end=kwargs['offsets_end'],
-                             modes_allow=kwargs['modes_allow'],
-                             modes_disallow=kwargs['modes_disallow'],
+                             ids_modes_allow=kwargs['ids_modes_allow'],
+                             ids_modes_disallow=kwargs['ids_modes_disallow'],
                              ids_mode=kwargs['ids_mode'],
                              ids_edge=kwargs['ids_edge'],
-                             # shapes = kwargs.get('shapes',[]), # if empty,
-                             # then computation later from edge shape
+                             # shapes = kwargs.get('shapes',[]), # if empty, then computation later from edge shape
                              )
 
     def make(self, **kwargs):
@@ -702,20 +852,19 @@ class Lanes(am.ArrayObjman):
         # print 'Lanes.make',kwargs
         width = kwargs.get('width', -1)
         speed_max = kwargs.get('speed_max', -1)
-        modes_allow = kwargs.get('modes_allow', [])
+        ids_modes_allow = kwargs.get('ids_modes_allow', [])
 
         is_sidewalk_edge = False
         is_sidewalk = False
-        if len(modes_allow) > 0:
-            id_mode = modes_allow[0]  # pick first as major mode
+        if len(ids_modes_allow) > 0:
+            id_mode = ids_modes_allow[0]  # pick first as major mode
         else:
             id_mode = -1  # no mode specified
 
         if index == 0:
             width_sidewalk_edge = edges.widths_sidewalk[id_edge]
             is_sidewalk_edge = width_sidewalk_edge > 0
-            # test for pedestrian sidewalk
-            is_sidewalk = (MODES['pedestrian'] in modes_allow)
+            is_sidewalk = (MODES['pedestrian'] in ids_modes_allow)  # test for pedestrian sidewalk
 
         if speed_max < 0:
             if (index == 0) & is_sidewalk:
@@ -730,17 +879,14 @@ class Lanes(am.ArrayObjman):
             if index == 0:
                 if is_sidewalk_edge:  # edge wants sidewalks
                     width = width_sidewalk_edge
-                # edge does not want sidewalks, but actually there is a
-                # sidewalk
-                elif (not is_sidewalk_edge) & is_sidewalk:
+                elif (not is_sidewalk_edge) & is_sidewalk:  # edge does not want sidewalks, but actually there is a sidewalk
                     width = 0.9  # default sidewalk width
                     edges.widths_sidewalk[id_edge] = width
 
         # if sidewalk, then the edge attribute widths_sidewalk
         # should be set to actual lane width in case it is less than zero
         elif index == 0:  # width set for lane 0
-            # edge does not want sidewalks, but actually there is a sidewalk
-            if (not is_sidewalk_edge) & is_sidewalk:
+            if (not is_sidewalk_edge) & is_sidewalk:  # edge does not want sidewalks, but actually there is a sidewalk
                 edges.widths_sidewalk[id_edge] = width
 
         # if index == 0:
@@ -750,12 +896,11 @@ class Lanes(am.ArrayObjman):
                             widths=width,
                             speeds_max=speed_max,
                             offsets_end=kwargs.get('offset_end', None),
-                            modes_allow=modes_allow,
-                            modes_disallow=kwargs.get('modes_disallow', []),
+                            ids_modes_allow=ids_modes_allow,
+                            ids_modes_disallow=kwargs.get('ids_modes_disallow', []),
                             ids_mode=id_mode,
                             ids_edge=id_edge,
-                            # if empty, then computation later from edge shape
-                            shapes=kwargs.get('shapes', []),
+                            shapes=kwargs.get('shapes', []),  # if empty, then computation later from edge shape
                             )
 
     def reshape(self):
@@ -795,13 +940,12 @@ class Lanes(am.ArrayObjman):
             # print '  widths',widths_tot,widths
             # print '  widths2',widths2
             displacement = np.cumsum(widths2)
-            displacement = 0.5 * (widths_tot) - displacement - 0.5 * widths
+            displacement = 0.5*(widths_tot)-displacement-0.5*widths
             # print '  displacement',displacement
         else:
             widths2 = np.concatenate(([0.0], widths[:-1]))
             displacement = np.cumsum(widths2)
-            displacement = displacement[-1] - \
-                displacement - 0.5 * widths + widths[-1]
+            displacement = displacement[-1]-displacement-0.5*widths+widths[-1]
 
         for i in range(n_lanes):
             id_lane = ids_lane[i]
@@ -811,17 +955,169 @@ class Lanes(am.ArrayObjman):
             laneshape = np.zeros(shape.shape, np.float32)
             # print ' dx \n',dxn*displacement[i]
             # print ' dy \n',dyn*displacement[i]
-            laneshape[:, 0] = dxn * displacement[i] + shape[:, 0]
-            laneshape[:, 1] = dyn * displacement[i] + shape[:, 1]
+            laneshape[:, 0] = dxn*displacement[i] + shape[:, 0]
+            laneshape[:, 1] = dyn*displacement[i] + shape[:, 1]
             laneshape[:, 2] = shape[:, 2]
             self.shapes[id_lane] = laneshape
 
         self.shapes.set_modified(True)
 
+    def get_laneindex_allowed(self, ids_lane, id_mode):
+        # print 'get_laneindex_allowed',ids_lane, id_mode
+        # check ignoring mode and give it the first non pedestrian only lane
+        if id_mode == MODES["ignoring"]:
+            ind = 0
+            while is_cont & (ind < len(ids_lane)):
+                id_lane = ids_lane[ind]
+                if len(self.ids_modes_allow[id_lane]) > 0:
+                    if MODES["pedestrian"] not in self.ids_modes_allow[id_lane]:
+                        return ind
+                    else:
+                        ind += 1
+
+                else:
+                    return ind
+            print 'WARNING: ignoring mode has no access on footpath'
+            return -1
+
+            # return len(ids_lane)-1
+
+        is_cont = True
+        ind = 0
+        while is_cont & (ind < len(ids_lane)):
+            # print '  ',ind,len(self.ids_modes_allow[id_lane]),len(self.ids_modes_disallow[id_lane]),id_mode in self.ids_modes_allow[id_lane],id_mode in self.ids_modes_disallow[id_lane]
+            id_lane = ids_lane[ind]
+            if len(self.ids_modes_allow[id_lane]) > 0:
+                if id_mode in self.ids_modes_allow[id_lane]:
+                    return ind
+                else:
+                    ind += 1
+
+            elif len(self.ids_modes_disallow[id_lane]) > 0:
+                if id_mode in self.ids_modes_disallow[id_lane]:
+                    ind += 1
+                else:
+                    return ind
+            else:
+                # no restrictions
+                return ind
+
+        # no unrestricted lane found
+        return -1  # not allowed on either lane
+
+    def add_access(self, id_lane, id_mode):
+        if len(self.ids_modes_allow[id_lane]) > 0:
+            # there are restrictions
+            self.ids_modes_allow[id_lane].append(id_mode)
+
+        # make sure id_mode is not disallowed
+        if id_mode in self.ids_modes_disallow[id_lane]:
+            self.ids_modes_disallow[id_lane].remove(id_lane)
+
+    def get_laneindex_allowed_old(self, ids_lane, id_mode):
+        is_cont = True
+        ind = 0
+        n_lane = len(ids_lane)
+        while is_cont & (ind < n_lane):
+            id_lane = ids_lane[ind]
+            if len(self.ids_modes_allow[id_lane]) > 0:
+                if id_mode in self.ids_modes_allow[id_lane]:
+                    return ind
+                else:
+                    ind += 1
+
+            elif len(self.ids_modes_disallow[id_lane]) > 0:
+                if id_mode in self.ids_modes_disallow[id_lane]:
+                    ind += 1
+                else:
+                    return ind
+            else:
+                # no restrictions
+                return ind
+
+        # no unrestricted lane found
+        return -1  # not allowed on either lane
+
+    def get_accesslevel(self, ids_lane, id_mode):
+        """
+        Returns access level of mode on lanes ids_lane:
+            -1 = No access
+            0 = all modes can access
+            1 = mode can access with a restricted number of other modes
+            2 = exclusive access for id_mode
+        """
+        # print 'get_accesslevel',ids_lane
+        is_mode_only = False
+        is_mode_mixed = False
+        is_modes_all = False
+        #is_blocked = False
+        # print '  ids_modes_allow',self.ids_modes_allow.get_value()
+        for id_lane, ids_modes_allow, ids_modes_disallow in zip(ids_lane, self.ids_modes_allow[ids_lane], self.ids_modes_disallow[ids_lane]):
+            # print '  ids_modes_allow',ids_modes_allow,'ids_modes_disallow',ids_modes_disallow,'id_lane',id_lane
+            if ids_modes_allow is None:
+                ids_modes_allow = []
+            if ids_modes_disallow is None:
+                ids_modes_disallow = []
+
+            n_allow = len(ids_modes_allow)
+            #n_disallow = len(ids_modes_disallow)
+
+            if n_allow == 0:
+                is_mode_only = False
+                is_modes_all = True
+                is_blocked = id_mode in ids_modes_disallow
+
+            elif n_allow == 1:
+                # if id_mode == ids_modes_allow[0]:
+                #    is_mode_only = True
+                # else:
+                #    is_blocked = True
+                # break
+                is_mode_only = id_mode == ids_modes_allow[0]
+                is_blocked = (id_mode in ids_modes_disallow) | (not(is_mode_only))
+
+            else:
+                is_mode_only = False
+                #is_blocked &=  id_mode in ids_modes_disallow
+                is_blocked = (id_mode not in ids_modes_allow) | (id_mode in ids_modes_disallow)
+
+            # print '  is_blocked',is_blocked,'is_modes_all',is_modes_all,'is_mode_only',is_mode_only
+            if not is_blocked:
+                # means access has been found
+                break
+
+        # print '  Final: is_blocked',is_blocked,'is_modes_all',is_modes_all,'is_mode_only',is_mode_only
+        if is_blocked:  # & (not is_mode_only)&(not is_modes_all):
+            a = -1
+            # print '  accesslevel=',a
+            return a
+            # return -1
+
+        if is_mode_only:
+            a = 2
+            # return 2
+
+        elif is_modes_all:
+            a = 0
+            # return 0
+
+        else:
+            a = 1
+            # return 1
+
+        # print '  accesslevel=',a
+        return a
+
+    def get_coord_from_pos(self, id_lane, pos):
+        return get_coord_on_polyline_from_pos(self.shapes[id_lane], pos)
+
+    def get_sumoinfo_from_id_lane(self, id_lane):
+        id_sumo_edge = self.parent.edges.ids_sumo[self.ids_edge[id_lane]]
+        return id_sumo_edge+'_'+str(self.indexes[id_lane])
+
 
 class Roundabouts(am.ArrayObjman):
     # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
-
     def __init__(self, parent, edges, nodes, **kwargs):
         ident = 'roundabouts'
         self._init_objman(ident=ident, parent=parent,
@@ -857,20 +1153,18 @@ class Roundabouts(am.ArrayObjman):
 
 class Edges(am.ArrayObjman):
     # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Edge_Descriptions
-
     def __init__(self, parent, **kwargs):
         ident = 'edges'
         self._init_objman(ident=ident, parent=parent,
                           name='Edges',
                           xmltag=('edges', 'edge', 'ids_sumo'),
-                          version=0.1,
+                          version=0.2,
                           **kwargs)
 
         self._init_attributes()
+        self._init_constants()
 
     def _init_attributes(self):
-        if self.get_version() < 0.1:
-            pass
 
         self.add_col(SumoIdsConf('Edge'))
 
@@ -890,7 +1184,7 @@ class Edges(am.ArrayObjman):
                                   xmltag='numLanes',
                                   ))
 
-        self.add_col(am.NumArrayConf('speeds_max', 50.0 / 3.6,
+        self.add_col(am.NumArrayConf('speeds_max', 50.0/3.6,
                                      dtype=np.float32,
                                      groupnames=['state'],
                                      perm='rw',
@@ -904,7 +1198,7 @@ class Edges(am.ArrayObjman):
                                   dtype=np.int32,
                                   perm='rw',
                                   name='Priority',
-                                  info='Road priority (1-9).',
+                                  info='Road priority, 1 is lowest (local access road or footpath), 13 is highest (national motorway).',
                                   xmltag='priority',
                                   ))
 
@@ -915,8 +1209,11 @@ class Edges(am.ArrayObjman):
                                      name='Length',
                                      unit='m',
                                      info='Edge length.',
-                                     #xmltag = 'length ',
+                                     xmltag='length ',
                                      ))
+        if self.get_version() < 0.3:
+            self.lengths.set_xmltag('length')
+            # self.lengths.set_xmltag(None)
 
         self.add_col(am.NumArrayConf('widths', 0.0,
                                      dtype=np.float32,
@@ -934,7 +1231,7 @@ class Edges(am.ArrayObjman):
                                       perm='rw',
                                       name='Shape',
                                       unit='m',
-                                      info='List of 3D Shape coordinates to describe polyline.',
+                                      info='Edge shape as list of 3D shape coordinates representing a polyline.',
                                       is_plugin=True,
                                       xmltag='shape',
                                       ))
@@ -979,6 +1276,7 @@ class Edges(am.ArrayObjman):
                                      #xmltag = '',
                                      ))
 
+        # move this to lane in future versions
         self.add_col(am.NumArrayConf('widths_sidewalk', -1.0,
                                      dtype=np.float32,
                                      groupnames=['state'],
@@ -988,6 +1286,15 @@ class Edges(am.ArrayObjman):
                                      info='Adds a sidewalk with the given width (defaults to -1 which adds nothing).',
                                      #xmltag = 'sidewalkWidth',
                                      ))
+
+        self.set_version(0.2)
+
+    def _init_constants(self):
+        self._segvertices = None
+        self._edgeinds = None
+        self._seginds = None
+        self._segvertexinds = None
+        self.do_not_save_attrs(['_segvertices', '_edgeinds', '_seginds', '_segvertexinds'])
 
     def set_nodes(self, nodes):
         # set ref to nodes table, once initialized
@@ -1015,10 +1322,9 @@ class Edges(am.ArrayObjman):
                                          ))
 
     def get_outgoing(self, id_edge):
-        # print
-        # 'get_outgoing',id_edge,self.ids_tonode[id_edge],self.parent.nodes.ids_outgoing[self.ids_tonode[id_edge]]
+        # print 'get_outgoing',id_edge,self.ids_tonode[id_edge],self.parent.nodes.ids_outgoing[self.ids_tonode[id_edge]]
         ids_edges = self.parent.nodes.ids_outgoing[self.ids_tonode[id_edge]]
-        if ids_edges == None:  # dead end
+        if ids_edges is None:  # dead end
             return []
         else:
             return ids_edges
@@ -1026,7 +1332,7 @@ class Edges(am.ArrayObjman):
     def get_incoming(self, id_edge):
         # TODO: would be good to have [] as default instead of None!!
         ids_edges = self.parent.nodes.ids_incoming[self.ids_fromnode[id_edge]]
-        if ids_edges == None:  # dead end
+        if ids_edges is None:  # dead end
             return []
         else:
             return ids_edges
@@ -1034,12 +1340,283 @@ class Edges(am.ArrayObjman):
     def get_lanes(self):
         return self.parent.lanes
 
+    def get_id_lane_from_sumoinfo_check(self, id_sumo_edge,  ind_lane):
+        if self.ids_sumo.has_index(id_sumo_edge):
+            id_edge = self.ids_sumo.get_id_from_index(id_sumo_edge)
+            if ind_lane < self.nums_lanes[id_edge]:
+                return self.ids_lanes[id_edge][ind_lane]
+        return -1
+
     def get_id_lane_from_sumoinfo(self, id_sumo_edge,  ind_lane):
         id_edge = self.ids_sumo.get_id_from_index(id_sumo_edge)
         return self.ids_lanes[id_edge][ind_lane]
 
+    def get_sumoinfo_from_id_lane(self, id_lane):
+        return self.parent.lanes.get_sumoinfo_from_id_lane(id_lane)
+
+    def is_oneway(self, id_edge):
+        ids_incoming = self.parent.nodes.ids_incoming[self.ids_fromnode[id_edge]]
+        ids_outgoing = self.parent.nodes.ids_outgoing[self.ids_tonode[id_edge]]
+        if (ids_incoming is None) | (ids_outgoing is None):
+            return True
+        else:
+            return set(ids_incoming).isdisjoint(ids_outgoing)
+
     def has_sidewalk(self, id_edge):
-        return MODES["pedestrian"] in self.parent.lanes.modes_allow[self.ids_lanes[id_edge][0]]
+        return MODES["pedestrian"] in self.parent.lanes.ids_modes_allow[self.ids_lanes[id_edge][0]]
+
+    def get_fstar(self, is_return_lists=False, is_return_arrays=False,
+                  is_ignor_connections=False):
+        """
+        Returns the forward star graph of the network as dictionary:
+            fstar[id_fromedge] = set([id_toedge1, id_toedge2,...])
+
+            if is_return_lists = True then a list of edges is the value
+            of fstar
+
+            if is_return_arrays = True then a numpy array of edges is the value
+            of fstar
+
+            if is_ignor_connections = True then all possible successive edges
+            are considered, disregarding the actual connections
+
+        """
+        #ids_edge = self.get_ids()
+        #fstar = np.array(np.zeros(np.max(ids_edge)+1, np.obj))
+        fstar = {}
+        if is_ignor_connections:
+            # here we ignore connections and look at the
+            # outgoing edges of node database
+            ids_outgoing = self.parent.nodes.ids_outgoing
+            ids = self.get_ids()
+            for id_edge, id_tonode in zip(ids, self.ids_tonode[ids]):
+                ids_edge_outgoing = ids_outgoing[id_tonode]
+                if ids_edge_outgoing is not None:
+                    fstar[id_edge] = set(ids_edge_outgoing)
+                else:
+                    fstar[id_edge] = set()
+        else:
+            # here we check actual connections
+            # this is important if correct turns are desired
+            # for exampole in car routing
+            connections = self.parent.connections
+            lanes = self.parent.lanes
+            inds_con = connections.get_inds()
+            ids_fromedge = lanes.ids_edge[connections.ids_fromlane.get_value()[inds_con]]
+            ids_toedge = lanes.ids_edge[connections.ids_tolane.get_value()[inds_con]]
+
+            for id_edge in self.get_ids():
+                fstar[id_edge] = set()
+
+            for id_fromedge, id_toedge in zip(ids_fromedge, ids_toedge):
+                fstar[id_fromedge].add(id_toedge)
+
+        if is_return_lists | is_return_arrays:
+            for id_edge in self.get_ids():
+                ids_toedges = list(fstar[id_edge])
+                if is_return_arrays:
+                    fstar[id_edge] = np.array(ids_toedges, dtype=np.int32)
+                else:
+                    fstar[id_edge] = ids_toedges
+        return fstar
+
+    def get_bstar(self, is_return_lists=False, is_return_arrays=False,
+                  is_ignor_connections=False):
+        """
+        Returns the backward star graph of the network as dictionary:
+            fstar[id_fromedge] = set([id_fromedge1, id_fromedge2,...])
+
+            if is_return_lists = True then a list of edges is the value
+            of bstar
+
+            if is_return_arrays = True then a numpy array of edges is the value
+            of bstar
+
+            if is_ignor_connections = True then all possible preceding edges
+            are considered, disregarding the actual connections
+
+        """
+        #ids_edge = self.get_ids()
+        #fstar = np.array(np.zeros(np.max(ids_edge)+1, np.obj))
+        bstar = {}
+        if is_ignor_connections:
+            # here we ignore connections and look at the
+            # outgoing edges of node database
+            ids_incoming = self.parent.nodes.ids_incoming
+            ids = self.get_ids()
+            for id_edge, id_fromnode in zip(ids, self.ids_fromnode[ids]):
+                ids_edge_incoming = ids_incoming[id_fromnode]
+                if ids_edge_incoming is not None:
+                    bstar[id_edge] = set(ids_edge_incoming)
+                else:
+                    bstar[id_edge] = set()
+        else:
+            # here we check actual connections
+            # this is important if correct turns are desired
+            # for exampole in car routing
+            connections = self.parent.connections
+            lanes = self.parent.lanes
+            inds_con = connections.get_inds()
+            ids_fromedge = lanes.ids_edge[connections.ids_fromlane.get_value()[inds_con]]
+            ids_toedge = lanes.ids_edge[connections.ids_tolane.get_value()[inds_con]]
+
+            for id_edge in self.get_ids():
+                bstar[id_edge] = set()
+
+            for id_fromedge, id_toedge in zip(ids_fromedge, ids_toedge):
+                bstar[id_toedge].add(id_fromedge)
+
+        if is_return_lists | is_return_arrays:
+            for id_edge in self.get_ids():
+                ids_fromedges = list(bstar[id_edge])
+                if is_return_arrays:
+                    bstar[id_edge] = np.array(ids_fromedges, dtype=np.int32)
+                else:
+                    bstar[id_edge] = ids_fromedges
+        return bstar
+
+    def get_accesslevel(self, id_edge, id_mode):
+        """
+        Returns access level of mode on edge id_edge:
+            -1 = No access
+            0 = all modes can access
+            1 = mode can access with a restricted number of other modes
+            2 = exclusive access for id_mode
+        """
+        # print 'get_accesslevel',id_edge,self.ids_sumo[id_edge]
+        return self.parent.lanes.get_accesslevel(self.ids_lanes[id_edge], id_mode)
+
+    def get_accesslevels(self, id_mode):
+        """
+        The returned array represents the access levels that corresponds to
+        edge IDs.
+
+        Access levels of mode on edge id_edge:
+            -1 = No access
+            0 = all modes can access
+            1 = mode can access with a restricted number of other modes
+            2 = exclusive access for id_mode
+        """
+        get_accesslevel = self.parent.lanes.get_accesslevel
+        ids_edge = self.get_ids()
+        accesslevels = np.zeros(np.max(ids_edge)+1, np.int8)
+        for id_edge, ids_lane in zip(ids_edge, self.ids_lanes[ids_edge]):
+            accesslevels[id_edge] = get_accesslevel(ids_lane, id_mode)
+        return accesslevels
+
+    def get_distances(self, id_mode=0, is_check_lanes=False):
+        """
+        Returns distances for all edges.
+        The returned array represents the distance that corresponds to
+        edge IDs.
+
+        If is_check_lanes is True, then the lane speeds are considered where
+        the respective mode is allowed.
+
+        If not allowed on a particular edge,
+        then the respective edge distance is negative.
+        """
+        # print 'get_distances id_mode,is_check_lanes,speed_max',id_mode,is_check_lanes,speed_max
+        ids_edge = self.get_ids()
+        dists = np.zeros(np.max(ids_edge)+1, np.float32)
+        #speeds = self.speeds_max[ids_edge]
+
+        # if speed_max is not None:
+        #    speeds = np.clip(speeds, 0.0, speed_max)
+        #
+        # elif id_mode is not None:
+        #    # limit allowed speeds with max speeds of mode
+        #    speeds = np.clip(speeds, 0.0, self.parent.modes.speeds_max[id_mode])
+
+        radii = self.ids_fromnode.get_linktab().radii
+        dists[ids_edge] = radii[self.ids_fromnode[ids_edge]] + self.lengths[ids_edge] + radii[self.ids_tonode[ids_edge]]
+        ids_lanes = self.ids_lanes
+        if is_check_lanes & (id_mode > 0):  # mode 0 can pass everywhere
+            get_laneindex_allowed = self.parent.lanes.get_laneindex_allowed
+            has_noaccess = -1
+            for id_edge in ids_edge:
+                if get_laneindex_allowed(ids_lanes[id_edge], id_mode) == has_noaccess:
+                    dists[id_edge] = has_noaccess
+
+                #ind = get_laneindex_allowed(ids_lanes[id_edge], id_mode)
+                # print '  check id_edge, ind',id_edge, ind
+                # if ind<0:
+                #    dists[id_edge] = ind # =-1
+
+        return dists
+
+    def get_times(self, id_mode=0, is_check_lanes=False, speed_max=None,
+                  modeconst_excl=0.0, modeconst_mix=0.0, ):
+        """
+        Returns freeflow travel times for all edges..radii
+        The returned array represents the travel time that corresponds to
+        edge IDs.
+
+        If is_check_lanes is True, then the lane speeds are considered where
+        the respective mode is allowed.
+
+        If not allowed on a particular edge,
+        then the respective edge travel time is negative.
+
+        modeconst_excl and modeconst_mix are constants added to the
+        time if the respective edge provides exclusive or reserver mixed
+        access for the specifird mode
+
+        """
+        # print 'get_times id_mode,is_check_lanes,speed_max',id_mode,is_check_lanes,speed_max
+        ids_edge = self.get_ids()
+        times = np.zeros(np.max(ids_edge)+1, np.float32)
+        speeds = self.speeds_max[ids_edge]
+
+        if speed_max is not None:
+            speeds = np.clip(speeds, 0.0, speed_max)
+
+        elif id_mode is not None:
+            # limit allowed speeds with max speeds of mode
+            speeds = np.clip(speeds, 0.0, self.parent.modes.speeds_max[id_mode])
+
+        times[ids_edge] = self.lengths[ids_edge]/speeds
+        ids_lanes = self.ids_lanes
+        if is_check_lanes & (id_mode > 0):  # mode 0 can pass everywhere
+            #get_laneindex_allowed = self.parent.lanes.get_laneindex_allowed
+            get_accesslevel = self.parent.lanes.get_accesslevel
+            invalid = -1
+            #ids_edge = self.get_ids()
+            #accesslevels = np.zeros(np.max(ids_edge)+1, np.int8)
+            for id_edge, ids_lane in zip(ids_edge, self.ids_lanes[ids_edge]):
+                #accesslevels[id_edge] = get_accesslevel(ids_lane, id_mode)
+                accesslevel = get_accesslevel(ids_lane, id_mode)
+                if accesslevel == invalid:
+                    times[id_edge] = invalid
+                elif accesslevel == 2:
+                    times[id_edge] = max(times[id_edge] + modeconst_excl, 0)
+                elif accesslevel == 1:
+                    times[id_edge] = max(times[id_edge] + modeconst_mix, 0)
+                    # here we could multiply with a factor
+                #ind = get_laneindex_allowed(ids_lanes[id_edge], id_mode)
+                # print '  check id_edge, ind',id_edge, ind
+                # if ind<0:
+                #    # making times negative will prevent the router to use
+                #    # this edge
+                #    times[id_edge] = ind # =-1
+
+        return times
+
+    def select_accessible_mode(self, id_mode):
+        """
+        Returns an array with all allowed edge ids for this mode
+        and an array with the corrisponding lane index
+        """
+        get_laneindex_allowed = self.parent.lanes.get_laneindex_allowed
+        ids_lanes = self.ids_lanes
+        ids_edges = self.get_ids()
+        are_allowed = np.zeros(len(ids_edges), dtype=np.bool)
+        inds_lane = np.zeros(len(ids_edges), dtype=np.int32)
+        for i, id_edge in zip(xrange(len(ids_edges)), ids_edges):
+            ind_lane = get_laneindex_allowed(ids_lanes[id_edge], id_mode)
+            are_allowed[i] = ind_lane >= 0
+            inds_lane[i] = ind_lane
+        return ids_edges[are_allowed], inds_lane[are_allowed]
 
     def get_laneindex_allowed(self, id_edge, id_mode):
         """
@@ -1047,42 +1624,52 @@ class Edges(am.ArrayObjman):
         is allowed.
         -1 means not allowed on edge
         """
-        ind = 0
-        modes_allow = self.parent.lanes.modes_allow
-        modes_disallow = self.parent.lanes.modes_disallow
-        is_disallowed = False
-        id_lanes = self.ids_lanes[id_edge]
-        is_cont = True
-        while is_cont & (ind < len(id_lanes)):
-            id_lane = id_lanes[ind]
-            if len(modes_allow[id_lane]) > 0:
-                if id_mode in modes_allow[id_lane]:
-                    return ind
-                else:
-                    ind += 1
+        return self.parent.lanes.get_laneindex_allowed(self.ids_lanes[id_edge], id_mode)
 
-            elif len(modes_disallow[id_lane]) > 0:
-                if id_mode in modes_disallow[id_lane]:
-                    ind += 1
-                else:
-                    return ind
-            else:
-                # no restrictions
-                return ind
-
-        # no unrestricted lane found
-        return -1  # not allowed on this edge
+    def get_laneid_allowed(self, id_edge, id_mode):
+        """
+        Returns first lane ID of edge id_edge on which id_mode
+        is allowed.
+        -1 means not allowed on edge
+        """
+        ids_lane = self.ids_lanes[id_edge]
+        laneind = self.parent.lanes.get_laneindex_allowed(ids_lane, id_mode)
+        if laneind == -1:
+            return -1
+        else:
+            return ids_lane[laneind]
 
     def multimake(self, ids_sumo=[], **kwargs):
         # fixing of insufficient shape data in edge reader
         return self.add_rows(n=len(ids_sumo), ids_sumo=ids_sumo,  **kwargs)
+
+    def add_reverse(self, id_edge):
+        self.types_spread[id_edge] = self.types_spread.choices["right"]
+
+        id_edge_reverse = self.add_row(ids_sumo='-'+self.ids_sumo[id_edge],
+                                       ids_fromnode=self.ids_tonode[id_edge],
+                                       ids_tonode=self.ids_fromnode[id_edge],
+                                       types=self.types[id_edge],
+                                       nums_lanes=self.num_lanes[id_edge],
+                                       speeds_max=self.speed_max[id_edge],
+                                       priorities=self.priority[id_edge],
+                                       #lengths = length,
+                                       shapes=self.shapes[id_edge][::-1],
+                                       types_spread=self.types_spread[id_edge],
+                                       names=self.names[id_edge],
+                                       offsets_end=self.offsets_end[id_edge],
+                                       widths_lanes_default=self.widths_lanes_default[id_edge],
+                                       widths_sidewalk=self.widths_sidewalk[id_edge],
+                                       )
+        # TODO: add lanes and connections
+        return id_edge_reverse
 
     def make(self, id_fromnode=0,
              id_tonode=0,
              id_sumo='',
              type_edge='',
              num_lanes=1,
-             speed_max=50.0 / 3.6,
+             speed_max=50.0/3.6,
              priority=1,
              #length = 0.0,
              shape=[],
@@ -1099,7 +1686,7 @@ class Edges(am.ArrayObjman):
             # ATTENTIOn: we need to copy here, otherwise the reference
             # to node coordinates will be kept!!
             coords = self.ids_tonode.get_linktab().coords
-            shape = [1.0 * coords[id_fromnode], 1.0 * coords[id_tonode]]
+            shape = [1.0*coords[id_fromnode], 1.0*coords[id_tonode]]
 
         # print 'Edges.make'
         # print '  shape',shape,type(shape)
@@ -1113,23 +1700,26 @@ class Edges(am.ArrayObjman):
                             priorities=priority,
                             #lengths = length,
                             shapes=shape,
-                            types_spread=self.types_spread.choices[
-                                type_spread],
+                            types_spread=self.types_spread.choices[type_spread],
                             names=name,
                             offsets_end=offset_end,
                             widths_lanes_default=width_lanes_default,
                             widths_sidewalk=width_sidewalk,
                             )
 
-    def make_segment_edge_map(self):
+    def make_segment_edge_map(self, ids=None, is_laneshapes=True):
         """
         Generates a vertex matrix with line segments of all edges
         and a map that maps each line segment to edge index.
         """
+        # TODO: _seginds not correctly constructed for given ids
 
         # here we can make some selection on edge inds
-        inds = self.get_inds()
-        # print 'make_linevertices',len(inds)
+        if ids is None:
+            inds = self.get_inds()
+        else:
+            inds = self.get_inds(ids)
+        print 'make_linevertices', len(inds)
 
         linevertices = np.zeros((0, 2, 3), np.float32)
         vertexinds = np.zeros((0, 2), np.int32)
@@ -1143,22 +1733,34 @@ class Edges(am.ArrayObjman):
 
         i = 0
         ind_line = 0
-        polylines = self.shapes.value[inds]
+
+        if is_laneshapes:
+            ids_lanes = self.ids_lanes.get_value()
+            laneshapes = self.parent.lanes.shapes
+        else:
+            polylines = self.shapes.get_value()  # [inds]
+
+        #polylines = self.shapes[inds]
+        # print '  len(polylines)',len(polylines)
         for ind in inds:
 
-            polyline = polylines[ind]
+            if is_laneshapes:
+                polyline = laneshapes[ids_lanes[ind][0]]
+            else:
+                polyline = polylines[ind]
+
             n_seg = len(polyline)
             # print '  =======',n_seg#,polyline
 
             if n_seg > 1:
                 polyvinds = range(n_seg)
                 # print '  polyvinds\n',polyvinds
-                vi = np.zeros((2 * n_seg - 2), np.int32)
+                vi = np.zeros((2*n_seg-2), np.int32)
                 vi[0] = polyvinds[0]
                 vi[-1] = polyvinds[-1]
 
                 # Important type conversion!!
-                v = np.zeros((2 * n_seg - 2, 3), np.float32)
+                v = np.zeros((2*n_seg-2, 3), np.float32)
                 v[0] = polyline[0]
                 v[-1] = polyline[-1]
                 if len(v) > 2:
@@ -1174,10 +1776,10 @@ class Edges(am.ArrayObjman):
                 # print '  v\n',v
                 # print '  vi\n',vi
 
-                n_lines = len(v) / 2
+                n_lines = len(v)/2
                 # print '  v\n',v
-                polyinds += n_lines * [ind]
-                lineinds.append(np.arange(ind_line, ind_line + n_lines))
+                polyinds += n_lines*[ind]
+                lineinds.append(np.arange(ind_line, ind_line+n_lines))
                 ind_line += n_lines
                 # print '  polyinds\n',polyinds,n_lines
                 #linecolors += n_lines*[colors[ind]]
@@ -1190,8 +1792,7 @@ class Edges(am.ArrayObjman):
                 v = np.zeros((0, 3), np.float32)
                 vi = np.zeros((0), np.int32)
 
-            linevertices = np.concatenate(
-                (linevertices, v.reshape((-1, 2, 3))))
+            linevertices = np.concatenate((linevertices, v.reshape((-1, 2, 3))))
             vertexinds = np.concatenate((vertexinds, vi.reshape((-1, 2))))
             # print '  linevertex\n',linevertices
             i += 1
@@ -1201,14 +1802,57 @@ class Edges(am.ArrayObjman):
         self._seginds = lineinds
         self._segvertexinds = np.array(vertexinds, np.int32)
 
-    def get_closest_edge(self, p):
+    def get_dist_point_to_edge(self, p, id_edge,
+                               is_detect_initial=False,
+                               is_detect_final=False,
+                               is_return_segment=False):
         """
-        Returns edge ids which is closest to point p.
+        Returns eucledian distance from a point p to a given edge.
+        As a second argument it returns the coordinates of the
+        line segment (x1,y1,x2,y2) which is closest to the point.
+        """
+        inds_seg = self.get_inds_seg_from_id_edge(id_edge)
+        vertices = self._segvertices
+        x1 = vertices[inds_seg, 0, 0]
+        y1 = vertices[inds_seg, 0, 1]
+
+        x2 = vertices[inds_seg, 1, 0]
+        y2 = vertices[inds_seg, 1, 1]
+
+        dists2 = get_dist_point_to_segs(p[0:2], x1, y1, x2, y2,
+                                        is_ending=True,
+                                        is_detect_initial=is_detect_initial,
+                                        is_detect_final=is_detect_final
+                                        )
+        if is_detect_final | is_detect_initial:
+            are_finals = np.isnan(dists2)
+            # print '  dists2',dists2
+            # print '  are_finals',are_finals
+            if np.all(are_finals):  # point outside all segments of edge
+                if is_return_segment:
+                    return np.nan, [np.nan, np.nan, np.nan, np.nan]
+                else:
+                    return np.nan
+            else:
+                dists2[are_finals] = np.inf
+
+        ind_min = np.argmin(dists2)
+        if is_return_segment:
+            return np.sqrt(dists2[ind_min]), (x1[ind_min], y1[ind_min], x2[ind_min], y2[ind_min])
+        else:
+            return np.sqrt(dists2[ind_min])
+
+    def get_closest_edge(self, p, is_get2=False):
+        """
+        Returns edge id which is closest to point p.
         Requires execution of make_segment_edge_map
         """
         # print 'get_closest_edge',p
         if len(self) == 0:
             return np.array([], np.int)
+
+        if self._segvertices is None:
+            self.make_segment_edge_map()
 
         vertices = self._segvertices
         x1 = vertices[:, 0, 0]
@@ -1221,8 +1865,44 @@ class Edges(am.ArrayObjman):
         # print '  x2', x2
         #halfwidths = 0.5*self.get_widths_array()[self._polyinds]
         d2 = get_dist_point_to_segs(p[0:2], x1, y1, x2, y2, is_ending=True)
-        # print '
-        # min(d2)=',np.min(d2),'argmin=',np.argmin(d2),self.get_ids(self._edgeinds[np.argmin(d2)])
+        # print '  min(d2)=',np.min(d2),'argmin=',np.argmin(d2),self.get_ids(self._edgeinds[np.argmin(d2)])
+        if not is_get2:
+            return self.get_ids(self._edgeinds[np.argmin(d2)])
+        else:
+            # return 2 best matches
+            ind1 = np.argmin(d2)
+            id_edge1 = self.get_ids(self._edgeinds[ind1])
+            d2[ind1] = np.inf
+            id_edge2 = self.get_ids(self._edgeinds[np.argmin(d2)])
+            return [id_edge1, id_edge2]
+
+    def get_ids_edge_from_inds_seg(self, inds_seg):
+        return self.get_ids(self._edgeinds[inds_seg])
+
+    def get_inds_seg_from_id_edge(self, id_edge):
+        # print 'get_inds_seg_from_id_edge id_edge, ind_edge',id_edge,self.get_ind(id_edge)
+        return self._seginds[self.get_ind(id_edge)]
+
+    def get_segvertices_xy(self):
+        if self._segvertices is None:
+            self.make_segment_edge_map()
+
+        vertices = self._segvertices
+        x1 = vertices[:, 0, 0]
+        y1 = vertices[:, 0, 1]
+
+        x2 = vertices[:, 1, 0]
+        y2 = vertices[:, 1, 1]
+        return x1, y1, x2, y2
+
+    def get_closest_edge_fast(self, p, x1, y1, x2, y2):
+        """
+        Returns edge id which is closest to point p.
+        Requires execution of make_segment_edge_map
+        and predetermined 2d segment coordinates with  get_segvertices_xy
+        """
+        d2 = get_dist_point_to_segs(p[0:2], x1, y1, x2, y2, is_ending=True)
+        # print '  min(d2)=',np.min(d2),'argmin=',np.argmin(d2),self.get_ids(self._edgeinds[np.argmin(d2)])
         return self.get_ids(self._edgeinds[np.argmin(d2)])
 
     def export_sumoxml(self, filepath, encoding='UTF-8'):
@@ -1236,33 +1916,34 @@ class Edges(am.ArrayObjman):
         fd.write(xm.begin('edges'))
         indent = 2
         self.write_xml(fd, indent=indent, is_print_begin_end=False)
-        self.parent.roundabouts.write_xml(
-            fd, indent=indent, is_print_begin_end=False)
+        self.parent.roundabouts.write_xml(fd, indent=indent, is_print_begin_end=False)
         fd.write(xm.end('edges'))
         fd.close()
 
     def update(self, ids=None, is_update_lanes=False):
-        # print 'Edges.update'
+        print 'Edges.update'
 
-        if ids == None:
+        if ids is None:
             self.widths.value = self.nums_lanes.value * self.widths_lanes_default.value \
-                + (self.widths_sidewalk.value >= 0) * \
-                (self.widths_sidewalk.value - self.widths_lanes_default.value)
+                + (self.widths_sidewalk.value >= 0) * (self.widths_sidewalk.value-self.widths_lanes_default.value)
 
             # print '  self.widths.values =  \n',self.widths.value
             #polylines = polypoints_to_polylines(self.shapes.value)
             # print '  polylines[0:4]=\n',polylines[0:4]
             # print '  polylines[3].shape',polylines[3].shape
             #self.lengths.value = get_length_polylines(polypoints_to_polylines(self.shapes.value))
-
+            # if len(self)>10:
+            #    print '  shapes',self.shapes[1:10]
+            #    print '  shapes.get_value',self.shapes.get_value()[0:9]
+            #    print '  shapes.value',self.shapes.value[0:9]
+            # else:
+            #    print '  only len %d'%len(self)
             self.lengths.value = get_length_polypoints(self.shapes.value)
             ids = self.get_ids()
         else:
             self.widths[ids] = self.nums_lanes[ids] * self.widths_lanes_default[ids] \
-                + (self.widths_sidewalk[ids] >= 0) * \
-                (self.widths_sidewalk[ids] - self.widths_lanes_default[ids])
-            # print '
-            # self.shapes[ids]',self.shapes[ids],type(self.shapes[ids])
+                + (self.widths_sidewalk[ids] >= 0) * (self.widths_sidewalk[ids]-self.widths_lanes_default[ids])
+            # print '  self.shapes[ids]',self.shapes[ids],type(self.shapes[ids])
             self.lengths[ids] = get_length_polypoints(self.shapes[ids])
 
         self.widths.set_modified(True)
@@ -1273,6 +1954,7 @@ class Edges(am.ArrayObjman):
             lanes = self.get_lanes()
             for id_edge in ids:
                 lanes.reshape_edgelanes(id_edge)
+            self.make_segment_edge_map()
 
     def set_shapes(self, ids, vertices, is_update_lanes=True):
         # print 'set_shapes',ids,vertices
@@ -1281,6 +1963,20 @@ class Edges(am.ArrayObjman):
         if not hasattr(ids, '__iter__'):
             ids = [ids]
         self.update(ids, is_update_lanes=is_update_lanes)
+
+    def get_coord_from_pos(self, id_edge, pos):
+        """
+        Returns network coordinate on edge id_edge at position pos.
+        """
+        return get_coord_on_polyline_from_pos(self.shapes[id_edge], pos)
+
+    def get_pos_from_coord(self, id_edge, coord):
+        """
+        Returns position on edge id_edge with coord
+        perpendicularly projected on edge.
+        """
+
+        return get_pos_on_polyline_from_coord(self.shapes[id_edge], coord)
 
     def update_lanes(self, id_edge, ids_lane):
         # print 'update_lanes',id_edge,self.ids_sumo[id_edge] ,ids_lanes,self.nums_lanes[id_edge]
@@ -1299,7 +1995,7 @@ class Edges(am.ArrayObjman):
 
     def correct_endpoint(self):
         """
-        Corrects end-point for older versione. 
+        Corrects end-point for older versione.
         """
         ids_sumo = self.ids_sumo.get_value()
         types_spread = self.types_spread.get_value()
@@ -1312,8 +2008,7 @@ class Edges(am.ArrayObjman):
         eps = 50.0
         for id_sumo, type_spread, shape, id_fromnode, id_tonode in zip(ids_sumo, types_spread, shapes, ids_fromnode, ids_tonode):
 
-            inds_oppo = np.flatnonzero(
-                (ids_tonode == id_fromnode) & (ids_fromnode == id_tonode))
+            inds_oppo = np.flatnonzero((ids_tonode == id_fromnode) & (ids_fromnode == id_tonode))
             if len(inds_oppo) >= 1:
                 ind_oppo = inds_oppo[0]
                 # print '  correct',id_sumo,ids_sumo[ind_oppo]
@@ -1340,7 +2035,7 @@ class Edges(am.ArrayObjman):
 
     def correct_spread(self):
         """
-        Corrects spread type for older versione. 
+        Corrects spread type for older versione.
         """
         ids_sumo = self.ids_sumo.get_value()
         types_spread = self.types_spread.get_value()
@@ -1359,8 +2054,7 @@ class Edges(am.ArrayObjman):
                             shape_oppo = list(shapes[ind_oppo])
                             shape_oppo.reverse()
                             shape_oppo = np.array(shape_oppo, np.float32)
-                            dist = np.sum(
-                                np.abs(shape_oppo - np.array(shape, np.float32))) / float(len(shape))
+                            dist = np.sum(np.abs(shape_oppo - np.array(shape, np.float32)))/float(len(shape))
                             # print '   id_sumo,dist',id_sumo,dist,eps
                             if dist < eps:
                                 types_spread[inds_oppo[0]] = 0
@@ -1374,7 +2068,6 @@ class Edges(am.ArrayObjman):
 
 class Nodes(am.ArrayObjman):
     # http://www.sumo.dlr.de/userdoc/Networks/Building_Networks_from_own_XML-descriptions.html#Node_Descriptions
-
     def __init__(self, parent,
                  **kwargs):
         ident = 'nodes'
@@ -1403,6 +2096,25 @@ class Nodes(am.ArrayObjman):
                                   perm='rw',
                                   name='Radius',
                                   info='Node radius',
+                                  ))
+
+        self.add_col(am.ListArrayConf('shapes',
+                                      groupnames=['_private'],
+                                      perm='rw',
+                                      name='Shape',
+                                      unit='m',
+                                      info='Node shape as list of 3D shape coordinates representing a polyline.',
+                                      is_plugin=True,
+                                      xmltag='shape',
+                                      ))
+
+        self.add_col(am.ArrayConf('are_costum_shape',  False,
+                                  dtype=np.bool,
+                                  groupnames=['state'],
+                                  perm='rw',
+                                  name='costum shape',
+                                  info='Node has a custom shape.',
+                                  xmltag='customShape',
                                   ))
 
         self.add(cm.AttrConf('radius_default', 3.0,
@@ -1468,17 +2180,6 @@ class Nodes(am.ArrayObjman):
                                   xmltag='keepClear',
                                   ))
 
-        if self.get_version() < 0.1:
-            self.delete('ids_tl_prog')
-            self.turnradii.xmltag = 'radius'
-            self.are_keep_clear.xmltag = 'keepClear'
-            self.types_tl.xmltag = 'tlType'
-            self.add_col(am.IdlistsArrayConf('ids_controlled', edges,
-                                             groupnames=['state'],
-                                             name='IDs controlled',
-                                             info='ID list of controlled edges. Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes.',
-                                             ))
-
     def set_edges(self, edges):
 
         self.add_col(am.IdlistsArrayConf('ids_incoming', edges,
@@ -1492,12 +2193,23 @@ class Nodes(am.ArrayObjman):
                                          name='ID outgoing',
                                          info='ID list of outgoing edges.',
                                          ))
+
         self.add_col(am.IdlistsArrayConf('ids_controlled', edges,
                                          groupnames=['state'],
                                          name='IDs controlled',
                                          info='ID list of controlled edges. Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes.',
                                          xmltag='controlledInner',
                                          ))
+        if self.get_version() < 0.1:
+            self.delete('ids_tl_prog')
+            self.turnradii.xmltag = 'radius'
+            self.are_keep_clear.xmltag = 'keepClear'
+            self.types_tl.xmltag = 'tlType'
+            self.add_col(am.IdlistsArrayConf('ids_controlled', edges,
+                                             groupnames=['state'],
+                                             name='IDs controlled',
+                                             info='ID list of controlled edges. Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes.',
+                                             ))
 
     def set_tlss(self, tlss):
 
@@ -1511,13 +2223,39 @@ class Nodes(am.ArrayObjman):
     def multimake(self, ids_sumo=[], **kwargs):
         return self.add_rows(n=len(ids_sumo), ids_sumo=ids_sumo,  **kwargs)
 
+    def configure_tls(self, id_node, id_tls, typecode=None, tlstype=None, nodetype="traffic_light"):
+        if typecode is None:
+            self.types_tl[id_node] = self.types_tl.choices[tlstype]
+        else:
+            self.types_tl[id_node] = typecode
+
+        self.types[id_node] = self.types.choices[nodetype]
+        self.ids_tls[id_node] = id_tls
+
+    def remove_tls(self, id_node=None, id_tls=None, nodetype="priority"):
+        if id_tls is not None:
+            ids_node = self.select_ids(self.ids_tls.get_value() == id_tls)
+
+            self.types_tl[ids_node] = self.types_tl.choices["none"]
+            self.types[ids_node] = self.types.choices[nodetype]
+            self.ids_tls[ids_node] = -1
+        else:
+            self.types_tl[id_node] = self.types_tl.choices["none"]
+            self.types[id_node] = self.types.choices[nodetype]
+            self.ids_tls[id_node] = -1
+
     def make(self, id_sumo='', nodetype='priority', coord=[],
-             type_tl='Static', id_tl_prog=0,
-             turnradius=1.5, is_keep_clear=True):
+             type_tl='static', id_tl_prog=0,
+             shape=[],
+             is_costum_shape=False,
+             turnradius=1.5,
+             is_keep_clear=True):
 
         return self.add_row(ids_sumo=id_sumo,
                             types=self.types.choices[nodetype],
                             coords=coord,
+                            are_costum_shape=is_costum_shape,
+                            shape=shape,
                             types_tl=self.types_tl.choices[type_tl],
                             ids_tl_prog=id_tl_prog,
                             turnradii=turnradius,
@@ -1525,14 +2263,16 @@ class Nodes(am.ArrayObjman):
                             )
 
     def add_outgoing(self, id_node, id_edge):
-        if self.ids_outgoing[id_node] != None:
+        if self.ids_outgoing[id_node] is not None:
             if id_edge not in self.ids_outgoing[id_node]:
                 self.ids_outgoing[id_node].append(id_edge)
         else:
             self.ids_outgoing[id_node] = [id_edge]
 
     def add_incoming(self, id_node, id_edge):
-        if self.ids_incoming[id_node] != None:
+        # print 'add_incoming id_node,id_edge',id_node,id_edge
+        # print '  ids_incoming',self.ids_incoming[id_node],type(self.ids_incoming[id_node])
+        if self.ids_incoming[id_node] is not None:
             if id_edge not in self.ids_incoming[id_node]:
                 self.ids_incoming[id_node].append(id_edge)
         else:
@@ -1553,11 +2293,11 @@ class Nodes(am.ArrayObjman):
         # print 'Nodes.write_xml'
         xmltag, xmltag_item, attrname_id = self.xmltag
         attrsman = self.get_attrsman()
-        # getattr(self.get_attrsman(), attrname_id)
-        attrconfig_id = attrsman.get_config(attrname_id)
+        attrconfig_id = attrsman.get_config(attrname_id)  # getattr(self.get_attrsman(), attrname_id)
         xmltag_id = attrconfig_id.xmltag
         #attrsman = self.get_attrsman()
         coordsconfig = attrsman.get_config('coords')
+        shapesconfig = attrsman.get_config('shapes')
         colconfigs = attrsman.get_colconfigs(is_all=True)
 
         # print '  header'
@@ -1567,7 +2307,7 @@ class Nodes(am.ArrayObjman):
         self.parent.get_attrsman().get_config('version').write_xml(fd)
         fd.write(xm.stop())
 
-        fd.write(xm.start('location', indent + 2))
+        fd.write(xm.start('location', indent+2))
         # print '  groups:',self.parent.get_attrsman().get_groups()
 
         for attrconfig in self.parent.get_attrsman().get_group('location'):
@@ -1575,8 +2315,9 @@ class Nodes(am.ArrayObjman):
             attrconfig.write_xml(fd)
         fd.write(xm.stopit())
 
-        for _id in self.get_ids():
-            fd.write(xm.start(xmltag_item, indent + 2))
+        ids = self.get_ids()
+        for _id, is_costum_shape in zip(ids, self.are_costum_shape[ids]):
+            fd.write(xm.start(xmltag_item, indent+2))
 
             # print ' make tag and id',_id
             fd.write(xm.num(xmltag_id, attrconfig_id[_id]))
@@ -1590,16 +2331,22 @@ class Nodes(am.ArrayObjman):
                     fd.write(xm.num('y', y))
                     fd.write(xm.num('z', z))
 
+                elif attrconfig == shapesconfig:
+                    # write only if customshaped
+                    if is_costum_shape:
+                        attrconfig.write_xml(fd, _id)
+
                 elif attrconfig != attrconfig_id:
                     attrconfig.write_xml(fd, _id)
+
             fd.write(xm.stopit())
 
         fd.write(xm.end(xmltag, indent))
 
     # def clean_node(self, id_node):
 
-    def clean(self, is_reshape_edgelanes=False, nodestretchfactor=2.8, n_min_nodeedges=2):
-        #is_reshape_edgelanes = False
+    def clean(self, is_reshape_edgelanes=False, nodestretchfactor=1.2, n_min_nodeedges=2):
+        # is_reshape_edgelanes = False, nodestretchfactor = 2.8
         print 'Nodes.clean', len(self), 'is_reshape_edgelanes', is_reshape_edgelanes
 
         edges = self.parent.edges
@@ -1609,8 +2356,7 @@ class Nodes(am.ArrayObjman):
         # print '  id(edges.shapes),id(edges.shapes.value)', id(edges.shapes),id(edges.shapes.value)#,edges.shapes.value
         # print '  id(self.coords),id(self.coords.value)', id(self.coords),id(self.coords.value)#,self.coords.value
         # print '  self.coords.value.shape',self.coords.value.shape
-        # print '
-        # len(self.coords),self.coords.shape',len(self.coords.value),self.coords.value
+        # print '  len(self.coords),self.coords.shape',len(self.coords.value),self.coords.value
         for id_node in self.get_ids():
             ind_node = self.get_inds(id_node)
             # if id_node in TESTNODES:
@@ -1621,121 +2367,120 @@ class Nodes(am.ArrayObjman):
             #    print '   coords',TESTNODES[1],self.coords[TESTNODES[1]]
             #    print '   radii',self.radii[id_node]
 
-            # distanza ad altri nodi
-            #d = np.sum(np.abs(self.coords[id_node]-self.coords.value),1)
-            #d = np.linalg.norm(self.coords[id_node]-self.coords.value,1)
-            coords = self.coords[id_node]
-            d = get_norm_2d(coords - self.coords.value)
-            d[ind_node] = np.inf
-            d_min = np.min(d)
-            # print '  d_min',d_min
-            ids_edge_out = edges.select_ids(
-                edges.ids_fromnode.value == id_node)
+            # attention, this is s safe method in case
+            # that ids_outgoing and ids_incoming are not yet defined
+            ids_edge_out = edges.select_ids(edges.ids_fromnode.value == id_node)
             ids_edge_in = edges.select_ids(edges.ids_tonode.value == id_node)
 
-            # estimate circumference of junction and determine node radius
-            n_edges = len(ids_edge_in) + len(ids_edge_out)
-            width_av = np.mean(np.concatenate(
-                (edges.widths[ids_edge_in], edges.widths[ids_edge_out])))
+            if (len(ids_edge_out) > 0) | (len(ids_edge_in) > 0):
+                # distanza ad altri nodi
+                #d = np.sum(np.abs(self.coords[id_node]-self.coords.value),1)
+                #d = np.linalg.norm(self.coords[id_node]-self.coords.value,1)
+                coords = self.coords[id_node]
+                d = get_norm_2d(coords-self.coords.value)
+                d[ind_node] = np.inf
+                d_min = np.min(d)
+                # print '  d_min',d_min
 
-            # here we assume a node with 6 entrance sides and a and 2 average width edges per side
-            #circum = 2.0*max(6,n_edges)*width_av
-            circum = nodestretchfactor * max(2, n_edges) * width_av
+                # estimate circumference of junction and determine node radius
+                n_edges = len(ids_edge_in) + len(ids_edge_out)
+                width_av = np.mean(np.concatenate((edges.widths[ids_edge_in], edges.widths[ids_edge_out])))
 
-            # print '
-            # n_edges,width_av,radius',n_edges,width_av,max(6,n_edges)*width_av/(2*np.pi)
-            radius = min(
-                max(circum / (n_min_nodeedges * np.pi), rad_min), 0.4 * d_min)
-            self.radii[id_node] = radius
+                # here we assume a node with 6 entrance sides and a and 2 average width edges per side
+                #circum = 2.0*max(6,n_edges)*width_av
+                circum = nodestretchfactor*max(2, n_edges)*width_av
 
-            # if id_node in TESTNODES:
-            #    print '  AFTER change radius:'#OK
-            #    print '   coords',TESTNODES[0],self.coords[TESTNODES[0]]
-            #    print '   coords',TESTNODES[1],self.coords[TESTNODES[1]]
+                # print '  n_edges,width_av,radius',n_edges,width_av,max(6,n_edges)*width_av/(2*np.pi)
+                radius = min(max(circum/(n_min_nodeedges*np.pi), rad_min), 0.4*d_min)
+                self.radii[id_node] = radius
 
-            for id_edge in ids_edge_in:
-                # print '    in edge',id_edge
-                shape = edges.shapes[id_edge]
-                n_shape = len(shape)
-                # edges.shapes[id_edge][::-1]:
-                for i in xrange(n_shape - 1, -1, -1):
-                    d = get_norm_2d(np.array([shape[i] - coords]))[0]
-                    # print '      i,d,r',i , d, radius,d>radius
-                    if d > radius:
-                        # print '        **',i,d, radius
-                        break
-                x, y = shape[i][:2]
-                # print 'shape',shape,
-                #dx,dy = shape[i+1][:2] - shape[i][:2]
-                dx, dy = coords[:2] - shape[i][:2]
-                dn = np.sqrt(dx * dx + dy * dy)
-                x1 = x + (d - radius) * dx / dn
-                y1 = y + (d - radius) * dy / dn
+                # if id_node in TESTNODES:
+                #    print '  AFTER change radius:'#OK
+                #    print '   coords',TESTNODES[0],self.coords[TESTNODES[0]]
+                #    print '   coords',TESTNODES[1],self.coords[TESTNODES[1]]
 
-                if i == n_shape - 1:
+                for id_edge in ids_edge_in:
+                    # print '    in edge',id_edge
+                    shape = edges.shapes[id_edge]
+                    n_shape = len(shape)
+                    # edges.shapes[id_edge][::-1]:
+                    for i in xrange(n_shape-1, -1, -1):
+                        d = get_norm_2d(np.array([shape[i]-coords]))[0]
+                        # print '      i,d,r',i , d, radius,d>radius
+                        if d > radius:
+                            # print '        **',i,d, radius
+                            break
+                    x, y = shape[i][:2]
+                    # print 'shape',shape,
+                    #dx,dy = shape[i+1][:2] - shape[i][:2]
+                    dx, dy = coords[:2] - shape[i][:2]
+                    dn = np.sqrt(dx*dx + dy*dy)
+                    x1 = x + (d-radius)*dx/dn
+                    y1 = y + (d-radius)*dy/dn
 
-                    shape[-1][:2] = [x1, y1]
-                    edges.shapes[id_edge] = shape
+                    if i == n_shape-1:
 
-                else:  # elif i>0:
-                    shape[i + 1][:2] = [x1, y1]
-                    edges.shapes[id_edge] = shape[:i + 2]
+                        shape[-1][:2] = [x1, y1]
+                        edges.shapes[id_edge] = shape
 
-                # print '    x,y',x,y
-                # print '    x1,y1',x1,y1
-                # print '  shape[:i+2]',shape[:i+2]
-                # print '  shapes[id_edge]',edges.shapes[id_edge]
-                if is_reshape_edgelanes:
-                    lanes.reshape_edgelanes(id_edge)
+                    else:  # elif i>0:
+                        shape[i+1][:2] = [x1, y1]
+                        edges.shapes[id_edge] = shape[:i+2]
 
-            for id_edge in ids_edge_out:
-                # print '    out edge',id_edge
-                shape = edges.shapes[id_edge]
-                n_shape = len(shape)
-                # edges.shapes[id_edge][::-1]:
-                for i in xrange(n_shape):
-                    d = get_norm_2d(np.array([shape[i] - coords]))[0]
-                    # print '      i,d,r',i , d, radius,d>radius
-                    if d > radius:
-                        # print '        **',i,d, radius
-                        break
-                x, y = coords[:2]  # shape[i-1][:2]
-                # print 'shape',shape,
-                #dx,dy = shape[i][:2]- shape[i-1][:2]
-                dx, dy = shape[i][:2] - coords[:2]
-                dn = np.sqrt(dx * dx + dy * dy)
-                x1 = x + (radius) * dx / dn
-                y1 = y + (radius) * dy / dn
-                if i == 0:
-                    shape[0][:2] = [x1, y1]
-                    edges.shapes[id_edge] = shape
+                    # print '    x,y',x,y
+                    # print '    x1,y1',x1,y1
+                    # print '  shape[:i+2]',shape[:i+2]
+                    # print '  shapes[id_edge]',edges.shapes[id_edge]
+                    if is_reshape_edgelanes:
+                        lanes.reshape_edgelanes(id_edge)
 
-                elif i < n_shape:
+                for id_edge in ids_edge_out:
+                    # print '    out edge',id_edge
+                    shape = edges.shapes[id_edge]
+                    n_shape = len(shape)
+                    # edges.shapes[id_edge][::-1]:
+                    for i in xrange(n_shape):
+                        d = get_norm_2d(np.array([shape[i]-coords]))[0]
+                        # print '      i,d,r',i , d, radius,d>radius
+                        if d > radius:
+                            # print '        **',i,d, radius
+                            break
+                    x, y = coords[:2]  # shape[i-1][:2]
+                    # print 'shape',shape,
+                    #dx,dy = shape[i][:2]- shape[i-1][:2]
+                    dx, dy = shape[i][:2] - coords[:2]
+                    dn = np.sqrt(dx*dx + dy*dy)
+                    x1 = x + (radius)*dx/dn
+                    y1 = y + (radius)*dy/dn
+                    if i == 0:
+                        shape[0][:2] = [x1, y1]
+                        edges.shapes[id_edge] = shape
 
-                    shape[i - 1][:2] = [x1, y1]
-                    edges.shapes[id_edge] = shape[i - 1:]
-                # print '    x,y',x,y
-                # print '    x1,y1',x1,y1
-                # print '  shape[:i+2]',shape[:i+2]
-                # print '  shapes[id_edge]',edges.shapes[id_edge]
-                if is_reshape_edgelanes:
-                    lanes.reshape_edgelanes(id_edge)
+                    elif i < n_shape:
+
+                        shape[i-1][:2] = [x1, y1]
+                        edges.shapes[id_edge] = shape[i-1:]
+                    # print '    x,y',x,y
+                    # print '    x1,y1',x1,y1
+                    # print '  shape[:i+2]',shape[:i+2]
+                    # print '  shapes[id_edge]',edges.shapes[id_edge]
+                    if is_reshape_edgelanes:
+                        lanes.reshape_edgelanes(id_edge)
 
         self.radii.set_modified(True)
         edges.shapes.set_modified(True)
 
 
 class Network(cm.BaseObjman):
-
     def __init__(self, parent=None, name='Network', **kwargs):
-            # print 'Network.__init__',parent,name
+        print 'Network.__init__', parent, name
         self._init_objman(ident='net', parent=parent, name=name,
                           # xmltag = 'net',# no, done by netconvert
+                          version=0.1,
                           **kwargs)
         attrsman = self.set_attrsman(cm.Attrsman(self))
         # print '  Network.parent',self.parent
         self._init_attributes()
-        self.modes.add_rows(ids=MODES.values(), names=MODES.keys())
 
     def _init_attributes(self):
         attrsman = self.get_attrsman()
@@ -1748,6 +2493,9 @@ class Network(cm.BaseObjman):
                                                 ))
 
         self.modes = attrsman.add(cm.ObjConf(Modes(self)))
+        self.modes.clear()
+        self.modes.add_default()
+
         # print 'Network.__init__'
         # print '  MODES.values()',MODES.values()
         # print '  MODES.keys()',MODES.keys()
@@ -1758,18 +2506,19 @@ class Network(cm.BaseObjman):
         ##
         self.nodes = attrsman.add(cm.ObjConf(Nodes(self)))
         self.edges = attrsman.add(cm.ObjConf(Edges(self)))
-        self.lanes = attrsman.add(cm.ObjConf(
-            Lanes(self, self.edges, self.modes)))
+        self.lanes = attrsman.add(cm.ObjConf(Lanes(self)))
 
         self.edges.set_nodes(self.nodes)
         self.edges.set_lanes(self.lanes)
         self.nodes.set_edges(self.edges)
-        self.roundabouts = attrsman.add(cm.ObjConf(
-            Roundabouts(self, self.edges, self.nodes)))
+        self.roundabouts = attrsman.add(cm.ObjConf(Roundabouts(self, self.edges, self.nodes)))
         self.connections = attrsman.add(cm.ObjConf(Connections(self)))
         self.crossings = attrsman.add(cm.ObjConf(Crossings(self)))
+
         self.tlss = attrsman.add(cm.ObjConf(TrafficLightSystems(self)))
         self.nodes.set_tlss(self.tlss)
+
+        self.ptstops = attrsman.add(cm.ObjConf(pt.PtStops(self)))
 
         self._offset = attrsman.add(cm.AttrConf('_offset', np.array([0.0, 0.0], dtype=np.float32),
                                                 groupnames=['location', ],
@@ -1799,8 +2548,7 @@ class Network(cm.BaseObjman):
                                                     ))
 
         self._boundaries_orig = attrsman.add(cm.AttrConf('_boundaries_orig', np.array([0.0, 0.0, 0.0, 0.0]),
-                                                         groupnames=[
-                                                             'location', ],
+                                                         groupnames=['location', ],
                                                          perm='r',
                                                          name='Orig. boundaries',
                                                          info='Original network boundaries',
@@ -1856,13 +2604,16 @@ class Network(cm.BaseObjman):
 
         """
         self._boundaries = convBoundary
-        if origBoundary == None:
+        if origBoundary is None:
             self._boundaries_orig = self._boundaries
         else:
             self._boundaries_orig = origBoundary
 
-    def get_boundaries(self):
-        return self._boundaries, self._boundaries_orig
+    def get_boundaries(self, is_netboundaries=False):
+        if is_netboundaries:
+            return self._boundaries
+        else:
+            return self._boundaries, self._boundaries_orig
 
     def merge_boundaries(self, convBoundary, origBoundary=None):
         """
@@ -1871,18 +2622,43 @@ class Network(cm.BaseObjman):
 
         """
         # print 'mergeBoundaries'
-        self._boundaries = self.get_boundary_union(
-            convBoundary, self._boundaries)
-        if origBoundary == None:
+        self._boundaries = self.get_boundary_union(convBoundary, self._boundaries)
+        if origBoundary is None:
             self._boundaries_orig = self._boundaries
         else:
-            self._boundaries_orig = self.get_boundary_union(
-                origBoundary, self._boundaries_orig)
+            self._boundaries_orig = self.get_boundary_union(origBoundary, self._boundaries_orig)
         # print '  self._boundaries_orig =',self._boundaries_orig
         # print '  self._boundaries =',self._boundaries
 
     def get_boundary_union(self, BB1, BB2):
         return [min(BB1[0], BB2[0]), min(BB1[1], BB2[1]), max(BB1[2], BB2[2]), max(BB1[3], BB2[3])]
+
+    def intersects_boundaries(self, BB):
+        """
+        Tests if the given Bounding Box or line intersects with
+        the network boundaries.
+
+        Returns True if it is partially inside, or touching the
+        border.
+        Format of Boundary box
+         [MinX, MinY ,MaxX, MaxY ]
+            0     1     2     3
+
+        Returns False otherwise
+        """
+        # print 'intersects_boundaries'
+        # print '  self',self._boundaries
+        # print '  BB',BB
+        # print ' return',( (self._boundaries[2] >= BB[0]) & (self._boundaries[0] <= BB[2]) &
+        #     (self._boundaries[3] >= BB[1]) & (self._boundaries[1] <= BB[3]) )
+
+        return ((self._boundaries[2] >= BB[0]) & (self._boundaries[0] <= BB[2]) &
+                (self._boundaries[3] >= BB[1]) & (self._boundaries[1] <= BB[3]))
+        # if ( (self._boundaries[2] >= BB[0]) & (self._boundaries[0] <= BB[2]) &
+        #     (self._boundaries[3] >= BB[1]) & (self._boundaries[1] <= BB[3]) ):
+        #    return True
+        # else:
+        #    return False
 
     def get_projparams(self):
         return self._projparams
@@ -1907,26 +2683,34 @@ class Network(cm.BaseObjman):
         """
         Default network filepath.
         """
-        return self.get_rootfilepath() + '.net.xml'
+        return self.get_rootfilepath()+'.net.xml'
 
-    # def clear(self):
-    #    """
-    #    Remove all netelements.
-    #    """
-    #    #self.reset()
-    #    # at some stage in the future this should be automatic
-    #    self.nodes.clear()
-    #    self.edges.clear()
-    #    self.lanes.clear()
-    #    self.roundabouts.clear()
-    #    self.connections.clear()
-    #    self.crossings.clear()
-    #    self.tlss.clear()
+    def get_addfilepath(self):
+        """
+        Default filepath for additional files.
+        """
+        return self.get_rootfilepath()+'.add.xml'
 
-    def call_netedit(self, filepath=None, is_maps=False):
+    def clear_net(self):
+        """
+        Remove all netelements.
+        """
+        self.clear()
+        self.modes.add_default()
+        # do other cleanup jobs
 
-        filepath = self.export_netxml()
-        if filepath != "":
+    def call_netedit(self, filepath=None, is_maps=False, is_poly=True):
+
+        #filepath = self.export_netxml(filepath)
+        if filepath is None:
+            filepath = self.get_filepath()
+
+        # remove old netfile, is exists
+        if os.path.isfile(filepath):
+            os.remove(filepath)
+
+        filepath_edges, filepath_nodes, filepath_connections, filepath_tlss = self.export_painxml(filepath=filepath)
+        if filepath_edges != "":
             # print '  netconvert: success'
             names = os.path.basename(filepath).split('.')
             dirname = os.path.dirname(filepath)
@@ -1935,24 +2719,39 @@ class Network(cm.BaseObjman):
             elif len(names) <= 2:
                 rootname = names[0]
 
-            configfilepath = self._write_guiconfig(rootname, dirname, is_maps)
+            addfilepath = self.export_addxml(is_ptstops=True, is_poly=False)
+            if addfilepath is not False:
+                option_addfiles_in = '  --sumo-additionals-file '+filepathlist_to_filepathstring(addfilepath)
+            else:
+                option_addfiles_in = ''
 
-            cml = 'netedit '\
-                + ' --sumo-net-file ' + filepathlist_to_filepathstring(filepath)\
-                + ' --gui-settings-file ' + \
-                filepathlist_to_filepathstring(configfilepath)
+            option_addfiles_out = ' --additionals-output ' + filepathlist_to_filepathstring(self.get_addfilepath())
+
+            configfilepath = self.write_guiconfig(rootname, dirname, is_maps)
+
+            #+ ' --sumo-net-file ' + filepathlist_to_filepathstring(filepath)
+
+            cml = 'netedit --ignore-errors.edge-type'\
+                + ' --node-files '+filepathlist_to_filepathstring(filepath_nodes)\
+                + ' --edge-files '+filepathlist_to_filepathstring(filepath_edges)\
+                + ' --connection-files '+filepathlist_to_filepathstring(filepath_connections)\
+                + ' --output-file '+filepathlist_to_filepathstring(filepath)\
+                + ' --gui-settings-file ' + filepathlist_to_filepathstring(configfilepath)\
+                + option_addfiles_in + option_addfiles_out
             #+ ' --output-prefix '+ filepathlist_to_filepathstring(os.path.join(dirname,rootname))
 
+            if len(self.tlss) > 0:
+                cml += ' --tllogic-files '+filepathlist_to_filepathstring(filepath_tlss)
+
             proc = subprocess.Popen(cml, shell=True)
-            # print '  run_cml cml=',cml
+            print '  run_cml cml=', cml
             # print '  pid = ',proc.pid
             proc.wait()
             if proc.returncode == 0:
                 print '  netedit:success'
 
                 return self.import_netxml()
-                # return self.import_xml() # use if netedit exports to plain
-                # xml files
+                # return self.import_xml() # use if netedit exports to plain xml files
             else:
                 print '  netedit:error'
                 return False
@@ -1960,9 +2759,9 @@ class Network(cm.BaseObjman):
             print '  netconvert:error'
             return False
 
-    def call_sumogui(self, filepath=None, is_maps=False):
+    def call_sumogui(self, filepath=None, is_maps=True, is_poly=True):
 
-        if filepath == None:
+        if filepath is None:
             filepath = self.get_filepath()
             dirname = os.path.dirname(filepath)
         names = os.path.basename(filepath).split('.')
@@ -1972,18 +2771,37 @@ class Network(cm.BaseObjman):
         elif len(names) <= 2:
             rootname = names[0]
 
-        configfilepath = self._write_guiconfig(rootname, dirname, is_maps)
+        configfilepath = self.write_guiconfig(rootname, dirname, is_maps)
 
-        polyfilepath = os.path.join(dirname, rootname + '.poly.xml')
-        if os.path.isfile(polyfilepath):
-            option_addfiles = '  --additional-files ' + \
-                filepathlist_to_filepathstring(polyfilepath)
+        #addfilepath = self.export_addxml(is_ptstops = True, is_poly = True)
+
+        stopfilepath = self.ptstops.export_sumoxml()
+        if is_poly:
+            polyfilepath = self.parent.landuse.export_polyxml()
+        else:
+            polyfilepath = None
+
+        # print '  is_polystopfilepath,polyfilepath',is_poly,stopfilepath,polyfilepath
+        addfilepathlist = []
+        if (stopfilepath is not None):
+            addfilepathlist.append(stopfilepath)
+
+        if (polyfilepath is not None):
+            addfilepathlist.append(polyfilepath)
+
+        if len(addfilepathlist) > 0:
+            option_addfiles = '  --additional-files '+filepathlist_to_filepathstring(addfilepathlist)
         else:
             option_addfiles = ''
 
+        # if addfilepath is not False:
+        #    option_addfiles = '  --additional-files '+filepathlist_to_filepathstring(addfilepath)
+        # else:
+        #    option_addfiles = ''
+
         cml = 'sumo-gui '\
-            + ' --net-file ' + filepathlist_to_filepathstring(filepath)\
-            + ' --gui-settings-file ' + filepathlist_to_filepathstring(configfilepath)\
+            + ' --net-file '+filepathlist_to_filepathstring(filepath)\
+            + ' --gui-settings-file '+filepathlist_to_filepathstring(configfilepath)\
             + option_addfiles
 
         proc = subprocess.Popen(cml, shell=True)
@@ -1992,23 +2810,29 @@ class Network(cm.BaseObjman):
         proc.wait()
         return proc.returncode
 
-    def _write_guiconfig(self, rootname, dirname, is_maps):
+    def write_guiconfig(self, rootname=None, dirname=None, is_maps=False):
+
         # check if there are maps
         maps = None
         if is_maps:
-            if self.parent != None:
+            if self.parent is not None:
                 maps = self.parent.landuse.maps
 
         # write netedit configfile
         templatedirpath = os.path.dirname(os.path.abspath(__file__))
-        fd_template = open(os.path.join(
-            templatedirpath, 'netedit_config.xml'), 'r')
-        configfilepath = os.path.join(dirname, rootname + '.netedit.xml')
+        fd_template = open(os.path.join(templatedirpath, 'netedit_config.xml'), 'r')
+
+        if (rootname is not None) & (dirname is not None):
+            configfilepath = os.path.join(dirname, rootname+'.netedit.xml')
+        else:
+            configfilepath = self.get_rootfilepath()+'.netedit.xml'
+
+        print 'write_guiconfig', configfilepath, is_maps & (maps is not None), maps
         fd_config = open(configfilepath, 'w')
         for line in fd_template.readlines():
             if line.count('<decals>') == 1:
                 fd_config.write(line)
-                if is_maps:
+                if is_maps & (maps is not None):
                     maps.write_decals(fd_config, indent=12)
             else:
                 fd_config.write(line)
@@ -2021,38 +2845,82 @@ class Network(cm.BaseObjman):
     def import_netxml(self, filepath=None, rootname=None, is_clean_nodes=False, is_remove_xmlfiles=False):
         print 'import_netxml', filepath
 
-        if rootname == None:
+        if rootname is None:
             rootname = self.get_rootfilename()
 
-        if filepath == None:
+        if filepath is None:
             filepath = self.get_filepath()
 
         dirname = os.path.dirname(filepath)
 
-        # print '  modes.names',self.modes.names
-        cml = 'netconvert'\
-            + ' --sumo-net-file ' + filepathlist_to_filepathstring(filepath)\
-            + ' --plain-output-prefix ' + \
-            filepathlist_to_filepathstring(os.path.join(dirname, rootname))
-        proc = subprocess.Popen(cml, shell=True)
-        print '  run_cml cml=', cml
-        print '  pid = ', proc.pid
-        proc.wait()
-        if not proc.returncode:
-            print '  modes.names', self.modes.names
-            return self.import_xml(rootname, dirname)
+        if os.path.isfile(filepath):
+            # print '  modes.names',self.modes.names
+            cml = 'netconvert'\
+                + ' --sumo-net-file '+filepathlist_to_filepathstring(filepath)\
+                + ' --plain-output-prefix '+filepathlist_to_filepathstring(os.path.join(dirname, rootname))
+            proc = subprocess.Popen(cml, shell=True)
+            print '  run_cml cml=', cml
+            print '  pid = ', proc.pid
+            proc.wait()
+            if not proc.returncode:
+                print '  modes.names', self.modes.names
+                return self.import_xml(rootname, dirname)
+            else:
+                return False
         else:
             return False
 
-    def export_netxml(self, filepath=None):
+    def export_addxml(self, filepath=None,
+                      is_ptstops=True, is_poly=False,
+                      encoding='UTF-8'):
+        """
+        Export additional file
+        """
+        if filepath is None:
+            filepath = self.get_addfilepath()
 
-        if filepath == None:
-            filepath = self.get_filepath()
+        try:
+            fd = open(filepath, 'w')
 
-        print 'Net.export_netxml', filepath
+        except:
+            print 'WARNING in write_obj_to_xml: could not open', filepath
+            return False
 
+        #xmltag, xmltag_item, attrname_id = self.xmltag
+        fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
+        indent = 0
+        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
+
+        fd.write(xm.begin('additional', indent))
+
+        if is_ptstops:
+            if len(self.ptstops) > 0:
+                self.ptstops.write_xml(fd, indent=indent+2)
+
+        if is_poly:
+            if self.parent is not None:
+                facilities = self.parent.landuse.facilities
+                if len(facilities) > 0:
+                    fd.write(xm.start('location', indent+2))
+                    # print '  groups:',self.parent.net.get_attrsman().get_groups()
+                    for attrconfig in self.get_attrsman().get_group('location'):
+                            # print '    locationconfig',attrconfig.attrname
+                        attrconfig.write_xml(fd)
+                    fd.write(xm.stopit())
+
+                    facilities.write_xml(fd, indent=indent+2, is_print_begin_end=False)
+
+        fd.write(xm.end('additional', indent))
+        fd.close()
+        return filepath
+
+    def export_painxml(self, filepath=None, is_export_tlss=True):
         # now create rootfilepath in order to export first
         # the various xml file , then call netconvert
+
+        if filepath is None:
+            filepath = self.get_filepath()
+
         names = os.path.basename(filepath).split('.')
         dirname = os.path.dirname(filepath)
         if len(names) >= 3:
@@ -2060,36 +2928,53 @@ class Network(cm.BaseObjman):
         elif len(names) <= 2:
             rootname = names[0]
 
-        filepath_edges = os.path.join(dirname, rootname + '.edg.xml')
-        filepath_nodes = os.path.join(dirname, rootname + '.nod.xml')
-        filepath_connections = os.path.join(dirname, rootname + '.con.xml')
-        filepath_tlss = os.path.join(dirname, rootname + '.tll.xml')
+        filepath_edges = os.path.join(dirname, rootname+'.edg.xml')
+        filepath_nodes = os.path.join(dirname, rootname+'.nod.xml')
+        filepath_connections = os.path.join(dirname, rootname+'.con.xml')
+        filepath_tlss = os.path.join(dirname, rootname+'.tll.xml')
 
         self.edges.export_sumoxml(filepath_edges)
         self.nodes.export_sumoxml(filepath_nodes)
         self.connections.export_sumoxml(filepath_connections)
-        if len(self.tlss) > 0:
+
+        if (len(self.tlss) > 0) & is_export_tlss:
             self.tlss.export_sumoxml(filepath_tlss)
 
-        cml = 'netconvert --verbose --ignore-errors.edge-type'\
-            + ' --node-files ' + filepathlist_to_filepathstring(filepath_nodes)\
-            + ' --edge-files ' + filepathlist_to_filepathstring(filepath_edges)\
-            + ' --connection-files ' + filepathlist_to_filepathstring(filepath_connections)\
-            + ' --output-file ' + filepathlist_to_filepathstring(filepath)
+        return filepath_edges, filepath_nodes, filepath_connections, filepath_tlss
 
-        if len(self.tlss) > 0:
-            cml += ' --tllogic-files ' + \
-                filepathlist_to_filepathstring(filepath_tlss)
+    def export_netxml(self, filepath=None, is_export_tlss=True, is_netconvert=True):
 
-        proc = subprocess.Popen(cml, shell=True)
-        print 'run_cml cml=', cml
-        print '  pid = ', proc.pid
-        proc.wait()
-        if proc.returncode == 0:
-            print '  success'
-            return filepath
+        # now create rootfilepath in order to export first
+        # the various xml file , then call netconvert
+        if filepath is None:
+            filepath = self.get_filepath()
+
+        print 'Net.export_netxml', filepath
+        filepath_edges, filepath_nodes, filepath_connections, filepath_tlss = self.export_painxml(
+            filepath=filepath, is_export_tlss=is_export_tlss)
+
+        #cml = 'netconvert --verbose --ignore-errors.edge-type'
+        cml = 'netconvert --ignore-errors.edge-type'\
+            + ' --node-files '+filepathlist_to_filepathstring(filepath_nodes)\
+            + ' --edge-files '+filepathlist_to_filepathstring(filepath_edges)\
+            + ' --connection-files '+filepathlist_to_filepathstring(filepath_connections)\
+            + ' --output-file '+filepathlist_to_filepathstring(filepath)
+
+        if (len(self.tlss) > 0) & (is_export_tlss):
+            cml += ' --tllogic-files '+filepathlist_to_filepathstring(filepath_tlss)
+
+        if is_netconvert:
+            proc = subprocess.Popen(cml, shell=True)
+            print 'run_cml cml=', cml
+            print '  pid = ', proc.pid
+            proc.wait()
+            if proc.returncode == 0:
+                print '  success'
+                return filepath
+            else:
+                print '  success'
+                return ''
         else:
-            print '  success'
             return ''
 
     def import_xml(self, rootname=None, dirname=None, is_clean_nodes=False, is_remove_xmlfiles=False):
@@ -2101,35 +2986,32 @@ class Network(cm.BaseObjman):
         print 'Network.import_xml oldoffset', oldoffset
         # remove current network
         # print '  remove current network'
-        self.clear()
+        self.clear_net()
         # reload default SUMO MODES (maybe should not be here)
-        self.modes.add_rows(ids=MODES.values(), names=MODES.keys())
+        # self.modes.add_rows(ids =  MODES.values(), names = MODES.keys())
 
         if rootname is None:
             rootname = self.get_rootfilename()
 
-        if dirname == None:
+        if dirname is None:
             dirname = os.path.dirname(self.get_rootfilepath())
 
         # print 'import_xml',dirname,rootname
-        nodefilepath = os.path.join(dirname, rootname + '.nod.xml')
-        edgefilepath = os.path.join(dirname, rootname + '.edg.xml')
-        confilepath = os.path.join(dirname, rootname + '.con.xml')
-        tlsfilepath = os.path.join(dirname, rootname + '.tll.xml')
+        nodefilepath = os.path.join(dirname, rootname+'.nod.xml')
+        edgefilepath = os.path.join(dirname, rootname+'.edg.xml')
+        confilepath = os.path.join(dirname, rootname+'.con.xml')
+        tlsfilepath = os.path.join(dirname, rootname+'.tll.xml')
 
         if os.path.isfile(edgefilepath) & os.path.isfile(nodefilepath) & os.path.isfile(confilepath):
-            nodereader = self.import_sumonodes(
-                nodefilepath, is_remove_xmlfiles)
-            edgereader = self.import_sumoedges(
-                edgefilepath, is_remove_xmlfiles)
+            nodereader = self.import_sumonodes(nodefilepath, is_remove_xmlfiles)
+            edgereader = self.import_sumoedges(edgefilepath, is_remove_xmlfiles)
             if is_clean_nodes:
                 # make edges and lanes end at the node boundaries
                 # also recalculate lane shapes from edge shapes...if lane shapes are missing
                 #self.lanes.reshape() #
                 self.nodes.clean(is_reshape_edgelanes=True)
             else:
-                # just recalculate lane shapes from edge shapes...if lane
-                # shapes are missing
+                # just recalculate lane shapes from edge shapes...if lane shapes are missing
                 self.lanes.reshape()
             #    #pass
 
@@ -2138,15 +3020,18 @@ class Network(cm.BaseObjman):
             if os.path.isfile(tlsfilepath):
                 self.import_sumotls(tlsfilepath, is_remove_xmlfiles)
 
+            # print '  check additionals',self.ptstops.get_stopfilepath(),os.path.isfile(self.ptstops.get_stopfilepath())
+            if os.path.isfile(self.ptstops.get_stopfilepath()):
+                self.ptstops.import_sumostops(is_remove_xmlfiles=is_remove_xmlfiles)
+
             # this fixes some references to edges and tls
             nodereader.write_to_net_post()
 
             if oldoffset is not None:
                 # check if offset changed
                 # if self.is_offset_change():
-                deltaoffset = self.get_offset() - oldoffset
-                # print '  check
-                # update_netoffset',deltaoffset,oldoffset,self.get_offset(),np.sum(abs(deltaoffset))>0.002
+                deltaoffset = self.get_offset()-oldoffset
+                # print '  check update_netoffset',deltaoffset,oldoffset,self.get_offset(),np.sum(abs(deltaoffset))>0.002
                 if np.sum(abs(deltaoffset)) > 0.002:
                     # communicate to scenario
                     if self.parent is not None:
@@ -2162,8 +3047,7 @@ class Network(cm.BaseObjman):
             #        os.remove(tlsfilepath)
             return True
         else:
-            self.get_logger().w(
-                'import_sumonodes: files not found', key='message')
+            self.get_logger().w('import_sumonodes: files not found', key='message')
             return False
 
     def import_sumonodes(self, filename, is_remove_xmlfiles=False, logger=None, **others):
@@ -2242,8 +3126,14 @@ class Network(cm.BaseObjman):
         return fastreader
 
     def import_sumotls(self, filename, is_remove_xmlfiles=False, logger=None, **others):
+        """
+        Import traffic ligh signals from tll.xml file
+        as part of a complete import net process.
+        """
         print 'import_sumotls', filename
-        logger = self.get_logger()
+
+        if logger is None:
+            logger = self.get_logger()
         logger.w('import_sumotls', key='message')
 
         # timeit
@@ -2257,6 +3147,44 @@ class Network(cm.BaseObjman):
         print '  exec time=', exectime_end - exectime_start
         return reader
 
+    def import_sumotls_to_net(self, filename, is_remove_xmlfiles=False, logger=None, **others):
+        """
+        Import traffic ligh signals from tll.xml file into an existing network.
+        """
+        print 'import_sumotls_to_net', filename
+
+        # associate nodes with sumo tls ID
+        #map_id_node_to_id_tlss_sumo = {}
+
+        ids_node = self.nodes.select_ids(self.nodes.ids_tls.get_value() > -1)
+        ids_tlss_sumo = self.tlss.ids_sumo[self.nodes.ids_tls[ids_node]].copy()
+        # for id_node, id_tls_sumo in zip(ids_node, self.tlss.ids_sumo[self.nodes.ids_tls[ids_node]]):
+        #    map_id_node_to_id_tlss_sumo[id_node] = id_tls_sumo
+
+        # clear all TLSs
+        self.tlss.clear()
+
+        if logger is None:
+            logger = self.get_logger()
+        logger.w('import_sumotls_to_net', key='message')
+
+        # timeit
+        exectime_start = time.clock()
+
+        reader = SumoTllReader(self)
+        parse(filename, reader)
+
+        # timeit
+        exectime_end = time.clock()
+        print '  exec time=', exectime_end - exectime_start
+
+        # reestablish TLS IDs of nodes
+
+        # for id_node, id_tls_sumo in
+        # zip(ids_node, self.nodes.ids_tls[ids_node]):
+        #    map_id_node_to_id_tlss_sumo[id_node] = id_tls_sumo
+        self.nodes.ids_tls[ids_node] = self.tlss.ids_sumo.get_ids_from_indices(ids_tlss_sumo)
+
     def get_id_mode(self, modename):
         return self.modes.get_id_mode(modename)
 
@@ -2266,6 +3194,10 @@ class Network(cm.BaseObjman):
     def add_nodes(self,  **kwargs):
         # print 'add_nodes'
         return self.nodes.multimake(**kwargs)
+
+    def clean_nodes(self, **kwargs):
+        self.nodes.clean(**kwargs)
+        self.edges.update()
 
     def add_edge(self,  **kwargs):
         # print 'add_edge'
@@ -2293,8 +3225,75 @@ class Network(cm.BaseObjman):
         #    print '  ',key,type(value),value
         return self.lanes.multimake(**kwargs)
 
+    def complete_connections(self):
+        """
+        Extend connections also to pedestrian edges.
+        """
+        edges = self.edges
+        nodes = self.nodes
+        for id_node in self.nodes.get_ids():
+            ids_outgoing = nodes.ids_outgoing[id_node]
+            ids_incoming = nodes.ids_incoming[id_node]
+            if ids_outgoing is None:
+                ids_outgoing = set()
+            else:
+                ids_outgoing = set(ids_outgoing)
+
+            if ids_incoming is None:
+                ids_incoming = set()
+            else:
+                ids_incoming = set(ids_incoming)
+
+            ids_outgoing_all = set(edges.select_ids(edges.ids_fromnode.get_value() == id_node))
+            ids_incoming_all = set(edges.select_ids(edges.ids_tonode.get_value() == id_node))
+
+            for id_edge in ids_outgoing_all.difference(ids_outgoing):
+                self.connect_edge_incoming(id_edge, ids_incoming_all)
+
+            for id_edge in ids_incoming_all.difference(ids_incoming):
+                self.connect_edge_outgoing(id_edge, ids_outgoing_all)
+
+    def connect_edge_incoming(self, id_edge_to, ids_edge_from):
+        """
+        Connect id_edge_to with edges in list ids_edge_from.
+        Attention, only lane index 0 of edge id_edge_to is connected.
+        """
+        # print 'connect_edge', ids_edge_from, id_edge_to
+        for id_edge_from in ids_edge_from:
+            ids_lane_from = self.edges.ids_lanes[id_edge_from]
+            ids_lane_to = self.edges.ids_lanes[id_edge_to]
+            if len(ids_lane_from) == 1:
+                self.add_connection(id_fromlane=ids_lane_from[0], id_tolane=ids_lane_to[0])
+
+            # TODO: make connections also to multi lane edge
+            else:
+                for id_lane_from in ids_lane_from:
+                    if not MODES["pedestrian"] in self.lanes.ids_modes_allow[id_lane_from]:
+                        self.add_connection(id_fromlane=id_lane_from, id_tolane=ids_lane_to[0])
+                        break
+
+    def connect_edge_outgoing(self, id_edge, ids_edge_to):
+        """
+        Connect id_edge with edges in list ids_edge_to.
+        Attention, only lane index 0 of edge id_edge_from is connected.
+        """
+        # print 'connect_edge', ids_edge_from, id_edge_to
+        for id_edge_to in ids_edge_to:
+            ids_lane_to = self.edges.ids_lanes[id_edge_to]
+            ids_lane_from = self.edges.ids_lanes[id_edge]
+            if len(ids_lane_to) == 1:
+                self.add_connection(id_fromlane=ids_lane_from[0], id_tolane=ids_lane_to[0])
+
+            # TODO: make connections also to multi lane edge
+            else:
+                for id_lane_to in ids_lane_to:
+                    if not MODES["pedestrian"] in self.lanes.ids_modes_allow[id_lane_to]:
+                        self.add_connection(id_fromlane=ids_lane_from[0], id_tolane=id_lane_to)
+                        break
+
     def add_connection(self, id_fromlane=-1, id_tolane=-1, **kwargs):
-        # print 'add_lane\n',
+        # print 'add_connections id_fromlane , id_tolane ',id_fromlane , id_tolane
+
         # for key, value in kwargs.iteritems():
         #    print '  ',key,type(value),value
 
@@ -2307,7 +3306,7 @@ class Network(cm.BaseObjman):
         return self.connections.make(id_fromlane=id_fromlane, id_tolane=id_tolane, **kwargs)
 
     def add_connections(self, ids_fromlane=[], ids_tolane=[], **kwargs):
-        # print 'add_lane\n',
+
         # for key, value in kwargs.iteritems():
         #    print '  ',key,type(value),value
 
@@ -2332,7 +3331,6 @@ class Network(cm.BaseObjman):
 
 
 class SumoConnectionCounter(handler.ContentHandler):
-
     """Parses a SUMO edge XML file and counts edges and lanes."""
 
     def __init__(self):
@@ -2341,21 +3339,20 @@ class SumoConnectionCounter(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'connection':
-            self.n_con += 1
+            if attrs.has_key('to'):
+                self.n_con += 1
 
         if name == 'crossing':
             self.n_cross += 1
 
 
 class SumoConnectionReader(handler.ContentHandler):
-
     """Parses a SUMO connection XML file"""
 
     def __init__(self, net, counter):
         self._net = net
 
-        # print
-        # 'SumoConnectionReader:n_con,n_cross',counter.n_con,counter.n_cross
+        # print 'SumoConnectionReader:n_con,n_cross',counter.n_con,counter.n_cross
 
         # connections
         self._ind_con = -1
@@ -2383,36 +3380,34 @@ class SumoConnectionReader(handler.ContentHandler):
 
         if name == 'connection':
             # <connection from="153009994" to="153009966#1" fromLane="0" toLane="0" pass="1"/>
-            self._ind_con += 1
-            i = self._ind_con
-            # print 'startElement',name,i
-            id_fromedge = self._ids_edge_sumo.get_id_from_index(attrs['from'])
-            id_toedge = self._ids_edge_sumo.get_id_from_index(attrs['to'])
 
-            #id_fromlane = self._ids_edgelanes[id_fromedge][int(attrs.get('fromLane',0))]
-            #id_tolane = self._ids_edgelanes[id_toedge][int(attrs.get('toLane',0))]
+            if attrs.has_key('to'):
+                self._ind_con += 1
+                i = self._ind_con
+                # print 'startElement',name,i
+                id_fromedge = self._ids_edge_sumo.get_id_from_index(attrs['from'])
+                id_toedge = self._ids_edge_sumo.get_id_from_index(attrs['to'])
 
-            # print '  id_sumo fromedge',
-            # attrs['from'],len(self._ids_edgelanes[id_fromedge]) ,
-            # int(attrs['fromLane'])
-            self.ids_fromlane[i] = self._ids_edgelanes[
-                id_fromedge][int(attrs['fromLane'])]
-            self.ids_tolane[i] = self._ids_edgelanes[
-                id_toedge][int(attrs['toLane'])]
-            self.are_passes[i] = int(attrs.get('pass', 0))
-            self.are_keep_clear[i] = int(attrs.get('keepClear ', 1))
-            self.positions_cont[i] = float(attrs.get('contPos ', 0.0))
-            self.are_uncontrolled[i] = int(attrs.get('uncontrolled', 0))
+                #id_fromlane = self._ids_edgelanes[id_fromedge][int(attrs.get('fromLane',0))]
+                #id_tolane = self._ids_edgelanes[id_toedge][int(attrs.get('toLane',0))]
+
+                # print '  id_sumo fromedge', attrs['from'],len(self._ids_edgelanes[id_fromedge]) ,  int(attrs['fromLane'])
+                self.ids_fromlane[i] = self._ids_edgelanes[id_fromedge][int(attrs['fromLane'])]
+                self.ids_tolane[i] = self._ids_edgelanes[id_toedge][int(attrs['toLane'])]
+                self.are_passes[i] = int(attrs.get('pass', 0))
+                self.are_keep_clear[i] = int(attrs.get('keepClear ', 1))
+                self.positions_cont[i] = float(attrs.get('contPos ', 0.0))
+                self.are_uncontrolled[i] = int(attrs.get('uncontrolled', 0))
+            else:
+                id_fromedge = self._ids_edge_sumo.get_id_from_index(attrs['from'])
 
         if name == 'crossing':
             self._ind_cross += 1
             i = self._ind_cross
             # print 'startElement',name
 
-            self.ids_node[i] = self._ids_node_sumo.get_id_from_index(attrs[
-                                                                     'node'])
-            self.ids_edges[i] = self._ids_edge_sumo.get_ids_from_indices(
-                attrs['edges'].split(' '))
+            self.ids_node[i] = self._ids_node_sumo.get_id_from_index(attrs['node'])
+            self.ids_edges[i] = self._ids_edge_sumo.get_ids_from_indices(attrs['edges'].split(' '))
             self.widths[i] = float(attrs.get('width ', 4.0))
             self.are_priority[i] = int(attrs.get('priority ', 0))
             self.are_discard[i] = int(attrs.get('discard', 0))
@@ -2439,7 +3434,6 @@ class SumoConnectionReader(handler.ContentHandler):
 
 
 class SumoNodeCounter(handler.ContentHandler):
-
     """Parses a SUMO edge XML file and counts edges and lanes."""
 
     def __init__(self):
@@ -2452,7 +3446,6 @@ class SumoNodeCounter(handler.ContentHandler):
 
 
 class SumoNodeReader(handler.ContentHandler):
-
     """Parses a SUMO node XML file"""
 
     def __init__(self, net, counter):
@@ -2465,6 +3458,7 @@ class SumoNodeReader(handler.ContentHandler):
 
         self._nodetypemap = self._net.nodes.types.choices
         self._tltypemap = self._net.nodes.types_tl.choices
+        self.radius_default = self._net.nodes.radius_default.get_value()
         # node attrs
         self.ids_sumo = np.zeros(counter.n_node, np.object)
         self.types = np.zeros(counter.n_node, np.int32)
@@ -2472,6 +3466,8 @@ class SumoNodeReader(handler.ContentHandler):
         self.types_tl = np.zeros(counter.n_node, np.int32)
         self.ids_sumo_tls = np.zeros(counter.n_node, np.object)
         self.turnradii = np.zeros(counter.n_node, np.float32)
+        self.are_costum_shape = np.zeros(counter.n_node, np.bool)
+        self.shapes = np.zeros(counter.n_node, np.object)
         self.are_keep_clear = np.zeros(counter.n_node, np.bool)
         self._ind_node = -1
         self.ids_sumo_controlled = np.zeros(counter.n_node, np.object)
@@ -2486,6 +3482,8 @@ class SumoNodeReader(handler.ContentHandler):
             ids_sumo=self.ids_sumo,
             types=self.types,
             coords=self.coords,
+            shapes=self.shapes,
+            are_costum_shape=self.are_costum_shape,
             types_tl=self.types_tl,
             turnradii=self.turnradii,
             are_keep_clear=self.are_keep_clear,
@@ -2512,8 +3510,7 @@ class SumoNodeReader(handler.ContentHandler):
         # convert sumo ids into internal ids and set to nodes
         # print '  self.ids_sumo_tls',self.ids_sumo_tls
         # print '  self._net.tlss.ids_sumo',self._net.tlss.ids_sumo.value
-        self._net.nodes.ids_tls[
-            self.ids_node] = self._net.tlss.ids_sumo.get_ids_from_indices_save(self.ids_sumo_tls)
+        self._net.nodes.ids_tls[self.ids_node] = self._net.tlss.ids_sumo.get_ids_from_indices_save(self.ids_sumo_tls)
 
     def startElement(self, name, attrs):
         # print 'startElement',name
@@ -2532,18 +3529,16 @@ class SumoNodeReader(handler.ContentHandler):
         elif name == 'location':  # j.s
             # print 'startElement',name,self._isNew
             netOffsetStrings = attrs['netOffset'].strip().split(",")
-            offset = np.array([float(netOffsetStrings[0]),
-                               float(netOffsetStrings[1])])
+            offset = np.array([float(netOffsetStrings[0]), float(netOffsetStrings[1])])
             offset_prev = self._net.get_offset()
             if self._isNew:
                 self._net.set_offset(offset)
                 # print '  offset_prev,offset',offset_prev,offset,type(offset)
             else:
 
-                self._offset_delta = offset - offset_prev
+                self._offset_delta = offset-offset_prev
                 self._net.set_offset(offset)
-                # print '
-                # offset_prev,offset,self._offset_delta',offset_prev,offset,type(offset),self._offset_delta
+                # print '  offset_prev,offset,self._offset_delta',offset_prev,offset,type(offset),self._offset_delta
 
             convBoundaryStr = attrs['convBoundary'].strip().split(",")
             origBoundaryStr = attrs['origBoundary'].strip().split(",")
@@ -2576,7 +3571,8 @@ class SumoNodeReader(handler.ContentHandler):
             else:
                 if attrs.has_key('projParameter'):
                     if self._net.get_projparams() != attrs['projParameter']:
-                        print 'WARNING: merge with incompatible projections %s versus %s.' % (self._net.getprojparams(), attrs['projparams'])
+                        print 'WARNING: merge with incompatible projections %s versus %s.' % (
+                            self._net.getprojparams(), attrs['projparams'])
 
         elif name == 'node':
             if attrs['id'][0] != ':':  # no internal node
@@ -2588,8 +3584,8 @@ class SumoNodeReader(handler.ContentHandler):
                 sumotypes_node = str(attrs.get('type', 'priority'))
 
                 self.types[i] = self._nodetypemap[sumotypes_node]
-                self.coords[i] = [
-                    float(attrs['x']) - x0, float(attrs['y']) - y0, float(attrs.get('z', 0.0))]
+                x, y, z = float(attrs['x'])-x0, float(attrs['y'])-y0, float(attrs.get('z', 0.0))
+                self.coords[i] = [x, y, z]
 
                 sumotype_tl = attrs.get('tlType', 'none')
                 if sumotypes_node == 'traffic_light':
@@ -2599,17 +3595,38 @@ class SumoNodeReader(handler.ContentHandler):
                 self.types_tl[i] = self._tltypemap[sumotype_tl]
                 self.ids_sumo_tls[i] = attrs.get('tl', None)
                 self.turnradii[i] = attrs.get('radius', 1.5)
-                self.are_keep_clear[i] = attrs.get('keepClear', True)
 
-                #'controlledInner'
+                # not in nodes
+
+                shape = np.array(xm.process_shape(attrs.get('shape', ''), offset=self._offset_delta))
+
+                if len(shape) < 3:  # no or insufficient shape info
+                    # shape should be a list of np array coords
+
+                    # generate some default shape
+                    r0 = self.radius_default
+                    shape = [np.array([x-r0, y-r0, z], dtype=np.float32),
+                             np.array([x+r0, y-r0, z], dtype=np.float32),
+                             np.array([x+r0, y+r0, z], dtype=np.float32),
+                             np.array([x-r0, y+r0, z], dtype=np.float32),
+                             ]
+                    self.are_costum_shape[i] = False
+
+                else:
+                    self.are_costum_shape[i] = True
+
+                self.shapes[i] = list(shape)
+
+                self.are_keep_clear[i] = bool(attrs.get('keepClear', True))
+
+                # 'controlledInner'
                 # Edges which shall be controlled by a joined TLS
                 # despite being incoming as well as outgoing to
                 # the jointly controlled nodes
                 # problem: we do not know yet the edge IDs
                 #
                 if attrs.has_key('controlledInner'):
-                    self.ids_sumo_controlled[i] = attrs[
-                        'controlledInner'].strip().split(' ')
+                    self.ids_sumo_controlled[i] = attrs['controlledInner'].strip().split(' ')
                 else:
                     self.ids_sumo_controlled[i] = []
 
@@ -2627,7 +3644,6 @@ class SumoNodeReader(handler.ContentHandler):
 #            self.n_tls += 1
 
 class SumoTllReader(handler.ContentHandler):
-
     """Parses a SUMO tll XML file and reads it into net."""
 
     def __init__(self, net):
@@ -2665,8 +3681,7 @@ class SumoTllReader(handler.ContentHandler):
         elif name == 'phase':
             # print 'startElement',name,self.id_sumo_tls
             if self.id_sumo_tls is not None:
-                # print '
-                # append',attrs.get('duration',None),attrs.get('state',None),len(attrs.get('state',''))
+                # print '  append',attrs.get('duration',None),attrs.get('state',None),len(attrs.get('state',''))
                 duration = int(attrs.get('duration', 0))
                 self.durations.append(duration)
                 self.durations_min.append(int(attrs.get('minDur', duration)))
@@ -2687,8 +3702,7 @@ class SumoTllReader(handler.ContentHandler):
             id_con = self.connections.get_id_from_sumoinfo(attrs['from'],
                                                            attrs['to'], int(attrs['fromLane']), int(attrs['toLane']))
             if id_con >= 0:
-                self.tlsconnections[id_sumo_tls][
-                    int(attrs['linkIndex'])] = id_con
+                self.tlsconnections[id_sumo_tls][int(attrs['linkIndex'])] = id_con
 
     def endElement(self, name):
         #edges = self._net.edges
@@ -2722,7 +3736,7 @@ class SumoTllReader(handler.ContentHandler):
 
                 inds_con = np.array(conmap.keys(), dtype=np.int32)
 
-                ids_con = np.zeros(np.max(inds_con) + 1, np.int32)
+                ids_con = np.zeros(np.max(inds_con)+1, np.int32)
                 # print '  cons for',id_sumo_tls,conmap
                 # print '  inds',inds_con,len(ids_con)
                 # print '  values',conmap.values(),len(ids_con)
@@ -2734,7 +3748,6 @@ class SumoTllReader(handler.ContentHandler):
 
 
 class SumoEdgeCounter(handler.ContentHandler):
-
     """Parses a SUMO edge XML file and counts edges and lanes."""
 
     def __init__(self):
@@ -2757,7 +3770,6 @@ class SumoEdgeCounter(handler.ContentHandler):
 
 
 class SumoEdgeReader(handler.ContentHandler):
-
     """Parses a SUMO edge XML file and reads it into net."""
 
     def __init__(self, net, counter, offset_delta=np.array([0.0, 0.0])):
@@ -2774,15 +3786,13 @@ class SumoEdgeReader(handler.ContentHandler):
         # edge attrs
         self._ind_edge = -1
         # print '  n_edge',counter.n_edge
-        self.ids_edge_sumo = np.zeros(
-            counter.n_edge, np.object)  # net.edges.ids_sumo
+        self.ids_edge_sumo = np.zeros(counter.n_edge, np.object)  # net.edges.ids_sumo
         self.ids_edge_sumo[:] = None  # ??needed
 
         self.ids_fromnode = np.zeros(counter.n_edge, np.int32)
         self.ids_tonode = np.zeros(counter.n_edge, np.int32)
         self.types_edge = np.zeros(counter.n_edge, np.object)
-        # used only for lane width if no lane data is given
-        self.widths = np.zeros(counter.n_edge, np.float32)
+        self.widths = np.zeros(counter.n_edge, np.float32)  # used only for lane width if no lane data is given
         self.nums_lanes = np.zeros(counter.n_edge, np.int32)
         self.speeds_max = np.zeros(counter.n_edge, np.float32)
         self.priorities = np.zeros(counter.n_edge, np.int32)
@@ -2790,12 +3800,12 @@ class SumoEdgeReader(handler.ContentHandler):
         self.shapes = np.zeros(counter.n_edge, np.object)
         self.types_spread = np.zeros(counter.n_edge, np.int32)
         self.spread_choices = net.edges.types_spread.choices
-        #"right": 0,
-        #"center": 1,
+        # "right": 0,
+        # "center": 1,
         self.names = np.zeros(counter.n_edge, np.object)
         self.offsets_end = np.zeros(counter.n_edge, np.float32)
         self.widths_lanes_default = np.zeros(counter.n_edge, np.float32)
-        self.widths_sidewalk = np.zeros(counter.n_edge, np.float32)
+        self.widths_sidewalk = -1*np.ones(counter.n_edge, np.float32)
         self.inds_lanes_edges = np.zeros(counter.n_edge, np.object)
         #self.inds_lanes_edges[:] = None
         self._ind_lanes_edges = []
@@ -2809,8 +3819,8 @@ class SumoEdgeReader(handler.ContentHandler):
         self.width_lanes = np.zeros(counter.n_lane, np.float32)
         self.speed_max_lanes = np.zeros(counter.n_lane, np.float32)
         self.offset_end_lanes = np.zeros(counter.n_lane, np.float32)
-        self.modes_allow = np.zeros(counter.n_lane, np.object)
-        self.modes_disallow = np.zeros(counter.n_lane, np.object)
+        self.ids_modes_allow = np.zeros(counter.n_lane, np.object)
+        self.ids_modes_disallow = np.zeros(counter.n_lane, np.object)
         self.ids_mode_lanes = np.zeros(counter.n_lane, np.int32)
         self.inds_edge_lanes = np.zeros(counter.n_lane, np.int32)
         #self.shapes_lanes = np.zeros(counter.n_lane,np.object)
@@ -2839,30 +3849,30 @@ class SumoEdgeReader(handler.ContentHandler):
             # print 'startElement edge',ind,attrs['id']
             self.ids_edge_sumo[ind] = attrs['id']
 
-            id_fromnode = self._ids_node_sumo.get_id_from_index(
-                str(attrs['from']))
+            id_fromnode = self._ids_node_sumo.get_id_from_index(str(attrs['from']))
             id_tonode = self._ids_node_sumo.get_id_from_index(str(attrs['to']))
             self.ids_fromnode[ind] = id_fromnode
             self.ids_tonode[ind] = id_tonode
 
             self.types_edge[ind] = str(attrs.get('type', ''))
             self.nums_lanes[ind] = int(attrs.get('numLanes', 1))
-            self.widths[ind] = float(
-                attrs.get('width', 3.5 * self.nums_lanes[ind]))
-            self.types_spread[ind] = self.spread_choices[
-                str(attrs.get('spreadType', 'right'))]  # usually center
+
+            # attention sumo width attribute is actually lane width!!
+            # here we multiply with number of lanes
+            # however, will be updated later as a sum of lanewidth
+            self.widths[ind] = float(attrs.get('width', 3.5)) * self.nums_lanes[ind]
+
+            self.types_spread[ind] = self.spread_choices[str(attrs.get('spreadType', 'right'))]  # usually center
             # print '  ',self.types_spread[ind]
 
             #length = 0.0,
-            shape = np.array(xm.process_shape(
-                attrs.get('shape', ''), offset=self._offset_delta))
+            shape = np.array(xm.process_shape(attrs.get('shape', ''), offset=self._offset_delta))
 
             if len(shape) < 2:  # insufficient shape data
                 # shape should be a list of np array coords
                 # ATTENTIOn: we need to copy here, otherwise the reference
                 # to node coordinates will be kept!!
-                shape = np.array(
-                    [1.0 * self._nodecoords[id_fromnode], 1.0 * self._nodecoords[id_tonode]])
+                shape = np.array([1.0*self._nodecoords[id_fromnode], 1.0*self._nodecoords[id_tonode]])
 
                 if self.types_spread[ind] == 1:  # center
                     angles_perb = get_angles_perpendicular(shape)
@@ -2876,153 +3886,173 @@ class SumoEdgeReader(handler.ContentHandler):
             self.priorities[ind] = int(attrs.get('priority', 9))
             self.names[ind] = unicode(attrs.get('name', ''))
             self.offsets_end[ind] = float(attrs.get('endOffset', 0.0))
-            self.widths_lanes_default[ind] = float(attrs.get('width ', 3.0))
-            self.widths_sidewalk[ind] = float(attrs.get('sidewalkWidth', -1.0))
 
+            # this lanewidth will be used as default if no lane width attribute
+            # is given
+            self.widths_lanes_default[ind] = float(attrs.get('width', 3.0))
+            #self.widths_sidewalk[ind] = float(attrs.get('sidewalkWidth',-1.0))
+
+            # check for some attributes that are actually lane attributes
+
+            self._allow_egdeattr = attrs.get('allow', None)
+            self._disallow_egdeattr = attrs.get('disallow', None)
             #self._is_laneshape = True
             # print '  self._id_edge',self._id_edge
 
         elif name == 'lane':
             self._ind_lane += 1
             ind = self._ind_lane
+            ind_edge = self._ind_edge
             speed_max_default = -1
+
             if attrs.has_key('allow'):
-                modes_allow = list(self._modenames.get_ids_from_indices(
-                    attrs['allow'].split(' ')))
+                ids_modes_allow = list(self._modenames.get_ids_from_indices(attrs['allow'].split(' ')))
+
+            # done in end element
+            # elif self._allow_egdeattr is not None:
+            #    ids_modes_allow = list(self._modenames.get_ids_from_indices(self._allow_egdeattr.split(' ')))
+
             else:
                 edgetype = self.types_edge[self._ind_edge]
 
                 if OSMEDGETYPE_TO_MODES.has_key(edgetype):
-                    modes_allow, speed_max_default = OSMEDGETYPE_TO_MODES[
-                        edgetype]
+                    ids_modes_allow, speed_max_default = OSMEDGETYPE_TO_MODES[edgetype]
                 else:
-                    modes_allow = []
+                    ids_modes_allow = []
 
             if attrs.has_key('disallow'):
-                modes_disallow = list(self._modenames.get_ids_from_indices(
-                    attrs['disallow'].split(' ')))
+                ids_modes_disallow = list(self._modenames.get_ids_from_indices(attrs['disallow'].split(' ')))
+
+            # done in end element
+            # elif self._disallow_egdeattr is not None:
+            #    ids_modes_allow = list(self._modenames.get_ids_from_indices(self._disallow_egdeattr.split(' ')))
+            #
             else:
-                modes_disallow = []
+                ids_modes_disallow = []
 
             index = int(attrs.get('index', -1))
+            # use defaults from edge
             width = float(attrs.get('width', -1))
-            speed_max = float(attrs.get('speed', speed_max_default))
+            speed_max = float(attrs.get('speed', -1))
+            offset_end_lane = float(attrs.get('endOffset', -1))
 
-            is_sidewalk_edge = False
-            is_sidewalk = False
-
-            if len(modes_allow) == 1:
-                id_mode_main = modes_allow[0]  # pick  as major mode
-                # elif len(modes_allow) == 1:
-
-            else:
-                id_mode_main = -1  # no major mode specified
-
-            if index == 0:
-                width_sidewalk_edge = self.widths_sidewalk[
-                    self._ind_edge]  # copy from edge
-                is_sidewalk_edge = width_sidewalk_edge > 0
-                # test for pedestrian sidewalk
-                is_sidewalk = (MODES['pedestrian'] in modes_allow)
-
-            if speed_max < 0:
-                if (index == 0) & is_sidewalk:
-                    speed_max = 0.8  # default walk speed
-                else:
-                    speed_max = self.speeds_max[
-                        self._ind_edge]  # copy from edge
-
-            # print ' is_sidewalk_edge ,is_sidewalk',is_sidewalk_edge
-            # ,is_sidewalk
-            if width < 0:
-                width = self.widths_lanes_default[
-                    self._ind_edge]  # copy from edge
-
-                if index == 0:
-                    if is_sidewalk_edge:  # edge wants sidewalks
-                        width = width_sidewalk_edge
-                    # edge does not want sidewalks, but actually there is a
-                    # sidewalk
-                    elif (not is_sidewalk_edge) & is_sidewalk:
-                        width = 0.9  # default sidewalk width
-                        # update edge attr!!
-                        self.widths_sidewalk[self._ind_edge] = width
-
-            # if sidewalk, then the edge attribute widths_sidewalk
-            # should be set to actual lane width in case it is less than zero
-            elif index == 0:  # width set for lane 0
-                # edge does not want sidewalks, but actually there is a
-                # sidewalk
-                if (not is_sidewalk_edge) & is_sidewalk:
-                    # update edge attr!!
-                    self.widths_sidewalk[self._ind_edge] = width
-
-            self.index_lanes[ind] = index
-            self.width_lanes[ind] = width
-            self.speed_max_lanes[ind] = speed_max
-            self.offset_end_lanes[ind] = float(attrs.get('endOffset', 0.0))
-            self.modes_allow[ind] = modes_allow
-            self.modes_disallow[ind] = modes_disallow
-            self.ids_mode_lanes[ind] = id_mode_main
-            self.inds_edge_lanes[ind] = self._ind_edge
-            #self.shapes_lanes[ind]  = self.getShape(attrs.get('shape',''), offset = self._offset_delta)
-
-            self._ind_lanes_edges.append(ind)
-            # self._ids_lane.append(id_lane)
+            self.set_lane(ind, ind_edge, index, width, speed_max,
+                          ids_modes_allow, ids_modes_disallow, offset_end_lane)
 
         elif name == 'roundabout':
             self._ind_ra += 1
-            self.ids_sumoedges_ra[self._ind_ra] = attrs.get(
-                'edges', '').split(' ')
+            self.ids_sumoedges_ra[self._ind_ra] = attrs.get('edges', '').split(' ')
             self.ids_nodes_ra[self._ind_ra] = self._ids_node_sumo.get_ids_from_indices(
                 attrs.get('nodes', '').split(' '))
 
     # def characters(self, content):
-    #    if self._currentLane!=None:
+    #    if self._currentLane is not None:
     #        self._currentShape = self._currentShape + content
 
     def endElement(self, name):
         #edges = self._net.edges
         #lanes = self._net.lanes
         if name == 'edge':
+            # this is the number of lanes declared within the edge tag
             n_lane = self.nums_lanes[self._ind_edge]
+
             # print 'SumoEdgeReader.endElement',self._ind_lane,n_lane
-            while len(self._ind_lanes_edges) < n_lane:
+
+            # this loop counts from the current number of pased lanes
+            # (which may be zero) to the declared number of lanes.
+            # This is necessary because it can happen that no lane
+            # specifications are provided
+            index = len(self._ind_lanes_edges)
+            ind_edge = self._ind_edge
+            while index < n_lane:
                 # if len(self._ind_lanes_edges) ==0:
                 # edge description provided no specific lane information
                 # create n_lanes and us some properties from current edge
                 self._ind_lane += 1
                 ind = self._ind_lane
 
-                edgetype = self.types_edge[self._ind_edge]
+                edgetype = self.types_edge[ind_edge]
 
-                if OSMEDGETYPE_TO_MODES.has_key(edgetype):
-                    modes_allow, speed_max_default = OSMEDGETYPE_TO_MODES[
-                        edgetype]
+                if self._allow_egdeattr is not None:
+                    ids_modes_allow = list(self._modenames.get_ids_from_indices(self._allow_egdeattr.split(' ')))
                 else:
-                    modes_allow = []
-                if len(modes_allow) == 1:
-                    id_mode_main = modes_allow[0]  # pick  as major mode
+                    if OSMEDGETYPE_TO_MODES.has_key(edgetype):
+                        ids_modes_allow, speed_max_default = OSMEDGETYPE_TO_MODES[edgetype]
+                    else:
+                        ids_modes_allow = []
+
+                if self._disallow_egdeattr is not None:
+                    ids_modes_disallow = list(self._modenames.get_ids_from_indices(self._disallow_egdeattr.split(' ')))
+                else:
+                    ids_modes_disallow = []
+
+                # figure main mode
+                if len(ids_modes_allow) == 1:
+                    id_mode_main = ids_modes_allow[0]  # pick  as major mode
                 else:
                     id_mode_main = -1  # no major mode specified
 
-                self.index_lanes[ind] = 0
-                self.width_lanes[ind] = self.widths[
-                    self._ind_edge]  # copy from edge attr
-                self.speed_max_lanes[ind] = self.speeds_max[
-                    self._ind_edge]  # copy from edge attr
-                self.offset_end_lanes[ind] = self.offset_end_lanes[
-                    self._ind_edge]  # copy from edge attr
+                self.index_lanes[ind] = index
+                # derive lane attributes from edge attributes
+                self.width_lanes[ind] = self.widths_lanes_default[ind_edge]  # copy from edge attr
+                self.speed_max_lanes[ind] = self.speeds_max[ind_edge]  # copy from edge attr
+                self.offset_end_lanes[ind] = self.offset_end_lanes[ind_edge]  # copy from edge attr
 
-                self.modes_allow[ind] = modes_allow
-                self.modes_disallow[ind] = []
-                self.inds_edge_lanes[ind] = self._ind_edge
+                self.ids_modes_allow[ind] = ids_modes_allow
+                self.ids_modes_disallow[ind] = ids_modes_disallow
+                self.inds_edge_lanes[ind] = ind_edge
                 #self.shapes_lanes[ind]  = self.getShape(attrs.get('shape',''), offset = self._offset_delta)
                 self.ids_mode_lanes[ind] = id_mode_main
                 self._ind_lanes_edges.append(ind)
 
+                index += 1
+
             self.inds_lanes_edges[self._ind_edge] = self._ind_lanes_edges
             self._ind_lanes_edges = []
+
+    def set_lane(self, ind, ind_edge, index, width, speed_max, ids_modes_allow, ids_modes_disallow, offset_end_lane):
+
+        if len(ids_modes_allow) == 1:
+            id_mode_main = ids_modes_allow[0]  # pick  as major mode
+            # elif len(ids_modes_allow) == 1:
+
+        else:
+            id_mode_main = -1  # no major mode specified
+
+        is_sidewalk = False
+        if index == 0:
+            is_sidewalk = (MODES['pedestrian'] in ids_modes_allow)  # test for pedestrian sidewalk
+
+        if speed_max < 0:
+            if (index == 0) & is_sidewalk:
+                speed_max = 0.8  # default walk speed
+            else:
+                speed_max = self.speeds_max[ind_edge]  # copy from edge
+
+        if width < 0:
+            if is_sidewalk:
+                width = 1.0
+            else:
+                width = self.widths_lanes_default[ind_edge]  # copy from edge
+
+        if is_sidewalk:
+            self.widths_sidewalk[ind_edge] = width
+
+        if offset_end_lane < 0:
+            offset_end_lane = self.offsets_end[ind_edge]
+
+        self.index_lanes[ind] = index
+        self.width_lanes[ind] = width
+        self.speed_max_lanes[ind] = speed_max
+        self.offset_end_lanes[ind] = offset_end_lane
+        self.ids_modes_allow[ind] = ids_modes_allow
+        self.ids_modes_disallow[ind] = ids_modes_disallow
+        self.ids_mode_lanes[ind] = id_mode_main
+        self.inds_edge_lanes[ind] = ind_edge
+        #self.shapes_lanes[ind]  = self.getShape(attrs.get('shape',''), offset = self._offset_delta)
+
+        self._ind_lanes_edges.append(ind)
+        # self._ids_lane.append(id_lane)
 
     def write_to_net(self):
 
@@ -3050,21 +4080,18 @@ class SumoEdgeReader(handler.ContentHandler):
             widths=self.width_lanes,
             speeds_max=self.speed_max_lanes,
             offsets_end=self.offset_end_lanes,
-            modes_allow=self.modes_allow,
-            modes_disallow=self.modes_disallow,
-            # main mode will be determined from other attributes
-            ids_mode=self.ids_mode_lanes,
+            ids_modes_allow=self.ids_modes_allow,
+            ids_modes_disallow=self.ids_modes_disallow,
+            ids_mode=self.ids_mode_lanes,  # main mode will be determined from other attributes
             ids_edge=ids_edge[self.inds_edge_lanes],
-            # shapes = self.shapes_lanes, # lane shapes are not given -> must
-            # be derived from edge shape
+            # shapes = self.shapes_lanes, # lane shapes are not given -> must be derived from edge shape
         )
         #edges.update_lanes(self._id_edge, self._ids_lane)
         ids_edgelanes = self._net.edges.ids_lanes
         ind = 0
         for inds_lane in self.inds_lanes_edges:
             ids_edgelanes[ids_edge[ind]] = ids_lanes[inds_lane]
-            # print '
-            # id_edge,ids_lanes[inds_lane]',ids_edge[ind],ids_lanes[inds_lane]
+            # print '  id_edge,ids_lanes[inds_lane]',ids_edge[ind],ids_lanes[inds_lane]
             ind += 1
 
         # roundaboutS
@@ -3075,13 +4102,11 @@ class SumoEdgeReader(handler.ContentHandler):
         ids_edges_ra = self._net.roundabouts.ids_edges
         i = 0
         for id_roundabout in ids_roundabout:
-            ids_edges_ra[id_roundabout] = ids_edge_sumo.get_ids_from_indices(
-                self.ids_sumoedges_ra[i])
+            ids_edges_ra[id_roundabout] = ids_edge_sumo.get_ids_from_indices(self.ids_sumoedges_ra[i])
             i += 1
 
 
 class SumonetImporter(CmlMixin, Process):
-
     def __init__(self, net, rootname=None, rootdirpath=None, netfilepath=None,
                  is_clean_nodes=False, logger=None, **kwargs):
 
@@ -3093,22 +4118,21 @@ class SumonetImporter(CmlMixin, Process):
 
         self.init_cml('netconvert')
 
-        if rootname == None:
+        if rootname is None:
             rootname = net.parent.get_rootfilename()
 
-        if rootdirpath == None:
-            if net.parent != None:
+        if rootdirpath is None:
+            if net.parent is not None:
                 rootdirpath = net.parent.get_workdirpath()
             else:
                 rootdirpath = os.getcwd()
 
-        if netfilepath == None:
-            netfilepath = os.path.join(rootdirpath, rootname + '.net.xml')
+        if netfilepath is None:
+            netfilepath = os.path.join(rootdirpath, rootname+'.net.xml')
 
         attrsman = self.get_attrsman()
         self.add_option('netfilepath', netfilepath,
-                        # this will make it show up in the dialog
-                        groupnames=['options'],
+                        groupnames=['options'],  # this will make it show up in the dialog
                         cml='--sumo-net-file',
                         perm='rw',
                         name='Net file',
@@ -3118,8 +4142,7 @@ class SumonetImporter(CmlMixin, Process):
                         )
 
         self.workdirpath = attrsman.add(cm.AttrConf('workdirpath', rootdirpath,
-                                                    # ['options'],#['_private'],
-                                                    groupnames=['_private'],
+                                                    groupnames=['_private'],  # ['options'],#['_private'],
                                                     perm='r',
                                                     name='Workdir',
                                                     metatype='dirpath',
@@ -3154,15 +4177,12 @@ class SumonetImporter(CmlMixin, Process):
 
     def do(self):
         self.update_params()
-        cml = self.get_cml() + ' --plain-output-prefix ' + \
-            filepathlist_to_filepathstring(
-                os.path.join(self.workdirpath, self.rootname))
+        cml = self.get_cml()+' --plain-output-prefix '+filepathlist_to_filepathstring(os.path.join(self.workdirpath, self.rootname))
         # print 'SumonetImporter.do',cml
         #import_xml(self, rootname, dirname, is_clean_nodes = True)
         self.run_cml(cml)
         if self.status == 'success':
-            self._net.import_xml(
-                self.rootname, self.workdirpath, is_clean_nodes=self.is_clean_nodes)
+            self._net.import_xml(self.rootname, self.workdirpath, is_clean_nodes=self.is_clean_nodes)
 
         # print 'do',self.newident
         # self._scenario = Scenario(  self.newident,
@@ -3170,99 +4190,41 @@ class SumonetImporter(CmlMixin, Process):
         #                                workdirpath = self.workdirpath,
         #                                logger = self.get_logger(),
         #                                )
+        return True
 
     def get_net(self):
         return self._net
 
 
-class OsmImporter(CmlMixin, Process):
-
+class OsmImporter(netconvert.NetConvertMixin):
     def __init__(self, net=None,
                  osmfilepaths=None,
                  netfilepath=None,
-                 proj='',
-                 is_import_elevation_osm=False,
-                 typefilepath=None,
-                 # ordinary roads+bikeways+footpath
-                 roadtypes='ordinary roads+bikeways',
-                 n_lanes_default=0,
-                 edgespeed_default=13.9,
-                 priority_default=-1,
-                 is_remove_isolated_edges=True,
-                 factor_edge_speed=1.0,
-                 is_guess_sidewalks=False,
-                 edgespeed_min_sidewalks=5.8,
-                 edgespeed_max_sidewalks=13.89,
-                 is_guess_sidewalks_from_permission=False,
-                 width_sidewalks_default=2.0,
-                 is_guess_crossings=False,
-                 edgespeed_max_crossings=13.89,
-                 is_join_nodes=True,
-                 dist_join_nodes=15.0,
-                 is_keep_nodes_clear=True,
-                 is_keep_nodes_unregulated=False,
-                 is_guess_tls=False,
-                 is_join_tls=False,
-                 joindist_tls=20.0,
-                 is_uncontrolled_within_tls=False,
-                 is_guess_signals_tls=False,
-                 dist_guess_signal_tls=20.0,
-                 #time_green_tls = 31,
-                 time_yellow_tls=-1,
-                 accel_min_yellow_tls=-1.0,
-                 is_no_turnarounds=False,
-                 is_no_turnarounds_tls=False,
-                 is_check_lane_foes=False,
-                 is_roundabouts_guess=True,
-                 is_check_lane_foes_roundabout=False,
-                 is_no_left_connections=False,
-                 is_geometry_split=False,
-                 is_geometry_remove=True,
-                 length_max_segment=-1.0,
-                 dist_min_geometry=-1.0,
-                 is_guess_ramps=True,
-                 rampspeed_max=-1,
-                 highwayspeed_min=21.9444,
-                 ramplength=100,
-                 is_no_split_ramps=False,
-                 #
-                 is_clean_nodes=False,
-                 #
-                 logger=None, **kwargs):
+                 logger=None,
+                 **kwargs):
 
-        self._init_common('osmimporter', name='OSM import',
-                          logger=logger,
-                          info='Converts a OSM  file to SUMO nod.xml, edg.xml and con.xml file and reads into scenario.',
-                          )
-        if net == None:
+        # All parameters and Default Values in NetconvertMixin
+
+        if net is None:
             self._net = Network()
         else:
             self._net = net
 
-        self.init_cml('netconvert')  # pass main shell command
+        self.init_common_netconvert('osmimporter', net,  name='OSM import',
+                                    logger=logger,
+                                    info='Converts a OSM  file to SUMO nod.xml, edg.xml and con.xml file and reads into scenario.',
+                                    )
 
-        if net.parent != None:
-            rootname = net.parent.get_rootfilename()
-            rootdirpath = net.parent.get_workdirpath()
-        else:
-            rootname = net.get_ident()
-            rootdirpath = os.getcwd()
+        # osm specific options
+        if osmfilepaths is None:
+            if net.parent is not None:
+                rootname = net.parent.get_rootfilename()
+                rootdirpath = net.parent.get_workdirpath()
+            else:
+                rootname = net.get_ident()
+                rootdirpath = os.getcwd()
 
-        if netfilepath == None:
-            netfilepath = os.path.join(rootdirpath, rootname + '.net.xml')
-
-        if osmfilepaths == None:
-            osmfilepaths = os.path.join(rootdirpath, rootname + '.osm.xml')
-
-        if typefilepath == None:
-            typefilepath = os.path.join(os.path.dirname(os.path.abspath(
-                __file__)), '..', '..', 'typemap', 'osmNetconvert.typ.xml')
-
-        attrsman = self.get_attrsman()
-
-        self.workdirpath = rootdirpath
-
-        self.rootname = rootname
+            osmfilepaths = os.path.join(rootdirpath, rootname+'.osm.xml')
 
         self.add_option('osmfilepaths', osmfilepaths,
                         groupnames=['options'],
@@ -3274,296 +4236,8 @@ class OsmImporter(CmlMixin, Process):
                         info='Openstreetmap files to be imported.',
                         )
 
-        self.add_option('netfilepath', netfilepath,
-                        groupnames=[],  # ['_private'],#
-                        cml='--output-file',
-                        perm='r',
-                        name='Net file',
-                        wildcards='Net XML files (*.net.xml)|*.net.xml',
-                        metatype='filepath',
-                        info='SUMO Net file in XML format.',
-                        )
-
-        self.add_option('typefilepath', typefilepath,
-                        groupnames=['options'],
-                        cml='--type-files',
-                        perm='rw',
-                        name='Type files',
-                        wildcards='Typemap XML files (*.typ.xml)|*.typ.xml',
-                        metatype='filepaths',
-                        info="""Typemap XML files. In these file, 
-OSM road types are mapped to edge and lane parameters such as width, 
-speeds, etc. These parameters are used as defaults in absents of explicit OSM attributes.
-Use osmNetconvert.typ.xml as a base and additional type file to meet specific needs.""",
-                        )
-
-        # self.add_option('projparams','!',
-        #                groupnames = ['options'],#
-        #                cml = '--proj',
-        #                perm='rw',
-        #                name = 'projection',
-        #                info = 'Uses STR as proj.4 definition for projection.',
-        #                )
-        # --offset.disable-normalization <BOOL> 	Turn off normalizing node positions; default: false
-        # self.add_option('offset_x',0.0,
-        #                groupnames = ['options','geometry'],#
-        #                cml = '--offset.x ',
-        #                perm='rw',
-        #                unit = 'm',
-        #                name = 'X-Offset',
-        #                info = 'Adds offset to net x-positions; default: 0.0',
-        #                )
-        # self.add_option('offset_y',0.0,
-        #                groupnames = ['options','geometry'],#
-        #                cml = '--offset.y ',
-        #                perm='rw',
-        #                unit = 'm',
-        #                name = 'Y-Offset',
-        #                info = 'Adds offset to net x-positions; default: 0.0',
-        #                )
-        # --flip-y-axis <BOOL> 	Flips the y-coordinate along zero; default: false
-        #----------------------------------------------------------------------
-        # osm specific
-        #--junctions.corner-detail <INT> 	Generate INT intermediate points to smooth out intersection corners; default: 0
-        # --junctions.internal-link-detail <INT> 	Generate INT intermediate points to smooth out lanes within the intersection; default: 5
-        self.add_option('is_import_elevation_osm', is_import_elevation_osm,
-                        groupnames=['options', 'osm'],
-                        cml='--osm.elevation',
-                        perm='rw',
-                        name='import elevation',
-                        info='Imports elevation data.',
-                        )
-#-------------------------------------------------------------------------
-        # edge options
-        #--keep-edges.min-speed <FLOAT> 	Only keep edges with speed in meters/second > FLOAT
-        modesset = set(MODES.keys())
-        modesset_pt_rail = set(["rail_urban", "rail", "rail_electric"])
-        modesset_pt_road = set(["bus", "taxi", "coach", "tram"])
-        modesset_motorized = set(["private", "passenger", "emergency", "authority",
-                                  "army", "vip", "hov", "motorcycle", "moped", "evehicle", "delivery", "truck"])
-
-        roadtypes_to_disallowed_vtypes = {"roads for individual transport": ','.join(modesset.difference(["passenger", ])),
-                                          "ordinary roads": ','.join(modesset.difference(modesset_pt_road | modesset_motorized)),
-                                          "ordinary roads+bikeways": ','.join(modesset.difference(modesset_pt_road | modesset_motorized | set(['bicycle']))),
-                                          "ordinary roads+bikeways+footpath": ','.join(modesset.difference(modesset_pt_road | modesset_motorized | set(['bicycle']) | set(['pedestrian']))),
-                                          "ordinary roads+rails": ','.join(modesset.difference(modesset_pt_road | modesset_motorized | modesset_pt_rail)),
-                                          "ordinary roads+rails+bikeways": ','.join(modesset.difference(modesset_pt_road | modesset_motorized | modesset_pt_rail | set(['bicycle']))),
-                                          "ordinary roads+rails+bikeways+footpath": ','.join(modesset.difference(modesset_pt_road | modesset_motorized | modesset_pt_rail | set(['bicycle']) | set(['pedestrian']))),
-                                          "all ways": ""
-                                          }
-        # print '  access_to_vtypes=',access_to_vtypes
-        self.add_option('select_edges_by_access', roadtypes_to_disallowed_vtypes[roadtypes],
-                        groupnames=['options', 'edges'],
-                        cml='--remove-edges.by-vclass',
-                        choices=roadtypes_to_disallowed_vtypes,
-                        perm='rw',
-                        name='Keep edge with acces',
-                        info='Imports all edges with the given vehicle access patterns.',
-                        is_enabled=lambda self: self.select_edges_by_access != "",
-                        )
-
-        self.add_option('n_lanes_default', n_lanes_default,
-                        groupnames=['options', 'edges'],
-                        cml='--default.lanenumber',
-                        perm='rw',
-                        name='Default lanenumber',
-                        info='The default number of lanes in an edge.',
-                        is_enabled=lambda self: self.n_lanes_default > 0,
-                        )
-
-        self.add_option('edgespeed_default', edgespeed_default,
-                        groupnames=['options', 'edges'],
-                        cml='--default.speed',
-                        perm='rw',
-                        unit='m/s',
-                        name='Default edge speed',
-                        info='The default speed on an edge.',
-                        is_enabled=lambda self: self.edgespeed_default > 0,
-                        )
-
-        choices_priority = {}
-        for i in range(11):
-            choices_priority[str(i)] = i
-        choices_priority['auto'] = -1
-
-        self.add_option('priority_default', priority_default,
-                        groupnames=['options', 'edges'],
-                        cml='--default.priority',
-                        choices=choices_priority,
-                        perm='rw',
-                        name='Default priority',
-                        info='The default priority of an edge. Value of-1 means automatic assignment.',
-                        is_enabled=lambda self: self.priority_default > 0,
-                        )
-
-        self.add_option('is_remove_isolated_edges', is_remove_isolated_edges,
-                        groupnames=['options', 'edges'],
-                        cml='--remove-edges.isolated',
-                        perm='rw',
-                        name='Remove isolated edges',
-                        info='Remove isolated edges.',
-                        )
-        # --edges.join <BOOL> 	Merges edges whch connect the same nodes and are close to each other (recommended for VISSIM import); default: false
-        # --speed.offset <FLOAT> 	Modifies all edge speeds by adding FLOAT; default: 0
-
-        self.add_option('factor_edge_speed', factor_edge_speed,
-                        groupnames=['options', 'edges'],
-                        cml='--speed.factor',
-                        perm='rw',
-                        name='Edge speed factor',
-                        info='Modifies all edge speeds by multiplying with edge speed factor.',
-                        is_enabled=lambda self: self.factor_edge_speed == 1.0,
-                        )
-
-#-------------------------------------------------------------------------
-        # pedestrians
-        self.add_option('is_guess_sidewalks', is_guess_sidewalks,
-                        groupnames=['options', 'pedestrians'],
-                        cml='--sidewalks.guess',
-                        perm='rw',
-                        name='Guess sidewalks',
-                        info='Guess pedestrian sidewalks based on edge speed.',
-                        )
-
-        self.add_option('edgespeed_min_sidewalks', edgespeed_min_sidewalks,
-                        groupnames=['options', 'pedestrians'],
-                        cml='--sidewalks.guess.min-speed',
-                        perm='rw',
-                        unit='m/s',
-                        name='Min edge speed for sidewalk guess',
-                        info='Add sidewalks for edges with a speed above the given limit.',
-                        is_enabled=lambda self: self.is_guess_sidewalks | self.is_guess_sidewalks_from_permission,
-                        )
-
-        self.add_option('edgespeed_max_sidewalks', edgespeed_max_sidewalks,
-                        groupnames=['options', 'pedestrians'],
-                        cml='--sidewalks.guess.max-speed',
-                        perm='rw',
-                        unit='m/s',
-                        name='Max edge speed for sidewalk guess',
-                        info='Add sidewalks for edges with a speed equal or below the given limit.',
-                        is_enabled=lambda self: self.is_guess_sidewalks | self.is_guess_sidewalks_from_permission,
-                        )
-        self.add_option('is_guess_sidewalks_from_permission', is_guess_sidewalks_from_permission,
-                        groupnames=['options', 'pedestrians'],
-                        cml='--sidewalks.guess.from-permissions ',
-                        perm='rw',
-                        name='Guess sidewalks from permission',
-                        info='Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed.',
-                        )
-
-        self.add_option('width_sidewalks_default', width_sidewalks_default,
-                        groupnames=['options', 'pedestrians'],
-                        cml='--default.sidewalk-width',
-                        perm='rw',
-                        unit='m',
-                        name='Min edge speed for sidewalk guess',
-                        info='Add sidewalks for edges with a speed above the given limit.',
-                        is_enabled=lambda self: self.is_guess_sidewalks | self.is_guess_sidewalks_from_permission,
-                        )
-
-        self.add_option('is_guess_crossings', is_guess_crossings,
-                        groupnames=['options', 'pedestrians'],
-                        cml='--crossings.guess',
-                        perm='rw',
-                        name='Guess crossings',
-                        info='Guess pedestrian crossings based on the presence of sidewalks.',
-                        )
-
-        self.add_option('edgespeed_max_crossings', edgespeed_max_crossings,
-                        groupnames=['options', 'pedestrians'],
-                        cml='--crossings.guess.speed-threshold',
-                        perm='rw',
-                        unit='m/s',
-                        name='Max edge speed for crossings',
-                        info='At uncontrolled nodes, do not build crossings across edges with a speed above this maximum edge speed.',
-                        is_enabled=lambda self: self.is_guess_crossings,
-                        )
-
-#-------------------------------------------------------------------------
-        # node options
-
-        self.add_option('is_join_nodes', is_join_nodes,
-                        groupnames=['options', 'nodes'],
-                        cml='--junctions.join',
-                        perm='rw',
-                        name='Join nodes',
-                        info='Join nearby nodes. Specify with node join distance which nodes will be joined.',
-                        )
-
-        self.add_option('dist_join_nodes', dist_join_nodes,
-                        groupnames=['options', 'nodes'],
-                        cml='--junctions.join-dist',
-                        perm='rw',
-                        unit='m',
-                        name='Node join distance',
-                        info='Specify with node join distance which nodes will be joined. Join nodes option must be True.',
-                        is_enabled=lambda self: self.is_join_nodes,
-                        )
-
-        self.add_option('is_keep_nodes_clear', is_keep_nodes_clear,
-                        groupnames=['options', 'nodes'],
-                        cml='--default.junctions.keep-clear',
-                        perm='rw',
-                        name='Keep nodes clear',
-                        info='Whether junctions should be kept clear by default.',
-                        )
-
-        self.add_option('is_keep_nodes_unregulated', is_keep_nodes_unregulated,
-                        groupnames=['options', 'nodes'],
-                        cml='--keep-nodes-unregulated',
-                        perm='rw',
-                        name='Keep nodes unregulated',
-                        info='Keep nodes unregulated.',
-                        )
-       # --default.junctions.radius <FLOAT> 	The default turning radius of intersections; default: 1.5
-
-#-------------------------------------------------------------------------
-
-        # TLS Building Options:
-        self.add_option('is_guess_tls', is_guess_tls,
-                        groupnames=['options', 'traffic lights'],
-                        cml='--tls.guess',
-                        perm='rw',
-                        name='TLS-guessing',
-                        info='Turns on TLS guessing.',
-                        )
-
-        # now same as is_join_tls
-        # self.add_option('is_guess_join_tls',True,
-        #                groupnames = ['options','traffic lights'],#
-        #                cml = '--tls-guess.joining',
-        #                perm='rw',
-        #                name = 'TLS-guess joining',
-        #                info = 'Includes node clusters into guess.',
-        #                )
-        self.add_option('is_join_tls', is_join_tls,
-                        groupnames=['options', 'traffic lights'],
-                        cml='--tls.join',
-                        perm='rw',
-                        name='TLS-joining',
-                        info='Tries to cluster tls-controlled nodes.',
-                        is_enabled=lambda self: self.is_guess_tls,
-                        )
-        self.add_option('joindist_tls', joindist_tls,
-                        groupnames=['options', 'traffic lights'],
-                        cml='--tls.join-dist',
-                        perm='rw',
-                        unit='m',
-                        name='TLS-join dist.',
-                        info='Determines the maximal distance for joining traffic lights (defaults to 20)',
-                        is_enabled=lambda self: self.is_guess_tls & self.is_join_tls,
-                        )
-        self.add_option('is_uncontrolled_within_tls', is_uncontrolled_within_tls,
-                        groupnames=['options', 'traffic lights'],
-                        cml='--tls.uncontrolled-within',
-                        perm='rw',
-                        name='Uncontrolled within TLS.',
-                        info='Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used.',
-                        is_enabled=lambda self: self.is_guess_tls,
-                        )
-
-        self.add_option('is_guess_signals_tls', is_guess_signals_tls,
+        self.init_all(**kwargs)
+        self.add_option('is_guess_signals_tls', kwargs.get('is_guess_signals_tls', False),
                         groupnames=['options', 'traffic lights'],
                         cml='--tls.guess-signals',
                         perm='rw',
@@ -3571,8 +4245,7 @@ Use osmNetconvert.typ.xml as a base and additional type file to meet specific ne
                         info='Interprets tls nodes surrounding an intersection as signal positions for a  larger TLS. This is typical pattern for OSM-derived networks',
                         is_enabled=lambda self: self.is_guess_tls,
                         )
-
-        self.add_option('dist_guess_signal_tls', dist_guess_signal_tls,
+        self.add_option('dist_guess_signal_tls', kwargs.get('dist_guess_signal_tls', 20.0),
                         groupnames=['options', 'traffic lights'],
                         cml='--tls.guess-signals.dist',
                         perm='rw',
@@ -3582,262 +4255,9 @@ Use osmNetconvert.typ.xml as a base and additional type file to meet specific ne
                         is_enabled=lambda self: self.is_guess_tls & self.is_guess_signals_tls,
                         )
 
-        # self.add_option('time_cycle_tls',90,
-        #                groupnames = ['options','traffic lights'],#
-        #                cml = '--tls.cycle.time',
-        #                perm='rw',
-        #                unit = 's',
-        #                name = 'Cycle time',
-        #                info = 'Cycle time of traffic light.',
-        #                )
-
-        # self.add_option('time_green_tls',31,
-        #                groupnames = ['options','traffic lights'],#
-        #                cml = '--tls.green.time',
-        #                perm='rw',
-        #                unit = 's',
-        #                name = 'Green cycle time',
-        #                info = 'reen cycle time of traffic light.',
-        #                )
-        # self.add_option('time_leftgreen_tls',6,
-        #                groupnames = ['options','traffic lights'],#
-        #                cml = '--tls.left-green.time',
-        #                perm='rw',
-        #                unit = 's',
-        #               name = 'Left green cycle time',
-        #                info = 'reen cycle time of traffic light.',
-        #                )
-
-        self.add_option('time_yellow_tls', time_yellow_tls,  # default 6
-                        groupnames=['options', 'traffic lights'],
-                        cml='--tls.yellow.time',
-                        perm='rw',
-                        unit='s',
-                        name='Yellow cycle time',
-                        info='Fixed yellow time of traffic light. The value of -1.0 means automatic determination',
-                        is_enabled=lambda self: self.is_guess_tls & (
-                            self.time_yellow_tls > 0),
-                        )
-
-        self.add_option('accel_min_yellow_tls', accel_min_yellow_tls,  # default 3.0
-                        groupnames=['options'],
-                        cml='--tls.yellow.min-decel',
-                        perm='rw',
-                        unit='m/s^2',
-                        name='Min decel. at yellow',
-                        info='Defines smallest vehicle deceleration at yellow. The value of -1.0 means automatic determination',
-                        is_enabled=lambda self: self.is_guess_tls & (
-                            self.accel_min_yellow_tls > 0),
-                        )
-
-        # --tls.yellow.patch-small             Given yellow times are patched even ifbeing too short
-
-#-------------------------------------------------------------------------
-        # topology
-        self.add_option('is_no_turnarounds', is_no_turnarounds,
-                        groupnames=['options', 'topology'],
-                        cml='--no-turnarounds',
-                        perm='rw',
-                        name='no turnarounds',
-                        info='Disables building turnarounds.',
-                        )
-        self.add_option('is_no_turnarounds_tls', is_no_turnarounds_tls,
-                        groupnames=['options', 'topology'],
-                        cml='--no-turnarounds.tls',
-                        perm='rw',
-                        name='no TLS turnarounds',
-                        info='Disables building turnarounds at traffic lights.',
-                        is_enabled=lambda self: self.is_guess_tls,
-                        )
-
-        self.add_option('is_check_lane_foes', is_check_lane_foes,
-                        groupnames=['options', 'topology'],
-                        cml='--check-lane-foes.all',
-                        perm='rw',
-                        name='Always allow entering multilane',
-                        info='Always allow driving onto a multi-lane road if there are foes (arriving vehicles) on other lanes.',
-                        )
-
-        self.add_option('is_roundabouts_guess', is_roundabouts_guess,
-                        groupnames=['options', 'topology'],
-                        cml='--roundabouts.guess',
-                        perm='rw',
-                        name='Roundabouts guess',
-                        info='Enable roundabout-guessing.',
-                        )
-        self.add_option('is_check_lane_foes_roundabout', is_check_lane_foes_roundabout,
-                        groupnames=['options', 'topology'],
-                        cml='--check-lane-foes.roundabout',
-                        perm='rw',
-                        name='Allow entering multilane roundabout',
-                        info='Allow driving onto a multi-lane road at roundabouts if there are foes (arriving vehicles) on other lanes.',
-                        is_enabled=lambda self: self.is_roundabouts_guess,
-                        )
-
-        # --lefthand <BOOL> 	Assumes left-hand traffic on the network; default: false
-        self.add_option('is_no_left_connections', is_no_left_connections,
-                        groupnames=['options', 'topology'],
-                        cml='--no-left-connections',
-                        perm='rw',
-                        name='no left connections',
-                        info='Disables building connections to left.',
-                        )
-
-#-------------------------------------------------------------------------
-        # geometry options
-        self.add_option('is_geometry_split', is_geometry_split,
-                        groupnames=['options', 'geometry'],
-                        cml='--geometry.split',
-                        perm='rw',
-                        name='geometry split',
-                        info='Splits edges across geometry nodes.',
-                        )
-
-        self.add_option('is_geometry_remove', is_geometry_remove,
-                        groupnames=['options', 'geometry'],
-                        cml='--geometry.remove',
-                        perm='rw',
-                        name='geometry remove',
-                        info='Replace nodes which only define edge geometry by geometry points (joins edges).',
-                        )
-
-        self.add_option('length_max_segment', length_max_segment,
-                        groupnames=['options', 'geometry'],
-                        cml='--geometry.max-segment-length',
-                        perm='rw',
-                        unit='m',
-                        name='Max segment length',
-                        info='Splits geometry to restrict segment length to maximum segment length. The value of -1.0 means no effect.',
-                        is_enabled=lambda self: self.length_max_segment > 0,
-                        )
-
-        self.add_option('dist_min_geometry', dist_min_geometry,
-                        groupnames=['options', 'geometry'],
-                        cml='--geometry.min-dist',
-                        perm='rw',
-                        unit='m',
-                        name='Min geom dist',
-                        info='Reduces too similar geometry points. The value of -1.0 means no effect.',
-                        is_enabled=lambda self: self.dist_min_geometry > 0,
-                        )
-
-        # self.add_option('angle_max_geometry',99.0,
-        #                groupnames = ['options','geometry'],#
-        #                cml = '--geometry.max-angle',
-        #                perm='rw',
-        #                unit = 'degree',
-        #                name = 'Max geom angle',
-        #                info = ' 	Warn about edge geometries with an angle above the maximum angle in successive segments.',
-        #                )
-        # --geometry.min-radius <FLOAT> 	Warn about edge geometries with a turning radius less than METERS at the start or end; default: 9
-        # --geometry.junction-mismatch-threshold <FLOAT> 	Warn if the junction shape is to far away from the original node position; default: 20
-
-
-#-------------------------------------------------------------------------
-        # Ramps
-
-        self.add_option('is_guess_ramps', is_guess_ramps,
-                        groupnames=['options', 'ramps'],
-                        cml='--ramps.guess',
-                        perm='rw',
-                        name='Guess ramps',
-                        info='Enable ramp-guessing.',
-                        )
-
-        self.add_option('rampspeed_max', rampspeed_max,
-                        groupnames=['options', 'ramps'],
-                        cml='--ramps.max-ramp-speed',
-                        perm='rw',
-                        unit='m/s',
-                        name='Max ramp speed',
-                        info='Treat edges with a higher speed as no ramps',
-                        is_enabled=lambda self: self.is_guess_ramps,
-                        )
-
-        self.add_option('highwayspeed_min', highwayspeed_min,
-                        groupnames=['options', 'ramps'],
-                        cml='--ramps.min-highway-speed',
-                        perm='rw',
-                        unit='m/s',
-                        name='Min highway speed',
-                        info='Treat edges with lower speed as no highways (no ramps will be build there)',
-                        is_enabled=lambda self: self.is_guess_ramps,
-                        )
-
-        self.add_option('ramplength', ramplength,
-                        groupnames=['options', 'ramps'],
-                        cml='--ramps.ramp-length',
-                        perm='rw',
-                        unit='m',
-                        name='Ramp length',
-                        info='Ramp length',
-                        is_enabled=lambda self: self.is_guess_ramps,
-                        )
-
-        self.add_option('is_no_split_ramps', is_no_split_ramps,
-                        groupnames=['options', 'ramps'],
-                        cml='--ramps.no-split',
-                        perm='rw',
-                        name='No ramp split',
-                        info='Avoids edge splitting at ramps.',
-                        is_enabled=lambda self: self.is_guess_ramps,
-                        )
-
-#-------------------------------------------------------------------------
-
-        self.is_clean_nodes = attrsman.add(cm.AttrConf('is_clean_nodes', is_clean_nodes,
-                                                       groupnames=['options'],
-                                                       perm='rw',
-                                                       name='Clean Nodes',
-                                                       info='If set, then shapes around nodes are cleaned up after importing.',
-                                                       ))
-
-    def update_params(self):
-        """
-        Make all parameters consistent.
-        example: used by import OSM to calculate/update number of tiles
-        from process dialog
-        """
-        pass
-        #self.workdirpath = os.path.dirname(self.netfilepath)
-        #bn =  os.path.basename(self.netfilepath).split('.')
-        # if len(bn)>0:
-        #    self.rootname = bn[0]
-
-    def do(self):
-        self.update_params()
-        cml = self.get_cml()
-
-        # print 'SumonetImporter.do',cml
-        #import_xml(self, rootname, dirname, is_clean_nodes = True)
-        self.run_cml(cml)
-        if self.status == 'success':
-            print '  OSM->sumo.xml done'
-            if os.path.isfile(self.netfilepath):
-                print '  OSM->sumo.xml successful, start generation of xml files'
-                cml = self._command + ' --sumo-net-file ' + filepathlist_to_filepathstring(
-                    self.netfilepath) + ' --plain-output-prefix ' + filepathlist_to_filepathstring(os.path.join(self.workdirpath, self.rootname))
-                self.run_cml(cml)
-                if self.status == 'success':
-                    print '  start import into sumopy'
-                    self._net.import_xml(
-                        self.rootname, self.workdirpath, is_clean_nodes=self.is_clean_nodes)
-                    print '  import sumopy done.'
-            #self._net.import_xml(self.rootname, self.workdirpath, is_clean_nodes = self.is_clean_nodes)
-
-        # print 'do',self.newident
-        # self._scenario = Scenario(  self.newident,
-        #                                parent = None,
-        #                                workdirpath = self.workdirpath,
-        #                                logger = self.get_logger(),
-        #                                )
-
-    def get_net(self):
-        return self._net
-
 
 if __name__ == '__main__':
-    ##########################################################################
+    ###############################################################################
     # print 'sys.path',sys.path
     from agilepy.lib_wx.objpanel import objbrowser
     from agilepy.lib_base.logger import Logger

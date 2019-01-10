@@ -1,103 +1,176 @@
 Loading configuration... done.
-Could not connect to TraCI server at localhost:44067 [Errno 111] Connection refused
  Retrying in 1 seconds
-{114: ['horiz', 'horiz1'], 116: []}
+{114: ('horiz', 'horiz1'), 116: ()}
 step 0
-{114: [], 116: ['horiz']}
+{114: (), 116: ('horiz',)}
 step 1
-{114: [], 116: []}
+{114: (), 116: ()}
 step 2
-{114: [], 116: []}
+{114: (), 116: ()}
 step 3
-{114: [], 116: []}
+{114: (), 116: ()}
 step 4
-{114: [], 116: []}
+{114: (), 116: ()}
 step 5
-{114: ['horiz2', 'suddenStop', 'collider'], 116: ['horiz1']}
+{114: ('horiz2', 'suddenStop', 'collider', 'emergencyStopper'), 116: ('horiz1',)}
 time 6000
-#loaded 3
-loaded ['horiz2', 'suddenStop', 'collider']
+#loaded 4
+loaded ('horiz2', 'suddenStop', 'collider', 'emergencyStopper')
 #departed 1
-departed ['horiz1']
+departed ('horiz1',)
 #arrived 0
-arrived []
+arrived ()
 #parkstart 0
-parkstart []
+parkstart ()
 #parkend 0
-parkend []
+parkend ()
 #stopstart 0
-stopstart []
+stopstart ()
 #stopend 0
-stopend []
+stopend ()
 #colliding 0
-colliding []
-min#expected 5
+colliding ()
+#emergencystopping 0
+emergencystopping ()
+min#expected 6
 #teleportStart 0
-teleportStart []
+teleportStart ()
 #teleportEnd 0
-teleportEnd []
-deltaT 1000
-boundary ((0.0, 0.0), (3330.25, 3904.56))
-convertRoad2D (-1.26, 3903.4900000000002)
-convertRoad3D (-1.26, 3903.4900000000002, 2.0)
-convertRoadGeo (12.014677620717489, 48.12144890632121)
-convertRoadGeoAlt (12.014677620717489, 48.12144890632121, 2.0)
+teleportEnd ()
+deltaT 1.0
+boundary ((0.0, 0.0), (3500.0, 3904.56))
+convertRoad2D (-1.22, 3903.52)
+convertRoad3D (-1.22, 3903.52, 2.0)
+convertRoadGeo (12.014678141843579, 48.121449189819344)
+convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
 convert2DGeo (12.023018905467282, 48.09105459770769)
 convertGeo2D (-1619.5653987218393, -9550.720807247795)
-convert2DRoad ('o', 2906.190726022661, 0)
-convertGeoRoad ('o', 1012.1594677716278, 0)
+convert2DRoad ('o', 2906.187593990786, 0)
+convertGeoRoad ('o', 1012.1563357397523, 0)
 distance2D 10.0
 drivingDistance2D 6.48934198154
-distanceRoad 5131.87880547
-drivingDistanceRoad 5136.7
+distanceRoad 5131.87897232
+drivingDistanceRoad 5136.55
 clearing pending
 save simstate
-getParameter 0.00
+getParameter charginStation.totalEnergyCharged 0.00
+getParameter chargingStation.name megaCharger
 getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
+getParameter parkingArea.name DLR
+getParameter busStop.name Magnusstr.
 getBusStopWaiting 0
-findRoute Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=738.4, cost=738.4, intended='', depart=-1.0)
-findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=['o', '2o'], travelTime=0.0, cost=0.0, intended='', depart=-1.0)
-findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=['o', '2o'], travelTime=3694.9536, cost=3694.9536, intended='', depart=-1.0)]
+findRoute Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='', depart=-1.0)
+findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=1455.5902116141665, cost=1455.5902116141665, intended='', depart=-1.0)
+findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, intended='', depart=-1.0)]
+findIntermodalRoute (walk)
+  Stage(stageType=2, line='', destStop='', edges=('o', '2o'), travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)
+
+findIntermodalRoute (bike)
+  Stage(stageType=3, line='bicycle', destStop='', edges=('o', '2o'), travelTime=1848.3174000000001, cost=1848.3174000000001, intended='bicycle', depart=-1.0)
+
+findIntermodalRoute (car)
+  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='car', depart=-1.0)
+
+findIntermodalRoute (bike,car,public)
+  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='car', depart=-1.0)
+
 step 0
-{114: [], 116: []}
+{114: (), 116: ()}
 step 1
-{114: [], 116: []}
+{114: (), 116: ()}
 step 2
-{114: [], 116: ['suddenStop']}
+{114: (), 116: ('suddenStop',)}
 step 3
-{114: [], 116: []}
+{114: (), 116: ()}
 step 4
-{114: [], 116: []}
+{114: (), 116: ()}
 step 5
-{114: [], 116: ['collider']}
+{114: (), 116: ('collider',)}
 step 6
-{114: [], 116: []}
+{114: (), 116: ()}
 step 7
+detected collision
 time 14000
 #loaded 0
-loaded []
+loaded ()
 #departed 0
-departed []
+departed ()
 #arrived 1
-arrived ['collider']
+arrived ('collider',)
 #parkstart 0
-parkstart []
+parkstart ()
 #parkend 0
-parkend []
+parkend ()
 #stopstart 0
-stopstart []
+stopstart ()
 #stopend 0
-stopend []
+stopend ()
 #colliding 2
-colliding ['suddenStop', 'collider']
-min#expected 3
+colliding ('suddenStop', 'collider')
+#emergencystopping 0
+emergencystopping ()
+min#expected 5
 #teleportStart 1
-teleportStart ['collider']
+teleportStart ('collider',)
 #teleportEnd 0
-teleportEnd []
-{114: [], 116: []}
+teleportEnd ()
+{114: (), 116: ()}
 step 8
-{114: [], 116: []}
+{114: (), 116: ('emergencyStopper',)}
 step 9
-{114: [], 116: []}
+{114: (), 116: ()}
+step 10
+detected emergency stop
+time 17000
+#loaded 0
+loaded ()
+#departed 0
+departed ()
+#arrived 0
+arrived ()
+#parkstart 0
+parkstart ()
+#parkend 0
+parkend ()
+#stopstart 0
+stopstart ()
+#stopend 0
+stopend ()
+#colliding 0
+colliding ()
+#emergencystopping 1
+emergencystopping ('emergencyStopper',)
+min#expected 5
+#teleportStart 0
+teleportStart ()
+#teleportEnd 0
+teleportEnd ()
+{114: (), 116: ()}
+step 11
+detected emergency stop
+time 18000
+#loaded 0
+loaded ()
+#departed 0
+departed ()
+#arrived 0
+arrived ()
+#parkstart 0
+parkstart ()
+#parkend 0
+parkend ()
+#stopstart 0
+stopstart ()
+#stopend 0
+stopend ()
+#colliding 0
+colliding ()
+#emergencystopping 1
+emergencystopping ('emergencyStopper',)
+min#expected 5
+#teleportStart 0
+teleportStart ()
+#teleportEnd 0
+teleportEnd ()
+{114: (), 116: ()}

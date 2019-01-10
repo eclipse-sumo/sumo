@@ -18,7 +18,6 @@ import os
 import subprocess
 import sys
 import time
-import threading
 import socket
 import difflib
 toolDir = os.path.join(
@@ -56,6 +55,7 @@ def connect(inPort, outPort, numTries=10):
     o.close()
     i.close()
 
+
 SUMO_PORT = sumolib.miscutils.getFreeSocketPort()
 IN_PORT = sumolib.miscutils.getFreeSocketPort()
 OUT_PORT = sumolib.miscutils.getFreeSocketPort()
@@ -80,7 +80,7 @@ try:
     sumoPro.wait()
     pPro.wait()
     xPro.wait()
-except:
+except Exception:
     sumoPro.kill()
     pPro.kill()
     xPro.kill()

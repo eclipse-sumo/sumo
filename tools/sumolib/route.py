@@ -18,8 +18,8 @@ import sys
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-from sumolib.miscutils import euclidean
-from sumolib.geomhelper import polygonOffsetWithMinimumDistanceToPoint
+from sumolib.miscutils import euclidean  # noqa
+from sumolib.geomhelper import polygonOffsetWithMinimumDistanceToPoint  # noqa
 
 
 def _getMinPath(paths):
@@ -32,13 +32,14 @@ def _getMinPath(paths):
     return minPath
 
 
-def mapTrace(trace, net, delta, verbose=False):
+def mapTrace(trace, net, delta, verbose=False, airDistFactor=2):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
     result = ()
     paths = {}
+    lastPos = None
     if verbose:
         print("mapping trace with %s points" % len(trace))
     for pos in trace:
@@ -56,16 +57,24 @@ def mapTrace(trace, net, delta, verbose=False):
                     if dist < minDist:
                         if edge == path[-1]:
                             baseDiff = lastBase + advance - base
+                            extension = ()
                         elif edge in path[-1].getOutgoing():
                             baseDiff = lastBase + advance - path[-1].getLength() - base
+                            extension = (edge,)
                         else:
-                            airLineDist = euclidean(
-                                path[-1].getToNode().getCoord(),
-                                edge.getFromNode().getCoord())
-                            baseDiff = lastBase + advance - path[-1].getLength() - base - airLineDist
+                            extension, cost = net.getShortestPath(path[-1], edge, airDistFactor * advance)
+                            if extension is None:
+                                airLineDist = euclidean(
+                                    path[-1].getToNode().getCoord(),
+                                    edge.getFromNode().getCoord())
+                                baseDiff = lastBase + advance - path[-1].getLength() - base - airLineDist
+                                extension = (edge,)
+                            else:
+                                baseDiff = lastBase + advance - base - cost + path[-1].getLength()
+                                extension = extension[1:]
                         if dist + baseDiff * baseDiff < minDist:
                             minDist = dist + baseDiff * baseDiff
-                            minPath = path if edge == path[-1] else path + (edge,)
+                            minPath = path + extension
                 if minPath:
                     newPaths[minPath] = (minDist, base)
             else:

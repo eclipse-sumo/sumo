@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/options/OptionsCont.h>
@@ -83,8 +79,8 @@ void SAXWeightsHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_INTERVAL: {
             bool ok = true;
-            myCurrentTimeBeg = attrs.get<double>(SUMO_ATTR_BEGIN, 0, ok);
-            myCurrentTimeEnd = attrs.get<double>(SUMO_ATTR_END, 0, ok);
+            myCurrentTimeBeg = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok));
+            myCurrentTimeEnd = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok));
         }
         break;
         case SUMO_TAG_EDGE: {

@@ -47,7 +47,7 @@ class Test_Shapes(unittest.TestCase):
 #        print ('xxxxxxxxxxxxxxxxxxx', netcon_bin)
 
         for node_file, net_file in [
-                #(NODEFILE_2D, NETFILE_2D),
+                # (NODEFILE_2D, NETFILE_2D),
                 (NODEFILE_3D, NETFILE_3D)
         ]:
 
@@ -55,12 +55,11 @@ class Test_Shapes(unittest.TestCase):
                        "-n", node_file,
                        "-e", EDGEFILE,
                        "-o", net_file,
+                       "--default.junctions.radius", "1.5",
+                       "--junctions.corner-detail", "0",
                        "--offset.disable-normalization"]
 
-            netconvertProcess = subprocess.call(
-                command,
-                stdout=sys.stdout,
-                stderr=sys.stderr)
+            subprocess.call(command, stdout=sys.stdout, stderr=sys.stderr)
 
 #        cls.sumo_net_2d = sumolib.net.readNet(
 #            NETFILE_2D,
@@ -79,7 +78,7 @@ class Test_Shapes(unittest.TestCase):
         if os.path.exists(NETFILE_3D):
             os.remove(NETFILE_3D)
 
-    #### check node's coords ############################################
+    # check node's coords
     @unittest.skipIf(False, '')
     def test_check_node_coords_2d_for_3d_input_node_no_z(self):
         """ test to retrive the coords from a node with no z value
@@ -120,7 +119,7 @@ class Test_Shapes(unittest.TestCase):
             self.sumo_net.getNode('a1').getCoord3D(),
             (200.0, 0.0, 10.0))
 
-    #### check node's shape #############################################
+    # check node's shape
 
     @unittest.skipIf(False, '')
     def test_check_node_shape_2d_on_a_node_with_no_z(self):
@@ -165,15 +164,15 @@ class Test_Shapes(unittest.TestCase):
         for shape_point in result:
             self.assertTrue(len(shape_point) == 3)
 
-    #### check edge's shape #############################################
+    # check edge's shape
     @unittest.skipIf(False, '')
     def test_h001_edge_shape_not_stored(self):
-        """ 
+        """
 
         The edge is the center line of an H (both directions,
         one lane per edge).
 
-        Junction shapes are engaged so the lane of the edge 
+        Junction shapes are engaged so the lane of the edge
         is somewhat shorter at the start and at the end.
 
         Shape of the edge _is_not_ stored in sumo's net xml
@@ -182,9 +181,9 @@ class Test_Shapes(unittest.TestCase):
 
         edge_id = 'center_we'
         the_edge = self.sumo_net.getEdge(edge_id)
-        the_lane = the_edge.getLane(0)  # 'center_we_0'
+        # the_lane = the_edge.getLane(0)  # 'center_we_0'
 
-        #### check edge shape ################################
+        # check edge shape
         expected_result_raw_edge_shape_2D = \
             [(1000, 100), (1200, 100)]
 
@@ -201,13 +200,13 @@ class Test_Shapes(unittest.TestCase):
                          expected_result_raw_edge_shape_3D)
 
     @unittest.skipIf(False, '')
-    def test_h001_edge_shape_not_stored(self):
-        """ 
+    def test_h001_edge_shape_stored(self):
+        """
 
         The edge is the center line of an H (both directions,
         one lane per edge) with one extra shape point.
 
-        Junction shapes are engaged so the lane of the edge 
+        Junction shapes are engaged so the lane of the edge
         is somewhat shorter at the start and at the end.
 
         Shape of the edge _is_ stored in sumo's net xml
@@ -216,9 +215,9 @@ class Test_Shapes(unittest.TestCase):
 
         edge_id = 'center_ew'
         the_edge = self.sumo_net.getEdge(edge_id)
-        the_lane = the_edge.getLane(0)  # 'center_we_0'
+        # the_lane = the_edge.getLane(0)  # 'center_we_0'
 
-        #### check edge shape ################################
+        # check edge shape
         expected_result_raw_edge_shape_2D = \
             [(1200, 100), (1100, 125), (1000, 100)]
 
@@ -234,15 +233,15 @@ class Test_Shapes(unittest.TestCase):
         self.assertEqual(result_raw_edge_shape_3D,
                          expected_result_raw_edge_shape_3D)
 
-    #### check lane's shape #############################################
+    # check lane's shape
     @unittest.skipIf(False, '')
     def test_h001_lane_shape_2d(self):
-        """ 
+        """
 
         The edge is the center line of an H (both directions,
         one lane per edge).
 
-        Junction shapes are engaged so the lane of the edge 
+        Junction shapes are engaged so the lane of the edge
         is somewhat shorter at the start and at the end.
 
         2d version
@@ -252,9 +251,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # 'center_we_0'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -270,7 +269,7 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(1000 < result_end_point_wo[0] < 1200)     # x
         self.assertTrue(90 < result_end_point_wo[1] < 100)     # y
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
         result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
@@ -298,12 +297,12 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_h001_lane_shape_3d(self):
-        """ 
+        """
 
         The edge is the center line of an H (both directions,
         one lane per edge).
 
-        Junction shapes are engaged so the lane of the edge 
+        Junction shapes are engaged so the lane of the edge
         is somewhat shorter at the start and at the end.
 
         3d version
@@ -313,9 +312,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # 'center_we_0'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -333,7 +332,7 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(90 < result_end_point_wo[1] < 100)     # y
         self.assertTrue(result_end_point_wo[2] == 10)     # z
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
         result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
@@ -363,17 +362,17 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_h003_lane_shape_2d(self):
-        """ 
+        """
 
         The edge is the we-center line of an H (both directions,
         one lane per edge).
 
         This edge is not a straight line but has shape points defined.
 
-        Junction shapes are engaged so the lanes of the edge 
+        Junction shapes are engaged so the lanes of the edge
         are somewhat shorter at the start and at the end.
 
-        Still the edge goes from from to to node, so the shape 
+        Still the edge goes from from to to node, so the shape
         should start and end with these coords.
 
         2d version.
@@ -383,9 +382,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(1)  # 'center_ew_1'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -406,9 +405,9 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(1000 < result_end_point_wo[0] < 1200)  # x
         self.assertTrue(100 < result_end_point_wo[1] < 110)  # y
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 5)
@@ -441,17 +440,17 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_h003_lane_shape_3d(self):
-        """ 
+        """
 
         The edge is the we-center line of an H (both directions,
         one lane per edge).
 
         This edge is not a straight line but has shape points defined.
 
-        Junction shapes are engaged so the lanes of the edge 
+        Junction shapes are engaged so the lanes of the edge
         are somewhat shorter at the start and at the end.
 
-        Still the edge goes from from to to node, so the shape 
+        Still the edge goes from from to to node, so the shape
         should start and end with these coords.
 
         3d version.
@@ -461,9 +460,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(1)  # 'center_ew_1'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -487,9 +486,9 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(100 < result_end_point_wo[1] < 110)  # y
         self.assertTrue(result_end_point_wo[2] == 10)  # z
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 5)
@@ -525,7 +524,7 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_h004_lane_shape_2d(self):
-        """Get an internal lane and its shape. 
+        """Get an internal lane and its shape.
 
         Shape should not be influenced by the incluldeJunc parameter
 
@@ -538,10 +537,10 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # ':left_center_3_0'
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         # there should be no difference between the two results
@@ -560,7 +559,7 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_h004_lane_shape_3d(self):
-        """Get an internal lane and its shape. 
+        """Get an internal lane and its shape.
 
         Shape should not be influenced by the incluldeJunc parameter
 
@@ -573,10 +572,10 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # ':left_center_3_0'
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         # there should be no difference between the two results
@@ -596,10 +595,10 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_edge_001_lane_shape_2d(self):
-        """ 
+        """
 
-        Both way edge is the straight line between two nodes 
-        edge has no extra shape points - no intersections engaged.  
+        Both way edge is the straight line between two nodes
+        edge has no extra shape points - no intersections engaged.
         Edge is not centered.
 
         2d version.
@@ -609,9 +608,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # 'straight_with_counter_0'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -627,9 +626,9 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(100 <= result_end_point_wo[0] <= 200)   # x
         self.assertTrue(-10 <= result_end_point_wo[1] < 0)   # y
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 4)
@@ -657,10 +656,10 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_edge_001_lane_shape_3d(self):
-        """ 
+        """
 
-        Both way edge is the straight line between two nodes 
-        edge has no extra shape points - no intersections engaged.  
+        Both way edge is the straight line between two nodes
+        edge has no extra shape points - no intersections engaged.
         Edge is not centered.
 
         3d version.
@@ -670,9 +669,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # 'straight_with_counter_0'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 2)
@@ -690,9 +689,9 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(-10 <= result_end_point_wo[1] < 0)   # y
         self.assertTrue(result_end_point_wo[2] == 10)   # z
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         self.assertTrue(len(result_lane_shape_with_junc) == 4)
@@ -704,7 +703,7 @@ class Test_Shapes(unittest.TestCase):
 
         # check fromNode coords
         self.assertEqual(result_from_point_wi,
-                         (100, 0,  0))
+                         (100, 0, 0))
 
         # check first shape point coords
         self.assertTrue(100 <= result_start_point_wi[0] <= 200)   # x
@@ -722,15 +721,15 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_sloopy_edge_003_lane_shape_2d(self):
-        """ 
+        """
 
-        Both way edge which is a sloopy line between two Nodes 
-        since the edge has extra shape points 
-        - no intersections engaged.  
+        Both way edge which is a sloopy line between two Nodes
+        since the edge has extra shape points
+        - no intersections engaged.
 
         There was only one shape point defined in the edge.xml
         The coord of the from and to node where not included
-        (since this is optional 
+        (since this is optional
         - the counder direction does inclued them - see below)
 
         2d version.
@@ -740,9 +739,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # 'sloopy_we_0'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -763,9 +762,9 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(3000 <= result_end_point_wo[0] <= 3500)  # x
         self.assertTrue(190 <= result_end_point_wo[1] < 200)  # y
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         self.assertEqual(len(result_lane_shape_with_junc), 5)
@@ -798,15 +797,15 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_sloopy_edge_003_lane_shape_3d(self):
-        """ 
+        """
 
-        Both way edge which is a sloopy line between two Nodes 
-        since the edge has extra shape points 
-        - no intersections engaged.  
+        Both way edge which is a sloopy line between two Nodes
+        since the edge has extra shape points
+        - no intersections engaged.
 
         There was only one shape point defined in the edge.xml
         The coord of the from and to node where not included
-        (since this is optional 
+        (since this is optional
         - the counder direction does inclued them - see below)
 
         3d version.
@@ -816,9 +815,9 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # 'sloopy_we_0'
 
-        #### check lane shape - without junction included ####
+        # check lane shape - without junction included
 
-        result_lane_shape_without_junc    = \
+        result_lane_shape_without_junc = \
             the_lane.getShape3D(includeJunctions=False)
 
         self.assertTrue(len(result_lane_shape_without_junc) == 3)
@@ -842,9 +841,9 @@ class Test_Shapes(unittest.TestCase):
         self.assertTrue(190 <= result_end_point_wo[1] < 200)  # y
         self.assertTrue(result_end_point_wo[2] == 10)  # z
 
-        #### check lane shape - with junction included #######
+        # check lane shape - with junction included
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         self.assertEqual(len(result_lane_shape_with_junc), 5)
@@ -880,12 +879,12 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_straight_edge_005_lane_shape_2d(self):
-        """ 
+        """
 
-        Single way edge with spread type center - no shape points 
-        - no intersections engaged.  
+        Single way edge with spread type center - no shape points
+        - no intersections engaged.
 
-        Shape of edge and lane are identic. 
+        Shape of edge and lane are identic.
 
         No junctions are included.
 
@@ -896,12 +895,12 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # straight_no_counter_0
 
-        expected_result     = \
+        expected_result = \
             [(100.0, 100.0), (200.0, 100.0)]
 
-        #### check lane shape ################################
+        # check lane shape
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape(includeJunctions=True)
 
         result_lane_shape_without_junc = \
@@ -915,12 +914,12 @@ class Test_Shapes(unittest.TestCase):
 
     @unittest.skipIf(False, '')
     def test_straight_edge_005_lane_shape(self):
-        """ 
+        """
 
-        Single way edge with spread type center - no shape points 
-        - no intersections engaged.  
+        Single way edge with spread type center - no shape points
+        - no intersections engaged.
 
-        Shape of edge and lane are identic. 
+        Shape of edge and lane are identic.
 
         No junctions are included.
 
@@ -931,12 +930,12 @@ class Test_Shapes(unittest.TestCase):
         the_edge = self.sumo_net.getEdge(edge_id)
         the_lane = the_edge.getLane(0)  # straight_no_counter_0
 
-        expected_result     = \
-            [(100.0, 100.0, 10.0),  (200.0, 100.0, 10.0)]
+        expected_result = \
+            [(100.0, 100.0, 10.0), (200.0, 100.0, 10.0)]
 
-        #### check lane shape ################################
+        # check lane shape
 
-        result_lane_shape_with_junc    = \
+        result_lane_shape_with_junc = \
             the_lane.getShape3D(includeJunctions=True)
 
         result_lane_shape_without_junc = \

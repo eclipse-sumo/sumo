@@ -28,8 +28,8 @@ copy_test_path:input_plain.tll.xml
 copy_test_path:heightmap.tif
 copy_test_path:edge_ids.txt
 copy_test_path:data
-copy_test_path:additional.xml
-copy_test_path:ptlines.xml
+copy_test_path:input_ptstops.xml
+copy_test_path:input_ptlines.xml
 copy_test_path:osmNetconvertPedestrians.typ.xml
 copy_test_path:osmNetconvert.typ.xml
 copy_test_path:osmNetconvertUrbanDe.typ.xml
@@ -54,6 +54,7 @@ elmar_connected_lanes:elmar_output_connected_lanes.txt
 pois:pois.add.xml
 additional:additional.xml
 ptlines:ptlines.xml
+topology:topology.xml
 
 [run_dependent_text]
 plain_nodes:<!--{[->]}-->
@@ -64,6 +65,7 @@ plain_connections:<!--{[->]}-->
 plain_tllogic:<!--{[->]}-->
 plain_types:<!--{[->]}-->
 joined_nodes:<!--{[->]}-->
+topology:<!--{[->]}-->
 net:<!--{[->]}-->
 foreign:date="[^"]*"{REPLACE date="DATE"}
 pois:<!--{[->]}-->
@@ -92,3 +94,5 @@ output:0.0101
 foreign:0.0101
 ptlines:0.0101
 cfg:0.000000001
+plain_nodes:0.00000101
+plain_edges:0.00000101

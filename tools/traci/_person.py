@@ -42,8 +42,6 @@ _RETURN_VALUE_FUNC = {tc.ID_LIST: Storage.readStringList,
 
 
 class PersonDomain(Domain):
-    DEPART_NOW = -3
-
     def __init__(self):
         Domain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
                         tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,
@@ -202,20 +200,18 @@ class PersonDomain(Domain):
             self.removeStage(personID, 1)
         self.removeStage(personID, 0)
 
-    def add(self, personID, edgeID, pos, depart=DEPART_NOW, typeID="DEFAULT_PEDTYPE"):
-        """add(string, string, double, int, string)
+    def add(self, personID, edgeID, pos, depart=tc.DEPARTFLAG_NOW, typeID="DEFAULT_PEDTYPE"):
+        """add(string, string, double, double, string)
         Inserts a new person to the simulation at the given edge, position and
         time (in s). This function should be followed by appending Stages or the person
-        will immediatly vanish on departure.
+        will immediately vanish on departure.
         """
-        if depart > 0:
-            depart *= 1000
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.ADD, personID,
-                                       1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(edgeID) + 1 + 4 + 1 + 8)
+                                       1 + 4 + 1 + 4 + len(typeID) + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 8)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
         self._connection._packString(typeID)
         self._connection._packString(edgeID)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, depart)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, depart)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, pos)
         self._connection._sendExact()
 
@@ -242,13 +238,14 @@ class PersonDomain(Domain):
     def appendWalkingStage(self, personID, edges, arrivalPos, duration=-1, speed=-1, stopID=""):
         """appendWalkingStage(string, stringList, double, int, double, string)
         Appends a walking stage to the plan of the given person
-        The walking speed can either be specified, computed from the duration parameter (in s) or taken from the type of the person
+        The walking speed can either be specified, computed from the duration parameter (in s) or taken from the
+        type of the person
         """
         if duration is not None:
             duration *= 1000
 
         if isinstance(edges, str):
-            edges = [edgeList]
+            edges = [edges]
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
                                        1 + 4 +  # compound
                                        1 + 4 +  # stageType

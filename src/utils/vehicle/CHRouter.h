@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <functional>
@@ -63,8 +59,8 @@
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class PF>
-class CHRouter: public SUMOAbstractRouter<E, V>, public PF {
+template<class E, class V, class BASE>
+class CHRouter: public BASE {
 
 public:
     /// Type of the function that is used to retrieve the edge effort.
@@ -111,7 +107,7 @@ public:
      * @class Unidirectional
      * class for searching in one direction
      */
-    class Unidirectional: public PF {
+    class Unidirectional {
     public:
         /// @brief Constructor
         Unidirectional(const std::vector<E*>& edges, bool forward):
@@ -261,11 +257,11 @@ public:
      *            If set to false, the net is pruned in synchronize() and the
      *            hierarchy is tailored to the svc
      */
-    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation,
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
              bool validatePermissions):
-        SUMOAbstractRouter<E, V>(operation, "CHRouter"),
+        BASE("CHRouter", operation),
         myEdges(edges),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myForwardSearch(edges, true),
@@ -279,11 +275,11 @@ public:
 
     /** @brief Cloning constructor
      */
-    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation,
+    CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation,
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
              const typename CHBuilder<E, V>::Hierarchy* hierarchy) :
-        SUMOAbstractRouter<E, V>(operation, "CHRouter"),
+        BASE("CHRouterClone", operation),
         myEdges(edges),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myForwardSearch(edges, true),
@@ -306,7 +302,7 @@ public:
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
-        CHRouter<E, V, PF>* clone = new CHRouter<E, V, PF>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
+        CHRouter<E, V, BASE>* clone = new CHRouter<E, V, BASE>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                 mySVC, myWeightPeriod, myHierarchy);
         clone->myValidUntil = myValidUntil;
         return clone;
@@ -359,19 +355,6 @@ public:
 #endif
         this->endQuery(num_visited_bw + num_visited_fw);
         return result;
-    }
-
-
-    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        const double time = STEPS2TIME(msTime);
-        double costs = 0;
-        for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            if (PF::operator()(*i, v)) {
-                return -1;
-            }
-            costs += this->getEffort(*i, v, time + costs);
-        }
-        return costs;
     }
 
     /// normal routing methods

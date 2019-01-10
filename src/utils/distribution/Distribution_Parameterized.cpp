@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <utils/common/RandHelper.h>
@@ -107,6 +103,21 @@ Distribution_Parameterized::toStr(std::streamsize accuracy) const {
     return myParameter[1] == 0. ? toString(myParameter[0]) : myID + "(" + joinToString(myParameter, ",", accuracy) + ")";
 }
 
+
+bool
+Distribution_Parameterized::isValid(std::string& error) {
+    if (myParameter.size() > 2) {
+        if (myParameter[0] > getMax()) {
+            error = "distribution mean " + toString(myParameter[0]) + " is larger than upper boundary " + toString(getMax());
+            return false;
+        }
+        if (myParameter[0] < myParameter[2]) {
+            error = "distribution mean " + toString(myParameter[0]) + " is smaller than lower boundary " + toString(myParameter[2]);
+            return false;
+        }
+    }
+    return true;
+}
 
 /****************************************************************************/
 

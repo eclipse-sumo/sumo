@@ -1,7 +1,19 @@
 example
 
+# test assigning a distribution to a parameter
+parameter
+
 # uniform maximum speed distribution
 uniform_speed
 
 # gamma mingap distribution
 gamma_mingap
+
+# tests that values out of limits are resampled instead of cut down
+resampling_ticket4193
+
+# tests that values are cut down if too many resamples were required
+resampling_ticket4193_lowResampling
+
+# assign a negative constant value
+negative_constant

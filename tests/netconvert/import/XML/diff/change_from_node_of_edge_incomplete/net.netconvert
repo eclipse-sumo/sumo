@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:28 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:32 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,13 +19,20 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -34,48 +41,48 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-40.00,-10.00,40.00,40.00" origBoundary="-40.00,-10.00,40.00,40.00" projParameter="!"/>
 
     <edge id=":node_C_0" function="internal">
-        <lane id=":node_C_0_0" index="0" speed="12.50" length="5.35" shape="-1.60,5.67 -1.82,4.16 -2.47,3.21 -3.55,2.83 -5.06,3.01"/>
+        <lane id=":node_C_0_0" index="0" speed="12.50" length="9.08" shape="-1.60,8.17 -1.97,5.60 -3.07,4.00 -4.91,3.34 -7.48,3.65"/>
     </edge>
     <edge id=":node_C_1" function="internal">
-        <lane id=":node_C_1_0" index="0" speed="14.50" length="11.65" shape="-1.60,5.67 -1.60,-5.99"/>
+        <lane id=":node_C_1_0" index="0" speed="14.50" length="16.65" shape="-1.60,8.17 -1.60,-8.49"/>
     </edge>
     <edge id=":node_C_2" function="internal">
-        <lane id=":node_C_2_0" index="0" speed="13.50" length="10.24" shape="-1.60,5.67 -0.87,1.87 1.32,-0.78 4.04,-1.89"/>
+        <lane id=":node_C_2_0" index="0" speed="13.50" length="12.98" shape="-1.60,8.17 -0.87,3.27 1.32,-0.15 4.81,-2.03"/>
     </edge>
     <edge id=":node_C_9" function="internal">
-        <lane id=":node_C_9_0" index="0" speed="13.50" length="6.11" shape="4.04,-1.89 4.96,-2.27 10.07,-2.60"/>
+        <lane id=":node_C_9_0" index="0" speed="13.50" length="5.30" shape="4.81,-2.03 4.96,-2.11 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_3" function="internal">
-        <lane id=":node_C_3_0" index="0" speed="11.50" length="16.10" shape="9.88,1.80 6.39,1.22 3.00,0.09 -0.89,-0.65 -5.89,-0.09"/>
+        <lane id=":node_C_3_0" index="0" speed="11.50" length="18.42" shape="9.88,1.80 6.17,1.28 2.22,0.30 -2.45,-0.24 -8.30,0.56"/>
     </edge>
     <edge id=":node_C_4" function="internal">
-        <lane id=":node_C_4_0" index="0" speed="13.50" length="15.65" shape="9.88,1.80 4.86,1.31 1.27,-0.15 -0.88,-2.58 -1.60,-5.99"/>
+        <lane id=":node_C_4_0" index="0" speed="13.50" length="17.57" shape="9.88,1.80 4.86,1.16 1.27,-0.77 -0.88,-3.99 -1.60,-8.49"/>
     </edge>
     <edge id=":node_C_5" function="internal">
-        <lane id=":node_C_5_0" index="0" speed="12.50" length="3.99" shape="9.88,1.80 8.28,0.63 7.78,-0.49 8.15,-1.17"/>
+        <lane id=":node_C_5_0" index="0" speed="12.50" length="4.07" shape="9.88,1.80 8.28,0.63 7.78,-0.49 8.19,-1.24"/>
     </edge>
     <edge id=":node_C_10" function="internal">
-        <lane id=":node_C_10_0" index="0" speed="12.50" length="2.44" shape="8.15,-1.17 8.37,-1.57 10.07,-2.60"/>
+        <lane id=":node_C_10_0" index="0" speed="12.50" length="2.36" shape="8.19,-1.24 8.37,-1.57 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_6" function="internal">
-        <lane id=":node_C_6_0" index="0" speed="13.50" length="9.79" shape="1.60,-5.99 2.13,-4.64 3.72,-3.62 6.36,-2.94 10.07,-2.60"/>
+        <lane id=":node_C_6_0" index="0" speed="13.50" length="11.52" shape="1.60,-8.49 2.13,-6.05 3.72,-4.25 6.36,-3.10 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_7" function="internal">
-        <lane id=":node_C_7_0" index="0" speed="12.50" length="3.61" shape="1.60,-5.99 1.13,-4.16 -0.00,-2.87"/>
+        <lane id=":node_C_7_0" index="0" speed="12.50" length="4.68" shape="1.60,-8.49 0.98,-5.52 0.00,-4.20"/>
     </edge>
     <edge id=":node_C_8" function="internal">
-        <lane id=":node_C_8_0" index="0" speed="14.50" length="2.34" shape="1.60,-5.99 0.80,-4.79 0.00,-4.39"/>
+        <lane id=":node_C_8_0" index="0" speed="14.50" length="2.34" shape="1.60,-8.49 0.80,-7.29 0.00,-6.89"/>
     </edge>
     <edge id=":node_C_11" function="internal">
-        <lane id=":node_C_11_0" index="0" speed="12.50" length="6.58" shape="-0.00,-2.87 -0.27,-2.56 -2.61,-1.20 -5.89,-0.09"/>
+        <lane id=":node_C_11_0" index="0" speed="12.50" length="9.77" shape="0.00,-4.20 -0.88,-3.02 -3.97,-1.00 -8.30,0.56"/>
     </edge>
     <edge id=":node_C_12" function="internal">
-        <lane id=":node_C_12_0" index="0" speed="14.50" length="2.34" shape="0.00,-4.39 -0.80,-4.79 -1.60,-5.99"/>
+        <lane id=":node_C_12_0" index="0" speed="14.50" length="2.34" shape="0.00,-6.89 -0.80,-7.29 -1.60,-8.49"/>
     </edge>
     <edge id=":node_D_0" function="internal">
         <lane id=":node_D_0_0" index="0" speed="14.50" length="4.67" shape="-1.60,-10.00 -0.80,-11.20 0.00,-11.60 0.80,-11.20 1.60,-10.00"/>
@@ -88,26 +95,26 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="edge_C2D" from="node_C" to="node_D" priority="2">
-        <lane id="edge_C2D_0" index="0" speed="15.00" length="4.01" shape="-1.60,-5.99 -1.60,-10.00"/>
+        <lane id="edge_C2D_0" index="0" speed="15.00" length="1.51" shape="-1.60,-8.49 -1.60,-10.00"/>
     </edge>
     <edge id="edge_C2L" from="node_C" to="node_L" priority="2" spreadType="center" shape="0.00,0.00 -15.00,4.00 -40.00,0.00">
-        <lane id="edge_C2L_0" index="0" speed="11.00" length="23.80" shape="-5.06,3.01 -14.92,5.63 -29.02,3.38"/>
-        <lane id="edge_C2L_1" index="1" speed="11.00" length="23.80" shape="-5.89,-0.09 -15.08,2.37 -28.52,0.22"/>
+        <lane id="edge_C2L_0" index="0" speed="11.00" length="18.80" shape="-7.48,3.65 -14.92,5.63 -26.55,3.77"/>
+        <lane id="edge_C2L_1" index="1" speed="11.00" length="18.80" shape="-8.30,0.56 -15.08,2.37 -26.05,0.61"/>
     </edge>
     <edge id="edge_C2R" from="node_C" to="node_R" priority="2" shape="10.00,-1.00 29.00,-0.20">
         <lane id="edge_C2R_0" index="0" speed="13.00" length="30.02" shape="10.07,-2.60 40.06,-1.34"/>
     </edge>
     <edge id="edge_C2U" from="node_L" to="node_U" priority="2">
-        <lane id="edge_C2U_0" index="0" speed="15.00" length="37.47" shape="-30.83,6.91 -4.33,33.41"/>
+        <lane id="edge_C2U_0" index="0" speed="15.00" length="34.97" shape="-29.06,8.68 -4.33,33.41"/>
     </edge>
     <edge id="edge_D2C" from="node_D" to="node_C" priority="2">
-        <lane id="edge_D2C_0" index="0" speed="14.00" length="4.01" shape="1.60,-10.00 1.60,-5.99"/>
+        <lane id="edge_D2C_0" index="0" speed="14.00" length="1.51" shape="1.60,-10.00 1.60,-8.49"/>
     </edge>
     <edge id="edge_R2C" from="node_R" to="node_C" priority="2" shape="29.00,0.20 3.00,0.20">
         <lane id="edge_R2C_0" index="0" speed="12.00" length="30.12" shape="40.00,1.80 9.88,1.80"/>
     </edge>
     <edge id="edge_U2C" from="node_U" to="node_C" priority="2">
-        <lane id="edge_U2C_0" index="0" speed="14.00" length="26.61" shape="-1.60,32.27 -1.60,5.67"/>
+        <lane id="edge_U2C_0" index="0" speed="14.00" length="24.11" shape="-1.60,32.27 -1.60,8.17"/>
     </edge>
 
     <tlLogic id="node_C" type="static" programID="0" offset="0">
@@ -119,7 +126,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="rrrryyyyyrrr"/>
     </tlLogic>
 
-    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_U2C_0 edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_9_0 :node_C_3_0 :node_C_4_0 :node_C_10_0 :node_C_6_0 :node_C_11_0 :node_C_12_0" shape="-3.20,5.67 0.00,5.67 9.81,3.40 10.13,-4.20 3.20,-5.99 -3.20,-5.99 -6.30,-1.63 -4.65,4.55">
+    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_U2C_0 edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_9_0 :node_C_3_0 :node_C_4_0 :node_C_10_0 :node_C_6_0 :node_C_11_0 :node_C_12_0" shape="-3.20,8.17 0.00,8.17 9.81,3.40 10.13,-4.20 3.20,-8.49 -3.20,-8.49 -8.71,-0.99 -7.06,5.20">
         <request index="0" response="000000000" foes="010001000" cont="0"/>
         <request index="1" response="000000000" foes="110011000" cont="0"/>
         <request index="2" response="001000000" foes="001111000" cont="1"/>
@@ -133,7 +140,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.00,-10.00 -3.20,-10.00 0.00,-10.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="node_L" type="unregulated" x="-40.00" y="0.00" incLanes="edge_C2L_0 edge_C2L_1" intLanes="" shape="-31.96,8.04 -29.69,5.78 -29.27,4.96 -28.26,-1.36"/>
+    <junction id="node_L" type="unregulated" x="-40.00" y="0.00" incLanes="edge_C2L_0 edge_C2L_1" intLanes="" shape="-30.19,9.81 -27.93,7.55 -26.80,5.35 -25.79,-0.97"/>
     <junction id="node_R" type="priority" x="40.00" y="0.00" incLanes="edge_C2R_0" intLanes=":node_R_0_0" shape="40.00,0.20 40.00,3.40 40.12,-2.93 39.99,0.26">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
@@ -141,10 +148,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":node_C_9_0" type="internal" x="4.04" y="-1.89" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0 :node_C_4_0 :node_C_5_0 :node_C_6_0"/>
-    <junction id=":node_C_10_0" type="internal" x="8.15" y="-1.17" incLanes=":node_C_5_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_6_0"/>
-    <junction id=":node_C_11_0" type="internal" x="-0.00" y="-2.87" incLanes=":node_C_7_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_3_0 :node_C_4_0"/>
-    <junction id=":node_C_12_0" type="internal" x="0.00" y="-4.39" incLanes=":node_C_8_0 edge_R2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_4_0"/>
+    <junction id=":node_C_9_0" type="internal" x="4.81" y="-2.03" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0 :node_C_4_0 :node_C_5_0 :node_C_6_0"/>
+    <junction id=":node_C_10_0" type="internal" x="8.19" y="-1.24" incLanes=":node_C_5_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_6_0"/>
+    <junction id=":node_C_11_0" type="internal" x="0.00" y="-4.20" incLanes=":node_C_7_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_3_0 :node_C_4_0"/>
+    <junction id=":node_C_12_0" type="internal" x="0.00" y="-6.89" incLanes=":node_C_8_0 edge_R2C_0 edge_U2C_0" intLanes=":node_C_1_0 :node_C_4_0"/>
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>

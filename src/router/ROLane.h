@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <utils/common/Named.h>
@@ -99,13 +95,13 @@ public:
         return *myEdge;
     }
 
-    /// @brief get the list of outgoing lanes
-    const std::vector<const ROLane*>& getOutgoingLanes() const {
+    /// @brief get the map of outgoing lanes to via edges
+    const std::vector<std::pair<const ROLane*, const ROEdge*> >& getOutgoingViaLanes() const {
         return myOutgoingLanes;
     }
 
-    void addOutgoingLane(ROLane* lane) {
-        myOutgoingLanes.push_back(lane);
+    void addOutgoingLane(ROLane* lane, ROEdge* via = nullptr) {
+        myOutgoingLanes.push_back(std::make_pair(lane, via));
     }
 
     /// @brief get the state of the link from the logical predecessor to this lane (ignored for routing)
@@ -130,7 +126,7 @@ private:
     /// @brief The encoding of allowed vehicle classes
     SVCPermissions myPermissions;
 
-    std::vector<const ROLane*> myOutgoingLanes;
+    std::vector<std::pair<const ROLane*, const ROEdge*> > myOutgoingLanes;
 
 
 private:

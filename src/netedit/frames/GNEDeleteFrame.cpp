@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
@@ -59,7 +55,7 @@
 // GNEDeleteFrame::DeleteOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame *deleteFrameParent) :
+GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) :
     FXGroupBox(deleteFrameParent->myContentFrame, "Options", GUIDesignGroupBoxFrame),
     myDeleteFrameParent(deleteFrameParent) {
 
@@ -76,13 +72,13 @@ GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame *deleteFrameParent) 
 GNEDeleteFrame::DeleteOptions::~DeleteOptions() {}
 
 
-bool 
+bool
 GNEDeleteFrame::DeleteOptions::forceDeleteAdditionals() const {
     return (myForceDeleteAdditionals->getCheck() == TRUE);
 }
 
 
-bool 
+bool
 GNEDeleteFrame::DeleteOptions::deleteOnlyGeometryPoints() const {
     return (myDeleteOnlyGeometryPoints->getCheck() == TRUE);
 }
@@ -103,7 +99,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 
 GNEDeleteFrame::~GNEDeleteFrame() {}
 
-void 
+void
 GNEDeleteFrame::show() {
     if (myViewNet->getNet()->getSelectedAttributeCarriers().size() == 1) {
         myACHierarchy->showACHierarchy(*myViewNet->getNet()->getSelectedAttributeCarriers().begin());
@@ -121,11 +117,11 @@ GNEDeleteFrame::hide() {
 }
 
 
-void 
+void
 GNEDeleteFrame::removeSelectedAttributeCarriers() {
     // remove all selected attribute carriers
     myViewNet->getUndoList()->p_begin("remove selected items");
-    while(myViewNet->getNet()->getSelectedAttributeCarriers().size() > 0) {
+    while (myViewNet->getNet()->getSelectedAttributeCarriers().size() > 0) {
         removeAttributeCarrier(*myViewNet->getNet()->getSelectedAttributeCarriers().begin(), true);
     }
     myViewNet->getUndoList()->p_end();
@@ -141,6 +137,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
         switch (ac->getTag()) {
             case SUMO_TAG_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
+                assert(edge);
                 if (edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
                 }
@@ -148,6 +145,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             case SUMO_TAG_POLY: {
                 GNEPoly* polygon = dynamic_cast<GNEPoly*>(ac);
+                assert(polygon);
                 if (polygon->getVertexIndex(clickedPosition, false) != -1) {
                     polygon->deleteGeometryPoint(clickedPosition);
                 }
@@ -162,6 +160,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
         switch (ac->getTag()) {
             case SUMO_TAG_JUNCTION: {
                 GNEJunction* junction = dynamic_cast<GNEJunction*>(ac);
+                assert(junction);
                 // obtain number of additionals of junction's childs
                 int numberOfAdditionals = 0;
                 for (auto i : junction->getGNEEdges()) {
@@ -177,18 +176,14 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
                 } else {
                     if (numberOfAdditionals > 0) {
                         // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
-                        }
+                        WRITE_DEBUG("Opening FXMessageBox 'Force deletion needed'");
                         std::string plural = numberOfAdditionals > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(junction->getTag())).c_str(), "%s",
                                               (toString(junction->getTag()) + " '" + junction->getID() + "' cannot be deleted because owns " +
                                                toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                        }
+                        WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                     } else {
                         myViewNet->getNet()->deleteJunction(junction, myViewNet->getUndoList());
                     }
@@ -197,6 +192,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             case SUMO_TAG_EDGE: {
                 GNEEdge* edge = dynamic_cast<GNEEdge*>(ac);
+                assert(edge);
                 // check if click was over a geometry point or over a shape's edge
                 if (edge->getVertexIndex(clickedPosition, false) != -1) {
                     edge->deleteGeometryPoint(clickedPosition);
@@ -214,32 +210,24 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
                     } else {
                         if (numberOfAdditionalChilds > 0) {
                             // write warning if netedit is running in testing mode
-                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                                WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
-                            }
+                            WRITE_DEBUG("Opening FXMessageBox 'Force deletion needed'");
                             std::string plural = numberOfAdditionalChilds > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
                                                   (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because owns " +
                                                    toString(numberOfAdditionalChilds) + " additional" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
-                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                                WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                            }
+                            WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         } else if (numberOfAdditionalParents > 0) {
                             // write warning if netedit is running in testing mode
-                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                                WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
-                            }
+                            WRITE_DEBUG("Opening FXMessageBox 'Force deletion needed'");
                             std::string plural = numberOfAdditionalParents > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(edge->getTag())).c_str(), "%s",
                                                   (toString(edge->getTag()) + " '" + edge->getID() + "' cannot be deleted because is part of " +
                                                    toString(numberOfAdditionalParents) + " additional" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
-                            if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                                WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                            }
+                            WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         } else {
                             // when deleting a single edge, keep all unaffected connections as they were
                             myViewNet->getNet()->deleteEdge(edge, myViewNet->getUndoList(), false);
@@ -250,6 +238,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             }
             case SUMO_TAG_LANE: {
                 GNELane* lane = dynamic_cast<GNELane*>(ac);
+                assert(lane);
                 // Check if lane can be deleted
                 if (myDeleteOptions->forceDeleteAdditionals() || ignoreOptions) {
                     // when deleting a single lane, keep all unaffected connections as they were
@@ -260,34 +249,40 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
                         myViewNet->getNet()->deleteLane(lane, myViewNet->getUndoList(), false);
                     } else {
                         // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Opening FXMessageBox 'Force deletion needed'");
-                        }
+                        WRITE_DEBUG("Opening FXMessageBox 'Force deletion needed'");
                         // open warning box
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + toString(lane->getTag())).c_str(), "%s",
                                               (toString(lane->getTag()) + " '" + lane->getID() + "' cannot be deleted because it has " +
                                                toString(lane->getAdditionalChilds().size()) + " additional childs.\n Check 'Force deletion of Additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
-                        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-                            WRITE_WARNING("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                        }
+                        WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                     }
                 }
                 break;
             }
             case SUMO_TAG_CROSSING: {
-                myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(ac), myViewNet->getUndoList());
+                GNECrossing* crossing = dynamic_cast<GNECrossing*>(ac);
+                assert(crossing);
+                myViewNet->getNet()->deleteCrossing(crossing, myViewNet->getUndoList());
                 break;
             }
             case SUMO_TAG_CONNECTION: {
-                myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(ac), myViewNet->getUndoList());
+                GNEConnection* connection = dynamic_cast<GNEConnection*>(ac);
+                assert(connection);
+                myViewNet->getNet()->deleteConnection(connection, myViewNet->getUndoList());
                 break;
             }
             default: {
-                if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), ac->getTag()) !=  GNEAttributeCarrier::allowedAdditionalTags().end()) {
-                    myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(dynamic_cast<GNEAdditional*>(ac));
-                } else if(std::find(GNEAttributeCarrier::allowedShapeTags().begin(), GNEAttributeCarrier::allowedShapeTags().end(), ac->getTag()) !=  GNEAttributeCarrier::allowedShapeTags().end()) {
-                    myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(ac), myViewNet->getUndoList());
+                // obtain tag property (only for improve code legibility)
+                const auto& tagValue = GNEAttributeCarrier::getTagProperties(ac->getTag());
+                if (tagValue.isAdditional()) {
+                    GNEAdditional* additional = dynamic_cast<GNEAdditional*>(ac);
+                    assert(additional);
+                    myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(additional);
+                } else if (tagValue.isShape()) {
+                    GNEShape* shape = dynamic_cast<GNEShape*>(ac);
+                    assert(shape);
+                    myViewNet->getNet()->deleteShape(shape, myViewNet->getUndoList());
                 }
                 break;
             }
@@ -295,6 +290,12 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
     }
     // update view to show changes
     myViewNet->update();
+}
+
+
+GNEDeleteFrame::DeleteOptions*
+GNEDeleteFrame::getDeleteOptions() const {
+    return myDeleteOptions;
 }
 
 /****************************************************************************/

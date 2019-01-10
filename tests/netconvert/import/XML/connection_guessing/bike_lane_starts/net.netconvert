@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:30 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:34 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,20 +19,20 @@ SPDX-License-Identifier: EPL-2.0
         <output.street-names value="true"/>
     </output>
 
-    <processing>
-        <ignore-errors.edge-type value="true"/>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
+        <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392124.73,-5819527.28" convBoundary="0.00,0.00,27.18,140.71" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -66,14 +66,14 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="28373972" type="dead_end" x="0.00" y="106.14" incLanes="end_0 end_1 end_2 end_3" intLanes="" shape="-0.00,106.14 2.06,116.33 -0.00,106.14"/>
-    <junction id="2882261426" type="priority" x="27.18" y="100.64" incLanes="beg_0 beg_1 24992424#0_0 24992424#0_1 24992424#0_2 24992424#0_3 4612968#4_0 4612968#4_1" intLanes="" shape="30.09,88.05 19.87,89.98 12.45,93.01 16.57,113.40 18.28,114.58 29.32,117.74">
+    <junction id="2882261426" type="priority" x="27.18" y="100.64" incLanes="beg_0 beg_1 24992424#0_0 24992424#0_1 24992424#0_2 24992424#0_3 4612968#4_0 4612968#4_1" intLanes="" shape="30.09,88.05 19.87,89.98 19.17,90.97 18.16,91.47 16.70,91.98 14.79,92.49 12.45,93.01 16.57,113.40 17.41,113.40 17.73,113.54 17.98,113.79 18.16,114.14 18.28,114.58 29.32,117.74 28.75,111.46 29.09,106.77 29.86,102.87 30.60,98.97 30.83,94.30">
         <request index="0" response="000100000" foes="000100000"/>
         <request index="1" response="111100000" foes="111100000"/>
-        <request index="2" response="111100000" foes="111100000"/>
-        <request index="3" response="111100000" foes="111100000"/>
+        <request index="2" response="110100000" foes="110100000"/>
+        <request index="3" response="110100000" foes="110100000"/>
         <request index="4" response="000000000" foes="100000000"/>
         <request index="5" response="000000000" foes="100001111"/>
-        <request index="6" response="000000000" foes="000001110"/>
+        <request index="6" response="000000000" foes="000000010"/>
         <request index="7" response="000000000" foes="000001110"/>
         <request index="8" response="000110000" foes="000111110"/>
     </junction>

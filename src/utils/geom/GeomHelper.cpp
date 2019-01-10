@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <limits>
@@ -183,6 +179,10 @@ GeomHelper::angleDiff(const double angle1, const double angle2) {
 double
 GeomHelper::naviDegree(const double angle) {
     double degree = RAD2DEG(M_PI / 2. - angle);
+    if (std::isinf(degree)) {
+        //assert(false);
+        return 0;
+    }
     while (degree >= 360.) {
         degree -= 360.;
     }

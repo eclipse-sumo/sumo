@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <vector>
@@ -226,13 +222,13 @@ GUIParameterTableWindow*
 GUIPerson::getParameterWindow(GUIMainWindow& app,
                               GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
     // there is always the "start" stage which we do not count here because it is not strictly part of the plan
     ret->mkItem("stage index", false, toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1));
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
-    ret->mkItem("dest edge [id]", false, getDestination().getID());
+    ret->mkItem("dest edge [id]", false, getDestination()->getID());
     ret->mkItem("arrivalPos [m]", false, toString(getCurrentStage()->getArrivalPos()));
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
@@ -251,7 +247,7 @@ GUIParameterTableWindow*
 GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
                                   GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getParametersMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myVType->getID());
@@ -270,7 +266,7 @@ Boundary
 GUIPerson::getCenteringBoundary() const {
     Boundary b;
     // ensure that the vehicle is drawn, otherwise myPositionInVehicle will not be updated
-    b.add(getPosition());
+    b.add(getGUIPosition());
     b.grow(MAX2(getVehicleType().getWidth(), getVehicleType().getLength()));
     return b;
 }
@@ -280,10 +276,7 @@ void
 GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
-    Position p1 = getPosition();
-    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
-        p1 = myPositionInVehicle;
-    }
+    Position p1 = getGUIPosition();
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(90, 0, 0, 1);
     // set person color
@@ -422,7 +415,7 @@ GUIPerson::getColorValue(int activeScheme) const {
             return getSpeed();
         case 5:
             if (isWaiting4Vehicle()) {
-                return 3;
+                return 5;
             } else {
                 return (double)getCurrentStageType();
             }
@@ -446,6 +439,17 @@ Position
 GUIPerson::getPosition() const {
     AbstractMutex::ScopedLocker locker(myLock);
     return MSPerson::getPosition();
+}
+
+
+Position
+GUIPerson::getGUIPosition() const {
+    AbstractMutex::ScopedLocker locker(myLock);
+    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle() && myPositionInVehicle != Position::INVALID) {
+        return myPositionInVehicle;
+    } else {
+        return MSPerson::getPosition();
+    }
 }
 
 

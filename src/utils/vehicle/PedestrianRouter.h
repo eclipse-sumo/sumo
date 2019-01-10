@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -54,18 +50,18 @@ private:
     typedef IntermodalEdge<E, L, N, V> _IntermodalEdge;
     typedef IntermodalNetwork<E, L, N, V> _IntermodalNetwork;
     typedef IntermodalTrip<E, N, V> _IntermodalTrip;
-    typedef DijkstraRouter<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V>, prohibited_withPermissions<IntermodalEdge<E, L, N, V>, IntermodalTrip<E, N, V> > > _InternalRouter;
+    typedef DijkstraRouter<_IntermodalEdge, _IntermodalTrip, SUMOAbstractRouterPermissions<_IntermodalEdge, _IntermodalTrip > > _InternalRouter;
 
 public:
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(false) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter"), myAmClone(false) {
         myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>(0, "PedestrianRouter"), myAmClone(true) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone"), myAmClone(true) {
         myPedNet = net;
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
@@ -125,10 +121,6 @@ public:
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&) {
-        throw ProcessError("Do not use this method");
-    }
-
-    double recomputeCosts(const std::vector<const E*>&, const _IntermodalTrip* const, SUMOTime) const {
         throw ProcessError("Do not use this method");
     }
 

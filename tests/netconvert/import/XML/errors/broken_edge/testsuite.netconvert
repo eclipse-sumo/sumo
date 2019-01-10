@@ -10,6 +10,9 @@ edge#id__missing1
 # Missing edge id (fourth edge)
 edge#id__missing4
 
+# invalid edge id (fourth edge)
+edge#id__invalid4
+
 # Empty from node id (first edge)
 edge#fromnode__empty1
 

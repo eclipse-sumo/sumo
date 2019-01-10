@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSDevice_Routing.h"
 #include <microsim/MSNet.h>
@@ -40,6 +36,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
@@ -60,7 +57,7 @@ SUMOTime MSDevice_Routing::myLastAdaptation = -1;
 bool MSDevice_Routing::myWithTaz;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSDevice_Routing::myCachedRoutes;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSDevice_Routing::myRouter = 0;
-AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >* MSDevice_Routing::myRouterWithProhibited = 0;
+AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* MSDevice_Routing::myRouterWithProhibited = 0;
 double MSDevice_Routing::myRandomizeWeightsFactor = 0;
 #ifdef HAVE_FOX
 FXWorkerThread::Pool MSDevice_Routing::myThreadPool;
@@ -157,23 +154,28 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         myWithTaz = oc.getBool("device.rerouting.with-taz");
         const SUMOTime period = string2time(oc.getString("device.rerouting.period"));
         const SUMOTime prePeriod = string2time(oc.getString("device.rerouting.pre-period"));
-        // make the weights be updated
-        if (myAdaptationInterval == -1) {
-            myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
-            myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
-            if (myAdaptationWeight < 1. && myAdaptationInterval > 0) {
-                myEdgeWeightSettingCommand = new StaticCommand<MSDevice_Routing>(&MSDevice_Routing::adaptEdgeEfforts);
-                MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
-            } else if (period > 0) {
-                WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
-            }
-            OutputDevice::createDeviceByOption("device.rerouting.output", "weights", "meandata_file.xsd");
-        }
+        initWeightUpdate();
         // build the device
         into.push_back(new MSDevice_Routing(v, "routing_" + v.getID(), period, prePeriod));
     }
 }
 
+void
+MSDevice_Routing::initWeightUpdate() {
+    if (myAdaptationInterval == -1) {
+        const OptionsCont& oc = OptionsCont::getOptions();
+        myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
+        myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
+        const SUMOTime period = string2time(oc.getString("device.rerouting.period"));
+        if (myAdaptationWeight < 1. && myAdaptationInterval > 0) {
+            myEdgeWeightSettingCommand = new StaticCommand<MSDevice_Routing>(&MSDevice_Routing::adaptEdgeEfforts);
+            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
+        } else if (period > 0) {
+            WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
+        }
+        OutputDevice::createDeviceByOption("device.rerouting.output", "weights", "meandata_file.xsd");
+    }
+}
 
 // ---------------------------------------------------------------------------
 // MSDevice_Routing-methods
@@ -262,7 +264,7 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         if (myCachedRoutes.find(key) != myCachedRoutes.end()) {
             if (myCachedRoutes[key]->size() > 2) {
-                myHolder.replaceRoute(myCachedRoutes[key], true);
+                myHolder.replaceRoute(myCachedRoutes[key], "device.rerouting", true);
                 return myPreInsertionPeriod;
             }
         }
@@ -289,12 +291,12 @@ MSDevice_Routing::getEffort(const MSEdge* const e, const SUMOVehicle* const v, d
     const int id = e->getNumericalID();
     if (id < (int)myEdgeSpeeds.size()) {
         double effort = MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
-        if (myRandomizeWeightsFactor != 1) {
-            effort *= RandHelper::rand((double)1, myRandomizeWeightsFactor);
+        if (myRandomizeWeightsFactor != 1.) {
+            effort *= RandHelper::rand(1., myRandomizeWeightsFactor);
         }
         return effort;
     }
-    return 0;
+    return 0.;
 }
 
 
@@ -319,20 +321,24 @@ MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) {
     if (myAdaptationSteps > 0) {
         // moving average
         for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const int id = (*i)->getNumericalID();
-            const double currSpeed = (*i)->getMeanSpeed();
-            myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
-            myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
+            if ((*i)->isDelayed()) {
+                const int id = (*i)->getNumericalID();
+                const double currSpeed = (*i)->getMeanSpeed();
+                myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
+                myPastEdgeSpeeds[id][myAdaptationStepsIndex] = currSpeed;
+            }
         }
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     } else {
         // exponential moving average
         const double newWeightFactor = (double)(1. - myAdaptationWeight);
         for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const int id = (*i)->getNumericalID();
-            const double currSpeed = (*i)->getMeanSpeed();
-            if (currSpeed != myEdgeSpeeds[id]) {
-                myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+            if ((*i)->isDelayed()) {
+                const int id = (*i)->getNumericalID();
+                const double currSpeed = (*i)->getMeanSpeed();
+                if (currSpeed != myEdgeSpeeds[id]) {
+                    myEdgeSpeeds[id] = myEdgeSpeeds[id] * myAdaptationWeight + currSpeed * newWeightFactor;
+                }
             }
         }
     }
@@ -375,15 +381,15 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
         const bool mayHaveRestrictions = MSNet::getInstance()->hasPermissions() || oc.getInt("remote-port") != 0;
         if (routingAlgorithm == "dijkstra") {
             if (mayHaveRestrictions) {
-                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
                     MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
             } else {
-                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> >(
+                myRouter = new DijkstraRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> >(
                     MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
             }
         } else if (routingAlgorithm == "astar") {
             if (mayHaveRestrictions) {
-                typedef AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > AStar;
+                typedef AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
@@ -391,7 +397,7 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     const double speedFactor = myHolder.getChosenSpeedFactor();
                     // we need an exemplary vehicle with speedFactor 1
                     myHolder.setChosenSpeedFactor(1);
-                    CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> > router(
+                    CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> > router(
                         MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
                         string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
                     lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
@@ -399,7 +405,7 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                 }
                 myRouter = new AStar(MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, lookup);
             } else {
-                typedef AStarRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> > AStar;
+                typedef AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> > AStar;
                 const AStar::LookupTable* lookup = 0;
                 if (oc.isSet("astar.all-distances")) {
                     lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size());
@@ -407,7 +413,7 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
                     const double speedFactor = myHolder.getChosenSpeedFactor();
                     // we need an exemplary vehicle with speedFactor 1
                     myHolder.setChosenSpeedFactor(1);
-                    CHRouterWrapper<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> > router(
+                    CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> > router(
                         MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
                         string2time(oc.getString("begin")), string2time(oc.getString("end")), std::numeric_limits<int>::max(), 1);
                     lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &router, &myHolder, "", oc.getInt("device.rerouting.threads"));
@@ -418,15 +424,15 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
             if (mayHaveRestrictions) {
-                myRouter = new CHRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+                myRouter = new CHRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
                     MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, myHolder.getVClass(), weightPeriod, true);
             } else {
-                myRouter = new CHRouter<MSEdge, SUMOVehicle, noProhibitions<MSEdge, SUMOVehicle> >(
+                myRouter = new CHRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> >(
                     MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort, myHolder.getVClass(), weightPeriod, false);
             }
         } else if (routingAlgorithm == "CHWrapper") {
             const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : std::numeric_limits<int>::max();
-            myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+            myRouter = new CHRouterWrapper<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
                 MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort,
                 string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, oc.getInt("device.rerouting.threads"));
         } else {
@@ -448,15 +454,17 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
         return;
     }
 #endif
-    myHolder.reroute(currentTime, *myRouter, onInit, myWithTaz);
+    myHolder.reroute(currentTime, "device.rerouting", *myRouter, onInit, myWithTaz);
 }
 
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>&
 MSDevice_Routing::getRouterTT(const MSEdgeVector& prohibited) {
     if (myRouterWithProhibited == 0) {
-        myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, prohibited_withPermissions<MSEdge, SUMOVehicle> >(
+        myRouterWithProhibited = new AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >(
             MSEdge::getAllEdges(), true, &MSDevice_Routing::getEffort);
+        initEdgeWeights();
+        initWeightUpdate();
     }
     myRouterWithProhibited->prohibit(prohibited);
     return *myRouterWithProhibited;
@@ -484,7 +492,7 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
     double doubleValue;
     try {
         doubleValue = TplConvert::_2double(value.c_str());
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
     if (StringUtils::startsWith(key, "edge:")) {
@@ -507,6 +515,25 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
+
+
+void
+MSDevice_Routing::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myPeriod));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myPeriod;
+}
+
 
 
 
@@ -543,7 +570,7 @@ MSDevice_Routing::waitForAll() {
 // ---------------------------------------------------------------------------
 void
 MSDevice_Routing::RoutingTask::run(FXWorkerThread* context) {
-    myVehicle.reroute(myTime, static_cast<WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
+    myVehicle.reroute(myTime, "device.rerouting", static_cast<WorkerThread*>(context)->getRouter(), myOnInit, myWithTaz);
     const MSEdge* source = *myVehicle.getRoute().begin();
     const MSEdge* dest = myVehicle.getRoute().getLastEdge();
     if (source->isTazConnector() && dest->isTazConnector()) {

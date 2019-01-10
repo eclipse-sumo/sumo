@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <sstream>
 #include <iostream>
@@ -50,7 +46,7 @@ string2time(const std::string& r) {
         buf >> time;
         if (buf.fail() || time > STEPS2TIME(SUMOTime_MAX)) {
             throw ProcessError("Input string '" + r + "' is not a valid number or exceeds the time value range.");
-        } 
+        }
         return TIME2STEPS(time);
     } else {
         // try to parse jj:hh:mm:ss.s

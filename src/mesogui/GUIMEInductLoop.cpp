@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 
 #include <utils/gui/globjects/GLIncludes.h>
@@ -60,7 +56,7 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
 
 // -----------------------------------------------------------------------
 // GUIMEInductLoop::MyWrapper-methods
-// ----------------------------------------------------------------------- 
+// -----------------------------------------------------------------------
 
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
     : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),

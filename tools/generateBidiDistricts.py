@@ -39,7 +39,7 @@ def parse_args():
     options, args = optParser.parse_args()
     try:
         options.net, = args
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.net + ".taz.xml"
@@ -55,6 +55,7 @@ def getCandidates(edge, net, radius):
             nearby.add(edge2)
         candidates.append(nearby)
     return candidates
+
 
 ASYM_BIDI_CACHE = {}  # edge : opposites
 
@@ -110,6 +111,7 @@ def main(netFile, outFile, radius, travelDist, symmetrical):
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
         outf.write('</tazs>\n')
     return net
+
 
 if __name__ == "__main__":
     options = parse_args()

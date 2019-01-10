@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <algorithm>
 #include <limits>
@@ -50,6 +46,13 @@
 #define DEFAULT_VEH_LENGHT_WITH_GAP (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap)
 // avoid division by zero when driving very slowly
 #define MESO_MIN_SPEED (0.05)
+
+//#define DEBUG_OPENED
+//#define DEBUG_JAMTHRESHOLD
+//#define DEBUG_COND (getID() == "blocker")
+//#define DEBUG_COND (true)
+#define DEBUG_COND (myEdge.isSelected())
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
 // ===========================================================================
 // static member defintion
@@ -194,6 +197,12 @@ MESegment::jamThresholdForSpeed(double speed, double jamThresh) const {
     if (speed == 0) {
         return std::numeric_limits<double>::max();  // never jam. Irrelevant at speed 0 anyway
     }
+#ifdef DEBUG_JAMTHRESHOLD
+    if (true || DEBUG_COND) {
+        std::cout << "jamThresholdForSpeed seg=" << getID() << " speed=" << speed << " jamThresh=" << jamThresh << " ffVehs=" << std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) << " thresh=" << std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) * DEFAULT_VEH_LENGHT_WITH_GAP
+                  << "\n";
+    }
+#endif
     return std::ceil(myLength / (-jamThresh * speed * STEPS2TIME(tauWithVehLength(myTau_ff, DEFAULT_VEH_LENGHT_WITH_GAP)))) * DEFAULT_VEH_LENGHT_WITH_GAP;
 }
 
@@ -221,22 +230,6 @@ MESegment::removeDetector(MSMoveReminder* data) {
             (*i)->removeReminder(data);
         }
     }
-}
-
-
-void
-MESegment::updateDetectorsOnLeave(MEVehicle* v, SUMOTime currentTime, MESegment* next) {
-    MSMoveReminder::Notification reason;
-    if (next == 0) {
-        reason = MSMoveReminder::NOTIFICATION_ARRIVED;
-    } else if (next == &myVaporizationTarget) {
-        reason = MSMoveReminder::NOTIFICATION_VAPORIZED;
-    } else if (myNextSegment == 0) {
-        reason = MSMoveReminder::NOTIFICATION_JUNCTION;
-    } else {
-        reason = MSMoveReminder::NOTIFICATION_SEGMENT;
-    }
-    v->updateDetectors(currentTime, true, reason);
 }
 
 
@@ -343,12 +336,12 @@ MESegment::writeVehicles(OutputDevice& of) const {
 
 
 MEVehicle*
-MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, MESegment* next) {
+MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Notification reason) {
     myOccupancy = MAX2(0., myOccupancy - v->getVehicleType().getLengthWithGap());
     std::vector<MEVehicle*>& cars = myCarQues[v->getQueIndex()];
     assert(std::find(cars.begin(), cars.end(), v) != cars.end());
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
-    updateDetectorsOnLeave(v, leaveTime, next);
+    v->updateDetectors(leaveTime, true, reason);
     myEdge.lock();
     if (v == cars.back()) {
         cars.pop_back();
@@ -421,6 +414,28 @@ MESegment::getLink(const MEVehicle* veh, bool penalty) const {
 
 bool
 MESegment::isOpen(const MEVehicle* veh) const {
+#ifdef DEBUG_OPENED
+    if (DEBUG_COND || DEBUG_COND2(veh)) {
+        std::cout << SIMTIME << " opened seg=" << getID() << " veh=" << Named::getIDSecure(veh)
+                  << " tlsPenalty=" << myTLSPenalty;
+        const MSLink* link = getLink(veh);
+        if (link == 0) {
+            std::cout << " link=0";
+        } else {
+            std::cout << " prio=" << link->havePriority()
+                      << " override=" << limitedControlOverride(link)
+                      << " isOpen=" << link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
+                                                    veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
+                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime())
+                      << " et=" << veh->getEventTime()
+                      << " v=" << veh->getSpeed()
+                      << " vLeave=" << veh->estimateLeaveSpeed(link)
+                      << " impatience=" << veh->getImpatience()
+                      << " tWait=" << veh->getWaitingTime();
+        }
+        std::cout << "\n";
+    }
+#endif
     if (myTLSPenalty) {
         // XXX should limited control take precedence over tls penalty?
         return true;
@@ -444,18 +459,18 @@ MESegment::limitedControlOverride(const MSLink* link) const {
     // if the target segment of this link is not saturated junction control is disabled
     const MSEdge& targetEdge = link->getLane()->getEdge();
     const MESegment* target = MSGlobals::gMesoNet->getSegmentForEdge(targetEdge);
-    return target->myOccupancy * 2 < target->myJamThreshold;
+    return (target->myOccupancy * 2 < target->myJamThreshold) && !targetEdge.isRoundabout();
 }
 
 
 void
-MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
+MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time, const MSMoveReminder::Notification reason) {
     assert(isInvalid(next) || time >= myBlockTimes[veh->getQueIndex()]);
     MSLink* link = getLink(veh);
     if (link != 0) {
         link->removeApproaching(veh);
     }
-    MEVehicle* lc = removeCar(veh, time, next); // new leaderCar
+    MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     myBlockTimes[veh->getQueIndex()] = time;
     if (!isInvalid(next)) {
         myLastHeadway = next->getTimeHeadway(this, veh);
@@ -466,7 +481,7 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time) {
         MSGlobals::gMesoNet->addLeaderCar(lc, getLink(lc));
     }
     if (veh->isStopped()) {
-        MSNet::getInstance()->getVehicleControl().removeWaiting(&myEdge, veh);
+        veh->processStop();
     }
 }
 
@@ -498,7 +513,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         veh->setEventTime(time + TIME2STEPS(myLength / speed)); // for correct arrival speed
         addReminders(veh);
         veh->activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
-        updateDetectorsOnLeave(veh, time, 0);
+        veh->updateDetectors(time, true, MSMoveReminder::NOTIFICATION_ARRIVED);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
@@ -655,10 +670,12 @@ void
 MESegment::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
     for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
         MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(*it));
-        assert(v != 0);
-        assert(v->getSegment() == this);
-        myCarQues[queIdx].push_back(v);
-        myOccupancy += v->getVehicleType().getLengthWithGap();
+        // vehicle could be removed due to options
+        if (v != 0) {
+            assert(v->getSegment() == this);
+            myCarQues[queIdx].push_back(v);
+            myOccupancy += v->getVehicleType().getLengthWithGap();
+        }
     }
     if (myCarQues[queIdx].size() != 0) {
         // add the last vehicle of this queue

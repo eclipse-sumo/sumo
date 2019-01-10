@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <algorithm>
@@ -92,7 +88,7 @@ MSPModel::cleanup() {
 }
 
 
-bool
+int
 MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
     const MSJunction* junction = 0;
     for (ConstMSEdgeVector::const_iterator it = route.begin(); it != route.end(); ++it) {
@@ -104,12 +100,12 @@ MSPModel::canTraverse(int dir, const ConstMSEdgeVector& route) {
             } else if (junction == edge->getToJunction()) {
                 dir = BACKWARD;
             } else {
-                return false;
+                return UNDEFINED_DIRECTION;
             }
         }
         junction = dir == FORWARD ? edge->getToJunction() : edge->getFromJunction();
     }
-    return true;
+    return dir;
 }
 
 /****************************************************************************/

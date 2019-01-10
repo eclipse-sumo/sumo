@@ -15,4 +15,4 @@
 
 from __future__ import absolute_import
 
-from . import additional, selection
+from . import additional, selection  # noqa

@@ -17,30 +17,33 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
-import sumolib  # noqa
-import traci.constants as tc
 
-sumoBinary = os.environ["SUMO_BINARY"]
-#~ sumoBinary = sumolib.checkBinary("sumo-gui")
-cmd = [sumoBinary,
-        '-n', 'input_net.net.xml',
-        '-r', 'input_routes.rou.xml',
-        '--lanechange-output', 'lanechanges.xml',
-        '--lanechange-output.started',
-        '--lanechange-output.ended',
-        '--fcd-output', 'fcd.xml',
-        '--no-step-log',
-        '--begin', '0',
-        '--lateral-resolution', '3.2',
-        '--step-length', '0.1',
-        '--default.action-step-length', '1.0',
-        #'-S', '-Q',
-        ]
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
+import sumolib  # noqa
+
+sumoBinary = sumolib.checkBinary('sumo')
+# ~ sumoBinary = sumolib.checkBinary("sumo-gui")
+cmd = [
+    sumoBinary,
+    '-n', 'input_net.net.xml',
+    '-r', 'input_routes.rou.xml',
+    '--lanechange-output', 'lanechanges.xml',
+    '--lanechange-output.started',
+    '--lanechange-output.ended',
+    '--fcd-output', 'fcd.xml',
+    '--no-step-log',
+    '--begin', '0',
+    '--lateral-resolution', '3.2',
+    # '-S', '-Q',
+    '--step-length', '0.1',
+    '--default.action-step-length', '1.0',
+    "--default.speeddev", "0"]
 
 
 traci.start(cmd)
@@ -49,34 +52,34 @@ vehID = "v0"
 traci.vehicle.setLaneChangeMode(vehID, 0b0100000000)
 traci.vehicle.changeLane(vehID, 1, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, -1)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 # step to in between action steps
-step = traci.simulation.getCurrentTime()
-traci.simulationStep(step + 500)
+step = traci.simulation.getTime()
+traci.simulationStep(step + .5)
 traci.vehicle.changeLane(vehID, 0, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, 0)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.setSpeed(vehID, -1)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 traci.vehicle.changeSublane(vehID, 1.6)
 for i in range(10):
-    step = traci.simulation.getCurrentTime()
-    traci.simulationStep(step + 1000)
+    step = traci.simulation.getTime()
+    traci.simulationStep(step + 1.)
 
 traci.close()

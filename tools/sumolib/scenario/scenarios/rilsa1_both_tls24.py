@@ -14,12 +14,12 @@
 from __future__ import absolute_import
 
 
-from . import *
+from . import fileNeedsRebuild, Scenario
 import os
+import subprocess
 import shutil
 import sumolib.net.generator.demand as demandGenerator
-from sumolib.net.generator.network import *
-
+import sumolib
 
 flowsRiLSA1 = [
     ["nmp1", [
@@ -63,8 +63,7 @@ class Scenario_RiLSA1BothTLS24(Scenario):
         # network
         if fileNeedsRebuild(os.path.join(self.THIS_DIR, self.NET_FILE), "netconvert"):
             netconvert = sumolib.checkBinary("netconvert")
-            retCode = subprocess.call(
-                [netconvert, "-c", os.path.join(self.THIS_DIR, "build.netc.cfg")])
+            subprocess.call([netconvert, "-c", os.path.join(self.THIS_DIR, "build.netc.cfg")])
         # build the demand model (streams)
         if withDefaultDemand:
             self.demand = demandGenerator.Demand()
@@ -79,7 +78,10 @@ class Scenario_RiLSA1BothTLS24(Scenario):
                     lkwNprob = prob - lkwEprob
 
                     self.demand.addStream(demandGenerator.Stream(f[0] + "__" + rel[0], 0, 3600, rel[1], f[0], rel[0],
-                                                                 {"passenger": pkwEprob, "COLOMBO_undetectable_passenger": pkwNprob, "hdv": lkwEprob, "COLOMBO_undetectable_hdv": lkwNprob}))
+                                                                 {"passenger": pkwEprob,
+                                                                  "COLOMBO_undetectable_passenger": pkwNprob,
+                                                                  "hdv": lkwEprob,
+                                                                  "COLOMBO_undetectable_hdv": lkwNprob}))
             if fileNeedsRebuild(self.fullPath("routes.rou.xml"), "duarouter"):
                 self.demand.build(
                     0, 3600, self.fullPath(self.NET_FILE), self.fullPath("routes.rou.xml"))

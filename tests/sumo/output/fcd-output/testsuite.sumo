@@ -22,5 +22,14 @@ period
 # output not from every vehicle
 explicit_assignment
 
+# disable output for all vehicles via option
+disable_all
+
+# output not from every person
+person_by_param
+
 # correctly compute positions when vehicle is on a short lane
 short_lane
+
+# only write fcd output on some edges
+edge_filter

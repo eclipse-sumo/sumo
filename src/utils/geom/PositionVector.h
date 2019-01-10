@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <limits>
@@ -161,7 +157,6 @@ public:
     const Position& operator[](int index) const;
 
     /// @brief returns the position at the given index
-    /// @ToDo !!! exceptions?
     Position& operator[](int index);
 
     /// @brief Returns the position at the given length
@@ -217,7 +212,7 @@ public:
     bool partialWithin(const AbstractPoly& poly, double offset = 0) const;
 
     /// @brief Returns the two lists made when this list vector is splitted at the given point
-    std::pair<PositionVector, PositionVector> splitAt(double where) const;
+    std::pair<PositionVector, PositionVector> splitAt(double where, bool use2D = false) const;
 
     //// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const PositionVector& geom);
@@ -373,7 +368,6 @@ public:
      */
     PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0) const;
 
-
     /// @brief returned vector that is smoothed at the front (within dist)
     PositionVector smoothedZFront(double dist = std::numeric_limits<double>::max()) const;
 
@@ -386,8 +380,10 @@ public:
     /// @brief return the offset at the given index
     double offsetAtIndex2D(int index) const;
 
-    /// @brief return the maximum grade of all segments as a fraction of zRange/length2D
-    double getMaxGrade() const;
+    /* @brief return the maximum grade of all segments as a fraction of zRange/length2D
+     * @param[out] maxJump The maximum vertical jump (with grade infinity)
+     */
+    double getMaxGrade(double& maxJump) const;
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect

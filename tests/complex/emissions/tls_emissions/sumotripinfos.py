@@ -15,9 +15,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 
-import cPickle
-import sys
-from xml.sax import saxutils, make_parser, handler
+from xml.sax import handler, make_parser
 
 NOT_FLOAT_TRIPINFO_ATTRS = [
     "departLane", "arrivalLane", "devices", "vtype", "vaporized"]
@@ -39,7 +37,7 @@ class TripinfosReader(handler.ContentHandler):
                 if a not in NOT_FLOAT_TRIPINFO_ATTRS:
                     try:
                         val = float(val)
-                    except:
+                    except ValueError:
                         print("%s=%s" % (val, a))
                 self._values[a][id] = val
 

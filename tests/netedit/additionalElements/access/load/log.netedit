@@ -1,0 +1,11 @@
+Warning: Essential unique string attribute 'id' of busStop is missing; busStop cannot be created
+Warning: A access must be declared within the definition of a busStop.
+Warning: A access must be declared within the definition of a busStop.
+Warning: Essential unique string attribute 'lane' of access is missing; access cannot be created
+Warning: The lane 'dummyLane' to use within the access is not known.
+Warning: Edge '3' already has an Access for busStop 'busStop_0'
+Warning: Invalid position for access.
+Warning: Invalid position for access.
+Warning: Edge '3' already has an Access for busStop 'busStop_0'
+Warning: A access must be declared within the definition of a busStop.
+Warning: A access must be declared within the definition of a busStop.

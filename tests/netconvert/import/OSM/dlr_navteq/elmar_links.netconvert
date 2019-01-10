@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on Wed Apr 18 16:45:45 2018 by Eclipse SUMO netconvert Version 4b5eff6
+# <!-- generated on Wed Aug 15 14:52:45 2018 by Eclipse SUMO netconvert Version feccab3
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -27,6 +27,13 @@
 #         <proj.utm value="true"/>
 #     </projection>
 # 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <reserved-ids value="edge_ids.txt"/>
+#         <geometry.remove value="true"/>
+#         <roundabouts.guess value="true"/>
+#     </processing>
+# 
 #     <tls_building>
 #         <tls.discard-simple value="true"/>
 #         <tls.join value="true"/>
@@ -37,14 +44,13 @@
 #         <ramps.guess value="true"/>
 #     </ramp_guessing>
 # 
-#     <processing>
-#         <osm.all-attributes value="true"/>
-#         <numerical-ids value="true"/>
-#         <reserved-ids value="edge_ids.txt"/>
-#         <geometry.remove value="true"/>
-#         <roundabouts.guess value="true"/>
+#     <junctions>
 #         <junctions.join value="true"/>
-#     </processing>
+#     </junctions>
+# 
+#     <formats>
+#         <osm.all-attributes value="true"/>
+#     </formats>
 # 
 #     <report>
 #         <verbose value="true"/>
@@ -84,7 +90,7 @@
 141968853	473482356	301292499	141968853	298.20	011111111111	3	-1	3	6	11	50	50	-1	-1	-1	-1	12487	-1	-1	1	-1	-1	-1	0	
 142575745	1560223575	851572317	142575745	41.17	000000000011	3	-1	4	8	11	10	10	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 143308484	1568241303	1568241276	-1	51.88	011111111111	3	-1	4	7	11	30	30	-1	-1	-1	-1	12524	-1	-1	1	-1	-1	-1	0	
-146511467	260479469	2165987553	146511467	289.31	011111111100	10	-1	0	5	22	70	60	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+146511467	260479469	2165987553	146511467	287.49	011111111100	10	-1	0	5	22	70	60	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 16942869	1906766909	4167993266	16942869	105.58	011111111111	3	-1	1	6	32	50	50	-1	-1	-1	-1	12487	-1	-1	1	-1	-1	-1	0	
 174657432	4167993272	1853142980	-1	5.54	000000010011	14	-1	4	7	11	30	20	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
 180239835	175648134	1906766897	-1	32.51	000000000011	3	-1	4	8	11	10	10	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	

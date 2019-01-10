@@ -10,7 +10,7 @@
 
 # @file    test_classman_misc.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 

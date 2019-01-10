@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -107,7 +103,7 @@ public:
 
 
     /// @brief compute mandatory edges
-    ConstROEdgeVector getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const; 
+    ConstROEdgeVector getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const;
 
     /** @brief Returns an upper bound for the speed factor of this vehicle
      *

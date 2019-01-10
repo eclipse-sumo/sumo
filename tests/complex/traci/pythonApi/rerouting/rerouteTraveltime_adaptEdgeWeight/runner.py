@@ -17,38 +17,32 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
-import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
+import sumolib  # noqa
 
 
 def checkMiddleEdges():
-    now = traci.simulation.getCurrentTime() // 1000
+    now = traci.simulation.getTime()
     for edge in ["middle", "middle2", "middle3"]:
-        print("edge=%s current=%s adapted=%s" % (edge,
-                                                 traci.edge.getTraveltime(
-                                                     edge),
+        print("edge=%s current=%s adapted=%s" % (edge, traci.edge.getTraveltime(edge),
                                                  traci.edge.getAdaptedTraveltime(edge, now)))
 
+
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 vehID = "ego"
-traci.init(PORT)
 traci.simulationStep()
 checkMiddleEdges()
 traci.edge.adaptTraveltime("middle", 20)
-traci.edge.adaptTraveltime("middle3", 14)
+traci.edge.adaptTraveltime("middle3", 10)
 checkMiddleEdges()
 traci.vehicle.rerouteTraveltime(vehID, False)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 traci.close()
-sumoProcess.wait()

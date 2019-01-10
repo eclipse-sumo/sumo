@@ -1,0 +1,31 @@
+ Retrying in 1 seconds
+time step 1000
+Driver state device infos for vehicle 'deviceHolder'
+Static parameters:
+  minAwareness = 0.01
+  initialAwareness = 0.20
+  errorTimeScaleCoefficient = 1.11
+  errorNoiseIntensityCoefficient = 2.22
+  speedDifferenceErrorCoefficient = 3.33
+  headwayErrorCoefficient = 4.44
+  speedDifferenceChangePerceptionThreshold = 5.55
+  headwayChangePerceptionThreshold = 7.77
+Dynamic parameters:
+  awareness = 0.20
+  errorNoiseIntensity = 1.00
+  errorTimeScale = 1.00
+  errorState = 0.00
+time step 1000
+ToC device infos for vehicle 'deviceHolder'
+Static parameters:
+  holder = deviceHolder
+  manualType = manual
+  automatedType = automated
+  responseTime = 23.00
+  recoveryRate = 0.20
+  initialAwareness = 0.25
+  mrmDecel = 1.20
+Dynamic parameters:
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = AUTOMATED

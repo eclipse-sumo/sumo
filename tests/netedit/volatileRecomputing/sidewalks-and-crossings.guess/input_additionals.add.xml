@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_-gneE3_0_1" lane="-gneE3_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
     <busStop id="busStop_-gneE4_0_2" lane="-gneE4_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
     <busStop id="busStop_-gneE5_0_3" lane="-gneE5_0" startPos="2.5" endPos="7.5" friendlyPos="0"/>
@@ -13,4 +13,4 @@
         <detEntry lane="gneE14_0" pos="5" friendlyPos="0"/>
         <detExit lane="gneE9_0" pos="5" friendlyPos="0"/>
     </e3Detector>
-</additionals>
+</additional>

@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -61,14 +57,12 @@ GNEDialog_About::GNEDialog_About(FXWindow* parent) :
     new FXLabel(descriptionFrame, "Network editor for Eclipse SUMO, the Simulation of Urban MObility", 0, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, HAVE_ENABLED, 0, GUIDesignLabelAboutInfo);
 
-    // write HAVE_ENABLED with the current modules (except Windows)
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        std::string modules(HAVE_ENABLED);
-        while((modules.size() > 0) && (modules.front() != ' ')) {
-            modules.erase(modules.begin());
-        }
-        WRITE_WARNING(("Modules: " + modules).c_str());
+    // write HAVE_ENABLED with the current modules (except Windows) in debug mode
+    std::string modules(HAVE_ENABLED);
+    while ((modules.size() > 0) && (modules.front() != ' ')) {
+        modules.erase(modules.begin());
     }
+    WRITE_DEBUG(("Modules: " + modules).c_str());
 
     // copyright notice
     new FXLabel(this, "Graphical editor for networks of the traffic simulation SUMO.", 0, GUIDesignLabelAboutInfo);

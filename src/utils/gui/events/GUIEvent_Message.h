@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GUIEvent.h"
 #include <string>
@@ -59,6 +55,12 @@ public:
                 break;
             case MsgHandler::MT_ERROR:
                 myType = EVENT_ERROR_OCCURRED;
+                break;
+            case MsgHandler::MT_DEBUG:
+                myType = EVENT_DEBUG_OCCURRED;
+                break;
+            case MsgHandler::MT_GLDEBUG:
+                myType = EVENT_GLDEBUG_OCCURRED;
                 break;
             default:
                 throw 1;

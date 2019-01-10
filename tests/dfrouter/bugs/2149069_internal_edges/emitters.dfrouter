@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 27 17:11:37 2016 by SUMO dfrouter Version dev-SVN-r21246
+<!-- generated on Wed Aug 15 16:38:03 2018 by Eclipse SUMO dfrouter Version 6423ef4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <routes-output value="routes.rou.xml"/>
         <detector-output value="detectors_def.det.xml"/>
         <emitters-output value="emitters.add.xml"/>

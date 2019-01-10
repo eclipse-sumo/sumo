@@ -36,7 +36,7 @@ from collections import defaultdict
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
-from OrderedMultiSet import OrderedMultiSet
+from OrderedMultiSet import OrderedMultiSet  # noqa
 
 INDENT = 4
 
@@ -55,7 +55,8 @@ PLAIN_TYPES = [
 # traffic lights have some peculiarities
 # CAVEAT1 - ids are not unique (only in combination with programID)
 # CAVEAT2 - the order of their children (phases) is important.
-#     this makes partial diffs unfeasible. The easiest solution is to forgo diffs and always export the whole new traffic light
+#     this makes partial diffs unfeasible. The easiest solution is to forgo diffs and always
+#     export the whole new traffic light
 # CAVEAT3 - deletes need not be written because they are also signaled by a changed node type
 #     (and they complicate the handling of deleted tl-connections)
 # CAVEAT4 - deleted connections must be written with their tlID and tlIndex, otherwise
@@ -360,7 +361,8 @@ def create_plain(netfile, netconvert):
     prefix = netfile[:-8]
     call([netconvert,
           "--sumo-net-file", netfile,
-          "--plain-output-prefix", prefix])
+          "--plain-output-prefix", prefix,
+          "--roundabouts.guess", "false"])
     return prefix
 
 
@@ -452,6 +454,7 @@ def main():
                     options.outprefix + type,
                     type,
                     copy_tags)
+
 
 if __name__ == "__main__":
     main()

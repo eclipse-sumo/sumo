@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -248,6 +244,18 @@ public:
      * @return The man-readable type name
      */
     virtual const std::string& getTypeName() const;
+
+
+    /** @brief Create a new Option of the given type with given default value but make it unset
+     *  @note Was implemented to allow warning once if user didn't set the option, refs. #4567
+     *  @see MSDeviceSSM::insertOptions()
+     */
+    template<class OptionType, class ValueType>
+    static OptionType* makeUnsetWithDefault(ValueType def) {
+        OptionType* o = new OptionType(def);
+        o->unSet();
+        return o;
+    }
 
 
 protected:

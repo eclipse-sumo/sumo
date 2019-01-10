@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Aug 15 16:12:30 2018 by Eclipse SUMO netconvert Version abbc805
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="CE" from="C" to="E" priority="2">
+        <lane id="CE_0" index="0" speed="13.89" length="100.00" shape="109.20,98.40 200.00,98.40"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2">
+        <lane id="CN_0" index="0" speed="13.89" length="100.00" shape="101.60,107.20 101.60,200.00"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2">
+        <lane id="CS_0" index="0" speed="13.89" length="100.00" shape="98.40,92.80 98.40,0.00"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2">
+        <lane id="CW_0" index="0" speed="13.89" length="100.00" shape="92.80,101.60 0.00,101.60"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2">
+        <lane id="EC_0" index="0" speed="13.89" length="100.00" shape="200.00,101.60 109.20,101.60"/>
+    </edge>
+    <edge id="NC" from="N" to="C" priority="2">
+        <lane id="NC_0" index="0" speed="13.89" length="100.00" shape="98.40,200.00 98.40,107.20"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="2">
+        <lane id="SC_0" index="0" allow="bicycle" speed="13.89" length="100.00" width="2.00" shape="104.20,0.00 104.20,92.80"/>
+        <lane id="SC_1" index="1" speed="13.89" length="100.00" shape="101.60,0.00 101.60,92.80"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2">
+        <lane id="WC_0" index="0" speed="13.89" length="100.00" shape="0.00,98.40 92.80,98.40"/>
+    </edge>
+
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="NC_0 EC_0 SC_0 SC_1 WC_0" intLanes="" shape="96.80,107.20 103.20,107.20 103.87,104.98 104.70,104.20 105.87,103.64 107.37,103.31 109.20,103.20 109.20,96.80 106.98,96.36 106.20,95.80 105.64,95.02 105.31,94.02 105.20,92.80 96.80,92.80 96.36,95.02 95.80,95.80 95.02,96.36 94.02,96.69 92.80,96.80 92.80,103.20 95.02,103.64 95.80,104.20 96.36,104.98 96.69,105.98">
+        <request index="0"  response="00000000000000000" foes="00001000100010000"/>
+        <request index="1"  response="00000000000000000" foes="11111001100110000"/>
+        <request index="2"  response="00000110011000000" foes="11000110011110000"/>
+        <request index="3"  response="00000100010000000" foes="10000100010000000"/>
+        <request index="4"  response="00001100110000111" foes="10001100110000111"/>
+        <request index="5"  response="01101100110000110" foes="01111101110000110"/>
+        <request index="6"  response="00000000000000000" foes="01000010000000100"/>
+        <request index="7"  response="00000100000000000" foes="11000110000111100"/>
+        <request index="8"  response="00001100000000011" foes="11001110000110011"/>
+        <request index="9"  response="00110000000100010" foes="00110000000100010"/>
+        <request index="10" response="00000000111000000" foes="01000000111000100"/>
+        <request index="11" response="00000000000000000" foes="11000000110111100"/>
+        <request index="12" response="00000000000000011" foes="11000000100110011"/>
+        <request index="13" response="00100000000100010" foes="00100001000100010"/>
+        <request index="14" response="00000000000000010" foes="00010001000100010"/>
+        <request index="15" response="00001110111000110" foes="00001110111100110"/>
+        <request index="16" response="00001100110011110" foes="00001100110011110"/>
+    </junction>
+    <junction id="E" type="priority" x="200.00" y="100.00" incLanes="CE_0" intLanes="" shape="200.00,100.00 200.00,96.80 200.00,100.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="N" type="priority" x="100.00" y="200.00" incLanes="CN_0" intLanes="" shape="100.00,200.00 103.20,200.00 100.00,200.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="S" type="priority" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="100.00,0.00 96.80,0.00 100.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="W" type="priority" x="0.00" y="100.00" incLanes="CW_0" intLanes="" shape="0.00,100.00 0.00,103.20 0.00,100.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="CE" to="EC" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="CN" to="NC" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="CS" to="SC" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from="CW" to="WC" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="EC" to="CS" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="NC" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="SC" to="CS" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="SC" to="CE" fromLane="1" toLane="0" dir="r" state="m"/>
+    <connection from="SC" to="CN" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="SC" to="CW" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="SC" to="CS" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0" dir="l" state="m"/>
+
+</net>

@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -208,6 +204,12 @@ public:
      */
     virtual void endParkingArea();
 
+    /** @brief End a stopping place
+     *
+     * @exception InvalidArgument If the current stopping place is 0
+     */
+    virtual void endStoppingPlace();
+
 
     /** @brief Parses his values and builds a charging station
      *
@@ -286,7 +288,7 @@ protected:
      * @param[in] chargeDelay delay in the charge
      * @exception InvalidArgument If the charging station can not be added to the net (is duplicate)
      */
-    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+    virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
 
     /** @brief builds a microscopic calibrator
@@ -335,7 +337,8 @@ protected:
     virtual MSTriggeredRerouter* buildRerouter(MSNet& net,
             const std::string& id, MSEdgeVector& edges,
             double prob, const std::string& file, bool off,
-            SUMOTime timeThreshold);
+            SUMOTime timeThreshold,
+            const std::string& vTypes);
     //@}
 
 

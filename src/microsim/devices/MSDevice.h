@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -44,6 +40,7 @@
 // ===========================================================================
 class OutputDevice;
 class SUMOVehicle;
+class MSTransportable;
 class OptionsCont;
 class SUMOSAXAttributes;
 
@@ -91,6 +88,10 @@ public:
 
     /// @brief return the name for this type of device
     virtual const std::string deviceName() const = 0;
+
+    /** @brief Determines whether a transportable should get a certain device
+     **/
+    static bool equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet);
 
     /// @brief perform cleanup for all devices
     static void cleanupAll();
@@ -179,6 +180,14 @@ protected:
      * @param[in] v The vehicle to determine whether it shall be equipped or not
      */
     static bool equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v, bool outputOptionSet);
+    /// @}
+
+
+    /// @name Helper methods for parsing parameters
+    /// @{
+    static std::string getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required);
+    static double getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required);
+    static bool getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required);
     /// @}
 
 protected:

@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <string>
@@ -40,6 +36,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+#include "EffortCalculator.h"
 #include "SUMOAbstractRouter.h"
 
 //#define DijkstraRouter_DEBUG_QUERY
@@ -55,20 +52,16 @@
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
- * @param EC The class to retrieve the effort for an edge from
+ * @param BASE The base class to use (SUMOAbstractRouterPermissions/SUMOAbstractRouter)
  *
  * The router is edge-based. It must know the number of edges for internal reasons
  *  and whether a missing connection between two given edges (unbuild route) shall
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class PF>
-class DijkstraRouter : public SUMOAbstractRouter<E, V>, public PF {
-
+template<class E, class V, class BASE>
+class DijkstraRouter : public BASE {
 public:
-    typedef double(* Operation)(const E* const, const V* const, double);
-
     /**
      * @class EdgeInfo
      * A definition about a route's edge with the effort needed to reach it and
@@ -78,7 +71,7 @@ public:
     public:
         /// Constructor
         EdgeInfo(const E* const e)
-            : edge(e), effort(std::numeric_limits<double>::max()), leaveTime(0), prev(0), visited(false) {}
+            : edge(e), effort(std::numeric_limits<double>::max()), leaveTime(0.), prev(nullptr), via(nullptr), visited(false) {}
 
         /// The current edge
         const E* const edge;
@@ -92,11 +85,15 @@ public:
         /// The previous edge
         const EdgeInfo* prev;
 
+        /// The optional internal edge corresponding to prev
+        const E* via;
+
         /// The previous edge
         bool visited;
 
         inline void reset() {
             effort = std::numeric_limits<double>::max();
+            via = nullptr;
             visited = false;
         }
 
@@ -123,9 +120,11 @@ public:
 
 
     /// Constructor
-    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation = nullptr) :
-        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouter"), myTTOperation(ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+    DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation effortOperation,
+                   typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc = nullptr) :
+        BASE("DijkstraRouter", effortOperation, ttOperation),
+        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             myEdgeInfos.push_back(EdgeInfo(*i));
         }
@@ -135,11 +134,7 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myTTOperation);
-    }
-
-    inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
-        return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
+        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myTTOperation, mySilent, myExternalEffort);
     }
 
     void init() {
@@ -161,11 +156,11 @@ public:
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && (vehicle == 0 || to != 0));
         // check whether from and to can be used
-        if (PF::operator()(from, vehicle)) {
+        if (this->isProhibited(from, vehicle)) {
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
             return false;
         }
-        if (PF::operator()(to, vehicle)) {
+        if (this->isProhibited(to, vehicle)) {
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             return false;
         }
@@ -197,6 +192,13 @@ public:
             // use the node with the minimal length
             EdgeInfo* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
+#ifdef DijkstraRouter_DEBUG_QUERY
+            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
+            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
+                std::cout << (*it)->effort << "," << (*it)->edge->getID() << " ";
+            }
+            std::cout << "\n";
+#endif
             // check whether the destination node was already reached
             if (minEdge == to) {
                 buildPathFrom(minimumInfo, into);
@@ -210,25 +212,28 @@ public:
             myFrontierList.pop_back();
             myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
-#ifdef DijkstraRouter_DEBUG_QUERY
-            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", TT: " << minimumInfo->leaveTime << " Q: ";
-            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
-                std::cout << (*it)->effort << "," << (*it)->edge->getID() << " ";
+            const E* viaEdge = minimumInfo->via;
+            double effort = minimumInfo->effort;
+            double leaveTime = minimumInfo->leaveTime;
+            while (viaEdge != nullptr && viaEdge != minEdge) {
+                const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
+                leaveTime += this->getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
+                effort += viaEffortDelta;
+                viaEdge = viaEdge->getViaSuccessors().front().first;
             }
-            std::cout << "\n";
-#endif
-            const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
-            const double effort = minimumInfo->effort + effortDelta;
-            const double leaveTime = minimumInfo->leaveTime + getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
+            const double effortDelta = this->getEffort(minEdge, vehicle, leaveTime);
+            leaveTime += this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
+            effort += effortDelta;
+            if (myExternalEffort != nullptr) {
+                myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
+            }
             assert(effort >= minimumInfo->effort);
             assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
-            const std::vector<E*>& successors = minEdge->getSuccessors(vClass);
-            for (typename std::vector<E*>::const_iterator it = successors.begin(); it != successors.end(); ++it) {
-                const E* const follower = *it;
-                EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
+            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
+                EdgeInfo* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
                 // check whether it can be used
-                if (PF::operator()(follower, vehicle)) {
+                if (this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
                 const double oldEffort = followerInfo->effort;
@@ -236,6 +241,7 @@ public:
                     followerInfo->effort = effort;
                     followerInfo->leaveTime = leaveTime;
                     followerInfo->prev = minimumInfo;
+                    followerInfo->via = follower.second;
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
                         push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
@@ -249,28 +255,14 @@ public:
         }
         this->endQuery(num_visited);
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
-        std::cout << "visited " + toString(num_visited) + " edges (unsuccesful path length: " + toString(into.size()) + ")\n";
+        std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
-        if (to != 0) {
+        if (to != 0 && !mySilent) {
             myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
         return false;
     }
 
-
-    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        double costs = 0;
-        double t = STEPS2TIME(msTime);
-        for (const E* const e : edges) {
-            if (PF::operator()(e, v)) {
-                return -1;
-            }
-            const double effortDelta = this->getEffort(e, v, t);
-            costs += effortDelta;
-            t += getTravelTime(e, v, t, effortDelta);
-        }
-        return costs;
-    }
 
     /// Builds the path from marked edges
     void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
@@ -287,17 +279,25 @@ public:
     }
 
 private:
-    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation effortOperation, Operation ttOperation) :
-        SUMOAbstractRouter<E, V>(effortOperation, "DijkstraRouter"), myTTOperation(ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {
+    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning,
+                   typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
+        BASE("DijkstraRouter", effortOperation, ttOperation),
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        mySilent(silent),
+        myExternalEffort(calc) {
         for (const EdgeInfo& ei : edgeInfos) {
             myEdgeInfos.push_back(EdgeInfo(ei.edge));
         }
     }
 
 private:
-    /// @brief The object's operation to perform for travel times
-    Operation myTTOperation;
+    /// @brief the handler for routing errors
+    MsgHandler* const myErrorMsgHandler;
+
+    /// @brief whether to supress warning/error if no route was found
+    bool mySilent;
+
+    EffortCalculator* const myExternalEffort;
 
     /// The container of edge information
     std::vector<EdgeInfo> myEdgeInfos;
@@ -308,9 +308,6 @@ private:
     std::vector<EdgeInfo*> myFound;
 
     EdgeInfoByEffortComparator myComparator;
-
-    /// @brief the handler for routing errors
-    MsgHandler* const myErrorMsgHandler;
 };
 
 

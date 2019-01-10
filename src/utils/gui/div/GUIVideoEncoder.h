@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <iostream>
@@ -146,7 +142,7 @@ public:
         }
         const int ret = avcodec_open2(pCodecCtx, pCodec, &param);
         if (ret < 0) {
-            throw std::runtime_error("Failed to open encoder ("+ toString(ret) +")!");
+            throw std::runtime_error("Failed to open encoder (" + toString(ret) + ")!");
         }
 
         myFrame = av_frame_alloc();

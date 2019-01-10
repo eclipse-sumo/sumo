@@ -129,7 +129,7 @@ class Domain:
         """
         return self._getUniversal(tc.ID_COUNT, "")
 
-    def subscribe(self, objectID, varIDs=None, begin=0, end=2**31 - 1):
+    def subscribe(self, objectID, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribe(string, list(integer), double, double) -> None
 
         Subscribe to one or more object values for the given interval.
@@ -148,13 +148,12 @@ class Domain:
         Unsubscribe from receiving object values.
         """
         self._connection._subscribe(
-            self._subscribeID, 0, 2**31 - 1, objectID, [])
+            self._subscribeID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE, objectID, [])
 
-    def getSubscriptionResults(self, objectID=None):
+    def getSubscriptionResults(self, objectID):
         """getSubscriptionResults(string) -> dict(integer: <value_type>)
 
         Returns the subscription results for the last time step and the given object.
-        If no object id is given, all subscription results are returned in a dict.
         If the object id is unknown or the subscription did for any reason return no data,
         'None' is returned.
         It is not possible to retrieve older subscription results than the ones
@@ -162,7 +161,16 @@ class Domain:
         """
         return self._connection._getSubscriptionResults(self._subscribeResponseID).get(objectID)
 
-    def subscribeContext(self, objectID, domain, dist, varIDs=None, begin=0, end=2**31 - 1):
+    def getAllSubscriptionResults(self):
+        """getAllSubscriptionResults() -> dict(string: dict(integer: <value_type>))
+
+        Returns the subscription results for the last time step and all objects of the domain.
+        It is not possible to retrieve older subscription results than the ones
+        from the last time step.
+        """
+        return self._connection._getSubscriptionResults(self._subscribeResponseID).get(None)
+
+    def subscribeContext(self, objectID, domain, dist, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribeContext(string, int, double, list(integer), double, double) -> None
 
         Subscribe to objects of the given domain (specified as domain=traci.constants.CMD_GET_<DOMAIN>_VARIABLE),
@@ -178,10 +186,13 @@ class Domain:
 
     def unsubscribeContext(self, objectID, domain, dist):
         self._connection._subscribeContext(
-            self._contextID, 0, 2**31 - 1, objectID, domain, dist, [])
+            self._contextID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE, objectID, domain, dist, [])
 
-    def getContextSubscriptionResults(self, objectID=None):
+    def getContextSubscriptionResults(self, objectID):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(objectID)
+
+    def getAllContextSubscriptionResults(self):
+        return self._connection._getSubscriptionResults(self._contextResponseID).getContext(None)
 
     def getParameter(self, objID, param):
         """getParameter(string, string) -> string

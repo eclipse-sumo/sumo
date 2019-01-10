@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fxkeys.h>
 #include <utils/geom/Boundary.h>
@@ -157,7 +153,7 @@ GUIDanielPerspectiveChanger::onLeftBtnPress(void* data) {
 
 bool
 GUIDanielPerspectiveChanger::onLeftBtnRelease(void* data) {
-    myMouseButtonState &= !MOUSEBTN_LEFT;
+    myMouseButtonState &= ~MOUSEBTN_LEFT;
     FXEvent* e = (FXEvent*) data;
     myMouseXPosition = e->win_x;
     myMouseYPosition = e->win_y;
@@ -179,7 +175,7 @@ GUIDanielPerspectiveChanger::onRightBtnPress(void* data) {
 
 bool
 GUIDanielPerspectiveChanger::onRightBtnRelease(void* data) {
-    myMouseButtonState &= !MOUSEBTN_RIGHT;
+    myMouseButtonState &= ~MOUSEBTN_RIGHT;
     if (data != 0) {
         FXEvent* e = (FXEvent*) data;
         myMouseXPosition = e->win_x;
@@ -229,7 +225,7 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
             if (pastDelay) {
                 if (myRotation != 0) {
                     Position diffRot = Position(xdiff, ydiff).rotateAround2D(
-                            DEG2RAD(myRotation), Position(0,0));
+                                           DEG2RAD(myRotation), Position(0, 0));
                     move((int)diffRot.x(), (int)diffRot.y());
                 } else {
                     move(xdiff, ydiff);

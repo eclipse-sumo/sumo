@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -87,13 +83,14 @@ public:
      * @param[in] attrs The list of known attributes
      * @param[in] terminatorAttr The attr which signales the end of attrs (usually the last entry)
      * @param[in] file The name of the processed file
+     * @param[in] expectedRoot The expected root element, empty string disables the check
      *
      * @todo Why are both lists non-const and given as pointers?
      */
     GenericSAXHandler(
         StringBijection<int>::Entry* tags, int terminatorTag,
         StringBijection<int>::Entry* attrs, int terminatorAttr,
-        const std::string& file);
+        const std::string& file, const std::string& expectedRoot = "");
 
 
     /** @brief Destructor */
@@ -255,6 +252,10 @@ protected:
     virtual void myEndElement(int element);
 
 
+    void setSchemaSeen(const bool schemaSeen = true) {
+        mySchemaSeen = schemaSeen;
+    }
+
 private:
     /**
      * @brief converts from c++-string into unicode
@@ -313,6 +314,12 @@ private:
 
     /// @brief The name of the currently parsed file
     std::string myFileName;
+
+    /// @brief The root element to expect, empty string disables the check
+    std::string myExpectedRoot;
+
+    /// @brief whether the reader has already seen a schema
+    bool mySchemaSeen;
 
 private:
     /// @brief invalidated copy constructor

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
@@ -41,6 +37,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
 
+//#define DEBUG_BLUELIGHT
 
 // ===========================================================================
 // method definitions
@@ -74,7 +71,9 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
             }
 
         } else {
+#ifdef DEBUG_BLUELIGHT
             std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'bluelight'. Using default of " << customParameter2 << "\n";
+#endif
         }
         // get custom vType parameter
         double customParameter3 = -1;
@@ -86,7 +85,9 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
             }
 
         } else {
+#ifdef DEBUG_BLUELIGHT
             std::cout << "vehicle '" << v.getID() << "' does not supply vType parameter 'bluelight'. Using default of " << customParameter3 << "\n";
+#endif
         }
         MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
                 oc.getFloat("device.bluelight.parameter"),
@@ -101,12 +102,14 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
 // MSDevice_Bluelight-methods
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
-    double customValue1, double customValue2, double customValue3) :
+                                       double customValue1, double customValue2, double customValue3) :
     MSDevice(holder, id),
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
     myCustomValue3(customValue3) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "initialized device '" << id << "' with myCustomValue1=" << myCustomValue1 << ", myCustomValue2=" << myCustomValue2 << ", myCustomValue3=" << myCustomValue3 << "\n";
+#endif
 }
 
 
@@ -116,8 +119,12 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 
 bool
 MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
-                               double /* newPos */, double  newSpeed ) {
+                               double /* newPos */, double newSpeed) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
+#else
+    UNUSED_PARAMETER(newSpeed);
+#endif
     // check whether another device is present on the vehicle:
     /*MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
     if (otherDevice != 0) {
@@ -130,34 +137,52 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
     vt->setPreferredLateralAlignment(LATALIGN_ARBITRARY);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-    std::string currentEdgeID= veh.getEdge()->getID();
+    std::string currentEdgeID = veh.getEdge()->getID();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         SUMOVehicle* veh2 = it->second;
         //Vehicle only from edge should react
         if (currentEdgeID == veh2->getEdge()->getID()) {
+            if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
+                // emergency vehicles should not react
+                continue;
+            }
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
             // the perception of the sound of the siren should be around 25 meters
             // todo only vehicles in front of the emergency vehicle should react
-            if (distanceDelta <= 25 && veh.getID() != veh2->getID()) {
-                //std::cout << "In Range Vehicle '" << veh2->getID() << "\n";
+            if (distanceDelta <= 25 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
+                influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
+                influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
+                //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                 MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
                 MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
 
-                //other vehicle should not use the rescue lane so they should not make any lane changes 
+                //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);
-                const int numLanes= (int)veh2->getEdge()->getLanes().size();
+                const int numLanes = (int)veh2->getEdge()->getLanes().size();
                 //Setting the lateral alignment to build a rescue lane
-                if (veh2->getLane()->getIndex() == numLanes-1) {
+                if (veh2->getLane()->getIndex() == numLanes - 1) {
                     t.setPreferredLateralAlignment(LATALIGN_LEFT);
-                    //std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 } else {
                     t.setPreferredLateralAlignment(LATALIGN_RIGHT);
-                    //std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 }
-                //influencedVehicles->push_back(static_cast<MSVehicle*>(veh2));
-                //std::cout << "Vehcile in influencedVehicleList: " << veh2->getID() << "\n";
+
             }
-            //todo if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
+
+        } else { //if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
+            if (influencedVehicles.count(veh2->getID()) > 0) {
+                double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
+                if (distanceDelta > 25 && veh.getID() != veh2->getID()) {
+                    influencedVehicles.erase(veh2->getID());
+                    std::map<std::string, std::string>::iterator it = influencedTypes.find(veh2->getID());
+                    if (it != influencedTypes.end()) {
+                        // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
+                        MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
+                        static_cast<MSVehicle*>(veh2)->replaceVehicleType(targetType);
+                    }
+                }
+            }
         }
     }
     return true; // keep the device
@@ -166,14 +191,24 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
 
 bool
 MSDevice_Bluelight::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
+#endif
     return true; // keep the device
 }
 
 
 bool
 MSDevice_Bluelight::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
+#endif
     return true; // keep the device
 }
 
@@ -207,7 +242,7 @@ MSDevice_Bluelight::setParameter(const std::string& key, const std::string& valu
     double doubleValue;
     try {
         doubleValue = TplConvert::_2double(value.c_str());
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
     if (key == "customValue1") {

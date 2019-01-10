@@ -1,159 +1,68 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 140
-[log]  TYPE "v"
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log] ( Alt )  TYPE "o"
-[log]  TYPE "a"
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(404,240)@S(0)[0,0 1280x720] (234 msec)
+25
+0
+25
+e3Detector
+TestFunctions: Clicked over position 304 - 240
 TestFunctions: Clicked over position 404 - 240
-[log] CLICK on L(504,240)@S(0)[0,0 1280x720] (235 msec)
+-30
 TestFunctions: Clicked over position 504 - 240
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(604,240)@S(0)[0,0 1280x720] (234 msec)
+150
+TestFunctions: Clicked over position 504 - 240
+"""
+TestFunctions: Clicked over position 554 - 190
+customName
+TestFunctions: Clicked over position 554 - 190
+%%%$$%%$%
 TestFunctions: Clicked over position 604 - 240
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(604,240)@S(0)[0,0 1280x720] (235 msec)
+myOwnFile.txt
 TestFunctions: Clicked over position 604 - 240
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(704,240)@S(0)[0,0 1280x720] (234 msec)
+%%;$$$ %%$$ type.3
 TestFunctions: Clicked over position 704 - 240
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(704,240)@S(0)[0,0 1280x720] (234 msec)
+private passenger taxi bus
+-4
 TestFunctions: Clicked over position 704 - 240
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(804,240)@S(0)[0,0 1280x720] (235 msec)
+5
+TestFunctions: Clicked over position 704 - 240
+-3.80
 TestFunctions: Clicked over position 804 - 240
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log] CLICK on L(804,240)@S(0)[0,0 1280x720] (235 msec)
+2.51
 TestFunctions: Clicked over position 804 - 240
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log] ( Ctrl )  TYPE "a"
-[log]  TYPE "#ENTER."
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#DOWN."
-[log]  TYPE "#TAB."
-[log] CLICK on L(354,340)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 354 - 340
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#DOWN."
-[log]  TYPE "#TAB."
-[log] CLICK on L(504,390)@S(0)[0,0 1280x720] (235 msec)
+TestFunctions: Clicked over position 904 - 240
+detEntry
+TestFunctions: Clicked over position 304 - 240
+TestFunctions: Clicked over position 304 - 390
+TestFunctions: Clicked over position 404 - 240
+TestFunctions: Clicked over position 404 - 340
+TestFunctions: Clicked over position 504 - 240
 TestFunctions: Clicked over position 504 - 390
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#DOWN."
-[log]  TYPE "#TAB."
-[log] CLICK on L(654,340)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 654 - 340
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#DOWN."
-[log]  TYPE "#TAB."
-[log] CLICK on L(804,390)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 554 - 190
+TestFunctions: Clicked over position 554 - 340
+TestFunctions: Clicked over position 604 - 240
+TestFunctions: Clicked over position 604 - 390
+TestFunctions: Clicked over position 704 - 240
+TestFunctions: Clicked over position 704 - 340
+TestFunctions: Clicked over position 804 - 240
 TestFunctions: Clicked over position 804 - 390
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
+TestFunctions: Clicked over position 904 - 240
+TestFunctions: Clicked over position 904 - 340
+detExit
+TestFunctions: Clicked over position 404 - 240
+TestFunctions: Clicked over position 404 - 540
+TestFunctions: Clicked over position 504 - 240
+TestFunctions: Clicked over position 504 - 590
+TestFunctions: Clicked over position 554 - 190
+TestFunctions: Clicked over position 554 - 540
+TestFunctions: Clicked over position 604 - 240
+TestFunctions: Clicked over position 604 - 590
+TestFunctions: Clicked over position 704 - 240
+TestFunctions: Clicked over position 704 - 540
+TestFunctions: Clicked over position 804 - 240
+TestFunctions: Clicked over position 804 - 590
+TestFunctions: Clicked over position 904 - 240
+TestFunctions: Clicked over position 904 - 540
 TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
 TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl+Shift )  TYPE "d"
-[log] ( Ctrl )  TYPE "s"
-[log] ( Ctrl )  TYPE "q"
 TestFunctions: Netedit closed successfully

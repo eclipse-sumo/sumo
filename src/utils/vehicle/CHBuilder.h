@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <functional>
@@ -236,12 +232,15 @@ private:
         /// @brief Constructor
         CHInfo(const E* e) :
             edge(e),
+            priority(0.),
             contractedNeighbors(0),
             rank(-1),
             level(0),
             underlyingTotal(0),
             visited(false),
-            traveltime(std::numeric_limits<double>::max()) {
+            traveltime(std::numeric_limits<double>::max()),
+            depth(0),
+            permissions(SVC_IGNORING) {
         }
 
         /// @brief recompute the contraction priority and report whether it changed

@@ -13,7 +13,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 12 Mar 2001
-/// @version $Id: MSInsertionControl.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <map>
@@ -140,7 +136,7 @@ public:
 
 
     /// @brief clears out all pending vehicles from a route, "" for all routes
-    void clearPendingVehicles(std::string& route);
+    void clearPendingVehicles(const std::string& route);
 
 
     /** @brief Checks for all vehicles whether they can be emitted
@@ -160,6 +156,11 @@ public:
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);
+
+    /// @brief retrieve internal RNG
+    std::mt19937* getFlowRNG() {
+        return &myFlowRNG;
+    }
 
 private:
     /** @brief Tries to emit the vehicle
@@ -246,6 +247,8 @@ private:
     /// @brief Invalidated assignment operator.
     MSInsertionControl& operator=(const MSInsertionControl&);
 
+    /// @brief A random number generator for probabilistic flows
+    std::mt19937 myFlowRNG;
 
 };
 

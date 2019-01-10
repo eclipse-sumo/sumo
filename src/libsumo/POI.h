@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
@@ -39,6 +35,10 @@
 // ===========================================================================
 class NamedRTree;
 class PointOfInterest;
+class PositionVector;
+namespace libsumo {
+class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -54,37 +54,47 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static std::string getType(const std::string& poiID);
-    static TraCIPosition getPosition(const std::string& poiID);
+    static TraCIPosition getPosition(const std::string& poiID, const bool includeZ = false);
     static TraCIColor getColor(const std::string& poiID);
     static std::string getParameter(const std::string& poiID, const std::string& param);
 
     static void setType(const std::string& poiID, const std::string& setType);
     static void setColor(const std::string& poiID, const TraCIColor& c);
-    static void setPosition(const std::string& poiID, const TraCIPosition& pos);
-    static bool add(const std::string& poiID, const TraCIPosition& pos, const TraCIColor& c, const std::string& type, int layer);
+    static void setPosition(const std::string& poiID, double x, double y);
+    static bool add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType = "", int layer = 0);
     static bool remove(const std::string& poiID, int layer = 0);
 
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
     static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
 
+    LIBSUMO_SUBSCRIPTION_API
+
     /** @brief Returns a tree filled with PoI instances
-     * @return The rtree of PoIs
+     *  @return The rtree of PoIs
      */
     static NamedRTree* getTree();
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the poi to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static PointOfInterest* getPoI(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    POI();
-
-    /// @brief invalidated copy constructor
-    POI(const POI& src);
-
-    /// @brief invalidated assignment operator
-    POI& operator=(const POI& src);
+    POI() = delete;
 };
+
+
 }
 
 

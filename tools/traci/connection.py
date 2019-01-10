@@ -21,6 +21,7 @@ from __future__ import absolute_import
 import socket
 import struct
 import sys
+import warnings
 
 try:
     import traciemb
@@ -102,7 +103,7 @@ class Connection:
             if prefix[2] or err:
                 self._string = bytes()
                 self._queue = []
-                raise TraCIException(prefix[1], _RESULTS[prefix[2]], err)
+                raise TraCIException(err, prefix[1], _RESULTS[prefix[2]])
             elif prefix[1] != command:
                 raise FatalTraCIError("Received answer %s for command %s." % (prefix[1],
                                                                               command))
@@ -135,7 +136,7 @@ class Connection:
         self._beginMessage(cmdID, varID, objID, 1 + 8)
         self._string += struct.pack("!Bd", tc.TYPE_DOUBLE, value)
         self._sendExact()
-        
+
     def _sendByteCmd(self, cmdID, varID, objID, value):
         self._beginMessage(cmdID, varID, objID, 1 + 1)
         self._string += struct.pack("!BB", tc.TYPE_BYTE, value)
@@ -167,7 +168,8 @@ class Connection:
         # result.printDebug()
         result.readLength()
         response = result.read("!B")[0]
-        isVariableSubscription = response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE
+        isVariableSubscription = (response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and
+                                  response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE)
         objectID = result.readString()
         if not isVariableSubscription:
             domain = result.read("!B")[0]
@@ -175,12 +177,11 @@ class Connection:
         if isVariableSubscription:
             while numVars > 0:
                 varID = result.read("!B")[0]
-                status, varType = result.read("!BB")
+                status, _ = result.read("!BB")
                 if status:
                     print("Error!", result.readString())
                 elif response in self._subscriptionMapping:
-                    self._subscriptionMapping[response].add(
-                        objectID, varID, result)
+                    self._subscriptionMapping[response].add(objectID, varID, result)
                 else:
                     raise FatalTraCIError(
                         "Cannot handle subscription response %02x for %s." % (response, objectID))
@@ -207,7 +208,7 @@ class Connection:
 
     def _subscribe(self, cmdID, begin, end, objID, varIDs, parameters=None):
         self._queue.append(cmdID)
-        length = 1 + 1 + 4 + 4 + 4 + len(objID) + 1 + len(varIDs)
+        length = 1 + 1 + 8 + 8 + 4 + len(objID) + 1 + len(varIDs)
         if parameters:
             for v in varIDs:
                 if v in parameters:
@@ -216,7 +217,7 @@ class Connection:
             self._string += struct.pack("!B", length)
         else:
             self._string += struct.pack("!Bi", 0, length + 4)
-        self._string += struct.pack("!Biii",
+        self._string += struct.pack("!Bddi",
                                     cmdID, begin, end, len(objID)) + objID.encode("latin1")
         self._string += struct.pack("!B", len(varIDs))
         for v in varIDs:
@@ -235,12 +236,12 @@ class Connection:
 
     def _subscribeContext(self, cmdID, begin, end, objID, domain, dist, varIDs):
         self._queue.append(cmdID)
-        length = 1 + 1 + 4 + 4 + 4 + len(objID) + 1 + 8 + 1 + len(varIDs)
+        length = 1 + 1 + 8 + 8 + 4 + len(objID) + 1 + 8 + 1 + len(varIDs)
         if length <= 255:
             self._string += struct.pack("!B", length)
         else:
             self._string += struct.pack("!Bi", 0, length + 4)
-        self._string += struct.pack("!Biii",
+        self._string += struct.pack("!Bddi",
                                     cmdID, begin, end, len(objID)) + objID.encode("latin1")
         self._string += struct.pack("!BdB", domain, dist, len(varIDs))
         for v in varIDs:
@@ -251,6 +252,51 @@ class Connection:
             if response - cmdID != 16 or objectID != objID:
                 raise FatalTraCIError("Received answer %02x,%s for context subscription command %02x,%s." % (
                     response, objectID, cmdID, objID))
+
+    def _addSubscriptionFilter(self, filterType, params=None):
+        command = tc.CMD_ADD_SUBSCRIPTION_FILTER
+        self._queue.append(command)
+        if filterType in (tc.FILTER_TYPE_NONE, tc.FILTER_TYPE_NOOPPOSITE, 
+                          tc.FILTER_TYPE_CF_MANEUVER, tc.FILTER_TYPE_LC_MANEUVER, tc.FILTER_TYPE_TURN_MANEUVER):
+            # filter without parameter
+            assert(params is None)
+            length = 1 + 1 + 1  # length + CMD + FILTER_ID
+            self._string += struct.pack("!BBB", length, command, filterType)
+        elif filterType in (tc.FILTER_TYPE_DOWNSTREAM_DIST, tc.FILTER_TYPE_UPSTREAM_DIST):
+            # filter with float parameter
+            assert(type(params) is float)
+            length = 1 + 1 + 1 + 1 + 8  # length + CMD + FILTER_ID + floattype + float
+            self._string += struct.pack("!BBBd", length, command, filterType, tc.TYPE_DOUBLE, params)
+        elif filterType in (tc.FILTER_TYPE_VCLASS, tc.FILTER_TYPE_VTYPE):
+            # filter with list(string) parameter
+            try:
+                l = len(params)
+            except Exception:
+                raise TraCIException("Filter type %s requires identifier list as parameter." % filterType)
+            length = 1 + 1 + 1 + 1 + 4  # length + CMD + FILTER_ID + TYPE_STRINGLIST + length(stringlist)
+            for s in params:
+                length += 4 + len(s)  # length(s) + s
+
+            if length <= 255:
+                self._string += struct.pack("!BBB", length, command, filterType)
+            else:
+                length += 4  # extended msg length
+                self._string += struct.pack("!BiBB", 0, length, command, filterType)
+            self._string += self._packStringList(params)
+        elif filterType == tc.FILTER_TYPE_LANES:
+            # filter with list(byte) parameter
+            try:
+                l = len(params)
+            except:
+                raise TraCIException("Filter type lanes requires index list as parameter.")
+            length = 1 + 1 + 1 + 1 + l  # length + CMD + FILTER_ID + length(list) as ubyte + lane-indices
+            self._string += struct.pack("!BBBB", length, command, filterType, l)
+            for i in params:
+                if i <= -128 or i >= 128:
+                    raise TraCIException("Filter type lanes: maximal lane index is 127.")
+                if i < 0:
+                    i += 256
+                self._string += struct.pack("!B", i)
 
     def isEmbedded(self):
         return _embedded
@@ -264,15 +310,16 @@ class Connection:
         self._packStringList(args)
         self._sendExact()
 
-    def simulationStep(self, step=0):
+    def simulationStep(self, step=0.):
         """
-        Make a simulation step and simulate up to the given millisecond in sim time.
+        Make a simulation step and simulate up to the given second in sim time.
         If the given value is 0 or absent, exactly one step is performed.
         Values smaller than or equal to the current sim time result in no action.
         """
+        if type(step) is int and step >= 1000:
+            warnings.warn("API change now handles step as floating point seconds", stacklevel=2)
         self._queue.append(tc.CMD_SIMSTEP)
-        self._string += struct.pack("!BBi", 1 +
-                                    1 + 4, tc.CMD_SIMSTEP, step)
+        self._string += struct.pack("!BBd", 1 + 1 + 8, tc.CMD_SIMSTEP, step)
         result = self._sendExact()
         for subscriptionResults in self._subscriptionMapping.values():
             subscriptionResults.reset()

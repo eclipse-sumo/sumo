@@ -7,6 +7,9 @@ control
 # smooth flow
 control.limited
 
+# check limited control for a small roundabout
+control.limited.small_roundabout
+
 # smooth flow with penalty
 control.limited_tlsPenalty
 

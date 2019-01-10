@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "ROMAEdge.h"
 
@@ -45,8 +41,8 @@ ROMAEdge::~ROMAEdge() {
 
 
 void
-ROMAEdge::addSuccessor(ROEdge* s, std::string dir) {
-    ROEdge::addSuccessor(s, dir);
+ROMAEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string dir) {
+    ROEdge::addSuccessor(s, via, dir);
     if (dir == "l" || dir == "L") {
         myLeftTurns.insert(static_cast<ROMAEdge*>(s));
     }

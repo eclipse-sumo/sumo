@@ -15,7 +15,6 @@
 import gtk
 import os
 import subprocess
-import sys
 import socket
 import platform
 
@@ -24,6 +23,8 @@ TRAY_TOOLTIP = 'Sikulix server'
 TRAY_ICON = os.environ.get('SUMO_HOME', '.') + "/tests/sikulixicon.png"
 
 # Open message dialog to User
+
+
 def messageDialog(data=None):
     msg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, data)
     msg.run()
@@ -57,9 +58,9 @@ def checkStatus():
 # start Sikulix Server
 def startSikulixServer():
     # Call a subprocess of this Python Script to run Sikulix Server depending of operating system
-    subprocess.Popen([os.environ.get('RUN_SIKULIX', 'runsikulix'), "-s"], 
+    subprocess.Popen([os.environ.get('RUN_SIKULIX', 'runsikulix'), "-s"],
                      env=os.environ, stdout=None, stderr=None, shell=(platform.system() != 'Linux'))
-    #return status of sikulixServer
+    # return status of sikulixServer
     return checkStatus()
 
 
@@ -112,16 +113,16 @@ def makeMenu(event_button, event_time, data=None):
     # Create menu items
     checkStatusItem = gtk.MenuItem("Check Status")
     closeServerItem = gtk.MenuItem("Close Sikulix server")
-    #Append the menu items  
+    # Append the menu items
     menu.append(checkStatusItem)
     menu.append(closeServerItem)
-    #add callbacks
+    # add callbacks
     checkStatusItem.connect_object("activate", showStatus, "Check status")
     closeServerItem.connect_object("activate", closeApp, "Close Sikulix Server")
-    #Show the menu items
+    # Show the menu items
     checkStatusItem.show()
     closeServerItem.show()
-    #Popup the menu
+    # Popup the menu
     menu.popup(None, None, None, event_button, event_time)
 
 
@@ -142,7 +143,7 @@ def buildTrayIcon():
 # Main function of RunSikulixServer
 if __name__ == '__main__':
     # Check if sikulixServer is already opened
-    if checkStatus() == False :
+    if checkStatus() == False:
         # Start Sikulix Server
         startSikulixServer()
         buildTrayIcon()

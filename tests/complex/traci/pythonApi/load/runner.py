@@ -21,17 +21,16 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-import traci
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+else:
+    import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo')
-
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen(
-    "%s -c sumo.sumocfg --remote-port %s" % (sumoBinary, PORT), shell=True, stdout=sys.stdout)
-traci.init(PORT)
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 traci.simulationStep()
 
 # cause an error and catch it
@@ -43,7 +42,6 @@ except traci.TraCIException:
 traci.load(["sumo.sumocfg"])
 traci.simulationStep()
 traci.close()
-sumoProcess.wait()
 
 
 sumoBinary = sumolib.checkBinary('sumo-gui')

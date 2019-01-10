@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -435,6 +431,46 @@ inline std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src) 
 
 template<typename X> struct invalid_return {
     static const X value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<bool> {
+    static const bool value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<int> {
+    static const int value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<long long int> {
+    static const long long int value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<double> {
+    static const double value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<std::string> {
+    static const std::string value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<RGBColor> {
+    static const RGBColor value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<PositionVector> {
+    static const PositionVector value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<Boundary> {
+    static const Boundary value;
     static const std::string type;
 };
 

@@ -9,6 +9,7 @@
 /****************************************************************************/
 /// @file    MSCFModel_Rail.cpp
 /// @author  Gregor L\"ammel
+/// @author  Leander Flamm
 /// @date    Tue, 08 Feb 2017
 /// @version $Id$
 ///
@@ -17,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
@@ -32,11 +29,9 @@
 
 #define G  9.80665
 
-MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType)
-    :
-
-    MSCFModel(vtype, -1, -1, -1, -1, 1) {
-
+MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
+    MSCFModel(vtype) {
+    const std::string trainType = vtype->getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
     if (trainType.compare("RB425") == 0) {
         myTrainParams = initRB425Params();
     } else if (trainType.compare("RB628") == 0) {
@@ -66,18 +61,38 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType
     }
     myTrainParams.decl = vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, myTrainParams.decl);
     setMaxDecel(myTrainParams.decl);
+    setEmergencyDecel(myTrainParams.decl);
     // update type parameters so they are shown correctly in the gui (if defaults from trainType are used)
     const_cast<MSVehicleType*>(vtype)->setMaxSpeed(myTrainParams.vmax);
     const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
 
 }
 
-MSCFModel_Rail::~MSCFModel_Rail() {
-}
+MSCFModel_Rail::~MSCFModel_Rail() { }
 
-double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double /* gap2pred*/,
+double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,
                                    double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/) const {
-    return maxNextSpeed(speed, veh);
+
+    // followSpeed module is used for the simulation of moving block operations. The safety gap is chosen similar to the existing german
+    // system CIR-ELKE (based on LZB). Other implementations of moving block systems may differ, but for now no appropriate parameter
+    // can be set (would be per lane, not per train) -> hard-coded
+
+    double safetyGap = 5.0; // default value for low speeds (< 30 km/h)
+    if (speed >= 30 / 3.6) {
+        safetyGap = 50.0; // safety distance for higher speeds (>= 30 km/h)
+    }
+
+    const double vsafe = maximumSafeStopSpeed(gap - safetyGap, speed, false, TS); // absolute breaking distance
+    const double vmin = minNextSpeed(speed, veh);
+    const double vmax = maxNextSpeed(speed, veh);
+
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return MIN2(vsafe, vmax);
+    } else {
+        // ballistic
+        // XXX: the euler variant can break as strong as it wishes immediately! The ballistic cannot, refs. #2575.
+        return MAX2(MIN2(vsafe, vmax), vmin);
+    }
 }
 
 int
@@ -86,9 +101,8 @@ MSCFModel_Rail::getModelID() const {
 }
 
 MSCFModel*
-MSCFModel_Rail::duplicate(const MSVehicleType* /* vtype */) const {
-    /// XXX Fixme
-    throw ProcessError("not yet implemented");
+MSCFModel_Rail::duplicate(const MSVehicleType* vtype) const {
+    return new MSCFModel_Rail(vtype);
 }
 
 double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) const {
@@ -117,6 +131,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
             a = (trac - totalRes) / myTrainParams.rotWeight; //kN/t == N/kg
         }
     }
+
     double maxNextSpeed = speed + a * DELTA_T / 1000.;
 
 //    std::cout << veh->getID() << " speed: " << (speed*3.6) << std::endl;
@@ -137,6 +152,13 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
     return speed - a * DELTA_T / 1000.;
 
 }
+
+
+double
+MSCFModel_Rail::minNextSpeedEmergency(double speed, const MSVehicle* const veh) const {
+    return minNextSpeed(speed, veh);
+}
+
 
 double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const {
     speed = speed * 3.6; // lookup values in km/h
@@ -225,7 +247,7 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
         const double fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
         return DIST2SPEED(MAX2(0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
     } else {
-        WRITE_ERROR("Anything else then semi implicit euler update is not yet implemented. Exiting!");
+        WRITE_ERROR("Anything else than semi implicit euler update is not yet implemented. Exiting!");
         throw ProcessError();
     }
 }

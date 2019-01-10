@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -108,7 +104,8 @@ protected:
         OPENDRIVE_TAG_LANELINK,
         OPENDRIVE_TAG_WIDTH,
         OPENDRIVE_TAG_SPEED,
-        OPENDRIVE_TAG_ELEVATION
+        OPENDRIVE_TAG_ELEVATION,
+        OPENDRIVE_TAG_GEOREFERENCE
     };
 
 
@@ -393,6 +390,7 @@ protected:
         bool all;
         std::string origID;
         int origLane;
+        PositionVector shape;
     };
 
 
@@ -502,6 +500,16 @@ protected:
      */
     void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
+    /**
+     * @brief Callback method for characters to implement by derived classes
+     *
+     * Called by "endElement" (see there).
+     * @param[in] element The opened element, given as a int
+     * @param[in] chars The complete embedded character string
+     * @exceptions ProcessError These method may throw a ProcessError if something fails
+     */
+    void myCharacters(int element, const std::string& chars);
+
 
     /** @brief Called when a closing tag occurs
      *
@@ -537,6 +545,7 @@ private:
     static bool myImportAllTypes;
     static bool myImportWidths;
     static double myMinWidth;
+    static bool myImportInternalShapes;
 
 
 protected:

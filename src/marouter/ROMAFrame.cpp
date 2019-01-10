@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <fstream>
@@ -145,7 +141,7 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "continue-on-unbuild", true);
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
-    oc.addDescription("ignore-errors", "Processing", "Continue if a route could not be build");
+    oc.addDescription("ignore-errors", "Report", "Continue if a route could not be build");
 
     oc.doRegister("max-alternatives", new Option_Integer(5));
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");

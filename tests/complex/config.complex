@@ -56,8 +56,10 @@ lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
 log:log.txt
+cadytslog:cadySumo-log.txt
 png:out.png
 png2:out2.png
+detector:detector.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -69,6 +71,9 @@ output:data\\{REPLACE data/}
 output:Could not connect to TraCI server
 output:Retrying in
 output:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
+output:Parsing nodes from .*{REPLACE Parsing nodes from (FILE)}
+output:Parsing edges from .*{REPLACE Parsing edges from (FILE)}
+output:Parsing connections from .*{REPLACE Parsing connections from (FILE)}
 output:Loading vehicle type mappings from file.*{REPLACE Loading vehicle type mappings from file '<vtype.map>'...}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 net:<!--{[->]}-->
@@ -81,6 +86,7 @@ lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
+detector:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 errors:Leaked object at 
 errors:*** 9 leaks found

@@ -1,45 +1,11 @@
-Warning: Adding vaporizer 'vaporizer_0' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'edge' of vaporizer is missing; vaporizer cannot be created
-Warning: The edge 'dummyEdge' to use within the vaporizer is not known.
-Warning: Adding vaporizer 'vaporizer_1' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_2' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_3' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_4' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_5' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_6' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_7' in GNEChange_Additional
-Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
-Warning: Adding vaporizer 'vaporizer_8' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_9' in GNEChange_Additional
-Warning: Adding vaporizer 'vaporizer_10' in GNEChange_Additional
-Warning: Time interval of vaporizer isn't valid. Attribute 'startTime' is greater than attribute 'end'.
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting unreferenced vaporizer 'vaporizer_10'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced vaporizer 'vaporizer_9'
-Warning: Deleting unreferenced vaporizer 'vaporizer_8'
-Warning: Deleting unreferenced vaporizer 'vaporizer_7'
-Warning: Deleting unreferenced vaporizer 'vaporizer_6'
-Warning: Deleting unreferenced vaporizer 'vaporizer_5'
-Warning: Deleting unreferenced vaporizer 'vaporizer_4'
-Warning: Deleting unreferenced vaporizer 'vaporizer_3'
-Warning: Deleting unreferenced vaporizer 'vaporizer_2'
-Warning: Deleting unreferenced vaporizer 'vaporizer_1'
-Warning: Deleting unreferenced vaporizer 'vaporizer_0'
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor
+Warning: Essential unique string attribute 'id' of vaporizer is missing; vaporizer cannot be created
+Warning: The edge 'dummyid' to use within the vaporizer is not known.
+Warning: Essential time attribute 'begin' of vaporizer is missing; vaporizer cannot be created
+Warning: Essential time attribute 'begin' of vaporizer is missing; vaporizer cannot be created
+Warning: Format of essential time attribute 'begin' of vaporizer is invalid; vaporizer cannot be created
+Warning: Format of essential time attribute 'begin' of vaporizer is invalid; Time cannot be negative; vaporizer cannot be created
+Warning: Essential time attribute 'end' of vaporizer is missing; vaporizer cannot be created
+Warning: Essential time attribute 'end' of vaporizer is missing; vaporizer cannot be created
+Warning: Format of essential time attribute 'end' of vaporizer is invalid; vaporizer cannot be created
+Warning: Format of essential time attribute 'end' of vaporizer is invalid; Time cannot be negative; vaporizer cannot be created
+Warning: Time interval of vaporizer isn't valid. Attribute 'begin' is greater than attribute 'end'.

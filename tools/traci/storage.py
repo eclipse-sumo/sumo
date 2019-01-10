@@ -52,14 +52,11 @@ class Storage:
 
     def readStringList(self):
         n = self.read("!i")[0]
-        list = []
-        for i in range(n):
-            list.append(self.readString())
-        return list
+        return tuple([self.readString() for i in range(n)])
 
     def readShape(self):
         length = self.read("!B")[0]
-        return [self.read("!dd") for i in range(length)]
+        return tuple([self.read("!dd") for i in range(length)])
 
     def ready(self):
         return self._pos < len(self._content)

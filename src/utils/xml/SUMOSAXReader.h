@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax/EntityResolver.hpp>
@@ -85,6 +81,9 @@ private:
     class LocalSchemaResolver : public XERCES_CPP_NAMESPACE::EntityResolver {
     public:
         XERCES_CPP_NAMESPACE::InputSource* resolveEntity(const XMLCh* const publicId, const XMLCh* const systemId);
+        void setHandler(GenericSAXHandler& handler);
+    private:
+        GenericSAXHandler* myHandler;
     };
 
 private:

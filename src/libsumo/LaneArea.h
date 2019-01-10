@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 
@@ -59,17 +55,21 @@ public:
     static int getLastStepVehicleNumber(const std::string& detID);
     static int getLastStepHaltingNumber(const std::string& detID);
 
+    LIBSUMO_SUBSCRIPTION_API
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
 private:
     static MSE2Collector* getDetector(const std::string& detID);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    LaneArea();
-
-    /// @brief invalidated copy constructor
-    LaneArea(const LaneArea& src);
-
-    /// @brief invalidated assignment operator
-    LaneArea& operator=(const LaneArea& src);
+    LaneArea() = delete;
 
 };
 }

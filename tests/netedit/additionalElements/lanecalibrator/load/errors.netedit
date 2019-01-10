@@ -1,3 +1,385 @@
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding laneCalibrator 'calibrator01' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+Debug: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+Debug: Adding laneCalibrator 'calibrator05' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator05 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator05 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator05 into SUMORTree with boundary 14.00,-18.40,54.00,21.60
+GLDebug: Removed object calibrator:calibrator05 from SUMORTree with boundary 14.00,-18.40,54.00,21.60
+GLDebug: Inserted calibrator:calibrator05 into SUMORTree with boundary 14.00,-18.40,54.00,21.60
+Debug: Adding laneCalibrator 'calibrator09' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+Debug: Adding laneCalibrator 'calibrator10' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Adding laneCalibrator 'calibrator11' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+Debug: Adding laneCalibrator 'calibrator12' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+Debug: Adding laneCalibrator 'calibrator13' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Adding laneCalibrator 'calibrator14' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Adding laneCalibrator 'calibrator15' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Adding laneCalibrator 'calibrator16' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Adding laneCalibrator 'calibrator17' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator17 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator17 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator17 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator17 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Inserted calibrator:calibrator17 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
+Debug: Adding laneCalibrator 'calibrator18' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator18 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator18 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator18 into SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator17 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Inserted calibrator:calibrator17 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Removed object calibrator:calibrator18 from SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Inserted calibrator:calibrator18 into SUMORTree with boundary 10.00,-21.60,50.00,18.40
+Debug: Adding laneCalibrator 'calibrator19' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator19 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator19 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator19 into SUMORTree with boundary 12.00,-21.60,52.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator17 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Inserted calibrator:calibrator17 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Removed object calibrator:calibrator18 from SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Inserted calibrator:calibrator18 into SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Removed object calibrator:calibrator19 from SUMORTree with boundary 12.00,-21.60,52.00,18.40
+GLDebug: Inserted calibrator:calibrator19 into SUMORTree with boundary 12.00,-21.60,52.00,18.40
+Debug: Adding laneCalibrator 'calibrator20' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibrator20 into SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Removed object calibrator:calibrator20 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator20 into SUMORTree with boundary 14.00,-21.60,54.00,18.40
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator17 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Inserted calibrator:calibrator17 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Removed object calibrator:calibrator18 from SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Inserted calibrator:calibrator18 into SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Removed object calibrator:calibrator19 from SUMORTree with boundary 12.00,-21.60,52.00,18.40
+GLDebug: Inserted calibrator:calibrator19 into SUMORTree with boundary 12.00,-21.60,52.00,18.40
+GLDebug: Removed object calibrator:calibrator20 from SUMORTree with boundary 14.00,-21.60,54.00,18.40
+GLDebug: Inserted calibrator:calibrator20 into SUMORTree with boundary 14.00,-21.60,54.00,18.40
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -10.00,-21.60,30.00,18.40
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Inserted calibrator:calibrator09 into SUMORTree with boundary -2.00,-21.60,38.00,18.40
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Inserted calibrator:calibrator10 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Inserted calibrator:calibrator11 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Inserted calibrator:calibrator12 into SUMORTree with boundary 4.00,-21.60,44.00,18.40
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator13 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator14 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator15 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Inserted calibrator:calibrator16 into SUMORTree with boundary 6.00,-21.60,46.00,18.40
+GLDebug: Removed object calibrator:calibrator17 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Inserted calibrator:calibrator17 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
+GLDebug: Removed object calibrator:calibrator18 from SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Inserted calibrator:calibrator18 into SUMORTree with boundary 10.00,-21.60,50.00,18.40
+GLDebug: Removed object calibrator:calibrator19 from SUMORTree with boundary 12.00,-21.60,52.00,18.40
+GLDebug: Inserted calibrator:calibrator19 into SUMORTree with boundary 12.00,-21.60,52.00,18.40
+GLDebug: Removed object calibrator:calibrator20 from SUMORTree with boundary 14.00,-21.60,54.00,18.40
+GLDebug: Inserted calibrator:calibrator20 into SUMORTree with boundary 14.00,-21.60,54.00,18.40
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object calibrator:calibrator05 from SUMORTree with boundary 14.00,-18.40,54.00,21.60
+GLDebug: Inserted calibrator:calibrator05 into SUMORTree with boundary 14.00,-18.40,54.00,21.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Deleting unreferenced laneCalibrator 'calibrator20'
+GLDebug: Removed object calibrator:calibrator20 from SUMORTree with boundary 14.00,-21.60,54.00,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced laneCalibrator 'calibrator19'
+GLDebug: Removed object calibrator:calibrator19 from SUMORTree with boundary 12.00,-21.60,52.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator18'
+GLDebug: Removed object calibrator:calibrator18 from SUMORTree with boundary 10.00,-21.60,50.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator17'
+GLDebug: Removed object calibrator:calibrator17 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator16'
+GLDebug: Removed object calibrator:calibrator16 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator15'
+GLDebug: Removed object calibrator:calibrator15 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator14'
+GLDebug: Removed object calibrator:calibrator14 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator13'
+GLDebug: Removed object calibrator:calibrator13 from SUMORTree with boundary 6.00,-21.60,46.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator12'
+GLDebug: Removed object calibrator:calibrator12 from SUMORTree with boundary 4.00,-21.60,44.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator11'
+GLDebug: Removed object calibrator:calibrator11 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator10'
+GLDebug: Removed object calibrator:calibrator10 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator09'
+GLDebug: Removed object calibrator:calibrator09 from SUMORTree with boundary -2.00,-21.60,38.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator05'
+GLDebug: Removed object calibrator:calibrator05 from SUMORTree with boundary 14.00,-18.40,54.00,21.60
+Debug: Deleting unreferenced laneCalibrator 'calibrator02'
+GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+Debug: Deleting unreferenced laneCalibrator 'calibrator01'
+GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 6

@@ -19,34 +19,19 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-
-
-#include "GNEFrame.h"
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEAttributeCarrier.h>
-#include "GNEInspectorFrame.h"
-#include "GNEPolygonFrame.h"
-#include "GNEDeleteFrame.h"
-#include <netedit/GNENet.h>
-
-
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -55,6 +40,18 @@
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/dialogs/GNEGenericParameterDialog.h>
+
+#include "GNEFrame.h"
+#include "GNEInspectorFrame.h"
+#include "GNEPolygonFrame.h"
+#include "GNEDeleteFrame.h"
+
 
 // ===========================================================================
 // FOX callback mapping
@@ -67,8 +64,14 @@ FXDEFMAP(GNEFrame::ACHierarchy) GNEFrameACHierarchyMap[] = {
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::ACHierarchy::onCmdShowChildMenu),
 };
 
+FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::GenericParametersEditor::onCmdEditGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
+};
+
 // Object implementation
-FXIMPLEMENT(GNEFrame::ACHierarchy,  FXGroupBox, GNEFrameACHierarchyMap, ARRAYNUMBER(GNEFrameACHierarchyMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox, GNEFrameACHierarchyMap, ARRAYNUMBER(GNEFrameACHierarchyMap))
+FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox, GenericParametersEditorMap, ARRAYNUMBER(GenericParametersEditorMap))
 
 
 // ===========================================================================
@@ -92,38 +95,38 @@ GNEFrame::ACHierarchy::ACHierarchy(GNEFrame* frameParent) :
 GNEFrame::ACHierarchy::~ACHierarchy() {}
 
 
-void 
+void
 GNEFrame::ACHierarchy::showACHierarchy(GNEAttributeCarrier* AC) {
     myAC = AC;
     // show ACHierarchy and refresh ACHierarchy
-    if(myAC) {
+    if (myAC) {
         show();
         refreshACHierarchy();
     }
 }
 
 
-void 
+void
 GNEFrame::ACHierarchy::hideACHierarchy() {
     myAC = nullptr;
     hide();
 }
 
 
-void 
+void
 GNEFrame::ACHierarchy::refreshACHierarchy() {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
     myTreeItemsConnections.clear();
     // show ACChilds of myAC
-    if(myAC) {
+    if (myAC) {
         showAttributeCarrierChilds(myAC, showAttributeCarrierParents());
     }
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
@@ -137,9 +140,9 @@ GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
-    GUIGlObject *glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
+    GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
     if (glObject) {
         myFrameParent->getViewNet()->centerTo(glObject->getGlID(), false);
         myFrameParent->getViewNet()->update();
@@ -148,7 +151,7 @@ GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
     if ((myAC != nullptr) && (myRightClickedAC != nullptr)) {
         myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectChild(myRightClickedAC, myAC);
@@ -157,16 +160,16 @@ GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if Inspector frame was opened before removing
-    std::vector<GNEAttributeCarrier*> currentInspectedACs= myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getInspectedACs();
+    const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getInspectedACs();
     // Remove Attribute Carrier
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->removeAttributeCarrier(myRightClickedAC);
     myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->hide();
     // check if inspector frame has to be shown again
-    if(currentInspectedACs.size() == 1) {
-        if(currentInspectedACs.front() != myRightClickedAC) {
+    if (currentInspectedACs.size() == 1) {
+        if (currentInspectedACs.front() != myRightClickedAC) {
             myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(currentInspectedACs.front());
         } else {
             myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectElement(nullptr);
@@ -183,7 +186,7 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
     // set current clicked AC
     myRightClickedAC = ac;
     // set name
-    new MFXMenuHeader(pane, myFrameParent->getViewNet()->getViewParent()->getGUIMainWindow()->getBoldFont(), (toString(myRightClickedAC->getTag()) + ": " + myRightClickedAC->getID()).c_str(), myRightClickedAC->getIcon());
+    new MFXMenuHeader(pane, myFrameParent->getViewNet()->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
     new FXMenuSeparator(pane);
     // Fill FXMenuCommand
     new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
@@ -197,17 +200,17 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
 }
 
 
-FXTreeItem* 
+FXTreeItem*
 GNEFrame::ACHierarchy::showAttributeCarrierParents() {
     // Switch gl type of ac
     switch (myAC->getTag()) {
         case SUMO_TAG_EDGE: {
             // obtain Edge
             GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(myAC->getID(), false);
-            if(edge) {
+            if (edge) {
                 // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
-                FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
                 junctionDestinyItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -221,15 +224,15 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_LANE: {
             // obtain lane
             GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(myAC->getID(), false);
-            if(lane) {
+            if (lane) {
                 // obtain edge parent
                 GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
                 //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
                 junctionDestinyItem->setExpanded(true);
                 // Create edge item
-                FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                 edgeItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -244,20 +247,20 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_POILANE: {
             // Obtain POILane
             GNEPOI* POILane = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID(), false);
-            if(POILane) {
+            if (POILane) {
                 // obtain lane parent
                 GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLane()->getID());
                 // obtain edge parent
                 GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
                 //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
                 junctionDestinyItem->setExpanded(true);
                 // Create edge item
-                FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                 edgeItem->setExpanded(true);
                 // Create lane item
-                FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
+                FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
                 laneItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -273,11 +276,11 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_CROSSING: {
             // obtain Crossing
             GNECrossing* crossing = myFrameParent->getViewNet()->getNet()->retrieveCrossing(myAC->getID(), false);
-            if(crossing) {
+            if (crossing) {
                 // obtain junction
                 GNEJunction* junction = crossing->getParentJunction();
                 // create junction item
-                FXTreeItem* junctionItem = myTreelist->insertItem(nullptr, nullptr, toString(junction->getTag()).c_str(), junction->getIcon(), junction->getIcon());
+                FXTreeItem* junctionItem = myTreelist->insertItem(nullptr, nullptr, junction->getHierarchyName().c_str(), junction->getIcon(), junction->getIcon());
                 junctionItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[junctionItem] = junction;
@@ -290,15 +293,15 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         case SUMO_TAG_CONNECTION: {
             // obtain Connection
             GNEConnection* connection = myFrameParent->getViewNet()->getNet()->retrieveConnection(myAC->getID(), false);
-            if(connection) {
+            if (connection) {
                 // create edge from item
-                FXTreeItem* edgeFromItem = myTreelist->insertItem(nullptr, nullptr, toString(connection->getEdgeFrom()->getTag()).c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
+                FXTreeItem* edgeFromItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
                 edgeFromItem->setExpanded(true);
                 // create edge to item
-                FXTreeItem* edgeToItem = myTreelist->insertItem(nullptr, nullptr, toString(connection->getEdgeTo()->getTag()).c_str(), connection->getEdgeTo()->getIcon(), connection->getEdgeTo()->getIcon());
+                FXTreeItem* edgeToItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeTo()->getHierarchyName().c_str(), connection->getEdgeTo()->getIcon(), connection->getEdgeTo()->getIcon());
                 edgeToItem->setExpanded(true);
                 // create connection item
-                FXTreeItem* connectionItem = myTreelist->insertItem(0, edgeToItem, toString(connection->getTag()).c_str(), connection->getIcon(), connection->getIcon());
+                FXTreeItem* connectionItem = myTreelist->insertItem(0, edgeToItem, connection->getHierarchyName().c_str(), connection->getIcon(), connection->getIcon());
                 connectionItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[edgeFromItem] = connection->getEdgeFrom();
@@ -311,29 +314,31 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             }
         }
         default: {
+            // obtain tag property (only for improve code legibility)
+            const auto& tagValue = GNEAttributeCarrier::getTagProperties(myAC->getTag());
             // check if is an additional, and in other case return nullptr
-            if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), myAC->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+            if (tagValue.isAdditional()) {
                 // Obtain Additional
-                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getID(), false);
-                if(additional) {
+                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTag(), myAC->getID(), false);
+                if (additional) {
                     // first check if additional has another additional as parent (to add it into root)
-                     if (GNEAttributeCarrier::canHaveParent(additional->getTag())) {
-                         GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(additional->getAttribute(GNE_ATTR_PARENT));
-                         // create additional parent item
-                         FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, toString(additionalParent->getTag()).c_str(), additionalParent->getIcon(), additionalParent->getIcon());
-                         additionalParentItem->setExpanded(true);
-                         // Save it in myTreeItemToACMap
-                         myTreeItemToACMap[additionalParentItem] = additionalParent;
-                     }
-                    if(additional->hasAttribute(additional->getTag(), SUMO_ATTR_EDGE)) {
+                    if (tagValue.hasParent()) {
+                        GNEAdditional* additionalParent = myFrameParent->getViewNet()->getNet()->retrieveAdditional(tagValue.getParentTag(), additional->getAttribute(GNE_ATTR_PARENT));
+                        // create additional parent item
+                        FXTreeItem* additionalParentItem = myTreelist->insertItem(0, 0, additionalParent->getHierarchyName().c_str(), additionalParent->getIcon(), additionalParent->getIcon());
+                        additionalParentItem->setExpanded(true);
+                        // Save it in myTreeItemToACMap
+                        myTreeItemToACMap[additionalParentItem] = additionalParent;
+                    }
+                    if (tagValue.hasAttribute(SUMO_ATTR_EDGE)) {
                         // obtain edge parent
                         GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
                         //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                        FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                        FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                        FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                        FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
                         junctionDestinyItem->setExpanded(true);
                         // Create edge item
-                        FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                        FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                         edgeItem->setExpanded(true);
                         // Save items in myTreeItemToACMap
                         myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -341,20 +346,20 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                         myTreeItemToACMap[edgeItem] = edge;
                         // return edge item
                         return edgeItem;
-                    } else if (additional->hasAttribute(additional->getTag(), SUMO_ATTR_LANE)) {
+                    } else if (tagValue.hasAttribute(SUMO_ATTR_LANE)) {
                         // obtain lane parent
                         GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(additional->getAttribute(SUMO_ATTR_LANE));
                         // obtain edge parent
                         GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
                         //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                        FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                        FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (toString(edge->getGNEJunctionSource()->getTag()) + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                        FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                        FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
                         junctionDestinyItem->setExpanded(true);
                         // Create edge item
-                        FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, toString(edge->getTag()).c_str(), edge->getIcon(), edge->getIcon());
+                        FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                         edgeItem->setExpanded(true);
                         // Create lane item
-                        FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, toString(lane->getTag()).c_str(), lane->getIcon(), lane->getIcon());
+                        FXTreeItem* laneItem = myTreelist->insertItem(0, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
                         laneItem->setExpanded(true);
                         // Save items in myTreeItemToACMap
                         myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
@@ -373,13 +378,13 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
 
 
 void
-GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent) {
+GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
     // Switch gl type of ac
     switch (AC->getTag()) {
         case SUMO_TAG_JUNCTION: {
             // retrieve junction
             GNEJunction* junction = myFrameParent->getViewNet()->getNet()->retrieveJunction(AC->getID(), false);
-            if(junction) {
+            if (junction) {
                 // insert junction item
                 FXTreeItem* junctionItem = addACIntoList(AC, itemParent);
                 // insert edges
@@ -396,7 +401,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         case SUMO_TAG_EDGE: {
             // retrieve edge
             GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(AC->getID(), false);
-            if(edge) {
+            if (edge) {
                 // insert edge item
                 FXTreeItem* edgeItem = addACIntoList(AC, itemParent);
                 // insert lanes
@@ -413,7 +418,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         case SUMO_TAG_LANE: {
             // retrieve lane
             GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(AC->getID(), false);
-            if(lane) {
+            if (lane) {
                 // insert lane item
                 FXTreeItem* laneItem = addACIntoList(AC, itemParent);
                 // insert additionals of lanes
@@ -445,7 +450,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
             }
             break;
         }
-        case SUMO_TAG_POI: 
+        case SUMO_TAG_POI:
         case SUMO_TAG_POLY:
         case SUMO_TAG_CROSSING:
         case SUMO_TAG_CONNECTION: {
@@ -455,10 +460,10 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
         }
         default: {
             // check if is an additional
-            if(std::find(GNEAttributeCarrier::allowedAdditionalTags().begin(), GNEAttributeCarrier::allowedAdditionalTags().end(), AC->getTag()) != GNEAttributeCarrier::allowedAdditionalTags().end()) {
+            if (GNEAttributeCarrier::getTagProperties(AC->getTag()).isAdditional()) {
                 // retrieve additional
-                GNEAdditional *additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getID(), false);
-                if(additional) {
+                GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTag(), AC->getID(), false);
+                if (additional) {
                     // insert additional item
                     FXTreeItem* additionalItem = addACIntoList(AC, itemParent);
                     // insert additionals childs
@@ -474,11 +479,209 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTre
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent) {
-    FXTreeItem* item = myTreelist->insertItem(0, itemParent, toString(AC->getTag()).c_str(), AC->getIcon(), AC->getIcon());
+GNEFrame::ACHierarchy::addACIntoList(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
+    FXTreeItem* item = myTreelist->insertItem(0, itemParent, AC->getHierarchyName().c_str(), AC->getIcon(), AC->getIcon());
     myTreeItemToACMap[item] = AC;
     item->setExpanded(true);
     return item;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::GenericParametersEditor - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::GenericParametersEditor::GenericParametersEditor(GNEFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Generic parameters", GUIDesignGroupBoxFrame),
+    myFrameParent(inspectorFrameParent),
+    myAC(nullptr),
+    myGenericParameters(nullptr) {
+    // create empty vector with generic parameters
+    myGenericParameters = new std::vector<std::pair<std::string, std::string> >;
+    // create textfield and buttons
+    myTextFieldGenericParameter = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myEditGenericParameterButton = new FXButton(this, "Edit generic parameter", 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+}
+
+
+GNEFrame::GenericParametersEditor::~GenericParametersEditor() {
+    delete myGenericParameters;
+}
+
+
+void
+GNEFrame::GenericParametersEditor::showGenericParametersEditor(GNEAttributeCarrier* AC) {
+    if (AC != nullptr) {
+        myAC = AC;
+        myACs.clear();
+        // obtain a copy of generic parameters of AC
+        if (myAC) {
+            *myGenericParameters = myAC->getGenericParameters();
+        }
+        // refresh GenericParametersEditor
+        refreshGenericParametersEditor();
+        // show groupbox
+        show();
+    }
+}
+
+
+void
+GNEFrame::GenericParametersEditor::showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
+    if (ACs.size() > 0) {
+        myAC = nullptr;
+        myACs = ACs;
+        // check if generic parameters are different
+        bool differentsGenericParameters = false;
+        std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
+        for (auto i : myACs) {
+            if (genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
+                differentsGenericParameters = true;
+            }
+        }
+        // set generic Parameters editor
+        if (differentsGenericParameters) {
+            myGenericParameters->clear();
+        } else {
+            *myGenericParameters = myACs.front()->getGenericParameters();
+        }
+        // refresh GenericParametersEditor
+        refreshGenericParametersEditor();
+        // show groupbox
+        show();
+    }
+}
+
+
+void
+GNEFrame::GenericParametersEditor::hideGenericParametersEditor() {
+    myAC = nullptr;
+    // hide groupbox
+    hide();
+}
+
+
+void
+GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
+    // update text field depending of AC
+    if (myAC) {
+        myTextFieldGenericParameter->setText(getGenericParametersStr().c_str());
+        myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    } else if (myACs.size()) {
+        // check if generic parameters of all inspected ACs are different
+        std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
+
+        for (auto i : myACs) {
+            if (genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
+                genericParameter = "different generic attributes";
+            }
+        }
+        myTextFieldGenericParameter->setText(genericParameter.c_str());
+        myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    }
+}
+
+
+std::string
+GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i = myGenericParameters->begin(); i != myGenericParameters->end(); i++) {
+        result += i->first + "=" + i->second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+long
+GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
+    // edit generic parameters using dialog
+    if (GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute()) {
+        // set values edited in Parameter dialog in Edited AC
+        if (myAC) {
+            myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+        } else if (myACs.size() > 0) {
+            myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
+            for (auto i : myACs) {
+                i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+            }
+            myFrameParent->getViewNet()->getUndoList()->p_end();
+        }
+        // Refresh parameter editor
+        refreshGenericParametersEditor();
+    }
+    return 1;
+}
+
+
+long
+GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelector, void*) {
+    // separate value in a vector of string using | as separator
+    std::vector<std::string> parsedValues;
+    StringTokenizer st(myTextFieldGenericParameter->getText().text(), "|", true);
+    while (st.hasNext()) {
+        parsedValues.push_back(st.next());
+    }
+    // first check if parsed generic parameters are valid
+    for (auto i : parsedValues) {
+        if (!GNEAttributeCarrier::isGenericParametersValid(i)) {
+            WRITE_WARNING("Invalid format of Generic Parameter (" + i + ")");
+            myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
+            return 1;
+        }
+    }
+    // now check if there is duplicated parameters
+    std::sort(parsedValues.begin(), parsedValues.end());
+    for (auto i = parsedValues.begin(); i != parsedValues.end(); i++) {
+        if (((i + 1) != parsedValues.end())) {
+            std::vector<std::string> firstKey, secondKey;
+            StringTokenizer stKey1(*i, "=", true);
+            StringTokenizer stKey2(*(i + 1), "=", true);
+            //parse both keys
+            while (stKey1.hasNext()) {
+                firstKey.push_back(stKey1.next());
+            }
+            while (stKey2.hasNext()) {
+                secondKey.push_back(stKey2.next());
+            }
+            // compare both keys and stop if are equal
+            if ((firstKey.size() != 2) || (secondKey.size() != 2) || (firstKey.front() == secondKey.front())) {
+                WRITE_WARNING("Generic Parameters wit the same key aren't allowed (" + (*i) + "," + * (i + 1) + ")");
+                myTextFieldGenericParameter->setTextColor(FXRGB(255, 0, 0));
+                return 1;
+            }
+        }
+    }
+    // parsed generic parameters ok, then set text field black and continue
+    myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+    myTextFieldGenericParameter->killFocus();
+    // clear current existent generic parameters and set parsed generic parameters
+    myGenericParameters->clear();
+    for (auto i : parsedValues) {
+        std::vector<std::string> parsedParameters;
+        StringTokenizer stParam(i, "=", true);
+        while (stParam.hasNext()) {
+            parsedParameters.push_back(stParam.next());
+        }
+        // Check that parsed parameters are exactly two and contains valid chracters
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+            myGenericParameters->push_back(std::make_pair(parsedParameters.front(), parsedParameters.back()));
+        }
+    }
+    // if we're editing generic attributes of an AttributeCarrier, set it
+    if (myAC) {
+        myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+    } else if (myACs.size() > 0) {
+        myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
+        for (auto i : myACs) {
+            i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+        }
+        myFrameParent->getViewNet()->getUndoList()->p_end();
+    }
+    return 1;
 }
 
 // ---------------------------------------------------------------------------
@@ -579,79 +782,49 @@ GNEFrame::getFrameHeaderFont() const {
 
 void
 GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
-    FXDialogBox *attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + toString(elementTag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
+    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + toString(elementTag)).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
-    auto attrs = GNEAttributeCarrier::allowedAttributes(elementTag);
-    myTable->setVisibleRows((FXint)(attrs.size()));
+    attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEINSPECT));
+    const auto& attrs = GNEAttributeCarrier::getTagProperties(elementTag);
+    int sizeColumnDescription = 0;
+    int sizeColumnDefinitions = 0;
+    myTable->setVisibleRows((FXint)(attrs.getNumberOfAttributes()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(attrs.size()), 4);
+    myTable->setTableSize((FXint)(attrs.getNumberOfAttributes()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Attribute");
-    myTable->setColumnText(1, "Type");
-    myTable->setColumnText(2, "Restriction");
-    myTable->setColumnText(3, "Definition");
+    myTable->setColumnText(1, "Description");
+    myTable->setColumnText(2, "Definition");
     myTable->getRowHeader()->setWidth(0);
+    // Iterate over vector of additional parameters
+    int itemIndex = 0;
+    for (auto i : attrs) {
+        // Set attribute
+        FXTableItem* attribute = new FXTableItem(toString(i.first).c_str());
+        attribute->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 0, attribute);
+        // Set description of element
+        FXTableItem* type = new FXTableItem("");
+        type->setText(i.second.getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.second.getDescription().size());
+        type->setJustify(FXTableItem::CENTER_X);
+        myTable->setItem(itemIndex, 1, type);
+        // Set definition
+        FXTableItem* definition = new FXTableItem(i.second.getDefinition().c_str());
+        definition->setJustify(FXTableItem::LEFT);
+        myTable->setItem(itemIndex, 2, definition);
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.second.getDefinition().size());
+        itemIndex++;
+    }
+    // set header
     FXHeader* header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
     header->setItemSize(0, 120);
     header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(1, 90);
-    header->setItemJustify(1, JUSTIFY_CENTER_X);
-    header->setItemSize(2, 80);
-    int maxSizeColumnDefinitions = 0;
-    // Iterate over vector of additional parameters
-    for (int i = 0; i < (int)attrs.size(); i++) {
-        // Set attribute 
-        FXTableItem* attribute = new FXTableItem(toString(attrs.at(i).first).c_str());
-        attribute->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(i, 0, attribute);
-        // Set type
-        FXTableItem* type = new FXTableItem("");
-        if (attrs.at(i).first == SUMO_ATTR_SHAPE) {
-            type->setText("list of positions");
-        }
-        else if (GNEAttributeCarrier::isInt(elementTag, attrs.at(i).first)) {
-            type->setText("int");
-        }
-        else if (GNEAttributeCarrier::isFloat(elementTag, attrs.at(i).first)) {
-            type->setText("float");
-        }
-        else if (GNEAttributeCarrier::isTime(elementTag, attrs.at(i).first)) {
-            type->setText("time");
-        }
-        else if (GNEAttributeCarrier::isBool(elementTag, attrs.at(i).first)) {
-            type->setText("bool");
-        }
-        else if (GNEAttributeCarrier::isColor(elementTag, attrs.at(i).first)) {
-            type->setText("color");
-        }
-        else if (GNEAttributeCarrier::isString(elementTag, attrs.at(i).first)) {
-            if (attrs.at(i).first == SUMO_ATTR_POSITION) {
-                type->setText("position");
-            }
-            else {
-                type->setText("string");
-            }
-        }
-        type->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(i, 1, type);
-        // Set restriction
-        FXTableItem* restriction = new FXTableItem(GNEAttributeCarrier::getRestriction(elementTag, attrs.at(i).first).c_str());
-        restriction->setJustify(FXTableItem::CENTER_X);
-        myTable->setItem(i, 2, restriction);
-        // Set definition
-        FXTableItem* definition = new FXTableItem(GNEAttributeCarrier::getDefinition(elementTag, attrs.at(i).first).c_str());
-        definition->setJustify(FXTableItem::LEFT);
-        myTable->setItem(i, 3, definition);
-        if ((int)GNEAttributeCarrier::getDefinition(elementTag, attrs.at(i).first).size() > maxSizeColumnDefinitions) {
-            maxSizeColumnDefinitions = int(GNEAttributeCarrier::getDefinition(elementTag, attrs.at(i).first).size());
-        }
-    }
-
-    // Set size of column
-    header->setItemJustify(3, JUSTIFY_CENTER_X);
-    header->setItemSize(3, maxSizeColumnDefinitions * 6);
+    header->setItemSize(1, sizeColumnDescription * 7);
+    header->setItemJustify(2, JUSTIFY_CENTER_X);
+    header->setItemSize(2, sizeColumnDefinitions * 6);
     // Create horizontal separator
     new FXHorizontalSeparator(attributesHelpDialog, GUIDesignHorizontalSeparator);
     // Create frame for OK Button
@@ -661,9 +834,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Opening HelpAttributes dialog for tag '" + toString(elementTag) + "' showing " + toString(attrs.size()) + " attributes");
-    }
+    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + toString(elementTag) + "' showing " + toString(attrs.getNumberOfAttributes()) + " attributes");
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -673,9 +844,7 @@ GNEFrame::openHelpAttributesDialog(SumoXMLTag elementTag) const {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-        WRITE_WARNING("Closing HelpAttributes dialog for tag '" + toString(elementTag) + "'");
-    }
+    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + toString(elementTag) + "'");
 }
 
 /****************************************************************************/

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #ifdef HAVE_VERSION_H
 #include <version.h>
@@ -65,12 +61,16 @@ fillOptions() {
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     GeoConvHelper::addProjectionOptions(oc);
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("TLS Building");
     oc.addOptionSubTopic("Ramp Guessing");
     oc.addOptionSubTopic("Edge Removal");
     oc.addOptionSubTopic("Unregulated Nodes");
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic("Junctions");
+    oc.addOptionSubTopic("Pedestrian");
+    oc.addOptionSubTopic("Railway");
+    oc.addOptionSubTopic("Formats");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();

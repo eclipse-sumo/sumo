@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors and without name -->
     <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" friendlyPos="false"/>
     
@@ -7,9 +7,9 @@
     
     <!-- missing ID -->
     <containerStop lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
-    
+	
 	<!-- invalid ID -->
-    <containerStop id="id with spaces" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="ID with spaces" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
     
     <!-- Duplicated ID -->
     <containerStop id="containerStop_00" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="false"/>
@@ -70,5 +70,5 @@
 	
 	<!-- enabled friendlyPos, invalid positions 4 -->
     <containerStop id="containerStop_19" lane="gneE1_0" startPos="20" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
-    
-</additionals>
+	
+</additional>

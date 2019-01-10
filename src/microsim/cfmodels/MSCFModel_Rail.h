@@ -25,6 +25,10 @@
 class MSCFModel_Rail : public MSCFModel {
 
 public:
+    /** @brief Constructor
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
+     */
+    MSCFModel_Rail(const MSVehicleType* vtype);
 
     double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
                        double predMaxDecel, const MSVehicle* const pred = 0) const;
@@ -33,10 +37,6 @@ public:
 
     virtual MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
-    /** @brief Constructor
-     * @param[in] trainType The train type
-     */
-    MSCFModel_Rail(const MSVehicleType* vtype, std::string trainType);
 
 
     virtual ~MSCFModel_Rail();
@@ -44,6 +44,8 @@ public:
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
 
     virtual double minNextSpeed(double speed, const MSVehicle* const veh) const;
+
+    virtual double minNextSpeedEmergency(double speed, const MSVehicle* const veh = 0) const;
 
     double getSpeedAfterMaxDecel(double v) const;
 

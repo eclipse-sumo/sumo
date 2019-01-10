@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
@@ -38,6 +34,10 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class PositionVector;
+namespace libsumo {
+class VariableWrapper;
+}
 
 
 // ===========================================================================
@@ -91,22 +91,30 @@ public:
     static std::string getParameter(const std::string& laneID, const std::string& param);
     static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
-    // Subscriptions (TODO?)
-    //static void subscribe(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, const std::vector<int>& vars);
-    //static void subscribeContext(const std::string& objID, SUMOTime beginTime, SUMOTime endTime, int domain, double range, const std::vector<int>& vars);
+    LIBSUMO_SUBSCRIPTION_API
+
+    /** @brief Saves the shape of the requested object in the given container
+    *  @param id The id of the lane to retrieve
+    *  @param shape The container to fill
+    */
+    static void storeShape(const std::string& id, PositionVector& shape);
+
+    static std::shared_ptr<VariableWrapper> makeWrapper();
+
+    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static const MSLane* getLane(const std::string& id);
 
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
     /// @brief invalidated standard constructor
-    Lane();
-
-    /// @brief invalidated copy constructor
-    Lane(const Lane& src);
-
-    /// @brief invalidated assignment operator
-    Lane& operator=(const Lane& src);
+    Lane() = delete;
 };
+
+
 }
 
 

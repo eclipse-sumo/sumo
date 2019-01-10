@@ -23,22 +23,27 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSRoute.h>
+#include <traci-server/TraCIConstants.h>
+#include "Helper.h"
 #include "Route.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Route::mySubscriptionResults;
+ContextSubscriptionResults Route::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
 std::vector<std::string>
 Route::getIDList() {
     std::vector<std::string> ids;
@@ -96,6 +101,9 @@ Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) 
 }
 
 
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Route, ROUTE)
+
+
 const MSRoute*
 Route::getRoute(const std::string& id) {
     const MSRoute* r = MSRoute::dictionary(id);
@@ -104,6 +112,29 @@ Route::getRoute(const std::string& id) {
     }
     return r;
 }
+
+
+std::shared_ptr<VariableWrapper>
+Route::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Route::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_EDGES:
+            return wrapper->wrapStringList(objID, variable, getEdges(objID));
+        default:
+            return false;
+    }
+}
+
+
 }
 
 

@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/MsgHandler.h>
 
@@ -70,9 +66,7 @@ GNEChange_TLS::~GNEChange_TLS() {
     myJunction->decRef("GNEChange_TLS");
     if (myJunction->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_TLS");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_TLS");
         delete myJunction;
     }
 }
@@ -82,21 +76,17 @@ void
 GNEChange_TLS::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
-        }
+        WRITE_DEBUG("Removing TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
-        }
+        WRITE_DEBUG("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 
@@ -104,21 +94,17 @@ void
 GNEChange_TLS::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
-        }
+        WRITE_DEBUG("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
-        }
+        WRITE_DEBUG("Deleting TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 

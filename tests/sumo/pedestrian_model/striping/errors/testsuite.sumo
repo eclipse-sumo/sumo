@@ -10,3 +10,6 @@ disconnected_route
 disconnected_route_ignore
 route_invalid_permissions
 route_invalid_permissions_ignore
+
+# disconnected route and invalid permissions
+disconnected_route_invalid_permissions_ignore

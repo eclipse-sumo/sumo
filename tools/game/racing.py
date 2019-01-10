@@ -21,82 +21,72 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import Queue
 import threading
 import math
 
+if sys.version_info.major == 3:
+    import queue as Queue
+    from tkinter import Button, Frame, Tk
+else:
+    import Queue
+    from Tkinter import Button, Frame, Tk
 
 try:
     sys.path.append(os.path.join(os.environ.get("SUMO_HOME",
                                                 os.path.join(os.path.dirname(__file__), '..')), "tools"))
     from sumolib import checkBinary  # noqa
-    import traci
+    import traci  # noqa
 except ImportError:
     sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
-
+        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation " +
+        "(it should contain folders 'bin', 'tools' and 'docs')")
 
 try:
-    import autopy
+    import autopy  # noqa
 except ImportError:
     sys.stderr.write("autopy not installed. Can only use keyboard control.")
     autopy = None
 
-from Tkinter import *
 
 eventQueue = Queue.Queue()
 TS = 0.05
 VERBOSE = False
-MAX_STEER_ANGLE = 15
+MAX_STEER_ANGLE = 5
 MIN_SPEED = -5
-MAX_OFFROAD_SPEED = 10 
-OFFROAD_DECEL_TIME = 8 
-OFFROAD_DECEL = 1.5
-#autopy = None # disable mouse control
+MAX_OFFROAD_SPEED = 7
+OFFROAD_DECEL_TIME = 2
+# autopy = None # disable mouse control
 
 
 def leftKey(event):
-    eventQueue.put('left')
+    eventQueue.put(('left', None))
     if VERBOSE:
         print("Left key pressed")
 
 
 def rightKey(event):
-    eventQueue.put('right')
+    eventQueue.put(('right', None))
     if VERBOSE:
         print("Right key pressed")
 
 
 def upKey(event):
-    eventQueue.put('up')
+    eventQueue.put(('up', None))
     if VERBOSE:
         print("Up key pressed")
 
 
 def downKey(event):
-    eventQueue.put('down')
+    eventQueue.put(('down', None))
     if VERBOSE:
         print("Down key pressed")
 
 
-def mouseMove(screenWidth, screenHeight):
-    centerX = screenWidth / 2.0;
-    centerY = screenHeight / 2.0;
-    def motion(event):
-        x, y = event.x, event.y
-        dx = x - centerX
-        dy = y - centerY
-        eventQueue.put(('down', dx / centerX))
-        eventQueue.put(('right', MAX_STEER_ANGLE * dy / centerY))
-        if VERBOSE:
-            print("Mouse at x=%s y=%s (dx=%s, dy=%s)" % (x,y, dx, dy))
-    return motion
-
 def mouseControl(master, speed, steerAngle, accel=2.6, decel=4.5):
     try:
-        centerX = master.winfo_screenwidth() / 2.0;
-        centerY = master.winfo_screenheight() / 2.0;
-        x, y = autopy.mouse.get_pos()
+        centerX = master.winfo_screenwidth() / 2.0
+        centerY = master.winfo_screenheight() / 2.0
+        x, y = autopy.mouse.location()
         dx = (x - centerX) / centerX
         dy = (y - centerY) / centerY
         if dy < 0:
@@ -104,7 +94,8 @@ def mouseControl(master, speed, steerAngle, accel=2.6, decel=4.5):
         else:
             speed -= dy * TS * decel
         steerAngle = MAX_STEER_ANGLE * dx
-    except:    
+    except Exception:  # as e:
+        # print(e)
         pass
     return speed, steerAngle
 
@@ -189,11 +180,11 @@ class RacingClient:
                     if autopy:
                         speed, steerAngle = mouseControl(self.master, speed, steerAngle)
                     # move vehicle
-                    #posLat = traci.vehicle.getLateralLanePosition(self.egoID)
+                    # posLat = traci.vehicle.getLateralLanePosition(self.egoID)
                     if traci.vehicle.getLaneID(self.egoID) == "":
-                        speed -= TS * OFFROAD_DECEL;
-                        if speed > MAX_OFFROAD_SPEED:
-                            speed -= (speed - MAX_OFFROAD_SPEED) / OFFROAD_DECEL_TIME
+                        if abs(speed) > MAX_OFFROAD_SPEED:
+                            sign = 1 if speed > 0 else -1
+                            speed -= TS * sign * (abs(speed) - MAX_OFFROAD_SPEED) / OFFROAD_DECEL_TIME
 
                     speed = max(MIN_SPEED, min(speed, traci.vehicle.getMaxSpeed(self.egoID)))
                     steerAngle = min(MAX_STEER_ANGLE, max(-MAX_STEER_ANGLE, steerAngle))
@@ -209,7 +200,8 @@ class RacingClient:
                     x, y = x2, y2
                     traci.simulationStep()
                     if VERBOSE:
-                        print("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f angle=%s rad/pi=%.2f cos=%.2f sin=%.2f" % (
+                        print(("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f " +
+                               "angle=%s rad/pi=%.2f cos=%.2f sin=%.2f") % (
                             x, y, x2, y2, x3, y3, speed, steerAngle, angle, rad / math.pi,
                             math.cos(rad), math.sin(rad)))
                 except traci.TraCIException:
@@ -230,16 +222,14 @@ def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
     root.bind('<Up>', upKey)
     root.bind('<Down>', downKey)
 
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-
-    #Tk can only get mouse events inside its own window
-    #root.bind('<Motion>', mouseMove(screen_width, screen_height))
+    root.winfo_screenwidth()
+    root.winfo_screenheight()
 
     frame.pack()
 
-    client = RacingClient(root, sumocfg, egoID)
+    RacingClient(root, sumocfg, egoID)
     root.mainloop()
+
 
 if len(sys.argv) < 3:
     main(*sys.argv[1:])

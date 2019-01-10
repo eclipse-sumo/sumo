@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-03-28 14:20:06.897234 by $Id$
+<!-- generated on 2018-07-31 13:14:39.708196 by $Id$
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>random-begin <doubleminus>seed 42
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -38,27 +38,27 @@
         <stop busStop="2029039199" duration="30.00" until="164.0"/> <!-- Dudenstraße/Katzbachstraße -->
         <stop busStop="2029039146" duration="30.00" until="226.0"/> <!-- Badener Ring -->
     </route>
-    <flow id="bus_104:0" type="bus" route="bus_104:0" begin="15.0" end="3615.0" period="600.0" line="104:0" >
-        <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße"/>
+    <flow id="bus_104:0" type="bus" route="bus_104:0" begin="15.0" end="3615.0" period="600" line="104:0" >
+        <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße &quot;(test some quotes&quot;"/>
         <param key="completeness" value="1.00"/>
     </flow>
-    <flow id="bus_104:1" type="bus" route="bus_104:1" begin="133.0" end="3733.0" period="600.0" line="104:1" >
-        <param key="name" value="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz"/>
+    <flow id="bus_104:1" type="bus" route="bus_104:1" begin="133.0" end="3733.0" period="480" line="104:1" >
+        <param key="name" value="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz 'test other quotes' "/>
         <param key="completeness" value="1.00"/>
     </flow>
-    <flow id="bus_140:0" type="bus" route="bus_140:0" begin="165.0" end="3765.0" period="600.0" line="140:0" >
-        <param key="name" value="Buslinie 140: S+U Tempelhof =&gt; S Ostbahnhof"/>
+    <flow id="bus_140:0" type="bus" route="bus_140:0" begin="165.0" end="3765.0" period="600" line="140:0" >
+        <param key="name" value="Buslinie 140: S+U Tempelhof =&gt; S Ostbahnhof &quot;test mixed quotes'"/>
         <param key="completeness" value="0.06"/>
     </flow>
-    <flow id="bus_N42:0" type="bus" route="bus_N42:0" begin="406.0" end="4006.0" period="600.0" line="N42:0" >
+    <flow id="bus_N42:0" type="bus" route="bus_N42:0" begin="406.0" end="4006.0" period="600" line="N42:0" >
         <param key="name" value="Buslinie N42: S+U Alexanderplatz =&gt; U Theodor-Heuss-Platz"/>
         <param key="completeness" value="0.12"/>
     </flow>
-    <flow id="bus_N42:1" type="bus" route="bus_N42:1" begin="441.0" end="4041.0" period="600.0" line="N42:1" >
+    <flow id="bus_N42:1" type="bus" route="bus_N42:1" begin="441.0" end="4041.0" period="600" line="N42:1" >
         <param key="name" value="Buslinie N42: U Theodor-Heuss-Platz =&gt; S+U Alexanderplatz"/>
         <param key="completeness" value="0.11"/>
     </flow>
-    <flow id="bus_140:1" type="bus" route="bus_140:1" begin="383.0" end="3983.0" period="600.0" line="140:1" >
+    <flow id="bus_140:1" type="bus" route="bus_140:1" begin="383.0" end="3983.0" period="600" line="140:1" >
         <param key="name" value="Buslinie 140: S Ostbahnhof =&gt; S + U Tempelhof"/>
         <param key="completeness" value="0.13"/>
     </flow>

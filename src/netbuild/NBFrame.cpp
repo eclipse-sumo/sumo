@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <fstream>
@@ -81,12 +77,12 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.junctions.keep-clear", new Option_Bool(true));
     oc.addDescription("default.junctions.keep-clear", "Building Defaults", "Whether junctions should be kept clear by default");
 
-    oc.doRegister("default.junctions.radius", new Option_Float(1.5));
+    oc.doRegister("default.junctions.radius", new Option_Float(4));
     oc.addDescription("default.junctions.radius", "Building Defaults", "The default turning radius of intersections");
 
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
-    oc.addDescription("no-internal-links", "Processing", "Omits internal links");
+    oc.addDescription("no-internal-links", "Junctions", "Omits internal links");
 
     oc.doRegister("numerical-ids", new Option_Bool(false));
     oc.addDescription("numerical-ids", "Processing", "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers");
@@ -101,14 +97,17 @@ NBFrame::fillOptions(bool forNetgen) {
     }
 
     oc.doRegister("no-turnarounds", new Option_Bool(false));
-    oc.addDescription("no-turnarounds", "Processing", "Disables building turnarounds");
+    oc.addDescription("no-turnarounds", "Junctions", "Disables building turnarounds");
 
     oc.doRegister("no-turnarounds.tls", new Option_Bool(false));
     oc.addSynonyme("no-turnarounds.tls", "no-tls-turnarounds", true);
-    oc.addDescription("no-turnarounds.tls", "Processing", "Disables building turnarounds at tls-controlled junctions");
+    oc.addDescription("no-turnarounds.tls", "Junctions", "Disables building turnarounds at tls-controlled junctions");
+
+    oc.doRegister("no-turnarounds.except-deadend", new Option_Bool(false));
+    oc.addDescription("no-turnarounds.except-deadend", "Junctions", "Disables building turnarounds except at dead end junctions");
 
     oc.doRegister("no-left-connections", new Option_Bool(false));
-    oc.addDescription("no-left-connections", "Processing", "Disables building connections to left");
+    oc.addDescription("no-left-connections", "Junctions", "Disables building connections to left");
 
     if (!forNetgen) {
         oc.doRegister("geometry.split", new Option_Bool(false)); // !!!not described
@@ -152,6 +151,32 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("geometry.max-grade", new Option_Float(10));
         oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed.");
+
+        oc.doRegister("geometry.avoid-overlap", new Option_Bool(true));
+        oc.addDescription("geometry.avoid-overlap", "Processing", "Modify edge geometries to avoid overlap at junctions");
+
+        // railway processing options
+
+        oc.doRegister("railway.topology.repair", new Option_Bool(false));
+        oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network");
+
+        oc.doRegister("railway.topology.repair.connect-straight", new Option_Bool(false));
+        oc.addDescription("railway.topology.repair.connect-straight", "Railway", "Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle");
+
+        oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
+        oc.addDescription("railway.topology.all-bidi", "Railway", "Make all rails usable in both direction");
+
+        oc.doRegister("railway.access-distance", new Option_Float(150.f));
+        oc.addDescription("railway.access-distance", "Railway", "The search radius for finding suitable road accesses for rail stops");
+        oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);
+
+        oc.doRegister("railway.max-accesses", new Option_Integer(5));
+        oc.addDescription("railway.max-accesses", "Railway", "The maximum roud accesses registered per rail stops");
+        oc.addSynonyme("railway.max-accesses", "osm.stop-output.footway-max-accesses", true);
+
+        oc.doRegister("railway.access-factor", new Option_Float(1.5));
+        oc.addDescription("railway.access-factor", "Railway", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
+        oc.addSynonyme("railway.access-factor", "osm.stop-output.footway-access-factor", true);
     }
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));
@@ -170,7 +195,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("flip-y-axis", "flip-y");
     oc.addDescription("flip-y-axis", "Processing", "Flips the y-coordinate along zero");
 
-    oc.doRegister("roundabouts.guess", new Option_Bool(false));
+    oc.doRegister("roundabouts.guess", new Option_Bool(true));
     oc.addSynonyme("roundabouts.guess", "guess-roundabouts", true);
     oc.addDescription("roundabouts.guess", "Processing", "Enable roundabout-guessing");
 
@@ -188,16 +213,16 @@ NBFrame::fillOptions(bool forNetgen) {
                       "Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)");
 
     oc.doRegister("junctions.join", new Option_Bool(false));
-    oc.addDescription("junctions.join", "Processing",
+    oc.addDescription("junctions.join", "Junctions",
                       "Joins junctions that are close to each other (recommended for OSM import)");
 
     oc.doRegister("junctions.join-dist", new Option_Float(10));
-    oc.addDescription("junctions.join-dist", "Processing",
+    oc.addDescription("junctions.join-dist", "Junctions",
                       "Determines the maximal distance for joining junctions (defaults to 10)");
 
     if (!forNetgen) {
         oc.doRegister("junctions.join-exclude", new Option_String());
-        oc.addDescription("junctions.join-exclude", "Processing", "Interprets STR as list of junctions to exclude from joining");
+        oc.addDescription("junctions.join-exclude", "Junctions", "Interprets STR as list of junctions to exclude from joining");
 
         oc.doRegister("speed.offset", new Option_Float(0));
         oc.addDescription("speed.offset", "Processing", "Modifies all edge speeds by adding FLOAT");
@@ -209,60 +234,85 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("speed.minimum", "Processing", "Modifies all edge speeds to at least FLOAT");
     }
 
-    oc.doRegister("junctions.corner-detail", new Option_Integer(0));
-    oc.addDescription("junctions.corner-detail", "Processing", "Generate INT intermediate points to smooth out intersection corners");
+    oc.doRegister("junctions.corner-detail", new Option_Integer(5));
+    oc.addDescription("junctions.corner-detail", "Junctions", "Generate INT intermediate points to smooth out intersection corners");
 
     oc.doRegister("junctions.internal-link-detail", new Option_Integer(5));
-    oc.addDescription("junctions.internal-link-detail", "Processing", "Generate INT intermediate points to smooth out lanes within the intersection");
+    oc.addDescription("junctions.internal-link-detail", "Junctions", "Generate INT intermediate points to smooth out lanes within the intersection");
 
     oc.doRegister("junctions.scurve-stretch", new Option_Float(0));
-    oc.addDescription("junctions.scurve-stretch", "Processing", "Generate longer intersections to allow for smooth s-curves when the number of lanes changes");
+    oc.addDescription("junctions.scurve-stretch", "Junctions", "Generate longer intersections to allow for smooth s-curves when the number of lanes changes");
 
     oc.doRegister("junctions.join-turns", new Option_Bool(false));
-    oc.addDescription("junctions.join-turns", "Processing",
+    oc.addDescription("junctions.join-turns", "Junctions",
                       "Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning");
 
+    oc.doRegister("junctions.limit-turn-speed", new Option_Float(5.5));
+    oc.addDescription("junctions.limit-turn-speed", "Junctions",
+                      "Limits speed on junctions to an average lateral acceleration of at most FLOAT m/s^2)");
+
+    oc.doRegister("junctions.limit-turn-speed.min-angle", new Option_Float(15));
+    oc.addDescription("junctions.limit-turn-speed.min-angle", "Junctions",
+                      "Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.");
+
+    oc.doRegister("junctions.limit-turn-speed.min-angle.railway", new Option_Float(35));
+    oc.addDescription("junctions.limit-turn-speed.min-angle.railway", "Junctions",
+                      "Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.");
+
+    oc.doRegister("junctions.limit-turn-speed.warn.straight", new Option_Float(5));
+    oc.addDescription("junctions.limit-turn-speed.warn.straight", "Junctions",
+                      "Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT");
+
+    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(22));
+    oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
+                      "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
+
+
+    oc.doRegister("junctions.small-radius", new Option_Float(1.5));
+    oc.addDescription("junctions.small-radius", "Junctions",
+                      "Default radius for junctions that do not require wide vehicle turns");
+
     oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
-    oc.addDescription("rectangular-lane-cut", "Processing", "Forces rectangular cuts between lanes and intersections");
+    oc.addDescription("rectangular-lane-cut", "Junctions", "Forces rectangular cuts between lanes and intersections");
 
     oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
-    oc.addDescription("check-lane-foes.roundabout", "Processing",
+    oc.addDescription("check-lane-foes.roundabout", "Junctions",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)");
 
     oc.doRegister("check-lane-foes.all", new Option_Bool(false));
-    oc.addDescription("check-lane-foes.all", "Processing",
+    oc.addDescription("check-lane-foes.all", "Junctions",
                       "Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)");
 
     oc.doRegister("sidewalks.guess", new Option_Bool(false));
-    oc.addDescription("sidewalks.guess", "Processing",
+    oc.addDescription("sidewalks.guess", "Pedestrian",
                       "Guess pedestrian sidewalks based on edge speed");
 
     oc.doRegister("sidewalks.guess.max-speed", new Option_Float((double) 13.89));
-    oc.addDescription("sidewalks.guess.max-speed", "Processing",
+    oc.addDescription("sidewalks.guess.max-speed", "Pedestrian",
                       "Add sidewalks for edges with a speed equal or below the given limit");
 
     oc.doRegister("sidewalks.guess.min-speed", new Option_Float((double) 5.8));
-    oc.addDescription("sidewalks.guess.min-speed", "Processing",
+    oc.addDescription("sidewalks.guess.min-speed", "Pedestrian",
                       "Add sidewalks for edges with a speed above the given limit");
 
     oc.doRegister("sidewalks.guess.from-permissions", new Option_Bool(false));
-    oc.addDescription("sidewalks.guess.from-permissions", "Processing",
+    oc.addDescription("sidewalks.guess.from-permissions", "Pedestrian",
                       "Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed");
 
     oc.doRegister("sidewalks.guess.exclude", new Option_String());
-    oc.addDescription("sidewalks.guess.exclude", "Processing",
+    oc.addDescription("sidewalks.guess.exclude", "Pedestrian",
                       "Do not guess sidewalks for the given list of edges");
 
     oc.doRegister("crossings.guess", new Option_Bool(false));
-    oc.addDescription("crossings.guess", "Processing",
+    oc.addDescription("crossings.guess", "Pedestrian",
                       "Guess pedestrian crossings based on the presence of sidewalks");
 
     oc.doRegister("crossings.guess.speed-threshold", new Option_Float(13.89));
-    oc.addDescription("crossings.guess.speed-threshold", "Processing",
+    oc.addDescription("crossings.guess.speed-threshold", "Pedestrian",
                       "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
 
     oc.doRegister("walkingareas", new Option_Bool(false));
-    oc.addDescription("walkingareas", "Processing", "Always build walking areas even if there are no crossings");
+    oc.addDescription("walkingareas", "Pedestrian", "Always build walking areas even if there are no crossings");
 
     // tls setting options
     // explicit tls
@@ -441,6 +491,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addSynonyme("ramps.guess", "guess-ramps", true);
         oc.addDescription("ramps.guess", "Ramp Guessing", "Enable ramp-guessing");
 
+        oc.doRegister("ramps.guess-acceleration-lanes", new Option_Bool(true));
+        oc.addDescription("ramps.guess-acceleration-lanes", "Ramp Guessing", "Guess on-ramps and mark acceleration lanes if they exist but do not add new lanes");
+
         oc.doRegister("ramps.max-ramp-speed", new Option_Float(-1));
         oc.addSynonyme("ramps.max-ramp-speed", "ramp-guess.max-ramp-speed", true);
         oc.addDescription("ramps.max-ramp-speed", "Ramp Guessing", "Treat edges with speed > FLOAT as no ramps");
@@ -508,6 +561,10 @@ NBFrame::checkOptions() {
         }
         // make sure the option is set so heuristics cannot ignore it
         oc.set("no-internal-links", "false");
+    }
+    if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius")) {
+        WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
+        ok = false;
     }
     return ok;
 }

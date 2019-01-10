@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEFrame.h"
 
@@ -132,7 +128,7 @@ public:
         ~crossingParameters();
 
         /// @brief enable crossing parameters and set the default value of parameters
-        void enableCrossingParameters();
+        void enableCrossingParameters(bool hasTLS);
 
         /// @brief disable crossing parameters and clear parameters
         void disableCrossingParameters();

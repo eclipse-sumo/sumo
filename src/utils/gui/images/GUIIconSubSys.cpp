@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <cassert>
@@ -126,6 +122,7 @@
 #include "lanebike.xpm"
 #include "lanebus.xpm"
 #include "lanepedestrian.xpm"
+#include "lanegreenverge.xpm"
 
 #include "cut.xpm"
 #include "ext.xpm"
@@ -140,6 +137,7 @@
 #include "modeselect.xpm"
 #include "modetrafficlight.xpm"
 #include "modepolygon.xpm"
+#include "modeprohibition.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -154,11 +152,13 @@
 #include "crossing.xpm"
 
 #include "busstop.xpm"
+#include "access.xpm"
 #include "chargingstation.xpm"
 #include "containerstop.xpm"
 #include "parkingarea.xpm"
 #include "parkingspace.xpm"
 #include "e1.xpm"
+#include "e1instant.xpm"
 #include "e2.xpm"
 #include "e3.xpm"
 #include "e3entry.xpm"
@@ -168,6 +168,17 @@
 #include "vaporizer.xpm"
 #include "variablespeedsign.xpm"
 #include "calibrator.xpm"
+#include "rerouterinterval.xpm"
+#include "vssstep.xpm"
+#include "closingreroute.xpm"
+#include "closinglanereroute.xpm"
+#include "destprobreroute.xpm"
+#include "parkingzonereroute.xpm"
+#include "routeprobreroute.xpm"
+
+#include "flow.xpm"
+#include "route.xpm"
+#include "vtype.xpm"
 
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
@@ -231,7 +242,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[ICON_RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[ICON_SAVE] = new FXXPMIcon(a, filesave_xpm);
-    myIcons[ICON_CLOSE] = 0;//new FXXPMIcon(a, close);
+    myIcons[ICON_CLOSE] = new FXXPMIcon(a, empty_xpm);  /** temporal **/
+    myIcons[ICON_HELP] = new FXXPMIcon(a, empty_xpm);   /** temporal **/
     myIcons[ICON_START] = new FXXPMIcon(a, play_xpm);
     myIcons[ICON_STOP] = new FXXPMIcon(a, stop_xpm);
     myIcons[ICON_STEP] = new FXXPMIcon(a, step_xpm);
@@ -317,6 +329,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_LANEPEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
     myIcons[ICON_LANEBUS] = new FXXPMIcon(a, lanebus);
     myIcons[ICON_LANEBIKE] = new FXXPMIcon(a, lanebike);
+    myIcons[ICON_LANEGREENVERGE] = new FXXPMIcon(a, lanegreenverge);
 
     myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
@@ -331,6 +344,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
     myIcons[ICON_MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
     myIcons[ICON_MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
+    myIcons[ICON_MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
@@ -345,6 +359,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_CROSSING] = new FXXPMIcon(a, crossing_xpm);
 
     myIcons[ICON_BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
+    myIcons[ICON_ACCESS] = new FXXPMIcon(a, access_xpm);
     myIcons[ICON_CONTAINERSTOP] = new FXXPMIcon(a, containerstop_xpm);
     myIcons[ICON_CHARGINGSTATION] = new FXXPMIcon(a, chargingstation_xpm);
     myIcons[ICON_PARKINGAREA] = new FXXPMIcon(a, parkingarea_xpm);
@@ -354,11 +369,23 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_E3] = new FXXPMIcon(a, e3_xpm);
     myIcons[ICON_E3ENTRY] = new FXXPMIcon(a, e3entry_xpm);
     myIcons[ICON_E3EXIT] = new FXXPMIcon(a, e3exit_xpm);
+    myIcons[ICON_E1INSTANT] = new FXXPMIcon(a, e1instant_xpm);
     myIcons[ICON_REROUTER] = new FXXPMIcon(a, rerouter_xpm);
     myIcons[ICON_ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
     myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
     myIcons[ICON_VARIABLESPEEDSIGN] = new FXXPMIcon(a, variablespeedsign_xpm);
     myIcons[ICON_CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
+    myIcons[ICON_REROUTERINTERVAL] = new FXXPMIcon(a, rerouterinterval_xpm);
+    myIcons[ICON_VSSSTEP] = new FXXPMIcon(a, vssstep_xpm);
+    myIcons[ICON_CLOSINGREROUTE] = new FXXPMIcon(a, closingreroute_xpm);
+    myIcons[ICON_CLOSINGLANEREROUTE] = new FXXPMIcon(a, closinglanereroute_xpm);
+    myIcons[ICON_DESTPROBREROUTE] = new FXXPMIcon(a, destprobreroute_xpm);
+    myIcons[ICON_PARKINGZONEREROUTE] = new FXXPMIcon(a, parkingzonereroute_xpm);
+    myIcons[ICON_ROUTEPROBREROUTE] = new FXXPMIcon(a, routeprobreroute_xpm);
+
+    myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
+    myIcons[ICON_ROUTE] = new FXXPMIcon(a, route_xpm);
+    myIcons[ICON_VTYPE] = new FXXPMIcon(a, vtype_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

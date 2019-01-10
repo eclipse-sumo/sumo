@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03.08.2018 09:41:42 by Eclipse SUMO netedit Version 7115a4b324
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug091602.2904/netedit.gui/additionalElements/e1InstantDetector/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug091602.2904/netedit.gui/additionalElements/e1InstantDetector/load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug091602.2904/netedit.gui/additionalElements/e1InstantDetector/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug091602.2904/netedit.gui/additionalElements/e1InstantDetector/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug091602.2904/netedit.gui/additionalElements/e1InstantDetector/load\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug091602.2904/netedit.gui/additionalElements/e1InstantDetector/load\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Aug091602.2904/netedit.gui/additionalElements/e1InstantDetector/load\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <instantInductionLoop id="E1Instant_01" lane="gneE0_0" pos="3.00" file="instantInductionLoop_01.txt"/>
+    <instantInductionLoop id="E1Instant_15" lane="gneE0_0" pos="36.00" file="instantInductionLoop_01.txt"/>
+    <instantInductionLoop id="E1Instant_16" lane="gneE0_0" pos="39.00" file="myOwnFile.txt"/>
+    <instantInductionLoop id="E1Instant_17" vTypes="taxi bus" lane="gneE1_0" pos="10.00" file="instantInductionLoop_20.txt"/>
+    <instantInductionLoop id="E1Instant_18" vTypes="taxi bus" lane="gneE1_0" pos="20.00" file="instantInductionLoop_21.txt"/>
+    <instantInductionLoop id="E1Instant_19" vTypes="taxi bus" lane="gneE1_0" pos="0.00" file="instantInductionLoop_22.txt" friendlyPos="1"/>
+    <instantInductionLoop id="E1Instant_20" vTypes="taxi bus" lane="gneE1_0" pos="50.00" file="instantInductionLoop_23.txt" friendlyPos="1"/>
+    <instantInductionLoop id="E1Instant_21" vTypes="taxi bus" lane="gneE1_0" pos="12.00" file="instantInductionLoop_23.txt" friendlyPos="1"/>
+    <instantInductionLoop id="E1Instant_22" name="customName" vTypes="taxi bus" lane="gneE1_0" pos="13.00" file="instantInductionLoop_23.txt" friendlyPos="1"/>
+</additional>

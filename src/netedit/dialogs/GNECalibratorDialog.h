@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEAdditionalDialog.h"
 
@@ -57,9 +53,6 @@ public:
 
     /// @brief destructor
     ~GNECalibratorDialog();
-
-    /// @brief get edited calibrator
-    GNECalibrator* getEditedCalibrator() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -96,9 +89,6 @@ protected:
     GNECalibratorDialog() {}
 
 private:
-    /// @brief pointer to edited calibrator
-    GNECalibrator* myEditedCalibrator;
-
     /// @brief button for add new route
     FXButton* myAddRoute;
 

@@ -1,8 +1,8 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_-gneE5_0_0" lane="-gneE5_0" startPos="6.00" endPos="15.00"/>
     <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="40.00,40.00">
         <detEntry lane="-gneE11_0" pos="14.00" friendlyPos="0"/>
         <detExit lane="gneE11_0" pos="13.00" friendlyPos="0"/>
     </e3Detector>
-    <rerouter id="rerouter_0" edges="-gneE9 gneE9" probability="1.00" file="rerouter_0.txt" off="0" pos="69.38,43.40"/>
-</additionals>
+    <rerouter id="rerouter_0" edges="-gneE9 gneE9" probability="1.00" off="0" pos="69.38,43.40"/>
+</additional>

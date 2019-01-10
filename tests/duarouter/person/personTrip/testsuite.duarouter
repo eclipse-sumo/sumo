@@ -22,6 +22,9 @@ car_walk_arrivalpos
 # public transport and walk possible
 public_walk
 
+# public transport and walk possible
+public_walk_singleveh
+
 # public transport without bus stops
 unusable_bus
 
@@ -74,6 +77,10 @@ access_twice
 
 # walk to a train stop via access edge
 access_walk
+
+# use train stop as a shortcut to connect walks
+# 
+walk_access_walk
 car_public_walk
 
 # bug: person does not board the train when changing access position to 450
@@ -112,4 +119,17 @@ public_walk_human_readable_time
 
 # Copy of car_public_walk
 bike_public_walk
+
+# back and forth using walkingarea
+walk_walkingareas
+
+# back and forth using normal vehicle connections
+walk_normal_connections
+
+# walk back and forth with implicit connectivity
+walk_no_connections
+
+# see #4314
+walk_strange_network
+intermodal_train_bus_walk
 errors

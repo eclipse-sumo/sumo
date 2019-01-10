@@ -106,7 +106,7 @@ class VehicleTypeDomain(Domain):
         Returns the apparent deceleration in m/s^2 of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_APPARENT_DECEL, typeID)
-    
+
     def getActionStepLength(self, typeID):
         """getActionStepLength(string) -> double
 
@@ -329,17 +329,17 @@ class VehicleTypeDomain(Domain):
     def setActionStepLength(self, typeID, actionStepLength, resetActionOffset=True):
         """setActionStepLength(string, double, bool) -> None
 
-        Sets the action step length for vehicles of this type. If resetActionOffset == True (default), the 
-        next action point is scheduled immediately for all vehicles of the type. 
-        If resetActionOffset == False, the interval between the last and the next action point is 
-        updated to match the given value for all vehicles of the type, or if the latter is smaller 
+        Sets the action step length for vehicles of this type. If resetActionOffset == True (default), the
+        next action point is scheduled immediately for all vehicles of the type.
+        If resetActionOffset == False, the interval between the last and the next action point is
+        updated to match the given value for all vehicles of the type, or if the latter is smaller
         than the time since the last action point, the next action follows immediately.
         """
         if actionStepLength < 0:
             raise exceptions.TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")
         # Use negative value to indicate resetActionOffset == False
         if not resetActionOffset:
-            actionStepLength*=-1
+            actionStepLength *= -1
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_ACTIONSTEPLENGTH, typeID, actionStepLength)
 
@@ -362,7 +362,8 @@ class VehicleTypeDomain(Domain):
     def setTau(self, typeID, tau):
         """setTau(string, double) -> None
 
-        Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s for vehicles of this type.
+        Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s
+        for vehicles of this type.
         """
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_TAU, typeID, tau)
@@ -385,5 +386,6 @@ class VehicleTypeDomain(Domain):
         """
         self._connection._sendStringCmd(
             tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.COPY, origTypeID, newTypeID)
+
 
 VehicleTypeDomain()

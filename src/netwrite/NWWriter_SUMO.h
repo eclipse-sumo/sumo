@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -102,7 +98,7 @@ public:
 
     /** @brief Write a stopOffset element into output device
      */
-    static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions,double>& stopOffsets);
+    static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets);
 
 
 private:
@@ -138,7 +134,7 @@ private:
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
-                          double endOffset, std::map<SVCPermissions,double> stopOffsets, double width, PositionVector shape,
+                          double endOffset, std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, bool accelRamp = false,
                           bool customShape = false);
@@ -201,7 +197,7 @@ private:
                                 const NBEdgeCont& ec);
 
     /// @brief retrieve the id of the opposite direction internal lane if it exists
-    static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con);
+    static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength);
 
 };
 

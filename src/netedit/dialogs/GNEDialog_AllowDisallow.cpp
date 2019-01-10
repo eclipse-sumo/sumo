@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -30,8 +26,11 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEDialog_AllowDisallow.h"
+
 
 
 // ===========================================================================
@@ -55,10 +54,11 @@ FXIMPLEMENT(GNEDialog_AllowDisallow, FXDialogBox, GNEDialog_AllowDisallowMap, AR
 // member method definitions
 // ===========================================================================
 
-GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow) :
-    FXDialogBox(app, ("Edit allowed and disallowed " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
-    myAllow(allow),
-    myCopyOfAllow(*allow) {
+GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC) :
+    FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
+    myViewNet(viewNet),
+    myAC(AC) {
+    assert(GNEAttributeCarrier::getTagProperties(AC->getTag()).hasAttribute(SUMO_ATTR_ALLOW));
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
     // create main frame
@@ -79,6 +79,7 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow)
     // create left frame and fill it
     FXVerticalFrame* myContentLeftFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
     buildVClass(myContentLeftFrame, SVC_PASSENGER, ICON_VCLASS_PASSENGER, "Default vehicle class");
+    buildVClass(myContentLeftFrame, SVC_PRIVATE, ICON_VCLASS_PRIVATE, "A passenger car assigned for private use");
     buildVClass(myContentLeftFrame, SVC_TAXI, ICON_VCLASS_TAXI, "Vehicle for hire with a driver");
     buildVClass(myContentLeftFrame, SVC_BUS, ICON_VCLASS_BUS, "Urban line traffic");
     buildVClass(myContentLeftFrame, SVC_COACH, ICON_VCLASS_COACH, "Overland transport");
@@ -93,15 +94,14 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(FXApp* app, std::string* allow)
     buildVClass(myContentCenterFrame, SVC_BICYCLE, ICON_VCLASS_BICYCLE, "Human-powered, pedal-driven vehicle");
     buildVClass(myContentCenterFrame, SVC_PEDESTRIAN, ICON_VCLASS_PEDESTRIAN, "Person traveling on foot");
     buildVClass(myContentCenterFrame, SVC_TRAM, ICON_VCLASS_TRAM, "Rail vehicle which runs on tracks");
+    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, ICON_VCLASS_RAIL_ELECTRIC, "Rail electric vehicle");
     buildVClass(myContentCenterFrame, SVC_RAIL_URBAN, ICON_VCLASS_RAIL_URBAN, "Heavier than tram");
     buildVClass(myContentCenterFrame, SVC_RAIL, ICON_VCLASS_RAIL, "Heavy rail vehicle (ICE)");
-    buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, ICON_VCLASS_RAIL_ELECTRIC, "Rail electric vehicle (Trolleybus)");
-    buildVClass(myContentCenterFrame, SVC_SHIP, ICON_VCLASS_SHIP, "Basic class for navigating waterway");
     buildVClass(myContentCenterFrame, SVC_E_VEHICLE, ICON_VCLASS_EVEHICLE, "Future electric mobility vehicles");
     // create right frame and fill it  (8 vehicles)
     FXVerticalFrame* myContentRightFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClass(myContentRightFrame, SVC_PRIVATE, ICON_VCLASS_PRIVATE, "A passenger car assigned for private use");
     buildVClass(myContentRightFrame, SVC_ARMY, ICON_VCLASS_ARMY, "Vehicle designed for military forces");
+    buildVClass(myContentRightFrame, SVC_SHIP, ICON_VCLASS_SHIP, "Basic class for navigating waterway");
     buildVClass(myContentRightFrame, SVC_AUTHORITY, ICON_VCLASS_AUTHORITY, "Vehicle of a governmental security agency");
     buildVClass(myContentRightFrame, SVC_VIP, ICON_VCLASS_VIP, "A civilian security armored car used by VIPs");
     buildVClass(myContentRightFrame, SVC_HOV, ICON_VCLASS_HOV, "High-Occupancy Vehicle (two or more passengers)");
@@ -186,11 +186,7 @@ GNEDialog_AllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // chek if all vehicles are enabled and set new allowed vehicles
-    if (allowedVehicles.size() == 25) {
-        (*myAllow) = "all";
-    } else {
-        (*myAllow) = joinToString(allowedVehicles, " ");
-    }
+    myAC->setAttribute(SUMO_ATTR_ALLOW, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
     // Stop Modal
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -207,17 +203,25 @@ GNEDialog_AllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
-    // clear allow and disallow VClasses
-    std::vector<std::string> allowStringVector;
-    SUMOSAXAttributes::parseStringVector(myCopyOfAllow, allowStringVector);
-    // iterate over myVClassMap and set icons
-    for (auto i : myVClassMap) {
-        if (std::find(allowStringVector.begin(), allowStringVector.end(), getVehicleClassNames(i.first)) != allowStringVector.end()) {
+    if (myAC->getAttribute(SUMO_ATTR_ALLOW) == "all") {
+        // iterate over myVClassMap and set all icons as true
+        for (auto i : myVClassMap) {
             i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
             i.second.second->setText((getVehicleClassNames(i.first) + " allowed").c_str());
-        } else {
-            i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
-            i.second.second->setText((getVehicleClassNames(i.first) + " disallowed").c_str());
+        }
+    } else {
+        // declare string vector for saving all vclasses
+        std::vector<std::string> allowStringVector;
+        SUMOSAXAttributes::parseStringVector(myAC->getAttribute(SUMO_ATTR_ALLOW), allowStringVector);
+        // iterate over myVClassMap and set icons
+        for (auto i : myVClassMap) {
+            if (std::find(allowStringVector.begin(), allowStringVector.end(), getVehicleClassNames(i.first)) != allowStringVector.end()) {
+                i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
+                i.second.second->setText((getVehicleClassNames(i.first) + " allowed").c_str());
+            } else {
+                i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
+                i.second.second->setText((getVehicleClassNames(i.first) + " disallowed").c_str());
+            }
         }
     }
     return 1;

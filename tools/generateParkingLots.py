@@ -35,7 +35,7 @@ else:
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-i", "--parking-id", dest="parkId",
-                         default="parking lot", help="define the name/id of the parking lot")
+                         default="parkingLot", help="define the name/id of the parking lot")
     optParser.add_option("-x", "--x-axis", dest="xaxis", type="int",
                          help="define x-position of the parking lot")
     optParser.add_option("-y", "--y-axis", dest="yaxis", type="int",
@@ -55,9 +55,11 @@ def get_options(args=None):
     optParser.add_option("-a", "--space-angle", dest="angle", type="int",
                          default=315, help="define the name of the output file")
     optParser.add_option("--x-space-distance", dest="xdist", type="float",
-                         default=5, help="define the lateral distance (x-direction) between the locations of two parking spaces")
+                         default=5, help="define the lateral distance (x-direction) between the locations of two " +
+                         "parking spaces")
     optParser.add_option("--y-space-distance", dest="ydist", type="float",
-                         default=5, help="define the longitudinal (y-direction) distance between the locations of two parking spaces")
+                         default=5, help="define the longitudinal (y-direction) distance between the locations of " +
+                         "two parking spaces")
     optParser.add_option("-r", "--rotation-degree", dest="rotation", type="int",
                          default=0, help="define the rotation degree of the parking lot")
     optParser.add_option("--adjustrate-x", dest="factorX", type="float",
@@ -119,7 +121,7 @@ def main(options):
                     if y < float(xys[3]):
                         y = float(xys[1]) + row * options.ydist * factorY
                     else:
-                        print ("*** The maximum y is reached. Some of the parking lots are overlapped.")
+                        print("*** The maximum y is reached. Some of the parking lots are overlapped.")
                     x = float(xys[0]) + row * movingX * factorX
                 else:
                     x += movingX

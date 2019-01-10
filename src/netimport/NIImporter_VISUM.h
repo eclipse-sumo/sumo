@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -198,7 +194,7 @@ private:
     double getWeightedFloat2(const std::string& name, const std::string& name2, const std::string& suffix);
 
     /// @brief parse permissions
-    SVCPermissions getPermissions(const std::string& name, bool warn=false, SVCPermissions unknown=SVCAll);
+    SVCPermissions getPermissions(const std::string& name, bool warn = false, SVCPermissions unknown = SVCAll);
 
     /** @brief tries to get a bool which is possibly assigned to a certain modality
      *
@@ -225,7 +221,7 @@ private:
      * @exception UnknownElement If the named data field is not in the line
      */
     NBNode* getNamedNode(const std::string& fieldName);
-    NBNode* getNamedNodeSecure(const std::string& fieldName, NBNode* fallback=0);
+    NBNode* getNamedNodeSecure(const std::string& fieldName, NBNode* fallback = 0);
 
     /** @brief The same, but two different names for the field are allowed
      *

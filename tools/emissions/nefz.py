@@ -89,7 +89,6 @@ def build(what):
     vs3 = []
     as3 = []
     ct = 0
-    ca = 0
     cv = 0
     lv = 0
     lt = 0
@@ -99,7 +98,6 @@ def build(what):
     for tav in what:
         [t, a, v] = tav[:3]
         v = v / 3.6
-        isDestinationVelocityEntry = False
         if v >= 0:
             # destination velocity
             if a != 0:
@@ -107,7 +105,6 @@ def build(what):
             ts1.append(ct + t)
             as1.append(0)
             vs1.append(v)
-            isDestinationVelocityEntry = True
         # via acceleration
         for it in range(0, t):
             ts2.append(ct + it)
@@ -128,7 +125,6 @@ def build(what):
                     vs3.append(lv + a * float(it - lt))
 
         ct = ct + t
-        ca = a
         if v >= 0:
             cv = v
             lv = v

@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <utils/common/TplConvert.h>
@@ -81,7 +77,7 @@ GUISettingsHandler::myStartElement(int element,
         break;
         case SUMO_TAG_BREAKPOINT:
             myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, 0, ok));
-        break;
+            break;
         case SUMO_TAG_VIEWSETTINGS:
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, 0, ok, "default");
             std::transform(myViewType.begin(), myViewType.end(), myViewType.begin(), tolower);
@@ -172,6 +168,12 @@ GUISettingsHandler::myStartElement(int element,
             if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_JUNCTIONS) {
                 myCurrentScheme = mySettings.junctionColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_POIS) {
+                myCurrentScheme = mySettings.poiColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_POLYS) {
+                myCurrentScheme = mySettings.polyColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
                 bool ok = true;
                 myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, 0, ok, false));
@@ -258,11 +260,15 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.poiSize = parseSizeSettings("poi", attrs, mySettings.poiSize);
             mySettings.poiName = parseTextSettings("poiName", attrs, mySettings.poiName);
             mySettings.poiType = parseTextSettings("poiType", attrs, mySettings.poiType);
+            mySettings.poiColorer.setActive(TplConvert::_2int(attrs.getStringSecure("personMode", "0").c_str()));
+            myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_POLYS:
             mySettings.polySize = parseSizeSettings("poly", attrs, mySettings.polySize);
             mySettings.polyName = parseTextSettings("polyName", attrs, mySettings.polyName);
             mySettings.polyType = parseTextSettings("polyType", attrs, mySettings.polyType);
+            mySettings.polyColorer.setActive(TplConvert::_2int(attrs.getStringSecure("personMode", "0").c_str()));
+            myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:
             mySettings.showSizeLegend = TplConvert::_2bool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)).c_str());

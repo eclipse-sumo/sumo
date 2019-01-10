@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <string>
@@ -125,11 +121,9 @@ GUIRunThread::run() {
     while (!myQuit) {
         // if the simulation shall be perfomed, do it
         if (!myHalting && myNet != 0 && myOk) {
-            if (getNet().logSimulationDuration()) {
-                beg = SysUtils::getCurrentMillis();
-                if (end != -1) {
-                    getNet().setIdleDuration((int)(beg - end));
-                }
+            beg = SysUtils::getCurrentMillis();
+            if (end != -1) {
+                getNet().setIdleDuration((int)(beg - end));
             }
             // check whether we shall stop at this step
             myBreakpointLock.lock();
@@ -142,13 +136,11 @@ GUIRunThread::run() {
             if (haltAfter) {
                 stop();
             }
-            // wait if wanted
-            long wait = (long)mySimDelay;
-            if (getNet().logSimulationDuration()) {
-                end = SysUtils::getCurrentMillis();
-                getNet().setSimDuration((int)(end - beg));
-                wait -= (end - beg);
-            }
+            // wait if wanted (delay is per simulated second)
+            long wait = (long)(mySimDelay * TS);
+            end = SysUtils::getCurrentMillis();
+            getNet().setSimDuration((int)(end - beg));
+            wait -= (end - beg);
             if (wait > 0) {
                 sleep(wait);
             }
@@ -200,6 +192,9 @@ GUIRunThread::makeStep() {
                     WRITE_MESSAGE("Simulation ended at time: " + time2string(myNet->getCurrentTimeStep()));
                     WRITE_MESSAGE("Reason: " + MSNet::getStateMessage(state));
                     e = new GUIEvent_SimulationEnded(state, myNet->getCurrentTimeStep() - DELTA_T);
+                    // ensure that files are closed (deleteSim is called a bit later by the gui thread)
+                    // MSNet destructor may trigger MsgHandler (via routing device cleanup). Closing output devices here is not safe
+                    // OutputDevice::closeAll();
                     myHaveSignaledEnd = true;
                 }
                 break;

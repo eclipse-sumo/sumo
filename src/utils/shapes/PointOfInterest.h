@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/Parameterised.h>
 #include <utils/common/StringUtils.h>
@@ -138,8 +134,10 @@ public:
             if (geo) {
                 Position POICartesianPos(*this);
                 GeoConvHelper::getFinal().cartesian2geo(POICartesianPos);
+                out.setPrecision(gPrecisionGeo);
                 out.writeAttr(SUMO_ATTR_LON, POICartesianPos.x());
                 out.writeAttr(SUMO_ATTR_LAT, POICartesianPos.y());
+                out.setPrecision();
             } else {
                 out.writeAttr(SUMO_ATTR_X, x());
                 out.writeAttr(SUMO_ATTR_Y, y());

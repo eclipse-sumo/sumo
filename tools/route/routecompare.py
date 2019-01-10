@@ -142,31 +142,31 @@ def augmentSimultan(vTerm):
     dead = set()
     for v in vTerm:
         path = [v]
-        l = 0
+        id = 0
         while True:
-            while len(path[l].pre) > 0 and path[l].pre[0] in dead:
-                path[l].pre.pop(0)
-            if len(path[l].pre) == 0:
-                if l == 0:
+            while len(path[id].pre) > 0 and path[id].pre[0] in dead:
+                path[id].pre.pop(0)
+            if len(path[id].pre) == 0:
+                if id == 0:
                     break
-                dead.add(path[l - 1])
-                l -= 2
+                dead.add(path[id - 1])
+                id -= 2
             else:
-                if l == len(path) - 1:
+                if id == len(path) - 1:
                     path.append(None)
-                path[l + 1] = path[l].pre.pop(0)
-                dead.add(path[l + 1])
-                l += 1
-                if path[l].level == 0:
-                    for j in range(0, l + 1, 2):
+                path[id + 1] = path[id].pre.pop(0)
+                dead.add(path[id + 1])
+                id += 1
+                if path[id].level == 0:
+                    for j in range(0, id + 1, 2):
                         path[j].match = path[j + 1]
                         path[j + 1].match = path[j]
                     break
                 else:
-                    if l == len(path) - 1:
+                    if id == len(path) - 1:
                         path.append(None)
-                    path[l + 1] = path[l].match
-                    l += 1
+                    path[id + 1] = path[id].match
+                    id += 1
 
 
 def hungarianDAG(U, V, similarityMatrix):

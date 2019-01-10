@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <algorithm>
 #include <cassert>
@@ -51,8 +47,8 @@ ROJTREdge::~ROJTREdge() {
 
 
 void
-ROJTREdge::addSuccessor(ROEdge* s, std::string) {
-    ROEdge::addSuccessor(s);
+ROJTREdge::addSuccessor(ROEdge* s, ROEdge* via, std::string dir) {
+    ROEdge::addSuccessor(s, via, dir);
     ROJTREdge* js = static_cast<ROJTREdge*>(s);
     if (myFollowingDefs.find(js) == myFollowingDefs.end()) {
         myFollowingDefs[js] = new ValueTimeLine<double>();

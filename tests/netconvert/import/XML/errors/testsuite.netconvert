@@ -13,5 +13,8 @@ xml_no_nod
 # Tests what happens if from-node and to-node are identical
 xml_looped_edge
 
+# invalid node id
+node_id_invalid
+
 # Tests for broken edges
 broken_edge

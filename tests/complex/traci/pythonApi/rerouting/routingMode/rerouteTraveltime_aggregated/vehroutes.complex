@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jul 26 12:55:17 2018 by Eclipse SUMO Version 744c310
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="120"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="58883"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow.0" depart="0.00" arrival="48.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="1.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.1" depart="10.00" arrival="50.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="11.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.2" depart="20.00" arrival="52.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="21.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.3" depart="30.00" arrival="81.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="31.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.4" depart="40.00" arrival="83.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="41.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.5" depart="50.00" arrival="85.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="51.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.6" depart="60.00" arrival="114.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="61.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.7" depart="70.00" arrival="116.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="71.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.8" depart="80.00" arrival="118.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="81.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.9" depart="90.00" arrival="121.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="traci:rerouteTraveltime" replacedAtTime="91.00" probability="0" edges="beg detour end"/>
+            <route edges="beg middle middle2 end"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

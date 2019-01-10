@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utility>
@@ -63,9 +59,8 @@ public:
      * @param[in] id of the element
      * @param[in] type type of GL object
      * @param[in] tag sumo xml tag of the element
-     * @param[in] icon GUIIcon associated to the additional
      */
-    GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon);
+    GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag);
 
     /// @brief Destructor
     ~GNENetElement();
@@ -73,7 +68,7 @@ public:
     /**@brief update pre-computed geometry information
      * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
      */
-    virtual void updateGeometry() = 0;
+    virtual void updateGeometry(bool updateGrid) = 0;
 
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
@@ -98,10 +93,6 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
-    /**@brief Returns the name of the parent object
-     * @return This object's parent id
-     */
-    virtual const std::string& getParentName() const;
 
     /**@brief Returns an own parameter window
     *
@@ -162,14 +153,49 @@ public:
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
+    /// @}
+
+    /// @name This functions related with generic parameters has to be implemented in all GNEAttributeCarriers
+    /// @{
+
+    /// @brief add generic parameter
+    virtual bool addGenericParameter(const std::string& key, const std::string& value) = 0;
+
+    /// @brief remove generic parameter
+    virtual bool removeGenericParameter(const std::string& key) = 0;
+
+    /// @brief update generic parameter
+    virtual bool updateGenericParameter(const std::string& oldKey, const std::string& newKey) = 0;
+
+    /// @brief update value generic parameter
+    virtual bool updateGenericParameterValue(const std::string& key, const std::string& newValue) = 0;
+
+    /// @brief return generic parameters in string format
+    virtual std::string getGenericParametersStr() const = 0;
+
+    /// @brief return generic parameters as vector of pairs format
+    virtual std::vector<std::pair<std::string, std::string> > getGenericParameters() const = 0;
+
+    /// @brief set generic parameters in string format
+    virtual void setGenericParametersStr(const std::string& value) = 0;
+
     /// @}
 
 protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
 
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
+
     /// @brief list of Additional parents of this NetElement
-    std::vector<GNEAdditional*> myAdditionalParents;
+    std::vector<GNEAdditional*> myFirstAdditionalParents;
 
     /// @brief list of Additional Childs of this NetElement
     std::vector<GNEAdditional*> myAdditionalChilds;
@@ -177,6 +203,9 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief method for check if mouse is over objects
+    virtual void mouseOverObject(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief Invalidated copy constructor.
     GNENetElement(const GNENetElement&) = delete;

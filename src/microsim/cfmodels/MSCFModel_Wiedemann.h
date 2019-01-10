@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel.h"
 #include <microsim/MSLane.h>
@@ -46,20 +42,9 @@ class MSCFModel_Wiedemann : public MSCFModel {
 public:
 
     /** @brief Constructor
-     *
-     * @param[in] security The security parameter in [0,1] (dimensionless)
-     * @param[in] estimation The estimation capability parameter in [0,1] (dimensionless)
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] emergencyDecel The maximum emergency deceleration
-     * @param[in] apparentDecel The deceleration as expected by others
-     *
-     * @note other parameters of the wiedemann model:
-     * - speed: included in MSVehicleType
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel_Wiedemann(const MSVehicleType* vtype,
-                        double accel, double decel, double emergencyDecel, double apparentDecel,
-                        double security, double estimation);
+    MSCFModel_Wiedemann(const MSVehicleType* vtype);
 
 
     /// @brief Destructor

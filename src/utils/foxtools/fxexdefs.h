@@ -20,11 +20,7 @@
 #ifndef FXEXDEFS_H
 #define FXEXDEFS_H
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 

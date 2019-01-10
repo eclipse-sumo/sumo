@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cmath>
 #include <vector>
@@ -129,11 +125,11 @@ GUIParameterTableWindow*
 GUIContainer::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
-    ret->mkItem("dest edge [id]", false, getDestination().getID());
+    ret->mkItem("dest edge [id]", false, getDestination()->getID());
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getSpeed));
@@ -151,7 +147,7 @@ GUIParameterTableWindow*
 GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getMap().size());
+        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getParametersMap().size());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myVType->getID());
@@ -319,7 +315,7 @@ GUIContainer::getColorValue(int activeScheme) const {
             return getSpeed();
         case 5:
             if (isWaiting4Vehicle()) {
-                return 3;
+                return 5;
             } else {
                 return (double)getCurrentStageType();
             }

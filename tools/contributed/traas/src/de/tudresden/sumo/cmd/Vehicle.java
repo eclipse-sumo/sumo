@@ -46,6 +46,16 @@ public class Vehicle {
 	}
 
 	/**
+	 *  Returns the action step length for this vehicle.
+	 * @param vehID id of the vehicle
+	 * @return action step length for this vehicle
+	 */
+
+	public static SumoCommand getActionStepLength(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ACTIONSTEPLENGTH, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	/**
 	 * Returns the number of all vehicles in the network.
 	 * @return current number of vehicles in the network
 	 */
@@ -163,6 +173,17 @@ public class Vehicle {
 		
 
 	/**
+	 *  Returns the time of last action point for this vehicle.
+     * @param vehID id of the vehicle
+	 * @return  time of last action point for this vehicle.
+	 */
+
+	public static SumoCommand getLastActionTime(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LASTACTIONTIME, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
+	}
+	
+	
+	/**
 	 * Returns The preferred lateral alignment of the vehicle
      * @param vehID id of the vehicle
 	 * @return the leading vehicle
@@ -170,6 +191,16 @@ public class Vehicle {
 
 	public static SumoCommand getLateralAlignment(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LATALIGNMENT, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRING);
+	}
+	
+	/**
+	 *  Gets the vehicle's lane change mode as a bitset.
+     * @param vehID id of the vehicle
+	 * @return  vehicle's lane change mode as a bitset.
+	 */
+
+	public static SumoCommand getLaneChangeMode(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LANECHANGE_MODE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	
@@ -385,6 +416,8 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_LANEPOSITION, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
+	
+	
 	/**
 	 * Returns the length (in m) of the named vehicle.
 	 * @param vehID id of the vehicle
@@ -433,6 +466,25 @@ public class Vehicle {
 	 */
 	public static SumoCommand getNextTLS(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_NEXT_TLS, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_COMPOUND);
+	}
+	
+	/**
+	 *  Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
+        where integer stopFlag is defined as:
+               1 * stopped +
+               2 * parking +
+               4 * personTriggered +
+               8 * containerTriggered +
+              16 * isBusStop +
+              32 * isContainerStop +
+              64 * chargingStation +
+             128 * parkingarea
+        with each of these flags defined as 0 or 1.
+	 * @param vehID id of the vehicle
+	 * @return next traffic lights (compound)
+	 */
+	public static SumoCommand getNextStops(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_NEXT_STOPS, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_COMPOUND);
 	}
 	
 	
@@ -540,6 +592,18 @@ public class Vehicle {
 
 	public static SumoCommand getRouteIndex(String vehID){
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTE_INDEX, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 *  returns the current routing mode:
+        tc.ROUTING_MODE_DEFAULT    : use weight storages and fall-back to edge speeds (default)
+        tc.ROUTING_MODE_AGGREGATED : use global smoothed travel times from device.rerouting
+	 * @param vehID id of the vehicle
+	 * @return  current routing mode
+	 */
+
+	public static SumoCommand getRoutingMode(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_ROUTING_MODE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	/**
@@ -676,6 +740,18 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_TYPE, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRING);
 	}
 
+	/**
+	 * Returns the list of persons which includes those defined using attribute 'personNumber'
+        as well as <person>-objects which are riding in this vehicle.
+	 * @param vehID id of the vehicle
+	 * @return vehicle class
+	 */
+
+	public static SumoCommand getPersonIDList(String vehID){
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.LAST_STEP_PERSON_ID_LIST, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	
 	/**
 	 * Returns the vehicle class.
 	 * @param vehID id of the vehicle
@@ -1070,6 +1146,19 @@ public class Vehicle {
 	}
 	
 	/**
+	 * sets the current routing mode:
+        tc.ROUTING_MODE_DEFAULT    : use weight storages and fall-back to edge speeds (default)
+        tc.ROUTING_MODE_AGGREGATED : use global smoothed travel times from device.rerouting
+	 * @param vehID id of the vehicle
+	 * @param routingMode routingMode
+	 * @return SumoCommand
+	 */
+	public static SumoCommand setRoutingMode(String vehID, int routingMode){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_ROUTING_MODE, vehID, routingMode);
+	}
+	
+	
+	/**
 	 * Sets the id of the type for the named vehicle.
 	 * @param vehID id of the vehicle
 	 * @param typeID type id
@@ -1126,6 +1215,23 @@ public class Vehicle {
 	public static SumoCommand setLength(String vehID, double length){
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_LENGTH, vehID, length);
 	}
+	
+	/**
+	 *  Sets the action step length for this vehicle. If resetActionOffset == True (default), the
+        next action point is scheduled immediately. if If resetActionOffset == False, the interval
+        between the last and the next action point is updated to match the given value, or if the latter
+        is smaller than the time since the last action point, the next action follows immediately.
+	 * @param vehID vehicle id
+	 * @param actionStepLength actionStepLength
+	 * @param resetActionOffset resetActionOffset
+	 * @return SumoCommand 
+	 */
+	public static SumoCommand setActionStepLength(String vehID, double actionStepLength, boolean resetActionOffset){
+		
+		if(!resetActionOffset) {actionStepLength *= -1;}
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_ACTIONSTEPLENGTH, vehID, actionStepLength);
+	}
+	
 
 	/**
 	 * Sets the line information for this vehicle.
@@ -1360,4 +1466,33 @@ public class Vehicle {
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_WIDTH, vehID, width);
 	}
 
+	/**
+	 *  Inserts the information about the travel time of edge "edgeID" valid
+        from begin time to end time into the vehicle's internal edge weights
+        container.
+        If the time is not specified, any previously set values for that edge
+        are removed.
+        If begTime or endTime are not specified the value is set for the whole
+        simulation duration.
+	 * @param vehID vehicle id
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand updateBestLanes(String vehID){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_UPDATE_BESTLANES, vehID, "");
+	}
+	
+	/**
+	 * Changes the next parking area in parkingAreaID, updates the vehicle route,
+        and preserve consistency in case of passengers/containers on board.
+	 * @param vehID vehicle id
+	 * @param parkingAreaID parkingAreaID
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand rerouteParkingArea(String vehID, String parkingAreaID){
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_UPDATE_BESTLANES, vehID, parkingAreaID);
+	}
+	
+	
 }

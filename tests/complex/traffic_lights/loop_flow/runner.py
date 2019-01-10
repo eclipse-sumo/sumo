@@ -20,9 +20,10 @@ import os
 import subprocess
 import random
 import shutil
-sys.path.append(
-    os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
-from sumolib import checkBinary  # noqa
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+import sumolib  # noqa
 
 types = ["static", "actuated", "sotl_phase", "sotl_platoon", "sotl_request", "sotl_wave", "sotl_marching", "swarm"]
 flow1def = "0;2000;600".split(";")
@@ -34,40 +35,35 @@ simSteps = fillSteps + measureSteps
 
 def buildDemand(simSteps, pWE, pEW, pNS, pSN):
     fd = open("input_routes.rou.xml", "w")
-    #---routes---
+    # ---routes---
     print("""<routes>
-		
-			<vType id="type1" accel="2.0" decel="5.0" sigma="0.0" length="6.5" maxSpeed="70"/>
-		
-			<route id="WE" edges="1i 3o 5o"/>
-			<route id="NS" edges="2i 4o 6o"/>
-			<route id="EW" edges="3i 1o 7o"/>
-			<route id="SN" edges="4i 2o 8o"/>
-			
-		""", file=fd)
-    lastVeh = 0
+
+            <vType id="type1" accel="2.0" decel="5.0" sigma="0.0" length="6.5" maxSpeed="70"/>
+
+            <route id="WE" edges="1i 3o 5o"/>
+            <route id="NS" edges="2i 4o 6o"/>
+            <route id="EW" edges="3i 1o 7o"/>
+            <route id="SN" edges="4i 2o 8o"/>
+
+        """, file=fd)
     vehNr = 0
     for i in range(simSteps):
         if random.uniform(0, 1) < pWE:  # Poisson distribution
             print('    <vehicle id="%i" type="type1" route="WE" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
         if random.uniform(0, 1) < pNS:
             print('    <vehicle id="%i" type="type1" route="NS" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
         if random.uniform(0, 1) < pEW:
             print('    <vehicle id="%i" type="type1" route="EW" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
         if random.uniform(0, 1) < pSN:
             print('    <vehicle id="%i" type="type1" route="SN" depart="%i" departSpeed="13.89" />' % (
                 vehNr, i), file=fd)
             vehNr += 1
-            lastVeh = i
     print("</routes>", file=fd)
     fd.close()
 
@@ -85,20 +81,14 @@ def patchTLSType(ifile, itype, ofile, otype):
 def main():
     try:
         os.mkdir("results")
-    except:
+    except OSError:
         pass
     try:
         os.mkdir("gfx")
-    except:
+    except OSError:
         pass
 
-    sumoHome = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
-    if "SUMO_HOME" in os.environ:
-        sumoHome = os.environ["SUMO_HOME"]
-    sumo = os.environ.get(
-        "SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))
-    assert(sumo)
+    sumo = sumolib.checkBinary('sumo')
 
     for f1 in range(int(flow1def[0]), int(flow1def[1]), int(flow1def[2])):
         pWE = float(f1) / 3600  # [veh/s]
@@ -114,9 +104,10 @@ def main():
                              '%tls_type%', 'input_additional.add.xml', t)
                 args = [sumo,
                         '--no-step-log',
-                        #'--no-duration-log',
-                        #'--verbose',
-                        #'--duration-log.statistics',
+                        # '--no-duration-log',
+                        # '--verbose',
+                        # '--duration-log.statistics',
+                        '--default.speeddev', '0',
                         '--net-file', 'input_net.net.xml',
                         '--route-files', 'input_routes.rou.xml',
                         '--additional-files', 'input_additional.add.xml',
@@ -128,7 +119,7 @@ def main():
                         '--queue-output', 'results/queue_%s_%s_%s.xml' % (
                             t, f1, f2),
                         ]
-                retCode = subprocess.call(args)
+                subprocess.call(args)
                 shutil.move(
                     "results/e2_output.xml", "results/e2_output_%s_%s_%s.xml" % (t, f1, f2))
                 shutil.move("results/e2_tl0_output.xml",
@@ -147,6 +138,7 @@ def main():
                             "results/TLSSwitchTimes_%s_%s_%s.xml" % (t, f1, f2))
                 shutil.move("results/TLSSwitchStates.xml",
                             "results/TLSSwitchStates_%s_%s_%s.xml" % (t, f1, f2))
+
 
 if __name__ == "__main__":
     main()

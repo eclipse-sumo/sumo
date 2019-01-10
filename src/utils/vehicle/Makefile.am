@@ -4,7 +4,7 @@ libvehicle_a_SOURCES = AStarRouter.h \
 AStarLookupTable.h \
 AccessEdge.h CarEdge.h PedestrianEdge.h PublicTransportEdge.h StopEdge.h \
 CHBuilder.h CHRouter.h CHRouterWrapper.h \
-DijkstraRouter.h \
+DijkstraRouter.h EffortCalculator.h \
 IntermodalEdge.h IntermodalNetwork.h IntermodalRouter.h IntermodalTrip.h \
 GawronCalculator.h LogitCalculator.h RouteCostCalculator.h \
 PedestrianRouter.h RouterProvider.h SUMOAbstractRouter.h \

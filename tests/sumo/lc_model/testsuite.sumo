@@ -25,6 +25,7 @@ onRamp
 
 # test continuous lane change maneuvers
 continuous_lanechange
+overtake_stopped
 
 # test effects of apparentDecel on lane changing
 #apparentDecel

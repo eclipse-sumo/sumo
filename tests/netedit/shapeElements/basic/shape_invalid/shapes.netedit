@@ -1,3 +1,6 @@
-<additionals>
-    <poi id="POI_0" color="red" layer="4.00" x="7.00" y="18.00" width="0.00" height="0.00"/>
-</additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="POI_0" color="red" layer="202.00" x="7.00" y="18.00"/>
+</additional>

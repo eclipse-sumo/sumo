@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/12/18 22:37:49 by SUMO duarouter Version v0_32_0+0698-6bd02a3c08
+<!-- generated on 07/06/18 17:30:50 by Eclipse SUMO duarouter Version UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,73 +32,103 @@ SPDX-License-Identifier: EPL-2.0
 
 <weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval id="intermodalweights" begin="0" end="9223372036854775807">
-        <edge id=":absBeg_w0-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id=":absEnd_w0-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id=":beg_w0-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id=":end_w0-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id=":endleft_w0-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id=":rabsEnd_w0-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg_fwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id=":absBeg_w0-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":absEnd_0_fwd-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":absEnd_0_bwd-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":absEnd_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":absEnd_0_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":absEnd_w0-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id=":beg_0_fwd-1.00" traveltime="5.23" effort="0.00"/>
+        <edge id=":beg_0_bwd-1.00" traveltime="5.23" effort="0.00"/>
+        <edge id=":beg_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_0_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_1_fwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":beg_1_bwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":beg_1_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_1_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_w0-1.00" traveltime="4.44" effort="0.00"/>
+        <edge id=":begleft_0_fwd-1.00" traveltime="1.86" effort="0.00"/>
+        <edge id=":begleft_0_bwd-1.00" traveltime="1.86" effort="0.00"/>
+        <edge id=":begleft_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":begleft_0_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":end_0_fwd-1.00" traveltime="7.37" effort="0.00"/>
+        <edge id=":end_0_bwd-1.00" traveltime="7.37" effort="0.00"/>
+        <edge id=":end_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":end_0_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":end_w0-1.00" traveltime="5.64" effort="0.00"/>
+        <edge id=":endleft_0_fwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":endleft_0_bwd-1.00" traveltime="3.60" effort="0.00"/>
+        <edge id=":endleft_0_depart_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":endleft_0_arrival_connector" traveltime="0.00" effort="0.00"/>
+        <edge id=":endleft_w0-1.00" traveltime="3.15" effort="0.00"/>
+        <edge id=":rabsEnd_w0-1.00" traveltime="0.07" effort="0.00"/>
+        <edge id="beg_fwd-1.00" traveltime="358.96" effort="0.00"/>
+        <edge id="beg_bwd-1.00" traveltime="358.96" effort="0.00"/>
         <edge id="beg_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="beg_arrival_connector" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_fwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_bwd250.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left_fwd-1.00" traveltime="180.00" effort="0.00"/>
+        <edge id="beg2left_bwd250.00" traveltime="176.62" effort="0.00"/>
         <edge id="beg2left_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_arrival_connector" traveltime="0.00" effort="0.00"/>
-        <edge id="end_fwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="end_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="end_fwd-1.00" traveltime="358.96" effort="0.00"/>
+        <edge id="end_bwd-1.00" traveltime="358.96" effort="0.00"/>
         <edge id="end_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="end_arrival_connector" traveltime="0.00" effort="0.00"/>
         <edge id="gneE0_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="gneE0_arrival_connector" traveltime="0.00" effort="0.00"/>
-        <edge id="left_fwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="left_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="left_fwd-1.00" traveltime="711.86" effort="0.00"/>
+        <edge id="left_bwd-1.00" traveltime="711.86" effort="0.00"/>
         <edge id="left_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="left_arrival_connector" traveltime="0.00" effort="0.00"/>
-        <edge id="left2end_fwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="left2end_bwd250.00" traveltime="0.00" effort="0.00"/>
+        <edge id="left2end_fwd-1.00" traveltime="180.00" effort="0.00"/>
+        <edge id="left2end_bwd250.00" traveltime="175.54" effort="0.00"/>
         <edge id="left2end_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="left2end_arrival_connector" traveltime="0.00" effort="0.00"/>
-        <edge id="middle_fwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="middle_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="middle_fwd-1.00" traveltime="710.78" effort="0.00"/>
+        <edge id="middle_bwd-1.00" traveltime="710.78" effort="0.00"/>
         <edge id="middle_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="middle_arrival_connector" traveltime="0.00" effort="0.00"/>
-        <edge id="rend_fwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="rend_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="rend_fwd-1.00" traveltime="360.00" effort="0.00"/>
+        <edge id="rend_bwd-1.00" traveltime="360.00" effort="0.00"/>
         <edge id="rend_depart_connector" traveltime="0.00" effort="0.00"/>
         <edge id="rend_arrival_connector" traveltime="0.00" effort="0.00"/>
         <edge id="gneJ1_walking_connector" traveltime="0.00" effort="0.00"/>
-        <edge id="beg_car-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_car-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="end_car-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="gneE0_car-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="left_car-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="left2end_car-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="middle_car-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="rend_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id=":absEnd_0_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id=":beg_0_car-1.00" traveltime="0.35" effort="0.00"/>
+        <edge id=":beg_1_car-1.00" traveltime="0.18" effort="0.00"/>
+        <edge id=":begleft_0_car-1.00" traveltime="0.09" effort="0.00"/>
+        <edge id=":end_0_car-1.00" traveltime="0.49" effort="0.00"/>
+        <edge id=":endleft_0_car-1.00" traveltime="0.18" effort="0.00"/>
+        <edge id="beg_car-1.00" traveltime="17.93" effort="0.00"/>
+        <edge id="beg2left_car-1.00" traveltime="8.99" effort="0.00"/>
+        <edge id="end_car-1.00" traveltime="17.93" effort="0.00"/>
+        <edge id="gneE0_car-1.00" traveltime="110.08" effort="0.00"/>
+        <edge id="left_car-1.00" traveltime="35.56" effort="0.00"/>
+        <edge id="left2end_car-1.00" traveltime="8.99" effort="0.00"/>
+        <edge id="middle_car-1.00" traveltime="71.02" effort="0.00"/>
+        <edge id="rend_car-1.00" traveltime="17.99" effort="0.00"/>
         <edge id="beg2left" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_fwd250.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left_fwd250.00" traveltime="176.62" effort="0.00"/>
         <edge id="beg2left_fwd-1.00:beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left:beg2left_fwd250.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left_bwd-1.00" traveltime="180.00" effort="0.00"/>
         <edge id="beg2left_bwd250.00:beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left:beg2left_bwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="beg2left_car250.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left_car250.00" traveltime="8.82" effort="0.00"/>
         <edge id="beg2left_car-1.00:beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_depart_connector250.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_arrival_connector250.00" traveltime="0.00" effort="0.00"/>
         <edge id="left2end" traveltime="0.00" effort="0.00"/>
-        <edge id="left2end_fwd250.00" traveltime="0.00" effort="0.00"/>
+        <edge id="left2end_fwd250.00" traveltime="175.54" effort="0.00"/>
         <edge id="left2end_fwd-1.00:left2end" traveltime="0.00" effort="0.00"/>
         <edge id="left2end:left2end_fwd250.00" traveltime="0.00" effort="0.00"/>
-        <edge id="left2end_bwd-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="left2end_bwd-1.00" traveltime="180.00" effort="0.00"/>
         <edge id="left2end_bwd250.00:left2end" traveltime="0.00" effort="0.00"/>
         <edge id="left2end:left2end_bwd-1.00" traveltime="0.00" effort="0.00"/>
-        <edge id="left2end_car250.00" traveltime="0.00" effort="0.00"/>
+        <edge id="left2end_car250.00" traveltime="8.77" effort="0.00"/>
         <edge id="left2end_car-1.00:left2end" traveltime="0.00" effort="0.00"/>
         <edge id="left2end_depart_connector250.00" traveltime="0.00" effort="0.00"/>
         <edge id="left2end_arrival_connector250.00" traveltime="0.00" effort="0.00"/>
-        <edge id="train:left2end" traveltime="0.00" effort="0.00"/>
+        <edge id="train:left2end" traveltime="60.00" effort="0.00"/>
     </interval>
 </weights>

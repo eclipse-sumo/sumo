@@ -11,7 +11,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 13.12.2005
-/// @version $Id: MSStoppingPlace.h v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $
+/// @version $Id$
 ///
 // A lane area vehicles can halt at
 /****************************************************************************/
@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <algorithm>
@@ -180,9 +176,7 @@ public:
     void removeTransportable(MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual void addAccess(MSLane* lane, const double pos, const double length) {
-        myAccessPos.push_back(std::make_tuple(lane, pos, length));
-    }
+    virtual bool addAccess(MSLane* lane, const double pos, const double length);
 
     /// @brief lanes and positions connected to this stop
     const std::vector<std::tuple<MSLane*, double, double> >& getAllAccessPos() const {

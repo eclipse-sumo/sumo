@@ -18,12 +18,7 @@ import struct
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
-from .exceptions import *
-
-
-def _TIME2STEPS(time):
-    """Conversion from (float) time in seconds to milliseconds as int"""
-    return int(time * 1000)
+from .exceptions import TraCIException
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
@@ -41,6 +36,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
                       tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
                       tc.LAST_STEP_LENGTH: Storage.readDouble,
                       tc.VAR_LANE_INDEX: Storage.readInt,
+                      tc.VAR_NAME: Storage.readString,
                       tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
                       tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
@@ -64,9 +60,9 @@ class EdgeDomain(Domain):
         which is valid on the edge at the given time.
         """
         self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
-                                       edgeID, 1 + 4)
+                                       edgeID, 1 + 8)
         self._connection._string += struct.pack(
-            "!Bi", tc.TYPE_INTEGER, time)
+            "!Bd", tc.TYPE_DOUBLE, time)
         return self._connection._checkResult(tc.CMD_GET_EDGE_VARIABLE,
                                              tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
 
@@ -84,9 +80,9 @@ class EdgeDomain(Domain):
         which is valid on the edge at the given time.
         """
         self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT,
-                                       edgeID, 1 + 4)
+                                       edgeID, 1 + 8)
         self._connection._string += struct.pack(
-            "!Bi", tc.TYPE_INTEGER, time)
+            "!Bd", tc.TYPE_DOUBLE, time)
         return self._connection._checkResult(tc.CMD_GET_EDGE_VARIABLE,
                                              tc.VAR_EDGE_EFFORT, edgeID).readDouble()
 
@@ -174,6 +170,13 @@ class EdgeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_LANE_INDEX, edgeID)
 
+    def getStreetName(self, edgeID):
+        """getStreetName(string) -> string
+
+        Returns the street name of this edge
+        """
+        return self._getUniversal(tc.VAR_NAME, edgeID)
+
     def getTraveltime(self, edgeID):
         """getTraveltime(string) -> double
 
@@ -211,7 +214,7 @@ class EdgeDomain(Domain):
         return self._getUniversal(tc.LAST_STEP_PERSON_ID_LIST, edgeID)
 
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
-        """adaptTraveltime(string, double, int, int) -> None
+        """adaptTraveltime(string, double, double, double) -> None
 
         Adapt the travel time value (in s) used for (re-)routing for the given edge.
 
@@ -226,19 +229,18 @@ class EdgeDomain(Domain):
             self._connection._sendExact()
         elif begin is not None and end is not None:
             self._connection._beginMessage(
-                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 8)
-            self._connection._string += struct.pack("!BiBiBiBd",
+                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
+            self._connection._string += struct.pack("!BiBdBdBd",
                                                     tc.TYPE_COMPOUND, 3,
-                                                    tc.TYPE_INTEGER, begin,
-                                                    tc.TYPE_INTEGER, end,
+                                                    tc.TYPE_DOUBLE, begin,
+                                                    tc.TYPE_DOUBLE, end,
                                                     tc.TYPE_DOUBLE, time)
             self._connection._sendExact()
         else:
-            raise TraCIException(
-                "Both, begin time and end time must be specified")
+            raise TraCIException("Both, begin time and end time must be specified")
 
     def setEffort(self, edgeID, effort, begin=None, end=None):
-        """setEffort(string, double, int, int) -> None
+        """setEffort(string, double, double, double) -> None
 
         Adapt the effort value used for (re-)routing for the given edge.
 
@@ -253,16 +255,15 @@ class EdgeDomain(Domain):
             self._connection._sendExact()
         elif begin is not None and end is not None:
             self._connection._beginMessage(
-                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 8)
-            self._connection._string += struct.pack("!BiBiBiBd",
+                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
+            self._connection._string += struct.pack("!BiBdBdBd",
                                                     tc.TYPE_COMPOUND, 3,
-                                                    tc.TYPE_INTEGER, begin,
-                                                    tc.TYPE_INTEGER, end,
+                                                    tc.TYPE_DOUBLE, begin,
+                                                    tc.TYPE_DOUBLE, end,
                                                     tc.TYPE_DOUBLE, effort)
             self._connection._sendExact()
         else:
-            raise TraCIException(
-                "Both, begin time and end time must be specified")
+            raise TraCIException("Both, begin time and end time must be specified")
 
     def setMaxSpeed(self, edgeID, speed):
         """setMaxSpeed(string, double) -> None

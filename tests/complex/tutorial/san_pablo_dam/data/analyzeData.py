@@ -17,7 +17,6 @@ from __future__ import print_function
 
 import sys
 import os
-import math
 import numpy as np
 
 
@@ -43,6 +42,7 @@ class Ddict(dict):
 # os.system('run-an-external-command')
 # os.getcwd()
 # os.chdir()
+
 
 f = open(sys.argv[1], 'r')
 data = f.readlines()
@@ -80,7 +80,7 @@ vecIndx = 0
 f = open('lane-shares.txt', 'w')
 # for t,v in dd.items():
 for t in sorted(dd.iterkeys()):
-    #	qTot = math.fsum(dd[t])
+    # qTot = math.fsum(dd[t])
     qTot = sum(dd[t].values())
     nrm = 0.0
     if qTot:
@@ -95,7 +95,7 @@ for t in sorted(dd.iterkeys()):
         s = s + repr(share) + ' '
         xVec[vecIndx, lane] = share
         qVec[vecIndx, lane] = dt2OneHour * dd[t][lane]
-#		print >> f,t,qTot,lane,share
+        # print >> f,t,qTot,lane,share
     vecIndx += 1
     print(s, file=f)
 f.close()
@@ -104,13 +104,13 @@ try:
     import matplotlib.pyplot as plt
     plt.rcParams['xtick.direction'] = 'out'
     plt.rcParams['ytick.direction'] = 'out'
-#	y =
+    # y =
     n = len(qVec)
     for lane in range(maxLanes):
         desc = 'lane: ' + repr(lane)
         plt.plot(tVec, qVec[range(n), lane], label=desc)
-#	plt.plot(tVec, qVec[range(n),0], 'r-',tVec, qVec[range(n),1], 'g-',tVec, qVec[range(n),2], 'b-')
-#	plt.plot(tVec, QVec, 'r-')
+    # plt.plot(tVec, qVec[range(n),0], 'r-',tVec, qVec[range(n),1], 'g-',tVec, qVec[range(n),2], 'b-')
+    # plt.plot(tVec, QVec, 'r-')
     plt.ylabel('lane flows')
     plt.xlabel('time [s]')
     plt.legend()
@@ -119,19 +119,19 @@ try:
     plt.savefig(bname + '.pdf')
     plt.savefig(bname + '.png')
     plt.savefig(bname + '.svg')
-#	try:
-#		import pyemf
-#		plt.savefig('shares-over-time.emf')
-#	except :
-# print '# no emf support'
-#	plt.show()
+    # try:
+    # import pyemf
+    # plt.savefig('shares-over-time.emf')
+    # except :
+    # print '# no emf support'
+    # plt.show()
     plt.close()
-# next plot:
+    # next plot:
     for lane in range(maxLanes):
         desc = 'lane: ' + repr(lane)
         plt.plot(QVec, xVec[range(n), lane], 'o', markersize=10, label=desc)
-#	plt.plot(tVec, qVec[range(n),0], 'r-',tVec, qVec[range(n),1], 'g-',tVec, qVec[range(n),2], 'b-')
-#	plt.plot(tVec, QVec, 'r-')
+    # plt.plot(tVec, qVec[range(n),0], 'r-',tVec, qVec[range(n),1], 'g-',tVec, qVec[range(n),2], 'b-')
+    # plt.plot(tVec, QVec, 'r-')
     plt.ylabel('lane shares')
     plt.xlabel('total flow [veh/h]')
     plt.legend()
@@ -140,7 +140,7 @@ try:
     plt.savefig(bname + '.pdf')
     plt.savefig(bname + '.png')
     plt.savefig(bname + '.svg')
-#	plt.show()
+    # plt.show()
     plt.close()
 except ImportError:
     print('no matplotlib, falling back to gnuplot')

@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEAdditional.h"
 
@@ -45,7 +41,6 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
      * @param[in] type GUIGlObjectType of stoppingPlace
      * @param[in] tag Type of xml tag that define the StoppingPlace (SUMO_TAG_BUS_STOP, SUMO_TAG_CHARGING_STATION, etc...)
-     * @param[in] icon GUIIcon associated to the stopping place
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
@@ -53,24 +48,19 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GUIIcon icon, GNELane* lane, double startPos, double endPos, const std::string& name, bool friendlyPosition, bool blockMovement);
+    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEStoppingPlace();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
-
     /// @brief get Lane
     GNELane* getLane() const;
 
-    /// @brief get absolute start Position
-    double getAbsoluteStartPosition() const;
+    /// @brief get start Position
+    double getStartPosition() const;
 
-    /// @brief get absolute end Position
-    double getAbsoluteEndPosition() const;
+    /// @brief get end Position
+    double getEndPosition() const;
 
     /// @brief check if Position of stoppingPlace are fixed
     bool areStoppingPlacesPositionsFixed() const;
@@ -90,7 +80,7 @@ public:
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    virtual void updateGeometry() = 0;
+    virtual void updateGeometry(bool updateGrid) = 0;
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
@@ -100,7 +90,7 @@ public:
     /// @{
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
-    const std::string& getParentName() const;
+    std::string getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -130,20 +120,23 @@ public:
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 protected:
     /// @brief The lane in which this lane is placed
     GNELane* myLane;
 
-    /// @brief The relative [0,1] start position this stopping place is located at
-    double myStartPosRelative;
+    /// @brief The relative start position this stopping place is located at (optional, if empty takes 0)
+    std::string  myStartPosition;
 
-    /// @brief The relative [0,1] end position this stopping place is located at
-    double myEndPosRelative;
-
-    /// @brief name of stoppingPlace
-    std::string myName;
+    /// @brief The  position this stopping place is located at (optional, if empty takes the lane lenght)
+    std::string myEndPosition;
 
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
@@ -154,10 +147,10 @@ protected:
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 
-    /// @brief circle width resolution for all stopping places 
+    /// @brief circle width resolution for all stopping places
     static const double myCircleWidth;
 
-    /// @brief squared circle width resolution for all stopping places 
+    /// @brief squared circle width resolution for all stopping places
     static const double myCircleWidthSquared;
 
     /// @brief inner circle width resolution for all stopping places

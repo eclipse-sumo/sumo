@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 19 11:04:07 2018 by Eclipse SUMO netconvert Version 3aa404f
+<!-- generated on Wed Aug 15 16:12:36 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,14 +18,21 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -34,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
 
@@ -42,20 +49,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="on_0" index="0" speed="30.00" length="318.61" shape="1799.55,101.53 1499.55,13.08"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
-        <lane id="s1_0" index="0" speed="30.00" length="513.22" shape="2000.00,8.00 1494.89,8.00"/>
-        <lane id="s1_1" index="1" speed="30.00" length="513.22" shape="2000.00,4.80 1494.89,4.80"/>
-        <lane id="s1_2" index="2" speed="30.00" length="513.22" shape="2000.00,1.60 1494.89,1.60"/>
+        <lane id="s1_0" index="0" speed="30.00" length="510.98" shape="2000.00,8.00 1497.39,8.00"/>
+        <lane id="s1_1" index="1" speed="30.00" length="510.98" shape="2000.00,4.80 1497.39,4.80"/>
+        <lane id="s1_2" index="2" speed="30.00" length="510.98" shape="2000.00,1.60 1497.39,1.60"/>
     </edge>
     <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1">
-        <lane id="s2_0" index="0" speed="30.00" length="400.00" shape="1398.50,8.00 1000.00,8.00"/>
-        <lane id="s2_1" index="1" speed="30.00" length="400.00" shape="1398.50,4.80 1000.00,4.80"/>
-        <lane id="s2_2" index="2" speed="30.00" length="400.00" shape="1398.50,1.60 1000.00,1.60"/>
+        <lane id="s2_0" index="0" speed="30.00" length="400.00" shape="1396.00,8.00 1000.00,8.00"/>
+        <lane id="s2_1" index="1" speed="30.00" length="400.00" shape="1396.00,4.80 1000.00,4.80"/>
+        <lane id="s2_2" index="2" speed="30.00" length="400.00" shape="1396.00,1.60 1000.00,1.60"/>
     </edge>
     <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1">
-        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="100.39" shape="1491.42,11.20 1401.50,11.20"/>
-        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="100.39" shape="1491.42,8.00 1401.50,8.00"/>
-        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="100.39" shape="1491.42,4.80 1401.50,4.80"/>
-        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="100.39" shape="1491.42,1.60 1401.50,1.60"/>
+        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="99.22" acceleration="1" shape="1488.92,11.20 1404.00,11.20"/>
+        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="99.22" shape="1488.92,8.00 1404.00,8.00"/>
+        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="99.22" shape="1488.92,4.80 1404.00,4.80"/>
+        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="99.22" shape="1488.92,1.60 1404.00,1.60"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1">
         <lane id="s3_0" index="0" speed="30.00" length="500.00" shape="1000.00,8.00 500.00,8.00"/>
@@ -79,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1499.10,14.62 1500.00,11.55 1494.89,9.60 1494.89,0.00 1491.42,0.00 1491.42,12.80">
+    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes="" shape="1499.10,14.62 1500.00,11.55 1497.39,9.60 1497.39,0.00 1488.92,0.00 1488.92,12.80">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
@@ -87,7 +94,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="4a" type="dead_end" x="1800.00" y="100.00" incLanes="" intLanes="" shape="1800.00,100.00 1799.10,103.07"/>
     <junction id="5" type="dead_end" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,0.00 2000.00,9.60"/>
-    <junction id="s2-AddedOnRampNode" type="priority" x="1400.00" y="0.00" incLanes="s2-AddedOnRampEdge_0 s2-AddedOnRampEdge_1 s2-AddedOnRampEdge_2 s2-AddedOnRampEdge_3" intLanes="" shape="1401.50,12.80 1401.50,0.00 1398.50,0.00 1398.50,9.60">
+    <junction id="s2-AddedOnRampNode" type="priority" x="1400.00" y="0.00" incLanes="s2-AddedOnRampEdge_0 s2-AddedOnRampEdge_1 s2-AddedOnRampEdge_2 s2-AddedOnRampEdge_3" intLanes="" shape="1404.00,12.80 1404.00,0.00 1396.00,0.00 1396.00,9.60">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

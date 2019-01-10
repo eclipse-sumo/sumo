@@ -21,11 +21,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fxver.h>
 #define NOMINMAX
@@ -240,6 +236,7 @@ void FXSevenSegment::drawFigure(FXDCWindow& dc, FXchar figure) {
             break;
         case '_' :
         case '.' :
+        case ',' :
             drawSegments(dc, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE);
             break;
         case '0' :

@@ -61,6 +61,7 @@ def execute(command):
         print(command)
     os.system(command)
 
+
 optParser = optparse.OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
@@ -160,12 +161,15 @@ if not options.duaonly:
         shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), tripinfofile)
         tripinfos += tripinfofile + ","
         routes.append("%s/vehroutes_%s.xml" % (shotDir, step))
-    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_successive --dump-intervals 900 --emissions emissions_successive.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" %
-            (netFile, succDir, sumoAdds))
-    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_clogit --dump-intervals 900 --emissions emissions_clogit.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" %
-            (netFile, clogDir, sumoAdds))
-    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_lohse --dump-intervals 900 --emissions emissions_lohse.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" %
-            (netFile, lohseDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_successive " +
+            "--dump-intervals 900 --emissions emissions_successive.xml --tripinfo-output tripinfo_successive.xml " +
+            "%s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_clogit " +
+            "--dump-intervals 900 --emissions emissions_clogit.xml --tripinfo-output tripinfo_clogit.xml " +
+            "%s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_lohse " +
+            "--dump-intervals 900 --emissions emissions_lohse.xml --tripinfo-output tripinfo_lohse.xml %s -l " +
+            "sumo_lohse.log" % (netFile, lohseDir, sumoAdds))
     tripinfos += tripinfofile + \
         ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
     execute(

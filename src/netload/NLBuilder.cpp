@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <vector>
@@ -122,6 +118,9 @@ NLBuilder::build() {
     // try to build the net
     if (!load("net-file", true)) {
         return false;
+    }
+    if (myXMLHandler.networkVersion() == 0.) {
+        throw ProcessError("Invalid network, no network version declared.");
     }
     // check whether the loaded net agrees with the simulation options
     if (myOptions.getBool("no-internal-links") && myXMLHandler.haveSeenInternalEdge()) {

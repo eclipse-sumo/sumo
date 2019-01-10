@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSJunctionControl.h>
 #include "TraCIServer.h"
@@ -41,55 +37,31 @@
 bool
 TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
                                     tcpip::Storage& outputStorage) {
-    // variable
-    int variable = inputStorage.readUnsignedByte();
-    std::string id = inputStorage.readString();
-    // check variable
-    if (variable != ID_LIST && variable != VAR_POSITION && variable != ID_COUNT && variable != VAR_SHAPE) {
-        return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, "Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
-    }
-    // begin response building
-    tcpip::Storage tempMsg;
-    //  response-code, variableID, objectID
-    tempMsg.writeUnsignedByte(RESPONSE_GET_JUNCTION_VARIABLE);
-    tempMsg.writeUnsignedByte(variable);
-    tempMsg.writeString(id);
-
+    const int variable = inputStorage.readUnsignedByte();
+    const std::string id = inputStorage.readString();
+    server.initWrapper(RESPONSE_GET_JUNCTION_VARIABLE, variable, id);
     try {
-        switch (variable) {
-            case ID_LIST:
-                tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
-                tempMsg.writeStringList(libsumo::Junction::getIDList());
-                break;
-            case ID_COUNT:
-                tempMsg.writeUnsignedByte(TYPE_INTEGER);
-                tempMsg.writeInt(libsumo::Junction::getIDCount());
-                break;
-            case VAR_POSITION: {
-                tempMsg.writeUnsignedByte(POSITION_2D);
-                libsumo::TraCIPosition p = libsumo::Junction::getPosition(id);
-                tempMsg.writeDouble(p.x);
-                tempMsg.writeDouble(p.y);
-                break;
-            }
-            case VAR_SHAPE: {
-                tempMsg.writeUnsignedByte(TYPE_POLYGON);
-                const libsumo::TraCIPositionVector shp = libsumo::Junction::getShape(id);
-                tempMsg.writeUnsignedByte(MIN2(255, (int) shp.size()));
-                for (int iPoint = 0; iPoint < MIN2(255, (int) shp.size()); ++iPoint) {
-                    tempMsg.writeDouble(shp[iPoint].x);
-                    tempMsg.writeDouble(shp[iPoint].y);
+        if (!libsumo::Junction::handleVariable(id, variable, &server)) {
+            switch (variable) {
+                case VAR_SHAPE: {
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_POLYGON);
+                    const libsumo::TraCIPositionVector shp = libsumo::Junction::getShape(id);
+                    server.getWrapperStorage().writeUnsignedByte(MIN2(255, (int)shp.size()));
+                    for (int iPoint = 0; iPoint < MIN2(255, (int)shp.size()); ++iPoint) {
+                        server.getWrapperStorage().writeDouble(shp[iPoint].x);
+                        server.getWrapperStorage().writeDouble(shp[iPoint].y);
+                    }
+                    break;
                 }
-                break;
+                default:
+                    return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, "Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
-            default:
-                break;
         }
     } catch (libsumo::TraCIException& e) {
         return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, e.what(), outputStorage);
     }
     server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, "", outputStorage);
-    server.writeResponseWithLength(outputStorage, tempMsg);
+    server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
 

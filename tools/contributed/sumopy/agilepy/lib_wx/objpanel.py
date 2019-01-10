@@ -10,7 +10,7 @@
 
 # @file    objpanel.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 # cd /home/joerg/projects/sumopy/tools/sumopy/wxpython
@@ -58,20 +58,26 @@ from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring
 
 METATYPES_LINKSTYLE = ('obj', 'id', 'tabid', 'ids')
 
+NUMERICTYPES = cm.NUMERICTYPES  # (types.BooleanType,types.FloatType,types.IntType,types.LongType,types.ComplexType)
+STRINGTYPES = cm.STRINGTYPES  # (types.StringType,types.UnicodeType)
+
 
 def list_to_str(l, lb='', rb=''):
     # print 'list_to_str',l,len(l)
     if len(l) == 0:
-        return lb + rb
+        return lb+rb
     else:
         s = lb
         for e in l[:-1]:
-            s += unicode(e) + ','
+            s += unicode(e)+','
         # print '  returns',s+unicode(l[-1])+rb
-        return s + unicode(l[-1]) + rb
+        return s+unicode(l[-1])+rb
 
 
 def is_list_flat(l):
+    if type(l) in STRINGTYPES:
+        return False
+
     is_flat = True
     for e in l:
         if hasattr(e, '__iter__'):
@@ -142,9 +148,9 @@ def str_to_obj_nested(s):
     # print 'str_to_obj',s
     x = str_to_list(s)
     # print '  ',x
-    if x == None:
+    if x is None:
         x = str_to_tuple(s)
-        if x == None:
+        if x is None:
             # if type(s) == types.StringType:
             if s.isdigit():
                 return string.atoi(s)
@@ -163,7 +169,6 @@ def str_to_obj_nested(s):
 
 
 class AttrBase:
-
     """
     Mixin class that provides methods to support text representation 
     of attributes
@@ -190,14 +195,12 @@ class AttrBase:
         Returns a 3- tople with values for rgb between 0 and 255.
 
         """
-        # print
-        # 'ffffff_to_color',ffffff,type(ffffff),type(array(ffffff,float)/255.0)
-        return np.array(ffffff, float) / 255.0
+        # print 'ffffff_to_color',ffffff,type(ffffff),type(array(ffffff,float)/255.0)
+        return np.array(ffffff, float)/255.0
         # return np.array(ffffff,int)
 
 
 class WidgetContainer:
-
     """
     Contains one or several widgets representing a scalar attribute.
     Should be overwritten to accomodate various interactive datatypes.
@@ -220,7 +223,7 @@ class WidgetContainer:
 
         self.mainframe = mainframe
 
-        if color_bg == None:
+        if color_bg is None:
             self.color_bg = wx.NamedColour('grey85')
         else:
             self.color_bg = color_bg
@@ -233,7 +236,7 @@ class WidgetContainer:
         self.create_widgets(self.define_widgetset())
 
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
     # the following methods are usually overwritten to create
     # attribute specific widgets
 
@@ -266,7 +269,7 @@ class WidgetContainer:
         # if len(text)>40:
         #    text=text[:10]+'...'+text[-10:]
         #widget=wx.StaticText(self.parent, -1, text,style=wx.ALIGN_RIGHT)
-        #,style= wx.ALIGN_RIGHT
+        # ,style= wx.ALIGN_RIGHT
         #widget=wx.StaticText(self.parent, -1,'TEST!',style=wx.ALIGN_RIGHT)
         # print '   value,widget',string_value,widget
 
@@ -276,11 +279,9 @@ class WidgetContainer:
         # print 'get_valuewidget_read',self._attrconf.attrname
         # print '  text RET',text.find('n'),':\n',text
         if text.find('n') > 0:
-            widget = wx.TextCtrl(
-                self.parent, -1, str(text), style=wx.ALIGN_LEFT | wx.TE_MULTILINE | wx.TE_READONLY)
+            widget = wx.TextCtrl(self.parent, -1, str(text), style=wx.ALIGN_LEFT | wx.TE_MULTILINE | wx.TE_READONLY)
         else:
-            widget = wx.TextCtrl(self.parent, -1, str(text),
-                                 style=wx.ALIGN_LEFT | wx.TE_READONLY)
+            widget = wx.TextCtrl(self.parent, -1, str(text), style=wx.ALIGN_LEFT | wx.TE_READONLY)
         # self.set_textevents(widget)
 
         widget.Enable(False)
@@ -320,7 +321,7 @@ class WidgetContainer:
         #    self.widgets['value'][0].SetText(str(value))
         # self.valuewidget.SetLabel(str(value))
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
     # these methods are normally not overwritten
 
     def create_valuewidget(self):
@@ -330,13 +331,12 @@ class WidgetContainer:
         get_valuewidget_write or get_valuewidget_read 
         will be called to generate the widget. 
         """
-        # print 'create_valuewidget
-        # for',self._attrconf.attrname,'is_writable=',self._attrconf.is_writable()
+        # print 'create_valuewidget for',self._attrconf.attrname,'is_writable=',self._attrconf.is_writable()
 
         if self._attrconf.is_writable():
             # in write mode unit widget should be created separately
             widget = self.get_valuewidget_write()
-            if widget == None:
+            if widget is None:
                 # print '   editable valuewidget not available'
                 widget = self.get_valuewidget_read()
         else:
@@ -349,13 +349,10 @@ class WidgetContainer:
 
     def create_namewidget(self):
         # if self._attrconf.get_obj().ident =='vehicles':
-        # print
-        # 'create_namewidget',self._attrconf.get_obj().ident,self._attrconf.attrname
+        # print 'create_namewidget',self._attrconf.get_obj().ident,self._attrconf.attrname,self._attrconf.get_name(),type(self._attrconf.get_name())
         widget = wx.StaticText(self.parent, -1,
-                               self._attrconf.get_name().title() +
-                               self.equalchar,
-                               # |wx.SIMPLE_BORDER   #wx.STATIC_BORDER #
-                               style=wx.ALIGN_RIGHT
+                               self._attrconf.get_name().title()+self.equalchar,
+                               style=wx.ALIGN_RIGHT  # |wx.SIMPLE_BORDER   #wx.STATIC_BORDER #
                                )
         widget.SetBackgroundColour(self.color_bg)
         self.extend_widgetsize(widget)
@@ -371,8 +368,7 @@ class WidgetContainer:
         if self._attrconf.has_unit():
             widget = wx.StaticText(self.parent, -1,
                                    self._attrconf.format_unit(),
-                                   # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
-                                   style=wx.ALIGN_LEFT
+                                   style=wx.ALIGN_LEFT  # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
                                    )
             widget.SetBackgroundColour(self.color_bg)
             self.extend_widgetsize(widget)
@@ -387,7 +383,7 @@ class WidgetContainer:
         Extends the widget by incresing its minimum size by border in pixels.
         """
         s = widget.GetSize()
-        widget.SetMinSize((s[0] + xborder, s[1] + yborder))
+        widget.SetMinSize((s[0]+xborder, s[1]+yborder))
 
     def create_widgets(self, widgetdata):
         """
@@ -430,8 +426,7 @@ class WidgetContainer:
         To be overwritten.
         """
         value = self.get_value_obj()
-        # print
-        # 'apply_obj_to_valuewidget',value,self.parent.obj.ident,self.attr
+        # print 'apply_obj_to_valuewidget',self._attrconf.attrname, value
         self.set_widgetvalue(value)
 
     def get_value_obj(self):
@@ -447,8 +442,7 @@ class WidgetContainer:
         """
         Sets given value to object.
         """
-        # print 'set_value_obj',self._attrconf.attrname,self.parent.id,
-        # self._attrconf.is_colattr()
+        # print 'set_value_obj',self._attrconf.attrname,self.parent.id, self._attrconf.is_colattr()
         if self._attrconf.is_colattr():  # parent is holding the row id
             self._attrconf[self.parent.id] = value
         else:
@@ -464,8 +458,7 @@ class WidgetContainer:
                                                show_unit=show_unit,
                                                show_parentesis=show_parentesis)
         else:
-            # print 'format_value_obj',self._attrconf.attrname,
-            # self._attrconf.format_value( )
+            # print 'format_value_obj',self._attrconf.attrname, self._attrconf.format_value( )
             return self._attrconf.format_value(show_unit=show_unit,
                                                show_parentesis=show_parentesis)
 
@@ -483,13 +476,12 @@ class WidgetContainer:
 
         # self._attrconf.get_value()
         if self._attrconf.is_writable():
-            if value == None:  # value not given
+            if value is None:  # value not given
                 value = self.get_widgetvalue()
 
-            if value != None:
+            if value is not None:
                 # value returned by widget is valid
-                # print
-                # 'apply_valuewidget_to_obj',value,self.parent.obj.ident,self.attr
+                # print 'apply_valuewidget_to_obj',value,self.parent.obj.ident,self.attr
                 self.set_value_obj(value)
 
     def set_textevents(self, widget):
@@ -548,7 +540,6 @@ class WidgetContainer:
 
 
 class NumericWidgetContainer(AttrBase, WidgetContainer):
-
     """
     Contains one or several widgets representing a scalar numeric attribute.
 
@@ -600,22 +591,21 @@ class NumericWidgetContainer(AttrBase, WidgetContainer):
         # strange way to convert numpy type numbers into native python numbers
         if type(value) not in (types.IntType, types.LongType, types.FloatType, types.ComplexType):
             value = value.tolist()
-        # print 'NumericWidgetContainer.get_valuewidget_write
-        # ',value,type(value),self._attrconf.digits_fraction
+        # print 'NumericWidgetContainer.get_valuewidget_write ',value,type(value),self._attrconf.digits_fraction
 
-        # if self._attrconf.digits_fraction == None:
+        # if self._attrconf.digits_fraction  is None:
         #    self._attrconf.digits_fraction = 3
 
         # print '  panelstyle=',self.panelstyle
         # print '  value=',value
         # numpy returns dtype... even for scalars
         # make sure to convert value in a native python scalar
-        # if value == None:
+        # if value  is None:
         # value=NaN
         # elif type(value) not in (types.IntType, types.LongType, types.FloatType):
         #    value=value.tolist()
 
-        # if self.config_attr['min']==None:
+        # if self.config_attr['min'] is None:
         allow_negative = True
         # else:
         #    allow_negative = self.config_attr['min'] < 0.0
@@ -623,20 +613,19 @@ class NumericWidgetContainer(AttrBase, WidgetContainer):
         #min = self.config_attr['min']
         #max = self.config_attr['max']
 
-        # if min == None:
+        # if min  is None:
         #    if value<0:
         #        min = -5*value
         #    else:
         #        min = 0
         #
-        # if max == None:
+        # if max  is None:
         #    max = 5*abs(value)
 
         if np.isinf(value):
             widget = wx.StaticText(self.parent, -1,
                                    value.__repr__(),
-                                   # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
-                                   style=wx.ALIGN_LEFT
+                                   style=wx.ALIGN_LEFT  # |wx.SIMPLE_BORDER #wx.STATIC_BORDER #|  #
                                    )
             # widget.SetBackgroundColour(self.color_bg)
             self.extend_widgetsize(widget)
@@ -723,7 +712,6 @@ class NumericWidgetContainer(AttrBase, WidgetContainer):
 
 
 class IntegerWidgetContainer(NumericWidgetContainer):
-
     """
     Contains one or several widgets representing a scalar numeric attribute.
 
@@ -754,7 +742,6 @@ class IntegerWidgetContainer(NumericWidgetContainer):
 
 
 class BooleanWidgetContainer(AttrBase, WidgetContainer):
-
     """
     Contains one or several widgets representing a boolean attribute.
 
@@ -811,7 +798,6 @@ class BooleanWidgetContainer(AttrBase, WidgetContainer):
 
 
 class ChoiceWidgetContainer(WidgetContainer):
-
     """
     Contains one or several widgets representing a text attribute.
 
@@ -827,8 +813,7 @@ class ChoiceWidgetContainer(WidgetContainer):
         else:
             self._choicevalues = list(self._attrconf.choices)
             self._choicenames = list(self._attrconf.choices)
-        # if type(self._attrconf.choices) in
-        # [types.ListType,types.TupleType,numpy.ndarray]:
+        # if type(self._attrconf.choices) in [types.ListType,types.TupleType,numpy.ndarray]:
 
         if self._attrconf.has_unit() & self._attrconf.is_writable():
             return [('name',    self.create_namewidget(),  wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL),
@@ -866,11 +851,13 @@ class ChoiceWidgetContainer(WidgetContainer):
         # print '  choices',self._attrconf.choices
         # print '  self._choicenames',self._choicenames
         # print '  self._choicevalues',self._choicevalues
-        widget = wx.Choice(self.parent, -1, (100, 50),
-                           choices=self._choicenames)
+        widget = wx.Choice(self.parent, -1, (100, 50), choices=self._choicenames)
         if self.immediate_apply:
             self.parent.Bind(wx.EVT_CHOICE, self.on_apply_immediate, widget)
-        ind = self._choicevalues.index(value)
+        if value in self._choicevalues:
+            ind = self._choicevalues.index(value)
+        else:
+            ind = 0
         widget.SetSelection(ind)
 
         return widget
@@ -893,7 +880,7 @@ class ChoiceWidgetContainer(WidgetContainer):
         Depends on attribute type and hence widgettype.
         To be overwritten.
         """
-        # print 'set_widgetvalue',val,self._choicevalues
+        # print 'set_widgetvalue',self._attrconf.attrname, val,self._choicevalues
         # if self._choicevalues.count(val)>0:
         #ind = self._choicevalues.index(val)
         # self.valuewidget.SetSelection(ind)
@@ -904,14 +891,17 @@ class ChoiceWidgetContainer(WidgetContainer):
             #ind = self._choicenames.index(value)
             ind = self._choicevalues.index(val)
         except:
-            print 'WARNING ChoiceWidgetContainer.set_widgetvalue: value "%s" not in choice list' % val
+            print 'WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list' % (
+                self._attrconf.attrname, val)
             return
-        # print 'set_widgetvalue',self._attrconf.attrname,value,ind
-        self.valuewidget.SetSelection(ind)
+        # print '  ind',ind,self.valuewidget
+        if self._attrconf.is_writable():
+            self.valuewidget.SetSelection(ind)
+        else:
+            self.valuewidget.SetValue(self._choicenames[ind])
 
 
 class TextWidgetContainer(WidgetContainer):
-
     """
     Contains one or several widgets representing a text attribute.
 
@@ -937,8 +927,7 @@ class TextWidgetContainer(WidgetContainer):
         # print 'TextWidgetContainer.get_valuewidget_read'
         # widget=self.get_valuewidget_write()
         value = self.get_value_obj()
-        widget = wx.TextCtrl(self.parent, -1, value,
-                             style=wx.ALIGN_RIGHT | wx.TE_READONLY)
+        widget = wx.TextCtrl(self.parent, -1, value, style=wx.ALIGN_RIGHT | wx.TE_READONLY)
         widget.Enable(False)
 
         return widget
@@ -975,8 +964,42 @@ class TextWidgetContainer(WidgetContainer):
         self.widgets['value'][0].SetValue(value)
 
 
-class ListWidgetContainer(WidgetContainer):
+class DatetimeWidgetContainer(IntegerWidgetContainer):
+    """
+    Contains one or several widgets representing a time and date attributes.
 
+    """
+
+    def define_widgetset(self):
+        """
+        Generates the widgets representing this attribute.
+        """
+        if self._attrconf.has_unit() & self._attrconf.is_writable():
+            return [('name',    self.create_namewidget(),  wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL),
+                    ('value',   self.create_valuewidget(), wx.EXPAND),
+                    ('unit',   self.create_unitwidget(), wx.ALIGN_LEFT | wx.ALIGN_CENTER_VERTICAL), ]
+        else:
+            return [('name',    self.create_namewidget(),  wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL),
+                    ('value',   self.create_valuewidget(), wx.EXPAND)]
+
+    def get_valuewidget_read(self):
+        """
+        Return widget to read only numeric value of attribute
+        This is effectively the parametrisation of the masked.NumCtrl widget.
+        """
+        # print 'TextWidgetContainer.get_valuewidget_read'
+        # widget=self.get_valuewidget_write()
+        dtime = self.get_value_obj()
+        #time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime())
+        value = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(dtime))
+
+        widget = wx.TextCtrl(self.parent, -1, value, style=wx.ALIGN_RIGHT | wx.TE_READONLY)
+        widget.Enable(False)
+
+        return widget
+
+
+class ListWidgetContainer(WidgetContainer):
     """
     Contains one or several widgets representing a text attribute.
 
@@ -1015,11 +1038,9 @@ class ListWidgetContainer(WidgetContainer):
 
         value = list_to_str(self.get_value_obj())
         if is_list_flat(value):
-            widget = wx.TextCtrl(self.parent, -1, value,
-                                 style=wx.ALIGN_LEFT | wx.TE_MULTILINE)
+            widget = wx.TextCtrl(self.parent, -1, value, style=wx.ALIGN_LEFT | wx.TE_MULTILINE)
         else:  # only flat lists can be edited :(
-            widget = wx.TextCtrl(self.parent, -1, value,
-                                 style=wx.ALIGN_RIGHT | wx.TE_MULTILINE)
+            widget = wx.TextCtrl(self.parent, -1, value, style=wx.ALIGN_RIGHT | wx.TE_MULTILINE)
             widget.Enable(False)
 
         self.set_textevents(widget)
@@ -1049,7 +1070,6 @@ class ListWidgetContainer(WidgetContainer):
 
 
 class ObjWidgetContainer(AttrBase, WidgetContainer):
-
     """
     Contains one or several widgets representing an obj attribute.
 
@@ -1059,6 +1079,8 @@ class ObjWidgetContainer(AttrBase, WidgetContainer):
         """
         Generates the widgets representing this attribute.
         """
+        # print 'define_widgetset',self._attrconf.attrname, self._attrconf.get_value()
+
         return [('name',    self.create_namewidget(),  wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL),
                 ('value',   self.create_valuewidget(), wx.EXPAND),
                 ]
@@ -1068,63 +1090,97 @@ class ObjWidgetContainer(AttrBase, WidgetContainer):
         Returns instance of non-editable widget
         To be overwritten.
         """
+        # print 'get_valuewidget_read',self._attrconf.attrname
         # print 'get_numeditwidget',value
         # Here just the plain static text widget is returned
         #obj = self._attrconf.get_value()
+        #METATYPES_LINKSTYLE = ('obj','id','tabid','ids')
+        mt = self._attrconf.get_metatype()
         obj = value = self.get_value_obj()
-        if hasattr(obj, 'ident'):
+        # print '  value',value,type(obj),str(obj),mt
+        if mt == 'obj':
             text = str(obj.format_ident())
+
+        elif mt == 'id':
+            if value == -1:
+                # id not yet assigned
+                widget = wx.TextCtrl(self.parent, -1, '-', style=wx.ALIGN_RIGHT | wx.TE_READONLY)
+                widget.Enable(False)
+                return widget
+            else:
+                text = self._attrconf.get_linktab().format_id(value)
+
+        elif mt == 'ids':
+            if value is None:
+                # id not yet assigned
+                widget = wx.TextCtrl(self.parent, -1, '', style=wx.ALIGN_RIGHT | wx.TE_READONLY)
+                widget.Enable(False)
+                return widget
+            else:
+                text = self._attrconf.get_linktab().format_ids(value)
+            # print '  text',text,type(text)
+        #
+        # elif mt == 'tabid':
+        #    text = str(obj)
         else:
             text = str(obj)
 
         # print 'create_valuewidget: '+value,self.attr
         #widget=wx.StaticText(self.parent, -1,text,style=wx.ALIGN_RIGHT)
-        widget = hyperlink.HyperLinkCtrl(
-            self.parent, wx.ID_ANY, text, URL=text)
+        widget = hyperlink.HyperLinkCtrl(self.parent, wx.ID_ANY, text, URL=text)
         widget.AutoBrowse(False)
 
         widget.Bind(hyperlink.EVT_HYPERLINK_LEFT, self.on_objlink)
 
         return widget
 
-    def get_valuewidget_write_choice(self):
+    def get_valuewidget_write(self):
         """
         Return widget to edit numeric value of attribute
         """
-        return self.get_valuewidget_read()
 
-    # def get_valuewidget_write_choice(self):
-    #    """
-    #    Return widget to edit numeric value of attribute
-    #    """
-    #    objdata = self.get_value_obj()
-    #    print 'ObjWidgetContainer.get_valuewidget_write',obj.name
-    #    # Here just the plain static text widget is returned
-    #    #self.config_attr
-    #
-    #    if hasattr(objdata, '__iter__'):
-    #        obj, _id = objdata
-    #        text = obj.format_ident_row(_id)
-    #    else:
-    #        text = obj.format_ident()
-    #
-    #    print '  text',text
-    #    if type(self._attrconf.choices) in (OrderedDict, types.DictionaryType):
-    #        self._choices =  self._attrconf.choices.keys()
-    #        widget = wx.Choice(self.parent, -1, (100, 50), choices = self._attrconf.choices.keys())
-    #        ind = self._attrconf.choices.keys().index(value)
-    #        widget.SetSelection(ind)
-    #    else:
-    #        self._choices =  self._attrconf.choices
-    #        widget = wx.Choice(self.parent, -1, (100, 50), choices = self._attrconf.choices)
-    #
-    #    if self._choices.count(text)>0:
-    #        ind = self._choices.index(text)
-    #        widget.SetSelection(ind)
-    #        if self.immediate_apply:
-    #            self.parent.Bind(wx.EVT_CHOICE, self.on_apply_immediate, widget)
+        # print 'get_valuewidget_write',self._attrconf.attrname
+        # Here just the plain static text widget is returned
+        #obj = self._attrconf.get_value()
+        #METATYPES_LINKSTYLE = ('obj','id','tabid','ids')
+        mt = self._attrconf.get_metatype()
+        obj = value = self.get_value_obj()
+        linktab = self._attrconf.get_linktab()
+        # print '  value',value,type(value),str(obj),mt
+        if mt == 'id':
+            #text = self._attrconf.get_linktab().format_id(value)
+            choices = linktab.format_id(linktab.get_ids()).split(',')
+            if len(choices) > 0:
+                widget = wx.Choice(self.parent, -1, (100, 50), choices=choices)
+                ind = choices.index(linktab.format_id(value))
+                if value == -1:
+                    # no id specified, use first one
+                    widget.SetSelection(0)
+                else:
+                    widget.SetSelection(ind)
+            else:
+                # there are no ids to point to
+                widget = wx.TextCtrl(self.parent, -1, '-', style=wx.ALIGN_RIGHT | wx.TE_READONLY)
+                widget.Enable(False)
+            return widget
+
+        if mt == 'obj':
+            text = str(obj.format_ident())
+
+        elif mt == 'ids':
+            text = self._attrconf.get_linktab().format_ids(value)
+        #
+        # elif mt == 'tabid':
+        #    text = str(obj)
+        else:
+            text = str(obj)
 
         # print 'create_valuewidget: '+value,self.attr
+        #widget=wx.StaticText(self.parent, -1,text,style=wx.ALIGN_RIGHT)
+        widget = hyperlink.HyperLinkCtrl(self.parent, wx.ID_ANY, text, URL=text)
+        widget.AutoBrowse(False)
+
+        widget.Bind(hyperlink.EVT_HYPERLINK_LEFT, self.on_objlink)
 
         return widget
 
@@ -1139,24 +1195,20 @@ class ObjWidgetContainer(AttrBase, WidgetContainer):
                 if type(value) == types.InstanceType:
                     # print '  ident?',hasattr(value,'ident')
                     if hasattr(value, 'ident'):
-                        navitimer = wx.FutureCall(
-                            1, self.parent.func_change_obj, value)
+                        navitimer = wx.FutureCall(1, self.parent.func_change_obj, value)
 
             elif mt == 'id':
                 linktab = self._attrconf.get_linktab()
-                navitimer = wx.FutureCall(
-                    1, self.parent.func_change_obj, linktab, value)  # here value is id
+                navitimer = wx.FutureCall(1, self.parent.func_change_obj, linktab, value)  # here value is id
 
             elif mt == 'ids':
                 linktab = self._attrconf.get_linktab()
-                # here value is list with ids
-                navitimer = wx.FutureCall(
-                    1, self.parent.func_change_obj, linktab, None, value)
+                navitimer = wx.FutureCall(1, self.parent.func_change_obj, linktab,
+                                          None, value)  # here value is list with ids
 
             elif mt == 'tabid':
                 linktab, id = value
-                navitimer = wx.FutureCall(
-                    1, self.parent.func_change_obj, linktab, id)
+                navitimer = wx.FutureCall(1, self.parent.func_change_obj, linktab, id)
 
             # if self._attrconf.is_colattr(): # parent is holding the row id
             #self._attrconf[self.parent.id] = value
@@ -1166,16 +1218,60 @@ class ObjWidgetContainer(AttrBase, WidgetContainer):
 
         event.Skip()
 
+    def get_widgetvalue(self):
+        """
+        Returnes current value from valuewidget.
+        Depends on attribute type and hence widgettype.
+        To be overwritten.
+        """
+        mt = self._attrconf.get_metatype()
+        val = self.valuewidget.GetStringSelection()  # GetString
+        # print 'get_widgetvalue', val,mt
+        # print '  ',dir(self.valuewidget)
+        # if self._choicevalues.count(val)>0:
+        if mt == 'id':
+            if val == '-':
+                return -1
+            else:
+                return self._attrconf.get_linktab().get_id_from_formatted(val)
+        else:
+            return self.valuewidget.GetValue()
+
+    def set_widgetvalue(self, val):
+        """
+        Sets value for valuewidget.
+        Depends on attribute type and hence widgettype.
+        To be overwritten.
+        """
+        # print 'set_widgetvalue',self._attrconf.attrname, val, self._attrconf.is_writable()
+        # if self._choicevalues.count(val)>0:
+        #ind = self._choicevalues.index(val)
+        # self.valuewidget.SetSelection(ind)
+        # else:
+        # self.valuewidget.SetValue(val)
+
+        # try:
+        #    #ind = self._choicenames.index(value)
+        #    ind = self._choicevalues.index(val)
+        # except:
+        #    print 'WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list'%(self._attrconf.attrname,val)
+        #    return
+        # print '  ind',ind,self.valuewidget
+        if self._attrconf.is_writable():
+            self.valuewidget.SetStringSelection(self._attrconf.get_linktab().format_id(val))
+            # self.valuewidget.SetSelection(ind)
+        else:
+            pass
+            # self.valuewidget.SetValue(val)
+
 
 class ColorWidgetContainer(AttrBase, TextWidgetContainer):
-
     def define_widgetset(self):
         """
         Generates the widgets representing this attribute.
         """
         return [('name',    self.create_namewidget(),  wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL),
-                ('value',   self.create_valuewidget(), wx.ALIGN_LEFT |
-                 wx.ALIGN_CENTER_VERTICAL),  # wx.EXPAND
+                ('value',   self.create_valuewidget(), wx.ALIGN_LEFT | wx.ALIGN_CENTER_VERTICAL),  # wx.EXPAND
                 #('unit',   self.create_unitwidget(), wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL),
                 ]
 
@@ -1185,11 +1281,10 @@ class ColorWidgetContainer(AttrBase, TextWidgetContainer):
         """
 
         value = self.get_value_obj()
-        # print
-        # 'ColorWidgetContainer.get_valuewidget_write',self._attrconf.attrname,value,type(value)
+        # print 'ColorWidgetContainer.get_valuewidget_write',self._attrconf.attrname,value,type(value)
 
         #widget =  wx.TextCtrl( self.parent, -1, str(value),style= wx.ALIGN_RIGHT)
-        cint = np.array(np.array(value) * 255, np.int32)
+        cint = np.array(np.array(value)*255, np.int32)
         # wx.Colour(cint[0],cint[1],cint[2],cint[3])
         widget = coloursel.ColourSelect(
             self.parent, -1, "", wx.Colour(cint[0], cint[1], cint[2], cint[3]), size=wx.DefaultSize)
@@ -1211,7 +1306,7 @@ class ColorWidgetContainer(AttrBase, TextWidgetContainer):
         # print 'get_editwidget text',value,type(value)
 
         #widget =  wx.TextCtrl( self.parent, -1, str(value),style= wx.ALIGN_RIGHT)
-        cint = np.array(np.array(value) * 255, np.int32)
+        cint = np.array(np.array(value)*255, np.int32)
         widget = coloursel.ColourSelect(
             self.parent, -1, "", wx.Colour(cint[0], cint[1], cint[2], cint[3]), size=wx.DefaultSize)
         # self.set_textevents(widget)
@@ -1228,7 +1323,7 @@ class ColorWidgetContainer(AttrBase, TextWidgetContainer):
         c = self.widgets['value'][0].GetColour()
         # print 'ColorWidgetContainer.get_widgetvalue',self._attrconf.attrname, c, type(c),type(c) == types.InstanceType#types.ClassType
         #color = np.array([c.Red(),c.Green(),c.Blue(),c.Alpha()],np.float32)/255.0
-        return np.array([c.Red(), c.Green(), c.Blue(), c.Alpha()], np.float32) / 255.0
+        return np.array([c.Red(), c.Green(), c.Blue(), c.Alpha()], np.float32)/255.0
 
     def set_widgetvalue(self, value):
         """
@@ -1236,13 +1331,11 @@ class ColorWidgetContainer(AttrBase, TextWidgetContainer):
         Depends on attribute type and hence widgettype.
         To be overwritten.
         """
-        cint = np.array(np.array(value) * 255, np.int32)
-        self.widgets['value'][0].SetValue(
-            wx.Colour(cint[0], cint[1], cint[2], cint[3]))
+        cint = np.array(np.array(value)*255, np.int32)
+        self.widgets['value'][0].SetValue(wx.Colour(cint[0], cint[1], cint[2], cint[3]))
 
 
 class FilepathWidgetContainer(AttrBase, TextWidgetContainer):
-
     def define_widgetset(self):
         """
         Generates the widgets representing this attribute.
@@ -1259,8 +1352,7 @@ class FilepathWidgetContainer(AttrBase, TextWidgetContainer):
         # print 'TextWidgetContainer.get_valuewidget_read'
         # widget=self.get_valuewidget_write()
         value = self.get_value_obj()
-        widget = wx.TextCtrl(self.parent, -1, value,
-                             style=wx.ALIGN_LEFT | wx.TE_READONLY)
+        widget = wx.TextCtrl(self.parent, -1, value, style=wx.ALIGN_LEFT | wx.TE_READONLY)
         widget.Enable(False)
 
         return widget
@@ -1283,7 +1375,7 @@ class FilepathWidgetContainer(AttrBase, TextWidgetContainer):
         #widget = wx.Button(self.parent, wx.ID_OPEN)
         bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_TOOLBAR)
         widget = wx.BitmapButton(self.parent, -1, bitmap, (12, 12),
-                                 (bitmap.GetWidth() + 6, bitmap.GetHeight() + 6))
+                                 (bitmap.GetWidth()+6, bitmap.GetHeight()+6))
         widget.Bind(wx.EVT_BUTTON, self.on_fileopen)
         # print 'create_unitwidget',self._attrconf.attrname,widget
         return widget
@@ -1296,13 +1388,13 @@ class FilepathWidgetContainer(AttrBase, TextWidgetContainer):
         #    defaultname = os.getcwd()
         wildcards_all = "All files (*.*)|*.*"
         if hasattr(self._attrconf, 'wildcards'):
-            wildcards = self._attrconf.wildcards + "|" + wildcards_all
+            wildcards = self._attrconf.wildcards+"|"+wildcards_all
         else:
             wildcards = wildcards_all
 
         # guess default value
         filepath = self.get_objvalue()
-        if type(filepath) not in (types.StringType, types.UnicodeType):
+        if type(filepath) not in STRINGTYPES:
             filepath = ""
             dirpath = os.getcwd()
         else:
@@ -1339,14 +1431,14 @@ class FilepathsWidgetContainer(FilepathWidgetContainer):
 
         wildcards_all = "All files (*.*)|*.*"
         if hasattr(self._attrconf, 'wildcards'):
-            wildcards = self._attrconf.wildcards + "|" + wildcards_all
+            wildcards = self._attrconf.wildcards+"|"+wildcards_all
         else:
             wildcards = wildcards_all
 
         # guess default value
         filepath = self.get_objvalue()
         # print '  filepath',filepath,type(filepath)
-        if type(filepath) not in (types.StringType, types.UnicodeType):
+        if type(filepath) not in STRINGTYPES:
             filepath = ""
             dirpath = os.getcwd()
         else:
@@ -1380,7 +1472,6 @@ class FilepathsWidgetContainer(FilepathWidgetContainer):
 
 
 class DirpathWidgetContainer(AttrBase, TextWidgetContainer):
-
     def define_widgetset(self):
         """
         Generates the widgets representing this attribute.
@@ -1392,10 +1483,9 @@ class DirpathWidgetContainer(AttrBase, TextWidgetContainer):
     def create_unitwidget(self):
         if self._attrconf.is_writable():
             #widget = wx.Button(self.parent, wx.ID_OPEN)
-            bitmap = wx.ArtProvider.GetBitmap(
-                wx.ART_FOLDER_OPEN, wx.ART_TOOLBAR)
+            bitmap = wx.ArtProvider.GetBitmap(wx.ART_FOLDER_OPEN, wx.ART_TOOLBAR)
             widget = wx.BitmapButton(self.parent, -1, bitmap, (12, 12),
-                                     (bitmap.GetWidth() + 6, bitmap.GetHeight() + 6))
+                                     (bitmap.GetWidth()+6, bitmap.GetHeight()+6))
             widget.Bind(wx.EVT_BUTTON, self.on_diropen)
             # print 'create_unitwidget',self._attrconf.attrname,widget
             return widget
@@ -1418,7 +1508,6 @@ class DirpathWidgetContainer(AttrBase, TextWidgetContainer):
 
 
 class ScalarPanel(wx.Panel):
-
     """
     Interactively displays scalar attributes of object on a parent panel.
     """
@@ -1455,8 +1544,7 @@ class ScalarPanel(wx.Panel):
 
         self.widgetcontainers = []
 
-        self.create_attrs(
-            attrconfigs, immediate_apply=immediate_apply, panelstyle=panelstyle)
+        self.create_attrs(attrconfigs, immediate_apply=immediate_apply, panelstyle=panelstyle)
         self.SetAutoLayout(True)
         self.Refresh()
 
@@ -1505,8 +1593,7 @@ class ScalarPanel(wx.Panel):
 
         # now dimensions of grid are known, so configure sizer
         # print 'grid size=',len(attrs), len(widgetnames)
-        sizer = wx.FlexGridSizer(
-            len(attrconfigs), len(widgetnames), vgap=2, hgap=0)
+        sizer = wx.FlexGridSizer(len(attrconfigs), len(widgetnames), vgap=2, hgap=0)
         sizer.AddGrowableCol(1)
         # print 'widgetnames',widgetnames
         # throw widgets into sizer
@@ -1544,7 +1631,7 @@ class ScalarPanel(wx.Panel):
         # get metatype
         mt = attrconf.get_metatype()
 
-        # print ' default,mt,tt',attrconf.get_default(),mt,tt
+        # print ' default,mt,tt',attrconf.get_default(),type(attrconf.get_default()),mt,tt,mt in METATYPES_LINKSTYLE
 
         # if config.has_key('choices'):
         #    # pop up with a choices list
@@ -1579,6 +1666,8 @@ class ScalarPanel(wx.Panel):
 
         elif mt == 'dirpath':
             return DirpathWidgetContainer(self, attrconf, **args)
+        elif mt == 'datetime':
+            return DatetimeWidgetContainer(self, attrconf, **args)
 
         # elif mt == 'number':
         if tt in (types.IntType, types.LongType):
@@ -1591,7 +1680,7 @@ class ScalarPanel(wx.Panel):
         elif tt in (types.BooleanType,):
             return BooleanWidgetContainer(self, attrconf, **args)
 
-        elif tt in (types.UnicodeType, types.StringType):
+        elif tt in STRINGTYPES:
             return TextWidgetContainer(self, attrconf, **args)
 
         # elif tt in (types.InstanceType,types.ClassType):
@@ -1662,7 +1751,6 @@ class ScalarPanel(wx.Panel):
 
 
 class ScalarPanelScrolled(wxlib.scrolledpanel.ScrolledPanel, ScalarPanel):
-
     """
     Interactively displays scalar attributes of object on a parent panel.
     """
@@ -1674,11 +1762,9 @@ class ScalarPanelScrolled(wxlib.scrolledpanel.ScrolledPanel, ScalarPanel):
         # wx.Panel.__init__(self,parent,-1,style=wx.WANTS_CHARS)
         # wx.Panel.__init__(self,parent,-1)
         if is_modal:
-            wxlib.scrolledpanel.ScrolledPanel.__init__(
-                self, parent, wx.ID_ANY, size=(600, 400))
+            wxlib.scrolledpanel.ScrolledPanel.__init__(self, parent, wx.ID_ANY, size=(600, 400))
         else:
-            wxlib.scrolledpanel.ScrolledPanel.__init__(
-                self, parent, wx.ID_ANY, size=wx.DefaultSize)
+            wxlib.scrolledpanel.ScrolledPanel.__init__(self, parent, wx.ID_ANY, size=wx.DefaultSize)
         #self.maxWidth  = 2000
         #self.maxHeight = 300
         #self.SetVirtualSize((self.maxWidth, self.maxHeight))
@@ -1705,8 +1791,7 @@ class ScalarPanelScrolled(wxlib.scrolledpanel.ScrolledPanel, ScalarPanel):
 
         self.widgetcontainers = []
 
-        self.create_attrs(
-            attrconfigs, immediate_apply=immediate_apply, panelstyle=panelstyle)
+        self.create_attrs(attrconfigs, immediate_apply=immediate_apply, panelstyle=panelstyle)
         # self.SetAutoLayout(True)
         # self.AutoLayout()
         # self.Refresh()
@@ -1763,9 +1848,9 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
             unit = attrconf.format_unit(show_parentesis=True)
             if len(unit) > 0:
                 if len(symbol) > 7:
-                    symbol += '\n' + unit
+                    symbol += '\n'+unit
                 else:
-                    symbol += ' ' + unit
+                    symbol += ' '+unit
             # print '    symbol',symbol
             self.colnames.append(symbol)
             self.celltypes.append(self.get_celltype(attrconf))
@@ -1796,34 +1881,36 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
         # if len(config['type'])==1:
         mt = attrconf.metatype
         tt = type(attrconf.get_default())
-        # print
-        # 'get_celltype',attrconf.attrname,mt,tt,hasattr(attrconf,'choices'),attrconf.is_writable()
+        # print 'get_celltype',attrconf.attrname,mt,tt,hasattr(attrconf,'choices'),attrconf.is_writable()
 
         if mt == 'objs':
             return gridlib.GRID_VALUE_STRING
 
         elif mt == 'id':
-            if hasattr(attrconf, 'choices'):
-                if attrconf.is_writable():
+            obj = attrconf.get_linktab()
+            if attrconf.is_writable():
+                if hasattr(attrconf, 'choices'):
                     if len(attrconf.choices) < 200:
                         # print '  choices=',attrconf.choices
                         # (types.ListType, types.TupleType):
                         if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
-                            # print '
-                            # GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices.keys())
-                            return gridlib.GRID_VALUE_CHOICE + ':' + ','.join(attrconf.choices.keys())
+                            # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices.keys())
+                            return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices.keys())
                         else:
-                            # print '
-                            # GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
-                            return gridlib.GRID_VALUE_CHOICE + ':' + ','.join(attrconf.choices)
+                            # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
+                            return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices)
 
                             #gridlib.GridCellChoiceEditor(['what','ever'], allowOthers=True)
                     else:
-                        # still display a string with choice
-                        return gridlib.GRID_VALUE_STRING
+                        return gridlib.GRID_VALUE_STRING  # still display a string with choice
+
+                elif len(obj) < 200:
+                    # print '  GridCellChoiceEditor',attrconf.attrname,':'+obj.format_ids(obj.get_ids())
+                    return gridlib.GRID_VALUE_CHOICE+':'+obj.format_ids(obj.get_ids())
                 else:
                     return gridlib.GRID_VALUE_STRING
-            return gridlib.GRID_VALUE_NUMBER
+
+            return gridlib.GRID_VALUE_STRING
 
         elif mt == 'tabid':
             return gridlib.GRID_VALUE_STRING
@@ -1837,13 +1924,11 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                     # print '  dir(gridlib)',dir(gridlib)
                     # (types.ListType, types.TupleType):
                     if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
-                        # print '
-                        # GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices.keys())
-                        return gridlib.GRID_VALUE_CHOICE + ':' + ','.join(attrconf.choices.keys())
+                        # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices.keys())
+                        return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices.keys())
                     else:
-                        # print '
-                        # GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
-                        return gridlib.GRID_VALUE_CHOICE + ':' + ','.join(attrconf.choices)
+                        # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
+                        return gridlib.GRID_VALUE_CHOICE+':'+','.join(attrconf.choices)
 
                         #gridlib.GridCellChoiceEditor(['what','ever'], allowOthers=True)
                 else:
@@ -1853,20 +1938,20 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
 
         elif tt in (types.LongType, types.IntType):
             if (hasattr(attrconf, 'min') & hasattr(attrconf, 'max')):
-                return gridlib.GRID_VALUE_NUMBER + ':'\
-                    + str(attrconf.min) + ',' + str(attrconf.max)
+                return gridlib.GRID_VALUE_NUMBER+':'\
+                    + str(attrconf.min)+','+str(attrconf.max)
             else:
                 return gridlib.GRID_VALUE_NUMBER
 
         elif tt in (types.FloatType, types.ComplexType):
             if (hasattr(attrconf, 'digits_integer') & hasattr(attrconf, 'digits_fraction')):
-                return gridlib.GRID_VALUE_FLOAT + ':'\
-                    + str(attrconf.digits_integer) + ','\
+                return gridlib.GRID_VALUE_FLOAT+':'\
+                    + str(attrconf.digits_integer)+','\
                     + str(attrconf.digits_fraction)
             else:
                 return gridlib.GRID_VALUE_FLOAT
 
-        elif tt in (types.UnicodeType, types.StringType):
+        elif tt in STRINGTYPES:
             return gridlib.GRID_VALUE_STRING
 
         elif tt in (types.BooleanType,):
@@ -1890,23 +1975,30 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
         Returns object value to be displayed in the cell.
         """
         # TODO: this should be all handled by format_value of the attrconf !!!!
-        try:
+        # try:
+        if 1:
             rowid, attrconf = self.get_id_attrconf(row, col)
-            if (rowid == None) | (attrconf == None):
+            if (rowid is None) | (attrconf is None):
                 return 'Err'
             # attrconf=self.attrconfigs[col]
             val = self.get_objvalue(row, col)
             mt = attrconf.metatype
 
-            # print
-            # 'GetValue',self.ids[row],attrconf.attrname,val,mt,hasattr(attrconf,'choices'),attrconf.is_writable()
+            # print 'GetValue',self.ids[row],attrconf.attrname,val,mt,hasattr(attrconf,'choices'),attrconf.is_writable()
 
             if mt == 'objs':
                 return val.format_ident()
 
             elif mt == 'id':
-                # print '  =>',val
+                # print '  id=',val,idtext
+                # print '  linktab',attrconf.get_linktab(),idtext
+                if val == -1:
+                    return '-'
+
                 if hasattr(attrconf, 'choices'):
+                    # this is for backwards compatibility
+                    # choices should no longer osed to index id
+                    # instead, the format_ids method should be used
                     # (types.ListType, types.TupleType):
                     if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
                         if attrconf.choices.values().count(val) > 0:
@@ -1914,31 +2006,32 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                             # print '  return',attrconf.choices.keys()[ind]
                             return attrconf.choices.keys()[ind]
                         else:
-                            return val
+                            return attrconf.get_linktab().format_ids([val])
                     else:
-                        # print '
-                        # GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
-                        return val
+                        # print '  GridCellChoiceEditor',attrconf.choices,':'+','.join(attrconf.choices)
+                        return attrconf.get_linktab().format_ids([val])
 
                 else:
-                    return val
+                    # print ' return ',attrconf.get_linktab().format_ids([val])
+                    return attrconf.get_linktab().format_ids([val])
 
             elif mt == 'ids':
-                # print '  =>',val
-                return str(val)
+                # print '  ids=',val,attrconf.get_linktab().format_ids(val)
+                if val is None:
+                    return ''
+                else:
+                    return attrconf.get_linktab().format_ids(val)
 
             elif mt == 'tabid':
                 obj, _id = val
                 return obj.format_ident_row(_id)
 
             elif mt == 'tabidlist':
-                # <<<<<<<< should work for all types !!!
-                return attrconf.format_value(rowid)
+                return attrconf.format_value(rowid)  # <<<<<<<< should work for all types !!!
 
             elif hasattr(attrconf, 'choices'):
                 # print '   attrconf.choices',attrconf.choices
-                # (types.ListType, types.TupleType):
-                if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
+                if type(attrconf.choices) in (OrderedDict, types.DictionaryType):  # (types.ListType, types.TupleType):
                     if attrconf.choices.values().count(val) > 0:
                         ind = attrconf.choices.values().index(val)
                         # print '  return',attrconf.choices.keys()[ind]
@@ -1966,8 +2059,10 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
             else:
                 return val
 
-        except IndexError:
+        else:
             return 'Err'
+        # except IndexError:
+        #    return 'Err'
 
     def get_objvalue(self, row, col):
         """
@@ -2003,17 +2098,17 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
         Transfer of cell value to object.
         """
         id, attrconf = self.get_id_attrconf(row, col)
-        if attrconf != None:
+        if attrconf is not None:
+
             if attrconf.is_writable():
+                mt = attrconf.metatype
                 # print 'SetValue(%d, %d, "%s").\n' % (row, col, value)
 
                 # print '    attrconf',id,attrconf.attrname, attrconf.is_writable(),hasattr(attrconf,'choices')
                 # attr=self.attrs[col]
                 tt = type(attrconf.get_default())
                 if hasattr(attrconf, 'choices'):
-                    # print '
-                    # type(attrconf.choices)',type(attrconf.choices),type(attrconf.choices)
-                    # in (OrderedDict, types.DictionaryType)
+                    # print '  type(attrconf.choices)',type(attrconf.choices),type(attrconf.choices) in (OrderedDict, types.DictionaryType)
                     # (types.ListType, types.TupleType):
                     if type(attrconf.choices) in (OrderedDict, types.DictionaryType):
                         # print '  set choices[value]',attrconf.choices[value]
@@ -2025,22 +2120,22 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
                     else:
                         # print '  set value',value
                         attrconf[id] = value
+                elif mt == 'id':
+                    attrconf[id] = attrconf.get_linktab().get_id_from_formatted(value)
 
-                if (tt in (types.BooleanType, types.FloatType, types.IntType, types.LongType, types.StringType, types.UnicodeType, types.ComplexType)):
+                elif (tt in NUMERICTYPES):
                     # set only values of types that are allowed for the grid
                     # TODO: this grid types data must be organized more central
                     attrconf[id] = value
                 else:
-                    # TODO: for other types, like color or arrays, this must be
-                    # done beforehand
+                    # TODO: for other types, like color or arrays, this must be done beforehand
                     print 'WARNING in SetValue: cannot write to this type:', tt
             else:
                 # readonly
                 pass
-                # print 'SetValue(%d, %d, "%s") read only.\n' % (row, col,
-                # value)
+                # print 'SetValue(%d, %d, "%s") read only.\n' % (row, col, value)
 
-#--------------------------------------------------
+# --------------------------------------------------
     # Some optional methods
 
     # Called when the grid needs to display labels
@@ -2060,7 +2155,7 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
         label = str(id)
         return label
 
-    #    if size==None:
+    #    if size is None:
     #        return label
     #    else:
     #        if size>=len(label):
@@ -2088,7 +2183,7 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
             l = name.count('\n')
             if l > lines:
                 lines = l
-        size = (lines + 1) * 32
+        size = (lines+1)*32
         # print '  size=',size
         return size  # TODO here should be the font size as multiplier
 
@@ -2108,7 +2203,7 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
         tt = type(attrconf.get_default())
         mt = attrconf.metatype
         val = attrconf[id]
-        # print 'GetAttr',attr,val,config['type'][-1]
+        # print 'GetAttr',attrconf.attrname,val#,config['type'][-1]
         # define cell attribute for this column
         cellattr = gridlib.GridCellAttr()
 
@@ -2116,14 +2211,12 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
             cellattr.SetReadOnly(True)
 
         if mt == 'color':  # special config for colors
-            #ffffff = self.color_to_ffffff(val)
-            # print '  set bgcolor',ffffff
-            # cellattr.SetBackgroundColour(ffffff)
 
-            cint = np.array(np.array(val) * 255, np.int32)
+            cint = np.array(np.array(val)*255, np.int32)
 
-            cellattr.SetBackgroundColour(
-                wx.Colour(cint[0], cint[1], cint[2], cint[3]))
+            # print '  cint=',cint
+            # cellattr.SetBackgroundColour(wx.Colour(cint[0],cint[1],cint[2],cint[3]))
+            cellattr.SetBackgroundColour(wx.Colour(*cint))
 
         # elif config['metatype']=='penstyle':
         #    cellattr.SetRenderer(PenstyleRenderer(self.obj.get_pentable()))
@@ -2167,7 +2260,7 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
         return self.CanGetValueAs(row, col, typeName)
 
 
-#---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
 # class TablePanel(wx.Panel):
 #    def __init__(self, parent, tab, **args):
@@ -2183,7 +2276,6 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
 
 
 class TabPanel(AttrBase, gridlib.Grid):
-
     def __init__(self, parent, tab, objpanel=None, attrconfigs=None, ids=None, show_ids=True,
                  func_change_obj=None,
                  func_choose_id=None,
@@ -2197,8 +2289,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         # TODO: Attention: parent is always the main object panel
 
         # print '  gridlib.Grid',dir(gridlib.Grid)
-        # , style =wx.EXPAND| wx.ALL)#wx.EAST | wx.WEST) )
-        gridlib.Grid.__init__(self, parent, -1)
+        gridlib.Grid.__init__(self, parent, -1)  # , style =wx.EXPAND| wx.ALL)#wx.EAST | wx.WEST) )
 
         # parent must be panel, scrolled panel or similar
         self.parent = parent
@@ -2210,11 +2301,11 @@ class TabPanel(AttrBase, gridlib.Grid):
         self.func_apply = func_apply
         self.mainframe = mainframe
 
-        if ids == None:
+        if ids is None:
             # show all ids
             ids = tab.get_ids()  # ordered=True
 
-        if attrconfigs == None:
+        if attrconfigs is None:
             # show all array type attributes
             attrconfigs = tab.get_colconfigs()
 
@@ -2247,20 +2338,18 @@ class TabPanel(AttrBase, gridlib.Grid):
             self.AutoSizeRows(True)
         # print '  done AutoSizeRows'
 
-        # self.Bind(gridlib.EVT_GRID_CELL_CHANGE, self.on_cell_change) #works,
-        # but not used
+        # self.Bind(gridlib.EVT_GRID_CELL_CHANGE, self.on_cell_change) #works, but not used
 
         # EVT_GRID_CELL_RIGHT_CLICK(self, self.OnRightDown)  #added
         gridlib.EVT_GRID_CELL_RIGHT_CLICK(self, self.on_contextmenu)  # added
-        self.Bind(gridlib.EVT_GRID_LABEL_RIGHT_CLICK,
-                  self.on_contextmenu_label)
+        self.Bind(gridlib.EVT_GRID_LABEL_RIGHT_CLICK, self.on_contextmenu_label)
 
         # does not seem to work
         gridlib.EVT_GRID_CELL_LEFT_DCLICK(self, self.on_edit_cell)
         gridlib.EVT_GRID_CELL_LEFT_CLICK(self, self.on_click_cell)
 
         gridlib.EVT_GRID_LABEL_LEFT_DCLICK(self, self.OnLabelLeftDoubleClick)
-        #??gridlib.EVT_GRID_LABEL_LEFT_CLICK(self, self.OnLabelLeftClick)
+        # ??gridlib.EVT_GRID_LABEL_LEFT_CLICK(self, self.OnLabelLeftClick)
         #EVT_CONTEXT_MENU(self, self.on_contextmenu)
         #self.Bind(wx.EVT_CONTEXT_MENU, self.on_contextmenu)
         # print '  done init TabPanel'
@@ -2316,10 +2405,9 @@ class TabPanel(AttrBase, gridlib.Grid):
         popupmenu = event.GetEventObject()
 
         table = self.GetTable()
-        id, attrconf = table.get_id_attrconf(
-            popupmenu.get_row(), popupmenu.get_col())
+        id, attrconf = table.get_id_attrconf(popupmenu.get_row(), popupmenu.get_col())
         # print 'on_edit_cell EventObject=',id, attrconf.attrname#popupmenu
-        if (id >= 0) & (attrconf != None):
+        if (id >= 0) & (attrconf is not None):
 
             # dlg = ObjPanelDialog(self,self.tab.get_obj(),table = self.tab,id,attrconfigs=[attrconf,], size=(350, 200),
             #             #style = wxCAPTION | wxSYSTEM_MENU | wxTHICK_FRAME
@@ -2332,8 +2420,7 @@ class TabPanel(AttrBase, gridlib.Grid):
                                  #tables = None,
                                  table=self.tab, id=id, ids=None,
                                  #groupnames = None,
-                                 # title = '', size = wx.DefaultSize, pos =
-                                 # wx.DefaultPosition,\
+                                 # title = '', size = wx.DefaultSize, pos = wx.DefaultPosition,\
                                  style=wx.DEFAULT_DIALOG_STYLE,
                                  # choose_id=False, choose_attr=False,
                                  # func_choose_id=None,func_change_obj=None,
@@ -2378,11 +2465,9 @@ class TabPanel(AttrBase, gridlib.Grid):
             self._contextfunctions = {}
             # print '  configs',self.tab.get_configs(is_all=True)
             for config in self.tab.get_configs(is_all=True):
-                # print '  ',config.attrname,config.groupnames,'rowfunctions'
-                # in config.groupnames
+                # print '  ',config.attrname,config.groupnames,'rowfunctions' in config.groupnames
                 if 'rowfunctions' in config.groupnames:
-                    item, id = menu.append_item(
-                        config.get_name(), self.on_select_rowfunction, info=config.get_info())
+                    item, id = menu.append_item(config.get_name(), self.on_select_rowfunction, info=config.get_info())
                     #item,id = menu.append_item( config.name,config.get_function(), info=config.info)
                     self._contextfunctions[id] = config.get_function()
                     # print '  append ',config.name,id
@@ -2441,8 +2526,8 @@ class TabPanel(AttrBase, gridlib.Grid):
         self.ForceRefresh()
 
         #del table
-        newtable = TableGrid(self, self.tab, attrconfigs=self.tab.get_colconfigs(
-        ), ids=self.tab.get_ids(), show_ids=table.show_ids)
+        newtable = TableGrid(self, self.tab, attrconfigs=self.tab.get_colconfigs(),
+                             ids=self.tab.get_ids(), show_ids=table.show_ids)
         del table
         # The second parameter means that the grid is to take ownership of the
         # table and will destroy it when done.  Otherwise you would need to keep
@@ -2468,7 +2553,7 @@ class TabPanel(AttrBase, gridlib.Grid):
             # This returns a Python list of files that were selected.
             path = dlg.GetPath()
             # print 'You selected %d files:' % len(paths)
-            if type(path) in (types.StringType, types.UnicodeType):
+            if type(path) in STRINGTYPES:
                 self.tab.export_csv(path, sep=',', name_id='ID',
                                     file=None, attrconfigs=self.GetTable().get_valueconfigs(),
                                     groupname=None, is_header=True)
@@ -2480,8 +2565,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         # check if there is something to navigate
         if self.CanEnableCellControl():
             table = self.GetTable()
-            id, attrconf = table.get_id_attrconf(
-                event.GetRow(), event.GetCol())
+            id, attrconf = table.get_id_attrconf(event.GetRow(), event.GetCol())
             mt = attrconf.metatype
             # config=table.obj.get_config(attr)
             # print 'on_click_cell ,id,attrconf',id, attrconf.get_name(),mt
@@ -2496,8 +2580,7 @@ class TabPanel(AttrBase, gridlib.Grid):
                 if type(value) == types.InstanceType:
                     # print '  ident?',hasattr(value,'ident')
                     if hasattr(value, 'ident'):
-                        navitimer = wx.FutureCall(
-                            1, self.func_change_obj, value)
+                        navitimer = wx.FutureCall(1, self.func_change_obj, value)
 
                     else:
                         event.Skip()
@@ -2505,22 +2588,29 @@ class TabPanel(AttrBase, gridlib.Grid):
                     event.Skip()
 
             elif mt == 'id':
-
-                linktab = attrconf.get_linktab()
-                # print '  FutureCall',linktab, value
-                navitimer = wx.FutureCall(
-                    1, self.func_change_obj, linktab, value)  # here value is id
+                if attrconf.is_readonly():
+                    linktab = attrconf.get_linktab()
+                    # print '  FutureCall',linktab, value
+                    if value != -1:
+                        navitimer = wx.FutureCall(1, self.func_change_obj, linktab, value)  # here value is id
+                    else:
+                        event.Skip()
+                else:
+                    event.Skip()
 
             elif mt == 'tabid':
-                linktab, id = value
-                navitimer = wx.FutureCall(
-                    1, self.func_change_obj, linktab, id)  # here value is id
+                if value is not None:
+                    linktab, id = value
+                    navitimer = wx.FutureCall(1, self.func_change_obj, linktab, id)  # here value is id
+                else:
+                    event.Skip()
 
             elif mt == 'ids':
-                linktab = attrconf.get_linktab()
-                # here value is ids list
-                navitimer = wx.FutureCall(
-                    1, self.func_change_obj, linktab, None,  value)
+                if value is not None:
+                    linktab = attrconf.get_linktab()
+                    navitimer = wx.FutureCall(1, self.func_change_obj, linktab, None,  value)  # here value is ids list
+                else:
+                    event.Skip()
             else:
                 event.Skip()
             # elif config.has_key('do_init_arrayobj'):
@@ -2542,14 +2632,14 @@ class TabPanel(AttrBase, gridlib.Grid):
         id, attrconf = table.get_id_attrconf(event.GetRow(), event.GetCol())
 
         # check first if there are callback functions
-        if self.func_choose_id != None:
+        if self.func_choose_id is not None:
             # call self.func_choose_id
             #
             wx.FutureCall(1, self.func_choose_id, id, attrconf)
             # event.Skip()
             return
 
-        elif self.func_choose_attr != None:
+        elif self.func_choose_attr is not None:
             # call self.func_choose_id
             wx.FutureCall(1, self.func_choose_attr, attrconf)
             # event.Skip()
@@ -2580,18 +2670,13 @@ class TabPanel(AttrBase, gridlib.Grid):
                     # print 'on_edit_cell:'
                     # print '  wxc=',[wxc.Red(),wxc.Green(),wxc.Blue()]
                     # print '  table.obj[attr, id]=',table.obj[attr, id],type(table.obj[attr, id])
-                    # print '  ffffff_to_color=',self.ffffff_to_color(
-                    # [wxc.Red(),wxc.Green(),wxc.Blue()]
-                    # ),type(self.ffffff_to_color(
-                    # [wxc.Red(),wxc.Green(),wxc.Blue()] ))
+                    # print '  ffffff_to_color=',self.ffffff_to_color( [wxc.Red(),wxc.Green(),wxc.Blue()] ),type(self.ffffff_to_color( [wxc.Red(),wxc.Green(),wxc.Blue()] ))
 
                     # self.ffffff_to_color([wxc.Red(),wxc.Green(),wxc.Blue()] )
-                    attrconf[id] = np.array(
-                        [c.Red(), c.Green(), c.Blue(), c.Alpha()], np.float32) / 255.0
-                    self.SetCellBackgroundColour(
-                        event.GetRow(), event.GetCol(), c)
+                    attrconf[id] = np.array([c.Red(), c.Green(), c.Blue(), c.Alpha()], np.float32)/255.0
+                    self.SetCellBackgroundColour(event.GetRow(), event.GetCol(), c)
                     self.ForceRefresh()
-                    if self.func_apply != None:
+                    if self.func_apply is not None:
                         wx.FutureCall(1, self.func_apply, table, id, None)
 
                 # Once the dialog is destroyed, Mr. wx.ColourData is no longer your
@@ -2602,18 +2687,18 @@ class TabPanel(AttrBase, gridlib.Grid):
 
             elif metatype == 'filepath':
                 filepath = self.on_fileopen(attrconf)
-                if filepath != None:
+                if filepath is not None:
                     attrconf[id] = filepath
                     self.ForceRefresh()
-                    if self.func_apply != None:
+                    if self.func_apply is not None:
                         wx.FutureCall(1, self.func_apply, table, id, None)
 
             elif metatype == 'dirpath':
                 dirpath = self.on_diropen(attrconf)
-                if dirpath != None:
+                if dirpath is not None:
                     attrconf[id] = dirpath
                     self.ForceRefresh()
-                    if self.func_apply != None:
+                    if self.func_apply is not None:
                         wx.FutureCall(1, self.func_apply, table, id, None)
             # elif metatype == 'penstyle':
             #    #Penstyles(table.obj.get_pentable())
@@ -2637,9 +2722,9 @@ class TabPanel(AttrBase, gridlib.Grid):
             else:
                 self.EnableCellEditControl()
                 # try this ...
-                # if self.func_apply!=None:
+                # if self.func_apply is not None:
                 #        wx.FutureCall(1,self.func_apply, table, id, None)
-                #...put  this in apply method
+                # ...put  this in apply method
 
     def on_fileopen(self, attrconf):
         # print 'on_fileopen',self._attrconf.attrname
@@ -2649,7 +2734,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         #    defaultname = os.getcwd()
         wildcards_all = "All files (*.*)|*.*"
         if hasattr(attrconf, 'wildcards'):
-            wildcards = attrconf.wildcards + "|" + wildcards_all
+            wildcards = attrconf.wildcards+"|"+wildcards_all
         else:
             wildcards = wildcards_all
         dlg = wx.FileDialog(self.parent, message="Open file",
@@ -2724,7 +2809,7 @@ class TabPanel(AttrBase, gridlib.Grid):
             # click has been on row labels = ids
             id = table.ids[evt.GetRow()]
 
-            if self.func_choose_id == None:
+            if self.func_choose_id is None:
 
                 # print '  call ScalarPanel editor for ID=',id
 
@@ -2744,8 +2829,7 @@ class TabPanel(AttrBase, gridlib.Grid):
                     # apply current widget values
                     dlg.apply()
                     if self._objpanel:
-                        # thi will also update scalars on objpanel
-                        self._objpanel.restore()
+                        self._objpanel.restore()  # thi will also update scalars on objpanel
                     self.ForceRefresh()
                 else:
                     # print ">>>>>>>>>You pressed Cancel\n"
@@ -2779,16 +2863,16 @@ class TabPanel(AttrBase, gridlib.Grid):
         table = self.GetTable()
         id, attrconf = table.get_id_attrconf(row, col)
 
-        if self.func_apply != None:
+        if self.func_apply is not None:
             wx.FutureCall(1, self.func_apply, table, id, None)
 
         #self.logw('grid.apply row%d col %d'%(row,col))
-        if self.func_choose_id != None:
+        if self.func_choose_id is not None:
             # call self.func_choose_id
             wx.FutureCall(1, self.func_choose_id, id, attrconf)
             return
 
-        elif self.func_choose_attr != None:
+        elif self.func_choose_attr is not None:
             # call self.func_choose_id
             wx.FutureCall(1, self.func_choose_attr, attrconf)
             return
@@ -2815,7 +2899,6 @@ class TabPanel(AttrBase, gridlib.Grid):
 
 
 class ObjPanelMixin:
-
     """
     Common methods for panels
     """
@@ -2844,7 +2927,7 @@ class ObjPanelMixin:
     #    """
     #    Returns pentable used for this panel
     #    """
-    #    if self.pentable==None:
+    #    if self.pentable is None:
     #        return self.obj.get_pentable()
     #    else:
     #        return self.pentable
@@ -2868,9 +2951,8 @@ class ObjPanelMixin:
         self.ids = ids
 
         # print '  n_colconfigs =',len(obj.get_colconfigs(filtergroupnames = groupnames))
-        # print '  n_configs =',len(obj.get_configs(filtergroupnames =
-        # groupnames))
-        if (id == None) & (ids == None):
+        # print '  n_configs =',len(obj.get_configs(filtergroupnames = groupnames))
+        if (id is None) & (ids is None):
 
             if obj.managertype == 'table':
                 # print '  managertype',obj.managertype,obj.get_attrsman()
@@ -2881,7 +2963,7 @@ class ObjPanelMixin:
             else:
                 self.recreate_panel_scalar(groupnames=groupnames, **kwargs)
         else:
-            if ids != None:
+            if ids is not None:
                 # table with specific ids
                 self.recreate_panel_table(groupnames=groupnames, **kwargs)
             else:
@@ -2923,8 +3005,7 @@ class ObjPanelMixin:
                                 have been applied. Arguments are: obj, id, ids
         """
         #
-        # print 'recreate_panel_table:',self.obj.ident,immediate_apply,
-        # func_apply,groupnames
+        # print 'recreate_panel_table:',self.obj.ident,immediate_apply, func_apply,groupnames
 
         self.func_change_obj = func_change_obj
         self.func_choose_id = func_choose_id
@@ -2932,13 +3013,11 @@ class ObjPanelMixin:
         self.func_apply = func_apply
         self._show_title = show_title
 
-        # if is_scrolled == None:
-        # is_scrolled = not is_modal #for dialog windows use non crolled panels
-        # by default
+        # if is_scrolled  is None:
+        #    is_scrolled = not is_modal #for dialog windows use non crolled panels by default
 
         attrsman = self.obj.get_attrsman()
-        attrconfigs_scalar = attrsman.get_configs(
-            structs=cm.STRUCTS_SCALAR, filtergroupnames=groupnames)
+        attrconfigs_scalar = attrsman.get_configs(structs=cm.STRUCTS_SCALAR, filtergroupnames=groupnames)
         # print '  attrconfigs_scalar',attrconfigs_scalar
         # if obj.managertype=='table': # obj is a single table
         # print '  is_scalar_panel & is_singletab:'
@@ -2955,8 +3034,7 @@ class ObjPanelMixin:
                                        is_scrolled=is_scrolled, **buttonargs)
 
         else:
-            # print '  create only a table, without
-            # scalars'#,attrsman.get_colconfigs(filtergroupnames = groupnames)
+            # print '  create only a table, without scalars'#,attrsman.get_colconfigs(filtergroupnames = groupnames)
             self.make_tablepanel(self, table, objpanel=self, attrconfigs=None, groupnames=groupnames,
                                  immediate_apply=immediate_apply, panelstyle=panelstyle,
                                  is_modal=is_modal, show_title=show_title,
@@ -3010,14 +3088,12 @@ class ObjPanelMixin:
 
         # print '  ',self.obj.managertype,self.obj.get_attrsman()
 
-        # if is_scrolled == None:
-        # is_scrolled = not is_modal #for dialog windows use non crolled panels
-        # by default
+        # if is_scrolled  is None:
+        #    is_scrolled = not is_modal #for dialog windows use non crolled panels by default
 
         attrsman = self.obj.get_attrsman()
-        attrconfigs_scalar = attrsman.get_configs(
-            structs=cm.STRUCTS_SCALAR, filtergroupnames=groupnames)
-        if self.id != None:
+        attrconfigs_scalar = attrsman.get_configs(structs=cm.STRUCTS_SCALAR, filtergroupnames=groupnames)
+        if self.id is not None:
             attrconfigs_scalar += attrsman.get_colconfigs()
         # print '  just one scalar obj panel',buttonargs.keys()
         # print '  groupnames', groupnames
@@ -3061,8 +3137,7 @@ class ObjPanelMixin:
         """
         # print 'context.add_view',ViewClass
         # print '  args',args
-        widget = self.add_table(
-            self.nb, table, objpanel=self, groupnames=groupnames, show_title=False)
+        widget = self.add_table(self.nb, table, objpanel=self, groupnames=groupnames, show_title=False)
         self.tablewidgets.append(widget)  # need that later for refresh
         # Add network tab with editor
         # print '\nadd_tablepage  name',type(table.get_name()),table.get_name(),table
@@ -3086,22 +3161,22 @@ class ObjPanelMixin:
         if show_title:
             self.add_title(sizer, id=id)
 
-        splitter = wx.SplitterWindow(
-            parent, -1, style=wx.SP_LIVE_UPDATE | wx.SP_BORDER | wx.SP_3DBORDER, size=wx.DefaultSize)
+        splitter = wx.SplitterWindow(parent, -1, style=wx.SP_LIVE_UPDATE |
+                                     wx.SP_BORDER | wx.SP_3DBORDER, size=wx.DefaultSize)
         splitter.SetMinimumPaneSize(10)
 
         scalarpanel = self.add_scalars(splitter, attrconfigs_scalar,  # groupnames = groupnames,
                                        id=id, immediate_apply=immediate_apply,
                                        panelstyle=panelstyle, is_modal=False, is_scrolled=is_scrolled)
 
-        # if  datawidget!= None:
+        # if  datawidget is not None:
         #sizer.Add(datawidget, 1, wx.EXPAND|wx.TOP|wx.LEFT,5)
         #sizer.Add(datawidget, 1,0)
         # datawidget.Layout()
 
-        tablepanel = self.add_table(splitter, table, objpanel=objpanel,
-                                    ids=self.ids, attrconfigs=attrconfigs, groupnames=groupnames)
-        # if  datawidget!= None:
+        tablepanel = self.add_table(splitter, table, objpanel=objpanel, ids=self.ids,
+                                    attrconfigs=attrconfigs, groupnames=groupnames)
+        # if  datawidget is not None:
         #sizer.Add(datawidget, 1, wx.EXPAND|wx.ALL, 5)
         #sizer.Add(datawidget, 0, wx.EXPAND)
         #sizer.Add(datawidget, 2,0,0)
@@ -3126,10 +3201,10 @@ class ObjPanelMixin:
         if show_title:
             self.add_title(sizer, id=id)
 
-        datawidget = self.add_table(
-            parent, tab, ids=self.ids, objpanel=objpanel, attrconfigs=attrconfigs, groupnames=groupnames)
+        datawidget = self.add_table(parent, tab, ids=self.ids, objpanel=objpanel,
+                                    attrconfigs=attrconfigs, groupnames=groupnames)
 
-        if datawidget != None:
+        if datawidget is not None:
             sizer.Add(datawidget, 1, wx.EXPAND | wx.ALL, 5)
 
         if show_buttons:
@@ -3152,7 +3227,7 @@ class ObjPanelMixin:
                                       id=id, immediate_apply=immediate_apply,
                                       panelstyle=panelstyle, is_modal=is_modal, is_scrolled=is_scrolled)
 
-        if datawidget != None:
+        if datawidget is not None:
             sizer.Add(datawidget, 1, wx.EXPAND | wx.ALL, 5)
 
         if show_buttons:
@@ -3177,7 +3252,7 @@ class ObjPanelMixin:
 
         # print 'add_scalars for attrconfigs',attrconfigs,is_scrolled
 
-        if attrconfigs != None:
+        if attrconfigs is not None:
             if (not is_scrolled):
                 datawidget = ScalarPanel(parent, attrconfigs, id=id,
                                          func_change_obj=self.func_change_obj,
@@ -3199,8 +3274,7 @@ class ObjPanelMixin:
 
         for table in tables:
             self.add_hline(sizer)
-            self.add_table(sizer, table, groupnames=groupnames,
-                           show_title=show_title)
+            self.add_table(sizer, table, groupnames=groupnames, show_title=show_title)
 
     def add_table(self, parent, tab, ids=None, objpanel=None, attrconfigs=None, groupnames=None):
         """
@@ -3209,14 +3283,14 @@ class ObjPanelMixin:
         # TODO: group selection
         # TODO: Attention: parent is always self
 
-        if attrconfigs == None:
+        if attrconfigs is None:
             # This could be done way earlier!!!
             attrconfigs = tab.get_colconfigs(filtergroupnames=groupnames)
 
         # print 'add_table=',tab.get_name(),len(tab.get_colconfigs())
 
         # check if there are attributes
-        if (attrconfigs != None) & (attrconfigs != []):
+        if (attrconfigs is not None) & (attrconfigs != []):
             #panel=wx.Panel(self.parent, -1,wx.DefaultPosition,wx.DefaultSize,wx.SUNKEN_BORDER|wx.WANTS_CHARS)
             # panel.SetAutoLayout(True)
             datawidget = TabPanel(parent, tab, attrconfigs=attrconfigs, ids=ids, objpanel=objpanel,
@@ -3245,7 +3319,7 @@ class ObjPanelMixin:
         # print '\nadd_buttons is_modal',is_modal
         # print '  standartbuttons',standartbuttons
         # print '  buttons',buttons
-        if parent == None:
+        if parent is None:
             parent = self
         # print 'add_buttons'
         # print '  buttons=',buttons
@@ -3372,8 +3446,7 @@ class ObjPanelMixin:
         Add a horizontal line to sizer
         """
         line = wx.StaticLine(self, -1, size=(20, -1), style=wx.LI_HORIZONTAL)
-        sizer.Add(line, 0, wx.GROW | wx.ALIGN_CENTER_VERTICAL |
-                  wx.RIGHT | wx.CENTER, hspace)
+        sizer.Add(line, 0, wx.GROW | wx.ALIGN_CENTER_VERTICAL | wx.RIGHT | wx.CENTER, hspace)
 
     def add_title(self, sizer, title=None, id=None, fontsize=12):
         """
@@ -3382,12 +3455,12 @@ class ObjPanelMixin:
         and id if given.
         """
         # print 'add_title',self.obj.get_name()
-        if title == None:
+        if title is None:
             fontsize = 14
-            if id == None:
+            if id is None:
                 title = self.obj.get_name().title()
             else:
-                title = self.obj.get_name().title() + ' [' + str(id) + ']'
+                title = self.obj.get_name().title()+' ['+str(id)+']'
 
         #p=wx.Panel( self, wx.NewId(), wx.DefaultPosition,style=wx.SUNKEN_BORDER)
         titlewidget = wx.StaticText(self, wx.NewId(), title)
@@ -3397,8 +3470,7 @@ class ObjPanelMixin:
         # sizer.Add((5,5))
         # self.add_hline(sizer)
         # sizer.Add((20,20))
-        sizer.Add(titlewidget, 0, wx.ALIGN_CENTER |
-                  wx.ALIGN_CENTER_VERTICAL, 10)
+        sizer.Add(titlewidget, 0, wx.ALIGN_CENTER | wx.ALIGN_CENTER_VERTICAL, 10)
         # sizer.Add((10,10))
         self.add_hline(sizer, 15)
 
@@ -3463,7 +3535,7 @@ class ObjPanelMixin:
             widget.apply()
             widget.restore()
 
-        if self.func_apply != None:
+        if self.func_apply is not None:
             # print '  call self.func_choose_id',self.obj, self.id, self.ids
             #
             #wx.FutureCall(1,self.func_apply, self.obj, self.id, self.ids)
@@ -3490,7 +3562,6 @@ class ObjPanelMixin:
 
 
 class ObjPanelDialog(ObjPanelMixin, wx.Dialog):
-
     def __init__(self, parent,
                  obj, id=None, ids=None,
                  attrconfigs=None,
@@ -3517,7 +3588,7 @@ class ObjPanelDialog(ObjPanelMixin, wx.Dialog):
         pre.SetExtraStyle(wx.DIALOG_EX_CONTEXTHELP)
 
         if title == '':
-            title = 'Dialog for: ' + obj.get_name()
+            title = 'Dialog for: '+obj.get_name()
         pre.Create(parent, -1, title, pos, size=size, style=style)
 
         # This next step is the most important, it turns this Python
@@ -3556,8 +3627,7 @@ class ObjPanelDialog(ObjPanelMixin, wx.Dialog):
                                 )
 
         else:
-            # print ' normal mode without special
-            # callbacks',self.recreate_panel
+            # print ' normal mode without special callbacks',self.recreate_panel
             self.recreate_panel(obj, id=id, ids=ids,
                                 attrconfigs=attrconfigs,
                                 #tables = tables,
@@ -3575,7 +3645,7 @@ class ObjPanelDialog(ObjPanelMixin, wx.Dialog):
         self.attrconf_chosen = None
 
         # self.recreate_panel(attrconfigs=attrconfigs,groups=groups,is_modal=True,
-        # immediate_apply=immediate_apply, panelstyle=panelstyle)
+        #                    immediate_apply=immediate_apply, panelstyle=panelstyle)
 
         # self.SetSize(self.GetSize())
         # self.SetSize(wx.DefaultSize)
@@ -3613,7 +3683,6 @@ class ObjPanelDialog(ObjPanelMixin, wx.Dialog):
 
 
 class ObjPanel(ObjPanelMixin, wx.Panel):
-
     """
     Interactively displays attributes of object on a panel.
     """
@@ -3630,9 +3699,8 @@ class ObjPanel(ObjPanelMixin, wx.Panel):
                  pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
                  immediate_apply=False, panelstyle='default', **buttonargs):
 
-        wx.Panel.__init__(self, parent, -1, pos, size,
-                          wx.SUNKEN_BORDER | wx.WANTS_CHARS)
-        if obj == None:
+        wx.Panel.__init__(self, parent, -1, pos, size, wx.SUNKEN_BORDER | wx.WANTS_CHARS)
+        if obj is None:
             obj = cm.BaseObjman('empty')
         #wxlib.scrolledpanel.ScrolledPanel.__init__(self, parent,wx.ID_ANY,size=size)
         #self.maxWidth  = 100
@@ -3659,7 +3727,6 @@ class ObjPanel(ObjPanelMixin, wx.Panel):
 
 
 class TablePanel(ObjPanelMixin, wx.Panel):
-
     """
     Common methods for panels
     """
@@ -3763,7 +3830,6 @@ class TablePanel(ObjPanelMixin, wx.Panel):
 
 
 class NaviPanelMixin:
-
     def add_hist(self, obj, id=None, ids=None, kwargs={}):
         """
         Add a new obj to history list.
@@ -3777,11 +3843,11 @@ class NaviPanelMixin:
             self.ind_hist = 0
 
         else:
-            self.hist = self.hist[:self.ind_hist + 1]
+            self.hist = self.hist[:self.ind_hist+1]
             # print '  hist[:self.ind_hist+1]',self.hist[:self.ind_hist+1]
 
         self.hist.append((obj, id, ids, kwargs))
-        self.ind_hist = len(self.hist) - 1
+        self.ind_hist = len(self.hist)-1
         # print '  hist,self.ind_hist',self.hist,self.ind_hist
 
     def get_hist(self, ind_delta=-1):
@@ -3789,9 +3855,7 @@ class NaviPanelMixin:
         Getting hist with changing pointer
         """
         ind = self.ind_hist + ind_delta
-        # print 'get_hist
-        # ind_hist,ind_delta,ind,len(self.hist),ok',self.ind_hist,ind_delta,ind,len(self.hist),(ind
-        # < len(self.hist)) & (ind >= 0)
+        # print 'get_hist ind_hist,ind_delta,ind,len(self.hist),ok',self.ind_hist,ind_delta,ind,len(self.hist),(ind < len(self.hist)) & (ind >= 0)
 
         if (ind < len(self.hist)) & (ind >= 0):
             self.ind_hist = ind
@@ -3806,8 +3870,7 @@ class NaviPanelMixin:
         Getting hist without changing pointer
         """
         ind = self.ind_hist + ind_delta
-        # print 'get_history',self.ind_hist,ind_delta,(ind < len(self.hist)) &
-        # (ind >= 0)
+        # print 'get_history',self.ind_hist,ind_delta,(ind < len(self.hist)) & (ind >= 0)
 
         if (ind < len(self.hist)) & (ind >= 0):
             # self.ind_hist=ind
@@ -3826,10 +3889,10 @@ class NaviPanelMixin:
         if len(kwargs) == 0:
             # this is to recover kw arguments i.e. callbacks
             obj_last, id_last, ids_last, kwargs_last = self.get_history(0)
-            if kwargs_last != None:
+            if kwargs_last is not None:
                 kwargs = kwargs_last
 
-        if self.func_apply != None:
+        if self.func_apply is not None:
             kwargs['func_apply'] = self.func_apply
 
         # print 'Navipanel.change_obj',obj.format_ident(),id,ids,kwargs.keys()
@@ -3851,7 +3914,7 @@ class NaviPanelMixin:
         Updates path window and history
         """
 
-        if obj == None:
+        if obj is None:
             if self.get_obj() == self._defaultobj:
                 return None  # no changes
             else:
@@ -3859,10 +3922,10 @@ class NaviPanelMixin:
 
         # print 'Navicanvas.refresh_panel with',obj.ident,kwargs
 
-        if id != None:
+        if id is not None:
             self.path.SetValue(obj.format_ident_row_abs(id))
 
-        elif ids != None:
+        elif ids is not None:
             # no id provided, just show identification string
             self.path.SetValue(obj.format_ident_abs())
 
@@ -3890,8 +3953,8 @@ class NaviPanelMixin:
         #        attrconfigs.append(attrconfig)
 
         args = {'attrconfigs': attrconfigs,
-                #'tables' : None,
-                #'table' : None,
+                # 'tables' : None,
+                # 'table' : None,
                 'id': id, 'ids': ids,
                 'groupnames': self.groupnames,
                 'func_change_obj': self.change_obj,
@@ -3906,7 +3969,7 @@ class NaviPanelMixin:
         # print '  make ObjPanel\n args =',args
 
         self.objpanel = ObjPanel(self, obj=obj, **args)
-        # if id!=None:
+        # if id is not None:
         #    self.objpanel=ObjPanel(self,obj,id=id,func_change_obj=self.change_obj)
         # else:
         #    self.objpanel=ObjPanel(self,obj,func_change_obj=self.change_obj)
@@ -3940,12 +4003,12 @@ class NaviPanelMixin:
         # print 'on_go_back'
         # print '  hist=',self.hist
         obj, id, ids, kwargs = self.get_hist(-1)
-        # if obj!=None:
+        # if obj is not None:
         #    print '  done: obj, hist, ind_hist',obj.ident,self.hist,self.ind_hist
         # else:
         #    print ' failed: hist, ind_hist',self.hist,self.ind_hist
 
-        if obj != None:
+        if obj is not None:
             # print '  refresh_panel with',obj.ident
             self.refresh_panel(obj, id, ids, **kwargs)
         event.Skip()
@@ -3954,12 +4017,12 @@ class NaviPanelMixin:
         obj, id, ids, kwargs = self.get_hist(+1)
         # print 'on_go_forward to obj',obj
 
-        # if obj!=None:
+        # if obj is not None:
         #    print '  Done:obj.ident,self.hist,self.ind_hist',obj.ident,self.hist,self.ind_hist
         # else:
         #    print '  Failed:self.hist,self.ind_hist',self.hist,self.ind_hist
 
-        if obj != None:
+        if obj is not None:
             # print '  refresh_panel with',obj.ident
             self.refresh_panel(obj, id, ids, **kwargs)
         event.Skip()
@@ -3971,14 +4034,14 @@ class NaviPanelMixin:
 
         # this is to recover kw arguments i.e. callbacks
         obj_last, id_last, ids_last, kwargs_last = self.get_history(0)
-        if kwargs_last != None:
+        if kwargs_last is not None:
             kwargs = kwargs_last
         else:
             kwargs = {}
 
         parent = obj.get_parent()
         # print 'on_go_up',obj,id,parent
-        if _id == None:
+        if _id is None:
             # show parent object
             if type(parent) == types.InstanceType:
                 if hasattr(parent, 'ident'):
@@ -4019,7 +4082,7 @@ class NaviPanelMixin:
         #bottons = []
         bitmap = wx.ArtProvider_GetBitmap(wx.ART_GO_BACK, wx.ART_TOOLBAR)
         b = wx.BitmapButton(self, -1, bitmap, bottonsize,
-                            (bitmap.GetWidth() + bottonborder, bitmap.GetHeight() + bottonborder))
+                            (bitmap.GetWidth()+bottonborder, bitmap.GetHeight()+bottonborder))
         b.SetToolTipString("Go back in browser history.")
         self.Bind(wx.EVT_BUTTON, self.on_go_back, b)
         self.toolbar.Add(b, flag=wx.ALL, border=toolbarborder)
@@ -4028,7 +4091,7 @@ class NaviPanelMixin:
 
         bitmap = wx.ArtProvider_GetBitmap(wx.ART_GO_FORWARD, wx.ART_TOOLBAR)
         b = wx.BitmapButton(self, -1, bitmap, bottonsize,
-                            (bitmap.GetWidth() + bottonborder, bitmap.GetHeight() + bottonborder))
+                            (bitmap.GetWidth()+bottonborder, bitmap.GetHeight()+bottonborder))
         b.SetToolTipString("Go forward in browser history.")
         self.Bind(wx.EVT_BUTTON, self.on_go_forward, b)
         self.toolbar.Add(b, 0, wx.EXPAND, border=toolbarborder)
@@ -4036,7 +4099,7 @@ class NaviPanelMixin:
 
         bitmap = wx.ArtProvider_GetBitmap(wx.ART_GO_UP, wx.ART_TOOLBAR)
         b = wx.BitmapButton(self, -1, bitmap, bottonsize,
-                            (bitmap.GetWidth() + bottonborder, bitmap.GetHeight() + bottonborder))
+                            (bitmap.GetWidth()+bottonborder, bitmap.GetHeight()+bottonborder))
         b.SetToolTipString("Go up to parent object.")
         self.Bind(wx.EVT_BUTTON, self.on_go_up, b)
         self.toolbar.Add(b, 0, wx.EXPAND, border=toolbarborder)
@@ -4048,7 +4111,7 @@ class NaviPanelMixin:
 
         bitmap = wx.ArtProvider_GetBitmap(wx.ART_GO_HOME, wx.ART_TOOLBAR)
         b = wx.BitmapButton(self, -1, bitmap, bottonsize,
-                            (bitmap.GetWidth() + bottonborder, bitmap.GetHeight() + bottonborder))
+                            (bitmap.GetWidth()+bottonborder, bitmap.GetHeight()+bottonborder))
         b.SetToolTipString("Go to main object, the mother of all objects.")
         self.Bind(wx.EVT_BUTTON, self.on_go_home, b)
         self.toolbar.Add(b, 0, wx.EXPAND, border=toolbarborder)
@@ -4059,8 +4122,7 @@ class NaviPanelMixin:
         #    'show panel of root instance')
 
         # size=(-1, -1))#,size=(300, -1))
-        self.path = wx.TextCtrl(
-            self, -1, self.get_ident_abs(obj, _id), style=wx.TE_RIGHT)
+        self.path = wx.TextCtrl(self, -1, self.get_ident_abs(obj, _id), style=wx.TE_RIGHT)
         #self.path=wx.TextCtrl(self.toolbar, -1, obj.format_ident_abs(), style=wx.TE_RIGHT)
         # wx.EVT_ENTER_WINDOW(self.path,self.on_enter_window)
         # self.add_tool('path',widget=self.path)
@@ -4080,7 +4142,7 @@ class NaviPanelMixin:
         # self.SetToolBar(self.toolbar)
 
     def get_ident_abs(self, obj, _id):
-        if _id != None:
+        if _id is not None:
             return obj.format_ident_row_abs(_id)
 
         else:
@@ -4128,7 +4190,6 @@ class NaviPanelMixin:
 
 
 class NaviPanel(NaviPanelMixin, wx.Panel):
-
     """
 
     Interactively navigates through objects and displays attributes 
@@ -4136,7 +4197,7 @@ class NaviPanel(NaviPanelMixin, wx.Panel):
     """
 
     def __init__(self, parent, obj, id=None, mainframe=None, func_apply=None, **args):
-        if obj == None:
+        if obj is None:
             obj = cm.BaseObjman('empty')
         wx.Panel.__init__(self, parent, -1, wx.DefaultPosition, wx.DefaultSize)
         # print 'NaviPanel',obj.ident,id,func_apply,args
@@ -4152,11 +4213,9 @@ class NaviPanel(NaviPanelMixin, wx.Panel):
         self.init_navbar(obj, id)
 
         # create initial panel
-        self.init_objpanel(obj, id=id, mainframe=mainframe,
-                           is_modal=False, func_apply=func_apply, **args)
+        self.init_objpanel(obj, id=id, mainframe=mainframe, is_modal=False, func_apply=func_apply, **args)
 
-        sizer.Add(self.toolbar, 0, wx.ALL | wx.ALIGN_LEFT |
-                  wx.GROW, 4)  # from NaviPanelTest
+        sizer.Add(self.toolbar, 0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)  # from NaviPanelTest
         sizer.Add(self.objpanel, 1, wx.GROW)  # from NaviPanelTest
 
         # finish panel setup
@@ -4203,7 +4262,7 @@ class ObjBrowserMainframe(wx.Frame):
         # Create Browser widget here
         #browser = wx.Panel(self, -1, wx.DefaultPosition, size = wx.DefaultSize)
         #browser = ObjPanel(self,obj, id=10)
-        if obj != None:
+        if obj is not None:
             # print '  init ObjPanel'
             #self.browser = ObjPanel(self, obj)
             self.browser = NaviPanel(self, obj, _id)
@@ -4221,7 +4280,7 @@ class ObjBrowserMainframe(wx.Frame):
         # TODO:INTERESTING:
         # wxTextCtrl *control = new wxTextCtrl(...);
         # wxStreamToTextRedirector redirect(control);
-        #// all output to cout goes into the text control until the exit from
+        # // all output to cout goes into the text control until the exit from
         #   // current scope
 
         #self.MsgWindow  = py.crust.Crust(self, intro='Check it out!')
@@ -4319,7 +4378,6 @@ class ObjBrowserMainframe(wx.Frame):
 
 
 class ObjBrowserApp(wx.App):
-
     """
 
     """
@@ -4334,8 +4392,8 @@ class ObjBrowserApp(wx.App):
     def OnInit(self):
         wx.InitAllImageHandlers()
         #DrawFrame = BuildDrawFrame()
-        frame = ObjBrowserMainframe(
-            None, -1, "Object browser", wx.DefaultPosition, (700, 700), obj=self._obj, _id=self._id)
+        frame = ObjBrowserMainframe(None, -1, "Object browser", wx.DefaultPosition,
+                                    (700, 700), obj=self._obj, _id=self._id)
 
         self.SetTopWindow(frame)
         frame.Show()
@@ -4344,7 +4402,6 @@ class ObjBrowserApp(wx.App):
 
 
 class TableBrowserApp(wx.App):
-
     """
 
     """
@@ -4358,8 +4415,7 @@ class TableBrowserApp(wx.App):
     def OnInit(self):
         wx.InitAllImageHandlers()
         #DrawFrame = BuildDrawFrame()
-        frame = ObjBrowserMainframe(
-            None, -1, "Table browser", wx.DefaultPosition, (700, 700), table=self._tab)
+        frame = ObjBrowserMainframe(None, -1, "Table browser", wx.DefaultPosition, (700, 700), table=self._tab)
 
         self.SetTopWindow(frame)
         frame.Show()
@@ -4368,10 +4424,11 @@ class TableBrowserApp(wx.App):
 
 
 def objbrowser(obj, _id=None):
-    # put in True if you want output to go to it's own window.
-    app = ObjBrowserApp(obj, _id=_id, output=False)
+    app = ObjBrowserApp(obj, _id=_id, output=False)  # put in True if you want output to go to it's own window.
     # print 'call MainLoop'
     app.MainLoop()
+
+
 ###############################################################################
 if __name__ == '__main__':
 
@@ -4380,7 +4437,7 @@ if __name__ == '__main__':
     from agilepy.lib_base.classman import load_obj, save_obj
     ############
     # make up a test class
-    n_test = -5  # <<<<<<<<<<<<<<<<<<
+    n_test = 0  # <<<<<<<<<<<<<<<<<<
     ############
     _id = None
 
@@ -4408,7 +4465,7 @@ if __name__ == '__main__':
         obj = drawing
     elif n_test == -5:
         save_obj(drawing, 'test_drawing.obj')
-        print '\nreload' + 60 * '.'
+        print '\nreload'+60*'.'
         obj = load_obj('test_drawing.obj')
         obj.get_attrsman().print_attrs()
 

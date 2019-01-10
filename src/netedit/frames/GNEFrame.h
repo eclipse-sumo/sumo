@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <fx.h>
 #include <netbuild/NBEdge.h>
@@ -32,13 +28,13 @@
 #include <utils/gui/div/GUISelectedStorage.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <netedit/GNEAttributeCarrier.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GNEViewNet;
 class GNEUndoList;
-class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
@@ -102,10 +98,10 @@ public:
         FXTreeItem* showAttributeCarrierParents();
 
         /// @brief show child of current attributeCarrier
-        void showAttributeCarrierChilds(GNEAttributeCarrier *AC, FXTreeItem* itemParent);
+        void showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
 
         /// @brief add item into list
-        FXTreeItem* addACIntoList(GNEAttributeCarrier *AC, FXTreeItem* itemParent);
+        FXTreeItem* addACIntoList(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
 
     private:
         /// @brief Frame Parent
@@ -125,6 +121,69 @@ public:
 
         /// @brief pointer to current right clicked Attribute Carrier
         GNEAttributeCarrier* myRightClickedAC;
+    };
+
+    // ===========================================================================
+    // class GenericParametersEditor
+    // ===========================================================================
+
+    class GenericParametersEditor : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::GenericParametersEditor)
+
+    public:
+        /// @brief constructor
+        GenericParametersEditor(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~GenericParametersEditor();
+
+        /// @brief show netedit attributes editor (used for edit generic parameters of an existent AC)
+        void showGenericParametersEditor(GNEAttributeCarrier* AC);
+
+        /// @brief show netedit attributes editor (used for edit generic parameters of an existent list of AC)
+        void showGenericParametersEditor(std::vector<GNEAttributeCarrier*> ACs);
+
+        /// @brief hide netedit attributes editor
+        void hideGenericParametersEditor();
+
+        /// @brief refresh netedit attributes
+        void refreshGenericParametersEditor();
+
+        /// @brief get generic parameters as string
+        std::string getGenericParametersStr() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user clicks over add generic parameter
+        long onCmdEditGenericParameter(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user udpate the generic parameter text field
+        long onCmdSetGenericParameter(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        GenericParametersEditor() {}
+
+    private:
+        /// @brief edited Attribute Carrier
+        GNEAttributeCarrier* myAC;
+
+        /// @brief list of edited ACs
+        std::vector<GNEAttributeCarrier*> myACs;
+
+        /// @brief pointer to current vector of generic parameters
+        std::vector<std::pair<std::string, std::string> >* myGenericParameters;
+
+        /// @brief pointer to inspector frame parent
+        GNEFrame* myFrameParent;
+
+        /// @brief text field for write generic parameter
+        FXTextField* myTextFieldGenericParameter;
+
+        /// @brief button for add generic parameter
+        FXButton* myEditGenericParameterButton;
     };
 
     /**@brief Constructor

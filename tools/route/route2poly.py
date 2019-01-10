@@ -24,9 +24,9 @@ import itertools
 import random
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from sumolib.output import parse
-from sumolib.net import readNet
-from sumolib.miscutils import Colorgen
+from sumolib.output import parse  # noqa
+from sumolib.net import readNet  # noqa
+from sumolib.miscutils import Colorgen  # noqa
 
 
 def parse_args(args):
@@ -45,8 +45,8 @@ def parse_args(args):
                          default=False, help="write polgyons with geo-coordinates")
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
-    optParser.add_option("--standalone", action="store_true",
-                         default=False, help="Parse stand-alone routes that are not define as child-element of a vehicle")
+    optParser.add_option("--standalone", action="store_true", default=False,
+                         help="Parse stand-alone routes that are not define as child-element of a vehicle")
     options, args = optParser.parse_args(args=args)
     if len(args) < 2:
         sys.exit(USAGE)
@@ -55,7 +55,7 @@ def parse_args(args):
         options.routefiles = args[1:]
         options.colorgen = Colorgen(
             (options.hue, options.saturation, options.brightness))
-    except:
+    except Exception:
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".poly.xml"
@@ -67,13 +67,15 @@ def randomize_pos(pos, blur):
 
 
 MISSING_EDGES = set()
+
+
 def generate_poly(net, id, color, layer, geo, edges, blur, outf, type="route"):
     lanes = []
     for e in edges:
         if net.hasEdge(e):
             lanes.append(net.getEdge(e).getLane(0))
         else:
-            if not e in MISSING_EDGES:
+            if e not in MISSING_EDGES:
                 sys.stderr.write("Warning: unknown edge '%s'\n" % e)
                 MISSING_EDGES.add(e)
     shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
@@ -121,6 +123,7 @@ def main(args):
                                   options.layer, options.geo,
                                   vehicle.route[0].edges.split(), options.blur, outf)
         outf.write('</polygons>\n')
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

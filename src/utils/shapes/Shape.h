@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/common/Named.h>
@@ -46,6 +42,7 @@ public:
     /// @{
     static const std::string DEFAULT_TYPE;
     static const double DEFAULT_LAYER;
+    static const double DEFAULT_LAYER_POI;
     static const double DEFAULT_ANGLE;
     static const std::string DEFAULT_IMG_FILE;
     static const bool DEFAULT_RELATIVEPATH;

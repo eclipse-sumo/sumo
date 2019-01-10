@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
@@ -37,10 +33,20 @@
 #include <microsim/MSTransportable.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <libsumo/TraCIDefs.h>
+#include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
+#include <libsumo/Lane.h>
+#include <libsumo/LaneArea.h>
+#include <libsumo/MultiEntryExit.h>
+#include <libsumo/Person.h>
 #include <libsumo/POI.h>
 #include <libsumo/Polygon.h>
+#include <libsumo/Route.h>
+#include <libsumo/Simulation.h>
+#include <libsumo/TrafficLight.h>
+#include <libsumo/Vehicle.h>
+#include <libsumo/VehicleType.h>
 #include <traci-server/TraCIConstants.h>
 #include "Helper.h"
 
@@ -94,16 +100,90 @@ LaneStoringVisitor::add(const MSLane* const l) const {
 
 namespace libsumo {
 // ===========================================================================
-// static member definitions
+// static member initializations
 // ===========================================================================
+std::vector<Subscription> Helper::mySubscriptions;
+std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
+Helper::VehicleStateListener Helper::myVehicleStateListener;
 std::map<int, NamedRTree*> Helper::myObjects;
 LANE_RTREE_QUAL* Helper::myLaneTree;
 std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
 std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 
+
 // ===========================================================================
-// member definitions
+// static member definitions
 // ===========================================================================
+void
+Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
+                  const double beginTime, const double endTime, const int contextDomain, const double range) {
+    std::vector<std::vector<unsigned char> > parameters;
+    const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
+    const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
+    libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
+    mySubscriptions.push_back(s);
+    handleSingleSubscription(s);
+}
+
+
+void
+Helper::handleSubscriptions(const SUMOTime t) {
+    for (const libsumo::Subscription& s : mySubscriptions) {
+        if (s.beginTime > t) {
+            continue;
+        }
+        handleSingleSubscription(s);
+    }
+}
+
+
+void
+Helper::handleSingleSubscription(const Subscription& s) {
+    const int getCommandId = s.contextDomain > 0 ? s.contextDomain : s.commandId - 0x30;
+    std::set<std::string> objIDs;
+    if (s.contextDomain > 0) {
+        PositionVector shape;
+        findObjectShape(s.commandId, s.id, shape);
+        collectObjectsInRange(s.contextDomain, shape, s.range, objIDs);
+    } else {
+        objIDs.insert(s.id);
+    }
+    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == ID_LIST ? 0 : (int)s.variables.size();
+    if (myWrapper.empty()) {
+        myWrapper[CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
+        myWrapper[CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
+        myWrapper[CMD_GET_JUNCTION_VARIABLE] = Junction::makeWrapper();
+        myWrapper[CMD_GET_LANE_VARIABLE] = Lane::makeWrapper();
+        myWrapper[CMD_GET_LANEAREA_VARIABLE] = LaneArea::makeWrapper();
+        myWrapper[CMD_GET_MULTIENTRYEXIT_VARIABLE] = MultiEntryExit::makeWrapper();
+        myWrapper[CMD_GET_PERSON_VARIABLE] = Person::makeWrapper();
+        myWrapper[CMD_GET_POI_VARIABLE] = POI::makeWrapper();
+        myWrapper[CMD_GET_POLYGON_VARIABLE] = Polygon::makeWrapper();
+        myWrapper[CMD_GET_ROUTE_VARIABLE] = Route::makeWrapper();
+        myWrapper[CMD_GET_SIM_VARIABLE] = Simulation::makeWrapper();
+        myWrapper[CMD_GET_TL_VARIABLE] = TrafficLight::makeWrapper();
+        myWrapper[CMD_GET_VEHICLE_VARIABLE] = Vehicle::makeWrapper();
+        myWrapper[CMD_GET_VEHICLETYPE_VARIABLE] = VehicleType::makeWrapper();
+    }
+    auto wrapper = myWrapper.find(getCommandId);
+    if (wrapper == myWrapper.end()) {
+        throw TraCIException("Unsupported command specified");
+    }
+    std::shared_ptr<VariableWrapper> handler = wrapper->second;
+    for (const std::string& objID : objIDs) {
+        if (numVars > 0) {
+            for (const int variable : s.variables) {
+                handler->handle(objID, variable, handler.get());
+            }
+        } else {
+            if (!handler->handle(objID, LAST_STEP_VEHICLE_NUMBER, handler.get())) {
+                handler->handle(objID, ID_LIST, handler.get());
+            }
+        }
+    }
+}
+
+
 TraCIPositionVector
 Helper::makeTraCIPositionVector(const PositionVector& positionVector) {
     TraCIPositionVector tp;
@@ -142,20 +222,18 @@ Helper::makeRGBColor(const TraCIColor& c) {
 
 
 TraCIPosition
-Helper::makeTraCIPosition(const Position& position) {
+Helper::makeTraCIPosition(const Position& position, const bool includeZ) {
     TraCIPosition p;
     p.x = position.x();
     p.y = position.y();
-    p.z = position.z();
+    p.z = includeZ ? position.z() : Position::INVALID.z();
     return p;
 }
 
 
 Position
 Helper::makePosition(const TraCIPosition& tpos) {
-    Position p;
-    p.set(tpos.x, tpos.y, tpos.z);
-    return p;
+    return Position(tpos.x, tpos.y, tpos.z);
 }
 
 
@@ -209,14 +287,68 @@ Helper::convertCartesianToRoadMap(Position pos) {
     return result;
 }
 
+
 void
 Helper::cleanup() {
-    for (std::map<int, NamedRTree*>::const_iterator i = myObjects.begin(); i != myObjects.end(); ++i) {
-        delete(*i).second;
+    for (const auto i : myObjects) {
+        delete i.second;
     }
     myObjects.clear();
     delete myLaneTree;
     myLaneTree = 0;
+}
+
+
+void
+Helper::registerVehicleStateListener() {
+    MSNet::getInstance()->addVehicleStateListener(&myVehicleStateListener);
+}
+
+
+const std::vector<std::string>&
+Helper::getVehicleStateChanges(const MSNet::VehicleState state) {
+    return myVehicleStateListener.myVehicleStateChanges[state];
+}
+
+
+void
+Helper::clearVehicleStates() {
+    for (auto& i : myVehicleStateListener.myVehicleStateChanges) {
+        i.second.clear();
+    }
+}
+
+
+void
+Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
+    switch (domain) {
+        case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+            InductionLoop::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_LANE_CONTEXT:
+            Lane::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+            Vehicle::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_PERSON_CONTEXT:
+            Person::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_POI_CONTEXT:
+            POI::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+            Polygon::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+            Junction::storeShape(id, shape);
+            break;
+        case CMD_SUBSCRIBE_EDGE_CONTEXT:
+            Edge::storeShape(id, shape);
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -523,10 +655,12 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDist
     return newBest;
 }
 
+
 bool
 Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
         const ConstMSEdgeVector& currentRoute, int routeIndex,
         double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
+    //std::cout << "moveToXYMap_matchingRoutePosition pos=" << pos << "\n";
     routeOffset = 0;
     // routes may be looped which makes routeOffset ambiguous. We first try to
     // find the closest upcoming edge on the route and then look for closer passed edges
@@ -548,13 +682,16 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
     }
     // look backward along the route
     const MSEdge* next = currentRoute[routeIndex];
-    for (int i = routeIndex; i > 0; --i) {
+    for (int i = routeIndex; i >= 0; --i) {
         const MSEdge* cand = currentRoute[i];
+        //std::cout << "  next=" << next->getID() << " cand=" << cand->getID() << " i=" << i << " routeIndex=" << routeIndex << "\n";
         prev = cand;
         while (prev != 0) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
-            findCloserLane(internalCand, pos, bestDistance, lane);
+            if (findCloserLane(internalCand, pos, bestDistance, lane)) {
+                routeOffset = i;
+            }
             prev = internalCand;
         }
         if (findCloserLane(cand, pos, bestDistance, lane)) {
@@ -594,6 +731,69 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
 #endif
     return true;
 }
+
+
+Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context)
+    : VariableWrapper(handler), myResults(into), myContextResults(context), myActiveResults(into) {
+
+}
+
+
+void
+Helper::SubscriptionWrapper::setContext(const std::string& refID) {
+    myActiveResults = refID == "" ? myResults : myContextResults[refID];
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapDouble(const std::string& objID, const int variable, const double value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIDouble>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapInt(const std::string& objID, const int variable, const int value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIInt>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapString(const std::string& objID, const int variable, const std::string& value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIString>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) {
+    auto sl = std::make_shared<TraCIStringList>();
+    sl->value = value;
+    myActiveResults[objID][variable] = sl;
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIPosition>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int variable, const TraCIColor& value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIColor>(value);
+    return true;
+}
+
+
+void
+Helper::VehicleStateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
+    myVehicleStateChanges[to].push_back(vehicle->getID());
+}
+
 
 }
 

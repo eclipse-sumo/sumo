@@ -20,7 +20,6 @@ It does this by parsing the data from the sumo data dir.
 
 from __future__ import print_function
 from __future__ import absolute_import
-import sys
 from os.path import dirname, exists, getmtime, join
 
 
@@ -32,6 +31,7 @@ def writeTypeMap(typemapFile, typemap):
                 print('"%s"' %
                       line.replace('"', r'\"').replace('\n', r'\n'), file=f)
             print(";", file=f)
+
 
 def generateTypeMap(relPath, formats, suffix):
     typemapDataDir = join(dirname(__file__), '..', '..', 'data', 'typemap')

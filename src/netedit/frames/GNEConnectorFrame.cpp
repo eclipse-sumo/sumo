@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <utils/foxtools/fxexdefs.h>
@@ -350,7 +346,7 @@ GNEConnectorFrame::onCmdClearSelectedConnections(FXObject*, FXSelector, void*) {
     auto junctions = myViewNet->getNet()->retrieveJunctions(true);
     for (auto i : junctions) {
         i->setLogicValid(false, myViewNet->getUndoList()); // clear connections
-        i->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::MODIFIED); // prevent re-guessing
+        i->setLogicValid(false, myViewNet->getUndoList(), GNEAttributeCarrier::FEATURE_MODIFIED); // prevent re-guessing
     }
     // clear edge's connection
     auto edges = myViewNet->getNet()->retrieveEdges(true);
@@ -469,8 +465,8 @@ GNEConnectorFrame::getLaneStatus(const std::vector<NBEdge::Connection>& connecti
         } else {
             return CONNECTED;
         }
-    } else if (srcEdge->hasConnectionTo(destEdge, toIndex) 
-            || (srcEdge->getPermissions(fromIndex) & destEdge->getPermissions(toIndex) & ~SVC_PEDESTRIAN) == 0) {
+    } else if (srcEdge->hasConnectionTo(destEdge, toIndex)
+               || (srcEdge->getPermissions(fromIndex) & destEdge->getPermissions(toIndex) & ~SVC_PEDESTRIAN) == 0) {
         return CONFLICTED;
     } else {
         return UNCONNECTED;

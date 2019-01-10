@@ -5,7 +5,8 @@ Warning: Discarding unusable type 'railway.construction' (first occurence for ed
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '24154002').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '24214693#0').
 Warning: Reducing junction cluster 283018817,38919652,38919712,38919808 (5 incoming edges)
-Warning: Minor green from edge '27445163' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445016' to edge '27445071' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445167' to edge '27445067' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '-24214694' to edge '27445074' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445161' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445016' to edge '27445070' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445165' to edge '27445066' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214694' to edge '27445073' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Intersecting left turns at junction '294831569' from lane '27445143_0' and lane '27445141_0'. (increase junction radius to avoid this)

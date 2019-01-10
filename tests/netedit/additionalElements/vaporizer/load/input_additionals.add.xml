@@ -1,47 +1,47 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 	<!-- Without errors -->
-    <vaporizer edge="gneE1" startTime="5.00" end="15.00"/>
+    <vaporizer id="1" begin="5.00" end="15.00"/>
 	
-	<!-- non valid edge (missing) -->
-	<vaporizer startTime="5.00" end="15.00"/>
+	<!-- non valid id (missing) -->
+	<vaporizer begin="5.00" end="15.00"/>
 	
-	<!-- non valid edge (dummy) -->
-	<vaporizer edge="dummyEdge" startTime="5.00" end="15.00"/>
+	<!-- non valid id (dummy) -->
+	<vaporizer id="dummyid" begin="5.00" end="15.00"/>
 	
-	<!-- valid edge -->
-    <vaporizer edge="gneE1" startTime="5.00" end="15.00"/>
+	<!-- valid id -->
+    <vaporizer id="2" begin="5.00" end="15.00"/>
 	
-	<!-- non valid startTime (missing) -->
-	<vaporizer edge="gneE1" end="15.00"/>
+	<!-- non valid begin (missing) -->
+	<vaporizer id="3" end="15.00"/>
 	
-	<!-- non valid startTime (missing, default > end) -->
-	<vaporizer edge="gneE1" end="5.00"/>
+	<!-- non valid begin (missing, default > end) -->
+	<vaporizer id="4" end="5.00"/>
 	
-	<!-- non valid startTime (dummy) -->
-	<vaporizer edge="gneE1" startTime="dummy" end="15.00"/>
+	<!-- non valid begin (dummy) -->
+	<vaporizer id="5" begin="dummy" end="15.00"/>
 	
-	<!-- non valid startTime (negative) -->
-	<vaporizer edge="gneE1" startTime="-10.00" end="15.00"/>
+	<!-- non valid begin (negative) -->
+	<vaporizer id="6" begin="-10.00" end="15.00"/>
 	
-	<!-- valid startTime -->
-    <vaporizer edge="gneE1" startTime="10.00" end="15.00"/>
+	<!-- valid begin -->
+    <vaporizer id="7" begin="10.00" end="15.00"/>
 	
 	<!-- non valid end (missing) -->
-	<vaporizer edge="gneE1" startTime="5.00"/>
+	<vaporizer id="8" begin="5.00"/>
 	
 	<!-- non valid end (missing, default < begin) -->
-	<vaporizer edge="gneE1" startTime="50.00"/>
+	<vaporizer id="9" begin="50.00"/>
 	
 	<!-- non valid end (dummy) -->
-	<vaporizer edge="gneE1" startTime="5.00" end="dummy"/>
+	<vaporizer id="10" begin="5.00" end="dummy"/>
 	
 	<!-- non valid end (negative) -->
-	<vaporizer edge="gneE1" startTime="5.00" end="-20.00"/>
+	<vaporizer id="11" begin="5.00" end="-20.00"/>
 	
 	<!-- valid end -->
-    <vaporizer edge="gneE1" startTime="5.00" end="20.00"/>
+    <vaporizer id="12" begin="5.00" end="20.00"/>
 
-	<!-- non valid interval (startTime > end) -->
-	<vaporizer edge="gneE1" startTime="50.00" end="20.00"/>
+	<!-- non valid interval (begin > end) -->
+	<vaporizer id="13" begin="50.00" end="20.00"/>
 	
-</additionals>
+</additional>

@@ -1,8 +1,48 @@
-<additionals>
-    <parkingArea id="parkingArea_gneE2_0_0" lane="gneE2_0" startPos="17.00" endPos="27.00" width="3.20" length="5.00">
-        <space x="32.00" y="2.00" z="0.00" width="2.30" length="3.40" angle="32.50"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 25.06.2018 13:59:07 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/inspect\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/inspect\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/inspect\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/inspect\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/inspect\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/inspect\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_gneE2_0_0" lane="gneE2_0" startPos="17.00" endPos="27.00">
+        <space width="2.30" length="3.40" x="32.00" y="2.00" angle="32.50"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE2_0_1" lane="gneE2_0" startPos="32.00" endPos="42.00" width="3.20" length="5.00">
-        <space x="3.00" y="2.50" z="1.00" blockMovement="1"/>
+    <parkingArea id="parkingArea_gneE2_0_1" lane="gneE2_0" startPos="32.00" endPos="42.00">
+        <space x="3.00" y="2.50" z="1.00"/>
     </parkingArea>
-</additionals>
+</additional>

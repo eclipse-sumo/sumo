@@ -23,13 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
-
 #include <config.h>
-
-#endif
 
 #include <string>
 #include <map>
@@ -73,7 +67,11 @@ const int VTYPEPARS_MAXSPEED_LAT_SET = 1 << 20;
 const int VTYPEPARS_LATALIGNMENT_SET = 1 << 21;
 const int VTYPEPARS_MINGAP_LAT_SET = 1 << 22;
 const int VTYPEPARS_ACTIONSTEPLENGTH_SET = 1 << 23;
+const int VTYPEPARS_HASDRIVERSTATE_SET = 1 << 24;
 
+
+const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
+const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
 
 // ===========================================================================
 // struct definitions
@@ -203,6 +201,9 @@ public:
     /// @brief The enum-representation of the car-following model to use
     SumoXMLTag cfModel;
 
+    /// @brief Whether vehicles of this type are equipped with a driver (i.e. MSDriverState))
+    bool hasDriverState;
+
     /// @brief Car-following parameter
     SubParams cfParameter;
     /// @brief Lane-changing parameter
@@ -247,9 +248,10 @@ public:
     /** @brief Returns the default emergency deceleration for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model
      * @param[in] vc the vehicle class
-     * @return the deceleration in m/s^2
+     * @param[in] decel the deceleration of the vehicle type
+     * @return the emergency deceleration in m/s^2
      */
-    static double getDefaultEmergencyDecel(const SUMOVehicleClass vc = SVC_IGNORING);
+    static double getDefaultEmergencyDecel(const SUMOVehicleClass vc, double decel, double defaultOption);
 
     /** @brief Returns the default driver's imperfection (sigma or epsilon in Krauss' model) for the given vehicle class
      * This needs to be a function because the actual value is stored in the car following model

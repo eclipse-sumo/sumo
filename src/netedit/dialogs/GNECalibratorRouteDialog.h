@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNEAdditionalDialog.h"
 
@@ -50,7 +46,7 @@ class GNECalibratorRouteDialog : public GNEAdditionalDialog {
 
 public:
     /// @brief constructor
-    GNECalibratorRouteDialog(GNECalibratorRoute* editedCalibratorRoute, bool updatingElement);
+    GNECalibratorRouteDialog(GNEAdditional* editedCalibratorRoute, bool updatingElement);
 
     /// @brief destructor
     ~GNECalibratorRouteDialog();
@@ -73,12 +69,6 @@ public:
 protected:
     /// @brief FOX needs this
     GNECalibratorRouteDialog() {}
-
-    /// @brief pointer to modified rerouter interval
-    GNECalibratorRoute* myEditedCalibratorRoute;
-
-    /// @brief flag to indicate if flow are being created or modified
-    bool myUpdatingElement;
 
     /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorRouteValid;

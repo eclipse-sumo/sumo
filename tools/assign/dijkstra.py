@@ -27,7 +27,7 @@ import sys
 from collections import defaultdict
 from xml.sax import make_parser, handler
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from sumolib.net import readNet
+from sumolib.net import readNet  # noqa
 
 
 class priorityDictionary(dict):

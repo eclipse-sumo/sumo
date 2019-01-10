@@ -191,7 +191,8 @@ class CSVWriter(NestingHandler):
     def endElement(self, name):
         if self.depth() >= self.rootDepth:
             root = self.tagstack[self.rootDepth]
-#            print("end", name, root, self.depth(), self.attrFinder.depthTags[root][self.depth()], self.haveUnsavedValues)
+            # print("end", name, root, self.depth(), self.attrFinder.depthTags[root][self.depth()],
+            # self.haveUnsavedValues)
             if name in self.attrFinder.depthTags[root][self.depth()]:
                 if self.haveUnsavedValues:
                     if(PY3):
@@ -268,6 +269,7 @@ def main():
         lxml.sax.saxify(tree, handler)
     else:
         xml.sax.parse(options.source, handler)
+
 
 if __name__ == "__main__":
     main()

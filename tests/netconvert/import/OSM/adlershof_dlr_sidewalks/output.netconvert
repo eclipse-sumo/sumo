@@ -13,28 +13,28 @@ done.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
 Joining junction clusters... 
-done (2ms).
+done (3ms).
  Joined 20 junction cluster(s).
-Removing empty nodes and geometry nodes... done (2ms).
-   80 nodes removed.
-Moving network to origin... done (2ms).
-Computing turning directions... done (0ms).
+Removing empty nodes and geometry nodes... done (1ms).
+   79 nodes removed.
+Moving network to origin... done (3ms).
+Computing turning directions... done (1ms).
 Assigning nodes to traffic lights... done (0ms).
 Sorting nodes' edges... done (1ms).
-Computing node shapes... done (22ms).
-Computing edge shapes... done (7ms).
-Computing node types... done (0ms).
-Computing priorities... done (1ms).
-Computing approached edges... done (0ms).
+Computing node shapes... done (18ms).
+Computing edge shapes... done (11ms).
+Computing node types... done (1ms).
+Computing priorities... done (0ms).
+Computing approached edges... done (1ms).
 Guessing and setting roundabouts... 
  Guessed 1 roundabout(s).
 done (0ms).
-Computing approaching lanes... done (5ms).
+Computing approaching lanes... done (4ms).
 Dividing of lanes on approached lanes... done (2ms).
 Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
+Rechecking of lane endings... done (1ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (9ms).
+Computing node logics... done (8ms).
 Computing traffic light logics... done (1ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
@@ -42,8 +42,9 @@ Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 66
-  Priority junctions          : 216
+  Priority junctions          : 214
   Right-before-left junctions : 64
+  Rail signal junctions      : 1
  Network boundaries:
   Original boundary  : 13.45,52.42,13.58,52.46
   Applied offset     : -395408.93,-5809112.45
@@ -70,5 +71,5 @@ could not find edge for parkingArea '143308542#2'
 could not find edge for parkingArea '143308546#7'
 could not find edge for parkingArea '143308562#4'
 could not find edge for parkingArea '-143308562#4'
-done (105ms).
+done (106ms).
 Success.

@@ -27,6 +27,8 @@ set(netedit_additionals_SRCS
    GNEDetector.cpp
    GNEDetectorE1.h
    GNEDetectorE1.cpp
+   GNEDetectorE1Instant.h
+   GNEDetectorE1Instant.cpp
    GNEDetectorE2.h
    GNEDetectorE2.cpp
    GNEDetectorE3.h

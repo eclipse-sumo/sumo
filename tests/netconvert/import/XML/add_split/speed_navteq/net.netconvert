@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:26 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:31 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,9 +24,12 @@ SPDX-License-Identifier: EPL-2.0
     </projection>
 
     <processing>
-        <no-internal-links value="true"/>
         <geometry.remove value="true"/>
     </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -35,14 +38,14 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5789366.94" convBoundary="0.00,0.00,39850.14,20618.00" origBoundary="1248456.000000,5223889.000000,1306826.000000,5241834.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="0" to="1.10" priority="0" spreadType="center">
-        <lane id="1_0" index="0" speed="55.56" length="10.00" shape="17011.96,658.55 17017.24,658.40"/>
-        <lane id="1_1" index="1" speed="55.56" length="10.00" shape="17012.05,661.75 17017.34,661.59"/>
-        <lane id="1_2" index="2" speed="55.56" length="10.00" shape="17012.14,664.95 17017.43,664.79"/>
+        <lane id="1_0" index="0" speed="55.56" length="10.00" shape="17014.46,658.48 17017.24,658.40"/>
+        <lane id="1_1" index="1" speed="55.56" length="10.00" shape="17014.55,661.68 17017.34,661.59"/>
+        <lane id="1_2" index="2" speed="55.56" length="10.00" shape="17014.64,664.87 17017.43,664.79"/>
     </edge>
     <edge id="1.10" from="1.10" to="1.50" priority="0" spreadType="center">
         <lane id="1.10_0" index="0" speed="10.00" length="40.00" shape="17017.24,658.40 17057.23,657.24">
@@ -67,20 +70,20 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
     <edge id="2" from="2" to="0" priority="0" spreadType="center">
-        <lane id="2_0" index="0" speed="55.56" length="17016.60" shape="-0.11,1220.08 17002.53,658.84"/>
-        <lane id="2_1" index="1" speed="55.56" length="17016.60" shape="-0.00,1223.28 17002.63,662.04"/>
-        <lane id="2_2" index="2" speed="55.56" length="17016.60" shape="0.11,1226.47 17002.74,665.24"/>
+        <lane id="2_0" index="0" speed="55.56" length="17016.60" shape="-0.11,1220.08 17000.03,658.92"/>
+        <lane id="2_1" index="1" speed="55.56" length="17016.60" shape="-0.00,1223.28 17000.14,662.12"/>
+        <lane id="2_2" index="2" speed="55.56" length="17016.60" shape="0.11,1226.47 17000.24,665.32"/>
     </edge>
     <edge id="4" from="4" to="0" priority="0" spreadType="center" shape="17632.47,20618.00 17417.81,13770.92 17007.34,661.88">
-        <lane id="4_0" index="0" speed="33.33" length="19965.90" shape="17630.87,20618.05 17416.21,13770.97 17005.94,668.24">
+        <lane id="4_0" index="0" speed="33.33" length="19965.90" shape="17630.87,20618.05 17416.21,13770.97 17006.02,670.74">
             <param key="origId" value="4 3"/>
         </lane>
-        <lane id="4_1" index="1" speed="33.33" length="19965.90" shape="17634.07,20617.95 17419.41,13770.87 17009.14,668.14">
+        <lane id="4_1" index="1" speed="33.33" length="19965.90" shape="17634.07,20617.95 17419.41,13770.87 17009.21,670.64">
             <param key="origId" value="4 3"/>
         </lane>
     </edge>
 
-    <junction id="0" type="priority" x="17007.34" y="661.88" incLanes="4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17004.34,668.29 17010.74,668.09 17012.19,666.55 17011.91,656.95 17002.48,657.24 17002.79,666.84">
+    <junction id="0" type="priority" x="17007.34" y="661.88" incLanes="4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17004.42,670.79 17010.81,670.59 17011.19,668.35 17011.72,667.56 17012.48,666.98 17013.47,666.62 17014.69,666.47 17014.41,656.88 16999.98,657.32 17000.29,666.92 17002.53,667.29 17003.32,667.82 17003.90,668.58 17004.27,669.57">
         <request index="0" response="11100" foes="11100"/>
         <request index="1" response="11100" foes="11100"/>
         <request index="2" response="00000" foes="00011"/>

@@ -77,12 +77,7 @@ public:
      * @param[in] lanesCount number of lanes of the highway
      * @param[in] ccAccel the maximum acceleration the CC can apply
      */
-    MSCFModel_CC(const MSVehicleType* vtype, double accel, double decel,
-                 double ccDecel, double headwayTime, double constantSpacing,
-                 double kp, double lambda, double c1, double xi,
-                 double omegaN, double tau, int lanesCount, double ccAccel,
-                 double ploegH, double ploegKp, double ploegKd,
-                 double flatbedKa, double flatbedKv, double flatbedKp, double flatbedH, double flatbedD);
+    MSCFModel_CC(const MSVehicleType* vtype);
 
     /// @brief Destructor
     ~MSCFModel_CC();

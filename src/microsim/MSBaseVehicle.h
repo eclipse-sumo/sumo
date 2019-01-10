@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <vector>
@@ -87,6 +83,9 @@ public:
      * @return The vehicle's parameter
      */
     const SUMOVehicleParameter& getParameter() const;
+
+    /// @brief replace the vehicle parameter (deleting the old one)
+    void replaceParameter(const SUMOVehicleParameter* newParameter);
 
     /// @brief check whether the vehicle is equiped with a device of the given type
     bool hasDevice(const std::string& deviceName) const;
@@ -160,6 +159,11 @@ public:
         return false;
     }
 
+    virtual bool wasRemoteControlled(SUMOTime lookBack = DELTA_T) const {
+        UNUSED_PARAMETER(lookBack);
+        return false;
+    }
+
     /** @brief Returns the information whether the front of the vehhicle is on the given lane
      * @return Whether the vehicle's front is on that lane
      */
@@ -202,7 +206,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false);
+    void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false);
 
 
     /** @brief Replaces the current route by the given edges
@@ -217,7 +221,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRouteEdges(ConstMSEdgeVector& edges, bool onInit = false, bool check = false, bool removeStops = true);
+    bool replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true);
 
 
     /** @brief Returns the vehicle's acceleration
@@ -294,6 +298,21 @@ public:
     /// @brief Returns this vehicles impatience
     double getImpatience() const;
 
+    /** @brief Returns the number of persons
+     * @return The number of passengers on-board
+     */
+    int getPersonNumber() const;
+
+    /** @brief Returns the list of persons
+     * @return The list of passengers on-board
+     */
+    std::vector<std::string> getPersonIDList() const;
+
+    /** @brief Returns the number of containers
+     * @return The number of contaiers on-board
+     */
+    int getContainerNumber() const;
+
 
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
@@ -318,6 +337,16 @@ public:
      * @param[in] container The container to add
      */
     virtual void addContainer(MSTransportable* container);
+
+    /// @brief removes a person or container
+    void removeTransportable(MSTransportable* t);
+
+    /// @brief retrieve riding persons
+    const std::vector<MSTransportable*>& getPersons() const;
+
+    /// @brief retrieve riding containers
+    const std::vector<MSTransportable*>& getContainers() const;
+
 
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
@@ -498,6 +527,8 @@ protected:
      * @note: in previous versions this was -1
      */
     static const SUMOTime NOT_YET_DEPARTED;
+
+    static std::vector<MSTransportable*> myEmptyTransportableVector;
 
 private:
     /// invalidated assignment operator

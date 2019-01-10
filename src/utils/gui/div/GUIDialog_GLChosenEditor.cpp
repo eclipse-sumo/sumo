@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -61,7 +57,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 // method definitions
 // ===========================================================================
 
-GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) : 
+GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) :
     FXMainWindow(parent->getApp(), "List of Selected Items", GUIIconSubSys::getIcon(ICON_APP_SELECTOR), NULL, GUIDesignChooserDialog),
     myParent(parent), myStorage(str) {
     myStorage->add2Update(this);

@@ -9,3 +9,5 @@ set(duarouter_SRCS
 add_executable(duarouter ${duarouter_SRCS})
 set_target_properties(duarouter PROPERTIES OUTPUT_NAME_DEBUG duarouterD)
 target_link_libraries(duarouter router ${commonvehiclelibs})
+
+install(TARGETS duarouter RUNTIME DESTINATION bin)

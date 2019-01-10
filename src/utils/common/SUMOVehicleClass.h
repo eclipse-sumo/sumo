@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <set>
@@ -203,8 +199,9 @@ enum SUMOVehicleClass {
     SVC_AUTOMATED = 1 << 25,
     //@}
 
-    /// @brief classes which (normally) do not drive on normal roads
+    /// @brief classes which drive on tracks
     SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    /// @brief classes which (normally) do not drive on normal roads
     SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
 
@@ -297,7 +294,7 @@ extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
 extern void writePreferences(OutputDevice& into, SVCPermissions preferred);
 
 /// @brief Extract stopOffsets from attributes of stopOffset element
-extern std::map<SVCPermissions,double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
+extern std::map<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
 
 // ---------------------------------------------------------------------------
 // vehicle shape class
@@ -334,6 +331,18 @@ extern bool isWaterway(SVCPermissions permissions);
  * @return Whether the edge is forbidden
  */
 extern bool isForbidden(SVCPermissions permissions);
+
+/** @brief Returns whether an edge with the given permission is a sidewalk
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a sidewalk
+ */
+extern bool isSidewalk(SVCPermissions permissions);
+
+/** @brief Returns whether an edge with the given permission forbids vehicles
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is forbidden for vehicles
+ */
+extern bool noVehicles(SVCPermissions permissions);
 
 // ---------------------------------------------------------------------------
 // default vehicle type parameter

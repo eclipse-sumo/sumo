@@ -1,4 +1,4 @@
-<additionals>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors -->
     <e1Detector id="E1_01" lane="gneE0_0" pos="3" freq="100.00" file="e1Detector_01.txt" vTypes="bus taxi private" friendlyPos="0"/>
 
@@ -56,25 +56,31 @@
     <!-- valid file -->
     <e1Detector id="E1_16" lane="gneE0_0" pos="39" freq="120.00" file="myOwnFile.txt" vTypes="bus taxi private" friendlyPos="0"/>
     
-    <!-- non valid splitByType (Missing) -->
+    <!-- non valid vTypes (Missing) -->
     <e1Detector id="E1_17" lane="gneE0_0" pos="42" freq="120.00" file="e1Detector_17.txt"/>
     
-    <!-- non valid splitByType (dummySplitByType) -->
-    <e1Detector id="E1_18" lane="gneE0_0" pos="45" freq="120.00" file="e1Detector_18.txt" splitByType="dummySplitByType" friendlyPos="0"/>
+    <!-- non valid vTypes (dummyvTypes) -->
+    <e1Detector id="E1_18" lane="gneE0_0" pos="45" freq="120.00" file="e1Detector_18.txt" vTypes="dummyvTypes" friendlyPos="0"/>
     
-    <!-- valid splitByType -->
-    <e1Detector id="E1_19" lane="gneE0_0" pos="48" freq="120.00" file="e1Detector_19.txt" splitByType="1" friendlyPos="0"/>    
+    <!-- valid vTypes -->
+    <e1Detector id="E1_19" lane="gneE0_0" pos="48" freq="120.00" file="e1Detector_19.txt" friendlyPos="0"/>    
 	
 	<!-- non valid  friendlyPos (missing) -->
-    <e1Detector id="E1_20" lane="gneE1_0" pos="10" freq="120.00" file="e1Detector_20.txt" splitByType="1"/>    
+    <e1Detector id="E1_20" lane="gneE1_0" pos="10" freq="120.00" file="e1Detector_20.txt" vTypes="taxi bus"/>    
 	
 	<!-- non valid  friendlyPos (dummy) -->
-    <e1Detector id="E1_21" lane="gneE1_0" pos="20" freq="120.00" file="e1Detector_21.txt" splitByType="1" friendlyPos="dummyFriendlyPos"/>    
+    <e1Detector id="E1_21" lane="gneE1_0" pos="20" freq="120.00" file="e1Detector_21.txt" vTypes="taxi bus" friendlyPos="dummyFriendlyPos"/>    
 	
 	<!-- valid friendlyPos, invalid position 1 -->
-    <e1Detector id="E1_22" lane="gneE1_0" pos="-50" freq="120.00" file="e1Detector_22.txt" splitByType="1" friendlyPos="1"/>    
+    <e1Detector id="E1_22" lane="gneE1_0" pos="-50" freq="120.00" file="e1Detector_22.txt" vTypes="taxi bus" friendlyPos="1"/>    
 	
 	<!-- valid friendlyPos, invalid position 2 -->
-    <e1Detector id="E1_23" lane="gneE1_0" pos="500" freq="120.00" file="e1Detector_23.txt" splitByType="1" friendlyPos="1"/>    
+    <e1Detector id="E1_23" lane="gneE1_0" pos="500" freq="120.00" file="e1Detector_23.txt" vTypes="taxi bus" friendlyPos="1"/>    
+	
+	<!-- invalid name -->
+    <e1Detector id="E1_24" lane="gneE1_0" pos="12" freq="120.00" file="e1Detector_22.txt" vTypes="taxi bus" friendlyPos="1" name="$·$··%·"/>    
+	
+	<!-- valid name -->
+    <e1Detector id="E1_25" lane="gneE1_0" pos="15" freq="120.00" file="e1Detector_23.txt" vTypes="taxi bus" friendlyPos="1" name="custom Name"/>    
     
-</additionals>
+</additional>

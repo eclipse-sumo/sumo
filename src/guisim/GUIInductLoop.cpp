@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
@@ -95,7 +91,7 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
 // GUIInductLoop::MyWrapper-methods
 // -------------------------------------------------------------------------
 
-GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) : 
+GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);

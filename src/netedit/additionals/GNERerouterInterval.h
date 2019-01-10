@@ -21,13 +21,9 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
-#include <netedit/GNEAttributeCarrier.h>
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class declarations
@@ -48,44 +44,55 @@ class GNEParkingAreaReroute;
  * @class GNERerouterInterval
  * class used to represent a interval used in rerouters
  */
-class GNERerouterInterval : public GNEAttributeCarrier {
-    /// @brief declare friend class
-    friend class GNEChange_RerouterItem;
-    friend class GNEAdditionalHandler;
+class GNERerouterInterval : public GNEAdditional {
 
 public:
     /// @brief constructor (Used in GNERerouterDialog)
     GNERerouterInterval(GNERerouterDialog* rerouterDialog);
 
     /// @brief constructor
-    GNERerouterInterval(GNERerouter* rerouterParent, double begin, double end);
+    GNERerouterInterval(GNEAdditional* rerouterParent, double begin, double end);
 
     /// @brief destructor
     ~GNERerouterInterval();
 
-    /// @brief write Interval and all of their values
-    void writeRerouterInterval(OutputDevice& device) const;
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] newPosition new position of geometry
+     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     */
+    void moveGeometry(const Position& oldPos, const Position& offset);
 
-    /// @brief get rerouter parent
-    GNERerouter* getRerouterParent() const;
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] oldPos the old position of additional
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
-    /// @brief get begin
-    double getBegin() const;
+    /// @brief update pre-computed geometry information
+    void updateGeometry(bool updateGrid);
 
-    /// @brief get end
-    double getEnd() const;
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
+
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
+     */
+    std::string getParentName() const;
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    /// @brief select attribute carrier
-    void selectAttributeCarrier(bool);
-
-    /// @brief unselect attribute carrier
-    void unselectAttributeCarrier(bool);
-
-    /// @brief check if attribute carrier is selected
-    bool isAttributeCarrierSelected() const;
-
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key
@@ -105,78 +112,20 @@ public:
     * @return true if the value is valid, false in other case
     */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
-    /// @brief get closing reroutes
-    const std::vector<GNEClosingLaneReroute*>& getClosingLaneReroutes() const;
-
-    /// @brief get closing reroutes
-    const std::vector<GNEClosingReroute*>& getClosingReroutes() const;
-
-    /// @brief get destiny probability reroutes
-    const std::vector<GNEDestProbReroute*>& getDestProbReroutes() const;
-
-    /// @brief get reoute probability reroutes
-    const std::vector<GNERouteProbReroute*>& getRouteProbReroutes() const;
-
-    /// @brief get parkingAreaReroutes
-    const std::vector<GNEParkingAreaReroute*>& getParkingAreaReroutes() const;
-
 protected:
-    /// @brief pointer to rerouter parent
-    GNERerouter* myRerouterParent;
-
     /// @brief begin timeStep
     double myBegin;
 
     /// @brief end timeStep
     double myEnd;
-
-    /// @brief vector with the closingLaneReroutes
-    std::vector<GNEClosingLaneReroute*> myClosingLaneReroutes;
-
-    /// @brief vector with the closingReroutes
-    std::vector<GNEClosingReroute*> myClosingReroutes;
-
-    /// @brief vector with the destProbReroutes
-    std::vector<GNEDestProbReroute*> myDestProbReroutes;
-
-    /// @brief vector with the routeProbReroutes
-    std::vector<GNERouteProbReroute*> myRouteProbReroutes;
-
-    /// @brief vector with the parkingAreaReroutes
-    std::vector<GNEParkingAreaReroute*> myParkingAreaReroutes;
-
-    /// @brief add closing reroute
-    void addClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
-
-    /// @brief add closing reroute
-    void removeClosingLaneReroute(GNEClosingLaneReroute* closingLaneReroute);
-
-    /// @brief add closing reroute
-    void addClosingReroute(GNEClosingReroute* closingReroute);
-
-    /// @brief add closing reroute
-    void removeClosingReroute(GNEClosingReroute* closingReroute);
-
-    /// @brief add destiny probability reroute
-    void addDestProbReroute(GNEDestProbReroute* destProbReroute);
-
-    /// @brief add destiny probability reroute
-    void removeDestProbReroute(GNEDestProbReroute* destProbReroute);
-
-    /// @brief add reoute probability reroute
-    void addRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
-
-    /// @brief add reoute probability reroute
-    void removeRouteProbReroute(GNERouteProbReroute* routeProbabilityReroute);
-
-    /// @brief add destiny probability reroute
-    void addParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute);
-
-    /// @brief add destiny probability reroute
-    void removeParkingAreaReroute(GNEParkingAreaReroute* parkingAreaReroute);
-
 
 private:
     /// @brief set attribute after validation

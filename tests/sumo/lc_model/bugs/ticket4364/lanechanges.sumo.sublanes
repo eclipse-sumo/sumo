@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May 30 09:51:24 2018 by Eclipse SUMO Version b2daee9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="ego" type="ego" time="28.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="394.02" reason="speedGain" leaderGap="224.98" leaderSecureGap="25.06" followerGap="None" followerSecureGap="None" origLeaderGap="24.98" origLeaderSecureGap="25.06" latGap="None"/>
+    <change id="ego" type="ego" time="43.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="601.64" reason="keepRight" leaderGap="337.36" leaderSecureGap="25.06" followerGap="52.64" followerSecureGap="0.00" origLeaderGap="137.36" origLeaderSecureGap="25.06" latGap="None"/>
+    <change id="ego" type="ego" time="96.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="1337.81" reason="speedGain" leaderGap="225.19" leaderSecureGap="25.06" followerGap="164.81" followerSecureGap="0.00" origLeaderGap="25.19" origLeaderSecureGap="25.06" latGap="None"/>
+    <change id="ego" type="ego" time="108.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="1503.83" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="34.83" followerSecureGap="0.00" origLeaderGap="155.17" origLeaderSecureGap="25.06" latGap="None"/>
+</lanechanges>

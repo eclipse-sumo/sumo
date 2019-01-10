@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <cassert>
 #include <string>
@@ -70,24 +66,19 @@
  * The template parameters are:
  * @param E The edge class to use (MSEdge/ROEdge)
  * @param V The vehicle class to use (MSVehicle/ROVehicle)
- * @param PF The prohibition function to use (prohibited_withPermissions/noProhibitions)
- * @param EC The class to retrieve the effort for an edge from
+ * @param BASE The base class to use (SUMOAbstractRouterPermissions/SUMOAbstractRouter)
  *
  * The router is edge-based. It must know the number of edges for internal reasons
  *  and whether a missing connection between two given edges (unbuild route) shall
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class PF>
-class AStarRouter : public SUMOAbstractRouter<E, V>, public PF {
-
+template<class E, class V, class BASE>
+class AStarRouter : public BASE {
 public:
     typedef AbstractLookupTable<E, V> LookupTable;
     typedef FullLookupTable<E, V> FLT;
     typedef LandmarkLookupTable<E, V> LMLT;
-    typedef double(* Operation)(const E* const, const V* const, double);
-
-
 
     /**
      * @struct EdgeInfo
@@ -144,8 +135,8 @@ public:
     };
 
     /// Constructor
-    AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
-        SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
+    AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation, const LookupTable* const lookup = 0) :
+        BASE("AStarRouter", operation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
@@ -155,8 +146,8 @@ public:
         }
     }
 
-    AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, Operation operation, const LookupTable* const lookup = 0):
-        SUMOAbstractRouter<E, V>(operation, "AStarRouter"),
+    AStarRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename BASE::Operation operation, const LookupTable* const lookup = 0) :
+        BASE("AStarRouter", operation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
@@ -170,7 +161,7 @@ public:
     virtual ~AStarRouter() {}
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new AStarRouter<E, V, PF>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
+        return new AStarRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
     }
 
     void init() {
@@ -191,11 +182,11 @@ public:
                          SUMOTime msTime, std::vector<const E*>& into) {
         assert(from != 0 && to != 0);
         // check whether from and to can be used
-        if (PF::operator()(from, vehicle)) {
+        if (this->isProhibited(from, vehicle)) {
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
             return false;
         }
-        if (PF::operator()(to, vehicle)) {
+        if (this->isProhibited(to, vehicle)) {
             myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             return false;
         }
@@ -277,7 +268,7 @@ public:
                 const E* const follower = *it;
                 EdgeInfo* const followerInfo = &(myEdgeInfos[follower->getNumericalID()]);
                 // check whether it can be used
-                if (PF::operator()(follower, vehicle)) {
+                if (this->isProhibited(follower, vehicle)) {
                     continue;
                 }
                 const double oldEffort = followerInfo->traveltime;
@@ -321,19 +312,6 @@ public:
 #endif
         myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         return false;
-    }
-
-
-    double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        const double time = STEPS2TIME(msTime);
-        double costs = 0;
-        for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            if (PF::operator()(*i, v)) {
-                return -1;
-            }
-            costs += this->getEffort(*i, v, time + costs);
-        }
-        return costs;
     }
 
 public:

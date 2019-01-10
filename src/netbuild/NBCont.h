@@ -25,11 +25,7 @@
 #include <vector>
 #include <set>
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 
 // ===========================================================================
@@ -43,6 +39,8 @@ class NBEdge;
 // ===========================================================================
 /// @brief container for (sorted) edges
 typedef std::vector<NBEdge*> EdgeVector;
+
+typedef std::vector<std::pair<const NBEdge*, const NBEdge*> > NBConstEdgePairVector;
 
 /// @brief container for unique edges
 typedef std::set<NBEdge*> EdgeSet;

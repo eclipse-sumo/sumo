@@ -10,7 +10,7 @@
 
 # @file    turnflows.py
 # @author  Joerg Schweizer
-# @date    
+# @date
 # @version $Id$
 
 import os
@@ -27,21 +27,38 @@ from agilepy.lib_base.processes import Process, P, call  # ,CmlMixin
 
 
 class Flows(am.ArrayObjman):
-
     def __init__(self, ident, parent, edges, **kwargs):
         self._init_objman(ident, parent=parent,
                           name='Flows',
                           info='Contains the number of vehicles which start on the given edge during a certain time interval.',
+                          version=0.2,
                           xmltag=('flows', 'flow', None), **kwargs)
+
+        self._init_attributes(edges)
+
+    def _init_attributes(self, edges=None):
+        if edges is None:
+            # recover edges from already initialized
+            edges = self.ids_edge.get_linktab()
+
+        if self.get_version() < 0.1:
+            # update attrs from previous
+            # IdsArrayConf not yet modifiable interactively, despite perm = 'rw',!!!
+            self.ids_edge.set_perm('rw')
+        if hasattr(self, 'func_delete_row'):
+            self.func_make_row._is_returnval = False
+            self.func_delete_row._is_returnval = False
 
         self.add_col(am.IdsArrayConf('ids_edge', edges,
                                      groupnames=['state'],
                                      name='Edge ID',
+                                     perm='rw',
                                      info='Edge ID of flow.',
                                      xmltag='from',
                                      ))
 
         self.add_col(am.ArrayConf('flows', 0,
+                                  dtype=np.int32,
                                   groupnames=['state'],
                                   perm='rw',
                                   name='Flow',
@@ -49,13 +66,40 @@ class Flows(am.ArrayObjman):
                                   xmltag='number',
                                   ))
 
+        self.add(cm.FuncConf('func_make_row', 'on_add_row', None,
+                             groupnames=['rowfunctions', '_private'],
+                             name='New flow.',
+                             info='Add a new flow.',
+                             is_returnval=False,
+                             ))
+
+        self.add(cm.FuncConf('func_delete_row', 'on_del_row', None,
+                             groupnames=['rowfunctions', '_private'],
+                             name='Del flow',
+                             info='Delete flow.',
+                             is_returnval=False,
+                             ))
+
+    def on_del_row(self, id_row=None):
+        if id_row is not None:
+            # print 'on_del_row', id_row
+            self.del_row(id_row)
+
+    def on_add_row(self, id_row=None):
+        if len(self) > 0:
+            # copy previous
+            flow_last = self.get_row(self.get_ids()[-1])
+            self.add_row(**flow_last)
+        else:
+            self.add_row(self.suggest_id())
+
     def _init_constants(self):
         #self.edgeweights_orig = None
         #self.edgeweights_dest = None
         pass
 
     def add_flow(self, id_edge, flow):
-        print 'Flows.add_flows'
+        # print 'Flows.add_flows'
         return self.add_row(ids_edge=id_edge,
                             flows=flow)
 
@@ -65,26 +109,35 @@ class Flows(am.ArrayObjman):
     def get_demand(self):
         return self.parent.parent.parent
 
-    def export_xml(self, fd, vtype, id_flow, indent=2):
+    def count_left(self, counter):
+        """
+        Counts the number of vehicles leaving the edge.
+        The counter is an array where the index equals the edge ID
+        and the value represens the number of entered vehicles per edge.
+        """
+        ids_flow = self.get_ids()
+        counter[self.ids_edge[ids_flow]] += self.flows[ids_flow]
+
+    def export_xml(self, fd, vtype, id_flow, share=1.0, indent=2):
         """
         Generates a line for each edge with a flow.
 
         id_flow is the flow count and is used to generate a unique flow id
-        TODO: better handling of mode and vtypes, distributions 
+
 
         """
-
+        # TODO: better handling of mode and vtypes, distributions
+        # DONE with share
         # <flow id="0" from="edge0" to="edge1" type= "vType" number="100"/>
         ids_eges = []
         ids_sumoeges = self.get_edges().ids_sumo
         i = 0
-        # print 'Flows.export_xml
-        # vtypes,id_flow,len(self)',vtype,id_flow,len(self)
-        for id_edge, flow in zip(self.ids_edge.get_value(), self.flows.get_value()):
+        # print 'Flows.export_xml vtypes,id_flow,len(self)',vtype,id_flow,len(self)
+        for id_edge, flow in zip(self.ids_edge.get_value(), share*self.flows.get_value()):
             # print '    id_edge,flow',id_edge,flow
             ids_eges.append(id_edge)
             id_flow += 1
-            fd.write(xm.start('flow' + xm.num('id', id_flow), indent))
+            fd.write(xm.start('flow'+xm.num('id', id_flow), indent))
             fd.write(xm.num('from', ids_sumoeges[id_edge]))
             fd.write(xm.num('type', vtype))
             fd.write(xm.num('number', int(flow)))
@@ -95,12 +148,28 @@ class Flows(am.ArrayObjman):
 
 
 class Turns(am.ArrayObjman):
-
     def __init__(self, ident, parent, edges, **kwargs):
         self._init_objman(ident, parent=parent,
-                          name='Truns',
+                          name='Turn flows',
                           info='The table contains turn probabilities between two edges during a given time interval.',
+                          version=0.1,
                           xmltag=('odtrips', 'odtrip', None), **kwargs)
+
+        self._init_attributes(edges)
+
+    def _init_attributes(self, edges=None):
+        if edges is None:
+            # recover edges from already initialized
+            edges = self.ids_fromedge.get_linktab()
+
+        if self.get_version() < 0.1:
+            # update attrs from previous
+            # IdsArrayConf not yet modifiable interactively, despite perm = 'rw',!!!
+            self.ids_fromedge.set_perm('rw')
+            self.ids_toedge.set_perm('rw')
+        if hasattr(self, 'func_delete_row'):
+            self.func_make_row._is_returnval = False
+            self.func_delete_row._is_returnval = False
 
         self.add_col(am.IdsArrayConf('ids_fromedge', edges,
                                      groupnames=['state'],
@@ -116,13 +185,50 @@ class Turns(am.ArrayObjman):
                                      xmltag='toEdge',
                                      ))
 
+        self.add_col(am.ArrayConf('flows', 0,
+                                  dtype=np.int32,
+                                  groupnames=['state'],
+                                  perm='rw',
+                                  name='Flow',
+                                  info='Absolute number of vehicles which pass from "fromedge" to "toedge" during a certain time interval.',
+                                  xmltag='number',
+                                  ))
+
         self.add_col(am.ArrayConf('probabilities', 0.0,
+                                  dtype=np.float32,
                                   groupnames=['state'],
                                   perm='rw',
                                   name='Probab.',
-                                  info='Probability to make a turn from start edge to end edge.',
-                                  xmltag='number',
+                                  info='Probability to make a turn between "Edge ID from" and "Edge ID to" and .',
+                                  xmltag='probability',
                                   ))
+
+        self.add(cm.FuncConf('func_make_row', 'on_add_row', None,
+                             groupnames=['rowfunctions', '_private'],
+                             name='New turns',
+                             info='Add a new turnflow.',
+                             is_returnval=False,
+                             ))
+
+        self.add(cm.FuncConf('func_delete_row', 'on_del_row', None,
+                             groupnames=['rowfunctions', '_private'],
+                             name='Del turns',
+                             info='Delete turns.',
+                             is_returnval=False,
+                             ))
+
+    def on_del_row(self, id_row=None):
+        if id_row is not None:
+            # print 'on_del_row', id_row
+            self.del_row(id_row)
+
+    def on_add_row(self, id_row=None):
+        if len(self) > 0:
+            # copy previous
+            flow_last = self.get_row(self.get_ids()[-1])
+            self.add_row(**flow_last)
+        else:
+            self.add_row(self.suggest_id())
 
     def _init_constants(self):
         #self.edgeweights_orig = None
@@ -137,57 +243,62 @@ class Turns(am.ArrayObjman):
         # and sum with vectors
         #ids_source = set(self.ids_fromedge.get_values())
 
-        prop_totals = {}
+        flows_total = {}
         for _id in self.get_ids():
             id_fromedge = self.ids_fromedge[_id]
-            if not prop_totals.has_key(id_fromedge):
-                prop_totals[id_fromedge] = 0.0
-            prop_totals[id_fromedge] += self.probabilities[_id]
+            if not flows_total.has_key(id_fromedge):
+                flows_total[id_fromedge] = 0.0
+            flows_total[id_fromedge] += self.flows[_id]
 
         for _id in self.get_ids():
-            if prop_totals[self.ids_fromedge[_id]] > 0:
-                self.probabilities[_id] /= prop_totals[self.ids_fromedge[_id]]
+            if flows_total[self.ids_fromedge[_id]] > 0:
+                self.probabilities[_id] = self.flows[_id] / flows_total[self.ids_fromedge[_id]]
 
-    def add_turn(self, id_fromedge, id_toedge, probability):
+    def add_turn(self, id_fromedge, id_toedge, flow):
         print 'Turns.add_turn'
         return self.add_row(ids_fromedge=id_fromedge,
                             ids_toedge=id_toedge,
-                            probabilities=probability,
+                            flows=flow,
                             )
 
     def get_edges(self):
         return self.ids_fromedge.get_linktab()
 
+    def count_entered(self, counter):
+        """
+        Counts the number of vehicles entered in an edge.
+        The counter is an array where the index equals the edge ID
+        and the value represens the number of entered vehicles per edge.
+        """
+        ids_turns = self.get_ids()
+        counter[self.ids_toedge[ids_turns]] += self.flows[ids_turns]
+
     def export_xml(self, fd, indent=0):
-        #<fromEdge id="myEdge0">
+        # <fromEdge id="myEdge0">
         # <toEdge id="myEdge1" probability="0.2"/>
         # <toEdge id="myEdge2" probability="0.7"/>
         # <toEdge id="myEdge3" probability="0.1"/>
-        #</fromEdge>
+        # </fromEdge>
 
         fromedge_to_turnprobs = {}
         for _id in self.get_ids():
             id_fromedge = self.ids_fromedge[_id]
             if not fromedge_to_turnprobs.has_key(id_fromedge):
                 fromedge_to_turnprobs[id_fromedge] = []
-            fromedge_to_turnprobs[id_fromedge].append(
-                (self.ids_toedge[_id], self.probabilities[_id]))
+            fromedge_to_turnprobs[id_fromedge].append((self.ids_toedge[_id], self.probabilities[_id]))
 
         ids_sumoeges = self.get_edges().ids_sumo
 
         for id_fromedge in fromedge_to_turnprobs.keys():
-            fd.write(xm.begin('fromEdge' + xm.num('id',
-                                                  ids_sumoeges[id_fromedge]), indent))
+            fd.write(xm.begin('fromEdge'+xm.num('id', ids_sumoeges[id_fromedge]), indent))
             for id_toedge, turnprob in fromedge_to_turnprobs[id_fromedge]:
-                fd.write(xm.start('toEdge', indent + 2))
-                fd.write(xm.num('id', ids_sumoeges[
-                         id_toedge]) + xm.num('probability', turnprob))
+                fd.write(xm.start('toEdge', indent+2))
+                fd.write(xm.num('id', ids_sumoeges[id_toedge])+xm.num('probability', turnprob))
                 fd.write(xm.stopit())
             fd.write(xm.end('fromEdge', indent))
 
 
 class TurnflowModes(am.ArrayObjman):
-
     def __init__(self, ident, parent, modes, edges, **kwargs):
         self._init_objman(ident, parent=parent,
                           name='Mode OD tables',
@@ -241,12 +352,10 @@ class TurnflowModes(am.ArrayObjman):
         id_tf_modes = self.add_row(ids_mode=id_mode)
         print '  add_mode', id_mode, id_tf_modes
 
-        flows = Flows((self.flowtables.attrname, id_tf_modes),
-                      self, self.edges.get_value())
+        flows = Flows((self.flowtables.attrname, id_tf_modes), self, self.edges.get_value())
         self.flowtables[id_tf_modes] = flows
 
-        turns = Turns((self.turntables.attrname, id_tf_modes),
-                      self, self.edges.get_value())
+        turns = Turns((self.turntables.attrname, id_tf_modes), self, self.edges.get_value())
         self.turntables[id_tf_modes] = turns
 
         return id_tf_modes
@@ -263,12 +372,13 @@ class TurnflowModes(am.ArrayObjman):
         else:
             id_tf_modes = self.add_mode(id_mode)
         self.flowtables[id_tf_modes].add_flow(id_edge, flow)
+        return self.flowtables[id_tf_modes]
 
-    def add_turn(self, id_mode, id_fromedge, id_toedge, turnprob):
+    def add_turn(self, id_mode, id_fromedge, id_toedge, turnflow):
         """
         Sets turn probability between from-edge and to-edge.
         """
-        print 'TurnflowModes.add_turn', id_mode  # ,flows,kwargs
+        print 'TurnflowModes.add_turn', id_mode  # ,turnflow,kwargs
         # if scale!=1.0:
         #    for od in odm.iterkeys():
         #        odm[od] *= scale
@@ -279,30 +389,40 @@ class TurnflowModes(am.ArrayObjman):
         else:
             id_tf_modes = self.add_mode(id_mode)
 
-        self.turntables[id_tf_modes].add_turn(id_fromedge, id_toedge, turnprob)
+        self.turntables[id_tf_modes].add_turn(id_fromedge, id_toedge, turnflow)
+        return self.turntables[id_tf_modes]
 
     def export_flows_xml(self, fd, id_mode, id_flow=0, indent=0):
         """
         Export flow data of desired mode to xml file.
         Returns list with edge IDs with non zero flows and a flow ID counter.
         """
-        print 'TurnflowModes.export_flows_xml mode, flowID', id_mode, id_flow
-
+        print 'TurnflowModes.export_flows_xml id_mode, id_flow', id_mode, id_flow, self.ids_mode.has_index(id_mode)
         ids_sourceedge = []
 
+        if not self.ids_mode.has_index(id_mode):
+            return ids_sourceedge, id_flow
+
         # get vtypes for specified mode
-        vtypes = self.get_demand().vtypes.select_by_mode(
-            id_mode, is_sumoid=True)
+        vtypes, shares = self.get_demand().vtypes.select_by_mode(
+            id_mode, is_sumoid=True, is_share=True)
 
-        if len(vtypes) > 0:  # any vehicles found for this mode?
-            # TODO: can we put some distributen here?
-            vtype = vtypes[0]
+        # for vtype in vtypes:
+        #    print '  test vtype',vtype
+        #    print '            _index_to_id', self.get_demand().vtypes.ids_sumo._index_to_id
+        #    print '       id_vtype',self.get_demand().vtypes.ids_sumo.get_id_from_index(vtype)
 
+        # if len(vtypes) > 0:# any vehicles found for this mode?
+        #    # TODO: can we put some distributen here?
+        #    vtype = vtypes[0]
+        for vtype, share in zip(vtypes, shares):
+            print '  write flows for vtype', vtype, share
             if self.ids_mode.has_index(id_mode):
                 id_tf_modes = self.ids_mode.get_id_from_index(id_mode)
-                ids_sourceedge, id_flow = self.flowtables[
-                    id_tf_modes].export_xml(fd, vtype, id_flow, indent=indent)
-        print '  return ids_sourceedge, id_flow', ids_sourceedge, id_flow
+                ids_sourceedge, id_flow = self.flowtables[id_tf_modes].export_xml(
+                    fd, vtype, id_flow, share=share, indent=indent)
+
+        # print '  return ids_sourceedge, id_flow',ids_sourceedge, id_flow
         return ids_sourceedge, id_flow
 
     def export_turns_xml(self, fd, id_mode, indent=0):
@@ -316,9 +436,17 @@ class TurnflowModes(am.ArrayObjman):
             id_tf_modes = self.ids_mode.get_id_from_index(id_mode)
             self.turntables[id_tf_modes].export_xml(fd, indent=indent)
 
+    def count_entered(self, counter):
+        """
+        Counts the number of vehicles entered in an edge.
+        The counter is an array where the index equals the edge ID
+        and the value represens the number of entered vehicles per edge.
+        """
+        for id_tf_modes in self.get_ids():
+            self.turntables[id_tf_modes].count_entered(counter)
+
 
 class Turnflows(am.ArrayObjman):
-
     def __init__(self, ident, demand, net, **kwargs):
         self._init_objman(ident, parent=demand,  # = demand
                           name='Turnflow Demand',
@@ -371,8 +499,7 @@ class Turnflows(am.ArrayObjman):
     def add_flow(self, t_start, t_end, id_mode, id_edge, flow):
 
         # print 'turnflows.add_flow', t_start, t_end, id_mode, id_edge, flow
-        ids_inter = self.select_ids((self.times_start.get_value() == t_start) & (
-            self.times_end.get_value() == t_end))
+        ids_inter = self.select_ids((self.times_start.get_value() == t_start) & (self.times_end.get_value() == t_end))
         if len(ids_inter) == 0:
 
             id_inter = self.add_row(times_start=t_start, times_end=t_end,)
@@ -380,26 +507,23 @@ class Turnflows(am.ArrayObjman):
             tfmodes = TurnflowModes((self.turnflowmodes.attrname, id_inter),
                                     self, self.get_net().modes, self.get_net().edges)
 
-            # NO!! odmodes = OdModes( ('ODMs for modes', id_inter), parent =
-            # self, modes = self.get_net().modes, zones = self.get_zones())
+            # NO!! odmodes = OdModes( ('ODMs for modes', id_inter), parent = self, modes = self.get_net().modes, zones = self.get_zones())
             self.turnflowmodes[id_inter] = tfmodes
 
-            tfmodes.add_flow(id_mode, id_edge, flow)
+            flows = tfmodes.add_flow(id_mode, id_edge, flow)
 
         else:
 
-            # there should be only one demand table found for a certain
-            # interval
+            # there should be only one demand table found for a certain interval
             id_inter = ids_inter[0]
             # print '  use',id_inter
-            self.turnflowmodes[id_inter].add_flow(id_mode, id_edge, flow)
+            flows = self.turnflowmodes[id_inter].add_flow(id_mode, id_edge, flow)
+        return flows
 
-    def add_turn(self, t_start, t_end, id_mode, id_fromedge, id_toedge, turnprob):
+    def add_turn(self, t_start, t_end, id_mode, id_fromedge, id_toedge, turnflow):
 
-        # print 'turnflows.add_turnflows',t_start, t_end,id_mode,id_fromedge,
-        # id_toedge, turnprob
-        ids_inter = self.select_ids((self.times_start.get_value() == t_start) & (
-            self.times_end.get_value() == t_end))
+        # print 'turnflows.add_turnflows',t_start, t_end,id_mode,id_fromedge, id_toedge, turnprob
+        ids_inter = self.select_ids((self.times_start.get_value() == t_start) & (self.times_end.get_value() == t_end))
         if len(ids_inter) == 0:
 
             id_inter = self.add_row(times_start=t_start, times_end=t_end,)
@@ -407,20 +531,18 @@ class Turnflows(am.ArrayObjman):
             tfmodes = TurnflowModes((self.turnflowmodes.attrname, id_inter),
                                     self, self.get_net().modes, self.get_net().edges)
 
-            # NO!! odmodes = OdModes( ('ODMs for modes', id_inter), parent =
-            # self, modes = self.get_net().modes, zones = self.get_zones())
+            # NO!! odmodes = OdModes( ('ODMs for modes', id_inter), parent = self, modes = self.get_net().modes, zones = self.get_zones())
             self.turnflowmodes[id_inter] = tfmodes
 
-            tfmodes.add_turn(id_mode, id_fromedge, id_toedge, turnprob)
+            turns = tfmodes.add_turn(id_mode, id_fromedge, id_toedge, turnflow)
 
         else:
 
-            # there should be only one demand table found for a certain
-            # interval
+            # there should be only one demand table found for a certain interval
             id_inter = ids_inter[0]
             # print '  use',id_inter
-            self.turnflowmodes[id_inter].add_turn(
-                id_mode, id_fromedge, id_toedge, turnprob)
+            turns = self.turnflowmodes[id_inter].add_turn(id_mode, id_fromedge, id_toedge, turnflow)
+        return turns
 
     def get_net(self):
         return self.parent.get_scenario().net
@@ -437,7 +559,8 @@ class Turnflows(am.ArrayObjman):
     def get_sinkedges(self):
         zones = self.parent.get_scenario().landuse.zones
         ids_sinkedges = set()
-        for ids_edge in zones.ids_edges_orig.get_value():
+        ids_sinkzone = zones.select_ids(zones.ids_landusetype.get_value() == 7)
+        for ids_edge in zones.ids_edges_orig[ids_sinkzone]:
             ids_sinkedges.update(ids_edge)
         #sinkedges = zones.ids_edges_orig.get_value().tolist()
         # print 'get_sinkedges',sinkedges
@@ -450,7 +573,7 @@ class Turnflows(am.ArrayObjman):
         In the SUMOpy tunflow data structure, each mode has its own 
         flow and turnratio data.
         """
-        print '\n\n' + 79 * '_'
+        print '\n\n'+79*'_'
         print 'export_flows_and_turns id_mode=', id_mode, 'ids_vtype=', self.parent.vtypes.select_by_mode(id_mode)
         print '  write flows', flowfilepath
         fd = open(flowfilepath, 'w')
@@ -458,8 +581,7 @@ class Turnflows(am.ArrayObjman):
 
         # write all possible vtypes for this mode
         self.parent.vtypes.write_xml(fd, indent=indent,
-                                     ids=self.parent.vtypes.select_by_mode(
-                                         id_mode),
+                                     ids=self.parent.vtypes.select_by_mode(id_mode),
                                      is_print_begin_end=False)
 
         id_flow = 0
@@ -469,23 +591,20 @@ class Turnflows(am.ArrayObjman):
         for id_inter in self.get_ids():
             time_start = self.times_start[id_inter]
             time_end = self.times_end[id_inter]
-            fd.write(xm.begin('interval' + xm.num('begin', time_start) +
-                              xm.num('end', time_end), indent + 2))
-            ids_sourceedge, id_flow = self.turnflowmodes[
-                id_inter].export_flows_xml(fd, id_mode, id_flow,  indent + 4)
+            fd.write(xm.begin('interval'+xm.num('begin', time_start)+xm.num('end', time_end), indent+2))
+            ids_sourceedge, id_flow = self.turnflowmodes[id_inter].export_flows_xml(fd, id_mode, id_flow,  indent+4)
             # print '  got ids_sourceedge, id_flow',ids_sourceedge, id_flow
             ids_allsourceedges += ids_sourceedge
 
             if len(ids_sourceedge) > 0:
-                # print '  extend total time interval only for intervals with
-                # flow'
+                # print '  extend total time interval only for intervals with flow'
                 if time_start < time_start_min:
                     time_start_min = time_start
 
                 if time_end > time_end_max:
                     time_end_max = time_end
 
-            fd.write(xm.end('interval', indent + 2))
+            fd.write(xm.end('interval', indent+2))
 
         fd.write(xm.end('flows', indent))
         fd.close()
@@ -497,11 +616,9 @@ class Turnflows(am.ArrayObjman):
         for id_inter in self.get_ids():
             time_start = self.times_start[id_inter]
             time_end = self.times_end[id_inter]
-            fd.write(xm.begin('interval' + xm.num('begin', time_start) +
-                              xm.num('end', time_end), indent + 2))
-            self.turnflowmodes[id_inter].export_turns_xml(
-                fd, id_mode, indent + 4)
-            fd.write(xm.end('interval', indent + 2))
+            fd.write(xm.begin('interval'+xm.num('begin', time_start)+xm.num('end', time_end), indent+2))
+            self.turnflowmodes[id_inter].export_turns_xml(fd, id_mode, indent+4)
+            fd.write(xm.end('interval', indent+2))
 
         #  take sink edges from sink zones
         ids_sinkedge = self.get_sinkedges()  # it's a set
@@ -526,6 +643,24 @@ class Turnflows(am.ArrayObjman):
 
         return time_start_min, time_end_max
 
+    def estimate_entered(self):
+        """
+        Estimates the entered number of vehicles for each edge
+        generated by turnflow definitions. Bases are the only the 
+        turnflows, not the generated flows (which are not entering an edge).
+
+        returns ids_edge and entered_vec
+        """
+
+        counter = np.zeros(np.max(self.get_edges().get_ids())+1, int)
+
+        for id_inter in self.get_ids():
+            self.turnflowmodes[id_inter].count_entered(counter)
+
+        ids_edge = np.flatnonzero(counter)
+        entered_vec = counter[ids_edge].copy()
+        return ids_edge, entered_vec
+
     def turnflows_to_routes(self, is_clear_trips=True, is_export_network=True):
         #  jtrrouter --flow-files=<FLOW_DEFS>
         # --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
@@ -539,9 +674,9 @@ class Turnflows(am.ArrayObjman):
             trips.clear_trips()
 
         rootfilepath = scenario.get_rootfilepath()
-        netfilepath = rootfilepath + '.net.xml'
-        flowfilepath = rootfilepath + '.flow.xml'
-        turnfilepath = rootfilepath + '.turn.xml'
+        netfilepath = rootfilepath+'.net.xml'
+        flowfilepath = rootfilepath+'.flow.xml'
+        turnfilepath = rootfilepath+'.turn.xml'
 
         routefilepath = trips.get_routefilepath()
 
@@ -555,16 +690,14 @@ class Turnflows(am.ArrayObjman):
         # route for all modes and read in routes
         for id_mode in ids_mode:
             # write flow and turns xml file for this mode
-            time_start, time_end = self.export_flows_and_turns(
-                flowfilepath, turnfilepath, id_mode)
+            time_start, time_end = self.export_flows_and_turns(flowfilepath, turnfilepath, id_mode)
             print '  time_start, time_end =', time_start, time_end
-            # means there exist some flows for this mode
-            if time_end > time_start:
+            if time_end > time_start:  # means there exist some flows for this mode
                 cmd = 'jtrrouter --flow-files=%s --turn-ratio-files=%s --net-file=%s --output-file=%s --begin %s --end %s %s'\
-                    % (P + flowfilepath + P,
-                       P + turnfilepath + P,
-                        P + netfilepath + P,
-                        P + routefilepath + P,
+                    % (P+flowfilepath+P,
+                       P+turnfilepath+P,
+                       P+netfilepath+P,
+                       P+routefilepath+P,
                        time_start,
                        time_end,
                        cmloptions,
@@ -572,8 +705,7 @@ class Turnflows(am.ArrayObjman):
                 # print '\n Starting command:',cmd
                 if call(cmd):
                     if os.path.isfile(routefilepath):
-                        trips.import_routes_xml(
-                            routefilepath, is_generate_ids=True)
+                        trips.import_routes_xml(routefilepath, is_generate_ids=True)
                         os.remove(routefilepath)
 
             else:
@@ -585,7 +717,6 @@ class Turnflows(am.ArrayObjman):
 
 
 class TurnflowImporter(Process):
-
     def __init__(self, turnflows, rootname=None, rootdirpath=None, tffilepath=None,
                  logger=None, **kwargs):
 
@@ -598,17 +729,17 @@ class TurnflowImporter(Process):
         self._edges = turnflows.get_edges()
         self._net = self._edges.get_parent()
 
-        if rootname == None:
+        if rootname is None:
             rootname = self._net.parent.get_rootfilename()
 
-        if rootdirpath == None:
-            if self._net.parent != None:
+        if rootdirpath is None:
+            if self._net.parent is not None:
                 rootdirpath = self._net.parent.get_workdirpath()
             else:
                 rootdirpath = os.getcwd()
 
-        if tffilepath == None:
-            tffilepath = os.path.join(rootdirpath, rootname + '.net.xml')
+        if tffilepath is None:
+            tffilepath = os.path.join(rootdirpath, rootname+'.net.xml')
 
         attrsman = self.get_attrsman()
 
@@ -638,9 +769,7 @@ class TurnflowImporter(Process):
                                                 ))
 
         self.tffilepath = attrsman.add(am.AttrConf('tffilepath', tffilepath,
-                                                   # this will make it show up
-                                                   # in the dialog
-                                                   groupnames=['options'],
+                                                   groupnames=['options'],  # this will make it show up in the dialog
                                                    perm='rw',
                                                    name='Turnflow file',
                                                    wildcards="Turnflows CSV files (*.csv)|*.csv|CSV files (*.txt)|*.txt|All files (*.*)|*.*",
@@ -686,34 +815,28 @@ class TurnflowImporter(Process):
                 if not ids_edge_sumo.has_index(id_fromedge_sumo):
                     ids_sumoedge_notexist.append(id_fromedge_sumo)
                 else:
-                    id_fromedge = ids_edge_sumo.get_id_from_index(
-                        id_fromedge_sumo)
+                    id_fromedge = ids_edge_sumo.get_id_from_index(id_fromedge_sumo)
 
                     if cols[1].strip() != '':
                         flow = int(string.atof(cols[1].strip()))
                         # print '   id_fromedge,flow',id_fromedge,flow
                         if flow > 0:
-                            turnflows.add_flow(
-                                self.t_start, self.t_end, self.id_mode, id_fromedge, flow)
+                            turnflows.add_flow(self.t_start, self.t_end, self.id_mode, id_fromedge, flow)
 
                         if len(cols) >= 4:
                             for i in range(2, len(cols), 2):
                                 id_toedge_sumo = cols[i].strip()
                                 if not ids_edge_sumo.has_index(id_toedge_sumo):
-                                    ids_sumoedge_notexist.append(
-                                        id_toedge_sumo)
+                                    ids_sumoedge_notexist.append(id_toedge_sumo)
                                 else:
-                                    id_toedge = ids_edge_sumo.get_id_from_index(
-                                        id_toedge_sumo)
+                                    id_toedge = ids_edge_sumo.get_id_from_index(id_toedge_sumo)
                                     if not (id_toedge in edges.get_outgoing(id_fromedge)):
-                                        pairs_sumoedge_unconnected.append(
-                                            (id_fromedge_sumo, id_toedge_sumo))
+                                        pairs_sumoedge_unconnected.append((id_fromedge_sumo, id_toedge_sumo))
                                     else:
-                                        if cols[i + 1].strip() != '':
-                                            turnflow = int(
-                                                string.atof(cols[i + 1].strip()))
-                                            turnflows.add_turn(
-                                                self.t_start, self.t_end, self.id_mode, id_fromedge, id_toedge, turnflow)
+                                        if cols[i+1].strip() != '':
+                                            turnflow = int(string.atof(cols[i+1].strip()))
+                                            turnflows.add_turn(self.t_start, self.t_end, self.id_mode,
+                                                               id_fromedge, id_toedge, turnflow)
 
             else:
                 print 'WARNING: inconsistent row in line %d, file %s' % (i_line, self.tffilepath)

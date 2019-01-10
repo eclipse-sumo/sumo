@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utility>
@@ -103,7 +99,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)myJunction.getMap().size());
+        new GUIParameterTableWindow(app, *this, 12 + (int)myJunction.getParametersMap().size());
     // add items
     ret->mkItem("type", false, toString(myJunction.getType()));
     // close building
@@ -125,40 +121,39 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (!myIsInternal && s.drawJunctionShape) {
         // check whether it is not too small
         const double exaggeration = s.junctionSize.getExaggeration(s, 4);
-        if (s.scale * exaggeration < s.junctionSize.minSize) {
-            return;
-        }
-        glPushMatrix();
-        glPushName(getGlID());
-        const double colorValue = getColorValue(s);
-        GLHelper::setColor(s.junctionColorer.getScheme().getColor(colorValue));
+        if (s.scale * exaggeration >= s.junctionSize.minSize) {
+            glPushMatrix();
+            glPushName(getGlID());
+            const double colorValue = getColorValue(s);
+            GLHelper::setColor(s.junctionColorer.getScheme().getColor(colorValue));
 
-        // recognize full transparency and simply don't draw
-        GLfloat color[4];
-        glGetFloatv(GL_CURRENT_COLOR, color);
-        if (color[3] != 0) {
-            PositionVector shape = myJunction.getShape();
-            shape.closePolygon();
-            if (exaggeration > 1) {
-                shape.scaleRelative(exaggeration);
-            }
-            glTranslated(0, 0, getType());
-            if (s.scale * myMaxSize < 40.) {
-                GLHelper::drawFilledPoly(shape, true);
-            } else {
-                GLHelper::drawFilledPolyTesselated(shape, true);
-            }
+            // recognize full transparency and simply don't draw
+            GLfloat color[4];
+            glGetFloatv(GL_CURRENT_COLOR, color);
+            if (color[3] != 0) {
+                PositionVector shape = myJunction.getShape();
+                shape.closePolygon();
+                if (exaggeration > 1) {
+                    shape.scaleRelative(exaggeration);
+                }
+                glTranslated(0, 0, getType());
+                if (s.scale * myMaxSize < 40.) {
+                    GLHelper::drawFilledPoly(shape, true);
+                } else {
+                    GLHelper::drawFilledPolyTesselated(shape, true);
+                }
 #ifdef GUIJunctionWrapper_DEBUG_DRAW_NODE_SHAPE_VERTICES
-            GLHelper::debugVertices(shape, 80 / s.scale);
+                GLHelper::debugVertices(shape, 80 / s.scale);
 #endif
-            // make small junctions more visible when coloring by type
-            if (myJunction.getType() == NODETYPE_RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
-                glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
-                GLHelper::drawFilledCircle(2 * exaggeration, 12);                    
+                // make small junctions more visible when coloring by type
+                if (myJunction.getType() == NODETYPE_RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
+                    glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
+                    GLHelper::drawFilledCircle(2 * exaggeration, 12);
+                }
             }
+            glPopName();
+            glPopMatrix();
         }
-        glPopName();
-        glPopMatrix();
     }
     if (myIsInternal) {
         drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);

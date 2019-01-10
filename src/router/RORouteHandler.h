@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -66,7 +62,8 @@ public:
     RORouteHandler(RONet& net, const std::string& file,
                    const bool tryRepair,
                    const bool emptyDestinationsAllowed,
-                   const bool ignoreErrors);
+                   const bool ignoreErrors,
+                   const bool checkSchema);
 
     /// standard destructor
     virtual ~RORouteHandler();

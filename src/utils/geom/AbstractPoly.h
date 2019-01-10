@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "Position.h"
 
@@ -39,14 +35,26 @@
  */
 class AbstractPoly {
 public:
+    /// @brief constructor
     AbstractPoly() { }
+
+    /// @brief copy constructor
     AbstractPoly(const AbstractPoly&) { }
+
+    /// @brief destructor
     virtual ~AbstractPoly() { }
+
+    /// @brief Returns whether the AbstractPoly the given coordinate
     virtual bool around(const Position& p, double offset = 0) const = 0;
+
+    /// @brief Returns whether the AbstractPoly overlaps with the given polygon
     virtual bool overlapsWith(const AbstractPoly& poly, double offset = 0) const = 0;
+
+    /// @brief Returns whether the AbstractPoly is partially within the given polygon
     virtual bool partialWithin(const AbstractPoly& poly, double offset = 0) const = 0;
-    virtual bool crosses(const Position& p1,
-                         const Position& p2) const = 0;
+
+    /// @brief Returns whether the AbstractPoly crosses the given line
+    virtual bool crosses(const Position& p1, const Position& p2) const = 0;
 };
 
 

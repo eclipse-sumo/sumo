@@ -1,0 +1,75 @@
+ Retrying in 1 seconds
+time step 1000
+ToC device infos for vehicle 'ToC_veh'
+Static parameters:
+  holder = ToC_veh
+  manualType = manualDistribution71
+  automatedType = automatedDistributionWithToCDevice89
+  responseTime = 10.63
+  recoveryRate = 0.29
+  initialAwareness = 0.77
+  mrmDecel = 3.00
+Dynamic parameters:
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = AUTOMATED
+time step 2000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 2.6
+  state = PREPARING_TOC
+Current type: automatedDistributionWithToCDevice89
+time step 22000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.77
+  currentSpeed = 19.5517145299
+  state = RECOVERING
+Current type: manualDistribution71
+time step 42000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.77
+  currentSpeed = 19.1700620404
+  state = RECOVERING
+Current type: manualDistribution71
+time step 62000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.77
+  currentSpeed = 19.4083548006
+  state = RECOVERING
+Current type: manualDistribution71
+time step 82000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.77
+  currentSpeed = 19.2968529223
+  state = RECOVERING
+Current type: manualDistribution71
+time step 102000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+Current type: automatedDistributionWithToCDevice89
+time step 122000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+Current type: automatedDistributionWithToCDevice89
+time step 142000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+Current type: automatedDistributionWithToCDevice89
+time step 162000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+Current type: automatedDistributionWithToCDevice89
+time step 182000
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+Current type: automatedDistributionWithToCDevice89

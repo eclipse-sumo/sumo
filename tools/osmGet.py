@@ -30,6 +30,7 @@ from os import path
 
 import sumolib  # noqa
 
+
 def readCompressed(conn, query, filename):
     conn.request("POST", "/api/interpreter", """
     <osm-script timeout="240" element-limit="1073741824">
@@ -51,6 +52,7 @@ def readCompressed(conn, query, filename):
         out = open(path.join(os.getcwd(), filename), "wb")
         out.write(response.read())
         out.close()
+
 
 optParser = optparse.OptionParser()
 optParser.add_option("-p", "--prefix", default="osm", help="for output file")
@@ -113,9 +115,9 @@ def get(args=None):
         conn.close()
     else:
         host = 'www.overpass-api.de'
-        #host= 'overpass.osm.rambler.ru'
+        # host= 'overpass.osm.rambler.ru'
         port = 443
-        
+
         if os.environ.get("https_proxy") is not None:
             proxy_url = os.environ.get("https_proxy")
             url = urlparse.urlparse(proxy_url)
@@ -143,6 +145,7 @@ def get(args=None):
                     b = e
 
         conn.close()
+
 
 if __name__ == "__main__":
     get()

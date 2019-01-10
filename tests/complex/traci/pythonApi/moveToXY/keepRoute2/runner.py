@@ -19,9 +19,14 @@ from __future__ import absolute_import
 import os
 import subprocess
 import sys
-import random
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
@@ -45,16 +50,15 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
     lane2 = traci.vehicle.getLaneID(vehID)
     pos2 = traci.vehicle.getLanePosition(vehID)
     posLat2 = traci.vehicle.getLateralLanePosition(vehID)
-    if (abs(x - x2) > 0.1
-            or abs(y - y2) > 0.1
-            or exLane != lane2
-        or (exPos is not None and abs(exPos - pos2) > 0.1)
-        or (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)
-        ):
-        print(comment, "failed: x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   posLat=%s posLat2=%s" % (
-            x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
+    if (abs(x - x2) > 0.1 or
+            abs(y - y2) > 0.1 or
+            exLane != lane2 or
+            (exPos is not None and abs(exPos - pos2) > 0.1) or
+            (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)):
+        print(comment, ("failed: x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   " +
+              "posLat=%s posLat2=%s") % (x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
     else:
-        #print(comment, "success")
+        # (comment, "success")
         pass
 
 
@@ -68,5 +72,6 @@ check(198, 1.9, ANGLE_UNDEF, "middle_0", 98.0, 1.9,        "internal corner (ins
 check(198, 1.9, 0,           "middle_0", 102,  2.0,        "internal corner (inside, segment2)")
 check(201, -1, 0,            "middle_0", 100, -1.41,       "internal corner (outside, near)")
 check(203, -4, 0,            "", INVALID, INVALID,         "internal corner (outside, far)")
+print("vehicleList", traci.vehicle.getIDList())
 traci.close()
 sumoProcess.wait()

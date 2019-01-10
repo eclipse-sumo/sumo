@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include "NLHandler.h"
@@ -288,6 +284,11 @@ NLHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_PARKING_AREA:
             myTriggerBuilder.endParkingArea();
+            break;
+        case SUMO_TAG_BUS_STOP:
+        case SUMO_TAG_TRAIN_STOP:
+        case SUMO_TAG_CONTAINER_STOP:
+            myTriggerBuilder.endStoppingPlace();
             break;
         case SUMO_TAG_NET:
             // build junction graph
@@ -834,6 +835,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
 
 void
 NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes& attrs) {
+    WRITE_WARNING("VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead.");
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
     SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
@@ -1070,13 +1072,14 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const double haltingSpeedThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_SPEED_THRESHOLD, id.c_str(), ok, 5.0f / 3.6f);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const bool openEntry = attrs.getOpt<bool>(SUMO_ATTR_OPEN_ENTRY, id.c_str(), ok, false);
     if (!ok) {
         return;
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
                                           FileHelpers::checkForRelativity(file, getFileName()),
-                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes);
+                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {

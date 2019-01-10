@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <microsim/MSEdgeWeightsStorage.h>
 #include "TraCIServer.h"
@@ -60,14 +56,6 @@ public:
      */
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
-
-
-    /** @brief Returns the named vehicle's position
-     * @param[in] id The id of the searched vehicle
-     * @param[out] p The position, if the vehicle is on the network
-     * @return Whether the vehicle is known (and on road)
-     */
-    static bool getPosition(const std::string& id, Position& p);
 
 
 private:

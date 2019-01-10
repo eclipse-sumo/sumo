@@ -1,176 +1,107 @@
-Written configuration to '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm.netccfg'
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm.netccfg'
 Loading configuration... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml'... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm_bbox.osm.xml'... 
-Found duplicate nodes. Substituting 1241955149 with 1026369077
-Found duplicate nodes. Substituting 1241955153 with 1241955144
-Found duplicate nodes. Substituting 2094266861 with 27410745
-Found duplicate nodes. Substituting 2454213455 with 2071423355
-Found duplicate nodes. Substituting 2477747597 with 1769589092
-Found duplicate nodes. Substituting 2710546371 with 2709412335
-Found duplicate nodes. Substituting 2710546372 with 2709412765
-Found duplicate nodes. Substituting 2710546373 with 2709412877
-Found duplicate nodes. Substituting 2710546374 with 2709412949
-Found duplicate nodes. Substituting 2710546375 with 2709406981
-Found duplicate nodes. Substituting 2710546385 with 2709412335
-Found duplicate nodes. Substituting 2710546387 with 2709412765
-Found duplicate nodes. Substituting 2710546389 with 2709412877
-Found duplicate nodes. Substituting 2710546391 with 2709412949
-Found duplicate nodes. Substituting 2710546393 with 2709406981
-Found duplicate nodes. Substituting 2710546403 with 2709412335
-Found duplicate nodes. Substituting 2710546404 with 2709412765
-Found duplicate nodes. Substituting 2710546405 with 2709412877
-Found duplicate nodes. Substituting 2710546406 with 2709412949
-Found duplicate nodes. Substituting 2710546407 with 2709406981
-Found duplicate nodes. Substituting 2710546413 with 2709412335
-Found duplicate nodes. Substituting 2710546423 with 2709412765
-Found duplicate nodes. Substituting 2710546453 with 2709412877
-Found duplicate nodes. Substituting 2710546485 with 2709412949
-Found duplicate nodes. Substituting 2710546513 with 2709406981
-Found duplicate nodes. Substituting 2721065868 with 2623839755
-Found duplicate nodes. Substituting 2721065877 with 2094266865
-Found duplicate nodes. Substituting 2777026023 with 2777026021
-Found duplicate nodes. Substituting 2777026105 with 2776837162
-Found duplicate nodes. Substituting 2841851001 with 307641771
-Found duplicate nodes. Substituting 2842307461 with 2842305914
-Found duplicate nodes. Substituting 2842307462 with 2842305915
-Found duplicate nodes. Substituting 2842307903 with 2842306163
-Found duplicate nodes. Substituting 2935222607 with 2935182602
-Found duplicate nodes. Substituting 2935223701 with 2935182602
-Found duplicate nodes. Substituting 2935229501 with 2935182602
-Found duplicate nodes. Substituting 3092811524 with 3092560687
-Found duplicate nodes. Substituting 3092811525 with 3092560690
-Found duplicate nodes. Substituting 3092817550 with 3092560662
-Found duplicate nodes. Substituting 3092818362 with 3092560684
-Found duplicate nodes. Substituting 3092818443 with 3092560474
-Found duplicate nodes. Substituting 3139370873 with 1447185655
-Found duplicate nodes. Substituting 3239759333 with 257237178
-Found duplicate nodes. Substituting 3276753106 with 429735126
-Found duplicate nodes. Substituting 3277662039 with 258083943
-Found duplicate nodes. Substituting 3287147821 with 539995491
-Found duplicate nodes. Substituting 3334358045 with 2166130450
-Found duplicate nodes. Substituting 3334358046 with 2166130454
-Found duplicate nodes. Substituting 3334358047 with 2166130452
-Found duplicate nodes. Substituting 3334358048 with 2166130458
-Found duplicate nodes. Substituting 3334358049 with 2166130456
-Found duplicate nodes. Substituting 3334358050 with 2166130461
-Found duplicate nodes. Substituting 3334358051 with 2166130460
-Found duplicate nodes. Substituting 3334358052 with 2166130465
-Found duplicate nodes. Substituting 3334358053 with 2166130463
-Found duplicate nodes. Substituting 3334358054 with 2166130475
-Found duplicate nodes. Substituting 3334358055 with 2166130473
-Found duplicate nodes. Substituting 3334358056 with 2166130478
-Found duplicate nodes. Substituting 3334358057 with 2166130477
-Found duplicate nodes. Substituting 3334358058 with 2166130482
-Found duplicate nodes. Substituting 3334358059 with 2166130480
-Found duplicate nodes. Substituting 3334358060 with 2166130486
-Found duplicate nodes. Substituting 3334358061 with 2166130484
-Found duplicate nodes. Substituting 3334358062 with 2166130489
-Found duplicate nodes. Substituting 3334358063 with 2166130487
-Found duplicate nodes. Substituting 3334358064 with 2166130491
-Found duplicate nodes. Substituting 3334358065 with 2245301689
-Found duplicate nodes. Substituting 3334358066 with 284557960
-Found duplicate nodes. Substituting 3334358068 with 2268185779
-Found duplicate nodes. Substituting 3334358069 with 197325375
-Found duplicate nodes. Substituting 3334358070 with 3060544357
-Found duplicate nodes. Substituting 3334358071 with 3075354372
-Found duplicate nodes. Substituting 3334358072 with 2166130493
-Found duplicate nodes. Substituting 3334358073 with 3075354371
-Found duplicate nodes. Substituting 3334358074 with 2166130497
-Found duplicate nodes. Substituting 3334358075 with 3060544356
-Found duplicate nodes. Substituting 3334358076 with 2166130500
-Found duplicate nodes. Substituting 3334358077 with 2245301690
-Found duplicate nodes. Substituting 3334358078 with 2166130504
-Found duplicate nodes. Substituting 3334358079 with 197325380
-Found duplicate nodes. Substituting 3334358080 with 2166130502
-Found duplicate nodes. Substituting 3334358081 with 2166130495
-Found duplicate nodes. Substituting 3334358082 with 2166130499
+Parsing nodes from osm-file '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm_bbox.osm.xml'... 
+Found duplicate nodes. Substituting 5632884676 with 1211114249
 done.
-Parsing edges from osm-file '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm_bbox.osm.xml'... 
+Parsing edges from osm-file '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm_bbox.osm.xml'... done.
+Removing duplicate edges... 
+Found duplicate edges. Removing 335703514
+Found duplicate edges. Removing 335703529
+Found duplicate edges. Removing 335703532
 done.
-Removing duplicate edges... done.
-Adding new type 'cycleway.track|highway.primary' (first occurence for edge '4067932').
-Adding new type 'cycleway.lane|highway.secondary' (first occurence for edge '4612961').
+Adding new type 'cycleway.track|highway.primary' (first occurence for edge '4067932#0').
+Adding new type 'cycleway.lane|highway.tertiary' (first occurence for edge '4588220#0').
+Adding new type 'cycleway.lane|highway.secondary' (first occurence for edge '4612961#0').
 Adding new type 'cycleway.lane|highway.primary' (first occurence for edge '4613110').
-Adding new type 'cycleway.lane|highway.tertiary' (first occurence for edge '4613308').
 Adding new type 'cycleway.track|highway.tertiary' (first occurence for edge '4773465#0').
-Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '23812656#0').
+Adding new type 'cycleway.track|highway.secondary_link' (first occurence for edge '23812656#0').
 Adding new type 'cycleway.lane|highway.pedestrian' (first occurence for edge '24540240#0').
 Adding new type 'cycleway.lane|highway.residential' (first occurence for edge '38208961').
-Parsing relations from osm-file '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm_bbox.osm.xml'... 
+Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '60333309#0').
+Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047#0').
+Parsing relations from osm-file '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm_bbox.osm.xml'... 
 done.
- Removed 47 traffic lights before loading plain-XML
+ Removed 125 traffic lights before loading plain-XML
  Import done:
-   2861 nodes loaded.
-   48 types loaded.
-   4314 edges loaded.
+   3434 nodes loaded.
+   49 types loaded.
+   5187 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
-Processing public transport stops... done (0ms).
+Processing public transport stops... done (1ms).
 Revising public transport stops based on pt lines... 
-done (2ms).
+done (20ms).
 Align pt stop id signs with corresponding edge id signs... done (0ms).
+Found 5 reversible edge sequences between broken rail nodes
+Reversed 5 sequences (count by length: 1:3 9:2)
+Added 4 edges to connect 3 buffer stops in both directions.
+Added 1 bidi-edges between 1 pairs of railway switches (count by length: 1:1)
+DijkstraRouter answered 49 queries and explored 49.80 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
 Joining junction clusters... 
-done (7ms).
- Joined 76 junction cluster(s).
-Removing empty nodes and geometry nodes... done (8ms).
-   510 nodes removed.
-Moving network to origin... done (10ms).
+done (24ms).
+ Joined 110 junction cluster(s).
+Removing empty nodes and geometry nodes... done (21ms).
+   549 nodes removed.
+Moving network to origin... done (18ms).
 Computing turning directions... 
-done (2ms).
-Assigning nodes to traffic lights... done (0ms).
-Guessing and setting on-/off-ramps... done (4ms).
-Sorting nodes' edges... done (4ms).
-Computing node shapes... done (64ms).
-Computing edge shapes... done (30ms).
-Computing node types... done (1ms).
-Guessed 943 pedestrian crossings.
-Computing priorities... done (2ms).
-Computing approached edges... done (2ms).
+done (4ms).
+Assigning nodes to traffic lights... done (1ms).
+Guessing and setting on-/off-ramps... done (8ms).
+Sorting nodes' edges... done (6ms).
+Computing node shapes... done (101ms).
+Computing edge shapes... done (49ms).
+Computing node types... done (2ms).
+Guessed 965 pedestrian crossings.
+Computing priorities... done (4ms).
+Computing approached edges... done (6ms).
 Guessing and setting roundabouts... 
- Guessed 4 roundabout(s).
-done (1ms).
-Computing approaching lanes... done (10ms).
-Dividing of lanes on approached lanes... done (5ms).
-Processing turnarounds... done (0ms).
+ Guessed 2 roundabout(s).
+done (4ms).
+Computing approaching lanes... done (17ms).
+Dividing of lanes on approached lanes... done (8ms).
+Processing turnarounds... done (2ms).
 Rechecking of lane endings... 
-done (1ms).
-Joining traffic light nodes... done (2ms).
+done (2ms).
+Joining traffic light nodes... done (3ms).
 Computing traffic light control information... 
 done (1ms).
-Computing node logics... done (15ms).
+Computing node logics... done (30ms).
 Computing traffic light logics... 
-done (5ms).
- 48 traffic light(s) computed.
+done (11ms).
+ 59 traffic light(s) computed.
 Building inner edges... 
-done (37ms).
-Find accesses for pt rail stops... done (23ms).
+done (80ms).
+Added 1 stops for superposed rail edges.
+Find accesses for pt rail stops... done (61ms).
+DijkstraRouter answered 8 queries and explored 13.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
 -----------------------------------------------------
 Summary:
  Node type statistics:
-  Unregulated junctions       : 12
-  Dead-end junctions          : 1157
-  Priority junctions          : 874
-  Right-before-left junctions : 174
+  Unregulated junctions       : 8
+  Dead-end junctions          : 1393
+  Priority junctions          : 1058
+  Right-before-left junctions : 171
+  Rail signal junctions      : 19
  Network boundaries:
-  Original boundary  : 13.35,52.49,13.53,52.57
-  Applied offset     : -388415.86,-5817979.56
-  Converted boundary : 0.00,0.00,6080.75,5405.51
+  Original boundary  : 13.37,52.50,13.53,52.57
+  Applied offset     : -389562.46,-5817979.56
+  Converted boundary : 0.00,0.00,4934.15,4470.73
 -----------------------------------------------------
-Writing network... done (512ms).
+Writing network... done (986ms).
 Success.
-Written configuration to '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm.polycfg'
+Written configuration to '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm.polycfg'
 Loading configuration... done.
-Parsing network projection from '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm.net.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm_bbox.osm.xml'... done.
-Parsing relations from osm-file '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm_bbox.osm.xml'... done.
-Parsing edges from osm-file '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40/osm_bbox.osm.xml'... done.
-Success.
-Success.
+Parsing network projection from '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm.net.xml'... done (4ms).
+Parsing nodes from osm-file '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm_bbox.osm.xml'... done (654ms).
+Parsing relations from osm-file '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm_bbox.osm.xml'... done (568ms).
+Parsing edges from osm-file '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test/osm_bbox.osm.xml'... done (615ms).
 Success.
 Success.
 Success.
@@ -178,55 +109,56 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from 'osm.net.xml'... done (582ms).
-Loading additional-files from 'osm.poly.xml'... done (125ms).
-Loading additional-files from 'osm_stops.add.xml'... done (6ms).
+Loading net-file from 'osm.net.xml'... done (1356ms).
+Loading additional-files from 'osm.poly.xml'... done (351ms).
+Loading additional-files from 'osm_stops.add.xml'... done (18ms).
 Loading done.
 Simulation started with time: 0.00
-Simulation ended at time: 2994.00
+Simulation ended at time: 2769.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 5757ms
- Real time factor: 520.063
- UPS: 23963.348966
+ Duration: 17479ms
+ Real time factor: 158.419
+ UPS: 10621.774701
 Vehicles: 
- Inserted: 452
+ Inserted: 432
  Running: 0
  Waiting: 0
-Teleports: 7 (Jam: 1, Wrong Lane: 6)
+Teleports: 9 (Jam: 8, Yield: 1)
 Persons: 
- Inserted: 216
+ Inserted: 199
  Running: 0
 Statistics (avg):
- RouteLength: 1928.64
- Duration: 305.21
- WaitingTime: 43.93
- TimeLoss: 93.82
- DepartDelay: 0.12
-Pedestrian Statistics (avg of 567 walks):
- RouteLength: 370.98
- Duration: 312.87
- TimeLoss: 45.76
-Ride Statistics (avg of 128 rides):
- WaitingTime: 143.17
- RouteLength: 846.83
- Duration: 76.39
- Bus: 51
- Train: 73
+ RouteLength: 1702.93
+ Duration: 429.76
+ WaitingTime: 148.94
+ TimeLoss: 207.67
+ DepartDelay: 0.14
+Pedestrian Statistics (avg of 405 walks):
+ RouteLength: 295.32
+ Duration: 247.02
+ TimeLoss: 35.29
+Ride Statistics (avg of 178 rides):
+ WaitingTime: 115.06
+ RouteLength: 860.27
+ Duration: 161.17
+ Bus: 59
+ Train: 110
  Bike: 0
- Aborted: 4
+ Aborted: 9
 
-DijkstraRouter answered 11426 queries and explored 10.73 edges on average.
-DijkstraRouter spent 28ms answering queries (0.00ms on average).
-DijkstraRouter answered 382 queries and explored 641.17 edges on average.
-DijkstraRouter spent 125ms answering queries (0.33ms on average).
-Building scenario in '/scr2/texttest_tmp/tools.28May135338.13776/tools/import/OSM/webWizard/2018-05-28-13-53-40'
+DijkstraRouter answered 7603 queries and explored 12.08 edges on average.
+DijkstraRouter spent 72ms answering queries (0.01ms on average).
+DijkstraRouter answered 285 queries and explored 654.02 edges on average.
+DijkstraRouter spent 276ms answering queries (0.97ms on average).
+Building scenario in '/scr2/texttest_tmp/dynamic_gui.13Sep153659.7269/tools/import/OSM/webWizard/test'
 generating trips...
-Imported 36 lines with 115 stops and skipped 23 lines
-   bus: 17
-   train: 1
-   light_rail: 15
-   subway: 3
+Imported 81 lines with 319 stops and skipped 5 lines
+   tram: 20
+   bus: 28
+   train: 9
+   light_rail: 18
+   subway: 6
 done.
 running SUMO to determine actual departure times...
 done.
@@ -234,12 +166,8 @@ creating routes...
 done.
 calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.passenger.trips.xml -o osm.passenger.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
-calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.bus.trips.xml -o osm.bus.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
-calling route2trips
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings --additional-files osm_stops.add.xml,osm_pt.rou.xml
-calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.rail_urban.trips.xml -o osm.rail_urban.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
-calling route2trips
 calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.ship.trips.xml -o osm.ship.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
 calling route2trips
+calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.bicycle.trips.xml -o osm.bicycle.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings
+calling route2trips
+calling  /scr1/sumo/bin/duarouter -n osm.net.xml -r osm.pedestrian.trips.xml -o osm.pedestrian.rou.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings --additional-files osm_stops.add.xml,osm_pt.rou.xml

@@ -1,30 +1,70 @@
-<additionals>
-    <parkingArea id="parkingArea_gneE1_0_0" lane="gneE1_0" startPos="20.00" endPos="30.00" width="3.20" length="5.00">
-        <space x="0.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="10.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="15.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="20.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="25.00" y="15.00" z="1.00" length="6.00" angle="45.00"/>
-        <space x="25.00" y="15.00" z="1.00" length="6.00" angle="45.00"/>
-        <space x="25.00" y="15.00" z="1.00" length="6.00" angle="45.00"/>
-        <space x="25.00" y="15.00" z="1.00" width="4.10" length="6.00" angle="45.00"/>
-        <space x="30.00" y="15.00" z="1.00" width="3.30" angle="45.00"/>
-        <space x="35.00" y="15.00" z="1.00" width="3.30" angle="45.00"/>
-        <space x="35.00" y="15.00" z="1.00" width="3.30" angle="45.00"/>
-        <space x="35.00" y="15.00" z="1.00" width="3.30" angle="45.00"/>
-        <space x="35.00" y="15.00" z="1.00" width="3.30" length="5.50" angle="45.00"/>
-        <space x="40.00" y="15.00" z="1.00" width="3.30" length="6.00"/>
-        <space x="45.00" y="15.00" z="1.00" width="3.30" length="6.00"/>
-        <space x="45.00" y="15.00" z="1.00" width="3.30" length="6.00"/>
-        <space x="45.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="-20.00"/>
-        <space x="50.00" y="15.00" z="1.00" width="3.30" length="6.00" angle="500.00"/>
-        <space x="0.00" y="-15.00" z="1.00" width="3.30" length="6.00" angle="60.00"/>
-        <space x="5.00" y="-15.00" z="0.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="10.00" y="-15.00" z="0.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="10.00" y="-15.00" z="0.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="10.00" y="-15.00" z="1.30" width="3.30" length="6.00" angle="45.00"/>
-        <space x="15.00" y="-15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
-        <space x="20.00" y="-15.00" z="0.00"/>
-        <space x="50.00" y="-15.00" z="1.00" width="3.30" length="6.00" angle="45.00"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 25.06.2018 14:00:38 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/load\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/load\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/load\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/load\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_25Jun134029.3572/netedit.gui/additionalElements/parkingspace/load\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_gneE1_0_0" length="5.00" lane="gneE1_0" startPos="20.00" endPos="30.00">
+        <space width="3.30" length="6.00" x="0.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" length="6.00" x="10.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" length="6.00" x="15.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" length="6.00" x="20.00" y="15.00" z="1.00" angle="45.00"/>
+        <space length="6.00" x="25.00" y="15.00" z="1.00" angle="45.00"/>
+        <space length="6.00" x="25.00" y="15.00" z="1.00" angle="45.00"/>
+        <space length="6.00" x="25.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="4.10" length="6.00" x="25.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" x="30.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" x="35.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" x="35.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" x="35.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" length="5.50" x="35.00" y="15.00" z="1.00" angle="45.00"/>
+        <space width="3.30" length="6.00" x="40.00" y="15.00" z="1.00"/>
+        <space width="3.30" length="6.00" x="45.00" y="15.00" z="1.00"/>
+        <space width="3.30" length="6.00" x="45.00" y="15.00" z="1.00"/>
+        <space width="3.30" length="6.00" x="45.00" y="15.00" z="1.00" angle="-20.00"/>
+        <space width="3.30" length="6.00" x="50.00" y="15.00" z="1.00" angle="500.00"/>
+        <space width="3.30" length="6.00" x="0.00" y="-15.00" z="1.00" angle="60.00"/>
+        <space width="3.30" length="6.00" x="5.00" y="-15.00" angle="45.00"/>
+        <space width="3.30" length="6.00" x="10.00" y="-15.00" angle="45.00"/>
+        <space width="3.30" length="6.00" x="10.00" y="-15.00" angle="45.00"/>
+        <space width="3.30" length="6.00" x="10.00" y="-15.00" z="1.30" angle="45.00"/>
+        <space width="3.30" length="6.00" x="15.00" y="-15.00" z="1.00" angle="45.00"/>
+        <space x="20.00" y="-15.00"/>
     </parkingArea>
-</additionals>
+</additional>

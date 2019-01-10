@@ -21,11 +21,7 @@
 // included modules
 // ===========================================================================
 
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <vector>
@@ -47,18 +43,6 @@
 class GNEBusStop : public GNEStoppingPlace {
 
 public:
-
-    /// XXX this is a temporary measure. Instead of a struct, GNEAccess
-    // must be implemented (#4018)
-    struct Access {
-        Access(GNELane* _lane, double _pos, bool _friendlyPos):
-            lane(_lane), pos(_pos), friendlyPos(_friendlyPos) {}
-
-        GNELane* lane;
-        double pos;
-        bool friendlyPos;
-    };
-
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
@@ -70,23 +54,15 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double startPos, double endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
+    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEBusStop();
 
-    /**@brief writte additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const;
-
-    /// @brief get string vector with the lines of the busStop
-    const std::vector<std::string>& getLines() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -121,15 +97,9 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-    /// @brief add acces to this busStop
-    void addAccess(GNELane* lane, double pos, bool friendlyPos);
-
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
-
-    /// @brief vector with the access to this busStop
-    std::vector<Access> myAccess;
 
 private:
     /// @brief set attribute after validation

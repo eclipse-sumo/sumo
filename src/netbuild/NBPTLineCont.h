@@ -20,6 +20,7 @@
 
 
 #include <vector>
+#include "utils/vehicle/SUMOAbstractRouter.h"
 #include "NBPTLine.h"
 #include "NBEdgeCont.h"
 
@@ -49,10 +50,17 @@ public:
         return myPTLines.end();
     }
 
+    const std::vector<NBPTLine*>& getLines() const {
+        return myPTLines;
+    }
+
     void process(NBEdgeCont& cont);
 
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
+
+    /// @brief select the correct stop on superposed rail edges
+    void fixBidiStops(const NBEdgeCont& ec);
 
     std::set<std::string>& getServedPTStops();
 private:
@@ -68,6 +76,9 @@ private:
     void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
 
     std::set<std::string> myServedPTStops;
+
+    static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle>& router,
+                          const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh);
 };
 
 

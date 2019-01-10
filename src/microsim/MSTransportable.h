@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <set>
 #include <cassert>
@@ -63,7 +59,8 @@ public:
         WAITING_FOR_DEPART = 0,
         WAITING = 1,
         MOVING_WITHOUT_VEHICLE = 2, // walking for persons, tranship for containers
-        DRIVING = 3
+        DRIVING = 3,
+        ACCESS = 4
     };
 
     /**
@@ -73,16 +70,16 @@ public:
     class Stage {
     public:
         /// constructor
-        Stage(const MSEdge& destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type);
+        Stage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, StageType type);
 
         /// destructor
         virtual ~Stage();
 
         /// returns the destination edge
-        const MSEdge& getDestination() const;
+        const MSEdge* getDestination() const;
 
         /// returns the destination stop (if any)
-        const MSStoppingPlace* getDestinationStop() const {
+        MSStoppingPlace* getDestinationStop() const {
             return myDestinationStop;
         }
 
@@ -91,9 +88,9 @@ public:
         }
 
         /// Returns the current edge
-        virtual const MSEdge* getEdge() const = 0;
-        virtual const MSEdge* getFromEdge() const = 0;
-        virtual double getEdgePos(SUMOTime now) const = 0;
+        virtual const MSEdge* getEdge() const;
+        virtual const MSEdge* getFromEdge() const;
+        virtual double getEdgePos(SUMOTime now) const;
 
         /// returns the position of the transportable
         virtual Position getPosition(SUMOTime now) const = 0;
@@ -137,17 +134,17 @@ public:
 
         /// @brief Whether the transportable waits for a vehicle
         virtual SUMOVehicle* getVehicle() const {
-            return 0;
+            return nullptr;
         }
 
         /// @brief the time this transportable spent waiting
-        virtual SUMOTime getWaitingTime(SUMOTime now) const = 0;
+        virtual SUMOTime getWaitingTime(SUMOTime now) const;
 
         /// @brief the speed of the transportable
-        virtual double getSpeed() const = 0;
+        virtual double getSpeed() const;
 
         /// @brief the edges of the current stage
-        virtual ConstMSEdgeVector getEdges() const = 0;
+        virtual ConstMSEdgeVector getEdges() const;
 
         /// @brief get position on edge e at length at with orthogonal offset
         Position getEdgePosition(const MSEdge* e, double at, double offset) const;
@@ -184,10 +181,10 @@ public:
 
     protected:
         /// the next edge to reach by getting transported
-        const MSEdge& myDestination;
+        const MSEdge* myDestination;
 
         /// the stop to reach by getting transported (if any)
-        MSStoppingPlace* const myDestinationStop;
+        MSStoppingPlace* myDestinationStop;
 
         /// the position at which we want to arrive
         double myArrivalPos;
@@ -216,7 +213,7 @@ public:
     class Stage_Waiting : public Stage {
     public:
         /// constructor
-        Stage_Waiting(const MSEdge& destination, SUMOTime duration, SUMOTime until,
+        Stage_Waiting(const MSEdge* destination, SUMOTime duration, SUMOTime until,
                       double pos, const std::string& actType, const bool initial);
 
         /// destructor
@@ -225,10 +222,6 @@ public:
         /// abort this stage (TraCI)
         void abort(MSTransportable*);
 
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-        const MSEdge* getFromEdge() const;
-        double getEdgePos(SUMOTime now) const;
         SUMOTime getUntil() const;
 
         ///
@@ -237,10 +230,6 @@ public:
         double getAngle(SUMOTime now) const;
 
         SUMOTime getWaitingTime(SUMOTime now) const;
-
-        double getSpeed() const;
-
-        ConstMSEdgeVector getEdges() const;
 
         std::string getStageDescription() const {
             return "waiting (" + myActType + ")";
@@ -303,7 +292,7 @@ public:
     class Stage_Driving : public Stage {
     public:
         /// constructor
-        Stage_Driving(const MSEdge& destination, MSStoppingPlace* toStop,
+        Stage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
                       const double arrivalPos, const std::vector<std::string>& lines,
                       const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
@@ -342,6 +331,8 @@ public:
         double getSpeed() const;
 
         ConstMSEdgeVector getEdges() const;
+
+        void setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop);
 
         void setVehicle(SUMOVehicle* v);
 
@@ -422,12 +413,12 @@ public:
     void setDeparted(SUMOTime now);
 
     /// Returns the current destination.
-    const MSEdge& getDestination() const {
+    const MSEdge* getDestination() const {
         return (*myStep)->getDestination();
     }
 
     /// Returns the destination after the current destination.
-    const MSEdge& getNextDestination() const {
+    const MSEdge* getNextDestination() const {
         return (*(myStep + 1))->getDestination();
     }
 
@@ -484,6 +475,13 @@ public:
     /// @brief Return the current stage
     MSTransportable::Stage* getCurrentStage() const {
         return *myStep;
+    }
+
+    /// @brief Return the current stage
+    MSTransportable::Stage* getNextStage(int next) const {
+        assert(myStep + next >= myPlan->begin());
+        assert(myStep + next < myPlan->end());
+        return *(myStep + next);
     }
 
     /// @brief Return the edges of the nth next stage
@@ -573,6 +571,9 @@ public:
 
     /// @brief return whether the person has reached the end of its plan
     bool hasArrived() const;
+
+    /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
+    void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
 
 protected:
     /// @brief the offset for computing positions when standing at an edge

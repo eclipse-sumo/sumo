@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utility>
@@ -55,11 +51,10 @@ public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
-     * @param[in] icon GUIIcon associated to the additional
      * @param[in] movementBlocked if movement of POI is blocked
      * @param[in] shapeBlocked if shape of POI is blocked
      */
-    GNEShape(GNENet* net, SumoXMLTag tag, GUIIcon icon, bool movementBlocked, bool shapeBlocked);
+    GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
     ~GNEShape();
@@ -67,7 +62,7 @@ public:
     /**@brief update pre-computed geometry information
     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     */
-    virtual void updateGeometry() = 0;
+    virtual void updateGeometry(bool updateGrid) = 0;
 
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
@@ -92,12 +87,17 @@ public:
     /// @brief draw lock icon
     void drawLockIcon(const Position& pos, double layer, double size = 0.5) const;
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    virtual void startGeometryMoving() = 0;
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    virtual void endGeometryMoving() = 0;
+    /// @}
+
     /// @name inherited from GUIPolygon/GUIPointOfInterest
     /// @{
-    /**@brief Returns the name of the parent object
-     * @return This object's parent id
-     */
-    virtual const std::string& getParentName() const = 0;
 
     /**@brief Returns an own popup-menu
      *
@@ -157,11 +157,46 @@ public:
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
+
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
+    /// @}
+
+    /// @name This functions related with generic parameters has to be implemented in all GNEAttributeCarriers
+    /// @{
+
+    /// @brief add generic parameter
+    virtual bool addGenericParameter(const std::string& key, const std::string& value) = 0;
+
+    /// @brief remove generic parameter
+    virtual bool removeGenericParameter(const std::string& key) = 0;
+
+    /// @brief update generic parameter
+    virtual bool updateGenericParameter(const std::string& oldKey, const std::string& newKey) = 0;
+
+    /// @brief update value generic parameter
+    virtual bool updateGenericParameterValue(const std::string& key, const std::string& newValue) = 0;
+
+    /// @brief return generic parameters in string format
+    virtual std::string getGenericParametersStr() const = 0;
+
+    /// @brief return generic parameters as vector of pairs format
+    virtual std::vector<std::pair<std::string, std::string> > getGenericParameters() const = 0;
+
+    /// @brief set generic parameters in string format
+    virtual void setGenericParametersStr(const std::string& value) = 0;
+
     /// @}
 
 protected:
     /// @brief the net to inform about updates
     GNENet* myNet;
+
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief flag to block movement
     bool myBlockMovement;
@@ -173,8 +208,8 @@ private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief boolean to check if shape is selected
-    bool mySelected;
+    /// @brief method for check if mouse is over objects
+    virtual void mouseOverObject(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief Invalidated copy constructor.
     GNEShape(const GNEShape&) = delete;

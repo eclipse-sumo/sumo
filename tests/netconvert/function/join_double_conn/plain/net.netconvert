@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:41 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:45 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,9 +19,12 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
         <edges.join value="true"/>
     </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
 
     <report>
         <verbose value="true"/>
@@ -31,19 +34,19 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1800.00,0.00" origBoundary="-500.00,0.00,1300.00,0.00" projParameter="!"/>
 
     <edge id="1to21+1to22" from="1" to="2" priority="0">
-        <lane id="1to21+1to22_0" index="0" speed="13.90" length="1000.00" shape="501.50,-4.80 1498.50,-4.80"/>
-        <lane id="1to21+1to22_1" index="1" speed="13.90" length="1000.00" shape="501.50,-1.60 1498.50,-1.60"/>
+        <lane id="1to21+1to22_0" index="0" speed="13.89" length="1000.00" shape="504.00,-4.80 1496.00,-4.80"/>
+        <lane id="1to21+1to22_1" index="1" speed="13.89" length="1000.00" shape="504.00,-1.60 1496.00,-1.60"/>
     </edge>
     <edge id="91to1" from="91" to="1" priority="-1">
-        <lane id="91to1_0" index="0" speed="13.90" length="500.00" shape="0.00,-1.60 498.50,-1.60"/>
+        <lane id="91to1_0" index="0" speed="13.89" length="500.00" shape="0.00,-1.60 496.00,-1.60"/>
     </edge>
     <edge id="out" from="2" to="3" priority="-1">
-        <lane id="out_0" index="0" speed="13.90" length="300.00" shape="1501.50,-1.60 1800.00,-1.60"/>
+        <lane id="out_0" index="0" speed="13.89" length="300.00" shape="1504.00,-1.60 1800.00,-1.60"/>
     </edge>
 
     <tlLogic id="2" type="static" programID="0" offset="0">
@@ -52,11 +55,11 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="r"/>
     </tlLogic>
 
-    <junction id="1" type="priority" x="500.00" y="0.00" incLanes="91to1_0" intLanes="" shape="501.50,0.00 501.50,-6.40 498.50,-3.20 498.50,0.00">
+    <junction id="1" type="priority" x="500.00" y="0.00" incLanes="91to1_0" intLanes="" shape="504.00,0.00 504.00,-6.40 500.97,-5.57 499.03,-4.03 497.79,-3.44 496.00,-3.20 496.00,0.00">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="2" type="traffic_light" x="1500.00" y="0.00" incLanes="1to21+1to22_0 1to21+1to22_1" intLanes="" shape="1501.50,0.00 1501.50,-3.20 1498.50,-6.40 1498.50,0.00">
+    <junction id="2" type="traffic_light" x="1500.00" y="0.00" incLanes="1to21+1to22_0 1to21+1to22_1" intLanes="" shape="1504.00,0.00 1504.00,-3.20 1500.97,-4.03 1499.03,-5.57 1497.79,-6.16 1496.00,-6.40 1496.00,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="3" type="dead_end" x="1800.00" y="0.00" incLanes="out_0" intLanes="" shape="1800.00,-3.20 1800.00,0.00"/>

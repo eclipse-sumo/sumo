@@ -1,4 +1,7 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="POI_0" color="red" layer="3.00" lane="gneE1_0" pos="44.00" width="0.00" height="0.00"/>
     <poi id="POI_1" color="red" layer="3.00" lane="gneE1_0" pos="42.00" posLat="-4.00" width="0.00" height="0.00"/>
     <poi id="POI_10" type="poi_test" color="blue" layer="3.00" lane="gneE1_0" pos="26.00" posLat="6.00" width="2.00" height="-3.00"/>
@@ -17,4 +20,4 @@
     <poi id="POI_7" type="poi_test" color="blue" layer="3.00" lane="gneE1_0" pos="30.00" posLat="6.00" width="0.00" height="0.00"/>
     <poi id="POI_8" type="poi_test" color="blue" layer="3.00" lane="gneE1_0" pos="28.00" posLat="6.00" width="-2.00" height="0.00"/>
     <poi id="POI_9" type="poi_test" color="blue" layer="3.00" lane="gneE1_0" pos="28.00" posLat="6.00" width="2.00" height="0.00"/>
-</additionals>
+</additional>

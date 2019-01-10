@@ -17,26 +17,25 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
-import random
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import traci
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if len(sys.argv) > 1:
+    import libsumo as traci  # noqa
+    traci.vehicle.addFull = traci.vehicle.add
+    traci.vehicle.add = traci.vehicle.addLegacy
+else:
+    import traci  # noqa
+    traci._vehicle.VehicleDomain.addFull = traci._vehicle.VehicleDomain.add
+    traci._vehicle.VehicleDomain.add = traci._vehicle.VehicleDomain.addLegacy
 import sumolib  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-PORT = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumoBinary,
-                                '-c', 'sumo.sumocfg',
-                                '-S', '-Q',
-                                '--remote-port', str(PORT)], stdout=sys.stdout)
-
-
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 firstPos = None
 endPos = None
 
 vehID = "v0"
-traci.init(PORT)
 traci.simulationStep()
 traci.route.add("r0", ["SC", "CN"])
 traci.vehicle.add(vehID, "r0")
@@ -49,22 +48,22 @@ while traci.simulation.getMinExpectedNumber() > 0:
         currPos = traci.vehicle.getPosition(vehID)
         currEdge = traci.vehicle.getRoadID(vehID)
         currLanePos = traci.vehicle.getLanePosition(vehID)
-        print("step=%s road=%s lane=%s pos=%.2f dist=%.2f simDist=%.2f simDistToEnd=%.2f distToInt=%.2f distToEnd=%.2f simDist2DToInt=%.2f simDist2DToEnd=%.2f" % (
-            traci.simulation.getCurrentTime() / 1000,
-            currEdge,
-            traci.vehicle.getLaneID(vehID),
-            traci.vehicle.getLanePosition(vehID),
-            traci.vehicle.getDistance(vehID),
-            traci.simulation.getDistance2D(firstPos[0], firstPos[1], currPos[0], currPos[1], isDriving=True),
-            traci.simulation.getDistance2D(currPos[0], currPos[1], endPos[0], endPos[1], isDriving=True),
-            traci.vehicle.getDrivingDistance(vehID, ":C_10", 13.8),
-            traci.vehicle.getDrivingDistance(vehID, "CN", 90),
-            traci.simulation.getDistanceRoad(currEdge, currLanePos, ":C_10", 13.8),
-            traci.simulation.getDistanceRoad(currEdge, currLanePos, "CN", 90)
-            ))
+        print(("step=%s road=%s lane=%s pos=%.2f dist=%.2f simDist=%.2f simDistToEnd=%.2f distToInt=%.2f " +
+              "distToEnd=%.2f simDist2DToInt=%.2f simDist2DToEnd=%.2f") % (
+                traci.simulation.getCurrentTime() / 1000,
+                currEdge,
+                traci.vehicle.getLaneID(vehID),
+                traci.vehicle.getLanePosition(vehID),
+                traci.vehicle.getDistance(vehID),
+                traci.simulation.getDistance2D(firstPos[0], firstPos[1], currPos[0], currPos[1], isDriving=True),
+                traci.simulation.getDistance2D(currPos[0], currPos[1], endPos[0], endPos[1], isDriving=True),
+                traci.vehicle.getDrivingDistance(vehID, ":C_10", 13.8),
+                traci.vehicle.getDrivingDistance(vehID, "CN", 90),
+                traci.simulation.getDistanceRoad(currEdge, currLanePos, ":C_10", 13.8),
+                traci.simulation.getDistanceRoad(currEdge, currLanePos, "CN", 90)
+                ))
 
     except traci.TraCIException:
         pass
 
 traci.close()
-sumoProcess.wait()

@@ -1,0 +1,14 @@
+# delete crossing
+delete_basic
+
+# delete junction, undo and redo (net must be the same as original)
+delete_junction
+
+# delete junction, undo, but not redo
+delete_junction_noredo
+
+# delete crossing, undo, but not redo
+delete_noredo
+
+# delete junction with TLS
+delete_TLS

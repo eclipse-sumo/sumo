@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <microsim/output/MSCrossSection.h>
@@ -161,7 +157,7 @@ public:
      */
     void beginE3Detector(const std::string& id, const std::string& device, SUMOTime splInterval,
                          double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
-                         const std::string& vTypes);
+                         const std::string& vTypes, bool openEntry);
 
 
     /** @brief Builds an entry point of an e3 detector
@@ -319,7 +315,7 @@ public:
     virtual MSDetectorFileOutput* createE3Detector(const std::string& id,
             const CrossSectionVector& entries, const CrossSectionVector& exits,
             double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
-            const std::string& vTypes);
+            const std::string& vTypes, bool openEntry);
 
 
     /** @brief Creates edge based mean data collector using the given specification
@@ -386,7 +382,7 @@ protected:
         E3DetectorDefinition(const std::string& id,
                              const std::string& device, double haltingSpeedThreshold,
                              SUMOTime haltingTimeThreshold, SUMOTime splInterval,
-                             const std::string& vTypes);
+                             const std::string& vTypes, bool openEntry);
 
         /// @brief Destructor
         ~E3DetectorDefinition();
@@ -407,6 +403,8 @@ protected:
         SUMOTime mySampleInterval;
         /// @brief The device the detector shall use
         const std::string myVehicleTypes;
+        /// @brief Whether the detector is declared as having incomplete entry detectors
+        bool myOpenEntry;
         //@}
 
     private:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:39 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:43 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,9 +22,9 @@ SPDX-License-Identifier: EPL-2.0
         <ramps.set value="s2"/>
     </ramp_guessing>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -33,35 +33,35 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
 
-    <edge id="on" from="4a" to="4" priority="-1" spreadType="center" shape="1800.00,100.00 1500.00,14.40">
-        <lane id="on_0" index="0" speed="30.00" length="322.92" shape="1799.12,103.08 1499.12,17.48"/>
-        <lane id="on_1" index="1" speed="30.00" length="322.92" shape="1800.00,100.00 1500.00,14.40"/>
-        <lane id="on_2" index="2" speed="30.00" length="322.92" shape="1800.88,96.92 1500.88,11.32"/>
+    <edge id="on" from="4a" to="4" priority="-1" spreadType="center" shape="1800.00,100.00 1500.00,11.20">
+        <lane id="on_0" index="0" speed="30.00" length="321.49" shape="1799.09,103.07 1503.59,15.60"/>
+        <lane id="on_1" index="1" speed="30.00" length="321.49" shape="1800.00,100.00 1504.50,12.53"/>
+        <lane id="on_2" index="2" speed="30.00" length="321.49" shape="1800.91,96.93 1505.41,9.46"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1" spreadType="center">
-        <lane id="s1_0" index="0" speed="30.00" length="515.63" shape="2000.00,4.80 1490.96,4.80"/>
-        <lane id="s1_1" index="1" speed="30.00" length="515.63" shape="2000.00,1.60 1490.96,1.60"/>
-        <lane id="s1_2" index="2" speed="30.00" length="515.63" shape="2000.00,-1.60 1490.96,-1.60"/>
-        <lane id="s1_3" index="3" speed="30.00" length="515.63" shape="2000.00,-4.80 1490.96,-4.80"/>
+        <lane id="s1_0" index="0" speed="30.00" length="500.00" shape="2000.00,4.80 1504.70,4.80"/>
+        <lane id="s1_1" index="1" speed="30.00" length="500.00" shape="2000.00,1.60 1504.70,1.60"/>
+        <lane id="s1_2" index="2" speed="30.00" length="500.00" shape="2000.00,-1.60 1504.70,-1.60"/>
+        <lane id="s1_3" index="3" speed="30.00" length="500.00" shape="2000.00,-4.80 1504.70,-4.80"/>
     </edge>
     <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1" spreadType="center">
-        <lane id="s2_0" index="0" speed="30.00" length="400.00" shape="1398.50,4.80 1000.00,4.80"/>
-        <lane id="s2_1" index="1" speed="30.00" length="400.00" shape="1398.50,1.60 1000.00,1.60"/>
-        <lane id="s2_2" index="2" speed="30.00" length="400.00" shape="1398.50,-1.60 1000.00,-1.60"/>
-        <lane id="s2_3" index="3" speed="30.00" length="400.00" shape="1398.50,-4.80 1000.00,-4.80"/>
+        <lane id="s2_0" index="0" speed="30.00" length="400.00" shape="1396.00,4.80 1000.00,4.80"/>
+        <lane id="s2_1" index="1" speed="30.00" length="400.00" shape="1396.00,1.60 1000.00,1.60"/>
+        <lane id="s2_2" index="2" speed="30.00" length="400.00" shape="1396.00,-1.60 1000.00,-1.60"/>
+        <lane id="s2_3" index="3" speed="30.00" length="400.00" shape="1396.00,-4.80 1000.00,-4.80"/>
     </edge>
     <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1" spreadType="center" shape="1500.00,4.80 1400.00,4.80">
-        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="96.27" acceleration="1" shape="1486.61,14.40 1401.50,14.40"/>
-        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="96.27" acceleration="1" shape="1486.61,11.20 1401.50,11.20"/>
-        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="96.27" acceleration="1" shape="1486.61,8.00 1401.50,8.00"/>
-        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="96.27" shape="1486.61,4.80 1401.50,4.80"/>
-        <lane id="s2-AddedOnRampEdge_4" index="4" speed="30.00" length="96.27" shape="1486.61,1.60 1401.50,1.60"/>
-        <lane id="s2-AddedOnRampEdge_5" index="5" speed="30.00" length="96.27" shape="1486.61,-1.60 1401.50,-1.60"/>
-        <lane id="s2-AddedOnRampEdge_6" index="6" speed="30.00" length="96.27" shape="1486.61,-4.80 1401.50,-4.80"/>
+        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="104.27" acceleration="1" shape="1495.30,14.40 1404.00,14.40"/>
+        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="104.27" acceleration="1" shape="1495.30,11.20 1404.00,11.20"/>
+        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="104.27" acceleration="1" shape="1495.30,8.00 1404.00,8.00"/>
+        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="104.27" shape="1495.30,4.80 1404.00,4.80"/>
+        <lane id="s2-AddedOnRampEdge_4" index="4" speed="30.00" length="104.27" shape="1495.30,1.60 1404.00,1.60"/>
+        <lane id="s2-AddedOnRampEdge_5" index="5" speed="30.00" length="104.27" shape="1495.30,-1.60 1404.00,-1.60"/>
+        <lane id="s2-AddedOnRampEdge_6" index="6" speed="30.00" length="104.27" shape="1495.30,-4.80 1404.00,-4.80"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1" spreadType="center">
         <lane id="s3_0" index="0" speed="30.00" length="500.00" shape="1000.00,4.80 500.00,4.80"/>
@@ -89,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
-    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 on_1 on_2 s1_0 s1_1 s1_2 s1_3" intLanes="" shape="1498.68,19.02 1501.32,9.78 1490.96,6.40 1490.96,-6.40 1486.61,-6.40 1486.61,16.00">
+    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 on_1 on_2 s1_0 s1_1 s1_2 s1_3" intLanes="" shape="1503.14,17.14 1505.86,7.93 1504.70,6.40 1504.70,-6.40 1495.30,-6.40 1495.30,16.00 1498.25,16.04 1499.28,16.15 1500.30,16.34 1501.52,16.66">
         <request index="0" response="0000000" foes="0000000"/>
         <request index="1" response="0000000" foes="0000000"/>
         <request index="2" response="0000000" foes="0000000"/>
@@ -98,22 +98,22 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5" response="0000000" foes="0000000"/>
         <request index="6" response="0000000" foes="0000000"/>
     </junction>
-    <junction id="4a" type="dead_end" x="1800.00" y="100.00" incLanes="" intLanes="" shape="1801.32,95.38 1798.68,104.62"/>
+    <junction id="4a" type="dead_end" x="1800.00" y="100.00" incLanes="" intLanes="" shape="1801.36,95.40 1798.64,104.60"/>
     <junction id="5" type="dead_end" x="2000.00" y="0.00" incLanes="" intLanes="" shape="2000.00,-6.40 2000.00,6.40"/>
-    <junction id="s2-AddedOnRampNode" type="priority" x="1400.00" y="0.00" incLanes="s2-AddedOnRampEdge_0 s2-AddedOnRampEdge_1 s2-AddedOnRampEdge_2 s2-AddedOnRampEdge_3 s2-AddedOnRampEdge_4 s2-AddedOnRampEdge_5 s2-AddedOnRampEdge_6" intLanes="" shape="1401.50,16.00 1401.50,-6.40 1398.50,-6.40 1398.50,6.40">
+    <junction id="s2-AddedOnRampNode" type="priority" x="1400.00" y="0.00" incLanes="s2-AddedOnRampEdge_0 s2-AddedOnRampEdge_1 s2-AddedOnRampEdge_2 s2-AddedOnRampEdge_3 s2-AddedOnRampEdge_4 s2-AddedOnRampEdge_5 s2-AddedOnRampEdge_6" intLanes="" shape="1404.00,16.00 1404.00,-6.40 1396.00,-6.40 1396.00,6.40 1398.33,7.11 1399.46,8.89 1400.54,13.51 1401.67,15.29">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
 
-    <connection from="on" to="s2-AddedOnRampEdge" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
-    <connection from="on" to="s2-AddedOnRampEdge" fromLane="1" toLane="1" pass="1" dir="s" state="M"/>
-    <connection from="on" to="s2-AddedOnRampEdge" fromLane="2" toLane="2" pass="1" dir="s" state="M"/>
-    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="0" toLane="3" pass="1" dir="s" state="M"/>
-    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="1" toLane="4" pass="1" dir="s" state="M"/>
-    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="2" toLane="5" pass="1" dir="s" state="M"/>
-    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="3" toLane="6" pass="1" dir="s" state="M"/>
+    <connection from="on" to="s2-AddedOnRampEdge" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="on" to="s2-AddedOnRampEdge" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="on" to="s2-AddedOnRampEdge" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="0" toLane="3" dir="s" state="M"/>
+    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="1" toLane="4" dir="s" state="M"/>
+    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="2" toLane="5" dir="s" state="M"/>
+    <connection from="s1" to="s2-AddedOnRampEdge" fromLane="3" toLane="6" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="s2" to="s3" fromLane="2" toLane="2" dir="s" state="M"/>

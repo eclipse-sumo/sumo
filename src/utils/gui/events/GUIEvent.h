@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/FXBaseObject.h>
@@ -37,33 +33,41 @@
  * of our custom events
  */
 enum GUIEventType {
-    /// send when a simulation has been loaded
+    /// @brief send when a simulation has been loaded
     EVENT_SIMULATION_LOADED,
 
-    /// send when a simulation step has been performed
+    /// @brief send when a simulation step has been performed
     EVENT_SIMULATION_STEP,
 
-    /// send when a message occured
+    /// @brief send when a message occured
     EVENT_MESSAGE_OCCURRED,
 
-    /// send when a warning occured
+    /// @brief send when a warning occured
     EVENT_WARNING_OCCURRED,
 
-    /// send when a error occured
+    /// @brief send when a error occured
     EVENT_ERROR_OCCURRED,
 
-    /// send when a status change occured
+    /// @brief send when a debug occured
+    EVENT_DEBUG_OCCURRED,
+
+    /// @brief send when a gldebug occured
+    EVENT_GLDEBUG_OCCURRED,
+
+    /// @brief send when a status change occured
     EVENT_STATUS_OCCURRED,
 
-    /** @brief Send when the simulation is over;
-        The reason and the time step are stored within the event */
+    /**@brief Send when the simulation is over;
+     * @note The reason and the time step are stored within the event
+    */
     EVENT_SIMULATION_ENDED,
 
-    /** @brief Send when a screenshot is requested;
-        View and file name are stored within the event */
+    /**@brief Send when a screenshot is requested;
+     * @brief View and file name are stored within the event
+     */
     EVENT_SCREENSHOT,
 
-    /// End of events list; use this to define new
+    /// @brief End of events list; use this to define new
     EVENT_END
 };
 
@@ -77,24 +81,21 @@ enum GUIEventType {
  */
 class GUIEvent {
 public:
-    /// returns the event type
+    /// @brief returns the event type
     GUIEventType getOwnType() const {
         return myType;
     }
 
-    /// destructor
+    /// @brief destructor
     virtual ~GUIEvent() { }
 
 protected:
-    /// constructor
-    GUIEvent(GUIEventType ownType)
-        : myType(ownType) { }
+    /// @brief constructor
+    GUIEvent(GUIEventType ownType) :
+        myType(ownType) { }
 
-
-protected:
-    /// the type of the event
+    /// @brief the type of the event
     GUIEventType myType;
-
 };
 
 

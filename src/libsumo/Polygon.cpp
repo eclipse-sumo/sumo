@@ -20,6 +20,7 @@
 // included modules
 // ===========================================================================
 #include <microsim/MSNet.h>
+#include <traci-server/TraCIConstants.h>
 #include <utils/shapes/SUMOPolygon.h>
 #include <utils/shapes/ShapeContainer.h>
 
@@ -27,11 +28,19 @@
 #include "Helper.h"
 
 
-// ===========================================================================
-// member definitions
-// ===========================================================================
 namespace libsumo {
-std::vector<std::string> Polygon::getIDList() {
+// ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Polygon::mySubscriptionResults;
+ContextSubscriptionResults Polygon::myContextSubscriptionResults;
+
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+std::vector<std::string>
+Polygon::getIDList() {
     std::vector<std::string> ids;
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     shapeCont.getPolygons().insertIDs(ids);
@@ -39,40 +48,53 @@ std::vector<std::string> Polygon::getIDList() {
 }
 
 
-std::string Polygon::getType(const std::string& polygonID) {
+int
+Polygon::getIDCount() {
+    return (int)getIDList().size();
+}
+
+
+std::string
+Polygon::getType(const std::string& polygonID) {
     return getPolygon(polygonID)->getShapeType();
 }
 
 
-TraCIPositionVector Polygon::getShape(const std::string& polygonID) {
+TraCIPositionVector
+Polygon::getShape(const std::string& polygonID) {
     SUMOPolygon* p = getPolygon(polygonID);
     return Helper::makeTraCIPositionVector(p->getShape());
 }
 
 
-bool Polygon::getFilled(const std::string& polygonID) {
+bool
+Polygon::getFilled(const std::string& polygonID) {
     return getPolygon(polygonID)->getFill();
 }
 
 
-TraCIColor Polygon::getColor(const std::string& polygonID) {
+TraCIColor
+Polygon::getColor(const std::string& polygonID) {
     SUMOPolygon* p = getPolygon(polygonID);
     return Helper::makeTraCIColor(p->getShapeColor());
 }
 
 
-std::string Polygon::getParameter(const std::string& polygonID, const std::string& paramName) {
+std::string
+Polygon::getParameter(const std::string& polygonID, const std::string& paramName) {
     return getPolygon(polygonID)->getParameter(paramName, "");
 }
 
 
-void Polygon::setType(const std::string& polygonID, const std::string& setType) {
+void
+Polygon::setType(const std::string& polygonID, const std::string& setType) {
     SUMOPolygon* p = getPolygon(polygonID);
     p->setShapeType(setType);
 }
 
 
-void Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& shape) {
+void
+Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& shape) {
     PositionVector positionVector = Helper::makePositionVector(shape);
     getPolygon(polygonID); // just to check whether it exists
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
@@ -80,23 +102,25 @@ void Polygon::setShape(const std::string& polygonID, const TraCIPositionVector& 
 }
 
 
-void Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
+void
+Polygon::setColor(const std::string& polygonID, const TraCIColor& c) {
     getPolygon(polygonID)->setShapeColor(Helper::makeRGBColor(c));
 }
 
 
 void
-Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& c, bool fill, const std::string& type, int layer) {
+Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     PositionVector pShape = Helper::makePositionVector(shape);
-    RGBColor col = Helper::makeRGBColor(c);
-    if (!shapeCont.addPolygon(polygonID, type, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill)) {
+    RGBColor col = Helper::makeRGBColor(color);
+    if (!shapeCont.addPolygon(polygonID, polygonType, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill)) {
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
 }
 
 
-void Polygon::remove(const std::string& polygonID, int /* layer */) {
+void
+Polygon::remove(const std::string& polygonID, int /* layer */) {
     // !!! layer not used yet (shouldn't the id be enough?)
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     if (!shapeCont.removePolygon(polygonID)) {
@@ -128,6 +152,10 @@ Polygon::setParameter(std::string& id, std::string& name, std::string& value) {
     p->setParameter(name, value);
 }
 
+
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Polygon, POLYGON)
+
+
 NamedRTree*
 Polygon::getTree() {
     NamedRTree* t = new NamedRTree();
@@ -140,6 +168,38 @@ Polygon::getTree() {
     }
     return t;
 }
+
+
+void
+Polygon::storeShape(const std::string& id, PositionVector& shape) {
+    shape = getPolygon(id)->getShape();
+}
+
+
+std::shared_ptr<VariableWrapper>
+Polygon::makeWrapper() {
+    return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
+}
+
+
+bool
+Polygon::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+    switch (variable) {
+        case ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_TYPE:
+            return wrapper->wrapString(objID, variable, getType(objID));
+        case VAR_COLOR:
+            return wrapper->wrapColor(objID, variable, getColor(objID));
+        case VAR_FILL:
+            return wrapper->wrapInt(objID, variable, getFilled(objID));
+        default:
+            return false;
+    }
+}
+
 
 }
 

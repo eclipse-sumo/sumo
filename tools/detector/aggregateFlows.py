@@ -58,6 +58,7 @@ def readLines(lines):
             totalFlow[flowDef[0]].add(
                 int(flowDef[1]), int(flowDef[2]), float(flowDef[3]), float(flowDef[4]))
 
+
 optParser = OptionParser(usage="usage: %prog [options] [flow.txt|flows.zip]+")
 optParser.add_option("-d", "--det-file", dest="detfile",
                      help="read detectors of interest from FILE", metavar="FILE")

@@ -11,16 +11,24 @@
 # @date   2017-04-09
 # @version $Id$
 
+import os
+import sys
 
-from simpla._platoonmode import PlatoonMode
-import simpla._reporting as rp
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+from simpla._platoonmode import PlatoonMode  # noqa
+import simpla._reporting as rp  # noqa
 
 warn = rp.Warner("Platoon")
 report = rp.Reporter("Platoon")
 
 
 class Platoon(object):
-    '''    
+    '''
     '''
 
     # static platoon ID counter
@@ -32,7 +40,8 @@ class Platoon(object):
         Create a Platoon object that holds an ordered list of its members, which is inititialized with 'vehicles'.
         Creator is responsible for setting the platoon mode of the vehicles. If registerVehicles is set, the vehicle's
         platoon reference veh._platoon is set to the newly created platoon. 'deltaT' is the control interval provided
-        to give the platoon a sense of time (used for decreasing active speed factor when trying to switch modes unsuccessfully).
+        to give the platoon a sense of time (used for decreasing active speed factor when trying to switch modes
+        unsuccessfully).
         '''
         self._ID = Platoon._nextID
         Platoon._nextID += 1
@@ -175,14 +184,13 @@ class Platoon(object):
 
         else:
             raise ValueError("Unknown PlatoonMode %s" % str(mode))
-        
+
         if rp.VERBOSITY >= 3 and success and not old_mode == mode:
             report("Activated mode {mode} for platoon '{pltnID}' ({pltn_members})".format(
-                               mode=mode, pltnID=self.getID(), pltn_members=str([veh.getID() for veh in self.getVehicles()])))
-        
+                mode=mode, pltnID=self.getID(), pltn_members=str([veh.getID() for veh in self.getVehicles()])))
+
         return success
-            
-    
+
     def adviseMemberModes(self):
         ''' adviseMemberModes() -> void
         Advise all member vehicles to adopt the adequate platoon mode if safely possible.
@@ -224,9 +232,8 @@ class Platoon(object):
             raise ValueError(
                 "Platoon.split(index) expected and index in [1,%d]. Given value: %s" % (self.size(), index))
 
-        splitLeader = self._vehicles[index]
         mode = PlatoonMode.LEADER if (index < self.size() - 1) else PlatoonMode.NONE
-        # splitImpatience = 1. - math.exp(min([0., splitLeader._timeUntilSplit]))
+        # splitImpatience = 1. - math.exp(min([0., self._vehicles[index]._timeUntilSplit]))
         pltn = Platoon(self._vehicles[index:], self._controlInterval, False)
 
         if not pltn.setModeWithImpatience(mode, self._controlInterval):

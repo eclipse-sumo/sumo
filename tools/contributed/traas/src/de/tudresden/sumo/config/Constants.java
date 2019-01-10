@@ -27,6 +27,89 @@ package de.tudresden.sumo.config;
 
 public class Constants {
 	
+	
+	public static final int VAR_EMERGENCYSTOPPING_VEHICLES_IDS = 0x8a;
+	
+	public static final int ROUTING_MODE_EFFORT = 0x02;
+	
+	public static final int FILTER_TYPE_LC_MANEUVER = 0x06;
+	
+	public static final int VAR_NEXT_STOPS = 0x73;
+	
+	public static final int CMD_ADD_SUBSCRIPTION_FILTER = 0x7e;
+	
+	public static final int VAR_TIME = 0x66;
+	
+	public static final int FILTER_TYPE_TURN_MANEUVER = 0x07;
+	
+	public static final int FILTER_TYPE_DOWNSTREAM_DIST = 0x03;
+	
+	public static final int ROUTING_MODE_COMBINED = 0x03;
+	
+	public static final int FILTER_TYPE_UPSTREAM_DIST = 0x04;
+	
+	public static final int VAR_HAS_VIEW = 0xa7;
+			
+	public static final int FILTER_TYPE_LANES = 0x01;
+	
+	public static final int FILTER_TYPE_VTYPE = 0x09;
+	
+	public static final int VAR_ACCELERATION = 0x72;
+	
+	public static final int VAR_COLLIDING_VEHICLES_IDS = 0x81;
+	
+	public static final int VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER = 0x89;
+	
+	public static final int FILTER_TYPE_NONE = 0x00;
+	
+	public static final int VAR_UPDATE_BESTLANES = 0x6a;
+	
+	public static final int FILTER_TYPE_NOOPPOSITE = 0x02;
+	
+	public static final int FILTER_TYPE_CF_MANEUVER = 0x05;
+	
+	public static final int VAR_COLLIDING_VEHICLES_NUMBER = 0x80;
+	
+	public static final int FILTER_TYPE_VCLASS = 0x08;
+	
+	public static final int CMD_REROUTE_TO_PARKING = 0xc2;
+	
+	public static final int  FIND_ROUTE = 0x86;
+	
+	public static final int  VAR_FOES = 0x37;
+	
+	public static final int  DEPARTFLAG_POS_FREE = -0x03;
+	
+	public static final int  VAR_LASTACTIONTIME = 0x7f;
+	
+	public static final int  VAR_ROUTING_MODE = 0x89;
+	
+	public static final int  DEPARTFLAG_POS_LAST = -0x05;
+	
+	public static final int  DEPARTFLAG_POS_RANDOM = -0x02;
+	
+	public static final int  DEPARTFLAG_POS_BASE = -0x04;
+	
+	public static final int  TRACI_VERSION = 18;
+	
+	public static final int  ROUTING_MODE_DEFAULT = 0x00;
+	
+	public static final int  ARRIVALFLAG_LANE_CURRENT = -0x02;
+	
+	public static final int  ARRIVALFLAG_POS_MAX = -0x03;
+	
+	public static final int  ARRIVALFLAG_SPEED_CURRENT = -0x02;
+	
+	public static final int  DEPARTFLAG_POS_RANDOM_FREE = -0x06;
+	
+	public static final int  FIND_INTERMODAL_ROUTE = 0x87;
+	
+	public static final int  VAR_ACTIONSTEPLENGTH = 0x7d;
+	
+	public static final int  ARRIVALFLAG_POS_RANDOM = -0x02;
+	
+	public static final int  ROUTING_MODE_AGGREGATED = 0x01;
+	
 	public static final int CMD_SETORDER = 0x03;
 
 	public static final int COPY = 0x88;

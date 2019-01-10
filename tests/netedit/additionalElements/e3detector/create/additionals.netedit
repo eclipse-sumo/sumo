@@ -1,14 +1,76 @@
-<additionals>
-    <e3Detector id="e3Detector_1" file="e3Detector_1.xml" pos="21.00,4.00">
-        <detEntry lane="gneE1_0" pos="35.00"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 15.08.2018 19:02:52 by Eclipse SUMO netedit Version 7d8cd284aa
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/additionalElements/e3detector/create\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/additionalElements/e3detector/create\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/additionalElements/e3detector/create\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/additionalElements/e3detector/create\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/additionalElements/e3detector/create\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.15Aug181211.2488/netedit.gui/additionalElements/e3detector/create\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e3Detector id="e3Detector_1" pos="17.00,4.00" freq="900.00" file="e3Detector_1.xml">
+        <detEntry lane="gneE1_0" pos="33.00"/>
+        <detExit lane="gneE0_5" pos="17.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_2" freq="150.00" file="e3Detector_2.xml" pos="24.00,4.00">
-        <detEntry lane="gneE0_0" pos="21.00"/>
+    <e3Detector id="e3Detector_2" pos="21.00,4.00" freq="150.00" file="e3Detector_2.xml">
+        <detEntry lane="gneE0_6" pos="21.00"/>
+        <detExit lane="gneE0_4" pos="21.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_3" freq="150.00" file="e3Detector_3.xml" timeThreshold="5.00" pos="28.00,4.00">
-        <detEntry lane="gneE1_0" pos="24.00"/>
+    <e3Detector id="e3Detector_3" name="customName" pos="22.00,6.00" freq="150.00" file="e3Detector_3.xml">
+        <detEntry lane="gneE1_0" pos="28.00"/>
+        <detExit lane="gneE0_5" pos="22.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_4" freq="150.00" file="e3Detector_4.xml" timeThreshold="5.00" speedThreshold="-3.80" pos="31.00,4.00">
-        <detEntry lane="gneE0_0" pos="31.00"/>
+    <e3Detector id="e3Detector_4" name="customName" pos="24.00,4.00" freq="150.00" file="myOwnFile.txt">
+        <detEntry lane="gneE0_6" pos="24.00"/>
+        <detExit lane="gneE0_4" pos="24.00"/>
     </e3Detector>
-</additionals>
+    <e3Detector id="e3Detector_7" name="customName" vTypes="private passenger taxi bus" pos="31.00,4.00" freq="150.00" file="myOwnFile.txt" timeThreshold="5.00" speedThreshold="2.51">
+        <detEntry lane="gneE0_6" pos="31.00"/>
+        <detExit lane="gneE0_4" pos="31.00"/>
+    </e3Detector>
+    <e3Detector id="e3Detector_8" name="customName" vTypes="private passenger taxi bus" pos="35.00,4.00" freq="150.00" file="myOwnFile.txt" timeThreshold="5.00" speedThreshold="2.51">
+        <detEntry lane="gneE1_0" pos="15.00"/>
+        <detExit lane="gneE0_5" pos="35.00"/>
+    </e3Detector>
+</additional>

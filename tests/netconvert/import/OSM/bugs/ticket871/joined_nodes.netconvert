@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr 18 16:45:45 2018 by Eclipse SUMO netconvert Version 4b5eff6
+<!-- generated on Wed Aug 15 16:12:40 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,16 +22,19 @@ SPDX-License-Identifier: EPL-2.0
         <proj.utm value="true"/>
     </projection>
 
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
     <edge_removal>
         <keep-edges.by-vclass value="passenger"/>
     </edge_removal>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
-        <geometry.remove value="true"/>
         <junctions.join value="true"/>
         <junctions.join-dist value="5"/>
-    </processing>
+    </junctions>
 
     <report>
         <xml-validation value="never"/>
@@ -40,6 +43,5 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<nodes version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <join nodes="442733 613378773"/>
+<nodes version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
 </nodes>

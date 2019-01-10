@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <limits>
 #include "Position.h"
@@ -42,13 +38,13 @@ const Position Position::INVALID(
     - 1024 * 1024 * 1024);
 
 
-Position 
+Position
 Position::rotateAround2D(double rad, const Position& origin) {
     const double s = sin(rad);
     const double c = cos(rad);
     Position p = (*this) - origin;
     return Position(
-            p.x() * c - p.y() * s,
-            p.x() * s + p.y() * c) + origin;
+               p.x() * c - p.y() * s,
+               p.x() * s + p.y() * c) + origin;
 
-} 
+}

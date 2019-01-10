@@ -1,14 +1,54 @@
-<additionals>
-    <vType id="typeWithoutCalibrator" accel="0.80" color="black" vClass="private" guiShape="" imgFile="default.png"/>
-    <calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" output="calibratorRoutes.txt">
-        <route id="route01" edges="gneE0 gneE1" color="black"/>
-        <route id="route02" edges="gneE0 gneE1" color="black"/>
-        <route id="route06" edges="gneE0 gneE0" color="black"/>
-        <route id="route07" edges="gneE1 gneE0" color="black"/>
-        <route id="route08" edges="gneE1 gneE0"/>
-        <route id="route09" edges="gneE1 gneE0"/>
-        <route id="route10" edges="gneE1 gneE0"/>
-        <route id="route11" edges="gneE1 gneE0" color="white"/>
-        <route id="routeWithoutCalibrator" edges="gneE0 gneE1" color="black"/>
-    </calibrator>
-</additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 27.06.2018 18:11:59 by Eclipse SUMO netedit Version 88bb7b0b92
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Jun154751.2092/netedit.gui/additionalElements/lanecalibrator/load_values_routes\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Jun154751.2092/netedit.gui/additionalElements/lanecalibrator/load_values_routes\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Jun154751.2092/netedit.gui/additionalElements/lanecalibrator/load_values_routes\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Jun154751.2092/netedit.gui/additionalElements/lanecalibrator/load_values_routes\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Jun154751.2092/netedit.gui/additionalElements/lanecalibrator/load_values_routes\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Jun154751.2092/netedit.gui/additionalElements/lanecalibrator/load_values_routes\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Jun154751.2092/netedit.gui/additionalElements/lanecalibrator/load_values_routes\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="typeWithoutCalibrator" accel="0.80" vClass="private" color="black" imgFile="default.png"/>
+    <route id="route01" edges="gneE0 gneE1" color="black"/>
+    <route id="route02" edges="gneE0 gneE1" color="black"/>
+    <route id="route06" edges="gneE0 gneE0" color="black"/>
+    <route id="route07" edges="gneE1 gneE0" color="black"/>
+    <route id="route08" edges="gneE1 gneE0"/>
+    <route id="route09" edges="gneE1 gneE0"/>
+    <route id="route10" edges="gneE1 gneE0"/>
+    <route id="route11" edges="gneE1 gneE0" color="white"/>
+    <route id="routeWithoutCalibrator" edges="gneE0 gneE1" color="black"/>
+    <calibrator id="calibratorRoutes" lane="gneE0_0" pos="0.00" output="calibratorRoutes.txt"/>
+</additional>

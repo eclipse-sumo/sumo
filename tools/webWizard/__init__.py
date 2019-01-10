@@ -13,4 +13,4 @@
 
 from __future__ import absolute_import
 
-from . import SimpleWebSocketServer
+from . import SimpleWebSocketServer  # noqa

@@ -1,4 +1,45 @@
-<additionals>
-    <e1Detector id="E1_A" lane="gneE0_0" pos="6.00" freq="20.00" file="e1Detector_01.txt" vTypes="taxi passenger" friendlyPos="1"/>
-    <e1Detector id="E1_B" lane="gneE0_0" pos="10.00" freq="20.00" file="e1Detector_01.txt" vTypes="taxi passenger" friendlyPos="1"/>
-</additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10.07.2018 09:15:23 by Eclipse SUMO netedit Version 88bb7b0b92
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Jul161900.2988/netedit.gui/additionalElements/e1detector/inspect_selection\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Jul161900.2988/netedit.gui/additionalElements/e1detector/inspect_selection\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Jul161900.2988/netedit.gui/additionalElements/e1detector/inspect_selection\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Jul161900.2988/netedit.gui/additionalElements/e1detector/inspect_selection\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Jul161900.2988/netedit.gui/additionalElements/e1detector/inspect_selection\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Jul161900.2988/netedit.gui/additionalElements/e1detector/inspect_selection\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_09Jul161900.2988/netedit.gui/additionalElements/e1detector/inspect_selection\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e1Detector id="E1_A" name="customName" vTypes="Type1 Type2 Type3" lane="gneE0_0" pos="6.00" freq="120.00" file="myOwnOutput.txt" friendlyPos="1"/>
+    <e1Detector id="E1_B" name="customName" vTypes="Type1 Type2 Type3" lane="gneE0_0" pos="10.00" freq="120.00" file="myOwnOutput.txt" friendlyPos="1"/>
+</additional>

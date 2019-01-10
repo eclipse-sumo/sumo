@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "MSCFModel_KraussOrig1.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -43,15 +39,9 @@
 class MSCFModel_Krauss : public MSCFModel_KraussOrig1 {
 public:
     /** @brief Constructor
-     * @param[in] accel The maximum acceleration
-     * @param[in] decel The maximum deceleration
-     * @param[in] emergencyDecel The maximum emergency deceleration
-     * @param[in] apparentDecel The deceleration as expected by others
-     * @param[in] dawdle The driver imperfection
-     * @param[in] headwayTime The driver's desired headway
+     *  @param[in] vtype the type for which this model is built and also the parameter object to configure this model
      */
-    MSCFModel_Krauss(const MSVehicleType* vtype, double accel, double decel,
-                     double emergencyDecel, double apparentDecel, double dawdle, double headwayTime);
+    MSCFModel_Krauss(const MSVehicleType* vtype);
 
 
     /// @brief Destructor
@@ -78,6 +68,7 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
+     * @param[in] pred The leading vehicle (LEADER)
      * @return EGO's safe speed
      */
     double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;

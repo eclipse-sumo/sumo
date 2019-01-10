@@ -7,6 +7,7 @@
 
     <processing>
         <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>

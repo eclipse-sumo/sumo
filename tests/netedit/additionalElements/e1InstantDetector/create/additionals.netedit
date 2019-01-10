@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08.08.2018 20:15:51 by Eclipse SUMO netedit Version 380f78341d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1InstantDetector/create\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1InstantDetector/create\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1InstantDetector/create\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1InstantDetector/create\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1InstantDetector/create\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug190046.2892/netedit.gui/additionalElements/e1InstantDetector/create\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_0" lane="gneE0_0" pos="7.00" file="instantInductionLoop_gneE0_0_0.xml"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_1" name="customName" lane="gneE0_0" pos="12.00" file="instantInductionLoop_gneE0_0_1.xml"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_2" name="customName" lane="gneE0_0" pos="22.00" file="myOwnFilename.txt"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_3" name="customName" vTypes="%%;$$$ %%$$ type.3" lane="gneE0_0" pos="32.00" file="myOwnFilename.txt"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_4" name="customName" vTypes="private passenger taxi bus" lane="gneE0_0" pos="37.00" file="myOwnFilename.txt" friendlyPos="1"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_5" name="customName" vTypes="private passenger taxi bus" lane="gneE0_0" pos="42.00" file="myOwnFilename.txt" friendlyPos="1"/>
+</additional>

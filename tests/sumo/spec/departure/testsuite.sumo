@@ -25,6 +25,10 @@ lane_allowed_3veh
 # checks using a free allowed lane on a multimodal edge (3 vehicles)
 lane_allowed_3veh_multimodal
 
+# checks using a free allowed lane on a multimodal edge (3 vehicles)
+# with modified emergency decel value
+lane_allowed_3veh_multimodal_emergencyDecel
+
 # checks using the given lane (lane 0)
 lane_given0
 

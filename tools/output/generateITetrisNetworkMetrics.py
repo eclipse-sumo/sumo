@@ -18,14 +18,14 @@ from __future__ import print_function
 from optparse import OptionParser
 import os
 import sys
-from numpy import *
+import numpy
 from xml.sax import make_parser, handler
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net
+import sumolib.net  # noqa
 
 
 def quantil(a, alpha):
-    asort = sort(a)
+    asort = numpy.sort(a)
     n = len(asort)
     j = int(n * alpha)
     if (j * alpha == n):
@@ -112,7 +112,6 @@ def getAvgNrLanesPerStreet(netfile):
 
 
 def getRouteDistributions(vehroutesFile):
-    vehicles = []
     parser = make_parser()
     viReader = VehRoutesReader()
     parser.setContentHandler(viReader)
@@ -175,28 +174,28 @@ def getBasicStats(vehicles):
     assignments['totalPMx'] = sum(aPMx)
     assignments['totalNOx'] = sum(aNOx)
 
-    assignments['avgTravelTime'] = mean(aTravelTime)
-    assignments['avgTravelLength'] = mean(aTravelLength)
-    assignments['avgTravelSpeed'] = mean(aTravelSpeed)
-    assignments['avgDepartDelay'] = mean(aDepartDelay)
-    assignments['avgWaitTime'] = mean(aWaitTime)
-    assignments['avgFuelConsumption'] = mean(aFuelConsumption)
-    assignments['avgCO'] = mean(aCO)
-    assignments['avgCO2'] = mean(aCO2)
-    assignments['avgHC'] = mean(aHC)
-    assignments['avgPMx'] = mean(aPMx)
-    assignments['avgNOx'] = mean(aNOx)
+    assignments['avgTravelTime'] = numpy.mean(aTravelTime)
+    assignments['avgTravelLength'] = numpy.mean(aTravelLength)
+    assignments['avgTravelSpeed'] = numpy.mean(aTravelSpeed)
+    assignments['avgDepartDelay'] = numpy.mean(aDepartDelay)
+    assignments['avgWaitTime'] = numpy.mean(aWaitTime)
+    assignments['avgFuelConsumption'] = numpy.mean(aFuelConsumption)
+    assignments['avgCO'] = numpy.mean(aCO)
+    assignments['avgCO2'] = numpy.mean(aCO2)
+    assignments['avgHC'] = numpy.mean(aHC)
+    assignments['avgPMx'] = numpy.mean(aPMx)
+    assignments['avgNOx'] = numpy.mean(aNOx)
 
-    assignments['SDTravelTime'] = std(aTravelTime)
-    assignments['SDLength'] = std(aTravelLength)
-    assignments['SDSpeed'] = std(aTravelSpeed)
-    assignments['SDWaitTime'] = std(aWaitTime)
-    assignments['SDFuelConsumption'] = std(aFuelConsumption)
-    assignments['SDCO'] = std(aCO)
-    assignments['SDCO2'] = std(aCO2)
-    assignments['SDHC'] = std(aHC)
-    assignments['SDPMx'] = std(aPMx)
-    assignments['SDNOx'] = std(aNOx)
+    assignments['SDTravelTime'] = numpy.std(aTravelTime)
+    assignments['SDLength'] = numpy.std(aTravelLength)
+    assignments['SDSpeed'] = numpy.std(aTravelSpeed)
+    assignments['SDWaitTime'] = numpy.std(aWaitTime)
+    assignments['SDFuelConsumption'] = numpy.std(aFuelConsumption)
+    assignments['SDCO'] = numpy.std(aCO)
+    assignments['SDCO2'] = numpy.std(aCO2)
+    assignments['SDHC'] = numpy.std(aHC)
+    assignments['SDPMx'] = numpy.std(aPMx)
+    assignments['SDNOx'] = numpy.std(aNOx)
 
     assignments['quartil25TravelTime'] = quantil(aTravelTime, 0.25)
     assignments['quartil25Length'] = quantil(aTravelLength, 0.25)
@@ -442,26 +441,36 @@ def getCSVOutput(assignments, path, veh_types, interval):
         for f in files:
             f.write('[' + str(t) + ':' + str(t + interval - 1) + '];')
         for veh_type in assignments[t].itervalues():
-            f_mean_travel_time.write(str(veh_type['avgTravelTime']) + ";" + str(veh_type['SDTravelTime']) + ";" + str(veh_type[
-                                     'quartil25TravelTime']) + ";" + str(veh_type['medianTravelTime']) + ";" + str(veh_type['quartil75TravelTime']) + ";")
-            f_mean_speed.write(str(veh_type['avgTravelSpeed']) + ";" + str(veh_type['SDSpeed']) + ";" + str(
-                veh_type['quartil25Speed']) + ";" + str(veh_type['medianSpeed']) + ";" + str(veh_type['quartil75Speed']) + ";")
-            f_mean_waiting_time.write(str(veh_type['avgWaitTime']) + ";" + str(veh_type['SDWaitTime']) + ";" + str(veh_type[
-                                      'quartil25WaitTime']) + ";" + str(veh_type['medianWaitTime']) + ";" + str(veh_type['quartil75WaitTime']) + ";")
-            f_mean_distance_travelled.write(str(veh_type['avgTravelLength']) + ";" + str(veh_type['SDLength']) + ";" + str(
-                veh_type['quartil25Length']) + ";" + str(veh_type['medianLength']) + ";" + str(veh_type['quartil75Length']) + ";")
-            f_mean_fuel_consumption.write(str(veh_type['avgFuelConsumption']) + ";" + str(veh_type['SDFuelConsumption']) + ";" + str(veh_type[
-                                          'quartil25FuelConsumption']) + ";" + str(veh_type['medianFuelConsumption']) + ";" + str(veh_type['quartil75FuelConsumption']) + ";")
+            f_mean_travel_time.write(str(veh_type['avgTravelTime']) + ";" + str(veh_type['SDTravelTime']) + ";" +
+                                     str(veh_type['quartil25TravelTime']) + ";" + str(veh_type['medianTravelTime']) +
+                                     ";" + str(veh_type['quartil75TravelTime']) + ";")
+            f_mean_speed.write(str(veh_type['avgTravelSpeed']) + ";" + str(veh_type['SDSpeed']) + ";" +
+                               str(veh_type['quartil25Speed']) + ";" + str(veh_type['medianSpeed']) + ";" +
+                               str(veh_type['quartil75Speed']) + ";")
+            f_mean_waiting_time.write(str(veh_type['avgWaitTime']) + ";" + str(veh_type['SDWaitTime']) + ";" +
+                                      str(veh_type['quartil25WaitTime']) + ";" + str(veh_type['medianWaitTime']) +
+                                      ";" + str(veh_type['quartil75WaitTime']) + ";")
+            f_mean_distance_travelled.write(str(veh_type['avgTravelLength']) + ";" + str(veh_type['SDLength']) + ";" +
+                                            str(veh_type['quartil25Length']) + ";" + str(veh_type['medianLength']) +
+                                            ";" + str(veh_type['quartil75Length']) + ";")
+            f_mean_fuel_consumption.write(str(veh_type['avgFuelConsumption']) + ";" +
+                                          str(veh_type['SDFuelConsumption']) + ";" +
+                                          str(veh_type['quartil25FuelConsumption']) + ";" +
+                                          str(veh_type['medianFuelConsumption']) + ";" +
+                                          str(veh_type['quartil75FuelConsumption']) + ";")
             f_mean_CO_emissions.write(str(veh_type['avgCO']) + ";" + str(veh_type['SDCO']) + ";" + str(
                 veh_type['quartil25CO']) + ";" + str(veh_type['medianCO']) + ";" + str(veh_type['quartil75CO']) + ";")
             f_mean_CO2_emissions.write(str(veh_type['avgCO2']) + ";" + str(veh_type['SDCO2']) + ";" + str(
-                veh_type['quartil25CO2']) + ";" + str(veh_type['medianCO2']) + ";" + str(veh_type['quartil75CO2']) + ";")
+                veh_type['quartil25CO2']) + ";" + str(veh_type['medianCO2']) + ";" + str(
+                veh_type['quartil75CO2']) + ";")
             f_mean_HC_emissions.write(str(veh_type['avgHC']) + ";" + str(veh_type['SDHC']) + ";" + str(
                 veh_type['quartil25HC']) + ";" + str(veh_type['medianHC']) + ";" + str(veh_type['quartil75HC']) + ";")
             f_mean_PMx_emissions.write(str(veh_type['avgPMx']) + ";" + str(veh_type['SDPMx']) + ";" + str(
-                veh_type['quartil25PMx']) + ";" + str(veh_type['medianPMx']) + ";" + str(veh_type['quartil75PMx']) + ";")
+                veh_type['quartil25PMx']) + ";" + str(veh_type['medianPMx']) + ";" + str(
+                veh_type['quartil75PMx']) + ";")
             f_mean_NOx_emissions.write(str(veh_type['avgNOx']) + ";" + str(veh_type['SDNOx']) + ";" + str(
-                veh_type['quartil25NOx']) + ";" + str(veh_type['medianNOx']) + ";" + str(veh_type['quartil75NOx']) + ";")
+                veh_type['quartil25NOx']) + ";" + str(veh_type['medianNOx']) + ";" + str(
+                veh_type['quartil75NOx']) + ";")
             f_abs_travel_time.write(str(veh_type['totalTravelTime']) + ";")
             f_abs_waiting_time.write(str(veh_type['totalWaitTime']) + ";")
             f_abs_distance_travelled.write(
@@ -480,19 +489,26 @@ def getCSVOutput(assignments, path, veh_types, interval):
     for f in files:
         f.close()
 
+
 # initialise
 optParser = OptionParser()
 optParser.add_option("-n", "--netfile", dest="netfile",
-                     help="name of the netfile (f.e. 'inputs\\pasubio\\a_costa.net.xml')", metavar="<FILE>", type="string")
+                     help="name of the netfile (f.e. 'inputs\\pasubio\\a_costa.net.xml')",
+                     metavar="<FILE>", type="string")
 optParser.add_option("-p", "--path", dest="path",
                      help="name of folder to work with (f.e. 'outputs\\a_costa\\')", metavar="<FOLDER>", type="string")
 optParser.add_option("-t", "--vehicle-types", dest="vehicle_types",
-                     help="vehicle-types for which the values shall be generated", metavar="<VEHICLE_TYPE>[,<VEHICLE_TYPE>]", type="string")
+                     help="vehicle-types for which the values shall be generated",
+                     metavar="<VEHICLE_TYPE>[,<VEHICLE_TYPE>]", type="string")
 optParser.add_option("-i", "--intervals", dest="interval",
-                     help="intervals to be generated ([0:<TIME>-1], [<TIME>:2*<TIME>-1], ...)", metavar="<TIME>", type="int")
+                     help="intervals to be generated ([0:<TIME>-1], [<TIME>:2*<TIME>-1], ...)",
+                     metavar="<TIME>", type="int")
 
-optParser.set_usage('\ngenerateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ -t passenger2a,passenger5,passenger1,passenger2b,passenger3,passenger4 -i 500 \n' +
-                    'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ -i 500\n' + 'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\')
+optParser.set_usage('\ngenerateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ -t ' +
+                    'passenger2a,passenger5,passenger1,passenger2b,passenger3,passenger4 -i 500 \n' +
+                    'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml -p outputs\\a_costa\\ ' +
+                    '-i 500\n' + 'generateITetrisNetworkMetrics.py -n inputs\\a_costa\\acosta.net.xml ' +
+                    '-p outputs\\a_costa\\')
 # parse options
 (options, args) = optParser.parse_args()
 if not options.netfile or not options.path:

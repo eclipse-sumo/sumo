@@ -1,18 +1,61 @@
-<additionals>
-    <e3Detector id="e3Detector_0" file="e3Detector_0.txt" pos="37.00,39.00">
-        <detEntry lane="3_1" pos="23.34"/>
-        <detExit lane="3_2" pos="3.89"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 24.06.2018 18:06:10 by Eclipse SUMO netedit Version 7725fee923
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\input_additionals.add.xml"/>
+        <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\input_shapes.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="0"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="false"/>
+    </processing>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/selection/select_lockselection\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e3Detector id="e3Detector_0" pos="37.00,39.00" freq="100.00" file="e3Detector_0.txt">
+        <detEntry lane="3_1" pos="30.00"/>
+        <detExit lane="3_2" pos="5.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_1" file="e3Detector_1.txt" pos="62.00,62.00">
-        <detEntry lane="8_1" pos="27.23"/>
-        <detExit lane="8_2" pos="7.78"/>
+    <e3Detector id="e3Detector_1" pos="62.00,62.00" freq="100.00" file="e3Detector_1.txt">
+        <detEntry lane="8_1" pos="35.00"/>
+        <detExit lane="8_2" pos="10.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_2" file="e3Detector_2.txt" pos="62.00,65.00">
-        <detEntry lane="4_1" pos="23.34"/>
-        <detExit lane="4_2" pos="3.89"/>
+    <e3Detector id="e3Detector_2" pos="62.00,65.00" freq="100.00" file="e3Detector_2.txt">
+        <detEntry lane="4_1" pos="30.00"/>
+        <detExit lane="4_2" pos="5.00"/>
     </e3Detector>
-    <e3Detector id="e3Detector_3" file="e3Detector_3.txt" pos="37.00,36.00">
-        <detEntry lane="7_1" pos="27.23"/>
-        <detExit lane="7_2" pos="7.78"/>
+    <e3Detector id="e3Detector_3" pos="37.00,36.00" freq="100.00" file="e3Detector_3.txt">
+        <detEntry lane="7_1" pos="35.00"/>
+        <detExit lane="7_2" pos="10.00"/>
     </e3Detector>
-</additionals>
+</additional>

@@ -24,11 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <set>
@@ -137,7 +133,7 @@ public:
         UNUSED_PARAMETER(onlyOne);
     }
     virtual void drawAction_drawLinkItems(const GUIVisualizationSettings& /*s*/) const {}
-    virtual void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& /*s*/) const {}
+    virtual void drawAction_drawPersonsAndContainers(const GUIVisualizationSettings& s) const;
     /** @brief Draws the vehicle's best lanes */
     virtual void drawBestLanes() const {};
     virtual void drawAction_drawVehicleBlueLight() const {}

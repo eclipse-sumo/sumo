@@ -25,11 +25,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <map>
@@ -63,6 +59,11 @@ class NBPTStopCont;
  */
 class NBNodeCont {
 public:
+    /// @brief Definition of a node cluster container
+    typedef std::set<NBNode*, ComparatorIdLess> NodeSet;
+    typedef std::vector<NodeSet> NodeClusters;
+    typedef std::pair<NBNode*, double> NodeAndDist;
+
     /// @brief Constructor
     NBNodeCont();
 
@@ -142,17 +143,17 @@ public:
     /// @brief Joins junctions that are very close together
     int joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBPTStopCont& sc);
 
-    /// @brief remove geometry-like fringe nodes from cluster 
-    void pruneClusterFringe(std::set<NBNode*>& cluster) const; 
+    /// @brief remove geometry-like fringe nodes from cluster
+    void pruneClusterFringe(NodeSet& cluster) const;
 
     /// @brief determine wether the cluster is not too complex for joining
-    bool feasibleCluster(const std::set<NBNode*>& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const; 
+    bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;
 
     /// @brief try to find a joinable subset (recursively)
-    bool reduceToCircle(std::set<NBNode*>& cluster, int circleSize, std::set<NBNode*> startNodes, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
+    bool reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
 
     /// @brief find closest neighbor for building circle
-    NBEdge* shortestEdge(const std::set<NBNode*>& cluster, const std::set<NBNode*>& startNodes, const std::vector<NBNode*>& exclude) const; 
+    NBEdge* shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, const std::vector<NBNode*>& exclude) const;
     /// @}
 
     /// @name Adapting the input
@@ -282,10 +283,11 @@ public:
      * @param[out] hasTLS Whether the new node has a traffic light
      * @param[out] tlType The type of traffic light (if any)
      */
-    void analyzeCluster(std::set<NBNode*> cluster, std::string& id, Position& pos, bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType);
+    void analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
+                        bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
-    void registerJoinedCluster(const std::set<NBNode*>& cluster);
+    void registerJoinedCluster(const NodeSet& cluster);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     const std::vector<std::set<std::string> >& getJoinedClusters() const {
@@ -297,6 +299,10 @@ public:
      */
     void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals);
 
+    /* @brief discards rail signals
+     */
+    void discardRailSignals();
+
     /// @brief mark a node as being created form a split
     void markAsSplit(const NBNode* node) {
         mySplit.insert(node);
@@ -306,9 +312,6 @@ public:
     int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
 
 private:
-    /// @brief Definition of a node cluster container
-    typedef std::vector<std::set<NBNode*> > NodeClusters;
-    typedef std::pair<NBNode*, double> NodeAndDist;
 
     /// @name Helper methods for for joining nodes
     /// @{
@@ -332,7 +335,7 @@ private:
      * @param[in] c The node cluster
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const std::set<NBNode*>& c) const;
+    bool shouldBeTLSControlled(const NodeSet& c) const;
     /// @}
 
 

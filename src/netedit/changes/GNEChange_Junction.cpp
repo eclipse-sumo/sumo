@@ -18,11 +18,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
@@ -57,9 +53,7 @@ GNEChange_Junction::~GNEChange_Junction() {
     myJunction->decRef("GNEChange_Junction");
     if (myJunction->unreferenced()) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_Junction");
-        }
+        WRITE_DEBUG("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_Junction");
         delete myJunction;
     }
 }
@@ -69,16 +63,12 @@ void
 GNEChange_Junction::undo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // add junction to net
         myNet->deleteSingleJunction(myJunction);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // delete junction from net
         myNet->insertJunction(myJunction);
     }
@@ -87,7 +77,7 @@ GNEChange_Junction::undo() {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 
@@ -95,16 +85,12 @@ void
 GNEChange_Junction::redo() {
     if (myForward) {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Adding " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // add junction into net
         myNet->insertJunction(myJunction);
     } else {
         // show extra information for tests
-        if (OptionsCont::getOptions().getBool("gui-testing-debug")) {
-            WRITE_WARNING("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
-        }
+        WRITE_DEBUG("Removing " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete junction from net
         myNet->deleteSingleJunction(myJunction);
     }
@@ -113,7 +99,7 @@ GNEChange_Junction::redo() {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
     }
     // enable save netElements
-    myNet->requiereSaveNet();
+    myNet->requiereSaveNet(true);
 }
 
 

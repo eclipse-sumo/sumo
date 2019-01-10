@@ -31,11 +31,11 @@ def _readLinks(result):
         result.read("!B")                           # Type String
         approachedInternal = result.readString()
         result.read("!B")                           # Type Byte
-        hasPrio = bool(result.read("!B"))
+        hasPrio = bool(result.read("!B")[0])
         result.read("!B")                           # Type Byte
-        isOpen = bool(result.read("!B"))
+        isOpen = bool(result.read("!B")[0])
         result.read("!B")                           # Type Byte
-        hasFoe = bool(result.read("!B"))
+        hasFoe = bool(result.read("!B")[0])
         result.read("!B")                           # Type String
         state = result.readString()
         result.read("!B")                           # Type String
@@ -52,7 +52,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
                       tc.VAR_WIDTH: Storage.readDouble,
                       tc.LANE_ALLOWED: Storage.readStringList,
                       tc.LANE_DISALLOWED: Storage.readStringList,
-                      tc.LANE_LINK_NUMBER: lambda result: result.read("!B")[0],
+                      tc.LANE_LINK_NUMBER: Storage.readInt,
                       tc.LANE_LINKS: _readLinks,
                       tc.VAR_SHAPE: Storage.readShape,
                       tc.LANE_EDGE_ID: Storage.readString,
@@ -272,16 +272,16 @@ class LaneDomain(Domain):
         Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
         """
         self._connection._beginMessage(
-                tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID, 1 + 4 + len(toLaneID))
+            tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID, 1 + 4 + len(toLaneID))
         self._connection._packString(toLaneID)
         return Storage.readStringList(
-                self._connection._checkResult(tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID))
+            self._connection._checkResult(tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID))
 
     def getInternalFoes(self, laneID):
         """getFoes(string) -> list(string)
         Returns the ids of internal lanes that are in conflict with the given internal lane id
         """
-        return getFoes(laneID, "")
+        return self.getFoes(laneID, "")
 
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None

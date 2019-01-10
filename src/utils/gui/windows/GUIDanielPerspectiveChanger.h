@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <utils/geom/Position.h>
 #include "GUIPerspectiveChanger.h"
@@ -100,7 +96,7 @@ public:
     /// @brief Alternative method for setting the viewport
     void setViewportFrom(double xPos, double yPos, double zPos);
 
-    /// @brief Sets the rotation 
+    /// @brief Sets the rotation
     void setRotation(double rotation);
 
     /* @brief Adapts the viewport so that a change in canvass size keeps most of the

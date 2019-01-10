@@ -216,7 +216,7 @@ class Edge:
     def allows(self, vClass):
         """true if this edge has a lane which allows the given vehicle class"""
         for lane in self._lanes:
-            if vClass in lane._allowed:
+            if lane.allows(vClass):
                 return True
         return False
 

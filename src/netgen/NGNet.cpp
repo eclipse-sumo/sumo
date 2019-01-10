@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <stdlib.h>
@@ -47,11 +43,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NGNet::NGNet(NBNetBuilder& nb) : 
+NGNet::NGNet(NBNetBuilder& nb) :
     myLastID(0),
     myAlphaIDs(OptionsCont::getOptions().getBool("alphanumerical-ids")),
-    myNetBuilder(nb)
-{
+    myNetBuilder(nb) {
 }
 
 
@@ -81,11 +76,11 @@ NGNet::findNode(int xID, int yID) {
     return 0;
 }
 
-std::string 
+std::string
 NGNet::alphabeticalCode(int i, int iMax) {
     // lazy mans 26th root to determine number of characters for x-label
     int xn = 1;
-    for (;std::pow(26, xn) < iMax; xn++) {};
+    for (; std::pow(26, xn) < iMax; xn++) {};
     std::string result = "";
     for (int j = 0; j < xn; j++) {
         result = char('A' + (i % 26)) + result;
@@ -175,9 +170,9 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
         const std::string nodeIDStart = alphabeticalCode(ic, numCircles);
         for (ir = 1; ir < numRadDiv + 1; ir++) {
             // create Node
-            const std::string nodeID = (myAlphaIDs ? 
-                    nodeIDStart + toString<int>(ir) :
-                    toString<int>(ir) + "/" + toString<int>(ic));
+            const std::string nodeID = (myAlphaIDs ?
+                                        nodeIDStart + toString<int>(ir) :
+                                        toString<int>(ir) + "/" + toString<int>(ic));
             Node = new NGNode(nodeID, ir, ic);
             Node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
             Node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
@@ -238,7 +233,7 @@ NGNet::toNB() const {
         for (NBEdge* e : node->getIncomingEdges()) {
             if (node->getConnectionTo(e->getFromNode()) == 0 && RandHelper::rand() <= bidiProb) {
                 NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getSpeed(""), 
+                                          "", myNetBuilder.getTypeCont().getSpeed(""),
                                           e->getNumLanes(),
                                           e->getPriority(),
                                           myNetBuilder.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET);
@@ -248,6 +243,7 @@ NGNet::toNB() const {
     }
     // add splits depending on turn-lane options
     const int turnLanes = OptionsCont::getOptions().getInt("turn-lanes");
+    const bool lefthand =  OptionsCont::getOptions().getBool("lefthand");
     if (turnLanes > 0) {
         const double turnLaneLength = OptionsCont::getOptions().getFloat("turn-lanes.length");
         NBEdgeCont& ec = myNetBuilder.getEdgeCont();
@@ -269,8 +265,9 @@ NGNet::toNB() const {
             split.node = new NBNode(e->getID() + "." + toString(split.pos), e->getGeometry().positionAtOffset(split.pos));
             split.idBefore = e->getID();
             split.idAfter = split.node->getID();
+            split.offsetFactor = lefthand ? -1 : 1;
             if (turnLaneLength <= e->getLength() / 2) {
-                split.offset = -0.5 * turnLanes * e->getLaneWidth(0);
+                split.offset = -0.5 * split.offsetFactor * turnLanes * e->getLaneWidth(0);
                 if (e->getFromNode()->geometryLike()) {
                     // shift the reverse direction explicitly as it will not get a turn lane
                     NBEdge* reverse = 0;
@@ -287,10 +284,10 @@ NGNet::toNB() const {
                 }
             }
             splits.push_back(split);
-            ec.processSplits(e, splits, 
-                    myNetBuilder.getNodeCont(),
-                    myNetBuilder.getDistrictCont(),
-                    myNetBuilder.getTLLogicCont());
+            ec.processSplits(e, splits,
+                             myNetBuilder.getNodeCont(),
+                             myNetBuilder.getDistrictCont(),
+                             myNetBuilder.getTLLogicCont());
         }
     }
 }

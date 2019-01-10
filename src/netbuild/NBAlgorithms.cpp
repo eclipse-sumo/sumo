@@ -20,11 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <sstream>
 #include <iostream>
@@ -243,6 +239,20 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc) {
     }
 }
 
+
+bool
+NBNodeTypeComputer::isRailwayNode(NBNode* n) {
+    int numRailway = 0;
+    int numNonRailway = 0;
+    for (NBEdge* e : n->getIncomingEdges()) {
+        if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
+            numNonRailway++;
+        } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
+            numRailway++;
+        }
+    }
+    return numRailway > 0 && numNonRailway == 0;
+}
 
 // ---------------------------------------------------------------------------
 // NBEdgePriorityComputer

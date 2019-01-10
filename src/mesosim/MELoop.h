@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <vector>
 #include <map>
@@ -138,6 +134,9 @@ private:
      * @param[in] toSegment The first segment where the vehicle may reenter the network
      */
     void teleportVehicle(MEVehicle* veh, MESegment* const toSegment);
+
+    /// @brief whether the given edge is entering a roundabout
+    static bool isEnteringRoundabout(const MSEdge& e);
 
 private:
     /// @brief leader cars in the segments sorted by exit time

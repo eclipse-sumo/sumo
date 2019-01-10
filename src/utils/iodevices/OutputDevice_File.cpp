@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <cstring>
@@ -38,7 +34,7 @@
 // method definitions
 // ===========================================================================
 OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool binary)
-    : OutputDevice(binary), myFileStream(0) {
+    : OutputDevice(binary, 0, fullName), myFileStream(0) {
 #ifdef WIN32
     if (fullName == "/dev/null") {
         myFileStream = new std::ofstream("NUL");

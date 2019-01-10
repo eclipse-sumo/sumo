@@ -55,7 +55,6 @@ def parseInFlow(inflow, suggested_name):
     else:
         q = float(vals[i + 1])
     i = vals.index("ZUSAMMENSETZUNG", i + 1)
-    zusammensetzung = vals[i + 1]
     i = vals.index("ZEIT", i)
     i = vals.index("VON", i)
     von = float(vals[i + 1])
@@ -98,7 +97,7 @@ def parseRouteDecision(rd):
         else:
             try:
                 i = vals.index("ROUTE", i)
-            except:
+            except Exception:
                 i = -1
         if r_ziel in edgemap:
             r_edges.append(edgemap[r_ziel])

@@ -49,6 +49,9 @@ bikeLanes
 # test building of pedestrian crossings
 crossings
 
+# tests for railway related network analysis and modification
+railway
+
 # tests whether removing self-loop edges works
 self_loop_edges
 

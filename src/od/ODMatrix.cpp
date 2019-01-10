@@ -22,11 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <iostream>
 #include <algorithm>
@@ -261,17 +257,17 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                 myNumWritten++;
                 if (pedestrians) {
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.openTag(SUMO_TAG_WALK);
                     dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                     dev.closeTag();
                     dev.closeTag();
                 } else if (persontrips) {
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.openTag(SUMO_TAG_PERSONTRIP);
                     dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                     dev.closeTag();
                     dev.closeTag();
@@ -313,13 +309,16 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
     for (std::vector<ODCell*>::const_iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         const ODCell* const c = *i;
         if (c->end > begin && c->begin < end) {
+            const double probability = asProbability ? float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin) : 1;
+            if (probability <= 0) {
+                continue;
+            }
             dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
             dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
             dev.writeAttr(SUMO_ATTR_END, time2string(c->end));
             if (!asProbability) {
                 dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
             } else {
-                const double probability = float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin);
                 if (probability > 1) {
                     WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));

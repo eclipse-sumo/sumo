@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
@@ -103,27 +99,21 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (myColor != 0) {
         dev.writeAttr(SUMO_ATTR_COLOR, *myColor);
     }
-    if (!myRoute.empty()) {
-        const int frontOffset = myRoute.front()->isTazConnector() ? 1 : 0;
-        const int backOffset = myRoute.back()->isTazConnector() ? 1 : 0;
-        if (frontOffset + backOffset > 0) {
-            ConstROEdgeVector temp(myRoute.begin() + frontOffset, myRoute.end() - backOffset);
-            dev.writeAttr(SUMO_ATTR_EDGES, temp);
-        } else {
-            dev.writeAttr(SUMO_ATTR_EDGES, myRoute);
+    ConstROEdgeVector tempRoute;
+    for (const ROEdge* roe : myRoute) {
+        if (!roe->isInternal() && !roe->isTazConnector()) {
+            tempRoute.push_back(roe);
         }
-    } else {
-        dev.writeAttr(SUMO_ATTR_EDGES, myRoute);
     }
+    dev.writeAttr(SUMO_ATTR_EDGES, tempRoute);
     if (withExitTimes) {
-        std::string exitTimes;
+        std::vector<double> exitTimes;
         double time = STEPS2TIME(veh->getDepartureTime());
-        for (ConstROEdgeVector::const_iterator i = myRoute.begin(); i != myRoute.end(); ++i) {
-            if (i != myRoute.begin()) {
-                exitTimes += " ";
+        for (const ROEdge* roe : myRoute) {
+            time += roe->getTravelTime(veh, time);
+            if (!roe->isInternal() && !roe->isTazConnector()) {
+                exitTimes.push_back(time);
             }
-            time += (*i)->getTravelTime(veh, time);
-            exitTimes += toString(time);
         }
         dev.writeAttr("exitTimes", exitTimes);
     }

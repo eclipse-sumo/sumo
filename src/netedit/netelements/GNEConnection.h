@@ -21,11 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include "GNENetElement.h"
 
@@ -53,7 +49,7 @@ public:
 
     /// @brief update pre-computed geometry information
     /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
-    void updateGeometry();
+    void updateGeometry(bool updateGrid);
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
@@ -85,8 +81,11 @@ public:
     /// @brief get LinkState
     LinkState getLinkState() const;
 
-    /// @brief get Position vector calculated in updateGeometry()
-    PositionVector getShape() const;
+    /// @brief get Position vector calculated in updateGeometry(bool updateGrid)
+    const PositionVector& getShape() const;
+
+    /// @brief check that connection's Geometry has to be updated
+    void markConnectionGeometryDeprecated();
 
     /// @brief update internal ID of Connection
     void updateID();
@@ -118,6 +117,11 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
+    /* @brief method for setting the special color of the connection
+    * @param[in] color Pointer to new special color
+    */
+    void setSpecialColor(const RGBColor* Color2);
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
@@ -141,6 +145,32 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
+    /// @name Function related with Generic Parameters
+    /// @{
+
+    /// @brief add generic parameter
+    bool addGenericParameter(const std::string& key, const std::string& value);
+
+    /// @brief remove generic parameter
+    bool removeGenericParameter(const std::string& key);
+
+    /// @brief update generic parameter
+    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
+
+    /// @brief update value generic parameter
+    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
+
+    /// @brief return generic parameters in string format
+    std::string getGenericParametersStr() const;
+
+    /// @brief return generic parameters as vector of pairs format
+    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
+
+    /// @brief set generic parameters in string format
+    void setGenericParametersStr(const std::string& value);
+
+    /// @}
+
 protected:
     /// @brief incoming lane of this connection
     GNELane* myFromLane;
@@ -148,10 +178,19 @@ protected:
     /// @brief outgoing lane of this connection
     GNELane* myToLane;
 
+    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
+    LinkState myLinkState;
+
+    /// @brief optional special color
+    const RGBColor* mySpecialColor;
+
     /// @brief the shape of the connection
     PositionVector myShape;
 
-    /// @name computed only once (for performance) in updateGeometry()
+    /// @brief flag to indicate that connection's shape has to be updated
+    bool myShapeDeprecated;
+
+    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
     /// @{
     /// @brief The rotations of the shape parts
     std::vector<double> myShapeRotations;
@@ -163,12 +202,12 @@ protected:
     PositionVector myInternalJunctionMarker;
     /// @}
 
-    /// @brief Linkstate. @note cached because after 'undo' the connection needs to be drawn while the node logic (NBRequest) has not been recomputed
-    LinkState myLinkState;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for check if mouse is over objects
+    void mouseOverObject(const GUIVisualizationSettings& s) const;
 
     /// @brief Invalidated copy constructor.
     GNEConnection(const GNEConnection&) = delete;

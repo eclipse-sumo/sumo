@@ -1,6 +1,9 @@
 walking_forward
 walking_backward
 
+# alternative networks with different geometry
+walking_backward2
+
 # test junction model parameter jmCrossingGap
 walking_backward_configureGap
 

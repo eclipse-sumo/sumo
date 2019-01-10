@@ -91,8 +91,6 @@ class Edge:
         ret = []
 
         seen = {}
-        seenRight = 0
-        seenLeft = 0
         for i, l in enumerate(self.lanes):
             for d in l.dirs:
                 if d not in seen:
@@ -306,8 +304,8 @@ class Net:
 
         netconvert = sumolib.checkBinary("netconvert")
 
-        retCode = subprocess.call(
-            [netconvert, "-v", "-n", nodesFile.name, "-e", edgesFile.name, "-x", connectionsFile.name, "-o", netName])
+        subprocess.call([netconvert, "-v", "-n", nodesFile.name, "-e", edgesFile.name, "-x", connectionsFile.name,
+                         "-o", netName])
         os.remove(nodesFile.name)
         os.remove(edgesFile.name)
         os.remove(connectionsFile.name)

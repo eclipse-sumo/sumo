@@ -1,10 +1,59 @@
-<additionals>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 31.08.2018 13:59:16 by Eclipse SUMO netedit Version b980bbd93f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug135850.1648/netedit.gui/additionalElements/calibrator/load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug135850.1648/netedit.gui/additionalElements/calibrator/load\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug135850.1648/netedit.gui/additionalElements/calibrator/load\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug135850.1648/netedit.gui/additionalElements/calibrator/load\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug135850.1648/netedit.gui/additionalElements/calibrator/load\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug135850.1648/netedit.gui/additionalElements/calibrator/load\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug135850.1648/netedit.gui/additionalElements/calibrator/load\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <calibrator id="calibrator01" edge="gneE0" pos="0.00" freq="100.00" output="calibrator01.txt"/>
     <calibrator id="calibrator02" edge="gneE0" pos="10.00" freq="100.00" output="calibrator02d.txt"/>
     <calibrator id="calibrator05" edge="gneE1" pos="16.00" freq="100.00" output="calibrator05.txt"/>
-    <calibrator id="calibrator06" edge="gneE0" pos="0.00" freq="100.00" output="calibrator06.txt"/>
-    <calibrator id="calibrator07" edge="gneE0" pos="0.00" freq="100.00" output="calibrator07.txt"/>
-    <calibrator id="calibrator08" edge="gneE0" pos="0.00" freq="100.00" output="calibrator08.txt"/>
     <calibrator id="calibrator09" edge="gneE0" pos="18.00" freq="100.00" output="calibrator09.txt"/>
     <calibrator id="calibrator10" edge="gneE0" pos="20.00" output="calibrator10.txt"/>
     <calibrator id="calibrator11" edge="gneE0" pos="22.00" output="calibrator11.txt"/>
@@ -17,4 +66,4 @@
     <calibrator id="calibrator18" edge="gneE0" pos="30.00" freq="100.00"/>
     <calibrator id="calibrator19" edge="gneE0" pos="32.00" freq="100.00"/>
     <calibrator id="calibrator20" edge="gneE0" pos="34.00" freq="100.00" output="ownOutput.txt"/>
-</additionals>
+</additional>

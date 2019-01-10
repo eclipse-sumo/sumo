@@ -1,80 +1,11 @@
-Warning: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Essential string attribute 'id' of chargingStation is missing; chargingStation cannot be created
-Warning: Essential string attribute 'lane' of chargingStation is missing; chargingStation cannot be created
-Warning: Essential float attribute 'startPos' of chargingStation is missing; chargingStation cannot be created
-Warning: Essential float attribute 'endPos' of chargingStation is missing; chargingStation cannot be created
-Warning: Essential string attribute 'id' of chargingStation is missing; chargingStation cannot be created
-Warning: Format of essential string attribute 'id' of chargingStation is invalid; 'id with spaces' contains invalid characters; chargingStation cannot be created
+Warning: Essential unique string attribute 'id' of chargingStation is missing; chargingStation cannot be created
+Warning: Essential unique string attribute 'lane' of chargingStation is missing; chargingStation cannot be created
+Warning: Essential unique string attribute 'id' of chargingStation is missing; chargingStation cannot be created
+Warning: Format of essential unique string attribute 'id' of chargingStation is invalid; 'id with spaces' contains invalid characters; chargingStation cannot be created
 Warning: There is another chargingStation with the same ID='chargingStation_0'.
-Warning: Essential string attribute 'lane' of chargingStation with ID 'chargingStation_1' is missing; chargingStation cannot be created
+Warning: Essential unique string attribute 'lane' of chargingStation with ID 'chargingStation_1' is missing; chargingStation cannot be created
 Warning: The lane 'dummyLane' to use within the chargingStation 'chargingStation_2' is not known.
-Warning: Essential float attribute 'startPos' of chargingStation with ID 'chargingStation_3' is missing; chargingStation cannot be created
-Warning: Format of essential float attribute 'startPos' of chargingStation with ID 'chargingStation_4' is invalid; chargingStation cannot be created
 Warning: Invalid position for chargingStation with ID = 'chargingStation_5'.
 Warning: Invalid position for chargingStation with ID = 'chargingStation_6'.
-Warning: Essential float attribute 'endPos' of chargingStation with ID 'chargingStation_7' is missing; chargingStation cannot be created
-Warning: Format of essential float attribute 'endPos' of chargingStation with ID 'chargingStation_8' is invalid; chargingStation cannot be created
 Warning: Invalid position for chargingStation with ID = 'chargingStation_9'.
 Warning: Invalid position for chargingStation with ID = 'chargingStation_10'.
-Warning: Adding chargingStation 'chargingStation_11' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_12' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_13' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_14' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_15' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_16' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_17' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_18' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_19' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_20' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_21' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_22' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_23' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_24' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_25' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_26' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_27' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_28' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_29' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_30' in GNEChange_Additional
-Warning: Adding chargingStation 'chargingStation_31' in GNEChange_Additional
-Warning: Additionals saved
-Warning: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Warning: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Warning: net has to be saved
-Warning: Current saving Status: net unsaved, additionals saved, shapes saved
-Warning: Deleting unreferenced chargingStation 'chargingStation_31'
-Warning: Additionals has to be saved
-Warning: Current saving Status: net saved, additionals unsaved, shapes saved
-Warning: Deleting unreferenced chargingStation 'chargingStation_30'
-Warning: Deleting unreferenced chargingStation 'chargingStation_29'
-Warning: Deleting unreferenced chargingStation 'chargingStation_28'
-Warning: Deleting unreferenced chargingStation 'chargingStation_27'
-Warning: Deleting unreferenced chargingStation 'chargingStation_26'
-Warning: Deleting unreferenced chargingStation 'chargingStation_25'
-Warning: Deleting unreferenced chargingStation 'chargingStation_24'
-Warning: Deleting unreferenced chargingStation 'chargingStation_23'
-Warning: Deleting unreferenced chargingStation 'chargingStation_22'
-Warning: Deleting unreferenced chargingStation 'chargingStation_21'
-Warning: Deleting unreferenced chargingStation 'chargingStation_20'
-Warning: Deleting unreferenced chargingStation 'chargingStation_19'
-Warning: Deleting unreferenced chargingStation 'chargingStation_18'
-Warning: Deleting unreferenced chargingStation 'chargingStation_17'
-Warning: Deleting unreferenced chargingStation 'chargingStation_16'
-Warning: Deleting unreferenced chargingStation 'chargingStation_15'
-Warning: Deleting unreferenced chargingStation 'chargingStation_14'
-Warning: Deleting unreferenced chargingStation 'chargingStation_13'
-Warning: Deleting unreferenced chargingStation 'chargingStation_12'
-Warning: Deleting unreferenced chargingStation 'chargingStation_11'
-Warning: Deleting unreferenced chargingStation 'chargingStation_0'
-Warning: Deleting unreferenced edge 'gneE0' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced edge 'gneE1' in GNENet destructor
-Warning: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Warning: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Warning: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Warning: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Warning: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Warning: Deleting net builder in GNENet destructor

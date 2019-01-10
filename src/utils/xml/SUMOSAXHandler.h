@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utils/xml/GenericSAXHandler.h>
@@ -50,7 +46,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXHandler(const std::string& file = "");
+    SUMOSAXHandler(const std::string& file = "", const std::string& expectedRoot = "");
 
 
     /// Destructor

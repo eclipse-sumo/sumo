@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:32 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Wed Aug 15 16:12:35 2018 by Eclipse SUMO netconvert Version abbc805
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,9 +26,9 @@ SPDX-License-Identifier: EPL-2.0
         <remove-edges.by-vclass value="pedestrian"/>
     </edge_removal>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <verbose value="true"/>
@@ -38,45 +38,45 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-1" from="0" to="1" priority="0" spreadType="center">
-        <lane id="-1_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="22852.39" shape="17018.35,13402.21 39850.05,12740.64"/>
-        <lane id="-1_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="22852.39" shape="17018.45,13405.41 39850.14,12743.84"/>
-        <lane id="-1_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="22852.39" shape="17018.54,13408.60 39850.23,12747.04"/>
+        <lane id="-1_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="22852.39" shape="17020.85,13402.13 39850.05,12740.64"/>
+        <lane id="-1_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="22852.39" shape="17020.95,13405.33 39850.14,12743.84"/>
+        <lane id="-1_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="22852.39" shape="17021.04,13408.53 39850.23,12747.04"/>
     </edge>
     <edge id="-2" from="0" to="2" priority="0">
-        <lane id="-2_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="16996.53,13414.09 0.26,13975.11"/>
-        <lane id="-2_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="16996.42,13410.89 0.16,13971.92"/>
-        <lane id="-2_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="16996.32,13407.69 0.05,13968.72"/>
+        <lane id="-2_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="16994.03,13414.17 0.26,13975.11"/>
+        <lane id="-2_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="16993.92,13410.97 0.16,13971.92"/>
+        <lane id="-2_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="16993.82,13407.77 0.05,13968.72"/>
     </edge>
     <edge id="-3" from="0" to="3" priority="0">
-        <lane id="-3_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13115.46" shape="17015.68,13416.58 17425.81,26514.51"/>
-        <lane id="-3_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13115.46" shape="17012.49,13416.68 17422.61,26514.61"/>
-        <lane id="-3_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13115.46" shape="17009.29,13416.78 17419.41,26514.71"/>
+        <lane id="-3_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13115.46" shape="17015.76,13419.08 17425.81,26514.51"/>
+        <lane id="-3_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13115.46" shape="17012.56,13419.18 17422.61,26514.61"/>
+        <lane id="-3_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13115.46" shape="17009.36,13419.28 17419.41,26514.71"/>
     </edge>
     <edge id="-4" from="0" to="4" priority="0">
-        <lane id="-4_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13412.28" shape="16999.00,13394.90 16580.26,0.25"/>
-        <lane id="-4_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13412.28" shape="17002.20,13394.80 16583.46,0.15"/>
-        <lane id="-4_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13412.28" shape="17005.39,13394.70 16586.65,0.05"/>
+        <lane id="-4_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13412.28" shape="16998.92,13392.40 16580.26,0.25"/>
+        <lane id="-4_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13412.28" shape="17002.12,13392.30 16583.46,0.15"/>
+        <lane id="-4_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13412.28" shape="17005.32,13392.20 16586.65,0.05"/>
     </edge>
     <edge id="2" from="2" to="0" priority="0">
-        <lane id="2_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="-0.26,13959.12 16996.00,13398.10"/>
-        <lane id="2_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="-0.16,13962.32 16996.10,13401.30"/>
-        <lane id="2_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="-0.05,13965.52 16996.21,13404.49"/>
+        <lane id="2_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="-0.26,13959.12 16993.50,13398.18"/>
+        <lane id="2_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="-0.16,13962.32 16993.61,13401.38"/>
+        <lane id="2_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="-0.05,13965.52 16993.71,13404.58"/>
     </edge>
     <edge id="3" from="3" to="0" priority="0">
-        <lane id="3_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13115.46" shape="17413.01,26514.91 17002.89,13416.98"/>
-        <lane id="3_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13115.46" shape="17416.21,26514.81 17006.09,13416.88"/>
+        <lane id="3_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13115.46" shape="17413.01,26514.91 17002.97,13419.48"/>
+        <lane id="3_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13115.46" shape="17416.21,26514.81 17006.17,13419.38"/>
     </edge>
     <edge id="4" from="4" to="0" priority="0">
-        <lane id="4_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13412.28" shape="16593.05,-0.15 17011.79,13394.50"/>
-        <lane id="4_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13412.28" shape="16589.85,-0.05 17008.59,13394.60"/>
+        <lane id="4_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13412.28" shape="16593.05,-0.15 17011.71,13392.00"/>
+        <lane id="4_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="33.33" length="13412.28" shape="16589.85,-0.05 17008.51,13392.10"/>
     </edge>
 
-    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.29,13417.03 17017.28,13416.53 17018.59,13410.20 17018.31,13400.61 17013.39,13394.45 16997.40,13394.95 16995.95,13396.50 16996.58,13415.69">
+    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.37,13419.53 17017.36,13419.03 17017.39,13416.34 17017.65,13414.14 17018.15,13412.41 17018.89,13411.17 17019.87,13410.41 17021.08,13410.13 17020.81,13400.54 17018.59,13400.35 17016.77,13399.67 17015.32,13398.49 17014.27,13396.81 17013.60,13394.63 17013.31,13391.95 16997.32,13392.45 16996.95,13394.69 16996.41,13395.48 16995.65,13396.06 16994.67,13396.43 16993.45,13396.58 16994.08,13415.77 16996.27,13415.81 16998.07,13416.08 16999.48,13416.59 17000.50,13417.34 17001.13,13418.32">
         <request index="0"  response="000000000000000000" foes="100000001100000000"/>
         <request index="1"  response="011111100000000000" foes="011111111100000000"/>
         <request index="2"  response="011111100000000000" foes="011111111100000000"/>

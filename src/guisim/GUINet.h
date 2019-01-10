@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <utility>
@@ -96,7 +92,7 @@ public:
      * @exception ProcessError If a network was already constructed
      */
     GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-           MSEventControl* endOfTimestepEvents, 
+           MSEventControl* endOfTimestepEvents,
            MSEventControl* insertionEvents);
 
 
@@ -326,13 +322,13 @@ public:
      */
     static GUINet* getGUIInstance();
 
+    /// @brief creates a wrapper for the given logic
+    void createTLWrapper(MSTrafficLightLogic* tll);
+
 
 private:
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
-
-    /// @brief creates a wrapper for the given logic and returns the GlID
-    GUIGlID createTLWrapper(MSTrafficLightLogic* tll);
 
     friend class GUIOSGBuilder;
 

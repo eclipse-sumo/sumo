@@ -23,11 +23,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <functional>
@@ -65,8 +61,8 @@
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class PF>
-class CHRouterWrapper: public SUMOAbstractRouter<E, V>, public PF {
+template<class E, class V, class BASE>
+class CHRouterWrapper: public BASE {
 
 public:
     /// Type of the function that is used to retrieve the edge effort.
@@ -74,9 +70,9 @@ public:
 
     /** @brief Constructor
      */
-    CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, Operation operation,
+    CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename BASE::Operation operation,
                     const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, const int numThreads) :
-        SUMOAbstractRouter<E, V>(operation, "CHRouterWrapper"),
+        BASE("CHRouterWrapper", operation),
         myEdges(edges),
         myIgnoreErrors(ignoreErrors),
         myBegin(begin),
@@ -95,7 +91,7 @@ public:
 
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        CHRouterWrapper<E, V, PF>* clone = new CHRouterWrapper<E, V, PF>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, myMaxNumInstances);
+        CHRouterWrapper<E, V, BASE>* clone = new CHRouterWrapper<E, V, BASE>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, myMaxNumInstances);
         for (typename RouterMap::iterator i = myRouters.begin(); i != myRouters.end(); ++i) {
             for (typename std::vector<CHRouterType*>::iterator j = i->second.begin(); j != i->second.end(); ++j) {
                 clone->myRouters[i->first].push_back(static_cast<CHRouterType*>((*j)->clone()));
@@ -146,23 +142,8 @@ public:
     }
 
 
-    double recomputeCosts(const std::vector<const E*>& edges,
-                          const V* const v, SUMOTime msTime) const {
-        const double time = STEPS2TIME(msTime);
-        double costs = 0;
-        for (typename std::vector<const E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            if (PF::operator()(*i, v)) {
-                WRITE_WARNING("Vehicle '" + v->getID() + "' is restricted from using its assigned route.");
-                return -1;
-            }
-            costs += this->getEffort(*i, v, time + costs);
-        }
-        return costs;
-    }
-
-
 private:
-    typedef CHRouter<E, V, noProhibitions<E, V> > CHRouterType;
+    typedef CHRouter<E, V, SUMOAbstractRouter<E, V> > CHRouterType;
 
 #ifdef HAVE_FOX
 private:

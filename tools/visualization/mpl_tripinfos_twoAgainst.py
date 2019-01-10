@@ -24,7 +24,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 from matplotlib import rcParams
-from pylab import *
+from pylab import arange, figure, plot, savefig, scatter, show, xlim, xticks, ylim, yticks
 from optparse import OptionParser
 from xml.sax import make_parser, handler
 

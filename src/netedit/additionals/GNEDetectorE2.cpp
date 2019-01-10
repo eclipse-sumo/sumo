@@ -18,15 +18,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <string>
 #include <iostream>
 #include <utility>
+#include <netbuild/NBEdge.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -41,6 +38,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -55,11 +53,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename,
-                             bool cont, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, ICON_E2, lane, pos, freq, filename, friendlyPos, nullptr, blockMovement),
-    myRelativeLength(length / lane->getLaneParametricLength()),
-    myCont(cont),
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
+                             const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, lane, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    myLength(length),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
     myJamThreshold(jamThreshold) {
@@ -71,7 +68,12 @@ GNEDetectorE2::~GNEDetectorE2() {
 
 
 void
-GNEDetectorE2::updateGeometry() {
+GNEDetectorE2::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if (updateGrid) {
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+    }
+
     // Clear all containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -79,10 +81,28 @@ GNEDetectorE2::updateGeometry() {
     // Get shape of lane parent
     myShape = myLane->getShape();
 
+    // set start position
+    double startPosFixed;
+    if (myPositionOverLane < 0) {
+        startPosFixed = 0;
+    } else if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else {
+        startPosFixed = myPositionOverLane;
+    }
+
+    // set end position
+    double endPosFixed;
+    if ((myPositionOverLane + myLength) < 0) {
+        endPosFixed = 0;
+    } else if ((myPositionOverLane + myLength) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else {
+        endPosFixed = (myPositionOverLane + myLength);
+    }
+
     // Cut shape using as delimitators fixed start position and fixed end position
-    double startPosFixed = (myPositionOverLane < 0) ? 0 : myPositionOverLane;
-    double endPosFixed = ((myPositionOverLane + myRelativeLength) > 1) ? 1 : (myPositionOverLane + myRelativeLength);
-    myShape = myShape.getSubpart(startPosFixed * myShape.length(), endPosFixed * myShape.length());
+    myShape = myShape.getSubpart(startPosFixed * myLane->getLengthGeometryFactor(), endPosFixed * myLane->getLengthGeometryFactor());
 
     // Get number of parts of the shape
     int numberOfSegments = (int)myShape.size() - 1;
@@ -120,50 +140,27 @@ GNEDetectorE2::updateGeometry() {
     // Set block icon rotation, and using their rotation for draw logo
     setBlockIconRotation(myLane);
 
-    // Refresh element (neccesary to avoid grabbing problems)
-    myViewNet->getNet()->refreshElement(this);
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if (updateGrid) {
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
 }
 
 
-void
-GNEDetectorE2::writeAdditional(OutputDevice& device) const {
-    // Write parameters
-    device.openTag(getTag());
-    writeAttribute(device, SUMO_ATTR_ID);
-    writeAttribute(device, SUMO_ATTR_LANE);
-    writeAttribute(device, SUMO_ATTR_POSITION);
-    writeAttribute(device, SUMO_ATTR_LENGTH);
-    writeAttribute(device, SUMO_ATTR_FREQUENCY);
-    if (!myFilename.empty()) {
-        writeAttribute(device, SUMO_ATTR_FILE);
-    }
-    writeAttribute(device, SUMO_ATTR_CONT);
-    writeAttribute(device, SUMO_ATTR_HALTING_TIME_THRESHOLD);
-    writeAttribute(device, SUMO_ATTR_HALTING_SPEED_THRESHOLD);
-    writeAttribute(device, SUMO_ATTR_JAM_DIST_THRESHOLD);
-    writeAttribute(device, SUMO_ATTR_FRIENDLY_POS);
-    // write block movement attribute only if it's enabled
-    if (myBlockMovement) {
-        writeAttribute(device, GNE_ATTR_BLOCK_MOVEMENT);
-    }
-    // Close tag
-    device.closeTag();
+double
+GNEDetectorE2::getLength() const {
+    return myLength;
 }
 
 
-bool GNEDetectorE2::isDetectorPositionFixed() const {
+bool
+GNEDetectorE2::isDetectorPositionFixed() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        // floors are needed to avoid precision problems
-        return ((floor(myPositionOverLane * 1000) / 1000) >= 0) && ((floor((myPositionOverLane + myRelativeLength) * 1000) / 1000) <= 1);
+        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
     }
-}
-
-
-double GNEDetectorE2::getAbsoluteLenght() const {
-    return myRelativeLength * myLane->getLaneParametricLength();
 }
 
 
@@ -218,10 +215,13 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Draw name if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
-
+    // check if dotted contour has to be drawn
+    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
+    }
     // Pop name
     glPopName();
 }
@@ -235,15 +235,17 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane->getID();
         case SUMO_ATTR_POSITION:
-            return toString(getAbsolutePositionOverLane());
+            return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_LENGTH:
-            return toString(myRelativeLength * myLane->getLaneParametricLength());
+            return toString(myLength);
+        case SUMO_ATTR_NAME:
+            return myAdditionalName;
         case SUMO_ATTR_FILE:
             return myFilename;
-        case SUMO_ATTR_CONT:
-            return toString(myCont);
+        case SUMO_ATTR_VTYPES:
+            return myVehicleTypes;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return toString(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -256,6 +258,8 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
+        case GNE_ATTR_GENERIC:
+            return getGenericParametersStr();
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -273,14 +277,16 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_LENGTH:
+        case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
-        case SUMO_ATTR_CONT:
+        case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
         case SUMO_ATTR_FRIENDLY_POS:
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
+        case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -305,25 +311,17 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_LENGTH:
-            if (canParse<double>(value)) {
-                // obtain relative new start position
-                double newLength = parse<double>(value);
-                // lengths withs size 0 aren't valid
-                if (newLength <= 0) {
-                    return false;
-                } else {
-                    newLength = newLength / myLane->getLaneParametricLength();
-                    if ((myPositionOverLane + newLength) > 1) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            }
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
+        case SUMO_ATTR_NAME:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
-            return isValidFilename(value);
-        case SUMO_ATTR_CONT:
-            return canParse<bool>(value);
+            return SUMOXMLDefinitions::isValidFilename(value);
+        case SUMO_ATTR_VTYPES:
+            if (value.empty()) {
+                return true;
+            } else {
+                return SUMOXMLDefinitions::isValidListOfTypeID(value);
+            }
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
@@ -336,6 +334,8 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
+        case GNE_ATTR_GENERIC:
+            return isGenericParametersValid(value);
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -355,19 +355,22 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLane = changeLane(myLane, value);
             break;
         case SUMO_ATTR_POSITION:
-            myPositionOverLane = parse<double>(value) / myLane->getLaneParametricLength();
+            myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
             break;
         case SUMO_ATTR_LENGTH:
-            myRelativeLength = parse<double>(value) / myLane->getLaneParametricLength();
+            myLength = parse<double>(value);
+            break;
+        case SUMO_ATTR_NAME:
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FILE:
             myFilename = value;
             break;
-        case SUMO_ATTR_CONT:
-            myCont = parse<bool>(value);
+        case SUMO_ATTR_VTYPES:
+            myVehicleTypes = value;
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             myTimeThreshold = parse<double>(value);
@@ -385,17 +388,20 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
             }
             break;
+        case GNE_ATTR_GENERIC:
+            setGenericParametersStr(value);
+            break;
         default:
             throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // After setting attribute always update Geometry
-    updateGeometry();
+    updateGeometry(true);
 }
 
 /****************************************************************************/

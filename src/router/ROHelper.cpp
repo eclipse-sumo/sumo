@@ -19,11 +19,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _MSC_VER
-#include <windows_config.h>
-#else
 #include <config.h>
-#endif
 
 #include <functional>
 #include <vector>
@@ -73,14 +69,11 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
     // remove loops at the route's end
     //  (vehicle makes a turnaround to get into the right direction at an already passed node)
     const RONode* end = edges.back()->getToJunction();
-    int firstEnd = (int)edges.size() - 1;
-    for (int i = 0; i < firstEnd; i++) {
-        if (edges[i]->getToJunction() == end) {
-            firstEnd = i;
+    for (int i = 0; i < (int)edges.size() - 1; i++) {
+        if (edges[i]->getToJunction() == end && noMandatory(mandatory, edges.begin() + i + 2, edges.end())) {
+            edges.erase(edges.begin() + i + 2, edges.end());
+            break;
         }
-    }
-    if (firstEnd < (int)edges.size() - 1 && noMandatory(mandatory, edges.begin() + firstEnd + 2, edges.end())) {
-        edges.erase(edges.begin() + firstEnd + 2, edges.end());
     }
 
     // removal of node loops (node occurs twice) is not done because these may occur legitimately
@@ -107,10 +100,10 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
     */
 }
 
-bool 
-noMandatory(const ConstROEdgeVector& mandatory, 
-        ConstROEdgeVector::const_iterator start,
-        ConstROEdgeVector::const_iterator end) {
+bool
+noMandatory(const ConstROEdgeVector& mandatory,
+            ConstROEdgeVector::const_iterator start,
+            ConstROEdgeVector::const_iterator end) {
     for (const ROEdge* m : mandatory) {
         for (auto it = start; it != end; it++) {
             if (*it == m) {
