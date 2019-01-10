@@ -4042,7 +4042,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
-                myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), myObjectsUnderCursor, myCreateEdgeOptions.autoOppositeEdge->getCheck(), myCreateEdgeOptions.chainEdges->getCheck());
+                myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), myObjectsUnderCursor,
+                                                                 myCreateEdgeOptions.autoOppositeEdge->getCheck() == TRUE,
+                                                                 myCreateEdgeOptions.chainEdges->getCheck() == TRUE);
             }
             // process click
             processClick(eventData);
