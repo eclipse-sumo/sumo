@@ -26,6 +26,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
+#include <netedit/demandelements/GNEDemandHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
@@ -249,10 +250,8 @@ void
 GNERouteFrame::EdgeToEdge::createRoute() {
     // create edge only if there is route edges
     if(myRouteEdges.size() > 0) {
-        // creaste edge
-
-        /******  **********/
-
+        // creaste edge using buildRoute function of GNEDemandHandler
+        GNEDemandHandler::buildRoute(myRouteFrameParent->getViewNet(), true, "TEST", myRouteEdges, RGBColor::BLACK);
         // abort route creation (because route it was already seleted and vector/colors has to be cleaned)
         abortRouteCreation();
     }

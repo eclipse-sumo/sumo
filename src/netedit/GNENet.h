@@ -79,6 +79,7 @@ class GNENet : public GUIGlObject, public ShapeContainer {
 
     /// @brief declare friend class
     friend class GNEAdditionalHandler;
+    friend class GNEDemandHandler;
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;
@@ -745,6 +746,24 @@ protected:
      * @throw processError if additional wasn't previously inserted
      */
     bool deleteAdditional(GNEAdditional* additional);
+
+    /// @}
+
+    /// @name Insertion and erasing of GNEDemandElements items
+    /// @{
+
+    /// @brief return true if demand element exist (use pointer instead ID)
+    bool demandElementExist(GNEDemandElement* demandElement);
+
+    /**@brief Insert a demand element element int GNENet container.
+     * @throw processError if route was already inserted
+     */
+    void insertDemandElement(GNEDemandElement* demandElement);
+
+    /**@brief delete demand element element of GNENet container
+     * @throw processError if demand element wasn't previously inserted
+     */
+    bool deleteDemandElement(GNEDemandElement* demandElement);
 
     /// @}
 

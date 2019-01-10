@@ -132,7 +132,7 @@ GNEEdge::updateGeometry(bool updateGrid) {
         i->updateGeometry(updateGrid);
     }
     // Update geometry of additional parents that have this edge as parent
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->updateGeometry(updateGrid);
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
@@ -233,7 +233,7 @@ GNEEdge::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additional parents that have this edge as parent
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->startGeometryMoving();
     }
 }
@@ -258,7 +258,7 @@ GNEEdge::endGeometryMoving() {
             i->endGeometryMoving();
         }
         // Restore centering boundary of additional parents that have this edge as parent
-        for (auto i : myFirstAdditionalParents) {
+        for (auto i : myAdditionalParents) {
             i->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
@@ -805,13 +805,13 @@ GNEEdge::getGNECrossings() {
 void
 GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
     // iterate over all additional parents of edge
-    while (myFirstAdditionalParents.size() > 0) {
+    while (myAdditionalParents.size() > 0) {
         // Obtain attribute Edge or Edges of additional
         std::vector<std::string> edgeIDs;
-        if(myFirstAdditionalParents.front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
-            edgeIDs = parse<std::vector<std::string> >(myFirstAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGES));
+        if(myAdditionalParents.front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+            edgeIDs = parse<std::vector<std::string> >(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGES));
         } else {
-            edgeIDs.push_back(myFirstAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGE));
+            edgeIDs.push_back(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGE));
         }
         // check that at least there is an Edge
         if (edgeIDs.empty()) {
@@ -819,7 +819,7 @@ GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
         } else if (edgeIDs.size() == 1) {
             // remove entire Additional if SUMO_ATTR_EDGES cannot be empty
             if (edgeIDs.front() == getID()) {
-                undoList->add(new GNEChange_Additional(myFirstAdditionalParents.front(), false), true);
+                undoList->add(new GNEChange_Additional(myAdditionalParents.front(), false), true);
             } else {
                 throw ProcessError("Edge ID wasnt' found in Additional");
             }
@@ -828,7 +828,7 @@ GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
             if (it != edgeIDs.end()) {
                 // set new attribute in Additional
                 edgeIDs.erase(it);
-                myFirstAdditionalParents.front()->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
+                myAdditionalParents.front()->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
             } else {
                 throw ProcessError("Edge ID wasnt' found in Additional");
             }

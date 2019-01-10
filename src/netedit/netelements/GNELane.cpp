@@ -720,7 +720,7 @@ GNELane::updateGeometry(bool updateGrid) {
         i->updateGeometry(updateGrid);
     }
     // update additionals with this lane as chid
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->updateGeometry(updateGrid);
     }
     // update POIs associated to this lane
@@ -1181,7 +1181,7 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 void
 GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     // iterate over all additional parents of lane
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         // Obtain attribute LANES of additional
         std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
         // check that at least there is an lane
@@ -1336,7 +1336,7 @@ GNELane::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additionals with this lane as chid
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of POIs associated to this lane
@@ -1354,7 +1354,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of POIs associated to this lane

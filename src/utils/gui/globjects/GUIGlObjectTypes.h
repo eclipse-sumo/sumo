@@ -112,6 +112,8 @@ enum GUIGlObjectType {
     GLO_PERSON = 302,
     /// @brief a container
     GLO_CONTAINER = 303,
+    /// @brief a route
+    GLO_ROUTE = 30,
     /// @brief empty max
     GLO_MAX = 2048
 };

@@ -41,40 +41,39 @@ public:
      * @param[in] connection NBEdge::Connection in which the rest of parameters are defined
      * @param[in] uncontrolled if set to true, This connection will not be TLS-controlled despite its node being controlled.
     **/
-    GNERoute(GNELane* from, GNELane* to);
+    GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
-    /// @brief Destructor
+    /// @brief destructor
     ~GNERoute();
 
+    /// @brief get GNEEdges of Calibrator ROute
+    const std::vector<GNEEdge*>& getGNEEdges() const;
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
+     */
+    void moveGeometry(const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(GNEUndoList* undoList);
+
     /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     void updateGeometry(bool updateGrid);
 
-    /// Returns the route's geometry
-    Boundary getBoundary() const;
-
-    /// @brief get LinkState
-    LinkState getLinkState() const;
-
-    /// @brief get Position vector calculated in updateGeometry(bool updateGrid)
-    const PositionVector& getShape() const;
+    /// @brief Returns position of additional in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
-    /**@brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
+    /**@brief Returns the name of the parent object
+     * @return This object's parent id
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /**@brief Returns the boundary to which the view shall be centered in order to show the object
-     *
-     * @return The boundary the object is within
-     */
-    Boundary getCenteringBoundary() const;
+    std::string getParentName() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -83,68 +82,52 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
-    /// @name inherited from GNEAttributeCarrier
+    /// @brief inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    * @param[in] net optionally the GNENet to inform about gui updates
+    */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /* @brief method for checking if the key and their conrrespond attribute are valids
-     * @param[in] key The attribute key
-     * @param[in] value The value asociated to key key
-     * @return true if the value is valid, false in other case
-     */
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
     bool isValid(SumoXMLAttr key, const std::string& value);
-    /// @}
 
-    /// @name Function related with Generic Parameters
-    /// @{
+    /// @brief get PopPup ID (Used in AC Hierarchy)
+    std::string getPopUpID() const;
 
-    /// @brief return generic parameters in string format
-    std::string getGenericParametersStr() const;
-
-    /// @brief return generic parameters as vector of pairs format
-    std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
-
-    /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string& value);
-
+    /// @brief get Hierarchy Name (Used in AC Hierarchy)
+    std::string getHierarchyName() const;
     /// @}
 
 protected:
-    /// @brief the shape of the connection
-    PositionVector myShape;
+    /// @brief edges of route
+    std::vector<GNEEdge*> myEdges;
 
-    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
-    /// @{
-    /// @brief The rotations of the shape parts
-    std::vector<double> myShapeRotations;
-
-    /// @brief The lengths of the shape parts
-    std::vector<double> myShapeLengths;
-    /// @}
+    /// @brief color of ROute
+    RGBColor myColor;
 
 private:
-    /// @brief set attribute after validation
+    /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for check if mouse is over objects
-    void mouseOverObject(const GUIVisualizationSettings& s) const;
-
     /// @brief Invalidated copy constructor.
-    GNERoute(const GNERoute&) = delete;
+    GNERoute(GNERoute*) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNERoute& operator=(const GNERoute&) = delete;
+    GNERoute& operator=(GNERoute*) = delete;
 };
 
 

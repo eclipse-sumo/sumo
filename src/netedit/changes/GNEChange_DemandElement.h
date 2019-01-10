@@ -12,7 +12,7 @@
 /// @date    Jan 2019
 /// @version $Id$
 ///
-// A network change in which a demandElement element is created or deleted
+// A network change in which a demand element element is created or deleted
 /****************************************************************************/
 #ifndef GNEChange_DemandElement_h
 #define GNEChange_DemandElement_h
@@ -30,20 +30,21 @@
 class GNEDemandElement;
 class GNEViewNet;
 class GNEEdge;
+class GNELane;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class GNEChange_DemandElement
- * A network change in which a demandElement element is created or deleted
+ * A network change in which a demand element element is created or deleted
  */
 class GNEChange_DemandElement : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_DemandElement)
 
 public:
-    /**@brief Constructor for creating/deleting an demandElement element
-     * @param[in] demandElement The demand element element to be created/deleted
+    /**@brief Constructor for creating/deleting an demand element element
+     * @param[in] demand element The demand element element to be created/deleted
      * @param[in] forward Whether to create/delete (true/false)
      */
     GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward);
@@ -67,19 +68,28 @@ public:
     /// @}
 
 private:
-    /**@brief full information regarding the demandElement element that is to be created/deleted
+    /**@brief full information regarding the demand element element that is to be created/deleted
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEDemandElement* myDemandElement;
 
+    /// @brief pointer to lane parents (used by demandElements with lane parent)
+    std::vector<GNELane*> myLaneParents;
+
     /// @brief pointer to edge parents (used by demandElements with edge parents)
     std::vector<GNEEdge*> myEdgeParents;
 
-    /// @brief pointer to first demandElement parent (used by demandElement with parents, for example Entry/exits)
-    GNEDemandElement* myDemandElementParent;
+    /// @brief pointer to first demand element parent (used by demand element with parents, for example Entry/exits)
+    GNEDemandElement* myFirstDemandElementParent;
 
-    /// @brief list of Edge childs
+    /// @brief pointer to second demand element parent (used by demand element with parents, for example Entry/exits)
+    GNEDemandElement* mySecondDemandElementParent;
+
+    /// @brief list of Edge childs (used by Rerouters)
     std::vector<GNEEdge*> myEdgeChilds;
+
+    /// @brief list of Edge childs (used by VSS)
+    std::vector<GNELane*> myLaneChilds;
 };
 
 #endif

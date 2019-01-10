@@ -75,12 +75,12 @@ public:
     /// These methods parse the attributes for each of the described trigger
     /// and call the according methods to build the trigger
     /// @{
-    /**@brief Builds a Vaporizer
-     * @param[in] attrs SAX-attributes which define the vaporizer
+    /**@brief Parse and build a Route
+     * @param[in] attrs SAX-attributes which define the route
      * @param[in] tag of the demand element
      * @note recheck throwing the exception
      */
-    void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parse generic parameter and insert it in the last created demand element
      * @param[in] attrs SAX-attributes which define the generic parameter
@@ -93,30 +93,19 @@ public:
     ///
     /// Called with parsed values, these methods build the trigger.
     /// @{
-    /**@brief Build demand elements
-     * @param[in] viewNet pointer to viewNet in wich demand element will be created
-     * @param[in] allowUndoRedo enable or disable remove created demand element with ctrl + Z / ctrl + Y
-     * @param[in] tag tag of the additiona lto create
-     * @param[in] values map with the attributes and values of the demand element to create
-     * @return true if was sucesfully created, false in other case
-     */
-    static GNEDemandElement* buildDemandElement(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values);
 
-    /**@brief Builds a bus stop
+    /**@brief Builds a Route
      * @param[in] viewNet viewNet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created demand element with ctrl + Z / ctrl + Y
-     * @param[in] id The id of the bus stop
-     * @param[in] lane The lane the bus stop is placed on
-     * @param[in] startPos Begin position of the bus stop on the lane
-     * @param[in] endPos End position of the bus stop on the lane
-     * @param[in] name Name of busStop
-     * @param[in] lines Names of the bus lines that halt on this bus stop
-     * @param[in] friendlyPos enable or disable friendly position
-     * @param[in] blockMovemet enable or disable block movement
-     * @return true if was sucesfully created, false in other case
+     * @param[in] routeID The id of the route (must be unique)
+     * @param[in] edges route's edges
+     * @param[in] edges route's color
+     * @return pointer to element if was sucesfully created, nullptr in other case
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
-    static GNEDemandElement* buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
+
+    /// @}
+    static GNEDemandElement* buildRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
 private:
     /// @brief Stack used to save the last inserted element

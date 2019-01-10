@@ -65,8 +65,8 @@ GNEDemandHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         myHierarchyInsertedDemandElements.insertElement(tag);
         // Call parse and build depending of tag
         switch (tag) {
-            case SUMO_TAG_VAPORIZER:
-                parseAndBuildVaporizer(attrs, tag);
+            case SUMO_TAG_ROUTE:
+                parseAndBuildRoute(attrs, tag);
                 break;
             default:
                 break;
@@ -76,38 +76,36 @@ GNEDemandHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 
 void
-GNEDemandHandler::myEndElement(int element) {
+GNEDemandHandler::myEndElement(int /*element*/) {
     // pop last inserted element
     myHierarchyInsertedDemandElements.popElement();
 }
 
 
 void
-GNEDemandHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-    /*
+GNEDemandHandler::parseAndBuildRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
-    // parse attributes of Vaporizer
-    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_NAME, abort);
-    // Continue if all parameters were successfully loaded
+    // parse attribute of calibrator routes
+    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    std::string edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, routeID, tag, SUMO_ATTR_EDGES, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, routeID, tag, SUMO_ATTR_COLOR, abort);
+    // Continue if all parameters were sucesfully loaded
     if (!abort) {
-        // get GNEEdge
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
-        // check that all parameters are valid
-        if (edge == nullptr) {
-            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
-        } else if (myViewNet->getNet()->retrieveDemandElement(tag, edgeID, false) != nullptr) {
-            WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edgeID + "'.");
-        } else if (begin > end) {
-            WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+        // obtain edges (And show warnings if isn't valid)
+        std::vector<GNEEdge*> edges;
+        if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs, true)) {
+            edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs);
+        }
+        // check that all elements are valid
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
+        } else if (edges.size() == 0) {
+            WRITE_WARNING("Routes needs at least one edge.");
         } else {
-            // build vaporizer
-            myHierarchyInsertedDemandElements.commitElementInsertion(buildVaporizer(myViewNet, myUndoDemandElements, edge, begin, end, name));
+            // save ID of last created element
+            myHierarchyInsertedDemandElements.commitElementInsertion(buildRoute(myViewNet, myUndoDemandElements, routeID, edges, color));
         }
     }
-    */
 }
 
 
@@ -156,55 +154,22 @@ GNEDemandHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
 
 
 GNEDemandElement*
-GNEDemandHandler::buildDemandElement(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, std::map<SumoXMLAttr, std::string> values) {
-    // create demand element depending of the tag
-    switch (tag) {
-        case SUMO_TAG_VAPORIZER: {
-            /*
-            // obtain specify attributes of vaporizer
-            GNEEdge* edge = viewNet->getNet()->retrieveEdge(values[SUMO_ATTR_EDGE], false);
-            double begin = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_BEGIN]);
-            double end = GNEAttributeCarrier::parse<double>(values[SUMO_ATTR_END]);
-            std::string name = values[SUMO_ATTR_NAME];
-            // Build Vaporizer
-            if (edge) {
-                if (begin > end) {
-                    WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
-                } else if (viewNet->getNet()->retrieveDemandElement(tag, edge->getID(), false) == nullptr) {
-                    return buildVaporizer(viewNet, allowUndoRedo, edge, begin, end, name);
-                } else {
-                    WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edge->getID() + "'.");
-                }
-            }
-            */
-            return nullptr;
-        }
-        default:
-            return nullptr;
-    }
-}
-
-
-GNEDemandElement*
-GNEDemandHandler::buildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
-    /*
-    if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
-        GNEBusStop* busStop = new GNEBusStop(id, lane, viewNet, startPos, endPos, name, lines, friendlyPosition, blockMovement);
+GNEDemandHandler::buildRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
+    if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false) == nullptr) {
+        // create route
+        GNERoute* route = new GNERoute(viewNet, routeID, edges, color);
         if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
-            viewNet->getUndoList()->add(new GNEChange_DemandElement(busStop, true), true);
+            viewNet->getUndoList()->p_begin("add " + route->getTagStr());
+            viewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
             viewNet->getUndoList()->p_end();
         } else {
-            viewNet->getNet()->insertDemandElement(busStop);
-            lane->addDemandElementChild(busStop);
-            busStop->incRef("buildBusStop");
+            viewNet->getNet()->insertDemandElement(route);
+            route->incRef("buildRoute");
         }
-        return busStop;
+        return route;
     } else {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_BUS_STOP) + " with ID '" + id + "' in netedit; probably declared twice.");
+        throw ProcessError("Could not build " + toString(SUMO_TAG_ROUTE) + " with ID '" + routeID + "' in netedit; probably declared twice.");
     }
-    */
-    return nullptr;
 }
 
 
