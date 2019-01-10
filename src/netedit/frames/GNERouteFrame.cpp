@@ -146,6 +146,8 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
 GNERouteFrame::EdgeToEdge::EdgeToEdge(GNERouteFrame* routeFrameParent) :
     FXGroupBox(routeFrameParent->myContentFrame, "Edge to edge", GUIDesignGroupBoxFrame),
     myRouteFrameParent(routeFrameParent) {
+    // create label for route info
+    myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameInformation);
     // Create button for create routes
     myCreateRouteButton = new FXButton(this, "Create route", 0, this, MID_GNE_HOTKEY_ENTER, GUIDesignButton);
     myCreateRouteButton->disable();
@@ -201,6 +203,8 @@ GNERouteFrame::EdgeToEdge::addEdgeIntoRoute(GNEEdge* edge) {
                 }
             }
         }
+        // update route label
+        updateInfoRouteLabel();
         // edge added, then return true
         return true;
     } else {
@@ -229,6 +233,8 @@ GNERouteFrame::EdgeToEdge::addEdgeIntoRoute(GNEEdge* edge) {
                         }
                     }
                 }
+                // update route label
+                updateInfoRouteLabel();
                 // edge added, then return true
                 return true;
             }
@@ -274,6 +280,8 @@ GNERouteFrame::EdgeToEdge::abortRouteCreation() {
         // disable buttons
         myCreateRouteButton->disable();
         myAbortCreationButton->disable();
+        // update route label
+        updateInfoRouteLabel();
         // update view
         myRouteFrameParent->getViewNet()->update();
     }
@@ -292,6 +300,30 @@ GNERouteFrame::EdgeToEdge::onCmdAbortCreateRoute(FXObject*, FXSelector, void*) {
     // abort route creation
     abortRouteCreation();
     return 1;
+}
+
+
+void 
+GNERouteFrame::EdgeToEdge::updateInfoRouteLabel() {
+    if(myRouteEdges.size() > 0) {
+        // declare variables for route info
+        double lenght = 0;
+        double speed = 0;
+        for (const auto &i : myRouteEdges) {
+            lenght += i->getNBEdge()->getLength();
+            speed += i->getNBEdge()->getSpeed();
+        }
+        // declare ostringstream for label and fill it
+        std::ostringstream information;
+        information
+            << "- Number of Edges: " << toString(myRouteEdges.size()) << "\n"
+            << "- Lenght: " << toString(lenght) << "\n"
+            << "- Average speed: " << toString(speed/myRouteEdges.size());
+        // set new label
+        myInfoRouteLabel->setText(information.str().c_str());
+    } else {
+        myInfoRouteLabel->setText("No edges selected");
+    }
 }
 
 // ---------------------------------------------------------------------------

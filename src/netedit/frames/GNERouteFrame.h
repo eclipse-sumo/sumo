@@ -129,14 +129,20 @@ public:
         /// @brief FOX needs this
         EdgeToEdge() {}
 
+        /// @brief update InfoRouteLabel
+        void updateInfoRouteLabel();
+
     private:
         /// @brief pointer to Frame Parent
         GNERouteFrame* myRouteFrameParent;
 
-        /// @field FXButton for create routes
+        /// @brief label with route info
+        FXLabel* myInfoRouteLabel;
+
+        /// @brief FXButton for create routes
         FXButton* myCreateRouteButton;
 
-        /// @field FXButton for abort creating route
+        /// @bief FXButton for abort creating route
         FXButton* myAbortCreationButton;
         
         /// @brief vector with current route edges
