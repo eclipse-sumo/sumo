@@ -110,6 +110,8 @@
 // @todo Calibrate with real-world values / make configurable
 #define DIST_TO_STOPLINE_EXPECT_PRIORITY 1.0
 
+#define NUMERICAL_EPS_SPEED (0.1 * NUMERICAL_EPS * TS)
+
 // ===========================================================================
 // static value definitions
 // ===========================================================================
@@ -2262,7 +2264,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - do not issue a request to enter an intersection after we already slowed down for an earlier one
         const bool abortRequestAfterMinor = slowedDownForMinor && (*link)->getInternalLaneBefore() == nullptr;
         // - even if red, if we cannot break we should issue a request
-        bool setRequest = (v > 0 && !abortRequestAfterMinor) || (leavingCurrentIntersection);
+        bool setRequest = (v > NUMERICAL_EPS_SPEED && !abortRequestAfterMinor) || (leavingCurrentIntersection);
 
         double vLinkWait = MIN2(v, cfModel.stopSpeed(this, getSpeed(), stopDist));
 #ifdef DEBUG_PLAN_MOVE
@@ -2274,6 +2276,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     << " seen=" << seen
                     << " leaveIntersection=" << leavingCurrentIntersection
                     << " setRequest=" << setRequest
+                    //<< std::setprecision(16)
+                    //<< " v=" << v
+                    //<< " speedEps=" << NUMERICAL_EPS_SPEED
+                    //<< std::setprecision(gPrecision)
                     << "\n";
         }
 #endif
@@ -3432,7 +3438,7 @@ MSVehicle::executeMove() {
     }
     // (Leo) to avoid tiny oscillations (< 1e-10) of vNext in a standing vehicle column (observed for ballistic update), we cap off vNext
     //       (We assure to do this only for vNext<<NUMERICAL_EPS since otherwise this would nullify the workaround for #2995
-    if (fabs(vNext) < 0.1 * NUMERICAL_EPS * TS) {
+    if (fabs(vNext) < NUMERICAL_EPS_SPEED) {
         vNext = 0.;
     }
 #ifdef DEBUG_EXEC_MOVE
