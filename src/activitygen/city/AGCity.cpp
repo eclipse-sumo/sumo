@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <router/RONet.h>
 #include <router/ROEdge.h>
+#include "AGAdult.h"
 #include "AGStreet.h"
 #include "AGWorkPosition.h"
 #include "AGCity.h"

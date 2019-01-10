@@ -32,7 +32,6 @@
 #include <iostream>
 #include <vector>
 #include <list>
-#include <router/RONet.h>
 #include "AGPosition.h"
 #include "AGDataAndStatistics.h"
 #include "AGSchool.h"
@@ -45,6 +44,7 @@
 // class declarations
 // ===========================================================================
 class AGHousehold;
+class RONet;
 
 
 // ===========================================================================

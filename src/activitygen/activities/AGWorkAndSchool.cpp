@@ -26,9 +26,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include "AGWorkAndSchool.h"
 #include <list>
-#include "../city/AGCar.h"
+#include <utils/common/SUMOVehicleClass.h>
+#include <activitygen/city/AGCar.h>
+#include <activitygen/city/AGChild.h>
+#include <activitygen/city/AGHousehold.h>
+#include <activitygen/city/AGStreet.h>
+#include <activitygen/city/AGWorkPosition.h>
+#include "AGWorkAndSchool.h"
 
 
 // ===========================================================================
