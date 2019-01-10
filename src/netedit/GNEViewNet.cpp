@@ -3955,13 +3955,13 @@ GNEViewNet::ViewOptions::showConnections() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNet::SuperModes::SuperModes(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
     currentSupermode(GNE_SUPERMODE_NONE),
     networkEditMode(GNE_NMODE_INSPECT),
     demandEditMode(GNE_DMODE_ROUTES),
     networkButton(nullptr),
-    demandButton(nullptr) {
-}
+    demandButton(nullptr),
+    myViewNet(viewNet)
+{ }
 
 
 GNEViewNet::SuperModes::~SuperModes() {
@@ -4001,7 +4001,6 @@ GNEViewNet::SuperModes::buildSuperModeButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNet::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet) : 
-    myViewNet(viewNet),
     createEdgeButton(nullptr),
     moveButton(nullptr),
     deleteButton(nullptr),
@@ -4012,8 +4011,9 @@ GNEViewNet::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet
     additionalButton(nullptr),
     crossingButton(nullptr),
     shapeButton(nullptr),
-    prohibitionButton(nullptr) {
-}
+    prohibitionButton(nullptr),
+    myViewNet(viewNet)
+{ }
 
 
 void
@@ -4117,9 +4117,9 @@ GNEViewNet::NetworkCheckableButtons::updateNetworkCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNet::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) : 
-    myViewNet(viewNet),
-    routeButton(nullptr) {
-}
+    routeButton(nullptr),
+    myViewNet(viewNet)
+{ }
 
 
 void 
