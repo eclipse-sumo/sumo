@@ -4302,8 +4302,25 @@ GNEViewNet::processMoveMouseNetwork() {
 
 void 
 GNEViewNet::processLeftButtonPressDemand(void* eventData) {
-    // process click
-    processClick(eventData);
+// decide what to do based on mode
+    switch (mySuperModes.demandEditMode) {
+        case GNE_DMODE_ROUTES: {
+            if (myObjectsUnderCursor.getLaneFront()) {
+                // swap lanes to edges
+                myObjectsUnderCursor.swapLane2Edge();
+                // Handle edge click
+                myViewParent->getRouteFrame()->handleEdgeClick(myObjectsUnderCursor.getEdgeFront());
+                update();
+            }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        default: {
+            // process click
+            processClick(eventData);
+        }
+    }
 }
 
 

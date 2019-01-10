@@ -86,6 +86,54 @@ public:
         std::vector<std::pair<RouteMode, std::string> > myRouteModesStrings;
     };
 
+    // ===========================================================================
+    // class EdgeToEdge
+    // ===========================================================================
+
+    class EdgeToEdge : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNERouteFrame::EdgeToEdge)
+
+    public:
+        /// @brief constructor
+        EdgeToEdge(GNERouteFrame* routeFrameParent);
+
+        /// @brief destructor
+        ~EdgeToEdge();
+
+        /// @brief show EdgeToEdge modul
+        void showEdgeToEdgeModul();
+
+        /// @brief hide EdgeToEdge modul
+        void hideEdgeToEdgeModul();
+
+        /// @brief add edge to current route (note: edge must be included in set of candidate edges
+        void addEdgeIntoRoute(GNEEdge* edge);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press create route button
+        long onCmdCreateRoute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press create route button
+        long onCmdAbortCreateRoute(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        EdgeToEdge() {}
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNERouteFrame* myRouteFrameParent;
+        
+        /// @brief vector with current route edges
+        std::vector<GNEEdge*> myRouteEdges;
+
+        /// @brief vector with candidate edges
+        std::vector<GNEEdge*> myCandidateEdges;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -101,11 +149,15 @@ public:
     /// @brief hide delete frame
     void hide();
 
-private:
+    /// @brief handle edge click
+    void handleEdgeClick(GNEEdge* clickedEdge);
 
-    /// @brief item selector
+private:
+    /// @brief route mode selector
     RouteModeSelector* myRouteModeSelector;
 
+    /// @brief Edge To Edge modul
+    EdgeToEdge* myEdgeToEdge;
 };
 
 

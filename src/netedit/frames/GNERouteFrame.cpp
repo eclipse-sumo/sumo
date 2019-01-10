@@ -37,8 +37,14 @@ FXDEFMAP(GNERouteFrame::RouteModeSelector) RouteModeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode),
 };
 
+FXDEFMAP(GNERouteFrame::EdgeToEdge) EdgeToEdgeMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_HOTKEY_ENTER,    GNERouteFrame::EdgeToEdge::onCmdCreateRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_HOTKEY_ESC,      GNERouteFrame::EdgeToEdge::onCmdAbortCreateRoute),
+};
+
 // Object implementation
-FXIMPLEMENT(GNERouteFrame::RouteModeSelector,             FXGroupBox,         RouteModeSelectorMap,                ARRAYNUMBER(RouteModeSelectorMap))
+FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBox,     RouteModeSelectorMap,   ARRAYNUMBER(RouteModeSelectorMap))
+FXIMPLEMENT(GNERouteFrame::EdgeToEdge,          FXGroupBox,     EdgeToEdgeMap,          ARRAYNUMBER(EdgeToEdgeMap))
 
 
 // ===========================================================================
@@ -94,14 +100,10 @@ GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
             }
         }
         // enable moduls
-        /**
-            enable moduls
-        **/
+        myRouteFrameParent->myEdgeToEdge->showEdgeToEdgeModul();
     } else {
         // hide all moduls if route mode isnt' valid
-        /**
-            enable moduls
-        **/
+        myRouteFrameParent->myEdgeToEdge->hideEdgeToEdgeModul();
     }
 }
 
@@ -116,9 +118,7 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
             // Set new current type
             myCurrentRouteMode = i.first;
             // enable moduls
-            /**
-                enable moduls
-            **/
+            myRouteFrameParent->myEdgeToEdge->showEdgeToEdgeModul();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in RouteModeSelector").text());
             return 1;
@@ -127,13 +127,61 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
     // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
     myCurrentRouteMode = ROUTEMODE_INVALID;
     // hide all moduls if route mode isnt' valid
-    /**
-        enable moduls
-    **/
+    myRouteFrameParent->myEdgeToEdge->hideEdgeToEdgeModul();
     // set color of myTypeMatchBox to red (invalid)
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in RouteModeSelector");
+    return 1;
+}
+
+
+// ---------------------------------------------------------------------------
+// GNERouteFrame::EdgeToEdge - methods
+// ---------------------------------------------------------------------------
+
+GNERouteFrame::EdgeToEdge::EdgeToEdge(GNERouteFrame* routeFrameParent) :
+    FXGroupBox(routeFrameParent->myContentFrame, "Edge to edge", GUIDesignGroupBoxFrame),
+    myRouteFrameParent(routeFrameParent) {
+    // EdgeToEdge is always shown
+    show();
+}
+
+
+GNERouteFrame::EdgeToEdge::~EdgeToEdge() {}
+
+
+void 
+GNERouteFrame::EdgeToEdge::showEdgeToEdgeModul() {
+    // only show modul if current route mode is valid
+    if(myRouteFrameParent->myRouteModeSelector->getCurrenRouteMode() == ROUTEMODE_EDGETOEDGE) {
+        show();
+    } else {
+        hide();
+    }
+}
+
+
+void 
+GNERouteFrame::EdgeToEdge::hideEdgeToEdgeModul() {
+    hide();
+}
+
+
+void 
+GNERouteFrame::EdgeToEdge::addEdgeIntoRoute(GNEEdge* edge) {
+    
+}
+
+
+long
+GNERouteFrame::EdgeToEdge::onCmdCreateRoute(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNERouteFrame::EdgeToEdge::onCmdAbortCreateRoute(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -144,8 +192,12 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
 GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Routes") {
 
-    // create route mode Selector modul for additionals
+    // create route mode Selector modul
     myRouteModeSelector = new RouteModeSelector(this);
+
+    // create Edge To Edge modul
+    myEdgeToEdge = new EdgeToEdge(this);
+
 }
 
 
@@ -163,6 +215,26 @@ void
 GNERouteFrame::hide() {
 
     GNEFrame::hide();
+}
+
+
+void 
+GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
+    // make sure that Edge exist
+    if(clickedEdge) {
+        switch (myRouteModeSelector->getCurrenRouteMode())
+        {
+        case ROUTEMODE_EDGETOEDGE:
+            myEdgeToEdge->addEdgeIntoRoute(clickedEdge);
+            break;
+        case ROUTEMODE_MAXVELOCITY:
+            break;
+        case ROUTEMODE_MINIMUMLENGHT:
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 /****************************************************************************/
