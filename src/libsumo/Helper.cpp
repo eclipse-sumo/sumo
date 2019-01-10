@@ -323,7 +323,9 @@ Helper::cleanup() {
 
 void
 Helper::registerVehicleStateListener() {
-    MSNet::getInstance()->addVehicleStateListener(&myVehicleStateListener);
+    if (MSNet::hasInstance()) {
+        MSNet::getInstance()->addVehicleStateListener(&myVehicleStateListener);
+    }
 }
 
 
