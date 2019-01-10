@@ -108,7 +108,13 @@ public:
         void hideEdgeToEdgeModul();
 
         /// @brief add edge to current route (note: edge must be included in set of candidate edges
-        void addEdgeIntoRoute(GNEEdge* edge);
+        bool addEdgeIntoRoute(GNEEdge* edge);
+
+        /// @brief create route with the current edges
+        void createRoute();
+
+        /// @brief abort creation of current route
+        void abortRouteCreation();
 
         /// @name FOX-callbacks
         /// @{
@@ -126,12 +132,15 @@ public:
     private:
         /// @brief pointer to Frame Parent
         GNERouteFrame* myRouteFrameParent;
+
+        /// @field FXButton for create routes
+        FXButton* myCreateRouteButton;
+
+        /// @field FXButton for abort creating route
+        FXButton* myAbortCreationButton;
         
         /// @brief vector with current route edges
         std::vector<GNEEdge*> myRouteEdges;
-
-        /// @brief vector with candidate edges
-        std::vector<GNEEdge*> myCandidateEdges;
     };
 
     /**@brief Constructor
@@ -151,6 +160,12 @@ public:
 
     /// @brief handle edge click
     void handleEdgeClick(GNEEdge* clickedEdge);
+
+    /// @brief function called when user press ENTER key
+    void hotKeyEnter();
+
+    /// @brief function called when user press ESC key
+    void hotKeyEsc();
 
 private:
     /// @brief route mode selector

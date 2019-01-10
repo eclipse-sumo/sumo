@@ -1020,40 +1020,49 @@ void
 GNEViewNet::abortOperation(bool clearSelection) {
     // steal focus from any text fields and place it over view net
     setFocus();
-    // abort operation depending of current mode
-    if (mySuperModes.networkEditMode == GNE_NMODE_CREATE_EDGE) {
-        // abort edge creation in create edge frame
-        myViewParent->getCreateEdgeFrame()->abortEdgeCreation();
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_SELECT) {
-        mySelectingArea.selectingUsingRectangle = false;
-        // check if current selection has to be cleaned
-        if (clearSelection) {
-            myViewParent->getSelectorFrame()->clearCurrentSelection();
-        }
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_CONNECT) {
-        // abort changes in Connector Frame
-        myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_TLS) {
-        myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_MOVE) {
-        stopEditCustomShape();
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_POLYGON) {
-        // abort current drawing
-        myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_TAZ) {
-        if(myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+    // check what supermode is enabled
+    if (mySuperModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        // abort operation depending of current mode
+        if (mySuperModes.networkEditMode == GNE_NMODE_CREATE_EDGE) {
+            // abort edge creation in create edge frame
+            myViewParent->getCreateEdgeFrame()->abortEdgeCreation();
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_SELECT) {
+            mySelectingArea.selectingUsingRectangle = false;
+            // check if current selection has to be cleaned
+            if (clearSelection) {
+                myViewParent->getSelectorFrame()->clearCurrentSelection();
+            }
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_CONNECT) {
+            // abort changes in Connector Frame
+            myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdCancelModifications(0, 0, 0);
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_TLS) {
+            myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_MOVE) {
+            stopEditCustomShape();
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_POLYGON) {
             // abort current drawing
             myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
-        } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr) {
-            // finish current editing TAZ
-            myViewParent->getTAZFrame()->getTAZCurrentModul()->setTAZ(nullptr);
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_TAZ) {
+            if(myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+                // abort current drawing
+                myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
+            } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr) {
+                // finish current editing TAZ
+                myViewParent->getTAZFrame()->getTAZCurrentModul()->setTAZ(nullptr);
+            }
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_PROHIBITION) {
+            myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_ADDITIONAL) {
+            // abort select lanes
+            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
         }
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_PROHIBITION) {
-        myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_ADDITIONAL) {
-        // abort select lanes
-        myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
+    } else if (mySuperModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        // abort operation depending of current mode
+        if (mySuperModes.demandEditMode == GNE_DMODE_ROUTES) {
+            myViewParent->getRouteFrame()->hotKeyEsc();
+        }
     }
+    // abort undo list
     myUndoList->p_abort();
 }
 
@@ -1078,49 +1087,58 @@ GNEViewNet::hotkeyDel() {
 
 void
 GNEViewNet::hotkeyEnter() {
-    if (mySuperModes.networkEditMode == GNE_NMODE_CONNECT) {
-        // Accept changes in Connector Frame
-        myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_TLS) {
-        myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
-    } else if ((mySuperModes.networkEditMode == GNE_NMODE_MOVE) && (myEditShapePoly != nullptr)) {
-        // save edited junction's shape
-        if (myEditShapePoly != nullptr) {
-            myUndoList->p_begin("custom " + myEditShapePoly->getShapeEditedElement()->getTagStr() + " shape");
-            SumoXMLAttr attr = SUMO_ATTR_SHAPE;
-            if (myEditShapePoly->getShapeEditedElement()->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
-                attr = SUMO_ATTR_CUSTOMSHAPE;
+    // check what supermode is enabled
+    if (mySuperModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        // abort operation depending of current mode
+        if (mySuperModes.networkEditMode == GNE_NMODE_CONNECT) {
+            // Accept changes in Connector Frame
+            myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_TLS) {
+            myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
+        } else if ((mySuperModes.networkEditMode == GNE_NMODE_MOVE) && (myEditShapePoly != nullptr)) {
+            // save edited junction's shape
+            if (myEditShapePoly != nullptr) {
+                myUndoList->p_begin("custom " + myEditShapePoly->getShapeEditedElement()->getTagStr() + " shape");
+                SumoXMLAttr attr = SUMO_ATTR_SHAPE;
+                if (myEditShapePoly->getShapeEditedElement()->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
+                    attr = SUMO_ATTR_CUSTOMSHAPE;
+                }
+                myEditShapePoly->getShapeEditedElement()->setAttribute(attr, toString(myEditShapePoly->getShape()), myUndoList);
+                myUndoList->p_end();
+                stopEditCustomShape();
+                update();
             }
-            myEditShapePoly->getShapeEditedElement()->setAttribute(attr, toString(myEditShapePoly->getShape()), myUndoList);
-            myUndoList->p_end();
-            stopEditCustomShape();
-            update();
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_POLYGON) {
+            if (myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+                // stop current drawing
+                myViewParent->getPolygonFrame()->getDrawingShapeModul()->stopDrawing();
+            } else {
+                // start drawing
+                myViewParent->getPolygonFrame()->getDrawingShapeModul()->startDrawing();
+            }
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_CROSSING) {
+            myViewParent->getCrossingFrame()->createCrossingHotkey();
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_TAZ) {
+            if (myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+                // stop current drawing
+                myViewParent->getTAZFrame()->getDrawingShapeModul()->stopDrawing();
+            } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() == nullptr) {
+                // start drawing
+                myViewParent->getTAZFrame()->getDrawingShapeModul()->startDrawing();
+            } else if (myViewParent->getTAZFrame()->getTAZSaveChangesModul()->isChangesPending()) {
+                // save pending changes
+                myViewParent->getTAZFrame()->getTAZSaveChangesModul()->onCmdSaveChanges(0, 0, 0);
+            }
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_ADDITIONAL) {
+            if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
+                // stop select lanes to create additional
+                myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
+            }
         }
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_POLYGON) {
-        if (myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
-            // stop current drawing
-            myViewParent->getPolygonFrame()->getDrawingShapeModul()->stopDrawing();
-        } else {
-            // start drawing
-            myViewParent->getPolygonFrame()->getDrawingShapeModul()->startDrawing();
-        }
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_CROSSING) {
-        myViewParent->getCrossingFrame()->createCrossingHotkey();
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_TAZ) {
-        if (myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
-            // stop current drawing
-            myViewParent->getTAZFrame()->getDrawingShapeModul()->stopDrawing();
-        } else if (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() == nullptr) {
-            // start drawing
-            myViewParent->getTAZFrame()->getDrawingShapeModul()->startDrawing();
-        } else if (myViewParent->getTAZFrame()->getTAZSaveChangesModul()->isChangesPending()) {
-            // save pending changes
-            myViewParent->getTAZFrame()->getTAZSaveChangesModul()->onCmdSaveChanges(0, 0, 0);
-        }
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_ADDITIONAL) {
-        if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
-            // stop select lanes to create additional
-            myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
+    } else if (mySuperModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        // abort operation depending of current mode
+        if (mySuperModes.demandEditMode == GNE_DMODE_ROUTES) {
+            myViewParent->getRouteFrame()->hotKeyEnter();
         }
     }
 }
