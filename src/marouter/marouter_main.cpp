@@ -294,7 +294,11 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             new RONet::WorkerThread(net.getThreadPool(), provider);
         }
 #endif
-        const std::string assignMethod = oc.getString("assignment-method");
+        std::string assignMethod = oc.getString("assignment-method");
+        if (assignMethod == "UE") {
+            WRITE_WARNING("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE').");
+            assignMethod = "SUE";
+        }
         if (assignMethod == "incremental") {
             a.incremental(oc.getInt("max-iterations"), oc.getBool("verbose"));
         } else if (assignMethod == "SUE") {
