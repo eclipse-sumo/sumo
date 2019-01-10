@@ -172,6 +172,7 @@ errors:.*RuntimeWarning: divide{REPLACE RuntimeWarning: divide}
 errors:Ran [0-9]+ tests in [0-9]+\.[0-9]+s{REPLACE Ran <COUNT> tests in <TIME>}
 errors:No imaging
 errors:Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27{REPLACE Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 26}
+errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 omnet:<!-- generated on
 shawn:<!-- generated on
 flows:<!-- generated on{[->]}-->
