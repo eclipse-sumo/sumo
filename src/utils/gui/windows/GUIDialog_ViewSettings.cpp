@@ -1076,6 +1076,9 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     if (handler.getDelay() >= 0) {
         myParent->setDelay(handler.getDelay());
     }
+    if (handler.getBreakpoints().size() > 0) {
+        myParent->setBreakpoints(handler.getBreakpoints());
+    }
     handler.applyViewport(myParent);
     rebuildColorMatrices(true);
 }

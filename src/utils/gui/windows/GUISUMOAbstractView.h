@@ -338,6 +338,9 @@ public:
     /// @brief Sets the delay of the parent application
     void setDelay(double delay);
 
+    /** @brief Sets the breakpoints of the parent application */
+    void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
+
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
         return std::vector<SUMOTime>();

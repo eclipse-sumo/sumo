@@ -279,6 +279,10 @@ public:
         mySimDelay = delay;
     }
 
+    /** @brief Sets the breakpoints of the parent application
+     */
+    virtual void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
+
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send
      */
