@@ -30,8 +30,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/distribution/RandomDistributor.h>
-#include <utils/vehicle/PedestrianRouter.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include "ROLane.h"
@@ -47,10 +45,8 @@
 // class declarations
 // ===========================================================================
 class ROEdge;
-class ROLane;
 class RONode;
 class ROPerson;
-class RORoutable;
 class ROVehicle;
 class OptionsCont;
 class OutputDevice;
