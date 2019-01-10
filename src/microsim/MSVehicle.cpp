@@ -2878,6 +2878,13 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                     std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, braking)\n";
                 }
 #endif
+            } else if (vSafe < SUMO_const_haltingSpeed) {
+                myHaveToWaitOnNextLink = true;
+#ifdef DEBUG_CHECKREWINDLINKLANES
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() << " haveToWait (no request, stopping)\n";
+                }
+#endif
             }
             break;
         }
