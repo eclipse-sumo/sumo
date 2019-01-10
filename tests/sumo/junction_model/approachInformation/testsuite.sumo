@@ -1,6 +1,9 @@
 # one vehicle approaches a minor link
 one_minor
 
+# one vehicle approaches a minor link
+one_minor_subsecond
+
 # one vehicle approaches a minor link but is slower than the minimum safe approach speed
 one_minor2
 
