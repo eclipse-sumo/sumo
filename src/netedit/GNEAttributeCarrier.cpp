@@ -624,6 +624,12 @@ GNEAttributeCarrier::TagProperties::isTAZ() const {
 
 
 bool
+GNEAttributeCarrier::TagProperties::isDemandElement() const {
+    return (myTagProperty & TAGPROPERTY_DEMANDELEMENT) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::TagProperties::isStoppingPlace() const {
     return (myTagProperty & TAGPROPERTY_STOPPINGPLACE) != 0;
 }
@@ -1105,6 +1111,14 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             // fill taz tags
             for (const auto &i : myTagProperties) {
                 if (i.second.isTAZ() && (!onlyDrawables || i.second.isDrawable())) {
+                    netElementTags.push_back(i.first);
+                }
+            }
+            break;
+        case TAGPROPERTY_DEMANDELEMENT:
+            // fill demand tags
+            for (const auto &i : myTagProperties) {
+                if (i.second.isDemandElement() && (!onlyDrawables || i.second.isDrawable())) {
                     netElementTags.push_back(i.first);
                 }
             }
@@ -2117,7 +2131,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL, additional, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DEMANDELEMENT, additional, ICON_ROUTE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
