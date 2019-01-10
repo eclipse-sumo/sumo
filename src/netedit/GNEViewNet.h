@@ -1060,6 +1060,27 @@ private:
     void drawTemporalDrawShape() const;
     /// @}
    
+    /// @brief mouse process functions
+    /// @{
+
+    /// @brief process left button press function in Supermode Network
+    void processLeftButtonPressNetwork(void* eventData);
+
+    /// @brief process left button release function in Supermode Network
+    void processLeftButtonReleaseNetwork();
+
+    /// @brief process move mouse function in Supermode Network
+    void processMoveMouseNetwork();
+
+    /// @brief process left button press function in Supermode Demand
+    void processLeftButtonPressDemand(void* eventData);
+
+    /// @brief process left button release function in Supermode Demand
+    void processLeftButtonReleaseDemand();
+
+    /// @brief process move mouse function in Supermode Demand
+    void processMoveMouseDemand();
+
     /// @brief Invalidated copy constructor.
     GNEViewNet(const GNEViewNet&) = delete;
 
