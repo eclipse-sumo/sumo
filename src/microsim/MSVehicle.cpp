@@ -4744,13 +4744,13 @@ double
 MSVehicle::getDistanceToPosition(double destPos, const MSEdge* destEdge) const {
     double distance = std::numeric_limits<double>::max();
     if (isOnRoad() && destEdge != nullptr) {
-        if (&myLane->getEdge() == *myCurrEdge) {
-            // vehicle is on a normal edge
-            distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos, *myCurrEdge, destEdge);
-        } else {
+        if (myLane->isInternal()) {
             // vehicle is on inner junction edge
             distance = myLane->getLength() - getPositionOnLane();
             distance += myRoute->getDistanceBetween(0, destPos, *(myCurrEdge + 1), destEdge);
+        } else {
+            // vehicle is on a normal edge
+            distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos, *myCurrEdge, destEdge);
         }
     }
     return distance;
