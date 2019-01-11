@@ -150,7 +150,48 @@ GNEInspectorFrame::hide() {
 
 
 bool 
-GNEInspectorFrame::processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    // first check if we have clicked over an Attribute Carrier
+    if (objectsUnderCursor.getAttributeCarrierFront()) {
+        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront() and shift key isn't pressed
+        if (!myViewNet->getKeyPressed().shiftKeyPressed() && myViewNet->selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+            objectsUnderCursor.swapLane2Edge();
+        }
+        // if Control key is Pressed, select instead inspect element
+        if (myViewNet->getKeyPressed().controlKeyPressed()) {
+            // Check if this GLobject type is locked
+            if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
+                // toogle netElement selection
+                if (objectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    objectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                } else {
+                    objectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                }
+            }
+        } else {
+            // first check if we clicked over a OverlappedInspection point
+            if (myViewNet->getKeyPressed().shiftKeyPressed()) {
+                if(!myOverlappedInspection->previousElement(clickedPosition)) {
+                    // inspect attribute carrier, (or multiselection if AC is selected)
+                    inspectClickedElement(objectsUnderCursor, clickedPosition);
+                }
+            } else  if(!myOverlappedInspection->nextElement(clickedPosition)) {
+                // inspect attribute carrier, (or multiselection if AC is selected)
+                inspectClickedElement(objectsUnderCursor, clickedPosition);
+            }
+            // focus upper element of inspector frame
+            focusUpperElement();
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+    // first check if we have clicked over an Attribute Carrier
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront() and shift key isn't pressed
         if (!myViewNet->getKeyPressed().shiftKeyPressed() && myViewNet->selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {

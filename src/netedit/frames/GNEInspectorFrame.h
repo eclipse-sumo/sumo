@@ -475,12 +475,19 @@ public:
     /// @brief hide inspector frame
     void hide();
 
-    /**@brief process click over Viewnet
+    /**@brief process click over Viewnet in Supermode Network
     * @param[in] clickedPosition clicked position over ViewNet
     * @param[in] objectsUnderCursor objects under cursors
     * @return true if something was sucefully done
     */
-    bool processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+
+    /**@brief process click over Viewnet in Supermode Demand
+    * @param[in] clickedPosition clicked position over ViewNet
+    * @param[in] objectsUnderCursor objects under cursors
+    * @return true if something was sucefully done
+    */
+    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /// @brief Inspect a single element
     void inspectSingleElement(GNEAttributeCarrier* AC);

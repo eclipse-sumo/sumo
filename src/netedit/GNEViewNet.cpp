@@ -2665,11 +2665,15 @@ GNEViewNet::updateNetworkModeSpecificControls() {
         default:
             break;
     }
+    // update common Network buttons
+    myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Network buttons
     myNetworkCheckableButtons.updateNetworkCheckableButtons();
-    // force repaint because different modes draw different things
+    // recalc toolbar
     myToolbar->recalc();
+    // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
+    // finally update view
     update();
 }
 
@@ -2719,11 +2723,15 @@ GNEViewNet::updateDemandModeSpecificControls() {
         default:
             break;
     }
+    // update common Network buttons
+    myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Demand buttons
     myDemandCheckableButtons.updateDemandCheckableButtons();
-    // force repaint because different modes draw different things
+    // recalc toolbar
     myToolbar->recalc();
+    // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
+    // finally update view
     update();
 }
 
@@ -4154,6 +4162,64 @@ void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // decide what to do based on mode
     switch (mySuperModes.networkEditMode) {
+        case GNE_NMODE_INSPECT: {
+            // process left click in Inspector Frame
+            myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_NMODE_DELETE: {
+            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
+                if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myKeyPressed.shiftKeyPressed()) {
+                    myObjectsUnderCursor.swapLane2Edge();
+                }
+                // check if we are deleting a selection or an single attribute carrier
+                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    // before delete al selected attribute carriers, check if we clicked over a geometry point
+                    if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
+                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false, false) != -1)) 
+                            || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false, false) != -1)))) {
+                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
+                    } else {
+                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                    }
+                } else {
+                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
+                }
+            } else {
+                // process click
+                processClick(eventData);
+            }
+            break;
+        }
+        case GNE_NMODE_SELECT:
+            // check if a rect for selecting is being created
+            if (myKeyPressed.shiftKeyPressed()) {
+                // begin rectangle selection
+                mySelectingArea.beginRectangleSelection();
+            } else {
+                // first check that under cursor there is an attribute carrier and is selectable
+                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                    // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
+                    if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+                        myObjectsUnderCursor.swapLane2Edge();
+                    }
+                    // Check if this GLobject type is locked
+                    if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                        // toogle netElement selection
+                        if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                            myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                        } else {
+                            myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                        }
+                    }
+                }
+                // process click
+                processClick(eventData);
+            }
+            break;
         case GNE_NMODE_CREATE_EDGE: {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
@@ -4183,64 +4249,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             break;
         }
-        case GNE_NMODE_DELETE: {
-            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
-                // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
-                if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myKeyPressed.shiftKeyPressed()) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
-                // check if we are deleting a selection or an single attribute carrier
-                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    // before delete al selected attribute carriers, check if we clicked over a geometry point
-                    if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
-                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getVertexIndex(getPositionInformation(), false, false) != -1)) 
-                            || ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getVertexIndex(getPositionInformation(), false, false) != -1)))) {
-                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
-                    } else {
-                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
-                    }
-                } else {
-                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
-                }
-            } else {
-                // process click
-                processClick(eventData);
-            }
-            break;
-        }
-        case GNE_NMODE_INSPECT: {
-            // process left click in Inspector Frame
-            myViewParent->getInspectorFrame()->processClick(getPositionInformation(), myObjectsUnderCursor);
-            // process click
-            processClick(eventData);
-            break;
-        }
-        case GNE_NMODE_SELECT:
-            // check if a rect for selecting is being created
-            if (myKeyPressed.shiftKeyPressed()) {
-                // begin rectangle selection
-                mySelectingArea.beginRectangleSelection();
-            } else {
-                // first check that under cursor there is an attribute carrier and is selectable
-                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
-                    // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
-                    if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
-                    // Check if this GLobject type is locked
-                    if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                        // toogle netElement selection
-                        if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                            myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                        } else {
-                            myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
-                        }
-                    }
-                }
-                // process click
-                processClick(eventData);
-            }
-            break;
         case GNE_NMODE_CONNECT: {
             if (myObjectsUnderCursor.getLaneFront()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
@@ -4420,13 +4428,54 @@ void
 GNEViewNet::processLeftButtonPressDemand(void* eventData) {
 // decide what to do based on mode
     switch (mySuperModes.demandEditMode) {
+        case GNE_DMODE_INSPECT: {
+            // process left click in Inspector Frame
+            myViewParent->getInspectorFrame()->processDemandSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_DMODE_DELETE: {
+            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                // check if we are deleting a selection or an single attribute carrier
+                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                } else {
+                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor.getAttributeCarrierFront());
+                }
+            } else {
+                // process click
+                processClick(eventData);
+            }
+            break;
+        }
+        case GNE_DMODE_SELECT:
+            // check if a rect for selecting is being created
+            if (myKeyPressed.shiftKeyPressed()) {
+                // begin rectangle selection
+                mySelectingArea.beginRectangleSelection();
+            } else {
+                // first check that under cursor there is an attribute carrier and is selectable
+                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                    // Check if this GLobject type is locked
+                    if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                        // toogle netElement selection
+                        if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                            myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                        } else {
+                            myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                        }
+                    }
+                }
+                // process click
+                processClick(eventData);
+            }
+            break;
         case GNE_DMODE_ROUTES: {
+            // check if we clicked over a lane
             if (myObjectsUnderCursor.getLaneFront()) {
-                // swap lanes to edges
-                myObjectsUnderCursor.swapLane2Edge();
                 // Handle edge click
-                myViewParent->getRouteFrame()->handleEdgeClick(myObjectsUnderCursor.getEdgeFront());
-                update();
+                myViewParent->getRouteFrame()->handleEdgeClick(&myObjectsUnderCursor.getLaneFront()->getParentEdge());
             }
             // process click
             processClick(eventData);
