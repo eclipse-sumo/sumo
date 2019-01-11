@@ -113,8 +113,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND,         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,      GNEApplicationWindow::onCmdSaveDemandElementsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,      GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                              GNEApplicationWindow::onCmdClose),
-    FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                              GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_E,                     GNEApplicationWindow::onCmdSetMode),
