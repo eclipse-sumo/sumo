@@ -211,6 +211,17 @@ NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
     myPhases[phaseIndex].maxDur = duration;
 }
 
+void
+NBTrafficLightLogic::setPhaseNext(int phaseIndex, int next) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].next = next;
+}
+
+void
+NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].name = name;
+}
 
 /****************************************************************************/
 
