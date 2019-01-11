@@ -757,18 +757,6 @@ GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsU
     }
 }
 
-void
-GNEAdditionalFrame::removeAdditional(GNEAdditional* additional) {
-    myViewNet->getUndoList()->p_begin("delete " + additional->getTagStr());
-    // first remove all additional childs of this additional calling this function recursively
-    while (additional->getAdditionalChilds().size() > 0) {
-        removeAdditional(additional->getAdditionalChilds().front());
-    }
-    // remove additional
-    myViewNet->getUndoList()->add(new GNEChange_Additional(additional, false), true);
-    myViewNet->getUndoList()->p_end();
-}
-
 
 void
 GNEAdditionalFrame::showSelectorLaneChildsModul() {

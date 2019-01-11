@@ -31,6 +31,7 @@
 #include <netedit/additionals/GNEStoppingPlace.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
@@ -210,9 +211,9 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         } else if (myConsecutiveLaneOptions.removeInvalidElements->getCheck() == TRUE) {
             // iterate over invalid single lane elements to fix positions
             for (auto i : myInvalidMultiLaneAdditionals) {
-                myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(i);
+                myViewNet->getNet()->deleteAdditional(i, myViewNet->getUndoList());
             }
-            // clear myInvalidMultiLaneAdditionals due tere isn't more invalid multi lane additionals
+            // clear myInvalidMultiLaneAdditionals due there isn't more invalid multi lane additionals
             myInvalidMultiLaneAdditionals.clear();
         }
         // fix problem of positions

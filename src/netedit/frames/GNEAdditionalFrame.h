@@ -318,11 +318,6 @@ public:
      */
     bool addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
-    /**@brief remove an additional element previously added
-     * @param[in] additional element to erase
-     */
-    void removeAdditional(GNEAdditional* additional);
-
     /// @brief show selector lane child and update use selected edges/lanes
     void showSelectorLaneChildsModul();
 

@@ -999,6 +999,9 @@ private:
     /// @brief delete all currently selected additionals
     void deleteSelectedAdditionals();
 
+    /// @brief delete all currently selected demand elements
+    void deleteSelectedDemandElements();
+
     /// @brief delete all currently selected crossings
     void deleteSelectedCrossings();
 

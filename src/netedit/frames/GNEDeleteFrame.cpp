@@ -29,6 +29,7 @@
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/additionals/GNETAZ.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/GNENet.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/GNEUndoList.h>
@@ -270,11 +271,15 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
                 if (tagValue.isAdditional()) {
                     GNEAdditional* additional = dynamic_cast<GNEAdditional*>(ac);
                     assert(additional);
-                    myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(additional);
+                    myViewNet->getNet()->deleteAdditional(additional, myViewNet->getUndoList());
                 } else if (tagValue.isShape()) {
                     GNEShape* shape = dynamic_cast<GNEShape*>(ac);
                     assert(shape);
                     myViewNet->getNet()->deleteShape(shape, myViewNet->getUndoList());
+                } else if (tagValue.isDemandElement()) {
+                    GNEDemandElement* additional = dynamic_cast<GNEDemandElement*>(ac);
+                    assert(additional);
+                    myViewNet->getNet()->deleteDemandElement(additional, myViewNet->getUndoList());
                 }
                 break;
             }

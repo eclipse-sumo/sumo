@@ -209,8 +209,11 @@ public:
     /// @brief return value for lane coloring according to the given scheme
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
-    /// @brief remove lane of Additional Parent
+    /// @brief remove lane of demand parent
     void removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty);
+
+    /// @brief remove lane of demand parent
+    void removeLaneOfDemandElementParents(GNEUndoList* undoList, bool allowEmpty);
 
 protected:
     /// @brief FOX needs this

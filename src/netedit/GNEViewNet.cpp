@@ -23,6 +23,7 @@
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNETAZ.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
 #include <netedit/frames/GNEConnectorFrame.h>
 #include <netedit/frames/GNECrossingFrame.h>
@@ -1076,6 +1077,7 @@ GNEViewNet::hotkeyDel() {
         deleteSelectedConnections();
         deleteSelectedCrossings();
         deleteSelectedAdditionals();
+        deleteSelectedDemandElements();
         deleteSelectedLanes();
         deleteSelectedEdges();
         deleteSelectedJunctions();
@@ -2734,13 +2736,29 @@ GNEViewNet::deleteSelectedAdditionals() {
         for (auto i : additionals) {
             // due there are additionals that are removed when their parent is removed, we need to check if yet exists before removing
             if (myNet->retrieveAdditional(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
-                getViewParent()->getAdditionalFrame()->removeAdditional(i);
+                myNet->deleteAdditional(i, myUndoList);
             }
         }
         myUndoList->p_end();
     }
 }
 
+
+void
+GNEViewNet::deleteSelectedDemandElements() {
+    std::vector<GNEDemandElement*> additionals = myNet->retrieveDemandElements(true);
+    if (additionals.size() > 0) {
+        std::string plural = additionals.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected demand elements" + plural);
+        for (auto i : additionals) {
+            // due there are demand elements that are removed when their parent is removed, we need to check if yet exists before removing
+            if (myNet->retrieveDemandElement(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
+                myNet->deleteDemandElement(i, myUndoList);
+            }
+        }
+        myUndoList->p_end();
+    }
+}
 
 
 void

@@ -30,12 +30,14 @@
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -1207,6 +1209,35 @@ GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     }
 }
 
+
+void
+GNELane::removeLaneOfDemandElementParents(GNEUndoList* undoList, bool allowEmpty) {
+    // iterate over all additional parents of lane
+    for (auto i : myDemandElementParents) {
+        // Obtain attribute LANES of additional
+        std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
+        // check that at least there is an lane
+        if (laneIDs.empty()) {
+            throw ProcessError("DemandElement lane childs is empty");
+        } else if ((laneIDs.size() == 1) && (allowEmpty == false)) {
+            // remove entire DemandElement if SUMO_ATTR_LANES cannot be empty
+            if (laneIDs.front() == getID()) {
+                undoList->add(new GNEChange_DemandElement(i, false), true);
+            } else {
+                throw ProcessError("lane ID wasnt' found in DemandElement");
+            }
+        } else {
+            auto it = std::find(laneIDs.begin(), laneIDs.end(), getID());
+            if (it != laneIDs.end()) {
+                // set new attribute in DemandElement
+                laneIDs.erase(it);
+                i->setAttribute(SUMO_ATTR_LANES, toString(laneIDs), undoList);
+            } else {
+                throw ProcessError("lane ID wasnt' found in DemandElement");
+            }
+        }
+    }
+}
 
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {

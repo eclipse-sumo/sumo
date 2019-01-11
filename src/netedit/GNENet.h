@@ -258,6 +258,18 @@ public:
      */
     void deleteShape(GNEShape* shape, GNEUndoList* undoList);
 
+    /**@brief remove additional
+     * @param[in] additional The Shape to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList);
+
+    /**@brief remove demand element
+     * @param[in] demandElement The Shape to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList);
+
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
      * @param[in] undoList The undolist in which to mark changes
@@ -486,8 +498,9 @@ public:
      * param[in] volatileOptions enable or disable volatile options
      * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
      * param[in] shapePath path in wich shapes were saved before recomputing with volatile options
+     * param[in] demandPath path in wich demand elements were saved before recomputing with volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapePath = "");
+    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapePath = "",  std::string demandPath = "");
 
     /**@brief join selected junctions
      * @note difference to mergeJunctions:

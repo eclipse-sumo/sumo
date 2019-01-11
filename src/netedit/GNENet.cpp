@@ -38,6 +38,8 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_Crossing.h>
+#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
@@ -157,6 +159,16 @@ GNENet::~GNENet() {
     for (auto it : myAttributeCarriers.additionals) {
         for (auto j : it.second) {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
+            j.second->decRef();
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + j.second->getTagStr() + " '" + j.second->getID() + "' in GNENet destructor");
+            delete j.second;
+        }
+    }
+    // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement)
+    for (auto it : myAttributeCarriers.demandElements) {
+        for (auto j : it.second) {
+            // decrease reference manually (because it was increased manually in GNEDemandElementHandler)
             j.second->decRef();
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + j.second->getTagStr() + " '" + j.second->getID() + "' in GNENet destructor");
@@ -419,14 +431,26 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     edge->removeEdgeOfAdditionalParents(undoList);
     // delete all additionals childs of edge
     while (edge->getAdditionalChilds().size() > 0) {
-        myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(edge->getAdditionalChilds().front());
+        deleteAdditional(edge->getAdditionalChilds().front(), undoList);
     }
     // delete all additionals childs of lane
     for (auto i : edge->getLanes()) {
         // remove lane of additional parents (For example, VSS)
         i->removeLaneOfAdditionalParents(undoList, false);
         while (i->getAdditionalChilds().size() > 0) {
-            myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(i->getAdditionalChilds().front());
+            deleteAdditional(i->getAdditionalChilds().front(), undoList);
+        }
+    }
+    // delete all demand element childs of edge
+    while (edge->getDemandElementChilds().size() > 0) {
+        deleteDemandElement(edge->getDemandElementChilds().front(), undoList);
+    }
+    // delete all demand element childs of lane
+    for (auto i : edge->getLanes()) {
+        // remove lane of additional parents (For example, VSS)
+        i->removeLaneOfDemandElementParents(undoList, false);
+        while (i->getDemandElementChilds().size() > 0) {
+            deleteDemandElement(i->getDemandElementChilds().front(), undoList);
         }
     }
     // delete shapes childs of lane
@@ -479,6 +503,17 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
             undoList->p_add(new GNEChange_Attribute(j, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
+    // replace in demand elements childs of edge
+    while (which->getDemandElementChilds().size() > 0) {
+        undoList->p_add(new GNEChange_Attribute(which->getDemandElementChilds().front(), SUMO_ATTR_EDGE, by->getID()));
+    }
+    // replace in demand elements childs of lane
+    for (auto i : which->getLanes()) {
+        std::vector<GNEDemandElement*> copyOfLaneDemandElements = i->getDemandElementChilds();
+        for (auto j : copyOfLaneDemandElements) {
+            undoList->p_add(new GNEChange_Attribute(j, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
+        }
+    }
     // replace in shapes childs of lane
     for (auto i : which->getLanes()) {
         std::vector<GNEShape*> copyOfLaneShapes = i->getShapeChilds();
@@ -521,7 +556,11 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         lane->removeLaneOfAdditionalParents(undoList, false);
         // delete additionals childs of lane
         while (lane->getAdditionalChilds().size() > 0) {
-            myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(lane->getAdditionalChilds().front());
+            deleteAdditional(lane->getAdditionalChilds().front(), undoList);
+        }
+        // delete demand element childs of lane
+        while (lane->getDemandElementChilds().size() > 0) {
+            deleteDemandElement(lane->getDemandElementChilds().front(), undoList);
         }
         // delete POIShapes of Lane
         while (lane->getShapeChilds().size() > 0) {
@@ -582,6 +621,32 @@ GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
     undoList->p_begin("delete " + shape->getTagStr());
     // delete shape
     undoList->add(new GNEChange_Shape(shape, false), true);
+    undoList->p_end();
+}
+
+
+void
+GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
+    undoList->p_begin("delete " + additional->getTagStr());
+    // first remove all additional childs of this additional calling this function recursively
+    while (additional->getAdditionalChilds().size() > 0) {
+        deleteAdditional(additional->getAdditionalChilds().front(), undoList);
+    }
+    // remove additional
+    undoList->add(new GNEChange_Additional(additional, false), true);
+    undoList->p_end();
+}
+
+
+void
+GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList) {
+    undoList->p_begin("delete " + demandElement->getTagStr());
+    // first remove all demand element childs of this demandElement calling this function recursively
+    while (demandElement->getDemandElementChilds().size() > 0) {
+        deleteDemandElement(demandElement->getDemandElementChilds().front(), undoList);
+    }
+    // remove demandElement
+    undoList->add(new GNEChange_DemandElement(demandElement, false), true);
     undoList->p_end();
 }
 
@@ -848,7 +913,8 @@ GNENet::requiereSaveNet(bool value) {
         WRITE_DEBUG("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
         std::string shapeSaved = (myShapesSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved);
+        std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved + ", demand elements " + demandElementsSaved);
     }
     myNetSaved = !value;
 }
@@ -1083,7 +1149,7 @@ GNENet::retrieveLane(const std::string& id, bool failHard, bool checkVolatileCha
                 throw UnknownElement(toString(SUMO_TAG_LANE) + " " + id);
             }
         } else {
-            // check if the recomputing with volatile option has changed the number of lanes (needed for additionals)
+            // check if the recomputing with volatile option has changed the number of lanes (needed for additionals and demand elements)
             if (checkVolatileChange && (myEdgesAndNumberOfLanes.count(edge_id) == 1) && myEdgesAndNumberOfLanes[edge_id] != (int)edge->getLanes().size()) {
                 return edge->getLanes().at(lane->getIndex() + 1);
             }
@@ -1225,9 +1291,19 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
         for (auto i : myPOIs) {
             result.push_back(dynamic_cast<GNEPOI*>(i.second));
         }
+        for (auto i : myAttributeCarriers.demandElements) {
+            for (auto j : i.second) {
+                result.push_back(j.second);
+            }
+        }
     } else if (GNEAttributeCarrier::getTagProperties(type).isAdditional()) {
         // only returns additionals of a certain type.
         for (auto i : myAttributeCarriers.additionals.at(type)) {
+            result.push_back(i.second);
+        }
+    } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement()) {
+        // only returns demand elements of a certain type.
+        for (auto i : myAttributeCarriers.demandElements.at(type)) {
             result.push_back(i.second);
         }
     } else {
@@ -1285,7 +1361,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
 
 
 void
-GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string shapePath) {
+GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string shapePath, std::string demandPath) {
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
@@ -1349,6 +1425,31 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
         // restore flag
         myAllowUndoShapes = true;
+    }
+    // load demand elements if was recomputed with volatile options
+    if (demandPath != "") {
+        // fill demandElements with tags
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
+        }
+        /*
+        // default vehicle type is always available
+        GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+        myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+        defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
+        */
+        // Create demandElement handler
+        GNEDemandHandler demandElementHandler(demandPath, myViewNet, false);
+        // Run parser
+        if (!XMLSubSys::runParser(demandElementHandler, demandPath, false)) {
+            WRITE_MESSAGE("Loading of " + demandPath + " failed.");
+        } else {
+            // update view
+            update();
+        }
+        // clear myEdgesAndNumberOfLanes after reload demandElements
+        myEdgesAndNumberOfLanes.clear();
     }
     window->getApp()->endWaitCursor();
     window->setStatusBarText("Finished computing junctions.");
@@ -2140,26 +2241,14 @@ void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "route_file.xsd");
-    /*
-    // first write all vehicle types (Except DEFAULT_VTYPE_ID)
-    for (auto i : myAttributeCarriers.additionals) {
-        if (i.first == SUMO_TAG_VTYPE) {
-            for (auto j : i.second) {
-                if (j.second->getID() != DEFAULT_VTYPE_ID) {
-                    j.second->writeDemandElement(device);
-                }
-            }
-        }
-    }
     // now write all routes
-    for (auto i : myAttributeCarriers.additionals) {
+    for (auto i : myAttributeCarriers.demandElements) {
         if (i.first == SUMO_TAG_ROUTE) {
             for (auto j : i.second) {
                 j.second->writeDemandElement(device);
             }
         }
     }
-    */
     device.close();
 }
 
@@ -2761,7 +2850,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             myAttributeCarriers.junctions.erase(it.second->getMicrosimID());
         }
 
-        // clear rest of additionals and shapes that weren't removed during cleaning of undo list
+        // clear rest of additional that weren't removed during cleaning of undo list
         for (const auto& it : myAttributeCarriers.additionals) {
             for (const auto& j : it.second) {
                 // only remove drawable additionals
@@ -2783,6 +2872,17 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
         }
         myPOIs.clear();
+
+        // clear rest of demand elements that weren't removed during cleaning of undo list
+        for (const auto& it : myAttributeCarriers.demandElements) {
+            for (const auto& j : it.second) {
+                // only remove drawable additionals
+                if (j.second->getTagProperty().isDrawable()) {
+                    myGrid.removeAdditionalGLObject(j.second);
+                }
+            }
+        }
+        myAttributeCarriers.additionals.clear();
 
         // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
         initJunctionsAndEdges();
