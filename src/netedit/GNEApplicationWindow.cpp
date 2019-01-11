@@ -65,8 +65,8 @@
 // ===========================================================================
 FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // quit calls
-    FXMAPFUNC(SEL_COMMAND,  MID_QUIT,                               GNEApplicationWindow::onCmdQuit),
-    FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,                               GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Q,                      GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_SIGNAL,   MID_HOTKEY_CTRL_Q,                      GNEApplicationWindow::onCmdQuit),
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                             GNEApplicationWindow::onCmdQuit),
 
     // toolbar file
@@ -78,16 +78,16 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,                        GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENFOREIGN,        GNEApplicationWindow::onCmdOpenForeign),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENFOREIGN,        GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_SHAPES,                        GNEApplicationWindow::onCmdOpenShapes),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_SHAPES,                        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_P,                      GNEApplicationWindow::onCmdOpenShapes),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,                      GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,                   GNEApplicationWindow::onCmdOpenAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_TLSPROGRAMS,                   GNEApplicationWindow::onCmdOpenTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_TLSPROGRAMS,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                         GNEApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                         GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                             GNEApplicationWindow::onCmdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,                             GNEApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R,                      GNEApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R,                      GNEApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_S,                  GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_S,                  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_S,            GNEApplicationWindow::onCmdSaveAsNetwork),
@@ -104,8 +104,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_SHIFT_K,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onCmdSaveTLSProgramsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                              GNEApplicationWindow::onCmdClose),
-    FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                              GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W,                      GNEApplicationWindow::onCmdClose),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_W,                      GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_E,                     GNEApplicationWindow::onCmdSetMode),
@@ -160,8 +160,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                 GNEApplicationWindow::onCmdClearMsgWindow),
 
     // toolbar help
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F1,                      GNEApplicationWindow::onCmdHelp),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F2,                      GNEApplicationWindow::onCmdAbout),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1,                          GNEApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2,                          GNEApplicationWindow::onCmdAbout),
 
     // key events
     FXMAPFUNC(SEL_KEYPRESS,     0,                                  GNEApplicationWindow::onKeyPress),
@@ -282,25 +282,25 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_N));         // Ctrl + N
     getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));              // Ctrl + O
     getAccelTable()->addAccel(327691, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));               // Ctrl + Shift + O
-    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_RELOAD));                    // Ctrl + R
+    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R));             // Ctrl + R
     getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_S));         // Ctrl + S
     getAccelTable()->addAccel(327695, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_S));   // Ctrl + Shift + S
     getAccelTable()->addAccel(262220, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_L));         // Ctrl + L
     getAccelTable()->addAccel(262218, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_J));         // Ctrl + J
-    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));               // Ctrl + P
+    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));             // Ctrl + P
     getAccelTable()->addAccel(327692, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_P));   // Ctrl + Shift + P
     getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));          // Ctrl + D
     getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_D));   // Ctrl + Shift + D
     getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));          // Ctrl + K
     getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));   // Ctrl + Shift + K
-    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_CLOSE));                     // Ctrl + W
-    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_QUIT));                      // Ctrl + Q
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W));             // Ctrl + W
+    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q));             // Ctrl + Q
     getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));           // Ctrl + Z
     getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));           // Ctrl + Y
     getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));            // Ctrl + V
     getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));              // Ctrl + I
     getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_G));         // Ctrl + G
-    getAccelTable()->addAccel(262228, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_T));                   // Ctrl + S
+    getAccelTable()->addAccel(262228, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_T));         // Ctrl + T
     // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
     getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
@@ -512,10 +512,10 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuTitle(myMenuBar, "&Help", nullptr, myHelpMenu);
     new FXMenuCommand(myHelpMenu,
                       "&Online Documentation\tF1\tOpen Online documentation.",
-                      nullptr, this, MID_GNE_HOTKEY_F1);
+                      nullptr, this, MID_HOTKEY_F1);
     new FXMenuCommand(myHelpMenu,
                       "&About\tF2\tAbout netedit.",
-                      nullptr, this, MID_GNE_HOTKEY_F2);
+                      nullptr, this, MID_HOTKEY_F2);
 }
 
 
@@ -990,7 +990,7 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
     new FXMenuCommand(fileMenu,
                       "&Reload\tCtrl+R\tReloads the network.",
-                      GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_RELOAD);
+                      GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_HOTKEY_CTRL_R);
     new FXMenuCommand(fileMenu,
                       "&Save Network...\tCtrl+S\tSave the network.",
                       GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_S);
@@ -1007,7 +1007,7 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
     myGNEApp->myFileMenuShapes = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuShapes,
                       "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), myGNEApp, MID_OPEN_SHAPES);
+                      GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), myGNEApp, MID_HOTKEY_CTRL_P);
     saveShapes = new FXMenuCommand(myGNEApp->myFileMenuShapes,
             "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
             GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_SHIFT_P);
@@ -1048,7 +1048,7 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
     new FXMenuSeparator(fileMenu);
     new FXMenuCommand(fileMenu,
                       "Close\tCtrl+W\tClose the net&work.",
-                      GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_CLOSE);
+                      GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_HOTKEY_CTRL_W);
     // Recent files
     FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);
     sep1->setTarget(&myGNEApp->myRecentConfigs);
@@ -1083,7 +1083,7 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
     myGNEApp->myRecentNets.setTarget(myGNEApp);
     myGNEApp->myRecentNets.setSelector(MID_RECENTFILE);
     new FXMenuSeparator(fileMenu);
-    new FXMenuCommand(fileMenu, "&Quit\tCtrl+Q\tQuit the Application.", nullptr, myGNEApp, MID_QUIT, 0);
+    new FXMenuCommand(fileMenu, "&Quit\tCtrl+Q\tQuit the Application.", nullptr, myGNEApp, MID_HOTKEY_CTRL_Q, 0);
 
 }
 

@@ -45,7 +45,7 @@ enum {
     /// @brief Main window-ID
     MID_WINDOW,
     /// @brief Main window closes
-    MID_QUIT,
+    MID_HOTKEY_CTRL_Q,
     /// @}
 
 
@@ -67,7 +67,7 @@ enum {
     /// @brief Open network - ID
     MID_OPEN_NETWORK,
     /// @brief Load additional file with poi and polygons
-    MID_OPEN_SHAPES,
+    MID_HOTKEY_CTRL_P,
     /// @brief Load edge data for visualization
     MID_OPEN_EDGEDATA,
     /// @brief Load additional file with additional elements
@@ -75,13 +75,11 @@ enum {
     /// @brief Load additional file with additional elements
     MID_OPEN_TLSPROGRAMS,
     /// @brief Reload the previously loaded simulation
-    MID_RELOAD,
+    MID_HOTKEY_CTRL_R,
     /// @brief Loads a file previously loaded
     MID_RECENTFILE,
     /// @brief Close simulation - ID
-    MID_CLOSE,
-    /// @brief About SUMO - ID
-    MID_ABOUT,
+    MID_HOTKEY_CTRL_W,
     /// @}
 
 
@@ -89,11 +87,11 @@ enum {
     /// @{
 
     /// @brief Start the simulation
-    MID_START,
+    MID_HOTKEY_CTRL_A,
     /// @brief Stop the simulation
-    MID_STOP,
+    MID_HOTKEY_CTRL_S,
     /// @brief Perform a single simulation step
-    MID_STEP,
+    MID_HOTKEY_CTRL_D,
     /// @brief Save state to file
     MID_SIMSAVE,
     /// @}
@@ -127,7 +125,7 @@ enum {
     /// @brief Open editor for selections
     MID_EDITCHOSEN,
     /// @brief Edit simulation breakpoints
-    MID_EDIT_BREAKPOINTS,
+    MID_GNE_HOTKEY_CTRL_B,
     /// @brief Open in netedit
     MID_NETEDIT,
     /// @brief Open in SUMO GUI
@@ -141,9 +139,9 @@ enum {
     /// @brief Application settings - menu entry
     MID_APPSETTINGS,
     /// @brief Gaming mode - menu entry
-    MID_GAMING,
+    MID_HOTKEY_CTRL_G,
     /// @brief Fullscreen mode - menu entry
-    MID_FULLSCREEN,
+    MID_HOTKEY_CTRL_F,
     /// @brief Locator configuration - menu entry
     MID_LISTINTERNAL,
     MID_LISTPARKING,
@@ -414,9 +412,9 @@ enum {
     /// @{
 
     /// @brief hot key <F1> open online documentation
-    MID_GNE_HOTKEY_F1,    
+    MID_HOTKEY_F1,    
     /// @brief hot key <F2> open about dialog
-    MID_GNE_HOTKEY_F2,
+    MID_HOTKEY_F2,
     /// @brief hot key <ESC> abort current edit operation
     MID_GNE_HOTKEY_ESC,
     /// @brief hot key <F12> focus upper element of current frame
