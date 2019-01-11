@@ -982,6 +982,8 @@ TraCITestClient::testAPI() {
         answerLog << "    setScheme: \n";
         gui.setSchema("View #0", "real world");
         answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
+        gui.setZoom("View #0", 50);
+        answerLog << "    getZoom: " << gui.getZoom() << "\n";
         answerLog << "    take screenshot: \n";
         gui.screenshot("View #0", "image.png", 500, 500);
     } catch (libsumo::TraCIException&) {

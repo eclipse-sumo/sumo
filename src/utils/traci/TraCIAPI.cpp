@@ -812,6 +812,7 @@ TraCIAPI::GUIScope::getBoundary(const std::string& viewID) const {
 void
 TraCIAPI::GUIScope::setZoom(const std::string& viewID, double zoom) const {
     tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(zoom);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_ZOOM, viewID, content);
     tcpip::Storage inMsg;
