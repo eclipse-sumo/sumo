@@ -153,6 +153,8 @@ public:
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
+    void setPhaseNext(int phaseIndex, int next);
+    void setPhaseName(int phaseIndex, const std::string& name);
 
     /* @brief deletes the phase at the given index
      * @note thhrows InvalidArgument on out-of range index
