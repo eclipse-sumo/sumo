@@ -1,4 +1,3 @@
-This seems to be no valid svn repository D:\behr_mi\Projekte\sumo\git Command '['svn', 'pl', '-v', '-R', '--xml', 'D:\\behr_mi\\Projekte\\sumo\\git']' returned non-zero exit status 1
 src/foreign/eulerspiral/odrSpiral.cpp header does not start
 src/foreign/eulerspiral/odrSpiral.h header does not start
 src/foreign/fontstash/fontstash.h header does not start
