@@ -78,6 +78,12 @@ public:
         /// @brief Inspect previous element (from top to bot)
         long onCmdPreviousElement(FXObject*, FXSelector, void*);
 
+        /// @brief show list of overlapped elements
+        long onCmdShowList(FXObject*, FXSelector, void*);
+
+        /// @brief called when a list item is selected
+        long onCmdListItemSelected(FXObject*, FXSelector, void*);
+
         /// @brief Called when user press the help button
         long onCmdOverlappingHelp(FXObject*, FXSelector, void*);
         /// @}
@@ -93,11 +99,14 @@ public:
         /// @brief Previous element button
         FXButton* myPreviousElement;
 
-        /// @brief label for current index
-        FXLabel* myCurrentIndexLabel;
+        /// @brief Button for current index
+        FXButton* myCurrentIndexButton;
 
         /// @brief Next element button
         FXButton* myNextElement;
+
+        /// @brief list of overlapped elements
+        FXList *myOverlappedElementList;
 
         /// @brief button for help
         FXButton* myHelpButton;
@@ -110,6 +119,9 @@ public:
 
         /// @brief saved clicked position
         Position mySavedClickedPosition;
+
+        /// @brief inspect attributeCarrier correspond to current index
+        void inspectOverlappedAttributeCarrier();
     };
 
     // ===========================================================================

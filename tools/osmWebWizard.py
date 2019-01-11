@@ -42,10 +42,10 @@ SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(os.path.abspath(__file__)), ".."))
 
 try:
-        basestring
-        # Allows isinstance(foo, basestring) to work in Python 3
-except:
-        basestring = str
+    basestring
+    # Allows isinstance(foo, basestring) to work in Python 3
+except NameError:
+    basestring = str
 
 typemapdir = os.path.join(SUMO_HOME, "data", "typemap")
 typemaps = {
@@ -165,10 +165,10 @@ class Builder(object):
     def getRelative(self, options):
         result = []
         dirname = self.tmp
-        l = len(dirname)
+        ld = len(dirname)
         for o in options:
-            if isinstance(o, basestring) and o[0:l] == dirname:
-                remove = o[:l+1]
+            if isinstance(o, basestring) and o[:ld] == dirname:
+                remove = o[:ld+1]
                 result.append(o.replace(remove, ''))
             else:
                 result.append(o)
@@ -464,7 +464,8 @@ parser.add_argument("--remote", action="store_true",
                     "will be generated.")
 parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
-                    help="Run with pre-defined options on file 'osm_bbox.osm.xml' and write output to the given directory.")
+                    help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
+                    "write output to the given directory.")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
                     help="Port for the Websocket. Please edit script.js when using an other port than 8010.")

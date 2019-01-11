@@ -46,9 +46,11 @@
 // ===========================================================================
 
 FXDEFMAP(GNEInspectorFrame::OverlappedInspection) OverlappedInspectionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_NEXT,        GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,    GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_NEXT,            GNEInspectorFrame::OverlappedInspection::onCmdNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,        GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SHOWLIST,        GNEInspectorFrame::OverlappedInspection::onCmdShowList),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ITEMSELECTED,    GNEInspectorFrame::OverlappedInspection::onCmdListItemSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp),
 };
 
 FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
@@ -372,6 +374,21 @@ GNEInspectorFrame::getInspectedACs() const {
     return myInspectedACs;
 }
 
+
+void 
+GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
+    if(objectsUnderCursor.getAttributeCarrierFront()) {
+        // inspect front element
+        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
+        // if element has overlapped elements, show Overlapped Inspection modul
+        if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
+            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
+        } else {
+            myOverlappedInspection->hideOverlappedInspection();
+        }
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNEInspectorFrame::OverlappedInspection - methods
 // ---------------------------------------------------------------------------
@@ -383,9 +400,16 @@ GNEInspectorFrame::OverlappedInspection::OverlappedInspection(GNEInspectorFrame*
     FXHorizontalFrame *frameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
     myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWLEFT), this, MID_GNE_INSPECTORFRAME_PREVIOUS, GUIDesignButtonIconRectangular);
-    myCurrentIndexLabel = new FXLabel(frameButtons, "", nullptr, GUIDesignLabelCenterThick);
+    // create current index button 
+    myCurrentIndexButton = new FXButton(frameButtons, "", nullptr, this, MID_GNE_INSPECTORFRAME_SHOWLIST, GUIDesignButton);
     // Create next Item Button
     myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(ICON_NETEDITARROWRIGHT), this, MID_GNE_INSPECTORFRAME_NEXT, GUIDesignButtonIconRectangular);
+    // Create list of overlapped elements (by default hidden)
+    myOverlappedElementList = new FXList(this, this, MID_GNE_INSPECTORFRAME_ITEMSELECTED, GUIDesignListSingleElement);
+    // disable vertical scrolling
+    myOverlappedElementList->setScrollStyle(VSCROLLING_OFF);
+    // by default list of overlapped elements is hidden)
+    myOverlappedElementList->hide();
     // Create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -398,8 +422,19 @@ void
 GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
     myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
     mySavedClickedPosition = clickedPosition;
+    // by default we inspect first element
     myItemIndex = 0;
-    myCurrentIndexLabel->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
+    // update text of current index button
+    myCurrentIndexButton->setText(("1 / " + toString(myOverlappedACs.size())).c_str());
+    // clear and fill list again
+    myOverlappedElementList->clearItems();
+    for (int i = 0; i < (int)objectsUnderCursor.getClickedAttributeCarriers().size(); i++) {
+        myOverlappedElementList->insertItem(i, objectsUnderCursor.getClickedAttributeCarriers().at(i)->getID().c_str(), objectsUnderCursor.getClickedAttributeCarriers().at(i)->getIcon());
+    }
+    // set first element as selected element
+    myOverlappedElementList->getItem(0)->setSelected(TRUE);
+    // by default list hidden
+    myOverlappedElementList->hide();
     // show template editor
     show();
 }
@@ -422,6 +457,7 @@ bool
 GNEInspectorFrame::OverlappedInspection::checkSavedPosition(const Position &clickedPosition) const {
     return (mySavedClickedPosition.distanceSquaredTo2D(clickedPosition) < 0.25);
 }
+
 
 bool 
 GNEInspectorFrame::OverlappedInspection::nextElement(const Position &clickedPosition) {
@@ -461,49 +497,61 @@ GNEInspectorFrame::OverlappedInspection::previousElement(const Position &clicked
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
+    // unselect current list element
+    myOverlappedElementList->getItem((int)myItemIndex)->setSelected(FALSE);
     // set index (it works as a ring)
     if(myItemIndex > 0) {
         myItemIndex--;
     } else {
         myItemIndex = (myOverlappedACs.size() - 1);
     }
-    // change current inspected item
-    GNEAttributeCarrier *AC = myOverlappedACs.at(myItemIndex);
-    // if is an lane and selectEdges checkBox is enabled, inspect their edge 
-    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->selectEdges()) {
-        myInspectorFrameParent->inspectSingleElement(&dynamic_cast<GNELane*>(AC)->getParentEdge());
-    } else {
-        myInspectorFrameParent->inspectSingleElement(AC);
-    }
-    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
-    show();
-    // update current label
-    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
-    // update view (due dotted contour)
-    myInspectorFrameParent->getViewNet()->update();
+    // selected current list element
+    myOverlappedElementList->getItem((int)myItemIndex)->setSelected(TRUE);
+    // inspect overlapped attribute carrier
+    inspectOverlappedAttributeCarrier();
     return 1;
 }
 
 
 long
 GNEInspectorFrame::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+    // unselect current list element
+    myOverlappedElementList->getItem((int)myItemIndex)->setSelected(FALSE);
     // set index (it works as a ring)
     myItemIndex = (myItemIndex + 1) % myOverlappedACs.size();
-    // change current inspected item
-    GNEAttributeCarrier *AC = myOverlappedACs.at(myItemIndex);
-    // if is an lane and selectEdges checkBox is enabled, inspect their edge 
-    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->selectEdges()) {
-        myInspectorFrameParent->inspectSingleElement(&dynamic_cast<GNELane*>(AC)->getParentEdge());
-    } else {
-        myInspectorFrameParent->inspectSingleElement(AC);
-    }
-    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
-    show();
-    // update current label
-    myCurrentIndexLabel->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
-    // update view (due dotted contour)
-    myInspectorFrameParent->getViewNet()->update();
+    // selected current list element
+    myOverlappedElementList->getItem((int)myItemIndex)->setSelected(TRUE);
+    // inspect overlapped attribute carrier
+    inspectOverlappedAttributeCarrier();
     return 1;
+}
+
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*) {
+    // show or hidde element list
+    if (myOverlappedElementList->shown()) {
+        myOverlappedElementList->hide();
+    } else {
+        myOverlappedElementList->show();
+    }
+    myOverlappedElementList->recalc();
+    // recalc and update frame
+    recalc();
+    return 1;
+}
+
+long
+GNEInspectorFrame::OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
+    for (int i = 0; i < myOverlappedElementList->getNumItems(); i++) {
+        if (myOverlappedElementList->getItem(i)->isSelected()) {
+            myItemIndex = i;
+            // inspect overlapped attribute carrier
+            inspectOverlappedAttributeCarrier();
+            return 1;
+        }
+    }
+    return 0;
 }
 
 
@@ -526,20 +574,23 @@ GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelec
 }
 
 
-void 
-GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition) {
-    if(objectsUnderCursor.getAttributeCarrierFront()) {
-        // inspect front element
-        inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
-        // if element has overlapped elements, show Overlapped Inspection modul
-        if(objectsUnderCursor.getClickedAttributeCarriers().size() > 1) {
-            myOverlappedInspection->showOverlappedInspection(objectsUnderCursor, clickedPosition);
-        } else {
-            myOverlappedInspection->hideOverlappedInspection();
-        }
+void
+GNEInspectorFrame::OverlappedInspection::inspectOverlappedAttributeCarrier() {
+    // change current inspected item
+    GNEAttributeCarrier *AC = myOverlappedACs.at(myItemIndex);
+    // if is an lane and selectEdges checkBox is enabled, inspect their edge 
+    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE && myInspectorFrameParent->getViewNet()->selectEdges()) {
+        myInspectorFrameParent->inspectSingleElement(&dynamic_cast<GNELane*>(AC)->getParentEdge());
+    } else {
+        myInspectorFrameParent->inspectSingleElement(AC);
     }
+    // show OverlappedInspection again (because it's hidden in inspectSingleElement)
+    show();
+    // update current index button
+    myCurrentIndexButton->setText((toString(myItemIndex+1) + " / " + toString(myOverlappedACs.size())).c_str());
+    // update view (due dotted contour)
+    myInspectorFrameParent->getViewNet()->update();
 }
-
 
 // ---------------------------------------------------------------------------
 // GNEInspectorFrame::AttributesEditor::AttributeInput - methods

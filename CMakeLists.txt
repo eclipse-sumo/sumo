@@ -31,7 +31,7 @@ set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMP
 # compiler specific flags
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -pedantic -Wextra")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
     set(ENABLED_FEATURES "${ENABLED_FEATURES} ${CMAKE_BUILD_TYPE}")
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")

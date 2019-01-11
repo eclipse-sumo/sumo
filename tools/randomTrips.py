@@ -447,8 +447,7 @@ def main(options):
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
-        sumolib.writeXMLHeader(
-            fouttrips, "$Id$", "routes")
+        sumolib.writeXMLHeader(fouttrips, "$Id$", "routes")  # noqa
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s"%s/>\n' %
                             (options.vtypeID, options.vehicle_class, vtypeattrs))
@@ -496,7 +495,7 @@ def main(options):
         args2 = args + ['-o', tmpTrips, '--write-trips']
         print("calling ", " ".join(args2))
         subprocess.call(args2)
-        os.remove(options.tripfile) # on windows, rename does not overwrite
+        os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
 
     if options.weights_outprefix:

@@ -313,7 +313,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
 
 long
 GNEViewParent::onCmdClose(FXObject*, FXSelector /* sel */, void*) {
-    myParent->handle(this, FXSEL(SEL_COMMAND, MID_CLOSE), nullptr);
+    myParent->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W), nullptr);
     return 1;
 }
 

@@ -493,10 +493,16 @@
 #define GUIDesignTreeListFrame                  (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
 /// @brief design for FXLists
-#define GUIDesignList                           (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
+#define GUIDesignList                           (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X)
 
-/// @brief design for FXLists that only allow a single selected elements
-#define GUIDesignListSingleElement              (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_SINGLESELECT)
+/// @brief design for FXList sthat only allow a single selected elements selected
+#define GUIDesignListSingleElement              (LIST_SINGLESELECT | FRAME_NORMAL | LAYOUT_FILL_X)
+
+/// @brief design for FXLists with height fixed
+#define GUIDesignListFixedHeight                (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
+
+/// @brief design for FXLists that only allow a single selected elements selected and height fixed
+#define GUIDesignListSingleElementFixedHeight   (LIST_SINGLESELECT | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 100
 
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)

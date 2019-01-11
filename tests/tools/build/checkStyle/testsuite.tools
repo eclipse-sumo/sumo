@@ -1,1 +1,7 @@
-plain
+header
+
+# check python scripts in tools dir
+tools
+
+# check python scripts in tests/netedit
+netedit
