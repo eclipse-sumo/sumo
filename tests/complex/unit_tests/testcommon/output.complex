@@ -1,5 +1,5 @@
 Running main() from gtest_main.cc
-[==========] Running 44 tests from 6 test cases.
+[==========] Running 44 tests from 5 test cases.
 [----------] Global test environment set-up.
 [----------] 10 tests from StringTokenizer
 [ RUN      ] StringTokenizer.test_split_with_whitechar
@@ -33,7 +33,7 @@ Running main() from gtest_main.cc
 [       OK ] FileHelpers.test_method_getFilePath (0 ms)
 [----------] 3 tests from FileHelpers (0 ms total)
 
-[----------] 10 tests from StringUtils
+[----------] 14 tests from StringUtils
 [ RUN      ] StringUtils.test_method_prune
 [       OK ] StringUtils.test_method_prune (0 ms)
 [ RUN      ] StringUtils.test_method_to_lower_case
@@ -54,18 +54,15 @@ Running main() from gtest_main.cc
 [       OK ] StringUtils.test_method_toTimeString (0 ms)
 [ RUN      ] StringUtils.test_method_escapeXML
 [       OK ] StringUtils.test_method_escapeXML (0 ms)
-[----------] 10 tests from StringUtils (0 ms total)
-
-[----------] 4 tests from TplConvert
-[ RUN      ] TplConvert.test_2int
-[       OK ] TplConvert.test_2int (1 ms)
-[ RUN      ] TplConvert.test_2long
-[       OK ] TplConvert.test_2long (0 ms)
-[ RUN      ] TplConvert.test_2double
-[       OK ] TplConvert.test_2double (0 ms)
-[ RUN      ] TplConvert.test_2bool
-[       OK ] TplConvert.test_2bool (0 ms)
-[----------] 4 tests from TplConvert (1 ms total)
+[ RUN      ] StringUtils.test_toInt
+[       OK ] StringUtils.test_toInt (0 ms)
+[ RUN      ] StringUtils.test_toLong
+[       OK ] StringUtils.test_toLong (0 ms)
+[ RUN      ] StringUtils.test_toDouble
+[       OK ] StringUtils.test_toDouble (2 ms)
+[ RUN      ] StringUtils.test_toBool
+[       OK ] StringUtils.test_toBool (0 ms)
+[----------] 14 tests from StringUtils (2 ms total)
 
 [----------] 7 tests from RGBColor
 [ RUN      ] RGBColor.test_parseColor_with_wrong_string
@@ -82,7 +79,7 @@ Running main() from gtest_main.cc
 [       OK ] RGBColor.test_interpolate_weight_0 (0 ms)
 [ RUN      ] RGBColor.test_operator_equal
 [       OK ] RGBColor.test_operator_equal (0 ms)
-[----------] 7 tests from RGBColor (1 ms total)
+[----------] 7 tests from RGBColor (0 ms total)
 
 [----------] 10 tests from ValueTimeLine
 [ RUN      ] ValueTimeLine.test_get_single_nocollect
@@ -108,5 +105,5 @@ Running main() from gtest_main.cc
 [----------] 10 tests from ValueTimeLine (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 44 tests from 6 test cases ran. (5 ms total)
+[==========] 44 tests from 5 test cases ran. (4 ms total)
 [  PASSED  ] 44 tests.

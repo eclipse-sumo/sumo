@@ -45,6 +45,7 @@
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"
+#include "ROLane.h"
 #include "ROEdge.h"
 #include "RORouteHandler.h"
 

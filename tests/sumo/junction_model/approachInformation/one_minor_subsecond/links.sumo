@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 10 13:53:43 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <link-output value="linkstate.xml"/>
+    </output>
+
+    <time>
+        <end value="10"/>
+        <step-length value="0.2"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<link-output>
+    <timestep id="0.00"/>
+    <timestep id="0.20">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.33" arrivalTimeBraking="34.33" leaveTime="5.47" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="0.40">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.33" arrivalTimeBraking="34.33" leaveTime="5.47" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="0.60">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.34" arrivalTimeBraking="34.34" leaveTime="5.48" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="0.80">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.34" arrivalTimeBraking="34.34" leaveTime="5.49" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="1.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.35" arrivalTimeBraking="34.35" leaveTime="5.49" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="1.20">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.36" arrivalTimeBraking="34.35" leaveTime="5.50" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="1.40">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.36" arrivalTimeBraking="34.36" leaveTime="5.50" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="1.60">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.37" arrivalTimeBraking="34.37" leaveTime="5.51" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="1.80">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.37" arrivalTimeBraking="34.37" leaveTime="5.51" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.38" arrivalTimeBraking="34.38" leaveTime="5.52" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.20">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.38" arrivalTimeBraking="34.38" leaveTime="5.52" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.40">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.39" arrivalTimeBraking="34.39" leaveTime="5.53" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.60">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.39" arrivalTimeBraking="34.39" leaveTime="5.53" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.80">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.40" arrivalTimeBraking="34.40" leaveTime="5.54" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.40" arrivalTimeBraking="34.40" leaveTime="5.54" arrivalSpeed="7.69" arrivalSpeedBraking="0.00" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.20">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.41" arrivalTimeBraking="5.41" leaveTime="5.55" arrivalSpeed="7.69" arrivalSpeedBraking="2.99" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.40">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.41" arrivalTimeBraking="4.91" leaveTime="5.55" arrivalSpeed="7.69" arrivalSpeedBraking="5.26" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.60">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.42" arrivalTimeBraking="4.70" leaveTime="5.56" arrivalSpeed="7.69" arrivalSpeedBraking="6.88" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.80">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.42" arrivalTimeBraking="4.63" leaveTime="5.56" arrivalSpeed="7.69" arrivalSpeedBraking="7.69" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.00">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.46" arrivalTimeBraking="4.68" leaveTime="5.60" arrivalSpeed="7.69" arrivalSpeedBraking="7.69" leaveSpeed="8.75" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.20">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.56" arrivalTimeBraking="4.76" leaveTime="5.74" arrivalSpeed="7.38" arrivalSpeedBraking="7.38" leaveSpeed="8.48" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.40">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.57" arrivalTimeBraking="4.77" leaveTime="5.75" arrivalSpeed="7.39" arrivalSpeedBraking="7.39" leaveSpeed="8.49" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.60">
+        <link from="right2end_0" via="" to="end_0">
+            <approaching id="ego" impatience="0.00" arrivalTime="4.57" arrivalTimeBraking="4.77" leaveTime="5.75" arrivalSpeed="7.40" arrivalSpeedBraking="7.40" leaveSpeed="8.50" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.80"/>
+    <timestep id="5.00"/>
+    <timestep id="5.20"/>
+    <timestep id="5.40"/>
+    <timestep id="5.60"/>
+    <timestep id="5.80"/>
+    <timestep id="6.00"/>
+    <timestep id="6.20"/>
+    <timestep id="6.40"/>
+    <timestep id="6.60"/>
+    <timestep id="6.80"/>
+    <timestep id="7.00"/>
+    <timestep id="7.20"/>
+    <timestep id="7.40"/>
+    <timestep id="7.60"/>
+    <timestep id="7.80"/>
+    <timestep id="8.00"/>
+    <timestep id="8.20"/>
+    <timestep id="8.40"/>
+    <timestep id="8.60"/>
+    <timestep id="8.80"/>
+    <timestep id="9.00"/>
+    <timestep id="9.20"/>
+    <timestep id="9.40"/>
+    <timestep id="9.60"/>
+    <timestep id="9.80"/>
+</link-output>

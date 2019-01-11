@@ -35,8 +35,8 @@ def get_options(args=None):
     argParser.add_argument("output", help="the output file")
     argParser.add_argument("--persons", action="store_true",
                            default=False, help="compute personinfo differences")
-    argParser.add_argument("--histogram-scale", type=float, dest="histScale", 
-            help="compute data histogram with the FLOAT granularity")
+    argParser.add_argument("--histogram-scale", type=float, dest="histScale",
+                           help="compute data histogram with the FLOAT granularity")
     options = argParser.parse_args(args=args)
     options.useHist = options.histScale is not None
     return options

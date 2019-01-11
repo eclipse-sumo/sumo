@@ -1,3 +1,15 @@
+# test behavior at different types of junction
+junction_type
+
+# effects of the visibility attribute for links 
+visibility
+
+# test the ApproachingVehicleInformation for accuracy
+approachInformation
+
+# test dynamics on internal lanes
+internalLanes
+
 # tests for ignoring keepClear rules
 ignoreKeepClear
 driveAfterRedTime
@@ -10,9 +22,6 @@ timegapMinor
 
 # Tests for the stopOffset
 stopOffset
-
-# tests for the proper behavior on internal lanes
-internal_lanes
 
 # Tests for indirect left turns
 indirect_left_turn

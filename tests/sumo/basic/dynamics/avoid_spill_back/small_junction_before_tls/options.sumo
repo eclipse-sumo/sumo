@@ -1,6 +1,5 @@
 --no-step-log --duration-log.statistics --net-file=net.net.xml -r input_routes.rou.xml 
 -b 80
--g settings.xml
 --step-length 0.5
 --fcd-output fcd.xml
 -e 90

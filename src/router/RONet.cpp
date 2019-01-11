@@ -34,6 +34,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "ROEdge.h"
+#include "ROLane.h"
 #include "RONode.h"
 #include "ROPerson.h"
 #include "RORoute.h"

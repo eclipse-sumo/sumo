@@ -449,7 +449,7 @@ main(int argc, char** argv) {
             }
         }
         if (net->getDistricts().empty()) {
-            throw ProcessError("No districts loaded.");
+            WRITE_WARNING("No districts loaded, will use edge ids!");
         }
         // load districts
         ODDistrictCont districts;

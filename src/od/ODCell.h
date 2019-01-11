@@ -72,6 +72,12 @@ struct ODCell {
 
     /// @brief mapping of departure times to departing vehicles, if already fixed
     std::map<SUMOTime, std::vector<std::string> > departures;
+
+    /// @brief the origin "district" is an edge id
+    bool originIsEdge = false;
+
+    /// @brief the destination "district" is an edge id
+    bool destinationIsEdge = false;
 };
 
 

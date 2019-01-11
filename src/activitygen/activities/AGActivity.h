@@ -30,8 +30,13 @@
 #include <config.h>
 
 #include "AGTrip.h"
-#include "../city/AGHousehold.h"
-#include "../city/AGDataAndStatistics.h"
+#include <activitygen/city/AGDataAndStatistics.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class AGHousehold;
 
 
 // ===========================================================================

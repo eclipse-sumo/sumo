@@ -28,8 +28,11 @@
 #include <config.h>
 
 #include <utils/common/RandHelper.h>
-#include "AGHousehold.h"
 #include "AGCar.h"
+#include "AGChild.h"
+#include "AGCity.h"
+#include "AGDataAndStatistics.h"
+#include "AGHousehold.h"
 
 
 // ===========================================================================

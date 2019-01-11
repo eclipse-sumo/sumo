@@ -63,29 +63,29 @@ ODMatrix::~ODMatrix() {
 bool
 ODMatrix::add(double vehicleNumber, SUMOTime begin,
               SUMOTime end, const std::string& origin, const std::string& destination,
-              const std::string& vehicleType) {
+              const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge) {
     myNumLoaded += vehicleNumber;
-    if (myDistricts.get(origin) == 0 && myDistricts.get(destination) == 0) {
+    if (!originIsEdge && !destinationIsEdge && myDistricts.get(origin) == nullptr && myDistricts.get(destination) == nullptr) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myMissingDistricts.insert(origin);
         myMissingDistricts.insert(destination);
         return false;
-    } else if (myDistricts.get(origin) == 0 && vehicleNumber > 0) {
+    } else if (!originIsEdge && myDistricts.get(origin) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(origin);
         return false;
-    } else if (myDistricts.get(destination) == 0 && vehicleNumber > 0) {
+    } else if (!destinationIsEdge && myDistricts.get(destination) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(destination);
         return false;
     }
-    if (myDistricts.get(origin)->sourceNumber() == 0) {
+    if (!originIsEdge && myDistricts.get(origin)->sourceNumber() == 0) {
         WRITE_ERROR("District '" + origin + "' has no source.");
         myNumDiscarded += vehicleNumber;
         return false;
-    } else if (myDistricts.get(destination)->sinkNumber() == 0) {
+    } else if (!destinationIsEdge && myDistricts.get(destination)->sinkNumber() == 0) {
         WRITE_ERROR("District '" + destination + "' has no sink.");
         myNumDiscarded += vehicleNumber;
         return false;
@@ -97,6 +97,8 @@ ODMatrix::add(double vehicleNumber, SUMOTime begin,
     cell->destination = destination;
     cell->vehicleType = vehicleType;
     cell->vehicleNumber = vehicleNumber;
+    cell->originIsEdge = originIsEdge;
+    cell->destinationIsEdge = destinationIsEdge;
     myContainer.push_back(cell);
     return true;
 }
@@ -104,15 +106,15 @@ ODMatrix::add(double vehicleNumber, SUMOTime begin,
 
 bool
 ODMatrix::add(const std::string& id, const SUMOTime depart,
-              const std::pair<const std::string, const std::string>& od,
-              const std::string& vehicleType) {
-    if (myMissingDistricts.count(od.first) > 0 || myMissingDistricts.count(od.second) > 0) {
+              const std::string& fromTaz, const std::string& toTaz,
+              const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge) {
+    if (myMissingDistricts.count(fromTaz) > 0 || myMissingDistricts.count(toTaz) > 0) {
         myNumLoaded += 1.;
         myNumDiscarded += 1.;
         return false;
     }
     // we start looking from the end because there is a high probability that the input is sorted by time
-    std::vector<ODCell*>& odList = myShortCut[od];
+    std::vector<ODCell*>& odList = myShortCut[std::make_pair(fromTaz, toTaz)];
     ODCell* cell = nullptr;
     for (std::vector<ODCell*>::const_reverse_iterator c = odList.rbegin(); c != odList.rend(); ++c) {
         if ((*c)->begin <= depart && (*c)->end > depart && (*c)->vehicleType == vehicleType) {
@@ -123,7 +125,7 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
-        if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)) {
+        if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge)) {
             cell = myContainer.back();
             odList.push_back(cell);
         } else {
@@ -375,6 +377,7 @@ ODMatrix::readTime(LineReader& lr) {
         throw ProcessError("Broken period definition '" + line + "'.");
     }
 }
+
 
 double
 ODMatrix::readFactor(LineReader& lr, double scale) {

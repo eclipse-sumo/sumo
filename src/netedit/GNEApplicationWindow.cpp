@@ -1616,7 +1616,7 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if (myViewNet->getMenuCheckShowGrid()->getCheck() == 1) {
+        if (myViewNet->getMenuCheckShowGrid()->getCheck() == TRUE) {
             myViewNet->getMenuCheckShowGrid()->setCheck(0);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");

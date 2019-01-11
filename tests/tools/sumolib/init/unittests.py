@@ -25,6 +25,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 
 
 import sumolib  # noqa
 
+
 class Test_Init(unittest.TestCase):
 
     def test_checkBinary(self):

@@ -25,9 +25,12 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 import sumolib.net  # noqa
 
-net = sumolib.net.readNet(sys.argv[1], 
-        withInternal=True,
-        withLatestPrograms=True)
+
+def printSorted(d):
+    return ' '.join(["%s:%s" % (k, d[k]) for k in sorted(d.keys())])
+
+
+net = sumolib.net.readNet(sys.argv[1], withInternal=True, withLatestPrograms=True)
 lane = net.getLane("SC_0")
 lane2 = net.getLane("CN_0")
 print("lanes to %s: %s" % (lane2.getID(), ' '.join(sorted([l.getID() for l in lane2.getIncoming()]))))
@@ -51,9 +54,6 @@ assert(internal_edge.isSpecial())
 assert(internal_lane.getEdge().isSpecial())
 assert(internal_edge.getFromNode().getID() == "C")
 assert(internal_edge.getToNode().getID() == "C")
-
-def printSorted(d):
-    return ' '.join(["%s:%s" % (k,d[k]) for k in sorted(d.keys())])
 
 # params
 print("edgeParams",     printSorted(net.getEdge("CE").getParams()))

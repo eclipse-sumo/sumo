@@ -24,22 +24,22 @@ from __future__ import print_function
 import os
 import sys
 import argparse
+from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
-from collections import defaultdict
 
 
 def get_options(args=None):
     argParser = argparse.ArgumentParser()
     argParser.add_argument("-t", "--tripinfo-file", dest="tripinfoFile",
-            help="tripinfo file written by the simulation")
+                           help="tripinfo file written by the simulation")
     argParser.add_argument("-r", "--route-files", dest="routeFiles",
-            help="demand input (trips, flows, vehicles) for reading fromTaz and toTaz info")
+                           help="demand input (trips, flows, vehicles) for reading fromTaz and toTaz info")
     argParser.add_argument("-z", "--taz-files", dest="tazFiles",
-            help="taz definitions to assing trips to taz based on departure and arrival edge")
+                           help="taz definitions to assing trips to taz based on departure and arrival edge")
     argParser.add_argument("-a", "--attribute", default="duration",
-            help="attribute to use for statistics")
+                           help="attribute to use for statistics")
     argParser.add_argument("-o", "--output", help="the output file")
     options = argParser.parse_args(args=args)
     options.routeFiles = options.routeFiles.split(',') if options.routeFiles else []
@@ -48,17 +48,16 @@ def get_options(args=None):
         sys.exit("Required argument --tripinfo-file is missing")
     if not (options.routeFiles or options.tazFiles):
         sys.exit("At least one  --route-files or --taz-files must be defined")
-
     return options
 
 
 def writeTraveltimeMatrix(options):
-    id2TAZ = {} # vehicleID : (fromTaz, toTaz)
-    flowIds2TAZ = {} # flowID : (fromTaz, toTaz)
+    id2TAZ = {}  # vehicleID : (fromTaz, toTaz)
+    flowIds2TAZ = {}  # flowID : (fromTaz, toTaz)
     flowIDs = set()
-    sinkEdge2TAZ = {} # edgeID : TAZ
-    sourceEdge2TAZ = {} # edgeID : TAZ
-    attrs = defaultdict(lambda : ['id', 'fromTaz', 'toTaz'])
+    sinkEdge2TAZ = {}  # edgeID : TAZ
+    sourceEdge2TAZ = {}  # edgeID : TAZ
+    attrs = defaultdict(lambda: ['id', 'fromTaz', 'toTaz'])
     for routeFile in options.routeFiles:
         for veh in parse(routeFile, ['trip', 'vehicle'], attrs):
             if veh.fromTaz and veh.toTaz:
@@ -93,7 +92,6 @@ def writeTraveltimeMatrix(options):
                         e, sinkEdge2TAZ[e], taz.id))
                 else:
                     sinkEdge2TAZ[e] = taz.id
-                    
 
     odpairs = {}
     for trip in parse(options.tripinfoFile, 'tripinfo'):
@@ -107,9 +105,8 @@ def writeTraveltimeMatrix(options):
         if odpair is None:
             fromEdge = trip.departLane[:trip.departLane.rfind('_')]
             toEdge = trip.arrivalLane[:trip.arrivalLane.rfind('_')]
-            odpair = (sourceEdge2TAZ.get(fromEdge, '?'),
-                    sinkEdge2TAZ.get(toEdge, '?'))
-        if odpair not in odpairs: 
+            odpair = (sourceEdge2TAZ.get(fromEdge, '?'), sinkEdge2TAZ.get(toEdge, '?'))
+        if odpair not in odpairs:
             odpairs[odpair] = Statistics(' '.join(odpair))
 
         odpairs[odpair].add(parseTime(getattr(trip, options.attribute)), tripID)
@@ -119,13 +116,15 @@ def writeTraveltimeMatrix(options):
             outf.write('<tripinfosByTAZ attribute="%s">\n' % options.attribute)
             for (fromTaz, toTaz), stats in sorted(odpairs.items()):
                 q1, median, q3 = stats.quartiles()
-                outf.write('    <odInfo fromTaz="%s" toTaz="%s" count="%s" min="%s" minVeh="%s" max="%s" maxVeh="%s" mean="%s" Q1="%s" median="%s" Q3="%s"/>\n' % (
-                    fromTaz, toTaz, stats.count(), stats.min, stats.min_label,
-                    stats.max, stats.max_label, stats.avg(), q1, median, q3))
+                outf.write('    <odInfo fromTaz="%s" toTaz="%s" count="%s" min="%s" minVeh="%s"' %
+                           (fromTaz, toTaz, stats.count(), stats.min, stats.min_label))
+                outf.write(' max="%s" maxVeh="%s" mean="%s" Q1="%s" median="%s" Q3="%s"/>\n' %
+                           (stats.max, stats.max_label, stats.avg(), q1, median, q3))
             outf.write('</tripinfosByTAZ>\n')
     else:
         for (fromTaz, toTaz), stats in sorted(odpairs.items()):
             print(stats)
+
 
 if __name__ == "__main__":
     options = get_options()

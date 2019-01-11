@@ -123,10 +123,9 @@ class TLSProgram:
             maxDur = '' if p.maxDur < 0 else ' maxDur="%s"' % p.maxDur
             name = '' if p.name == '' else ' name="%s"' % p.name
             next = '' if p.next < 0 else ' next="%s"' % p.next
-            ret = ret + \
-                '    <phase duration="%s" state="%s"%s%s%s%s/>\n' % (
-                        p.duration, p.state, minDur, maxDur, name,next)
-        ret = ret + '  </tlLogic>\n'
+            ret += '    <phase duration="%s" state="%s"%s%s%s%s/>\n' % (
+                    p.duration, p.state, minDur, maxDur, name,next)
+        ret += '  </tlLogic>\n'
         return ret
 
     def getPhases(self):
@@ -531,11 +530,11 @@ class NetReader(handler.ContentHandler):
                 # for internal junctions use the junction's id for from and to node
                 if function == 'internal':
                     fromNodeID = toNodeID = edgeID[1:edgeID.rfind('_')]
-                
+
                 # remember edges crossed by pedestrians to link them later to the crossing objects
                 if function == 'crossing':
                     self._crossingID2edgeIDs[edgeID] = attrs.get('crossingEdges').split(' ')
-                
+
                 self._currentEdge = self._net.addEdge(edgeID, fromNodeID, toNodeID,
                                                       prio, function, attrs.get('name', ''))
 
@@ -645,7 +644,7 @@ class NetReader(handler.ContentHandler):
                 int(attrs['minDur']) if 'minDur' in attrs else -1,
                 int(attrs['maxDur']) if 'maxDur' in attrs else -1,
                 int(attrs['next']) if 'next' in attrs else -1,
-                attrs['name'] if 'name' in attrs else "" 
+                attrs['name'] if 'name' in attrs else ""
             )
         if name == 'roundabout':
             self._net.addRoundabout(

@@ -448,7 +448,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
     }
-    result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep);
+    result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep, &result.length);
     if (vehicle != nullptr) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
     }
