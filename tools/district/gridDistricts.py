@@ -43,7 +43,7 @@ class TAZ:
 def getOptions():
     optParser = OptionParser()
     optParser.add_option("-v", "--verbose", action="store_true", default=False,
-            help="tell me what you are doing")
+                         help="tell me what you are doing")
     optParser.add_option("-n", "--net-file", dest="netfile", help="the network to read lane and edge permissions")
     optParser.add_option("-o", "--output", help="output taz file")
     optParser.add_option("-w", "--grid-width", dest="gridWidth", type="float", default=100.0,
@@ -67,13 +67,13 @@ if __name__ == "__main__":
     if options.verbose:
         print("Reading net")
     net = sumolib.net.readNet(options.netfile)
-    xmin,ymin,xmax,ymax = net.getBoundary()
+    xmin, ymin, xmax, ymax = net.getBoundary()
     odpairs = {}  # (x,y) -> TAZ
     centerCoords = {}  # edge -> center pos
     w = options.gridWidth
     w2 = w * 0.5 - 1
     for edge in net.getEdges():
-        x,y = sumolib.geomhelper.positionAtShapeOffset(edge.getShape(True), edge.getLength() / 2)
+        x, y = sumolib.geomhelper.positionAtShapeOffset(edge.getShape(True), edge.getLength() / 2)
         xIndex = int((x - xmin + w2) / w)
         yIndex = int((y - ymin + w2) / w)
         ii = (xIndex, yIndex)

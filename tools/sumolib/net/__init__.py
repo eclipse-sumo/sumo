@@ -124,7 +124,7 @@ class TLSProgram:
             name = '' if p.name == '' else ' name="%s"' % p.name
             next = '' if p.next < 0 else ' next="%s"' % p.next
             ret += '    <phase duration="%s" state="%s"%s%s%s%s/>\n' % (
-                    p.duration, p.state, minDur, maxDur, name,next)
+                p.duration, p.state, minDur, maxDur, name, next)
         ret += '  </tlLogic>\n'
         return ret
 
@@ -139,6 +139,7 @@ class TLSProgram:
 
     def getParams(self):
         return self._params
+
 
 class Net:
 

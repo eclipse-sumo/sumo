@@ -83,8 +83,7 @@ class DistrictEdgeComputer:
 
     def writeResults(self, options):
         fd = open(options.output, "w")
-        sumolib.xml.writeHeader(
-            fd, "$Id$", "tazs", "taz_file.xsd")
+        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")  # noqa
         lastId = None
         lastEdges = None
         key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None

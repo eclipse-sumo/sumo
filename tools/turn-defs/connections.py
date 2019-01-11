@@ -18,8 +18,6 @@ from __future__ import absolute_import
 import logging
 import os
 import sys
-import collectinghandler
-import xml
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))

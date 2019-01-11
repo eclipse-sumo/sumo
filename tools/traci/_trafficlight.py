@@ -33,7 +33,7 @@ class Phase:
     def __repr__(self):
         name = "" if self.name == "" else ", name='%s'" % self.name
         return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s%s)" %
-                (self.duration, self.state, self.minDur, self.maxDur, self.next,name))
+                (self.duration, self.state, self.minDur, self.maxDur, self.next, name))
 
 
 class Logic:

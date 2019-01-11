@@ -113,8 +113,7 @@ def write_ped(f, index, options, depart):
 def main():
     options = get_options()
     with open(options.output, 'w') as f:
-        sumolib.writeXMLHeader(
-            f, "$Id$", "routes")
+        sumolib.writeXMLHeader(f, "$Id$", "routes")  # noqa
         index = options.index
         for depart in range(options.begin, options.end):
             if random.random() < options.prob:
