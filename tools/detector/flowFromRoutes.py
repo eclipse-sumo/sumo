@@ -125,13 +125,13 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         self._detReader.clearFlows()
 
     def calcStatistics(self, interval, geh_threshold):
-        rSum = 0
-        dSum = 0
-        sumAbsDev = 0
-        sumSquaredDev = 0
-        sumSquaredPercent = 0
-        sumGEH = 0
-        nGEHthresh = 0
+        rSum = 0.
+        dSum = 0.
+        sumAbsDev = 0.
+        sumSquaredDev = 0.
+        sumSquaredPercent = 0.
+        sumGEH = 0.
+        nGEHthresh = 0.
         n = 0
         geh = make_geh(interval)
         for edge, detData in self._detReader._edge2DetData.items():

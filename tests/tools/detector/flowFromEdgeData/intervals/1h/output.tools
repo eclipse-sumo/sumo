@@ -32,13 +32,13 @@ Reading edgeData
 A 0 1500.0 -1.0
 # interval 240
 # avgRouteFlow avgDetFlow avgDev RMSE RMSPE
-# 0 1500.0 1500.0 1500.0 1.0
+# 0.0 1500.0 1500.0 1500.0 1.0
 Reading flows
 Reading edgeData
 # detNames RouteFlow DetFlow ratio
 A 0 1500.0 -1.0
 # interval 300
 # avgRouteFlow avgDetFlow avgDev RMSE RMSPE
-# 0 1500.0 1500.0 1500.0 1.0
+# 0.0 1500.0 1500.0 1500.0 1.0
 Reading flows
 Reading edgeData
