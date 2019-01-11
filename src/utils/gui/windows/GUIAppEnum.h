@@ -626,6 +626,10 @@ enum {
     MID_GNE_INSPECTORFRAME_NEXT,
     /// @brief inspect previous element
     MID_GNE_INSPECTORFRAME_PREVIOUS,
+    /// @brief show list of overlapped elements
+    MID_GNE_INSPECTORFRAME_SHOWLIST,
+    /// @brief list item selected
+    MID_GNE_INSPECTORFRAME_ITEMSELECTED,
     /// @}
 
 
