@@ -53,16 +53,16 @@ enum Supermode {
 enum NetworkEditMode {
     /// @brief empty Network mode
     GNE_NMODE_NONE,
+    ///@brief mode for inspecting network elements
+    GNE_NMODE_INSPECT,
+    ///@brief mode for deleting network elements
+    GNE_NMODE_DELETE,
+    ///@brief mode for selecting network elements
+    GNE_NMODE_SELECT,
     ///@brief mode for creating new edges
     GNE_NMODE_CREATE_EDGE,
-    ///@brief mode for moving things
+    ///@brief mode for moving network elements
     GNE_NMODE_MOVE,
-    ///@brief mode for deleting things
-    GNE_NMODE_DELETE,
-    ///@brief mode for inspecting object attributes
-    GNE_NMODE_INSPECT,
-    ///@brief mode for selecting objects
-    GNE_NMODE_SELECT,
     ///@brief mode for connecting lanes
     GNE_NMODE_CONNECT,
     ///@brief mode for editing tls
@@ -83,6 +83,12 @@ enum NetworkEditMode {
 enum DemandEditMode {
     /// @brief empty Demand mode
     GNE_DMODE_NONE,
+    ///@brief mode for inspecting demand elements
+    GNE_DMODE_INSPECT,
+    ///@brief mode for deleting demand elements
+    GNE_DMODE_DELETE,
+    ///@brief mode for selecting demand elements
+    GNE_DMODE_SELECT,
     ///@brief Mode for editing routes
     GNE_DMODE_ROUTES
 };
@@ -319,11 +325,8 @@ public:
     /// @brief called when user press a supermode button
     long onCmdSetSupermode(FXObject*, FXSelector sel, void*);
 
-    /// @brief called when user press a network mode button 
-    long onCmdSetNetworkMode(FXObject*, FXSelector sel, void*);
-
-    /// @brief called when user press a demand mode button 
-    long onCmdSetDemandMode(FXObject*, FXSelector sel, void*);
+    /// @brief called when user press a mode button (Network or demand)
+    long onCmdSetMode(FXObject*, FXSelector sel, void*);
 
     /// @}
 
@@ -809,6 +812,41 @@ private:
         FXVerticalSeparator *myVerticalSeparator;
     };
 
+    /// @brief struct used to group all variables related with common chekable Buttons
+    struct CommonCheckableButtons {
+        
+        /// @brief default constructor
+        CommonCheckableButtons(GNEViewNet* viewNet);
+
+        /// @brief build checkable buttons
+        void buildCommonCheckableButtons();
+
+        /// @brief show all Common Checkable Buttons
+        void showCommonCheckableButtons();
+
+        /// @brief hide all Common Checkable Buttons
+        void hideCommonCheckableButtons();
+
+        /// @brief hide all options menu checks
+        void disableCommonCheckableButtons();
+
+        /// @brief update Common checkable buttons
+        void updateCommonCheckableButtons();
+
+        /// @brief chekable button for edit mode inspect
+        MFXCheckableButton* inspectButton;
+
+        /// @brief chekable button for edit mode delete
+        MFXCheckableButton* deleteButton;
+
+        /// @brief chekable button for edit mode select
+        MFXCheckableButton* selectButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
     /// @brief struct used to group all variables related with Network chekable Buttons
     struct NetworkCheckableButtons {
         
@@ -835,15 +873,6 @@ private:
 
         /// @brief chekable button for edit mode move
         MFXCheckableButton* moveButton;
-
-        /// @brief chekable button for edit mode delete
-        MFXCheckableButton* deleteButton;
-
-        /// @brief chekable button for edit mode inspect
-        MFXCheckableButton* inspectButton;
-
-        /// @brief chekable button for edit mode select
-        MFXCheckableButton* selectButton;
 
         /// @brief chekable button for edit mode connection
         MFXCheckableButton* connectionButton;
@@ -939,6 +968,9 @@ private:
     /// @brief variable used to save variables related with super modes
     SuperModes mySuperModes;
 
+    /// @brief variable used to save checkable buttons for common supermodes
+    CommonCheckableButtons myCommonCheckableButtons;
+
     /// @brief variable used to save checkable buttons for Supermode Network
     NetworkCheckableButtons myNetworkCheckableButtons;
 
@@ -975,14 +1007,11 @@ private:
     /// @brief set Demand edit mode
     void setDemandEditMode(DemandEditMode demandMode, bool force = false);
 
-    /// @brief adds controls for setting the Network edit mode
-    void buildNetworkEditModeControls();
+    /// @brief adds controls for setting the edit mode and supermodes
+    void buildEditModeControls();
 
     /// @brief updates Network mode specific controls
     void updateNetworkModeSpecificControls();
-
-    /// @brief adds controls for setting the Demand edit mode
-    void buildDemandEditModeControls();
 
     /// @brief updates Demand mode specific controls
     void updateDemandModeSpecificControls();
