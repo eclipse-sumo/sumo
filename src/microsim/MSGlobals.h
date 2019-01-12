@@ -123,6 +123,9 @@ public:
     /// treshold for warning about strong deceleration
     static double gEmergencyDecelWarningThreshold;
 
+    /// time penalty for passing a minor link when routing
+    static double gMinorPenalty;
+
 };
 
 

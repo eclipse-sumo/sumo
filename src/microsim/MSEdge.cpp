@@ -76,6 +76,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myWidth(0.),
     myLength(0.),
     myEmptyTraveltime(0.),
+    myTimePenalty(0.),
     myAmDelayed(false),
     myAmRoundabout(false),
     myAmFringe(true),
@@ -148,6 +149,12 @@ void MSEdge::recalcCache() {
         }
         if (minPenalty > 0) {
             myEmptyTraveltime += STEPS2TIME(minPenalty);
+        }
+    } else if (isInternal()) {
+        const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
+        if (!link->isTLSControlled() && !link->havePriority()) {
+            myEmptyTraveltime += MSGlobals::gMinorPenalty;
+            myTimePenalty = MSGlobals::gMinorPenalty;
         }
     }
 }

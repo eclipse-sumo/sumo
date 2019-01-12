@@ -406,9 +406,9 @@ public:
         if (myFunction == EDGEFUNC_CONNECTOR) {
             return 0;
         } else if (veh != 0) {
-            return getLength() / getVehicleMaxSpeed(veh);
+            return getLength() / getVehicleMaxSpeed(veh) + myTimePenalty;
         } else {
-            return getLength() / getSpeedLimit();
+            return myEmptyTraveltime;
         }
     }
 
@@ -824,6 +824,9 @@ protected:
 
     /// @brief the traveltime on the empty edge (cached value for speedup)
     double myEmptyTraveltime;
+
+    /// @brief flat penalty when computing traveltime
+    double myTimePenalty;
 
     /// @brief whether this edge had a vehicle with less than max speed on it
     mutable bool myAmDelayed;
