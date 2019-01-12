@@ -1,0 +1,6 @@
+
+[Reported by kobo at 12Jan19:36:19]
+search_string:nan
+search_file:ssm
+full_description:NaN in output
+brief_description:see #5033
