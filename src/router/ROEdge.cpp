@@ -64,7 +64,9 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myAmSource(false),
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
-    myCombinedPermissions(0) {
+    myCombinedPermissions(0),
+    myTimePenalty(0)
+{
     while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);
     }
@@ -146,7 +148,7 @@ double
 ROEdge::getEffort(const ROVehicle* const veh, double time) const {
     double ret = 0;
     if (!getStoredEffort(time, ret)) {
-        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed);
+        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed) + myTimePenalty;
     }
     return ret;
 }
@@ -197,7 +199,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
         }
     }
     const double speed = veh != nullptr ? MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor.getParameter()[0] * mySpeed) : mySpeed;
-    return myLength / speed;
+    return myLength / speed + myTimePenalty;
 }
 
 
@@ -306,7 +308,7 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
         myEfforts.fillGaps(value, boundariesOverride);
     }
     if (myUsingTTTimeLine) {
-        myTravelTimes.fillGaps(myLength / mySpeed, boundariesOverride);
+        myTravelTimes.fillGaps(myLength / mySpeed + myTimePenalty, boundariesOverride);
     }
 }
 

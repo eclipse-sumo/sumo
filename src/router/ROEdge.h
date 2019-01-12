@@ -139,6 +139,9 @@ public:
         myRestrictions = restrictions;
     }
 
+    inline void setTimePenalty(double value) {
+        myTimePenalty = value;
+    }
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
@@ -543,6 +546,9 @@ protected:
 
     /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
     Boundary myBoundary;
+
+    /// @brief flat penalty when computing traveltime
+    double myTimePenalty;
 
     static ROEdgeVector myEdges;
 
