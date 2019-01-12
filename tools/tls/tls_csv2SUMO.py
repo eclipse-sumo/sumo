@@ -189,9 +189,9 @@ for logic in allLogics:
             laneMap[tl_c[2]] = (li, lo)
 
     nodes = set()
-    for l in laneMap:
-        if l:
-            nodes.add(l[0].getEdge()._to)
+    for lane in laneMap:
+        if lane:
+            nodes.add(lane[0].getEdge()._to)
 
     indices = {}
     for n in nodes:
