@@ -4,6 +4,7 @@ option(MULTITHREADED_BUILD "Use all available cores for building (applies to Vis
 option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)" false)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
+set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -27,6 +28,10 @@ set(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
 
 set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+
+if(COMPILE_DEFINITIONS)
+  add_compile_definitions(${COMPILE_DEFINITIONS})
+endif()
 
 # compiler specific flags
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
