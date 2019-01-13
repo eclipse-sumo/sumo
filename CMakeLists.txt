@@ -378,6 +378,32 @@ if (COVERAGE)
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
 
+# java targets
+find_program(MVN_EXECUTABLE mvn)
+find_program(ANT_EXECUTABLE ant)
+if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
+    add_custom_target(cadyts
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(traas
+        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-core DEPENDS traas
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-gui DEPENDS lisum-core
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    set(JAVA_TARGETS cadyts lisum-gui)
+endif()
+
 # example and dist targets
 add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
@@ -387,14 +413,15 @@ set_property(TARGET examples PROPERTY FOLDER "doc")
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
-    add_custom_target(dist DEPENDS examples doc
-        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz
+    add_custom_target(dist DEPENDS examples doc ${JAVA_TARGETS}
+        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip sumo-${PACKAGE_VERSION}.zip
         COMMAND cp -a docs/tutorial docs/examples docs/userdoc docs/pydoc docs/javadoc docs/man sumo-${PACKAGE_VERSION}/docs
         COMMAND zip -r sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND cp -a docs/doxygen sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp bin/*.jar bin/*.bat sumo-${PACKAGE_VERSION}/bin
         COMMAND cp -a tests sumo-${PACKAGE_VERSION}
         COMMAND zip -r sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
@@ -420,29 +447,4 @@ if (GIT_FOUND)
     set_property(TARGET distcheck PROPERTY FOLDER "CMake")
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
-
-# java targets
-find_program(MVN_EXECUTABLE mvn)
-find_program(ANT_EXECUTABLE ant)
-if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
-    add_custom_target(cadyts
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(traas
-        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-core DEPENDS traas
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-gui DEPENDS lisum-core
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-endif()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")
