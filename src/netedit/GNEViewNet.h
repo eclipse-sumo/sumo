@@ -468,6 +468,9 @@ public:
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
 
+    /// @brief get the current SuperMode
+    Supermode getCurrentSuperMode() const;
+
     /// @brief get the current Network edit mode
     NetworkEditMode getCurrentNetworkEditMode() const;
 

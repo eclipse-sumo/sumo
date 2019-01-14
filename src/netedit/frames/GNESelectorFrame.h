@@ -50,6 +50,12 @@ public:
             /// @brief constructor
             ObjectTypeEntry(FXMatrix* matrixParent, const std::string& label);
 
+            /// @brief show ObjectTypeEntry
+            void showObjectTypeEntry();
+
+            /// @brief hide ObjectTypeEntry
+            void hideObjectTypeEntry();
+
             /// @brief up count
             void counterUp();
 
@@ -78,7 +84,7 @@ public:
             FXLabel* myLabelTypeName;
 
             /// @brief check box to check if GLObject type is blocked
-            FXMenuCheck* myCheckBoxLocked;
+            FXCheckButton* myCheckBoxLocked;
 
             /// @brief counter
             int myCounter;
@@ -99,12 +105,15 @@ public:
         /// @brief check if an object is locked
         bool IsObjectTypeLocked(const GUIGlObjectType type) const;
 
+        /// @brief show type Entries (depending if we're in Network or demand supermode)
+        void showTypeEntries();
+
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
 
         /// @brief check boxes for type-based selection locking and selected object counts
-        std::map<GUIGlObjectType, ObjectTypeEntry*> myTypeEntries;
+        std::map<GUIGlObjectType, std::pair<Supermode, ObjectTypeEntry* > > myTypeEntries;
     };
 
     // ===========================================================================

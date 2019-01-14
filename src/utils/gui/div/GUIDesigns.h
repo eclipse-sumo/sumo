@@ -119,6 +119,10 @@
 
 /// @brief checkButton with thick extended over the frame used for attributes
 #define GUIDesignCheckButtonAttributeLabel  (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief checkButton placed in left position
+#define GUIDesignCheckButtonLeft            (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
+
 /// @}
 
 
@@ -132,7 +136,7 @@
 /// @}
 
 
-/// @name FXMenuChecks
+/// @name FXRadiobuttons
 /// @{
 /// @brief design for radio button
 #define GUIDesignRadioButton                (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)

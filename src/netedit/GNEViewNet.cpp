@@ -1258,6 +1258,12 @@ GNEViewNet::getUndoList() const {
 }
 
 
+Supermode
+GNEViewNet::getCurrentSuperMode() const {
+    return mySuperModes.currentSupermode;
+}
+
+
 NetworkEditMode
 GNEViewNet::getCurrentNetworkEditMode() const {
     return mySuperModes.networkEditMode;
@@ -2473,8 +2479,6 @@ GNEViewNet::setSupermode(Supermode supermode) {
             // force update network mode
             setNetworkEditMode(mySuperModes.networkEditMode, true);
         } else if (supermode == GNE_SUPERMODE_DEMAND) {
-            // for demand recompute network
-            myNet->computeEverything((GNEApplicationWindow*)myApp);
             // change buttons
             mySuperModes.networkButton->setChecked(false);
             mySuperModes.demandButton->setChecked(true);
@@ -2509,14 +2513,23 @@ GNEViewNet::setNetworkEditMode(NetworkEditMode mode, bool force) {
         abortOperation(false);
         // stop editing of custom shapes
         stopEditCustomShape();
-        // set edit mode
+        // set new Network mode
         mySuperModes.networkEditMode = mode;
+        // for common modes (Inspect/Delete/Select) change also the other supermode
+        if (mySuperModes.networkEditMode == GNE_NMODE_INSPECT) {
+            mySuperModes.demandEditMode = GNE_DMODE_INSPECT;
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_DELETE) {
+            mySuperModes.demandEditMode = GNE_DMODE_DELETE;
+        } else if (mySuperModes.networkEditMode == GNE_NMODE_SELECT) {
+                mySuperModes.demandEditMode = GNE_DMODE_SELECT;
+        }
+        // certain modes requiere a recomputing
         switch (mode) {
             case GNE_NMODE_CONNECT:
             case GNE_NMODE_PROHIBITION:
             case GNE_NMODE_TLS:
                 // modes which depend on computed data
-                myNet->computeEverything((GNEApplicationWindow*)myApp);
+                myNet->computeEverything(myViewParent->getGNEAppWindows());
                 break;
             default:
                 break;
@@ -2539,8 +2552,18 @@ GNEViewNet::setDemandEditMode(DemandEditMode mode, bool force) {
         abortOperation(false);
         // stop editing of custom shapes
         stopEditCustomShape();
-        // set  mode
+        // set new Demand mode
         mySuperModes.demandEditMode = mode;
+        // for common modes (Inspect/Delete/Select) change also the other supermode
+        if (mySuperModes.demandEditMode == GNE_DMODE_INSPECT) {
+            mySuperModes.networkEditMode = GNE_NMODE_INSPECT;
+        } else if (mySuperModes.demandEditMode == GNE_DMODE_DELETE) {
+            mySuperModes.networkEditMode = GNE_NMODE_DELETE;
+        } else if (mySuperModes.demandEditMode == GNE_DMODE_SELECT) {
+                mySuperModes.networkEditMode = GNE_NMODE_SELECT;
+        }
+        // demand modes requiere ALWAYS a recomputing
+        myNet->computeEverything(myViewParent->getGNEAppWindows());
         // update network mode specific controls
         updateDemandModeSpecificControls();
     }

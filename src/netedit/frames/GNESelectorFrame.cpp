@@ -112,6 +112,8 @@ GNESelectorFrame::~GNESelectorFrame() {}
 
 void
 GNESelectorFrame::show() {
+    // show Type Entries depending of current supermode
+    myLockGLObjectTypes->showTypeEntries();
     // Show frame
     GNEFrame::show();
 }
@@ -296,48 +298,63 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Selected items", GUIDesignGroupBoxFrame),
+    FXGroupBox(selectorFrameParent->myContentFrame, "Locked selected items", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent) {
     // create a matrix for TypeEntries
     FXMatrix* matrixLockGLObjectTypes = new FXMatrix(this, 3, GUIDesignMatrixLockGLTypes);
-    // create typeEntries for the different elements
-    myTypeEntries[GLO_JUNCTION] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Junctions");
-    myTypeEntries[GLO_EDGE] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Edges");
-    myTypeEntries[GLO_LANE] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Lanes");
-    myTypeEntries[GLO_CONNECTION] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Connections");
-    myTypeEntries[GLO_ADDITIONAL] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Additionals");
-    myTypeEntries[GLO_CROSSING] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Crossings");
-    myTypeEntries[GLO_POLYGON] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Polygons");
-    myTypeEntries[GLO_POI] = new ObjectTypeEntry(matrixLockGLObjectTypes, "POIs");
+    // create typeEntries for the different Network elements
+    myTypeEntries[GLO_JUNCTION] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Junctions"));
+    myTypeEntries[GLO_EDGE] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Edges"));
+    myTypeEntries[GLO_LANE] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Lanes"));
+    myTypeEntries[GLO_CONNECTION] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Connections"));
+    myTypeEntries[GLO_ADDITIONAL] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Additionals"));
+    myTypeEntries[GLO_CROSSING] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Crossings"));
+    myTypeEntries[GLO_POLYGON] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Polygons"));
+    myTypeEntries[GLO_POI] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "POIs"));
+    // create typeEntries for the different Demand elements
+    myTypeEntries[GLO_ROUTE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Routes"));
 }
 
 
 GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {
     // remove all type entries
-    for (auto i : myTypeEntries) {
-        delete i.second;
+    for (const auto &i : myTypeEntries) {
+        delete i.second.second;
     }
 }
 
 
 void 
 GNESelectorFrame::LockGLObjectTypes::addedLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type)->counterUp();
+    myTypeEntries.at(type).second->counterUp();
 }
 
 
 void 
 GNESelectorFrame::LockGLObjectTypes::removeLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type)->counterDown();
+    myTypeEntries.at(type).second->counterDown();
 }
 
 
 bool
 GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(const GUIGlObjectType type) const {
     if ((type >= 100) && (type < 199)) {
-        return myTypeEntries.at(GLO_ADDITIONAL)->isGLTypeLocked();
+        return myTypeEntries.at(GLO_ADDITIONAL).second->isGLTypeLocked();
     } else {
-        return myTypeEntries.at(type)->isGLTypeLocked();
+        return myTypeEntries.at(type).second->isGLTypeLocked();
+    }
+}
+
+
+void 
+GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
+    for (const auto &i : myTypeEntries) {
+        // showr or hidde type entries depending of current supermode
+        if (i.second.first == mySelectorFrameParent->getViewNet()->getCurrentSuperMode()) {
+            i.second.second->showObjectTypeEntry();
+        } else {
+            i.second.second->hideObjectTypeEntry();
+        }
     }
 }
 
@@ -347,8 +364,24 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* 
     myCounter(0) {
     // create elements
     myLabelCounter = new FXLabel(matrixParent, "0", nullptr, GUIDesignLabelLeft);
-    myLabelTypeName = new FXLabel(matrixParent, label.c_str(), nullptr, GUIDesignLabelLeft);
-    myCheckBoxLocked = new FXMenuCheck(matrixParent, "Unlocked", this, MID_GNE_SET_ATTRIBUTE, LAYOUT_FILL_X | LAYOUT_RIGHT);
+    myLabelTypeName = new FXLabel(matrixParent, (label + " ").c_str(), nullptr, GUIDesignLabelLeft);
+    myCheckBoxLocked = new FXCheckButton(matrixParent, "unlocked", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonLeft);
+}
+
+
+void 
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::showObjectTypeEntry() {
+    myLabelCounter->show();
+    myLabelTypeName->show();
+    myCheckBoxLocked->show();
+}
+
+
+void 
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::hideObjectTypeEntry() {
+    myLabelCounter->hide();
+    myLabelTypeName->hide();
+    myCheckBoxLocked->hide();
 }
 
 
@@ -375,9 +408,9 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::isGLTypeLocked() const {
 long
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::onCmdSetCheckBox(FXObject*, FXSelector, void*) {
     if(myCheckBoxLocked->getCheck() == TRUE) {
-        myCheckBoxLocked->setText("Locked");
+        myCheckBoxLocked->setText("locked");
     } else {
-        myCheckBoxLocked->setText("Unlocked");
+        myCheckBoxLocked->setText("unlocked");
     }
     return 1;
 }
