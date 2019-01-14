@@ -1912,7 +1912,8 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
     if (DEBUG_COND) {
         std::cout
                 << "\nPLAN_MOVE\n"
-                << STEPS2TIME(t)
+                << SIMTIME
+                << std::setprecision(gPrecision)
                 << " veh=" << getID()
                 << " lane=" << myLane->getID()
                 << " pos=" << getPositionOnLane()

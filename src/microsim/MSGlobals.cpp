@@ -67,5 +67,7 @@ bool MSGlobals::gUnitTests(false);
 bool MSGlobals::gComputeLC;
 
 double MSGlobals::gEmergencyDecelWarningThreshold(1);
+
+double MSGlobals::gMinorPenalty(0);
 /****************************************************************************/
 

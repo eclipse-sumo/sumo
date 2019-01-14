@@ -119,6 +119,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.addSynonyme("weights.interpolate", "interpolate", true);
     oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
 
+    oc.doRegister("weights.minor-penalty", new Option_Float(1.5));
+    oc.addDescription("weights.minor-penalty", "Processing", "Apply the given time penalty when computing routing costs for minor-link internal lanes");
+
     oc.doRegister("with-taz", new Option_Bool(false));
     oc.addDescription("with-taz", "Processing", "Use origin and destination zones (districts) for in- and output");
 

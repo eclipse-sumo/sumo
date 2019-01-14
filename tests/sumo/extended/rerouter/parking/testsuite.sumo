@@ -10,6 +10,9 @@ complex
 # block on road line while using parkingArea
 onRoad
 
+# parkingArea is too short for the given roadsideCapacity (lots overlap)
+roadsideCapacity_short
+
 # test angled roadside parking (including vehicle positions)
 angled_roadside_parking
 

@@ -190,11 +190,10 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
         dev.writeAttr(SUMO_ATTR_ID, "device.rerouting");
         dev.writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(currentTime));
         dev.writeAttr(SUMO_ATTR_END, STEPS2TIME(currentTime + myAdaptationInterval));
-        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const int id = (*i)->getNumericalID();
+        for (const MSEdge* e : edges) {
             dev.openTag(SUMO_TAG_EDGE);
-            dev.writeAttr(SUMO_ATTR_ID, (*i)->getID());
-            dev.writeAttr("traveltime", (*i)->getLength() / myEdgeSpeeds[id]);
+            dev.writeAttr(SUMO_ATTR_ID, e->getID());
+            dev.writeAttr("traveltime", getEffort(e, nullptr, currentTime));
             dev.closeTag();
         }
         dev.closeTag();

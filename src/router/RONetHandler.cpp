@@ -45,10 +45,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal)
-    : SUMOSAXHandler("sumo-network"),
-      myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
-      myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr) {}
+RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) : 
+    SUMOSAXHandler("sumo-network"),
+    myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
+    myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
+    myMinorPenalty(minorPenalty)
+{}
 
 
 RONetHandler::~RONetHandler() {}
@@ -279,6 +281,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], via);
         from->addSuccessor(to, via, dir);
         via->addSuccessor(to, nullptr, dir);
+        LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
+        if (state == LINKSTATE_MINOR || state == LINKSTATE_EQUAL || state == LINKSTATE_STOP || state == LINKSTATE_ALLWAY_STOP) {
+            via->setTimePenalty(myMinorPenalty);
+        }
     }
 }
 

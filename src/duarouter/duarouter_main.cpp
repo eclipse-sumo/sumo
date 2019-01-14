@@ -45,7 +45,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
 #include <utils/vehicle/CHRouterWrapper.h>

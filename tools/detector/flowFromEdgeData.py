@@ -124,11 +124,11 @@ def printFlows(options, edgeFlow, detReader):
 
 
 def calcStatistics(options, begin, edgeFlow, detReader):
-    rSum = 0
-    dSum = 0
-    sumAbsDev = 0
-    sumSquaredDev = 0
-    sumSquaredPercent = 0
+    rSum = 0.
+    dSum = 0.
+    sumAbsDev = 0.
+    sumSquaredDev = 0.
+    sumSquaredPercent = 0.
     n = 0
     for edge, detData in detReader._edge2DetData.items():
         rFlow = edgeFlow.get(edge, 0)
