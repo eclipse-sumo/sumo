@@ -1067,7 +1067,15 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
     if (myAC) {
         myTextFieldGenericParameter->setText(getGenericParametersStr().c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
-    } else if (myACs.size()) {
+        // disable myTextFieldGenericParameter if we're in demand mode and inspected AC isn't a demand element
+        if ((myFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement()) {
+            myTextFieldGenericParameter->disable();
+            myEditGenericParameterButton->disable();
+        } else {
+            myTextFieldGenericParameter->enable();
+            myEditGenericParameterButton->enable();
+        }
+    } else if (myACs.size() > 0) {
         // check if generic parameters of all inspected ACs are different
         std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
 
@@ -1078,6 +1086,14 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
         }
         myTextFieldGenericParameter->setText(genericParameter.c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
+        // disable myTextFieldGenericParameter if we're in demand mode and inspected AC isn't a demand element
+        if ((myFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement()) {
+            myTextFieldGenericParameter->disable();
+            myEditGenericParameterButton->disable();
+        } else {
+            myTextFieldGenericParameter->enable();
+            myEditGenericParameterButton->enable();
+        }
     }
 }
 
