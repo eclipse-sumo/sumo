@@ -185,10 +185,11 @@ public:
     public:
         /// @brief type of Set
         enum ElementSetType {
-            ELEMENTSET_NETELEMENT = 1,
-            ELEMENTSET_ADDITIONAL = 2,
-            ELEMENTSET_SHAPE      = 3,
-            ELEMENTSET_INVALID    = 4,
+            ELEMENTSET_NETELEMENT    = 1,
+            ELEMENTSET_ADDITIONAL    = 2,
+            ELEMENTSET_SHAPE         = 3,
+            ELEMENTSET_DEMANDELEMENT = 4,
+            ELEMENTSET_INVALID       = 5,
         };
 
         /// @brief constructor
@@ -199,6 +200,11 @@ public:
 
         /// @brief get current selected element set
         ElementSetType getElementSet() const;
+
+        /// @brief refresh element set
+        void refreshElementSet();
+
+        /// @brief update current element set (called after 
 
         /// @name FOX-callbacks
         /// @{
@@ -394,9 +400,6 @@ public:
     /// @brief hide Frame
     void hide();
 
-    /// @brief get selected items
-    LockGLObjectTypes* getLockGLObjectTypes() const;
-
     /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
 
@@ -404,6 +407,9 @@ public:
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
     void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
+
+    /// @brief get selected items Modul
+    LockGLObjectTypes* getLockGLObjectTypes() const;
 
     /// @brief get modification mode modul
     ModificationMode* getModificationModeModul() const;

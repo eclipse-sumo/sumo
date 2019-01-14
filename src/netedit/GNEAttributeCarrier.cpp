@@ -417,12 +417,12 @@ GNEAttributeCarrier::TagProperties::getTagStr() const {
 void 
 GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
     // check that element must ist at least netElement, Additional, or shape
-    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ()) {
-        throw ProcessError("element must be at leas netElement, Additional, or shape");
+    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ() && !isDemandElement()) {
+        throw ProcessError("element must be at leas netElement, Additional, shape or demandElement");
     }
     // check that element only is netElement, Additional, or shape at the same time
-    if ((isNetElement() + isAdditional() + isShape() + isTAZ()) > 1) {
-        throw ProcessError("element only can be netElement, Additional, or shape at the same time");
+    if ((isNetElement() + isAdditional() + isShape() + isTAZ() + isDemandElement()) > 1) {
+        throw ProcessError("element can be only a netElement, Additional, shape or demandElement at the same time");
     }
     // If element is drawable, chek that at least one placeover is defined
     if (isDrawable() && !(canBePlacedOverView() || canBePlacedOverEdge() || canBePlacedOverLane() || canBePlacedOverJunction() || canBePlacedOverEdges() || canBePlacedOverLanes())) {
@@ -2131,7 +2131,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_DEMANDELEMENT, additional, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGES, additional, ICON_ROUTE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

@@ -114,6 +114,8 @@ void
 GNESelectorFrame::show() {
     // show Type Entries depending of current supermode
     myLockGLObjectTypes->showTypeEntries();
+    // refresh element set 
+    myElementSet->refreshElementSet();
     // Show frame
     GNEFrame::show();
 }
@@ -123,12 +125,6 @@ void
 GNESelectorFrame::hide() {
     // hide frame
     GNEFrame::hide();
-}
-
-
-GNESelectorFrame::LockGLObjectTypes*
-GNESelectorFrame::getLockGLObjectTypes() const {
-    return myLockGLObjectTypes;
 }
 
 
@@ -231,6 +227,12 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, Modifi
 GNESelectorFrame::ModificationMode*
 GNESelectorFrame::getModificationModeModul() const {
     return myModificationMode;
+}
+
+
+GNESelectorFrame::LockGLObjectTypes*
+GNESelectorFrame::getLockGLObjectTypes() const {
+    return myLockGLObjectTypes;
 }
 
 
@@ -356,6 +358,8 @@ GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
             i.second.second->hideObjectTypeEntry();
         }
     }
+    // recalc frame parent
+    recalc();
 }
 
 
@@ -490,10 +494,6 @@ GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) 
     myCurrentElementSet(ELEMENTSET_NETELEMENT) {
     // Create MatchTagBox for tags and fill it
     mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
-    mySetComboBox->appendItem("Net Element");
-    mySetComboBox->appendItem("Additional");
-    mySetComboBox->appendItem("Shape");
-    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
 }
 
 
@@ -506,28 +506,61 @@ GNESelectorFrame::ElementSet::getElementSet() const {
 }
 
 
+void 
+GNESelectorFrame::ElementSet::refreshElementSet() {
+    // first clear item
+    mySetComboBox->clearItems();
+    // now fill elements depending of supermode
+    if(mySelectorFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK) {
+        mySetComboBox->appendItem("Net Element");
+        mySetComboBox->appendItem("Additional");
+        mySetComboBox->appendItem("Shape");
+    } else {
+        mySetComboBox->appendItem("Demand Element");
+    }
+    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
+    // update rest of elements
+    onCmdSelectElementSet(0,0,0);
+}
+
+
 long
 GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
-    if (mySetComboBox->getText() == "Net Element") {
-        myCurrentElementSet = ELEMENTSET_NETELEMENT;
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        // enable match attribute
-        mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-    } else if (mySetComboBox->getText() == "Additional") {
-        myCurrentElementSet = ELEMENTSET_ADDITIONAL;
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        // enable match attribute
-        mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-    } else if (mySetComboBox->getText() == "Shape") {
-        myCurrentElementSet = ELEMENTSET_SHAPE;
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        // enable match attribute
-        mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+    // check depending of current supermode
+    if(mySelectorFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK) {
+        if (mySetComboBox->getText() == "Net Element") {
+            myCurrentElementSet = ELEMENTSET_NETELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else if (mySetComboBox->getText() == "Additional") {
+            myCurrentElementSet = ELEMENTSET_ADDITIONAL;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else if (mySetComboBox->getText() == "Shape") {
+            myCurrentElementSet = ELEMENTSET_SHAPE;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else {
+            myCurrentElementSet = ELEMENTSET_INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+            // disable match attribute
+            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+        }
     } else {
-        myCurrentElementSet = ELEMENTSET_INVALID;
-        mySetComboBox->setTextColor(FXRGB(255, 0, 0));
-        // disable match attribute
-        mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+        if (mySetComboBox->getText() == "Demand Element") {
+            myCurrentElementSet = ELEMENTSET_DEMANDELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else {
+            myCurrentElementSet = ELEMENTSET_INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+            // disable match attribute
+            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+        }
     }
     return 1;
 }
@@ -578,6 +611,8 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_DEMANDELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_DEMANDELEMENT, true);
     } else {
         throw ProcessError("Invalid element set");
     }
@@ -618,6 +653,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_DEMANDELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_DEMANDELEMENT, true);
     } else {
         throw ProcessError("Unkown set");
     }
