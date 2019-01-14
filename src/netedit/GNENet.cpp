@@ -695,19 +695,36 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
 
 bool
 GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNEUndoList* undoList) {
-    // First check that edge don't have a sidewalk
+    // First check that edge don't have a restricted lane of the given vclass
     for (auto i : edge.getLanes()) {
         if (i->isRestricted(vclass)) {
             return false;
         }
     }
-    // check that index is correct
-    if (index >= (int)edge.getLanes().size()) {
+    // check that index is correct (index == size adds to the left of the leftmost lane)
+    const int numLanes = (int)edge.getLanes().size();
+    if (index > numLanes) {
         return false;
     }
+    if (index < 0) {
+        // guess index from vclass
+        if (vclass == SVC_PEDESTRIAN) {
+            index = 0;
+        } else if (vclass == SVC_BICYCLE) {
+            // add bikelanes to the left of an existing sidewalk
+            index = edge.getLanes()[0]->isRestricted(SVC_PEDESTRIAN) ? 1 : 0;
+        } else if (vclass == SVC_IGNORING || vclass == SVC_BUS) {
+            // add greenVerge to the left of an existing sidewalk or bikeLane
+            // add busLane to the left of an existing sidewalk, bikeLane or greenVerge
+            index = 0;
+            while (index < numLanes && (edge.getNBEdge()->getPermissions(index) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                index++;
+            }
+        }
+    }
     // duplicate selected lane
-    duplicateLane(edge.getLanes().at(index), undoList, true);
-    // transform the created (last) lane to a sidewalk
+    duplicateLane(edge.getLanes().at(MIN2(index, numLanes - 1)), undoList, true);
+    // transform the created lane 
     return restrictLane(vclass, edge.getLanes().at(index), undoList);
 }
 
