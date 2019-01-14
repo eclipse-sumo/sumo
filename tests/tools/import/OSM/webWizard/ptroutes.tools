@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-01-10 14:01:11.074345 by $Id$
+<!-- generated on 2019-01-14 14:19:50.273009 by $Id$
   options: <doubleminus>test-output test
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -66,23 +66,17 @@
         <stop busStop="29805120" duration="30.00" until="45.0"/> <!-- Berlin Friedrichstraße -->
         <stop busStop="2776873647" duration="30.00" until="234.0"/> <!-- Berlin Alexanderplatz -->
     </route>
+    <route id="pt_bus_TXL:0" edges="461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405" >
+        <stop busStop="3869306771" duration="30.00" until="46.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="3870475228" duration="30.00" until="106.0"/> <!-- Staatsoper -->
+        <stop busStop="1827996414" duration="30.00" until="246.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="270718978" duration="30.00" until="354.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+    </route>
     <route id="pt_tram_M4:2" edges="23960874#0 23960874#1 23960874#2 144014234#0 144014234#1 144014234#2 167523653#0 167523653#1 167523653#2 22962554#0 22962554#1 22962554#2 150394036#0 150394036#1 93628049#0 93628049#1 93628049#2 93628049#3 93628049#4" >
         <stop busStop="1633759760" duration="30.00" until="42.0"/> <!-- S Hackescher Markt -->
         <stop busStop="30731481" duration="30.00" until="94.0"/> <!-- Spandauer Straße/Marienkirche -->
         <stop busStop="30731508" duration="30.00" until="193.0"/> <!-- S+U Alexanderplatz/Gontardstraße -->
         <stop busStop="30731497" duration="30.00" until="282.0"/> <!-- U Alexanderplatz -->
-    </route>
-    <route id="pt_bus_TXL:0" edges="461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405" >
-        <stop busStop="3869306771" duration="30.00" until="46.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="3870475228" duration="30.00" until="106.0"/> <!-- Staatsoper -->
-        <stop busStop="1827996414" duration="30.00" until="245.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="270718978" duration="30.00" until="381.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
-    </route>
-    <route id="pt_tram_12:1" edges="207364192#0 207364192#1 207364192#2 207364192#3 207364192#4 168254756 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 195411594#3 195411594#2 195411594#1 195411594#0 165409971#1 165409971#0 388702049#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9" >
-        <stop busStop="2175753204" duration="30.00" until="32.0"/> <!-- Am Kupfergraben -->
-        <stop busStop="1673526976" duration="30.00" until="104.0"/> <!-- Georgenstraße/Am Kupfergraben -->
-        <stop busStop="1823298700" duration="30.00" until="198.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="30731700" duration="30.00" until="288.0"/> <!-- U Oranienburger Tor -->
     </route>
     <route id="pt_tram_M4:0" edges="317013528#1 317013528#2 317013528#3 150394165 150394034#0 150394034#1 150394034#2 150394034#3 150394034#4 150394034#5 150394035#0 150394035#1 150394035#2 150394035#3 150394035#4 150394035#5 10597134#0 10597134#1 421641064" >
         <stop busStop="1789092673" duration="30.00" until="49.0"/> <!-- U Alexanderplatz -->
@@ -139,6 +133,12 @@
         <stop busStop="1930939368" duration="30.00" until="35.0"/> <!-- S Friedrichstraße -->
         <stop busStop="1769645503" duration="30.00" until="141.0"/> <!-- S Oranienburger Straße -->
     </route>
+    <route id="pt_tram_12:1" edges="207364192#0 207364192#1 207364192#2 144014230#1 144014230#2 144014230#3 144014230#4 144014230#5 207364191#0 207364191#1 144014242#0 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 195411594#3 195411594#2 195411594#1 195411594#0 165409971#1 165409971#0 388702049#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9" >
+        <stop busStop="2175753204" duration="30.00" until="32.0"/> <!-- Am Kupfergraben -->
+        <stop busStop="1673526976" duration="30.00" until="157.0"/> <!-- Georgenstraße/Am Kupfergraben -->
+        <stop busStop="1823298700" duration="30.00" until="248.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="30731700" duration="30.00" until="369.0"/> <!-- U Oranienburger Tor -->
+    </route>
     <route id="pt_light_rail_S7:0" edges="25946659 72984388#0 72984388#1 32590497 32590498 32590499 32590501 32590648 32590649 32590639 32590640 32590652 32590653 32590895 32590896 32590903 32590904 29384710 25946685#0 25946685#1 25946685#2 25946677 25946678 25946662 25946663" >
         <stop busStop="574265352" duration="30.00" until="44.0"/> <!-- S Alexanderplatz -->
         <stop busStop="1745157971" duration="30.00" until="228.0"/> <!-- S Hackescher Markt -->
@@ -147,19 +147,27 @@
     <route id="pt_bus_100:1" edges="461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405" >
         <stop busStop="3869306771" duration="30.00" until="45.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3870475228" duration="30.00" until="138.0"/> <!-- Staatsoper -->
-        <stop busStop="3867910421" duration="30.00" until="233.0"/> <!-- Lustgarten -->
+        <stop busStop="3867910421" duration="30.00" until="232.0"/> <!-- Lustgarten -->
         <stop busStop="1827996414" duration="30.00" until="320.0"/> <!-- Spandauer Straße/Marienkirche -->
         <stop busStop="270718978" duration="30.00" until="447.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
     </route>
     <route id="pt_bus_248:1" edges="23851917#1 23851917#2 11549897 23851922#0 23851922#1 60333313 82654055#0 82654055#1 82654055#2 60333311#1 60333311#2 289965634 289966097 289666657 289966281 289830408 289830064 19801545 289966845" >
-        <stop busStop="3352479220" duration="30.00" until="39.0"/> <!-- Fischerinsel -->
+        <stop busStop="3352479220" duration="30.00" until="40.0"/> <!-- Fischerinsel -->
         <stop busStop="3867910416" duration="30.00" until="135.0"/> <!-- Berliner Rathaus -->
-        <stop busStop="3907105048" duration="30.00" until="207.0"/> <!-- Littenstraße -->
+        <stop busStop="3907105048" duration="30.00" until="208.0"/> <!-- Littenstraße -->
     </route>
     <route id="pt_bus_N65:1" edges="387892378 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 61583423#1 -156364553#1 -156364553#0 -606078065 4612963 156364566#1" >
         <stop busStop="3867910425" duration="30.00" until="32.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="2915590925" duration="30.00" until="124.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="1686199552" duration="30.00" until="311.0"/> <!-- Berliner Rathaus -->
+        <stop busStop="2915590925" duration="30.00" until="126.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="1686199552" duration="30.00" until="314.0"/> <!-- Berliner Rathaus -->
+    </route>
+    <route id="pt_bus_TXL:1" edges="139877309 415288661 405101794 415280723#0 415280723#1 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 188386313#2 24913304#1" >
+        <stop busStop="270719334" duration="30.00" until="32.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <stop busStop="270727248" duration="30.00" until="86.0"/> <!-- S+U Alexanderplatz -->
+        <stop busStop="1827996417" duration="30.00" until="142.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="271296293" duration="30.00" until="314.0"/> <!-- Staatsoper -->
+        <stop busStop="272408975" duration="30.00" until="414.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="271373068" duration="30.00" until="492.0"/> <!-- S+U Brandenburger Tor -->
     </route>
     <route id="pt_tram_M6:0" edges="317013528#1 317013528#2 317013528#3 150394165 150394034#0 150394034#1 150394034#2 150394034#3 150394034#4 150394034#5 150394035#0 150394035#1 150394035#2 150394035#3 150394035#4 150394035#5 10597134#0 10597134#1 421641064" >
         <stop busStop="1789092673" duration="30.00" until="87.0"/> <!-- U Alexanderplatz -->
@@ -169,17 +177,9 @@
     </route>
     <route id="pt_bus_M48:1" edges="24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 61583423#1 -156364553#1 -156364553#0 -606078065 81112790#1 23851927#0 23851927#1 23851927#2 23851930 11549895 23851919 233835641#0 233835641#1 4773463#0 4773463#1" >
         <stop busStop="270727248" duration="30.00" until="32.0"/> <!-- S+U Alexanderplatz -->
-        <stop busStop="1827996417" duration="30.00" until="87.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="1827996417" duration="30.00" until="88.0"/> <!-- Spandauer Straße/Marienkirche -->
         <stop busStop="3867910424" duration="30.00" until="273.0"/> <!-- Nikolaiviertel -->
-        <stop busStop="3352479219" duration="30.00" until="361.0"/> <!-- Fischerinsel -->
-    </route>
-    <route id="pt_bus_TXL:1" edges="139877309 415288661 405101794 415280723#0 415280723#1 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 188386313#2 24913304#1" >
-        <stop busStop="270719334" duration="30.00" until="32.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
-        <stop busStop="270727248" duration="30.00" until="86.0"/> <!-- S+U Alexanderplatz -->
-        <stop busStop="1827996417" duration="30.00" until="142.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="271296293" duration="30.00" until="314.0"/> <!-- Staatsoper -->
-        <stop busStop="272408975" duration="30.00" until="447.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="271373068" duration="30.00" until="522.0"/> <!-- S+U Brandenburger Tor -->
+        <stop busStop="3352479219" duration="30.00" until="362.0"/> <!-- Fischerinsel -->
     </route>
     <route id="pt_light_rail_S2:2" edges="230976793 463462759 465376248 394320749 394320752" >
         <stop busStop="30353449" duration="30.00" until="36.0"/> <!-- S Oranienburger Straße -->
@@ -187,7 +187,7 @@
     </route>
     <route id="pt_bus_M48:0" edges="23851917#1 23851917#2 11549897 23851922#0 23851922#1 60333313 82654055#0 82654055#1 82654055#2 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405" >
         <stop busStop="3352479220" duration="30.00" until="40.0"/> <!-- Fischerinsel -->
-        <stop busStop="271430924" duration="30.00" until="137.0"/> <!-- Berliner Rathaus -->
+        <stop busStop="271430924" duration="30.00" until="136.0"/> <!-- Berliner Rathaus -->
         <stop busStop="1827996414" duration="30.00" until="271.0"/> <!-- Spandauer Straße/Marienkirche -->
         <stop busStop="270718978" duration="30.00" until="373.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
     </route>
@@ -201,9 +201,9 @@
         <stop busStop="3043709616" duration="30.00" until="173.0"/> <!-- U Oranienburger Tor -->
     </route>
     <route id="pt_bus_N65:0" edges="301241681#0 301241681#1 301241681#2 301241681#3 301241681#5 301241681#6 246052428 301167584#0 301167584#1 301167584#2 19002403#1 523630409 19002357#1 19002363#1 19002363#2 19002363#3 19002363#4 19002363#6 24241790#1 24241790#2 24241790#3 36892597#0 36892597#1 36892597#2 36892597#3 84960597#0 84960597#1 83517332#0 83517332#1 83517332#2 83517332#3 84960595 316746323#0 316746323#1 316746323#2 370359204#0 370359204#2 478396988 275177453 387892378" >
-        <stop busStop="3907105049" duration="30.00" until="42.0"/> <!-- U Alexanderplatz -->
-        <stop busStop="3867910441" duration="30.00" until="262.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
-        <stop busStop="3867910425" duration="30.00" until="380.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="3907105049" duration="30.00" until="41.0"/> <!-- U Alexanderplatz -->
+        <stop busStop="3867910441" duration="30.00" until="260.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="3867910425" duration="30.00" until="382.0"/> <!-- S Hackescher Markt -->
     </route>
     <route id="pt_tram_M5:1" edges="143891040#0 143891040#1 143891040#2 101699676#0 101699676#1 101699676#2 101699676#3 101699676#4 30721656#0 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 30123145#0 30123145#1 30123145#2 23960874#0 23960874#1 23960874#2 144014234#0 144014234#1 144014234#2 167523653#0 167523653#1 167523653#2 22962554#0 22962554#1 22962554#2 150394036#0 150394036#1 93628049#0 93628049#1 93628049#2 93628049#3 93628049#4" >
         <stop busStop="1668717159" duration="30.00" until="60.0"/> <!-- S Oranienburger Straße -->
@@ -218,10 +218,19 @@
         <stop busStop="27411240" duration="30.00" until="190.0"/> <!-- S Hackescher Markt -->
         <stop busStop="27411231" duration="30.00" until="264.0"/> <!-- S Alexanderplatz -->
     </route>
+    <route id="pt_bus_100:0" edges="139877309 415288661 405101794 415280723#0 415280723#1 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 188386313#2 24913304#1" >
+        <stop busStop="270719334" duration="30.00" until="32.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <stop busStop="270727248" duration="30.00" until="108.0"/> <!-- S+U Alexanderplatz -->
+        <stop busStop="1827996417" duration="30.00" until="164.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="3867910420" duration="30.00" until="292.0"/> <!-- Lustgarten -->
+        <stop busStop="271296293" duration="30.00" until="365.0"/> <!-- Staatsoper -->
+        <stop busStop="272408975" duration="30.00" until="440.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="271373068" duration="30.00" until="520.0"/> <!-- S+U Brandenburger Tor -->
+    </route>
     <route id="pt_bus_248:0" edges="309155392 195407521 309147331#0 309147331#1 344594962 312357351 309479676 4611726 82649618#0 82649618#1 82649618#2 81112790#1 23851927#0 23851927#1 23851927#2 23851930 11549895 23851919 233835641#0 233835641#1 4773463#0 4773463#1" >
         <stop busStop="3867910432" duration="30.00" until="41.0"/> <!-- S+U Alexanderplatz/Grunerstraße -->
-        <stop busStop="3867910417" duration="30.00" until="105.0"/> <!-- Berliner Rathaus -->
-        <stop busStop="3867910424" duration="30.00" until="206.0"/> <!-- Nikolaiviertel -->
+        <stop busStop="3867910417" duration="30.00" until="106.0"/> <!-- Berliner Rathaus -->
+        <stop busStop="3867910424" duration="30.00" until="205.0"/> <!-- Nikolaiviertel -->
         <stop busStop="3352479219" duration="30.00" until="293.0"/> <!-- Fischerinsel -->
     </route>
     <route id="pt_train_RE2:1" edges="25946657 25946673#0 25946673#1 25946674#0 25946674#1 25946675 25946676 25946679 25946680 32590897 32590898#0 32590898#1 32590889 32590890#0 32590890#1 23809675 23809674 32590635 32590636#0 32590636#1 32590641 32590642 32590485 32590486 32590487 32590488 72984378" >
@@ -233,22 +242,13 @@
         <stop busStop="2792364395" duration="30.00" until="108.0"/> <!-- S+U Friedrichstraße -->
         <stop busStop="2071423334" duration="30.00" until="181.0"/> <!-- U Französische Straße -->
     </route>
-    <route id="pt_bus_100:0" edges="139877309 415288661 405101794 415280723#0 415280723#1 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0 188386313#1 188386313#2 24913304#1" >
-        <stop busStop="270719334" duration="30.00" until="32.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
-        <stop busStop="270727248" duration="30.00" until="108.0"/> <!-- S+U Alexanderplatz -->
-        <stop busStop="1827996417" duration="30.00" until="165.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="3867910420" duration="30.00" until="293.0"/> <!-- Lustgarten -->
-        <stop busStop="271296293" duration="30.00" until="367.0"/> <!-- Staatsoper -->
-        <stop busStop="272408975" duration="30.00" until="477.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="271373068" duration="30.00" until="546.0"/> <!-- S+U Brandenburger Tor -->
-    </route>
     <route id="pt_bus_200:1" edges="-326116285#2 -4402014#3 -4402014#2 -4402014#1 -4402014#0 -326116286#2 -326116286#1 -326116286#0 -24913267#3 -24913267#2 -24913267#1 -24913267#0 342968607#1 461526152 340498982#0 340498982#1 340498982#3 340498982#4 340498982#5 340498982#7 354528932 251884680 339201217 15971196#0 15971196#1 54048862#0 54048862#1 54048862#2 54048862#3 23013165#0 23013165#1 23013165#2 4611698#0 4611698#1 202156994#0 202156994#1 72157174#1 171826984#0 171826984#1 171826984#2 171826984#3 171826984#4 171826984#5 24913524#0 24913524#1 24913524#2 195401006 195401017#0 195401017#1 195401017#3 405100405" >
         <stop busStop="-4692172068" duration="30.00" until="38.0"/> <!-- Behrenstraße/Wilhelmstraße -->
         <stop busStop="3869306771" duration="30.00" until="165.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3870475228" duration="30.00" until="225.0"/> <!-- Staatsoper -->
-        <stop busStop="3867910421" duration="30.00" until="326.0"/> <!-- Lustgarten -->
-        <stop busStop="1827996414" duration="30.00" until="407.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="270718978" duration="30.00" until="524.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <stop busStop="3867910421" duration="30.00" until="334.0"/> <!-- Lustgarten -->
+        <stop busStop="1827996414" duration="30.00" until="406.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="270718978" duration="30.00" until="522.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
     </route>
     <route id="pt_subway_U2:1" edges="177195505#0 177195505#1 272795474 272795470#0 272795470#1" >
         <stop busStop="29495029" duration="30.00" until="57.0"/> <!-- U Klosterstraße -->
@@ -268,23 +268,23 @@
         <stop busStop="-4692172068" duration="30.00" until="37.0"/> <!-- Behrenstraße/Wilhelmstraße -->
         <stop busStop="3869306771" duration="30.00" until="176.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3870475228" duration="30.00" until="261.0"/> <!-- Staatsoper -->
-        <stop busStop="3867910421" duration="30.00" until="367.0"/> <!-- Lustgarten -->
-        <stop busStop="3867910438" duration="30.00" until="464.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-3867910429" duration="30.00" until="537.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="3867910439" duration="30.00" until="652.0"/> <!-- U Weinmeisterstraße -->
+        <stop busStop="3867910421" duration="30.00" until="372.0"/> <!-- Lustgarten -->
+        <stop busStop="3867910438" duration="30.00" until="465.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="-3867910429" duration="30.00" until="540.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="3867910439" duration="30.00" until="653.0"/> <!-- U Weinmeisterstraße -->
     </route>
     <route id="pt_bus_200:0" edges="24914141#2 24914141#3 24914141#4 24914141#6 318282850#0 318282850#1 112128419#1 112128419#2 139877309 415288661 405101794 415280723#0 415280723#1 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0" >
         <stop busStop="270720402" duration="30.00" until="38.0"/> <!-- Mollstraße/Prenzlauer Allee -->
         <stop busStop="270719334" duration="30.00" until="149.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
         <stop busStop="270727248" duration="30.00" until="203.0"/> <!-- S+U Alexanderplatz -->
-        <stop busStop="1827996417" duration="30.00" until="260.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="3867910420" duration="30.00" until="384.0"/> <!-- Lustgarten -->
-        <stop busStop="271296293" duration="30.00" until="457.0"/> <!-- Staatsoper -->
-        <stop busStop="272408975" duration="30.00" until="551.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="1827996417" duration="30.00" until="258.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="3867910420" duration="30.00" until="390.0"/> <!-- Lustgarten -->
+        <stop busStop="271296293" duration="30.00" until="463.0"/> <!-- Staatsoper -->
+        <stop busStop="272408975" duration="30.00" until="549.0"/> <!-- Unter den Linden/Friedrichstraße -->
     </route>
     <route id="pt_bus_N5:1" edges="-478396988 -370359204#2 -370359204#0 -316746323#2 -316746323#1 -316746323#0 46140376#1 -84960597#1 -84960597#0 11103418 23809678#0 23809678#1 23809678#4 -19002363#6 -19002363#4 -19002363#3 -19002363#2 -19002363#1 4613292#0 4613292#1 4613308#1 4613308#2 310357284#0 310357284#1 100405009#0 100405009#2 100405009#3 100405009#4 305093247#0 305093247#2 305093328#0" >
         <stop busStop="-3867910429" duration="30.00" until="32.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="3867910439" duration="30.00" until="176.0"/> <!-- U Weinmeisterstraße -->
+        <stop busStop="3867910439" duration="30.00" until="178.0"/> <!-- U Weinmeisterstraße -->
         <stop busStop="271670135" duration="30.00" until="348.0"/> <!-- U Alexanderplatz -->
     </route>
     <route id="pt_light_rail_S3:0" edges="25946659 72984388#0 72984388#1 32590497 32590498 32590499 32590501 32590648 32590649 32590639 32590640 32590652 32590653 32590895 32590896 32590903 32590904 29384710 25946685#0 25946685#1 25946685#2 25946677 25946678 25946662 25946663" >
@@ -307,21 +307,21 @@
         <stop busStop="3834324122" duration="30.00" until="299.0"/> <!-- S+U Jannowitzbrücke -->
     </route>
     <route id="pt_bus_N5:0" edges="301241681#0 301241681#1 301241681#2 301241681#3 301241681#5 301241681#6 246052428 301167584#0 301167584#1 301167584#2 112128419#1 112128419#2 139877309 415288661 405101794 415280723#0 415280723#1 415280722 195401010 195401013#0 195401013#1 195401013#2 195401013#3 24914992#0 24914992#1 171826985#0 171826985#1 171826985#2 171826985#3 171826985#4 4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 -387892378 -275177453 -478396988" >
-        <stop busStop="3907105049" duration="30.00" until="41.0"/> <!-- U Alexanderplatz -->
+        <stop busStop="3907105049" duration="30.00" until="40.0"/> <!-- U Alexanderplatz -->
         <stop busStop="270727260" duration="30.00" until="144.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
-        <stop busStop="270727248" duration="30.00" until="230.0"/> <!-- S+U Alexanderplatz -->
+        <stop busStop="270727248" duration="30.00" until="229.0"/> <!-- S+U Alexanderplatz -->
         <stop busStop="1827996417" duration="30.00" until="285.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-3867910429" duration="30.00" until="408.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="-3867910429" duration="30.00" until="406.0"/> <!-- S Hackescher Markt -->
     </route>
     <route id="pt_bus_N6:1" edges="-196850606#4 -196850606#3 -196850606#2 -196850606#1 -196850606#0 196850607#1 196850607#2 -42102542#1 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526153 169999355 -11483007 22972195#1 22972195#2 465376239 465376255#0 465376255#1 190447767#1 190447766#0 190447766#1" >
-        <stop busStop="-4015961303" duration="30.00" until="40.0"/> <!-- U Stadtmitte -->
+        <stop busStop="-4015961303" duration="30.00" until="41.0"/> <!-- U Stadtmitte -->
         <stop busStop="3869306772" duration="30.00" until="175.0"/> <!-- Unter den Linden/Friedrichstraße -->
     </route>
     <route id="pt_bus_N8:1" edges="606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 -387892378 -275177453 -478396988 -370359204#2 -370359204#0 -316746323#2 -316746323#1 -316746323#0 46140376#1 -84960597#1 -84960597#0 -36892597#3 -36892597#2 -36892597#1" >
-        <stop busStop="271430924" duration="30.00" until="40.0"/> <!-- Berliner Rathaus -->
+        <stop busStop="271430924" duration="30.00" until="39.0"/> <!-- Berliner Rathaus -->
         <stop busStop="3867910438" duration="30.00" until="166.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-2915579613" duration="30.00" until="254.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="-2915545317" duration="30.00" until="352.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="-2915579613" duration="30.00" until="251.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="-2915545317" duration="30.00" until="350.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_tram_M5:0" edges="317013528#1 317013528#2 317013528#3 150394165 150394034#0 150394034#1 150394034#2 150394034#3 150394034#4 150394034#5 150394035#0 150394035#1 150394035#2 150394035#3 150394035#4 150394035#5 10597134#0 10597134#1 421641064 30721657#0 30721657#1 93630923 46140385 46140379#0 46140379#1 46140393 101699692#0 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#0 154321040#1 154321040#2" >
         <stop busStop="1789092673" duration="30.00" until="117.0"/> <!-- U Alexanderplatz -->
@@ -337,15 +337,25 @@
         <stop busStop="27411240" duration="30.00" until="265.0"/> <!-- S Hackescher Markt -->
         <stop busStop="27411231" duration="30.00" until="339.0"/> <!-- S Alexanderplatz -->
     </route>
+    <route id="pt_tram_M1:2" edges="153537614#2 153522303#0 153522303#1 46140393 101699692#0 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#0 154321040#1 154321040#2 167140670#0 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 388702048 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 104669627 195411601#1 195411601#0 22820560#2 22820560#1 22820560#0 93584121#0 93584121#1 144014237#0 144014237#1 144014237#2 144014228#0 144014228#1 144014228#2 207364192#0 207364192#1 207364192#2 144014230#1 144014230#2 144014230#3 144014230#4 144014230#5 207364191#0" >
+        <stop busStop="1668497956" duration="30.00" until="34.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="1661927028" duration="30.00" until="98.0"/> <!-- Monbijouplatz -->
+        <stop busStop="1862699772" duration="30.00" until="173.0"/> <!-- S Oranienburger Straße -->
+        <stop busStop="1668685086" duration="30.00" until="237.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="990017251" duration="30.00" until="300.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="247600965" duration="30.00" until="433.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="3922258748" duration="30.00" until="493.0"/> <!-- Universitätsstraße -->
+        <stop busStop="247603398" duration="30.00" until="561.0"/> <!-- Am Kupfergraben -->
+    </route>
     <route id="pt_train_RB14:1" edges="32590440 72984396 32590489 32590490 32590491 32590492 32590643 32590644 24492833 32590637 32590650 32590651#0 32590651#1 32590891 32590892 32590899 32590900#0 32590900#1 29384709 25946664 25946665 25946666#0 25946666#1 25946666#2 25946667 25946668" >
         <stop busStop="3419694885" duration="30.00" until="48.0"/> <!-- Berlin Alexanderplatz -->
         <stop busStop="2603331683" duration="30.00" until="249.0"/> <!-- Berlin Friedrichstraße -->
     </route>
     <route id="pt_bus_N8:0" edges="36892597#2 36892597#3 84960597#0 84960597#1 83517332#0 83517332#1 83517332#2 83517332#3 84960595 316746323#0 316746323#1 316746323#2 370359204#0 370359204#2 478396988 275177453 387892378 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 61583423#1 -156364553#1 -156364553#0 -606078065 4612963 156364566#1" >
-        <stop busStop="3867910441" duration="30.00" until="37.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
-        <stop busStop="3867910425" duration="30.00" until="139.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="2915590925" duration="30.00" until="210.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="1686199552" duration="30.00" until="401.0"/> <!-- Berliner Rathaus -->
+        <stop busStop="3867910441" duration="30.00" until="36.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="3867910425" duration="30.00" until="137.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="2915590925" duration="30.00" until="212.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="1686199552" duration="30.00" until="402.0"/> <!-- Berliner Rathaus -->
     </route>
     <route id="pt_tram_M5:3" edges="23960874#0 23960874#1 23960874#2 144014234#0 144014234#1 144014234#2 167523653#0 167523653#1 167523653#2 22962554#0 22962554#1 22962554#2 150394036#0 150394036#1 93628049#0 93628049#1 93628049#2 93628049#3 93628049#4" >
         <stop busStop="1633759760" duration="30.00" until="42.0"/> <!-- S Hackescher Markt -->
@@ -353,29 +363,29 @@
         <stop busStop="30731508" duration="30.00" until="193.0"/> <!-- S+U Alexanderplatz/Gontardstraße -->
         <stop busStop="30731497" duration="30.00" until="282.0"/> <!-- U Alexanderplatz -->
     </route>
-    <route id="pt_tram_M1:2" edges="153537614#2 153522303#0 153522303#1 46140393 101699692#0 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#0 154321040#1 154321040#2 167140670#0 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 388702048 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 104669627 195411601#1 195411601#0 22820560#2 22820560#1 22820560#0 93584121#0 93584121#1 144014237#0 144014237#1 144014237#2 144014228#0 144014228#1 144014228#2 207364192#0 207364192#1 207364192#2 144014230#1 144014230#2 144014230#3 144014230#4 144014230#5 207364191#0" >
-        <stop busStop="1668497956" duration="30.00" until="34.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="1661927028" duration="30.00" until="98.0"/> <!-- Monbijouplatz -->
-        <stop busStop="1862699772" duration="30.00" until="173.0"/> <!-- S Oranienburger Straße -->
-        <stop busStop="1668685086" duration="30.00" until="237.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="990017251" duration="30.00" until="300.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="247600965" duration="30.00" until="440.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3922258748" duration="30.00" until="536.0"/> <!-- Universitätsstraße -->
-        <stop busStop="247603398" duration="30.00" until="608.0"/> <!-- Am Kupfergraben -->
-    </route>
     <route id="pt_tram_M5:2" edges="317013528#1 317013528#2 317013528#3 150394165 150394034#0 150394034#1 150394034#2 150394034#3 150394034#4 150394034#5 150394035#0 150394035#1 150394035#2 150394035#3 150394035#4 150394035#5 10597134#0 10597134#1 421641064" >
         <stop busStop="1789092673" duration="30.00" until="49.0"/> <!-- U Alexanderplatz -->
         <stop busStop="1860777041" duration="30.00" until="134.0"/> <!-- S+U Alexanderplatz/Gontardstraße -->
-        <stop busStop="4673135647" duration="30.00" until="239.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="1633759766" duration="30.00" until="309.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="4673135647" duration="30.00" until="237.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="1633759766" duration="30.00" until="304.0"/> <!-- S Hackescher Markt -->
     </route>
     <route id="pt_bus_N2:1" edges="36892597#2 36892597#3 84960597#0 84960597#1 83517332#0 83517332#1 83517332#2 83517332#3 84960595 316746323#0 316746323#1 316746323#2 370359204#0 370359204#2 478396988 275177453 387892378 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 24913519#1 24913519#2 541763975 202156995#0 202156995#1 4067932#0 4067932#1 339201219 61584187#1 61584187#2 61584187#3 61584187#4 54048863 15971197 4611699 169195795#0 169195795#1 169195795#2 169195795#5 169195795#6 169195795#7 169195795#8 169195795#10 340498988 188386313#0" >
         <stop busStop="3867910441" duration="30.00" until="37.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
-        <stop busStop="3867910428" duration="30.00" until="136.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="2915590925" duration="30.00" until="220.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="3867910420" duration="30.00" until="322.0"/> <!-- Lustgarten -->
-        <stop busStop="271296293" duration="30.00" until="396.0"/> <!-- Staatsoper -->
-        <stop busStop="272408975" duration="30.00" until="497.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="3867910428" duration="30.00" until="138.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="2915590925" duration="30.00" until="222.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="3867910420" duration="30.00" until="308.0"/> <!-- Lustgarten -->
+        <stop busStop="271296293" duration="30.00" until="381.0"/> <!-- Staatsoper -->
+        <stop busStop="272408975" duration="30.00" until="496.0"/> <!-- Unter den Linden/Friedrichstraße -->
+    </route>
+    <route id="pt_tram_M1:0" edges="207364191#0 207364191#1 144014242#0 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 195411594#3 195411594#2 195411594#1 195411594#0 165409971#1 165409971#0 388702049#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#0 143891040#1 143891040#2 101699676#0 101699676#1 101699676#2 101699676#3 101699676#4 30721656#0 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#0 30721657#1 93630923 46140383 143931935 153537606#0 153537606#1" >
+        <stop busStop="247603398" duration="30.00" until="32.0"/> <!-- Am Kupfergraben -->
+        <stop busStop="1673526976" duration="30.00" until="89.0"/> <!-- Georgenstraße/Am Kupfergraben -->
+        <stop busStop="1823298700" duration="30.00" until="175.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="30731700" duration="30.00" until="265.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="1668717159" duration="30.00" until="364.0"/> <!-- S Oranienburger Straße -->
+        <stop busStop="963600646" duration="30.00" until="429.0"/> <!-- Monbijouplatz -->
+        <stop busStop="1633759766" duration="30.00" until="521.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="1662153916" duration="30.00" until="619.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_subway_U8:0" edges="379102293#1 436121618 438860779 199425798 381201612 381187763" >
         <stop busStop="3824719830" duration="30.00" until="59.0"/> <!-- S+U Jannowitzbrücke -->
@@ -385,10 +395,10 @@
         <stop busStop="29190909" duration="30.00" until="360.0"/> <!-- U Bernauer Straße -->
     </route>
     <route id="pt_bus_N40:1" edges="36892597#2 36892597#3 84960597#0 84960597#1 83517332#0 83517332#1 83517332#2 83517332#3 84960595 316746323#0 316746323#1 316746323#2 370359204#0 370359204#2 478396988 275177453 387892378 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 61583423#1 -156364553#1 -156364553#0 -606078065 4612963 156364566#1" >
-        <stop busStop="3867910441" duration="30.00" until="66.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="3867910441" duration="30.00" until="65.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
         <stop busStop="3867910425" duration="30.00" until="182.0"/> <!-- S Hackescher Markt -->
         <stop busStop="2915590925" duration="30.00" until="256.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="1686199552" duration="30.00" until="442.0"/> <!-- Berliner Rathaus -->
+        <stop busStop="1686199552" duration="30.00" until="444.0"/> <!-- Berliner Rathaus -->
     </route>
     <route id="pt_light_rail_S9:0" edges="25946659 72984388#0 72984388#1 32590497 32590498 32590499 32590501 32590648 32590649 32590639 32590640 32590652 32590653 32590895 32590896 32590903 32590904 29384710 25946685#0 25946685#1 25946685#2 25946677 25946678 25946662 25946663" >
         <stop busStop="574265352" duration="30.00" until="44.0"/> <!-- S Alexanderplatz -->
@@ -400,89 +410,79 @@
         <stop busStop="1661927028" duration="30.00" until="98.0"/> <!-- Monbijouplatz -->
         <stop busStop="1862699772" duration="30.00" until="173.0"/> <!-- S Oranienburger Straße -->
         <stop busStop="1668685086" duration="30.00" until="237.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="990017251" duration="30.00" until="357.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="247600965" duration="30.00" until="480.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3922258748" duration="30.00" until="553.0"/> <!-- Universitätsstraße -->
+        <stop busStop="990017251" duration="30.00" until="350.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="247600965" duration="30.00" until="473.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="3922258748" duration="30.00" until="547.0"/> <!-- Universitätsstraße -->
         <stop busStop="247603398" duration="30.00" until="618.0"/> <!-- Am Kupfergraben -->
     </route>
-    <route id="pt_tram_M1:0" edges="207364191#0 207364191#1 144014242#0 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 195411594#3 195411594#2 195411594#1 195411594#0 165409971#1 165409971#0 388702049#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#0 143891040#1 143891040#2 101699676#0 101699676#1 101699676#2 101699676#3 101699676#4 30721656#0 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#0 30721657#1 93630923 46140383 143931935 153537606#0 153537606#1" >
-        <stop busStop="247603398" duration="30.00" until="32.0"/> <!-- Am Kupfergraben -->
-        <stop busStop="1673526976" duration="30.00" until="116.0"/> <!-- Georgenstraße/Am Kupfergraben -->
-        <stop busStop="1823298700" duration="30.00" until="210.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="30731700" duration="30.00" until="343.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="1668717159" duration="30.00" until="421.0"/> <!-- S Oranienburger Straße -->
-        <stop busStop="963600646" duration="30.00" until="486.0"/> <!-- Monbijouplatz -->
-        <stop busStop="1633759766" duration="30.00" until="578.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="1662153916" duration="30.00" until="666.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
-    </route>
     <route id="pt_bus_N40:0" edges="156364559#1 156364559#2 156364559#3 156364559#4 156364559#5 156364559#6 -24992424#5 -24992424#4 -24992424#3 -24992424#2 -24992424#1 -24992424#0 4612964#0 4612964#1 4612964#2 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 -387892378 -275177453 -478396988 -370359204#2 -370359204#0 -316746323#2 -316746323#1 -316746323#0 46140376#1 -84960597#1 -84960597#0 -36892597#3 -36892597#2 -36892597#1" >
-        <stop busStop="3867910436" duration="30.00" until="39.0"/> <!-- S+U Jannowitzbrücke -->
+        <stop busStop="3867910436" duration="30.00" until="40.0"/> <!-- S+U Jannowitzbrücke -->
         <stop busStop="271430924" duration="30.00" until="163.0"/> <!-- Berliner Rathaus -->
-        <stop busStop="3867910438" duration="30.00" until="274.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-2915579613" duration="30.00" until="382.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="-2915545317" duration="30.00" until="491.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="3867910438" duration="30.00" until="273.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="-2915579613" duration="30.00" until="381.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="-2915545317" duration="30.00" until="493.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_bus_147:1" edges="-176043807#2 -176043807#1 -176043807#0 -176043806#1 -176043806#0 -437325051#1 -437325051#0 -111251382#2 541295978 389705415#0 389705415#1 -541295974 6228081 -222328410 -465376254 -4402228 190447768#1 195411602#0 195411602#1 607001336 465376240 195411604 11483007 -169999355 -461526153 -194069450#1 -194069450#0 171423001#0 171423001#1 171423001#2 35557143#0 35557143#1 389101365#0 389101365#1 389101365#2 66071366#0 66071366#1 66071366#2 66071366#3 23755950#0 23755950#1 23755950#2 23755950#3 4611696#1 4611696#2 4611696#3 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 -43156728#2 -43156728#1 -43156728#0" >
         <stop busStop="-3869306760" duration="30.00" until="60.0"/> <!-- Deutsches Theater -->
-        <stop busStop="-3869306761" duration="30.00" until="118.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <stop busStop="-3869306761" duration="30.00" until="119.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
         <stop busStop="-3869306765" duration="30.00" until="208.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="-3869306770" duration="30.00" until="341.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="3869306767" duration="30.00" until="403.0"/> <!-- U Französische Straße -->
-        <stop busStop="3869306774" duration="30.00" until="488.0"/> <!-- Werderscher Markt -->
-        <stop busStop="-3867910422" duration="30.00" until="633.0"/> <!-- Neumannsgasse -->
+        <stop busStop="-3869306770" duration="30.00" until="340.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="3869306767" duration="30.00" until="402.0"/> <!-- U Französische Straße -->
+        <stop busStop="3869306774" duration="30.00" until="487.0"/> <!-- Werderscher Markt -->
+        <stop busStop="-3867910422" duration="30.00" until="636.0"/> <!-- Neumannsgasse -->
     </route>
     <route id="pt_tram_M1:1" edges="207364191#0 207364191#1 144014242#0 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 195411594#3 195411594#2 195411594#1 195411594#0 165409971#1 165409971#0 388702049#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#0 143891040#1 143891040#2 101699676#0 101699676#1 101699676#2 101699676#3 101699676#4 30721656#0 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#0 30721657#1 93630923 46140383 143931935 153537606#0 153537606#1" >
         <stop busStop="247603398" duration="30.00" until="32.0"/> <!-- Am Kupfergraben -->
-        <stop busStop="1673526976" duration="30.00" until="118.0"/> <!-- Georgenstraße/Am Kupfergraben -->
-        <stop busStop="1823298700" duration="30.00" until="212.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="30731700" duration="30.00" until="352.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="1668717159" duration="30.00" until="438.0"/> <!-- S Oranienburger Straße -->
-        <stop busStop="963600646" duration="30.00" until="503.0"/> <!-- Monbijouplatz -->
-        <stop busStop="1633759766" duration="30.00" until="621.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="1662153916" duration="30.00" until="724.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="1673526976" duration="30.00" until="120.0"/> <!-- Georgenstraße/Am Kupfergraben -->
+        <stop busStop="1823298700" duration="30.00" until="226.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="30731700" duration="30.00" until="370.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="1668717159" duration="30.00" until="479.0"/> <!-- S Oranienburger Straße -->
+        <stop busStop="963600646" duration="30.00" until="544.0"/> <!-- Monbijouplatz -->
+        <stop busStop="1633759766" duration="30.00" until="636.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="1662153916" duration="30.00" until="707.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_bus_147:0" edges="43156728#2 43156728#4 120675240#0 120675240#1 -8008608 -4611696#5 -4611696#4 -4611696#3 -4611696#2 -4611696#1 -23755950#3 -23755950#2 -23755950#1 -23755950#0 -66071366#3 -66071366#2 -66071366#1 -66071366#0 -389101365#2 -389101365#1 -389101365#0 -35557143#1 -35557143#0 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526153 169999355 -11483007 22972195#1 22972195#2 465376239 465376255#0 465376255#1 190447767#1 190447766#0 190447766#1 4402228 465376254 222328410 -6228081 541295974 30720544#0 30720544#1 42103020 111251382#2 437325051#0 437325051#1 176043806#0 176043806#1 176043807#0 176043807#1 176043807#2" >
-        <stop busStop="3867910423" duration="30.00" until="38.0"/> <!-- Neumannsgasse -->
-        <stop busStop="-3869306773" duration="30.00" until="198.0"/> <!-- Werderscher Markt -->
+        <stop busStop="3867910423" duration="30.00" until="37.0"/> <!-- Neumannsgasse -->
+        <stop busStop="-3869306773" duration="30.00" until="199.0"/> <!-- Werderscher Markt -->
         <stop busStop="-3869306766" duration="30.00" until="287.0"/> <!-- U Französische Straße -->
-        <stop busStop="3869306772" duration="30.00" until="424.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="3869306764" duration="30.00" until="507.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3869306762" duration="30.00" until="658.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
-        <stop busStop="3869306759" duration="30.00" until="721.0"/> <!-- Deutsches Theater -->
+        <stop busStop="3869306772" duration="30.00" until="423.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="3869306764" duration="30.00" until="508.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="3869306762" duration="30.00" until="652.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <stop busStop="3869306759" duration="30.00" until="714.0"/> <!-- Deutsches Theater -->
     </route>
     <route id="pt_bus_N42:0" edges="415280723#0 415280723#1 -24990040 -24241797#3 -24241797#2 -24241797#1 -24241797#0 19002357#1 19002363#1 19002363#2 19002363#3 19002363#4 19002363#6 24241790#1 24241790#2 24241790#3 36892597#0 36892597#1 36892597#2 36892597#3 84960597#0 84960597#1 83517332#0 83517332#1 83517332#2 83517332#3 84960595 316746323#0 316746323#1 316746323#2 370359204#0 370359204#2 478396988 275177453 387892378 77348147 156364570#0 156364570#1 156364570#2 156364570#3 156364556#1 202157002#0 202157002#1 202157002#2 202157002#3 -534588621#1 -534588621#0 606078071#0 606078071#1 606078071#2 606078071#3 61583423#0 61583423#1 -156364553#1 -156364553#0 -606078065 81112790#1 23851927#0 23851927#1 23851927#2 23851930 11549895 23851919 233835641#0 233835641#1 4773463#0 4773463#1" >
         <stop busStop="4163212867" duration="30.00" until="32.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
-        <stop busStop="3867910441" duration="30.00" until="235.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
-        <stop busStop="3867910427" duration="30.00" until="312.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="2915590925" duration="30.00" until="408.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="3867910424" duration="30.00" until="586.0"/> <!-- Nikolaiviertel -->
-        <stop busStop="3352479219" duration="30.00" until="661.0"/> <!-- Fischerinsel -->
+        <stop busStop="3867910441" duration="30.00" until="236.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="3867910427" duration="30.00" until="315.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="2915590925" duration="30.00" until="405.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="3867910424" duration="30.00" until="588.0"/> <!-- Nikolaiviertel -->
+        <stop busStop="3352479219" duration="30.00" until="662.0"/> <!-- Fischerinsel -->
     </route>
     <route id="pt_bus_N42:1" edges="23851917#1 23851917#2 11549897 23851922#0 23851922#1 60333313 82654055#0 82654055#1 82654055#2 24992428 606078065 156364553#0 156364553#1 606078066#0 606078066#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 4773465#1 4773465#2 4773465#3 490365295#0 490365295#1 490365295#2 -156364570#3 -156364570#2 -156364570#1 -156364570#0 -77348147 -387892378 -275177453 -478396988 -370359204#2 -370359204#0 -316746323#2 -316746323#1 -316746323#0 46140376#1 -84960597#1 -84960597#0 11103418 23809678#0 23809678#1 23809678#4 -19002363#6 -19002363#4 -19002363#3 -19002363#2 -19002363#1 4613292#0 4613292#1 4613308#1 4613308#2 310357284#0 310357284#1 112128419#1 112128419#2 139877309" >
-        <stop busStop="3352479220" duration="30.00" until="41.0"/> <!-- Fischerinsel -->
-        <stop busStop="271430924" duration="30.00" until="129.0"/> <!-- Berliner Rathaus -->
-        <stop busStop="3867910438" duration="30.00" until="254.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-3867910426" duration="30.00" until="354.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="3352479220" duration="30.00" until="39.0"/> <!-- Fischerinsel -->
+        <stop busStop="271430924" duration="30.00" until="128.0"/> <!-- Berliner Rathaus -->
+        <stop busStop="3867910438" duration="30.00" until="260.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="-3867910426" duration="30.00" until="352.0"/> <!-- S Hackescher Markt -->
         <stop busStop="3867910439" duration="30.00" until="479.0"/> <!-- U Weinmeisterstraße -->
-        <stop busStop="270727260" duration="30.00" until="652.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
+        <stop busStop="270727260" duration="30.00" until="703.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
     </route>
     <route id="pt_bus_147:3" edges="43156728#2 43156728#4 120675240#0 120675240#1 -8008608 -4611696#5 -4611696#4 -4611696#3 -4611696#2 -4611696#1 -23755950#3 -23755950#2 -23755950#1 -23755950#0 -66071366#3 -66071366#2 -66071366#1 -66071366#0 -389101365#2 -389101365#1 -389101365#0 -35557143#1 -35557143#0 196850609#0 196850609#1 196850609#2 194069450#0 194069450#1 461526153 169999355 -11483007 22972195#1 22972195#2 465376239 465376255#0 465376255#1 190447767#1 190447766#0 190447766#1 4402228 465376254 222328410 -6228081 541295974 30720544#0 30720544#1 42103020 111251382#2 437325051#0 437325051#1 176043806#0 176043806#1 176043807#0 176043807#1 176043807#2" >
         <stop busStop="3867910423" duration="30.00" until="38.0"/> <!-- Neumannsgasse -->
-        <stop busStop="-3869306773" duration="30.00" until="172.0"/> <!-- Werderscher Markt -->
-        <stop busStop="-3869306766" duration="30.00" until="271.0"/> <!-- U Französische Straße -->
-        <stop busStop="3869306772" duration="30.00" until="369.0"/> <!-- Unter den Linden/Friedrichstraße -->
-        <stop busStop="3869306764" duration="30.00" until="474.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3869306762" duration="30.00" until="600.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
-        <stop busStop="3869306759" duration="30.00" until="662.0"/> <!-- Deutsches Theater -->
+        <stop busStop="-3869306773" duration="30.00" until="170.0"/> <!-- Werderscher Markt -->
+        <stop busStop="-3869306766" duration="30.00" until="270.0"/> <!-- U Französische Straße -->
+        <stop busStop="3869306772" duration="30.00" until="368.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="3869306764" duration="30.00" until="476.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="3869306762" duration="30.00" until="596.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <stop busStop="3869306759" duration="30.00" until="658.0"/> <!-- Deutsches Theater -->
     </route>
     <route id="pt_bus_147:2" edges="-176043807#2 -176043807#1 -176043807#0 -176043806#1 -176043806#0 -437325051#1 -437325051#0 -111251382#2 541295978 389705415#0 389705415#1 -541295974 6228081 -222328410 -465376254 -4402228 190447768#1 195411602#0 195411602#1 607001336 465376240 195411604 11483007 -169999355 -461526153 -194069450#1 -194069450#0 171423001#0 171423001#1 171423001#2 35557143#0 35557143#1 389101365#0 389101365#1 389101365#2 66071366#0 66071366#1 66071366#2 66071366#3 23755950#0 23755950#1 23755950#2 23755950#3 4611696#1 4611696#2 4611696#3 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 -43156728#2 -43156728#1 -43156728#0" >
         <stop busStop="-3869306760" duration="30.00" until="60.0"/> <!-- Deutsches Theater -->
-        <stop busStop="-3869306761" duration="30.00" until="117.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
-        <stop busStop="-3869306765" duration="30.00" until="270.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="-3869306770" duration="30.00" until="422.0"/> <!-- Unter den Linden/Friedrichstraße -->
+        <stop busStop="-3869306761" duration="30.00" until="119.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <stop busStop="-3869306765" duration="30.00" until="271.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="-3869306770" duration="30.00" until="421.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3869306767" duration="30.00" until="499.0"/> <!-- U Französische Straße -->
-        <stop busStop="3869306774" duration="30.00" until="606.0"/> <!-- Werderscher Markt -->
-        <stop busStop="-3867910422" duration="30.00" until="728.0"/> <!-- Neumannsgasse -->
+        <stop busStop="3869306774" duration="30.00" until="607.0"/> <!-- Werderscher Markt -->
+        <stop busStop="-3867910422" duration="30.00" until="731.0"/> <!-- Neumannsgasse -->
     </route>
     <flow id="pt_tram_M2:0" type="pt_tram" route="pt_tram_M2:0" begin="3.0" end="903.0" period="1200" line="M2:0" >
         <param key="name" value="Straßenbahnlinie M2: S+U Alexanderplatz =&gt; Heinersdorf"/>
@@ -536,17 +536,13 @@
         <param key="name" value="RE7: Dessau =&gt; Wünsdorf-Waldstadt"/>
         <param key="completeness" value="0.07"/>
     </flow>
-    <flow id="pt_tram_M4:2" type="pt_tram" route="pt_tram_M4:2" begin="137.0" end="1037.0" period="600" line="M4:2" >
-        <param key="name" value="Straßenbahnlinie M4: S Hackescher Markt =&gt; Falkenberg"/>
-        <param key="completeness" value="0.16"/>
-    </flow>
     <flow id="pt_bus_TXL:0" type="pt_bus" route="pt_bus_TXL:0" begin="58.0" end="958.0" period="600" line="TXL:0" >
         <param key="name" value="Buslinie TXL: Flughafen Tegel =&gt; S+U Alexanderplatz"/>
         <param key="completeness" value="0.29"/>
     </flow>
-    <flow id="pt_tram_12:1" type="pt_tram" route="pt_tram_12:1" begin="160.0" end="1060.0" period="600" line="12:1" >
-        <param key="name" value="Straßenbahnlinie 12: Mitte, Am Kupfergraben =&gt; Weißensee, Pasedagplatz"/>
-        <param key="completeness" value="0.15"/>
+    <flow id="pt_tram_M4:2" type="pt_tram" route="pt_tram_M4:2" begin="137.0" end="1037.0" period="600" line="M4:2" >
+        <param key="name" value="Straßenbahnlinie M4: S Hackescher Markt =&gt; Falkenberg"/>
+        <param key="completeness" value="0.16"/>
     </flow>
     <flow id="pt_tram_M4:0" type="pt_tram" route="pt_tram_M4:0" begin="133.0" end="1033.0" period="420" line="M4:0" >
         <param key="name" value="Straßenbahnlinie M4: Falkenberg =&gt; S Hackescher Markt"/>
@@ -592,6 +588,10 @@
         <param key="name" value="S-Bahnlinie S25: Teltow =&gt; Hennigsdorf"/>
         <param key="completeness" value="0.07"/>
     </flow>
+    <flow id="pt_tram_12:1" type="pt_tram" route="pt_tram_12:1" begin="160.0" end="1060.0" period="600" line="12:1" >
+        <param key="name" value="Straßenbahnlinie 12: Mitte, Am Kupfergraben =&gt; Weißensee, Pasedagplatz"/>
+        <param key="completeness" value="0.15"/>
+    </flow>
     <flow id="pt_light_rail_S7:0" type="pt_light_rail" route="pt_light_rail_S7:0" begin="215.0" end="1115.0" period="600" line="S7:0" >
         <param key="name" value="S-Bahnlinie S7: Ahrensfelde =&gt; Potsdam Hauptbahnhof"/>
         <param key="completeness" value="0.10"/>
@@ -608,6 +608,10 @@
         <param key="name" value="Buslinie N65: S Hackescher Markt =&gt; Köpenick, Müggelschlößchenweg"/>
         <param key="completeness" value="0.07"/>
     </flow>
+    <flow id="pt_bus_TXL:1" type="pt_bus" route="pt_bus_TXL:1" begin="60.0" end="960.0" period="600" line="TXL:1" >
+        <param key="name" value="Buslinie TXL: S+U Alexanderplatz =&gt; Flughafen Tegel"/>
+        <param key="completeness" value="0.40"/>
+    </flow>
     <flow id="pt_tram_M6:0" type="pt_tram" route="pt_tram_M6:0" begin="218.0" end="1118.0" period="600" line="M6:0" >
         <param key="name" value="Straßenbahnlinie M6: Hellersdorf, Riesaer Straße =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.10"/>
@@ -615,10 +619,6 @@
     <flow id="pt_bus_M48:1" type="pt_bus" route="pt_bus_M48:1" begin="227.0" end="1127.0" period="600" line="M48:1" >
         <param key="name" value="Buslinie M48: S+U Alexanderplatz/Memhardstraße =&gt; Busseallee"/>
         <param key="completeness" value="0.09"/>
-    </flow>
-    <flow id="pt_bus_TXL:1" type="pt_bus" route="pt_bus_TXL:1" begin="60.0" end="960.0" period="600" line="TXL:1" >
-        <param key="name" value="Buslinie TXL: S+U Alexanderplatz =&gt; Flughafen Tegel"/>
-        <param key="completeness" value="0.40"/>
     </flow>
     <flow id="pt_light_rail_S2:2" type="pt_light_rail" route="pt_light_rail_S2:2" begin="483.0" end="1383.0" period="1200" line="S2:2" >
         <param key="name" value="S-Bahnlinie S2: S Buch =&gt; S Lichtenrade"/>
@@ -648,6 +648,10 @@
         <param key="name" value="S-Bahnlinie S3: Westkreuz =&gt; Erkner"/>
         <param key="completeness" value="0.12"/>
     </flow>
+    <flow id="pt_bus_100:0" type="pt_bus" route="pt_bus_100:0" begin="97.0" end="997.0" period="600" line="100:0" >
+        <param key="name" value="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten"/>
+        <param key="completeness" value="0.41"/>
+    </flow>
     <flow id="pt_bus_248:0" type="pt_bus" route="pt_bus_248:0" begin="334.0" end="1234.0" period="600" line="248:0" >
         <param key="name" value="Buslinie 248: S+U Warschauer Straße =&gt; S Südkreuz =&gt; U Breitenbachplatz"/>
         <param key="completeness" value="0.09"/>
@@ -659,10 +663,6 @@
     <flow id="pt_subway_U6:1" type="pt_subway" route="pt_subway_U6:1" begin="465.0" end="1365.0" period="300" line="U6:1" >
         <param key="name" value="U-Bahnlinie U6: U Alt-Tegel =&gt; U Alt-Mariendorf"/>
         <param key="completeness" value="0.10"/>
-    </flow>
-    <flow id="pt_bus_100:0" type="pt_bus" route="pt_bus_100:0" begin="97.0" end="997.0" period="600" line="100:0" >
-        <param key="name" value="Buslinie 100: S+U Alexanderplatz =&gt; S+U Zoologischer Garten"/>
-        <param key="completeness" value="0.41"/>
     </flow>
     <flow id="pt_bus_200:1" type="pt_bus" route="pt_bus_200:1" begin="132.0" end="1032.0" period="600" line="200:1" >
         <param key="name" value="Buslinie 200: S+U Zoologischer Garten =&gt; Michelangelostraße"/>
@@ -728,6 +728,10 @@
         <param key="name" value="S-Bahnlinie S9: S Rathaus Spandau =&gt; S Flughafen Schönefeld"/>
         <param key="completeness" value="0.11"/>
     </flow>
+    <flow id="pt_tram_M1:2" type="pt_tram" route="pt_tram_M1:2" begin="201.0" end="1101.0" period="1200" line="M1:2" >
+        <param key="name" value="Straßenbahnlinie M1: Niederschönhausen, Schillerstraße =&gt; Mitte, Am Kupfergraben"/>
+        <param key="completeness" value="0.28"/>
+    </flow>
     <flow id="pt_train_RB14:1" type="pt_train" route="pt_train_RB14:1" begin="525.0" end="1425.0" period="3600" line="RB14:1" >
         <param key="name" value="RB14: Berlin-Schönefeld =&gt; Nauen"/>
         <param key="completeness" value="0.13"/>
@@ -740,10 +744,6 @@
         <param key="name" value="Straßenbahnlinie M5: S Hackescher Markt =&gt; Hohenschönhausen, Zingster Straße"/>
         <param key="completeness" value="0.15"/>
     </flow>
-    <flow id="pt_tram_M1:2" type="pt_tram" route="pt_tram_M1:2" begin="201.0" end="1101.0" period="1200" line="M1:2" >
-        <param key="name" value="Straßenbahnlinie M1: Niederschönhausen, Schillerstraße =&gt; Mitte, Am Kupfergraben"/>
-        <param key="completeness" value="0.28"/>
-    </flow>
     <flow id="pt_tram_M5:2" type="pt_tram" route="pt_tram_M5:2" begin="497.0" end="1397.0" period="1200" line="M5:2" >
         <param key="name" value="Straßenbahnlinie M5: Hohenschönhausen, Zingster Straße =&gt; S Hackescher Markt"/>
         <param key="completeness" value="0.15"/>
@@ -751,6 +751,10 @@
     <flow id="pt_bus_N2:1" type="pt_bus" route="pt_bus_N2:1" begin="321.0" end="1221.0" period="600" line="N2:1" >
         <param key="name" value="Buslinie N2: S+U Pankow =&gt; U Ruhleben"/>
         <param key="completeness" value="0.13"/>
+    </flow>
+    <flow id="pt_tram_M1:0" type="pt_tram" route="pt_tram_M1:0" begin="188.0" end="1088.0" period="1200" line="M1:0" >
+        <param key="name" value="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Niederschönhausen, Schillerstraße"/>
+        <param key="completeness" value="0.28"/>
     </flow>
     <flow id="pt_subway_U8:0" type="pt_subway" route="pt_subway_U8:0" begin="437.0" end="1337.0" period="300" line="U8:0" >
         <param key="name" value="U-Bahnlinie U8: S+U Hermannstraße =&gt; S+U Wittenau"/>
@@ -768,10 +772,6 @@
         <param key="name" value="Straßenbahnlinie M1: Rosenthal Nord =&gt; Mitte, Am Kupfergraben"/>
         <param key="completeness" value="0.26"/>
     </flow>
-    <flow id="pt_tram_M1:0" type="pt_tram" route="pt_tram_M1:0" begin="188.0" end="1088.0" period="1200" line="M1:0" >
-        <param key="name" value="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Niederschönhausen, Schillerstraße"/>
-        <param key="completeness" value="0.28"/>
-    </flow>
     <flow id="pt_bus_N40:0" type="pt_bus" route="pt_bus_N40:0" begin="389.0" end="1289.0" period="600" line="N40:0" >
         <param key="name" value="Buslinie N40: Friedrichshain, Wühlischplatz =&gt; U Turmstraße"/>
         <param key="completeness" value="0.16"/>
@@ -780,7 +780,7 @@
         <param key="name" value="Buslinie 147: S+U Hauptbahnhof =&gt; S Ostbahnhof"/>
         <param key="completeness" value="0.39"/>
     </flow>
-    <flow id="pt_tram_M1:1" type="pt_tram" route="pt_tram_M1:1" begin="226.0" end="1126.0" period="1200" line="M1:1" >
+    <flow id="pt_tram_M1:1" type="pt_tram" route="pt_tram_M1:1" begin="237.0" end="1137.0" period="1200" line="M1:1" >
         <param key="name" value="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Rosenthal Nord"/>
         <param key="completeness" value="0.26"/>
     </flow>
