@@ -3766,19 +3766,24 @@ GNEViewNet::CreateEdgeOptions::CreateEdgeOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNet::CreateEdgeOptions::buildCreateEdgeOptionMenuChecks() {
-    chainEdges = new FXMenuCheck(myViewNet->myToolbar, ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), myViewNet, 0);
+    chainEdges = new FXMenuCheck(myViewNet->myToolbar, ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    chainEdges->setHeight(23);
     chainEdges->setCheck(false);
 
-    autoOppositeEdge = new FXMenuCheck(myViewNet->myToolbar, ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), myViewNet, 0);
+    autoOppositeEdge = new FXMenuCheck(myViewNet->myToolbar, ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    autoOppositeEdge->setHeight(23);
     autoOppositeEdge->setCheck(false);
 
-    warnAboutMerge = new FXMenuCheck(myViewNet->myToolbar, ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), myViewNet, 0);
+    warnAboutMerge = new FXMenuCheck(myViewNet->myToolbar, ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    warnAboutMerge->setHeight(23);
     warnAboutMerge->setCheck(true);
 
-    showJunctionBubble = new FXMenuCheck(myViewNet->myToolbar, ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_BUBBLES);
+    showJunctionBubble = new FXMenuCheck(myViewNet->myToolbar, ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_BUBBLES, LAYOUT_FIX_HEIGHT);
+    showJunctionBubble->setHeight(23);
     showJunctionBubble->setCheck(false);
 
-    moveElevation = new FXMenuCheck(myViewNet->myToolbar, "Elevation\t\tApply mouse movement to elevation instead of x,y position", myViewNet, MID_GNE_VIEWNET_MOVE_ELEVATION);
+    moveElevation = new FXMenuCheck(myViewNet->myToolbar, "Elevation\t\tApply mouse movement to elevation instead of x,y position", myViewNet, MID_GNE_VIEWNET_MOVE_ELEVATION, LAYOUT_FIX_HEIGHT);
+    moveElevation->setHeight(23);
     moveElevation->setCheck(false);
 }
 
@@ -3803,22 +3808,28 @@ GNEViewNet::ViewOptions::ViewOptions(GNEViewNet* viewNet) :
 
 void 
 GNEViewNet::ViewOptions::buildViewOptionsMenuChecks() {
-    menuCheckSelectEdges = new FXMenuCheck(myViewNet->myToolbar, ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SELECT_EDGES);
+    menuCheckSelectEdges = new FXMenuCheck(myViewNet->myToolbar, ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SELECT_EDGES, LAYOUT_FIX_HEIGHT);
+    menuCheckSelectEdges->setHeight(23);
     menuCheckSelectEdges->setCheck(true);
 
-    menuCheckShowConnections = new FXMenuCheck(myViewNet->myToolbar, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_CONNECTIONS);
+    menuCheckShowConnections = new FXMenuCheck(myViewNet->myToolbar, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_CONNECTIONS, LAYOUT_FIX_HEIGHT);
+    menuCheckShowConnections->setHeight(23);
     menuCheckShowConnections->setCheck(myViewNet->myVisualizationSettings->showLane2Lane);
 
     menuCheckHideConnections = new FXMenuCheck(myViewNet->myToolbar, "Hide connections\t\tHide connections", myViewNet, 0);
+    menuCheckHideConnections->setHeight(23);
     menuCheckHideConnections->setCheck(false);
 
-    menuCheckExtendSelection = new FXMenuCheck(myViewNet->myToolbar, ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, 0);
+    menuCheckExtendSelection = new FXMenuCheck(myViewNet->myToolbar, ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    menuCheckExtendSelection->setHeight(23);
     menuCheckExtendSelection->setCheck(false);
     
-    menuCheckChangeAllPhases = new FXMenuCheck(myViewNet->myToolbar, ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), myViewNet, 0);
+    menuCheckChangeAllPhases = new FXMenuCheck(myViewNet->myToolbar, ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    menuCheckChangeAllPhases->setHeight(23);
     menuCheckChangeAllPhases->setCheck(false);
 
-    menuCheckShowGrid = new FXMenuCheck(myViewNet->myToolbar, "Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)", myViewNet, MID_GNE_VIEWNET_SHOW_GRID);
+    menuCheckShowGrid = new FXMenuCheck(myViewNet->myToolbar, "Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)", myViewNet, MID_GNE_VIEWNET_SHOW_GRID, LAYOUT_FIX_HEIGHT);
+    menuCheckShowGrid->setHeight(23);
     menuCheckShowGrid->setCheck(false);
 }
 
