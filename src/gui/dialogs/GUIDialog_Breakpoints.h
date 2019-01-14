@@ -75,6 +75,8 @@ public:
     long onCmdEditTable(FXObject*, FXSelector, void*);
     /// @}
 
+    virtual void layout();
+
 protected:
     /// FOX needs this
     GUIDialog_Breakpoints() {}

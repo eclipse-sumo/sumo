@@ -231,5 +231,10 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
 }
 
 
+void 
+GUIDialog_Breakpoints::layout() {
+    FXMainWindow::layout();
+    myTable->setColumnWidth(0, myTable->getWidth() - 1);
+}
 /****************************************************************************/
 
