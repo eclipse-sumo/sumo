@@ -152,6 +152,9 @@ void
 GNERoute::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) {
+        // calculate route width
+        double routeWidth = s.addSize.getExaggeration(s, this)*0.66;
+
         // Start drawing adding an gl identificator
         glPushName(getGlID());
 
@@ -165,28 +168,14 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
         if (isAttributeCarrierSelected()) {
             GLHelper::setColor(s.selectedAdditionalColor);
         } else {
-            // set color depending if is or isn't valid
-            if(/*myE2valid*/ false) {
-                GLHelper::setColor(s.SUMO_color_E2);
-            } else {
-                GLHelper::setColor(myColor);
-            }
+            GLHelper::setColor(myColor);
         }
 
-        // Obtain exaggeration of the draw
-        const double exaggeration = s.addSize.getExaggeration(s, this);
-
-        // check if we have to drawn a E2 single lane or a E2 multiLane
-        if(myGeometry.shape.size() > 0) {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
-        } else {
-            // iterate over multishapes
-            for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
-                // don't draw shapes over connections if "show connections" is enabled
-                if (!myViewNet->showConnections() || (i%2==0)) {
-                    GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
-                }
+        // draw route
+        for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
+            // don't draw shapes over connections if "show connections" is enabled
+            if (!myViewNet->showConnections() || (i%2==0)) {
+                GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), routeWidth);
             }
         }
 
@@ -197,14 +186,16 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForSelecting) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
+
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
             if(myGeometry.shape.size() > 0) {
-                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, routeWidth);
             } else {
-                GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, exaggeration);
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, routeWidth);
             }
         }
+
         // Pop name
         glPopName();
     }
@@ -301,6 +292,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update geometry
+    updateGeometry(true);
 }
 
 
