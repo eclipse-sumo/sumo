@@ -199,11 +199,11 @@ for logic in allLogics:
         index = 0
         for i in n._incLanes:
             e = '_'.join(i.split("_")[:-1])
-            l = i.split("_")[-1]
+            laneIndex = i.split("_")[-1]
             if e in net1._crossings_and_walkingAreas:
                 continue
             e = net1._id2edge[e]
-            li = e._lanes[int(l)]
+            li = e._lanes[int(laneIndex)]
             for c in li._outgoing:
                 indices[n][(li, c._toLane)] = index
                 index = index + 1
