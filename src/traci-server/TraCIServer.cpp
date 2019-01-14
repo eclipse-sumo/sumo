@@ -90,6 +90,7 @@
 //#define DEBUG_MULTI_CLIENTS
 //#define DEBUG_SUBSCRIPTIONS
 //#define DEBUG_SUBSCRIPTION_FILTERS
+//#define DEBUG_RAW_INPUT
 
 
 // ===========================================================================
@@ -368,7 +369,9 @@ TraCIServer::checkClientOrdering() {
                 tcpip::Storage tmp;
                 tmp.writeStorage(myInputStorage);
                 myInputStorage.reset();
-                myInputStorage.writeUnsignedByte(commandLength);
+                // we don't know whether the command was set with extended
+                // length syntax or not so we hardcode the length here (#5037)
+                myInputStorage.writeUnsignedByte(commandId == CMD_SETORDER ? 6 : 2);
                 myInputStorage.writeUnsignedByte(commandId);
                 myInputStorage.writeStorage(tmp);
 
@@ -776,6 +779,13 @@ TraCIServer::readCommandID(int& commandStart, int& commandLength) {
     if (commandLength == 0) {
         commandLength = myInputStorage.readInt();
     }
+#ifdef DEBUG_RAW_INPUT
+    std::cout << " commandStart=" << commandStart << " commandLength=" << commandLength << " pos=" << myInputStorage.position() << " raw="; 
+    for (auto it = myInputStorage.begin(); it != myInputStorage.end(); ++it) {
+        std::cout << (int)*it << " ";
+    }
+    std::cout << "\n";
+#endif
     return myInputStorage.readUnsignedByte();
 }
 
@@ -932,7 +942,7 @@ TraCIServer::dispatchCommand() {
     }
     if ((int)myInputStorage.position() != commandStart + commandLength) {
         std::ostringstream msg;
-        msg << "Wrong position in requestMessage after dispatching command.";
+        msg << "Wrong position in requestMessage after dispatching command " << commandId << ".";
         msg << " Expected command length was " << commandLength;
         msg << " but " << myInputStorage.position() - commandStart << " Bytes were read.";
         writeStatusCmd(commandId, RTYPE_ERR, msg.str());
