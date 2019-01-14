@@ -34,6 +34,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/additionals/GNERouteProbe.h>
 #include <netedit/additionals/GNEDetectorE2.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -133,6 +134,14 @@ GNEEdge::updateGeometry(bool updateGrid) {
     }
     // Update geometry of additional parents that have this edge as parent
     for (auto i : myAdditionalParents) {
+        i->updateGeometry(updateGrid);
+    }
+    // Update geometry of demand elements childs vinculated to this edge
+    for (auto i : myDemandElementChilds) {
+        i->updateGeometry(updateGrid);
+    }
+    // Update geometry of demand elements parents that have this edge as parent
+    for (auto i : myDemandElementParents) {
         i->updateGeometry(updateGrid);
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
@@ -236,6 +245,14 @@ GNEEdge::startGeometryMoving() {
     for (auto i : myAdditionalParents) {
         i->startGeometryMoving();
     }
+    // Save current centering boundary of demand elements childs vinculated to this edge
+    for (auto i : myDemandElementChilds) {
+        i->startGeometryMoving();
+    }
+    // Save current centering boundary of demand elements parents that have this edge as parent
+    for (auto i : myDemandElementParents) {
+        i->startGeometryMoving();
+    }
 }
 
 
@@ -259,6 +276,14 @@ GNEEdge::endGeometryMoving() {
         }
         // Restore centering boundary of additional parents that have this edge as parent
         for (auto i : myAdditionalParents) {
+            i->endGeometryMoving();
+        }
+        // Restore centering boundary of demand elements childs vinculated to this edge
+        for (auto i : myDemandElementChilds) {
+            i->endGeometryMoving();
+        }
+        // Restore centering boundary of demand elements parents that have this edge as parent
+        for (auto i : myDemandElementParents) {
             i->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)

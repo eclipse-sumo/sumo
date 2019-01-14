@@ -289,7 +289,7 @@ GNEConnection::getCenteringBoundary() const {
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
-    if (!myShapeDeprecated && myNet->getViewNet()->showConnections()) {
+    if (!myShapeDeprecated && (myNet->getViewNet()->showConnections() || (myNet->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND))) {
         // Push draw matrix 1
         glPushMatrix();
         // Push name

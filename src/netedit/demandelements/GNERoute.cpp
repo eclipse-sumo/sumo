@@ -150,61 +150,64 @@ GNERoute::getParentName() const {
 
 void
 GNERoute::drawGL(const GUIVisualizationSettings& s) const {
-    // Start drawing adding an gl identificator
-    glPushName(getGlID());
+    // only drawn in super mode demand
+    if (myViewNet->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) {
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
 
-    // Add a draw matrix
-    glPushMatrix();
+        // Add a draw matrix
+        glPushMatrix();
 
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, getType());
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
 
-    // Set color of the base
-    if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
-    } else {
-        // set color depending if is or isn't valid
-        if(/*myE2valid*/ false) {
-            GLHelper::setColor(s.SUMO_color_E2);
+        // Set color of the base
+        if (isAttributeCarrierSelected()) {
+            GLHelper::setColor(s.selectedAdditionalColor);
         } else {
-            GLHelper::setColor(myColor);
-        }
-    }
-
-    // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
-
-    // check if we have to drawn a E2 single lane or a E2 multiLane
-    if(myGeometry.shape.size() > 0) {
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
-    } else {
-        // iterate over multishapes
-        for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
-            // don't draw shapes over connections if "show connections" is enabled
-            if (!myViewNet->showConnections() || (i%2==0)) {
-                GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
+            // set color depending if is or isn't valid
+            if(/*myE2valid*/ false) {
+                GLHelper::setColor(s.SUMO_color_E2);
+            } else {
+                GLHelper::setColor(myColor);
             }
         }
-    }
 
-    // Pop last matrix
-    glPopMatrix();
+        // Obtain exaggeration of the draw
+        const double exaggeration = s.addSize.getExaggeration(s, this);
 
-    // Draw name if isn't being drawn for selecting
-    if (!s.drawForSelecting) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    }
-    // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+        // check if we have to drawn a E2 single lane or a E2 multiLane
         if(myGeometry.shape.size() > 0) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
         } else {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, exaggeration);
+            // iterate over multishapes
+            for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
+                // don't draw shapes over connections if "show connections" is enabled
+                if (!myViewNet->showConnections() || (i%2==0)) {
+                    GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
+                }
+            }
         }
+
+        // Pop last matrix
+        glPopMatrix();
+
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForSelecting) {
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        }
+        // check if dotted contour has to be drawn
+        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+            if(myGeometry.shape.size() > 0) {
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+            } else {
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, exaggeration);
+            }
+        }
+        // Pop name
+        glPopName();
     }
-    // Pop name
-    glPopName();
 }
 
 
