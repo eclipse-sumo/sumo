@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNECalibratorRouteDialog.h
+/// @file    GNERouteDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2017
 /// @version $Id$
 ///
 // Dialog for edit calibrator routes
 /****************************************************************************/
-#ifndef GNECalibratorRouteDialog_h
-#define GNECalibratorRouteDialog_h
+#ifndef GNERouteDialog_h
+#define GNERouteDialog_h
 
 // ===========================================================================
 // included modules
@@ -23,33 +23,33 @@
 
 #include <config.h>
 
-#include "GNEAdditionalDialog.h"
+#include "GNEDemandElementDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNECalibratorRoute;
+class GNERoute;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class GNECalibratorRouteDialog
+ * @class GNERouteDialog
  * @brief Dialog for edit Calibrator Routes
  */
 
-class GNECalibratorRouteDialog : public GNEAdditionalDialog {
+class GNERouteDialog : public GNEDemandElementDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNECalibratorRouteDialog)
+    FXDECLARE(GNERouteDialog)
 
 public:
     /// @brief constructor
-    GNECalibratorRouteDialog(GNEAdditional* editedCalibratorRoute, bool updatingElement);
+    GNERouteDialog(GNEDemandElement* editedCalibratorRoute, bool updatingElement);
 
     /// @brief destructor
-    ~GNECalibratorRouteDialog();
+    ~GNERouteDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -68,7 +68,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNECalibratorRouteDialog() {}
+    GNERouteDialog() {}
 
     /// @brief flag to check if current calibrator vehicleType is valid
     bool myCalibratorRouteValid;
@@ -90,10 +90,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNECalibratorRouteDialog(const GNECalibratorRouteDialog&) = delete;
+    GNERouteDialog(const GNERouteDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibratorRouteDialog& operator=(const GNECalibratorRouteDialog&) = delete;
+    GNERouteDialog& operator=(const GNERouteDialog&) = delete;
 };
 
 #endif

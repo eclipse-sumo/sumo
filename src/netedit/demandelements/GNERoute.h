@@ -36,10 +36,16 @@ class GNEEdge;
 
 class GNERoute : public GNEDemandElement {
 public:
-    /** Constructor
-     * @param[in] from The edge the vehicles leave
-     * @param[in] connection NBEdge::Connection in which the rest of parameters are defined
-     * @param[in] uncontrolled if set to true, This connection will not be TLS-controlled despite its node being controlled.
+    /** default constructor
+     * @param[in] viewNet view in which this Route is placed
+    **/
+    GNERoute(GNEViewNet* viewNet);
+
+    /** parameter constructor
+     * @param[in] viewNet view in which this Route is placed
+     * @param[in] routeID unique route ID
+     * @param[in] edges list of consecutive edges of this route
+     * @param[in] color RGBColor of this route
     **/
     GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 

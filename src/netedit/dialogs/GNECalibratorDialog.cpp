@@ -27,17 +27,18 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/demandelements/GNERoute.h>
 #include <netedit/additionals/GNECalibrator.h>
-#include <netedit/additionals/GNECalibratorRoute.h>
 #include <netedit/additionals/GNECalibratorFlow.h>
 #include <netedit/additionals/GNECalibratorVehicleType.h>
 
-#include <netedit/GNENet.h>
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"
-#include "GNECalibratorRouteDialog.h"
+#include "GNERouteDialog.h"
 #include "GNECalibratorVehicleTypeDialog.h"
 
 // ===========================================================================
@@ -151,8 +152,8 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
-    // create nes calibrator route and configure it with GNECalibratorRouteDialog
-    GNECalibratorRouteDialog(new GNECalibratorRoute(myEditedAdditional->getViewNet()), false);
+    // create nes calibrator route and configure it with GNERouteDialog
+    GNERouteDialog(new GNERoute(myEditedAdditional->getViewNet()), false);
     // update routes table
     updateRouteTable();
     return 1;
@@ -162,9 +163,9 @@ GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size(); i++) {
         // obtain rerouter
-        GNEAdditional* routeToEdit = myEditedAdditional->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, myRouteList->getItem(i, 0)->getText().text());
+        GNEDemandElement* routeToEdit = myEditedAdditional->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteList->getItem(i, 0)->getText().text());
         if (myRouteList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains route to delete as "route" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
@@ -198,7 +199,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                         myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);
                     }
                     // remove route of calibrator routes
-                    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeToEdit, false), true);
+                    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeToEdit, false), true);
                     // update flows and route table
                     updateFlowTable();
                     updateRouteTable();
@@ -206,14 +207,14 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                 }
             } else {
                 // remove route
-                myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeToEdit, false), true);
+                myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(routeToEdit, false), true);
                 // update routes table
                 updateRouteTable();
                 return 1;
             }
         } else if (myRouteList->getItem(i, 0)->hasFocus() || myRouteList->getItem(i, 1)->hasFocus()) {
             // modify route of calibrator routes
-            GNECalibratorRouteDialog(routeToEdit, true);
+            GNERouteDialog(routeToEdit, true);
             // update routes table
             updateRouteTable();
             // update Flows routes also because Route ID could be changed
@@ -229,14 +230,14 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // only add flow if there is CalibratorRoutes and Calibrator vehicle types
-    if (myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() > 0) {
+    if (myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
         GNECalibratorFlowDialog(new GNECalibratorFlow(myEditedAdditional), false);
         // update flows table
         updateFlowTable();
         return 1;
     } else {
-        throw ProcessError("myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE) cannot be empty");
+        throw ProcessError("myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE) cannot be empty");
     }
 }
 
@@ -348,7 +349,7 @@ GNECalibratorDialog::updateRouteTable() {
     // clear table
     myRouteList->clearItems();
     // set number of rows
-    myRouteList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size()), 3);
+    myRouteList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size()), 3);
     // Configure list
     myRouteList->setVisibleColumns(4);
     myRouteList->setColumnWidth(0, 136);
@@ -362,7 +363,7 @@ GNECalibratorDialog::updateRouteTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over routes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE)) {
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
         // Set ID
         item = new FXTableItem(toString(i.second->getAttribute(SUMO_ATTR_ID)).c_str());
         myRouteList->setItem(indexRow, 0, item);
@@ -467,7 +468,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
 void
 GNECalibratorDialog::updateFlowAndLabelButton() {
     // disable AddFlow button if no route is defined
-    if (myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() == 0) {
+    if (myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() == 0) {
         myAddFlow->disable();
         myFlowList->disable();
         myLabelFlow->setText("No routes defined");

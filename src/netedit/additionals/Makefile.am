@@ -26,7 +26,6 @@ GNETAZSourceSink.cpp GNETAZSourceSink.h \
 GNECalibrator.cpp GNECalibrator.h \
 GNECalibratorFlow.cpp GNECalibratorFlow.h \
 GNECalibratorVehicleType.cpp GNECalibratorVehicleType.h \
-GNECalibratorRoute.cpp GNECalibratorRoute.h \
 GNEVariableSpeedSign.cpp GNEVariableSpeedSign.h \
 GNEVariableSpeedSignStep.cpp GNEVariableSpeedSignStep.h \
 GNEClosingLaneReroute.cpp GNEClosingLaneReroute.h \

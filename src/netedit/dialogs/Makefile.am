@@ -6,6 +6,7 @@ GNEDialog_AllowDisallow.cpp GNEDialog_AllowDisallow.h \
 GNEGenericParameterDialog.cpp GNEGenericParameterDialog.h \
 GNEDialog_FixAdditionalPositions.cpp GNEDialog_FixAdditionalPositions.h \
 GNEAdditionalDialog.cpp GNEAdditionalDialog.h \
+GNEDemandElementDialog.cpp GNEDemandElementDialog.h \
 GNERerouterDialog.cpp GNERerouterDialog.h \
 GNERerouterIntervalDialog.cpp GNERerouterIntervalDialog.h \
 GNECalibratorDialog.cpp GNECalibratorDialog.h \

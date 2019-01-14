@@ -244,12 +244,6 @@ public:
      */
     void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
-    /**@brief Parses route values of Calibrators
-     * @param[in] attrs SAX-attributes which define the routes
-     * @param[in] tag of the additional
-     */
-    void parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
-
     /**@brief Parses vehicle type values of Calibrators
      * @param[in] attrs SAX-attributes which define the vehicle types
      * @param[in] tag of the additional
@@ -534,11 +528,6 @@ public:
     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
     */
     static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, double freq, const std::string& routeprobe);
-
-    /**
-    DOCUMENTAR
-    */
-    static GNEAdditional* buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /**
     DOCUMENTAR

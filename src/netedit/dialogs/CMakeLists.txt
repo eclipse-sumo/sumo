@@ -11,6 +11,8 @@ set(netedit_dialogs_SRCS
    GNEDialog_FixAdditionalPositions.cpp
    GNEAdditionalDialog.h
    GNEAdditionalDialog.cpp
+   GNEDemandElementDialog.h
+   GNEDemandElementDialog.cpp
    GNERerouterDialog.h
    GNERerouterDialog.cpp
    GNERerouterIntervalDialog.h
@@ -19,8 +21,8 @@ set(netedit_dialogs_SRCS
    GNECalibratorDialog.cpp
    GNECalibratorFlowDialog.h
    GNECalibratorFlowDialog.cpp
-   GNECalibratorRouteDialog.h
-   GNECalibratorRouteDialog.cpp
+   GNERouteDialog.h
+   GNERouteDialog.cpp
    GNECalibratorVehicleTypeDialog.h
    GNECalibratorVehicleTypeDialog.cpp
    GNEDialogACChooser.h

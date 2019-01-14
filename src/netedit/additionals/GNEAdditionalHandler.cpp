@@ -28,12 +28,12 @@
 #include <netedit/GNENet.h>
 #include <utils/options/OptionsCont.h>
 
+
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
 #include "GNEAccess.h"
 #include "GNECalibrator.h"
 #include "GNECalibratorFlow.h"
-#include "GNECalibratorRoute.h"
 #include "GNECalibratorVehicleType.h"
 #include "GNEChargingStation.h"
 #include "GNEClosingLaneReroute.h"
@@ -161,9 +161,6 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 break;
             case SUMO_TAG_VTYPE:
                 parseAndBuildCalibratorVehicleType(attrs, tag);
-                break;
-            case SUMO_TAG_ROUTE:
-                parseAndBuildCalibratorRoute(attrs, tag);
                 break;
             case SUMO_TAG_FLOW:
                 parseAndBuildCalibratorFlow(attrs, tag);
@@ -376,33 +373,6 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
             }
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildRouteProbe(myViewNet, myUndoAdditionals, id, edge, freq, name, file, begin));
-        }
-    }
-}
-
-
-void
-GNEAdditionalHandler::parseAndBuildCalibratorRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
-    bool abort = false;
-    // parse attribute of calibrator routes
-    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string edgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, routeID, tag, SUMO_ATTR_EDGES, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, routeID, tag, SUMO_ATTR_COLOR, abort);
-    // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        // obtain edges (And show warnings if isn't valid)
-        std::vector<GNEEdge*> edges;
-        if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs, true)) {
-            edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs);
-        }
-        // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
-        } else if (edges.size() == 0) {
-            WRITE_WARNING("Routes needs at least one edge.");
-        } else {
-            // save ID of last created element
-            myHierarchyInsertedAdditionals.commitElementInsertion(buildCalibratorRoute(myViewNet, myUndoAdditionals, routeID, edges, color));
         }
     }
 }
@@ -1890,27 +1860,6 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_CALIBRATOR) + " with ID '" + id + "' in netedit; probably declared twice.");
     }
-}
-
-
-GNEAdditional*
-GNEAdditionalHandler::buildCalibratorRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
-    if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) == nullptr) {
-        // create route and add it to calibrator parent
-        GNECalibratorRoute* route = new GNECalibratorRoute(viewNet, routeID, edges, color);
-        if (allowUndoRedo) {
-            viewNet->getUndoList()->p_begin("add " + route->getTagStr());
-            viewNet->getUndoList()->add(new GNEChange_Additional(route, true), true);
-            viewNet->getUndoList()->p_end();
-        } else {
-            viewNet->getNet()->insertAdditional(route);
-            route->incRef("buildCalibratorRoute");
-        }
-        return route;
-    } else {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_ROUTE) + " with ID '" + routeID + "' in netedit; probably declared twice.");
-    }
-
 }
 
 

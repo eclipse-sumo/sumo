@@ -44,6 +44,12 @@
 // method definitions
 // ===========================================================================
 
+GNERoute::GNERoute(GNEViewNet* viewNet) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE),
+    myColor(RGBColor::YELLOW) {
+}
+
+
 GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
     GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE),
     myEdges(edges),
@@ -172,9 +178,10 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // draw route
-        for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
-            // don't draw shapes over connections if "show connections" is enabled
-            if (!myViewNet->showConnections() || (i%2==0)) {
+        if (myGeometry.shape.size() > 0) {
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, routeWidth);
+        } else {
+            for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
                 GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), routeWidth);
             }
         }

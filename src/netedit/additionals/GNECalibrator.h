@@ -30,7 +30,7 @@
 
 class GNERouteProbe;
 class GNECalibratorFlow;
-class GNECalibratorRoute;
+class GNERoute;
 
 // ===========================================================================
 // class definitions

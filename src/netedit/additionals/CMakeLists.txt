@@ -51,8 +51,6 @@ set(netedit_additionals_SRCS
    GNECalibratorFlow.cpp
    GNECalibratorVehicleType.h
    GNECalibratorVehicleType.cpp
-   GNECalibratorRoute.h
-   GNECalibratorRoute.cpp
    GNEVariableSpeedSign.h
    GNEVariableSpeedSign.cpp
    GNEVariableSpeedSignStep.h
