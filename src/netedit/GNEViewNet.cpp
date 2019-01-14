@@ -2028,8 +2028,8 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             myUndoList->p_begin("Add restrictions for " + toString(vclass));
             // iterate over set of edges
             for (auto it : setOfEdges) {
-                // add restricted lane
-                myNet->addRestrictedLane(vclass, *it, 0, myUndoList);
+                // add restricted lane (guess target)
+                myNet->addRestrictedLane(vclass, *it, -1, myUndoList);
             }
             // end undo operation
             myUndoList->p_end();
@@ -2037,10 +2037,14 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass) {
             // If only have a single lane, start undo/redo operation
             myUndoList->p_begin("Add vclass for " + toString(vclass));
             // Add restricted lane
-            if (lane->getIndex() > 0) {
-                myNet->addRestrictedLane(vclass, lane->getParentEdge(), lane->getIndex(), myUndoList);
-            } else {
+            if (vclass == SVC_PEDESTRIAN) {
+                // always add pedestrian lanes on the right
                 myNet->addRestrictedLane(vclass, lane->getParentEdge(), 0, myUndoList);
+            } else if (lane->getParentEdge().getLanes().size() == 1) {
+                // guess insertion position if there is only 1 lane
+                myNet->addRestrictedLane(vclass, lane->getParentEdge(), -1, myUndoList);
+            } else {
+                myNet->addRestrictedLane(vclass, lane->getParentEdge(), lane->getIndex(), myUndoList);
             }
             // end undo/redo operation
             myUndoList->p_end();
