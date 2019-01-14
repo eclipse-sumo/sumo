@@ -82,9 +82,6 @@ GNERoute::updateGeometry(bool updateGrid) {
     // Clear all containers
     myGeometry.clearGeometry();
 
-    // declare variables for start and end positions
-    double startPosFixed, endPosFixed;
-
     // calculate start and end positions dependin of number of lanes
     if (myEdges.size() == 1) {
         // set shape lane as detector shape

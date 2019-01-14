@@ -162,6 +162,7 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
     myNetElements.clear();
     myAdditionals.clear();
     myShapes.clear();
+    myDemandElements.clear();
     myJunctions.clear();
     myEdges.clear();
     myLanes.clear();
@@ -193,6 +194,9 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
                     if (tagValue.isNetElement()) {
                         // cast netElement from attribute carrier
                         myNetElements.push_back(dynamic_cast<GNENetElement*>(myAttributeCarriers.back()));
+                    } else if (tagValue.isDemandElement()) {
+                        // cast demand element from attribute carrier
+                        myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarriers.back()));
                     } else if (tagValue.isAdditional()) {
                         // cast additional element from attribute carrier
                         myAdditionals.push_back(dynamic_cast<GNEAdditional*>(myAttributeCarriers.back()));
@@ -251,6 +255,7 @@ GNEViewNet::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlO
                 ", AttributeCarriers: " + toString(myAttributeCarriers.size()) + 
                 ", NetElements: " + toString(myNetElements.size()) + 
                 ", Additionals: " + toString(myAdditionals.size()) + 
+                ", DemandElements: " + toString(myDemandElements.size()) + 
                 ", Shapes: " + toString(myShapes.size()) + 
                 ", Junctions: " + toString(myJunctions.size()) + 
                 ", Edges: " + toString(myEdges.size()) + 
@@ -344,6 +349,16 @@ GNEShape*
 GNEViewNet::ObjectsUnderCursor::getShapeFront() const {
     if (myShapes.size() > 0) {
         return myShapes.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEDemandElement* 
+GNEViewNet::ObjectsUnderCursor::getDemandElementFront() const {
+    if (myDemandElements.size() > 0) {
+        return myDemandElements.front();
     } else {
         return nullptr;
     }

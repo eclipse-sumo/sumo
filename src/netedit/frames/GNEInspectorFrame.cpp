@@ -191,12 +191,8 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
 
 bool 
 GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
-    // first check if we have clicked over an Attribute Carrier
-    if (objectsUnderCursor.getAttributeCarrierFront()) {
-        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront() and shift key isn't pressed
-        if (!myViewNet->getKeyPressed().shiftKeyPressed() && myViewNet->selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-            objectsUnderCursor.swapLane2Edge();
-        }
+    // first check if we have clicked over a demand element
+    if (objectsUnderCursor.getDemandElementFront()) {
         // if Control key is Pressed, select instead inspect element
         if (myViewNet->getKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked

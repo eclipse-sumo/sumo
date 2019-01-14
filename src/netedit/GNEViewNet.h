@@ -106,6 +106,7 @@ class GNEConnection;
 class GNEViewParent;
 class GNEUndoList;
 class GNEAdditional;
+class GNEDemandElement;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
@@ -160,6 +161,9 @@ public:
         /// @brief get front shape element (or a pointer to nullptr if there isn't)
         GNEShape* getShapeFront() const;
 
+        /// @brief get front net element element (or a pointer to nullptr if there isn't)
+        GNEDemandElement* getDemandElementFront() const;
+
         /// @brief get front junction (or a pointer to nullptr if there isn't)
         GNEJunction* getJunctionFront() const;
 
@@ -202,6 +206,9 @@ public:
 
         /// @brief vector with the clicked shape elements (Poly and POIs)
         std::vector<GNEShape*> myShapes;
+
+        /// @brief vector with the clicked demand elements
+        std::vector<GNEDemandElement*> myDemandElements;
 
         /// @brief vector with the clicked junctions
         std::vector<GNEJunction*> myJunctions;
