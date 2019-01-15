@@ -33,6 +33,7 @@
 // ===========================================================================
 class ShapeContainer;
 class Parameterised;
+class GeoConvHelper;
 
 
 // ===========================================================================
@@ -56,7 +57,7 @@ public:
      * @param[in] edgeBuilder The builder of edges to use
      * @param[in] junctionBuilder The builder of junctions to use
      */
-    ShapeHandler(const std::string& file, ShapeContainer& sc);
+    ShapeHandler(const std::string& file, ShapeContainer& sc, const GeoConvHelper* = nullptr);
 
     /// @brief Destructor
     virtual ~ShapeHandler();
@@ -124,6 +125,9 @@ private:
 
     /// @brief element to receive parameters
     Parameterised* myLastParameterised;
+
+    /// @brief geo-conversion to use during loading
+    const GeoConvHelper* myGeoConvHelper;
 
 private:
     /// @brief invalidate copy constructor

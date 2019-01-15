@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  6 21:23:27 2018 by Eclipse SUMO netconvert Version eeef47f
+<!-- generated on Tue Jan 15 10:27:06 2019 by Eclipse SUMO netconvert Version v1_0_1+0838-aa85bdd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -47,6 +47,9 @@
 
         <!-- Reads public transport lines from FILE -->
         <ptline-files value="" type="FILE"/>
+
+        <!-- Reads polygons from FILE for embedding in network where applicable -->
+        <polygon-files value="" type="FILE"/>
 
         <!-- Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos; -->
         <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE"/>
@@ -149,6 +152,9 @@
 
         <!-- Analyse topology of the railway network -->
         <railway.topology.output value="" type="FILE"/>
+
+        <!-- Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) -->
+        <polygon-output value="" type="FILE"/>
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>

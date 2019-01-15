@@ -48,6 +48,7 @@
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NIXMLPTHandler.h>
+#include <netimport/NIXMLShapeHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>
 #include <netimport/NIImporter_DlrNavteq.h>
 #include <netimport/NIImporter_VISUM.h>
@@ -186,6 +187,12 @@ NILoader::loadXML(OptionsCont& oc) {
                     myNetBuilder.getPTStopCont(),
                     myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptline-files"), "public transport lines");
+
+    // load shapes for output formats that embed shape data 
+    loadXMLType(new NIXMLShapeHandler(
+                myNetBuilder.getShapeCont(),
+                myNetBuilder.getEdgeCont()),
+                oc.getStringVector("polygon-files"), "polygon data");
 }
 
 void

@@ -36,6 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeoConvHelper.h>
 
 #define INVALID_ID -1
@@ -114,7 +115,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         writeNormalEdge(device, e,
                         getID(e->getID(), edgeMap, edgeID),
                         fromNodeID, toNodeID,
-                        origNames, straightThresh);
+                        origNames, straightThresh,
+                        nb.getShapeCont());
     }
     device.lf();
 
@@ -221,7 +223,8 @@ void
 NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     int edgeID, int fromNodeID, int toNodeID,
                                     const bool origNames,
-                                    const double straightThresh) {
+                                    const double straightThresh,
+                                    const ShapeContainer& shc) {
     // buffer output because some fields are computed out of order
     OutputDevice_String elevationOSS(false, 3);
     elevationOSS.setPrecision(8);
@@ -311,7 +314,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "                 </right>\n";
     device << "            </laneSection>\n";
     device << "        </lanes>\n";
-    device << "        <objects/>\n";
+    writeRoadObjects(device, e, shc);
     device << "        <signals/>\n";
     if (origNames) {
         device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
@@ -865,6 +868,65 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
                 WRITE_WARNING("Uneven stop line at lane '" + e->getLaneID(lane) + "' (dist=" + toString(dist) + ") cannot be represented in OpenDRIVE.");
             }
         }
+    }
+}
+
+void
+NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc) {
+    if (e->knowsParameter("roadObjects")) {
+        device.openTag("objects");
+        device.setPrecision(8); // geometry hdg requires higher precision
+        PositionVector road = getLeftLaneBorder(e);
+        for (std::string id : StringTokenizer(e->getParameter("roadObjects", "")).getVector()) {
+            SUMOPolygon* p = shc.getPolygons().get(id);
+            if (p == nullptr) {
+                WRITE_WARNING("Road object polygon '" + id + "' not found for edge '" + e->getID() + "'");
+            } else if (p->getShape().size() != 4) {
+                WRITE_WARNING("Cannot convert road object polygon '" + id + "' with " + toString(p->getShape().size()) + " points for edge '" + e->getID() + "'");
+            } else {
+                const PositionVector& shape = p->getShape();
+                device.openTag("object");
+                Position center = shape.getPolygonCenter();
+                PositionVector sideline = shape.getSubpartByIndex(0, 2);
+                PositionVector ortholine = shape.getSubpartByIndex(1, 2);
+                const double absAngle = sideline.angleAt2D(0);
+                const double length = sideline.length2D();
+                const double width = ortholine.length2D();
+                const double edgeOffset = road.nearest_offset_to_point2D(center);
+                if (edgeOffset == GeomHelper::INVALID_OFFSET) {
+                    WRITE_WARNING("Cannot map road object polygon '" + id + "' with center " + toString(center) + " onto edge '" + e->getID() + "'");
+                    continue;
+                }
+                Position edgePos = road.positionAtOffset2D(edgeOffset);
+                const double edgeAngle = road.rotationAtOffset(edgeOffset);
+                const double relAngle = absAngle - edgeAngle;
+                double sideOffset = center.distanceTo2D(edgePos);
+                // determine sign of sideOffset
+                PositionVector tmp = road.getSubpart2D(MAX2(0.0, edgeOffset - 1), MIN2(road.length2D(), edgeOffset + 1));
+                tmp.move2side(sideOffset);
+                if (tmp.distance2D(center) < sideOffset) {
+                    sideOffset *= -1;
+                }
+                //std::cout << " id=" << id 
+                //    << " shape=" << shape 
+                //    << " center=" << center 
+                //    << " edgeOffset=" << edgeOffset 
+                //    << "\n";
+                device.writeAttr("id", id);
+                device.writeAttr("type", p->getShapeType());
+                device.writeAttr("name", p->getParameter("name", ""));
+                device.writeAttr("s", edgeOffset);
+                device.writeAttr("t", sideOffset);
+                device.writeAttr("width", width);
+                device.writeAttr("length", length);
+                device.writeAttr("hdg", relAngle);
+                device.closeTag();
+            }
+        }
+        device.setPrecision(gPrecision);
+        device.closeTag();
+    } else { 
+        device << "        <objects/>\n";
     }
 }
 
