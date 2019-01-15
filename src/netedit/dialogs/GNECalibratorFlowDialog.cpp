@@ -34,7 +34,7 @@
 #include <netedit/additionals/GNECalibratorFlow.h>
 #include <netedit/additionals/GNECalibratorVehicleType.h>
 #include <netedit/additionals/GNECalibrator.h>
-#include <netedit/demandElements/GNERoute.h>
+#include <netedit/demandelements/GNERoute.h>
 
 #include <netedit/GNEUndoList.h>
 
