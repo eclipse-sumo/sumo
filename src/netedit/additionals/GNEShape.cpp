@@ -130,6 +130,16 @@ GNEShape::isAttributeCarrierSelected() const {
 }
 
 
+bool
+GNEShape::drawUsingSelectColor() const {
+    if (mySelected && (myNet->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 std::string
 GNEShape::getPopUpID() const {
     return getTagStr() + ": " + getID();

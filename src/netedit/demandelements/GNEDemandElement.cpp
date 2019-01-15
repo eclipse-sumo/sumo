@@ -1010,6 +1010,16 @@ GNEDemandElement::isAttributeCarrierSelected() const {
 
 
 bool
+GNEDemandElement::drawUsingSelectColor() const {
+    if (mySelected && (myViewNet->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNEDemandElement::checkDemandElementChildRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkDemandElementChildRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");

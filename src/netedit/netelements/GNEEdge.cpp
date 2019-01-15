@@ -514,7 +514,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-        if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
         }

@@ -250,7 +250,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (myGeometry.shape.size() > 1) {
         glPushMatrix();
         glTranslated(0, 0, 128);
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(myColor);
@@ -270,7 +270,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         double distanceToShape = myGeometry.shape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             invertedColor = s.selectionColor.invertedColor();
             darkerColor = s.selectionColor.changedBrightness(-32);
         } else {

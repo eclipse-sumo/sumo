@@ -109,13 +109,13 @@ public:
 
 protected:
     /// @brief set color
-    void setColor(const GUIVisualizationSettings& s) const;
+    void setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const;
 
     /// @brief check if Polygon can be drawn
     bool checkDraw(const GUIVisualizationSettings& s) const;
 
     /// @brief draw inner Polygon (before pushName() )
-    void drawInnerPolygon(const GUIVisualizationSettings& s) const;
+    void drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const;
 
 private:
     /// The mutex used to avoid concurrent updates of the shape

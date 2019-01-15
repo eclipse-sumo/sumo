@@ -406,7 +406,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set color of the base
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         // set color depending if is or isn't valid
@@ -450,7 +450,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             //move to logo position
             glTranslated(-0.75, 0, 0);
             // draw E2 logo
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
             } else {
                 GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
@@ -465,7 +465,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             //move to logo position
             glTranslated(-1.5, 0, 0);
             // draw E2 logo
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
             } else {
                 GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
@@ -474,7 +474,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(1.2, 0, 0);
             // Rotate depending of myBlockIcon.rotation
             glRotated(90, 0, 0, 1);
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText("multi", Position(), .1, 0.9, s.selectedAdditionalColor);
             } else {
                 GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);

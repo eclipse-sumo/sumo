@@ -151,7 +151,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPolygon(s);
+        drawInnerPolygon(s, false);
         // pop name
         glPopName();
     }
@@ -216,11 +216,11 @@ GUIPolygon::storeTesselation(double lineWidth) const {
 
 
 void
-GUIPolygon::setColor(const GUIVisualizationSettings& s) const {
+GUIPolygon::setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, getGlID())) {
-        // override with special colors (unless the color scheme is based on selection)
+    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, getGlID()) && disableSelectionColor) {
+        // override with special selection colors (unless the color scheme is based on selection)
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else if (active == 0) {
         GLHelper::setColor(getShapeColor());
@@ -255,11 +255,11 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
 
 
 void 
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s) const {
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     glPushMatrix();
     glTranslated(0, 0, getShapeLayer());
     glRotated(-getShapeNaviDegree(), 0, 0, 1);
-    setColor(s);
+    setColor(s, disableSelectionColor);
 
     int textureID = -1;
     if (getFill()) {

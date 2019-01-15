@@ -241,6 +241,16 @@ GNENetElement::isAttributeCarrierSelected() const {
 }
 
 
+bool 
+GNENetElement::drawUsingSelectColor() const {
+    if (mySelected && (myNet->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 std::string
 GNENetElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {

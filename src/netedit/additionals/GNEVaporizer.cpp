@@ -132,7 +132,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     const int numberOfLanes = int(myEdge->getLanes().size());
 
     // set color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(120, 216, 0));
@@ -158,7 +158,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
 
     // draw position indicator (White) if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -186,7 +186,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         glColor3d(1, 1, 1);
         glRotated(-90, 0, 0, 1);
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), 1);
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), 1);

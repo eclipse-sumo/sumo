@@ -134,7 +134,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         glColor3d(1, 1, 1);
         glRotated(180, 0, 0, 1);
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), 1);
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);

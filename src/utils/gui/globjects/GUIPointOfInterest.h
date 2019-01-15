@@ -114,13 +114,13 @@ public:
 
 protected:    
     /// @brief set color
-    void setColor(const GUIVisualizationSettings& s) const;
+    void setColor(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
 
     /// @brief check if POI can be drawn
     bool checkDraw(const GUIVisualizationSettings& s) const;
 
     /// @brief draw inner POI (before pushName() )
-    void drawInnerPOI(const GUIVisualizationSettings& s) const;
+    void drawInnerPOI(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
 
     /// @brief after every iteration of drawgl, position of vertices that make the circle are saved here. It used to drawn a dotted contour in Netedit)
     static std::vector<Position> myPOIVertices;

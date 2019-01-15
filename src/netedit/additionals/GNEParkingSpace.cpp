@@ -106,7 +106,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn small box if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Set Color depending of selection
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(0, 255, 0, 255));
@@ -116,7 +116,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Traslate matrix and draw blue innen
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 200, 200, 255));

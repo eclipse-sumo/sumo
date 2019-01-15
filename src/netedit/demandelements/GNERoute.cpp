@@ -171,7 +171,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, getType());
 
         // Set color of the base
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(myColor);

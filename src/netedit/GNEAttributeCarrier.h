@@ -459,6 +459,9 @@ public:
     /// @brief check if attribute carrier is selected
     virtual bool isAttributeCarrierSelected() const = 0;
 
+    /// @brief check if attribute carrier must be drawn using selecting color.
+    virtual bool drawUsingSelectColor() const = 0;
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

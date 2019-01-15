@@ -271,7 +271,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     // first check if inner polygon can be drawn
     if(checkDraw(s)) {
-        drawInnerPolygon(s);
+        // draw inner polygon
+        drawInnerPolygon(s, drawUsingSelectColor());
     }
     // draw details of Netedit
     double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
@@ -286,7 +287,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         double distanceToShape = myShape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             invertedColor = s.selectionColor.invertedColor();
             darkerColor = s.selectionColor.changedBrightness(-32);
         } else {

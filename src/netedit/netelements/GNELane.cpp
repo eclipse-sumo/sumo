@@ -285,7 +285,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // compute lane-marking intersection points)
         const double halfWidth2 = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2);
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-        const double halfWidth =  myParentEdge.isAttributeCarrierSelected() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
+        const double halfWidth =  drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
         const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge.getNBEdge()->isBidiRail();
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && (!s.drawForSelecting || spreadSuperposed)) {
@@ -399,7 +399,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw a Start/endPoints if lane has a custom shape
         if (!s.drawForSelecting && (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
             GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-            if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+            if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
                 // override with special colors (unless the color scheme is based on selection)
                 GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
             }
@@ -1048,10 +1048,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (mySpecialColor != nullptr) {
         // If special color is enabled, set it
         GLHelper::setColor(*mySpecialColor);
-    } else if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+    } else if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(s.selectedLaneColor);
-    } else if (myParentEdge.isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+    } else if (myParentEdge.drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(s.selectedEdgeColor);
     } else {

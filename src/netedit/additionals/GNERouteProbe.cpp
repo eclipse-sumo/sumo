@@ -138,7 +138,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     const int numberOfLanes = int(myEdge->getLanes().size());
 
     // set color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 216, 0));
@@ -165,7 +165,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 
     // position indicator (White)
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -193,7 +193,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         glColor3d(1, 1, 1);
         glRotated(-90, 0, 0, 1);
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), 1);
         } else {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), 1);

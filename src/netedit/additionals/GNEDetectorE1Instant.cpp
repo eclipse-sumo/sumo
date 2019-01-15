@@ -159,7 +159,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s, this);
 
     // set color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_E1Instant);
@@ -185,7 +185,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // outline if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -203,7 +203,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -229,7 +229,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
         //move to logo position
         glTranslated(-1, 0, 0);
         // draw E1 logo
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::drawText("E1", Position(), .1, 1.5, s.selectionColor);
         } else {
             GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);

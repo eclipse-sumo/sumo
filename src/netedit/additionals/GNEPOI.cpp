@@ -239,7 +239,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s);
+        drawInnerPOI(s, drawUsingSelectColor());
         // draw an orange square mode if there is an image(see #4036)
         if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
             // Add a draw matrix for drawing logo

@@ -1061,6 +1061,16 @@ GNEAdditional::isAttributeCarrierSelected() const {
 
 
 bool
+GNEAdditional::drawUsingSelectColor() const {
+    if (mySelected && (myViewNet->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNEAdditional::checkAdditionalChildRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");

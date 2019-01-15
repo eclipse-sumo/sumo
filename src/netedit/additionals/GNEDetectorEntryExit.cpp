@@ -157,7 +157,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
         GLHelper::setColor(s.SUMO_color_E3Entry);
@@ -228,7 +228,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (isAttributeCarrierSelected()) {
+        } else if (drawUsingSelectColor()) {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.selectedAdditionalColor);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Entry);
@@ -243,7 +243,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (isAttributeCarrierSelected()) {
+        } else if (drawUsingSelectColor()) {
             if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
                 GLHelper::drawText("Entry", Position(), .1, 1, s.selectedAdditionalColor);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {

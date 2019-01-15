@@ -95,7 +95,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
     // Set color of the base
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
@@ -134,7 +134,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
             // draw line with a color depending of the selection status
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
@@ -147,7 +147,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
         // Set color of the externe circle
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop);
@@ -157,7 +157,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // Traslate to front
         glTranslated(0, 0, .1);
         // Set color of the interne circle
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop_sign);
@@ -166,7 +166,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIcon.rotation);
