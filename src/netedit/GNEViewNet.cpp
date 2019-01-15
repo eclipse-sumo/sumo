@@ -84,8 +84,9 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_P,                      GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHORTCUT_W,                      GNEViewNet::onCmdSetMode),
     // Viewnet
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS,    GNEViewNet::onCmdShowDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SELECT_EDGES,            GNEViewNet::onCmdToogleSelectEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_CONNECTIONS,        GNEViewNet::onCmdToogleShowConnection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_BUBBLES,            GNEViewNet::onCmdToogleShowBubbles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_MOVE_ELEVATION,          GNEViewNet::onCmdToogleMoveElevation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWNET_SHOW_GRID,               GNEViewNet::onCmdShowGrid),
@@ -749,6 +750,12 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 bool
 GNEViewNet::selectEdges() const {
     return myViewOptions.selectEdges();
+}
+
+
+bool
+GNEViewNet::showDemandElements() const {
+    return myViewOptions.showDemandElements();
 }
 
 
@@ -2391,6 +2398,14 @@ GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
 
 
 long
+GNEViewNet::onCmdShowDemandElements(FXObject*, FXSelector, void*) {
+    // update view to show demand elements
+    update();
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
     // nothing to do
     return 1;
@@ -2614,6 +2629,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myNetworkCheckableButtons.disableNetworkCheckableButtons();
     // hide all frames
     myViewParent->hideAllFrames();
+    // In network mode, always show option "show demand elements"
+    myViewOptions.menuCheckShowDemandElements->show();
     // enable selected controls
     switch (mySuperModes.networkEditMode) {
         // common modes
@@ -3812,6 +3829,10 @@ GNEViewNet::ViewOptions::ViewOptions(GNEViewNet* viewNet) :
 
 void 
 GNEViewNet::ViewOptions::buildViewOptionsMenuChecks() {
+    menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myToolbar, "Show demand elements\t\tToggle show demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
+    menuCheckShowDemandElements->setHeight(23);
+    menuCheckShowDemandElements->setCheck(false);
+
     menuCheckSelectEdges = new FXMenuCheck(myViewNet->myToolbar, ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SELECT_EDGES, LAYOUT_FIX_HEIGHT);
     menuCheckSelectEdges->setHeight(23);
     menuCheckSelectEdges->setCheck(true);
@@ -3839,6 +3860,7 @@ GNEViewNet::ViewOptions::buildViewOptionsMenuChecks() {
 
 void 
 GNEViewNet::ViewOptions::hideViewOptionsMenuChecks() {
+    menuCheckShowDemandElements->hide();
     menuCheckSelectEdges->hide();
     menuCheckShowConnections->hide();
     menuCheckHideConnections->hide();
@@ -3846,6 +3868,18 @@ GNEViewNet::ViewOptions::hideViewOptionsMenuChecks() {
     menuCheckChangeAllPhases->hide();
     menuCheckShowGrid->hide();
 }
+
+
+bool 
+GNEViewNet::ViewOptions::showDemandElements() const {
+    if(menuCheckShowDemandElements->shown()) {
+        return (menuCheckShowDemandElements->getCheck() == TRUE);
+    } else {
+        // by default, if menuCheckShowDemandElements isn't shown, always show demand elements
+        return true;
+    }
+}
+
 
 bool 
 GNEViewNet::ViewOptions::selectEdges() const {

@@ -424,7 +424,10 @@ public:
     /// @brief toogle show connections
     long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
 
-    /// @brief toogle selet edges
+    /// @brief toogle show demand elements
+    long onCmdShowDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief toogle select edges
     long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
 
     /// @brief toogle show bubbles
@@ -497,6 +500,9 @@ public:
 
     /// @brief whether inspection, selection and inversion should apply to edges or to lanes
     bool selectEdges() const;
+
+    /// @brief show demand elements
+    bool showDemandElements() const;
 
     /// @brief return true if elevation is being edited
     bool editingElevation() const;
@@ -758,11 +764,17 @@ private:
         /// @brief hide all options menu checks
         void hideViewOptionsMenuChecks();
 
+        /// @brief check if show demand elements checkbox is enabled
+        bool showDemandElements() const;
+
         /// @brief check if select edges checkbox is enabled
         bool selectEdges() const;
 
         /// @brief check if select show connections checkbox is enabled
         bool showConnections() const;
+
+        /// @brief menu check to show Demand Elements
+        FXMenuCheck* menuCheckShowDemandElements;
 
         /// @brief menu check to select only edges
         FXMenuCheck* menuCheckSelectEdges;

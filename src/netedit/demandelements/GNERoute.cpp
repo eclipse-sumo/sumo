@@ -80,7 +80,7 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERoute::updateGeometry(bool updateGrid) {
-// first check if object has to be removed from grid (SUMOTree)
+    // first check if object has to be removed from grid (SUMOTree)
     if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
@@ -157,7 +157,7 @@ GNERoute::getParentName() const {
 void
 GNERoute::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myViewNet->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) {
+    if (myViewNet->showDemandElements()) {
         // calculate route width
         double routeWidth = s.addSize.getExaggeration(s, this)*0.66;
 

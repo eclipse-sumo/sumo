@@ -532,6 +532,8 @@ enum {
     /// @name GNEViewNet messages
     /// @{
 
+    /// @brief show demand elements
+    MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS,
     /// @brief show connections
     MID_GNE_VIEWNET_SHOW_CONNECTIONS,
     /// @brief select edges
