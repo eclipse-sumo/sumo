@@ -1061,6 +1061,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
     }
     if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
         // optionally compute lateral offset
+        pos.setz(veh->getPosition().z());
         if (found && (MSGlobals::gLateralResolution > 0 || mayLeaveNetwork)) {
             const double perpDist = lane->getShape().distance2D(pos, false);
             if (perpDist != GeomHelper::INVALID_OFFSET) {
@@ -1080,6 +1081,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
                     lanePosLat = -lanePosLat;
                 }
             }
+            pos.setz(lane->geometryPositionAtOffset(lanePos).z());
         }
         if (found && !mayLeaveNetwork && MSGlobals::gLateralResolution < 0) {
             // mapped position may differ from pos
