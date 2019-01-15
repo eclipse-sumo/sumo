@@ -1011,7 +1011,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         // due we iterate over all junctions, only it's neccesary iterate over incoming edges
         for (auto j : i->getGNEIncomingEdges()) {
             // only select edges if "select edges" flag is enabled. In other case, select only lanes
-            if (mySelectorFrameParent->getViewNet()->selectEdges()) {
+            if (mySelectorFrameParent->getViewNet()->getViewOptions().selectEdges()) {
                 j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
             } else {
                 for (auto k : j->getLanes()) {

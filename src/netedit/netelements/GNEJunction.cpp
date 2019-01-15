@@ -306,7 +306,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawName(myNBNode.getPosition(), s.scale, s.junctionName);
         }
         // draw elevation
-        if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+        if (!s.drawForSelecting && myNet->getViewNet()->getMoveOptions().editingElevation()) {
             glPushMatrix();
             // Translate to center of junction
             glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);

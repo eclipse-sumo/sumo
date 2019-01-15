@@ -264,6 +264,82 @@ public:
         FXEvent* myEventInfo;
     };
 
+    /// @brief struct used to group all variables related to view options
+    struct ViewOptions {
+
+        /// @brief default constructor
+        ViewOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildViewOptionsMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideViewOptionsMenuChecks();
+
+        /// @brief check if show demand elements checkbox is enabled
+        bool showDemandElements() const;
+
+        /// @brief check if select edges checkbox is enabled
+        bool selectEdges() const;
+
+        /// @brief check if select show connections checkbox is enabled
+        bool showConnections() const;
+
+        /// @brief menu check to show Demand Elements
+        FXMenuCheck* menuCheckShowDemandElements;
+
+        /// @brief menu check to select only edges
+        FXMenuCheck* menuCheckSelectEdges;
+
+        /// @brief menu check to show connections
+        FXMenuCheck* menuCheckShowConnections;
+
+        /// @brief menu check to hide connections in connect mode
+        FXMenuCheck* menuCheckHideConnections;
+
+        /// @brief menu check to extend to edge nodes
+        FXMenuCheck* menuCheckExtendSelection;
+
+        /// @brief menu check to set change all phases
+        FXMenuCheck* menuCheckChangeAllPhases;
+
+        /// @brief show grid button
+        FXMenuCheck* menuCheckShowGrid;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
+    /// @brief struct used to group all variables related to create edges
+    struct MoveOptions {
+
+        /// @brief default constructor
+        MoveOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildMoveOptionMenuChecks();
+
+        /// @brief hide all MenuChecks
+        void hideMoveOptionMenuChecks();
+        
+        /// @brief check if we're editing elevation
+        bool editingElevation() const;
+
+        /// @brief whether we should warn about merging junctions
+        FXMenuCheck* warnAboutMerge;
+
+        /// @brief show connection as buuble in "Move" mode.
+        FXMenuCheck* showJunctionBubble;
+
+        /// @brief apply movement to elevation
+        FXMenuCheck* moveElevation;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
     /* @brief constructor
      * @param[in] tmpParent temporal FXFrame parent so that we can add items to view area in the desired order
      * @param[in] actualParent FXFrame parent of GNEViewNet
@@ -471,6 +547,12 @@ public:
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
 
+    /// @brief get move options
+    const MoveOptions &getMoveOptions() const;
+
+    /// @brief get view options
+    const ViewOptions &getViewOptions() const;
+
     /// @brief get the current SuperMode
     Supermode getCurrentSuperMode() const;
 
@@ -497,18 +579,6 @@ public:
 
     /// @brief set staturBar text
     void setStatusBarText(const std::string& text);
-
-    /// @brief whether inspection, selection and inversion should apply to edges or to lanes
-    bool selectEdges() const;
-
-    /// @brief show demand elements
-    bool showDemandElements() const;
-
-    /// @brief return true if elevation is being edited
-    bool editingElevation() const;
-
-    /// @brief show connections over junctions
-    bool showConnections();
 
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
@@ -738,67 +808,11 @@ private:
         /// @brief create auto create opposite edge
         FXMenuCheck* autoOppositeEdge;
 
-        /// @brief whether we should warn about merging junctions
-        FXMenuCheck* warnAboutMerge;
-
-        /// @brief show connection as buuble in "Move" mode.
-        FXMenuCheck* showJunctionBubble;
-
-        /// @brief apply movement to elevation
-        FXMenuCheck* moveElevation;
-
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
     };
-
-    /// @brief struct used to group all variables related to view options
-    struct ViewOptions {
-
-        /// @brief default constructor
-        ViewOptions(GNEViewNet* viewNet);
-
-        /// @brief build menu checks
-        void buildViewOptionsMenuChecks();
-
-        /// @brief hide all options menu checks
-        void hideViewOptionsMenuChecks();
-
-        /// @brief check if show demand elements checkbox is enabled
-        bool showDemandElements() const;
-
-        /// @brief check if select edges checkbox is enabled
-        bool selectEdges() const;
-
-        /// @brief check if select show connections checkbox is enabled
-        bool showConnections() const;
-
-        /// @brief menu check to show Demand Elements
-        FXMenuCheck* menuCheckShowDemandElements;
-
-        /// @brief menu check to select only edges
-        FXMenuCheck* menuCheckSelectEdges;
-
-        /// @brief menu check to show connections
-        FXMenuCheck* menuCheckShowConnections;
-
-        /// @brief menu check to hide connections in connect mode
-        FXMenuCheck* menuCheckHideConnections;
-
-        /// @brief menu check to extend to edge nodes
-        FXMenuCheck* menuCheckExtendSelection;
-
-        /// @brief menu check to set change all phases
-        FXMenuCheck* menuCheckChangeAllPhases;
-
-        /// @brief show grid button
-        FXMenuCheck* menuCheckShowGrid;
-
-    private:
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
-    };
-
+    
     /// @brief struct used to group all variables related with Supermodes
     struct SuperModes {
 
@@ -971,6 +985,9 @@ private:
 
     /// @brief variable used to save all elements related to creation of Edges
     CreateEdgeOptions myCreateEdgeOptions;
+
+    /// @brief variable used to save all elements related to moving elements
+    MoveOptions myMoveOptions;
 
     /// @brief variable used to save variables related with movement of single elements
     MoveSingleElementValues myMoveSingleElementValues;

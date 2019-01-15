@@ -515,6 +515,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet(net),
     myCurrentFrame(nullptr),
     myCreateEdgeOptions(this),
+    myMoveOptions(this),
     myMoveSingleElementValues(this), 
     myMoveMultipleElementValues(this), 
     mySelectingArea(this),
@@ -748,42 +749,6 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 
 
 bool
-GNEViewNet::selectEdges() const {
-    return myViewOptions.selectEdges();
-}
-
-
-bool
-GNEViewNet::showDemandElements() const {
-    return myViewOptions.showDemandElements();
-}
-
-
-bool 
-GNEViewNet::editingElevation() const {
-    if (myCreateEdgeOptions.moveElevation->shown()) {
-        return (myCreateEdgeOptions.moveElevation->getCheck() == TRUE);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEViewNet::showConnections() {
-    if (mySuperModes.networkEditMode == GNE_NMODE_CONNECT) {
-        return myViewOptions.menuCheckHideConnections->getCheck() == 0;
-    } else if (mySuperModes.networkEditMode == GNE_NMODE_PROHIBITION) {
-        return true;
-    } else if (myViewOptions.menuCheckShowConnections->shown() == false) {
-        return false;
-    } else {
-        return (myVisualizationSettings->showLane2Lane);
-    }
-}
-
-
-bool
 GNEViewNet::autoSelectNodes() {
     return (myViewOptions.menuCheckExtendSelection->getCheck() != 0);
 }
@@ -803,7 +768,7 @@ GNEViewNet::changeAllPhases() const {
 
 bool
 GNEViewNet::showJunctionAsBubbles() const {
-    return (mySuperModes.networkEditMode == GNE_NMODE_MOVE) && (myCreateEdgeOptions.showJunctionBubble->getCheck());
+    return (mySuperModes.networkEditMode == GNE_NMODE_MOVE) && (myMoveOptions.showJunctionBubble->getCheck());
 }
 
 
@@ -839,6 +804,7 @@ GNEViewNet::stopEditCustomShape() {
 
 GNEViewNet::GNEViewNet() : 
     myCreateEdgeOptions(this),
+    myMoveOptions(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
     mySelectingArea(this),
@@ -1262,6 +1228,18 @@ GNEViewNet::getNet() const {
 GNEUndoList*
 GNEViewNet::getUndoList() const {
     return myUndoList;
+}
+
+
+const GNEViewNet::MoveOptions&
+GNEViewNet::getMoveOptions() const {
+    return myMoveOptions;
+}
+
+
+const GNEViewNet::ViewOptions&
+GNEViewNet::getViewOptions() const {
+    return myViewOptions;
 }
 
 
@@ -2384,11 +2362,11 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
 long
 GNEViewNet::onCmdToogleShowConnection(FXObject*, FXSelector, void*) {
     // if show was enabled, init GNEConnections
-    if (myViewOptions.showConnections()) {
+    if (myViewOptions.menuCheckShowConnections->getCheck() == TRUE) {
         getNet()->initGNEConnections();
     }
     // change flag "showLane2Lane" in myVisualizationSettings
-    myVisualizationSettings->showLane2Lane = myViewOptions.showConnections();
+    myVisualizationSettings->showLane2Lane = (myViewOptions.menuCheckShowConnections->getCheck() == TRUE);
     // Hide/show connections requiere recompute
     getNet()->requireRecompute();
     // Update viewnNet to show/hide conections
@@ -2606,8 +2584,11 @@ GNEViewNet::buildEditModeControls() {
     // build menu checks of view options
     myViewOptions.buildViewOptionsMenuChecks();
 
-    // build menu checks of create edges options
+    // build menu checks of create edge options
     myCreateEdgeOptions.buildCreateEdgeOptionMenuChecks();
+
+    // build menu checks of move options
+    myMoveOptions.buildMoveOptionMenuChecks();
 }
 
 
@@ -2617,6 +2598,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myViewOptions.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
     // hide all checkbox of create edge
     myCreateEdgeOptions.hideCreateEdgeOptionMenuChecks();
+    // hide all checkbox of move
+    myMoveOptions.hideMoveOptionMenuChecks();
     // hide all checkbox of view options
     myViewOptions.hideViewOptionsMenuChecks();
     // disable all common edit modes
@@ -2663,9 +2646,9 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewOptions.menuCheckShowGrid->show();
             break;
         case GNE_NMODE_MOVE:
-            myCreateEdgeOptions.warnAboutMerge->show();
-            myCreateEdgeOptions.showJunctionBubble->show();
-            myCreateEdgeOptions.moveElevation->show();
+            myMoveOptions.warnAboutMerge->show();
+            myMoveOptions.showJunctionBubble->show();
+            myMoveOptions.moveElevation->show();
             myNetworkCheckableButtons.moveButton->setChecked(true);
             myViewOptions.menuCheckShowGrid->show();
             break;
@@ -2739,6 +2722,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myViewOptions.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
     // hide all checkbox of create edge
     myCreateEdgeOptions.hideCreateEdgeOptionMenuChecks();
+    // hide all checkbox of move
+    myMoveOptions.hideMoveOptionMenuChecks();
     // hide all checkbox of view options
     myViewOptions.hideViewOptionsMenuChecks();
     // disable all common edit modes
@@ -2962,7 +2947,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
     }
     if (mergeTarget) {
         // optionally ask for confirmation
-        if (myCreateEdgeOptions.warnAboutMerge->getCheck()) {
+        if (myMoveOptions.warnAboutMerge->getCheck()) {
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
@@ -3079,7 +3064,7 @@ GNEViewNet::MoveSingleElementValues::moveSingleElement() {
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
     Position offsetMovement = myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition;
     // calculate Z depending of moveElevation
-    if (myViewNet->myCreateEdgeOptions.moveElevation->shown() && myViewNet->myCreateEdgeOptions.moveElevation->getCheck() == TRUE) {
+    if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
         // reset offset X and Y and use Y for Z
         offsetMovement = Position(0, 0, offsetMovement.y());
     } else {
@@ -3174,7 +3159,7 @@ GNEViewNet::MoveSingleElementValues::calculatePolyValues() {
     // set Poly to move
     myPolyToMove = myViewNet->myObjectsUnderCursor.getPolyFront();
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-    if (myViewNet->myCreateEdgeOptions.moveElevation->shown() && myViewNet->myCreateEdgeOptions.moveElevation->getCheck() == TRUE) {
+    if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
         // check if in the clicked position a geometry point exist
         int existentIndex = myPolyToMove->getVertexIndex(myViewNet->getPositionInformation(), false, false);
         if (existentIndex != -1) {
@@ -3259,7 +3244,7 @@ GNEViewNet::MoveSingleElementValues::calculateEdgeValues() {
             return true;
         } else {
             // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-            if (myViewNet->myCreateEdgeOptions.moveElevation->shown() && myViewNet->myCreateEdgeOptions.moveElevation->getCheck() == TRUE) {
+            if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
                 // check if in the clicked position a geometry point exist
                 int existentIndex = myEdgeToMove->getVertexIndex(myViewNet->getPositionInformation(), false, false);
                 if (existentIndex != -1) {
@@ -3458,7 +3443,7 @@ GNEViewNet::MoveMultipleElementValues::moveSelection() {
     // calculate offset between current position and original position
     Position offsetMovement = myViewNet->getPositionInformation() - myClickedPosition;
     // calculate Z depending of Grid
-    if (myViewNet->myCreateEdgeOptions.moveElevation->shown() && myViewNet->myCreateEdgeOptions.moveElevation->getCheck() == TRUE) {
+    if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
         // reset offset X and Y and use Y for Z
         offsetMovement = Position(0, 0, offsetMovement.y());
     } else {
@@ -3790,7 +3775,26 @@ GNEViewNet::CreateEdgeOptions::buildCreateEdgeOptionMenuChecks() {
     autoOppositeEdge = new FXMenuCheck(myViewNet->myToolbar, ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     autoOppositeEdge->setHeight(23);
     autoOppositeEdge->setCheck(false);
+}
 
+
+void
+GNEViewNet::CreateEdgeOptions::hideCreateEdgeOptionMenuChecks() {
+    chainEdges->hide();
+    autoOppositeEdge->hide();
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::MoveOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNet::MoveOptions::MoveOptions(GNEViewNet* viewNet) : 
+    myViewNet(viewNet) {
+}
+
+
+void
+GNEViewNet::MoveOptions::buildMoveOptionMenuChecks() {
     warnAboutMerge = new FXMenuCheck(myViewNet->myToolbar, ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     warnAboutMerge->setHeight(23);
     warnAboutMerge->setCheck(true);
@@ -3806,12 +3810,20 @@ GNEViewNet::CreateEdgeOptions::buildCreateEdgeOptionMenuChecks() {
 
 
 void
-GNEViewNet::CreateEdgeOptions::hideCreateEdgeOptionMenuChecks() {
-    chainEdges->hide();
-    autoOppositeEdge->hide();
+GNEViewNet::MoveOptions::hideMoveOptionMenuChecks() {
     warnAboutMerge->hide();
     showJunctionBubble->hide();
     moveElevation->hide();
+}
+
+
+bool 
+GNEViewNet::MoveOptions::editingElevation() const {
+    if (moveElevation->shown()) {
+        return (moveElevation->getCheck() == TRUE);
+    } else {
+        return false;
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -3837,7 +3849,7 @@ GNEViewNet::ViewOptions::buildViewOptionsMenuChecks() {
     menuCheckShowConnections->setHeight(23);
     menuCheckShowConnections->setCheck(myViewNet->myVisualizationSettings->showLane2Lane);
 
-    menuCheckHideConnections = new FXMenuCheck(myViewNet->myToolbar, "Hide connections\t\tHide connections", myViewNet, 0);
+    menuCheckHideConnections = new FXMenuCheck(myViewNet->myToolbar, ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     menuCheckHideConnections->setHeight(23);
     menuCheckHideConnections->setCheck(false);
 
@@ -3890,7 +3902,16 @@ GNEViewNet::ViewOptions::selectEdges() const {
 
 bool 
 GNEViewNet::ViewOptions::showConnections() const {
-    return (menuCheckShowConnections->getCheck() == TRUE);
+    if (myViewNet->mySuperModes.networkEditMode == GNE_NMODE_CONNECT) {
+        // check if menu hceck hide connections ins shown
+        return (myViewNet->myViewOptions.menuCheckHideConnections->getCheck() == FALSE);
+    } else if (myViewNet->mySuperModes.networkEditMode == GNE_NMODE_PROHIBITION) {
+        return true;
+    } else if (myViewNet->myViewOptions.menuCheckShowConnections->shown() == false) {
+        return false;
+    } else {
+        return (myViewNet->myVisualizationSettings->showLane2Lane);
+    }
 }
 
 // ---------------------------------------------------------------------------

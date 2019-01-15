@@ -317,7 +317,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
                     // draw elevation or special symbols (Start, End and Block)
-                    if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+                    if (!s.drawForSelecting && myNet->getViewNet()->getMoveOptions().editingElevation()) {
                         // Push matrix
                         glPushMatrix();
                         // Traslate to center of detector

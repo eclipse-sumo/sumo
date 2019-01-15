@@ -160,7 +160,7 @@ GNERoute::getParentName() const {
 void
 GNERoute::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myViewNet->showDemandElements()) {
+    if (myViewNet->getViewOptions().showDemandElements()) {
         // calculate route width
         double routeWidth = s.addSize.getExaggeration(s, this)*0.66;
 
