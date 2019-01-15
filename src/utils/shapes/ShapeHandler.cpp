@@ -40,11 +40,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc) :
+ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc, const GeoConvHelper* geoConvHelper) :
     SUMOSAXHandler(file), myShapeContainer(sc),
     myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false),
-    myLastParameterised(nullptr) {
-}
+    myLastParameterised(0),
+    myGeoConvHelper(geoConvHelper)
+{ }
 
 
 ShapeHandler::~ShapeHandler() {}
@@ -125,8 +126,12 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     if (!ok) {
         return;
     }
-    const GeoConvHelper& gch = useProcessing ? GeoConvHelper::getProcessing() : GeoConvHelper::getFinal();
-    if (useProcessing && gch.usingGeoProjection()) {
+    const GeoConvHelper* gch = (myGeoConvHelper != nullptr 
+            ? myGeoConvHelper 
+            : (useProcessing 
+                ? &GeoConvHelper::getProcessing()
+                : &GeoConvHelper::getFinal()));
+    if (useProcessing && gch->usingGeoProjection()) {
         if (lat == INVALID_POSITION || lon == INVALID_POSITION) {
             lon = x;
             lat = y;
@@ -144,7 +149,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
             if (lat == INVALID_POSITION || lon == INVALID_POSITION) {
                 WRITE_ERROR("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '" + id + "'.");
                 return;
-            } else if (!gch.usingGeoProjection()) {
+            } else if (!gch->usingGeoProjection()) {
                 WRITE_ERROR("(lon, lat) is specified for PoI '" + id + "' but no geo-conversion is specified for the network.");
                 return;
             }
@@ -154,7 +159,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
             if (useProcessing) {
                 success = GeoConvHelper::getProcessing().x2cartesian(pos);
             } else {
-                success = GeoConvHelper::getFinal().x2cartesian_const(pos);
+                success = gch->x2cartesian_const(pos);
             }
             if (!success) {
                 WRITE_ERROR("Unable to project coordinates for PoI '" + id + "'.");
@@ -189,6 +194,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : myDefaultColor;
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     bool geo = false;
+    const GeoConvHelper* gch = myGeoConvHelper != nullptr ? myGeoConvHelper : &GeoConvHelper::getFinal();
     if (attrs.getOpt<bool>(SUMO_ATTR_GEO, id.c_str(), ok, false)) {
         geo = true;
         bool success = true;
@@ -196,7 +202,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
             if (useProcessing) {
                 success &= GeoConvHelper::getProcessing().x2cartesian(shape[i]);
             } else {
-                success &= GeoConvHelper::getFinal().x2cartesian_const(shape[i]);
+                success &= gch->x2cartesian_const(shape[i]);
             }
         }
         if (!success) {
