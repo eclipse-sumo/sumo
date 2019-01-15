@@ -1,8 +1,8 @@
 set(netedit_demandelements_SRCS
    GNEDemandHandler.h
    GNEDemandHandler.cpp
-   GNEdemandElement.h
-   GNEdemandElement.cpp
+   GNEDemandElement.h
+   GNEDemandElement.cpp
    GNERoute.h
    GNERoute.cpp
    )
