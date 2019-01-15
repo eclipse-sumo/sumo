@@ -212,6 +212,10 @@ MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     if (veh != nullptr) {
         myVehicleDict.erase(veh->getID());
     }
+    auto ptVehIt = std::find(myPTVehicles.begin(), myPTVehicles.end(), veh);
+    if (ptVehIt != myPTVehicles.end()) {
+        myPTVehicles.erase(ptVehIt);
+    }
     delete veh;
 }
 
