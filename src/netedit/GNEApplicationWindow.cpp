@@ -1283,13 +1283,9 @@ void
 GNEApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     // remove trackers and other external windows
-    for (GUIGlChildWindow* const window : myGLWindows) {
-        window->destroy();
-        delete window;
+    while (!myGLWindows.empty()) {
+        delete myGLWindows.front();
     }
-    //clear gl windows
-    myGLWindows.clear();
-    // set viewNet pointer to nullptr
     myViewNet = nullptr;
     for (FXMainWindow* const window : myTrackerWindows) {
         window->destroy();
