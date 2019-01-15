@@ -52,21 +52,21 @@ for s in demand.streams:
 # demand.build(0, 3600, "net.net.xml", "linear.rou.xml")
 
 STEP = 300
-d1 = [0] * (86400 / STEP)
+d1 = [0] * (86400 // STEP)
 for v in vehicles1:
     d = v.depart / STEP
     d1[int(d)] = d1[int(d)] + 1
-d2 = [0] * (86400 / STEP)
+d2 = [0] * (86400 // STEP)
 for v in vehicles2:
     d = v.depart / STEP
     d2[int(d)] = d2[int(d)] + 1
-d3 = [0] * (86400 / STEP)
+d3 = [0] * (86400 // STEP)
 for v in vehicles3:
     d = v.depart / STEP
     d3[int(d)] = d3[int(d)] + 1
 
 fdo = open("t1.csv", "w")
-for i in range(0, 86400 / STEP):
+for i in range(0, 86400 // STEP):
     fdo.write("%s;%s;%s;%s\n" % (
         i * STEP, d1[i] * 3600 / STEP, d2[i] * 3600 / STEP, d3[i] * 3600 / STEP))
 fdo.close()

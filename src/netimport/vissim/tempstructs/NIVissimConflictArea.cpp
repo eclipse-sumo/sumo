@@ -25,7 +25,7 @@
 #include <map>
 #include <string>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "NIVissimConflictArea.h"
 #include "NIVissimConnection.h"
 #include <netbuild/NBEdgeCont.h>
@@ -85,7 +85,7 @@ NIVissimConflictArea*
 NIVissimConflictArea::dictionary(int id) {
     DictType::iterator i = myDict.find(id);
     if (i == myDict.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second;
 }
@@ -101,7 +101,7 @@ NIVissimConflictArea::dict_findByLinks(const std::string& link1,
             return (*i).second;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -119,9 +119,9 @@ NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec) {
     std::map<int, NIVissimConflictArea*>::iterator it;
     for (it = myDict.begin(); it != myDict.end(); it++) {
         NIVissimConflictArea* const conflictArea = it->second;
-        NIVissimConnection* const firstLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getFirstLink()));
-        NIVissimConnection* const secondLink = NIVissimConnection::dictionary(TplConvert::_str2int(conflictArea->getSecondLink()));
-        if (firstLink == 0 || secondLink == 0) {
+        NIVissimConnection* const firstLink = NIVissimConnection::dictionary(StringUtils::toInt(conflictArea->getFirstLink()));
+        NIVissimConnection* const secondLink = NIVissimConnection::dictionary(StringUtils::toInt(conflictArea->getSecondLink()));
+        if (firstLink == nullptr || secondLink == nullptr) {
             continue;
         }
         // status == "TWOYIELDSONE"
@@ -141,7 +141,7 @@ NIVissimConflictArea::setPriorityRegulation(NBEdgeCont& ec) {
         NBEdge* const mustStopFrom =  ec.retrievePossiblySplit(mustStopFrom_id, true);
         NBEdge* const mustStopTo =  ec.retrievePossiblySplit(mustStopTo_id, false);
 
-        if (mayDriveFrom != 0 && mayDriveTo != 0 && mustStopFrom != 0 && mustStopTo != 0) {
+        if (mayDriveFrom != nullptr && mayDriveTo != nullptr && mustStopFrom != nullptr && mustStopTo != nullptr) {
             NBNode* node = mayDriveFrom->getToNode();
             node->addSortedLinkFoes(
                 NBConnection(mayDriveFrom, mayDriveTo),

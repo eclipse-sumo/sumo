@@ -36,6 +36,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
                       tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
                       tc.LAST_STEP_LENGTH: Storage.readDouble,
                       tc.VAR_LANE_INDEX: Storage.readInt,
+                      tc.VAR_NAME: Storage.readString,
                       tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
                       tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
                       tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
@@ -151,7 +152,7 @@ class EdgeDomain(Domain):
     def getLastStepOccupancy(self, edgeID):
         """getLastStepOccupancy(string) -> double
 
-        Returns the occupancy in % for the last time step on the given edge.
+        Returns the net occupancy (excluding inter-vehicle gaps) in % for the last time step on the given edge.
         """
         return self._getUniversal(tc.LAST_STEP_OCCUPANCY, edgeID)
 
@@ -168,6 +169,13 @@ class EdgeDomain(Domain):
         Returns the number of lanes of this edge
         """
         return self._getUniversal(tc.VAR_LANE_INDEX, edgeID)
+
+    def getStreetName(self, edgeID):
+        """getStreetName(string) -> string
+
+        Returns the street name of this edge
+        """
+        return self._getUniversal(tc.VAR_NAME, edgeID)
 
     def getTraveltime(self, edgeID):
         """getTraveltime(string) -> double

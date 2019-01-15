@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:53 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:45 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,100.35" convBoundary="0.00,0.00,100.00,200.69" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_1_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="7.20,110.61 7.45,110.24 7.70,110.11"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_9" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_9_0" index="0" speed="2.04" length="0.73" width="1.00" shape="7.70,110.11 7.95,110.24 8.20,110.62"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_9_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="7.70,110.11 7.95,110.24 8.20,110.62"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_2" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_2_0" index="0" disallow="bicycle" speed="7.33" length="11.74" shape="10.59,101.95 8.06,102.49 6.25,104.11 5.16,106.82 4.80,110.61"/>
@@ -54,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_C_gneJ2_gneJ4_5_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="8.41,92.00 8.17,92.37 7.92,92.50"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_10" function="internal">
-        <lane id=":cluster_C_gneJ2_gneJ4_10_0" index="0" speed="2.04" length="0.73" width="1.00" shape="7.92,92.50 7.67,92.38 7.41,92.01"/>
+        <lane id=":cluster_C_gneJ2_gneJ4_10_0" index="0" allow="bicycle" speed="2.04" length="0.73" width="1.00" shape="7.92,92.50 7.67,92.38 7.41,92.01"/>
     </edge>
     <edge id=":cluster_C_gneJ2_gneJ4_6" function="internal">
         <lane id=":cluster_C_gneJ2_gneJ4_6_0" index="0" disallow="bicycle" speed="6.84" length="10.08" shape="4.80,92.05 5.16,94.98 6.25,97.07 8.06,98.33 10.59,98.75"/>

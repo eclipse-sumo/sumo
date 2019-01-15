@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:38 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:50 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-178.94,-237.05" convBoundary="0.00,0.00,572.15,568.16" origBoundary="178.94,237.05,751.09,805.21" projParameter="!"/>
 
@@ -99,7 +99,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="88.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="55.02" width="3.75" shape="286.32,219.67 285.70,233.49 285.56,261.67"/>
         <lane id="88.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="55.02" width="3.75" shape="282.58,219.50 281.95,233.40 281.81,261.66"/>
         <lane id="88.0.00_2" index="2" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="55.02" width="3.75" shape="278.83,219.33 278.20,233.31 278.06,261.64"/>
-        <lane id="88.0.00_3" index="3" allow="emergency authority" speed="13.89" length="55.02" width="1.24" shape="276.34,219.22 275.71,233.24 275.57,261.62"/>
+        <lane id="88.0.00_3" index="3" disallow="all" speed="13.89" length="55.02" width="1.24" shape="276.34,219.22 275.71,233.24 275.57,261.62"/>
     </edge>
     <edge id="88.39.04" from="88.48.40" to="88.39.04" priority="1" type="driving|driving|driving|restricted" shape="276.14,209.84 275.72,219.19">
         <lane id="88.39.04_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="9.36" width="2.88" shape="284.96,210.23 284.54,219.59"/>
@@ -117,7 +117,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="89.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="54.57" width="3.75" shape="267.20,327.81 267.82,313.98 267.99,278.94"/>
         <lane id="89.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="54.57" width="3.75" shape="270.95,327.98 271.57,314.08 271.74,278.96"/>
         <lane id="89.0.00_2" index="2" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="54.57" width="3.75" shape="274.69,328.14 275.32,314.17 275.49,278.98"/>
-        <lane id="89.0.00_3" index="3" allow="emergency authority" speed="13.89" length="54.57" width="1.24" shape="277.19,328.26 277.81,314.23 277.99,278.99"/>
+        <lane id="89.0.00_3" index="3" disallow="all" speed="13.89" length="54.57" width="1.24" shape="277.19,328.26 277.81,314.23 277.99,278.99"/>
     </edge>
     <edge id="89.39.04" from="89.48.40" to="89.39.04" priority="1" type="driving|driving|driving|restricted" shape="277.39,337.64 277.81,328.28">
         <lane id="89.39.04_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="9.36" width="2.88" shape="268.57,337.24 268.99,327.89"/>

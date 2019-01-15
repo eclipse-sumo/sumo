@@ -106,15 +106,27 @@ public abstract class Query extends Observable {
 	}
 
 	/**
+	 * Set multi-client ordering index
+	 *
+	 * @param index
+	 * @throws IOException
+	 */
+	protected void doSetOrder(int index) throws IOException {
+        Command cmd = new Command(Constants.CMD_SETORDER);
+        cmd.content().writeInt(index);
+        queryAndVerifySingle(cmd);
+    }
+
+	/**
 	 * Do next time step and update subscription results
 	 * 
 	 * @param targetTime
 	 * @throws IOException
 	 */
-	protected void doSimulationStep(int targetTime) throws IOException {
+	protected void doSimulationStep(double targetTime) throws IOException {
 		
 			Command cmd = new Command(Constants.CMD_SIMSTEP);
-		 	cmd.content().writeInt(targetTime);
+		 	cmd.content().writeDouble(targetTime);
 			
 			RequestMessage msg = new RequestMessage();
 			msg.append(cmd);

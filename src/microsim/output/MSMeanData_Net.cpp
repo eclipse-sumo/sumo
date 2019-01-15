@@ -148,7 +148,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         // is taken out in notifyMove(), refs #153
         occupationSum += meanLengthOnLane * TS;
     }
-    if (myParent != 0 && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
+    if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
         waitSeconds += timeOnLane;
     }
     frontSampleSeconds += frontOnLane;
@@ -167,7 +167,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
 
 bool
 MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if ((myParent == 0 || myParent->vehicleApplies(veh)) && (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
+    if ((myParent == nullptr || myParent->vehicleApplies(veh)) && (getLane() == nullptr || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
         if (MSGlobals::gUseMesoSim) {
             removeFromVehicleUpdateValues(veh);
         }
@@ -175,7 +175,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*las
             ++nVehArrived;
         } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
             ++nVehLaneChangeFrom;
-        } else if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
+        } else if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             ++nVehLeft;
             if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED) {
                 ++nVehVaporized;
@@ -196,13 +196,13 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveRemind
 #else
     UNUSED_PARAMETER(enteredLane);
 #endif
-    if (myParent == 0 || myParent->vehicleApplies(veh)) {
-        if (getLane() == 0 || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
+    if (myParent == nullptr || myParent->vehicleApplies(veh)) {
+        if (getLane() == nullptr || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
                 ++nVehDeparted;
             } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
                 ++nVehLaneChangeTo;
-            } else if (myParent == 0 || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
+            } else if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
                 ++nVehEntered;
             }
         }
@@ -236,9 +236,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
               << "\ndensity=" << MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1. / MAX2(minimalVehicleLength, NUMERICAL_EPS)) << std::endl;
 #endif
 
-    if (myParent == 0) {
+    if (myParent == nullptr) {
         if (sampleSeconds > 0) {
-            dev.writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
+            dev.writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
@@ -267,7 +267,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                 dev.writeAttr("traveltime", defaultTravelTime);
             }
             dev.writeAttr("overlapTraveltime", overlapTraveltime)
-            .writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
+            .writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }

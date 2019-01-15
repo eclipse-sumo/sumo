@@ -28,6 +28,7 @@ sumo_unittest_LDADD   = \
 ./netbuild/NBHeightMapperTest.o \
 ./netbuild/NBTrafficLightLogicTest.o \
 ./microsim/MSCFModelTest.o \
+./microsim/MSCFModel_IDMTest.o \
 ./microsim/MSEventControlTest.o \
 $(GUI_TESTS) \
 ../../src/traci-server/libtraciserver.a \

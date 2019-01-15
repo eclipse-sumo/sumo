@@ -88,7 +88,7 @@ public:
     /** @brief patches signal plans by modifying lane indices
      * with the given offset, only indices with a value above threshold are modified
      */
-    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1);
+    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1);
 
     /** @brief Adds a phase to the logic
      * the new phase is inserted at the end of the list of already added phases
@@ -97,7 +97,7 @@ public:
      * @param[in] minDur The minimum duration of the phase to add
      * @param[in] maxDur The maximum duration of the phase to add
      */
-    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur);
+    void addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next, const std::string& name);
 
     /// @brief mark phases as load
     void phasesLoaded() {
@@ -173,8 +173,8 @@ protected:
     int getMaxIndex();
 
     ///@brief Returns the maximum index controlled by this traffic light
-    int getMaxValidIndex(); 
-    
+    int getMaxValidIndex();
+
 private:
 
     /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */

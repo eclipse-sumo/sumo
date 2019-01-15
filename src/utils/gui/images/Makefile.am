@@ -34,7 +34,6 @@ crossing.xpm \
 cut.xpm \
 destprobreroute.xpm \
 dilate.xpm \
-dlr.xpm \
 document.xpm \
 e1.xpm \
 e1instant.xpm \
@@ -67,6 +66,7 @@ junction.xpm \
 lane.xpm \
 lanebike.xpm \
 lanebus.xpm \
+lanegreenverge.xpm \
 lanepedestrian.xpm \
 locate.xpm \
 locate_add.xpm \
@@ -89,11 +89,15 @@ modemove.xpm \
 modepolygon.xpm \
 modeprohibition.xpm \
 modeselect.xpm \
+modetaz.xpm \
 modetrafficlight.xpm \
-netedit.xpm \
-neteditarrow.xpm \
+netedit_icon16.xpm \
+netedit_icon64.xpm \
+neteditarrowleft.xpm \
+neteditarrowright.xpm \
 netopen.xpm \
 new_window.xpm \
+new_window_3d.xpm \
 no.xpm \
 open_bmp_dialog.xpm \
 opening.xpm \
@@ -131,7 +135,11 @@ show_tooltips.xpm \
 skeletonize.xpm \
 step.xpm \
 stop.xpm \
-sumo.xpm \
+sumo_icon16.xpm \
+sumo_icon64.xpm \
+sumo_logo.xpm \
+taz.xpm \
+tazedge.xpm \
 undo.xpm \
 vaporizer.xpm \
 variablespeedsign.xpm \
@@ -175,6 +183,8 @@ yellow_person.xpm \
 yellow_vehicle.xpm \
 yes.xpm \
 zoomstyle.xpm \
+supermodedemand.xpm \
+supermodenetwork.xpm \
 GNETexture_Rerouter.cpp GNETexture_RerouterSelected.cpp \
 GNETexture_RouteProbe.cpp GNETexture_RouteProbeSelected.cpp \
 GNETexture_VariableSpeedSign.cpp GNETexture_VariableSpeedSignSelected.cpp \

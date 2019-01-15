@@ -22,7 +22,8 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
+
+#include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEShape.h"
 
@@ -60,14 +61,23 @@ public:
      * @param[in] imgFile The raster image of the polygon
      * @param[in] relativePath set image file as relative path
      * @param[in] fill Whether the polygon shall be filled
+     * @param[in] lineWidth Line width when drawing unfilled polygon
      * @param[in] movementBlocked if movement of POI is blocked
      * @param[in] shapeBlocked if shape of POI is blocked
      */
-    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
+    GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
             const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked);
 
     /// @brief Destructor
     ~GNEPoly();
+
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
 
     /**@brief change position of a vertex of shape without commiting change
     * @param[in] index index of Vertex shape
@@ -87,6 +97,7 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList);
+    /// @}
 
     /// @name inherited from GNEShape
     /// @{
@@ -166,18 +177,6 @@ public:
     /// @name Functions related with generic parameters
     /// @{
 
-    /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
-
-    /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
-
-    /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
-
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
-
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
 
@@ -185,19 +184,23 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
      * @param createIfNoExist enable or disable creation of new verte if there isn't another vertex in position
+     * @param snapToGrid enable or disable snapToActiveGrid
      * @return index of position vector
      */
-    int getVertexIndex(const Position& pos, bool createIfNoExist = true);
+    int getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid);
 
     /// @brief delete the geometry point closest to the given pos
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
+
+    /// @brief return true if polygon is blocked
+    bool isPolygonBlocked() const;
 
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
@@ -227,6 +230,9 @@ protected:
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;
 
+    /// @brief flag for block shape
+    bool myBlockShape;
+
     /// @brief flag to indicate if polygon is open or closed
     bool myClosedShape;
 
@@ -239,9 +245,6 @@ protected:
 private:
     /// @brief hint size of vertex
     static const double myHintSize;
-
-    /// @brief squaredhint size of vertex
-    static const double myHintSizeSquared;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

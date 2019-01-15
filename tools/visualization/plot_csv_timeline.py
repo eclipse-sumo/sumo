@@ -27,7 +27,7 @@ import os
 import sys
 import csv
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
@@ -64,7 +64,7 @@ def main(args=None):
     helpers.addInteractionOptions(optParser)
     helpers.addPlotOptions(optParser)
     # parse
-    options, remaining_args = optParser.parse_args(args=args)
+    options, _ = optParser.parse_args(args=args)
 
     if options.input is None:
         print("Error: an input file must be given")
@@ -86,8 +86,7 @@ def main(args=None):
         if options.columns is not None:
             ci = options.columns.index(i)
         c = helpers.getColor(options, ci, len(nums))
-        l = helpers.getLabel(str(i), ci, options)
-        plt.plot(ts[0:len(v)], v, label=l, color=c)
+        plt.plot(ts[0:len(v)], v, label=helpers.getLabel(str(i), ci, options), color=c)
     helpers.closeFigure(fig, ax, options)
 
 

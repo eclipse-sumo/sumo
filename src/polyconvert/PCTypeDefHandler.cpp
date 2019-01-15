@@ -52,7 +52,7 @@ PCTypeDefHandler::myStartElement(int element,
     if (element == SUMO_TAG_POLYTYPE) {
         bool ok = true;
         // get the id, report an error if not given or empty...
-        std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+        std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
         if (!ok) {
             return;
         }

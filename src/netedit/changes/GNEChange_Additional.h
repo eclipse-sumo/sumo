@@ -22,9 +22,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <fx.h>
-#include <utils/foxtools/fxexdefs.h>
-#include <netbuild/NBEdge.h>
 #include "GNEChange.h"
 
 // ===========================================================================
@@ -32,9 +29,6 @@
 // ===========================================================================
 class GNEAdditional;
 class GNEViewNet;
-class GNEDetectorEntry;
-class GNEDetectorExit;
-class GNEDetectorE3;
 class GNELane;
 class GNEEdge;
 
@@ -79,11 +73,11 @@ private:
      */
     GNEAdditional* myAdditional;
 
-    /// @brief pointer to lane (used by additionals with lane parent)
-    GNELane* myLaneParent;
+    /// @brief pointer to lane parents (used by additionals with lane parent)
+    std::vector<GNELane*> myLaneParents;
 
-    /// @brief pointer to edge (used by additionals with edge parent)
-    GNEEdge* myEdgeParent;
+    /// @brief pointer to edge parents (used by additionals with edge parents)
+    std::vector<GNEEdge*> myEdgeParents;
 
     /// @brief pointer to first additional parent (used by additional with parents, for example Entry/exits)
     GNEAdditional* myFirstAdditionalParent;

@@ -71,7 +71,7 @@ PedestrianState*
 MSPModel_NonInteracting::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) {
     MoveToNextEdge* cmd = new MoveToNextEdge(person, *stage);
     PState* state = new PState(cmd);
-    const SUMOTime firstEdgeDuration = state->computeWalkingTime(0, *stage, now);
+    const SUMOTime firstEdgeDuration = state->computeWalkingTime(nullptr, *stage, now);
     myNet->getBeginOfTimestepEvents()->addEvent(cmd, now + firstEdgeDuration);
 
     //if DEBUGCOND(person->getID()) std::cout << SIMTIME << " " << person->getID() << " inserted on " << stage->getEdge()->getID() << "\n";
@@ -87,7 +87,7 @@ MSPModel_NonInteracting::remove(PedestrianState* state) {
 
 SUMOTime
 MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
-    if (myPerson == 0) {
+    if (myPerson == nullptr) {
         return 0; // descheduled
     }
     PState* state = dynamic_cast<PState*>(myParent.getPedestrianState());
@@ -110,14 +110,14 @@ MSPModel_NonInteracting::PState::computeWalkingTime(const MSEdge* prev, const MS
     const MSEdge* edge = stage.getEdge();
     const MSEdge* next = stage.getNextRouteEdge();
     int dir = UNDEFINED_DIRECTION;
-    if (prev == 0) {
+    if (prev == nullptr) {
         myCurrentBeginPos = stage.getDepartPos();
     } else {
         // default to FORWARD if not connected
         dir = (edge->getToJunction() == prev->getToJunction() || edge->getToJunction() == prev->getFromJunction()) ? BACKWARD : FORWARD;
         myCurrentBeginPos = dir == FORWARD ? 0 : edge->getLength();
     }
-    if (next == 0) {
+    if (next == nullptr) {
         myCurrentEndPos = stage.getArrivalPos();
     } else {
         if (dir == UNDEFINED_DIRECTION) {
@@ -148,7 +148,7 @@ MSPModel_NonInteracting::PState::getEdgePos(const MSPerson::MSPersonStage_Walkin
 Position
 MSPModel_NonInteracting::PState::getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const {
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(stage.getEdge());
-    if (lane == 0) {
+    if (lane == nullptr) {
         //std::string error = "Pedestrian '" + myCommand->myPerson->getID() + "' could not find sidewalk on edge '" + state.getEdge()->getID() + "', time="
         //    + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
         //if (!OptionsCont::getOptions().getBool("ignore-route-errors")) {

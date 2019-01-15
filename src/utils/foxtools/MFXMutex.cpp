@@ -34,7 +34,7 @@ using namespace FX;
 #include "MFXMutex.h"
 
 #ifndef WIN32
-    #include <pthread.h>
+#include <pthread.h>
 #endif
 
 // MFXMutex constructor
@@ -51,7 +51,7 @@ MFXMutex::MFXMutex() : lock_(0) {
     (void)status; // only used for assertion
     pthread_mutexattr_destroy(&attr);
 #else
-    mutexHandle = CreateMutex(NULL, FALSE, NULL);
+    mutexHandle = CreateMutex(nullptr, FALSE, nullptr);
     FXASSERT(mutexHandle != NULL);
 #endif
 }

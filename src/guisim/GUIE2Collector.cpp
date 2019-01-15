@@ -69,7 +69,7 @@ GUIE2Collector::buildDetectorGUIRepresentation() {
 // GUIE2Collector::MyWrapper-methods
 // -------------------------------------------------------------------------
 
-GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) : 
+GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     GUIDetectorWrapper(GLO_E2DETECTOR, detector.getID()),
     myDetector(detector) {
     // collect detector shape into one vector (v)
@@ -86,8 +86,8 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
     }
     // build geometry
     myFullGeometry = v.getSubpart(
-            lanes.front()->interpolateLanePosToGeometryPos(detector.getStartPos()),
-            lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detectorLength));
+                         lanes.front()->interpolateLanePosToGeometryPos(detector.getStartPos()),
+                         lanes.back()->interpolateLanePosToGeometryPos(detector.getStartPos() + detectorLength));
     //
     myShapeRotations.reserve(myFullGeometry.size() - 1);
     myShapeLengths.reserve(myFullGeometry.size() - 1);
@@ -160,7 +160,7 @@ GUIE2Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, getType());
     double dwidth = 1;
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     if (exaggeration > 0) {
         if (myDetector.getUsageType() == DU_TL_CONTROL) {
             dwidth = (double) 0.3;

@@ -77,7 +77,7 @@ public:
      * @param[in] s The edge to add
      * @todo What about vehicle-type aware connections?
      */
-    virtual void addSuccessor(ROEdge* s, ROEdge* via=nullptr, std::string dir = "");
+    virtual void addSuccessor(ROEdge* s, ROEdge* via = nullptr, std::string dir = "");
 
     void setFlow(const double begin, const double end, const double flow) {
         myFlow.add(begin, end, flow);

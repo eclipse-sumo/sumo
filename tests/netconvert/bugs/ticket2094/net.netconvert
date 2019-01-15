@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:06 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-402199.24,-5810495.50" convBoundary="0.00,0.00,108.13,155.60" origBoundary="13.453860,52.362982,13.649158,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_294152029_560899595_593898177_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.53" shape="59.77,92.12 58.36,92.40 57.51,92.11 57.45,91.94"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_9" function="internal">
-        <lane id=":cluster_294152029_560899595_593898177_9_0" index="0" speed="3.65" length="2.15" shape="57.45,91.94 57.23,91.27 57.52,89.85"/>
+        <lane id=":cluster_294152029_560899595_593898177_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="2.15" shape="57.45,91.94 57.23,91.27 57.52,89.85"/>
     </edge>
     <edge id=":cluster_294152029_560899595_593898177_5" function="internal">
         <lane id=":cluster_294152029_560899595_593898177_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.62" length="10.04" shape="48.88,90.34 50.80,91.97 52.88,92.43 55.12,91.73 57.52,89.85"/>

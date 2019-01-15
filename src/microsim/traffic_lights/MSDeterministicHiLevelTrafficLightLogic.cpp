@@ -19,9 +19,9 @@
 
 MSDeterministicHiLevelTrafficLightLogic::MSDeterministicHiLevelTrafficLightLogic(
     MSTLLogicControl& tlcontrol, const std::string& id,
-    const std::string& subid, const Phases& phases, int step,
+    const std::string& programID, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters) :
-    MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, subid, phases, step,
+    MSSOTLHiLevelTrafficLightLogic(tlcontrol, id, programID, TLTYPE_HILVL_DETERMINISTIC, phases, step,
                                    delay, parameters) {
 
     addPolicy(new MSSOTLPlatoonPolicy(new MSSOTLPolicy3DStimulus("PLATOON", parameters), parameters));
@@ -43,7 +43,7 @@ void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
         "*** Intersection " + getID()
         + " will run using MSDeterministicHiLevelTrafficLightLogic ***");
 
-    MSLane* currentLane = NULL;
+    MSLane* currentLane = nullptr;
     for (MSTrafficLightLogic::LaneVectorVector::const_iterator laneVector =
                 myLanes.begin(); laneVector != myLanes.end(); laneVector++) {
         for (MSTrafficLightLogic::LaneVector::const_iterator lane =

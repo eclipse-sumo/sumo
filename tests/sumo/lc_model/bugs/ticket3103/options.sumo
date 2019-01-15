@@ -4,3 +4,4 @@
 --lanechange-output lanechanges.xml
 --no-step-log
 --max-depart-delay 1
+--duration-log.statistics

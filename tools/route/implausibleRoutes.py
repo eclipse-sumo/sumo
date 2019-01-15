@@ -76,6 +76,12 @@ def get_options():
         sys.exit(USAGE)
     options.network = args[0]
     options.routeFile = args[1]
+    # options for generate_poly
+    options.layer = 100
+    options.geo = False
+    options.internal = False
+    options.spread = None
+
     return options
 
 
@@ -149,7 +155,7 @@ def main():
                 if oldCosts < newCosts:
                     sys.stderr.write(("Warning: fastest route for '%s' is slower than original route " +
                                       "(old=%s, new=%s). Check vehicle types\n") % (
-                                      vehicle.id, oldCosts, newCosts))
+                        vehicle.id, oldCosts, newCosts))
             else:
                 routeInfos[vehicle.id].detour = oldCosts - newCosts
                 routeInfos[vehicle.id].detourRatio = oldCosts / newCosts
@@ -191,7 +197,7 @@ def main():
     with open(polyOutput, 'w') as outf:
         outf.write('<additional>\n')
         for score, rID, ri in sorted(implausible):
-            generate_poly(net, rID, colorgen(), 100, False, ri.edges, options.blur, outf, score)
+            generate_poly(options, net, rID, colorgen(), ri.edges, outf, score)
         outf.write('</additional>\n')
 
     sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist, airDist)\n')

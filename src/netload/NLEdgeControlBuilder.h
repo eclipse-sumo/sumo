@@ -80,7 +80,8 @@ public:
      */
     void beginEdgeParsing(const std::string& id, const SumoXMLEdgeFunc function,
                           const std::string& streetName, const std::string& edgeType,
-                          int priority);
+                          int priority,
+                          const std::string& bidi);
 
 
     /** @brief Adds a lane to the current edge
@@ -128,7 +129,7 @@ public:
     void closeLane();
 
     /// builds the MSEdgeControl-class which holds all edges
-    MSEdgeControl* build();
+    MSEdgeControl* build(double networkVersion);
 
 
     /** @brief Builds an edge instance (MSEdge in this case)
@@ -163,13 +164,16 @@ protected:
     MSEdge* myActiveEdge;
 
     /// @brief The default stop offset for all lanes belonging to the active edge (this is set if the edge was given a stopOffset child)
-    std::map<SVCPermissions,double> myCurrentDefaultStopOffsets;
+    std::map<SVCPermissions, double> myCurrentDefaultStopOffsets;
 
     /// @brief The index of the currently active lane (-1 if none is active)
     int myCurrentLaneIndex;
 
     /// @brief pointer to a temporary lane storage
     std::vector<MSLane*>* myLaneStorage;
+
+    /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
+    std::map<MSEdge*, std::string> myBidiEdges;
 
 
     /** @brief set the stopOffset for the last added lane.

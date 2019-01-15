@@ -44,7 +44,7 @@ BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
 
 
 def repositoryUpdate(options, repoLogFile):
-    if options.no_update:
+    if not options.update:
         return ""
     with open(repoLogFile, 'w') as log:
         cwd = os.getcwd()
@@ -55,8 +55,8 @@ def repositoryUpdate(options, repoLogFile):
     return gitrev
 
 
-def runTests(options, env, gitrev, debugSuffix=""):
-    if options.no_tests:
+def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
+    if not options.tests:
         return
     prefix = env["FILEPREFIX"] + debugSuffix
     env["SUMO_BATCH_RESULT"] = os.path.join(
@@ -89,14 +89,11 @@ def runTests(options, env, gitrev, debugSuffix=""):
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
+        if withNetedit:
+            subprocess.call([ttBin, "-a", "netedit.daily"] + fullOpt, env=env,
+                            stdout=log, stderr=subprocess.STDOUT, shell=True)
         subprocess.call([ttBin, "-a", "sumo.gui"] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
-        if not options.no_extended_tests:
-            # Check if sikulixServer is already opened
-            # if runSikulixServer.checkStatus() == False:
-            #    runSikulixServer.startSikulixServer()
-            subprocess.call([ttBin, "-a", "netedit.gui"] + fullOpt, env=env,
-                            stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
     for name in BINARIES:
@@ -106,7 +103,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
 
 def generateCMake(generator, log, checkOptionalLibs, python):
     buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
-    cmakeOpt = ["-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
+    cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER", "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
     # Create directory or clear it if already exists
@@ -132,12 +129,12 @@ optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily"
 optParser.add_option("-d", "--dll-dirs", dest="dllDirs",
                      default=r"Win32:bin,x64:bin64",
                      help="path to dependency dlls for the relevant platforms")
-optParser.add_option("-u", "--no-update", action="store_true",
-                     default=False, help="skip repository update")
-optParser.add_option("-n", "--no-tests", action="store_true",
-                     default=False, help="skip tests")
-optParser.add_option("-e", "--no-extended-tests", action="store_true",
-                     default=False, help="skip netedit tests and tests for the debug build")
+optParser.add_option("-u", "--no-update", dest="update", action="store_false",
+                     default=True, help="skip repository update")
+optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
+                     default=True, help="skip tests")
+optParser.add_option("-e", "--no-extended-tests", dest="extended_tests", action="store_false",
+                     default=True, help="skip netedit tests and tests for the debug build")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
 (options, args) = optParser.parse_args()
 
@@ -197,23 +194,25 @@ for platform, dllDir in platformDlls:
             write = False
             for f in srcZip.namelist():
                 if f.count('/') == 1:
-                    write = False
+                    write = f.endswith(".md") or os.path.basename(f) in ["AUTHORS", "ChangeLog", "LICENSE"]
                 if f.endswith('/') and f.count('/') == 2:
-                    write = (f.endswith('/bin/') or f.endswith('/examples/') or
+                    write = (f.endswith('/bin/') or
                              f.endswith('/tools/') or f.endswith('/data/') or f.endswith('/docs/'))
                     if f.endswith('/bin/'):
                         binDir = f
                 elif f.endswith('/') and '/docs/' in f and f.count('/') == 3:
                     write = not f.endswith('/doxygen/')
-                elif write or os.path.basename(f) in ["AUTHORS", "COPYING", "README.md"]:
+                elif write:
                     zipf.writestr(f, srcZip.read(f))
             srcZip.close()
             dllPath = os.path.join(options.rootDir, dllDir)
             for f in glob.glob(os.path.join(dllPath, "*.dll")) + glob.glob(os.path.join(dllPath, "*", "*.dll")):
                 zipf.write(f, os.path.join(binDir, f[len(dllPath) + 1:]))
-            for ext in ("*.exe", "*.bat", "*.py", "*.pyd"):
+            for ext in ("*.exe", "*.bat", "*.py", "*.pyd", "*.dll", "*.jar"):
                 for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
-                    zipf.write(f, os.path.join(binDir, os.path.basename(f)))
+                    nameInZip = os.path.join(binDir, os.path.basename(f))
+                    if nameInZip not in srcZip.namelist():
+                        zipf.write(f, nameInZip)
             zipf.close()
             if options.suffix == "":
                 # installers only for the vanilla build
@@ -249,10 +248,10 @@ for platform, dllDir in platformDlls:
             (errno, strerror) = ziperr.args
             print("Warning: Could not zip to %s!" % binaryZip, file=log)
             print("I/O error(%s): %s" % (errno, strerror), file=log)
-    runTests(options, env, gitrev)
+    runTests(options, env, gitrev, options.extended_tests and platform == "x64")
     with open(statusLog, 'w') as log:
         status.printStatus(makeLog, makeAllLog, env["SMTP_SERVER"], log)
-if not options.no_extended_tests:
-    runTests(options, env, gitrev, "D")
+if options.extended_tests:
+    runTests(options, env, gitrev, True, "D")
     with open(prefix + "Dstatus.log", 'w') as log:
         status.printStatus(makeAllLog, makeAllLog, env["SMTP_SERVER"], log)

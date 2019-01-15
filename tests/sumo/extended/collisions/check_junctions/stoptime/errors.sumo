@@ -1,9 +1,11 @@
 Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
-Warning: Vehicle 'vertical.0'; collision with vehicle 'horizontal.0', lane=':0_9_0', gap=-1.00, time=2.00 stage=move.
-Warning: Vehicle 'horizontal.0' performs emergency stop at the end of lane ':0_13_0' because there is no connection to the next edge (decel=-12.50, offset=0.02), time=3.00.
-Warning: Teleporting vehicle 'vertical.0' after earlier collision, lane=':0_9_0, time=34.00.
-Warning: Teleporting vehicle 'horizontal.0' after earlier collision, lane=':0_13_0, time=34.00.
-Warning: Vehicle 'vertical.0' ends teleporting on edge '4o', time 34.00.
-Warning: Vehicle 'horizontal.0' ends teleporting on edge '2o', time 34.00.
-Warning: Teleporting vehicle 'vertical.9'; waited too long (yield), lane='3si_1', time=393.00.
-Warning: Vehicle 'vertical.9' ends teleporting on edge '4o', time 393.00.
+Warning: Vehicle 'vertical.2'; collision with vehicle 'horizontal.2', lane=':0_9_0', gap=-1.00, time=13.00 stage=move.
+Warning: Teleporting vehicle 'horizontal.2' after earlier collision, lane=':0_13_0, time=44.00.
+Warning: Vehicle 'horizontal.2' ends teleporting on edge '2o', time 44.00.
+Warning: Teleporting vehicle 'vertical.2' after earlier collision, lane=':0_9_0, time=46.00.
+Warning: Vehicle 'vertical.2' ends teleporting on edge '4o', time 46.00.
+Warning: Vehicle 'vertical.5'; collision with vehicle 'horizontal.16', lane=':0_9_0', gap=-1.00, time=83.00 stage=move.
+Warning: Teleporting vehicle 'horizontal.16' after earlier collision, lane=':0_13_0, time=114.00.
+Warning: Vehicle 'horizontal.16' ends teleporting on edge '2o', time 114.00.
+Warning: Teleporting vehicle 'vertical.5' after earlier collision, lane=':0_9_0, time=116.00.
+Warning: Vehicle 'vertical.5' ends teleporting on edge '4o', time 116.00.

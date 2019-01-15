@@ -1,19 +1,20 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ0' into net
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ2' into net
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ3' into net
 Debug: Adding edge 'gneE1' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
@@ -21,6 +22,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Key ESC (abort) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding edge 'gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -33,6 +36,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding edge 'gneE3' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
@@ -55,19 +60,26 @@ Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE2_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'from-gneE2_0togneE2_0' in retrieveGNEConnection()
+Debug: Created connection 'from-gneE3_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0to-gneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_0to-gneE2_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_0to-gneE3_0' in retrieveGNEConnection()
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
+Debug: Deleting unreferenced connection 'from-gneE3_0togneE3_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE3_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
+Debug: Deleting unreferenced connection 'fromgneE3_0to-gneE3_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE1_0to-gneE3_0' in clearGNEConnections()
@@ -86,10 +98,12 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE2_0togneE1_0' in clearGNEConnections()
+Debug: Deleting unreferenced connection 'from-gneE2_0togneE2_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE0_0' in clearGNEConnections()
+Debug: Deleting unreferenced connection 'fromgneE2_0to-gneE2_0' in clearGNEConnections()
 Debug: Removing edge '-gneE2' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -112,6 +126,7 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: Removing edge 'gneE0' from net
 Debug: Removing junction 'gneJ1' from net
 Debug: Removing junction 'gneJ0' from net
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ0' into net
 Debug: Adding junction 'gneJ1' into net
@@ -164,14 +179,20 @@ Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE2_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'from-gneE2_0togneE2_0' in retrieveGNEConnection()
+Debug: Created connection 'from-gneE3_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0to-gneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_0to-gneE2_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_0to-gneE3_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced edge '-gneE2' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE2_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE2_0togneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE3' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE3_0togneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE3_0' in GNEEdge destructor
@@ -181,8 +202,10 @@ Debug: Deleting unreferenced connection 'fromgneE1_0to-gneE3_0' in GNEEdge destr
 Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_0to-gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_0to-gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor

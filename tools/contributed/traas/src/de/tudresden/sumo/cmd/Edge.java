@@ -146,7 +146,18 @@ public class Edge {
 	 */
 
 	public static SumoCommand getIDList(){
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.TRACI_ID_LIST, "", Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+
+	/**
+	 * 
+	 * @param edgeID
+	 *            a string identifying the edge
+	 * @return Returns the number of lanes of this edge
+	 */
+
+	public static SumoCommand getLaneNumber(String edgeID){
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_LANE_INDEX, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
 	/**
@@ -162,7 +173,7 @@ public class Edge {
 	public static SumoCommand getLastStepHaltingNumber(String edgeID){
 		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_INTEGER);
 	}
-
+	
 	/**
 	 * Returns the total vehicle length (in m) on the given edge within the last
 	 * time step.
@@ -333,7 +344,6 @@ public class Edge {
 	 */
 
 	public static SumoCommand adaptTraveltime(String edgeID, double time){
-		Object[] array = new Object[]{time};
 		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, edgeID, time);
 	}
 

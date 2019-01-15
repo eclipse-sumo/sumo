@@ -99,10 +99,7 @@ dnl Make sure we are on architecture that supports SIMD
    AC_DEFINE([NOMINMAX], [1], [Including windows.h gives errors otherwise (cygwin)])
    ;;
    *-darwin*)
-   CPPFLAGS="$CPPFLAGS -I/opt/local/include"
-   export CPPFLAGS
-   LDFLAGS="$LDFLAGS -L/opt/local/lib"
-   export LDFLAGS
+   AM_CPPFLAGS="-I/opt/X11/include -I/opt/local/include -I/usr/local/include $AM_CPPFLAGS"
    ;;
 esac
 
@@ -281,7 +278,7 @@ if test x"$with_fox_config" != xno; then
         ac_disabled="$ac_disabled GUI"
     else
         FOX_CFLAGS="`$FOX_CONFIG --cflags`"
-        FOX_LDFLAGS="`$FOX_CONFIG --libs`"
+        FOX_LDFLAGS="`$FOX_CONFIG --libs` -L/opt/X11/lib"
         AC_SUBST([FOX_LDFLAGS])
 
         save_cppflags=$CPPFLAGS
@@ -342,10 +339,10 @@ if test x"$with_python" == x; then
     with_python=no
 fi
 if test x"$with_python" != xno; then
-    PYTHON_LIBS=`python -c "import distutils.sysconfig; bl = distutils.sysconfig.get_config_var('BLDLIBRARY'); print bl if bl else '-lpython2.7'"`
+    PYTHON_LIBS=`python -c "import distutils.sysconfig; bl = distutils.sysconfig.get_config_var('BLDLIBRARY'); print(bl if bl else '-lpython2.7')"`
     AC_SUBST(PYTHON_LIBS)
     save_cppflags=$CPPFLAGS
-    PYTHON_INCLUDES=`python -c "import distutils.sysconfig; print distutils.sysconfig.get_config_var('INCLUDEPY')"`
+    PYTHON_INCLUDES=`python -c "import distutils.sysconfig; print(distutils.sysconfig.get_config_var('INCLUDEPY'))"`
     CPPFLAGS="$CPPFLAGS -I$PYTHON_INCLUDES"
     export CPPFLAGS
     AC_CHECK_HEADER([Python.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
@@ -499,6 +496,7 @@ src/utils/gui/div/Makefile
 src/utils/gui/events/Makefile
 src/utils/gui/globjects/Makefile
 src/utils/gui/images/Makefile
+src/utils/gui/cursors/Makefile
 src/utils/gui/settings/Makefile
 src/utils/gui/tracker/Makefile
 src/utils/gui/windows/Makefile

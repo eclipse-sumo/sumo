@@ -34,23 +34,25 @@ template<class E, class L, class N, class V>
 class PublicTransportEdge : public IntermodalEdge<E, L, N, V> {
 private:
     struct Schedule {
-        Schedule(const std::string& _id, const SUMOTime _begin, const SUMOTime _end, const SUMOTime _period, const double _travelTimeSec)
-            : id(_id), begin(STEPS2TIME(_begin)), end(STEPS2TIME(_end)), period(STEPS2TIME(_period)), travelTimeSec(_travelTimeSec) {}
+        Schedule(const std::string& _id, const SUMOTime _begin, const int _repetitionNumber, const SUMOTime _period, const SUMOTime _travelTime)
+            : ids( {
+            _id
+        }), begin(_begin), repetitionNumber(_repetitionNumber), period(_period), travelTime(_travelTime) {}
         // the id of the vehicle or flow from which this schedule is generated
-        const std::string id;
-        const double begin;
-        const double end;
+        std::vector<std::string> ids;
+        const SUMOTime begin;
+        int repetitionNumber;
         // the repetition period for a flow or -1 for a vehicle
-        const double period;
-        const double travelTimeSec;
+        SUMOTime period;
+        const SUMOTime travelTime;
     private:
         /// @brief Invalidated assignment operator
         Schedule& operator=(const Schedule& src);
     };
 
 public:
-    PublicTransportEdge(const std::string id, int numericalID, const IntermodalEdge<E, L, N, V>* entryStop, const E* endEdge, const std::string& line) :
-        IntermodalEdge<E, L, N, V>(line + ":" + (id != "" ? id : endEdge->getID()), numericalID, endEdge, line), myEntryStop(entryStop) { }
+    PublicTransportEdge(const std::string id, int numericalID, const IntermodalEdge<E, L, N, V>* entryStop, const E* endEdge, const std::string& line, const double length) :
+        IntermodalEdge<E, L, N, V>(line + ":" + (id != "" ? id : endEdge->getID()), numericalID, endEdge, line, length), myEntryStop(entryStop) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
@@ -64,64 +66,87 @@ public:
         return myEntryStop;
     }
 
-    void addSchedule(const std::string id, const SUMOTime begin, const SUMOTime end, const SUMOTime period, const double travelTimeSec) {
-        //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << STEPS2TIME(begin) << " end=" << STEPS2TIME(end)
-        //    << " period=" << STEPS2TIME(period)
-        //    << " travelTime=" << travelTimeSec << "\n";
-        mySchedules.insert(std::make_pair(STEPS2TIME(begin), Schedule(id, begin, end, period, travelTimeSec)));
+    bool hasSchedule(const SUMOTime begin) const {
+        return mySchedules.find(begin) != mySchedules.end();
+    }
+
+    void addSchedule(const std::string id, const SUMOTime begin, const int repetitionNumber, const SUMOTime period, const SUMOTime travelTime) {
+        // try to merge with existing vehicle or flow
+        bool found = false;
+        for (auto& it : mySchedules) {
+            Schedule& s = it.second;
+            if (travelTime == s.travelTime) {
+                if (repetitionNumber == -1 && s.repetitionNumber == 1) {
+                    if (begin > s.begin) {
+                        s.period = begin - s.begin;
+                        found = true;
+                    }
+                } else if (begin == s.begin + s.repetitionNumber * s.period) {
+                    found = true;
+                }
+                if (found) {
+                    s.repetitionNumber += MAX2(repetitionNumber, 1);
+                    s.ids.push_back(id);
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            mySchedules.insert(std::make_pair(begin, Schedule(id, begin, MAX2(repetitionNumber, 1), MAX2<SUMOTime>(period, 1), travelTime)));
+        }
     }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double time) const {
-        double minArrivalSec = std::numeric_limits<double>::max();
-        for (typename std::multimap<double, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
+        SUMOTime minArrival = SUMOTime_MAX;
+        const SUMOTime step = TIME2STEPS(time);
+        for (typename std::multimap<SUMOTime, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
             const Schedule& s = it->second;
-            if (it->first > minArrivalSec) {
+            if (it->first > minArrival) {
                 break;
             }
-            if (time < s.end) {
-                int running;
-                if (s.period <= 0 || time < s.begin) {
-                    // single vehicle or flow begin
-                    running = 0;
-                } else {
-                    // subsequent flow
-                    running = (int)ceil((time - s.begin) / s.period);
-                }
-                const double nextDepart = s.begin + running * s.period;
-                minArrivalSec = MIN2(nextDepart + s.travelTimeSec, minArrivalSec);
+            const SUMOTime offset = MAX2<SUMOTime>(0, step - s.begin);
+            int running = (int)(offset / s.period);
+            if (offset % s.period != 0) {
+                running++;
+            }
+            if (running < s.repetitionNumber) {
+                const SUMOTime nextDepart = s.begin + running * s.period;
+                minArrival = MIN2(nextDepart + s.travelTime, minArrival);
                 //std::cout << " edge=" << myEntryStop->getID() << "->" << this->getID() << " beg=" << s.begin << " end=" << s.end
                 //    << " atTime=" << time
                 //    << " running=" << running << " nextDepart=" << nextDepart
                 //    << " minASec=" << minArrivalSec << " travelTime=" << minArrivalSec - time << "\n";
             }
         }
-        return minArrivalSec - time;
+        return STEPS2TIME(minArrival - step);
     }
 
     double getIntended(const double time, std::string& intended) const {
         /// @note: duplicates some code of getTravelTime()
-        double minArrivalSec = std::numeric_limits<double>::max();
+        SUMOTime minArrival = SUMOTime_MAX;
         double bestDepartTime = std::numeric_limits<double>::max();
-        for (typename std::multimap<double, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
+        const SUMOTime step = TIME2STEPS(time);
+        for (typename std::multimap<SUMOTime, Schedule>::const_iterator it = mySchedules.begin(); it != mySchedules.end(); ++it) {
             const Schedule& s = it->second;
-            if (it->first > minArrivalSec) {
+            if (it->first > minArrival) {
                 break;
             }
-            if (time < s.end) {
-                int running;
-                if (s.period <= 0 || time < s.begin) {
-                    // single vehicle or flow begin
-                    running = 0;
-                } else {
-                    // subsequent flow
-                    running = (int)ceil((time - s.begin) / s.period);
-                }
-                const double nextDepart = s.begin + running * s.period;
-                if (nextDepart + s.travelTimeSec < minArrivalSec) {
-                    minArrivalSec = nextDepart + s.travelTimeSec;
-                    bestDepartTime = nextDepart;
+            const SUMOTime offset = MAX2<SUMOTime>(0, step - s.begin);
+            int running = (int)(offset / s.period);
+            if (offset % s.period != 0) {
+                running++;
+            }
+            if (running < s.repetitionNumber) {
+                const SUMOTime nextDepart = s.begin + running * s.period;
+                if (nextDepart + s.travelTime < minArrival) {
+                    minArrival = nextDepart + s.travelTime;
+                    bestDepartTime = STEPS2TIME(nextDepart);
                     // see naming scheme inMSInsertionControl::determineCandidates()
-                    intended = s.period <= 0 ? s.id : s.id + "." + toString(running);
+                    if (s.ids.size() == 1 || running >= (int)s.ids.size()) {
+                        intended = s.repetitionNumber == 1 ? s.ids[0] : s.ids[0] + "." + toString(running);
+                    } else {
+                        intended = s.ids[running];
+                    }
                 }
             }
         }
@@ -129,7 +154,7 @@ public:
     }
 
 private:
-    std::multimap<double, Schedule> mySchedules;
+    std::multimap<SUMOTime, Schedule> mySchedules;
     const IntermodalEdge<E, L, N, V>* const myEntryStop;
 
 };

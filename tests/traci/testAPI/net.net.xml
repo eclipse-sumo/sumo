@@ -148,7 +148,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":n_x1_0_1" index="1" speed="60.00" length="0.10" shape="3698.35,500.00 3698.35,500.00"/>
     </edge>
 
-    <edge id="e_m0" from="n_m0" to="n_m1" priority="-1">
+    <edge id="e_m0" from="n_m0" to="n_m1" priority="-1" name="exampleStreetName1">
         <lane id="e_m0_0" index="0" speed="60.00" length="500.00" shape="0.00,491.75 500.00,491.75"/>
         <lane id="e_m0_1" index="1" speed="60.00" length="500.00" shape="0.00,495.05 500.00,495.05"/>
         <lane id="e_m0_2" index="2" speed="60.00" length="500.00" shape="0.00,498.35 500.00,498.35"/>

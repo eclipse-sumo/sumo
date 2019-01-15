@@ -37,6 +37,7 @@ class Edge:
         self._length = None
         self._incoming = {}
         self._outgoing = {}
+        self._crossingEdges = []
         self._shape = None
         self._shapeWithJunctions = None
         self._shape3D = None
@@ -46,6 +47,7 @@ class Edge:
         self._function = function
         self._tls = None
         self._name = name
+        self._params = {}
 
     def getName(self):
         return self._name
@@ -67,6 +69,9 @@ class Edge:
     def getTLS(self):
         return self._tls
 
+    def getCrossingEdges(self):
+        return self._crossingEdges
+
     def addLane(self, lane):
         self._lanes.append(lane)
         self._speed = lane.getSpeed()
@@ -82,6 +87,10 @@ class Edge:
             self._incoming[conn._from] = []
         self._incoming[conn._from].append(conn)
 
+    def _addCrossingEdge(self, edge):
+        if edge not in self._crossingEdges:
+            self._crossingEdges.append(edge)
+
     def setRawShape(self, shape):
         self._rawShape3D = shape
 
@@ -93,6 +102,10 @@ class Edge:
 
     def getOutgoing(self):
         return self._outgoing
+
+    def getConnections(self, toEdge):
+        """Returns all connections to the given target edge"""
+        return self._outgoing.get(toEdge, [])
 
     def getRawShape(self):
         """Return the shape that was used in netconvert for building this edge (2D)."""
@@ -180,11 +193,14 @@ class Edge:
                 self._shape3D.append(
                     (x / float(numLanes), y / float(numLanes), z / float(numLanes)))
 
-        self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
-                                                    self._from.getCoord3D(), self._to.getCoord3D())
-
-        if self._rawShape3D == []:
-            self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
+        if self._function in ["crossing", "walkingarea"]:
+            self._shapeWithJunctions3D = self._shape3D
+            self._rawShape3D = self._shape3D
+        else:
+            self._shapeWithJunctions3D = addJunctionPos(self._shape3D,
+                                                        self._from.getCoord3D(), self._to.getCoord3D())
+            if self._rawShape3D == []:
+                self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 
         # 2d - versions
         self._shape = [(x, y) for x, y, z in self._shape3D]
@@ -216,9 +232,18 @@ class Edge:
     def allows(self, vClass):
         """true if this edge has a lane which allows the given vehicle class"""
         for lane in self._lanes:
-            if vClass in lane._allowed:
+            if lane.allows(vClass):
                 return True
         return False
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params
 
     def __repr__(self):
         if self.getFunction() == '':

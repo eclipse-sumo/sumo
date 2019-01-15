@@ -48,6 +48,7 @@ def get_options():
     optParser.add_option(
         "-p", "--prob", type="float", default=0.1, help="depart probability per second")
     optParser.add_option("-r", "--route", help="edge list")
+    optParser.add_option("-t", "--trip", help="Define walking trip as FROM_EDGE,TO_EDGE")
     optParser.add_option("-c", "--color", help="the color to use or 'random'")
     optParser.add_option(
         "-b", "--begin", type="int", default=0, help="begin time")
@@ -59,7 +60,20 @@ def get_options():
         "-n", "--name", default="p", help="base name for pedestrians")
     (options, args) = optParser.parse_args()
 
+    if len(args) != 1:
+        sys.exit("Output file argument missing")
     options.output = args[0]
+
+    if ((options.route is None and options.trip is None) or
+            (options.route is not None and options.trip is not None)):
+        sys.exit("Either --route or --trip must be given")
+    if options.route is not None:
+        options.route = options.route.split(',')
+    if options.trip is not None:
+        options.trip = tuple(options.trip.split(','))
+        if len(options.trip) != 2:
+            sys.exit("trip must contain of exactly two edges")
+
     return options
 
 
@@ -69,13 +83,18 @@ def randomOrFixed(value, offset=0.2):
     return random.uniform(-value - offset, -value + offset)
 
 
-def write_ped(f, index, options, depart, edges):
+def write_ped(f, index, options, depart):
     if options.color is None:
         color = ''
     elif options.color == "random":
         color = ' color="%s"' % Colorgen(("random", 1, 1))()
     else:
         color = ' color="%s"' % options.color
+
+    if options.trip is not None:
+        edges = 'from="%s" to="%s"' % options.trip
+    else:
+        edges = 'edges="%s"' % ' '.join(options.route)
 
     f.write(('    <vType id="%s%s" vClass="pedestrian" width="%s" length="%s" minGap="%s" maxSpeed="%s" ' +
              'guiShape="pedestrian"%s/>\n') % (
@@ -84,23 +103,22 @@ def write_ped(f, index, options, depart, edges):
         randomOrFixed(options.length),
         randomOrFixed(options.minGap),
         randomOrFixed(options.maxSpeed, 0.4), color))
-    f.write('    <person id="%s%s" type="%s%s" depart="%s">\n' %
-            (options.name, index, options.name, index, depart))
-    f.write('        <walk edges="%s" departPos="%s" arrivalPos="%s"/>\n' %
-            (edges, options.departPos, options.arrivalPos))
+    f.write('    <person id="%s%s" type="%s%s" depart="%s" departPos="%s">\n' %
+            (options.name, index, options.name, index, depart, options.departPos))
+    f.write('        <walk %s arrivalPos="%s"/>\n' %
+            (edges, options.arrivalPos))
     f.write('    </person>\n')
 
 
 def main():
     options = get_options()
     with open(options.output, 'w') as f:
-        sumolib.writeXMLHeader(
-            f, "$Id$", "routes")
+        sumolib.writeXMLHeader(f, "$Id$", "routes")  # noqa
         index = options.index
         for depart in range(options.begin, options.end):
             if random.random() < options.prob:
                 write_ped(
-                    f, index, options, depart, ' '.join(options.route.split(',')))
+                    f, index, options, depart)
                 index += 1
         f.write('</routes>')
 

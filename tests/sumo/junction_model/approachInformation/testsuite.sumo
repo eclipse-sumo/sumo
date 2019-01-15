@@ -1,0 +1,29 @@
+# one vehicle approaches a minor link
+one_minor
+
+# one vehicle approaches a minor link
+one_minor_subsecond
+
+# one vehicle approaches a minor link but is slower than the minimum safe approach speed
+one_minor2
+
+# one vehicle approaches a green light which turns yellow. 
+# The vehicle is unable to stop and passes the yellow light.
+one_green2yellow
+
+# vehicles passes an intersection via an internal junction but has to wait for a foe vehicle first
+internal_junction_with_foe
+
+# left turning vehicles should be able to pass the intersection simultaneously even though both have straight going follower vehicles
+symmetrical_left_turn_with_straight_followers
+
+# as above but with a larger junction so that the straight going vehicles already move onto the intersection
+symmetrical_left_turn_with_straight_followers2
+
+# Two vehicles want to turn left from opposite directions but are blocked by vehicles coming from the opposite direction that wish to turn right. As an added complication, the right-turning vehicles have an internal junction
+# 
+symmetrical_left_turn_with_right_turn_followers_cont
+
+# Two vehicles want to turn left from opposite directions but are blocked by vehicles coming from the opposite direction that wish to turn right. As an added complication, the right-turning vehicles have an internal junction
+# 
+symmetrical_left_turn_with_right_turn_followers_cont_subsecond

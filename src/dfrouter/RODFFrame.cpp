@@ -199,12 +199,6 @@ RODFFrame::fillOptions() {
     oc.doRegister("respect-concurrent-inflows", new Option_Bool(false));
     oc.addDescription("respect-concurrent-inflows", "Processing", "Try to determine further inflows to an inbetween detector when computing split probabilities");
 
-    /* disabled, see ticket #521
-    oc.doRegister("join-lanes", new Option_Bool(false));
-    oc.addSynonyme("join-lanes", "mesosim", true);
-    oc.addDescription("join-lanes", "Processing", "Joins detectors lying on same height");
-    */
-
     //
     oc.doRegister("scale", new Option_Float(1.));
     oc.addDescription("scale", "Processing", "Scale factor for flows");

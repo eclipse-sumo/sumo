@@ -15,5 +15,9 @@ chrouter
 # landmark routing
 astar_landmark
 
+astar_landmark_save
+
+astar_landmark_save_parallel
+
 # landmark routing with taz
 astar_landmark_taz

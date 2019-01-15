@@ -21,7 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
 #include "GNEAdditional.h"
 
@@ -53,6 +52,18 @@ public:
     /// @brief Destructor
     ~GNEStoppingPlace();
 
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+    /// @brief check if current additional is valid to be writed into XML
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem
+    void fixAdditionalProblem();
+    /// @}
+
     /// @brief get Lane
     GNELane* getLane() const;
 
@@ -62,22 +73,17 @@ public:
     /// @brief get end Position
     double getEndPosition() const;
 
-    /// @brief check if Position of stoppingPlace are fixed
-    bool areStoppingPlacesPositionsFixed() const;
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] newPosition new position of geometry
-     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
      */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+    void moveGeometry(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] oldPos the old position of additional
      * @param[in] undoList The undoList on which to register changes
      */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry(bool updateGrid) = 0;
@@ -147,10 +153,10 @@ protected:
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);
 
-    /// @brief circle width resolution for all stopping places 
+    /// @brief circle width resolution for all stopping places
     static const double myCircleWidth;
 
-    /// @brief squared circle width resolution for all stopping places 
+    /// @brief squared circle width resolution for all stopping places
     static const double myCircleWidthSquared;
 
     /// @brief inner circle width resolution for all stopping places

@@ -25,7 +25,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <utils/common/SUMOTime.h>
@@ -50,7 +50,7 @@ class MSRoute;
  *
  * @see MSDevice
  */
-class MSDevice_Vehroutes : public MSDevice {
+class MSDevice_Vehroutes : public MSVehicleDevice {
 public:
     /** @brief Static intialization
      */
@@ -67,7 +67,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into, int maxRoutes = std::numeric_limits<int>::max());
+    static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, int maxRoutes = std::numeric_limits<int>::max());
 
 
     /// @brief generate vehroute output for vehicles which are still in the network
@@ -184,6 +184,9 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.dua"
     static bool myDUAStyle;
 
+    /// @brief A shortcut for the Option "vehroute-output.costs"
+    static bool myWriteCosts;
+
     /// @brief A shortcut for the Option "vehroute-output.sorted"
     static bool mySorted;
 
@@ -209,10 +212,10 @@ private:
          * @param[in] vehicle The vehicle which changed its state
          * @param[in] to The state the vehicle has changed to
          */
-        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info="");
+        void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
         /// @brief A map for internal notification
-        std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorIdLess> myDevices;
+        std::map<const SUMOVehicle*, MSDevice_Vehroutes*, ComparatorNumericalIdLess> myDevices;
 
     };
 

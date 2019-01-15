@@ -80,6 +80,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.junctions.radius", new Option_Float(4));
     oc.addDescription("default.junctions.radius", "Building Defaults", "The default turning radius of intersections");
 
+    oc.doRegister("default.right-of-way", new Option_String("default"));
+    oc.addDescription("default.right-of-way", "Building Defaults", "The default algorithm for computing right of way rules ('default', 'edgePriority')");
+
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Junctions", "Omits internal links");
@@ -149,13 +152,16 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("geometry.check-overlap.vertical-threshold", new Option_Float(4));
         oc.addDescription("geometry.check-overlap.vertical-threshold", "Processing", "Ignore overlapping edges if they are separated vertically by the given threshold.");
 
-        oc.doRegister("geometry.max-grade", new Option_Float(10));
-        oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed.");
+        oc.doRegister("geometry.avoid-overlap", new Option_Bool(true));
+        oc.addDescription("geometry.avoid-overlap", "Processing", "Modify edge geometries to avoid overlap at junctions");
 
         // railway processing options
 
         oc.doRegister("railway.topology.repair", new Option_Bool(false));
         oc.addDescription("railway.topology.repair", "Railway", "Repair topology of the railway network");
+
+        oc.doRegister("railway.topology.repair.connect-straight", new Option_Bool(false));
+        oc.addDescription("railway.topology.repair.connect-straight", "Railway", "Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle");
 
         oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
         oc.addDescription("railway.topology.all-bidi", "Railway", "Make all rails usable in both direction");
@@ -172,6 +178,12 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.addDescription("railway.access-factor", "Railway", "The walking length of the access is computed as air-line distance multiplied by FLOAT");
         oc.addSynonyme("railway.access-factor", "osm.stop-output.footway-access-factor", true);
     }
+
+    oc.doRegister("geometry.max-grade", new Option_Float(10));
+    oc.addDescription("geometry.max-grade", "Processing", "Warn about edge geometries with a grade in % above FLOAT.");
+
+    oc.doRegister("geometry.max-grade.fix", new Option_Bool(true));
+    oc.addDescription("geometry.max-grade.fix", "Processing", "Smooth edge edge geometries with a grade in above the warning threshold.");
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));
     oc.addSynonyme("offset.disable-normalization", "disable-normalize-node-positions", true);
@@ -257,7 +269,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.limit-turn-speed.warn.straight", "Junctions",
                       "Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT");
 
-    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(15));
+    oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(22));
     oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
                       "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
 
@@ -322,6 +334,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.guess", new Option_Bool(false));
     oc.addSynonyme("tls.guess", "guess-tls", true);
     oc.addDescription("tls.guess", "TLS Building", "Turns on TLS guessing");
+
+    oc.doRegister("tls.guess.threshold", new Option_Float(250 / 3.6));
+    oc.addDescription("tls.guess.threshold", "TLS Building", "Sets minimum value for the sum of all incoming lane speeds when guessing TLS");
 
     if (!forNetgen) {
         oc.doRegister("tls.taz-nodes", new Option_Bool(false));
@@ -406,6 +421,9 @@ NBFrame::fillOptions(bool forNetgen) {
     // tls type
     oc.doRegister("tls.default-type", new Option_String("static"));
     oc.addDescription("tls.default-type", "TLS Building", "TLSs with unspecified type will use STR as their algorithm");
+
+    oc.doRegister("tls.layout", new Option_String("opposites"));
+    oc.addDescription("tls.layout", "TLS Building", "Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']");
 
     oc.doRegister("tls.min-dur", new Option_Integer(5));
     oc.addDescription("tls.min-dur", "TLS Building", "Default minimum phase duration for traffic lights with variable phase length");
@@ -558,6 +576,15 @@ NBFrame::checkOptions() {
     }
     if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius")) {
         WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
+        ok = false;
+    }
+    if (oc.getString("tls.layout") != "opposites" && oc.getString("tls.layout") != "incoming") {
+        WRITE_ERROR("tls.layout must be 'opposites' or 'incoming'");
+        ok = false;
+    }
+    if (!oc.isDefault("default.right-of-way") && 
+            !SUMOXMLDefinitions::RightOfWayValues.hasString(oc.getString("default.right-of-way"))) {
+        WRITE_ERROR("default.right-of-way must be one of '" + toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()) + "'");
         ok = false;
     }
     return ok;

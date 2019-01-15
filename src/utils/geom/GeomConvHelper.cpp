@@ -28,7 +28,7 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "GeomConvHelper.h"
 
 
@@ -55,12 +55,12 @@ GeomConvHelper::parseShapeReporting(const std::string& shpdef, const std::string
             return PositionVector();
         }
         try {
-            double x = TplConvert::_2double(pos.next().c_str());
-            double y = TplConvert::_2double(pos.next().c_str());
+            double x = StringUtils::toDouble(pos.next());
+            double y = StringUtils::toDouble(pos.next());
             if (pos.size() == 2) {
                 shape.push_back(Position(x, y));
             } else {
-                double z = TplConvert::_2double(pos.next().c_str());
+                double z = StringUtils::toDouble(pos.next());
                 shape.push_back(Position(x, y, z));
             }
         } catch (NumberFormatException&) {
@@ -87,10 +87,10 @@ GeomConvHelper::parseBoundaryReporting(const std::string& def, const std::string
         return Boundary();
     }
     try {
-        double xmin = TplConvert::_2double(st.next().c_str());
-        double ymin = TplConvert::_2double(st.next().c_str());
-        double xmax = TplConvert::_2double(st.next().c_str());
-        double ymax = TplConvert::_2double(st.next().c_str());
+        double xmin = StringUtils::toDouble(st.next());
+        double ymin = StringUtils::toDouble(st.next());
+        double xmax = StringUtils::toDouble(st.next());
+        double ymax = StringUtils::toDouble(st.next());
         return Boundary(xmin, ymin, xmax, ymax);
     } catch (NumberFormatException&) {
         emitError(report, "Shape", objecttype, objectid, "not numeric entry");
@@ -110,11 +110,11 @@ GeomConvHelper::emitError(bool report, const std::string& what, const std::strin
     }
     std::ostringstream oss;
     oss << what << " of ";
-    if (objectid == 0) {
+    if (objectid == nullptr) {
         oss << "a(n) ";
     }
     oss << objecttype;
-    if (objectid != 0) {
+    if (objectid != nullptr) {
         oss << " '" << objectid << "'";
     }
     oss << " is broken: " << desc << ".";

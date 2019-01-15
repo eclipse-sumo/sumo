@@ -27,7 +27,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
 
@@ -38,6 +38,7 @@
 class SUMOVehicle;
 class MSVehicle;
 class MSSimpleDriverState;
+
 
 // ===========================================================================
 // class definitions
@@ -51,7 +52,7 @@ class MSSimpleDriverState;
  *
  * @see MSDevice
  */
-class MSDevice_DriverState : public MSDevice {
+class MSDevice_DriverState : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_DriverState-options
      * @param[filled] oc The options container to add the options to
@@ -69,7 +70,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 private:
     /// @name Helpers for parameter parsing
@@ -108,14 +109,14 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_DriverState(SUMOVehicle& holder, const std::string& id,
-            double minAwareness,
-            double initialAwareness,
-            double errorTimeScaleCoefficient,
-            double errorNoiseIntensityCoefficient,
-            double speedDifferenceErrorCoefficient,
-            double speedDifferenceChangePerceptionThreshold,
-            double headwayChangePerceptionThreshold,
-            double headwayErrorCoefficient);
+                         double minAwareness,
+                         double initialAwareness,
+                         double errorTimeScaleCoefficient,
+                         double errorNoiseIntensityCoefficient,
+                         double speedDifferenceErrorCoefficient,
+                         double speedDifferenceChangePerceptionThreshold,
+                         double headwayChangePerceptionThreshold,
+                         double headwayErrorCoefficient);
 
     /// @brief Initializeses the driver state parameters
     void initDriverState();

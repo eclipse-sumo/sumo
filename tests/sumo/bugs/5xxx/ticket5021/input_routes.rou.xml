@@ -1,0 +1,5 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <flow id="WN" from="gneE0" to="gneE2" begin="0" probability="0.5" number="3"/>
+    <flow id="EN" from="-gneE1" to="gneE2" begin="0" probability="0.5" number="3"/>
+</routes>

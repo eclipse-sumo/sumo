@@ -41,7 +41,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
@@ -68,8 +68,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
                                         const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_DELETE) {
         bool ok = true;
-        std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
-        std::string to = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
+        std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+        std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
         if (!ok) {
             return;
         }
@@ -79,11 +79,11 @@ NIXMLConnectionsHandler::myStartElement(int element,
         }
         NBEdge* fromEdge = myEdgeCont.retrieve(from);
         NBEdge* toEdge = myEdgeCont.retrieve(to);
-        if (fromEdge == 0) {
+        if (fromEdge == nullptr) {
             myErrorMsgHandler->inform("The connection-source edge '" + from + "' to reset is not known.");
             return;
         }
-        if (toEdge == 0) {
+        if (toEdge == nullptr) {
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' to reset is not known.");
             return;
         }
@@ -117,13 +117,13 @@ NIXMLConnectionsHandler::myStartElement(int element,
         }
         // extract edges
         NBEdge* fromEdge = myEdgeCont.retrieve(from);
-        NBEdge* toEdge = to.length() != 0 ? myEdgeCont.retrieve(to) : 0;
+        NBEdge* toEdge = to.length() != 0 ? myEdgeCont.retrieve(to) : nullptr;
         // check whether they are valid
-        if (fromEdge == 0) {
+        if (fromEdge == nullptr) {
             myErrorMsgHandler->inform("The connection-source edge '" + from + "' is not known.");
             return;
         }
-        if (toEdge == 0 && to.length() != 0) {
+        if (toEdge == nullptr && to.length() != 0) {
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
             return;
         }
@@ -137,8 +137,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
     }
     if (element == SUMO_TAG_PROHIBITION) {
         bool ok = true;
-        std::string prohibitor = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITOR, 0, ok, "");
-        std::string prohibited = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITED, 0, ok, "");
+        std::string prohibitor = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITOR, nullptr, ok, "");
+        std::string prohibited = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITED, nullptr, ok, "");
         if (!ok) {
             return;
         }
@@ -183,11 +183,11 @@ NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::
     NBEdge* fromE = myEdgeCont.retrieve(fromDef);
     NBEdge* toE = myEdgeCont.retrieve(toDef);
     // check
-    if (fromE == 0) {
+    if (fromE == nullptr) {
         myErrorMsgHandler->inform("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
         return NBConnection::InvalidConnection;
     }
-    if (toE == 0) {
+    if (toE == nullptr) {
         myErrorMsgHandler->inform("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
         return NBConnection::InvalidConnection;
     }
@@ -197,17 +197,17 @@ NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::
 
 void
 NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* from, NBEdge* to) {
-    if (to == 0) {
+    if (to == nullptr) {
         // do nothing if it's a dead end
         return;
     }
     bool ok = true;
-    const bool mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, 0, ok, false);
-    const bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, 0, ok, true);
-    const double contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, 0, ok, NBEdge::UNSPECIFIED_CONTPOS);
-    const double visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, 0, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
-    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, 0, ok, NBEdge::UNSPECIFIED_SPEED);
-    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector::EMPTY);
+    const bool mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, nullptr, ok, false);
+    const bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
+    const double contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, nullptr, ok, NBEdge::UNSPECIFIED_CONTPOS);
+    const double visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, NBEdge::UNSPECIFIED_SPEED);
+    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
         WRITE_ERROR("Unable to project shape for connection from edge '" + from->getID() + "' to edge '" + to->getID() + "'.");
     }
@@ -247,7 +247,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         myErrorMsgHandler->inform("At least one of the defined lanes was not numeric");
     }
     //
-    bool keepUncontrolled = attrs.getOpt<bool>(SUMO_ATTR_UNCONTROLLED, 0, ok, false);
+    bool keepUncontrolled = attrs.getOpt<bool>(SUMO_ATTR_UNCONTROLLED, nullptr, ok, false);
     if (keepUncontrolled) {
         from->disableConnection4TLS(fromLane, to, toLane);
     }
@@ -276,7 +276,7 @@ NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes& 
                       "' instead.");
     }
 
-    std::string laneConn = attributes.get<std::string>(SUMO_ATTR_LANE, 0, ok);
+    std::string laneConn = attributes.get<std::string>(SUMO_ATTR_LANE, nullptr, ok);
     StringTokenizer st(laneConn, ':');
     if (!ok || st.size() != 2) {
         myErrorMsgHandler->inform("Invalid lane to lane connection from '" +
@@ -284,8 +284,8 @@ NIXMLConnectionsHandler::parseDeprecatedLaneDefinition(const SUMOSAXAttributes& 
         return false; // There was an error.
     }
 
-    *fromLane = TplConvert::_2intSec(st.next().c_str(), -1);
-    *toLane = TplConvert::_2intSec(st.next().c_str(), -1);
+    *fromLane = StringUtils::toIntSecure(st.next(), -1);
+    *toLane = StringUtils::toIntSecure(st.next(), -1);
 
     return true; // We succeeded.
 }
@@ -296,8 +296,8 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
         int* fromLane,
         int* toLane) {
     bool ok = true;
-    *fromLane = attributes.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
-    *toLane = attributes.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
+    *fromLane = attributes.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
+    *toLane = attributes.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
     return ok;
 }
 
@@ -305,18 +305,17 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
 void
 NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    NBNode* node = 0;
+    NBNode* node = nullptr;
     EdgeVector edges;
-    const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, 0, ok);
+    const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, nullptr, ok);
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH, true);
     const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, nodeID.c_str(), ok, false, true);
-    int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, 0, ok, -1);
-    int tlIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, 0, ok, -1);
-    std::vector<std::string> edgeIDs;
+    int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok, -1);
+    int tlIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, nullptr, ok, -1);
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         if (discard) {
             node = myNodeCont.retrieve(nodeID);
-            if (node == 0) {
+            if (node == nullptr) {
                 WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
                 return;
             }
@@ -327,32 +326,31 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok), edgeIDs);
-    if (!ok) {
-        return;
-    }
-    for (std::vector<std::string>::const_iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-        NBEdge* edge = myEdgeCont.retrieve(*it);
-        if (edge == 0) {
-            WRITE_ERROR("Edge '" + (*it) + "' for crossing at node '" + nodeID + "' is not known.");
+    for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
+        NBEdge* edge = myEdgeCont.retrieve(id);
+        if (edge == nullptr) {
+            WRITE_ERROR("Edge '" + id + "' for crossing at node '" + nodeID + "' is not known.");
             return;
         }
-        if (node == 0) {
+        if (node == nullptr) {
             if (edge->getToNode()->getID() == nodeID) {
                 node = edge->getToNode();
             } else if (edge->getFromNode()->getID() == nodeID) {
                 node = edge->getFromNode();
             } else {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         }
         edges.push_back(edge);
+    }
+    if (!ok) {
+        return;
     }
     bool priority = attrs.getOpt<bool>(SUMO_ATTR_PRIORITY, nodeID.c_str(), ok, node->isTLControlled(), true);
     if (node->isTLControlled() && !priority) {
@@ -360,7 +358,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         WRITE_WARNING("Crossing at controlled node '" + nodeID + "' must be prioritized");
         priority = true;
     }
-    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector::EMPTY);
+    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
         WRITE_ERROR("Unable to project shape for crossing at node '" + node->getID() + "'.");
     }
@@ -379,42 +377,41 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
 void
 NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    NBNode* node = 0;
+    NBNode* node = nullptr;
     EdgeVector edges;
-    const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, 0, ok);
+    const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, nullptr, ok);
     std::vector<std::string> edgeIDs;
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         WRITE_ERROR("No edges specified for walkingArea at node '" + nodeID + "'.");
         return;
     }
-    SUMOSAXAttributes::parseStringVector(attrs.get<std::string>(SUMO_ATTR_EDGES, 0, ok), edgeIDs);
-    if (!ok) {
-        return;
-    }
-    for (std::vector<std::string>::const_iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-        NBEdge* edge = myEdgeCont.retrieve(*it);
-        if (edge == 0) {
-            WRITE_ERROR("Edge '" + (*it) + "' for walkingArea at node '" + nodeID + "' is not known.");
+    for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
+        NBEdge* edge = myEdgeCont.retrieve(id);
+        if (edge == nullptr) {
+            WRITE_ERROR("Edge '" + id + "' for walkingArea at node '" + nodeID + "' is not known.");
             return;
         }
-        if (node == 0) {
+        if (node == nullptr) {
             if (edge->getToNode()->getID() == nodeID) {
                 node = edge->getToNode();
             } else if (edge->getFromNode()->getID() == nodeID) {
                 node = edge->getFromNode();
             } else {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
-                WRITE_ERROR("Edge '" + (*it) + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
                 return;
             }
         }
         edges.push_back(edge);
     }
-    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, 0, ok, PositionVector::EMPTY);
+    if (!ok) {
+        return;
+    }
+    PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
         WRITE_ERROR("Unable to project shape for walkingArea at node '" + node->getID() + "'.");
     }

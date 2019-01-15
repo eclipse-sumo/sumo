@@ -24,19 +24,20 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <string>
+#include <iostream>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <string>
-#include <iostream>
 #include "RORouteDef.h"
-#include "ROVehicle.h"
 #include "RORoute.h"
 #include "ROHelper.h"
 #include "RONet.h"
+#include "ROLane.h"
+#include "ROVehicle.h"
 
 
 // ===========================================================================
@@ -47,7 +48,7 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      const RONet* net, MsgHandler* errorHandler)
     : RORoutable(pars, type), myRoute(route) {
     getParameter().stops.clear();
-    if (route != 0 && route->getFirstRoute() != 0) {
+    if (route != nullptr && route->getFirstRoute() != nullptr) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
             addStop(*s, net, errorHandler);
         }
@@ -72,7 +73,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     const ROEdge* stopEdge = net->getEdgeForLaneID(stopPar.lane);
     assert(stopEdge != 0); // was checked when parsing the stop
     if (stopEdge->prohibits(this)) {
-        if (errorHandler != 0) {
+        if (errorHandler != nullptr) {
             errorHandler->inform("Stop edge '" + stopEdge->getID() + "' does not allow vehicle '" + getID() + "'.");
         }
         return;
@@ -127,13 +128,13 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
     std::string noRouteMsg = "The vehicle '" + getID() + "' has no valid route.";
     RORouteDef* const routeDef = getRouteDefinition();
     // check if the route definition is valid
-    if (routeDef == 0) {
+    if (routeDef == nullptr) {
         errorHandler->inform(noRouteMsg);
         myRoutingSuccess = false;
         return;
     }
     RORoute* current = routeDef->buildCurrentRoute(router, getDepartureTime(), *this);
-    if (current == 0 || current->size() == 0) {
+    if (current == nullptr || current->size() == 0) {
         delete current;
         errorHandler->inform(noRouteMsg);
         myRoutingSuccess = false;
@@ -141,10 +142,10 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
     }
     // check whether we have to evaluate the route for not containing loops
     if (removeLoops) {
-        const ROEdge* requiredStart = (getParameter().departPosProcedure == DEPART_POS_GIVEN 
-                || getParameter().departLaneProcedure == DEPART_LANE_GIVEN ? current->getEdgeVector().front() : 0);
+        const ROEdge* requiredStart = (getParameter().departPosProcedure == DEPART_POS_GIVEN
+                                       || getParameter().departLaneProcedure == DEPART_LANE_GIVEN ? current->getEdgeVector().front() : 0);
         const ROEdge* requiredEnd = (getParameter().arrivalPosProcedure == ARRIVAL_POS_GIVEN
-                || getParameter().arrivalLaneProcedure == ARRIVAL_LANE_GIVEN ? current->getEdgeVector().back() : 0);
+                                     || getParameter().arrivalLaneProcedure == ARRIVAL_LANE_GIVEN ? current->getEdgeVector().back() : 0);
         current->recheckForLoops(getMandatoryEdges(requiredStart, requiredEnd));
         // check whether the route is still valid
         if (current->size() == 0) {
@@ -192,20 +193,44 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
 
 void
 ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
-    if (typeos != 0 && getType() != 0 && !getType()->saved) {
+    if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
         getType()->write(*typeos);
         getType()->saved = true;
     }
-    if (getType() != 0 && !getType()->saved) {
+    if (getType() != nullptr && !getType()->saved) {
         getType()->write(os);
         getType()->saved = asAlternatives;
     }
 
+    const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     // write the vehicle (new style, with included routes)
-    getParameter().write(os, options);
+    getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
 
     // save the route
-    myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
+    if (writeTrip) {
+        const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();
+        if (edges.size() > 0) {
+            if (edges.front()->isTazConnector()) {
+                if (edges.size() > 1) {
+                    os.writeAttr(SUMO_ATTR_FROM, edges[1]->getID());
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_FROM, edges[0]->getID());
+            }
+            if (edges.back()->isTazConnector()) {
+                if (edges.size() > 1) {
+                    os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 2]->getID());
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 1]->getID());
+            }
+        }
+        if (getParameter().via.size() > 0) {
+            os.writeAttr(SUMO_ATTR_VIA, getParameter().via);
+        }
+    } else {
+        myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
+    }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
         stop->write(os);
     }

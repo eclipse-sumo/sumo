@@ -61,10 +61,10 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
     myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
-    new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), nullptr, GUIDesignLabelThick);
     // create Button and Label for sort intervals
     mySortStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
-    new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // create List with the data
     myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignTableAdditionals);
@@ -141,7 +141,7 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
     myEditedAdditional->sortAdditionalChilds();
@@ -212,7 +212,7 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     myStepsTable->setColumnText(3, "");
     myStepsTable->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over values
     for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
         // Set time

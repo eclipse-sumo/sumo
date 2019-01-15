@@ -29,7 +29,7 @@
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringBijection.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
@@ -65,19 +65,19 @@ SUMOSAXAttributesImpl_Cached::hasAttribute(int id) const {
 
 bool
 SUMOSAXAttributesImpl_Cached::getBool(int id) const {
-    return TplConvert::_2bool(getAttributeValueSecure(id));
+    return StringUtils::toBool(getAttributeValueSecure(id));
 }
 
 
 int
 SUMOSAXAttributesImpl_Cached::getInt(int id) const {
-    return TplConvert::_2int(getAttributeValueSecure(id));
+    return StringUtils::toInt(getAttributeValueSecure(id));
 }
 
 
 long long int
 SUMOSAXAttributesImpl_Cached::getLong(int id) const {
-    return TplConvert::_2long(getAttributeValueSecure(id));
+    return StringUtils::toLong(getAttributeValueSecure(id));
 }
 
 
@@ -88,30 +88,29 @@ SUMOSAXAttributesImpl_Cached::getString(int id) const {
 
 
 std::string
-SUMOSAXAttributesImpl_Cached::getStringSecure(int id,
-        const std::string& str) const {
-    std::string result = getAttributeValueSecure(id);
+SUMOSAXAttributesImpl_Cached::getStringSecure(int id, const std::string& str) const {
+    const std::string& result = getAttributeValueSecure(id);
     return result.size() == 0 ? str : result;
 }
 
 
 double
 SUMOSAXAttributesImpl_Cached::getFloat(int id) const {
-    return TplConvert::_2double(getAttributeValueSecure(id));
+    return StringUtils::toDouble(getAttributeValueSecure(id));
 }
 
 
-const char*
+const std::string&
 SUMOSAXAttributesImpl_Cached::getAttributeValueSecure(int id) const {
     std::map<int, std::string>::const_iterator i = myPredefinedTagsMML.find(id);
     assert(i != myPredefinedTagsMML.end());
-    return myAttrs.find((*i).second)->second.c_str();
+    return myAttrs.find(i->second)->second;
 }
 
 
 double
 SUMOSAXAttributesImpl_Cached::getFloat(const std::string& id) const {
-    return TplConvert::_2double(myAttrs.find(id)->second.c_str());
+    return StringUtils::toDouble(myAttrs.find(id)->second);
 }
 
 
@@ -159,6 +158,19 @@ SUMOSAXAttributesImpl_Cached::getNodeType(bool& ok) const {
 }
 
 
+RightOfWay
+SUMOSAXAttributesImpl_Cached::getRightOfWay(bool& ok) const {
+    if (hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
+        std::string rowString = getString(SUMO_ATTR_RIGHT_OF_WAY);
+        if (SUMOXMLDefinitions::RightOfWayValues.hasString(rowString)) {
+            return SUMOXMLDefinitions::RightOfWayValues.get(rowString);
+        }
+        ok = false;
+    }
+    return RIGHT_OF_WAY_DEFAULT;
+}
+
+
 RGBColor
 SUMOSAXAttributesImpl_Cached::getColor() const {
     return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
@@ -174,12 +186,12 @@ SUMOSAXAttributesImpl_Cached::getShape(int attr) const {
         if (pos.size() != 2 && pos.size() != 3) {
             throw FormatException("shape format");
         }
-        double x = TplConvert::_2double(pos.next().c_str());
-        double y = TplConvert::_2double(pos.next().c_str());
+        double x = StringUtils::toDouble(pos.next());
+        double y = StringUtils::toDouble(pos.next());
         if (pos.size() == 2) {
             shape.push_back(Position(x, y));
         } else {
-            double z = TplConvert::_2double(pos.next().c_str());
+            double z = StringUtils::toDouble(pos.next());
             shape.push_back(Position(x, y, z));
         }
     }
@@ -194,20 +206,11 @@ SUMOSAXAttributesImpl_Cached::getBoundary(int attr) const {
     if (st.size() != 4) {
         throw FormatException("boundary format");
     }
-    const double xmin = TplConvert::_2double(st.next().c_str());
-    const double ymin = TplConvert::_2double(st.next().c_str());
-    const double xmax = TplConvert::_2double(st.next().c_str());
-    const double ymax = TplConvert::_2double(st.next().c_str());
+    const double xmin = StringUtils::toDouble(st.next());
+    const double ymin = StringUtils::toDouble(st.next());
+    const double xmax = StringUtils::toDouble(st.next());
+    const double ymax = StringUtils::toDouble(st.next());
     return Boundary(xmin, ymin, xmax, ymax);
-}
-
-
-std::vector<std::string>
-SUMOSAXAttributesImpl_Cached::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
 }
 
 
@@ -228,6 +231,14 @@ SUMOSAXAttributesImpl_Cached::serialize(std::ostream& os) const {
     }
 }
 
+std::vector<std::string>
+SUMOSAXAttributesImpl_Cached::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (std::map<std::string, std::string>::const_iterator it = myAttrs.begin(); it != myAttrs.end(); ++it) {
+        result.push_back(it->first);
+    }
+    return result;
+}
 
 SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Cached::clone() const {

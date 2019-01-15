@@ -34,13 +34,13 @@
 // method definitions
 // ===========================================================================
 MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype) :
-    MSCFModel(vtype), 
+    MSCFModel(vtype),
     myDawdle(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(vtype->getParameter().vehicleClass))),
     myTauDecel(myDecel * myHeadwayTime),
     myDecelDivTau(myDecel / myHeadwayTime),
     myTauLastDecel(myDecel * vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3)),
-    myActionPointProbability(vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5))
-{ }
+    myActionPointProbability(vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5)) {
+}
 
 
 MSCFModel_PWag2009::~MSCFModel_PWag2009() {}

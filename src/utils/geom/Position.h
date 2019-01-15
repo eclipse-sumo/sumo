@@ -39,31 +39,32 @@
 class Position {
 public:
     /// @brief default constructor
-    Position() : myX(0.0), myY(0.0), myZ(0.0) { }
+    Position() : 
+        myX(0.0), myY(0.0), myZ(0.0) { }
 
-    /// @brief parametrised constructor
-    Position(double x, double y)
-        : myX(x), myY(y), myZ(0) { }
+    /// @brief Parametrised constructor (only for x-y)
+    Position(double x, double y) : 
+        myX(x), myY(y), myZ(0) { }
 
-    /// @brief parametrised constructor
-    Position(double x, double y, double z)
-        : myX(x), myY(y), myZ(z) { }
+    /// @brief Parametrised constructor
+    Position(double x, double y, double z) : 
+        myX(x), myY(y), myZ(z) { }
 
     /// @brief Destructor
     ~Position() { }
 
     /// @brief Returns the x-position
-    double x() const {
+    inline double x() const {
         return myX;
     }
 
     /// @brief Returns the y-position
-    double y() const {
+    inline double y() const {
         return myY;
     }
 
     /// @brief Returns the z-position
-    double z() const {
+    inline double z() const {
         return myZ;
     }
 
@@ -224,7 +225,7 @@ public:
         }
     }
 
-    /// @brief checki if two position is almost the sme as other
+    /// @brief check if two position is almost the sme as other
     bool almostSame(const Position& p2, double maxDiv = POSITION_EPS) const {
         return distanceTo(p2) < maxDiv;
     }
@@ -268,7 +269,17 @@ public:
     }
 
     /// @brief rotate this position by rad around origin and return the result
-    Position rotateAround2D(double rad, const Position& origin); 
+    Position rotateAround2D(double rad, const Position& origin);
+
+    /// @brief swap position X and Y
+    void swapXY() {
+        std::swap(myX, myY);
+    }
+    
+    /// @brief check if position is NAN
+    bool isNAN() const {
+        return (std::isnan(myX) || std::isnan(myY) || std::isnan(myZ));
+    }
 
     /// @brief used to indicate that a position is valid
     static const Position INVALID;

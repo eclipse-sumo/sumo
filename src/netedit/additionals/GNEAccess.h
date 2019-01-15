@@ -21,7 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
 #include "GNEAdditional.h"
 
@@ -50,7 +49,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEAccess(GNEAdditional *busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
+    GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEAccess();
@@ -59,21 +58,19 @@ public:
     bool isAccessPositionFixed() const;
 
     /// @brief get edge in which this Access is placed
-    GNEEdge &getEdge() const;
+    GNEEdge& getEdge() const;
 
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
-    * @param[in] oldPos position before start movement
-    * @param[in] offset movement offset regardings to oldPos
-    */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
+     */
+    void moveGeometry(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] oldPos the old position of additional
     * @param[in] undoList The undoList on which to register changes
     */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);

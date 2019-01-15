@@ -38,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class GUIEvent;
+class GUIGlChildWindow;
 class GUISUMOAbstractView;
 
 
@@ -49,15 +50,18 @@ public:
     GUIMainWindow(FXApp* a);
     virtual ~GUIMainWindow();
     /// Adds a further child window to the list
-    void addChild(FXMDIChild* child, bool updateOnSimStep = true);
-    void addChild(FXMainWindow* child, bool updateOnSimStep = true);
+    void addGLChild(GUIGlChildWindow* child);
+    void addChild(FXMainWindow* child);
 
     /// removes the given child window from the list
-    void removeChild(FXMDIChild* child);
+    void removeGLChild(GUIGlChildWindow* child);
     void removeChild(FXMainWindow*  child);
 
     std::vector<std::string> getViewIDs() const;
-    FXMDIChild* getViewByID(const std::string& id) const;
+    GUIGlChildWindow* getViewByID(const std::string& id) const;
+    const std::vector<GUIGlChildWindow*>& getViews() const {
+        return myGLWindows;
+    }
 
     void updateChildren();
 
@@ -109,6 +113,10 @@ public:
      */
     virtual void setDelay(double) {}
 
+    /** @brief Sets the breakpoints of the parent application
+     */
+    virtual void setBreakpoints(const std::vector<SUMOTime>&) {}
+
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send
      */
@@ -120,7 +128,7 @@ public:
     GUISUMOAbstractView* getActiveView() const;
 
     /// @brief Toggle full screen mode
-    virtual long onCmdFullScreen(FXObject*, FXSelector, void*) { 
+    virtual long onCmdFullScreen(FXObject*, FXSelector, void*) {
         return 1;
     }
 
@@ -137,7 +145,7 @@ protected:
     /// @brief whether to show the window in full screen mode
     bool myAmFullScreen;
 
-    std::vector<FXMDIChild*> mySubWindows;
+    std::vector<GUIGlChildWindow*> myGLWindows;
     std::vector<FXMainWindow*> myTrackerWindows;
     /// A lock to make the removal and addition of trackers secure
     MFXMutex myTrackerLock;

@@ -52,6 +52,8 @@ std::vector<MSTransportable*> MSBaseVehicle::myEmptyTransportableVector;
 #ifdef _DEBUG
 std::set<std::string> MSBaseVehicle::myShallTraceMoveReminders;
 #endif
+SUMOVehicle::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
+
 
 // ===========================================================================
 // method definitions
@@ -71,13 +73,14 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myCurrEdge(route->begin()),
     myChosenSpeedFactor(speedFactor),
     myMoveReminders(0),
-    myPersonDevice(0),
-    myContainerDevice(0),
+    myPersonDevice(nullptr),
+    myContainerDevice(nullptr),
     myDeparture(NOT_YET_DEPARTED),
     myDepartPos(-1),
     myArrivalPos(-1),
     myArrivalLane(-1),
-    myNumberReroutes(0)
+    myNumberReroutes(0),
+    myNumericalID(myCurrentNumericalIndex++)
 #ifdef _DEBUG
     , myTraceMoveReminders(myShallTraceMoveReminders.count(pars->id) > 0)
 #endif
@@ -88,8 +91,8 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     // init devices
     MSDevice::buildVehicleDevices(*this, myDevices);
     //
-    for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        myMoveReminders.push_back(std::make_pair(*dev, 0.));
+    for (MSVehicleDevice* dev : myDevices) {
+        myMoveReminders.push_back(std::make_pair(dev, 0.));
     }
     myRoute->addReference();
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
@@ -109,8 +112,8 @@ MSBaseVehicle::~MSBaseVehicle() {
     if (myParameter->repetitionNumber == 0) {
         MSRoute::checkDist(myParameter->routeid);
     }
-    for (std::vector< MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        delete *dev;
+    for (MSVehicleDevice* dev : myDevices) {
+        delete dev;
     }
     delete myParameter;
 }
@@ -144,7 +147,7 @@ MSBaseVehicle::succEdge(int nSuccs) const {
     if (myCurrEdge + nSuccs < myRoute->end() && std::distance(myCurrEdge, myRoute->begin()) <= nSuccs) {
         return *(myCurrEdge + nSuccs);
     } else {
-        return 0;
+        return nullptr;
     }
 }
 
@@ -159,13 +162,14 @@ void
 MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz) {
     // check whether to reroute
     const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : getRerouteOrigin();
-    if (source == 0) {
+    if (source == nullptr) {
         source = getRerouteOrigin();
     }
     const MSEdge* sink = withTaz ? MSEdge::dictionary(myParameter->toTaz + "-sink") : myRoute->getLastEdge();
-    if (sink == 0) {
+    if (sink == nullptr) {
         sink = myRoute->getLastEdge();
     }
+    ConstMSEdgeVector oldEdgesRemaining(source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1, myRoute->end());
     ConstMSEdgeVector edges;
     ConstMSEdgeVector stops;
     if (myParameter->via.size() == 0) {
@@ -176,7 +180,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         for (std::vector<std::string>::const_iterator it = myParameter->via.begin(); it != myParameter->via.end(); ++it) {
             MSEdge* viaEdge = MSEdge::dictionary(*it);
             assert(viaEdge != 0);
-            if (viaEdge->allowedLanes(getVClass()) == 0) {
+            if (!viaEdge->isTazConnector() && viaEdge->allowedLanes(getVClass()) == nullptr) {
                 throw ProcessError("Vehicle '" + getID() + "' is not allowed on any lane of via edge '" + viaEdge->getID() + "'.");
             }
             stops.push_back(viaEdge);
@@ -191,6 +195,12 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             if (into.size() > 0) {
                 into.pop_back();
                 edges.insert(edges.end(), into.begin(), into.end());
+                if ((*s)->isTazConnector()) {
+                    source = into.back();
+                    edges.pop_back();
+                } else {
+                    source = *s;
+                }
             } else {
                 std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + "' to stop edge '" + (*s)->getID() + "'.";
                 if (MSGlobals::gCheckRoutes) {
@@ -199,8 +209,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                     WRITE_WARNING(error);
                     edges.push_back(source);
                 }
+                source = *s;
             }
-            source = *s;
         }
     }
     router.compute(source, sink, this, t, edges);
@@ -210,9 +220,15 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     if (!edges.empty() && edges.back()->isTazConnector()) {
         edges.pop_back();
     }
-    replaceRouteEdges(edges, info, onInit);
     const double routeCost = router.recomputeCosts(edges, this, t);
-    const_cast<MSRoute*>(myRoute)->setCosts(routeCost);
+    const double previousCost = onInit ? routeCost : router.recomputeCosts(oldEdgesRemaining, this, t);
+    const double savings = previousCost - routeCost;
+    //if (getID() == "43") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
+    //    << " onInit=" << onInit
+    //        << " prevEdges=" << toString(oldEdgesRemaining)
+    //        << " newEdges=" << toString(edges)
+    //        << "\n";
+    replaceRouteEdges(edges, routeCost, savings, info, onInit);
     // this must be called even if the route could not be replaced
     if (onInit) {
         if (edges.empty()) {
@@ -230,7 +246,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
 
 
 bool
-MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit, bool check, bool removeStops) {
+MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit, bool check, bool removeStops) {
     if (edges.empty()) {
         WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
         return false;
@@ -258,7 +274,9 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& in
         return true;
     }
     const RGBColor& c = myRoute->getColor();
-    MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? 0 : new RGBColor(c), std::vector<SUMOVehicleParameter::Stop>());
+    MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), std::vector<SUMOVehicleParameter::Stop>());
+    newRoute->setCosts(cost);
+    newRoute->setSavings(savings);
     if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
         return false;
@@ -310,12 +328,12 @@ MSBaseVehicle::hasDeparted() const {
 
 bool
 MSBaseVehicle::hasArrived() const {
-    return succEdge(1) == 0;
+    return succEdge(1) == nullptr;
 }
 
 void
 MSBaseVehicle::addPerson(MSTransportable* person) {
-    if (myPersonDevice == 0) {
+    if (myPersonDevice == nullptr) {
         myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
         myMoveReminders.push_back(std::make_pair(myPersonDevice, 0.));
         if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
@@ -327,7 +345,7 @@ MSBaseVehicle::addPerson(MSTransportable* person) {
 
 void
 MSBaseVehicle::addContainer(MSTransportable* container) {
-    if (myContainerDevice == 0) {
+    if (myContainerDevice == nullptr) {
         myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
         myMoveReminders.push_back(std::make_pair(myContainerDevice, 0.));
         if (myParameter->departProcedure == DEPART_TRIGGERED && myParameter->depart == -1) {
@@ -340,7 +358,7 @@ MSBaseVehicle::addContainer(MSTransportable* container) {
 bool
 MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
     MSRouteIterator start = myCurrEdge;
-    if (route == 0) {
+    if (route == nullptr) {
         route = myRoute;
     } else {
         start = route->begin();
@@ -348,7 +366,7 @@ MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
     MSRouteIterator last = route->end() - 1;
     // check connectivity, first
     for (MSRouteIterator e = start; e != last; ++e) {
-        if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == 0) {
+        if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == nullptr) {
             msg = "No connection between edge '" + (*e)->getID() + "' and edge '" + (*(e + 1))->getID() + "'.";
             return false;
         }
@@ -466,14 +484,14 @@ MSBaseVehicle::getImpatience() const {
 }
 
 
-MSDevice*
+MSVehicleDevice*
 MSBaseVehicle::getDevice(const std::type_info& type) const {
-    for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if (typeid(**dev) == type) {
-            return *dev;
+    for (MSVehicleDevice* const dev : myDevices) {
+        if (typeid(*dev) == type) {
+            return dev;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -519,7 +537,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors) {
 
 int
 MSBaseVehicle::getPersonNumber() const {
-    int boarded = myPersonDevice == 0 ? 0 : myPersonDevice->size();
+    int boarded = myPersonDevice == nullptr ? 0 : myPersonDevice->size();
     return boarded + myParameter->personNumber;
 }
 
@@ -535,16 +553,16 @@ MSBaseVehicle::getPersonIDList() const {
 
 int
 MSBaseVehicle::getContainerNumber() const {
-    int loaded = myContainerDevice == 0 ? 0 : myContainerDevice->size();
+    int loaded = myContainerDevice == nullptr ? 0 : myContainerDevice->size();
     return loaded + myParameter->containerNumber;
 }
 
 
 void
 MSBaseVehicle::removeTransportable(MSTransportable* t) {
-    const bool isPerson = dynamic_cast<MSPerson*>(t) != 0;
+    const bool isPerson = dynamic_cast<MSPerson*>(t) != nullptr;
     MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
-    if (device != 0) {
+    if (device != nullptr) {
         device->removeTransportable(t);
     }
 }
@@ -552,7 +570,7 @@ MSBaseVehicle::removeTransportable(MSTransportable* t) {
 
 const std::vector<MSTransportable*>&
 MSBaseVehicle::getPersons() const {
-    if (myPersonDevice == 0) {
+    if (myPersonDevice == nullptr) {
         return myEmptyTransportableVector;
     } else {
         return myPersonDevice->getTransportables();
@@ -562,7 +580,7 @@ MSBaseVehicle::getPersons() const {
 
 const std::vector<MSTransportable*>&
 MSBaseVehicle::getContainers() const {
-    if (myContainerDevice == 0) {
+    if (myContainerDevice == nullptr) {
         return myEmptyTransportableVector;
     } else {
         return myContainerDevice->getTransportables();
@@ -573,8 +591,8 @@ MSBaseVehicle::getContainers() const {
 
 bool
 MSBaseVehicle::hasDevice(const std::string& deviceName) const {
-    for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if ((*dev)->deviceName() == deviceName) {
+    for (MSDevice* const dev : myDevices) {
+        if (dev->deviceName() == deviceName) {
             return true;
         }
     }
@@ -603,9 +621,9 @@ MSBaseVehicle::createDevice(const std::string& deviceName) {
 
 std::string
 MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::string& key) const {
-    for (std::vector<MSDevice* >::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if ((*dev)->deviceName() == deviceName) {
-            return (*dev)->getParameter(key);
+    for (MSVehicleDevice* const dev : myDevices) {
+        if (dev->deviceName() == deviceName) {
+            return dev->getParameter(key);
         }
     }
     throw InvalidArgument("No device of type '" + deviceName + "' exists");
@@ -614,9 +632,9 @@ MSBaseVehicle::getDeviceParameter(const std::string& deviceName, const std::stri
 
 void
 MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::string& key, const std::string& value) {
-    for (std::vector<MSDevice* >::iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        if ((*dev)->deviceName() == deviceName) {
-            (*dev)->setParameter(key, value);
+    for (MSVehicleDevice* const dev : myDevices) {
+        if (dev->deviceName() == deviceName) {
+            dev->setParameter(key, value);
             return;
         }
     }
@@ -626,7 +644,8 @@ MSBaseVehicle::setDeviceParameter(const std::string& deviceName, const std::stri
 
 void
 MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
-    if (myType->isVehicleSpecific()) {
+    assert(type != nullptr);
+    if (myType->isVehicleSpecific() && type != myType) {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
     myType = type;

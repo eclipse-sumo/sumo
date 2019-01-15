@@ -105,14 +105,14 @@ public:
      * @brief Constructor without sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Parameters defined for the tll
      */
     MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-                             const std::string& subid, const Phases& phases, int step,
+                             const std::string& programID, const Phases& phases, int step,
                              SUMOTime delay,
                              const std::map<std::string, std::string>& parameters);
 
@@ -127,51 +127,51 @@ public:
     void init(NLDetectorBuilder& nb);
 
     SUMOTime getMaxCongestionDuration() {
-        return TplConvert::_2int(getParameter("MAX_CONGESTION_DUR", "120").c_str());
+        return StringUtils::toInt(getParameter("MAX_CONGESTION_DUR", "120"));
     }
 
     double getPheroMaxVal() {
-        return TplConvert::_2double(getParameter("PHERO_MAXVAL", "10").c_str());
+        return StringUtils::toDouble(getParameter("PHERO_MAXVAL", "10"));
     }
 
     double getBetaNo() {
-        return TplConvert::_2double(getParameter("BETA_NO", "0.99").c_str());
+        return StringUtils::toDouble(getParameter("BETA_NO", "0.99"));
     }
 
     double getGammaNo() {
-        return TplConvert::_2double(getParameter("GAMMA_NO", "1.0").c_str());
+        return StringUtils::toDouble(getParameter("GAMMA_NO", "1.0"));
     }
 
     double getBetaSp() {
-        return TplConvert::_2double(getParameter("BETA_SP", "0.99").c_str());
+        return StringUtils::toDouble(getParameter("BETA_SP", "0.99"));
     }
 
     double getGammaSp() {
-        return TplConvert::_2double(getParameter("GAMMA_SP", "1.0").c_str());
+        return StringUtils::toDouble(getParameter("GAMMA_SP", "1.0"));
     }
 
     double getChangePlanProbability() {
-        return TplConvert::_2double(getParameter("CHANGE_PLAN_PROBABILITY", "0.003").c_str());
+        return StringUtils::toDouble(getParameter("CHANGE_PLAN_PROBABILITY", "0.003"));
     }
 
     double getThetaMax() {
-        return TplConvert::_2double(getParameter("THETA_MAX", "0.8").c_str());
+        return StringUtils::toDouble(getParameter("THETA_MAX", "0.8"));
     }
 
     double getThetaMin() {
-        return TplConvert::_2double(getParameter("THETA_MIN", "0.2").c_str());
+        return StringUtils::toDouble(getParameter("THETA_MIN", "0.2"));
     }
 
     double getThetaInit() {
-        return TplConvert::_2double(getParameter("THETA_INIT", "0.5").c_str());
+        return StringUtils::toDouble(getParameter("THETA_INIT", "0.5"));
     }
 
     double getLearningCox() {
-        return TplConvert::_2double(getParameter("LEARNING_COX", "0.0005").c_str());
+        return StringUtils::toDouble(getParameter("LEARNING_COX", "0.0005"));
     }
 
     double getForgettingCox() {
-        return TplConvert::_2double(getParameter("FORGETTING_COX", "0.0005").c_str());
+        return StringUtils::toDouble(getParameter("FORGETTING_COX", "0.0005"));
     }
 
     double getScaleFactorDispersionIn() {
@@ -327,7 +327,7 @@ protected:
      * 2-> ratio
      */
     int getReinforcementMode() {
-        return TplConvert::_2int(getParameter("REIMODE", "0").c_str());
+        return StringUtils::toInt(getParameter("REIMODE", "0"));
     }
 
     void initScaleFactorDispersionIn(int lanes_in) {

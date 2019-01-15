@@ -21,7 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
 #include "GNEAdditional.h"
 
@@ -46,7 +45,7 @@ public:
      * @param[in] name E3 detector name
      * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
-     * @param[in] block movement enable or disable additional movement  
+     * @param[in] block movement enable or disable additional movement
      */
     GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, bool blockMovement);
 
@@ -56,16 +55,14 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] newPosition new position of geometry
-     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
      */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+    void moveGeometry(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] oldPos the old position of additional
      * @param[in] undoList The undoList on which to register changes
      */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);

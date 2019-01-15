@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 26 14:43:57 2018 by Eclipse SUMO netconvert Version 88bb7b0b92
+<!-- generated on Tue Dec  4 16:32:07 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -13,10 +13,10 @@
         <output-file value=".\netedit\bugs\ticket1711\input_net.net.xml"/>
     </output>
 
-    <processing>
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-    </processing>
+    </junctions>
 
     <report>
         <verbose value="true"/>
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -65,7 +65,7 @@
     <junction id="A" type="dead_end" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes="" shape="50.00,0.00 43.60,0.00 50.00,0.00"/>
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes="" shape="50.00,100.00 56.40,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes="" shape="0.00,50.00 0.00,56.40 0.00,50.00"/>
-    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1" intLanes="" shape="43.60,57.90 56.40,57.90 56.57,57.07 56.77,56.78 57.07,56.57 57.44,56.44 57.90,56.40 57.90,43.60 57.07,43.43 56.78,43.23 56.57,42.93 56.44,42.56 56.40,42.10 43.60,42.10 43.43,42.93 43.23,43.22 42.93,43.43 42.56,43.56 42.10,43.60 42.10,56.40 42.93,56.57 43.23,56.77 43.43,57.07 43.56,57.44">
+    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1" intLanes="" shape="43.60,57.90 56.40,57.90 56.57,57.07 56.77,56.77 57.07,56.57 57.44,56.44 57.90,56.40 57.90,43.60 57.07,43.43 56.77,43.23 56.57,42.93 56.44,42.56 56.40,42.10 43.60,42.10 43.43,42.93 43.23,43.23 42.93,43.43 42.56,43.56 42.10,43.60 42.10,56.40 42.93,56.57 43.23,56.77 43.43,57.07 43.56,57.44">
         <request index="0" response="0100" foes="1110"/>
         <request index="1" response="1101" foes="1101"/>
         <request index="2" response="0000" foes="1011"/>

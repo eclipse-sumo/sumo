@@ -1,0 +1,74 @@
+Debug: Adding chargingStation 'chargingStationA' in GNEChange_Additional
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Inserting generic parameter 'KeyA1|valueA1' into additional chargingStation.
+Debug: Inserting generic parameter 'KeyA3|valueA2' into additional chargingStation.
+Debug: Inserting generic parameter 'KeyA2|valueA3' into additional chargingStation.
+Debug: Adding chargingStation 'chargingStationB' in GNEChange_Additional
+Debug: Inserting generic parameter 'KeyB1|valueB1' into additional chargingStation.
+Debug: Inserting generic parameter 'KeyB3|valueB2' into additional chargingStation.
+Debug: Inserting generic parameter 'KeyB2|valueB3' into additional chargingStation.
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into chargingStation 'chargingStationA'
+Debug: Setting new attribute selected 'true' into chargingStation 'chargingStationB'
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute power '22000.00' into chargingStation 'chargingStationB'
+Debug: Value '-1000' for attribute power of chargingStation isn't valid
+Debug: Setting new attribute power '11000' into chargingStation 'chargingStationA'
+Debug: Setting new attribute power '11000' into chargingStation 'chargingStationB'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute power '22000.00' into chargingStation 'chargingStationB'
+Debug: Setting previous attribute power '22000.00' into chargingStation 'chargingStationA'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute power '13000.00' into chargingStation 'chargingStationB'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute selected '0' into chargingStation 'chargingStationB'
+Debug: Setting previous attribute selected '0' into chargingStation 'chargingStationA'
+Debug: Setting previous attribute selected '0' into edge 'gneE0'
+Debug: Setting previous attribute selected '0' into junction 'gneJ1'
+Debug: Setting previous attribute selected '0' into edge 'gneE1'
+Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing chargingStation 'chargingStationB' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
+Debug: Removing chargingStation 'chargingStationA' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding chargingStation 'chargingStationA' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStationB' in GNEChange_Additional
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into chargingStation 'chargingStationA'
+Debug: Setting new attribute selected 'true' into chargingStation 'chargingStationB'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute power '22000.00' into chargingStation 'chargingStationB'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute power '11000' into chargingStation 'chargingStationA'
+Debug: Setting new attribute power '11000' into chargingStation 'chargingStationB'
+Debug: Additionals saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced chargingStation 'chargingStationB'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced chargingStation 'chargingStationA'
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

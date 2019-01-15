@@ -48,8 +48,13 @@ visum.net     text eol=lf
 *.bat     text eol=crlf
 
 # Denote all files that are truly binary and should not be modified.
+png.complex binary
+png.sumo binary
+png2.sumo binary
+*.ico binary
 *.png binary
 *.jpg binary
+*.ttf binary
 
 # files to ignore on export / archive / dist building
 /.appveyor.yml export-ignore

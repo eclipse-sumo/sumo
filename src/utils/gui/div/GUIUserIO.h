@@ -47,12 +47,16 @@ class GUIUserIO {
 public:
     /** @brief Copies the given text to clipboard
      *
-     * This method is only implemented for MS Windows.
-     *
      * @param[in] app The application to use
      * @param[in] text The text to copy
      */
     static void copyToClipboard(const FXApp& app, const std::string& text);
+
+    /** @brief Copies text from the clipboard
+     *
+     * @param[in] app The application to use
+     */
+    static std::string copyFromClipboard(const FXApp& app);
 
     static std::string clipped;
 

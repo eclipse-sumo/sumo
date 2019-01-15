@@ -51,7 +51,7 @@ MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std:
     myLastRouteDistribution = std::make_pair(lastID, MSRoute::distDictionary(lastID));
     if (MSGlobals::gUseMesoSim) {
         MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
-        while (seg != 0) {
+        while (seg != nullptr) {
             seg->addDetector(this);
             seg = seg->getNextSegment();
         }
@@ -124,7 +124,7 @@ MSRouteProbe::getRoute() const {
         if (myCurrentRouteDistribution.second->getOverallProb() > 0) {
             return myCurrentRouteDistribution.second->get();
         }
-        return 0;
+        return nullptr;
     }
     return myLastRouteDistribution.second->get();
 }

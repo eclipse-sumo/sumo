@@ -1,0 +1,2 @@
+Warning: Essential unique string attribute 'lane' of e1Detector with ID 'E1_01' is missing; e1Detector cannot be created
+Warning: The lane 'dummyLane' to use within the e1Detector 'E1_02' is not known.

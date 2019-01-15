@@ -135,7 +135,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(s.SUMO_color_busStop);
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
     // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10) {
@@ -174,11 +174,11 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
     }
     if (s.addFullName.show && getMyName() != "") {
-        GLHelper::drawText(getMyName(), myFGSignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(myFGSignRot));
+        GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     glPopMatrix();
     glPopName();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(myFGSignPos, s.scale, s.addName, s.angle);
 }
 
 

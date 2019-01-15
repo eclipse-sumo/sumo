@@ -28,7 +28,7 @@
 #include <iostream>
 #include <xercesc/sax2/Attributes.hpp>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "SUMOSAXAttributes.h"
 
 
@@ -228,6 +228,8 @@ public:
      */
     SumoXMLNodeType getNodeType(bool& ok) const;
 
+    /// @brief returns rightOfWay method
+    RightOfWay getRightOfWay(bool& ok) const; 
 
     /**
      * @brief Returns the value of the named attribute
@@ -253,13 +255,6 @@ public:
      */
     Boundary getBoundary(int attr) const;
 
-    /** @brief Tries to read given attribute assuming it is a string vector
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occurred
-     */
-    std::vector<std::string> getStringVector(int attr) const;
-
     /** @brief Converts the given attribute id into a man readable string
      *
      * Returns a "?" if the attribute is not known.
@@ -276,6 +271,10 @@ public:
      */
     void serialize(std::ostream& os) const;
 
+    /** @brief Retrieves all attribute names
+     */
+    std::vector<std::string> getAttributeNames() const;
+
     /// @brief return a new deep-copy attributes object
     SUMOSAXAttributes* clone() const;
 
@@ -286,7 +285,7 @@ private:
      * @param[in] id The id of the attribute to retrieve the vale of
      * @return The xerces-value of the attribute
      */
-    const char* getAttributeValueSecure(int id) const;
+    const std::string& getAttributeValueSecure(int id) const;
 
 
 private:

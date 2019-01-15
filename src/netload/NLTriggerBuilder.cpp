@@ -58,7 +58,7 @@
 // method definitions
 // ===========================================================================
 NLTriggerBuilder::NLTriggerBuilder()
-    : myHandler(0), myParkingArea(0), myCurrentStop(0) {}
+    : myHandler(nullptr), myParkingArea(nullptr), myCurrentStop(nullptr) {}
 
 
 NLTriggerBuilder::~NLTriggerBuilder() {}
@@ -71,19 +71,20 @@ NLTriggerBuilder::setHandler(NLHandler* handler) {
 
 void
 NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
+    WRITE_WARNING("Vaporizers are deprecated. Use rerouters instead.");
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         return;
     }
     MSEdge* e = MSEdge::dictionary(id);
-    if (e == 0) {
+    if (e == nullptr) {
         WRITE_ERROR("Unknown edge ('" + id + "') referenced in a vaporizer.");
         return;
     }
-    SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, 0, ok);
-    SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, 0, ok);
+    SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok);
+    SUMOTime end = attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok);
     if (!ok) {
         return;
     }
@@ -111,25 +112,23 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
     // get the id, throw if not given or empty...
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         return;
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
     std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANES, id.c_str(), ok);
-    if (!ok) {
-        throw InvalidArgument("The lanes to use within MSLaneSpeedTrigger '" + id + "' are not known.");
-    }
     std::vector<MSLane*> lanes;
-    std::vector<std::string> laneIDs;
-    SUMOSAXAttributes::parseStringVector(objectid, laneIDs);
-    for (std::vector<std::string>::iterator i = laneIDs.begin(); i != laneIDs.end(); ++i) {
-        MSLane* lane = MSLane::dictionary(*i);
-        if (lane == 0) {
-            throw InvalidArgument("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
+    for (const std::string& laneID : attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), ok)) {
+        MSLane* lane = MSLane::dictionary(laneID);
+        if (lane == nullptr) {
+            throw InvalidArgument("The lane '" + laneID + "' to use within MSLaneSpeedTrigger '" + id + "' is not known.");
         }
         lanes.push_back(lane);
+    }
+    if (!ok) {
+        throw InvalidArgument("The lanes to use within MSLaneSpeedTrigger '" + id + "' are not known.");
     }
     if (lanes.size() == 0) {
         throw InvalidArgument("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
@@ -149,7 +148,7 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     bool ok = true;
 
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         throw ProcessError();
     }
@@ -162,12 +161,13 @@ NLTriggerBuilder::parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttribut
     const bool chargeInTransit = attrs.getOpt<bool>(SUMO_ATTR_CHARGEINTRANSIT, id.c_str(), ok, 0);
     const double chargeDelay = attrs.getOpt<double>(SUMO_ATTR_CHARGEDELAY, id.c_str(), ok, 0);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for charging station '" + id + "'.");
     }
 
-    buildChargingStation(net, id, lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
+    buildChargingStation(net, id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay);
 }
 
 
@@ -175,7 +175,7 @@ void
 NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes& attrs, const SumoXMLTag element) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         throw ProcessError();
     }
@@ -183,7 +183,6 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     //get the name, leave blank if not given
     const std::string ptStopName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
-    // get the lane
     MSLane* lane = getLane(attrs, toString(element), id);
     // get the positions
     double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
@@ -192,9 +191,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
-    // get the lines
-    std::vector<std::string> lines;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+    const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
     // build the bus stop
     buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName);
 }
@@ -202,8 +199,11 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
 
 void
 NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
+    if (myCurrentStop == nullptr) {
+        throw InvalidArgument("Could not add access outside a stopping place.");
+    }
     // get the lane
-    MSLane* lane = getLane(attrs, "access" , "");
+    MSLane* lane = getLane(attrs, "access", myCurrentStop->getID());
     // get the positions
     bool ok = true;
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
@@ -213,13 +213,8 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
     }
     // add bus stop access
-    if (myCurrentStop != 0) {
-        ok = myCurrentStop->addAccess(lane, pos, length);
-        if (!ok) {
-            throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
-        }
-    } else {
-        throw InvalidArgument("Could not add access outside a stopping place.");
+    if (!myCurrentStop->addAccess(lane, pos, length)) {
+        throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
     }
 }
 
@@ -228,7 +223,7 @@ void
 NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         throw ProcessError();
     }
@@ -239,6 +234,7 @@ NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& 
     double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     unsigned int capacity = attrs.getOpt<int>(SUMO_ATTR_ROADSIDE_CAPACITY, id.c_str(), ok, 0);
+    bool onRoad = attrs.getOpt<bool>(SUMO_ATTR_ONROAD, id.c_str(), ok, false);
     double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, 0);
     double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
     double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, 0);
@@ -246,11 +242,9 @@ NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& 
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for parking area '" + id + "'.");
     }
-    // get the lines
-    std::vector<std::string> lines;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+    const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
     // build the parking area
-    beginParkingArea(net, id, lines, lane, frompos, topos, capacity, width, length, angle, name);
+    beginParkingArea(net, id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad);
 }
 
 
@@ -259,7 +253,7 @@ void
 NLTriggerBuilder::parseAndAddLotEntry(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // Check for open parking area
-    if (myParkingArea == 0) {
+    if (myParkingArea == nullptr) {
         throw ProcessError();
     }
     // get the positions
@@ -285,17 +279,17 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
         const std::string& base) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         throw ProcessError();
     }
-    MSLane* lane = 0;
-    MSEdge* edge = 0;
+    MSLane* lane = nullptr;
+    MSEdge* edge = nullptr;
     // get the file name to read further definitions from
     if (attrs.hasAttribute(SUMO_ATTR_EDGE)) {
         std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, id.c_str(), ok);
         edge = MSEdge::dictionary(edgeID);
-        if (edge == 0) {
+        if (edge == nullptr) {
             throw InvalidArgument("The edge " + edgeID + " to use within the calibrator '" + id + "' is not known.");
         }
         if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
@@ -314,15 +308,15 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
     std::string file = getFileName(attrs, base, true);
     std::string outfile = attrs.getOpt<std::string>(SUMO_ATTR_OUTPUT, id.c_str(), ok, "");
     std::string routeProbe = attrs.getOpt<std::string>(SUMO_ATTR_ROUTEPROBE, id.c_str(), ok, "");
-    MSRouteProbe* probe = 0;
+    MSRouteProbe* probe = nullptr;
     if (routeProbe != "") {
         probe = dynamic_cast<MSRouteProbe*>(net.getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(routeProbe));
-        if (probe == 0) {
+        if (probe == nullptr) {
             throw InvalidArgument("The routeProbe '" + routeProbe + "' to use within the calibrator '" + id + "' is not known.");
         }
     }
     if (MSGlobals::gUseMesoSim) {
-        if (lane != 0 && edge->getLanes().size() > 1) {
+        if (lane != nullptr && edge->getLanes().size() > 1) {
             WRITE_WARNING("Meso calibrator '" + id
                           + "' defined for lane '" + lane->getID()
                           + "' will collect data for all lanes of edge '" + edge->getID() + "'.");
@@ -345,25 +339,22 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
                                         const std::string& base) {
     bool ok = true;
     // get the id, throw if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         throw ProcessError();
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
-    std::string objectid = attrs.get<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok);
-    if (!ok) {
-        throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
-    }
     MSEdgeVector edges;
-    std::vector<std::string> edgeIDs;
-    SUMOSAXAttributes::parseStringVector(objectid, edgeIDs);
-    for (std::vector<std::string>::iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
-        MSEdge* edge = MSEdge::dictionary(*i);
-        if (edge == 0) {
-            throw InvalidArgument("The edge '" + (*i) + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
+    for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok)) {
+        MSEdge* edge = MSEdge::dictionary(edgeID);
+        if (edge == nullptr) {
+            throw InvalidArgument("The edge '" + edgeID + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
         }
         edges.push_back(edge);
+    }
+    if (!ok) {
+        throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
     }
     if (edges.size() == 0) {
         throw InvalidArgument("No edges found for MSTriggeredRerouter '" + id + "'.");
@@ -435,7 +426,7 @@ NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std
     myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName);
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
-        myCurrentStop = 0;
+        myCurrentStop = nullptr;
         throw InvalidArgument("Could not build " + toString(element) + " '" + id + "'; probably declared twice.");
     }
 }
@@ -446,9 +437,10 @@ NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
                                    const std::vector<std::string>& lines,
                                    MSLane* lane, double frompos, double topos,
                                    unsigned int capacity,
-                                   double width, double length, double angle, const std::string& name) {
+                                   double width, double length, double angle, const std::string& name,
+                                   bool onRoad) {
     // Close previous parking area if there are not lots inside
-    MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name);
+    MSParkingArea* stop = new MSParkingArea(id, lines, *lane, frompos, topos, capacity, width, length, angle, name, onRoad);
     if (!net.addStoppingPlace(SUMO_TAG_PARKING_AREA, stop)) {
         delete stop;
         throw InvalidArgument("Could not build parking area '" + id + "'; probably declared twice.");
@@ -461,8 +453,12 @@ NLTriggerBuilder::beginParkingArea(MSNet& net, const std::string& id,
 void
 NLTriggerBuilder::addLotEntry(double x, double y, double z,
                               double width, double length, double angle) {
-    if (myParkingArea != 0) {
-        myParkingArea->addLotEntry(x, y, z, width, length, angle);
+    if (myParkingArea != nullptr) {
+        if (!myParkingArea->parkOnRoad()) {
+            myParkingArea->addLotEntry(x, y, z, width, length, angle);
+        } else {
+            throw InvalidArgument("Cannot not add lot entry to on-road parking area.");
+        }
     } else {
         throw InvalidArgument("Could not add lot entry outside a parking area.");
     }
@@ -471,8 +467,8 @@ NLTriggerBuilder::addLotEntry(double x, double y, double z,
 
 void
 NLTriggerBuilder::endParkingArea() {
-    if (myParkingArea != 0) {
-        myParkingArea = 0;
+    if (myParkingArea != nullptr) {
+        myParkingArea = nullptr;
     } else {
         throw InvalidArgument("Could not end a parking area that is not opened.");
     }
@@ -481,8 +477,8 @@ NLTriggerBuilder::endParkingArea() {
 
 void
 NLTriggerBuilder::endStoppingPlace() {
-    if (myCurrentStop != 0) {
-        myCurrentStop = 0;
+    if (myCurrentStop != nullptr) {
+        myCurrentStop = nullptr;
     } else {
         throw InvalidArgument("Could not end a stopping place that is not opened.");
     }
@@ -490,9 +486,9 @@ NLTriggerBuilder::endStoppingPlace() {
 
 
 void
-NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
                                        double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) {
-    MSChargingStation* chargingStation = new MSChargingStation(id, *lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay);
+    MSChargingStation* chargingStation = new MSChargingStation(id, *lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay);
     if (!net.addStoppingPlace(SUMO_TAG_CHARGING_STATION, chargingStation)) {
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
@@ -505,7 +501,7 @@ NLTriggerBuilder::getFileName(const SUMOSAXAttributes& attrs,
                               const bool allowEmpty) {
     // get the file name to read further definitions from
     bool ok = true;
-    std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, 0, ok, "");
+    std::string file = attrs.getOpt<std::string>(SUMO_ATTR_FILE, nullptr, ok, "");
     if (file == "") {
         if (allowEmpty) {
             return file;
@@ -527,7 +523,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes& attrs,
     bool ok = true;
     std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANE, tid.c_str(), ok);
     MSLane* lane = MSLane::dictionary(objectid);
-    if (lane == 0) {
+    if (lane == nullptr) {
         throw InvalidArgument("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");
     }
     return lane;
@@ -540,10 +536,10 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
                               const std::string& tt, const std::string& tid,
                               MSEdge* edge) {
     assert(lane != 0 || edge != 0);
-    const double length = lane != 0 ? lane->getLength() : edge->getLength();
+    const double length = lane != nullptr ? lane->getLength() : edge->getLength();
     bool ok = true;
-    double pos = attrs.get<double>(SUMO_ATTR_POSITION, 0, ok);
-    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, 0, ok, false);
+    double pos = attrs.get<double>(SUMO_ATTR_POSITION, nullptr, ok);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
     if (!ok) {
         throw InvalidArgument("Error on parsing a position information.");
     }
@@ -554,7 +550,7 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
         if (friendlyPos) {
             pos = length - (double) 0.1;
         } else {
-            if (lane != 0) {
+            if (lane != nullptr) {
                 throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
             } else {
                 throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the edges's '" + edge->getID() + "' length.");
@@ -563,7 +559,6 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
     }
     return pos;
 }
-
 
 
 /****************************************************************************/

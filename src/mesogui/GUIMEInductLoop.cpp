@@ -56,7 +56,7 @@ GUIMEInductLoop::buildDetectorGUIRepresentation() {
 
 // -----------------------------------------------------------------------
 // GUIMEInductLoop::MyWrapper-methods
-// ----------------------------------------------------------------------- 
+// -----------------------------------------------------------------------
 
 GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
     : GUIDetectorWrapper(GLO_E1DETECTOR_ME, detector.getID()),
@@ -119,7 +119,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPolygonOffset(0, -2);
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // shape
     glColor3d(1, 1, 0);
     glPushMatrix();

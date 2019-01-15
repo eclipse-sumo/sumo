@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:47 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:37 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="0" type="priority" x="50.00" y="50.00" incLanes="4i_0 2i_0 2i_1 2i_2 3i_0" intLanes=":0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_4_1 :0_4_2 :0_7_0 :0_8_0 :0_9_0 :0_10_0" shape="46.80,63.60 53.20,63.60 53.64,61.38 54.20,60.60 54.98,60.04 55.98,59.71 57.20,59.60 57.20,50.00 54.98,49.56 54.20,49.00 53.64,48.22 53.31,47.22 53.20,46.00 46.80,46.00 46.36,48.22 45.80,49.00 45.02,49.56 44.02,49.89 42.80,50.00 42.80,59.60 45.02,60.04 45.80,60.60 46.36,61.38 46.69,62.38">
-        <request index="0"  response="00001110000" foes="01001110000" cont="0"/>
+        <request index="0"  response="00001110000" foes="00001110000" cont="0"/>
         <request index="1"  response="00011110000" foes="11011110000" cont="0"/>
         <request index="2"  response="00100001000" foes="00100001000" cont="0"/>
         <request index="3"  response="00000000000" foes="00100000100" cont="0"/>
@@ -101,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="6"  response="00000000000" foes="01100000011" cont="0"/>
         <request index="7"  response="00000000000" foes="11100000010" cont="0"/>
         <request index="8"  response="00011111000" foes="00011111100" cont="0"/>
-        <request index="9"  response="00011110011" foes="00011110011" cont="0"/>
+        <request index="9"  response="00011110010" foes="00011110010" cont="0"/>
         <request index="10" response="00010000010" foes="00010000010" cont="0"/>
     </junction>
     <junction id="1" type="dead_end" x="0.00" y="50.00" incLanes="1o_0 1o_1 1o_2" intLanes="" shape="0.00,59.60 0.00,50.00"/>

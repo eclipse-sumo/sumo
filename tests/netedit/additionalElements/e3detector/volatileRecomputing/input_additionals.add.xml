@@ -1,38 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 14.09.2018 15:24:48 by Eclipse SUMO netedit Version UNKNOWN
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\projects\sumo\tests\netedit\additionalElements\e3detector\volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\projects\sumo\tests\netedit\additionalElements\e3detector\volatileRecomputing\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" freq="100.00" file="e3Detector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="-11.53,8.52">
-        <detEntry lane="gneE2_0" pos="8.59" friendlyPos="0"/>
-        <detEntry lane="gneE2_1" pos="14.94" friendlyPos="0"/>
-        <detEntry lane="gneE2_2" pos="20.37" friendlyPos="0"/>
-        <detEntry lane="gneE2_3" pos="24.10" friendlyPos="0"/>
-        <detEntry lane="gneE2_4" pos="28.17" friendlyPos="0"/>
-        <detEntry lane="gneE4_0" pos="18.73" friendlyPos="0"/>
-        <detEntry lane="gneE1_0" pos="36.87" friendlyPos="0"/>
-        <detEntry lane="gneE0_0" pos="10.72" friendlyPos="0"/>
-        <detExit lane="gneE2_0" pos="1.40" friendlyPos="0"/>
-        <detExit lane="gneE2_1" pos="3.46" friendlyPos="0"/>
-        <detExit lane="gneE2_2" pos="6.73" friendlyPos="0"/>
-        <detExit lane="gneE2_3" pos="9.30" friendlyPos="0"/>
-        <detExit lane="gneE2_4" pos="12.31" friendlyPos="0"/>
-        <detExit lane="gneE4_0" pos="34.51" friendlyPos="0"/>
-        <detExit lane="gneE1_0" pos="8.19" friendlyPos="0"/>
-        <detExit lane="gneE0_0" pos="38.04" friendlyPos="0"/>
+    <e3Detector id="e3Detector_0" pos="-11.53,8.52" freq="100.00" file="e3Detector_0.txt">
+        <detEntry lane="gneE4_0" pos="13.82"/>
+        <detEntry lane="gneE1_0" pos="42.11"/>
+        <detExit lane="gneE0_0" pos="38.04"/>
+        <detExit lane="gneE4_0" pos="34.51"/>
     </e3Detector>
-    <e3Detector id="e3Detector_1" freq="100.00" file="e3Detector_1.txt" timeThreshold="1.00" speedThreshold="1.39" pos="60.44,12.04">
-        <detEntry lane="gneE2_0" pos="19.61" friendlyPos="0"/>
-        <detEntry lane="gneE2_1" pos="22.87" friendlyPos="0"/>
-        <detEntry lane="gneE2_2" pos="26.31" friendlyPos="0"/>
-        <detEntry lane="gneE2_3" pos="27.77" friendlyPos="0"/>
-        <detEntry lane="gneE2_4" pos="31.03" friendlyPos="0"/>
-        <detEntry lane="gneE4_0" pos="13.82" friendlyPos="0"/>
-        <detEntry lane="gneE1_0" pos="42.11" friendlyPos="0"/>
-        <detEntry lane="gneE0_0" pos="4.97" friendlyPos="0"/>
-        <detExit lane="gneE2_0" pos="3.55" friendlyPos="0"/>
-        <detExit lane="gneE2_1" pos="5.78" friendlyPos="0"/>
-        <detExit lane="gneE2_2" pos="10.25" friendlyPos="0"/>
-        <detExit lane="gneE2_3" pos="13.68" friendlyPos="0"/>
-        <detExit lane="gneE2_4" pos="19.01" friendlyPos="0"/>
-        <detExit lane="gneE4_0" pos="28.24" friendlyPos="0"/>
-        <detExit lane="gneE1_0" pos="23.22" friendlyPos="0"/>
-        <detExit lane="gneE0_0" pos="23.95" friendlyPos="0"/>
+    <e3Detector id="e3Detector_1" pos="60.44,12.04" freq="100.00" file="e3Detector_1.txt">
+        <detEntry lane="gneE0_0" pos="4.97"/>
+        <detEntry lane="gneE2_0" pos="19.61"/>
+        <detExit lane="gneE1_0" pos="23.22"/>
+        <detExit lane="gneE2_0" pos="3.55"/>
     </e3Detector>
 </additional>

@@ -103,6 +103,8 @@ public:
 
     double getSafetyFactor() const;
 
+    double getOppositeSafetyFactor() const; 
+
     void prepareStep();
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
@@ -264,6 +266,7 @@ protected:
     double myCooperativeParam; // in [0,1]
     double mySpeedGainParam;
     double myKeepRightParam;
+    double myOppositeParam;
 
     // @brief the factor by which the lookahead distance to the left differs from the lookahead to the right
     double myLookaheadLeft;

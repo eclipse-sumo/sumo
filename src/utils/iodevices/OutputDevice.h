@@ -119,7 +119,7 @@ public:
 
     /**  Closes all registered devices
      */
-    static void closeAll(bool keepErrorRetrievers=false);
+    static void closeAll(bool keepErrorRetrievers = false);
     /// @}
 
 
@@ -327,6 +327,10 @@ public:
         getOStream() << t;
         postWriteHook();
         return *this;
+    }
+
+    void flush() {
+        getOStream().flush();
     }
 
 protected:

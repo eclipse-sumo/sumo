@@ -25,7 +25,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/WrappingCommand.h>
@@ -83,7 +83,7 @@ MSDevice_DriverState::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "driverstate", v, false)) {
         const double minAwareness = getMinAwareness(v, oc);
@@ -110,35 +110,35 @@ MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>
 
 
 double
-MSDevice_DriverState::getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.minAwareness", DriverStateDefaults::minAwareness, false);
 }
 double
-MSDevice_DriverState::getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.initialAwareness", DriverStateDefaults::initialAwareness, false);
 }
 double
-MSDevice_DriverState::getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.errorTimeScaleCoefficient", DriverStateDefaults::errorTimeScaleCoefficient, false);
 }
 double
-MSDevice_DriverState::getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.errorNoiseIntensityCoefficient", DriverStateDefaults::errorNoiseIntensityCoefficient, false);
 }
 double
-MSDevice_DriverState::getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.speedDifferenceErrorCoefficient", DriverStateDefaults::speedDifferenceErrorCoefficient, false);
 }
 double
-MSDevice_DriverState::getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.speedDifferenceChangePerceptionThreshold", DriverStateDefaults::speedDifferenceChangePerceptionThreshold, false);
 }
 double
-MSDevice_DriverState::getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.headwayChangePerceptionThreshold", DriverStateDefaults::headwayChangePerceptionThreshold, false);
 }
 double
-MSDevice_DriverState::getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc){
+MSDevice_DriverState::getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.headwayErrorCoefficient", DriverStateDefaults::headwayErrorCoefficient, false);
 }
 
@@ -155,7 +155,7 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
         double speedDifferenceChangePerceptionThreshold,
         double headwayChangePerceptionThreshold,
         double headwayErrorCoefficient) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myMinAwareness(minAwareness),
     myInitialAwareness(initialAwareness),
     myErrorTimeScaleCoefficient(errorTimeScaleCoefficient),
@@ -164,8 +164,7 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
     mySpeedDifferenceChangePerceptionThreshold(speedDifferenceChangePerceptionThreshold),
     myHeadwayChangePerceptionThreshold(headwayChangePerceptionThreshold),
     myHeadwayErrorCoefficient(headwayErrorCoefficient),
-    myDriverState(nullptr)
-    {
+    myDriverState(nullptr) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
     // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
@@ -173,14 +172,14 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
 
 #ifdef DEBUG_DSDEVICE
     std::cout << "initialized device '" << id << "' with "
-            << "myMinAwareness=" << myMinAwareness << ", "
-            << "myInitialAwareness=" << myInitialAwareness << ", "
-            << "myErrorTimeScaleCoefficient=" << myErrorTimeScaleCoefficient << ", "
-            << "myErrorNoiseIntensityCoefficient=" << myErrorNoiseIntensityCoefficient << ", "
-            << "mySpeedDifferenceErrorCoefficient=" << mySpeedDifferenceErrorCoefficient << ", "
-            << "mySpeedDifferenceChangePerceptionThreshold=" << mySpeedDifferenceChangePerceptionThreshold << ", "
-            << "myHeadwayChangePerceptionThreshold=" << myHeadwayChangePerceptionThreshold << ", "
-            << "myHeadwayErrorCoefficient=" << myHeadwayErrorCoefficient << std::endl;
+              << "myMinAwareness=" << myMinAwareness << ", "
+              << "myInitialAwareness=" << myInitialAwareness << ", "
+              << "myErrorTimeScaleCoefficient=" << myErrorTimeScaleCoefficient << ", "
+              << "myErrorNoiseIntensityCoefficient=" << myErrorNoiseIntensityCoefficient << ", "
+              << "mySpeedDifferenceErrorCoefficient=" << mySpeedDifferenceErrorCoefficient << ", "
+              << "mySpeedDifferenceChangePerceptionThreshold=" << mySpeedDifferenceChangePerceptionThreshold << ", "
+              << "myHeadwayChangePerceptionThreshold=" << myHeadwayChangePerceptionThreshold << ", "
+              << "myHeadwayErrorCoefficient=" << myHeadwayErrorCoefficient << std::endl;
 #endif
 
 }
@@ -255,29 +254,29 @@ MSDevice_DriverState::setParameter(const std::string& key, const std::string& va
     std::cout << "MSDevice_DriverState::setParameter(key=" << key << ", value=" << value << ")" << std::endl;
 #endif
     if (key == "awareness") {
-        myDriverState->setAwareness(TplConvert::_2double(value.c_str()));
+        myDriverState->setAwareness(StringUtils::toDouble(value));
     } else if (key == "errorState") {
-        myDriverState->setErrorState(TplConvert::_2double(value.c_str()));
+        myDriverState->setErrorState(StringUtils::toDouble(value));
     } else if (key == "errorTimeScale") {
-        myDriverState->setErrorTimeScale(TplConvert::_2double(value.c_str()));
+        myDriverState->setErrorTimeScale(StringUtils::toDouble(value));
     } else if (key == "errorNoiseIntensity") {
-        myDriverState->setErrorNoiseIntensity(TplConvert::_2double(value.c_str()));
+        myDriverState->setErrorNoiseIntensity(StringUtils::toDouble(value));
     } else if (key == "minAwareness") {
-        myDriverState->setMinAwareness(TplConvert::_2double(value.c_str()));
+        myDriverState->setMinAwareness(StringUtils::toDouble(value));
     } else if (key == "initialAwareness") {
-        myDriverState->setInitialAwareness(TplConvert::_2double(value.c_str()));
+        myDriverState->setInitialAwareness(StringUtils::toDouble(value));
     } else if (key == "errorTimeScaleCoefficient") {
-        myDriverState->setErrorTimeScaleCoefficient(TplConvert::_2double(value.c_str()));
+        myDriverState->setErrorTimeScaleCoefficient(StringUtils::toDouble(value));
     } else if (key == "errorNoiseIntensityCoefficient") {
-        myDriverState->setErrorNoiseIntensityCoefficient(TplConvert::_2double(value.c_str()));
+        myDriverState->setErrorNoiseIntensityCoefficient(StringUtils::toDouble(value));
     } else if (key == "speedDifferenceErrorCoefficient") {
-        myDriverState->setSpeedDifferenceErrorCoefficient(TplConvert::_2double(value.c_str()));
+        myDriverState->setSpeedDifferenceErrorCoefficient(StringUtils::toDouble(value));
     } else if (key == "headwayErrorCoefficient") {
-        myDriverState->setHeadwayErrorCoefficient(TplConvert::_2double(value.c_str()));
+        myDriverState->setHeadwayErrorCoefficient(StringUtils::toDouble(value));
     } else if (key == "speedDifferenceChangePerceptionThreshold") {
-        myDriverState->setSpeedDifferenceChangePerceptionThreshold(TplConvert::_2double(value.c_str()));
+        myDriverState->setSpeedDifferenceChangePerceptionThreshold(StringUtils::toDouble(value));
     } else if (key == "headwayChangePerceptionThreshold") {
-        myDriverState->setHeadwayChangePerceptionThreshold(TplConvert::_2double(value.c_str()));
+        myDriverState->setHeadwayChangePerceptionThreshold(StringUtils::toDouble(value));
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }

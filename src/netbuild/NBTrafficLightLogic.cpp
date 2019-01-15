@@ -44,18 +44,6 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-const char NBTrafficLightLogic::allowedStatesInitializer[] = {LINKSTATE_TL_GREEN_MAJOR,
-                                                              LINKSTATE_TL_GREEN_MINOR,
-                                                              LINKSTATE_STOP, // used for NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED
-                                                              LINKSTATE_TL_RED,
-                                                              LINKSTATE_TL_REDYELLOW,
-                                                              LINKSTATE_TL_YELLOW_MAJOR,
-                                                              LINKSTATE_TL_YELLOW_MINOR,
-                                                              LINKSTATE_TL_OFF_BLINKING,
-                                                              LINKSTATE_TL_OFF_NOSIGNAL
-                                                             };
-
-const std::string NBTrafficLightLogic::ALLOWED_STATES(NBTrafficLightLogic::allowedStatesInitializer, 9);
 
 // ===========================================================================
 // member method definitions
@@ -79,15 +67,15 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int index) {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int next, const std::string& name, int index) {
     addStep(duration, state,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
-            index);
+            next, name, index);
 }
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int index) {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next, const std::string& name, int index) {
     // check state size
     if (myNumLinks == 0) {
         // initialize
@@ -97,7 +85,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTi
                            " does not match declared number of links " + toString(myNumLinks));
     }
     // check state contents
-    const std::string::size_type illegal = state.find_first_not_of(ALLOWED_STATES);
+    const std::string::size_type illegal = state.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
     if (std::string::npos != illegal) {
         throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
     }
@@ -106,7 +94,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTi
         // insert at the end
         index = (int)myPhases.size();
     }
-    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur));
+    myPhases.insert(myPhases.begin() + index, PhaseDefinition(duration, state, minDur, maxDur, next, name));
 }
 
 
@@ -223,6 +211,17 @@ NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
     myPhases[phaseIndex].maxDur = duration;
 }
 
+void
+NBTrafficLightLogic::setPhaseNext(int phaseIndex, int next) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].next = next;
+}
+
+void
+NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
+    assert(phaseIndex < (int)myPhases.size());
+    myPhases[phaseIndex].name = name;
+}
 
 /****************************************************************************/
 

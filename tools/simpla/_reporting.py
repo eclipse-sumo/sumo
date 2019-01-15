@@ -41,7 +41,7 @@ initDefaults()
 
 
 def simTime():
-    return traci.simulation.getCurrentTime() / 1000.
+    return traci.simulation.getTime()
 
 
 def array2String(a):

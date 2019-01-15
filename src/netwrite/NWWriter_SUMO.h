@@ -98,7 +98,7 @@ public:
 
     /** @brief Write a stopOffset element into output device
      */
-    static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions,double>& stopOffsets);
+    static void writeStopOffsets(OutputDevice& into, const std::map<SVCPermissions, double>& stopOffsets);
 
 
 private:
@@ -134,7 +134,7 @@ private:
      */
     static void writeLane(OutputDevice& into, const std::string& lID,
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
-                          double endOffset, std::map<SVCPermissions,double> stopOffsets, double width, PositionVector shape,
+                          double endOffset, std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, bool accelRamp = false,
                           bool customShape = false);
@@ -143,9 +143,8 @@ private:
     /** @brief Writes a junction (<junction ...)
      * @param[in] into The device to write the edge into
      * @param[in] n The junction/node to write
-     * @param[in] checkLaneFoes Whether laneConflicts shall be checked at this junction
      */
-    static void writeJunction(OutputDevice& into, const NBNode& n, const bool checkLaneFoes);
+    static void writeJunction(OutputDevice& into, const NBNode& n);
 
 
     /** @brief Writes internal junctions (<junction with id[0]==':' ...) of the given node
@@ -197,7 +196,7 @@ private:
                                 const NBEdgeCont& ec);
 
     /// @brief retrieve the id of the opposite direction internal lane if it exists
-    static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con);
+    static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength);
 
 };
 

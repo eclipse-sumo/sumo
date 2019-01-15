@@ -1,7 +1,61 @@
-java version "1.8.0_161"
-Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
-Java HotSpot(TM) Client VM (build 25.161-b12, mixed mode)
-Feb 06, 2018 11:51:19 AM java.util.prefs.WindowsPreferences <init>
-WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
-Warning: Cleaning textures in GUITextureSubSys::resetTextures
-Warning: Cleaning textures in GUITexturesHelper::clearTextures
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Selected item 'poly' in ItemSelector
+Debug: Selected item 'poiLane' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Adding poiLane 'POI_0' into viewNet
+Debug: Shapes has to be saved
+Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Setting new attribute blockMovement 'false' into poiLane 'POI_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Setting new attribute pos '26.00' into poiLane 'POI_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Setting new attribute pos '41.00' into poiLane 'POI_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Setting new attribute pos '50.00' into poiLane 'POI_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Setting new attribute pos '0.00' into poiLane 'POI_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 0, Shapes: 1, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 3, AttributeCarriers: 3, NetElements: 2, Additionals: 0, Shapes: 1, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Setting new attribute pos '18.00' into poiLane 'POI_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '0.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '50.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '41.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '26.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '43.00' into poiLane 'POI_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '26.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '41.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '50.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '0.00' into poiLane 'POI_0'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '18.00' into poiLane 'POI_0'
+Debug: Shapes saved
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Removing poiLane 'POI_0' from net in ~GNEChange_Shape()
+Debug: delete poiLane 'POI_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor

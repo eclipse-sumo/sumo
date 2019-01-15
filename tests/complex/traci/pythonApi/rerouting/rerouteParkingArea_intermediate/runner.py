@@ -17,19 +17,18 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
-traci.start([sumoBinary, 
-    '-c', 'sumo.sumocfg',
-    '-n', 'input_net2.net.xml',
-    '-a', 'input_additional.add.xml',
-    #'-S', '-Q',
-    ])
+traci.start([sumoBinary,
+             '-c', 'sumo.sumocfg',
+             '-n', 'input_net2.net.xml',
+             '-a', 'input_additional.add.xml',
+             # '-S', '-Q',
+             ])
 
 traci.simulationStep()
 traci.vehicle.rerouteParkingArea("ego", 'parkB1B2')

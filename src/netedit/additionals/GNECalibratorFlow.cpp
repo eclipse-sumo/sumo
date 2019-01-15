@@ -18,34 +18,13 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/dialogs/GNECalibratorDialog.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNECalibratorFlow.h"
-#include "GNECalibratorVehicleType.h"
-#include "GNECalibratorRoute.h"
-#include "GNECalibrator.h"
 
 
 // ===========================================================================
@@ -62,7 +41,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string &vehsPerHour, const std::string &speed,
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditional* vehicleType, GNEAdditional* route, const std::string& vehsPerHour, const std::string& speed,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
@@ -92,37 +71,37 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEAdditio
 GNECalibratorFlow::~GNECalibratorFlow() {}
 
 
-void 
-GNECalibratorFlow::moveGeometry(const Position&, const Position&) {
+void
+GNECalibratorFlow::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNECalibratorFlow::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNECalibratorFlow::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorFlow::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNECalibratorFlow::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNECalibratorFlow::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently This additional isn't drawn
 }
@@ -176,7 +155,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -211,7 +190,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -226,9 +205,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_VEHSPERHOUR:
-            if(value.empty()) {
+            if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
-                if(mySpeed.empty()) {
+                if (mySpeed.empty()) {
                     return false;
                 } else {
                     return true;
@@ -239,9 +218,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_SPEED:
-            if(value.empty()) {
+            if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
-                if(myVehsPerHour.empty()) {
+                if (myVehsPerHour.empty()) {
                     return false;
                 } else {
                     return true;
@@ -250,7 +229,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
                 return (parse<double>(value) >= 0);
             } else {
                 return false;
-            }        case SUMO_ATTR_COLOR:
+            }
+        case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
             return canParse<double>(value) && (parse<double>(value) >= 0);
@@ -307,20 +287,20 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
-std::string 
+std::string
 GNECalibratorFlow::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 // ===========================================================================
@@ -394,7 +374,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

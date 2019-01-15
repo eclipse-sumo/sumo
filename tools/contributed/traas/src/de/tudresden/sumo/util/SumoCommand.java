@@ -208,14 +208,6 @@ public class SumoCommand {
 		else if((Integer) input2 == Constants.CMD_REROUTE_EFFORT || (Integer) input2 == Constants.CMD_REROUTE_TRAVELTIME || (Integer) input2 == Constants.CMD_RESUME){
 				cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
 				cmd.content().writeInt(0);
-		}
-	
-		else if((Integer) input2 == Constants.VAR_VIEW_BOUNDARY){
-				cmd.content().writeUnsignedByte(Constants.TYPE_BOUNDINGBOX);
-				for(int i=0; i<array.length; i++){
-					add_variable(array[i]);
-				}	
-				
 		}else if((Integer) input2 == Constants.VAR_VIEW_OFFSET){
 		
 			cmd.content().writeUnsignedByte(Constants.POSITION_2D);
@@ -405,14 +397,14 @@ public class SumoCommand {
 			
 			cmd.content().writeUnsignedByte(Constants.POSITION_ROADMAP);
 			add_variable(edge1);
-			cmd.content().writeUnsignedByte(0);
 			add_variable(array[1]);
+			cmd.content().writeUnsignedByte(0);
 			
 			String edge2 = (String) array[2];
 			cmd.content().writeUnsignedByte(Constants.POSITION_ROADMAP);
 			add_variable(edge2);
-			cmd.content().writeUnsignedByte(0);
 			add_variable(array[3]);
+			cmd.content().writeUnsignedByte(0);
 
 			boolean isDriving = (boolean) array[4];
 			

@@ -18,34 +18,18 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
 #include <foreign/fontstash/fontstash.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/common/MsgHandler.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/geom/GeomHelper.h>
 
 #include "GNEBusStop.h"
 #include "GNEAccess.h"
@@ -54,7 +38,7 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string &startPos, const std::string &endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myLines(lines) {
 }
@@ -66,7 +50,7 @@ GNEBusStop::~GNEBusStop() {}
 void
 GNEBusStop::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -74,10 +58,10 @@ GNEBusStop::updateGeometry(bool updateGrid) {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex())/2);
+    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex()) / 2);
 
     // Obtain a copy of the shape
-    PositionVector tmpShape = myShape;
+    PositionVector tmpShape = myGeometry.shape;
 
     // Move shape to side
     tmpShape.move2side(1.5 * offsetSign);
@@ -86,13 +70,13 @@ GNEBusStop::updateGeometry(bool updateGrid) {
     mySignPos = tmpShape.getLineCenter();
 
     // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -103,7 +87,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator
     glPushName(getGlID());
     // Add a draw matrix
@@ -112,16 +96,16 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     // Set color of the base
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
     }
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
+    GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
     // Check if the distance is enought to draw details and if is being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         // only draw circle depending of distance between sign and mouse cursor
-        if(myViewNet->getPositionInformation().distanceSquaredTo(mySignPos) <= (myCircleWidthSquared + 2)) {
+        if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
             // Add a draw matrix for details
             glPushMatrix();
             // Start drawing sign traslating matrix to signal position
@@ -148,10 +132,10 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // Rotate and traslaste
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(-1 * myBlockIconRotation, 0, 0, 1);
+            glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
             // draw line with a color depending of the selection status
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, myViewNet->getNet()->selectionColor, 0, FONS_ALIGN_LEFT);
+                GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
             }
@@ -164,7 +148,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         // Set color of the externe circle
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+            GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop);
         }
@@ -174,7 +158,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         // Set color of the interne circle
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop_sign);
         }
@@ -183,26 +167,26 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
             if (isAttributeCarrierSelected()) {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, myViewNet->getNet()->selectedAdditionalColor, myBlockIconRotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
-                GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIconRotation);
+                GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIcon.rotation);
             }
         }
         // pop draw matrix
         glPopMatrix();
         // Show Lock icon depending of the Edit mode
-        drawLockIcon();
+        myBlockIcon.draw();
     }
     // pop draw matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
-        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIconRotation);
+        GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
     }
     // Pop name
     glPopName();
@@ -233,7 +217,7 @@ GNEBusStop::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -265,7 +249,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -282,11 +266,11 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_STARTPOS:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 if (canParse<double>(value)) {
-                    if(canParse<double>(myEndPosition)) {
+                    if (canParse<double>(myEndPosition)) {
                         // Check that new start Position is smaller that end position
                         return (parse<double>(value) < parse<double>(myEndPosition));
                     } else {
@@ -297,11 +281,11 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
                 }
             }
         case SUMO_ATTR_ENDPOS:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 if (canParse<double>(value)) {
-                    if(canParse<double>(myStartPosition)) {
+                    if (canParse<double>(myStartPosition)) {
                         // Check that new start Position is smaller that end position
                         return (parse<double>(myStartPosition) < parse<double>(value));
                     } else {
@@ -324,7 +308,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -360,7 +344,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -370,10 +354,12 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

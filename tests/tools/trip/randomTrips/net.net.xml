@@ -30,10 +30,12 @@
 
     <edge id="1fi" from="1" to="m1" priority="2">
         <lane id="1fi_0" index="0" speed="11.11" length="248.50" shape="0.00,498.35 248.50,498.35"/>
+        <param key="customWeight" value="0.5"/>
     </edge>
 
     <edge id="1o" from="0" to="1" priority="1">
         <lane id="1o_0" index="0" speed="11.11" length="488.65" shape="488.65,501.65 0.00,501.65"/>
+        <param key="customWeight" value="0.1"/>
     </edge>
 
     <edge id="1si" from="m1" to="0" priority="3">

@@ -1,6 +1,0 @@
-Warning: Speed of turning connection 'e_in_0->n_out_0' reduced by 17.15 due to turning radius of 7.60 (length=9.03 angle=91.14)
-Warning: Speed of turning connection 'e_in_0->s_out_0' reduced by 19.80 due to turning radius of 11.58 (length=14.26 angle=90.82)
-Warning: Speed of turning connection 's_in_0->e_out_0' reduced by 21.30 due to turning radius of 7.64 (length=9.05 angle=90.82)
-Warning: Speed of turning connection 's_in_0->w_out_0' reduced by 15.54 due to turning radius of 11.85 (length=14.23 angle=88.76)
-Warning: Speed of turning connection 'w_in_0->s_out_0' reduced by 17.02 due to turning radius of 7.90 (length=9.15 angle=88.76)
-Warning: Speed of turning connection 'n_in_0->e_out_0' reduced by 15.64 due to turning radius of 11.54 (length=14.27 angle=91.14)

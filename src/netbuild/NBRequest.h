@@ -132,7 +132,12 @@ public:
                  bool regardNonSignalisedLowerPriority) const;
 
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
-    void writeLogic(std::string key, OutputDevice& into, const bool checkLaneFoes) const;
+    void computeLogic(const bool checkLaneFoes);
+
+    void writeLogic(OutputDevice& into) const;
+
+    const std::string& getFoes(int linkIndex) const;
+    const std::string& getResponse(int linkIndex) const;
 
     /// @brief prints the request
     friend std::ostream& operator<<(std::ostream& os, const NBRequest& r);
@@ -142,11 +147,11 @@ public:
 
     /// @brief whether multple connections from the same edge target the same lane
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
-                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+                       const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
     /// @brief whether opposite left turns intersect
     bool oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
-                              const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+                                  const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
 
 private:
@@ -154,14 +159,13 @@ private:
         from2->to2 (is higher priorised than this) */
     void setBlocking(NBEdge* from1, NBEdge* to1, NBEdge* from2, NBEdge* to2);
 
-    /** @brief writes the response of a certain lane
+    /** @brief computes the response of a certain lane
         Returns the next link index within the junction */
-    int writeLaneResponse(OutputDevice& od, NBEdge* from, int lane,
-                          int pos, const bool checkLaneFoes, bool padding) const;
+    int computeLaneResponse(NBEdge* from, int lane, int pos, const bool checkLaneFoes);
 
-    /** @brief writes the response of a certain crossing
+    /** @brief computes the response of a certain crossing
         Returns the next link index within the junction */
-    int writeCrossingResponse(OutputDevice& od, const NBNode::Crossing& crossing, int pos) const;
+    int computeCrossingResponse(const NBNode::Crossing& crossing, int pos);
 
     /** @brief Writes the response of a certain link
      *
@@ -216,9 +220,13 @@ private:
     /// @brief reset foes it the number of lanes matches (or exceeds) the number of incoming connections for an edge
     void resetCooperating();
 
-    /// @brief whether the given connections must be check for lane conflicts due to the vClasses involved
+    /// @brief whether the given connections must be checked for lane conflicts due to the vClasses involved
     bool checkLaneFoesByClass(const NBEdge::Connection& con,
                               const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
+
+    /// @brief whether the given connections must be checked for lane conflicts due to disjunct target lanes
+    bool checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connection& con, 
+            const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
 
     /** @brief return whether the given laneToLane connections prohibit each other
      * under the assumption that the edge2edge connections are in conflict
@@ -239,7 +247,7 @@ private:
     /// @brief edges incoming to the junction
     const EdgeVector& myIncoming;
 
-    /// @brief edges outgoing from the junction 
+    /// @brief edges outgoing from the junction
     const EdgeVector& myOutgoing;
 
     /// @brief definition of a container to store boolean informations about a link into
@@ -248,14 +256,16 @@ private:
     /// @brief definition of a container for link(edge->edge) X link(edge->edge) combinations (size = |myIncoming|*|myOutgoing|)
     typedef std::vector<LinkInfoCont> CombinationsCont;
 
-    /// @brief a container for approached lanes of a certain edge
-    typedef std::map<NBEdge*, LaneVector> OccupiedLanes;
-
     /// @brief the link X link blockings
     CombinationsCont  myForbids;
 
     /// @brief the link X link is done-checks
     CombinationsCont  myDone;
+
+    /// @brief precomputed right-of-way matrices for each lane-to-lane link
+    std::vector<std::string> myFoes;
+    std::vector<std::string> myResponse;
+    std::vector<bool> myHaveVia;
 
 private:
     static int myGoodBuilds, myNotBuild;

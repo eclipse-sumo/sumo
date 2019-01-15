@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:54 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:46 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-889.91,1209.18" convBoundary="0.00,0.00,2060.03,844.92" origBoundary="889.91,-1209.18,2949.94,-364.26" projParameter="!"/>
 
@@ -167,7 +167,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":16_3_0" index="0" allow="passenger pedestrian" speed="10.01" length="5.64" shape="1081.06,553.03 1085.84,550.91 1086.24,550.81"/>
     </edge>
     <edge id=":16_4" function="internal">
-        <lane id=":16_4_0" index="0" speed="10.01" length="9.90" shape="1086.24,550.81 1089.88,549.89 1093.19,549.98 1095.76,551.19"/>
+        <lane id=":16_4_0" index="0" allow="passenger pedestrian" speed="10.01" length="9.90" shape="1086.24,550.81 1089.88,549.89 1093.19,549.98 1095.76,551.19"/>
     </edge>
     <edge id=":22_0" function="internal">
         <lane id=":22_0_0" index="0" allow="passenger pedestrian" speed="19.44" length="7.78" shape="320.92,557.70 313.22,558.22"/>
@@ -250,7 +250,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3_6_0" index="0" allow="passenger pedestrian" speed="9.28" length="5.50" shape="431.44,548.77 427.46,548.20 426.34,547.23"/>
     </edge>
     <edge id=":3_14" function="internal">
-        <lane id=":3_14_0" index="0" speed="9.28" length="14.26" shape="426.34,547.23 424.45,545.61 422.40,541.00 421.32,534.37"/>
+        <lane id=":3_14_0" index="0" allow="passenger pedestrian" speed="9.28" length="14.26" shape="426.34,547.23 424.45,545.61 422.40,541.00 421.32,534.37"/>
     </edge>
     <edge id=":3_7" function="internal">
         <lane id=":3_7_0" index="0" allow="passenger pedestrian" speed="7.28" length="11.75" shape="424.51,534.11 425.16,537.95 426.43,540.61 428.32,542.09 430.81,542.40"/>
@@ -272,7 +272,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3_13_0" index="0" allow="passenger pedestrian" speed="10.49" length="11.00" shape="410.55,546.95 417.15,547.57 421.01,549.62"/>
     </edge>
     <edge id=":3_15" function="internal">
-        <lane id=":3_15_0" index="0" speed="10.49" length="13.44" shape="421.01,549.62 422.05,550.17 425.24,554.74 426.72,561.27"/>
+        <lane id=":3_15_0" index="0" allow="passenger pedestrian" speed="10.49" length="13.44" shape="421.01,549.62 422.05,550.17 425.24,554.74 426.72,561.27"/>
     </edge>
     <edge id=":4_0" function="internal">
         <lane id=":4_0_0" index="0" allow="passenger pedestrian" speed="6.43" length="9.03" shape="582.22,545.13 581.79,542.68 580.67,540.98 578.88,540.04 576.39,539.86"/>
@@ -295,7 +295,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":4_7_0" index="0" allow="passenger pedestrian" speed="8.61" length="5.11" shape="575.96,533.47 579.95,533.96 580.83,534.59"/>
     </edge>
     <edge id=":4_8" function="internal">
-        <lane id=":4_8_0" index="0" speed="8.61" length="11.95" shape="580.83,534.59 582.86,536.05 584.68,539.74 585.42,545.03"/>
+        <lane id=":4_8_0" index="0" allow="passenger pedestrian" speed="8.61" length="11.95" shape="580.83,534.59 582.86,536.05 584.68,539.74 585.42,545.03"/>
     </edge>
     <edge id=":5_0" function="internal">
         <lane id=":5_0_0" index="0" allow="passenger pedestrian" speed="6.62" length="8.95" shape="1053.26,501.12 1052.76,498.65 1051.66,496.90 1049.94,495.85 1047.61,495.51"/>
@@ -330,7 +330,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":6_5_0" index="0" allow="passenger pedestrian" speed="8.17" length="3.55" shape="1078.78,487.90 1081.21,488.52 1081.89,489.31"/>
     </edge>
     <edge id=":6_6" function="internal">
-        <lane id=":6_6_0" index="0" speed="8.17" length="11.03" shape="1081.89,489.31 1083.07,490.68 1084.38,494.38 1085.12,499.62"/>
+        <lane id=":6_6_0" index="0" allow="passenger pedestrian" speed="8.17" length="11.03" shape="1081.89,489.31 1083.07,490.68 1084.38,494.38 1085.12,499.62"/>
     </edge>
     <edge id=":7_0" function="internal">
         <lane id=":7_0_0" index="0" allow="passenger pedestrian" speed="6.51" length="9.02" shape="1452.12,467.31 1451.55,464.91 1450.35,463.26 1448.51,462.38 1446.04,462.25"/>
@@ -353,7 +353,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":7_7_0" index="0" allow="passenger pedestrian" speed="8.67" length="5.24" shape="1445.46,455.88 1449.36,456.27 1450.46,457.02"/>
     </edge>
     <edge id=":7_8" function="internal">
-        <lane id=":7_8_0" index="0" speed="8.67" length="11.59" shape="1450.46,457.02 1452.30,458.26 1454.28,461.85 1455.31,467.02"/>
+        <lane id=":7_8_0" index="0" allow="passenger pedestrian" speed="8.67" length="11.59" shape="1450.46,457.02 1452.30,458.26 1454.28,461.85 1455.31,467.02"/>
     </edge>
     <edge id=":8_0" function="internal">
         <lane id=":8_0_0" index="0" allow="passenger pedestrian" speed="19.44" length="12.82" shape="1684.20,478.43 1681.25,476.21 1679.57,474.15 1677.80,472.27 1674.60,470.59"/>
@@ -363,7 +363,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":8_2_0" index="0" allow="passenger pedestrian" speed="9.00" length="4.81" shape="1687.36,472.87 1684.74,470.55 1684.25,469.33"/>
     </edge>
     <edge id=":8_8" function="internal">
-        <lane id=":8_8_0" index="0" speed="9.00" length="11.38" shape="1684.25,469.33 1683.47,467.36 1683.54,463.27 1684.96,458.30"/>
+        <lane id=":8_8_0" index="0" allow="passenger pedestrian" speed="9.00" length="11.38" shape="1684.25,469.33 1683.47,467.36 1683.54,463.27 1684.96,458.30"/>
     </edge>
     <edge id=":8_3" function="internal">
         <lane id=":8_3_0" index="0" allow="passenger pedestrian" speed="6.90" length="9.13" shape="1687.94,459.46 1687.35,461.91 1687.58,464.03 1688.63,465.83 1690.52,467.30"/>
@@ -393,7 +393,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":9_5_0" index="0" allow="passenger pedestrian" speed="9.43" length="6.85" shape="1761.71,528.84 1764.92,532.91 1765.37,534.52"/>
     </edge>
     <edge id=":9_8" function="internal">
-        <lane id=":9_8_0" index="0" speed="9.43" length="12.54" shape="1765.37,534.52 1766.09,537.12 1765.21,541.49 1762.29,546.01"/>
+        <lane id=":9_8_0" index="0" allow="passenger pedestrian" speed="9.43" length="12.54" shape="1765.37,534.52 1766.09,537.12 1765.21,541.49 1762.29,546.01"/>
     </edge>
     <edge id=":9_6" function="internal">
         <lane id=":9_6_0" index="0" allow="passenger pedestrian" speed="6.74" length="9.41" shape="1757.44,541.84 1758.89,539.61 1759.36,537.48 1758.84,535.44 1757.32,533.50"/>
@@ -611,8 +611,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="17" type="dead_end" x="1260.98" y="699.45" incLanes="15_0" intLanes="" shape="1260.98,699.45 1263.14,697.08 1260.98,699.45"/>
     <junction id="18" type="dead_end" x="941.34" y="679.29" incLanes="14_0" intLanes="" shape="941.34,679.29 943.69,681.46 941.34,679.29"/>
     <junction id="19" type="dead_end" x="1322.24" y="673.08" incLanes="19_0" intLanes="" shape="1322.24,673.08 1324.63,675.20 1322.24,673.08"/>
-    <junction id="2" type="dead_end" x="0.00" y="580.15" incLanes="-22_0 -22_1" intLanes="" shape="-0.00,580.15 0.54,586.53 -0.00,580.15"/>
-    <junction id="20" type="dead_end" x="1275.01" y="0.00" incLanes="20_0" intLanes="" shape="1275.01,-0.00 1272.01,1.10 1275.01,-0.00"/>
+    <junction id="2" type="dead_end" x="0.00" y="580.15" incLanes="-22_0 -22_1" intLanes="" shape="0.00,580.15 0.54,586.53 0.00,580.15"/>
+    <junction id="20" type="dead_end" x="1275.01" y="0.00" incLanes="20_0" intLanes="" shape="1275.01,0.00 1272.01,1.10 1275.01,-0.00"/>
     <junction id="21" type="dead_end" x="1511.62" y="837.39" incLanes="29_0" intLanes="" shape="1511.62,837.39 1514.04,839.49 1511.62,837.39"/>
     <junction id="22" type="priority" x="316.73" y="553.10" incLanes="21_0 21_1 22_0 22_1" intLanes=":22_0_0 :22_0_1 :22_2_0 :22_2_1 :22_2_2" shape="321.00,559.30 320.23,543.32 317.18,544.30 316.24,545.13 315.30,545.97 314.07,546.67 312.26,547.06 313.35,559.81">
         <request index="0" response="00000" foes="00000" cont="0"/>
@@ -662,16 +662,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5" response="000000" foes="000000" cont="0"/>
     </junction>
     <junction id="3" type="priority" x="423.99" y="547.90" incLanes="-26_0 -26_1 -26_2 -24_0 -24_1 -24_2 -27_0 -21_0 -21_1 -21_2" intLanes=":3_0_0 :3_1_0 :3_2_0 :3_3_0 :3_4_0 :3_4_1 :3_14_0 :3_7_0 :3_8_0 :3_9_0 :3_10_0 :3_11_0 :3_11_1 :3_15_0" shape="415.56,562.21 428.32,561.14 428.60,558.88 429.13,558.04 429.91,557.41 430.94,556.97 432.22,556.73 430.65,540.81 428.38,540.23 427.53,539.30 426.86,537.95 426.39,536.18 426.10,533.99 419.72,534.49 418.80,536.76 417.49,537.60 415.62,538.25 413.17,538.70 410.16,538.96 410.94,554.94 413.23,555.66 414.09,556.66 414.77,558.09 415.26,559.94">
-        <request index="0"  response="00000000110000" foes="00001000110000" cont="0"/>
+        <request index="0"  response="00000000110000" foes="00000000110000" cont="0"/>
         <request index="1"  response="11110001110000" foes="11111001110000" cont="0"/>
-        <request index="2"  response="11100111110000" foes="11100111110000" cont="0"/>
+        <request index="2"  response="11100101110000" foes="11100101110000" cont="0"/>
         <request index="3"  response="00000000000000" foes="10000100000000" cont="0"/>
         <request index="4"  response="00000000000000" foes="10001100000111" cont="0"/>
         <request index="5"  response="00000000000000" foes="10001100000111" cont="0"/>
         <request index="6"  response="01110000000000" foes="01111100000110" cont="1"/>
-        <request index="7"  response="01100000000000" foes="01100000000100" cont="0"/>
+        <request index="7"  response="01100000000000" foes="01100000000000" cont="0"/>
         <request index="8"  response="11100001111000" foes="11100001111100" cont="0"/>
-        <request index="9"  response="11100001110011" foes="11100001110011" cont="0"/>
+        <request index="9"  response="11100001110010" foes="11100001110010" cont="0"/>
         <request index="10" response="00000000000000" foes="00000001000010" cont="0"/>
         <request index="11" response="00000000000000" foes="00001111000110" cont="0"/>
         <request index="12" response="00000000000000" foes="00001111000110" cont="0"/>

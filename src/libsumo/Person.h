@@ -35,7 +35,7 @@
 class MSPerson;
 class PositionVector;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

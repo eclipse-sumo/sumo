@@ -28,7 +28,10 @@ import sys
 import re
 import pickle
 import glob
-import Tkinter
+try:
+    import Tkinter
+except ImportError:
+    import tkinter as Tkinter
 from optparse import OptionParser
 from xml.dom import pulldom
 from collections import defaultdict
@@ -93,16 +96,17 @@ def printDebug(*args):
 
 
 if _UPLOAD:
-    print("Highscore upload is enabled. To disable call this script with 'noupload' argument.")
     printDebug("import httplib...")
     try:
-        import httplib
+        import httplib  # noqa
         printDebug("SUCCESS")
-    except BaseException:
-        printDebug()("FAILED - disabling upload...")
+    except ImportError:
+        printDebug("FAILED - disabling upload...")
         _UPLOAD = False
+if _UPLOAD:
+    print("Highscore upload is enabled. To disable call this script with 'noupload' argument.")
 else:
-    print("Upload is disabled. To enable highscore upload, call this script without 'noupload' argument.")
+    print("Upload is disabled.")
 
 
 def computeScoreFromWaitingTime(gamename):
@@ -216,7 +220,6 @@ def parseEndTime(cfg):
     for event, parsenode in cfg_doc:
         if event == pulldom.START_ELEMENT and parsenode.localName == 'end':
             return float(parsenode.getAttribute('value'))
-            break
 
 
 class IMAGE:
@@ -335,8 +338,7 @@ class StartDialog(Tkinter.Frame):
         switch = []
         lastProg = {}
         for line in open(os.path.join(base, "%s.tlsstate.xml" % start.category)):
-            m = re.search(
-                'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
+            m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
             if m:
                 tls = m.group(3)
                 program = m.group(4)
@@ -478,7 +480,7 @@ def findSumoBinary(guisimBinary):
 
 
 guisimPath = findSumoBinary("sumo-gui")
-haveOSG = "OSG" in subprocess.check_output(findSumoBinary("sumo"))
+haveOSG = "OSG" in subprocess.check_output(findSumoBinary("sumo"), universal_newlines=True)
 
 if options.stereo:
     for m in stereoModes:

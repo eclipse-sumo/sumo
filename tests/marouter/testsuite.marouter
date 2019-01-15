@@ -15,5 +15,8 @@ incremental
 
 # Tests for sue assignment
 sue
+
+# Tests for ue assignment
+ue
 all_pair
 load

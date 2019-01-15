@@ -20,16 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 
-#include <cassert>
 #include <utils/options/OptionsCont.h>
-#include <netbuild/NBTrafficLightDefinition.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_TLS.h"
 
@@ -52,7 +47,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
     myForceInsert(forceInsert) {
     assert(myNet);
     myJunction->incRef("GNEChange_TLS");
-    if (myTlDef == 0) {
+    if (myTlDef == nullptr) {
         assert(forward);
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
@@ -66,7 +61,7 @@ GNEChange_TLS::~GNEChange_TLS() {
     myJunction->decRef("GNEChange_TLS");
     if (myJunction->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "' in GNEChange_TLS");
+        WRITE_DEBUG("Deleting unreferenced " + myJunction->getTagStr() + " '" + myJunction->getID() + "' in GNEChange_TLS");
         delete myJunction;
     }
 }
@@ -76,12 +71,12 @@ void
 GNEChange_TLS::undo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Removing TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        WRITE_DEBUG("Removing TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     }
@@ -94,12 +89,12 @@ void
 GNEChange_TLS::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding TLS into " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        WRITE_DEBUG("Adding TLS into " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
         // add traffic light to junction
         myJunction->addTrafficLight(myTlDef, myForceInsert);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Deleting TLS from " + toString(myJunction->getTag()) + " '" + myJunction->getID() + "'");
+        WRITE_DEBUG("Deleting TLS from " + myJunction->getTagStr() + " '" + myJunction->getID() + "'");
         // remove traffic light from junction
         myJunction->removeTrafficLight(myTlDef);
     }

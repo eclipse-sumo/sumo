@@ -7,6 +7,8 @@ GNEConnectorFrame.cpp GNEConnectorFrame.h \
 GNETLSEditorFrame.cpp GNETLSEditorFrame.h \
 GNEAdditionalFrame.cpp GNEAdditionalFrame.h \
 GNECrossingFrame.cpp GNECrossingFrame.h \
+GNETAZFrame.cpp GNETAZFrame.h \
 GNEDeleteFrame.cpp GNEDeleteFrame.h \
 GNEPolygonFrame.cpp GNEPolygonFrame.h \
+GNECreateEdgeFrame.cpp GNECreateEdgeFrame.h \
 GNEProhibitionFrame.cpp GNEProhibitionFrame.h

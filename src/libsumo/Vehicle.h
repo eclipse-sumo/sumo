@@ -38,7 +38,7 @@ class SUMOVehicle;
 class MSVehicle;
 class MSVehicleType;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 
@@ -51,6 +51,7 @@ namespace libsumo {
  */
 namespace libsumo {
 class Vehicle {
+    friend class Helper;
 public:
     /// @name Value retrieval
     /// @{
@@ -81,7 +82,7 @@ public:
     static double getElectricityConsumption(const std::string& vehicleID);
     static int getPersonNumber(const std::string& vehicleID);
     static std::vector<std::string> getPersonIDList(const std::string& vehicleID);
-    static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist=0.);
+    static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist = 0.);
     static double getWaitingTime(const std::string& vehicleID);
     static double getAccumulatedWaitingTime(const std::string& vehicleID);
     static double getAdaptedTraveltime(const std::string& vehicleID, double time, const std::string& edgeID);
@@ -94,7 +95,7 @@ public:
     static std::vector<TraCINextStopData> getNextStops(const std::string& vehicleID);
     static int getStopState(const std::string& vehicleID);
     static double getDistance(const std::string& vehicleID);
-    static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex=0);
+    static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex = 0);
     static double getDrivingDistance2D(const std::string& vehicleID, double x, double y);
     static double getAllowedSpeed(const std::string& vehicleID);
     static int getSpeedMode(const std::string& vehicleID);
@@ -109,7 +110,7 @@ public:
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_GETTER
-    
+
     /// @name State Changing
     /// @{
 
@@ -149,6 +150,8 @@ public:
     static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void slowDown(const std::string& vehicleID, double speed, double duration);
+    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel);
+    static void deactivateGapControl(const std::string& vehicleID);
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setSpeedMode(const std::string& vehicleID, int speedMode);
     static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);
@@ -165,7 +168,7 @@ public:
     static void rerouteEffort(const std::string& vehicleID);
     static void setSignals(const std::string& vehicleID, int signals);
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position);
-    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle=INVALID_DOUBLE_VALUE, const int keepRoute=1);
+    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = INVALID_DOUBLE_VALUE, const int keepRoute = 1);
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
@@ -186,9 +189,10 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
-private:
+protected:
     static MSVehicle* getVehicle(const std::string& id);
 
+private:
     static bool isVisible(const SUMOVehicle* veh);
 
     static bool isOnInit(const std::string& vehicleID);

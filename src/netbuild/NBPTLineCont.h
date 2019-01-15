@@ -77,8 +77,8 @@ private:
 
     std::set<std::string> myServedPTStops;
 
-    static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle>& router, 
-            const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh);
+    static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle>& router,
+                          const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh);
 };
 
 

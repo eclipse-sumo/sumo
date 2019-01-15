@@ -170,6 +170,43 @@ public class Simulation {
 	
 	
 	/**
+	 * getCollidingVehiclesNumber()
+	 * @return Return number of vehicles involved in a collision (typically 2 per collision).
+	 */
+
+	public static SumoCommand getCollidingVehiclesNumber(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_COLLIDING_VEHICLES_NUMBER, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * getCollidingVehiclesNumber()
+	 * @return Return Ids of vehicles involved in a collision (typically 2 per collision)
+	 */
+
+	public static SumoCommand getCollidingVehiclesIDList(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_COLLIDING_VEHICLES_IDS, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+	
+	/**
+	 * getEmergencyStoppingVehiclesNumber()
+	 * @return Return number of vehicles that performed an emergency stop in the last step
+	 */
+
+	public static SumoCommand getEmergencyStoppingVehiclesNumber(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+	
+	/**
+	 * getEmergencyStoppingVehiclesIDList()
+	 * @return Return Ids of vehicles that peformed an emergency stop in the last step
+	 */
+
+	public static SumoCommand getEmergencyStoppingVehiclesIDList(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_EMERGENCYSTOPPING_VEHICLES_IDS, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_STRINGLIST);
+	}
+	
+	
+	/**
 	 * getStopEndingVehiclesNumber()
 	 * @return number of vehicles
 	 */
@@ -177,6 +214,8 @@ public class Simulation {
 	public static SumoCommand getStopEndingVehiclesNumber(){
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_STOP_ENDING_VEHICLES_NUMBER, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
 	}
+
+	
 	
 	/**
 	 * getStopStartingVehiclesIDList()
@@ -200,11 +239,20 @@ public class Simulation {
 	
 	/**
 	 * getCurrentTime
-	 * @return current time
+	 * @return current time in ms (integer). Note: this method only supports a simulation time up to 24 days and is only kept for legacy reasons
 	 */
 
 	public static SumoCommand getCurrentTime(){
 		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_TIME_STEP, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	/**
+	 * getTime
+	 * @return current time in s (double)
+	 */
+
+	public static SumoCommand getTime(){
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_TIME, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
@@ -319,7 +367,7 @@ public class Simulation {
 	 * @return SumoCommand
 	 */
 	public static SumoCommand getNetBoundary(){
-		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_NET_BOUNDING_BOX, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_BOUNDINGBOX);
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_NET_BOUNDING_BOX, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_POLYGON);
 	}
 
 	/**
@@ -360,6 +408,43 @@ public class Simulation {
 
 	public static SumoCommand saveState(String filename){
 		return new SumoCommand(Constants.CMD_SET_SIM_VARIABLE, Constants.CMD_SAVE_SIMSTATE, "", filename);
+	}
+	
+	/**
+	 * findRoute
+	 * @param fromEdge first edge
+	 * @param toEdge second edge
+	 * @param vType vehicle type
+	 * @param depart depart
+	 * @param routingMode routing mode
+	 * @return the route
+	 */
+	public static SumoCommand findRoute(String fromEdge, String toEdge, String vType, double depart, int routingMode){
+		Object[] array = new Object[]{fromEdge, toEdge, vType, depart, routingMode};
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.FIND_ROUTE, "", array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_COMPOUND);
+	}
+	
+	/**
+	 * findIntermodalRoute
+	 * @param fromEdge first edge
+	 * @param toEdge second edge
+	 * @param modes modes
+	 * @param depart depart
+	 * @param routingMode routing mode
+	 * @param speed speed
+	 * @param walkingFactor walkingFactor
+	 * @param departPos departPos
+	 * @param arrivalPos arrivalPos
+	 * @param departPosLat departPosLat
+	 * @param pType pType
+	 * @param vType vType
+	 * @param destStop destStop
+	 * @return the route
+	 */
+	public static SumoCommand findIntermodalRoute(String fromEdge, String toEdge, String modes, double depart, int routingMode, 
+												double speed, double walkingFactor, double departPos, double arrivalPos, double departPosLat, String pType, String vType, String destStop){
+		Object[] array = new Object[]{fromEdge, toEdge, modes, depart, routingMode, speed, walkingFactor, departPos, arrivalPos, departPosLat, pType, vType, destStop};
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.FIND_INTERMODAL_ROUTE, "", array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_COMPOUND);
 	}
 	
 }

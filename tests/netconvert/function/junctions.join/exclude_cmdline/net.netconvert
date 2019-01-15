@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:01 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,92.46,78.21" origBoundary="0.00,0.00,92.46,78.21" projParameter="!"/>
 
@@ -159,16 +159,16 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="945141569" type="dead_end" x="0.00" y="51.05" incLanes="27445000#0_0" intLanes="" shape="-0.17,52.64 0.17,49.46"/>
     <junction id="cluster_301292612_56231397" type="traffic_light" x="44.47" y="51.82" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 27441168_0" intLanes=":cluster_301292612_56231397_0_0 :cluster_301292612_56231397_0_1 :cluster_301292612_56231397_0_2 :cluster_301292612_56231397_10_0 :cluster_301292612_56231397_4_0 :cluster_301292612_56231397_5_0 :cluster_301292612_56231397_11_0 :cluster_301292612_56231397_7_0 :cluster_301292612_56231397_8_0 :cluster_301292612_56231397_12_0" shape="48.88,63.04 55.82,47.92 54.16,46.73 53.69,45.98 53.45,45.12 53.44,44.16 53.68,43.09 47.57,41.18 46.47,43.38 45.75,44.06 44.91,44.46 43.95,44.58 42.87,44.43 38.46,62.24 40.66,62.58 42.36,62.51 43.80,62.27 45.21,62.12 46.82,62.29">
-        <request index="0" response="0000000000" foes="1011000000" cont="0"/>
-        <request index="1" response="0000000000" foes="1011000000" cont="0"/>
-        <request index="2" response="0000000000" foes="1011000000" cont="0"/>
+        <request index="0" response="0000000000" foes="0011000000" cont="0"/>
+        <request index="1" response="0000000000" foes="0011000000" cont="0"/>
+        <request index="2" response="0000000000" foes="0011000000" cont="0"/>
         <request index="3" response="0100110000" foes="0100110000" cont="1"/>
         <request index="4" response="0000000000" foes="0100001000" cont="0"/>
         <request index="5" response="0000000000" foes="0100001000" cont="0"/>
         <request index="6" response="0000000111" foes="1100000111" cont="1"/>
         <request index="7" response="0000000111" foes="1100000111" cont="0"/>
         <request index="8" response="0011110000" foes="0011111000" cont="0"/>
-        <request index="9" response="0011000111" foes="0011000111" cont="1"/>
+        <request index="9" response="0011000000" foes="0011000000" cont="1"/>
     </junction>
     <junction id="gneJ0" type="dead_end" x="48.35" y="0.00" incLanes="27441289.0_0 27441289.0_1" intLanes="" shape="42.15,-1.58 48.35,0.00"/>
     <junction id="gneJ1" type="dead_end" x="59.75" y="2.19" incLanes="" intLanes="" shape="59.75,2.19 65.86,4.10"/>

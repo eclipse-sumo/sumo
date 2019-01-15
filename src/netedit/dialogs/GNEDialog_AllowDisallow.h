@@ -83,7 +83,7 @@ protected:
     GNEViewNet* myViewNet;
 
     /// @brief edited AC
-    GNEAttributeCarrier *myAC;
+    GNEAttributeCarrier* myAC;
 
     /// @brief select all VClass
     FXButton* mySelectAllVClassButton;

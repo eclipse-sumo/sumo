@@ -45,7 +45,7 @@ enum {
     /// @brief Main window-ID
     MID_WINDOW,
     /// @brief Main window closes
-    MID_QUIT,
+    MID_HOTKEY_CTRL_Q,
     /// @}
 
 
@@ -67,19 +67,19 @@ enum {
     /// @brief Open network - ID
     MID_OPEN_NETWORK,
     /// @brief Load additional file with poi and polygons
-    MID_OPEN_SHAPES,
+    MID_HOTKEY_CTRL_P,
+    /// @brief Load edge data for visualization
+    MID_OPEN_EDGEDATA,
     /// @brief Load additional file with additional elements
     MID_OPEN_ADDITIONALS,
     /// @brief Load additional file with additional elements
     MID_OPEN_TLSPROGRAMS,
     /// @brief Reload the previously loaded simulation
-    MID_RELOAD,
+    MID_HOTKEY_CTRL_R,
     /// @brief Loads a file previously loaded
     MID_RECENTFILE,
     /// @brief Close simulation - ID
-    MID_CLOSE,
-    /// @brief About SUMO - ID
-    MID_ABOUT,
+    MID_HOTKEY_CTRL_W,
     /// @}
 
 
@@ -87,11 +87,11 @@ enum {
     /// @{
 
     /// @brief Start the simulation
-    MID_START,
+    MID_HOTKEY_CTRL_A,
     /// @brief Stop the simulation
-    MID_STOP,
+    MID_HOTKEY_CTRL_S,
     /// @brief Perform a single simulation step
-    MID_STEP,
+    MID_HOTKEY_CTRL_D,
     /// @brief Save state to file
     MID_SIMSAVE,
     /// @}
@@ -125,11 +125,11 @@ enum {
     /// @brief Open editor for selections
     MID_EDITCHOSEN,
     /// @brief Edit simulation breakpoints
-    MID_EDIT_BREAKPOINTS,
+    MID_GNE_HOTKEY_CTRL_B,
     /// @brief Open in netedit
     MID_NETEDIT,
     /// @brief Open in SUMO GUI
-    MID_SUMOGUI,
+    MID_GNE_HOTKEY_CTRL_T,
     /// @}
 
 
@@ -139,9 +139,9 @@ enum {
     /// @brief Application settings - menu entry
     MID_APPSETTINGS,
     /// @brief Gaming mode - menu entry
-    MID_GAMING,
+    MID_HOTKEY_CTRL_G,
     /// @brief Fullscreen mode - menu entry
-    MID_FULLSCREEN,
+    MID_HOTKEY_CTRL_F,
     /// @brief Locator configuration - menu entry
     MID_LISTINTERNAL,
     MID_LISTPARKING,
@@ -411,16 +411,20 @@ enum {
     /// @name NETEDIT hotkeys
     /// @{
 
+    /// @brief hot key <F1> open online documentation
+    MID_HOTKEY_F1,    
+    /// @brief hot key <F2> open about dialog
+    MID_HOTKEY_F2,
     /// @brief hot key <ESC> abort current edit operation
     MID_GNE_HOTKEY_ESC,
     /// @brief hot key <F12> focus upper element of current frame
-    MID_GNE_HOTKEY_FOCUSFRAME,
+    MID_GNE_HOTKEY_F12,
     /// @brief hot key <DEL> delete selections or elements
     MID_GNE_HOTKEY_DEL,
     /// @brief hot key <ENTER> accept current operation
     MID_GNE_HOTKEY_ENTER,
     /// @brief hot key <Ctrl + G> for toogle grid
-    MID_GNE_HOTKEY_TOOGLE_GRID,
+    MID_GNE_HOTKEY_CTRL_G,
     /// @}
 
 
@@ -428,27 +432,27 @@ enum {
     /// @{
 
     /// @brief create new empty newtork
-    MID_GNE_TOOLBARFILE_NEWNETWORK,
+    MID_GNE_HOTKEY_CTRL_N,
     /// @brief open foreign network
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
     /// @brief save newtork
-    MID_GNE_TOOLBARFILE_SAVENETWORK,
+    MID_GNE_HOTKEY_CTRL_S,
     /// @brief save newtwork as
-    MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
+    MID_GNE_HOTKEY_CTRL_SHIFT_S,
     /// @brief save network as plain XML
-    MID_GNE_TOOLBARFILE_SAVEPLAINXML,
+    MID_GNE_HOTKEY_CTRL_L,
     /// @brief save joined junctions
-    MID_GNE_TOOLBARFILE_SAVEJOINED,
+    MID_GNE_HOTKEY_CTRL_J,
     /// @brief Save shapes
-    MID_GNE_TOOLBARFILE_SAVESHAPES,
+    MID_GNE_HOTKEY_CTRL_SHIFT_P,
     /// @brief save shapes as
     MID_GNE_TOOLBARFILE_SAVESHAPES_AS,
     /// @brief Save additionals
-    MID_GNE_TOOLBARFILE_SAVEADDITIONALS,
+    MID_GNE_HOTKEY_CTRL_SHIFT_D,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
     /// @brief save TLS Programs
-    MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,
+    MID_GNE_HOTKEY_CTRL_SHIFT_K,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @}
@@ -458,45 +462,64 @@ enum {
     /// @{
 
     /// @brief compute junctions
-    MID_GNE_PROCESSING_COMPUTEJUNCTIONS,
+    MID_GNE_HOTKEY_F5,
     /// @brief compute junctions with volatile options
-    MID_GNE_PROCESSING_COMPUTEJUNCTIONS_VOLATILE,
+    MID_GNE_HOTKEY_SHIFT_F5,
     /// @brief clean junctions without edges
-    MID_GNE_PROCESSING_CLEANJUNCTIONS,
+    MID_GNE_HOTKEY_F6,
     /// @brief join selected junctions
-    MID_GNE_PROCESSING_JOINJUNCTIONS,
+    MID_GNE_HOTKEY_F7,
     /// @brief clean invalid crossings
-    MID_GNE_PROCESSING_CLEANINVALIDCROSSINGS,
+    MID_GNE_HOTKEY_F8,
     /// @brief open options menu
-    MID_GNE_PROCESSING_OPTIONS,
+    MID_GNE_HOTKEY_F10,
+    /// @}
+
+        
+    /// @name Toolbar set supermodes messages
+    /// @{
+
+    /// @brief supermode for edit network elements
+    MID_GNE_SETSUPERMODE_NETWORK,
+    /// @brief supermode for edit demand
+    MID_GNE_SETSUPERMODE_DEMAND,
     /// @}
 
 
-    /// @name Toolbar setModes messages
+    /// @name Toolbar set network modes messages
+    /// @{
+    /// @brief shortcut for mode adding edges
+    MID_GNE_SHORTCUT_E,
+    /// @brief shortcut for mode moving element
+    MID_GNE_SHORTCUT_M,
+    /// @brief shortcut for mode deleting things
+    MID_GNE_SHORTCUT_D,
+    /// @brief shortcut for mode inspecting object attributes
+    MID_GNE_SHORTCUT_I,
+    /// @brief shortcut for mode selecting objects
+    MID_GNE_SHORTCUT_S,
+    /// @brief shortcut for mode connecting lanes
+    MID_GNE_SHORTCUT_C,
+    /// @brief shortcut for mode editing TLS
+    MID_GNE_SHORTCUT_T,
+    /// @brief shortcut for mode editing additional
+    MID_GNE_SHORTCUT_A,
+    /// @brief shortcut for mode editing crossing AND routes
+    MID_GNE_SHORTCUT_R,
+    /// @brief shortcut for mode editing TAZ
+    MID_GNE_SHORTCUT_Z,
+    /// @brief shortcut for mode creating polygons
+    MID_GNE_SHORTCUT_P,
+    /// @brief shortcut for mode editing connection prohibitions
+    MID_GNE_SHORTCUT_W,
+    /// @}
+
+
+    /// @name Toolbar set demand modes messages
     /// @{
 
-    /// @brief mode for adding edges
-    MID_GNE_SETMODE_CREATE_EDGE,
-    /// @brief mode for moving things
-    MID_GNE_SETMODE_MOVE,
-    /// @brief mode for deleting things
-    MID_GNE_SETMODE_DELETE,
-    /// @brief mode for inspecting object attributes
-    MID_GNE_SETMODE_INSPECT,
-    /// @brief mode for selecting objects
-    MID_GNE_SETMODE_SELECT,
-    /// @brief mode for connecting lanes
-    MID_GNE_SETMODE_CONNECT,
-    /// @brief mode for editing tls
-    MID_GNE_SETMODE_TLS,
-    /// @brief mode for editing additional
-    MID_GNE_SETMODE_ADDITIONAL,
-    /// @brief mode for editing crossing
-    MID_GNE_SETMODE_CROSSING,
-    /// @brief mode for creating polygons
-    MID_GNE_SETMODE_POLYGON,
-    /// @brief mode for editing connection prohibitions
-    MID_GNE_SETMODE_PROHIBITION,
+    /// @brief mode for edit routes
+    MID_GNE_SETMODE_ROUTES,
     /// @}
 
 
@@ -533,6 +556,8 @@ enum {
     MID_GNE_REMOVE_ATTRIBUTE,
     /// @brief attribute edited
     MID_GNE_SET_ATTRIBUTE,
+    /// @brief create something
+    MID_GNE_CREATE,
     /// @brief used to select a type of element in a combo box
     MID_GNE_SET_TYPE,
     /// @brief text attribute edited
@@ -541,6 +566,8 @@ enum {
     MID_GNE_SET_ATTRIBUTE_BOOL,
     /// @brief attribute edited trought dialog
     MID_GNE_SET_ATTRIBUTE_DIALOG,
+    /// @brief select items
+    MID_GNE_SELECT,
     /// @}
 
 
@@ -555,6 +582,12 @@ enum {
     MID_GNE_SELECTORFRAME_PROCESSSTRING,
     /// @brief changes the visual scaling of selected items
     MID_GNE_SELECTORFRAME_SELECTSCALE,
+    /// @brief start drawing polygon
+    MID_GNE_STARTDRAWING,
+    /// @brief stop drawing polygon
+    MID_GNE_STOPDRAWING,
+    /// @brief abort drawing polygon
+    MID_GNE_ABORTDRAWING,
     /// @}
 
 
@@ -587,6 +620,14 @@ enum {
     MID_GNE_INSPECTORFRAME_COPYTEMPLATE,
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
+    /// @brief inspect next element
+    MID_GNE_INSPECTORFRAME_NEXT,
+    /// @brief inspect previous element
+    MID_GNE_INSPECTORFRAME_PREVIOUS,
+    /// @brief show list of overlapped elements
+    MID_GNE_INSPECTORFRAME_SHOWLIST,
+    /// @brief list item selected
+    MID_GNE_INSPECTORFRAME_ITEMSELECTED,
     /// @}
 
 
@@ -639,7 +680,6 @@ enum {
     MID_GNE_CROSSINGFRAME_CREATECROSSING,
     /// @}
 
-
     /// @name GNEAdditionalFrame messages
     /// @{
 
@@ -657,19 +697,14 @@ enum {
     MID_GNE_ADDITIONALFRAME_CLEARSELECTION,
     /// @brief invert selection of eleents
     MID_GNE_ADDITIONALFRAME_INVERTSELECTION,
+    /// @brief start selection of consecutive egdes/lanes
+    MID_GNE_ADDITIONALFRAME_STARTSELECTION,
+    /// @brief stop selection of consecutive egdes/lanes
+    MID_GNE_ADDITIONALFRAME_STOPSELECTION,
+    /// @brief abort selection of consecutive egdes/lanes
+    MID_GNE_ADDITIONALFRAME_ABORTSELECTION,
     /// @}
 
-
-    /// @name GNEPolygonFrame messages
-    /// @{
-
-    /// @brief start drawing polygon
-    MID_GNE_POLYGONFRAME_STARTDRAWING,
-    /// @brief stop drawing polygon
-    MID_GNE_POLYGONFRAME_STOPDRAWING,
-    /// @brief abort drawing polygon
-    MID_GNE_POLYGONFRAME_ABORTDRAWING,
-    /// @}
 
     /// @name GNEProhibitionFrame messages
     /// @{
@@ -681,7 +716,7 @@ enum {
     /// @brief abort drawing polygon
     MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
     /// @}
-    
+
 
     /// @name GNEEdge messages
     /// @{
@@ -722,6 +757,8 @@ enum {
     MID_GNE_JUNCTION_SPLIT,
     /// @brief edit junction shape
     MID_GNE_JUNCTION_EDIT_SHAPE,
+    /// @brief reset junction shape
+    MID_GNE_JUNCTION_RESET_SHAPE,
     /// @}
 
 
@@ -769,24 +806,32 @@ enum {
 
     /// @brief duplicate a lane
     MID_GNE_LANE_DUPLICATE,
+    /// @brief remove greenVerge
+    MID_GNE_LANE_RESET_CUSTOMSHAPE,
     /// @brief transform lane to sidewalk
     MID_GNE_LANE_TRANSFORM_SIDEWALK,
     /// @brief transform lane to bikelane
     MID_GNE_LANE_TRANSFORM_BIKE,
     /// @brief transform lane to busLane
     MID_GNE_LANE_TRANSFORM_BUS,
+    /// @brief transform lane to greenVerge
+    MID_GNE_LANE_TRANSFORM_GREENVERGE,
     /// @brief add sidewalk
     MID_GNE_LANE_ADD_SIDEWALK,
     /// @brief add bikelane
     MID_GNE_LANE_ADD_BIKE,
     /// @brief add busLane
     MID_GNE_LANE_ADD_BUS,
+    /// @brief add greenVerge
+    MID_GNE_LANE_ADD_GREENVERGE,
     /// @brief remove sidewalk
     MID_GNE_LANE_REMOVE_SIDEWALK,
     /// @brief remove bikelane
     MID_GNE_LANE_REMOVE_BIKE,
     /// @brief remove busLane
     MID_GNE_LANE_REMOVE_BUS,
+    /// @brief remove greenVerge
+    MID_GNE_LANE_REMOVE_GREENVERGE,
     /// @}
 
 

@@ -17,13 +17,17 @@
 //
 /****************************************************************************/
 import it.polito.appeal.traci.SumoTraciConnection;
+import de.tudresden.sumo.cmd.Simulation;
 import de.tudresden.sumo.cmd.Vehicle;
+import de.tudresden.sumo.cmd.Inductionloop;
+import de.tudresden.sumo.cmd.Trafficlight;
+import de.tudresden.ws.container.SumoVehicleData;
 
 public class Main {
 
 	static String sumo_bin = "sumo-gui";
 	static String config_file = "simulation/config.sumo.cfg";
-	static double step_length = 0.01;		
+	static double step_length = 0.1;		
 
 	public static void main(String[] args) {
 	
@@ -36,12 +40,21 @@ public class Main {
 		
 			//start Traci Server
 			conn.runServer();
+            conn.setOrder(1);
 			
 			for(int i=0; i<3600; i++){
 			
 				conn.do_timestep();
-				conn.do_job_set(Vehicle.add("v"+i, "car", "r1", 0, 0, 13.8, (byte) 1));
-	
+				conn.do_job_set(Vehicle.addFull("v"+i, "r1", "car", "now", "0", "0", "max", "current", "max", "current", "", "", "", 0, 0));
+                double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
+                int tlsPhase = (int)conn.do_job_get(Trafficlight.getPhase("gneJ1"));
+                String tlsPhaseName = (String)conn.do_job_get(Trafficlight.getPhaseName("gneJ1"));
+                System.out.println(String.format("Step %s, tlsPhase %s (%s)", timeSeconds, tlsPhase, tlsPhaseName));
+
+                SumoVehicleData vehData = (SumoVehicleData)conn.do_job_get(Inductionloop.getVehicleData("loop1"));
+                for (SumoVehicleData.VehicleData d : vehData.ll) {
+                    System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.vehID, d.length, d.entry_time, d.leave_time, d.typeID));
+                }
 			}
 			
 			conn.close();

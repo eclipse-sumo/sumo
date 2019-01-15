@@ -400,6 +400,15 @@ protected:
         std::string origID;
         int origLane;
         PositionVector shape;
+
+        std::string getDescription() const {
+            return "Connection from=" + fromEdge + "_" + toString(fromLane) 
+                + " to=" + toEdge + "_" + toString(toLane)
+                + " fromCP=" + (fromCP == OPENDRIVE_CP_START ? "start" : fromCP == OPENDRIVE_CP_END ? "end" : "unknown")
+                + " toCP=" + (toCP == OPENDRIVE_CP_START ? "start" : toCP == OPENDRIVE_CP_END ? "end" : "unknown")
+                + " all=" + toString(all);
+                //+ " origID=" + origID + " origLane=" + toString(origLane);
+        }
     };
 
     /**

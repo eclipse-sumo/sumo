@@ -42,3 +42,24 @@ ticket4299
 
 # collision on junction with link leader from the same source lane who is only partially on the junction
 ticket4430
+
+# deadlock on parallel routing
+ticket4518
+
+# Crash in SSM Device on recurrent network search for foes (assertion triggered, perhaps only exposed in debug mode).
+ticket4556
+
+# Deadlock at opposed strategical LC attempt.
+ticket4829
+
+# deadlock on parallel routing
+ticket4855
+
+# ACC model applies emergency decel at insertion
+ticket4861
+
+# speed on junction when approaching pedestrian crossing
+ticket4900
+
+# invalid routing
+ticket4968

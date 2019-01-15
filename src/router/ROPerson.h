@@ -159,16 +159,16 @@ public:
     class Ride : public TripItem {
     public:
         Ride(const ROEdge* const _from, const ROEdge* const _to,
-             const std::string& _lines, const double _cost, const double arrivalPos, 
-             const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) : 
-            TripItem(_cost), 
-            from(_from), to(_to), 
-            lines(_lines), 
+             const std::string& _lines, const double _cost, const double arrivalPos,
+             const std::string& _destStop = "", const std::string& _intended = "", const SUMOTime _depart = -1) :
+            TripItem(_cost),
+            from(_from), to(_to),
+            lines(_lines),
             destStop(_destStop),
-            intended(_intended), 
+            intended(_intended),
             depart(_depart),
-            arr(arrivalPos)
-        {}
+            arr(arrivalPos) {
+        }
 
         const ROEdge* getOrigin() const {
             return from;
@@ -242,7 +242,7 @@ public:
             : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), stopDest(""), walkFactor(1.0) {}
         PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
                    const double departPos, const double arrivalPos, const std::string& _stopDest, double _walkFactor)
-                   : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor) {}
+            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor) {}
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {

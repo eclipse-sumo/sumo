@@ -87,7 +87,7 @@ class Domain:
         self._subscribeResponseID = subscribeResponseID
         self._contextID = contextID
         self._contextResponseID = contextResponseID
-        self._retValFunc = {tc.ID_LIST: Storage.readStringList,
+        self._retValFunc = {tc.TRACI_ID_LIST: Storage.readStringList,
                             tc.ID_COUNT: Storage.readInt}
         self._retValFunc.update(retValFunc)
         self._deprecatedFor = deprecatedFor
@@ -120,7 +120,7 @@ class Domain:
 
         Returns a list of all objects in the network.
         """
-        return self._getUniversal(tc.ID_LIST, "")
+        return self._getUniversal(tc.TRACI_ID_LIST, "")
 
     def getIDCount(self):
         """getIDCount() -> integer
@@ -138,7 +138,7 @@ class Domain:
             if tc.LAST_STEP_VEHICLE_NUMBER in self._retValFunc:
                 varIDs = (tc.LAST_STEP_VEHICLE_NUMBER,)
             else:
-                varIDs = (tc.ID_LIST,)
+                varIDs = (tc.TRACI_ID_LIST,)
         self._connection._subscribe(
             self._subscribeID, begin, end, objectID, varIDs)
 
@@ -170,7 +170,8 @@ class Domain:
         """
         return self._connection._getSubscriptionResults(self._subscribeResponseID).get(None)
 
-    def subscribeContext(self, objectID, domain, dist, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
+    def subscribeContext(self, objectID, domain, dist, varIDs=None,
+                         begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribeContext(string, int, double, list(integer), double, double) -> None
 
         Subscribe to objects of the given domain (specified as domain=traci.constants.CMD_GET_<DOMAIN>_VARIABLE),
@@ -180,7 +181,7 @@ class Domain:
             if tc.LAST_STEP_VEHICLE_NUMBER in self._retValFunc:
                 varIDs = (tc.LAST_STEP_VEHICLE_NUMBER,)
             else:
-                varIDs = (tc.ID_LIST,)
+                varIDs = (tc.TRACI_ID_LIST,)
         self._connection._subscribeContext(
             self._contextID, begin, end, objectID, domain, dist, varIDs)
 

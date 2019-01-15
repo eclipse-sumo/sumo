@@ -204,7 +204,7 @@ public:
      * @brief A structure which describes changes of lane number or speed along the road
      */
     struct Split {
-        Split() : offset(0) {}
+        Split() : offset(0), offsetFactor(1) {}
         /// @brief The lanes after this change
         std::vector<int> lanes;
         /// @brief The position of this change
@@ -221,10 +221,12 @@ public:
         std::string nameID;
         /// @brief lateral offset to edge geometry
         double offset;
+        /// @brief direction in which to apply the offset (used by netgenerate for lefthand networks)
+        int offsetFactor;
     };
 
-    void processSplits(NBEdge* e, std::vector<Split> splits, 
-            NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc);
+    void processSplits(NBEdge* e, std::vector<Split> splits,
+                       NBNodeCont& nc, NBDistrictCont& dc, NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Splits the edge at the position nearest to the given node
@@ -439,7 +441,7 @@ public:
      * @todo Recheck usage
      * @see NBEdge::computeEdgeShape
      */
-    void computeEdgeShapes();
+    void computeEdgeShapes(double smoothElevationThreshold=-1);
 
 
     /** @brief Computes the shapes of all lanes of all edges stored in the container
@@ -571,7 +573,7 @@ public:
     bool ignoreFilterMatch(NBEdge* edge);
 
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
-    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
+    int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc);
 
     /// @brief check whether edges overlap
     void checkOverlap(double threshold, double zThreshold) const;

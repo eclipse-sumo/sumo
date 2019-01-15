@@ -1,0 +1,53 @@
+# Test whether up-/down-stream vehicles on right lane are filtered correctly
+# Only vehicles on the right lane up- and down-stream up to the given distance should be returned
+lanesRight
+
+# Test whether up-/down-stream vehicles on left lane and opposite direction lanes are filtered correctly
+# Only vehicles on left and two neighboring opposite direction lanes up- and down-stream up to the given distance should be returned
+lanesLeftOpposite
+
+# Test lanes filter with up-/down-stream distance filter in case of lane indexes pointing to all opposite lanes
+# Only vehicles on all opposite lanes up- and down-stream up to the given distance should be returned
+lanesOppositeAll
+
+# Test lanes filter with up-/down-stream distance filter in case of lane indexes pointing to lanes out of bounds
+# No vehicles should be returned
+lanesOutOfBounds
+
+#########################
+# Up-stream distance = 0
+#########################
+# Test whether up-/down-stream vehicles on right lane are filtered correctly
+# Only vehicles on the right lane down-stream up to the given distance should be returned
+lanesRightUpDistZero
+
+# Test whether up-/down-stream vehicles on left lane and opposite direction lanes are filtered correctly
+# Only vehicles on left and two neighboring opposite direction lanes down-stream up to the given distance should be returned
+lanesLeftOppositeUpDistZero
+
+# Test lanes filter with up-/down-stream distance filter in case of lane indexes pointing to all opposite lanes
+# Only vehicles on all opposite lanes down-stream up to the given distance should be returned
+lanesOppositeAllUpDistZero
+
+# Test lanes filter with up-/down-stream distance filter in case of lane indexes pointing to lanes out of bounds
+# No vehicles should be returned
+lanesOutOfBoundsUpDistZero
+
+###########################
+# Down-stream distance = 0
+###########################
+# Test whether up-/down-stream vehicles on right lane are filtered correctly
+# Only vehicles on the right lane up-stream up to the given distance should be returned
+lanesRightDownDistZero
+
+# Test whether up-/down-stream vehicles on left lane and opposite direction lanes are filtered correctly
+# Only vehicles on left and two neighboring opposite direction lanes up-stream up to the given distance should be returned
+lanesLeftOppositeDownDistZero
+
+# Test lanes filter with up-/down-stream distance filter in case of lane indexes pointing to all opposite lanes
+# Only vehicles on all opposite lanes up-stream up to the given distance should be returned
+lanesOppositeAllDownDistZero
+
+# Test lanes filter with up-/down-stream distance filter in case of lane indexes pointing to lanes out of bounds
+# No vehicles should be returned
+lanesOutOfBoundsDownDistZero

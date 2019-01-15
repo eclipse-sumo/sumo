@@ -92,6 +92,7 @@ output:answered [0-9]* queries{REPLACE answered (NUMBER) queries}
 output:--python-script
 output:--osg-view{LINES 2}
 output:movereminder-output{LINES 2}
+output:Simulation.*started with{REPLACE Simulation started with}
 calibrator_log:<!--{[->]}-->
 detector:<!--{[->]}-->
 detector2:<!--{[->]}-->
@@ -152,6 +153,8 @@ errors:Could not find connection between
 errors:primary document entity.*{REPLACE primary document entity <path_to_file>}
 errors:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
 log:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
+log:Simulation.*started with{REPLACE Simulation started with}
+logPrefixed:Simulation.*started with{REPLACE Simulation started with}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
 cfg:<python-script
@@ -185,6 +188,7 @@ full:0.0101
 vtypeprobe:0.0101
 weights:0.0101
 ssm:0.0101
+ssm2:0.0101
 
 [relative_float_tolerance]
 aggregated1:0.00001

@@ -1,3 +1,6 @@
+# tests output for the ToC device
+output
+
 # Test whether parameter values specified in xml are parsed correctly
 spec
 
@@ -27,6 +30,13 @@ ToC_overflow
 
 # Let automated vehicle perform a complete minimum risk maneuver (come to halt) before resuming.
 complete_MRM
+
+# Let automated vehicle perform lanechanges while it performs an MRM. It should not perform any lanechange deliberately but obey only to TraCI induced lanechanges.
+# This also tests that the vehicle is controllable during the PREPARE_TOC phase
+LC_during_MRM
+
+# see test LC_during_MRM. Here only the lcAbstinence is set to 1.0 which should result in preventing lane changes during the RECOVERY phase.
+LC_during_MRM_with_lcAbstinence
 
 # Schedule ToC to happen during slow-down phase of the MRM
 incomplete_MRM

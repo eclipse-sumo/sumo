@@ -53,21 +53,21 @@ public:
 
     double getStimCox() {
         std::string key = getKeyPrefix() + "_STIM_COX";
-        return readParameter(key, stimCoxDVal);
+        return getDouble(key, stimCoxDVal);
     }
     void setStimCoxDefVal(double defVal) {
         stimCoxDVal = defVal;
     }
     double getStimOffsetIn() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_IN";
-        return readParameter(key, stimOffsetInDVal);
+        return getDouble(key, stimOffsetInDVal);
     }
     void setStimOffsetInDefVal(double defVal) {
         stimOffsetInDVal = defVal;
     }
     double getStimOffsetOut() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_OUT";
-        return readParameter(key, stimOffsetOutDVal);
+        return getDouble(key, stimOffsetOutDVal);
     }
 
     void setStimOffsetOutDefVal(double defVal) {
@@ -76,21 +76,21 @@ public:
 
     double getStimOffsetDispersionIn() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_IN";
-        return readParameter(key, stimOffsetDispersionInDVal);
+        return getDouble(key, stimOffsetDispersionInDVal);
     }
     void setStimOffsetDispersionInDefVal(double defVal) {
         stimOffsetDispersionInDVal = defVal;
     }
     double getStimOffsetDispersionOut() {
         std::string key = getKeyPrefix() + "_STIM_OFFSET_DISPERSION_OUT";
-        return readParameter(key, stimOffsetDispersionOutDVal);
+        return getDouble(key, stimOffsetDispersionOutDVal);
     }
     void setStimOffsetDispersionOutDefVal(double defVal) {
         stimOffsetDispersionOutDVal = defVal;
     }
     double getStimDivisorIn() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_IN";
-        return readParameter(key, stimDivInDVal);
+        return getDouble(key, stimDivInDVal);
     }
 
     void setStimDivisorInDefVal(double defVal) {
@@ -99,7 +99,7 @@ public:
 
     double getStimDivisorOut() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_OUT";
-        return readParameter(key, stimDivOutDVal);
+        return getDouble(key, stimDivOutDVal);
     }
 
     void setStimDivisorOutDefVal(double defVal) {
@@ -108,7 +108,7 @@ public:
 
     double getStimDivisorDispersionIn() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_IN";
-        return readParameter(key, stimDivDispersionInDVal);
+        return getDouble(key, stimDivDispersionInDVal);
     }
 
     void setStimDivisorDispersionInDefVal(double defVal) {
@@ -116,7 +116,7 @@ public:
     }
     double getStimDivisorDispersionOut() {
         std::string key = getKeyPrefix() + "_STIM_DIVISOR_DISPERSION_OUT";
-        return readParameter(key, stimDivDispersionOutDVal);
+        return getDouble(key, stimDivDispersionOutDVal);
     }
 
     void setStimDivisorDispersionOutDefVal(double defVal) {
@@ -124,14 +124,14 @@ public:
     }
     double getStimCoxExpIn() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_IN";
-        return readParameter(key, stimCoxExpInDVal);
+        return getDouble(key, stimCoxExpInDVal);
     }
     void setStimCoxExpInDefVal(double defVal) {
         stimCoxExpInDVal = defVal;
     }
     double getStimCoxExpOut() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_OUT";
-        return readParameter(key, stimCoxExpOutDVal);
+        return getDouble(key, stimCoxExpOutDVal);
     }
     void setStimCoxExpOutDefVal(double defVal) {
         stimCoxExpOutDVal = defVal;
@@ -139,14 +139,14 @@ public:
 
     double getStimCoxExpDispersionIn() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_IN";
-        return readParameter(key, stimCoxExpDispersionInDVal);
+        return getDouble(key, stimCoxExpDispersionInDVal);
     }
     void setStimCoxExpDispersionInDefVal(double defVal) {
         stimCoxExpDispersionInDVal = defVal;
     }
     double getStimCoxExpDispersionOut() {
         std::string key = getKeyPrefix() + "_STIM_COX_EXP_DISPERSION_OUT";
-        return readParameter(key, stimCoxExpDispersionOutDVal);
+        return getDouble(key, stimCoxExpDispersionOutDVal);
     }
     void setStimCoxExpDispersionOutDefVal(double defVal) {
         stimCoxExpDispersionOutDVal = defVal;

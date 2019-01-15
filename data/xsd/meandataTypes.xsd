@@ -17,8 +17,8 @@
                 </xsd:complexType>
             </xsd:element>
         </xsd:sequence>
-        <xsd:attribute name="begin" use="required" type="nonNegativeFloatType"/>
-        <xsd:attribute name="end" use="required" type="nonNegativeFloatType"/>
+        <xsd:attribute name="begin" use="required" type="timeType"/>
+        <xsd:attribute name="end" use="required" type="timeType"/>
         <xsd:attribute name="id" use="required" type="xsd:string"/>
     </xsd:complexType>
 

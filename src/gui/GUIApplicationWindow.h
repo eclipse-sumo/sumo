@@ -116,7 +116,6 @@ public:
     void handleEvent_SimulationStep(GUIEvent* e);
     void handleEvent_Message(GUIEvent* e);
     void handleEvent_SimulationEnded(GUIEvent* e);
-    void handleEvent_Screenshot(GUIEvent* e);
     /// @}
 
 
@@ -132,6 +131,9 @@ public:
 
     /// @brief Called on menu File->Load Shapes
     long onCmdOpenShapes(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu File->Load EdgeData
+    long onCmdOpenEdgeData(FXObject*, FXSelector, void*);
 
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
@@ -153,10 +155,10 @@ public:
     /// @brief Called on menu Edit->Edit Breakpoints
     long onCmdEditBreakpoints(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Visualization 
+    /// @brief Called on menu Edit->Visualization
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
 
-    /// @brief Called on menu Edit->Viewport 
+    /// @brief Called on menu Edit->Viewport
     long onCmdEditViewport(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects help->Documentation
@@ -277,12 +279,16 @@ public:
         mySimDelay = delay;
     }
 
+    /** @brief Sets the breakpoints of the parent application
+     */
+    virtual void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
+
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send
      */
     virtual void sendBlockingEvent(GUIEvent* event);
 
-    const std::vector<SUMOTime> retrieveBreakpoints() const; 
+    const std::vector<SUMOTime> retrieveBreakpoints() const;
 
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
@@ -339,7 +345,7 @@ protected:
                 *myWindowsMenu, *myHelpMenu;
 
     /// @brief the menu cascades
-    FXMenuCascade* mySelectLanesMenuCascade; 
+    FXMenuCascade* mySelectLanesMenuCascade;
 
     /// @brief Buttons showing and running values and triggering statistic windows
     std::vector<FXButton*> myStatButtons;

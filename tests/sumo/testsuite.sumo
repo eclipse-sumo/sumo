@@ -30,5 +30,9 @@ pedestrian_model
 opposite_direction_driving
 sublane_model
 
+# Basic tests with action step length != simulation step length.
+# Note that this suite uses the ballistic update
+action_step_length
+
 # demonstration and regression tests for known bugs
 bugs

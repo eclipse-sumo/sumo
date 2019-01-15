@@ -50,7 +50,7 @@ MELoop::MELoop(const SUMOTime recheckInterval) : myFullRecheckInterval(recheckIn
 
 MELoop::~MELoop() {
     for (std::vector<MESegment*>::const_iterator j = myEdges2FirstSegments.begin(); j != myEdges2FirstSegments.end(); ++j) {
-        for (MESegment* s = *j; s != 0;) {
+        for (MESegment* s = *j; s != nullptr;) {
             MESegment* n = s->getNextSegment();
             delete s;
             s = n;
@@ -81,8 +81,8 @@ bool
 MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink) {
     MESegment* const onSegment = veh->getSegment();
     if (MESegment::isInvalid(toSegment)) {
-        if (onSegment != 0) {
-            onSegment->send(veh, toSegment, leaveTime);
+        if (onSegment != nullptr) {
+            onSegment->send(veh, toSegment, leaveTime, toSegment == nullptr ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_VAPORIZED);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' teleports beyond arrival edge '" + veh->getEdge()->getID() + "', time " + time2string(leaveTime) + ".");
         }
@@ -91,8 +91,8 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         return true;
     }
     if (toSegment->hasSpaceFor(veh, leaveTime) && (ignoreLink || veh->mayProceed())) {
-        if (onSegment != 0) {
-            onSegment->send(veh, toSegment, leaveTime);
+        if (onSegment != nullptr) {
+            onSegment->send(veh, toSegment, leaveTime, onSegment->getNextSegment() == nullptr ? MSMoveReminder::NOTIFICATION_JUNCTION : MSMoveReminder::NOTIFICATION_SEGMENT);
             toSegment->receive(veh, leaveTime, false, ignoreLink);
         } else {
             WRITE_WARNING("Vehicle '" + veh->getID() + "' ends teleporting on edge '" + toSegment->getEdge().getID()
@@ -113,11 +113,11 @@ MELoop::checkCar(MEVehicle* veh) {
     const SUMOTime leaveTime = veh->getEventTime();
     MESegment* const onSegment = veh->getSegment();
     MESegment* const toSegment = nextSegment(onSegment, veh);
-    const bool teleporting = (onSegment == 0); // is the vehicle currently teleporting?
+    const bool teleporting = (onSegment == nullptr); // is the vehicle currently teleporting?
     if (changeSegment(veh, leaveTime, toSegment, teleporting)) {
         return;
     }
-    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock && !veh->isStopped()) {
+    if (MSGlobals::gTimeToGridlock > 0 && veh->getWaitingTime() > MSGlobals::gTimeToGridlock) {
         teleportVehicle(veh, toSegment);
         return;
     }
@@ -146,14 +146,14 @@ void
 MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
     const SUMOTime leaveTime = veh->getEventTime();
     MESegment* const onSegment = veh->getSegment();
-    const bool teleporting = (onSegment == 0); // is the vehicle already teleporting?
+    const bool teleporting = (onSegment == nullptr); // is the vehicle already teleporting?
     // try to find a place on the current edge
     MESegment* teleSegment = toSegment->getNextSegment();
-    while (teleSegment != 0 && !teleSegment->hasSpaceFor(veh, leaveTime)) {
+    while (teleSegment != nullptr && !teleSegment->hasSpaceFor(veh, leaveTime)) {
         // @caution the time to get to the next segment here is ignored XXX
         teleSegment = teleSegment->getNextSegment();
     }
-    if (teleSegment != 0) {
+    if (teleSegment != nullptr) {
         if (!teleporting) {
             // we managed to teleport in a single jump
             WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "'; waited too long, from edge '" + onSegment->getEdge().getID()
@@ -173,19 +173,19 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
                           + "':" + toString(onSegment->getIndex()) + ", time " + time2string(leaveTime) + ".");
             MSNet::getInstance()->getVehicleControl().registerTeleportJam();
             // remove from current segment
-            onSegment->send(veh, 0, leaveTime);
+            onSegment->send(veh, nullptr, leaveTime, MSMoveReminder::NOTIFICATION_TELEPORT);
             // mark veh as teleporting
-            veh->setSegment(0, 0);
+            veh->setSegment(nullptr, 0);
         }
         // @caution microsim uses current travel time teleport duration
-        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / veh->getEdge()->getSpeedLimit());
+        const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / MAX2(veh->getEdge()->getSpeedLimit(), NUMERICAL_EPS));
         const bool atDest = veh->moveRoutePointer();
         if (atDest) {
             // teleporting to end of route
-            changeSegment(veh, teleArrival, 0, true);
+            changeSegment(veh, teleArrival, nullptr, true);
         } else {
             veh->setEventTime(teleArrival);
-            addLeaderCar(veh, 0);
+            addLeaderCar(veh, nullptr);
             // teleporting vehicles must react to rerouters
             getSegmentForEdge(*veh->getEdge())->addReminders(veh);
             veh->activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION);
@@ -203,7 +203,7 @@ MELoop::addLeaderCar(MEVehicle* veh, MSLink* link) {
 
 void
 MELoop::setApproaching(MEVehicle* veh, MSLink* link) {
-    if (link != 0) {
+    if (link != nullptr) {
         link->setApproaching(veh, veh->getEventTime() + (link->getState() == LINKSTATE_ALLWAY_STOP ?
                              (SUMOTime)RandHelper::rand((int)2) : 0), // tie braker
                              veh->getSpeed(), veh->getSpeed(), true,
@@ -223,18 +223,18 @@ MELoop::removeLeaderCar(MEVehicle* v) {
 
 MESegment*
 MELoop::nextSegment(MESegment* s, MEVehicle* v) {
-    if (s != 0) { // vehicle is not teleporting
+    if (s != nullptr) { // vehicle is not teleporting
         MESegment* next = s->getNextSegment();
-        if (next != 0) {
+        if (next != nullptr) {
             // ok, the street continues
             return next;
         }
     }
     // we have to check the next edge in the vehicle's route
     const MSEdge* nextEdge = v->succEdge(1);
-    if (nextEdge == 0) {
+    if (nextEdge == nullptr) {
         // end of route
-        return 0;
+        return nullptr;
     }
     return myEdges2FirstSegments[nextEdge->getNumericalID()];
 }
@@ -256,8 +256,8 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     const double length = e.getLength();
     int no = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
     const double slength = length / (double)no;
-    MESegment* newSegment = 0;
-    MESegment* nextSegment = 0;
+    MESegment* newSegment = nullptr;
+    MESegment* nextSegment = nullptr;
     bool multiQueue = oc.getBool("meso-multi-queue");
     bool junctionControl = oc.getBool("meso-junction-control") || isEnteringRoundabout(e);
     for (int s = no - 1; s >= 0; s--) {
@@ -284,7 +284,7 @@ MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
     MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
     if (pos > 0) {
         double cpos = 0;
-        while (s->getNextSegment() != 0 && cpos + s->getLength() < pos) {
+        while (s->getNextSegment() != nullptr && cpos + s->getLength() < pos) {
             cpos += s->getLength();
             s = s->getNextSegment();
         }
@@ -293,7 +293,7 @@ MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
 }
 
 
-bool 
+bool
 MELoop::isEnteringRoundabout(const MSEdge& e) {
     for (const MSEdge* succ : e.getSuccessors()) {
         if (succ->isRoundabout()) {

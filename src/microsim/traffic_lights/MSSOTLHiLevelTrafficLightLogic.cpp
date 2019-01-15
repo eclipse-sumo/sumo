@@ -16,21 +16,21 @@
 #include "MSSOTLHiLevelTrafficLightLogic.h"
 
 MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& subid, const Phases& phases,
+        const std::string& id, const std::string& programID, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters) :
-    MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
+    MSSOTLTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay,
                             parameters) {
     // Setting default values
 
 }
 
 MSSOTLHiLevelTrafficLightLogic::MSSOTLHiLevelTrafficLightLogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& subid, const Phases& phases,
+        const std::string& id, const std::string& programID, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters,
         MSSOTLSensors* sensors) :
-    MSSOTLTrafficLightLogic(tlcontrol, id, subid, phases, step, delay,
+    MSSOTLTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay,
                             parameters, sensors) {
     // Setting default values
 

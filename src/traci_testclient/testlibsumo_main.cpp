@@ -34,7 +34,7 @@ main(int argc, char** argv) {
     for (int i = 1; i < argc; i++) {
         options.push_back(argv[i]);
     }
-	libsumo::Simulation::load(options);
+    libsumo::Simulation::load(options);
     std::cout << "Simulation loaded\n";
 }
 

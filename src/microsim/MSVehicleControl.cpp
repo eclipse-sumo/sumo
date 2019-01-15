@@ -29,7 +29,7 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
-#include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSVehicleDevice.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -60,8 +60,7 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
-    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) 
-{
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -98,7 +97,7 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route, MSVehicleType* type,
                                const bool ignoreStopErrors, const bool fromRouteFile) {
     myLoadedVehNo++;
-    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : 0));
+    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
     built->addStops(ignoreStopErrors);
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
     return built;
@@ -111,8 +110,8 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
     myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
     myRunningVehNo--;
     MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
-    for (std::vector<MSDevice*>::const_iterator i = veh->getDevices().begin(); i != veh->getDevices().end(); ++i) {
-        (*i)->generateOutput();
+    for (MSVehicleDevice* const dev : veh->getDevices()) {
+        dev->generateOutput();
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         // close tag after tripinfo (possibly including emissions from another device) have been written
@@ -198,7 +197,7 @@ SUMOVehicle*
 MSVehicleControl::getVehicle(const std::string& id) const {
     VehicleDictType::const_iterator it = myVehicleDict.find(id);
     if (it == myVehicleDict.end()) {
-        return 0;
+        return nullptr;
     }
     return it->second;
 }
@@ -210,7 +209,7 @@ MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     if (discard) {
         myDiscarded++;
     }
-    if (veh != 0) {
+    if (veh != nullptr) {
         myVehicleDict.erase(veh->getID());
     }
     delete veh;
@@ -281,8 +280,7 @@ MSVehicleControl::addVTypeDistribution(const std::string& id, RandomDistributor<
         for (auto vehType : vehTypes) {
             if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
                 myVTypeToDist[vehType->getID()].insert(id);
-            }
-            else {
+            } else {
                 myVTypeToDist[vehType->getID()] = { id };
             }
         }
@@ -310,7 +308,7 @@ MSVehicleControl::getVType(const std::string& id, std::mt19937* rng) {
     if (it == myVTypeDict.end()) {
         VTypeDistDictType::iterator it2 = myVTypeDistDict.find(id);
         if (it2 == myVTypeDistDict.end()) {
-            return 0;
+            return nullptr;
         }
         return it2->second->get(rng);
     }
@@ -393,7 +391,7 @@ MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std
             WRITE_WARNING(ridingID + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" + (*it)->getID() + "' at position " + toString((*it)->getPositionOnLane()) + " because it is too far away.");
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -468,7 +466,8 @@ void
 MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
     for (const SUMOVehicle* const veh : myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
-        router.getNetwork()->addSchedule(veh->getParameter());
+        const MSRoute* const route = MSRoute::dictionary(veh->getParameter().routeid);
+        router.getNetwork()->addSchedule(veh->getParameter(), route == nullptr ? nullptr : &route->getStops());
     }
 }
 

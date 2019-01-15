@@ -172,9 +172,9 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
         stop->addLine(myPTLine->getRef());
     }
 }
+
+
 void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
-
-
     std::vector<NBEdge*> edges;
 
     NBNode* first = nullptr;
@@ -301,13 +301,15 @@ NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
         }
     }
 }
-std::set<std::string>& 
+
+
+std::set<std::string>&
 NBPTLineCont::getServedPTStops() {
     return myServedPTStops;
 }
 
 
-void 
+void
 NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     std::map<std::string, SUMOVehicleClass> types;
     types["bus"] = SVC_BUS;
@@ -319,7 +321,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 
     SUMOAbstractRouter<NBEdge, NBVehicle>* router;
     router = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-            ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
+        ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
 
     for (NBPTLine* line : myPTLines) {
         std::vector<NBPTStop*> stops = line->getStops();
@@ -327,8 +329,8 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
             continue;
         }
         if (types.count(line->getType()) == 0) {
-            WRITE_WARNING("Could not determine vehicle class for public transport line of type '" 
-                    + line->getType() + "'.");
+            WRITE_WARNING("Could not determine vehicle class for public transport line of type '"
+                          + line->getType() + "'.");
             continue;
         }
         NBVehicle veh(line->getRef(), types[line->getType()]);
@@ -406,12 +408,12 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 }
 
 
-double 
-NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle>& router, 
-        const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
+double
+NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle>& router,
+                      const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
     NBEdge* fromEdge = ec.getByID(from->getEdgeId());
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
-    if (fromEdge == 0 || toEdge == 0) {
+    if (fromEdge == nullptr || toEdge == nullptr) {
         return std::numeric_limits<double>::max();
     }
     std::vector<const NBEdge*> route;

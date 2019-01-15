@@ -71,7 +71,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // create add buton and label for routes
     FXHorizontalFrame* buttonAndLabelRoute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
     myAddRoute = new FXButton(buttonAndLabelRoute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_ROUTE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelRoute, ("Add new " + toString(SUMO_TAG_ROUTE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(buttonAndLabelRoute, ("Add new " + toString(SUMO_TAG_ROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in left frame
     myRouteList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_ROUTE, GUIDesignTableAdditionals);
@@ -82,7 +82,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // create add buton and label for vehicle types
     FXHorizontalFrame* buttonAndLabelVehicleType = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
     myAddVehicleType = new FXButton(buttonAndLabelVehicleType, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE, GUIDesignButtonIcon);
-    new FXLabel(buttonAndLabelVehicleType, ("Add new " + toString(SUMO_TAG_VTYPE) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(buttonAndLabelVehicleType, ("Add new " + toString(SUMO_TAG_VTYPE) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in left frame
     myVehicleTypeList = new FXTable(columnLeft, this, MID_GNE_CALIBRATORDIALOG_TABLE_VEHICLETYPE, GUIDesignTableAdditionals);
@@ -93,7 +93,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
     // create add buton and label for flows in right frame
     FXHorizontalFrame* buttonAndLabelFlow = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
     myAddFlow = new FXButton(buttonAndLabelFlow, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
-    myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str(), 0, GUIDesignLabelThick);
+    myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in right frame
     myFlowList = new FXTable(columnRight, this, MID_GNE_CALIBRATORDIALOG_TABLE_FLOW, GUIDesignTableAdditionals);
@@ -164,7 +164,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size(); i++) {
         // obtain rerouter
-        GNEAdditional *routeToEdit = myEditedAdditional->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, myRouteList->getItem(i, 0)->getText().text());
+        GNEAdditional* routeToEdit = myEditedAdditional->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, myRouteList->getItem(i, 0)->getText().text());
         if (myRouteList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains route to delete as "route" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
@@ -178,7 +178,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox of type 'question'");
                 // open question dialog box
-                std::string message = ("Deletio n of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + "' will remove " + 
+                std::string message = ("Deletio n of " + toString(SUMO_TAG_ROUTE) + " '" + myRouteList->getItem(i, 0)->getText().text() + "' will remove " +
                                        toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s",  message.c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
@@ -279,12 +279,12 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
     for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE).size(); i++) {
         // obtain vehicle type
-        GNEAdditional *vType = myEditedAdditional->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
+        GNEAdditional* vType = myEditedAdditional->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
         // Make sure that default vehicle isn't edited
-        if((i == 0) && (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus() || myVehicleTypeList->getItem(i, 2)->hasFocus())) {
+        if ((i == 0) && (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus() || myVehicleTypeList->getItem(i, 2)->hasFocus())) {
             FXMessageBox::warning(getApp(), MBOX_OK,
-                                 ("Error editing default " + toString(SUMO_TAG_VTYPE)).c_str(), "%s",
-                                 ("Default " + toString(SUMO_TAG_VTYPE) + " cannot be either edited or deleted.").c_str());
+                                  ("Error editing default " + toString(SUMO_TAG_VTYPE)).c_str(), "%s",
+                                  ("Default " + toString(SUMO_TAG_VTYPE) + " cannot be either edited or deleted.").c_str());
         } else if (myVehicleTypeList->getItem(i, 2)->hasFocus()) {
             // find all flows that contains vehicle type to delete as "vehicle type" parameter
             std::vector<GNEAdditional*> calibratorFlowsToErase;
@@ -295,7 +295,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
             }
             // if there are flows that has vehicle type to remove as "vehicle type" parameter
             if (calibratorFlowsToErase.size() > 0) {
-                std::string message = ("Deletion of " + toString(SUMO_TAG_VTYPE) + " '" + myVehicleTypeList->getItem(i, 0)->getText().text() + "' will remove " + 
+                std::string message = ("Deletion of " + toString(SUMO_TAG_VTYPE) + " '" + myVehicleTypeList->getItem(i, 0)->getText().text() + "' will remove " +
                                        toString(calibratorFlowsToErase.size()) + " " + toString(SUMO_TAG_FLOW) + (calibratorFlowsToErase.size() > 1 ? ("s") : ("")) + ". Continue?");
                 FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, ("Remove " + toString(SUMO_TAG_FLOW) + "s").c_str(), "%s", message.c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
@@ -360,7 +360,7 @@ GNECalibratorDialog::updateRouteTable() {
     myRouteList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over routes
     for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE)) {
         // Set ID
@@ -399,7 +399,7 @@ GNECalibratorDialog::updateFlowTable() {
     myFlowList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over flows
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
         // Set vehicle type
@@ -438,7 +438,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     myVehicleTypeList->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over vehicle types
     for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE)) {
         // Set id
@@ -448,7 +448,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
         item = new FXTableItem(i.second->getAttribute(SUMO_ATTR_VCLASS).c_str());
         myVehicleTypeList->setItem(indexRow, 1, item);
         // set remove icon except for default vehicle type
-        if(indexRow != 0) {
+        if (indexRow != 0) {
             item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
         } else {
             item = new FXTableItem("");

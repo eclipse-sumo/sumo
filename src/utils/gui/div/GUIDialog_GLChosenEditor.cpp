@@ -57,8 +57,8 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 // method definitions
 // ===========================================================================
 
-GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) : 
-    FXMainWindow(parent->getApp(), "List of Selected Items", GUIIconSubSys::getIcon(ICON_APP_SELECTOR), NULL, GUIDesignChooserDialog),
+GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) :
+    FXMainWindow(parent->getApp(), "List of Selected Items", GUIIconSubSys::getIcon(ICON_APP_SELECTOR), nullptr, GUIDesignChooserDialog),
     myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -101,7 +101,7 @@ GUIDialog_GLChosenEditor::rebuildList() {
     const std::set<GUIGlID>& chosen = gSelected.getSelected();
     for (auto i : chosen) {
         GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
-        if (object != 0) {
+        if (object != nullptr) {
             std::string name = object->getFullName();
             FXListItem* item = myList->getItem(myList->appendItem(name.c_str()));
             item->setData(object);

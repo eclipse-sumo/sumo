@@ -65,14 +65,14 @@ NGNode::~NGNode() {
 
 
 NBNode*
-NGNode::buildNBNode(NBNetBuilder& nb) const {
-    Position pos(myPosition);
+NGNode::buildNBNode(NBNetBuilder& nb, const Position& perturb) const {
+    Position pos(myPosition + perturb);
     GeoConvHelper::getProcessing().x2cartesian(pos);
     // the center will have no logic!
     if (myAmCenter) {
         return new NBNode(myID, pos, NODETYPE_NOJUNCTION);
     }
-    NBNode* node = 0;
+    NBNode* node = nullptr;
     std::string typeS = OptionsCont::getOptions().isSet("default-junction-type") ?
                         OptionsCont::getOptions().getString("default-junction-type") : "";
 

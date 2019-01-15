@@ -28,6 +28,9 @@
 
 #include <vector>
 #include <fx.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/foxtools/MFXIconComboBox.h>
+#include <utils/foxtools/MFXUtils.h>
 #include "GUIPropertyScheme.h"
 
 
@@ -55,9 +58,11 @@ public:
     virtual ~GUIPropertySchemeStorage() { }
 
     /// @brief Fills the given combobox with the names of available colorings
-    void fill(FXComboBox& cb) {
-        for (typename std::vector<T>::iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
-            cb.appendItem((*i).getName().c_str());
+    void fill(MFXIconComboBox& cb) {
+        for (const auto& scheme : mySchemes) {
+            cb.appendIconItem(scheme.getName().c_str(), 
+                    scheme.getIcon() == ICON_EMPTY ? nullptr : GUIIconSubSys::getIcon(scheme.getIcon()), 
+                    MFXUtils::getFXColor(scheme.getBackgroundColor()));
         }
         cb.setCurrentItem((FXint)myActiveScheme);
     }

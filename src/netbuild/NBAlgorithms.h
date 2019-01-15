@@ -205,12 +205,12 @@ public:
     /** @brief Computes node types
      * @param[in] nc The container of nodes to loop along
      */
-    static void computeNodeTypes(NBNodeCont& nc);
+    static void computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
     /** @brief Checks rail_crossing for validity
      * @param[in] nc The container of nodes to loop along
      */
-    static void validateRailCrossings(NBNodeCont& nc);
+    static void validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
     /// @brief whether the given node only has rail edges
     static bool isRailwayNode(NBNode* n);
@@ -243,7 +243,7 @@ private:
     static void setPriorityJunctionPriorities(NBNode& n);
 
     /// @brief set priority for edges that are parallel to the best edges
-    static void markBestParallel(const NBNode& n, NBEdge* bestFirst, NBEdge* bestSecond); 
+    static void markBestParallel(const NBNode& n, NBEdge* bestFirst, NBEdge* bestSecond);
 
     /** @brief Sets the priorites in case of a priority junction
      * @param[in] n The node to set edges' priorities

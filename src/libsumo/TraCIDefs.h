@@ -38,8 +38,8 @@
 // ===========================================================================
 // global definitions
 // ===========================================================================
-#define DEFAULT_VIEW "View #0"
-#define PRECISION 2
+// value for invalid queries
+#define INVALID_DOUBLE_VALUE -1073741824
 
 #define LIBSUMO_SUBSCRIPTION_API \
 static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE); \
@@ -133,7 +133,7 @@ struct TraCIRoadPosition : TraCIResult {
 struct TraCIColor : TraCIResult {
     std::string getString() {
         std::ostringstream os;
-        os << "TraCIColor(" << r << "," << g << "," << b << "," << a << ")";
+        os << "TraCIColor(" << (int)r << "," << (int)g << "," << (int)b << "," << (int)a << ")";
         return os.str();
     }
     unsigned char r, g, b, a;
@@ -203,23 +203,33 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 class TraCIPhase {
 public:
     TraCIPhase() {}
-    TraCIPhase(const double _duration, const double _duration1, const double _duration2, const std::string& _phase)
-        : duration(_duration), duration1(_duration1), duration2(_duration2), phase(_phase) {}
+    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = INVALID_DOUBLE_VALUE, const double _maxDur = INVALID_DOUBLE_VALUE, const int _next = -1, const std::string& _name="")
+        : duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name) {}
     ~TraCIPhase() {}
 
-    double duration, duration1, duration2;
-    std::string phase;
+    double duration;
+    std::string state;
+    double minDur, maxDur;
+    int next;
+    std::string name;
 };
+}
 
 
+#ifdef SWIG
+%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
+#endif
+
+
+namespace libsumo {
 class TraCILogic {
 public:
     TraCILogic() {}
-    TraCILogic(const std::string& _subID, int _type, int _currentPhaseIndex, const std::vector<TraCIPhase>& _phases = std::vector<TraCIPhase>())
-        : subID(_subID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
+    TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex)
+        : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex) {}
     ~TraCILogic() {}
 
-    std::string subID;
+    std::string programID;
     int type;
     int currentPhaseIndex;
     std::vector<TraCIPhase> phases;
@@ -241,6 +251,7 @@ public:
 
 class TraCIConnection {
 public:
+    TraCIConnection() {} // this is needed by SWIG when building a vector of this type, please don't use it
     TraCIConnection(const std::string& _approachedLane, const bool _hasPrio, const bool _isOpen, const bool _hasFoe,
                     const std::string _approachedInternal, const std::string _state, const std::string _direction, const double _length)
         : approachedLane(_approachedLane), hasPrio(_hasPrio), isOpen(_isOpen), hasFoe(_hasFoe),
@@ -323,20 +334,30 @@ public:
     TraCIStage(int _type) : type(_type), depart(-1) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
+    /// @brief The vehicle type when using a private car or bike
+    std::string vType;
     /// @brief The line or the id of the vehicle type
     std::string line;
     /// @brief The id of the destination stop
     std::string destStop;
     /// @brief The sequence of edges to travel
     std::vector<std::string> edges;
-    /// @brief duration of the stage
+    /// @brief duration of the stage in seconds
     double travelTime;
     /// @brief effort needed
     double cost;
+    /// @brief length in m
+    double length;
     /// @brief id of the intended vehicle for public transport ride
     std::string intended;
     /// @brief intended depart time for public transport ride or -1
     double depart;
+    /// @brief position on the lane when starting the stage
+    double departPos;
+    /// @brief position on the lane when ending the stage
+    double arrivalPos;
+    /// @brief arbitrary description string
+    std::string description;
 };
 }
 

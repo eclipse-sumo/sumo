@@ -143,17 +143,17 @@ public:
     /// @brief Joins junctions that are very close together
     int joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBPTStopCont& sc);
 
-    /// @brief remove geometry-like fringe nodes from cluster 
-    void pruneClusterFringe(NodeSet& cluster) const; 
+    /// @brief remove geometry-like fringe nodes from cluster
+    void pruneClusterFringe(NodeSet& cluster) const;
 
     /// @brief determine wether the cluster is not too complex for joining
-    bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const; 
+    bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;
 
     /// @brief try to find a joinable subset (recursively)
     bool reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
 
     /// @brief find closest neighbor for building circle
-    NBEdge* shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, const std::vector<NBNode*>& exclude) const; 
+    NBEdge* shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, const std::vector<NBNode*>& exclude) const;
     /// @}
 
     /// @name Adapting the input
@@ -247,8 +247,11 @@ public:
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();
 
-    /// build the list of outgoing edges and lanes
+    /// @brief build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
+
+    /// @brief compute right-of-way logic for all lane-to-lane connections
+    void computeLogics2(const NBEdgeCont& ec, OptionsCont& oc);
 
     /// @brief Returns the number of nodes stored in this container
     int size() const {
@@ -283,8 +286,8 @@ public:
      * @param[out] hasTLS Whether the new node has a traffic light
      * @param[out] tlType The type of traffic light (if any)
      */
-    void analyzeCluster(NodeSet cluster, std::string& id, Position& pos, 
-            bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType);
+    void analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
+                        bool& hasTLS, TrafficLightType& type, SumoXMLNodeType& nodeType);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     void registerJoinedCluster(const NodeSet& cluster);
@@ -301,7 +304,7 @@ public:
 
     /* @brief discards rail signals
      */
-    void discardRailSignals(); 
+    void discardRailSignals();
 
     /// @brief mark a node as being created form a split
     void markAsSplit(const NBNode* node) {
@@ -333,9 +336,10 @@ private:
     /// @{
     /** @brief Returns whethe the given node cluster should be controlled by a tls
      * @param[in] c The node cluster
+     * @param[in] laneSpeedThreshold threshold for determining whether a node or cluster should be tls controlled
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const NodeSet& c) const;
+    bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const;
     /// @}
 
 

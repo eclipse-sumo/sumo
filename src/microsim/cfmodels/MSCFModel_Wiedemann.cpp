@@ -51,8 +51,8 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
     myEstimation(vtype->getParameter().getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5)),
     myAX(vtype->getLength() + 1. + 2. * mySecurity),
     myCX(25. *(1. + mySecurity + myEstimation)),
-    myMinAccel(0.2 * myAccel)  // +noise?
-{ }
+    myMinAccel(0.2 * myAccel) { // +noise?
+}
 
 
 MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}

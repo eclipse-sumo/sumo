@@ -20,8 +20,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 #include <netedit/GNEUndoList.h>
@@ -29,7 +27,6 @@
 #include <netedit/GNENet.h>
 
 #include "GNERouteProbReroute.h"
-#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions
@@ -38,7 +35,7 @@
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false) {
     // if exist a reroute, set newRoute ID
-    if(rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() > 0) {
+    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() > 0) {
         myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).begin()->first;
     }
     // fill route prob reroute interval with default values
@@ -56,37 +53,37 @@ GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, 
 GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
-void 
-GNERouteProbReroute::moveGeometry(const Position&, const Position&) {
+void
+GNERouteProbReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNERouteProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNERouteProbReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNERouteProbReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNERouteProbReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNERouteProbReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNERouteProbReroute::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -106,7 +103,7 @@ GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -124,7 +121,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNE
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -141,20 +138,20 @@ GNERouteProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNERouteProbReroute::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
-std::string 
+std::string
 GNERouteProbReroute::getHierarchyName() const {
-    return toString(getTag()) + ": " + myNewRouteId;
+    return getTagStr() + ": " + myNewRouteId;
 }
 
 // ===========================================================================
@@ -177,7 +174,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

@@ -32,7 +32,7 @@
 // class declarations
 // ===========================================================================
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 
@@ -105,11 +105,11 @@ public:
 
     static TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", const double depart = -1., const int routingMode = 0);
 
-    /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction, 
+    /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction,
      * instead the middle of the edge is used. DepartPos is treated differently so that 1-edge walks do not have length 0.
      */
     static std::vector<TraCIStage> findIntermodalRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& modes = "",
-            double depart=-1., const int routingMode=0, double speed = -1., double walkFactor = -1.,
+            double depart = -1., const int routingMode = 0, double speed = -1., double walkFactor = -1.,
             double departPos = 0, double arrivalPos = INVALID_DOUBLE_VALUE, const double departPosLat = 0,
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 

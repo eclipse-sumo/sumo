@@ -30,7 +30,9 @@
 // ===========================================================================
 #include <config.h>
 
+#include <memory>
 #include <vector>
+#include <map>
 #include <deque>
 #include <cassert>
 #include <utils/common/Named.h>
@@ -57,6 +59,11 @@ class MSVehicleControl;
 class OutputDevice;
 class MSLeaderInfo;
 
+// ===========================================================================
+// type definitions
+// ===========================================================================
+/// Coverage info
+typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; // also declared in libsumo/Helper.h!
 
 // ===========================================================================
 // class definitions
@@ -94,20 +101,27 @@ public:
     ///        that may be of importance for the car-following dynamics along that lane. The relevant types of vehicles are:
     ///        1) vehicles with their front on the lane (myVehicles),
     ///        2) vehicles intersecting the lane but with front on another lane (myPartialVehicles)
+    ///
+    ///        In the context of retrieving linkLeaders during lane changing a third group of vehicles is checked:
+    ///        3) vehicles processed during lane changing (myTmpVehicles)
     class AnyVehicleIterator {
     public:
         AnyVehicleIterator(
             const MSLane* lane,
             int i1,
             int i2,
+            int i3,
             const int i1End,
             const int i2End,
+            const int i3End,
             bool downstream = true) :
             myLane(lane),
             myI1(i1),
             myI2(i2),
+            myI3(i3),
             myI1End(i1End),
             myI2End(i2End),
+            myI3End(i3End),
             myDownstream(downstream),
             myDirection(downstream ? 1 : -1) {
         }
@@ -115,8 +129,10 @@ public:
         bool operator== (AnyVehicleIterator const& other) const {
             return (myI1 == other.myI1
                     && myI2 == other.myI2
+                    && myI3 == other.myI3
                     && myI1End == other.myI1End
-                    && myI2End == other.myI2End);
+                    && myI2End == other.myI2End
+                    && myI3End == other.myI3End);
         }
 
         bool operator!= (AnyVehicleIterator const& other) const {
@@ -140,10 +156,14 @@ public:
         int myI1;
         /// @brief index for myPartialVehicles
         int myI2;
+        /// @brief index for myTmpVehicles
+        int myI3;
         /// @brief end index for myVehicles
         int myI1End;
         /// @brief end index for myPartialVehicles
         int myI2End;
+        /// @brief end index for myTmpVehicles
+        int myI3End;
         /// @brief iteration direction
         bool myDownstream;
         /// @brief index delta
@@ -390,22 +410,25 @@ public:
 
     /// @brief begin iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesBegin() const {
-        return AnyVehicleIterator(this, 0, 0, (int)myVehicles.size(), (int)myPartialVehicles.size(), true);
+        return AnyVehicleIterator(this, 0, 0, 0,
+                                  (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in downstream direction
     AnyVehicleIterator anyVehiclesEnd() const {
-        return AnyVehicleIterator(this, (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myVehicles.size(), (int)myPartialVehicles.size(), true);
+        return AnyVehicleIterator(this, (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(),
+                                  (int)myVehicles.size(), (int)myPartialVehicles.size(), (int)myTmpVehicles.size(), true);
     }
 
     /// @brief begin iterator for iterating over all vehicles touching this lane in upstream direction
     AnyVehicleIterator anyVehiclesUpstreamBegin() const {
-        return AnyVehicleIterator(this, (int)myVehicles.size() - 1, (int)myPartialVehicles.size() - 1, -1, -1, false);
+        return AnyVehicleIterator(this, (int)myVehicles.size() - 1, (int)myPartialVehicles.size() - 1, (int)myTmpVehicles.size() - 1,
+                                  -1, -1, -1, false);
     }
 
     /// @brief end iterator for iterating over all vehicles touching this lane in upstream direction
     AnyVehicleIterator anyVehiclesUpstreamEnd() const {
-        return AnyVehicleIterator(this, -1, -1, -1, -1, false);
+        return AnyVehicleIterator(this, -1, -1, -1, -1, -1, -1, false);
     }
 
     /** @brief Allows to use the container for microsimulation again
@@ -532,6 +555,13 @@ public:
      */
     virtual void planMovements(const SUMOTime t);
 
+    /** @brief Register junction approaches for all vehicles after velocities
+     * have been planned. 
+     *
+     * This method goes through all vehicles calling their * "setApproachingForAllLinks" method.
+     */
+    virtual void setJunctionApproaches(const SUMOTime t);
+
     /** @brief This updates the MSLeaderInfo argument with respect to the given MSVehicle.
      *         All leader-vehicles on the same edge, which are relevant for the vehicle
      *         (i.e. with position > vehicle's position) and not already integrated into
@@ -559,6 +589,15 @@ public:
     ///@}
 
 
+    /// @brief short-circut collision check if nothing changed since the last check
+    inline bool needsCollisionCheck() const {
+        return myNeedsCollisionCheck;
+    }
+
+    /// @brief require another collision check due to relevant changes in the simulation
+    inline void requireCollisionCheck() {
+        myNeedsCollisionCheck = true;
+    }
 
     /// Check if vehicles are too close.
     virtual void detectCollisions(SUMOTime timestep, const std::string& stage);
@@ -756,13 +795,13 @@ public:
     double getStopOffset(const MSVehicle* veh) const;
 
     /// @brief Returns vehicle class specific stopOffsets
-    const std::map<SVCPermissions,double>& getStopOffsets() const {
+    const std::map<SVCPermissions, double>& getStopOffsets() const {
         return myStopOffsets;
     };
 
     /// @brief Set vehicle class specific stopOffsets
-    void setStopOffsets(std::map<SVCPermissions,double> stopOffsets) {
-        myStopOffsets=stopOffsets;
+    void setStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
+        myStopOffsets = stopOffsets;
     };
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
@@ -840,6 +879,29 @@ public:
 
     /// @brief get all vehicles that are inlapping from consecutive edges
     MSLeaderInfo getPartialBeyond() const;
+
+    /// @brief Returns all vehicles closer than downstreamDist along the along the road network starting on the given
+    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance
+    /// @note  Re-implementation of the corresponding method in MSDevice_SSM, which cannot be easily adapted, as it gathers
+    ///        additional information for conflict lanes, etc.
+    /// @param[in] lanes - sequence of lanes to search along
+    /// @param[in] startPos - start position of the search on the first lane
+    /// @param[in] downstreamDist - distance to search downstream
+    /// @param[in] upstreamDist - distance to search upstream
+    /// @param[in/out] checkedLanes - lanes, which were already scanned (current lane is added, if not present,
+    ///                otherwise the scan is aborted; TODO: this may disregard unscanned parts of the lane in specific circular set ups.)
+    /// @return    vehs - List of vehicles found
+    std::set<MSVehicle*> getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<LaneCoverageInfo> checkedLanes) const;
+
+    /// @brief Returns all vehicles on the lane overlapping with the interval [a,b]
+    /// @note  Does not consider vehs with front on subsequent lanes
+    std::set<MSVehicle*> getVehiclesInRange(const double a, const double b) const;
+
+
+    /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
+    std::vector<const MSJunction*> getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const;
+    /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
+    std::vector<const MSLink*> getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& contLanes) const;
 
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
      * The result is cached in myLogicalPredecessorLane
@@ -986,7 +1048,7 @@ public:
     /// @brief return the corresponding position on the opposite lane
     double getOppositePos(double pos) const;
 
-    /* @brief find leader for a vehicle depending the relative driving direction
+    /* @brief find leader for a vehicle depending on the relative driving direction
      * @param[in] ego The ego vehicle
      * @param[in] dist The look-ahead distance when looking at consecutive lanes
      * @param[in] oppositeDir Whether the lane has the opposite driving direction of ego
@@ -1050,7 +1112,7 @@ public:
      * @todo What about throwing an IOError?
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
-    void loadState(std::vector<std::string>& vehIDs, MSVehicleControl& vc);
+    void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc);
     /// @}
 
 
@@ -1103,13 +1165,13 @@ protected:
 
     /// @brief detect whether there is a collision between the two vehicles
     bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
-                                std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief take action upon collision
     void handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                 double gap, double latGap,
-                                std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief compute maximum braking distance on this lane
@@ -1199,7 +1261,7 @@ protected:
     /// Lane's vClass specific stop offset [m]. The map is either of length 0, which means no
     /// special stopOffset was set, or of length 1, where the key is a bitset representing a subset
     /// of the SUMOVehicleClass Enum and the value is the offset in meters.
-    std::map<SVCPermissions,double> myStopOffsets;
+    std::map<SVCPermissions, double> myStopOffsets;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;
@@ -1263,6 +1325,9 @@ protected:
     double myRightSideOnEdge;
     /// @brief the index of the rightmost sublane of this lane on myEdge
     int myRightmostSublane;
+
+    /// @brief whether a collision check is currently needed
+    bool myNeedsCollisionCheck;
 
     // @brief the ids of neighboring lanes
     std::vector<std::string> myNeighs;

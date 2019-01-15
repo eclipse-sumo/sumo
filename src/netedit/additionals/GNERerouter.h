@@ -21,7 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
 #include "GNEAdditional.h"
 
@@ -52,7 +51,7 @@ public:
      * @param[in] off Whether the router should be inactive initially
      * @param[in] block movement enable or disable additional movement
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& name, 
+    GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name,
                 const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /// @brief Destructor
@@ -64,16 +63,14 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] newPosition new position of geometry
-     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
      */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+    void moveGeometry(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] oldPos the old position of additional
      * @param[in] undoList The undoList on which to register changes
      */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);

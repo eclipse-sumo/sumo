@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 23.06.2018 22:08:09 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 14.09.2018 15:25:32 by Eclipse SUMO netedit Version UNKNOWN
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_14Sep150304.2304/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_14Sep150304.2304/netedit.gui/additionalElements/e3detector/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
         <sidewalks.guess value="true"/>
         <crossings.guess value="true"/>
         <walkingareas value="false"/>
-    </processing>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_14Sep150304.2304/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_14Sep150304.2304/netedit.gui/additionalElements/e3detector/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_14Sep150304.2304/netedit.gui/additionalElements/e3detector/volatileRecomputing\shapes.xml"/>
+    </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_14Sep150304.2304/netedit.gui/additionalElements/e3detector/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/additionalElements/e3detector/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_14Sep150304.2304/netedit.gui/additionalElements/e3detector/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
@@ -43,39 +54,15 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <e3Detector id="e3Detector_0" pos="-11.53,8.52" freq="100.00" file="e3Detector_0.txt">
-        <detEntry lane="gneE2_1" pos="8.59"/>
-        <detEntry lane="gneE2_2" pos="14.94"/>
-        <detEntry lane="gneE2_3" pos="20.37"/>
-        <detEntry lane="gneE2_4" pos="24.10"/>
-        <detEntry lane="gneE2_5" pos="28.17"/>
-        <detEntry lane="gneE4_0" pos="18.73"/>
-        <detEntry lane="gneE1_1" pos="36.87"/>
-        <detEntry lane="gneE0_1" pos="10.72"/>
-        <detExit lane="gneE2_1" pos="1.40"/>
-        <detExit lane="gneE2_2" pos="3.46"/>
-        <detExit lane="gneE2_3" pos="6.73"/>
-        <detExit lane="gneE2_4" pos="9.30"/>
-        <detExit lane="gneE2_5" pos="12.31"/>
-        <detExit lane="gneE4_0" pos="34.51"/>
-        <detExit lane="gneE1_1" pos="8.19"/>
-        <detExit lane="gneE0_1" pos="38.04"/>
-    </e3Detector>
-    <e3Detector id="e3Detector_1" pos="60.44,12.04" freq="100.00" file="e3Detector_1.txt">
-        <detEntry lane="gneE2_1" pos="19.61"/>
-        <detEntry lane="gneE2_2" pos="22.87"/>
-        <detEntry lane="gneE2_3" pos="26.31"/>
-        <detEntry lane="gneE2_4" pos="27.77"/>
-        <detEntry lane="gneE2_5" pos="31.03"/>
         <detEntry lane="gneE4_0" pos="13.82"/>
         <detEntry lane="gneE1_1" pos="42.11"/>
+        <detExit lane="gneE0_1" pos="38.04"/>
+        <detExit lane="gneE4_0" pos="34.51"/>
+    </e3Detector>
+    <e3Detector id="e3Detector_1" pos="60.44,12.04" freq="100.00" file="e3Detector_1.txt">
         <detEntry lane="gneE0_1" pos="4.97"/>
-        <detExit lane="gneE2_1" pos="3.55"/>
-        <detExit lane="gneE2_2" pos="5.78"/>
-        <detExit lane="gneE2_3" pos="10.25"/>
-        <detExit lane="gneE2_4" pos="13.68"/>
-        <detExit lane="gneE2_5" pos="19.01"/>
-        <detExit lane="gneE4_0" pos="28.24"/>
+        <detEntry lane="gneE2_1" pos="19.61"/>
         <detExit lane="gneE1_1" pos="23.22"/>
-        <detExit lane="gneE0_1" pos="23.95"/>
+        <detExit lane="gneE2_1" pos="3.55"/>
     </e3Detector>
 </additional>

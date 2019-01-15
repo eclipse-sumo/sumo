@@ -37,7 +37,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
@@ -54,7 +54,7 @@
 #include <polyconvert/PCTypeMap.h>
 #include <polyconvert/PCTypeDefHandler.h>
 #include <polyconvert/PCNetProjectionLoader.h>
-#include "pc_typemap.h"
+#include <polyconvert/pc_typemap.h>
 
 
 // ===========================================================================
@@ -265,7 +265,7 @@ main(int argc, char** argv) {
             }
             bool ok = true;
             // !!! no proper error handling
-            Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", 0, ok);
+            Boundary offsets = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok);
             pruningBoundary = Boundary(
                                   pruningBoundary.xmin() + offsets.xmin(),
                                   pruningBoundary.ymin() + offsets.ymin(),
@@ -276,7 +276,7 @@ main(int argc, char** argv) {
         if (oc.isSet("prune.boundary")) {
             bool ok = true;
             // !!! no proper error handling
-            pruningBoundary = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.boundary"), "--prune.boundary", 0, ok);
+            pruningBoundary = GeomConvHelper::parseBoundaryReporting(oc.getString("prune.boundary"), "--prune.boundary", nullptr, ok);
             prune = true;
         }
         if (oc.isSet("osm-files") && oc.isDefault("poi-layer-offset")) {
@@ -288,7 +288,7 @@ main(int argc, char** argv) {
         // read in the type defaults
         if (!oc.isSet("type-file")) {
             const char* sumoPath = std::getenv("SUMO_HOME");
-            if (sumoPath == 0) {
+            if (sumoPath == nullptr) {
                 WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
             } else {
                 const std::string path = sumoPath + std::string("/data/typemap/");

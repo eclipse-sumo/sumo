@@ -9,19 +9,10 @@ delete
 inspect
 
 # inspect selection
-inspect_selection
-
-# inspect shape in a net with geo attributes
-inspect_geo
-
-# inspect selection  in a net with geo attributes
-inspect_selection_geo
+inspect_selected
 
 # load shape
 load
-
-# load polys with generic parameters
-load_genericparameters
 
 # move shape (blocked and undblocked)
 move

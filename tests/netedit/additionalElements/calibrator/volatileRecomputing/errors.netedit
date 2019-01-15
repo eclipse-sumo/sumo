@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
@@ -18,8 +15,8 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,64.40
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Adding calibrator 'calibrator_gneE0_3' in GNEChange_Additional
-GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -28,24 +25,24 @@ GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with bounda
 GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
-GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary 30.00,-18.40,70.00,21.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary 30.00,-18.40,70.00,21.60
 GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary 30.00,-18.40,70.00,21.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
-GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary 30.00,1.60,70.00,54.40
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,64.40
 GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary 30.00,1.60,70.00,54.40
 GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary 30.00,1.60,70.00,54.40
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,64.40
 Debug: Adding calibrator 'calibrator_gneE4_1' in GNEChange_Additional
-GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -20.00,-1.60,20.00,38.40
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -20.00,-1.60,20.00,38.40
@@ -53,6 +50,9 @@ GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -20
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Keys Shift + F5 (Compute with volatile options) pressed
+Debug: Opening FXMessageBox 'Volatile Recomputing'
+Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -62,54 +62,6 @@ GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,64.40
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
-Debug: Created connection 'fromgneE2_4togneE4_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE2_4togneE4_0 into SUMORTree with boundary -20.10,-19.90,20.10,39.90
-Debug: Created connection 'fromgneE4_0togneE2_4' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE4_0togneE2_4 into SUMORTree with boundary 29.90,-0.10,70.10,70.10
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 28.00,-3.20,72.00,56.00
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-3.20,22.00,56.00
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
-GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
-GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
-GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary 30.00,-18.40,70.00,21.60
-GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary 30.00,-18.40,70.00,21.60
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,64.40
-GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,64.40
-GLDebug: Removed object connection:fromgneE4_0togneE2_4 from SUMORTree with boundary 29.90,-0.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE4_0togneE2_4 into SUMORTree with boundary 29.00,-1.60,69.00,41.60
-GLDebug: Removed object connection:fromgneE2_4togneE4_0 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
-GLDebug: Inserted connection:fromgneE2_4togneE4_0 into SUMORTree with boundary -19.00,-1.60,21.00,41.60
-GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary 30.00,1.60,70.00,54.40
-GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary 30.00,1.60,70.00,54.40
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,64.40
-GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -20.00,-1.60,20.00,38.40
-GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -20.00,-1.60,20.00,38.40
-GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Deleting unreferenced calibrator 'calibrator_gneE4_1'
 GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -20.00,-1.60,20.00,38.40
 Debug: Additionals has to be saved
@@ -120,26 +72,134 @@ Debug: Deleting unreferenced calibrator 'calibrator_gneE1_2'
 GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary 30.00,-18.40,70.00,21.60
 Debug: Deleting unreferenced calibrator 'calibrator_gneE0_3'
 GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-25.20,22.00,25.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-25.20,72.00,25.20
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 28.00,-3.20,72.00,58.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-3.20,22.00,58.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
+GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
+GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-24.20,20.00,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-34.20,80.00,30.00
+GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -20.00,-24.20,20.00,18.40
+GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-24.20,20.00,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
+GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary 30.00,-18.40,70.00,24.20
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,34.20
+GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary 30.00,-18.40,70.00,24.20
+GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary 30.00,-18.40,70.00,24.20
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
+GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary 30.00,1.60,70.00,57.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,67.00
+GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary 30.00,1.60,70.00,57.00
+GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary 30.00,1.60,70.00,57.00
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
+GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -20.00,-1.60,20.00,38.40
+GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
+GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -20.00,-1.60,20.00,38.40
+GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -20.00,-1.60,20.00,38.40
+GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-25.20,22.00,25.20
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-25.20,72.00,25.20
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-3.20,72.00,58.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-3.20,22.00,58.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-34.20,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,34.20
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,67.00
+GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
+Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_1togneE1_1 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_1togneE0_1 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE2_5togneE4_0 into SUMORTree with boundary -20.10,-19.90,20.10,39.90
+Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE4_0togneE2_5 into SUMORTree with boundary 29.90,-0.10,70.10,70.10
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-25.20,22.00,25.20
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-25.20,22.00,25.20
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-25.20,22.00,25.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-25.20,72.00,25.20
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-25.20,72.00,25.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-25.20,72.00,25.20
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 28.00,-3.20,72.00,58.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-3.20,72.00,58.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 28.00,-3.20,72.00,58.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-3.20,22.00,58.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-3.20,22.00,58.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-3.20,22.00,58.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-34.20,80.00,30.00
+GLDebug: Removed object connection:fromgneE1_1togneE0_1 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_1togneE0_1 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_1togneE1_1 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_1togneE1_1 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -20.00,-24.20,20.00,18.40
+GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-24.20,20.00,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,34.20
+GLDebug: Removed object calibrator:calibrator_gneE1_2 from SUMORTree with boundary 30.00,-18.40,70.00,24.20
+GLDebug: Inserted calibrator:calibrator_gneE1_2 into SUMORTree with boundary 30.00,-18.40,70.00,24.20
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,67.00
+GLDebug: Removed object connection:fromgneE4_0togneE2_5 from SUMORTree with boundary 29.90,-0.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE4_0togneE2_5 into SUMORTree with boundary 29.00,-1.60,69.00,41.60
+GLDebug: Removed object connection:fromgneE2_5togneE4_0 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
+GLDebug: Inserted connection:fromgneE2_5togneE4_0 into SUMORTree with boundary -19.00,-1.60,21.00,41.60
+GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary 30.00,1.60,70.00,57.00
+GLDebug: Inserted calibrator:calibrator_gneE2_0 into SUMORTree with boundary 30.00,1.60,70.00,57.00
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
+GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
+GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
+GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -20.00,-1.60,20.00,38.40
+GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -20.00,-1.60,20.00,38.40
+GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_1togneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_2' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_3' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_4' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE2_4togneE4_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_5' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_5togneE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE4' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE4_0togneE2_4' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE4_0togneE2_5' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced calibrator 'calibrator_gneE0_3' in GNENet destructor
+Debug: Deleting unreferenced calibrator 'calibrator_gneE1_2' in GNENet destructor
+Debug: Deleting unreferenced calibrator 'calibrator_gneE2_0' in GNENet destructor
+Debug: Deleting unreferenced calibrator 'calibrator_gneE4_1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 12
+GLDebug: Number of objects in SUMORTree during call destructor: 16

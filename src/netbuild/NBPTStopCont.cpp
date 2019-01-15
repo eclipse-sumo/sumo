@@ -110,32 +110,32 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 }
 
 
-int 
+int
 NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
     //scnd pass set correct lane
     std::vector<NBPTStop*> toAdd;
     for (auto i = myPTStops.begin(); i != myPTStops.end(); i++) {
         NBPTStop* stop = i->second;
         NBEdge* edge = ec.getByID(stop->getEdgeId());
-        if (edge != 0 && edge->isBidiRail()) {
+        if (edge != nullptr && edge->isBidiRail()) {
             NBEdge* bidiEdge = edge->getTurnDestination(true);
             assert(bidiEdge != 0);
             const std::string id = getReverseID(stop->getID());
             if (myPTStops.count(id) > 0) {
                 if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
-                    WRITE_WARNING("Could not create reverse-direction stop for superposed edge '" + bidiEdge->getID() 
-                            + "' (origStop '" + i->first + "'). Stop id '" + id 
-                            + "' already in use by stop on edge '" + myPTStops[id]->getEdgeId() + "'."); 
+                    WRITE_WARNING("Could not create reverse-direction stop for superposed edge '" + bidiEdge->getID()
+                                  + "' (origStop '" + i->first + "'). Stop id '" + id
+                                  + "' already in use by stop on edge '" + myPTStops[id]->getEdgeId() + "'.");
                 }
                 continue;
             }
-            NBPTStop* bidiStop = new NBPTStop(id, 
-                    stop->getPosition(), 
-                    bidiEdge->getID(), 
-                    stop->getOrigEdgeId(), 
-                    stop->getLength(), 
-                    stop->getName(), 
-                    stop->getPermissions());
+            NBPTStop* bidiStop = new NBPTStop(id,
+                                              stop->getPosition(),
+                                              bidiEdge->getID(),
+                                              stop->getOrigEdgeId(),
+                                              stop->getLength(),
+                                              stop->getName(),
+                                              stop->getPermissions());
             if (bidiStop->findLaneAndComputeBusStopExtend(ec)) {
                 toAdd.push_back(bidiStop);
                 stop->setBidiStop(bidiStop);
@@ -165,7 +165,7 @@ NBPTStopCont::getReverseStop(NBPTStop* pStop, NBEdgeCont& cont) {
         const std::string reverseID = getReverseID(pStop->getID());
         if (myPTStops.count(reverseID) == 0) {
             return new NBPTStop(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
-                    pStop->getLength(), pStop->getName(), pStop->getPermissions());
+                                pStop->getLength(), pStop->getName(), pStop->getPermissions());
         } else {
             return myPTStops[reverseID];
         }
@@ -292,7 +292,7 @@ NBPTStopCont::getReverseEdge(NBEdge* edge) {
             }
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -331,7 +331,7 @@ NBPTStopCont::postprocess(std::set<std::string>& usedStops) {
     }
 }
 
-std::string 
+std::string
 NBPTStopCont::getReverseID(const std::string& id) {
     return id.size() > 0 && id[0] == '-' ? id.substr(1) : "-" + id;
 }
@@ -365,8 +365,8 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
         const std::string& stopEdgeID = ptStop.second->getEdgeId();
         NBEdge* stopEdge = cont.getByID(stopEdgeID);
         //std::cout << "findAccessEdgesForRailStops edge=" << stopEdgeID << " exists=" << (stopEdge != 0) << "\n";
-        if (stopEdge != 0 && (stopEdge->getPermissions() & SVC_PEDESTRIAN) == 0) {
-        //if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
+        if (stopEdge != nullptr && (stopEdge->getPermissions() & SVC_PEDESTRIAN) == 0) {
+            //if (stopEdge != 0 && isRailway(stopEdge->getPermissions())) {
             std::set<std::string> ids;
             Named::StoringVisitor visitor(ids);
             const Position& pos = ptStop.second->getPosition();
@@ -379,7 +379,7 @@ NBPTStopCont::findAccessEdgesForRailStops(NBEdgeCont& cont, double maxRadius, in
                 edgCants.push_back(e);
             }
             std::sort(edgCants.begin(), edgCants.end(), [pos](NBEdge * a, NBEdge * b) {
-                return a->getGeometry().distance2D(pos, false) < b->getGeometry().distance2D(pos, false);
+                return a->getLaneShape(0).distance2D(pos, false) < b->getLaneShape(0).distance2D(pos, false);
             });
             int cnt = 0;
             for (auto edge : edgCants) {

@@ -59,7 +59,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
-        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled()) 
+        if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                 && veh->getDevice(typeid(MSDevice_FCD)) != nullptr
                 // only filter on normal edges
                 && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)) {
@@ -79,16 +79,16 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             of.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
             of.writeAttr(SUMO_ATTR_SPEED, veh->getSpeed());
             of.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
-            if (microVeh != 0) {
+            if (microVeh != nullptr) {
                 of.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
             }
             of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
-            if (microVeh != 0 && signals) {
+            if (microVeh != nullptr && signals) {
                 of.writeAttr("signals", toString(microVeh->getSignals()));
             }
             of.closeTag();
             // write persons and containers
-            const MSEdge* edge = microVeh == 0 ? veh->getEdge() : &veh->getLane()->getEdge();
+            const MSEdge* edge = microVeh == nullptr ? veh->getEdge() : &veh->getLane()->getEdge();
 
             const std::vector<MSTransportable*>& persons = veh->getPersons();
             for (std::vector<MSTransportable*>::const_iterator it_p = persons.begin(); it_p != persons.end(); ++it_p) {

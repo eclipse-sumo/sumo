@@ -25,7 +25,7 @@
 #include <config.h>
 
 #include <random>
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include "MSDevice_BTsender.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Command.h>
@@ -47,7 +47,7 @@ class SUMOVehicle;
  *
  * @see MSDevice
  */
-class MSDevice_BTreceiver : public MSDevice {
+class MSDevice_BTreceiver : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_BTreceiver-options
      * @param[filled] oc The options container to add the options to
@@ -65,7 +65,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 
     /** @brief Returns the configured range

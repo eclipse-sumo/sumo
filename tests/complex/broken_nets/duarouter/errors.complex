@@ -38,12 +38,16 @@ Error: value 'a' not in enumeration
 
 Quitting (on error).
 ------------------ net/edge[0]@id:
-Error: Attribute 'id' in definition of a edge is empty.
-Error: Process Error
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 24/46.
+
 Quitting (on error).
 ------------------ net/edge[1]@id:
-Error: Attribute 'id' in definition of a edge is empty.
-Error: Process Error
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 28/46.
+
 Quitting (on error).
 ------------------ net/edge[0]@id:a
 Error: unknown from-edge '1' in connection
@@ -153,20 +157,28 @@ Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
 
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:
-Error: Attribute 'id' in definition of a lane is empty.
-Error: invalid fromLane '1' in connection from '1'.
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 25/94.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[1]@id:
-Error: Attribute 'id' in definition of a lane is empty.
-Error: invalid fromLane '1' in connection from '1'.
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 26/94.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[0]@id:
-Error: Attribute 'id' in definition of a lane is empty.
-Error: invalid toLane '1' in connection to '2'.
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 29/96.
+
 Quitting (on error).
 ------------------ net/edge[1]/lane[1]@id:
-Error: Attribute 'id' in definition of a lane is empty.
-Error: invalid toLane '1' in connection to '2'.
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 30/96.
+
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:a_0
  Wrong error code returned (0)!
@@ -485,16 +497,22 @@ Quitting (on error).
 ------------------ net/edge[1]/lane[1]:<duplicate>
  Wrong error code returned (0)!
 ------------------ net/junction[0]@id:
-Error: Attribute 'id' in definition of a junction is empty.
-Error: Unknown node '1'.
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 33/109.
+
 Quitting (on error).
 ------------------ net/junction[1]@id:
-Error: Attribute 'id' in definition of a junction is empty.
-Error: Unknown node '2'.
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 34/133.
+
 Quitting (on error).
 ------------------ net/junction[2]@id:
-Error: Attribute 'id' in definition of a junction is empty.
-Error: Unknown node '3'.
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 38/122.
+
 Quitting (on error).
 ------------------ net/junction[0]@id:a
 Warning: Skipping isolated junction 'a'.

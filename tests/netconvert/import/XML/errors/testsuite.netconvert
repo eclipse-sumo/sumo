@@ -16,5 +16,8 @@ xml_looped_edge
 # invalid node id
 node_id_invalid
 
+# traffic light with illegal state
+phase_state_invalid
+
 # Tests for broken edges
 broken_edge

@@ -93,14 +93,17 @@ public class RequestMessage {
 			throws IOException {
 		
 		byte[] buf = new byte[storage.getStorageList().size()];
+        //StringBuilder sb = new StringBuilder();
 		int n = 0;
 		for (Byte b : storage.getStorageList()) {
 			if (checksum != null)
 				checksum.update(b);
 			
+            //sb.append(String.format("%X ", b));
 			buf[n] = b;
 			n++;
 		}
+        //System.out.println("writeStorage " + storage.getStorageList().size() + " bytes:" + sb);
 		os.write(buf);
 	}
 

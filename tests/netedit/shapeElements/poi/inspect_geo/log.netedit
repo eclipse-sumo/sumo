@@ -1,5 +1,0 @@
-Warning: Please note that using ';' and ',' as XML list separators is deprecated.
- From 1.0 onwards, only ' ' will be accepted.
-Error: Shape of a(n) user-supplied position is broken: the position is neither x,y nor x,y,z.
-Error: add boundary of GUIGlObject POI_0 is different of remove boundary
-Quitting (on error).

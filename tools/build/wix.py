@@ -72,13 +72,12 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     for wxs in glob.glob(wxsPattern):
         with open(wxs) as wxsIn:
             with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
-                for l in wxsIn:
-                    l = l.replace("License.rtf", license)
+                for line in wxsIn:
+                    line = line.replace("License.rtf", license)
                     dataDir = os.path.dirname(license)
                     for data in ["bannrbmp.bmp", "dlgbmp.bmp"]:
-                        l = l.replace(data, os.path.join(dataDir, data))
-                    wxsOut.write(
-                        l.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
+                        line = line.replace(data, os.path.join(dataDir, data))
+                    wxsOut.write(line.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
         fragments.append(wxsOut.name)
     subprocess.call([os.path.join(wixBin, "candle.exe"),
                      "-o", tmpDir + "\\"] + fragments,

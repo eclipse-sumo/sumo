@@ -1,0 +1,10 @@
+src/foreign/eulerspiral/odrSpiral.cpp header does not start
+src/foreign/eulerspiral/odrSpiral.h header does not start
+src/foreign/fontstash/fontstash.h header does not start
+src/foreign/fontstash/glfontstash.h header does not start
+src/foreign/fontstash/stb_truetype.h header does not start
+src/foreign/rtree/RTree.h header does not start
+src/foreign/tcpip/socket.cpp header does not start
+src/foreign/tcpip/socket.h header does not start
+src/foreign/tcpip/storage.cpp header does not start
+src/foreign/tcpip/storage.h header does not start

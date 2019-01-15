@@ -208,6 +208,7 @@ public:
     static const int AVOID_WIDE_RIGHT_TURN;
     static const int AVOID_WIDE_LEFT_TURN;
     static const int FOUR_CONTROL_POINTS;
+
 public:
     /**@brief Constructor
      * @param[in] id The id of the node
@@ -276,6 +277,11 @@ public:
     bool getKeepClear() const {
         return myKeepClear;
     }
+
+    /// @brief Returns hint on how to compute right of way
+    RightOfWay getRightOfWay() const {
+        return myRightOfWay;
+    }
     /// @}
 
     /// @name Methods for dealing with assigned traffic lights
@@ -307,7 +313,7 @@ public:
     void invalidateTLS(NBTrafficLightLogicCont& tlCont, bool removedConnections, bool addedConnections);
 
     /// @brief patches loaded signal plans by modifying lane indices above threshold by the given offset
-    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold=-1);
+    void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1);
     /// @}
 
 
@@ -351,8 +357,14 @@ public:
     /// @brief computes the node's type, logic and traffic light
     void computeLogic(const NBEdgeCont& ec, OptionsCont& oc);
 
+    /// @brief compute right-of-way logic for all lane-to-lane connections
+    void computeLogic2(bool checkLaneFoes);
+
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
-    bool writeLogic(OutputDevice& into, const bool checkLaneFoes) const;
+    bool writeLogic(OutputDevice& into) const;
+
+    const std::string getFoes(int linkIndex) const;
+    const std::string getResponse(int linkIndex) const;
 
     /// @brief Returns something like the most unused direction Should only be used to add source or sink nodes
     Position getEmptyDir() const;
@@ -432,8 +444,8 @@ public:
 
     /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
     bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
-                                  const NBEdge* from2, const NBEdge* to2, int fromLane2,
-                                  bool lefthand = false) const;
+                  const NBEdge* from2, const NBEdge* to2, int fromLane2,
+                  bool lefthand = false) const;
 
     /**@brief Returns the information whether "prohibited" flow must let "prohibitor" flow pass
      * @param[in] possProhibitedFrom The maybe prohibited connection's begin
@@ -490,6 +502,11 @@ public:
         myKeepClear = keepClear;
     }
 
+    /// @brief set method for computing right-of-way
+    void setRightOfWay(RightOfWay rightOfWay) {
+        myRightOfWay = rightOfWay;
+    }
+
     /// @brief return whether the shape was set by the user
     bool hasCustomShape() const {
         return myHaveCustomPoly;
@@ -515,8 +532,8 @@ public:
                    const NBEdge::Connection& c, const NBEdge::Connection& otherC) const;
 
     /// @brief whether the connection must yield if the foe remains on the intersection after its phase ends
-    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c, 
-        const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
+    bool tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
+                         const NBEdge* foeFrom, const NBEdge::Connection& foe) const;
 
 
     /**@brief Compute the shape for an internal lane
@@ -540,7 +557,7 @@ public:
      */
     PositionVector computeSmoothShape(const PositionVector& begShape, const PositionVector& endShape, int numPoints,
                                       bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
-                                      NBNode* recordError = 0, int shapeFlag=0) const;
+                                      NBNode* recordError = 0, int shapeFlag = 0) const;
     /// @brief get bezier control points
     static PositionVector bezierControlPoints(const PositionVector& begShape, const PositionVector& endShape,
             bool isTurnaround, double extrapolateBeg, double extrapolateEnd,
@@ -622,6 +639,9 @@ public:
 
     /// @brief discard all current (and optionally future) crossings
     void discardAllCrossings(bool rejectAll);
+
+    /// @brief discard previously built walkingareas (required for repeated computation by netedit)
+    void discardWalkingareas();
 
     /// @brief get num of crossings from sumo net
     int numCrossingsFromSumoNet() const {
@@ -728,7 +748,7 @@ public:
     bool isConstantWidthTransition() const;
 
     /// @brief return list of unique endpoint coordinates of all edges at this node
-    std::vector<Position> getEndPoints() const;
+    std::vector<std::pair<Position, std::string> > getEndPoints() const;
 
 private:
     /// @brief sets the priorites in case of a priority junction
@@ -757,6 +777,10 @@ private:
 
     /// @brief displace lane shapes to account for change in lane width at this node
     void displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
+
+    /// @brief returns whether sub is a subset of super
+    static bool includes(const std::set<NBEdge*, ComparatorIdLess>& super,
+                  const std::set<const NBEdge*, ComparatorIdLess>& sub);
 
 private:
     /// @brief The position the node lies at
@@ -806,6 +830,9 @@ private:
 
     /// @brief whether the junction area must be kept clear
     bool myKeepClear;
+
+    /// @brief how to compute right of way for this node
+    RightOfWay myRightOfWay;
 
     /// @brief whether to discard all pedestrian crossings
     bool myDiscardAllCrossings;

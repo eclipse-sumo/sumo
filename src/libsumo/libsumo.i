@@ -19,7 +19,7 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions, _vehicle, _person
+from traci import constants, exceptions, _vehicle, _person, _trafficlight
 
 def isLibsumo():
     return True
@@ -62,11 +62,11 @@ def simulationStep(step=0):
             pos.x = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
             item = PySequence_GetItem(posTuple, 1);
             pos.y = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
-			pos.z = 0.;
-			if (posSize == 3) {
+            pos.z = 0.;
+            if (posSize == 3) {
                 item = PySequence_GetItem(posTuple, 2);
                 pos.z = PyFloat_Check(item) ? PyFloat_AsDouble(item) : PyLong_AsDouble(item);
-			}
+            }
         } else {
         // TODO error handling
         }
@@ -95,6 +95,7 @@ def simulationStep(step=0):
     }
     $1 = &vars;
 }
+
 %typemap(typecheck, precedence=SWIG_TYPECHECK_INTEGER) const std::vector<int>& {
     $1 = PySequence_Check($input) ? 1 : 0;
 }
@@ -190,11 +191,11 @@ def simulationStep(step=0):
     $result = PyTuple_New($1.size());
     int index = 0;
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-	    const int size = (int)iter->continuationLanes.size();
+        const int size = (int)iter->continuationLanes.size();
         auto nextLanes = PyTuple_New(size);
         for (int i = 0; i < size; i++) {
             PyTuple_SetItem(nextLanes, i, PyUnicode_FromString(iter->continuationLanes[i].c_str()));
-		}
+        }
         PyTuple_SetItem($result, index++, PyTuple_Pack(6, PyUnicode_FromString(iter->laneID.c_str()),
                                                           PyFloat_FromDouble(iter->length),
                                                           PyFloat_FromDouble(iter->occupation),
@@ -223,6 +224,13 @@ def simulationStep(step=0):
     $result = PyTuple_Pack(2, PyUnicode_FromString($1.first.c_str()), PyFloat_FromDouble($1.second));
 };
 
+%extend libsumo::TraCIStage {
+  %pythoncode %{
+    def __repr__(self):
+        return "Stage(%s)" % (", ".join(["%s=%s" % (attr, repr(getter(self))) for attr, getter in self.__swig_getmethods__.items()]))
+  %}
+};
+
 %exceptionclass libsumo::TraCIException;
 
 #endif
@@ -232,8 +240,6 @@ def simulationStep(step=0):
 // ignore constant conditional expression warnings
 #pragma warning(disable:4127)
 #endif
-
-#include <libsumo/TraCIDefs.h>
 %}
 
 
@@ -241,14 +247,12 @@ def simulationStep(step=0):
 %include "std_string.i"
 %include "std_vector.i"
 %template(StringVector) std::vector<std::string>;
-%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
-%template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 
 // exception handling
 %include "exception.i"
 
 // taken from here https://stackoverflow.com/questions/1394484/how-do-i-propagate-c-exceptions-to-python-in-a-swig-wrapper-library
-%exception { 
+%exception {
     try {
         $action
     } catch (libsumo::TraCIException &e) {
@@ -271,6 +275,7 @@ def simulationStep(step=0):
 
 // Add necessary symbols to generated header
 %{
+#include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
@@ -289,6 +294,9 @@ def simulationStep(step=0):
 
 // Process symbols in header
 %include "TraCIDefs.h"
+%template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
+%template(TraCILogicVector) std::vector<libsumo::TraCILogic>;
+%template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 %include "Edge.h"
 %include "InductionLoop.h"
 %include "Junction.h"
@@ -322,5 +330,6 @@ vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
 vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
 vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
+trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
 %}
 #endif

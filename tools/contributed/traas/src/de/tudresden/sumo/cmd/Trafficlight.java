@@ -89,6 +89,17 @@ public class Trafficlight {
 	}
 
 	/**
+	 * Returns the junctions controlled by the traffic light
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return list of controlled junctions
+	 */
+
+	public static SumoCommand getControlledJunctions(String tlsID){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_CONTROLLED_JUNCTIONS, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_COMPOUND);
+	}
+	
+	/**
 	 * Returns the external state
 	 * 
 	 * @param tlsID a string identifying the traffic light
@@ -106,7 +117,7 @@ public class Trafficlight {
 	 */
 
 	public static SumoCommand getIDList(){
-		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.ID_LIST, "", Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TRACI_ID_LIST, "", Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
 
 	/**
@@ -142,6 +153,17 @@ public class Trafficlight {
 
 	public static SumoCommand getPhase(String tlsID){
 		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_CURRENT_PHASE, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	/**
+	 * Returns the name of the current phase in the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @return name of the current phase
+	 */
+
+	public static SumoCommand getPhaseName(String tlsID){
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.VAR_NAME, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRING);
 	}
 
 	/**
@@ -191,6 +213,19 @@ public class Trafficlight {
 	public static SumoCommand setPhase(String tlsID, int index){
 
 		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.TL_PHASE_INDEX, tlsID, index);
+	}
+
+	/**
+	 * Set the name of the current phase in the current program.
+	 * 
+	 * @param tlsID a string identifying the traffic light
+	 * @param name a string with the phase name
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setPhaseName(String tlsID, String name){
+
+		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.VAR_NAME, tlsID, name);
 	}
 
 	/**

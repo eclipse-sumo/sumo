@@ -25,6 +25,10 @@ lane_allowed_3veh
 # checks using a free allowed lane on a multimodal edge (3 vehicles)
 lane_allowed_3veh_multimodal
 
+# checks using a free allowed lane on a multimodal edge (3 vehicles)
+# with modified emergency decel value
+lane_allowed_3veh_multimodal_emergencyDecel
+
 # checks using the given lane (lane 0)
 lane_given0
 
@@ -97,6 +101,9 @@ speed_max__vehlimit
 
 # checks using the maximum speed (bounded by leader vehicles)
 speed_max__leader
+
+# checks using the maximum speed (bounded by the available driving distance without lane changing)
+speed_max__laneEnd
 
 # checks using the random speed (bounded by lane's vmax)
 speed_random__lanelimit

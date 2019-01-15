@@ -20,7 +20,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
 #include "GNEClosingLaneReroute.h"
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -28,10 +27,8 @@
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 
 #include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include "GNERerouterInterval.h"
 
 
 // ===========================================================================
@@ -56,37 +53,37 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalPare
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
-void 
-GNEClosingLaneReroute::moveGeometry(const Position&, const Position&) {
+void
+GNEClosingLaneReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNEClosingLaneReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNEClosingLaneReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEClosingLaneReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEClosingLaneReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEClosingLaneReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently this additional isn't drawn
 }
@@ -108,7 +105,7 @@ GNEClosingLaneReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -127,7 +124,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -145,20 +142,20 @@ GNEClosingLaneReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNEClosingLaneReroute::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
-std::string 
+std::string
 GNEClosingLaneReroute::getHierarchyName() const {
-    return toString(getTag()) + ": " + myClosedLane->getID();
+    return getTagStr() + ": " + myClosedLane->getID();
 }
 
 // ===========================================================================
@@ -184,7 +181,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

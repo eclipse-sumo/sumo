@@ -19,185 +19,164 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
-#include <string>
-#include <sstream>
-#include <algorithm>
-
-#include <utils/common/ToString.h>
-#include <utils/foxtools/MFXUtils.h>
+#include <netbuild/NBFrame.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/dialogs/GNEDialog_About.h>
+#include <netedit/frames/GNETAZFrame.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netimport/NIFrame.h>
+#include <netwrite/NWFrame.h>
+#include <utils/common/SysUtils.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/foxtools/FXLinkLabel.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIMessageWindow.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <netimport/NIFrame.h>
-#include <netbuild/NBFrame.h>
-#include <netwrite/NWFrame.h>
-#include <utils/common/SystemFrame.h>
-#include <netimport/NIImporter_SUMO.h>
-#include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/dialogs/GNEDialog_About.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNELoadThread.h"
 #include "GNEEvent_NetworkLoaded.h"
-#include "GNEViewParent.h"
-#include "GNEViewNet.h"
+#include "GNELoadThread.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
+#include "GNEViewParent.h"
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
 
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
 FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // quit calls
-    FXMAPFUNC(SEL_COMMAND,  MID_QUIT,                                       GNEApplicationWindow::onCmdQuit),
-    FXMAPFUNC(SEL_SIGNAL,   MID_QUIT,                                       GNEApplicationWindow::onCmdQuit),
-    FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                                     GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Q,                      GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_SIGNAL,   MID_HOTKEY_CTRL_Q,                      GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                             GNEApplicationWindow::onCmdQuit),
 
     // toolbar file
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_NEWNETWORK,                 GNEApplicationWindow::onCmdNewNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_NEWNETWORK,                 GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                               GNEApplicationWindow::onCmdOpenNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,                               GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,                                GNEApplicationWindow::onCmdOpenConfiguration),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,                                GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENFOREIGN,                GNEApplicationWindow::onCmdOpenForeign),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENFOREIGN,                GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_SHAPES,                                GNEApplicationWindow::onCmdOpenShapes),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_SHAPES,                                GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,                           GNEApplicationWindow::onCmdOpenAdditionals),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,                           GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_TLSPROGRAMS,                           GNEApplicationWindow::onCmdOpenTLSPrograms),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_TLSPROGRAMS,                           GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                                 GNEApplicationWindow::onCmdOpenRecent),
-    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                 GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_RELOAD,                                     GNEApplicationWindow::onCmdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,                                     GNEApplicationWindow::onUpdReload),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK,                GNEApplicationWindow::onCmdSaveNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK,                GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,             GNEApplicationWindow::onCmdSaveAsNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETWORK_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEPLAINXML,               GNEApplicationWindow::onCmdSaveAsPlainXML),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEPLAINXML,               GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEJOINED,                 GNEApplicationWindow::onCmdSaveJoined),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEJOINED,                 GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES,                 GNEApplicationWindow::onCmdSaveShapes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES_AS,              GNEApplicationWindow::onCmdSaveShapesAs),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS,            GNEApplicationWindow::onCmdSaveAdditionals),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,         GNEApplicationWindow::onCmdSaveAdditionalsAs),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onCmdSaveTLSPrograms),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS,            GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,         GNEApplicationWindow::onCmdSaveTLSProgramsAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,         GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_CLOSE,                                      GNEApplicationWindow::onCmdClose),
-    FXMAPFUNC(SEL_UPDATE,   MID_CLOSE,                                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_N,                  GNEApplicationWindow::onCmdNewNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_N,                  GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                       GNEApplicationWindow::onCmdOpenNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,                       GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,                        GNEApplicationWindow::onCmdOpenConfiguration),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,                        GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENFOREIGN,        GNEApplicationWindow::onCmdOpenForeign),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENFOREIGN,        GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_P,                      GNEApplicationWindow::onCmdOpenShapes),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,                   GNEApplicationWindow::onCmdOpenAdditionals),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,                   GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_TLSPROGRAMS,                   GNEApplicationWindow::onCmdOpenTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_TLSPROGRAMS,                   GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                         GNEApplicationWindow::onCmdOpenRecent),
+    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                         GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R,                      GNEApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R,                      GNEApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_S,                  GNEApplicationWindow::onCmdSaveNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_S,                  GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_S,            GNEApplicationWindow::onCmdSaveAsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_SHIFT_S,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_L,                  GNEApplicationWindow::onCmdSaveAsPlainXML),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_L,                  GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_J,                  GNEApplicationWindow::onCmdSaveJoined),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_J,                  GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_P,            GNEApplicationWindow::onCmdSaveShapes),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES_AS,      GNEApplicationWindow::onCmdSaveShapesAs),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_D,            GNEApplicationWindow::onCmdSaveAdditionals),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS, GNEApplicationWindow::onCmdSaveAdditionalsAs),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_K,            GNEApplicationWindow::onCmdSaveTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_SHIFT_K,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onCmdSaveTLSProgramsAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS, GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W,                      GNEApplicationWindow::onCmdClose),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_W,                      GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar edit
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CREATE_EDGE,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CREATE_EDGE,                    GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_MOVE,                           GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_MOVE,                           GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_DELETE,                         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_DELETE,                         GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_INSPECT,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_INSPECT,                        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_SELECT,                         GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_SELECT,                         GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CONNECT,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CONNECT,                        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_TLS,                            GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_TLS,                            GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_ADDITIONAL,                     GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_ADDITIONAL,                     GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onCmdEditViewScheme),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                             GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                               GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_SUMOGUI,                                    GNEApplicationWindow::onCmdOpenSUMOGUI),
-    FXMAPFUNC(SEL_UPDATE,   MID_SUMOGUI,                                    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_E,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_M,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_D,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_I,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_S,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_C,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_T,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_A,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_R,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_Z,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_P,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_W,                     GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                     GNEApplicationWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                     GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                       GNEApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                       GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_G,                  GNEApplicationWindow::onCmdToogleGrid),
+    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                       GNEApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_T,                  GNEApplicationWindow::onCmdOpenSUMOGUI),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_T,                  GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar processing
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_COMPUTEJUNCTIONS,            GNEApplicationWindow::onCmdComputeJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_PROCESSING_COMPUTEJUNCTIONS,            GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_COMPUTEJUNCTIONS_VOLATILE,   GNEApplicationWindow::onCmdComputeJunctionsVolatile),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_PROCESSING_COMPUTEJUNCTIONS_VOLATILE,   GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_CLEANJUNCTIONS,              GNEApplicationWindow::onCmdCleanJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_PROCESSING_CLEANJUNCTIONS,              GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_JOINJUNCTIONS,               GNEApplicationWindow::onCmdJoinJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_PROCESSING_JOINJUNCTIONS,               GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_CLEANINVALIDCROSSINGS,       GNEApplicationWindow::onCmdCleanInvalidCrossings),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_PROCESSING_CLEANINVALIDCROSSINGS,       GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PROCESSING_OPTIONS,                     GNEApplicationWindow::onCmdOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F5,                      GNEApplicationWindow::onCmdComputeJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F5,                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_SHIFT_F5,                GNEApplicationWindow::onCmdComputeJunctionsVolatile),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_SHIFT_F5,                GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F6,                      GNEApplicationWindow::onCmdCleanJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F6,                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F7,                      GNEApplicationWindow::onCmdJoinJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F7,                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F8,                      GNEApplicationWindow::onCmdCleanInvalidCrossings),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F8,                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F10,                     GNEApplicationWindow::onCmdOptions),
 
     // Toolbar locate
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                             GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,                             GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                                 GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,                                 GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                                  GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,                                  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                                  GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,                                  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                                  GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,                                  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,                                 GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,                                 GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                     GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,                     GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,                         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,                          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,                          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                          GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,                          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,                         GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,                         GNEApplicationWindow::onUpdNeedsNetwork),
 
     // toolbar windows
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                         GNEApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                 GNEApplicationWindow::onCmdClearMsgWindow),
 
     // toolbar help
-    FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,                                      GNEApplicationWindow::onCmdAbout),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1,                          GNEApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2,                          GNEApplicationWindow::onCmdAbout),
 
     // key events
-    FXMAPFUNC(SEL_KEYPRESS,     0,                                          GNEApplicationWindow::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                                          GNEApplicationWindow::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,                             GNEApplicationWindow::onCmdAbort),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,                             GNEApplicationWindow::onCmdDel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,                           GNEApplicationWindow::onCmdEnter),
+    FXMAPFUNC(SEL_KEYPRESS,     0,                                  GNEApplicationWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,   0,                                  GNEApplicationWindow::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,                     GNEApplicationWindow::onCmdAbort),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,                     GNEApplicationWindow::onCmdDel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,                   GNEApplicationWindow::onCmdEnter),
 
     // threads events
-    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,                  GNEApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,                  GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,          GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,          GNEApplicationWindow::onLoadThreadEvent),
 
     // Other
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_FOCUSFRAME,                      GNEApplicationWindow::onCmdFocusFrame),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_TOOGLE_GRID,                     GNEApplicationWindow::onCmdToogleGrid),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                                       GNEApplicationWindow::onCmdHelp),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                               GNEApplicationWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,                                     GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,                             GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F12,                     GNEApplicationWindow::onCmdFocusFrame),
 };
 
 // Object implementation
@@ -206,28 +185,29 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4355)
-#endif
+
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
-    myLoadThread(0),
+    myLoadThread(nullptr),
     myAmLoading(false),
     myRecentNets(a, "nets"),
     myConfigPattern(configPattern),
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
-    myTitlePrefix("NETEDIT " VERSION_STRING) {
+    myFileMenuCommands(this),
+    myNetworkMenuCommands(this),
+    myDemandMenuCommands(this),
+    myViewNet(nullptr), 
+    myTitlePrefix("NETEDIT " VERSION_STRING) 
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
     GUITextureSubSys::initTextures(a);
+    // init cursors
+    GUICursorSubSys::initCursors(a);
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 void
@@ -241,9 +221,7 @@ GNEApplicationWindow::dependentBuild() {
     setTarget(this);
     setSelector(MID_WINDOW);
     // build menu bar
-    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
-    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignBar);
-    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    myMenuBar = new FXMenuBar(myTopDock, this, GUIDesignBar);
     // build the thread - io
     myLoadThreadEvent.setTarget(this), myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
@@ -251,20 +229,15 @@ GNEApplicationWindow::dependentBuild() {
     {
         myGeoFrame =
             new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in NETCONVERT)", 0, LAYOUT_CENTER_Y);
+        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in NETCONVERT)", nullptr, LAYOUT_CENTER_Y);
         myCartesianFrame =
             new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", 0, LAYOUT_CENTER_Y);
+        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
     }
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
-    // Due netedit only have a view, this buttons must be disabled (see #2807)
-    //new FXMDIWindowButton(myMenuBar, myMDIMenu, myMDIClient, FXMDIClient::ID_MDI_MENUWINDOW, GUIDesignMDIButtonLeft);
-    //new FXMDIDeleteButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUCLOSE, GUIDesignMDIButtonRight);
-    //new FXMDIRestoreButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENURESTORE, GUIDesignMDIButtonRight);
-    //new FXMDIMinimizeButton(myMenuBar, myMDIClient, FXMDIClient::ID_MDI_MENUMINIMIZE, GUIDesignMDIButtonRight);
     // build the message window
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
     myMainSplitter->setSplit(1, 65);
@@ -279,53 +252,55 @@ GNEApplicationWindow::dependentBuild() {
     // set Netedit ICON
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
     // initialize single hotkeys using decimal code (to avoid problems in Linux)
-    getAccelTable()->addAccel(101, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // e
-    getAccelTable()->addAccel(69,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CREATE_EDGE));  // E
-    getAccelTable()->addAccel(109, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));         // m
-    getAccelTable()->addAccel(77,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_MOVE));         // M
-    getAccelTable()->addAccel(100, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_DELETE));       // d
-    getAccelTable()->addAccel(68,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_DELETE));       // D
-    getAccelTable()->addAccel(105, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_INSPECT));      // i
-    getAccelTable()->addAccel(73,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_INSPECT));      // I
-    getAccelTable()->addAccel(115, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));       // s
-    getAccelTable()->addAccel(83,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_SELECT));       // S
-    getAccelTable()->addAccel(99,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // c
-    getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CONNECT));      // C
-    getAccelTable()->addAccel(119, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION));  // w
-    getAccelTable()->addAccel(87,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_PROHIBITION));  // W
-    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // t
-    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TLS));          // T
-    getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // a
-    getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // A
-    getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // r
-    getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // R
-    getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // p
-    getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // P
-    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // v
-    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // V
+    getAccelTable()->addAccel(101, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_E));   // e
+    getAccelTable()->addAccel(69,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_E));   // E
+    getAccelTable()->addAccel(109, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_M));   // m
+    getAccelTable()->addAccel(77,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_M));   // M
+    getAccelTable()->addAccel(100, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_D));   // d
+    getAccelTable()->addAccel(68,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_D));   // D
+    getAccelTable()->addAccel(105, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_I));   // i
+    getAccelTable()->addAccel(73,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_I));   // I
+    getAccelTable()->addAccel(115, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_S));   // s
+    getAccelTable()->addAccel(83,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_S));   // S
+    getAccelTable()->addAccel(99,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_C));   // c
+    getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_C));   // C
+    getAccelTable()->addAccel(119, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_W));   // w
+    getAccelTable()->addAccel(87,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_W));   // W
+    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_T));   // t
+    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_T));   // T
+    getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_A));   // a
+    getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_A));   // A
+    getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_R));   // r
+    getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_R));   // R
+    getAccelTable()->addAccel(122, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_Z));   // z
+    getAccelTable()->addAccel(90,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_Z));   // Z
+    getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_P));   // p
+    getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SHORTCUT_P));   // P
+    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));     // v
+    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));     // V
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_NEWNETWORK));        // Ctrl + N
-    getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));                      // Ctrl + O
-    getAccelTable()->addAccel(327691, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));                       // Ctrl + Shift + O
-    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_RELOAD));                            // Ctrl + R
-    getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK));       // Ctrl + S
-    getAccelTable()->addAccel(327695, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVENETWORK_AS));    // Ctrl + Shift + S
-    getAccelTable()->addAccel(262220, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEPLAINXML));      // Ctrl + L
-    getAccelTable()->addAccel(262218, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEJOINED));        // Ctrl + J
-    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_OPEN_SHAPES));                       // Ctrl + P
-    getAccelTable()->addAccel(327692, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVESHAPES));        // Ctrl + Shift + P
-    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                  // Ctrl + D
-    getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVEADDITIONALS));   // Ctrl + Shift + D
-    getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                  // Ctrl + K
-    getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS));   // Ctrl + Shift + K
-    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_CLOSE));                             // Ctrl + W
-    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_QUIT));                              // Ctrl + Q
-    getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                   // Ctrl + Z
-    getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                   // Ctrl + Y
-    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                    // Ctrl + V
-    getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                      // Ctrl + I
-    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_TOOGLE_GRID));            // Ctrl + G
-    getAccelTable()->addAccel(262228, this, FXSEL(SEL_COMMAND, MID_SUMOGUI));                           // Ctrl + S
+    getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_N));         // Ctrl + N
+    getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));              // Ctrl + O
+    getAccelTable()->addAccel(327691, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));               // Ctrl + Shift + O
+    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R));             // Ctrl + R
+    getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_S));         // Ctrl + S
+    getAccelTable()->addAccel(327695, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_S));   // Ctrl + Shift + S
+    getAccelTable()->addAccel(262220, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_L));         // Ctrl + L
+    getAccelTable()->addAccel(262218, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_J));         // Ctrl + J
+    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));             // Ctrl + P
+    getAccelTable()->addAccel(327692, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_P));   // Ctrl + Shift + P
+    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));          // Ctrl + D
+    getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_D));   // Ctrl + Shift + D
+    getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));          // Ctrl + K
+    getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));   // Ctrl + Shift + K
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W));             // Ctrl + W
+    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q));             // Ctrl + Q
+    getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));           // Ctrl + Z
+    getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));           // Ctrl + Y
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));            // Ctrl + V
+    getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));              // Ctrl + I
+    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_G));         // Ctrl + G
+    getAccelTable()->addAccel(262228, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_T));         // Ctrl + T
     // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
     getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
@@ -337,7 +312,7 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
-    getAccelTable()->addAccel(parseAccel("F12"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_FOCUSFRAME));
+    getAccelTable()->addAccel(parseAccel("F12"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F12));
 }
 
 
@@ -346,7 +321,7 @@ GNEApplicationWindow::create() {
     setWindowSizeAndPos();
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
-    myMenuBarDrag->create();
+    myMenuBar->create();
     myFileMenu->create();
     myEditMenu->create();
     myFileMenuShapes->create();
@@ -404,131 +379,15 @@ GNEApplicationWindow::~GNEApplicationWindow() {
 
 
 void
-GNEApplicationWindow::detach() {
-    FXMainWindow::detach();
-    myMenuBarDrag->detach();
-}
-
-
-void
 GNEApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&File", 0, myFileMenu);
-    new FXMenuCommand(myFileMenu,
-                      "&New Network...\tCtrl+N\tCreate a new network.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_GNE_TOOLBARFILE_NEWNETWORK);
-    new FXMenuCommand(myFileMenu,
-                      "&Open Network...\tCtrl+O\tOpen a SUMO network.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK);
-    new FXMenuCommand(myFileMenu,
-                      "Open Configura&tion...\tCtrl+Shift+O\tOpen a NETCONVERT configuration file.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG);
-    new FXMenuCommand(myFileMenu,
-                      "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_GNE_TOOLBARFILE_OPENFOREIGN);
-    new FXMenuCommand(myFileMenu,
-                      "&Reload\tCtrl+R\tReloads the network.",
-                      GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD);
-    new FXMenuCommand(myFileMenu,
-                      "&Save Network...\tCtrl+S\tSave the network.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVENETWORK);
-    new FXMenuCommand(myFileMenu,
-                      "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
-    new FXMenuCommand(myFileMenu,
-                      "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEPLAINXML);
-    new FXMenuCommand(myFileMenu,
-                      "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEJOINED);
-    // create Shapes menu options
-    myFileMenuShapes = new FXMenuPane(this);
-    new FXMenuCommand(myFileMenuShapes,
-                      "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), this, MID_OPEN_SHAPES);
-    mySaveShapesMenuCommand = new FXMenuCommand(myFileMenuShapes,
-                      "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES);
-    mySaveShapesMenuCommand->disable();
-    mySaveShapesMenuCommandAs = new FXMenuCommand(myFileMenuShapes,
-                      "Save Shapes As...\t\tSave shapes elements in another files.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
-    mySaveShapesMenuCommandAs->disable();
-    new FXMenuCascade(myFileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myFileMenuShapes);
-    // create Additionals menu options
-    myFileMenuAdditionals = new FXMenuPane(this);
-    new FXMenuCommand(myFileMenuAdditionals,
-                      "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), this, MID_OPEN_ADDITIONALS);
-    mySaveAdditionalsMenuCommand = new FXMenuCommand(myFileMenuAdditionals,
-                      "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS);
-    mySaveAdditionalsMenuCommand->disable();
-    mySaveAdditionalsMenuCommandAs = new FXMenuCommand(myFileMenuAdditionals,
-                      "Save Additionals As...\t\tSave additional elements in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
-    mySaveAdditionalsMenuCommandAs->disable();
-    new FXMenuCascade(myFileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myFileMenuAdditionals);
-    // create TLS menu options
-    myFileMenuTLS = new FXMenuPane(this);
-    new FXMenuCommand(myFileMenuTLS,
-                      "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), this, MID_OPEN_TLSPROGRAMS);
-    mySaveTLSProgramsMenuCommand = new FXMenuCommand(myFileMenuTLS,
-                      "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS);
-    mySaveTLSProgramsMenuCommand->disable();
-    new FXMenuCommand(myFileMenuTLS,
-                      "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
-                      GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
-    new FXMenuCascade(myFileMenu, "Traffic Lights", GUIIconSubSys::getIcon(ICON_MODETLS), myFileMenuTLS);
-    // close network
-    new FXMenuSeparator(myFileMenu);
-    new FXMenuCommand(myFileMenu,
-                      "Close\tCtrl+W\tClose the net&work.",
-                      GUIIconSubSys::getIcon(ICON_CLOSE), this, MID_CLOSE);
-    // Recent files
-    FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);
-    sep1->setTarget(&myRecentConfigs);
-    sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(myFileMenu, "Clear Recent Configurat&ions", 0, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
-    myRecentConfigs.setTarget(this);
-    myRecentConfigs.setSelector(MID_RECENTFILE);
-    FXMenuSeparator* sep2 = new FXMenuSeparator(myFileMenu);
-    sep2->setTarget(&myRecentNets);
-    sep2->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(myFileMenu, "Cl&ear Recent Networks", 0, &myRecentNets, FXRecentFiles::ID_CLEAR);
-    myRecentNets.setTarget(this);
-    myRecentNets.setSelector(MID_RECENTFILE);
-    new FXMenuSeparator(myFileMenu);
-    new FXMenuCommand(myFileMenu,
-                      "&Quit\tCtrl+Q\tQuit the Application.",
-                      0, this, MID_QUIT, 0);
+    new FXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu);
 
     // build edit menu
     myEditMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Edit", 0, myEditMenu);
+    new FXMenuTitle(myMenuBar, "&Edit", nullptr, myEditMenu);
 
     // build undo/redo command
     new FXMenuCommand(myEditMenu,
@@ -540,74 +399,49 @@ GNEApplicationWindow::fillMenuBar() {
 
     new FXMenuSeparator(myEditMenu);
 
-    // build modes command
-    new FXMenuCommand(myEditMenu,
-                      "&Edge mode\tE\tCreate junction and edges.",
-                      GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), this, MID_GNE_SETMODE_CREATE_EDGE);
-    new FXMenuCommand(myEditMenu,
-                      "&Move mode\tM\tMove elements.",
-                      GUIIconSubSys::getIcon(ICON_MODEMOVE), this, MID_GNE_SETMODE_MOVE);
-    new FXMenuCommand(myEditMenu,
-                      "&Delete mode\tD\tDelete elements.",
-                      GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_SETMODE_DELETE);
-    new FXMenuCommand(myEditMenu,
-                      "&Inspect mode\tI\tInspect elements and change their attributes.",
-                      GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_SETMODE_INSPECT);
-    new FXMenuCommand(myEditMenu,
-                      "&Select mode\tS\tSelect elements.",
-                      GUIIconSubSys::getIcon(ICON_MODESELECT), this, MID_GNE_SETMODE_SELECT);
-    new FXMenuCommand(myEditMenu,
-                      "&Connection mode\tC\tEdit connections between lanes.",
-                      GUIIconSubSys::getIcon(ICON_MODECONNECTION), this, MID_GNE_SETMODE_CONNECT);
-    new FXMenuCommand(myEditMenu,
-                      "Pro&hibition mode\tW\tEdit connection prohibitions.",
-                      GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), this, MID_GNE_SETMODE_PROHIBITION);
-    new FXMenuCommand(myEditMenu,
-                      "&Traffic light mode\tT\tEdit traffic lights over junctions.",
-                      GUIIconSubSys::getIcon(ICON_MODETLS), this, MID_GNE_SETMODE_TLS);
-    new FXMenuCommand(myEditMenu,
-                      "&Additional mode\tA\tCreate additional elements.",
-                      GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), this, MID_GNE_SETMODE_ADDITIONAL);
-    new FXMenuCommand(myEditMenu,
-                      "C&rossing mode\tR\tCreate crossings between edges.",
-                      GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING);
-    new FXMenuCommand(myEditMenu,
-                      "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
-                      GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON);
+    // build Network modes commands and hide it
+    myNetworkMenuCommands.buildNetworkMenuCommands(myEditMenu);
+    myNetworkMenuCommands.hideNetworkMenuCommands();
 
-    new FXMenuSeparator(myEditMenu);
+    // build Demand Modes commands
+    myDemandMenuCommands.buildDemandMenuCommands(myEditMenu);
+    myDemandMenuCommands.hideDemandMenuCommands();
+
     new FXMenuCommand(myEditMenu,
                       "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
-                      0, this, MID_EDITVIEWSCHEME);
+                      nullptr, this, MID_EDITVIEWSCHEME);
     new FXMenuCommand(myEditMenu,
                       "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-                      0, this, MID_EDITVIEWPORT);
+                      nullptr, this, MID_EDITVIEWPORT);
+    new FXMenuCommand(myEditMenu,
+                      "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                      nullptr, this, MID_GNE_HOTKEY_CTRL_G);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
-                      GUIIconSubSys::getIcon(ICON_APP), this, MID_SUMOGUI);
+                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_GNE_HOTKEY_CTRL_T);
 
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Processing", 0, myProcessingMenu);
+    new FXMenuTitle(myMenuBar, "&Processing", nullptr, myProcessingMenu);
     new FXMenuCommand(myProcessingMenu,
                       "Compute Junctions\tF5\tComputes junction shape and logic.",
-                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_PROCESSING_COMPUTEJUNCTIONS);
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_HOTKEY_F5);
     new FXMenuCommand(myProcessingMenu,
                       "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
-                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_PROCESSING_COMPUTEJUNCTIONS_VOLATILE);
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_HOTKEY_SHIFT_F5);
     new FXMenuCommand(myProcessingMenu,
                       "Clean Junctions\tF6\tRemoves solitary junctions.",
-                      GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_PROCESSING_CLEANJUNCTIONS);
+                      GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_HOTKEY_F6);
     new FXMenuCommand(myProcessingMenu,
                       "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
-                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_PROCESSING_JOINJUNCTIONS);
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F7);
     new FXMenuCommand(myProcessingMenu,
                       "Clean invalid crossings\tF8\tClear invalid crossings.",
-                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_PROCESSING_CLEANINVALIDCROSSINGS);
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F8);
     new FXMenuCommand(myProcessingMenu,
                       "Options\tF10\t\tConfigure Processing Options.",
-                      GUIIconSubSys::getIcon(ICON_OPTIONS), this, MID_GNE_PROCESSING_OPTIONS);
+                      GUIIconSubSys::getIcon(ICON_OPTIONS), this, MID_GNE_HOTKEY_F10);
     // build settings menu
     /*
     mySettingsMenu = new FXMenuPane(this);
@@ -639,7 +473,7 @@ GNEApplicationWindow::fillMenuBar() {
                       GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Windows", 0, myWindowsMenu);
+    new FXMenuTitle(myMenuBar, "&Windows", nullptr, myWindowsMenu);
     new FXMenuCheck(myWindowsMenu,
                     "&Show Status Line\t\tToggle this Status Bar on/off.",
                     myStatusbar, FXWindow::ID_TOGGLESHOWN);
@@ -671,17 +505,17 @@ GNEApplicationWindow::fillMenuBar() {
     */
     new FXMenuCommand(myWindowsMenu,
                       "&Clear Message Window\t\tClear the message window.",
-                      0, this, MID_CLEARMESSAGEWINDOW);
+                      nullptr, this, MID_CLEARMESSAGEWINDOW);
 
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Help", 0, myHelpMenu);
+    new FXMenuTitle(myMenuBar, "&Help", nullptr, myHelpMenu);
     new FXMenuCommand(myHelpMenu,
                       "&Online Documentation\tF1\tOpen Online documentation.",
-                      0, this, MID_HELP);
+                      nullptr, this, MID_HOTKEY_F1);
     new FXMenuCommand(myHelpMenu,
                       "&About\tF2\tAbout netedit.",
-                      0, this, MID_ABOUT);
+                      nullptr, this, MID_HOTKEY_F2);
 }
 
 
@@ -763,7 +597,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         // when a net is loaded, save additional, shapes an TLSPrograms are disabled
         disableSaveAdditionalsMenu();
         disableSaveShapesMenu();
-        mySaveTLSProgramsMenuCommand->disable();
+        myFileMenuCommands.saveTLSPrograms->disable();
     }
     return 1;
 }
@@ -791,9 +625,14 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
         OptionsCont& oc = OptionsCont::getOptions();
         GNELoadThread::fillOptions(oc);
         if (osmPattern.contains(opendialog.getPattern())) {
+            // recommended osm options
+            // http://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
             oc.set("osm-files", file);
+            oc.set("geometry.remove", "true");
             oc.set("ramps.guess", "true");
-            oc.set("tls.guess", "true");
+            oc.set("junctions.join", "true");
+            oc.set("tls.guess-signals", "true");
+            oc.set("tls.discard-simple", "true");
         } else {
             throw ProcessError("Attempted to import unknown file format '" + file + "'.");
         }
@@ -803,7 +642,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
         if (wizard->execute()) {
             NIFrame::checkOptions(); // needed to set projection parameters
-            loadConfigOrNet(file, false, false, false);
+            loadConfigOrNet("", false, false, false);
         }
     }
     return 1;
@@ -826,14 +665,18 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         GNEShapeHandler handler(file, myNet);
         // disable validation for shapes
         XMLSubSys::setValidation("never", "auto");
+        // begin undo operation
         myUndoList->p_begin("Loading shapes from '" + file + "'");
+        // run parser for shapes
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
-        // enable validation for shapes
-        XMLSubSys::setValidation("enable", "auto");
-        update();
+        // end undoList operation and update view
         myUndoList->p_end();
+        update();
+        // enable validation for shapes
+        XMLSubSys::setValidation("auto", "auto");
+        update();
     }
     return 1;
 }
@@ -856,17 +699,15 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
-        // Run parser
+        // begin undoList operation
         myUndoList->p_begin("Loading additionals from '" + file + "'");
+        // Run parser for additionals
         if (!XMLSubSys::runParser(additionalHandler, file, false)) {
             WRITE_MESSAGE("Loading of " + file + " failed.");
-            // Abort undo/redo
-            myUndoList->abort();
-        } else {
-            // commit undo/redo operation
-            myUndoList->p_end();
-            update();
         }
+        // end undoList operation and update view
+        myUndoList->p_end();
+        update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto");
     }
@@ -889,7 +730,8 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         // Run parser
         myUndoList->p_begin("Loading TLS Programs from '" + file + "'");
-        if(myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
+        myNet->computeEverything(this);
+        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
             // Abort undo/redo
             myUndoList->abort();
         } else {
@@ -929,7 +771,10 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         // disable save additionals, shapes and TLS menu
         disableSaveAdditionalsMenu();
         disableSaveShapesMenu();
-        mySaveTLSProgramsMenuCommand->disable();
+        myFileMenuCommands.saveTLSPrograms->disable();
+        // hide all Network and demand commands
+        myNetworkMenuCommands.hideNetworkMenuCommands();
+        myDemandMenuCommands.hideDemandMenuCommands();
     }
     return 1;
 }
@@ -939,8 +784,8 @@ long
 GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
     if (myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
-        if (w != 0) {
-            w->onCmdLocate(0, sel, 0);
+        if (w != nullptr) {
+            w->onCmdLocate(nullptr, sel, nullptr);
         }
     }
     return 1;
@@ -948,7 +793,7 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myAmLoading ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myAmLoading ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
 }
 
@@ -1030,24 +875,33 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
         setWindowSizeAndPos();
-        // initialise views
-        myViewNumber = 0;
-        GUISUMOAbstractView* view = openNewView();
-        if (view && ec->mySettingsFile != "") {
+        // initialise NETEDIT View
+        GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
+        // create it maximized
+        viewParent->maximize();
+        // mark it as Active child
+        myMDIClient->setActiveChild(viewParent);
+        // cast pointer myViewNet
+        myViewNet = dynamic_cast<GNEViewNet*>(viewParent->getView());
+        // set settings in view
+        if (viewParent->getView() && ec->mySettingsFile != "") {
             GUISettingsHandler settings(ec->mySettingsFile, true, true);
-            std::string settingsName = settings.addSettings(view);
-            view->addDecals(settings.getDecals());
-            settings.applyViewport(view);
-            settings.setSnapshots(view);
+            std::string settingsName = settings.addSettings(viewParent->getView());
+            viewParent->getView()->addDecals(settings.getDecals());
+            settings.applyViewport(viewParent->getView());
+            settings.setSnapshots(viewParent->getView());
         }
         // set network name on the caption
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
-        getView()->setEditModeFromHotkey(MID_GNE_SETMODE_INSPECT);
-        if (ec->myViewportFromRegistry) {
+        // set supermode network
+        if(myViewNet) {
+            myViewNet->onCmdSetSupermode(0, MID_GNE_SETSUPERMODE_NETWORK, 0);
+        }
+        if (myViewNet && ec->myViewportFromRegistry) {
             Position off;
             off.set(getApp()->reg().readRealEntry("viewport", "x"), getApp()->reg().readRealEntry("viewport", "y"), getApp()->reg().readRealEntry("viewport", "z"));
             Position p(off.x(), off.y(), 0);
-            getView()->setViewportFromToRot(off, p, 0);
+            myViewNet->setViewportFromToRot(off, p, 0);
         }
     }
     getApp()->endWaitCursor();
@@ -1097,9 +951,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         myTLSProgramsFile = oc.getString("TLSPrograms-output");
     }
     // after loading net shouldn't be saved
-    if(myNet) {
+    if (myNet) {
         myNet->requiereSaveNet(false);
     }
+    // update app
     update();
 }
 
@@ -1110,6 +965,270 @@ GNEApplicationWindow::handleEvent_Message(GUIEvent* e) {
     myMessageWindow->appendMsg(ec->getOwnType(), ec->getMsg());
 }
 
+// ---------------------------------------------------------------------------
+// GNEViewNet::FileMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::FileMenuCommands::FileMenuCommands(GNEApplicationWindow *GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void 
+GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu) {
+    new FXMenuCommand(fileMenu,
+                      "&New Network...\tCtrl+N\tCreate a new network.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_GNE_HOTKEY_CTRL_N);
+    new FXMenuCommand(fileMenu,
+                      "&Open Network...\tCtrl+O\tOpen a SUMO network.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
+    new FXMenuCommand(fileMenu,
+                      "Open Netconvert Configura&tion...\tCtrl+Shift+O\tOpen a configuration file with NETCONVERT options.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
+    new FXMenuCommand(fileMenu,
+                      "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
+    new FXMenuCommand(fileMenu,
+                      "&Reload\tCtrl+R\tReloads the network.",
+                      GUIIconSubSys::getIcon(ICON_RELOAD), myGNEApp, MID_HOTKEY_CTRL_R);
+    new FXMenuCommand(fileMenu,
+                      "&Save Network...\tCtrl+S\tSave the network.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_S);
+    new FXMenuCommand(fileMenu,
+                      "Save Net&work As...\tCtrl+Shift+S\tSave the network in another file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_SHIFT_S);
+    new FXMenuCommand(fileMenu,
+                      "Save plain XM&L...\tCtrl+L\tSave plain xml representation the network.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_L);
+    new FXMenuCommand(fileMenu,
+                      "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_J);
+    // create Shapes menu options
+    myGNEApp->myFileMenuShapes = new FXMenuPane(myGNEApp);
+    new FXMenuCommand(myGNEApp->myFileMenuShapes,
+                      "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), myGNEApp, MID_HOTKEY_CTRL_P);
+    saveShapes = new FXMenuCommand(myGNEApp->myFileMenuShapes,
+            "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_SHIFT_P);
+    saveShapes->disable();
+    saveShapesAs = new FXMenuCommand(myGNEApp->myFileMenuShapes,
+            "Save Shapes As...\t\tSave shapes elements in another files.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
+    saveShapesAs->disable();
+    new FXMenuCascade(fileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp->myFileMenuShapes);
+    // create Additionals menu options
+    myGNEApp->myFileMenuAdditionals = new FXMenuPane(myGNEApp);
+    new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
+                      "Load A&dditionals...\tCtrl+D\tLoad additional elements.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_ADDITIONALS), myGNEApp, MID_OPEN_ADDITIONALS);
+    saveAdditionals = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
+            "Save Additionals\tCtrl+Shift+D\tSave additional elements.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_SHIFT_D);
+    saveAdditionals->disable();
+    saveAdditionalsAs = new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
+            "Save Additionals As...\t\tSave additional elements in another file.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+    saveAdditionalsAs->disable();
+    new FXMenuCascade(fileMenu, "Additionals", GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp->myFileMenuAdditionals);
+    // create TLS menu options
+    myGNEApp->myFileMenuTLS = new FXMenuPane(myGNEApp);
+    new FXMenuCommand(myGNEApp->myFileMenuTLS,
+                      "load TLS Programs...\tCtrl+K\tload TLS Programs in all Traffic Lights of the net.",
+                      GUIIconSubSys::getIcon(ICON_OPEN_TLSPROGRAMS), myGNEApp, MID_OPEN_TLSPROGRAMS);
+    saveTLSPrograms = new FXMenuCommand(myGNEApp->myFileMenuTLS,
+            "Save TLS Programs \tCtrl+Shift+K\tSave TLS Programs of all Traffic Lights of the current net.",
+            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_SHIFT_K);
+    saveTLSPrograms->disable();
+    new FXMenuCommand(myGNEApp->myFileMenuTLS,
+                      "Save TLS Programs As...\t\tSave TLS Programs of all Traffic Lights of the current net in another file.",
+                      GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
+    new FXMenuCascade(fileMenu, "Traffic Lights", GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp->myFileMenuTLS);
+    // close network
+    new FXMenuSeparator(fileMenu);
+    new FXMenuCommand(fileMenu,
+                      "Close\tCtrl+W\tClose the net&work.",
+                      GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_HOTKEY_CTRL_W);
+    // Recent files
+    FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);
+    sep1->setTarget(&myGNEApp->myRecentConfigs);
+    sep1->setSelector(FXRecentFiles::ID_ANYFILES);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(fileMenu, "Clear Recent Configurat&ions", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_CLEAR);
+    myGNEApp->myRecentConfigs.setTarget(myGNEApp);
+    myGNEApp->myRecentConfigs.setSelector(MID_RECENTFILE);
+    FXMenuSeparator* sep2 = new FXMenuSeparator(fileMenu);
+    sep2->setTarget(&myGNEApp->myRecentNets);
+    sep2->setSelector(FXRecentFiles::ID_ANYFILES);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(fileMenu, "Cl&ear Recent Networks", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_CLEAR);
+    myGNEApp->myRecentNets.setTarget(myGNEApp);
+    myGNEApp->myRecentNets.setSelector(MID_RECENTFILE);
+    new FXMenuSeparator(fileMenu);
+    new FXMenuCommand(fileMenu, "&Quit\tCtrl+Q\tQuit the Application.", nullptr, myGNEApp, MID_HOTKEY_CTRL_Q, 0);
+
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::NetworkCheckableButtons - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::NetworkMenuCommands::NetworkMenuCommands(GNEApplicationWindow *GNEApp) :
+    createEdgeMode(nullptr),
+    moveMode(nullptr),
+    deleteMode(nullptr),
+    inspectMode(nullptr),
+    selectMode(nullptr),
+    connectMode(nullptr),
+    prohibitionMode(nullptr),
+    TLSMode(nullptr),
+    additionalMode(nullptr),
+    crossingMode(nullptr),
+    TAZMode(nullptr),
+    shapeMode(nullptr),
+    myGNEApp(GNEApp) 
+{}
+
+
+void 
+GNEApplicationWindow::NetworkMenuCommands::showNetworkMenuCommands() {
+    createEdgeMode->show();
+    moveMode->show();
+    deleteMode->show();
+    inspectMode->show();
+    selectMode->show();
+    connectMode->show();
+    prohibitionMode->show();
+    TLSMode->show();
+    additionalMode->show();
+    crossingMode->show();
+    TAZMode->show();
+    shapeMode->show();
+    // also show separator
+    myHorizontalSeparator->show();
+}
+
+
+void 
+GNEApplicationWindow::NetworkMenuCommands::hideNetworkMenuCommands() {
+    createEdgeMode->hide();
+    moveMode->hide();
+    deleteMode->hide();
+    inspectMode->hide();
+    selectMode->hide();
+    connectMode->hide();
+    prohibitionMode->hide();
+    TLSMode->hide();
+    additionalMode->hide();
+    crossingMode->hide();
+    TAZMode->hide();
+    shapeMode->hide();
+    // also hide separator
+    myHorizontalSeparator->hide();
+}
+
+
+void 
+GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* editMenu) {
+    // build every FXMenuCommand giving it a shortcut
+    createEdgeMode = new FXMenuCommand(editMenu,
+        "&Edge mode\tE\tCreate junction and edges.",
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SHORTCUT_E);
+    moveMode = new FXMenuCommand(editMenu,
+        "&Move mode\tM\tMove elements.",
+        GUIIconSubSys::getIcon(ICON_MODEMOVE), myGNEApp, MID_GNE_SHORTCUT_M);
+    deleteMode = new FXMenuCommand(editMenu,
+        "&Delete mode\tD\tDelete elements.",
+        GUIIconSubSys::getIcon(ICON_MODEDELETE), myGNEApp, MID_GNE_SHORTCUT_D);
+    inspectMode = new FXMenuCommand(editMenu,
+        "&Inspect mode\tI\tInspect elements and change their attributes.",
+        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myGNEApp, MID_GNE_SHORTCUT_I);
+    selectMode = new FXMenuCommand(editMenu,
+        "&Select mode\tS\tSelect elements.",
+        GUIIconSubSys::getIcon(ICON_MODESELECT), myGNEApp, MID_GNE_SHORTCUT_S);
+    connectMode = new FXMenuCommand(editMenu,
+        "&Connection mode\tC\tEdit connections between lanes.",
+        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myGNEApp, MID_GNE_SHORTCUT_C);
+    prohibitionMode = new FXMenuCommand(editMenu,
+        "Pro&hibition mode\tW\tEdit connection prohibitions.",
+        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myGNEApp, MID_GNE_SHORTCUT_W);
+    TLSMode = new FXMenuCommand(editMenu,
+        "&Traffic light mode\tT\tEdit traffic lights over junctions.",
+        GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp, MID_GNE_SHORTCUT_T);
+    additionalMode = new FXMenuCommand(editMenu,
+        "&Additional mode\tA\tCreate additional elements.",
+        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp, MID_GNE_SHORTCUT_A);
+    crossingMode = new FXMenuCommand(editMenu,
+        "C&rossing mode\tR\tCreate crossings between edges.",
+        GUIIconSubSys::getIcon(ICON_MODECROSSING), myGNEApp, MID_GNE_SHORTCUT_R);
+    TAZMode = new FXMenuCommand(editMenu,
+        "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
+        GUIIconSubSys::getIcon(ICON_MODETAZ), myGNEApp, MID_GNE_SHORTCUT_Z);
+    shapeMode = new FXMenuCommand(editMenu,
+        "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
+        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_GNE_SHORTCUT_P);
+
+    // build separator
+    myHorizontalSeparator = new FXMenuSeparator(editMenu);
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::DemandCheckableButtons - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindow *GNEApp) :
+    routeMode(nullptr),
+    myGNEApp(GNEApp) 
+{}
+
+
+void 
+GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
+    routeMode->show();
+    // also show separator
+    myHorizontalSeparator->show();
+}
+
+
+void 
+GNEApplicationWindow::DemandMenuCommands::hideDemandMenuCommands() {
+    routeMode->hide();
+    // also hide separator
+    myHorizontalSeparator->hide();
+}
+
+
+void 
+GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* editMenu) {
+    // build every FXMenuCommand giving it a shortcut
+    routeMode = new FXMenuCommand(editMenu,
+        "&Route mode\tR\tCreate Routes.",
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_GNE_SHORTCUT_R);
+    // build separator
+    myHorizontalSeparator = new FXMenuSeparator(editMenu);
+}
+
+// ---------------------------------------------------------------------------
+// private methods
+// ---------------------------------------------------------------------------
 
 void
 GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool useStartupOptions, bool newNet) {
@@ -1128,36 +1247,17 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
         myLoadThread->loadConfigOrNet(file, isNet, useStartupOptions, newNet);
         setStatusBarText("Loading '" + file + "'.");
     }
+    // show Network command menus
+    myNetworkMenuCommands.showNetworkMenuCommands();
+    // update window
     update();
-}
-
-
-
-GUISUMOAbstractView*
-GNEApplicationWindow::openNewView() {
-    std::string caption = "View #" + toString(myViewNumber++);
-    FXuint opts = MDI_TRACKING;
-    // create view parent
-    GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, FXString(caption.c_str()), this, getBuildGLCanvas(), myNet, myUndoList, nullptr, opts, 10, 10, 300, 200);
-    if (myMDIClient->numChildren() == 1) {
-        viewParent->maximize();
-    } else {
-        myMDIClient->vertical(true);
-    }
-    myMDIClient->setActiveChild(viewParent);
-    //v->grabKeyboard();
-    return viewParent->getView();
 }
 
 
 FXGLCanvas*
 GNEApplicationWindow::getBuildGLCanvas() const {
-    if (myMDIClient->numChildren() == 0) {
-        return 0;
-    }
-    GNEViewParent* share_tmp1 =
-        static_cast<GNEViewParent*>(myMDIClient->childAtIndex(0));
-    return share_tmp1->getBuildGLCanvas();
+    // NETEDIT uses only a single View, then return nullptr
+    return nullptr;
 }
 
 
@@ -1183,22 +1283,21 @@ void
 GNEApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     // remove trackers and other external windows
-    for (int i = 0; i < (int)mySubWindows.size(); ++i) {
-        mySubWindows[i]->destroy();
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        window->destroy();
+        delete window;
     }
-    for (int i = 0; i < (int)myTrackerWindows.size(); ++i) {
-        myTrackerWindows[i]->destroy();
+    //clear gl windows
+    myGLWindows.clear();
+    // set viewNet pointer to nullptr
+    myViewNet = nullptr;
+    for (FXMainWindow* const window : myTrackerWindows) {
+        window->destroy();
+        delete window;
     }
+    myTrackerWindows.clear();
     // reset the caption
     setTitle(myTitlePrefix);
-    // delete other children
-    while (myTrackerWindows.size() != 0) {
-        delete myTrackerWindows[0];
-    }
-    while (mySubWindows.size() != 0) {
-        delete mySubWindows[0];
-    }
-    mySubWindows.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();
@@ -1256,7 +1355,7 @@ GNEApplicationWindow::setShapesFile(const std::string& shapesFile) {
 }
 
 
-void 
+void
 GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
     myTLSProgramsFile = TLSProgramsFile;
 }
@@ -1264,42 +1363,43 @@ GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
 
 void
 GNEApplicationWindow::enableSaveAdditionalsMenu() {
-    mySaveAdditionalsMenuCommand->enable();
-    mySaveAdditionalsMenuCommandAs->enable();
+    myFileMenuCommands.saveAdditionals->enable();
+    myFileMenuCommands.saveAdditionalsAs->enable();
 }
 
 
 void
 GNEApplicationWindow::disableSaveAdditionalsMenu() {
-    mySaveAdditionalsMenuCommand->disable();
-    mySaveAdditionalsMenuCommandAs->disable();
+    myFileMenuCommands.saveAdditionals->disable();
+    myFileMenuCommands.saveAdditionalsAs->disable();
 }
 
 
 void
 GNEApplicationWindow::enableSaveShapesMenu() {
-    mySaveShapesMenuCommand->enable();
-    mySaveShapesMenuCommandAs->enable();
+    myFileMenuCommands.saveShapes->enable();
+    myFileMenuCommands.saveShapesAs->enable();
 }
 
 
 void
 GNEApplicationWindow::disableSaveShapesMenu() {
-    mySaveShapesMenuCommand->disable();
-    mySaveShapesMenuCommandAs->disable();
+    myFileMenuCommands.saveShapes->disable();
+    myFileMenuCommands.saveShapesAs->disable();
 }
 
 
 void
 GNEApplicationWindow::enableSaveTLSProgramsMenu() {
-    mySaveTLSProgramsMenuCommand->enable();
+    myFileMenuCommands.saveTLSPrograms->enable();
 }
 
 
 long
 GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
-    if (getView()) {
-        getView()->setEditModeFromHotkey(FXSELID(sel));
+    // check that currently there is a View
+    if (myViewNet) {
+        myViewNet->setEditModeFromHotkey(FXSELID(sel));
     }
     return 1;
 }
@@ -1307,40 +1407,55 @@ GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
-    if (mySubWindows.empty()) {
-        return 1;
-    }
-    std::string sumogui = "sumo-gui";
-    const char* sumoPath = getenv("SUMO_HOME");
-    if (sumoPath != 0) {
-        std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
-        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            sumogui = "\"" + newPath + "\"";
+    // check that currently there is a View
+    if (myViewNet) {
+        FXRegistry reg("SUMO GUI", "Eclipse");
+        reg.read();
+        reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
+        reg.writeRealEntry("viewport", "y", myViewNet->getChanger().getYPos());
+        reg.writeRealEntry("viewport", "z", myViewNet->getChanger().getZPos());
+        reg.write();
+        std::string sumogui = "sumo-gui";
+        const char* sumoPath = getenv("SUMO_HOME");
+        if (sumoPath != nullptr) {
+            std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
+            if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+                sumogui = "\"" + newPath + "\"";
+            }
         }
+        std::string cmd = sumogui + " --registry-viewport" + " -n "  + OptionsCont::getOptions().getString("output-file");
+        // start in background
+    #ifndef WIN32
+        cmd = cmd + " &";
+    #else
+        // see "help start" for the parameters
+        cmd = "start /B \"\" " + cmd;
+    #endif
+        WRITE_MESSAGE("Running " + cmd + ".");
+        // yay! fun with dangerous commands... Never use this over the internet
+        SysUtils::runHiddenCommand(cmd);
     }
-    std::string cmd = sumogui + " -n "  + OptionsCont::getOptions().getString("output-file");
-    // start in background
-#ifndef WIN32
-    cmd = cmd + " &";
-#else
-    // see "help start" for the parameters
-    cmd = "start /B \"\" " + cmd;
-#endif
-    WRITE_MESSAGE("Running " + cmd + ".");
-    // yay! fun with dangerous commands... Never use this over the internet
-    SysUtils::runHiddenCommand(cmd);
     return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
-    if (getView()) {
+    // check that view exists
+    if (myViewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key ESC (abort) pressed");
-        // abort current operation
-        getView()->abortOperation();
-        getView()->update();
+        // first check if we're selecting a subset of edges in TAZ Frame
+        if(myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->getEdgeAndTAZChildsSelected().size() > 0) {
+            // show extra information for tests
+            WRITE_DEBUG("Cleaning current selected edges");
+            // clear current selection
+            myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->clearSelectedEdges();
+        } else {
+            // abort current operation
+            myViewNet->abortOperation();
+            myViewNet->update();
+        }
     }
     return 1;
 }
@@ -1348,10 +1463,11 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
-    if (getView()) {
+    // check that view exists
+    if (myViewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key DEL (delete) pressed");
-        getView()->hotkeyDel();
+        myViewNet->hotkeyDel();
     }
     return 1;
 }
@@ -1359,10 +1475,11 @@ GNEApplicationWindow::onCmdDel(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
-    if (getView()) {
+    // check that view exists
+    if (myViewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key ENTER pressed");
-        getView()->hotkeyEnter();
+        myViewNet->hotkeyEnter();
     }
     return 1;
 }
@@ -1370,8 +1487,9 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
-    if (getView()) {
-        getView()->hotkeyFocusFrame();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->hotkeyFocusFrame();
     }
     return 1;
 }
@@ -1379,8 +1497,9 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
-    if (getView()) {
-        getView()->showViewportEditor();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->showViewportEditor();
     }
     return 1;
 }
@@ -1388,29 +1507,30 @@ GNEApplicationWindow::onCmdEditViewport(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
-    if (getView()) {
-        getView()->showViewschemeEditor();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->showViewschemeEditor();
     }
     return 1;
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
-    // only toogle grid if there is a GNEViewNet
-    if (getView() != nullptr) {
+    // check that view exists
+    if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if(getView()->getMenuCheckShowGrid()->getCheck() == 1) {
-            getView()->getMenuCheckShowGrid()->setCheck(0);
+        if (myViewNet->getMenuCheckShowGrid()->getCheck() == TRUE) {
+            myViewNet->getMenuCheckShowGrid()->setCheck(0);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            getView()->getMenuCheckShowGrid()->setCheck(1);
+            myViewNet->getMenuCheckShowGrid()->setCheck(1);
             // show extra information for tests
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
-        getView()->onCmdShowGrid(0,0,0);
+        myViewNet->onCmdShowGrid(nullptr, 0, nullptr);
     }
     return 1;
 }
@@ -1625,7 +1745,7 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     oc.resetWritable();
     oc.set("output-file", file.text());
     setTitle(MFXUtils::getTitleText(myTitlePrefix, file));
-    onCmdSaveNetwork(0, 0, 0);
+    onCmdSaveNetwork(nullptr, 0, nullptr);
     return 1;
 }
 
@@ -1720,7 +1840,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
     // check if save shapes menu is enabled
-    if (mySaveShapesMenuCommand->isEnabled()) {
+    if (myFileMenuCommands.saveShapes->isEnabled()) {
         // Check if shapes file was already set at start of netedit or with a previous save
         if (myShapesFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
@@ -1738,7 +1858,7 @@ GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
         try {
             myNet->saveShapes(myShapesFile);
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Shapes saved in " + myShapesFile + ".\n");
-            mySaveShapesMenuCommand->disable();
+            myFileMenuCommands.saveShapes->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving shapes'");
@@ -1766,7 +1886,7 @@ long GNEApplicationWindow::onCmdSaveShapesAs(FXObject*, FXSelector, void*) {
         // Set new shape file
         myShapesFile = file.text();
         // save shapes
-        return onCmdSaveShapes(0, 0, 0);
+        return onCmdSaveShapes(nullptr, 0, nullptr);
     } else {
         return 1;
     }
@@ -1775,14 +1895,14 @@ long GNEApplicationWindow::onCmdSaveShapesAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myNet == 0 ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myNet == nullptr ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
 }
 
 
 long
 GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myNet == 0 || !OptionsCont::getOptions().isSet("sumo-net-file") ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myNet == nullptr || !OptionsCont::getOptions().isSet("sumo-net-file") ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
 }
 
@@ -1792,7 +1912,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     // function onCmdSaveAsNetwork must be executed if this is the first save
     if (oc.getString("output-file") == "") {
-        return onCmdSaveAsNetwork(0, 0, 0);
+        return onCmdSaveAsNetwork(nullptr, 0, nullptr);
     } else {
         getApp()->beginWaitCursor();
         try {
@@ -1820,7 +1940,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
     // check if save additional menu is enabled
-    if (mySaveAdditionalsMenuCommand->isEnabled()) {
+    if (myFileMenuCommands.saveAdditionals->isEnabled()) {
         // Check if additionals file was already set at start of netedit or with a previous save
         if (myAdditionalsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
@@ -1839,7 +1959,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
         try {
             myNet->saveAdditionals(myAdditionalsFile);
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Additionals saved in " + myAdditionalsFile + ".\n");
-            mySaveAdditionalsMenuCommand->disable();
+            myFileMenuCommands.saveAdditionals->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
@@ -1868,7 +1988,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
         // Set new additional file
         myAdditionalsFile = file.text();
         // save additionals
-        return onCmdSaveAdditionals(0, 0, 0);
+        return onCmdSaveAdditionals(nullptr, 0, nullptr);
     } else {
         return 1;
     }
@@ -1878,7 +1998,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
     // check if save additional menu is enabled
-    if (mySaveTLSProgramsMenuCommand->isEnabled()) {
+    if (myFileMenuCommands.saveTLSPrograms->isEnabled()) {
         // Check if TLS Programs file was already set at start of netedit or with a previous save
         if (myTLSProgramsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
@@ -1897,7 +2017,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
         try {
             myNet->saveTLSPrograms(myTLSProgramsFile);
             myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + myTLSProgramsFile + ".\n");
-            mySaveTLSProgramsMenuCommand->disable();
+            myFileMenuCommands.saveTLSPrograms->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
@@ -1926,7 +2046,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
         // Set new TLS Program file
         myTLSProgramsFile = file.text();
         // save TLS Programs
-        return onCmdSaveTLSPrograms(0, 0, 0);
+        return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
     } else {
         return 1;
     }
@@ -1936,8 +2056,8 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
-    bool enable = myNet != 0 && oc.isSet("output-file");
-    sender->handle(this, FXSEL(SEL_COMMAND, enable ? ID_ENABLE : ID_DISABLE), 0);
+    bool enable = myNet != nullptr && oc.isSet("output-file");
+    sender->handle(this, FXSEL(SEL_COMMAND, enable ? ID_ENABLE : ID_DISABLE), nullptr);
     if (enable) {
         FXString caption = ("Save " + oc.getString("output-file")).c_str();
         sender->handle(this, FXSEL(SEL_COMMAND, FXMenuCaption::ID_SETSTRINGVALUE), (void*)&caption);
@@ -1946,25 +2066,10 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 }
 
 
-GNEViewNet*
-GNEApplicationWindow::getView() {
-    if (mySubWindows.size() != 0) {
-        GUIGlChildWindow* childWindows = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
-        if(childWindows != nullptr) {
-            return dynamic_cast<GNEViewNet*>(childWindows->getView());
-        } else {
-            return nullptr;
-        }
-    } else {
-        return nullptr;
-    }
-}
-
-
 bool
 GNEApplicationWindow::continueWithUnsavedChanges() {
     FXuint answer = 0;
-    if (myNet && !myNet->isNetSaved()) {
+    if (myViewNet && myNet && !myNet->isNetSaved()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'Confirm closing network'");
         // open question box
@@ -1972,7 +2077,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                                         "Confirm closing Network", "%s",
                                         "You have unsaved changes in the network. Do you wish to quit and discard all changes?");
         // restore focus to view net
-        getView()->setFocus();
+        myViewNet->setFocus();
         // if user close dialog box, check additionasl and shapes
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
@@ -1986,7 +2091,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             }
         } else if (answer == MBOX_CLICKED_SAVE) {
             // save newtork
-            onCmdSaveNetwork(0, 0, 0);
+            onCmdSaveNetwork(nullptr, 0, nullptr);
             if (!myUndoList->marked()) {
                 // saving failed
                 return false;
@@ -2024,14 +2129,14 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
 bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
     // Check if there are non saved additionals
-    if (mySaveAdditionalsMenuCommand->isEnabled()) {
+    if (myViewNet && myFileMenuCommands.saveAdditionals->isEnabled()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save additionals before exit'");
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save additionals before exit", "%s",
                                                "You have unsaved additionals. Do you wish to quit and discard all changes?");
         // restore focus to view net
-        getView()->setFocus();
+        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'Quit'");
@@ -2040,7 +2145,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'Yes'");
-            if (onCmdSaveAdditionals(0, 0, 0) == 1) {
+            if (onCmdSaveAdditionals(nullptr, 0, nullptr) == 1) {
                 // additionals sucesfully saved
                 return true;
             } else {
@@ -2067,14 +2172,14 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
 bool
 GNEApplicationWindow::continueWithUnsavedShapeChanges() {
     // Check if there are non saved additionals
-    if (mySaveShapesMenuCommand->isEnabled()) {
+    if (myViewNet && myFileMenuCommands.saveShapes->isEnabled()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save shapes before exit'");
         // open question box
         FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
                                                "Save shapes before exit", "%s",
                                                "You have unsaved shapes. Do you wish to quit and discard all changes?");
         // restore focus to view net
-        getView()->setFocus();
+        myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
         if (answer == MBOX_CLICKED_QUIT) {
             WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Quit'");
@@ -2082,7 +2187,7 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Yes'");
-            if (onCmdSaveShapes(0, 0, 0) == 1) {
+            if (onCmdSaveShapes(nullptr, 0, nullptr) == 1) {
                 // shapes sucesfully saved
                 return true;
             } else {
@@ -2108,10 +2213,43 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
 
 void
 GNEApplicationWindow::updateControls() {
-    GNEViewNet* view = getView();
-    if (view != 0) {
-        view->updateControls();
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->updateControls();
     }
+}
+
+
+FXMenuBar* 
+GNEApplicationWindow::getMenuBar() const {
+    return myMenuBar;
+}
+
+
+void 
+GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
+    // cast supermode
+    Supermode currentSupermode = static_cast<Supermode>(supermode);
+    if (currentSupermode == Supermode::GNE_SUPERMODE_NETWORK) {
+        myNetworkMenuCommands.showNetworkMenuCommands();
+        myDemandMenuCommands.hideDemandMenuCommands();
+    } else if (currentSupermode == Supermode::GNE_SUPERMODE_DEMAND) {
+        myNetworkMenuCommands.hideNetworkMenuCommands();
+        myDemandMenuCommands.showDemandMenuCommands();
+    } else {
+        myNetworkMenuCommands.hideNetworkMenuCommands();
+        myDemandMenuCommands.hideDemandMenuCommands();
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindow - protected methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::GNEApplicationWindow() :
+    myFileMenuCommands(this),
+    myNetworkMenuCommands(this), 
+    myDemandMenuCommands(this) {
 }
 
 
@@ -2120,8 +2258,8 @@ GNEApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     const long handled = FXMainWindow::onKeyPress(o, sel, eventData);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
-        if (w != 0) {
-            w->onKeyPress(0, sel, eventData);
+        if (w != nullptr) {
+            w->onKeyPress(nullptr, sel, eventData);
         }
     }
     return 0;
@@ -2133,8 +2271,8 @@ GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* eventData)
     const long handled = FXMainWindow::onKeyRelease(o, sel, eventData);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
-        if (w != 0) {
-            w->onKeyRelease(0, sel, eventData);
+        if (w != nullptr) {
+            w->onKeyRelease(nullptr, sel, eventData);
         }
     }
     return 0;
@@ -2158,7 +2296,7 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
     int laneIndex;
     NBHelpers::interpretLaneID(laneID, edgeID, laneIndex);
     NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
-    if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
+    if (edge == nullptr || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
         WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
         return Position::INVALID;
     }

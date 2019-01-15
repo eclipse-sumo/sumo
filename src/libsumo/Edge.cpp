@@ -271,9 +271,15 @@ Edge::getLastStepLength(const std::string& id) {
 }
 
 
-int 
+int
 Edge::getLaneNumber(const std::string& id) {
     return (int)getEdge(id)->getLanes().size();
+}
+
+
+std::string
+Edge::getStreetName(const std::string& id) {
+    return getEdge(id)->getStreetName();
 }
 
 
@@ -304,6 +310,9 @@ Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
         lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
     }
     e->rebuildAllowedLanes();
+    for (MSEdge* const pred : e->getPredecessors()) {
+        pred->rebuildAllowedTargets();
+    }
 }
 
 
@@ -356,7 +365,7 @@ Edge::makeWrapper() {
 bool
 Edge::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
@@ -396,6 +405,8 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapDouble(objID, variable, getLastStepLength(objID));
         case VAR_LANE_INDEX:
             return wrapper->wrapInt(objID, variable, getLaneNumber(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getStreetName(objID));
         default:
             return false;
     }

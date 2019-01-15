@@ -33,6 +33,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
+#include <utils/geom/Position.h>
 #include "AccessEdge.h"
 #include "CarEdge.h"
 #include "IntermodalEdge.h"
@@ -134,7 +135,7 @@ public:
 
         // build the walking connectors if there are no walking areas
         for (const E* const edge : edges) {
-            if (edge->isTazConnector()) {
+            if (edge->isTazConnector() || edge->isInternal()) {
                 continue;
             }
             if (haveSeenWalkingArea) {
@@ -147,7 +148,9 @@ public:
                     }
                 }
             } else {
-                for (const N* const node : { edge->getFromJunction(), edge->getToJunction() }) {
+                for (const N* const node : {
+                edge->getFromJunction(), edge->getToJunction()
+                }) {
                     if (myWalkingConnectorLookup.count(node) == 0) {
                         addEdge(new _IntermodalEdge(node->getID() + "_walking_connector", myNumericalID++, nullptr, "!connector"));
                         myWalkingConnectorLookup[node] = myEdges.back();
@@ -203,11 +206,28 @@ public:
             // in the second we connect all car-only edges to all sidewalks.
             _IntermodalEdge* const toNodeConn = myWalkingConnectorLookup[edge->getToJunction()];
             if (toNodeConn != nullptr) {
+                // Check for the outgoing vias and use the shortest one as an approximation
+                const std::vector<std::pair<const L*, const E*> > outgoing = sidewalk->getOutgoingViaLanes();
+                double minViaLength = std::numeric_limits<double>::max();
+                const E* minVia = nullptr;
+                for (const auto& target : outgoing) {
+                    if (target.second != nullptr && target.second->getLength() < minViaLength) {
+                        minViaLength = target.second->getLength();
+                        minVia = target.second;
+                    }
+                }
+                EdgePair interVia = std::make_pair(nullptr, nullptr);
+                if (minVia != nullptr) {
+                    const auto it = myBidiLookup.find(minVia);
+                    if (it != myBidiLookup.end()) {
+                        interVia = it->second;
+                    }
+                }
                 if (!haveSeenWalkingArea) {
                     // if we have walking areas we should use them and not the connector
-                    pair.first->addSuccessor(toNodeConn);
+                    pair.first->addSuccessor(toNodeConn, interVia.first);
                 }
-                toNodeConn->addSuccessor(pair.second);
+                toNodeConn->addSuccessor(pair.second, interVia.second);
             }
             _IntermodalEdge* const fromNodeConn = myWalkingConnectorLookup[edge->getFromJunction()];
             if (fromNodeConn != nullptr) {
@@ -264,7 +284,7 @@ public:
         typename std::map<const E*, EdgePair>::const_iterator it = myBidiLookup.find(e);
         if (it == myBidiLookup.end()) {
             assert(false);
-            throw ProcessError("Edge '" + e->getID() + "' not found in intermodal network '");
+            throw ProcessError("Edge '" + e->getID() + "' not found in intermodal network.'");
         }
         return (*it).second;
     }
@@ -434,7 +454,9 @@ public:
                 if (carSplit != nullptr && ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & PARKING_AREAS) != 0) || (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & PT_STOPS) != 0))) {
                     // adding access from car to walk
                     _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
-                    for (_IntermodalEdge* conn : { fwdSplit, backSplit }) {
+                    for (_IntermodalEdge* conn : {
+                                fwdSplit, backSplit
+                            }) {
                         _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
                         addEdge(access);
                         beforeSplit->addSuccessor(access);
@@ -477,53 +499,58 @@ public:
         }
     }
 
-    void addSchedule(const SUMOVehicleParameter& pars, const std::vector<SUMOVehicleParameter::Stop>* addStops = 0) {
+    void addSchedule(const SUMOVehicleParameter& pars, const std::vector<SUMOVehicleParameter::Stop>* addStops = nullptr) {
         SUMOTime lastUntil = 0;
         std::vector<SUMOVehicleParameter::Stop> validStops;
-        if (addStops != 0) {
+        if (addStops != nullptr) {
             // stops are part of a stand-alone route. until times are offsets from vehicle departure
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = addStops->begin(); s != addStops->end(); ++s) {
-                if (myStopConnections.count(s->busstop) > 0) {
+            for (const SUMOVehicleParameter::Stop& stop : *addStops) {
+                if (myStopConnections.count(stop.busstop) > 0) {
                     // compute stop times for the first vehicle
-                    SUMOVehicleParameter::Stop stop = *s;
-                    stop.until += pars.depart;
-                    if (stop.until >= lastUntil) {
+                    const SUMOTime newUntil = stop.until + pars.depart;
+                    if (newUntil >= lastUntil) {
                         validStops.push_back(stop);
-                        lastUntil = stop.until;
+                        validStops.back().until = newUntil;
+                        lastUntil = newUntil;
                     } else {
-                        WRITE_WARNING("Ignoring unordered stop at '" + stop.busstop + "' at " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                        WRITE_WARNING("Ignoring unordered stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
                     }
                 }
             }
         }
-        for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
+        for (const SUMOVehicleParameter::Stop& stop : pars.stops) {
             // stops are part of the vehicle until times are absolute times for the first vehicle
-            if (myStopConnections.count(s->busstop) > 0 && s->until >= lastUntil) {
-                validStops.push_back(*s);
-                lastUntil = s->until;
+            if (myStopConnections.count(stop.busstop) > 0 && stop.until >= lastUntil) {
+                validStops.push_back(stop);
+                lastUntil = stop.until;
+            } else {
+                WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
             }
         }
         if (validStops.size() < 2) {
-            WRITE_WARNING("Ignoring public transport line '" + pars.line + "' with less than two usable stops.");
+            WRITE_WARNING("Not using public transport line '" + pars.line + "' for routing persons. It has less than two usable stops.");
             return;
         }
 
         typename std::vector<_PTEdge*>& lineEdges = myPTLines[pars.line];
         if (lineEdges.empty()) {
-            _IntermodalEdge* lastStop = 0;
+            _IntermodalEdge* lastStop = nullptr;
+            Position lastPos;
             SUMOTime lastTime = 0;
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = validStops.begin(); s != validStops.end(); ++s) {
-                _IntermodalEdge* currStop = myStopConnections[s->busstop];
-                if (lastStop != 0) {
-                    _PTEdge* const newEdge = new _PTEdge(s->busstop, myNumericalID++, lastStop, currStop->getEdge(), pars.line);
+            for (const SUMOVehicleParameter::Stop& s : validStops) {
+                _IntermodalEdge* currStop = myStopConnections[s.busstop];
+                Position stopPos = E::getStopPosition(s);
+                if (lastStop != nullptr) {
+                    _PTEdge* const newEdge = new _PTEdge(s.busstop, myNumericalID++, lastStop, currStop->getEdge(), pars.line, lastPos.distanceTo(stopPos));
                     addEdge(newEdge);
-                    newEdge->addSchedule(pars.id, lastTime, lastTime + pars.repetitionOffset * (pars.repetitionNumber - 1), pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
+                    newEdge->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s.until - lastTime);
                     lastStop->addSuccessor(newEdge);
                     newEdge->addSuccessor(currStop);
                     lineEdges.push_back(newEdge);
                 }
-                lastTime = s->until;
+                lastTime = s.until;
                 lastStop = currStop;
+                lastPos = stopPos;
             }
         } else {
             if (validStops.size() != lineEdges.size() + 1) {
@@ -543,8 +570,11 @@ public:
                 }
             }
             SUMOTime lastTime = validStops.front().until;
+            if (lineEdges.front()->hasSchedule(lastTime)) {
+                WRITE_WARNING("Duplicate schedule for '" + pars.line + "' at time " + time2string(lastTime) + ".");
+            }
             for (lineEdge = lineEdges.begin(), s = validStops.begin() + 1; lineEdge != lineEdges.end(); ++lineEdge, ++s) {
-                (*lineEdge)->addSchedule(pars.id, lastTime, lastTime + pars.repetitionOffset * (pars.repetitionNumber - 1), pars.repetitionOffset, STEPS2TIME(s->until - lastTime));
+                (*lineEdge)->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s->until - lastTime);
                 lastTime = s->until;
             }
         }
@@ -597,8 +627,8 @@ private:
     * @param[in] addExit whether we can just enter the stop or exit as well (cars should not exit yet)
     */
     void splitEdge(_IntermodalEdge* const toSplit, int splitIndex,
-        _IntermodalEdge* afterSplit, const double relPos, const double length, const bool needSplit,
-        _IntermodalEdge* const stopConn, const bool forward = true, const bool addExit = true) {
+                   _IntermodalEdge* afterSplit, const double relPos, const double length, const bool needSplit,
+                   _IntermodalEdge* const stopConn, const bool forward = true, const bool addExit = true) {
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
         if (splitList.empty()) {
             splitList.push_back(toSplit);

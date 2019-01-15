@@ -61,10 +61,10 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
     myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick);
     // create Button and Label for sort intervals
     mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
-    new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), 0, GUIDesignLabelThick);
+    new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table
     myIntervalTable = new FXTable(myContentFrame, this, MID_GNE_REROUTEDIALOG_TABLE_INTERVAL, GUIDesignTableAdditionals);
@@ -137,7 +137,7 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNERerouterDialog::onCmdSortIntervals(FXObject*, FXSelector, void*) {
     // Sort variable speed sign steps
     myEditedAdditional->sortAdditionalChilds();
@@ -185,13 +185,13 @@ GNERerouterDialog::updateIntervalTable() {
     myIntervalTable->setColumnWidth(0, 137);
     myIntervalTable->setColumnWidth(1, 136);
     myIntervalTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
-    myIntervalTable->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str()); 
+    myIntervalTable->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
     myIntervalTable->setColumnText(1, toString(SUMO_ATTR_END).c_str());
     myIntervalTable->setColumnText(2, "");
     myIntervalTable->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
+    FXTableItem* item = nullptr;
     // iterate over values
     for (auto i : myEditedAdditional->getAdditionalChilds()) {
         // Set time

@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -6,6 +7,7 @@ edges ('1fi', '1o', '1si', '2fi', '2o', '2si', '3fi', '3o', '3si', '4fi', '4o', 
 edge count 16
 examining 2fi
 laneNumber 1
+streetName exampleStreetName1
 adaptedTraveltime -1.0
 effort -1.0
 CO2 3655.93323154

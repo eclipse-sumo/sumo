@@ -20,25 +20,21 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 
-#include "GNEParkingArea.h"
 #include "GNEParkingAreaReroute.h"
 #include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include "GNERerouterInterval.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), 
-                  rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second, 
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(),
+                  rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second,
                   rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false) {
     // fill route type with default values
     setDefaultValues();
@@ -55,37 +51,37 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalPare
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
-void 
-GNEParkingAreaReroute::moveGeometry(const Position&, const Position&) {
+void
+GNEParkingAreaReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNEParkingAreaReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNEParkingAreaReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEParkingAreaReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEParkingAreaReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEParkingAreaReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently this additional isn't drawn
 }
@@ -107,7 +103,7 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -126,7 +122,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value, G
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -145,20 +141,20 @@ GNEParkingAreaReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNEParkingAreaReroute::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
-std::string 
+std::string
 GNEParkingAreaReroute::getHierarchyName() const {
-    return toString(getTag()) + ": " + getSecondAdditionalParent()->getID();
+    return getTagStr() + ": " + getSecondAdditionalParent()->getID();
 }
 
 // ===========================================================================
@@ -184,7 +180,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

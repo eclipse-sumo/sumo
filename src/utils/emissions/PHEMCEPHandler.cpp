@@ -95,10 +95,10 @@ PHEMCEPHandler::Load(SUMOEmissionClass emissionClass, const std::string& emissio
     //std::string phemPath = oc.getString("phemlight-path") + "/";
     std::vector<std::string> phemPath;
     phemPath.push_back(oc.getString("phemlight-path") + "/");
-    if (getenv("PHEMLIGHT_PATH") != 0) {
+    if (getenv("PHEMLIGHT_PATH") != nullptr) {
         phemPath.push_back(std::string(getenv("PHEMLIGHT_PATH")) + "/");
     }
-    if (getenv("SUMO_HOME") != 0) {
+    if (getenv("SUMO_HOME") != nullptr) {
         phemPath.push_back(std::string(getenv("SUMO_HOME")) + "/data/emissions/PHEMlight/");
     }
     if (!ReadVehicleFile(phemPath, emissionClassIdentifier,
@@ -174,7 +174,7 @@ PHEMCEP*
 PHEMCEPHandler::GetCep(SUMOEmissionClass emissionClass) {
     // check if Cep has been loaded
     if (_ceps.find(emissionClass) == _ceps.end()) {
-        return 0;
+        return nullptr;
     } // end if
 
     return _ceps[emissionClass];

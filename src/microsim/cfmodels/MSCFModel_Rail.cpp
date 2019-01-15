@@ -30,8 +30,7 @@
 #define G  9.80665
 
 MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
-    MSCFModel(vtype) 
-{
+    MSCFModel(vtype) {
     const std::string trainType = vtype->getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
     if (trainType.compare("RB425") == 0) {
         myTrainParams = initRB425Params();
@@ -62,7 +61,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     }
     myTrainParams.decl = vtype->getParameter().getCFParam(SUMO_ATTR_DECEL, myTrainParams.decl);
     setMaxDecel(myTrainParams.decl);
-    setEmergencyDecel(myTrainParams.decl);
+    setEmergencyDecel(vtype->getParameter().getCFParam(SUMO_ATTR_EMERGENCYDECEL, myTrainParams.decl + 0.3));
     // update type parameters so they are shown correctly in the gui (if defaults from trainType are used)
     const_cast<MSVehicleType*>(vtype)->setMaxSpeed(myTrainParams.vmax);
     const_cast<MSVehicleType*>(vtype)->setLength(myTrainParams.length);
@@ -74,27 +73,26 @@ MSCFModel_Rail::~MSCFModel_Rail() { }
 double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, double gap,
                                    double /* predSpeed */, double /* predMaxDecel*/, const MSVehicle* const /*pred*/) const {
 
-	// followSpeed module is used for the simulation of moving block operations. The safety gap is chosen similar to the existing german
-	// system CIR-ELKE (based on LZB). Other implementations of moving block systems may differ, but for now no appropriate parameter 
-	// can be set (would be per lane, not per train) -> hard-coded
+    // followSpeed module is used for the simulation of moving block operations. The safety gap is chosen similar to the existing german
+    // system CIR-ELKE (based on LZB). Other implementations of moving block systems may differ, but for now no appropriate parameter
+    // can be set (would be per lane, not per train) -> hard-coded
 
-	double safetyGap = 5.0; // default value for low speeds (< 30 km/h)
-	if (speed >= 30 / 3.6) {
-		safetyGap = 50.0; // safety distance for higher speeds (>= 30 km/h)
-	}
+    double safetyGap = 5.0; // default value for low speeds (< 30 km/h)
+    if (speed >= 30 / 3.6) {
+        safetyGap = 50.0; // safety distance for higher speeds (>= 30 km/h)
+    }
 
-	const double vsafe = maximumSafeStopSpeed(gap - safetyGap, speed, false, TS); // absolute breaking distance
-	const double vmin = minNextSpeed(speed, veh);
-	const double vmax = maxNextSpeed(speed, veh);
+    const double vsafe = maximumSafeStopSpeed(gap - safetyGap, speed, false, TS); // absolute breaking distance
+    const double vmin = minNextSpeed(speed, veh);
+    const double vmax = maxNextSpeed(speed, veh);
 
-	if (MSGlobals::gSemiImplicitEulerUpdate) {
-		return MIN2(vsafe, vmax);
-	}
-	else {
-		// ballistic
-		// XXX: the euler variant can break as strong as it wishes immediately! The ballistic cannot, refs. #2575.
-		return MAX2(MIN2(vsafe, vmax), vmin);
-	}
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        return MIN2(vsafe, vmax);
+    } else {
+        // ballistic
+        // XXX: the euler variant can break as strong as it wishes immediately! The ballistic cannot, refs. #2575.
+        return MAX2(MIN2(vsafe, vmax), vmin);
+    }
 }
 
 int
@@ -154,6 +152,13 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
     return speed - a * DELTA_T / 1000.;
 
 }
+
+
+double
+MSCFModel_Rail::minNextSpeedEmergency(double speed, const MSVehicle* const veh) const {
+    return minNextSpeed(speed, veh);
+}
+
 
 double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) const {
     speed = speed * 3.6; // lookup values in km/h

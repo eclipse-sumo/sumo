@@ -21,12 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <utils/common/UtilExceptions.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/RGBColor.h>
 
 #include "GNEAdditional.h"
 
@@ -48,13 +42,13 @@ class GNECalibratorVehicleType : public GNEAdditional {
 
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
-    GNECalibratorVehicleType(GNEViewNet *viewNet);
+    GNECalibratorVehicleType(GNEViewNet* viewNet);
 
     /// @brief constructor in which ID can be specified
-    GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id);
+    GNECalibratorVehicleType(GNEViewNet* viewNet, const std::string& id);
 
     /// @brief parameter constructor
-    GNECalibratorVehicleType(GNEViewNet *viewNet, std::string vehicleTypeID,
+    GNECalibratorVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
                              double accel, double decel, double sigma, double tau, double length, double minGap,
                              double maxSpeed, double speedFactor, double speedDev, const RGBColor& color,
                              SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape,
@@ -68,16 +62,14 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] newPosition new position of geometry
-     * @note should't be called in drawGL(...) functions to avoid smoothness issues
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
      */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+    void moveGeometry(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] oldPos the old position of additional
      * @param[in] undoList The undoList on which to register changes
      */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);

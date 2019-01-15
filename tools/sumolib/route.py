@@ -32,7 +32,7 @@ def _getMinPath(paths):
     return minPath
 
 
-def mapTrace(trace, net, delta, verbose=False):
+def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, gapPenalty=-1):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
@@ -57,16 +57,29 @@ def mapTrace(trace, net, delta, verbose=False):
                     if dist < minDist:
                         if edge == path[-1]:
                             baseDiff = lastBase + advance - base
+                            extension = ()
                         elif edge in path[-1].getOutgoing():
                             baseDiff = lastBase + advance - path[-1].getLength() - base
+                            extension = (edge,)
                         else:
-                            airLineDist = euclidean(
-                                path[-1].getToNode().getCoord(),
-                                edge.getFromNode().getCoord())
-                            baseDiff = lastBase + advance - path[-1].getLength() - base - airLineDist
+                            extension = None
+                            if fillGaps:
+                                extension, cost = net.getShortestPath(path[-1], edge, airDistFactor * advance)
+                            if extension is None:
+                                airLineDist = euclidean(
+                                    path[-1].getToNode().getCoord(),
+                                    edge.getFromNode().getCoord())
+                                if gapPenalty < 0:
+                                    gapPenalty = airLineDist
+                                baseDiff = abs(lastBase + advance -
+                                               path[-1].getLength() - base - airLineDist) + gapPenalty
+                                extension = (edge,)
+                            else:
+                                baseDiff = lastBase + advance - base - cost + path[-1].getLength()
+                                extension = extension[1:]
                         if dist + baseDiff * baseDiff < minDist:
                             minDist = dist + baseDiff * baseDiff
-                            minPath = path if edge == path[-1] else path + (edge,)
+                            minPath = path + extension
                 if minPath:
                     newPaths[minPath] = (minDist, base)
             else:

@@ -20,12 +20,8 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/additionals/GNERerouter.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
 
@@ -55,7 +51,7 @@ GNEChange_Edge::~GNEChange_Edge() {
     myEdge->decRef("GNEChange_Edge");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' GNEChange_Edge");
+        WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' GNEChange_Edge");
         delete myEdge;
     }
 }
@@ -65,12 +61,12 @@ void
 GNEChange_Edge::undo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edge from net
         myNet->deleteSingleEdge(myEdge);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
         myNet->insertEdge(myEdge);
     }
@@ -87,12 +83,12 @@ void
 GNEChange_Edge::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
         myNet->insertEdge(myEdge);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // delte edge from net
         myNet->deleteSingleEdge(myEdge);
     }

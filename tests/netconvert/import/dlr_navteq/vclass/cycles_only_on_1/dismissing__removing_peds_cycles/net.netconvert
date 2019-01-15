@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:36 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:47 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -81,24 +81,24 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.37,13419.53 17017.36,13419.03 17017.39,13416.34 17017.65,13414.14 17018.15,13412.41 17018.89,13411.17 17019.87,13410.41 17021.08,13410.13 17020.81,13400.54 17018.59,13400.35 17016.77,13399.67 17015.32,13398.49 17014.27,13396.81 17013.60,13394.63 17013.31,13391.95 16997.32,13392.45 16996.95,13394.69 16996.41,13395.48 16995.65,13396.06 16994.67,13396.43 16993.45,13396.58 16994.08,13415.77 16996.27,13415.81 16998.07,13416.08 16999.48,13416.59 17000.50,13417.34 17001.13,13418.32">
-        <request index="0"  response="000000000000000000" foes="100000001100000000"/>
-        <request index="1"  response="011111100000000000" foes="011111111100000000"/>
-        <request index="2"  response="011111100000000000" foes="011111111100000000"/>
-        <request index="3"  response="011111000011100000" foes="011111000011100000"/>
-        <request index="4"  response="011000000011000000" foes="011000000011000000"/>
-        <request index="5"  response="000111000000000000" foes="000111000000001000"/>
-        <request index="6"  response="011111000000000000" foes="011111000000011000"/>
-        <request index="7"  response="011111000000000000" foes="011111000000011000"/>
-        <request index="8"  response="011111000000000111" foes="111111000000000111"/>
-        <request index="9"  response="011111000000000111" foes="111111000000000111"/>
-        <request index="10" response="000000100000000110" foes="000000100000000110"/>
-        <request index="11" response="000000000000000000" foes="000000010000000110"/>
+        <request index="0"  response="000000000000000000" foes="000000000000000000"/>
+        <request index="1"  response="011111000000000000" foes="011111011100000000"/>
+        <request index="2"  response="011111000000000000" foes="011111011100000000"/>
+        <request index="3"  response="011111000011000000" foes="011111000011000000"/>
+        <request index="4"  response="011000000000000000" foes="011000000000000000"/>
+        <request index="5"  response="000111000000000000" foes="000111000000000000"/>
+        <request index="6"  response="011111000000000000" foes="011111000000001000"/>
+        <request index="7"  response="011111000000000000" foes="011111000000001000"/>
+        <request index="8"  response="011111000000000110" foes="111111000000000110"/>
+        <request index="9"  response="011111000000000110" foes="111111000000000110"/>
+        <request index="10" response="000000000000000110" foes="000000000000000110"/>
+        <request index="11" response="000000000000000000" foes="000000000000000000"/>
         <request index="12" response="000000000000000000" foes="000000001111101110"/>
         <request index="13" response="000000000000000000" foes="000000001111101110"/>
         <request index="14" response="000000000000000000" foes="000000001111101110"/>
         <request index="15" response="000000000000000000" foes="000000001111011110"/>
         <request index="16" response="000000000000000000" foes="000000001111011110"/>
-        <request index="17" response="000000001100000001" foes="000000001100000001"/>
+        <request index="17" response="000000001100000000" foes="000000001100000000"/>
     </junction>
     <junction id="1" type="dead_end" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.00,12739.05 39850.28,12748.64"/>
     <junction id="2" type="priority" x="0.00" y="13967.12" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13967.12 0.32,13976.71 -0.00,13967.12">

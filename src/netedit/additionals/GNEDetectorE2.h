@@ -21,7 +21,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
 #include "GNEDetector.h"
 
@@ -36,7 +35,7 @@
 class GNEDetectorE2 : public GNEDetector {
 
 public:
-    /**@brief Constructor
+    /**@brief Constructor for Single-Lane E2 detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
      * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
@@ -55,17 +54,64 @@ public:
     GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
                   const std::string& name , const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
+    /**@brief Constructor for Multi-Lane detectors
+     * @param[in] id The storage of gl-ids to get the one for this lane representation from
+     * @param[in] lanes vector of lanes Lane of this StoppingPlace belongs
+     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] pos position of the detector on the first lane
+     * @param[in] endPos position of the detector on the last lane
+     * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] filename The path to the output file.
+     * @param[in] vehicleTypes space separated list of vehicle type ids to consider
+     * @param[in] name E2 detector name
+     * @param[in] timeThreshold The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
+     * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
+     * @param[in] speedThreshold The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
+     * @param[in] friendlyPos enable or disable friendly positions
+     * @param[in] block movement enable or disable additional movement
+     */
+    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double endPos, double freq, const std::string& filename, const std::string& vehicleTypes,
+                  const std::string& name , const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+
     /// @brief Destructor
     ~GNEDetectorE2();
+
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+    /// @brief check if current additional is valid to be writed into XML
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem
+    void fixAdditionalProblem();
+    /// @}
 
     /// @brief get length of E2 Detector
     double getLength() const;
 
-    /// @brief check if Position of detector is fixed
-    bool isDetectorPositionFixed() const;
+    /// @brief check if E2 is valid (all of their lanes are connected, it must called after every operation which involves lane's connections)
+    void checkE2MultilaneIntegrity();
+
+    /// @name inherited from GNEDetector
+    /// @{
+    /// @brief get lane
+    GNELane* getLane() const;
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
+    /**@brief change the position of the element geometry without saving in undoList
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
+     */
+    void moveGeometry(const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitGeometryMoving(GNEUndoList* undoList);
+
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);
     /// @}
@@ -103,8 +149,14 @@ public:
     /// @}
 
 protected:
-    /// @brief E2 detector lenght
+    /// @brief E2 lanes (Single lanes uses only the first lane)
+    std::vector<GNELane*> myLanes;
+
+    /// @brief E2 detector length
     double myLength;
+
+    /// @brief end position over lane (only for Multilane E2 detectors)
+    double myEndPositionOverLane;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
     double myTimeThreshold;
@@ -114,6 +166,9 @@ protected:
 
     /// @brief The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam
     double myJamThreshold;
+
+    /// @brief flag to check if E2 multilane is valid or invalid
+    bool myE2valid;
 
 private:
     /// @brief set attribute after validation

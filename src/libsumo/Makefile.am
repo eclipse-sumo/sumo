@@ -32,3 +32,5 @@ Vehicle.h \
 Vehicle.cpp \
 VehicleType.h \
 VehicleType.cpp
+
+EXTRA_DIST = libsumo.i

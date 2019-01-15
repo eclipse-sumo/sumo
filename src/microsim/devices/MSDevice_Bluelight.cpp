@@ -24,7 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -37,6 +37,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
 
+//#define DEBUG_BLUELIGHT
 
 // ===========================================================================
 // method definitions
@@ -56,7 +57,7 @@ MSDevice_Bluelight::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "bluelight", v, false)) {
         // build the device
@@ -64,25 +65,29 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
         double customParameter2 = -1;
         if (v.getParameter().knowsParameter("bluelight")) {
             try {
-                customParameter2 = TplConvert::_2double(v.getParameter().getParameter("bluelight", "-1").c_str());
+                customParameter2 = StringUtils::toDouble(v.getParameter().getParameter("bluelight", "-1"));
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("bluelight", "-1") + "'for vehicle parameter 'example'");
             }
 
         } else {
+#ifdef DEBUG_BLUELIGHT
             std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'bluelight'. Using default of " << customParameter2 << "\n";
+#endif
         }
         // get custom vType parameter
         double customParameter3 = -1;
         if (v.getVehicleType().getParameter().knowsParameter("bluelight")) {
             try {
-                customParameter3 = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("bluelight", "-1").c_str());
+                customParameter3 = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("bluelight", "-1"));
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("bluelight", "-1") + "'for vType parameter 'bluelight'");
             }
 
         } else {
+#ifdef DEBUG_BLUELIGHT
             std::cout << "vehicle '" << v.getID() << "' does not supply vType parameter 'bluelight'. Using default of " << customParameter3 << "\n";
+#endif
         }
         MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
                 oc.getFloat("device.bluelight.parameter"),
@@ -97,12 +102,14 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
 // MSDevice_Bluelight-methods
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
-    double customValue1, double customValue2, double customValue3) :
-    MSDevice(holder, id),
+                                       double customValue1, double customValue2, double customValue3) :
+    MSVehicleDevice(holder, id),
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
     myCustomValue3(customValue3) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "initialized device '" << id << "' with myCustomValue1=" << myCustomValue1 << ", myCustomValue2=" << myCustomValue2 << ", myCustomValue3=" << myCustomValue3 << "\n";
+#endif
 }
 
 
@@ -112,8 +119,12 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 
 bool
 MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
-                               double /* newPos */, double  newSpeed ) {
+                               double /* newPos */, double newSpeed) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
+#else
+    UNUSED_PARAMETER(newSpeed);
+#endif
     // check whether another device is present on the vehicle:
     /*MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
     if (otherDevice != 0) {
@@ -126,37 +137,40 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
     vt->setPreferredLateralAlignment(LATALIGN_ARBITRARY);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-    std::string currentEdgeID= veh.getEdge()->getID();
+    std::string currentEdgeID = veh.getEdge()->getID();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         SUMOVehicle* veh2 = it->second;
         //Vehicle only from edge should react
         if (currentEdgeID == veh2->getEdge()->getID()) {
+            if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
+                // emergency vehicles should not react
+                continue;
+            }
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
             // the perception of the sound of the siren should be around 25 meters
             // todo only vehicles in front of the emergency vehicle should react
-            if (distanceDelta <= 25 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID())== 0) {
+            if (distanceDelta <= 25 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
                 influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
                 influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
-                //Vehicle gets a new Vehicletype to change the alignment and the lanechange options 
+                //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                 MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
                 MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
 
-                //other vehicle should not use the rescue lane so they should not make any lane changes 
+                //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);
-                const int numLanes= (int)veh2->getEdge()->getLanes().size();
+                const int numLanes = (int)veh2->getEdge()->getLanes().size();
                 //Setting the lateral alignment to build a rescue lane
-                if (veh2->getLane()->getIndex() == numLanes-1) {
+                if (veh2->getLane()->getIndex() == numLanes - 1) {
                     t.setPreferredLateralAlignment(LATALIGN_LEFT);
                     // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 } else {
                     t.setPreferredLateralAlignment(LATALIGN_RIGHT);
                     // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 }
-                
+
             }
-            
-        }
-        else {//if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
+
+        } else { //if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
             if (influencedVehicles.count(veh2->getID()) > 0) {
                 double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
                 if (distanceDelta > 25 && veh.getID() != veh2->getID()) {
@@ -165,7 +179,10 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
                     if (it != influencedTypes.end()) {
                         // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
                         MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
-                        static_cast<MSVehicle*>(veh2)->replaceVehicleType(targetType);
+                        //targetType is nullptr if the vehicle type has already changed to its old vehicleType
+                        if (targetType != nullptr) {
+                            static_cast<MSVehicle*>(veh2)->replaceVehicleType(targetType);
+                        }
                     }
                 }
             }
@@ -177,14 +194,24 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
 
 bool
 MSDevice_Bluelight::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
+#endif
     return true; // keep the device
 }
 
 
 bool
 MSDevice_Bluelight::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+#ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
+#else
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(reason);
+#endif
     return true; // keep the device
 }
 
@@ -217,7 +244,7 @@ void
 MSDevice_Bluelight::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
-        doubleValue = TplConvert::_2double(value.c_str());
+        doubleValue = StringUtils::toDouble(value);
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }

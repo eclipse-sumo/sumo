@@ -43,7 +43,7 @@ public:
                     const MSPhaseDefinition* stage, int vehicleCount);
 
     int getMinDecisionalPhaseDuration() {
-        return TplConvert::_2int(getParameter("MIN_DECISIONAL_PHASE_DUR", "5000").c_str());
+        return StringUtils::toInt(getParameter("MIN_DECISIONAL_PHASE_DUR", "5000"));
     }
 
 };

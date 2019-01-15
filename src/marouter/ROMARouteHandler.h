@@ -68,10 +68,10 @@ protected:
     void myEndElement(int element);
     //@}
 
-
 private:
     /// @brief The matrix to fill
     ODMatrix& myMatrix;
+
     /// @brief The keys for reading taz
     std::vector<std::string> myTazParamKeys;
     /// @brief The current vehicle parameters

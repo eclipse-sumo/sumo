@@ -20,18 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
-#include <utils/common/MsgHandler.h>
 #include "GNERerouterInterval.h"
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNENet.h>
 
-#include "GNERerouter.h"
 
 // ===========================================================================
 // member method definitions
@@ -53,37 +46,37 @@ GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, double b
 
 GNERerouterInterval::~GNERerouterInterval() {}
 
-void 
-GNERerouterInterval::moveGeometry(const Position&, const Position&) {
+void
+GNERerouterInterval::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNERerouterInterval::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNERerouterInterval::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNERerouterInterval::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNERerouterInterval::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNERerouterInterval::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -103,7 +96,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -119,7 +112,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             // Change Ids of all Rerouter childs
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTag()), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTagProperty().getTag()), undoList);
             }
             break;
         }
@@ -129,7 +122,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -146,20 +139,20 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNERerouterInterval::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
-std::string 
+std::string
 GNERerouterInterval::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
 }
 
 // ===========================================================================
@@ -182,7 +175,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

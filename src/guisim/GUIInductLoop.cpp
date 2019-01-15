@@ -91,7 +91,7 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
 // GUIInductLoop::MyWrapper-methods
 // -------------------------------------------------------------------------
 
-GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) : 
+GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
@@ -143,7 +143,7 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     // shape
     glColor3d(1, 1, 0);
     glPushMatrix();

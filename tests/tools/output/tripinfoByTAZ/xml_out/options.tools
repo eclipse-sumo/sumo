@@ -1,0 +1,1 @@
+-t tripinfos.xml -r input_trips.trips.xml -o out.xml tools/output/tripinfoByTAZ.py

@@ -36,8 +36,8 @@ MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype) :
     MSCFModel(vtype),
     myK(vtype->getParameter().getCFParam(SUMO_ATTR_K, 0.5)),
     myPhi(vtype->getParameter().getCFParam(SUMO_ATTR_CF_KERNER_PHI, 5.0)),
-    myTauDecel(myDecel * myHeadwayTime) 
-{ }
+    myTauDecel(myDecel * myHeadwayTime) {
+}
 
 
 MSCFModel_Kerner::~MSCFModel_Kerner() {}

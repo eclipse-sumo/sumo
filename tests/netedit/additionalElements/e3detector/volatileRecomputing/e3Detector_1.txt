@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.07.2018 14:24:48 by Eclipse SUMO GUI Version 88bb7b0b92
+<!-- generated on 14.09.2018 15:31:08 by Eclipse SUMO GUI Version UNKNOWN
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>

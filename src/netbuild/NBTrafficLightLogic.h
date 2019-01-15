@@ -65,15 +65,23 @@ public:
         /// @brief The state definition
         std::string state;
 
+        /// @brief next phase index or -1
+        int next;
+        /// @brief option phase name
+        std::string name;
+
         /** @brief Constructor
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg) :
+        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg, int nextArg, const std::string& nameArg) :
             duration(durationArg),
             minDur(minDurArg),
             maxDur(maxDurArg),
-            state(stateArg) { }
+            state(stateArg),
+            next(nextArg),
+            name(nameArg)
+        { }
 
         /// @brief Destructor
         ~PhaseDefinition() { }
@@ -83,7 +91,12 @@ public:
          * @return Whether this and the given phases are same
          */
         bool operator!=(const PhaseDefinition& pd) const {
-            return pd.duration != duration || pd.state != state;
+            return (pd.duration != duration 
+                    || pd.minDur != minDur
+                    || pd.maxDur!= maxDur
+                    || pd.state != state 
+                    || pd.next != next
+                    || pd.name != name);
         }
 
     };
@@ -116,12 +129,14 @@ public:
      * @param[in] state The state definition of a tls phase
      * @param[in] minDur The minimum duration of the phase to add
      * @param[in] maxDur The maximum duration of the phase to add
+     * @param[in] name The name of the phase
+     * @param[in] next The index of the next phase
      * @param[in] index The index of the new phase (-1 means append to end)
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string& state, int index = -1);
-    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int index = -1);
+    void addStep(SUMOTime duration, const std::string& state, int next=-1, const std::string& name="", int index=-1);
+    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next=-1, const std::string& name="", int index=-1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
@@ -138,6 +153,8 @@ public:
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
+    void setPhaseNext(int phaseIndex, int next);
+    void setPhaseName(int phaseIndex, const std::string& name);
 
     /* @brief deletes the phase at the given index
      * @note thhrows InvalidArgument on out-of range index
@@ -232,10 +249,6 @@ private:
 
     /// @brief The algorithm type for the traffic light
     TrafficLightType myType;
-
-    /// @brief all allowed characters for phase state (see SUMOXMLDefinitions)
-    static const char allowedStatesInitializer[];
-    static const std::string ALLOWED_STATES;
 
 private:
     /// @brief Invalidated assignment operator

@@ -68,7 +68,7 @@ NBDistrict::mirrorX() {
 
 bool
 NBDistrict::addSource(NBEdge* const source, double weight) {
-    EdgeVector::iterator i = find(mySources.begin(), mySources.end(), source);
+    EdgeVector::iterator i = std::find(mySources.begin(), mySources.end(), source);
     if (i != mySources.end()) {
         return false;
     }
@@ -81,7 +81,7 @@ NBDistrict::addSource(NBEdge* const source, double weight) {
 
 bool
 NBDistrict::addSink(NBEdge* const sink, double weight) {
-    EdgeVector::iterator i = find(mySinks.begin(), mySinks.end(), sink);
+    EdgeVector::iterator i = std::find(mySinks.begin(), mySinks.end(), sink);
     if (i != mySinks.end()) {
         return false;
     }

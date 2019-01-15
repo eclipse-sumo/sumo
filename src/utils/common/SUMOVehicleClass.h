@@ -290,7 +290,7 @@ extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
 extern void writePreferences(OutputDevice& into, SVCPermissions preferred);
 
 /// @brief Extract stopOffsets from attributes of stopOffset element
-extern std::map<SVCPermissions,double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
+extern std::map<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok);
 
 // ---------------------------------------------------------------------------
 // vehicle shape class

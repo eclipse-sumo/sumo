@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:44 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="true"/>
     </processing>
@@ -41,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" lefthand="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" lefthand="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-686697.07,-5680223.11" convBoundary="0.00,0.00,85.43,318.68" origBoundary="-0.326133,51.242777,-0.323850,51.248985" projParameter="+proj=utm +zone=30 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -135,10 +136,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="13810639" type="priority" x="40.27" y="254.86" incLanes="309999342_0 309999342_1 3221374_0 3221374_1" intLanes="" shape="39.98,250.87 44.18,255.69 40.81,263.83 34.71,261.92 33.68,260.79 30.94,254.81">
-        <request index="0" response="1100" foes="1100"/>
-        <request index="1" response="1000" foes="1000"/>
-        <request index="2" response="0000" foes="0001"/>
-        <request index="3" response="0000" foes="0011"/>
+        <request index="0" response="0100" foes="0100"/>
+        <request index="1" response="1100" foes="1100"/>
+        <request index="2" response="0000" foes="0011"/>
+        <request index="3" response="0000" foes="0010"/>
     </junction>
     <junction id="15752219" type="priority" x="39.73" y="214.60" incLanes="491894864#2_0 491894864#2_1" intLanes="" shape="43.75,213.67 39.82,218.72 31.62,215.12 33.76,209.09 34.81,208.14 41.02,206.58">
         <request index="0" response="0000" foes="0000"/>
@@ -161,16 +162,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="492911484" type="priority" x="48.45" y="223.50" incLanes="99909303#0_0 99909303#0_1 491894864#1_0 491894864#1_1" intLanes="" shape="57.40,222.79 55.24,228.88 54.07,230.03 47.82,232.34 44.41,223.43 49.54,219.61">
-        <request index="0" response="1100" foes="1100"/>
-        <request index="1" response="1000" foes="1000"/>
-        <request index="2" response="0000" foes="0001"/>
-        <request index="3" response="0000" foes="0011"/>
+        <request index="0" response="0100" foes="0100"/>
+        <request index="1" response="1100" foes="1100"/>
+        <request index="2" response="0000" foes="0011"/>
+        <request index="3" response="0000" foes="0010"/>
     </junction>
     <junction id="492911487" type="priority" x="14.43" y="215.53" incLanes="154767156#0_0 154767156#0_1 491894867_0 491894867_1" intLanes="" shape="13.82,206.30 20.02,208.29 21.04,209.14 23.64,215.14 15.02,219.42 10.55,214.84">
-        <request index="0" response="1100" foes="1100"/>
-        <request index="1" response="1000" foes="1000"/>
-        <request index="2" response="0000" foes="0001"/>
-        <request index="3" response="0000" foes="0011"/>
+        <request index="0" response="0100" foes="0100"/>
+        <request index="1" response="1100" foes="1100"/>
+        <request index="2" response="0000" foes="0011"/>
+        <request index="3" response="0000" foes="0010"/>
     </junction>
 
     <connection from="154767156#0" to="491781400#0" fromLane="0" toLane="0" dir="s" state="m"/>

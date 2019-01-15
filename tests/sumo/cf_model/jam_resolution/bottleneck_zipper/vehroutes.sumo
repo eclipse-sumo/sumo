@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 10:46:10 2017 by SUMO Version v0_31_0-860-g677ac9f
+<!-- generated on Sun Nov 18 22:04:27 2018 by Eclipse SUMO Version eeef47f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,8 +15,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -36,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.1" depart="3.00" departLane="0" departSpeed="13.89" color="red" arrival="117.00">
+    <vehicle id="right.1" depart="3.00" departLane="0" departSpeed="13.89" color="red" arrival="118.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -140,7 +145,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.14" depart="42.00" departLane="0" departSpeed="13.89" color="red" arrival="165.00">
+    <vehicle id="right.14" depart="42.00" departLane="0" departSpeed="13.89" color="red" arrival="164.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -160,7 +165,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.16" depart="49.00" departLane="1" departSpeed="13.89" color="blue" arrival="173.00">
+    <vehicle id="left.16" depart="49.00" departLane="1" departSpeed="13.89" color="blue" arrival="174.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -216,7 +221,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.23" depart="70.00" departLane="1" departSpeed="13.89" color="blue" arrival="201.00">
+    <vehicle id="left.23" depart="70.00" departLane="1" departSpeed="13.89" color="blue" arrival="200.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -228,11 +233,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.25" depart="75.00" departLane="0" departSpeed="13.89" color="red" arrival="207.00">
+    <vehicle id="right.25" depart="75.00" departLane="0" departSpeed="13.89" color="red" arrival="208.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.25" depart="76.00" departLane="1" departSpeed="13.89" color="blue" arrival="211.00">
+    <vehicle id="left.25" depart="76.00" departLane="1" departSpeed="13.89" color="blue" arrival="210.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -248,7 +253,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.27" depart="82.00" departLane="1" departSpeed="13.89" color="blue" arrival="222.00">
+    <vehicle id="left.27" depart="82.00" departLane="1" departSpeed="13.89" color="blue" arrival="221.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -256,7 +261,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.28" depart="85.00" departLane="1" departSpeed="13.89" color="blue" arrival="228.00">
+    <vehicle id="left.28" depart="85.00" departLane="1" departSpeed="13.89" color="blue" arrival="227.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -276,7 +281,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.31" depart="93.00" departLane="0" departSpeed="13.89" color="red" arrival="241.00">
+    <vehicle id="right.31" depart="93.00" departLane="0" departSpeed="13.89" color="red" arrival="240.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -288,11 +293,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.32" depart="97.00" departLane="1" departSpeed="13.89" color="blue" arrival="248.00">
+    <vehicle id="left.32" depart="97.00" departLane="1" departSpeed="13.89" color="blue" arrival="249.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.33" depart="99.00" departLane="0" departSpeed="13.89" color="red" arrival="252.00">
+    <vehicle id="right.33" depart="99.00" departLane="0" departSpeed="13.89" color="red" arrival="251.00">
         <route edges="beg end"/>
     </vehicle>
 

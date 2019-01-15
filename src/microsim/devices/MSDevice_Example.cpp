@@ -22,7 +22,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -51,7 +51,7 @@ MSDevice_Example::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "example", v, false)) {
         // build the device
@@ -59,7 +59,7 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         double customParameter2 = -1;
         if (v.getParameter().knowsParameter("example")) {
             try {
-                customParameter2 = TplConvert::_2double(v.getParameter().getParameter("example", "-1").c_str());
+                customParameter2 = StringUtils::toDouble(v.getParameter().getParameter("example", "-1"));
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("example", "-1") + "'for vehicle parameter 'example'");
             }
@@ -71,7 +71,7 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
         double customParameter3 = -1;
         if (v.getVehicleType().getParameter().knowsParameter("example")) {
             try {
-                customParameter3 = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("example", "-1").c_str());
+                customParameter3 = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("example", "-1"));
             } catch (...) {
                 WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("example", "-1") + "'for vType parameter 'example'");
             }
@@ -93,7 +93,7 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& in
 // ---------------------------------------------------------------------------
 MSDevice_Example::MSDevice_Example(SUMOVehicle& holder, const std::string& id,
                                    double customValue1, double customValue2, double customValue3) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myCustomValue1(customValue1),
     myCustomValue2(customValue2),
     myCustomValue3(customValue3) {
@@ -111,7 +111,7 @@ MSDevice_Example::notifyMove(SUMOVehicle& veh, double /* oldPos */,
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
     // check whether another device is present on the vehicle:
     MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
-    if (otherDevice != 0) {
+    if (otherDevice != nullptr) {
         std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
     }
     return true; // keep the device
@@ -160,7 +160,7 @@ void
 MSDevice_Example::setParameter(const std::string& key, const std::string& value) {
     double doubleValue;
     try {
-        doubleValue = TplConvert::_2double(value.c_str());
+        doubleValue = StringUtils::toDouble(value);
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }

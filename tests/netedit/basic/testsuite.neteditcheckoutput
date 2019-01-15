@@ -7,9 +7,6 @@ load_and_save
 # open net using shortcut
 open_net_shortcut
 
-# load configuration
-open_configuration
-
 # load configuration using shortcut
 open_configuration_shortcut
 
@@ -19,14 +16,14 @@ save_configuration
 # create net with two nodes and an edge
 new_net_1edge
 
-# Open Netedit
-open_netedit
+# Open Netedit (This test doesn't generate any net)
+# open_netedit
 
-# Check that all save dialogs of Netedit works saving none elements
-quit_noSave
+# Check that all save dialogs of Netedit works saving none elements (This test doesn't generate any net)
+# quit_noSave
 
 # Check that all save dialogs of Netedit works saving all elements
 quit_saveAll
 
-# provoke an error with sikulix
-#sikulix_error
+# provoke an error with pyautogui (disabled because this test doesn't generate any net)
+# pyautogui_error

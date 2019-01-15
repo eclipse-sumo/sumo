@@ -332,6 +332,11 @@ public:
         return 1.0;
     }
 
+    /// @brief return factor for modifying the safety constraints for opposite-diretction overtaking of the car-following model
+    virtual double getOppositeSafetyFactor() const {
+        return 1.0;
+    }
+
     /// @brief whether the current vehicles shall be debugged
     virtual bool debugVehicle() const {
         return false;
@@ -494,7 +499,7 @@ public:
     void primaryLaneChanged(MSLane* source, MSLane* target, int direction);
 
     /// @brief called once the vehicle ends a lane change manoeuvre (non-instant)
-    void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction);
+    void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction, double maneuverDist=0);
 
     /// @brief whether the current change completes the manoeuvre
     virtual bool sublaneChangeCompleted(const double latDist) const {
@@ -525,7 +530,7 @@ public:
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    virtual double computeSpeedLat(double latDist, double& maneuverDist); 
+    virtual double computeSpeedLat(double latDist, double& maneuverDist);
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771

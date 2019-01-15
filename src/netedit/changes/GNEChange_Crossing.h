@@ -26,6 +26,7 @@
 #include <fx.h>
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/geom/PositionVector.h>
+#include <netbuild/NBNode.h>
 #include <vector>
 #include <map>
 #include "GNEChange.h"
@@ -35,6 +36,7 @@
 // ===========================================================================
 class GNENet;
 class GNEJunction;
+class GNECrossing;
 class NBEdge;
 
 // ===========================================================================
@@ -59,6 +61,10 @@ public:
      */
     GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges, double width,
                        bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward);
+
+    /**@brief Constructor for creating/deleting an crossing based on an existing object
+     */
+    GNEChange_Crossing(GNEJunction* junctionParent, const NBNode::Crossing& crossing, bool forward);
 
     /// @brief Destructor
     ~GNEChange_Crossing();

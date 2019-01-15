@@ -4,12 +4,3 @@ Warning: Given openDrive file 'opendrive' uses version 1.4;
  Version 1.2 is supported.
 Warning: Mismatched geometry for edge '881' between geometry segments 0 and 1.
 Warning: Found sharp turn with radius 1.08 at the end of edge '-823.0.00'.
-Warning: Speed of turning connection '-939.0.00_0->-838.0.00_0' reduced by 18.57 due to turning radius of 7.52 (length=9.03 angle=92.08)
-Warning: Speed of turning connection '-939.0.00_0->-831.0.00_1' reduced by 16.28 due to turning radius of 13.84 (length=16.99 angle=89.67)
-Warning: Speed of turning connection '-937.0.00_0->-832.0.00_0' reduced by 18.42 due to turning radius of 7.86 (length=9.20 angle=89.67)
-Warning: Speed of turning connection '-937.0.00_1->-840.0.00_0' reduced by 16.50 due to turning radius of 13.13 (length=16.20 angle=90.33)
-Warning: Speed of turning connection '-753.0.00_0->-831.0.00_0' reduced by 18.71 due to turning radius of 7.19 (length=8.40 angle=90.33)
-Warning: Speed of turning connection '-753.0.00_0->-838.0.00_1' reduced by 16.32 due to turning radius of 13.71 (length=16.44 angle=87.92)
-Warning: Speed of turning connection '-751.0.00_0->-840.0.00_0' reduced by 18.46 due to turning radius of 7.78 (length=8.88 angle=87.92)
-Warning: Speed of turning connection '-751.0.00_1->-832.0.00_0' reduced by 16.39 due to turning radius of 13.48 (length=17.06 angle=92.08)
-Warning: Speed of turning connection '-834.0.00_0->-883.0.00_0' reduced by 15.78 due to turning radius of 7.54 (length=9.03 angle=91.81)

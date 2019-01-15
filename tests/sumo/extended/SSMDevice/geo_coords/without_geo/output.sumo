@@ -1,0 +1,1 @@
+vehicle 'ego1' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'

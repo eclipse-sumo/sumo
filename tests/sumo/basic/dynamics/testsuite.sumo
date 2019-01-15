@@ -1,15 +1,8 @@
-# Basic tests with action step length != simulation step length.
-# Note that this suite uses the ballistic update
-action_step_length
-
 # avoid spill back of jams onto a junction (checkRewindLinkLanes)
 avoid_spill_back
 
 # tests for driver impatience
 impatience
-
-# test proper behavior at junctions (collision avoidance, efficent usage)
-junction
 
 # test behavior when vehicles cannot drive
 deadlock

@@ -21,16 +21,8 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include "GNEFrame.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
-class GNENetElement;
-class GNEAdditional;
 
 // ===========================================================================
 // class definitions
@@ -42,305 +34,123 @@ class GNEAdditional;
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
-
-    /// @brief enum with all possible values after try to create an additional using frame
-    enum AddAdditionalResult {
-        ADDADDITIONAL_INVALID_ARGUMENTS,    // Parameters of additionals are invalid
-        ADDADDITIONAL_INVALID_PARENT,       // NetElement parent is invalid
-        ADDADDITIONAL_SUCCESS               // additional was successfully created
-    };
-
-    /// @brief class declaration
-    class AdditionalAttributes;
-
+   
     // ===========================================================================
-    // class AdditionalSelector
+    // class SelectorLaneParents
     // ===========================================================================
 
-    class AdditionalSelector : protected FXGroupBox {
+    class SelectorLaneParents : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalSelector)
-
+        FXDECLARE(GNEAdditionalFrame::SelectorLaneParents)
     public:
         /// @brief constructor
-        AdditionalSelector(GNEAdditionalFrame *additionalFrameParent);
+        SelectorLaneParents(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~AdditionalSelector();
+        ~SelectorLaneParents();
 
-        /// @brief get current additional type
-        SumoXMLTag getCurrentAdditionalType() const;
+        /// @brief show SelectorLaneParents modul
+        void showSelectorLaneParentsModul();
 
-        /// @brief set parameters depending of the given additionalType
-        void setCurrentAdditional(SumoXMLTag actualAdditionalType);
+        /// @brief hide SelectorLaneParents
+        void hideSelectorLaneParentsModul();
+
+        /// @brief start selection of consecutive lanes
+        void startConsecutiveLaneSelector(GNELane *lane, const Position &clickedPosition);
+
+        /// @brief stop selection of consecutive lanes
+        bool stopConsecutiveLaneSelector();
+
+        /// @brief abort selection of consecutive lanes
+        void abortConsecutiveLaneSelector();
+
+        /// @brief return true if lane can be selected as consecutive lane
+        bool addSelectedLane(GNELane *lane, const Position &clickedPosition);
+
+        /// @brief remove last added point
+        void removeLastSelectedLane();
+
+        /// @brief return true if modul is selecting lane
+        bool isSelectingLanes() const;
+
+        /// @brief return true if modul is shown
+        bool isShown() const;
+
+        /// @brief get selected lane color
+        const RGBColor &getSelectedLaneColor() const;
+
+        /// @brief get current selected lanes
+        const std::vector<std::pair<GNELane*, double> > &getSelectedLanes() const;
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select another additional Type
-        long onCmdselectAttributeCarrier(FXObject*, FXSelector, void*);
+        /// @brief Called when the user press stop selection button
+        long onCmdStopSelection(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press abort selection button
+        long onCmdAbortSelection(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX needs this
-        AdditionalSelector() {}
-
-    private:
-        /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
-
-        /// @brief combo box with the list of additional elements
-        FXComboBox* myAdditionalMatchBox;
-
-        /// @brief actual additional type selected in the match Box
-        SumoXMLTag myCurrentAdditionalType;
-    };
-
-    // ===========================================================================
-    // class AdditionalAttributeSingle
-    // ===========================================================================
-
-    class AdditionalAttributeSingle : protected FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalAttributeSingle)
-
-    public:
-        /// @brief constructor
-        AdditionalAttributeSingle(AdditionalAttributes *additionalAttributesParent);
-
-        /// @brief destructor
-        ~AdditionalAttributeSingle();
-
-        /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLAttr additionalAttr, std::string value);
-
-        /// @brief hide all parameters
-        void hideParameter();
-
-        /// @brief return Attr
-        SumoXMLAttr getAttr() const;
-
-        /// @brief return value
-        std::string getValue() const;
-
-        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
-        const std::string& isAttributeValid() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user set the value of an attribute of type int/float/string
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user change the value of myBoolCheckButton
-        long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AdditionalAttributeSingle() {}
-
-    private:
-        /// @brief additional attribute parent
-        AdditionalAttributes* myAdditionalAttributesParent;
-
-        /// @brief current XML attribute
-        SumoXMLAttr myAdditionalAttr;
-
-        /// @brief lael with the name of the parameter
-        FXLabel* myLabel;
-
-        /// @brief textField to modify the default value of int/float/string parameters
-        FXTextField* myTextFieldInt;
-
-        /// @brief textField to modify the default value of real/times parameters
-        FXTextField* myTextFieldReal;
-
-        /// @brief textField to modify the default value of string parameters
-        FXTextField* myTextFieldStrings;
-
-        /// @brief check button to enable/disable the value of boolean parameters
-        FXCheckButton* myBoolCheckButton;
-
-        /// @brief string which indicates the reason due current value is invalid
-        std::string myInvalidValue;
-    };
-
-    // ===========================================================================
-    // class AdditionalAttributes
-    // ===========================================================================
-
-    class AdditionalAttributes : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::AdditionalAttributes)
-
-        /// @brief friend class declaration
-        friend class AdditionalAttributeSingle;
-
-    public:
-        /// @brief constructor
-        AdditionalAttributes(GNEAdditionalFrame* additionalFrameParent);
-
-        /// @brief destructor
-        ~AdditionalAttributes();
-
-        /// @brief clear attributes
-        void clearAttributes();
-
-        /// @brief add attribute
-        void addAttribute(SumoXMLAttr AdditionalAttributeSingle);
-
-        /// @brief show group box
-        void showAdditionalParameters();
-
-        /// @brief hide group box
-        void hideAdditionalParameters();
-
-        /// @brief get attributes and their values
-        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
-
-        /// @brief check if parameters of attributes are valid
-        bool areValuesValid() const;
-
-        /// @brief show warning message with information about non-valid attributes
-        void showWarningMessage(std::string extra = "") const;
-
-        /// @brief get additional frame parent
-        GNEAdditionalFrame *getAdditionalFrameParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when help button is pressed
-        long onCmdHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AdditionalAttributes() {}
+        SelectorLaneParents() {}
 
     private:
         /// @brief pointer to additionalFrameParent
         GNEAdditionalFrame* myAdditionalFrameParent;
 
-        /// @brief vector with the additional parameters
-        std::vector<AdditionalAttributeSingle*> myVectorOfsingleAdditionalParameter;
+        /// @brief button for stop selecting
+        FXButton* myStopSelectingButton;
 
+        /// @brief button for abort selecting
+        FXButton* myAbortSelectingButton;
+
+        /// @brief Vector with the selected lanes and the clicked position
+        std::vector<std::pair<GNELane*, double> > mySelectedLanes;
+
+        /// @brief Vector with the colored lanes
+        std::vector<GNELane*> myCandidateLanes;
+
+        /// @brief color for candidate lanes
+        RGBColor myCandidateLaneColor;
+
+        /// @brief color for selected lanes
+        RGBColor mySelectedLaneColor;
+
+        /// @brief check if certain lane is selected
+        bool isLaneSelected(GNELane *lane) const;
     };
 
     // ===========================================================================
-    // class NeteditAttributes
+    // class SelectorAdditionalParent
     // ===========================================================================
 
-    class NeteditAttributes : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::NeteditAttributes)
-
-    public:
-        /// @brief list of the reference points
-        enum additionalReferencePoint {
-            GNE_ADDITIONALREFERENCEPOINT_LEFT,
-            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
-            GNE_ADDITIONALREFERENCEPOINT_CENTER,
-            GNE_ADDITIONALREFERENCEPOINT_INVALID
-        };
-
-        /// @brief constructor
-        NeteditAttributes(GNEAdditionalFrame *additionalFrameParent);
-
-        /// @brief destructor
-        ~NeteditAttributes();
-
-        /// @brief show length field and reference point
-        void showNeteditAttributes(bool includeLengthAndReferencePoint);
-
-        /// @brief show length field and reference point
-        void hideNeteditAttributes();
-
-        /// @brief get actual reference point
-        additionalReferencePoint getActualReferencePoint() const;
-
-        /// @brief get value of length
-        double getLength() const;
-
-        /// @brief check if block is enabled
-        bool isBlockEnabled() const;
-
-        /// @brief check if current length is valid
-        bool isCurrentLengthValid() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user enters a new length
-        long onCmdSetLength(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user enters another reference point
-        long onCmdSelectReferencePoint(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user changes the checkbox "set blocking"
-        long onCmdSetBlocking(FXObject*, FXSelector, void*);
-
-        /// @brief Called when user press the help button
-        long onCmdHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        NeteditAttributes() {}
-
-    private:
-        /// @brief match box with the list of reference points
-        FXComboBox* myReferencePointMatchBox;
-
-        /// @brief Button for help about the reference point
-        FXButton* helpReferencePoint;
-
-        /// @brief actual additional reference point selected in the match Box
-        additionalReferencePoint myActualAdditionalReferencePoint;
-
-        /// @brief Label for length
-        FXLabel* myLengthLabel;
-
-        /// @brief textField for length
-        FXTextField* myLengthTextField;
-
-        /// @brief Label for block movement
-        FXLabel* myBlockLabel;
-
-        /// @brief checkBox for block movement
-        FXCheckButton* myBlockMovementCheckButton;
-
-        /// @brief Flag to check if current length is valid
-        bool myCurrentLengthValid;
-    };
-
-    // ===========================================================================
-    // class SelectorParentAdditional
-    // ===========================================================================
-
-    class SelectorParentAdditional : protected FXGroupBox {
+    class SelectorAdditionalParent : protected FXGroupBox {
     public:
         /// @brief constructor
-        SelectorParentAdditional(GNEAdditionalFrame *additionalFrameParent);
+        SelectorAdditionalParent(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorParentAdditional();
+        ~SelectorAdditionalParent();
 
         /// @brief get currently additional parent selected
         std::string getIdSelected() const;
 
         /// @brief select manually a element of the list
-        void setIDSelected(const std::string &id);
+        void setIDSelected(const std::string& id);
 
-        /// @brief Show list of SelectorParentAdditional
-        void showListOfAdditionalParents(SumoXMLTag additionalTypeParent);
+        /// @brief Show list of SelectorAdditionalParent Modul
+        bool showSelectorAdditionalParentModul(SumoXMLTag additionalTypeParent);
 
-        /// @brief hide SelectorParentAdditional
-        void hideListOfAdditionalParents();
+        /// @brief hide SelectorAdditionalParent Modul
+        void hideSelectorAdditionalParentModul();
 
-        /// @brief Refresh list of Additional Parents
-        void refreshListOfAdditionalParents();
+        /// @brief Refresh list of Additional Parents Modul
+        void refreshSelectorAdditionalParentModul();
 
     private:
         /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief current additional type parent
         SumoXMLTag myAdditionalTypeParent;
@@ -353,34 +163,31 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorParentEdges
+    // class SelectorEdgeChilds
     // ===========================================================================
 
-    class SelectorParentEdges : protected FXGroupBox {
+    class SelectorEdgeChilds : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorParentEdges)
+        FXDECLARE(GNEAdditionalFrame::SelectorEdgeChilds)
 
     public:
         /// @brief constructor
-        SelectorParentEdges(GNEAdditionalFrame *additionalFrameParent);
+        SelectorEdgeChilds(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorParentEdges();
+        ~SelectorEdgeChilds();
 
         /// @brief get list of selecte id's in string format
-        std::string getIdsSelected() const;
+        std::string getEdgeIdsSelected() const;
 
-        /// @brief Show list of SelectorParentEdges
-        void showList(std::string search = "");
+        /// @brief Show SelectorEdgeChilds Modul
+        void showSelectorEdgeChildsModul(std::string search = "");
 
-        /// @brief hide SelectorParentEdges
-        void hideList();
+        /// @brief hide SelectorEdgeChilds Modul
+        void hideSelectorEdgeChildsModul();
 
         /// @brief Update use selectedEdges
         void updateUseSelectedEdges();
-
-        /// @brief get status of checkBox UseSelectedEdges
-        bool isUseSelectedEdgesEnable() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -402,16 +209,16 @@ public:
 
     protected:
         /// @brief FOX needs this
-        SelectorParentEdges() {}
+        SelectorEdgeChilds() {}
 
     private:
         /// @brief pointer to additional frame parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief CheckBox for selected edges
         FXCheckButton* myUseSelectedEdgesCheckButton;
 
-        /// @brief List of SelectorParentEdges
+        /// @brief List of SelectorEdgeChilds
         FXList* myList;
 
         /// @brief text field for search edge IDs
@@ -425,34 +232,31 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorParentLanes
+    // class SelectorLaneChilds
     // ===========================================================================
 
-    class SelectorParentLanes : protected FXGroupBox {
+    class SelectorLaneChilds : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
+        FXDECLARE(GNEAdditionalFrame::SelectorLaneChilds)
 
     public:
         /// @brief constructor
-        SelectorParentLanes(GNEAdditionalFrame *additionalFrameParent);
+        SelectorLaneChilds(GNEAdditionalFrame* additionalFrameParent);
 
         /// @brief destructor
-        ~SelectorParentLanes();
+        ~SelectorLaneChilds();
 
-        /// @brief get list of selecte id's in string format
-        std::string getIdsSelected() const;
+        /// @brief get list of selecte lane ids in string format
+        std::string getLaneIdsSelected() const;
 
-        /// @brief Show list of SelectorParentLanes
-        void showList(std::string search = "");
+        /// @brief Show list of SelectorLaneChilds Modul
+        void showSelectorLaneChildsModul(std::string search = "");
 
-        /// @brief hide SelectorParentLanes
-        void hideList();
+        /// @brief hide SelectorLaneChilds Modul
+        void hideSelectorLaneChildsModul();
 
         // @brief Update use selectedLanes
         void updateUseSelectedLanes();
-
-        /// @brief get status of checkBox UseSelectedLanes
-        bool isUseSelectedLanesEnable() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -474,16 +278,16 @@ public:
 
     protected:
         /// @brief FOX needs this
-        SelectorParentLanes() {}
+        SelectorLaneChilds() {}
 
     private:
         /// @brief pointer to additional frame parent
-        GNEAdditionalFrame * myAdditionalFrameParent;
+        GNEAdditionalFrame* myAdditionalFrameParent;
 
         /// @brief CheckBox for selected lanes
         FXCheckButton* myUseSelectedLanesCheckButton;
 
-        /// @brief List of SelectorParentLanes
+        /// @brief List of SelectorLaneChilds
         FXList* myList;
 
         /// @brief text field for search lane IDs
@@ -505,70 +309,75 @@ public:
     /// @brief Destructor
     ~GNEAdditionalFrame();
 
+    /// @brief show Frame
+    void show();
+
     /**@brief add additional element
-     * @param[in] netElement clicked GNENetElement. If user doesn't clicked over a GNENetElement in view, netElement will be nullptr
-     * @param[in] additional clicked GNEAdditional. If user dind't clicked over a GNENetElement in view, additional will be nullptr
-     * @return AddAdditionalStatus with the result of operation
+     * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @return true if additional was sucesfully added
      */
-    AddAdditionalResult addAdditional(GNENetElement* netElement, GNEAdditional* additional);
+    bool addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
 
     /**@brief remove an additional element previously added
      * @param[in] additional element to erase
      */
     void removeAdditional(GNEAdditional* additional);
 
-    /// @brief show additional frame and update use selected edges/lanes
-    void show();
+    /// @brief show selector lane child and update use selected edges/lanes
+    void showSelectorLaneChildsModul();
 
-    /// @brief get list of selecte id's in string format
-    static std::string getIdsSelected(const FXList* list);
+    /// @brief getConsecutive Lane Selector
+    GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;
 
 protected:
-    /// @brief get additional selector
-    AdditionalSelector *getAdditionalSelector() const;
+     /// @brief enable moduls depending of item selected in ItemSelector
+    void enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties);
 
-    /// @brief get additional attributes
-    AdditionalAttributes *getAdditionalParameters() const;
-
-    /// @brief get netedit attributes
-    NeteditAttributes *getNeteditAttributes() const;
-
-    /// @brief get additional parent selector
-    SelectorParentAdditional* getAdditionalParentSelector() const;
-
-    /// @brief get edge parents selector
-    SelectorParentEdges* getEdgeParentsSelector() const;
-
-    /// @brief get lane parents selector
-    SelectorParentLanes* getLaneParentsSelector() const;
+    /// @brief disable moduls if element selected in itemSelector isn't valid
+    void disableModuls();
 
 private:
     /// @brief generate a ID for an additiona element
     std::string generateID(GNENetElement* netElement) const;
 
-    /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
-    double setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional);
+    /// @brief build common additional attributes
+    bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagProperties &tagValues);
 
-    /// @brief obtain the End position values of StoppingPlaces and E2 detector over the lane
-    double setEndPosition(double laneLength, double positionOfTheMouseOverLane, double lengthOfAdditional);
+    /// @brief build additional with Parent
+    bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagProperties &tagValues);
 
-    /// @brief additional selector
-    GNEAdditionalFrame::AdditionalSelector* myAdditionalSelector;
+    /// @brief build additional over an edge (parent of lane)
+    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties &tagValues);
 
-    /// @brief additional internal attributes
-    GNEAdditionalFrame::AdditionalAttributes* myAdditionalParameters;
+    /// @brief build additional over a single lane
+    bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties &tagValues);
+
+    /// @brief build additional over lanes
+    bool buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties &tagValues);
+
+    /// @brief build additional over view
+    bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagProperties &tagValues);
+
+    /// @brief item selector
+    ItemSelector* myItemSelector;
+
+    /// @brief internal additional attributes
+    ACAttributes* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEAdditionalFrame::NeteditAttributes* myNeteditParameters;
+    NeteditAttributes* myNeteditAttributes;
+    
+    /// @brief Modul for select lane parents (currently only consecutives)
+    SelectorLaneParents* mySelectorLaneParents;
 
-    /// @brief list of additional Set
-    GNEAdditionalFrame::SelectorParentAdditional* myFirstAdditionalParentSelector;
+    /// @brief Modul for select a single additional parent (Used only for first Additional parent)
+    SelectorAdditionalParent* mySelectorAdditionalParent;
 
-    /// @brief list of SelectorParentEdges
-    GNEAdditionalFrame::SelectorParentEdges* myEdgeParentsSelector;
+    /// @brief Modul for select edge childs
+    SelectorEdgeChilds* mySelectorEdgeChilds;
 
-    /// @brief list of SelectorParentLanes
-    GNEAdditionalFrame::SelectorParentLanes* myLaneParentsSelector;
+    /// @brief Modul for select lane childs
+    SelectorLaneChilds* mySelectorLaneChilds;
 };
 
 

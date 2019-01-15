@@ -1,0 +1,3 @@
+Error: Attribute 'pos' in definition of poi 'POI_1' is not of type float.
+Warning: lane position 6000.00 for poi 'POI_3' is not valid.
+Error: Loading of shapes failed.

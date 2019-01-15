@@ -1,7 +1,0 @@
-Warning: Attribute cont' of e2Detector is deprecated and will not be loaded.
-Warning: Error parsing key from additional generic parameter. Key doesn't exist
-Error: '<' character cannot be used in attribute value 'key'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/additionalElements/e2detector/load_genericparameters\input_additionals.add.xml'
- At line/column 12/18.
-
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Aug131023.1664/netedit.gui/additionalElements/e2detector/load_genericparameters\input_additionals.add.xml failed.

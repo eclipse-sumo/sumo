@@ -211,6 +211,17 @@ class Lane:
         candidates = reduce(lambda x, y: x + y, [cons for e, cons in self._edge.getIncoming().items()], [])
         return [c.getFromLane() for c in candidates if self == c.getToLane()]
 
+    def getConnection(self, toLane):
+        """Returns the connection to the given target lane or None"""
+        for conn in self._outgoing:
+            if conn.getToLane() == toLane:
+                return conn
+        return None
+
+    def allows(self, vClass):
+        """true if this lane allows the given vehicle class"""
+        return vClass in self._allowed
+
     def setNeigh(self, neigh):
         self._neigh = neigh
 
@@ -222,3 +233,6 @@ class Lane:
 
     def getParam(self, key, default=None):
         return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params

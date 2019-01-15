@@ -91,7 +91,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
     GUIManipulator(app, name, 0, 0),
     myParent(&app),
     myChosenValue(0),
-    myChosenTarget(myChosenValue, NULL, MID_OPTION),
+    myChosenTarget(myChosenValue, nullptr, MID_OPTION),
     //mySpeed(o.getDefaultSpeed()),
     mySpeed(0),
     mySpeedTarget(mySpeed),
@@ -150,7 +150,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
                           0, 0, 0, 0,   2, 2, 0, 0);
         myUserDefinedSpeed =
             new FXRealSpinner(gf12, 10, this, MID_USER_DEF,
-                               LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+                              LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         //myUserDefinedSpeed->setFormatString("%.0f km/h");
         //myUserDefinedSpeed->setIncrements(1, 10, 10);
         myUserDefinedSpeed->setIncrement(10);
@@ -158,7 +158,7 @@ GUICalibrator::GUIManip_Calibrator::GUIManip_Calibrator(
         myUserDefinedSpeed->setValue(0);
         //static_cast<GUICalibrator*>(myObject)->getDefaultSpeed() * 3.6);
     }
-    new FXButton(f1, "Close", NULL, this, MID_CLOSE,
+    new FXButton(f1, "Close", nullptr, this, MID_CLOSE,
                  BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     //static_cast<GUICalibrator*>(myObject)->setOverriding(true);
 }
@@ -281,7 +281,7 @@ GUICalibrator::GUICalibrator(const std::string& id,
     myShowAsKMH(true) {
     const std::vector<MSLane*>& destLanes = edge->getLanes();
     for (std::vector<MSLane*>::const_iterator i = destLanes.begin(); i != destLanes.end(); ++i) {
-        if (lane == 0 || (*i) == lane) {
+        if (lane == nullptr || (*i) == lane) {
             const PositionVector& v = (*i)->getShape();
             myFGPositions.push_back(v.positionAtOffset(pos));
             myBoundary.add(v.positionAtOffset(pos));
@@ -355,7 +355,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
             flow = toString((int)myCurrentStateInterval->q) + "v/h";
         }
     }
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     for (int i = 0; i < (int)myFGPositions.size(); ++i) {
         const Position& pos = myFGPositions[i];
         double rot = myFGRotations[i];

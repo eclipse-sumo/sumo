@@ -21,9 +21,9 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
 #include "GNENetElement.h"
+#include <netbuild/NBNode.h>
 
 // ===========================================================================
 // class declarations
@@ -57,14 +57,11 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);
 
-    /// @brief update internal ID (used when ID of junction parent is changed)
-    void updateID(std::string newJunctionID);
-
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;
 
     /// @brief get crossingEdges
-    const std::vector<NBEdge*> &getCrossingEdges() const;
+    const std::vector<NBEdge*>& getCrossingEdges() const;
 
     ///@brief get referente to NBode::Crossing
     NBNode::Crossing* getNBCrossing() const;
@@ -120,18 +117,6 @@ public:
     /// @name Function related with Generic Parameters
     /// @{
 
-    /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
-
-    /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
-
-    /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
-
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
-
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
 
@@ -139,7 +124,7 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 

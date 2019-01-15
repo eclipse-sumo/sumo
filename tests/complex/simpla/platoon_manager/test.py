@@ -155,7 +155,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
                           "connected_pCatchup", "connected_pCatchupFollower"]
         registeredPlatoonVTypes = list(
             set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values())
-                       for orig, mapped in cfg.PLATOON_VTYPES.items()])))
+                                            for orig, mapped in cfg.PLATOON_VTYPES.items()])))
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)
@@ -173,7 +173,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
                           "connected_pCatchup", "connected_pCatchupFollower"]
         registeredPlatoonVTypes = list(
             set(reduce(lambda x, y: x + y, [[orig] + list(mapped.values())
-                       for orig, mapped in cfg.PLATOON_VTYPES.items()])))
+                                            for orig, mapped in cfg.PLATOON_VTYPES.items()])))
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)

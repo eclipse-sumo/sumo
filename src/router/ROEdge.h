@@ -105,7 +105,7 @@ public:
      * @param[in] s The edge to add
      * @todo What about vehicle-type aware connections?
      */
-    virtual void addSuccessor(ROEdge* s, ROEdge* via=nullptr, std::string dir = "");
+    virtual void addSuccessor(ROEdge* s, ROEdge* via = nullptr, std::string dir = "");
 
 
     /** @brief Sets the function of the edge
@@ -139,6 +139,9 @@ public:
         myRestrictions = restrictions;
     }
 
+    inline void setTimePenalty(double value) {
+        myTimePenalty = value;
+    }
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
@@ -315,13 +318,13 @@ public:
     * @param[in] vClass The vClass for which to restrict the successors
     * @return The eligible following edges
     */
-    const ROEdgeVector& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
+    const ROEdgeVector& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
     /** @brief Returns the following edges including vias, restricted by vClass
     * @param[in] vClass The vClass for which to restrict the successors
     * @return The eligible following edges
     */
-    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const;
+    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
 
     /** @brief Returns the number of edges connected to this edge
@@ -434,7 +437,7 @@ public:
 
 
     /// @brief optimistic distance heuristic for use in routing
-    double getDistanceTo(const ROEdge* other) const;
+    double getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate=false) const;
 
 
     /** @brief Returns all ROEdges */
@@ -448,6 +451,9 @@ public:
     static void setGlobalOptions(const bool interpolate) {
         myInterpolate = interpolate;
     }
+
+    /// @brief return the coordinates of the center of the given stop
+    static const Position getStopPosition(const SUMOVehicleParameter::Stop& stop);
 
     /// @brief get edge priority (road class)
     int getPriority() const {
@@ -538,8 +544,11 @@ protected:
     /// @brief The list of allowed vehicle classes combined across lanes
     SVCPermissions myCombinedPermissions;
 
-    /// @brief The bounding rectangle of incoming or outgoing edges for taz connectors
-    Boundary myTazBoundary;
+    /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
+    Boundary myBoundary;
+
+    /// @brief flat penalty when computing traveltime
+    double myTimePenalty;
 
     static ROEdgeVector myEdges;
 

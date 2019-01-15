@@ -55,3 +55,16 @@ ticket4214
 ticket4307
 ticket4418
 ticket4432
+
+# closing and re-opening a lane
+ticket4514
+ticket4563
+
+# invalid vehicle.getDrivingDistance
+ticket4642
+
+# failure to add vehicle in long simulation
+ticket4920
+
+# moveToXY and opposite direction driving
+ticket5029

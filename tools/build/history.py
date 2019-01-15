@@ -29,7 +29,7 @@ import version
 
 
 optParser = optparse.OptionParser()
-optParser.add_option("-b", "--begin", default="51bb151", help="first revision to build")
+optParser.add_option("-b", "--begin", default="1e86430b48", help="first revision to build")
 optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
 options, args = optParser.parse_args()
 

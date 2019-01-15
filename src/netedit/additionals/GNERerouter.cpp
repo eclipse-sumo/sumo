@@ -18,33 +18,17 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/dialogs/GNERerouterDialog.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewParent.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
+#include <netedit/dialogs/GNERerouterDialog.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERerouter.h"
 #include "GNERerouterInterval.h"
@@ -54,15 +38,15 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position &pos, const std::vector<GNEEdge*> &edges, const std::string& name, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, edges),
     myPosition(pos),
     myFilename(filename),
     myProbability(probability),
     myOff(off),
     myTimeThreshold(timeThreshold),
-    myVTypes(vTypes)
-{ }
+    myVTypes(vTypes) {
+}
 
 
 GNERerouter::~GNERerouter() {
@@ -72,30 +56,30 @@ GNERerouter::~GNERerouter() {
 void
 GNERerouter::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
     // Clear shape
-    myShape.clear();
+    myGeometry.shape.clear();
 
     // Set block icon position
-    myBlockIconPosition = myPosition;
+    myBlockIcon.position = myPosition;
 
     // Set block icon offset
-    myBlockIconOffset = Position(-0.5, -0.5);
+    myBlockIcon.offset = Position(-0.5, -0.5);
 
     // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation();
+    myBlockIcon.setRotation();
 
     // Set position
-    myShape.push_back(myPosition);
+    myGeometry.shape.push_back(myPosition);
 
     // update connection positions
-    updateChildConnections();
+    myChildConnections.update();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if(updateGrid) {
+    if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -115,21 +99,21 @@ GNERerouter::openAdditionalDialog() {
 
 
 void
-GNERerouter::moveGeometry(const Position& oldPos, const Position& offset) {
+GNERerouter::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    myPosition = oldPos;
+    myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
+    // filtern position using snap to active grid
+    myPosition = myViewNet->snapToActiveGrid(myPosition);
     updateGeometry(false);
 }
 
 
 void
-GNERerouter::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
-    // restore original shape before moving (to avoid problems in GL Tree)
-    myShape = myMovingShape;
+GNERerouter::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -147,11 +131,11 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myShape[0].x(), myShape[0].y(), getType());
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
 
 
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
-    if(s.drawForSelecting) {
+    if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::RED);
         GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
     } else {
@@ -168,17 +152,17 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
 
     // Only lock and childs if isn't being drawn for selecting
-    if(!s.drawForSelecting) {
+    if (!s.drawForSelecting) {
 
         // Show Lock icon depending of the Edit mode
-        drawLockIcon(0.4);
+        myBlockIcon.draw(0.4);
 
         // Draw symbols in every lane
-        const double exaggeration = s.addSize.getExaggeration(s);
+        const double exaggeration = s.addSize.getExaggeration(s, this);
 
         if (s.scale * exaggeration >= 3) {
             // draw rerouter symbol over all lanes
-            for (auto i : mySymbolsPositionAndRotation) {
+            for (auto i : myChildConnections.symbolsPositionAndRotation) {
                 glPushMatrix();
                 glTranslated(i.first.x(), i.first.y(), getType());
                 glRotated(-1 * i.second, 0, 0, 1);
@@ -207,17 +191,17 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // Draw connections
-        drawChildConnections();
+        myChildConnections.draw();
     }
     // check if dotted contour has to be drawn
-    if(!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
-        for (auto i : myChildConnectionPositions) {
+        for (auto i : myChildConnections.connectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }
         // draw rerouter symbol over all lanes
-        for (auto i : mySymbolsPositionAndRotation) {
+        for (auto i : myChildConnections.symbolsPositionAndRotation) {
             GLHelper::drawShapeDottedContour(getType(), i.first, 2.8, 6, -1 * i.second, 0, 3);
         }
     }
@@ -225,7 +209,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 
-        // Pop name
+    // Pop name
     glPopName();
 }
 
@@ -258,7 +242,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -292,7 +276,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -319,7 +303,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_VTYPES:
-            if(value.empty()) {
+            if (value.empty()) {
                 return true;
             } else {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
@@ -333,20 +317,20 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNERerouter::getPopUpID() const {
-    return toString(getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNERerouter::getHierarchyName() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 // ===========================================================================
@@ -397,7 +381,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -407,10 +391,12 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

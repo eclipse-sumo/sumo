@@ -6,4 +6,4 @@ Reading flows between 0.0 and 0.0
 Calculating routes
 1 sources, 0 unlimited
 1 sinks, 1 unlimited
-Writing 1000 vehicles from 1 sources between time 0 and 3600
+Writing 1000 vehicles from 1 sources between time 0 and 60 (minutes)

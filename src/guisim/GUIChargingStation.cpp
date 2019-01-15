@@ -53,8 +53,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,  double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) :
-    MSChargingStation(id, lane, frompos, topos, chargingPower, efficiency, chargeInTransit, chargeDelay),
+GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, double frompos, double topos,
+                                       const std::string& name,
+                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay) :
+    MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay),
     GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
@@ -141,7 +143,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         GLHelper::setColor(s.SUMO_color_chargingStation);
     }
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
 
     // draw details unless zoomed out to far
@@ -154,6 +156,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // pop charging power matrix
         glPopMatrix();
 
+        glPushMatrix();
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         int noPoints = 9;
@@ -173,11 +176,15 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         glTranslated(5, 0, 0);
+        glPopMatrix();
 
+    }
+    if (s.addFullName.show && getMyName() != "") {
+        GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     glPopMatrix();
     glPopName();
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
 }
 
 /****************************************************************************/

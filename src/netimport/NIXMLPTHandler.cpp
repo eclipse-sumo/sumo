@@ -35,7 +35,7 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/ToString.h>
@@ -53,8 +53,7 @@ NIXMLPTHandler::NIXMLPTHandler(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& l
     myEdgeCont(ec),
     myStopCont(sc),
     myLineCont(lc),
-    myCurrentLine(0)
-{
+    myCurrentLine(nullptr) {
 }
 
 
@@ -63,7 +62,7 @@ NIXMLPTHandler::~NIXMLPTHandler() {}
 
 void
 NIXMLPTHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes& attrs) {
+                               const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
@@ -82,7 +81,7 @@ NIXMLPTHandler::myStartElement(int element,
         case SUMO_TAG_PARAM:
             if (myLastParameterised.size() != 0) {
                 bool ok = true;
-                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
                 // circumventing empty string test
                 const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                 myLastParameterised.back()->setParameter(key, val);
@@ -98,11 +97,11 @@ NIXMLPTHandler::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
-            myCurrentStop = 0;
+            myCurrentStop = nullptr;
             break;
         case SUMO_TAG_PT_LINE:
             myCurrentLine->setMyNumOfStops((int)(myCurrentLine->getStops().size() / myCurrentCompletion));
-            myCurrentLine = 0;
+            myCurrentLine = nullptr;
             break;
         default:
             break;
@@ -162,7 +161,7 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
-    myCurrentCompletion = TplConvert::_2double(attrs.getStringSecure("completeness", "1").c_str());
+    myCurrentCompletion = StringUtils::toDouble(attrs.getStringSecure("completeness", "1"));
     /// XXX parse route child
     //if (!myRoute.empty()) {
     //    device.openTag(SUMO_TAG_ROUTE);

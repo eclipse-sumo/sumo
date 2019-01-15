@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:02 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:57 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -52,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_3_0" index="0" allow="passenger" speed="9.26" length="6.96" shape="98.40,110.40 99.15,105.15 100.00,103.73"/>
     </edge>
     <edge id=":C_16" function="internal">
-        <lane id=":C_16_0" index="0" speed="9.26" length="12.40" shape="100.00,103.73 101.40,101.40 105.15,99.15 110.40,98.40"/>
+        <lane id=":C_16_0" index="0" allow="passenger" speed="9.26" length="12.40" shape="100.00,103.73 101.40,101.40 105.15,99.15 110.40,98.40"/>
     </edge>
     <edge id=":C_4" function="internal">
         <lane id=":C_4_0" index="0" allow="passenger" speed="6.51" length="9.03" shape="110.40,104.80 107.95,105.15 106.20,106.20 105.15,107.95 104.80,110.40"/>
@@ -65,7 +65,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_7_0" index="0" allow="passenger" speed="9.26" length="6.96" shape="110.40,101.60 105.15,100.85 103.73,100.00"/>
     </edge>
     <edge id=":C_17" function="internal">
-        <lane id=":C_17_0" index="0" speed="9.26" length="12.40" shape="103.73,100.00 101.40,98.60 99.15,94.85 98.40,89.60"/>
+        <lane id=":C_17_0" index="0" allow="passenger" speed="9.26" length="12.40" shape="103.73,100.00 101.40,98.60 99.15,94.85 98.40,89.60"/>
     </edge>
     <edge id=":C_8" function="internal">
         <lane id=":C_8_0" index="0" allow="passenger" speed="6.51" length="9.03" shape="104.80,89.60 105.15,92.05 106.20,93.80 107.95,94.85 110.40,95.20"/>
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_11_0" index="0" allow="passenger" speed="9.26" length="6.96" shape="101.60,89.60 100.85,94.85 100.00,96.27"/>
     </edge>
     <edge id=":C_18" function="internal">
-        <lane id=":C_18_0" index="0" speed="9.26" length="12.40" shape="100.00,96.27 98.60,98.60 94.85,100.85 89.60,101.60"/>
+        <lane id=":C_18_0" index="0" allow="passenger" speed="9.26" length="12.40" shape="100.00,96.27 98.60,98.60 94.85,100.85 89.60,101.60"/>
     </edge>
     <edge id=":C_12" function="internal">
         <lane id=":C_12_0" index="0" allow="passenger" speed="6.51" length="9.03" shape="89.60,95.20 92.05,94.85 93.80,93.80 94.85,92.05 95.20,89.60"/>
@@ -91,7 +91,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_15_0" index="0" allow="passenger" speed="9.26" length="6.96" shape="89.60,98.40 94.85,99.15 96.27,100.00"/>
     </edge>
     <edge id=":C_19" function="internal">
-        <lane id=":C_19_0" index="0" speed="9.26" length="12.40" shape="96.27,100.00 98.60,101.40 100.85,105.15 101.60,110.40"/>
+        <lane id=":C_19_0" index="0" allow="passenger" speed="9.26" length="12.40" shape="96.27,100.00 98.60,101.40 100.85,105.15 101.60,110.40"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">
@@ -143,22 +143,22 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_16_0 :C_4_0 :C_5_0 :C_5_1 :C_17_0 :C_8_0 :C_9_0 :C_9_1 :C_18_0 :C_12_0 :C_13_0 :C_13_1 :C_19_0" shape="91.10,110.40 108.90,110.40 109.07,109.57 109.28,109.28 109.57,109.07 109.94,108.94 110.40,108.90 110.40,91.10 109.57,90.93 109.28,90.72 109.07,90.43 108.94,90.06 108.90,89.60 91.10,89.60 90.93,90.43 90.72,90.72 90.43,90.93 90.06,91.06 89.60,91.10 89.60,108.90 90.43,109.07 90.72,109.28 90.93,109.57 91.06,109.94">
-        <request index="0"  response="0000000000000000" foes="0000100001100000" cont="0"/>
+        <request index="0"  response="0000000000000000" foes="0000000001100000" cont="0"/>
         <request index="1"  response="1000000010000000" foes="1111100011100000" cont="0"/>
         <request index="2"  response="1000000010000000" foes="1111100011100000" cont="0"/>
-        <request index="3"  response="1000011110000000" foes="1110011111100000" cont="1"/>
-        <request index="4"  response="0000011000000000" foes="1000011000000000" cont="0"/>
+        <request index="3"  response="1000011010000000" foes="1110011011100000" cont="1"/>
+        <request index="4"  response="0000011000000000" foes="0000011000000000" cont="0"/>
         <request index="5"  response="0000111000001111" foes="1000111000001111" cont="0"/>
         <request index="6"  response="0000111000001111" foes="1000111000001111" cont="0"/>
-        <request index="7"  response="0111111000001110" foes="0111111000001110" cont="1"/>
-        <request index="8"  response="0000000000000000" foes="0110000000001000" cont="0"/>
+        <request index="7"  response="0110111000001110" foes="0110111000001110" cont="1"/>
+        <request index="8"  response="0000000000000000" foes="0110000000000000" cont="0"/>
         <request index="9"  response="1000000010000000" foes="1110000011111000" cont="0"/>
         <request index="10" response="1000000010000000" foes="1110000011111000" cont="0"/>
-        <request index="11" response="1000000010000111" foes="1110000011100111" cont="1"/>
-        <request index="12" response="0000000000000110" foes="0000000010000110" cont="0"/>
+        <request index="11" response="1000000010000110" foes="1110000011100110" cont="1"/>
+        <request index="12" response="0000000000000110" foes="0000000000000110" cont="0"/>
         <request index="13" response="0000111100001110" foes="0000111110001110" cont="0"/>
         <request index="14" response="0000111100001110" foes="0000111110001110" cont="0"/>
-        <request index="15" response="0000111001111110" foes="0000111001111110" cont="1"/>
+        <request index="15" response="0000111001101110" foes="0000111001101110" cont="1"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="200.00,100.00 200.00,91.10 200.00,100.00"/>
     <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1 CN_2" intLanes="" shape="100.00,200.00 108.90,200.00 100.00,200.00"/>

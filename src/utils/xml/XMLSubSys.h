@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <string>
 #include <vector>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
@@ -92,7 +93,7 @@ public:
     *
     * @param[in] net Whether validation of SUMO networks is reported
     */
-    static bool isValidating(const bool net=false);
+    static bool isValidating(const bool net = false);
 
 
     /**

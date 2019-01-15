@@ -33,7 +33,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOSAXReader.h>
@@ -60,7 +60,7 @@
 #include <netimport/NIImporter_OpenDrive.h>
 #include <netimport/NIImporter_MATSim.h>
 #include <netimport/NIImporter_ITSUMO.h>
-#include "typemap.h"
+#include <netimport/typemap.h>
 #include "NILoader.h"
 
 // ===========================================================================
@@ -176,16 +176,16 @@ NILoader::loadXML(OptionsCont& oc) {
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
     loadXMLType(new NIXMLPTHandler(
-                myNetBuilder.getEdgeCont(),
-                myNetBuilder.getPTStopCont(),
-                myNetBuilder.getPTLineCont()),
+                    myNetBuilder.getEdgeCont(),
+                    myNetBuilder.getPTStopCont(),
+                    myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptstop-files"), "public transport stops");
 
     // load public transport lines (used as input when repairing railroad topology)
     loadXMLType(new NIXMLPTHandler(
-                myNetBuilder.getEdgeCont(),
-                myNetBuilder.getPTStopCont(),
-                myNetBuilder.getPTLineCont()),
+                    myNetBuilder.getEdgeCont(),
+                    myNetBuilder.getPTStopCont(),
+                    myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptline-files"), "public transport lines");
 
     // load shapes for output formats that embed shape data 
@@ -220,7 +220,7 @@ NILoader::loadXMLType(SUMOSAXHandler* handler, const std::vector<std::string>& f
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {
-        exceptMsg = TplConvert::_2str(toCatch.getMessage())
+        exceptMsg = StringUtils::transcode(toCatch.getMessage())
                     + "\n  The " + type + " could not be loaded from '" + handler->getFileName() + "'.";
     } catch (const ProcessError& toCatch) {
         exceptMsg =

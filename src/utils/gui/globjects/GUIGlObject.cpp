@@ -58,6 +58,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"additional",          GLO_ADDITIONAL},
     {"busStop",             GLO_BUS_STOP},
     {"access",              GLO_ACCESS},
+    {"taz",                 GLO_TAZ},
     {"containerStop",       GLO_CONTAINER_STOP},
     {"chargingStation",     GLO_CHARGING_STATION},
     {"parkingArea",         GLO_PARKING_AREA},
@@ -134,7 +135,7 @@ GUIParameterTableWindow*
 GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     UNUSED_PARAMETER(&app);
     UNUSED_PARAMETER(&parent);
-    return 0;
+    return nullptr;
 }
 
 
@@ -180,7 +181,7 @@ GUIGlObject::setNode(osg::Node* node) {
 
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), nullptr, nullptr, 0);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -198,8 +199,8 @@ GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator)
 
 void
 GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Copy name to clipboard", 0, ret, MID_COPY_NAME);
-    new FXMenuCommand(ret, "Copy typed name to clipboard", 0, ret, MID_COPY_TYPED_NAME);
+    new FXMenuCommand(ret, "Copy name to clipboard", nullptr, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, "Copy typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -239,9 +240,9 @@ GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSe
 
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Copy cursor position to clipboard", 0, ret, MID_COPY_CURSOR_POSITION);
+    new FXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", 0, ret, MID_COPY_CURSOR_GEOPOSITION);
+        new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -290,7 +291,7 @@ GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* re
     buildPositionCopyEntry(ret, false);
     // only show type if isn't empty
     if (type != "") {
-        new FXMenuCommand(ret, ("type: " + type + "").c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }
@@ -313,7 +314,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
     buildPositionCopyEntry(ret, false);
     // only show type if isn't empty
     if (type != "") {
-        new FXMenuCommand(ret, ("type: " + type + "").c_str(), 0, 0, 0);
+        new FXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }
@@ -328,7 +329,7 @@ GUIGlObject::createFullName() const {
 void
 GUIGlObject::drawName(const Position& pos, const double scale, const GUIVisualizationTextSettings& settings, const double angle) const {
     if (settings.show) {
-        GLHelper::drawText(getMicrosimID(), pos, GLO_MAX, settings.scaledSize(scale), settings.color, angle);
+        GLHelper::drawTextSettings(settings, getMicrosimID(), pos, scale, angle);
     }
 }
 

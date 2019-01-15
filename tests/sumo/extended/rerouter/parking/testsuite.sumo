@@ -7,6 +7,12 @@ riders
 # complex test scenario by Mirco
 complex
 
+# block on road line while using parkingArea
+onRoad
+
+# parkingArea is too short for the given roadsideCapacity (lots overlap)
+roadsideCapacity_short
+
 # test angled roadside parking (including vehicle positions)
 angled_roadside_parking
 
@@ -25,3 +31,6 @@ newDestination2
 
 # handle the case where the length of parking spaces is not given and cannot by deduced from roadside capacity because that is 0
 default_length
+
+# do not reroute to parkingAreas which are too close to brake
+skip_too_close

@@ -42,8 +42,8 @@ cmd = [
     '--lateral-resolution', '3.2',
     # '-S', '-Q',
     '--step-length', '0.1',
-    '--default.action-step-length', '1.0', 
-     "--default.speeddev", "0"]
+    '--default.action-step-length', '1.0',
+    "--default.speeddev", "0"]
 
 
 traci.start(cmd)

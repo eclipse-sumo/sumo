@@ -1,8 +1,10 @@
 import_config_file:../config_all
-binary:$RUN_SIKULIX
+binary:test.py
 use_case_record_mode:GUI
 config_module:default
 
+copy_test_path:test.py
+copy_test_path:reference.png
 copy_test_path:input_net.netccfg
 copy_test_path:input_net.net.xml
 copy_test_path:input_net.con.xml
@@ -15,7 +17,8 @@ copy_test_path:input_additionals.add.xml
 copy_test_path:input_shapes.add.xml
 copy_test_path:gui-settings.xml
 copy_test_path:berlin_icon.ico
-copy_test_path_merge:test.sikuli
+copy_test_path:fileA.txt
+copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 
@@ -41,13 +44,11 @@ netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
 output:\[log\]
 output:\[info\]
-output:SIKULIX_HOME in environment specified as
-output:running SikuliX:
-output:sikulix.jar -run
 output:+++
 output:\\{REPLACE /}
 output:script{LINES 1}
 output:  File{LINES 1}
+output:C:/{LINES 1}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
@@ -61,4 +62,5 @@ log:Proj GUI{REPLACE MODULES}
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
+errors:0.0101
 additionals:0.0101

@@ -89,13 +89,13 @@ Lane::getLinks(std::string laneID) {
     const MSLane* const lane = getLane(laneID);
     const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
     for (const MSLink* const link : lane->getLinkCont()) {
-        const std::string approachedLane = link->getLane() != 0 ? link->getLane()->getID() : "";
+        const std::string approachedLane = link->getLane() != nullptr ? link->getLane()->getID() : "";
         const bool hasPrio = link->havePriority();
         const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
         const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
                                          SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
         const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
-        const std::string approachedInternal = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
+        const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
         const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
         const std::string direction = SUMOXMLDefinitions::LinkDirections.getString(link->getDirection());
         const double length = link->getLength();
@@ -274,7 +274,7 @@ Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
     const MSLane* from = getLane(laneID);
     const MSLane* to = getLane(toLaneID);
     const MSLink* link = MSLinkContHelper::getConnectingLink(*from, *to);
-    if (link == 0) {
+    if (link == nullptr) {
         throw TraCIException("No connection from lane '" + laneID + "' to lane '" + toLaneID + "'");
     }
     for (MSLink* foe : link->getFoeLinks()) {
@@ -308,6 +308,9 @@ Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
+    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedTargets();
+    }
 }
 
 
@@ -316,6 +319,9 @@ Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClass
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(invertPermissions(parseVehicleClasses(disallowedClasses)), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
+    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedTargets();
+    }
 }
 
 
@@ -352,7 +358,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Lane, LANE)
 const MSLane*
 Lane::getLane(const std::string& id) {
     const MSLane* r = MSLane::dictionary(id);
-    if (r == 0) {
+    if (r == nullptr) {
         throw TraCIException("Lane '" + id + "' is not known");
     }
     return r;
@@ -374,58 +380,58 @@ Lane::makeWrapper() {
 bool
 Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-    case ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getIDList());
-    case ID_COUNT:
-        return wrapper->wrapInt(objID, variable, getIDCount());
-    case LANE_LINK_NUMBER:
-        return wrapper->wrapInt(objID, variable, getLinkNumber(objID));
-    case LANE_EDGE_ID:
-        return wrapper->wrapString(objID, variable, getEdgeID(objID));
-    case VAR_LENGTH:
-        return wrapper->wrapDouble(objID, variable, getLength(objID));
-    case VAR_MAXSPEED:
-        return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
-    case LANE_ALLOWED:
-        return wrapper->wrapStringList(objID, variable, getAllowed(objID));
-    case LANE_DISALLOWED:
-        return wrapper->wrapStringList(objID, variable, getDisallowed(objID));
-    case VAR_CO2EMISSION:
-        return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
-    case VAR_COEMISSION:
-        return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
-    case VAR_HCEMISSION:
-        return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
-    case VAR_PMXEMISSION:
-        return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
-    case VAR_NOXEMISSION:
-        return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
-    case VAR_FUELCONSUMPTION:
-        return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
-    case VAR_NOISEEMISSION:
-        return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
-    case VAR_ELECTRICITYCONSUMPTION:
-        return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
-    case LAST_STEP_VEHICLE_NUMBER:
-        return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
-    case LAST_STEP_MEAN_SPEED:
-        return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
-    case LAST_STEP_VEHICLE_ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
-    case LAST_STEP_OCCUPANCY:
-        return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
-    case LAST_STEP_VEHICLE_HALTING_NUMBER:
-        return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
-    case LAST_STEP_LENGTH:
-        return wrapper->wrapDouble(objID, variable, getLastStepLength(objID));
-    case VAR_WAITING_TIME:
-        return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
-    case VAR_CURRENT_TRAVELTIME:
-        return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
-    case VAR_WIDTH:
-        return wrapper->wrapDouble(objID, variable, getWidth(objID));
-    default:
-        return false;
+        case TRACI_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case LANE_LINK_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLinkNumber(objID));
+        case LANE_EDGE_ID:
+            return wrapper->wrapString(objID, variable, getEdgeID(objID));
+        case VAR_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLength(objID));
+        case VAR_MAXSPEED:
+            return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case LANE_ALLOWED:
+            return wrapper->wrapStringList(objID, variable, getAllowed(objID));
+        case LANE_DISALLOWED:
+            return wrapper->wrapStringList(objID, variable, getDisallowed(objID));
+        case VAR_CO2EMISSION:
+            return wrapper->wrapDouble(objID, variable, getCO2Emission(objID));
+        case VAR_COEMISSION:
+            return wrapper->wrapDouble(objID, variable, getCOEmission(objID));
+        case VAR_HCEMISSION:
+            return wrapper->wrapDouble(objID, variable, getHCEmission(objID));
+        case VAR_PMXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getPMxEmission(objID));
+        case VAR_NOXEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNOxEmission(objID));
+        case VAR_FUELCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getFuelConsumption(objID));
+        case VAR_NOISEEMISSION:
+            return wrapper->wrapDouble(objID, variable, getNoiseEmission(objID));
+        case VAR_ELECTRICITYCONSUMPTION:
+            return wrapper->wrapDouble(objID, variable, getElectricityConsumption(objID));
+        case LAST_STEP_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepVehicleNumber(objID));
+        case LAST_STEP_MEAN_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastStepMeanSpeed(objID));
+        case LAST_STEP_VEHICLE_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
+        case LAST_STEP_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastStepOccupancy(objID));
+        case LAST_STEP_VEHICLE_HALTING_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+        case LAST_STEP_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLastStepLength(objID));
+        case VAR_WAITING_TIME:
+            return wrapper->wrapDouble(objID, variable, getWaitingTime(objID));
+        case VAR_CURRENT_TRAVELTIME:
+            return wrapper->wrapDouble(objID, variable, getTraveltime(objID));
+        case VAR_WIDTH:
+            return wrapper->wrapDouble(objID, variable, getWidth(objID));
+        default:
+            return false;
     }
 }
 

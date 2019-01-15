@@ -12,4 +12,5 @@ Warning: Teleporting vehicle 'collider'; collision with vehicle 'suddenStop', la
 Warning: Vehicle 'collider' teleports beyond arrival edge 'o', time 13.00.
 Warning: Vehicle 'emergencyStopper' performs emergency stop at the end of lane 'o_0' because there is no connection to the next edge (decel=-100.00, offset=68.12), time=16.00.
 Warning: Vehicle 'emergencyStopper' performs emergency stop at the end of lane 'o_0' because there is no connection to the next edge (decel=0.00, offset=100.00), time=17.00.
+Error: Requested command not implemented (0xac): GUI is not running, command not implemented in command line sumo
 Warning: Vehicle 'emergencyStopper' performs emergency stop at the end of lane 'o_0' because there is no connection to the next edge (decel=0.00, offset=100.00), time=18.00.

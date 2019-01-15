@@ -9,13 +9,4 @@ Warning: Minor green from edge '27445161' to edge '24214694' exceeds 19.44m/s. M
 Warning: Minor green from edge '27445016' to edge '27445070' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '27445165' to edge '27445066' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214694' to edge '27445073' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Speed of turning connection '20430080_0->27441289_0' reduced by 15.78 due to turning radius of 7.54 (length=9.04 angle=91.81)
 Warning: Intersecting left turns at junction '294831569' from lane '27445143_0' and lane '27445141_0'. (increase junction radius to avoid this)
-Warning: Speed of turning connection '27445165_0->27445073_0' reduced by 18.57 due to turning radius of 7.52 (length=9.03 angle=92.08)
-Warning: Speed of turning connection '27445165_0->27445066_1' reduced by 16.28 due to turning radius of 13.84 (length=16.99 angle=89.67)
-Warning: Speed of turning connection '27445161_0->27445070_0' reduced by 18.42 due to turning radius of 7.86 (length=9.20 angle=89.67)
-Warning: Speed of turning connection '27445161_1->24214694_0' reduced by 16.34 due to turning radius of 13.64 (length=16.88 angle=90.32)
-Warning: Speed of turning connection '-24214694_0->27445066_0' reduced by 18.50 due to turning radius of 7.67 (length=9.03 angle=90.32)
-Warning: Speed of turning connection '-24214694_0->27445073_1' reduced by 16.15 due to turning radius of 14.25 (length=17.12 angle=87.93)
-Warning: Speed of turning connection '27445016_0->24214694_0' reduced by 18.25 due to turning radius of 8.27 (length=9.51 angle=87.93)
-Warning: Speed of turning connection '27445016_1->27445070_0' reduced by 16.39 due to turning radius of 13.48 (length=17.06 angle=92.08)

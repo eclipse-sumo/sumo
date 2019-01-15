@@ -1,3 +1,5 @@
+# insert vehicles with taz definition
+add_with_taz
 rerouteTraveltime_default
 rerouteTraveltime_adaptEdgeWeight
 
@@ -14,3 +16,4 @@ routingMode
 
 # rerouting person
 person
+findIntermodalRoute

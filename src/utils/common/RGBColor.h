@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <iostream>
+#include <random>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -102,6 +103,10 @@ public:
     /// @brief obtain inverted of current RGBColor
     RGBColor invertedColor() const;
 
+    static std::mt19937* getColorRNG() {
+        return &myRNG;
+    }
+
     /** @brief Parses a color information
      *
      * It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
@@ -154,6 +159,13 @@ public:
      */
     static RGBColor fromHSV(double h, double s, double v);
 
+    /** @brief Return color with random hue
+     * @param[in] s Saturation (0-1)
+     * @param[in] v Value (0-1)
+     * @return The color as RGB
+     */
+    static RGBColor randomHue(double s = 1, double v = 1);
+
     /** @brief Writes the color to the given stream
     * @param[out] os The stream to write to
     * @param[in] col The color to write
@@ -179,6 +191,7 @@ public:
     static const RGBColor WHITE;
     static const RGBColor BLACK;
     static const RGBColor GREY;
+    static const RGBColor INVISIBLE;
     /// @}
 
     /// @brief The default color (for vehicle types and vehicles)
@@ -190,6 +203,9 @@ public:
 private:
     /// @brief The color amounts
     unsigned char myRed, myGreen, myBlue, myAlpha;
+
+    /// @brief A random number generator to generate random colors independent of other randomness
+    static std::mt19937 myRNG;
 };
 
 

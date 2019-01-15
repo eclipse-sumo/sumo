@@ -7,4 +7,10 @@ net_short_internal
 # parsing a network and accessing objects
 net_roundabout
 sumolib3d
+
+# unit tests for functions in init
+init
 geomhelper
+
+# parsing a network working with tlLogic
+tls

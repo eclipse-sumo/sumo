@@ -239,17 +239,17 @@ public:
     ///        differs sufficiently from the previously perceived to be actually perceived. If so, it sets the
     ///        flag myReactionFlag[objID]=true, which should be checked just after the call to this method because
     ///        it will be overwritten by subsequent calls.
-    double getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const void* objID=nullptr);
+    double getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const void* objID = nullptr);
     /// @see myHeadwayPerceptionError
-    double getPerceivedHeadway(const double trueGap, const void* objID=nullptr);
+    double getPerceivedHeadway(const double trueGap, const void* objID = nullptr);
     /// @}
 
     inline void lockDebug() {
-        myDebugLock=true;
+        myDebugLock = true;
     }
 
     inline void unlockDebug() {
-        myDebugLock=false;
+        myDebugLock = false;
     }
 
     inline bool debugLocked() const {

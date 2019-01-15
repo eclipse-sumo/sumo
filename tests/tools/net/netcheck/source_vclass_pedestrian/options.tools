@@ -1,0 +1,1 @@
+input_net.net.xml --source CN --vclass pedestrian --selection-output selection.txt tools/net/netcheck.py

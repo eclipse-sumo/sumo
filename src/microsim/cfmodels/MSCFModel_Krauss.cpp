@@ -46,14 +46,14 @@
 // method definitions
 // ===========================================================================
 MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
-    MSCFModel_KraussOrig1(vtype) 
-{ }
+    MSCFModel_KraussOrig1(vtype) {
+}
 
 
 MSCFModel_Krauss::~MSCFModel_Krauss() {}
 
 
-double 
+double
 MSCFModel_Krauss::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     const double sigma = (veh->passingMinor()
                           ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle)
@@ -80,12 +80,14 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
 
 double
 MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+    //gDebugFlag1 = DEBUG_COND;
     if (veh->hasDriverState()) {
         applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
     }
-
+    //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
-    const double vmin = minNextSpeed(speed);
+    //gDebugFlag1 = false;
+    const double vmin = minNextSpeedEmergency(speed);
     const double vmax = maxNextSpeed(speed, veh);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return MIN2(vsafe, vmax);

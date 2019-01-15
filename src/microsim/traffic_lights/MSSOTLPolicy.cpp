@@ -24,7 +24,7 @@
 
 void PushButtonLogic::init(std::string prefix, const Parameterised* parameterised) {
     m_prefix = prefix;
-    m_pushButtonScaleFactor = TplConvert::_2double(parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1").c_str());
+    m_pushButtonScaleFactor = StringUtils::toDouble(parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1"));
     WRITE_MESSAGE(m_prefix + "::PushButtonLogic::init use " + parameterised->getParameter("USE_PUSH_BUTTON", "0") + " scale " + parameterised->getParameter("PUSH_BUTTON_SCALE_FACTOR", "1"));
 }
 
@@ -45,7 +45,7 @@ bool PushButtonLogic::pushButtonLogic(SUMOTime elapsed, bool pushButtonPressed, 
 void SigmoidLogic::init(std::string prefix, const Parameterised* parameterised) {
     m_prefix = prefix;
     m_useSigmoid = parameterised->getParameter("PLATOON_USE_SIGMOID", "0") != "0";
-    m_k = TplConvert::_2double(parameterised->getParameter("PLATOON_SIGMOID_K_VALUE", "1").c_str());
+    m_k = StringUtils::toDouble(parameterised->getParameter("PLATOON_SIGMOID_K_VALUE", "1"));
 //  DBG(
     WRITE_MESSAGE(m_prefix + "::SigmoidLogic::init use " + parameterised->getParameter("PLATOON_USE_SIGMOID", "0") + " k " + parameterised->getParameter("PLATOON_SIGMOID_K_VALUE", "1"));
 //    for (int elapsed = 10; elapsed < 51; ++elapsed)
@@ -94,7 +94,7 @@ MSSOTLPolicy::MSSOTLPolicy(std::string name,
                            const std::map<std::string, std::string>& parameters) :
     Parameterised(parameters), myName(name), myDesirabilityAlgorithm(
         desirabilityAlgorithm) {
-    theta_sensitivity = TplConvert::_2double(getParameter("THETA_INIT", "0.5").c_str());
+    theta_sensitivity = StringUtils::toDouble(getParameter("THETA_INIT", "0.5"));
 }
 
 MSSOTLPolicy::~MSSOTLPolicy(void) {

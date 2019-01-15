@@ -21,7 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -53,7 +53,7 @@ MSDevice_BTsender::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_BTsender::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_BTsender::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "btsender", v, false)) {
         MSDevice_BTsender* device = new MSDevice_BTsender(v, "btsender_" + v.getID());
         into.push_back(device);
@@ -73,7 +73,7 @@ MSDevice_BTsender::cleanup() {
 // MSDevice_BTsender-methods
 // ---------------------------------------------------------------------------
 MSDevice_BTsender::MSDevice_BTsender(SUMOVehicle& holder, const std::string& id)
-    : MSDevice(holder, id) {
+    : MSVehicleDevice(holder, id) {
 }
 
 

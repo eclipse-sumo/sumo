@@ -37,7 +37,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
 #include "NIImporter_ITSUMO.h"
@@ -225,8 +225,8 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
         case ITSUMO_TAG_NODE: {
             try {
                 std::string id = myParameter["id"];
-                double x = TplConvert::_2double(myParameter["x"].c_str());
-                double y = TplConvert::_2double(myParameter["y"].c_str());
+                double x = StringUtils::toDouble(myParameter["x"]);
+                double y = StringUtils::toDouble(myParameter["y"]);
                 Position pos(x, y);
                 if (!NBNetBuilder::transformCoordinate(pos)) {
                     WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
@@ -251,12 +251,12 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
         case ITSUMO_TAG_LANESET: {
             try {
                 std::string id = myParameter["lanesetID"];
-                int i = TplConvert::_2int(myParameter["i"].c_str());
+                int i = StringUtils::toInt(myParameter["i"]);
                 std::string fromID = myParameter["from"];
                 std::string toID = myParameter["to"];
                 NBNode* from = myNetBuilder.getNodeCont().retrieve(fromID);
                 NBNode* to = myNetBuilder.getNodeCont().retrieve(toID);
-                if (from == 0 || to == 0) {
+                if (from == nullptr || to == nullptr) {
                     WRITE_ERROR("Missing node in laneset '" + myParameter["lanesetID"] + "'.");
                 } else {
                     if (myLaneSets.find(id) != myLaneSets.end()) {
@@ -283,8 +283,8 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
         case ITSUMO_TAG_LANE: {
             try {
                 std::string id = myParameter["laneID"];
-                int i = TplConvert::_2int(myParameter["i"].c_str());
-                double v = TplConvert::_2double(myParameter["v"].c_str());
+                int i = StringUtils::toInt(myParameter["i"]);
+                double v = StringUtils::toDouble(myParameter["v"]);
                 myCurrentLanes.push_back(Lane(id, (int) i, v));
             } catch (NumberFormatException&) {
                 WRITE_ERROR("Not numeric value in lane '" + myParameter["laneID"] + "'.");

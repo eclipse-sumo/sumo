@@ -19,5 +19,8 @@ inc-dua
 # Tests whether stops work
 stops
 
+# tests for battery device and charging station
+electric
+
 # saving and loading simulation state
 state

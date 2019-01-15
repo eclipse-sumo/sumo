@@ -60,35 +60,35 @@ FXImage*
 MFXImageHelper::loadImage(FXApp* a, const std::string& file) {
     FXString ext = FXPath::extension(file.c_str());
     checkSupported(ext);
-    FXImage* img = NULL;
+    FXImage* img = nullptr;
     if (comparecase(ext, "gif") == 0) {
-        img = new FXGIFImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXGIFImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "bmp") == 0) {
-        img = new FXBMPImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXBMPImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "xpm") == 0) {
-        img = new FXXPMImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXXPMImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "pcx") == 0) {
-        img = new FXPCXImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXPCXImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "ico") == 0 || comparecase(ext, "cur") == 0) {
-        img = new FXICOImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXICOImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "tga") == 0) {
-        img = new FXTGAImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXTGAImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "rgb") == 0) {
-        img = new FXRGBImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXRGBImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "xbm") == 0) {
-        img = new FXXBMImage(a, NULL, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXXBMImage(a, nullptr, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "png") == 0) {
-        img = new FXPNGImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXPNGImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "jpg") == 0 || comparecase(ext, "jpeg") == 0) {
-        img = new FXJPGImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXJPGImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else if (comparecase(ext, "tif") == 0 || comparecase(ext, "tiff") == 0) {
-        img = new FXTIFImage(a, NULL, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
+        img = new FXTIFImage(a, nullptr, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP);
     } else {
         throw InvalidArgument("Unknown file extension '" + toString(ext.text()) + "' for image '" + file + "'!");
     }
 
     FXFileStream stream;
-    if (img != NULL && stream.open(file.c_str(), FXStreamLoad)) {
+    if (img != nullptr && stream.open(file.c_str(), FXStreamLoad)) {
         a->beginWaitCursor();
         img->loadPixels(stream);
         stream.close();

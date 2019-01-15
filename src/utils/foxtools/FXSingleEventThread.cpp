@@ -62,7 +62,7 @@ FXSingleEventThread::FXSingleEventThread(FXApp* a, MFXInterThreadEventClient* cl
     UNUSED_PARAMETER(res); // only used for assertion
     myApp->addInput(event[PIPE_READ], INPUT_READ, this, ID_THREAD_EVENT);
 #else
-    event = CreateEvent(NULL, FALSE, FALSE, NULL);
+    event = CreateEvent(nullptr, FALSE, FALSE, nullptr);
     FXASSERT(event != NULL);
     myApp->addInput(event, INPUT_READ, this, ID_THREAD_EVENT);
 #endif
@@ -116,7 +116,7 @@ FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
     //FIXME need win32 support
 #endif
     FXSelector sel = FXSEL(SEL_THREAD, 0);
-    handle(this, sel, 0);
+    handle(this, sel, nullptr);
     return 0;
 }
 

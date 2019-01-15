@@ -30,7 +30,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/xml/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -45,10 +45,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal)
-    : SUMOSAXHandler("sumo-network"),
+RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) : 
+    SUMOSAXHandler("sumo-network"),
     myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
-    myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr) {}
+    myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
+    myMinorPenalty(minorPenalty)
+{}
 
 
 RONetHandler::~RONetHandler() {}
@@ -93,7 +95,7 @@ RONetHandler::myStartElement(int element,
             break;
         case SUMO_TAG_TYPE: {
             bool ok = true;
-            myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+            myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             break;
         }
         case SUMO_TAG_RESTRICTION: {
@@ -130,7 +132,7 @@ void
 RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
-    myCurrentName = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    myCurrentName = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         throw ProcessError();
     }
@@ -143,7 +145,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     std::string from;
     std::string to;
     int priority;
-    myCurrentEdge = 0;
+    myCurrentEdge = nullptr;
     if (func == EDGEFUNC_INTERNAL || func == EDGEFUNC_CROSSING || func == EDGEFUNC_WALKINGAREA) {
         assert(myCurrentName[0] == ':');
         const std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
@@ -159,13 +161,13 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         }
     }
     RONode* fromNode = myNet.getNode(from);
-    if (fromNode == 0) {
+    if (fromNode == nullptr) {
         myUnseenNodeIDs.insert(from);
         fromNode = new RONode(from);
         myNet.addNode(fromNode);
     }
     RONode* toNode = myNet.getNode(to);
-    if (toNode == 0) {
+    if (toNode == nullptr) {
         myUnseenNodeIDs.insert(to);
         toNode = new RONode(to);
         myNet.addNode(toNode);
@@ -180,20 +182,20 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
         fromNode->addOutgoing(myCurrentEdge);
         toNode->addIncoming(myCurrentEdge);
     } else {
-        myCurrentEdge = 0;
+        myCurrentEdge = nullptr;
     }
 }
 
 
 void
 RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
-    if (myCurrentEdge == 0) {
+    if (myCurrentEdge == nullptr) {
         // was an internal edge to skip or an error occurred
         return;
     }
     bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         return;
     }
@@ -224,7 +226,7 @@ void
 RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (attrs.getNodeType(ok) == NODETYPE_INTERNAL) {
         return;
     }
@@ -237,7 +239,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
         return;
     }
     RONode* n = myNet.getNode(id);
-    if (n == 0) {
+    if (n == nullptr) {
         WRITE_WARNING("Skipping isolated junction '" + id + "'.");
     } else {
         n->setPosition(Position(x, y, z));
@@ -248,18 +250,18 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
 void
 RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, 0, ok);
-    std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, 0, ok);
-    const int fromLane = attrs.get<int>(SUMO_ATTR_FROM_LANE, 0, ok);
-    const int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, 0, ok);
-    std::string dir = attrs.get<std::string>(SUMO_ATTR_DIR, 0, ok);
-    std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, 0, ok, "");
+    std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+    std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+    const int fromLane = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
+    const int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
+    std::string dir = attrs.get<std::string>(SUMO_ATTR_DIR, nullptr, ok);
+    std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, nullptr, ok, "");
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
-    if (from == 0) {
+    if (from == nullptr) {
         throw ProcessError("unknown from-edge '" + fromID + "' in connection");
     }
-    if (to == 0) {
+    if (to == nullptr) {
         throw ProcessError("unknown to-edge '" + toID + "' in connection");
     }
     if ((int)from->getLanes().size() <= fromLane) {
@@ -279,6 +281,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], via);
         from->addSuccessor(to, via, dir);
         via->addSuccessor(to, nullptr, dir);
+        LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
+        if (state == LINKSTATE_MINOR || state == LINKSTATE_EQUAL || state == LINKSTATE_STOP || state == LINKSTATE_ALLWAY_STOP) {
+            via->setTimePenalty(myMinorPenalty);
+        }
     }
 }
 
@@ -295,7 +301,7 @@ RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTa
         throw ProcessError();
     }
     const ROEdge* edge = myNet.getEdgeForLaneID(myCurrentStoppingPlace->lane);
-    if (edge == 0) {
+    if (edge == nullptr) {
         throw InvalidArgument("Unknown lane '" + myCurrentStoppingPlace->lane + "' for " + toString(element) + " '" + id + "'.");
     }
     // get the positions
@@ -316,7 +322,7 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, "access", ok);
     const ROEdge* edge = myNet.getEdgeForLaneID(lane);
-    if (edge == 0) {
+    if (edge == nullptr) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
@@ -334,13 +340,13 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
 
 void
 RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
-    myCurrentEdge = 0;
+    myCurrentEdge = nullptr;
     bool ok = true;
-    myCurrentName = attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    myCurrentName = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         return;
     }
-    myNet.addDistrict(myCurrentName, myEdgeBuilder.buildEdge(myCurrentName + "-source", 0, 0, 0), myEdgeBuilder.buildEdge(myCurrentName + "-sink", 0, 0, 0));
+    myNet.addDistrict(myCurrentName, myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0), myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0));
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
         for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
@@ -359,6 +365,4 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
 }
 
 
-
 /****************************************************************************/
-

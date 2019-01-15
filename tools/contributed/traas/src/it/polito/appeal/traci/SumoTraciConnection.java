@@ -101,7 +101,7 @@ public class SumoTraciConnection {
 	private String additional_file;
 	private String gui_settings;
 	
-	String sumoEXE = "/opt/sumo/sumo-0.15.0/bin/sumo";
+	String sumoEXE = "/opt/sumo/sumo-1.1.0/bin/sumo";
 	private CommandProcessor cp;
 	
 	private Process sumoProcess;
@@ -111,6 +111,10 @@ public class SumoTraciConnection {
 	private List<String> args = new ArrayList<String>();
 	
 	private boolean remote = false;
+	
+	public SumoTraciConnection(String sumo_bin) {
+		this.sumoEXE=sumo_bin;
+	}
 	
 	public SumoTraciConnection(String sumo_bin, String net_file, String route_file) {
 		this.sumoEXE=sumo_bin;
@@ -142,6 +146,10 @@ public class SumoTraciConnection {
 		this.randomSeed = randomSeed;
 		this.configFile = configFile;
 	}
+
+	public SumoTraciConnection(int remotePort) throws IOException, InterruptedException {
+        this(new InetSocketAddress("127.0.0.1", remotePort));
+    }
 
 	public SumoTraciConnection(SocketAddress sockAddr) throws IOException,
 			InterruptedException {
@@ -185,7 +193,7 @@ public class SumoTraciConnection {
 		if (value != null)
 			args.add(value);
 	}
-	
+
 	/**
 	 * Runs a SUMO instance and tries to connect at it.
 	 * 
@@ -194,12 +202,26 @@ public class SumoTraciConnection {
 	 *             at it.
 	 */
 	public void runServer() throws IOException {
+        runServer(0);
+    }
+	
+	/**
+	 * Runs a SUMO instance and tries to connect at it.
+	 * 
+	 * @throws IOException
+	 *             if something wrong occurs while starting SUMO or connecting
+	 *             at it.
+	 */
+	public void runServer(int _remotePort) throws IOException {
 		
 		
 		
 		if(!this.remote){
 		
-		findAvailablePort();
+        remotePort = _remotePort;
+        if (remotePort == 0) {
+            findAvailablePort();
+        }
 
 		runSUMO();
 
@@ -225,7 +247,7 @@ public class SumoTraciConnection {
 			}
 
 			if (!socket.isConnected()) {
-				throw new IOException("can't connect to SUMO server");
+				throw new IOException("can't connect to SUMO server at " + remotePort);
 			}else{
 				this.cp = new CommandProcessor(socket);
 			}
@@ -264,7 +286,7 @@ public class SumoTraciConnection {
 				args.add(this.gui_settings);
 			}
 			
-		}else{
+		}else if(this.net_file != null){
 			args.add("--net-file");
 			args.add(this.net_file);
 		}
@@ -360,10 +382,24 @@ public class SumoTraciConnection {
 		
 		return output;
 	}
-	
+
+
+	public synchronized void setOrder(int index) throws Exception{
+
+		if (isClosed())
+			throw new IllegalStateException("connection is closed");
+
+		try {this.cp.do_setOrder(index);}
+		catch (Exception e) {
+			closeAndDontCareAboutInterruptedException();
+			throw e;
+		}
+
+	}
+
 	public synchronized void do_timestep() throws Exception{this.do_timestep(0);}
 	
-	public synchronized void do_timestep(int targetTime) throws Exception{
+	public synchronized void do_timestep(double targetTime) throws Exception{
 		
 		if (isClosed())
 			throw new IllegalStateException("connection is closed");

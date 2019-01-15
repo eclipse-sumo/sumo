@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 12 00:04:40 2018 by SUMO netconvert Version c8481b0
+<!-- generated on Sat Dec  8 22:42:27 2018 by Eclipse SUMO netconvert Version eeef47f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,15 +30,15 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-277843.65,-5330206.51" convBoundary="0.00,0.00,3330.25,3904.56" origBoundary="12.014694,48.087529,12.061386,48.121459" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="o" from="0" to="1" priority="-1">
-        <lane id="o_0" index="0" speed="13.90" length="5132.51" shape="-1.22,3903.53,597.20 3329.03,-1.04,516.30"/>
+        <lane id="o_0" index="0" speed="13.89" length="5132.51" shape="-1.22,3903.53,597.20 3329.03,-1.04,516.30"/>
     </edge>
 
-    <junction id="0" type="dead_end" x="0.00" y="3904.56" z="597.20" incLanes="" intLanes="" shape="0.00,3904.56,597.20 -2.43,3902.49,597.20"/>
+    <junction id="0" type="dead_end" x="0.00" y="3904.56" z="597.20" incLanes="" intLanes="" shape="-0.00,3904.56,597.20 -2.43,3902.49,597.20"/>
     <junction id="1" type="dead_end" x="3330.25" y="0.00" z="516.30" incLanes="o_0" intLanes="" shape="3327.81,-2.08,516.30 3330.25,-0.00,516.30"/>
 
 </net>

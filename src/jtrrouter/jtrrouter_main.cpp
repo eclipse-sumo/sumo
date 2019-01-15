@@ -34,7 +34,7 @@
 #include <set>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
@@ -89,7 +89,7 @@ getTurningDefaults(OptionsCont& oc) {
     }
     for (std::vector<std::string>::const_iterator i = defs.begin(); i != defs.end(); ++i) {
         try {
-            double val = TplConvert::_2double((*i).c_str());
+            double val = StringUtils::toDouble(*i);
             ret.push_back(val);
         } catch (NumberFormatException&) {
             throw ProcessError("A turn default is not numeric.");
@@ -119,7 +119,7 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
         std::vector<std::string> edges = oc.getStringVector("sink-edges");
         for (std::vector<std::string>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             ROJTREdge* edge = static_cast<ROJTREdge*>(net.getEdge(*i));
-            if (edge == 0) {
+            if (edge == nullptr) {
                 throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
             }
             edge->setSink();
@@ -143,7 +143,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                           oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
     RORouteDef::setUsingJTRR();
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, 0));
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, 0, "dijkstra"));
     loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                          string2time(oc.getString("route-steps")), net, provider);
     net.cleanup();
@@ -160,7 +160,7 @@ main(int argc, char** argv) {
     oc.setApplicationDescription("Router for the microscopic, multi-modal traffic simulation SUMO based on junction turning ratios.");
     oc.setApplicationName("jtrrouter", "Eclipse SUMO jtrrouter Version " VERSION_STRING);
     int ret = 0;
-    RONet* net = 0;
+    RONet* net = nullptr;
     try {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
@@ -191,7 +191,7 @@ main(int argc, char** argv) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
         } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
-            WRITE_ERROR(TplConvert::_2str(e.getMessage()));
+            WRITE_ERROR(StringUtils::transcode(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {

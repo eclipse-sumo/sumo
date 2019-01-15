@@ -1,0 +1,334 @@
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Adding calibrator 'calibratorA' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary 0.00,-4.80,40.00,38.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+Debug: Inserting generic parameter 'KeyA1|valueA1' into additional calibrator.
+Debug: Inserting generic parameter 'KeyA3|valueA2' into additional calibrator.
+Debug: Inserting generic parameter 'KeyA2|valueA3' into additional calibrator.
+Debug: Adding calibrator 'calibratorB' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Inserting generic parameter 'KeyB1|valueB1' into additional calibrator.
+Debug: Inserting generic parameter 'KeyB3|valueB2' into additional calibrator.
+Debug: Inserting generic parameter 'KeyB2|valueB3' into additional calibrator.
+Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
+GLDebug: Inserted routeProbe:customRouteProbeName into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object routeProbe:customRouteProbeName from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted routeProbe:customRouteProbeName into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:customRouteProbeName from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:customRouteProbeName into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into junction 'gneJ2'
+Debug: Setting new attribute selected 'true' into edge 'gneE3'
+Debug: Setting new attribute selected 'true' into junction 'gneJ3'
+Debug: Setting new attribute selected 'true' into edge 'gneE2'
+Debug: Setting new attribute selected 'true' into calibrator 'calibratorA'
+Debug: Setting new attribute selected 'true' into calibrator 'calibratorB'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeA'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
+Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute pos '0' into calibrator 'calibratorA'
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary -20.00,-4.80,20.00,38.40
+Debug: Setting new attribute pos '0' into calibrator 'calibratorB'
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 30.00,1.60,70.00,44.80
+Debug: Value '-12' for attribute pos of calibrator isn't valid
+Debug: Value '5000' for attribute pos of calibrator isn't valid
+Debug: Setting new attribute pos '10' into calibrator 'calibratorA'
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary -20.00,-4.80,20.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary -10.00,-4.80,30.00,38.40
+Debug: Setting new attribute pos '10' into calibrator 'calibratorB'
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 30.00,1.60,70.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 20.00,1.60,60.00,44.80
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '0.00' into calibrator 'calibratorB'
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 20.00,1.60,60.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 30.00,1.60,70.00,44.80
+Debug: Setting previous attribute pos '0.00' into calibrator 'calibratorA'
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary -10.00,-4.80,30.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary -20.00,-4.80,20.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute pos '30.00' into calibrator 'calibratorB'
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 30.00,1.60,70.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 0.00,1.60,40.00,44.80
+Debug: Setting previous attribute pos '20.00' into calibrator 'calibratorA'
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary -20.00,-4.80,20.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary 0.00,-4.80,40.00,38.40
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute selected '0' into routeProbe 'customRouteProbeName'
+Debug: Setting previous attribute selected '0' into routeProbe 'RouteProbeB'
+Debug: Setting previous attribute selected '0' into routeProbe 'RouteProbeA'
+Debug: Setting previous attribute selected '0' into calibrator 'calibratorB'
+Debug: Setting previous attribute selected '0' into calibrator 'calibratorA'
+Debug: Setting previous attribute selected '0' into edge 'gneE2'
+Debug: Setting previous attribute selected '0' into junction 'gneJ3'
+Debug: Setting previous attribute selected '0' into edge 'gneE3'
+Debug: Setting previous attribute selected '0' into junction 'gneJ2'
+Debug: Setting previous attribute selected '0' into edge 'gneE0'
+Debug: Setting previous attribute selected '0' into junction 'gneJ1'
+Debug: Setting previous attribute selected '0' into edge 'gneE1'
+Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Removing routeProbe 'customRouteProbeName' in GNEChange_Additional
+GLDebug: Removed object routeProbe:customRouteProbeName from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Removing routeProbe 'RouteProbeB' in GNEChange_Additional
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Removing routeProbe 'RouteProbeA' in GNEChange_Additional
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Removing calibrator 'calibratorB' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Removing calibrator 'calibratorA' in GNEChange_Additional
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Adding calibrator 'calibratorA' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+Debug: Adding calibrator 'calibratorB' in GNEChange_Additional
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
+GLDebug: Inserted routeProbe:customRouteProbeName into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:customRouteProbeName from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:customRouteProbeName into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:customRouteProbeName from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:customRouteProbeName into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Setting new attribute selected 'true' into junction 'gneJ1'
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into junction 'gneJ2'
+Debug: Setting new attribute selected 'true' into edge 'gneE3'
+Debug: Setting new attribute selected 'true' into junction 'gneJ3'
+Debug: Setting new attribute selected 'true' into edge 'gneE2'
+Debug: Setting new attribute selected 'true' into calibrator 'calibratorA'
+Debug: Setting new attribute selected 'true' into calibrator 'calibratorB'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeA'
+Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
+Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '0' into calibrator 'calibratorA'
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary 0.00,-4.80,40.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary -20.00,-4.80,20.00,38.40
+Debug: Setting new attribute pos '0' into calibrator 'calibratorB'
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 0.00,1.60,40.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 30.00,1.60,70.00,44.80
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute pos '10' into calibrator 'calibratorA'
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary -20.00,-4.80,20.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary -10.00,-4.80,30.00,38.40
+Debug: Setting new attribute pos '10' into calibrator 'calibratorB'
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 30.00,1.60,70.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 20.00,1.60,60.00,44.80
+Debug: Additionals saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE2_1togneE3_1 into SUMORTree with boundary 29.90,-0.10,70.10,70.10
+Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE3_1togneE2_1 into SUMORTree with boundary -20.10,-19.90,20.10,39.90
+Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
+Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
+Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -22.00,-2.00,22.00,42.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -22.00,-6.40,22.00,46.40
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-6.40,72.00,46.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeA into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:RouteProbeB into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Removed object routeProbe:customRouteProbeName from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted routeProbe:customRouteProbeName into SUMORTree with boundary -19.50,-21.60,20.50,18.40
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Removed object connection:fromgneE3_1togneE2_1 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
+GLDebug: Inserted connection:fromgneE3_1togneE2_1 into SUMORTree with boundary -19.00,-1.60,21.00,41.60
+GLDebug: Removed object connection:fromgneE2_1togneE3_1 from SUMORTree with boundary 29.90,-0.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE2_1togneE3_1 into SUMORTree with boundary 29.00,-1.60,69.00,41.60
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary -10.00,-4.80,30.00,38.40
+GLDebug: Inserted calibrator:calibratorA into SUMORTree with boundary -10.00,-4.80,30.00,38.40
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 20.00,1.60,60.00,44.80
+GLDebug: Inserted calibrator:calibratorB into SUMORTree with boundary 20.00,1.60,60.00,44.80
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Deleting unreferenced routeProbe 'customRouteProbeName'
+GLDebug: Removed object routeProbe:customRouteProbeName from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Deleting unreferenced routeProbe 'RouteProbeB'
+GLDebug: Removed object routeProbe:RouteProbeB from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+Debug: Deleting unreferenced routeProbe 'RouteProbeA'
+GLDebug: Removed object routeProbe:RouteProbeA from SUMORTree with boundary -19.50,-21.60,20.50,18.40
+Debug: Deleting unreferenced calibrator 'calibratorB'
+GLDebug: Removed object calibrator:calibratorB from SUMORTree with boundary 20.00,1.60,60.00,44.80
+Debug: Deleting unreferenced calibrator 'calibratorA'
+GLDebug: Removed object calibrator:calibratorA from SUMORTree with boundary -10.00,-4.80,30.00,38.40
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 12

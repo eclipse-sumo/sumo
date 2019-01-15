@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:02 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-357107.78,-5646271.09" convBoundary="0.00,0.00,255.77,292.12" origBoundary="6.762104,50.772113,7.222668,51.127542" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -178,8 +178,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4"  response="00000000000" foes="01000001000" cont="0"/>
         <request index="5"  response="00000000000" foes="01000001000" cont="0"/>
         <request index="6"  response="00000000111" foes="11000000111" cont="1"/>
-        <request index="7"  response="00100000110" foes="00100000110" cont="1"/>
-        <request index="8"  response="00000000110" foes="00010000110" cont="0"/>
+        <request index="7"  response="00000000110" foes="00000000110" cont="1"/>
+        <request index="8"  response="00000000110" foes="00000000110" cont="0"/>
         <request index="9"  response="00001110110" foes="00001111110" cont="0"/>
         <request index="10" response="00001000001" foes="00001000001" cont="1"/>
     </junction>

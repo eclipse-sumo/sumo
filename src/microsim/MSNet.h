@@ -44,8 +44,6 @@
 #include <utils/vehicle/SUMOAbstractRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
-#include "MSParkingArea.h"
-#include "MSStoppingPlace.h"
 
 
 // ===========================================================================
@@ -69,6 +67,7 @@ class ShapeContainer;
 class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
+class MSStoppingPlace;
 template<class E, class L, class N, class V>
 class IntermodalRouter;
 template<class E, class L, class N, class V>
@@ -100,6 +99,8 @@ public:
         SIMSTATE_CONNECTION_CLOSED,
         /// @brief An error occurred during the simulation step
         SIMSTATE_ERROR_IN_SIM,
+        /// @brief An external interrupt occured
+        SIMSTATE_INTERRUPTED,
         /// @brief The simulation had too many teleports
         SIMSTATE_TOO_MANY_TELEPORTS
     };
@@ -139,7 +140,7 @@ public:
      * @see closeBuilding
      */
     MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-          MSEventControl* endOfTimestepEvents, 
+          MSEventControl* endOfTimestepEvents,
           MSEventControl* insertionEvents,
           ShapeContainer* shapeCont = 0);
 
@@ -226,12 +227,18 @@ public:
     void loadRoutes();
 
 
+    /** @brief Writes performance output and running vehicle stats
+     *
+     * @param[in] start The step the simulation was started with
+     */
+    const std::string generateStatistics(SUMOTime start);
+
+
     /** @brief Closes the simulation (all files, connections, etc.)
      *
      * Writes also performance output
      *
      * @param[in] start The step the simulation was started with
-     * @todo What exceptions may occure?
      */
     void closeSimulation(SUMOTime start);
 
@@ -528,7 +535,7 @@ public:
          * @param[in] to The state the vehicle has changed to
          * @param[in] info Additional information on the state change
          */
-        virtual void vehicleStateChanged(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info="") = 0;
+        virtual void vehicleStateChanged(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "") = 0;
 
     };
 
@@ -551,7 +558,7 @@ public:
      * @param[in] info Information regarding the replacement
      * @see VehicleStateListener:vehicleStateChanged
      */
-    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info="");
+    void informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info = "");
     /// @}
 
 
@@ -584,7 +591,7 @@ public:
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
         const MSEdgeVector& prohibited = MSEdgeVector()) const;
     MSPedestrianRouter& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSIntermodalRouter& getIntermodalRouter(const int routingMode=0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSIntermodalRouter& getIntermodalRouter(const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
     static void adaptIntermodalRouter(MSIntermodalRouter& router);
 
@@ -615,8 +622,15 @@ public:
     }
 
     /// @brief return whether a warning regarding the given object shall be issued
-    bool warnOnce(const std::string& typeAndID); 
+    bool warnOnce(const std::string& typeAndID);
 
+    void interrupt() {
+        myAmInterrupted = true;
+    }
+
+    bool isInterrupted() const {
+        return myAmInterrupted;
+    }
 
 protected:
     /// @brief check all lanes for elevation data
@@ -635,6 +649,9 @@ protected:
 
     /// @brief Maximum number of teleports.
     int myMaxTeleports;
+
+    /// @brief whether an interrupt occured
+    bool myAmInterrupted;
 
 
 
@@ -725,6 +742,9 @@ protected:
 
     /// @brief the network version
     double myVersion;
+
+    /// @brief end of loaded edgeData
+    SUMOTime myEdgeDataEndTime;
 
     /// @brief Dictionary of bus / container stops
     std::map<SumoXMLTag, NamedObjectCont<MSStoppingPlace*> > myStoppingPlaces;

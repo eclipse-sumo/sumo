@@ -127,8 +127,8 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 writeVehicleStateIDs(server, server.getWrapperStorage(), MSNet::VEHICLE_STATE_EMERGENCYSTOP);
                 break;
             case VAR_DELTA_T:
-                server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
-                server.getWrapperStorage().writeInt((int)libsumo::Simulation::getDeltaT());
+                server.getWrapperStorage().writeUnsignedByte(TYPE_DOUBLE);
+                server.getWrapperStorage().writeDouble(libsumo::Simulation::getDeltaT());
                 break;
             case VAR_MIN_EXPECTED_VEHICLES:
                 server.getWrapperStorage().writeUnsignedByte(TYPE_INTEGER);
@@ -339,9 +339,11 @@ TraCIServerAPI_Simulation::writeVehicleStateIDs(TraCIServer& server, tcpip::Stor
 void
 TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage) {
     outputStorage.writeUnsignedByte(TYPE_COMPOUND);
-    outputStorage.writeInt(6);
+    outputStorage.writeInt(13);
     outputStorage.writeUnsignedByte(TYPE_INTEGER);
     outputStorage.writeInt(stage.type);
+    outputStorage.writeUnsignedByte(TYPE_STRING);
+    outputStorage.writeString(stage.vType);
     outputStorage.writeUnsignedByte(TYPE_STRING);
     outputStorage.writeString(stage.line);
     outputStorage.writeUnsignedByte(TYPE_STRING);
@@ -352,10 +354,18 @@ TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsu
     outputStorage.writeDouble(stage.travelTime);
     outputStorage.writeUnsignedByte(TYPE_DOUBLE);
     outputStorage.writeDouble(stage.cost);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.length);
     outputStorage.writeUnsignedByte(TYPE_STRING);
     outputStorage.writeString(stage.intended);
     outputStorage.writeUnsignedByte(TYPE_DOUBLE);
     outputStorage.writeDouble(stage.depart);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.departPos);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.arrivalPos);
+    outputStorage.writeUnsignedByte(TYPE_STRING);
+    outputStorage.writeString(stage.description);
 }
 
 
@@ -424,7 +434,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             outputStorage.writeString(roadPos.first->getEdge().getID());
             outputStorage.writeDouble(roadPos.second);
             const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-            outputStorage.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
+            outputStorage.writeUnsignedByte((int)distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), roadPos.first)));
         }
         break;
         case POSITION_2D:
@@ -537,8 +547,8 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
                 roadPos2.second = roadPos2.first->getLength();
             }
             MSNet::getInstance()->getRouterTT().compute(
-                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), 0, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-            MSRoute route("", newRoute, false, 0, std::vector<SUMOVehicleParameter::Stop>());
+                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+            MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
             distance += route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
         }
     } else {

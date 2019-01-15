@@ -21,14 +21,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include "GNEFrame.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
@@ -45,42 +38,80 @@ public:
     // class LockGLObjectTypes
     // ===========================================================================
 
-    class LockGLObjectTypes : public FXGroupBox {
+    class LockGLObjectTypes : protected FXGroupBox {
 
     public:
+        /// @brief class for object types entries
+        class ObjectTypeEntry : protected FXObject {
+            /// @brief FOX-declaration
+            FXDECLARE(GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry)
+
+        public:
+            /// @brief constructor
+            ObjectTypeEntry(FXMatrix* matrixParent, const std::string& label);
+
+            /// @brief up count
+            void counterUp();
+
+            /// @brief down count
+            void counterDown();
+            
+            /// @brief check if current GLType is blocked
+            bool isGLTypeLocked() const;
+            
+            /// @name FOX-callbacks
+            /// @{
+            /// @brief called when user change the CheckBox
+            long onCmdSetCheckBox(FXObject*, FXSelector, void*);
+
+            /// @}
+
+        protected:
+            /// @brief FOX needs this
+            ObjectTypeEntry() {}
+
+        private:
+            /// @brief label counter
+            FXLabel* myLabelCounter;
+
+            /// @brief label type nane
+            FXLabel* myLabelTypeName;
+
+            /// @brief check box to check if GLObject type is blocked
+            FXMenuCheck* myCheckBoxLocked;
+
+            /// @brief counter
+            int myCounter;
+        };
+
         /// @brief constructor
-        LockGLObjectTypes(GNESelectorFrame *selectorFrameParent);
+        LockGLObjectTypes(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~LockGLObjectTypes();
 
-        /// @brief update selected items
-        void updateLockGLObjectTypes();
+        /// @brief set object selected
+        void addedLockedObject(const GUIGlObjectType type);
+
+        /// @brief set object unselected
+        void removeLockedObject(const GUIGlObjectType type);
 
         /// @brief check if an object is locked
-        bool IsObjectTypeLocked(GUIGlObjectType type) const;
+        bool IsObjectTypeLocked(const GUIGlObjectType type) const;
 
     private:
-        struct ObjectTypeEntry {
-            ObjectTypeEntry(FXMatrix* parent, const std::string& label, const std::string& label2);
-            ObjectTypeEntry() : count(0), typeName(0), locked(0) {}
-            FXLabel* count;
-            FXLabel* typeName;
-            FXMenuCheck* locked;
-        };
-
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
 
         /// @brief check boxes for type-based selection locking and selected object counts
-        std::map<GUIGlObjectType, ObjectTypeEntry> myTypeEntries;
+        std::map<GUIGlObjectType, ObjectTypeEntry*> myTypeEntries;
     };
 
     // ===========================================================================
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : public FXGroupBox {
+    class ModificationMode : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -95,7 +126,7 @@ public:
         };
 
         /// @brief constructor
-        ModificationMode(GNESelectorFrame *selectorFrameParent);
+        ModificationMode(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~ModificationMode();
@@ -138,7 +169,7 @@ public:
     // class ElementSet
     // ===========================================================================
 
-    class ElementSet : public FXGroupBox {
+    class ElementSet : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ElementSet)
 
@@ -152,7 +183,7 @@ public:
         };
 
         /// @brief constructor
-        ElementSet(GNESelectorFrame *selectorFrameParent);
+        ElementSet(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~ElementSet();
@@ -187,21 +218,21 @@ public:
     // class MatchAttribute
     // ===========================================================================
 
-    class MatchAttribute : public FXGroupBox {
+    class MatchAttribute : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::MatchAttribute)
 
     public:
         /// @brief constructor
-        MatchAttribute(GNESelectorFrame *selectorFrameParent);
+        MatchAttribute(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~MatchAttribute();
 
-        /// @brief enable match attributes 
+        /// @brief enable match attributes
         void enableMatchAttribute();
 
-        /// @brief disable match attributes 
+        /// @brief disable match attributes
         void disableMatchAttribute();
 
         /// @name FOX-callbacks
@@ -257,13 +288,13 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : public FXGroupBox {
+    class VisualScaling : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
     public:
         /// @brief constructor
-        VisualScaling(GNESelectorFrame *selectorFrameParent);
+        VisualScaling(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~VisualScaling();
@@ -292,13 +323,13 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : public FXGroupBox {
+    class SelectionOperation : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 
     public:
         /// @brief constructor
-        SelectionOperation(GNESelectorFrame *selectorFrameParent);
+        SelectionOperation(GNESelectorFrame* selectorFrameParent);
 
         /// @brief destructor
         ~SelectionOperation();
@@ -363,7 +394,7 @@ public:
     /**@brief apply list of ids to the current selection according to SetOperation,
      * @note if setop==SET_DEFAULT than the currently set mode (mySetOperation) is used
      */
-    void handleIDs(const std::vector<GNEAttributeCarrier*> &ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
+    void handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, ModificationMode::SetOperation setop = ModificationMode::SET_DEFAULT);
 
     /// @brief get modification mode modul
     ModificationMode* getModificationModeModul() const;

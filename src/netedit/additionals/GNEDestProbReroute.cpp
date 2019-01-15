@@ -20,7 +20,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -29,8 +28,6 @@
 #include <netedit/GNEUndoList.h>
 
 #include "GNEDestProbReroute.h"
-#include "GNERerouter.h"
-#include "GNERerouterInterval.h"
 
 // ===========================================================================
 // member method definitions
@@ -54,36 +51,36 @@ GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GN
 GNEDestProbReroute::~GNEDestProbReroute() {}
 
 
-void 
-GNEDestProbReroute::moveGeometry(const Position&, const Position&) {
+void
+GNEDestProbReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNEDestProbReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNEDestProbReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
-void 
+void
 GNEDestProbReroute::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEDestProbReroute::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEDestProbReroute::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEDestProbReroute::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -103,7 +100,7 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -121,7 +118,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -138,20 +135,20 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNEDestProbReroute::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
-std::string 
+std::string
 GNEDestProbReroute::getHierarchyName() const {
-    return toString(getTag()) + ": " + myNewEdgeDestination->getID();
+    return getTagStr() + ": " + myNewEdgeDestination->getID();
 }
 
 // ===========================================================================
@@ -174,7 +171,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

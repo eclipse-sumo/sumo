@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on Thu Sep  6 09:32:13 2018 by Eclipse SUMO netconvert Version v1_0_0+0032-77a1026
+-->
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -15,6 +18,11 @@
         <ptline-output value="osm_ptlines.xml"/>
     </output>
 
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
     <tls_building>
         <tls.discard-simple value="true"/>
         <tls.join value="true"/>
@@ -26,13 +34,14 @@
         <ramps.guess value="true"/>
     </ramp_guessing>
 
-    <processing>
-        <geometry.remove value="true"/>
-        <roundabouts.guess value="true"/>
+    <junctions>
         <junctions.join value="true"/>
         <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <pedestrian>
         <crossings.guess value="true"/>
-    </processing>
+    </pedestrian>
 
     <report>
         <verbose value="true"/>

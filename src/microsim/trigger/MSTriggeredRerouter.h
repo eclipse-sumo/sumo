@@ -42,6 +42,7 @@ class MSNet;
 class MSLane;
 class MSRoute;
 class SUMOVehicle;
+class MSParkingArea;
 
 
 // ===========================================================================
@@ -203,7 +204,7 @@ protected:
      */
     virtual void myEndElement(int element);
     //@}
-    
+
     /** @brief Checks whether the detector measures vehicles of the given type.
     *
     * @param[in] veh the vehicle of which the type is checked.

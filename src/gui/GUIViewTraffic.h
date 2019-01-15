@@ -84,8 +84,14 @@ public:
 
     bool setColorScheme(const std::string& name);
 
-    ///@brief recalibrate color scheme according to the current value range
-    void buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType);
+    /// @brief recalibrate color scheme according to the current value range
+    void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType);
+
+    /// @brief return list of loaded edgeData attributes
+    std::vector<std::string> getEdgeDataAttrs() const;
+
+    /// @brief return list of available edge parameters
+    std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
 
     /// @brief handle mouse click in gaming mode
     void onGamingClick(Position pos);
@@ -113,7 +119,7 @@ public:
     void checkSnapshots();
 
     /// @brief retrieve breakpoints from the current runThread
-    const std::vector<SUMOTime> retrieveBreakpoints() const; 
+    const std::vector<SUMOTime> retrieveBreakpoints() const;
 
 protected:
     int doPaintGL(int mode, const Boundary& bound);

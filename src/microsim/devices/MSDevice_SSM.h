@@ -27,7 +27,7 @@
 #include <config.h>
 
 #include <queue>
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice_File.h>
 #include <utils/geom/Position.h>
@@ -53,7 +53,7 @@ class SUMOVehicle;
 
 class MSCrossSection;
 
-class MSDevice_SSM : public MSDevice {
+class MSDevice_SSM : public MSVehicleDevice {
 
 private:
     /// All currently existing SSM devices
@@ -302,7 +302,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 
     /** @brief returns all currently existing SSM devices
@@ -351,7 +351,7 @@ public:
 
     /** @brief Collects all vehicles within range 'range' upstream of the position 'pos' on the edge 'edge' into foeCollector
      */
-    static void getUpstreamVehicles(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSJunction*> seenJunctions);
+    static void getUpstreamVehicles(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSJunction*>& seenJunctions);
 
     /** @brief Collects all vehicles on the junction into foeCollector
      */
@@ -669,6 +669,21 @@ private:
 
     /// @brief remember which files were created already (don't duplicate xml root-elements)
     static std::set<std::string> createdOutputFiles;
+
+
+    /// @brief bitset storing info whether warning has already been issued about unset parameter (warn only once!)
+    static int issuedParameterWarnFlags;
+    enum SSMParameterWarning {
+        SSM_WARN_MEASURES = 1,
+        SSM_WARN_THRESHOLDS = 1 << 1,
+        SSM_WARN_TRAJECTORIES = 1 << 2,
+        SSM_WARN_RANGE = 1 << 3,
+        SSM_WARN_EXTRATIME = 1 << 4,
+        SSM_WARN_FILE = 1 << 5,
+        SSM_WARN_GEO = 1 << 6
+    };
+
+
 
 private:
     /// @brief Invalidated copy constructor.

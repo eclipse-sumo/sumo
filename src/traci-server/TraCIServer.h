@@ -47,9 +47,9 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <traci-server/TraCIConstants.h>
 #include <libsumo/Subscription.h>
 #include <libsumo/TraCIDefs.h>
-#include "TraCIConstants.h"
 #include "TraCIServerAPI_Lane.h"
 
 
@@ -111,7 +111,7 @@ public:
     static void runEmbedded(std::string pyFile);
 #endif
 
-    void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info="");
+    void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
     /// @name Writing Status Messages
     /// @{
@@ -156,6 +156,8 @@ public:
     }
 
     void writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Storage& tempMsg);
+
+    void writePositionVector(tcpip::Storage& outputStorage, const libsumo::TraCIPositionVector& shape);
 
 
     /// @name Helpers for reading and checking values
@@ -413,11 +415,13 @@ private:
     void addSubscriptionFilterNoOpposite();
     void addSubscriptionFilterDownstreamDistance(double dist);
     void addSubscriptionFilterUpstreamDistance(double dist);
-    void addSubscriptionFilterCFManeuver();
-    void addSubscriptionFilterLCManeuver();
-    void addSubscriptionFilterTurnManeuver();
+    void addSubscriptionFilterLeadFollow();
+    // TODO: for libsumo, implement convenience definitions present in python client:
+    //    void addSubscriptionFilterCF();
+    //    void addSubscriptionFilterLC(int direction);
+    void addSubscriptionFilterTurn();
     void addSubscriptionFilterVClass(SVCPermissions vClasses);
-    void addSubscriptionFilterVType(std::vector<std::string> vTypes);
+    void addSubscriptionFilterVType(std::set<std::string> vTypes);
     bool isVehicleToVehicleContextSubscription(const libsumo::Subscription& s);
 
     bool findObjectShape(int domain, const std::string& id, PositionVector& shape);

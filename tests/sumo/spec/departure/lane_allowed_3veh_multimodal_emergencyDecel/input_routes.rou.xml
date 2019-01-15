@@ -1,0 +1,9 @@
+<routes>
+    <route id="r0" edges="SC CE"/>
+	<vehicle id="1" depart="0" route="r0" departLane="allowed"/>
+	<vehicle id="2" depart="0" route="r0" departLane="allowed"/>
+	<vehicle id="3" depart="0" route="r0" departLane="allowed"/>
+	<vehicle id="4" depart="0" route="r0" departLane="allowed"/>
+	<vehicle id="5" depart="0" route="r0" departLane="allowed"/>
+
+</routes>

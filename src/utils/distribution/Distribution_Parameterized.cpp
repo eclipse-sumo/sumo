@@ -26,7 +26,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "Distribution_Parameterized.h"
 
 
@@ -60,10 +60,10 @@ Distribution_Parameterized::parse(const std::string& description) {
     if (distName == "norm" || distName == "normc") {
         std::vector<std::string> params = StringTokenizer(description.substr(distName.size() + 1, description.size() - distName.size() - 2), ',').getVector();
         myParameter.resize(params.size());
-        std::transform(params.begin(), params.end(), myParameter.begin(), TplConvert::_str2double);
+        std::transform(params.begin(), params.end(), myParameter.begin(), StringUtils::toDouble);
         setID(distName);
     } else {
-        myParameter[0] = TplConvert::_str2double(description);
+        myParameter[0] = StringUtils::toDouble(description);
     }
     assert(!myParameter.empty());
     if (myParameter.size() == 1) {
@@ -104,7 +104,7 @@ Distribution_Parameterized::toStr(std::streamsize accuracy) const {
 }
 
 
-bool 
+bool
 Distribution_Parameterized::isValid(std::string& error) {
     if (myParameter.size() > 2) {
         if (myParameter[0] > getMax()) {

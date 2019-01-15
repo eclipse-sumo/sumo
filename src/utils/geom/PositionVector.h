@@ -212,7 +212,7 @@ public:
     bool partialWithin(const AbstractPoly& poly, double offset = 0) const;
 
     /// @brief Returns the two lists made when this list vector is splitted at the given point
-    std::pair<PositionVector, PositionVector> splitAt(double where, bool use2D=false) const;
+    std::pair<PositionVector, PositionVector> splitAt(double where, bool use2D = false) const;
 
     //// @brief Output operator
     friend std::ostream& operator<<(std::ostream& os, const PositionVector& geom);
@@ -264,6 +264,9 @@ public:
 
     /// @brief move position vector to side using certain ammount
     void move2side(double amount);
+
+    /// @brief move position vector to side using a custom offset for each geometry point
+    void move2side(std::vector<double> amount);
 
     /// @brief get angle  in certain position of position vector
     double angleAt2D(int pos) const;
@@ -348,6 +351,9 @@ public:
     /// @brief check if PositionVector is closed
     bool isClosed() const;
 
+    /// @brief check if PositionVector is NAN
+    bool isNAN() const;
+
     /** @brief Removes positions if too near
      * @param[in] minDist The minimum accepted distance; default: POSITION_EPS
      * @param[in] assertLength Whether the result must at least contain two points (be a line); default: false, to ensure original behaviour
@@ -383,7 +389,7 @@ public:
     /* @brief return the maximum grade of all segments as a fraction of zRange/length2D
      * @param[out] maxJump The maximum vertical jump (with grade infinity)
      */
-    double getMaxGrade(double &maxJump) const;
+    double getMaxGrade(double& maxJump) const;
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect

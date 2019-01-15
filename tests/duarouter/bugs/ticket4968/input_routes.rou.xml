@@ -1,0 +1,9 @@
+<routes>
+    <vehicle id="test" depart="0">
+        <route edges="152331#0 152331#1 152331#2"/>
+    </vehicle>
+
+    <vehicle id="test2" depart="0">
+        <route edges="152331#0 152406 152331#2"/>
+    </vehicle>
+</routes>

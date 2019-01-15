@@ -25,14 +25,14 @@
 -->
 
 <edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89"/>
-    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="CE" from="C" to="E" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="27.78"/>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="22.22"/>
+    <edge id="CW" from="C" to="W" priority="1" numLanes="2" speed="27.78"/>
+    <edge id="EC" from="E" to="C" priority="1" numLanes="2" speed="13.89"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="27.78"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="22.22"/>
+    <edge id="WC" from="W" to="C" priority="1" numLanes="2" speed="27.78"/>
     <edge id="EE2" from="E" to="E2" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="E2E3" from="E2" to="E3" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="E3E4" from="E3" to="E4" priority="-1" numLanes="1" speed="13.89"/>

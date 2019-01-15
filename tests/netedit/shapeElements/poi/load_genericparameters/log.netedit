@@ -1,6 +1,0 @@
-Error: Attribute 'key' is missing in definition of a param.
-Error: '<' character cannot be used in attribute value 'value'; use &lt; instead
- In file 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Aug100027.3720/netedit.gui/shapeElements/poi/load_genericparameters\input_shapes.add.xml'
- At line/column 21/32.
-
-Error: Loading of shapes failed.

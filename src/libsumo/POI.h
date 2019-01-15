@@ -37,7 +37,7 @@ class NamedRTree;
 class PointOfInterest;
 class PositionVector;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 
@@ -56,7 +56,7 @@ public:
     static std::string getType(const std::string& poiID);
     static TraCIPosition getPosition(const std::string& poiID, const bool includeZ = false);
     static TraCIColor getColor(const std::string& poiID);
-    static std::string getParameter(const std::string& poiID, const std::string& param);
+    static std::string getParameter(const std::string& poiID, const std::string& key);
 
     static void setType(const std::string& poiID, const std::string& setType);
     static void setColor(const std::string& poiID, const TraCIColor& c);
@@ -64,7 +64,7 @@ public:
     static bool add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType = "", int layer = 0);
     static bool remove(const std::string& poiID, int layer = 0);
 
-    static void setParameter(const std::string& poiID, const std::string& param, const std::string& value);
+    static void setParameter(const std::string& poiID, const std::string& key, const std::string& value);
 
     LIBSUMO_SUBSCRIPTION_API
 

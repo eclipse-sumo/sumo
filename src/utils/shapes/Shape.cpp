@@ -30,6 +30,7 @@
 // ===========================================================================
 const std::string Shape::DEFAULT_TYPE = "";
 const double Shape::DEFAULT_LAYER = 128;
+const double Shape::DEFAULT_LINEWIDTH = 1;
 const double Shape::DEFAULT_LAYER_POI = (double)GLO_POI;
 const double Shape::DEFAULT_ANGLE = 0;
 const std::string Shape::DEFAULT_IMG_FILE = "";

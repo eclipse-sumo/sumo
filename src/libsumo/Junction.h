@@ -37,7 +37,7 @@ class NamedRTree;
 class MSJunction;
 class PositionVector;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 
@@ -53,7 +53,7 @@ class Junction {
 public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
-    static TraCIPosition getPosition(const std::string& junctionID, const bool includeZ=false);
+    static TraCIPosition getPosition(const std::string& junctionID, const bool includeZ = false);
     static TraCIPositionVector getShape(const std::string& junctionID);
 
     LIBSUMO_SUBSCRIPTION_API

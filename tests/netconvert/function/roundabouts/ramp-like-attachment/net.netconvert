@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:44 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-457861.70,-3113414.12" convBoundary="0.00,0.00,1081.10,724.10" origBoundary="-15.485060,28.109214,-15.398371,28.170442" projParameter="+proj=utm +zone=28 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -151,7 +151,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="cluster_1877878502_1907731767" type="dead_end" x="779.86" y="483.76" incLanes="" intLanes="" shape="780.96,483.95 777.81,483.40"/>
     <junction id="cluster_1907731754_338287766" type="dead_end" x="806.20" y="488.69" incLanes="177338975_0" intLanes="" shape="808.21,489.19 805.10,488.42"/>
 
-    <connection from="177338976" to="30417941#5" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="177338976" to="30417941#5" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="177338976" to="30417941#5" fromLane="0" toLane="1" dir="s" state="m"/>
     <connection from="205013617#1" to="38922730#0" fromLane="0" toLane="0" dir="R" state="m"/>
     <connection from="205013617#1" to="30417941#2" fromLane="0" toLane="0" dir="s" state="m"/>
@@ -181,7 +181,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="30534383#2" to="205013609#0" fromLane="0" toLane="0" dir="R" state="m"/>
     <connection from="30534383#2" to="30417941#1" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="30534383#2" to="30417941#1" fromLane="1" toLane="1" dir="s" state="m"/>
-    <connection from="324041278#5" to="30417941#3" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="324041278#5" to="30417941#3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="324041278#5" to="30417941#3" fromLane="0" toLane="1" dir="s" state="m"/>
 
     <roundabout nodes="2149919279 335691176 335691178 335691182 492500988 492500994" edges="30417941#1 30417941#2 30417941#3 30417941#4 30417941#5 30417941#6"/>

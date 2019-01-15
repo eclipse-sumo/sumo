@@ -20,14 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include "GNEFrame.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
 
 // ===========================================================================
 // class definitions
@@ -44,11 +37,11 @@ public:
     // class DeleteOptions
     // ===========================================================================
 
-    class DeleteOptions : public FXGroupBox {
+    class DeleteOptions : protected FXGroupBox {
 
     public:
         /// @brief constructor
-        DeleteOptions(GNEDeleteFrame *deleteFrameParent);
+        DeleteOptions(GNEDeleteFrame* deleteFrameParent);
 
         /// @brief destructor
         ~DeleteOptions();
@@ -61,7 +54,7 @@ public:
 
     private:
         /// @brief pointer to delete Frame Parent
-        GNEDeleteFrame * myDeleteFrameParent;
+        GNEDeleteFrame* myDeleteFrameParent;
 
         /// @brief checkbox for enable/disable automatically delete additionals childs
         FXCheckButton* myForceDeleteAdditionals;
@@ -90,12 +83,12 @@ public:
 
     /**@brief remove attribute carrier (element)
      * @param ac Attribute Carrier to remove
-     * @param ignoreOptions ignore delete options and ALWAYS remove AC 
+     * @param ignoreOptions ignore delete options and ALWAYS remove AC
      */
     void removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptions = false);
 
     /// @brief get delete options
-    DeleteOptions *getDeleteOptions() const;
+    DeleteOptions* getDeleteOptions() const;
 
 private:
     /// @brief modul for delete options

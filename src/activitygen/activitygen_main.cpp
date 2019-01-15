@@ -69,7 +69,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         throw ProcessError("The network file '" + file + "' could not be accessed.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading net");
-    RONetHandler handler(toFill, eb, true);
+    RONetHandler handler(toFill, eb, true, 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();
@@ -93,7 +93,7 @@ main(int argc, char* argv[]) {
     oc.setApplicationName("activitygen", "Eclipse SUMO activitygen Version " VERSION_STRING);
     oc.addCopyrightNotice("Copyright (C) 2010-2012 Technische Universitaet Muenchen");
     int ret = 0;
-    RONet* net = 0;
+    RONet* net = nullptr;
     try {
         // Initialise subsystems and process options
         XMLSubSys::init();

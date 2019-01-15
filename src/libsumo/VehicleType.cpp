@@ -345,7 +345,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(VehicleType, VEHICLETYPE)
 MSVehicleType*
 VehicleType::getVType(std::string id) {
     MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(id);
-    if (t == 0) {
+    if (t == nullptr) {
         throw TraCIException("Vehicle type '" + id + "' is not known");
     }
     return t;
@@ -361,54 +361,54 @@ VehicleType::makeWrapper() {
 bool
 VehicleType::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-    case ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getIDList());
-    case ID_COUNT:
-        return wrapper->wrapInt(objID, variable, getIDCount());
-    case VAR_LENGTH:
-        return wrapper->wrapDouble(objID, variable, getLength(objID));
-    case VAR_HEIGHT:
-        return wrapper->wrapDouble(objID, variable, getHeight(objID));
-    case VAR_MINGAP:
-        return wrapper->wrapDouble(objID, variable, getMinGap(objID));
-    case VAR_MAXSPEED:
-        return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
-    case VAR_ACCEL:
-        return wrapper->wrapDouble(objID, variable, getAccel(objID));
-    case VAR_DECEL:
-        return wrapper->wrapDouble(objID, variable, getDecel(objID));
-    case VAR_EMERGENCY_DECEL:
-        return wrapper->wrapDouble(objID, variable, getEmergencyDecel(objID));
-    case VAR_APPARENT_DECEL:
-        return wrapper->wrapDouble(objID, variable, getApparentDecel(objID));
-    case VAR_ACTIONSTEPLENGTH:
-        return wrapper->wrapDouble(objID, variable, getActionStepLength(objID));
-    case VAR_IMPERFECTION:
-        return wrapper->wrapDouble(objID, variable, getImperfection(objID));
-    case VAR_TAU:
-        return wrapper->wrapDouble(objID, variable, getTau(objID));
-    case VAR_SPEED_FACTOR:
-        return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
-    case VAR_SPEED_DEVIATION:
-        return wrapper->wrapDouble(objID, variable, getSpeedDeviation(objID));
-    case VAR_VEHICLECLASS:
-        return wrapper->wrapString(objID, variable, getVehicleClass(objID));
-    case VAR_EMISSIONCLASS:
-        return wrapper->wrapString(objID, variable, getEmissionClass(objID));
-    case VAR_SHAPECLASS:
-        return wrapper->wrapString(objID, variable, getShapeClass(objID));
-    case VAR_WIDTH:
-        return wrapper->wrapDouble(objID, variable, getWidth(objID));
-    case VAR_COLOR:
-        return wrapper->wrapColor(objID, variable, getColor(objID));
-    case VAR_MINGAP_LAT:
-        return wrapper->wrapDouble(objID, variable, getMinGapLat(objID));
-    case VAR_MAXSPEED_LAT:
-        return wrapper->wrapDouble(objID, variable, getMaxSpeedLat(objID));
-    case VAR_LATALIGNMENT:
-        return wrapper->wrapString(objID, variable, getLateralAlignment(objID));
-    default:
-        return false;
+        case TRACI_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_LENGTH:
+            return wrapper->wrapDouble(objID, variable, getLength(objID));
+        case VAR_HEIGHT:
+            return wrapper->wrapDouble(objID, variable, getHeight(objID));
+        case VAR_MINGAP:
+            return wrapper->wrapDouble(objID, variable, getMinGap(objID));
+        case VAR_MAXSPEED:
+            return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+        case VAR_ACCEL:
+            return wrapper->wrapDouble(objID, variable, getAccel(objID));
+        case VAR_DECEL:
+            return wrapper->wrapDouble(objID, variable, getDecel(objID));
+        case VAR_EMERGENCY_DECEL:
+            return wrapper->wrapDouble(objID, variable, getEmergencyDecel(objID));
+        case VAR_APPARENT_DECEL:
+            return wrapper->wrapDouble(objID, variable, getApparentDecel(objID));
+        case VAR_ACTIONSTEPLENGTH:
+            return wrapper->wrapDouble(objID, variable, getActionStepLength(objID));
+        case VAR_IMPERFECTION:
+            return wrapper->wrapDouble(objID, variable, getImperfection(objID));
+        case VAR_TAU:
+            return wrapper->wrapDouble(objID, variable, getTau(objID));
+        case VAR_SPEED_FACTOR:
+            return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
+        case VAR_SPEED_DEVIATION:
+            return wrapper->wrapDouble(objID, variable, getSpeedDeviation(objID));
+        case VAR_VEHICLECLASS:
+            return wrapper->wrapString(objID, variable, getVehicleClass(objID));
+        case VAR_EMISSIONCLASS:
+            return wrapper->wrapString(objID, variable, getEmissionClass(objID));
+        case VAR_SHAPECLASS:
+            return wrapper->wrapString(objID, variable, getShapeClass(objID));
+        case VAR_WIDTH:
+            return wrapper->wrapDouble(objID, variable, getWidth(objID));
+        case VAR_COLOR:
+            return wrapper->wrapColor(objID, variable, getColor(objID));
+        case VAR_MINGAP_LAT:
+            return wrapper->wrapDouble(objID, variable, getMinGapLat(objID));
+        case VAR_MAXSPEED_LAT:
+            return wrapper->wrapDouble(objID, variable, getMaxSpeedLat(objID));
+        case VAR_LATALIGNMENT:
+            return wrapper->wrapString(objID, variable, getLateralAlignment(objID));
+        default:
+            return false;
     }
 }
 

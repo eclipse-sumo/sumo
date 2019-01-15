@@ -25,16 +25,11 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <iostream>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/options/OptionsCont.h>
-
-#include "GNEUndoList.h"
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/common/MsgHandler.h>
+
 #include "GNEApplicationWindow.h"
+#include "GNEUndoList.h"
 
 
 // ===========================================================================
@@ -157,7 +152,7 @@ GNEUndoList::currentCommandGroupSize() const {
 long
 GNEUndoList::p_onUpdUndo(FXObject* sender, FXSelector, void*) {
     bool enable = canUndo() && !hasCommandGroup();
-    sender->handle(this, enable ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
+    sender->handle(this, enable ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     FXString caption = undoName();
     if (hasCommandGroup()) {
         caption = ("Cannot Undo in the middle of " + myCommandGroups.top()->getDescription()).c_str();
@@ -175,7 +170,7 @@ GNEUndoList::p_onUpdUndo(FXObject* sender, FXSelector, void*) {
 long
 GNEUndoList::p_onUpdRedo(FXObject* sender, FXSelector, void*) {
     bool enable = canRedo() && !hasCommandGroup();
-    sender->handle(this, enable ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), 0);
+    sender->handle(this, enable ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     FXString caption = redoName();
     if (hasCommandGroup()) {
         caption = ("Cannot Redo in the middle of " + myCommandGroups.top()->getDescription()).c_str();

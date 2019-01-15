@@ -51,13 +51,13 @@
 MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                      MSVehicleType* type, const double speedFactor) :
     MSBaseVehicle(pars, route, type, speedFactor),
-    mySegment(0),
+    mySegment(nullptr),
     myQueIndex(0),
     myEventTime(SUMOTime_MIN),
     myLastEntryTime(SUMOTime_MIN),
     myBlockTime(SUMOTime_MAX) {
     if (!(*myCurrEdge)->isTazConnector()) {
-        if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == 0) {
+        if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == nullptr) {
             throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
         }
         if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
@@ -78,7 +78,7 @@ double
 MEVehicle::getPositionOnLane() const {
 // the following interpolation causes problems with arrivals and calibrators
 //    const double fracOnSegment = MIN2(double(1), STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - myLastEntryTime) / STEPS2TIME(myEventTime - myLastEntryTime));
-    return mySegment == 0 ? 0 : (double(mySegment->getIndex()) /* + fracOnSegment */) * mySegment->getLength();
+    return mySegment == nullptr ? 0 : (double(mySegment->getIndex()) /* + fracOnSegment */) * mySegment->getLength();
 }
 
 
@@ -157,14 +157,14 @@ bool
 MEVehicle::hasArrived() const {
     // mySegment may be 0 due to teleporting or arrival
     return myCurrEdge == myRoute->end() - 1 && (
-               (mySegment == 0)
+               (mySegment == nullptr)
                || myEventTime == SUMOTime_MIN
                || getPositionOnLane() > myArrivalPos - POSITION_EPS);
 }
 
 bool
 MEVehicle::isOnRoad() const {
-    return getSegment() != 0;
+    return getSegment() != nullptr;
 }
 
 
@@ -183,27 +183,27 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool 
     if (!onInit && !newRoute->contains(*myCurrEdge)) {
         return false;
     }
-    MSLink* oldLink = 0;
-    MSLink* newLink = 0;
-    if (mySegment != 0) {
+    MSLink* oldLink = nullptr;
+    MSLink* newLink = nullptr;
+    if (mySegment != nullptr) {
         oldLink = mySegment->getLink(this);
     }
     // rebuild in-vehicle route information
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
-        myCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);
+        myCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
     }
     // check whether the old route may be deleted (is not used by anyone else)
     newRoute->addReference();
     myRoute->release();
     // assign new route
     myRoute = newRoute;
-    if (mySegment != 0) {
+    if (mySegment != nullptr) {
         newLink = mySegment->getLink(this);
     }
     // update approaching vehicle information
-    if (oldLink != 0 && oldLink != newLink) {
+    if (oldLink != nullptr && oldLink != newLink) {
         oldLink->removeApproaching(this);
         MELoop::setApproaching(this, newLink);
     }
@@ -267,7 +267,7 @@ MEVehicle::getStoptime(const MESegment* const seg, SUMOTime time) const {
 }
 
 
-double 
+double
 MEVehicle::getCurrentStoppingTimeSeconds() const {
     return STEPS2TIME(getStoptime(mySegment, myLastEntryTime) - myLastEntryTime);
 }
@@ -280,7 +280,7 @@ MEVehicle::getStopEdges() const {
 }
 
 
-void 
+void
 MEVehicle::processStop() {
     assert(isStopped());
     MSEdge* edge = const_cast<MSEdge*>(getEdge());
@@ -300,7 +300,7 @@ MEVehicle::processStop() {
             net->getContainerControl().loadAnyWaiting(edge, this, stop, started, dummyDuration);
         }
         MSDevice_Vehroutes* vehroutes = static_cast<MSDevice_Vehroutes*>(getDevice(typeid(MSDevice_Vehroutes)));
-        if (vehroutes != 0) {
+        if (vehroutes != nullptr) {
             vehroutes->stopEnded(stop);
         }
         if (MSStopOut::active()) {
@@ -313,13 +313,13 @@ MEVehicle::processStop() {
 
 bool
 MEVehicle::mayProceed() const {
-    return mySegment == 0 || mySegment->isOpen(this);
+    return mySegment == nullptr || mySegment->isOpen(this);
 }
 
 
 double
 MEVehicle::getCurrentLinkPenaltySeconds() const {
-    if (mySegment == 0) {
+    if (mySegment == nullptr) {
         return 0;
     } else {
         return STEPS2TIME(mySegment->getLinkPenalty(this));
@@ -386,7 +386,7 @@ MEVehicle::saveState(OutputDevice& out) {
     std::vector<SUMOTime> internals;
     internals.push_back(myDeparture);
     internals.push_back((SUMOTime)distance(myRoute->begin(), myCurrEdge));
-    internals.push_back(mySegment == 0 ? (SUMOTime) - 1 : (SUMOTime)mySegment->getIndex());
+    internals.push_back(mySegment == nullptr ? (SUMOTime) - 1 : (SUMOTime)mySegment->getIndex());
     internals.push_back((SUMOTime)getQueIndex());
     internals.push_back(myEventTime);
     internals.push_back(myLastEntryTime);
@@ -399,8 +399,8 @@ MEVehicle::saveState(OutputDevice& out) {
         }
     }
     myParameter->writeParams(out);
-    for (std::vector<MSDevice*>::const_iterator dev = myDevices.begin(); dev != myDevices.end(); ++dev) {
-        (*dev)->saveState(out);
+    for (MSDevice* dev : myDevices) {
+        dev->saveState(out);
     }
     out.closeTag();
 }
@@ -436,9 +436,9 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             setSegment(seg, queIndex);
         } else {
             // on teleport
-            setSegment(0, 0);
+            setSegment(nullptr, 0);
             assert(myEventTime != SUMOTime_MIN);
-            MSGlobals::gMesoNet->addLeaderCar(this, 0);
+            MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
         }
     }
     if (myBlockTime != SUMOTime_MAX) {

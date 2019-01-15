@@ -23,7 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSDevice.h"
+#include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
 
 
@@ -44,7 +44,7 @@ class SUMOVehicle;
  *
  * @see MSDevice
  */
-class MSDevice_Bluelight : public MSDevice {
+class MSDevice_Bluelight : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_Bluelight-options
      * @param[filled] oc The options container to add the options to
@@ -62,7 +62,7 @@ public:
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 
 
@@ -145,10 +145,10 @@ private:
 
 
 private:
-    // @brief collects all vehicleIDs which had to react to the emergency vehicle 
+    // @brief collects all vehicleIDs which had to react to the emergency vehicle
     std::set<std::string> influencedVehicles;
 
-    // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle 
+    // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle
     std::map<std::string, std::string> influencedTypes;
 
     /// @brief a value which is initialised based on a commandline/configuration option

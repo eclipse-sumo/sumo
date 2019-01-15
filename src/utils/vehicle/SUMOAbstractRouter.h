@@ -45,6 +45,49 @@
 template<class E, class V>
 class SUMOAbstractRouter {
 public:
+    /**
+    * @class EdgeInfo
+    * A definition about a route's edge with the effort needed to reach it and
+    *  the information about the previous edge.
+    */
+    class EdgeInfo {
+    public:
+        /// Constructor
+        EdgeInfo(const E* const e)
+            : edge(e), effort(std::numeric_limits<double>::max()),
+            heuristicEffort(std::numeric_limits<double>::max()),
+            leaveTime(0.), prev(nullptr), visited(false) {}
+
+        /// The current edge
+        const E* const edge;
+
+        /// Effort to reach the edge
+        double effort;
+
+        /// Estimated effort to reach the edge (effort + lower bound on remaining effort)
+        // only used by A*
+        double heuristicEffort;
+
+        /// The time the vehicle leaves the edge
+        double leaveTime;
+
+        /// The previous edge
+        const EdgeInfo* prev;
+
+        /// The previous edge
+        bool visited;
+
+        inline void reset() {
+            effort = std::numeric_limits<double>::max();
+            visited = false;
+        }
+
+    private:
+        /// @brief Invalidated assignment operator
+        EdgeInfo& operator=(const EdgeInfo& s) = delete;
+
+    };
+
     /// Type of the function that is used to retrieve the edge effort.
     typedef double(* Operation)(const E* const, const V* const, double);
 
@@ -72,7 +115,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
-        SUMOTime msTime, std::vector<const E*>& into) = 0;
+                         SUMOTime msTime, std::vector<const E*>& into) = 0;
 
     virtual bool isProhibited(const E* const /* edge */, const V* const /* vehicle */) const  {
         return false;
@@ -82,36 +125,47 @@ public:
         return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
     }
 
-    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort) const {
-        for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
-            if (follower.first == e) {
-                const E* viaEdge = follower.second;
-                while (viaEdge != nullptr && viaEdge != e) {
-                    const double viaEffortDelta = this->getEffort(viaEdge, v, time);
-                    time += getTravelTime(viaEdge, v, time, viaEffortDelta);
-                    effort += viaEffortDelta;
-                    viaEdge = viaEdge->getViaSuccessors().front().first;
-                }
-                break;
-            }
+    inline void updateViaEdgeCost(const E* viaEdge, const V* const v, double& time, double& effort, double& length) const {
+        while (viaEdge != nullptr && viaEdge->isInternal()) {
+            const double viaEffortDelta = this->getEffort(viaEdge, v, time);
+            time += getTravelTime(viaEdge, v, time, viaEffortDelta);
+            effort += viaEffortDelta;
+            length += viaEdge->getLength();
+            viaEdge = viaEdge->getViaSuccessors().front().second;
         }
     }
 
+    inline void updateViaCost(const E* const prev, const E* const e, const V* const v, double& time, double& effort, double& length) const {
+        if (prev != nullptr) {
+            for (const std::pair<const E*, const E*>& follower : prev->getViaSuccessors()) {
+                if (follower.first == e) {
+                    updateViaEdgeCost(follower.second, v, time, effort, length);
+                    break;
+                }
+            }
+        }
+        const double effortDelta = this->getEffort(e, v, time);
+        effort += effortDelta;
+        time += getTravelTime(e, v, time, effortDelta);
+        length += e->getLength();
+    }
 
-    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime) const {
-        double effort = 0.;
+
+    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp=nullptr) const {
         double time = STEPS2TIME(msTime);
+        double effort = 0.;
+        double length = 0.;
+        if (lengthp == nullptr) {
+            lengthp = &length;
+        } else {
+            *lengthp = 0.;
+        }
         const E* prev = nullptr;
         for (const E* const e : edges) {
             if (isProhibited(e, v)) {
                 return -1;
             }
-            if (prev != nullptr) {
-                updateViaCost(prev, e, v, time, effort);
-            }
-            const double effortDelta = this->getEffort(e, v, time);
-            effort += effortDelta;
-            time += getTravelTime(e, v, time, effortDelta);
+            updateViaCost(prev, e, v, time, effort, *lengthp);
             prev = e;
         }
         return effort;
@@ -194,4 +248,3 @@ protected:
 #endif
 
 /****************************************************************************/
-

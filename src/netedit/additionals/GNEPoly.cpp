@@ -20,36 +20,17 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include <string>
-#include <utility>
 #include <utils/common/StringTokenizer.h>
-#include <utils/foxtools/MFXImageHelper.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/xml/XMLSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <netimport/NIImporter_SUMO.h>
-#include <netwrite/NWWriter_SUMO.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEPoly.h"
 
@@ -59,16 +40,16 @@
 // ===========================================================================
 
 const double GNEPoly::myHintSize = 0.8;
-const double GNEPoly::myHintSizeSquared = 0.64;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill,
+GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
-    GUIPolygon(id, type, color, shape, geo, fill, layer, angle, imgFile, relativePath),
-    GNEShape(net, SUMO_TAG_POLY, movementBlocked, shapeBlocked),
+    GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
+    GNEShape(net, SUMO_TAG_POLY, movementBlocked),
     myNetElementShapeEdited(nullptr),
+    myBlockShape(shapeBlocked),
     myClosedShape(shape.front() == shape.back()),
     mySimplifiedShape(false),
     myCurrentMovingVertexIndex(-1) {
@@ -87,6 +68,29 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 GNEPoly::~GNEPoly() {}
 
 
+void
+GNEPoly::startGeometryMoving() {
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
+}
+
+
+void
+GNEPoly::endGeometryMoving() {
+    // check that endGeometryMoving was called only once
+    if (myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // update geometry without updating grid
+        updateGeometry(false);
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
+    }
+}
+
+
 int
 GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
     // only move shape if block movement block shape are disabled
@@ -95,32 +99,21 @@ GNEPoly::moveVertexShape(const int index, const Position& oldPos, const Position
         if (index < (int)myShape.size()) {
             // save current moving Geometry Point
             myCurrentMovingVertexIndex = index;
-            // Declare value for saving Z value (needed because movement is only in X-Y)
-            double zValue = 0;
             // if closed shape and cliked is first or last, move both giving more priority to first always
             if (myClosedShape && (index == 0 || index == (int)myShape.size() - 1)) {
-                // save Z value of first shape Geometry Point
-                zValue = myShape.front().z();
-                // Change position of first shape Geometry Point
+                // Change position of first shape Geometry Point and filtern position using snap to active grid
                 myShape.front() = oldPos;
                 myShape.front().add(offset);
-                // restore Z value of first shape Geometry Point
-                myShape.front().setz(zValue);
-                // save Z value of last shape Geometry Point
-                zValue = myShape.back().z();
-                // Change position of last shape Geometry Point
+                myShape.front() = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
+                // Change position of last shape Geometry Point and filtern position using snap to active grid
                 myShape.back() = oldPos;
                 myShape.back().add(offset);
-                // restore Z value of last shape Geometry Point
-                myShape.back().setz(zValue);
+                myShape.back() = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
             } else {
-                // save Z value of Geometry Point
-                zValue = myShape.back().z();
-                // change position of Geometry Point
+                // change position of Geometry Point and filtern position using snap to active grid
                 myShape[index] = oldPos;
                 myShape[index].add(offset);
-                // restore Z value of Geometry Point
-                myShape.back().setz(zValue);
+                myShape[index] = myNet->getViewNet()->snapToActiveGrid(myShape[index]);
             }
             // return index of moved Geometry Point
             return index;
@@ -171,7 +164,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         // only use GNEChange_Attribute if we aren't editing a junction's shape
         if (myNetElementShapeEdited == nullptr) {
             // commit new shape
-            undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + toString(getTag()));
+            undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
             undoList->p_end();
         } else {
@@ -222,9 +215,9 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     // build selection and show parameters menu
-    buildSelectionPopupEntry(ret);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
-    FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", 0, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
+    FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
     if (mySimplifiedShape || myShape.size() <= 2) {
         simplifyShape->disable();
@@ -232,16 +225,16 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create open or close polygon's shape only if myNetElementShapeEdited is nullptr
     if (myNetElementShapeEdited == nullptr) {
         if (myClosedShape) {
-            new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", 0, &parent, MID_GNE_POLYGON_OPEN);
+            new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
         } else {
-            new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", 0, &parent, MID_GNE_POLYGON_CLOSE);
+            new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
         }
     }
     // create a extra FXMenuCommand if mouse is over a vertex
-    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
+    int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false, false);
     if (index != -1) {
-        FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", 0, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
-        FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", 0, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
+        FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
+        FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
         if ((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 2))) {
             removeGeometryPoint->disable();
@@ -263,34 +256,39 @@ GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNEPoly::getCenteringBoundary() const {
-    return GUIPolygon::getCenteringBoundary();
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
+    }  else {
+        return GUIPolygon::getCenteringBoundary();
+    }
 }
 
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
-/*
-    // first call function mouseOverObject  (to check if this object is under cursor)
-    // @note currently disabled. It will be implemented in an different ticket of #2905
-    mouseOverObject(s);
-*/
-    // simply use GUIPolygon::drawGL
-    GUIPolygon::drawGL(s);
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
-    // push matrix
+    // push name (needed for getGUIGlObjectsUnderCursor(...)
     glPushName(getGlID());
+    // first check if inner polygon can be drawn
+    if(checkDraw(s)) {
+        drawInnerPolygon(s);
+    }
+    // draw details of Netedit
+    double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
+    double circleWidthSquared = circleWidth * circleWidth;
+    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // draw geometry details hints if is not too small and isn't in selecting mode
-    if (s.scale * myHintSize > 1.) {
+    if (s.scale * circleWidth > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
-        bool modeMove = myNet->getViewNet()->getCurrentEditMode() == GNE_MODE_MOVE;
+        bool modeMove = myNet->getViewNet()->getCurrentNetworkEditMode() == GNE_NMODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
         if (isAttributeCarrierSelected()) {
-            invertedColor = myNet->selectionColor.invertedColor();
-            darkerColor = myNet->selectedLaneColor;
+            invertedColor = s.selectionColor.invertedColor();
+            darkerColor = s.selectionColor.changedBrightness(-32);
         } else {
             invertedColor = GLHelper::getColor().invertedColor();
             darkerColor = GLHelper::getColor().changedBrightness(-32);
@@ -301,52 +299,61 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             glTranslated(0, 0, GLO_POLYGON + 0.01);
             GLHelper::setColor(darkerColor);
-            GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s));
+            GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
             glPopMatrix();
             // draw points of shape
             for (auto i : myShape) {
-                if(!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo(i) <= (myHintSizeSquared + 2))) {
+                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(i) <= (circleWidthSquared + 2))) {
                     glPushMatrix();
                     glTranslated(i.x(), i.y(), GLO_POLYGON + 0.02);
                     // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                    if (modeMove && (i.distanceTo(mousePosition) < myHintSize)) {
+                    if (modeMove && (i.distanceTo(mousePosition) < circleWidth)) {
                         mouseOverVertex = true;
                         GLHelper::setColor(invertedColor);
                     } else {
                         GLHelper::setColor(darkerColor);
                     }
-                    GLHelper::drawFilledCircle(myHintSize, circleResolution);
+                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
-                    // draw special symbols (Start, End and Block)
-                    if ((i == myShape.front()) && !s.drawForSelecting) {
+                    // draw elevation or special symbols (Start, End and Block)
+                    if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+                        // Push matrix
+                        glPushMatrix();
+                        // Traslate to center of detector
+                        glTranslated(i.x(), i.y(), getType() + 1);
+                        // draw Z
+                        GLHelper::drawText(toString(i.z()), Position(), .1, 0.7, RGBColor::BLUE);
+                        // pop matrix
+                        glPopMatrix();
+                    } else if ((i == myShape.front()) && !s.drawForSelecting) {
                         // draw a "s" over first point
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("S", Position(), .1, 2 * myHintSize, invertedColor);
+                        GLHelper::drawText("S", Position(), .1, 2 * circleWidth, invertedColor);
                         glPopMatrix();
                     } else if ((i == myShape.back()) && (myClosedShape == false) && !s.drawForSelecting) {
                         // draw a "e" over last point if polygon isn't closed
                         glPushMatrix();
                         glTranslated(i.x(), i.y(), GLO_POLYGON + 0.03);
-                        GLHelper::drawText("E", Position(), .1, 2 * myHintSize, invertedColor);
+                        GLHelper::drawText("E", Position(), .1, 2 * circleWidth, invertedColor);
                         glPopMatrix();
                     }
                 }
             }
             // check if draw moving hint has to be drawed
-            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
+            if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < circleWidth)) {
                 // push matrix
                 glPushMatrix();
                 Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
                 glTranslated(hintPos.x(), hintPos.y(), GLO_POLYGON + 0.04);
                 GLHelper::setColor(invertedColor);
-                GLHelper:: drawFilledCircle(myHintSize, circleResolution);
+                GLHelper:: drawFilledCircle(circleWidth, circleResolution);
                 glPopMatrix();
             }
         }
     }
     // check if dotted contour has to be drawn
-    if(myNet->getViewNet()->getACUnderCursor() == this) {
+    if (myNet->getViewNet()->getDottedAC() == this) {
         GLHelper::drawShapeDottedContour(getType(), getShape());
     }
     // pop name
@@ -355,7 +362,11 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
 
 
 int
-GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
+GNEPoly::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
+    }
     // first check if vertex already exists
     for (auto i : myShape) {
         if (i.distanceTo2D(pos) < myHintSize) {
@@ -363,7 +374,7 @@ GNEPoly::getVertexIndex(const Position& pos, bool createIfNoExist) {
         }
     }
     // if vertex doesn't exist, insert it
-    if (createIfNoExist && (myShape.distance2D(pos) < myHintSize)) {
+    if (createIfNoExist) {
         return myShape.insertAtClosest(pos);
     } else {
         return -1;
@@ -378,10 +389,10 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         PositionVector modifiedShape = myShape;
         int index = modifiedShape.indexOfClosest(pos);
         // remove point dependending of
-        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1)) {
+        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1) && (myShape.size() > 2)) {
             modifiedShape.erase(modifiedShape.begin());
             modifiedShape.erase(modifiedShape.end() - 1);
-            myShape.push_back(modifiedShape.front());
+            modifiedShape.push_back(modifiedShape.front());
         } else {
             modifiedShape.erase(modifiedShape.begin() + index);
         }
@@ -405,6 +416,12 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
     } else {
         WRITE_WARNING("Number of remaining points insufficient")
     }
+}
+
+
+bool
+GNEPoly::isPolygonBlocked() const {
+    return myBlockShape;
 }
 
 
@@ -567,8 +584,10 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return toString(getShapeColor());
         case SUMO_ATTR_FILL:
             return toString(myFill);
+        case SUMO_ATTR_LINEWIDTH:
+            return toString(myLineWidth);
         case SUMO_ATTR_LAYER:
-            if(getShapeLayer() == Shape::DEFAULT_LAYER) {
+            if (getShapeLayer() == Shape::DEFAULT_LAYER) {
                 return "default";
             } else {
                 return toString(getShapeLayer());
@@ -594,7 +613,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -610,6 +629,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_GEOSHAPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_FILL:
+        case SUMO_ATTR_LINEWIDTH:
         case SUMO_ATTR_LAYER:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_IMGFILE:
@@ -624,7 +644,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -633,24 +653,27 @@ bool
 GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePolygon(value, false) == 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrievePolygon(value, false) == nullptr);
         case SUMO_ATTR_SHAPE:
-        case SUMO_ATTR_GEOSHAPE: {
-            bool ok = true;
-            // check if shape can be parsed
-            PositionVector shape = GeomConvHelper::parseShapeReporting(value, "user-supplied position", 0, ok, true);
-            return (shape.size() > 0);
-        }
+        case SUMO_ATTR_GEOSHAPE:
+            // empty shapes AREN'T allowed
+            if (value.empty()) {
+                return false;
+            } else {
+                return canParse<PositionVector>(value);
+            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_FILL:
             return canParse<bool>(value);
+        case SUMO_ATTR_LINEWIDTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LAYER:
-            if(value == "default") {
+            if (value == "default") {
                 return true;
             } else {
                 return canParse<double>(value);
-        }
+            }
         case SUMO_ATTR_TYPE:
             return true;
         case SUMO_ATTR_IMGFILE:
@@ -690,58 +713,12 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-bool 
-GNEPoly::addGenericParameter(const std::string &key, const std::string &value) {
-    if(!knowsParameter(key)) {
-        setParameter(key, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool 
-GNEPoly::removeGenericParameter(const std::string &key) {
-    if(knowsParameter(key)) {
-        unsetParameter(key);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool 
-GNEPoly::updateGenericParameter(const std::string &oldKey, const std::string &newKey) {
-    if(knowsParameter(oldKey) && !knowsParameter(newKey)) {
-        std::string value = getParameter(oldKey);
-        unsetParameter(oldKey);
-        setParameter(newKey, value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool 
-GNEPoly::updateGenericParameterValue(const std::string &key, const std::string &newValue) {
-    if(knowsParameter(key)) {
-        setParameter(key, newValue);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-std::string 
+std::string
 GNEPoly::getGenericParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -749,14 +726,14 @@ GNEPoly::getGenericParametersStr() const {
         result += i.first + "=" + i.second + "|";
     }
     // remove the last "|"
-    if(!result.empty()) {
+    if (!result.empty()) {
         result.pop_back();
     }
     return result;
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
+std::vector<std::pair<std::string, std::string> >
 GNEPoly::getGenericParameters() const {
     std::vector<std::pair<std::string, std::string> >  result;
     // iterate over parameters map and fill result
@@ -767,8 +744,8 @@ GNEPoly::getGenericParameters() const {
 }
 
 
-void 
-GNEPoly::setGenericParametersStr(const std::string &value) {
+void
+GNEPoly::setGenericParametersStr(const std::string& value) {
     // clear parameters
     clearParameter();
     // separate value in a vector of string using | as separator
@@ -777,15 +754,15 @@ GNEPoly::setGenericParametersStr(const std::string &value) {
     while (stValues.hasNext()) {
         parsedValues.push_back(stValues.next());
     }
-    // check that parsed values (A=B)can be parsed in generic parameters 
-    for(auto i : parsedValues) {
+    // check that parsed values (A=B)can be parsed in generic parameters
+    for (auto i : parsedValues) {
         std::vector<std::string> parsedParameters;
         StringTokenizer stParam(i, "=", true);
         while (stParam.hasNext()) {
             parsedParameters.push_back(stParam.next());
         }
         // Check that parsed parameters are exactly two and contains valid chracters
-        if(parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
+        if (parsedParameters.size() == 2 && SUMOXMLDefinitions::isValidGenericParameterKey(parsedParameters.front()) && SUMOXMLDefinitions::isValidGenericParameterValue(parsedParameters.back())) {
             setParameter(parsedParameters.front(), parsedParameters.back());
         }
     }
@@ -797,19 +774,21 @@ GNEPoly::setGenericParametersStr(const std::string &value) {
 
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
-    // first remove object from grid due almost modificactions affects to boundary
-    myNet->removeGLObjectFromGrid(this);
+    // first remove object from grid due almost modificactions affects to boundary (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        myNet->removeGLObjectFromGrid(this);
+    }
     switch (key) {
         case SUMO_ATTR_ID: {
             std::string oldID = myID;
             myID = value;
             myNet->changeShapeID(this, oldID);
+            setMicrosimID(value);
             break;
         }
         case SUMO_ATTR_SHAPE: {
-            bool ok = true;
             // set new shape
-            myShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            myShape = parse<PositionVector>(value);
             // set GEO shape
             myGeoShape = myShape;
             for (int i = 0; i < (int) myGeoShape.size(); i++) {
@@ -826,9 +805,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_GEOSHAPE: {
-            bool ok = true;
             // set new GEO shape
-            myGeoShape = GeomConvHelper::parseShapeReporting(value, "netedit-given", 0, ok, true);
+            myGeoShape = parse<PositionVector>(value);
             // set shape
             myShape = myGeoShape ;
             for (int i = 0; i < (int) myShape.size(); i++) {
@@ -850,11 +828,14 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);
             break;
+        case SUMO_ATTR_LINEWIDTH:
+            myLineWidth = parse<double>(value);
+            break;
         case SUMO_ATTR_LAYER:
-            if(value == "default") {
+            if (value == "default") {
                 setShapeLayer(Shape::DEFAULT_LAYER);
             } else {
-                setShapeLayer(parse<double>(value));            
+                setShapeLayer(parse<double>(value));
             }
             break;
         case SUMO_ATTR_TYPE:
@@ -893,7 +874,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             break;
         case GNE_ATTR_SELECTED:
-            if(parse<bool>(value)) {
+            if (parse<bool>(value)) {
                 selectAttributeCarrier();
             } else {
                 unselectAttributeCarrier();
@@ -903,20 +884,22 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // add object into grid again
-    myNet->addGLObjectIntoGrid(this);
+    // add object into grid again (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 
-void 
+void
 GNEPoly::mouseOverObject(const GUIVisualizationSettings&) const {
     // only continue if there isn't already a AC under cursor
-    if(myNet->getViewNet()->getACUnderCursor() == nullptr) {
+    if (myNet->getViewNet()->getDottedAC() == nullptr) {
         // check if cursor is within the shape
-        if(getShape().around(myNet->getViewNet()->getPositionInformation())) {
-            myNet->getViewNet()->setACUnderCursor(this);
+        if (getShape().around(myNet->getViewNet()->getPositionInformation())) {
+            myNet->getViewNet()->setDottedAC(this);
         }
     }
 }

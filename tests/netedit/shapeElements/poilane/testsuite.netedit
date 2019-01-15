@@ -5,29 +5,20 @@ create
 # delete poi
 delete
 
-# inspect shape
+# inspect poilanes
 inspect
 
-# inspect selection
-inspect_selection
-
-# inspect shape in a net with geo attributes
-inspect_geo
-
-# inspect selection  in a net with geo attributes
-inspect_selection_geo
+# inspect selected poilanes
+inspect_selected
 
 # load poi
-#load
-
-# load pois with generic parameters
-#load_genericparameters
+load
 
 # move poi
-#move
+move
 
 # lock/unlock poi
-#lock_unlock
+lock_unlock
 
 # volatile recomputing
 volatileRecomputing

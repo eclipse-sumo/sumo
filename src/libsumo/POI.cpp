@@ -78,8 +78,8 @@ POI::getPosition(const std::string& poiID, const bool includeZ) {
 
 
 std::string
-POI::getParameter(const std::string& poiID, const std::string& param) {
-    return getPoI(poiID)->getParameter(param, "");
+POI::getParameter(const std::string& poiID, const std::string& key) {
+    return getPoI(poiID)->getParameter(key, "");
 }
 
 
@@ -123,9 +123,9 @@ POI::remove(const std::string& poiID, int /* layer */) {
 
 
 void
-POI::setParameter(const std::string& poiID, const std::string& param, const std::string& value) {
+POI::setParameter(const std::string& poiID, const std::string& key, const std::string& value) {
     PointOfInterest* p = getPoI(poiID);
-    p->setParameter(param, value);
+    p->setParameter(key, value);
 }
 
 
@@ -170,20 +170,20 @@ POI::makeWrapper() {
 bool
 POI::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-    case ID_LIST:
-        return wrapper->wrapStringList(objID, variable, getIDList());
-    case ID_COUNT:
-        return wrapper->wrapInt(objID, variable, getIDCount());
-    case VAR_TYPE:
-        return wrapper->wrapString(objID, variable, getType(objID));
-    case VAR_COLOR:
-        return wrapper->wrapColor(objID, variable, getColor(objID));
-    case VAR_POSITION:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID));
-    case VAR_POSITION3D:
-        return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
-    default:
-        return false;
+        case TRACI_ID_LIST:
+            return wrapper->wrapStringList(objID, variable, getIDList());
+        case ID_COUNT:
+            return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_TYPE:
+            return wrapper->wrapString(objID, variable, getType(objID));
+        case VAR_COLOR:
+            return wrapper->wrapColor(objID, variable, getColor(objID));
+        case VAR_POSITION:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID));
+        case VAR_POSITION3D:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
+        default:
+            return false;
     }
 }
 

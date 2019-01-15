@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:00 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:54 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-19035.00,-25662.00" convBoundary="0.00,0.00,204.00,245.00" origBoundary="19035.00,25662.00,19239.00,25907.00" projParameter="!"/>
 
@@ -110,15 +110,15 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="15031746" type="dead_end" x="167.00" y="245.00" incLanes="15033072_0 15033072_1" intLanes="" shape="173.39,245.26 167.00,245.00"/>
     <junction id="15031747" type="traffic_light" x="168.00" y="220.00" incLanes="-15032465_0 15033074_0 153119827_0" intLanes=":15031747_0_0 :15031747_1_0 :15031747_9_0 :15031747_3_0 :15031747_4_0 :15031747_5_0 :15031747_6_0 :15031747_10_0 :15031747_11_0" shape="177.98,226.70 180.01,220.63 177.26,219.57 174.98,218.39 173.19,217.09 171.87,215.67 171.02,214.13 170.66,212.47 167.47,212.70 167.19,214.83 166.71,215.50 165.98,215.91 165.03,216.05 163.83,215.92 161.98,225.34 165.16,226.41 166.26,227.19 167.03,228.12 167.47,229.22 167.58,230.47 173.98,230.72 174.52,227.93 175.08,227.07 175.85,226.59 176.82,226.46">
-        <request index="0" response="000000000" foes="010010000" cont="0"/>
-        <request index="1" response="000000000" foes="110110000" cont="0"/>
+        <request index="0" response="000000000" foes="000000000" cont="0"/>
+        <request index="1" response="000000000" foes="010010000" cont="0"/>
         <request index="2" response="001001000" foes="001001000" cont="1"/>
         <request index="3" response="001000000" foes="001000100" cont="0"/>
-        <request index="4" response="011000011" foes="011000011" cont="0"/>
-        <request index="5" response="011000010" foes="111000010" cont="0"/>
+        <request index="4" response="011000010" foes="011000010" cont="0"/>
+        <request index="5" response="011000000" foes="111000000" cont="0"/>
         <request index="6" response="000000000" foes="000111100" cont="0"/>
-        <request index="7" response="000000011" foes="000110011" cont="1"/>
-        <request index="8" response="000100010" foes="000100010" cont="1"/>
+        <request index="7" response="000000010" foes="000110010" cont="1"/>
+        <request index="8" response="000100000" foes="000100000" cont="1"/>
     </junction>
     <junction id="15031812" type="priority" x="204.00" y="232.00" incLanes="15032465_0" intLanes=":15031812_0_0" shape="204.00,232.00 205.01,228.96 204.00,232.00">
         <request index="0" response="0" foes="0" cont="0"/>

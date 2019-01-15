@@ -34,7 +34,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/common/FileHelpers.h>
@@ -67,7 +67,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
-    FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS), NULL, GUIDesignChooserDialog),
+    FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
     myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     // build main Frame
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -204,7 +204,7 @@ long
 GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
     FXMutexLock lock(*myBreakpointLock);
     const FXTablePos* const i = (FXTablePos*) data;
-    const std::string value = myTable->getItemText(i->row, i->col).text();
+    const std::string value = StringUtils::prune(myTable->getItemText(i->row, i->col).text());
     // check whether the inserted value is empty
     const bool empty = value.find_first_not_of(" ") == std::string::npos;
     try {
@@ -231,5 +231,10 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
 }
 
 
+void 
+GUIDialog_Breakpoints::layout() {
+    FXMainWindow::layout();
+    myTable->setColumnWidth(0, myTable->getWidth() - 1);
+}
 /****************************************************************************/
 

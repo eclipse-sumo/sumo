@@ -132,9 +132,7 @@ public:
         Boundary b = o->getCenteringBoundary();
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
-            if(myTreeDebug.count(o) != 0) {
-                throw ProcessError("GUIGlObject " + o->getMicrosimID() + " was already inserted");
-            } else if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
+            if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
                 throw ProcessError("boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
             } else {
                 myTreeDebug[o] = b;
@@ -161,11 +159,9 @@ public:
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
         // show information in gui testing debug gl mode
-        if (MsgHandler::writeDebugGLMessages()) {
-            if(myTreeDebug.count(o) == 0) {
-                throw ProcessError("GUIGlObject " + o->getMicrosimID() + " wasn't inserted");
-            } else if (b != myTreeDebug.at(o)) {
-                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary");
+        if (MsgHandler::writeDebugGLMessages() && (myTreeDebug.count(o) != 0)) {
+            if (b != myTreeDebug.at(o)) {
+                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
             } else {
                 myTreeDebug.erase(o);
                 WRITE_GLDEBUG("Removed object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));

@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
 {114: (), 116: ('horiz',)}
@@ -36,40 +37,43 @@ min#expected 6
 teleportStart ()
 #teleportEnd 0
 teleportEnd ()
-deltaT 1
+deltaT 1.0
 boundary ((0.0, 0.0), (3500.0, 3904.56))
 convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
-convertRoadGeo (12.014678141843579, 48.121449189819344)
-convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
-convert2DGeo (12.02301890546728, 48.09105459770769)
-convertGeo2D (-1619.5653987218393, -9550.720807247795)
+convertRoadGeo (12.014678141837997, 48.121449189894975)
+convertRoadGeoAlt (12.014678141837997, 48.121449189894975, 2.0)
+convert2DGeo (12.023018905461857, 48.09105459778214)
+convertGeo2D (-1619.5653967780527, -9550.720808431506)
 convert2DRoad ('o', 2906.187593990786, 0)
-convertGeoRoad ('o', 1012.1563357397523, 0)
+convertGeoRoad ('o', 1012.1563378979615, 0)
 distance2D 10.0
 drivingDistance2D 6.48934198154
 distanceRoad 5131.87897232
 drivingDistanceRoad 5136.55
 clearing pending
 save simstate
-getParameter 0.00
+getParameter charginStation.totalEnergyCharged 0.00
+getParameter chargingStation.name megaCharger
 getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
+getParameter parkingArea.name DLR
+getParameter busStop.name Magnusstr.
 getBusStopWaiting 0
-findRoute Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, intended='', depart=-1.0)
-findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=1455.5902116141665, cost=1455.5902116141665, intended='', depart=-1.0)
-findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, intended='', depart=-1.0)]
+findRoute Stage(stageType=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, length=10268.43, intended='', depart=-1.0, departPos=6.95333454765983e-310, arrivalPos=6.9533345476796e-310, description='')
+findRoute with routing mode Stage(stageType=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=1455.5902116141665, cost=1455.5902116141665, length=10268.43, intended='', depart=-1.0, departPos=6.95333454765983e-310, arrivalPos=6.9533345476796e-310, description='')
+findIntermodalRoute [Stage(stageType=2, vType='', line='', destStop='', edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, length=300.0, intended='', depart=-1.0, departPos=0.0, arrivalPos=100.0, description='')]
 findIntermodalRoute (walk)
-  Stage(stageType=2, line='', destStop='', edges=('o', '2o'), travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)
+  Stage(stageType=2, vType='', line='', destStop='', edges=('o', '2o'), travelTime=2467.7865600000005, cost=2467.7865600000005, length=10243.43, intended='', depart=-1.0, departPos=25.0, arrivalPos=25.0, description='')
 
 findIntermodalRoute (bike)
-  Stage(stageType=3, line='bicycle', destStop='', edges=('o', '2o'), travelTime=1847.4768000000001, cost=1847.4768000000001, intended='bicycle', depart=-1.0)
+  Stage(stageType=3, vType='DEFAULT_BIKETYPE', line='bicycle', destStop='', edges=('o', '2o'), travelTime=1848.3174000000001, cost=1848.3174000000001, length=15375.310000000001, intended='bicycle', depart=-1.0, departPos=0.0, arrivalPos=25.0, description='')
 
 findIntermodalRoute (car)
-  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+  Stage(stageType=3, vType='DEFAULT_VEHTYPE', line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, length=15375.310000000001, intended='car', depart=-1.0, departPos=0.0, arrivalPos=25.0, description='')
 
 findIntermodalRoute (bike,car,public)
-  Stage(stageType=3, line='car', destStop='', edges=('o', '2o'), travelTime=738.4, cost=738.4, intended='car', depart=-1.0)
+  Stage(stageType=3, vType='DEFAULT_VEHTYPE', line='car', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, length=15375.310000000001, intended='car', depart=-1.0, departPos=0.0, arrivalPos=25.0, description='')
 
 step 0
 {114: (), 116: ()}

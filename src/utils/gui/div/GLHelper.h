@@ -32,6 +32,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+struct GUIVisualizationTextSettings;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -276,19 +282,19 @@ public:
                                   double tLength, double tWidth);
 
     /// @brief get dotted contour colors (black and white). Vector will be automatically increased if current size is minor than size
-    static const std::vector<RGBColor> &getDottedcontourColors(const int size);
+    static const std::vector<RGBColor>& getDottedcontourColors(const int size);
 
     /// @brief draw a dotted contour around the given Non closed shape with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector &shape, const double width);
+    static void drawShapeDottedContour(const int type, const PositionVector& shape, const double width);
 
     /// @brief draw a dotted contour around the given closed shape with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector &shape);
+    static void drawShapeDottedContour(const int type, const PositionVector& shape);
 
     /// @brief draw a dotted contour around the given non closed shapes with certain width
-    static void drawShapeDottedContour(const int type, const PositionVector &frontShape, const double offsetFrontShape, const PositionVector &backShape, const double offsetBackShape);
+    static void drawShapeDottedContour(const int type, const PositionVector& frontShape, const double offsetFrontShape, const PositionVector& backShape, const double offsetBackShape);
 
     /// @brief draw a dotted contour around the given Position with certain width and height
-    static void drawShapeDottedContour(const int type, const Position &center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
+    static void drawShapeDottedContour(const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
@@ -306,22 +312,31 @@ public:
                          int align = 0,
                          double width = -1);
 
+    static void drawTextSettings(
+            const GUIVisualizationTextSettings& settings,
+            const std::string& text, const Position& pos,
+            const double scale,
+            const double angle = 0,
+            const double layer = 2048); // GLO_MAX
+
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,
                             const double layer, const double size,
                             const RGBColor& txtColor = RGBColor::BLACK,
                             const RGBColor& bgColor = RGBColor::WHITE,
                             const RGBColor& borderColor = RGBColor::BLACK,
-                            const double angle = 0);
+                            const double angle = 0,
+                            const double relBorder = 0.05,
+                            const double relMargin = 0.5);
 
     /// @brief draw text and the end of shape
     static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color);
 
     /// @brief draw crossties for railroads or pedestrian crossings
     static void drawCrossTies(const PositionVector& geom,
-                       const std::vector<double>& rots,
-                       const std::vector<double>& lengths,
-                       double length, double spacing, double halfWidth, bool drawForSelecting ); 
+                              const std::vector<double>& rots,
+                              const std::vector<double>& lengths,
+                              double length, double spacing, double halfWidth, bool drawForSelecting);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);

@@ -64,7 +64,7 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel, FXGLCan
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
     FXComposite* c, GUIMainWindow& app,
     GUITLLogicPhasesTrackerWindow& parent)
-    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
+    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) nullptr, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
       myParent(&parent) {}
 
 
@@ -146,7 +146,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow& app,
     MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
     ValueSource<std::pair<SUMOTime, MSPhaseDefinition> >* src)
-    : FXMainWindow(app.getApp(), "TLS-Tracker", NULL, NULL, DECOR_ALL,
+    : FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL,
                    20, 20, 300, 200),
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
     // build the toolbar
@@ -160,11 +160,11 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myBeginOffset->setIncrement(10);
     myBeginOffset->setRange(60, 3600);
     myBeginOffset->setValue(240);
-    new FXLabel(myToolBar, "(s)", 0, LAYOUT_CENTER_Y);
+    new FXLabel(myToolBar, "(s)", nullptr, LAYOUT_CENTER_Y);
     //
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30);
-    app.addChild(this, true);
+    app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
@@ -184,14 +184,14 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow& app,
     MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& /*wrapper*/,
     const MSSimpleTrafficLightLogic::Phases& /*phases*/)
-    : FXMainWindow(app.getApp(), "TLS-Tracker", NULL, NULL, DECOR_ALL,
+    : FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL,
                    20, 20, 300, 200),
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
-      myToolBarDrag(0), myBeginOffset(0) {
-    myConnector = 0;
+      myToolBarDrag(nullptr), myBeginOffset(nullptr) {
+    myConnector = nullptr;
     FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
-    app.addChild(this, true);
+    app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
@@ -221,7 +221,7 @@ GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() {
 void
 GUITLLogicPhasesTrackerWindow::create() {
     FXMainWindow::create();
-    if (myToolBarDrag != 0) {
+    if (myToolBarDrag != nullptr) {
         myToolBarDrag->create();
     }
 }
@@ -239,7 +239,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         myDurations.clear();
         // insert phases
         MSSimpleTrafficLightLogic* simpleTLLogic = dynamic_cast<MSSimpleTrafficLightLogic*>(myTLLogic);
-        if (simpleTLLogic == 0) {
+        if (simpleTLLogic == nullptr) {
             return;
         }
         const MSSimpleTrafficLightLogic::Phases& phases = simpleTLLogic->getPhases();
@@ -404,7 +404,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     if (myPhases.size() != 0) {
         SUMOTime tickDist = TIME2STEPS(10);
         // patch distances - hack
-        double t = myBeginOffset != 0 ? (double) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
+        double t = myBeginOffset != nullptr ? (double) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
         while (t > barWidth / 4.) {
             tickDist += TIME2STEPS(10);
             t -= (double)(barWidth / 4.);

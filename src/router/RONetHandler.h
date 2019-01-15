@@ -57,7 +57,7 @@ public:
      * @param[in] net The network instance to fill
      * @param[in] eb The abstract edge builder to use
      */
-    RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal);
+    RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty);
 
 
     /// @brief Destructor
@@ -201,6 +201,8 @@ protected:
     /// @brief temporary data for checking node initialisation after network parsing is finished
     std::set<std::string> myUnseenNodeIDs;
 
+    /// @brief time penalty for passing a minor link
+    const double myMinorPenalty;
 
 private:
     /// @brief Invalidated copy constructor

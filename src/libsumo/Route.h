@@ -34,7 +34,7 @@
 // ===========================================================================
 class MSRoute;
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 

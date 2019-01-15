@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 17:09:57 2018 by Eclipse SUMO netconvert Version 1811d44
+<!-- generated on Thu Dec  6 21:23:27 2018 by Eclipse SUMO netconvert Version eeef47f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -76,6 +76,7 @@
     <processing>
         <speed-in-kmh value="false" type="BOOL" help="vmax is parsed as given in km/h (some)"/>
         <construction-date value="" type="STR" help="Use YYYY-MM-DD date to determine the readiness of features under construction"/>
+        <flatten value="false" type="BOOL" help="Remove all z-data"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
@@ -92,7 +93,9 @@
         <geometry.junction-mismatch-threshold value="20" type="FLOAT" help="Warn if the junction shape is to far away from the original node position"/>
         <geometry.check-overlap value="0" type="FLOAT" help="Warn if edges overlap by more than the given threshold value"/>
         <geometry.check-overlap.vertical-threshold value="4" type="FLOAT" help="Ignore overlapping edges if they are separated vertically by the given threshold."/>
-        <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT. The threshold applies to roads with a speed limit of 50km/h and is scaled according to road speed."/>
+        <geometry.avoid-overlap value="true" type="BOOL" help="Modify edge geometries to avoid overlap at junctions"/>
+        <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
+        <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
@@ -117,6 +120,7 @@
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
+        <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
     </building_defaults>
 
     <tls_building>
@@ -125,6 +129,7 @@
         <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
         <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
+        <tls.guess.threshold value="69.4444" type="FLOAT" help="Sets minimum value for the sum of all incoming lane speeds when guessing TLS"/>
         <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL" help="Sets district nodes as tls-controlled"/>
         <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
@@ -147,6 +152,7 @@
         <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
         <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
         <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm"/>
+        <tls.layout value="opposites" type="STR" help="Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;]"/>
         <tls.min-dur value="5" type="INT" help="Default minimum phase duration for traffic lights with variable phase length"/>
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
     </tls_building>
@@ -202,7 +208,7 @@
         <junctions.limit-turn-speed.min-angle value="15" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius."/>
         <junctions.limit-turn-speed.min-angle.railway value="35" type="FLOAT" help="Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius."/>
         <junctions.limit-turn-speed.warn.straight value="5" type="FLOAT" help="Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT"/>
-        <junctions.limit-turn-speed.warn.turn value="15" type="FLOAT" help="Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"/>
+        <junctions.limit-turn-speed.warn.turn value="22" type="FLOAT" help="Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"/>
         <junctions.small-radius value="1.5" type="FLOAT" help="Default radius for junctions that do not require wide vehicle turns"/>
         <rectangular-lane-cut value="false" type="BOOL" help="Forces rectangular cuts between lanes and intersections"/>
         <check-lane-foes.roundabout value="true" type="BOOL" help="Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"/>
@@ -223,6 +229,7 @@
     <railway>
         <railway.signals.discard value="false" type="BOOL" help="Discard all railway signal information loaded from other formats than plain-xml"/>
         <railway.topology.repair value="false" type="BOOL" help="Repair topology of the railway network"/>
+        <railway.topology.repair.connect-straight value="false" type="BOOL" help="Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle"/>
         <railway.topology.all-bidi value="false" type="BOOL" help="Make all rails usable in both direction"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum roud accesses registered per rail stops"/>

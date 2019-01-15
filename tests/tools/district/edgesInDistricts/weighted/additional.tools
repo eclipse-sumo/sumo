@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-03-09 09:35:26.058000 by $Id: $
+<!-- generated on 2018-10-18 09:47:53.500988 by $Id$
   options: -n input_net.net.xml -t input_districts.xml -o out.add.xml <doubleminus>weighted -s
 -->
 <tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
@@ -7,7 +7,7 @@
         <tazSource id="absBeg" weight="13859.69"/>
         <tazSink id="absBeg" weight="13859.69"/>
     </taz>
-    <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0">
+    <taz id="e" shape="1995.0,-5.0 2005.0,-5.0 2005.0,5.0 1995.0,5.0 -1995.0,-5.0" color="blue">
         <tazSource id="absBeg" weight="13859.69"/>
         <tazSink id="absBeg" weight="13859.69"/>
         <tazSource id="absEnd" weight="13900.00"/>

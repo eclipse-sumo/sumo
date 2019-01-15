@@ -31,9 +31,10 @@
 #include <string>
 #include <limits.h>
 #include <ctime>
+#include <memory>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
@@ -43,7 +44,6 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/DijkstraRouter.h>
 #include <utils/vehicle/AStarRouter.h>
 #include <utils/vehicle/CHRouter.h>
@@ -110,29 +110,29 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else if (routingAlgorithm == "astar") {
             if (net.hasPermissions()) {
                 typedef AStarRouter<ROEdge, ROVehicle, SUMOAbstractRouterPermissions<ROEdge, ROVehicle> > AStar;
-                const AStar::LookupTable* lookup = 0;
+                std::shared_ptr<const AStar::LookupTable> lookup;
                 if (oc.isSet("astar.all-distances")) {
-                    lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
+                    lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
                     CHRouterWrapper<ROEdge, ROVehicle, SUMOAbstractRouterPermissions<ROEdge, ROVehicle> > router(
                         ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic,
                         begin, end, std::numeric_limits<int>::max(), 1);
-                    ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &router, &defaultVehicle,
+                    ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+                    lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &router, &defaultVehicle,
                                              oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"));
                 }
                 router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
             } else {
                 typedef AStarRouter<ROEdge, ROVehicle, SUMOAbstractRouter<ROEdge, ROVehicle> > AStar;
-                const AStar::LookupTable* lookup = 0;
+                std::shared_ptr<const AStar::LookupTable> lookup;
                 if (oc.isSet("astar.all-distances")) {
-                    lookup = new AStar::FLT(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
+                    lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
                 } else if (oc.isSet("astar.landmark-distances")) {
                     CHRouterWrapper<ROEdge, ROVehicle, SUMOAbstractRouter<ROEdge, ROVehicle> > router(
                         ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic,
                         begin, end, std::numeric_limits<int>::max(), 1);
-                    ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-                    lookup = new AStar::LMLT(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &router, &defaultVehicle,
+                    ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+                    lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &router, &defaultVehicle,
                                              oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"));
                 }
                 router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, lookup);
@@ -198,7 +198,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         }
     }
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk));
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk, routingAlgorithm));
     // process route definitions
     try {
         net.openOutput(oc);
@@ -223,7 +223,7 @@ main(int argc, char** argv) {
     oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic, multi-modal traffic simulation SUMO.");
     oc.setApplicationName("duarouter", "Eclipse SUMO duarouter Version " VERSION_STRING);
     int ret = 0;
-    RONet* net = 0;
+    RONet* net = nullptr;
     try {
         XMLSubSys::init();
         RODUAFrame::fillOptions();
@@ -250,7 +250,7 @@ main(int argc, char** argv) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
         } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
-            WRITE_ERROR(TplConvert::_2str(e.getMessage()));
+            WRITE_ERROR(StringUtils::transcode(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed() || ret != 0) {

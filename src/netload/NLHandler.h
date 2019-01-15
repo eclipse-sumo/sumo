@@ -289,7 +289,6 @@ private:
     /// @brief Parses the given character into an enumeration typed link state
     LinkState parseLinkState(const std::string& state);
 
-
 protected:
     /// @brief A builder for object actions
     NLDiscreteEventBuilder myActionBuilder;
@@ -332,7 +331,8 @@ protected:
 
     bool myHaveWarnedAboutDeprecatedLanes;
 
-    Parameterised* myLastParameterised;
+    Parameterised myLastEdgeParameters;
+    std::vector<Parameterised*> myLastParameterised;
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;

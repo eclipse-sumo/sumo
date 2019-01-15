@@ -20,14 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
-#include <utils/common/MsgHandler.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEVariableSpeedSignStep.h"
-#include "GNEVariableSpeedSign.h"
 
 
 // ===========================================================================
@@ -35,7 +32,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getViewNet(), GLO_VSS, SUMO_TAG_STEP,"", false) {
+    GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false) {
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
@@ -63,37 +60,37 @@ GNEVariableSpeedSignStep::getTime() const {
 }
 
 
-void 
-GNEVariableSpeedSignStep::moveGeometry(const Position&, const Position&) {
+void
+GNEVariableSpeedSignStep::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNEVariableSpeedSignStep::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNEVariableSpeedSignStep::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNEVariableSpeedSignStep::getPositionInView() const {
     return myFirstAdditionalParent->getPositionInView();
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSignStep::getParentName() const {
     return myFirstAdditionalParent->getID();
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -113,7 +110,7 @@ GNEVariableSpeedSignStep::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -131,7 +128,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -142,17 +139,17 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_TIME:
-            if(canParse<double>(value)) {
-                // Check that 
+            if (canParse<double>(value)) {
+                // Check that
                 double newTime = parse<double>(value);
                 // Only allowed positiv times
-                if(newTime < 0) {
+                if (newTime < 0) {
                     return false;
                 }
                 // check that there isn't duplicate times
                 int counter = 0;
                 for (auto i : myFirstAdditionalParent->getAdditionalChilds()) {
-                    if(parse<double>(i->getAttribute(SUMO_ATTR_TIME)) == newTime) {
+                    if (parse<double>(i->getAttribute(SUMO_ATTR_TIME)) == newTime) {
                         counter++;
                     }
                 }
@@ -165,20 +162,20 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSignStep::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
-std::string 
+std::string
 GNEVariableSpeedSignStep::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_TIME);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_TIME);
 }
 
 // ===========================================================================
@@ -201,7 +198,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

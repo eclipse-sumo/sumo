@@ -101,7 +101,7 @@ class Scenario_BasicRiLSACorridor3(Scenario):
                     fdow.write(
                         ('      <phase duration="31" state="rrrrrGGgrrrrrGGgGrGr" minDur="10" maxDur="50" ' +
                          'type="target;decisional" targetLanes="%s_1 %s_2 %s_1 %s_2"/>\n') % (
-                         eedge, eedge, wedge, wedge))
+                            eedge, eedge, wedge, wedge))
                     fdow.write(
                         '      <phase duration="4"  state="rrrrryygrrrrryygrrrr" type="transient"/>\n')
                     fdow.write(
@@ -114,7 +114,7 @@ class Scenario_BasicRiLSACorridor3(Scenario):
                     fdow.write(
                         ('      <phase duration="31" state="rGGgrrrrrGGgrrrrrGrG" minDur="10" maxDur="50" ' +
                          'type="target;decisional" targetLanes="%s_1 %s_2 %s_1 %s_2"/>\n') % (
-                         sedge, sedge, nedge, nedge))
+                            sedge, sedge, nedge, nedge))
                     fdow.write(
                         '      <phase duration="4"  state="ryygrrrrryygrrrrrrrr" type="transient"/>\n')
                     fdow.write(

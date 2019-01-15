@@ -1,4 +1,5 @@
 set(utils_vehicle_STAT_SRCS
+   AStarLookupTable.h
    AStarRouter.h
    AccessEdge.h
    CarEdge.h

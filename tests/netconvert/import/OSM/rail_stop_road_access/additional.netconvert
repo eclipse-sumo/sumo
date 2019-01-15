@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  7 12:26:00 2018 by Eclipse SUMO netconvert Version 693c322
+<!-- generated on Fri Aug 31 08:52:54 2018 by Eclipse SUMO netconvert Version 7513385
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,17 +17,20 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <ptstop-output value="additional.xml"/>
-        <osm.stop-output.footway-access-distance value="100"/>
-        <osm.stop-output.footway-max-accesses value="4"/>
     </output>
 
     <projection>
         <proj.utm value="true"/>
     </projection>
 
-    <processing>
+    <railway>
+        <railway.access-distance value="100"/>
+        <railway.max-accesses value="4"/>
+    </railway>
+
+    <formats>
         <osm.stop-output.length value="200"/>
-    </processing>
+    </formats>
 
     <report>
         <xml-validation value="never"/>
@@ -78,8 +81,8 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="1865877909" name="Mayschweg" lane="107701628_0" startPos="80.49" endPos="101.22" friendlyPos="true">
         <access lane="-414498877#0_0" pos="56.10" length="33.87" friendlyPos="1"/>
         <access lane="-93704176#0_0" pos="17.96" length="6.59" friendlyPos="1"/>
+        <access lane="414498877#0_0" pos="0.00" length="38.30" friendlyPos="1"/>
         <access lane="93704176#0_0" pos="1687.12" length="7.51" friendlyPos="1"/>
-        <access lane="93704176#1_0" pos="0.00" length="41.76" friendlyPos="1"/>
     </busStop>
     <busStop id="1865877925" name="Segewaldweg" lane="107701628_0" startPos="364.54" endPos="383.11" friendlyPos="true">
         <access lane="-93704176#0_0" pos="304.26" length="4.75" friendlyPos="1"/>
@@ -151,9 +154,9 @@ SPDX-License-Identifier: EPL-2.0
     </busStop>
     <busStop id="3895454719" name="Zur Nachtheide" lane="93704176#0_1" startPos="339.11" endPos="354.11" friendlyPos="true"/>
     <busStop id="94951410" name="Pablo-Neruda-Straße" lane="10699464#0_0" startPos="140.69" endPos="156.92" friendlyPos="true">
-        <access lane="10780554_0" pos="0.00" length="31.55" friendlyPos="1"/>
-        <access lane="238053686#0_0" pos="21.43" length="28.34" friendlyPos="1"/>
-        <access lane="238053686#1_0" pos="2.14" length="26.13" friendlyPos="1"/>
+        <access lane="356886642#0_0" pos="2.31" length="22.52" friendlyPos="1"/>
+        <access lane="356886642#1_0" pos="0.00" length="21.90" friendlyPos="1"/>
+        <access lane="356886642#2_0" pos="0.00" length="23.14" friendlyPos="1"/>
         <access lane="44956230#1_0" pos="12.13" length="25.13" friendlyPos="1"/>
     </busStop>
     <busStop id="95948746" name="Krankenhaus Köpenick/Südseite" lane="10699464#3_0" startPos="317.37" endPos="352.44" friendlyPos="true">

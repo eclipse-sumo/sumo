@@ -52,10 +52,13 @@ FXMutex MSRoute::myDictMutex(true);
 MSRoute::MSRoute(const std::string& id,
                  const ConstMSEdgeVector& edges,
                  const bool isPermanent, const RGBColor* const c,
-                 const std::vector<SUMOVehicleParameter::Stop>& stops)
-    : Named(id), myEdges(edges), myAmPermanent(isPermanent),
-      myReferenceCounter(isPermanent ? 1 : 0),
-      myColor(c), myStops(stops) {}
+                 const std::vector<SUMOVehicleParameter::Stop>& stops) : 
+    Named(id), myEdges(edges), myAmPermanent(isPermanent),
+    myReferenceCounter(isPermanent ? 1 : 0),
+    myColor(c),
+    myCosts(-1),
+    mySavings(0),
+    myStops(stops) {}
 
 
 MSRoute::~MSRoute() {
@@ -142,7 +145,7 @@ MSRoute::dictionary(const std::string& id, std::mt19937* rng) {
     if (it == myDict.end()) {
         RouteDistDict::iterator it2 = myDistDict.find(id);
         if (it2 == myDistDict.end() || it2->second.first->getOverallProb() == 0) {
-            return 0;
+            return nullptr;
         }
         return it2->second.first->get(rng);
     }
@@ -157,7 +160,7 @@ MSRoute::distDictionary(const std::string& id) {
 #endif
     RouteDistDict::iterator it2 = myDistDict.find(id);
     if (it2 == myDistDict.end()) {
-        return 0;
+        return nullptr;
     }
     return it2->second.first;
 }
@@ -215,7 +218,7 @@ int
 MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo) const {
     int numWritten = 0;
     ConstMSEdgeVector::const_iterator i = myEdges.begin();
-    if (from != 0) {
+    if (from != nullptr) {
         i = std::find(myEdges.begin(), myEdges.end(), from);
     }
     for (; i != myEdges.end(); ++i) {
@@ -272,7 +275,10 @@ MSRoute::dict_saveState(OutputDevice& out) {
 
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
-                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal) const {
+                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal, int routePosition) const {
+    if (routePosition < 0 || routePosition >= (int)myEdges.size()) {
+        throw ProcessError("Invalid routePosition " + toString(routePosition) + " for route with " + toString(myEdges.size()) + " edges");
+    }
     /// XXX routes that start and end within the same intersection are not supported
     //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
     if (fromEdge->isInternal()) {
@@ -285,16 +291,16 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
             const MSEdge* pred = fromEdge->getPredecessors().front();
             assert(pred != 0);
             //std::cout << "  recurse fromPred=" << pred->getID() << "\n";
-            return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal) - fromPos;
+            return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal, routePosition) - fromPos;
         }
     }
     if (toEdge->isInternal()) {
         const MSEdge* pred = toEdge->getPredecessors().front();
         assert(pred != 0);
         //std::cout << "  recurse toPred=" << pred->getID() << "\n";
-        return toPos + getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, includeInternal);
+        return toPos + getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, includeInternal, routePosition);
     }
-    ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin(), myEdges.end(), fromEdge);
+    ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin() + routePosition, myEdges.end(), fromEdge);
     if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
         // start or destination not contained in route
         return std::numeric_limits<double>::max();
@@ -349,7 +355,7 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
 
 const RGBColor&
 MSRoute::getColor() const {
-    if (myColor == 0) {
+    if (myColor == nullptr) {
         return RGBColor::DEFAULT_COLOR;
     }
     return *myColor;

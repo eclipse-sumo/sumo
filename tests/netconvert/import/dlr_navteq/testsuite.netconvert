@@ -30,3 +30,6 @@ version_3.1
 
 # test input generated with gdfExtractor version 6.1
 version_6.1
+
+# overwriting edge type
+type

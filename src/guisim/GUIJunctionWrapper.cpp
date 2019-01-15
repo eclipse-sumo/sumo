@@ -36,6 +36,8 @@
 #include <utils/geom/Position.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSInternalJunction.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -52,9 +54,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction)
-    : GUIGlObject(GLO_JUNCTION, junction.getID()),
-      myJunction(junction) {
+GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID): 
+    GUIGlObject(GLO_JUNCTION, junction.getID()),
+    myJunction(junction),
+    myTLLID(tllID)
+{
     if (myJunction.getShape().size() == 0) {
         Position pos = myJunction.getPosition();
         myBoundary = Boundary(pos.x() - 1., pos.y() - 1., pos.x() + 1., pos.y() + 1.);
@@ -120,7 +124,7 @@ void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (!myIsInternal && s.drawJunctionShape) {
         // check whether it is not too small
-        const double exaggeration = s.junctionSize.getExaggeration(s, 4);
+        const double exaggeration = s.junctionSize.getExaggeration(s, this, 4);
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
             glPushMatrix();
             glPushName(getGlID());
@@ -148,7 +152,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 // make small junctions more visible when coloring by type
                 if (myJunction.getType() == NODETYPE_RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
                     glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
-                    GLHelper::drawFilledCircle(2 * exaggeration, 12);                    
+                    GLHelper::drawFilledCircle(2 * exaggeration, 12);
                 }
             }
             glPopName();
@@ -159,6 +163,16 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
     } else {
         drawName(myJunction.getPosition(), s.scale, s.junctionName, s.angle);
+        if (s.tlsPhaseIndex.show && myTLLID != "") {
+            const MSTrafficLightLogic* active = MSNet::getInstance()->getTLSControl().getActive(myTLLID);
+            const int index = active->getCurrentPhaseIndex();
+            const std::string& name = active->getCurrentPhaseDef().getName();
+            GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
+            if (name != "") {
+                const Position lower = myJunction.getPosition() - Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale));
+                GLHelper::drawTextSettings(s.tlsPhaseIndex, name, lower, s.scale, s.angle);
+            }
+        }
     }
 }
 
@@ -215,7 +229,6 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
             return 0;
     }
 }
-
 
 #ifdef HAVE_OSG
 void

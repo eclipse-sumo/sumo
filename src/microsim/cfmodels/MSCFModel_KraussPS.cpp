@@ -35,8 +35,8 @@
 // method definitions
 // ===========================================================================
 MSCFModel_KraussPS::MSCFModel_KraussPS(const MSVehicleType* vtype) :
-    MSCFModel_Krauss(vtype) 
-{ }
+    MSCFModel_Krauss(vtype) {
+}
 
 
 MSCFModel_KraussPS::~MSCFModel_KraussPS() {}

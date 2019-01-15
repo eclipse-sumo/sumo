@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2018-12-22 12:46:52.159664 by $Id$
+  options: -n net.net.xml -s 42 <doubleminus>weights-output-prefix weights <doubleminus>edge-param customWeight -e 1
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="3si" to="1si"/>
+</routes>

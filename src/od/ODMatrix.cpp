@@ -34,7 +34,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -63,29 +63,29 @@ ODMatrix::~ODMatrix() {
 bool
 ODMatrix::add(double vehicleNumber, SUMOTime begin,
               SUMOTime end, const std::string& origin, const std::string& destination,
-              const std::string& vehicleType) {
+              const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge) {
     myNumLoaded += vehicleNumber;
-    if (myDistricts.get(origin) == 0 && myDistricts.get(destination) == 0) {
+    if (!originIsEdge && !destinationIsEdge && myDistricts.get(origin) == nullptr && myDistricts.get(destination) == nullptr) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myMissingDistricts.insert(origin);
         myMissingDistricts.insert(destination);
         return false;
-    } else if (myDistricts.get(origin) == 0 && vehicleNumber > 0) {
+    } else if (!originIsEdge && myDistricts.get(origin) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(origin);
         return false;
-    } else if (myDistricts.get(destination) == 0 && vehicleNumber > 0) {
+    } else if (!destinationIsEdge && myDistricts.get(destination) == 0 && vehicleNumber > 0) {
         WRITE_ERROR("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(destination);
         return false;
     }
-    if (myDistricts.get(origin)->sourceNumber() == 0) {
+    if (!originIsEdge && myDistricts.get(origin)->sourceNumber() == 0) {
         WRITE_ERROR("District '" + origin + "' has no source.");
         myNumDiscarded += vehicleNumber;
         return false;
-    } else if (myDistricts.get(destination)->sinkNumber() == 0) {
+    } else if (!destinationIsEdge && myDistricts.get(destination)->sinkNumber() == 0) {
         WRITE_ERROR("District '" + destination + "' has no sink.");
         myNumDiscarded += vehicleNumber;
         return false;
@@ -97,6 +97,8 @@ ODMatrix::add(double vehicleNumber, SUMOTime begin,
     cell->destination = destination;
     cell->vehicleType = vehicleType;
     cell->vehicleNumber = vehicleNumber;
+    cell->originIsEdge = originIsEdge;
+    cell->destinationIsEdge = destinationIsEdge;
     myContainer.push_back(cell);
     return true;
 }
@@ -104,26 +106,26 @@ ODMatrix::add(double vehicleNumber, SUMOTime begin,
 
 bool
 ODMatrix::add(const std::string& id, const SUMOTime depart,
-              const std::pair<const std::string, const std::string>& od,
-              const std::string& vehicleType) {
-    if (myMissingDistricts.count(od.first) > 0 || myMissingDistricts.count(od.second) > 0) {
+              const std::string& fromTaz, const std::string& toTaz,
+              const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge) {
+    if (myMissingDistricts.count(fromTaz) > 0 || myMissingDistricts.count(toTaz) > 0) {
         myNumLoaded += 1.;
         myNumDiscarded += 1.;
         return false;
     }
     // we start looking from the end because there is a high probability that the input is sorted by time
-    std::vector<ODCell*>& odList = myShortCut[od];
-    ODCell* cell = 0;
+    std::vector<ODCell*>& odList = myShortCut[std::make_pair(fromTaz, toTaz)];
+    ODCell* cell = nullptr;
     for (std::vector<ODCell*>::const_reverse_iterator c = odList.rbegin(); c != odList.rend(); ++c) {
         if ((*c)->begin <= depart && (*c)->end > depart && (*c)->vehicleType == vehicleType) {
             cell = *c;
             break;
         }
     }
-    if (cell == 0) {
+    if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
-        if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)) {
+        if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge)) {
             cell = myContainer.back();
             odList.push_back(cell);
         } else {
@@ -309,13 +311,16 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
     for (std::vector<ODCell*>::const_iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         const ODCell* const c = *i;
         if (c->end > begin && c->begin < end) {
+            const double probability = asProbability ? float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin) : 1;
+            if (probability <= 0) {
+                continue;
+            }
             dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
             dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
             dev.writeAttr(SUMO_ATTR_END, time2string(c->end));
             if (!asProbability) {
                 dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
             } else {
-                const double probability = float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin);
                 if (probability > 1) {
                     WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
@@ -351,7 +356,7 @@ ODMatrix::parseSingleTime(const std::string& time) {
     }
     std::string hours = time.substr(0, time.find('.'));
     std::string minutes = time.substr(time.find('.') + 1);
-    return TIME2STEPS(TplConvert::_2int(hours.c_str()) * 3600 + TplConvert::_2int(minutes.c_str()) * 60);
+    return TIME2STEPS(StringUtils::toInt(hours) * 3600 + StringUtils::toInt(minutes) * 60);
 }
 
 
@@ -373,12 +378,13 @@ ODMatrix::readTime(LineReader& lr) {
     }
 }
 
+
 double
 ODMatrix::readFactor(LineReader& lr, double scale) {
     std::string line = getNextNonCommentLine(lr);
     double factor = -1;
     try {
-        factor = TplConvert::_2double(line.c_str()) * scale;
+        factor = StringUtils::toDouble(line) * scale;
     } catch (NumberFormatException&) {
         throw ProcessError("Broken factor: '" + line + "'.");
     }
@@ -408,7 +414,7 @@ ODMatrix::readV(LineReader& lr, double scale,
 
     // districts
     line = getNextNonCommentLine(lr);
-    const int numDistricts = TplConvert::_2int(StringUtils::prune(line).c_str());
+    const int numDistricts = StringUtils::toInt(StringUtils::prune(line));
     // parse district names (normally ints)
     std::vector<std::string> names;
     while ((int)names.size() != numDistricts) {
@@ -432,7 +438,7 @@ ODMatrix::readV(LineReader& lr, double scale,
                 StringTokenizer st2(line, StringTokenizer::WHITECHARS);
                 while (st2.hasNext()) {
                     assert(di != names.end());
-                    double vehNumber = TplConvert::_2double(st2.next().c_str()) * factor;
+                    double vehNumber = StringUtils::toDouble(st2.next()) * factor;
                     if (vehNumber != 0) {
                         add(vehNumber, begin, end, *si, *di, vehType);
                     }
@@ -461,7 +467,7 @@ ODMatrix::readO(LineReader& lr, double scale,
     std::string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
-        int type = TplConvert::_2int(StringUtils::prune(line).c_str());
+        int type = StringUtils::toInt(StringUtils::prune(line));
         if (vehType == "") {
             vehType = toString(type);
         }
@@ -488,7 +494,7 @@ ODMatrix::readO(LineReader& lr, double scale,
         try {
             std::string sourceD = st2.next();
             std::string destD = st2.next();
-            double vehNumber = TplConvert::_2double(st2.next().c_str()) * factor;
+            double vehNumber = StringUtils::toDouble(st2.next()) * factor;
             if (vehNumber != 0) {
                 add(vehNumber, begin, end, sourceD, destD, vehType);
             }
@@ -621,7 +627,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
         for (int chour = 0; chour < 24; ++chour) {
-            result.add(chour * 3600., TplConvert::_2double(def[chour].c_str()));
+            result.add(chour * 3600., StringUtils::toDouble(def[chour]));
         }
         result.add(24 * 3600., 0.); // dummy value to finish the last interval
     } else {
@@ -630,8 +636,8 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
             if (st2.size() != 2) {
                 throw ProcessError("Broken time line definition: missing a value in '" + def[i] + "'.");
             }
-            const double time = TplConvert::_2double(st2.next().c_str());
-            result.add(time, TplConvert::_2double(st2.next().c_str()));
+            const double time = StringUtils::toDouble(st2.next());
+            result.add(time, StringUtils::toDouble(st2.next()));
         }
     }
     return result;

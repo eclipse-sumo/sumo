@@ -63,7 +63,7 @@ public:
     /** @brief Constructor
      * @param[in] junction The represented junction
      */
-    GUIJunctionWrapper(MSJunction& junction);
+    GUIJunctionWrapper(MSJunction& junction, const std::string& tllID);
 
 
     /// @brief Destructor
@@ -157,6 +157,9 @@ private:
 
     /// @brief whether this junction has only waterways as incoming and outgoing edges
     bool myAmWaterway;
+
+    /// @brief the associated traffic light or ""
+    const std::string myTLLID;
 
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;

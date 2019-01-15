@@ -22,17 +22,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include "GNEFrame.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEAttributeCarrier;
-class GNEAdditional;
-class GNEEdge;
-
 
 // ===========================================================================
 // class definitions
@@ -46,6 +36,93 @@ class GNEInspectorFrame : public GNEFrame {
     FXDECLARE(GNEInspectorFrame)
 
 public:
+    // ===========================================================================
+    // class OverlappedInspection
+    // ===========================================================================
+
+    class OverlappedInspection : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::OverlappedInspection)
+
+    public:
+        /// @brief constructor
+        OverlappedInspection(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~OverlappedInspection();
+
+        /// @brief show template editor
+        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
+
+        /// @brief hide template editor
+        void hideOverlappedInspection();
+
+        /// @brief check if overlappedInspection modul is shown
+        bool overlappedInspectionShown() const;
+
+        /// @brief check if given position is near to saved position
+        bool checkSavedPosition(const Position &clickedPosition) const;
+
+        /// @brief try to go to next element if clicked position is near to saved position
+        bool nextElement(const Position &clickedPosition);
+
+        /// @brief try to go to previous element if clicked position is near to saved position
+        bool previousElement(const Position &clickedPosition);
+
+        /// @name FOX-callbacks
+        /// @{
+        
+        /// @brief Inspect next Element (from top to bot)
+        long onCmdNextElement(FXObject*, FXSelector, void*);
+
+        /// @brief Inspect previous element (from top to bot)
+        long onCmdPreviousElement(FXObject*, FXSelector, void*);
+
+        /// @brief show list of overlapped elements
+        long onCmdShowList(FXObject*, FXSelector, void*);
+
+        /// @brief called when a list item is selected
+        long onCmdListItemSelected(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press the help button
+        long onCmdOverlappingHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        OverlappedInspection() {}
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief Previous element button
+        FXButton* myPreviousElement;
+
+        /// @brief Button for current index
+        FXButton* myCurrentIndexButton;
+
+        /// @brief Next element button
+        FXButton* myNextElement;
+
+        /// @brief list of overlapped elements
+        FXList *myOverlappedElementList;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
+
+        /// @brief objects under cursor
+        std::vector<GNEAttributeCarrier*> myOverlappedACs;
+
+        /// @brief current index item
+        size_t myItemIndex;
+
+        /// @brief saved clicked position
+        Position mySavedClickedPosition;
+
+        /// @brief inspect attributeCarrier correspond to current index
+        void inspectOverlappedAttributeCarrier();
+    };
 
     // ===========================================================================
     // class AttributesEditor
@@ -76,7 +153,7 @@ public:
             void hideAttribute();
 
             /// @brief refresh current attribute input
-            void refreshAttributeInput(const std::string &value, bool forceRefresh);
+            void refreshAttributeInput(const std::string& value, bool forceRefresh);
 
             /// @brief check if current attribute of TextField/ComboBox is valid
             bool isCurrentAttributeValid() const;
@@ -106,7 +183,7 @@ public:
             void disableAttributeInputElements();
 
             /// @brief pointer to AttributesEditor parent
-            GNEInspectorFrame::AttributesEditor * myAttributesEditorParent;
+            GNEInspectorFrame::AttributesEditor* myAttributesEditorParent;
 
             /// @brief current tag
             SumoXMLTag myTag;
@@ -146,10 +223,10 @@ public:
         AttributesEditor(GNEInspectorFrame* inspectorFrameParent);
 
         /// @brief show attributes of ac
-        void showAttributeEditor();
+        void showAttributeEditorModul();
 
         /// @brief hide attribute editor
-        void hideAttributesEditor();
+        void hideAttributesEditorModul();
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
         void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
@@ -163,14 +240,14 @@ public:
         /// @brief Called when user press the help button
         long onCmdAttributeHelp(FXObject*, FXSelector, void*);
         /// @}
-        
+
     protected:
         /// @brief FOX needs this
         AttributesEditor() {}
 
     private:
         /// @brief pointer to GNEInspectorFrame parent
-        GNEInspectorFrame * myInspectorFrameParent;
+        GNEInspectorFrame* myInspectorFrameParent;
 
         /// @brief list of Attribute inputs
         std::vector<GNEInspectorFrame::AttributesEditor::AttributeInput*> myVectorOfAttributeInputs;
@@ -371,7 +448,7 @@ public:
 
     private:
         /// @brief current GNEInspectorFrame parent
-        GNEInspectorFrame * myInspectorFrameParent;
+        GNEInspectorFrame* myInspectorFrameParent;
 
         /// @brief copy template button
         FXButton* myCopyTemplateButton;
@@ -398,8 +475,15 @@ public:
     /// @brief hide inspector frame
     void hide();
 
+    /**@brief process click over Viewnet
+    * @param[in] clickedPosition clicked position over ViewNet
+    * @param[in] objectsUnderCursor objects under cursors
+    * @return true if something was sucefully done
+    */
+    bool processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+
     /// @brief Inspect a single element
-    void inspectElement(GNEAttributeCarrier* AC);
+    void inspectSingleElement(GNEAttributeCarrier* AC);
 
     /// @brief Inspect the given multi-selection
     void inspectMultisection(const std::vector<GNEAttributeCarrier*>& ACs);
@@ -411,16 +495,19 @@ public:
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
     /// @brief remove AC from current inspected ACs
-    void removeInspectedAC(GNEAttributeCarrier *ac);
+    void removeInspectedAC(GNEAttributeCarrier* ac);
 
     /// @brief Clear all current inspected ACs
     void clearInspectedAC();
 
     /// @brief get ACHierarchy
-    GNEFrame::ACHierarchy *getACHierarchy() const;
+    GNEFrame::ACHierarchy* getACHierarchy() const;
 
     /// @brief get template editor
-    TemplateEditor *getTemplateEditor() const;
+    TemplateEditor* getTemplateEditor() const;
+
+    /// @brief get OverlappedInspection modul
+    OverlappedInspection* getOverlappedInspection() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -436,7 +523,13 @@ protected:
     /// @brief FOX needs this
     GNEInspectorFrame() {}
 
+    /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
+    void inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
+
 private:
+    /// @brief Overlapped Inspection
+    OverlappedInspection* myOverlappedInspection;
+
     /// @brief Attribute editor
     AttributesEditor* myAttributesEditor;
 

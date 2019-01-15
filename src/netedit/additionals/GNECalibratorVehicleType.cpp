@@ -18,53 +18,34 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-
-#include "GNECalibratorVehicleType.h"
-#include "GNECalibrator.h"
-#include <netedit/dialogs/GNECalibratorDialog.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+
+#include "GNECalibratorVehicleType.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet) :
     GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE), viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, const std::string& id) :
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet, const std::string& id) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, std::string vehicleTypeID,
+GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
         double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
@@ -102,37 +83,37 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet *viewNet, std::str
 GNECalibratorVehicleType::~GNECalibratorVehicleType() {}
 
 
-void 
-GNECalibratorVehicleType::moveGeometry(const Position&, const Position&) {
+void
+GNECalibratorVehicleType::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
-void 
-GNECalibratorVehicleType::commitGeometryMoving(const Position&, GNEUndoList*) {
+void
+GNECalibratorVehicleType::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
-void 
+void
 GNECalibratorVehicleType::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
-Position 
+Position
 GNECalibratorVehicleType::getPositionInView() const {
     return Position();
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }
 
 
-void 
+void
 GNECalibratorVehicleType::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
@@ -196,7 +177,7 @@ GNECalibratorVehicleType::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -237,7 +218,7 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -270,11 +251,11 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
-            if((value == "zero") || (value == "LDV") || (value == "LDV_G_EU0") || (value == "LDV_G_EU1") || (value == "LDV_G_EU2") || (value == "LDV_G_EU3") || (value == "LDV_G_EU4") || (value == "LDV_G_EU5") || 
-               (value == "LDV_G_EU6") || (value == "LDV_G_East") || (value == "LDV_D_EU0") || (value == "LDV_D_EU1") || (value == "LDV_D_EU2") || (value == "LDV_D_EU3") || (value == "LDV_D_EU4") || (value == "LDV_D_EU5") || (value == "LDV_D_EU6") || 
-               (value == "PC") || (value == "PC_Alternative") || (value == "PC_G_EU0") || (value == "PC_G_EU1") || (value == "PC_G_EU2") || (value == "PC_G_EU3") || (value == "PC_G_EU4") || (value == "PC_G_EU5") || (value == "PC_G_EU6") || (value == "PC_G_East") || 
-               (value == "PC_D_EU0") || (value == "PC_D_EU1") || (value == "PC_D_EU2") || (value == "PC_D_EU3") || (value == "PC_D_EU4") || (value == "PC_D_EU5") || (value == "PC_D_EU6") || (value == "Bus") || (value == "Coach") || (value == "HDV") || (value == "HDV_G") || 
-               (value == "HDV_D_EU0") || (value == "HDV_D_EU1") || (value == "HDV_D_EU2") || (value == "HDV_D_EU3") || (value == "HDV_D_EU4") || (value == "HDV_D_EU5") || (value == "HDV_D_EU6") || (value == "HDV_D_East")) {
+            if ((value == "zero") || (value == "LDV") || (value == "LDV_G_EU0") || (value == "LDV_G_EU1") || (value == "LDV_G_EU2") || (value == "LDV_G_EU3") || (value == "LDV_G_EU4") || (value == "LDV_G_EU5") ||
+                    (value == "LDV_G_EU6") || (value == "LDV_G_East") || (value == "LDV_D_EU0") || (value == "LDV_D_EU1") || (value == "LDV_D_EU2") || (value == "LDV_D_EU3") || (value == "LDV_D_EU4") || (value == "LDV_D_EU5") || (value == "LDV_D_EU6") ||
+                    (value == "PC") || (value == "PC_Alternative") || (value == "PC_G_EU0") || (value == "PC_G_EU1") || (value == "PC_G_EU2") || (value == "PC_G_EU3") || (value == "PC_G_EU4") || (value == "PC_G_EU5") || (value == "PC_G_EU6") || (value == "PC_G_East") ||
+                    (value == "PC_D_EU0") || (value == "PC_D_EU1") || (value == "PC_D_EU2") || (value == "PC_D_EU3") || (value == "PC_D_EU4") || (value == "PC_D_EU5") || (value == "PC_D_EU6") || (value == "Bus") || (value == "Coach") || (value == "HDV") || (value == "HDV_G") ||
+                    (value == "HDV_D_EU0") || (value == "HDV_D_EU1") || (value == "HDV_D_EU2") || (value == "HDV_D_EU3") || (value == "HDV_D_EU4") || (value == "HDV_D_EU5") || (value == "HDV_D_EU6") || (value == "HDV_D_East")) {
                 return true;
             } else {
                 return false;
@@ -308,20 +289,20 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getPopUpID() const {
-    return toString(getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
-std::string 
+std::string
 GNECalibratorVehicleType::getHierarchyName() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 // ===========================================================================
@@ -413,7 +394,7 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

@@ -41,15 +41,15 @@
 // method definitions
 // ===========================================================================
 MSCFModel_KraussOrig1::MSCFModel_KraussOrig1(const MSVehicleType* vtype) :
-    MSCFModel(vtype), 
+    MSCFModel(vtype),
     myDawdle(vtype->getParameter().getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(vtype->getParameter().vehicleClass))),
-    myTauDecel(myDecel * myHeadwayTime) 
-{}
+    myTauDecel(myDecel * myHeadwayTime) {
+}
 
 
 MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() {}
 
-double 
+double
 MSCFModel_KraussOrig1::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     UNUSED_PARAMETER(veh);
     const double vDawdle = MAX2(vMin, dawdle(vMax));
@@ -63,17 +63,6 @@ MSCFModel_KraussOrig1::followSpeed(const MSVehicle* const veh, double speed, dou
         return MIN2(vsafe(gap, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)); // XXX: and why not cap with minNextSpeed!? (Leo)
     } else {
         return MAX2(MIN2(maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel), maxNextSpeed(speed, veh)), minNextSpeed(speed));
-    }
-}
-
-
-double
-MSCFModel_KraussOrig1::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
-    } else {
-        // ballistic update
-        return maximumSafeFollowSpeed(gap2pred, 0., predSpeed, predMaxDecel, true);
     }
 }
 

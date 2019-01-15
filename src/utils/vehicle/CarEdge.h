@@ -47,7 +47,7 @@ public:
         return true;
     }
 
-    const std::vector<_IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+    const std::vector<_IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
         if (vClass == SVC_IGNORING) {
             return this->myFollowingEdges;
         }
@@ -70,7 +70,7 @@ public:
         }
     }
 
-    virtual const std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+    virtual const std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
         if (vClass == SVC_IGNORING) {
             return this->myFollowingViaEdges;
         }
@@ -109,6 +109,14 @@ public:
             distTravelled -= trip->departPos - myStartPos;
         }
         return travelTime * distTravelled / this->getEdge()->getLength();
+    }
+
+    double getStartPos() const {
+        return myStartPos;
+    }
+
+    double getEndPos() const {
+        return myStartPos + this->getLength();
     }
 
 private:

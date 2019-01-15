@@ -26,7 +26,7 @@
 #include <version.h>
 #endif
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <iostream>
 #include <string>
 #include <ctime>
@@ -39,7 +39,7 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -151,18 +151,18 @@ main(int argc, char** argv) {
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
             throw ProcessError("The output file must be given.");
         }
-        std::ostream* out = 0;
+        std::ostream* out = nullptr;
         if (oc.isSet("output-file")) {
             out = new std::ofstream(oc.getString("output-file").c_str());
         }
         OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
-        OutputDevice* xmlOut = 0;
+        OutputDevice* xmlOut = nullptr;
         if (oc.isSet("emission-output")) {
             xmlOut = &OutputDevice::getDeviceByOption("emission-output");
-        } else if (out == 0) {
+        } else if (out == nullptr) {
             out = &std::cout;
         }
-        std::ostream* sumOut = 0;
+        std::ostream* sumOut = nullptr;
         if (oc.isSet("sum-output")) {
             sumOut = new std::ofstream(oc.getString("sum-output").c_str());
             (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
@@ -191,10 +191,10 @@ main(int argc, char** argv) {
                 StringTokenizer st(StringUtils::prune(line), oc.getString("timeline-file.separator"));
                 if (st.hasNext()) {
                     try {
-                        double t = TplConvert::_2double<char>(st.next().c_str());
+                        double t = StringUtils::toDouble(st.next());
                         double v = 0;
                         if (st.hasNext()) {
-                            v = TplConvert::_2double<char>(st.next().c_str());
+                            v = StringUtils::toDouble(st.next());
                         } else {
                             v = t;
                             t = time;
@@ -202,8 +202,8 @@ main(int argc, char** argv) {
                         if (inKMH) {
                             v /= 3.6;
                         }
-                        double a = !computeA && st.hasNext() ? TplConvert::_2double<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
-                        double s = haveSlope && st.hasNext() ? TplConvert::_2double<char>(st.next().c_str()) : TrajectoriesHandler::INVALID_VALUE;
+                        double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
+                        double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
                             l += v;
                             totalA += a;
@@ -221,7 +221,7 @@ main(int argc, char** argv) {
                 std::cout << "sums" << std::endl
                           << "length:" << l << std::endl;
             }
-            if (sumOut != 0) {
+            if (sumOut != nullptr) {
                 (*sumOut) << oc.getString("emission-class") << "," << lr.getFileName() << "," << time << ","
                           << (l / time * 3.6) << "," << (totalS / time) << "," << (totalA / time) << ",";
                 handler.writeNormedSums(*sumOut, "", l);

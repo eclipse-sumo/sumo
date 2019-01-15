@@ -21,6 +21,7 @@ from xml.dom import pulldom
 from xml.sax import handler
 from xml.sax import make_parser
 from optparse import OptionParser
+import time
 
 DEPART_ATTRS = {'vehicle': 'depart', 'flow': 'begin', 'person': 'depart'}
 
@@ -53,7 +54,11 @@ def sort_departs(routefilename, outfile):
             routes_doc.expandNode(parsenode)
             departAttr = DEPART_ATTRS.get(parsenode.localName)
             if departAttr is not None:
-                start = float(parsenode.getAttribute(departAttr))
+                startString = parsenode.getAttribute(departAttr)
+                if ':' in startString:
+                    start = time.strptime(startString, "%d:%H:%M:%S")
+                else:
+                    start = float(startString)
                 vehicles.append(
                     (start, parsenode.toprettyxml(indent="", newl="")))
             else:

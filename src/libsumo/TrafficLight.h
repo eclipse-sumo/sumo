@@ -39,7 +39,7 @@
 // class declarations
 // ===========================================================================
 namespace libsumo {
-    class VariableWrapper;
+class VariableWrapper;
 }
 
 
@@ -63,12 +63,14 @@ public:
     static std::vector<std::vector<TraCILink> > getControlledLinks(const std::string& tlsID);
     static std::string getProgram(const std::string& tlsID);
     static int getPhase(const std::string& tlsID);
+    static std::string getPhaseName(const std::string& tlsID);
     static double getPhaseDuration(const std::string& tlsID);
     static double getNextSwitch(const std::string& tlsID);
     static std::string getParameter(const std::string& tlsID, const std::string& paramName);
 
     static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
     static void setPhase(const std::string& tlsID, const int index);
+    static void setPhaseName(const std::string& tlsID, const std::string& name);
     static void setProgram(const std::string& tlsID, const std::string& programID);
     static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
     static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);

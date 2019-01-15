@@ -230,6 +230,8 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="next" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="paramType">
@@ -305,5 +307,17 @@
             </xsd:simpleType> 
         </xsd:union>
     </xsd:simpleType>
+
+	<xsd:simpleType name="idType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[^ \t\n\r|\\;,']+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="detectorIdType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[^\t\n\r|\\;,']+"/>
+		</xsd:restriction>
+	</xsd:simpleType>
 
 </xsd:schema>

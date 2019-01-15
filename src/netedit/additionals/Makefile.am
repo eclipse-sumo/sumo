@@ -17,11 +17,12 @@ GNEDetectorE1.cpp GNEDetectorE1.h \
 GNEDetectorE1Instant.cpp GNEDetectorE1Instant.h \
 GNEDetectorE2.cpp GNEDetectorE2.h \
 GNEDetectorE3.cpp GNEDetectorE3.h \
-GNEDetectorEntry.cpp GNEDetectorEntry.h \
-GNEDetectorExit.cpp GNEDetectorExit.h \
+GNEDetectorEntryExit.cpp GNEDetectorEntryExit.h \
 GNERerouter.cpp GNERerouter.h \
 GNERouteProbe.cpp GNERouteProbe.h \
 GNEVaporizer.cpp GNEVaporizer.h \
+GNETAZ.cpp GNETAZ.h \
+GNETAZSourceSink.cpp GNETAZSourceSink.h \
 GNECalibrator.cpp GNECalibrator.h \
 GNECalibratorFlow.cpp GNECalibratorFlow.h \
 GNECalibratorVehicleType.cpp GNECalibratorVehicleType.h \

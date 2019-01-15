@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -99,9 +96,8 @@ Debug: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ20' into net
 Debug: net has to be saved
@@ -117,10 +113,10 @@ Debug: Setting new attribute type 'priority' into junction 'gneJ0'
 Debug: Removing junction 'gneJ0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ1'
 Debug: Removing junction 'gneJ1' from net
-Debug: Setting new attribute id '_gneJ0_gneJ1' into junction 'gneJ20'
+Debug: Setting new attribute id 'cluster_gneJ0_gneJ1' into junction 'gneJ20'
 Debug: Key F5 (Compute) pressed
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ21' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ21'
@@ -141,10 +137,10 @@ Debug: Removing busStop 'busStop_gneE2_0_0' in GNEChange_Additional
 Debug: Removing edge 'gneE2' from net
 Debug: Removing junction 'gneJ2' from net
 Debug: Removing junction 'gneJ3' from net
-Debug: Setting new attribute id '_gneJ2_gneJ3' into junction 'gneJ21'
+Debug: Setting new attribute id 'cluster_gneJ2_gneJ3' into junction 'gneJ21'
 Debug: Key F5 (Compute) pressed
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ22' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ22'
@@ -184,19 +180,19 @@ Debug: Adding crossing into junction 'gneJ22'
 Debug: Created crossing ':gneJ22_c0' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ6' from net
 Debug: Removing junction 'gneJ7' from net
-Debug: Setting new attribute id '_gneJ6_gneJ7' into junction 'gneJ22'
+Debug: Setting new attribute id 'cluster_gneJ6_gneJ7' into junction 'gneJ22'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE5_1to-gneE7_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE7_1togneE5_1' in retrieveGNEConnection()
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 3 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 4 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 5 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 6 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 7 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 8 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 9 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ23' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ23'
@@ -444,12 +440,13 @@ Debug: Removing junction 'gneJ16' from net
 Debug: Removing junction 'gneJ17' from net
 Debug: Removing junction 'gneJ18' from net
 Debug: Removing junction 'gneJ19' from net
-Debug: Setting new attribute id '_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'gneJ23'
-Debug: Setting new attribute pos '70.00,20.00' into junction '_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
+Debug: Setting new attribute id 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'gneJ23'
+Debug: Setting new attribute pos '70.00,20.00' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute pos '70.10,20.10' into junction '_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
-Debug: Setting previous attribute id 'gneJ23' into junction '_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
+Debug: Setting previous attribute pos '70.10,20.10' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
+Debug: Setting previous attribute id 'gneJ23' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Adding junction 'gneJ19' into net
 Debug: Adding junction 'gneJ18' into net
 Debug: Adding junction 'gneJ17' into net
@@ -697,7 +694,7 @@ Debug: Created crossing ':gneJ11_c2' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ23'
 Debug: Removing junction 'gneJ23' from net
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute id 'gneJ22' into junction '_gneJ6_gneJ7'
+Debug: Setting previous attribute id 'gneJ22' into junction 'cluster_gneJ6_gneJ7'
 Debug: Adding junction 'gneJ7' into net
 Debug: Adding junction 'gneJ6' into net
 Debug: removing crossing from junction 'gneJ22'
@@ -739,7 +736,7 @@ Debug: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ22'
 Debug: Removing junction 'gneJ22' from net
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute id 'gneJ21' into junction '_gneJ2_gneJ3'
+Debug: Setting previous attribute id 'gneJ21' into junction 'cluster_gneJ2_gneJ3'
 Debug: Adding junction 'gneJ3' into net
 Debug: Adding junction 'gneJ2' into net
 Debug: Adding edge 'gneE2' from net
@@ -760,7 +757,7 @@ Debug: Created connection 'fromgneE2_1togneE1_1' in retrieveGNEConnection()
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ21'
 Debug: Removing junction 'gneJ21' from net
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute id 'gneJ20' into junction '_gneJ0_gneJ1'
+Debug: Setting previous attribute id 'gneJ20' into junction 'cluster_gneJ0_gneJ1'
 Debug: Adding junction 'gneJ1' into net
 Debug: Setting previous attribute type 'dead_end' into junction 'gneJ1'
 Debug: Adding junction 'gneJ0' into net
@@ -774,6 +771,7 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: Setting previous attribute type 'unknown' into junction 'gneJ20'
 Debug: Removing junction 'gneJ20' from net
 Debug: Key F5 (Compute) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ20' into net
 Debug: Setting new attribute type 'dead_end' into junction 'gneJ20'
@@ -787,7 +785,7 @@ Debug: Setting new attribute type 'priority' into junction 'gneJ0'
 Debug: Removing junction 'gneJ0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ1'
 Debug: Removing junction 'gneJ1' from net
-Debug: Setting new attribute id '_gneJ0_gneJ1' into junction 'gneJ20'
+Debug: Setting new attribute id 'cluster_gneJ0_gneJ1' into junction 'gneJ20'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ21' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ21'
@@ -808,7 +806,7 @@ Debug: Removing busStop 'busStop_gneE2_0_0' in GNEChange_Additional
 Debug: Removing edge 'gneE2' from net
 Debug: Removing junction 'gneJ2' from net
 Debug: Removing junction 'gneJ3' from net
-Debug: Setting new attribute id '_gneJ2_gneJ3' into junction 'gneJ21'
+Debug: Setting new attribute id 'cluster_gneJ2_gneJ3' into junction 'gneJ21'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ22' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ22'
@@ -848,7 +846,7 @@ Debug: Adding crossing into junction 'gneJ22'
 Debug: Created crossing ':gneJ22_c0' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ6' from net
 Debug: Removing junction 'gneJ7' from net
-Debug: Setting new attribute id '_gneJ6_gneJ7' into junction 'gneJ22'
+Debug: Setting new attribute id 'cluster_gneJ6_gneJ7' into junction 'gneJ22'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ23' into net
 Debug: Setting new attribute type 'priority' into junction 'gneJ23'
@@ -1096,8 +1094,8 @@ Debug: Removing junction 'gneJ16' from net
 Debug: Removing junction 'gneJ17' from net
 Debug: Removing junction 'gneJ18' from net
 Debug: Removing junction 'gneJ19' from net
-Debug: Setting new attribute id '_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'gneJ23'
-Debug: Setting new attribute pos '70.00,20.00' into junction '_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
+Debug: Setting new attribute id 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'gneJ23'
+Debug: Setting new attribute pos '70.00,20.00' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE5_1to-gneE7_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE7_1togneE5_1' in retrieveGNEConnection()
@@ -1266,11 +1264,11 @@ Debug: Deleting unreferenced edge 'gneE7' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE7_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE7_1togneE5_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction '_gneJ0_gneJ1' in GNENet destructor
-Debug: Deleting unreferenced junction '_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' in GNENet destructor
-Debug: Deleting unreferenced junction '_gneJ2_gneJ3' in GNENet destructor
-Debug: Deleting unreferenced junction '_gneJ6_gneJ7' in GNENet destructor
-Debug: Deleting unreferenced crossing ':_gneJ6_gneJ7_c0' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'cluster_gneJ0_gneJ1' in GNENet destructor
+Debug: Deleting unreferenced junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' in GNENet destructor
+Debug: Deleting unreferenced junction 'cluster_gneJ2_gneJ3' in GNENet destructor
+Debug: Deleting unreferenced junction 'cluster_gneJ6_gneJ7' in GNENet destructor
+Debug: Deleting unreferenced crossing ':cluster_gneJ6_gneJ7_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ4' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ5' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor

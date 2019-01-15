@@ -26,7 +26,7 @@
 #include <cassert>
 #include <sstream>
 #include <utils/common/RGBColor.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/iodevices/BinaryFormatter.h>
@@ -184,7 +184,7 @@ SUMOSAXAttributesImpl_Binary::getInt(int id) const {
 
 long long int
 SUMOSAXAttributesImpl_Binary::getLong(int id) const {
-    return TplConvert::_2long(getString(id).c_str());
+    return StringUtils::toLong(getString(id));
 }
 
 
@@ -213,7 +213,7 @@ double
 SUMOSAXAttributesImpl_Binary::getFloat(int id) const {
     const std::map<int, double>::const_iterator i = myFloatValues.find(id);
     if (i == myFloatValues.end()) {
-        return TplConvert::_2double(getString(id).c_str());
+        return StringUtils::toDouble(getString(id));
     }
     return i->second;
 }
@@ -266,6 +266,19 @@ SUMOSAXAttributesImpl_Binary::getNodeType(bool& ok) const {
 }
 
 
+RightOfWay
+SUMOSAXAttributesImpl_Binary::getRightOfWay(bool& ok) const {
+    try {
+        return SUMOXMLDefinitions::RightOfWayValues.get(getString(SUMO_ATTR_RIGHT_OF_WAY));
+    } catch (InvalidArgument) {
+        ok = false;
+        return RIGHT_OF_WAY_DEFAULT;
+    } catch (EmptyData) {
+        return RIGHT_OF_WAY_DEFAULT;
+    }
+}
+
+
 RGBColor
 SUMOSAXAttributesImpl_Binary::getColor() const {
     const std::map<int, int>::const_iterator i = myIntValues.find(SUMO_ATTR_COLOR);
@@ -300,15 +313,6 @@ SUMOSAXAttributesImpl_Binary::getBoundary(int attr) const {
 }
 
 
-std::vector<std::string>
-SUMOSAXAttributesImpl_Binary::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Binary::getName(int attr) const {
     if (myAttrIds.find(attr) == myAttrIds.end()) {
@@ -324,6 +328,15 @@ SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
         os << " " << getName(*i);
         os << "=\"" << getStringSecure(*i, "?") << "\"";
     }
+}
+
+std::vector<std::string>
+SUMOSAXAttributesImpl_Binary::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (std::set<int>::const_iterator i = myAttrs.begin(); i != myAttrs.end(); ++i) {
+        result.push_back(getName(*i));
+    }
+    return result;
 }
 
 

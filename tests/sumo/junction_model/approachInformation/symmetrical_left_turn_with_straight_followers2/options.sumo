@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log --net-file=net2.net.xml --route-files=input_routes.rou.xml --link-output linkstate.xml
+--time-to-teleport 20
+--precision 4
+--collision.check-junctions

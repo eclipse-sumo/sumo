@@ -107,11 +107,11 @@ for tlsFile in args.TLS_CSV.split(","):
     fd = open(tlsFile)
     logic = Logic(None)
     hasSigGrpPhase = False
-    for l in fd:
-        l = l.strip()
-        if len(l) == 0 or l[0] == '#':
+    for line in fd:
+        line = line.strip()
+        if len(line) == 0 or line[0] == '#':
             continue
-        v = l.split(";")
+        v = line.split(";")
         if v[0] == "key":
             if logic.key is not None:
                 allLogics.append(logic)
@@ -160,27 +160,27 @@ for logic in allLogics:
     for tl_c in tls._connections:
         li = tl_c[0]  # incoming lane in our net
         lo = tl_c[1]  # outgoing lane in our net
-        for l in logic.links:
+        for link in logic.links:
             valid = True
-            if l[0].find('_') < 0:
+            if link[0].find('_') < 0:
                 # edge only given
-                if l[0] != li.getEdge().getID():
+                if link[0] != li.getEdge().getID():
                     valid = False
             else:
                 # lane given
-                if l[0] != li.getID():
+                if link[0] != li.getID():
                     valid = False
-            if l[1] != "":
-                if l[1].find('_') < 0:
+            if link[1] != "":
+                if link[1].find('_') < 0:
                     # edge only given
-                    if l[1] != lo.getEdge().getID():
+                    if link[1] != lo.getEdge().getID():
                         valid = False
                 else:
                     # lane given
-                    if l[1] != lo.getID():
+                    if link[1] != lo.getID():
                         valid = False
             if valid:
-                linkMap[tl_c[2]] = l[2]
+                linkMap[tl_c[2]] = link[2]
                 laneMap[tl_c[2]] = (li, lo)
         if laneMap[tl_c[2]] is None:
             print("Warning: No link definition for connection (%s, %s)!. Using 'g' by default" % (
@@ -189,9 +189,9 @@ for logic in allLogics:
             laneMap[tl_c[2]] = (li, lo)
 
     nodes = set()
-    for l in laneMap:
-        if l:
-            nodes.add(l[0].getEdge()._to)
+    for lane in laneMap:
+        if lane:
+            nodes.add(lane[0].getEdge()._to)
 
     indices = {}
     for n in nodes:
@@ -199,11 +199,11 @@ for logic in allLogics:
         index = 0
         for i in n._incLanes:
             e = '_'.join(i.split("_")[:-1])
-            l = i.split("_")[-1]
+            laneIndex = i.split("_")[-1]
             if e in net1._crossings_and_walkingAreas:
                 continue
             e = net1._id2edge[e]
-            li = e._lanes[int(l)]
+            li = e._lanes[int(laneIndex)]
             for c in li._outgoing:
                 indices[n][(li, c._toLane)] = index
                 index = index + 1

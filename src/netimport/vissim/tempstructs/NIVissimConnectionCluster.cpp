@@ -150,7 +150,7 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
         myIncomingEdges.push_back(c->getFromEdgeID());
         assert(find(edges.begin(), edges.end(), c->getFromEdgeID()) != edges.end()
                ||
-               find(edges.begin(), edges.end(), c->getToEdgeID()) != edges.end());
+               std::find(edges.begin(), edges.end(), c->getToEdgeID()) != edges.end());
     }
     VectorHelper<int>::removeDouble(myIncomingEdges);
     VectorHelper<int>::removeDouble(myOutgoingEdges);
@@ -408,7 +408,7 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
     // check whether the connection is bidirectional
     NIVissimEdge* oe = NIVissimEdge::dictionary(myOutgoingEdges[0]);
     NIVissimEdge* ie = NIVissimEdge::dictionary(c2->myIncomingEdges[0]);
-    if (oe == 0 || ie == 0) {
+    if (oe == nullptr || ie == nullptr) {
         return false;
     }
     return fabs(GeomHelper::angleDiff(oe->getGeometry().beginEndAngle(), ie->getGeometry().beginEndAngle())) < DEG2RAD(5);
@@ -547,7 +547,7 @@ NIVissimConnectionCluster::removeConnections(const NodeSubCluster& c) {
     for (NodeSubCluster::ConnectionCont::const_iterator i = c.myConnections.begin(); i != c.myConnections.end(); i++) {
         NIVissimConnection* conn = *i;
         int connid = conn->getID();
-        std::vector<int>::iterator j = find(myConnections.begin(), myConnections.end(), connid);
+        std::vector<int>::iterator j = std::find(myConnections.begin(), myConnections.end(), connid);
         if (j != myConnections.end()) {
             myConnections.erase(j);
         }
@@ -561,7 +561,7 @@ NIVissimConnectionCluster::recomputeBoundary() {
     myBoundary = Boundary();
     for (std::vector<int>::iterator i = myConnections.begin(); i != myConnections.end(); i++) {
         NIVissimConnection* c = NIVissimConnection::dictionary(*i);
-        if (c != 0) {
+        if (c != nullptr) {
             myBoundary.add(c->getFromGeomPosition());
             myBoundary.add(c->getToGeomPosition());
             if (c->getGeometry().size() != 0) {
@@ -646,7 +646,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
         //  !!! only the main geometry is regarded
         NIVissimNodeDef* node =
             NIVissimNodeDef::dictionary(myNodeCluster);
-        if (node != 0) {
+        if (node != nullptr) {
             double pos = node->getEdgePosition(edgeid);
             if (pos >= 0) {
                 return pos;
@@ -672,7 +672,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     // !!!
     assert(myBoundary.xmin() <= myBoundary.xmax());
     NIVissimEdge* edge = NIVissimEdge::dictionary(edgeid);
-    std::vector<int>::const_iterator i = find(myEdges.begin(), myEdges.end(), edgeid);
+    std::vector<int>::const_iterator i = std::find(myEdges.begin(), myEdges.end(), edgeid);
     if (i == myEdges.end()) {
         // edge does not exist!?
         throw 1;
@@ -730,7 +730,7 @@ NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge* e) const {
     }
     //
     if (edgeIsIncoming.size() == 0) {
-        return 0;
+        return nullptr;
     }
     // sort connected edges in same direction
     sort(edgeIsIncoming.begin(), edgeIsIncoming.end(),
@@ -774,7 +774,7 @@ NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge* e) const {
     }
     //
     if (edgeIsOutgoing.size() == 0) {
-        return 0;
+        return nullptr;
     }
     // sort connected edges in same direction
     sort(edgeIsOutgoing.begin(), edgeIsOutgoing.end(),

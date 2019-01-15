@@ -1,9 +1,0 @@
-Warning: Essential unique float attribute 'x' of space is missing; space cannot be created
-Warning: Essential unique float attribute 'y' of space is missing; space cannot be created
-Warning: Essential unique float attribute 'x' of space is missing; space cannot be created
-Warning: Format of essential unique float attribute 'x' of space is invalid; space cannot be created
-Warning: Format of essential unique float attribute 'x' of space is invalid; Cannot be parsed to float; space cannot be created
-Warning: Essential unique float attribute 'y' of space is missing; space cannot be created
-Warning: Format of essential unique float attribute 'y' of space is invalid; space cannot be created
-Warning: Format of essential unique float attribute 'y' of space is invalid; Cannot be parsed to float; space cannot be created
-Warning: A space must be declared within the definition of a parkingArea.

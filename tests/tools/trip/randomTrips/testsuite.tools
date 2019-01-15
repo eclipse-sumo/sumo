@@ -23,6 +23,9 @@ vclass_additional_file
 # generate vType with the given vehicle_class and extra attributes
 vehicle_class
 
+# handle conflict between generated vType and user-defined vType attribute
+vehicle_class_trip_attribute_vType
+
 # generate vType with the given vehicle_class and extra attributes
 vehicle_class_persontrips
 
@@ -34,6 +37,9 @@ weights_output
 
 # load some weights
 loaded_weights
+
+# scale probability by edge param
+edge_param
 no_valid_edges
 no_valid_intermediate_edges
 

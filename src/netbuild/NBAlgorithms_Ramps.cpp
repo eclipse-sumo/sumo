@@ -50,7 +50,7 @@ const std::string NBRampsComputer::ADDED_ON_RAMP_EDGE("-AddedOnRampEdge");
 // ---------------------------------------------------------------------------
 void
 NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
-    const bool guessAndAdd = oc.getBool("ramps.guess"); 
+    const bool guessAndAdd = oc.getBool("ramps.guess");
     double minHighwaySpeed = oc.getFloat("ramps.min-highway-speed");
     double maxRampSpeed = oc.getFloat("ramps.max-ramp-speed");
     double rampLength = oc.getFloat("ramps.ramp-length");
@@ -114,7 +114,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
                 WRITE_WARNING("Can not build ramp on edge '" + *i + "' - the edge is unsuitable.");
                 continue;
             }
-            if (e == 0) {
+            if (e == nullptr) {
                 WRITE_WARNING("Can not build on ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
@@ -124,7 +124,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc) {
             }
             // load edge again to check offramps
             e = ec.retrieve(*i);
-            if (e == 0) {
+            if (e == nullptr) {
                 WRITE_WARNING("Can not build off ramp on edge '" + *i + "' - the edge is not known.");
                 continue;
             }
@@ -166,7 +166,9 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     NBEdge* potHighway, *potRamp, *cont;
     getOnRampEdges(cur, &potHighway, &potRamp, &cont);
 #ifdef DEBUG_RAMPS
-    if (DEBUGCOND(cur)) std::cout << "buildOnRamp cur=" << cur->getID() << " hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " cont=" << cont->getID() << "\n";
+    if (DEBUGCOND(cur)) {
+        std::cout << "buildOnRamp cur=" << cur->getID() << " hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " cont=" << cont->getID() << "\n";
+    }
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = cont->getNumLanes();
@@ -175,9 +177,9 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     NBEdge* last = cont;
     NBEdge* curr = cont;
     std::set<NBEdge*> incremented;
-    if (addLanes && toAdd > 0 && find(incremented.begin(), incremented.end(), cont) == incremented.end()) {
+    if (addLanes && toAdd > 0 && std::find(incremented.begin(), incremented.end(), cont) == incremented.end()) {
         double currLength = 0;
-        while (curr != 0 && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
+        while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
                 if (curr->getStep() < NBEdge::LANES2LANES_USER) {
@@ -197,21 +199,21 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 curr = nextN->getOutgoingEdges()[0];
                 if (curr->getNumLanes() != firstLaneNumber) {
                     // the number of lanes changes along the computation; we'll stop...
-                    curr = 0;
+                    curr = nullptr;
                 } else if (curr->isTurningDirectionAt(last)) {
                     // turnarounds certainly should not be included in a ramp
-                    curr = 0;
+                    curr = nullptr;
                 } else if (curr == potHighway || curr == potRamp) {
                     // circular connectivity. do not split!
-                    curr = 0;
+                    curr = nullptr;
                 }
             } else {
                 // ambigous; and, in fact, what should it be? ...stop
-                curr = 0;
+                curr = nullptr;
             }
         }
         // check whether a further split is necessary
-        if (curr != 0 && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
             NBNode* rn = new NBNode(curr->getID() + "-AddedOnRampNode", curr->getGeometry().positionAtOffset(rampLength - currLength));
@@ -269,7 +271,9 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     NBEdge* potHighway, *potRamp, *prev;
     getOffRampEdges(cur, &potHighway, &potRamp, &prev);
 #ifdef DEBUG_RAMPS
-    if (DEBUGCOND(cur)) std::cout << "buildOffRamp cur=" << cur->getID() << " hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << "\n";
+    if (DEBUGCOND(cur)) {
+        std::cout << "buildOffRamp cur=" << cur->getID() << " hw=" << potHighway->getID() << " ramp=" << potRamp->getID() << " prev=" << prev->getID() << "\n";
+    }
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = prev->getNumLanes();
@@ -278,9 +282,9 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     NBEdge* last = prev;
     NBEdge* curr = prev;
     std::set<NBEdge*> incremented;
-    if (toAdd > 0 && find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
+    if (toAdd > 0 && std::find(incremented.begin(), incremented.end(), prev) == incremented.end()) {
         double currLength = 0;
-        while (curr != 0 && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
+        while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
                 if (curr->getStep() < NBEdge::LANES2LANES_USER) {
@@ -300,21 +304,21 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                 }
                 if (curr->getNumLanes() != firstLaneNumber) {
                     // the number of lanes changes along the computation; we'll stop...
-                    curr = 0;
+                    curr = nullptr;
                 } else if (last->isTurningDirectionAt(curr)) {
                     // turnarounds certainly should not be included in a ramp
-                    curr = 0;
+                    curr = nullptr;
                 } else if (curr == potHighway || curr == potRamp) {
                     // circular connectivity. do not split!
-                    curr = 0;
+                    curr = nullptr;
                 }
             } else {
                 // ambigous; and, in fact, what should it be? ...stop
-                curr = 0;
+                curr = nullptr;
             }
         }
         // check whether a further split is necessary
-        if (curr != 0 && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
             Position pos = curr->getGeometry().positionAtOffset(curr->getGeometry().length() - (rampLength  - currLength));
@@ -439,7 +443,9 @@ NBRampsComputer::getOffRampEdges(NBNode* n, NBEdge** potHighway, NBEdge** potRam
     // heuristic: ramp goes to right
     const std::vector<NBEdge*>& edges2 = n->getEdges();
 #ifdef DEBUG_RAMPS
-    if (DEBUGCOND(n)) std::cout << "  edges=" << toString(edges) << " edges2=" << toString(edges2) << "\n";
+    if (DEBUGCOND(n)) {
+        std::cout << "  edges=" << toString(edges) << " edges2=" << toString(edges2) << "\n";
+    }
 #endif
     std::vector<NBEdge*>::const_iterator i = std::find(edges2.begin(), edges2.end(), *other);
     NBContHelper::nextCW(edges2, i);
@@ -535,7 +541,7 @@ NBRampsComputer::hasWrongMode(NBEdge* edge) {
     return false;
 }
 
-void 
+void
 NBRampsComputer::patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp) {
     // geometry of first and highway should allign on the left side
     if (first->getLaneSpreadFunction() == LANESPREAD_CENTER && first->hasDefaultGeometryEndpoints()) {

@@ -35,5 +35,11 @@ prefix
 # build turning lanes
 turnlanes
 
+# build turning lanes
+turnlanes_lefthand
+
+# perturb coordinates in grid
+perturb
+
 # Tests processing of errors in input
 errors

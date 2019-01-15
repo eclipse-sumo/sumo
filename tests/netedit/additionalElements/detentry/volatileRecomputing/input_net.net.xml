@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 26 14:43:23 2018 by Eclipse SUMO netconvert Version 88bb7b0b92
+<!-- generated on Tue Dec  4 16:31:06 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,21 +21,21 @@
 </configuration>
 -->
 
-<net version="0.27" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="13.89" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
+        <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="13.89" length="4.67" shape="50.00,-1.60 51.20,-0.80 51.60,0.00 51.20,0.80 50.00,1.60"/>
+        <lane id=":gneJ1_0_0" index="0" speed="3.65" length="4.67" shape="50.00,-1.60 51.20,-0.80 51.60,0.00 51.20,0.80 50.00,1.60"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" speed="36.95" length="4.67" shape="50.00,18.40 51.20,19.20 51.60,20.00 51.20,20.80 50.00,21.60"/>
+        <lane id=":gneJ2_0_0" index="0" speed="3.65" length="4.67" shape="50.00,18.40 51.20,19.20 51.60,20.00 51.20,20.80 50.00,21.60"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="36.95" length="4.67" shape="0.00,21.60 -1.20,20.80 -1.60,20.00 -1.20,19.20 0.00,18.40"/>
+        <lane id=":gneJ3_0_0" index="0" speed="3.65" length="4.67" shape="0.00,21.60 -1.20,20.80 -1.60,20.00 -1.20,19.20 0.00,18.40"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">

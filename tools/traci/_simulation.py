@@ -22,25 +22,28 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop',
-                                         'edges', 'travelTime', 'cost', 'intended', 'depart'])
+Stage = collections.namedtuple('Stage', ['stageType', 'vType', 'line', 'destStop', 'edges', 'travelTime', 'cost',
+                                         'length', 'intended', 'depart', 'departPos', 'arrivalPos', 'description'])
 
 
 def _readStage(result):
     # compound size and type
-    _, _, stageType = result.read("!iBi")
-    result.read("!B")                   # Type
-    line = result.readString()
-    result.read("!B")                   # Type
-    destStop = result.readString()
-    result.read("!B")                   # Type
-    edges = result.readStringList()
-    _, travelTime, _, cost = result.read("!BdBd")
-    result.read("!B")                   # Type
-    intended = result.readString()
-    result.read("!B")                   # Type
-    depart = result.readDouble()
-    return Stage(stageType, line, destStop, edges, travelTime, cost, intended, depart)
+    assert(result.read("!i")[0] == 13)
+    stageType = result.readTypedInt()
+    vType = result.readTypedString()
+    line = result.readTypedString()
+    destStop = result.readTypedString()
+    edges = result.readTypedStringList()
+    travelTime = result.readTypedDouble()
+    cost = result.readTypedDouble()
+    length = result.readTypedDouble()
+    intended = result.readTypedString()
+    depart = result.readTypedDouble()
+    departPos = result.readTypedDouble()
+    arrivalPos = result.readTypedDouble()
+    description = result.readTypedString()
+    return Stage(stageType, vType, line, destStop, edges, travelTime, cost,
+                 length, intended, depart, departPos, arrivalPos, description)
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
@@ -69,7 +72,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,
                       tc.VAR_TELEPORT_STARTING_VEHICLES_IDS: Storage.readStringList,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_NUMBER: Storage.readInt,
                       tc.VAR_TELEPORT_ENDING_VEHICLES_IDS: Storage.readStringList,
-                      tc.VAR_DELTA_T: Storage.readInt,
+                      tc.VAR_DELTA_T: Storage.readDouble,
                       tc.VAR_NET_BOUNDING_BOX: Storage.readShape}
 
 
@@ -102,7 +105,8 @@ class SimulationDomain(Domain):
         Returns the current simulation time in ms.
         """
         # we should raise the awareness by removing the DeprecationWarning category below after 1.0
-        warnings.warn("getCurrentTime is deprecated, please use getTime which returns floating point seconds", DeprecationWarning, stacklevel=2)
+        warnings.warn("getCurrentTime is deprecated, please use getTime which returns floating point seconds",
+                      DeprecationWarning, stacklevel=2)
         return self._getUniversal(tc.VAR_TIME_STEP)
 
     def getLoadedNumber(self):
@@ -278,8 +282,8 @@ class SimulationDomain(Domain):
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
 
     def getDeltaT(self):
-        """getDeltaT() -> integer
-        Returns the length of one simulation step in milliseconds
+        """getDeltaT() -> double
+        Returns the length of one simulation step in seconds
         """
         return self._getUniversal(tc.VAR_DELTA_T)
 

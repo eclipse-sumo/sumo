@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------------------
 // static initialisation methods
 // ---------------------------------------------------------------------------
-MSStopOut* MSStopOut::myInstance = 0;
+MSStopOut* MSStopOut::myInstance = nullptr;
 
 void
 MSStopOut::init() {
@@ -44,10 +44,10 @@ MSStopOut::init() {
     }
 }
 
-void 
+void
 MSStopOut::cleanup() {
     delete myInstance;
-    myInstance = 0;
+    myInstance = nullptr;
 }
 
 // ===========================================================================
@@ -64,9 +64,9 @@ void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
     assert(veh != 0);
     if (myStopped.count(veh) != 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' stops on edge '" + veh->getEdge()->getID() 
-                + "', time " + time2string(time) 
-                + " without ending the previous stop entered at time " + time2string(myStopped[veh].started));
+        WRITE_WARNING("Vehicle '" + veh->getID() + "' stops on edge '" + veh->getEdge()->getID()
+                      + "', time " + time2string(time)
+                      + " without ending the previous stop entered at time " + time2string(myStopped[veh].started));
     }
     StopInfo stopInfo(MSNet::getInstance()->getCurrentTimeStep(), numPersons, numContainers);
     myStopped[veh] = stopInfo;
@@ -99,8 +99,8 @@ void
 MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID) {
     assert(veh != 0);
     if (myStopped.count(veh) == 0) {
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' ends stop on edge '" + veh->getEdge()->getID() 
-                + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " without entering the stop");
+        WRITE_WARNING("Vehicle '" + veh->getID() + "' ends stop on edge '" + veh->getEdge()->getID()
+                      + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " without entering the stop");
         return;
     }
     double delay = -1;

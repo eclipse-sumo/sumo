@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 29 14:33:25 2018 by SUMO duarouter Version v0_32_0+0962-3a69e5b
+<!-- generated on Mon Sep  3 18:20:14 2018 by Eclipse SUMO duarouter Version 854346cdd7
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -51,9 +51,9 @@
 
     <xsd:complexType name="processingTopicType">
         <xsd:all>
-            <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="unsorted-input" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="randomize-flows" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
             <xsd:element name="remove-loops" type="boolOptionType" minOccurs="0"/>
@@ -116,6 +116,7 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="stats-period" type="intOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
         </xsd:all>

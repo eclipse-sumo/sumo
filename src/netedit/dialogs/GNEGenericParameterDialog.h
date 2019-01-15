@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
 // ===========================================================================
 // class definitions
@@ -56,7 +57,7 @@ public:
 
     public:
         /// @brief constructor
-        GenericParametersValues(FXHorizontalFrame *frame, GNEGenericParameterDialog *genericParameterDialogParent, std::vector<std::pair<std::string, std::string> > *genericParameters);
+        GenericParametersValues(FXHorizontalFrame* frame, GNEGenericParameterDialog* genericParameterDialogParent, std::vector<std::pair<std::string, std::string> >* genericParameters);
 
         /// @brief destructor
         ~GenericParametersValues();
@@ -65,13 +66,13 @@ public:
         void updateValues();
 
         /// @brief get current edited generic parameters
-        const std::vector<std::pair<std::string, std::string> > *getGenericParameters() const;
+        const std::vector<std::pair<std::string, std::string> >* getGenericParameters() const;
 
         /// @brief get a copy of current edited generic parameters
         std::vector<std::pair<std::string, std::string> > getCopyOfGenericParameters() const;
 
         /// @brief set generic parameters
-        void setGenericParameters(const std::vector<std::pair<std::string, std::string> > &newGenericParameters);
+        void setGenericParameters(const std::vector<std::pair<std::string, std::string> >& newGenericParameters);
 
         /// @brief add a single generic parameter
         void addGenericParameter(std::pair<std::string, std::string> newGenericParameter);
@@ -82,7 +83,7 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief on paint function (reimplemented from FXGroupBox)
-        long onPaint(FXObject* o, FXSelector f ,void* p);
+        long onPaint(FXObject* o, FXSelector f , void* p);
 
         /// @brief event when user change an attribute
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
@@ -102,7 +103,7 @@ public:
 
         public:
             /// @brief constructor
-            GenericParameterRow(GenericParametersValues * genericParametersValues, FXVerticalFrame *verticalFrameParent);
+            GenericParameterRow(GenericParametersValues* genericParametersValues, FXVerticalFrame* verticalFrameParent);
 
             /// @brief destructor
             ~GenericParameterRow();
@@ -111,7 +112,7 @@ public:
             void disableRow();
 
             /// @brief enable rlow
-            void enableRow(const std::string &parameter, const std::string &value) const;
+            void enableRow(const std::string& parameter, const std::string& value) const;
 
             /// @brief toogle add button
             void toogleAddButton();
@@ -120,35 +121,35 @@ public:
             bool isButtonInAddMode() const;
 
             /// @brief copy values of other parameter Row
-            void copyValues(const GenericParameterRow & other);
+            void copyValues(const GenericParameterRow& other);
 
             /// @brief TextField for parameter
-            FXTextField *keyField;
+            FXTextField* keyField;
 
             /// @brief TextField for value
-            FXTextField *valueField;
+            FXTextField* valueField;
 
             /// @brief Button for add or remove row
-            FXButton *button;
+            FXButton* button;
         private:
             /// @brief frame in which elements of GenericParameterRow are placed
             FXHorizontalFrame* horizontalFrame;
         };
 
         /// @brief pointer to Shape Frame Parent
-        GNEGenericParameterDialog *myGenericParameterDialogParent;
+        GNEGenericParameterDialog* myGenericParameterDialogParent;
 
         /// @brief label for key (its neccesary because has to be resized in every onPaint() iteration)
         FXLabel* myKeyLabel;
 
         /// @brief vertical frame in which rows are placed
-        FXVerticalFrame *myVerticalFrameRow;
+        FXVerticalFrame* myVerticalFrameRow;
 
         /// @brief vector with the GenericParameterRows
         std::vector<GenericParameterRow*> myGenericParameterRows;
 
         /// @brief edited generic parameters
-        std::vector<std::pair<std::string, std::string> > *myGenericParameters;
+        std::vector<std::pair<std::string, std::string> >* myGenericParameters;
     };
 
     // ===========================================================================
@@ -161,7 +162,7 @@ public:
 
     public:
         /// @brief constructor
-        GenericParametersOptions(FXHorizontalFrame *frame, GNEGenericParameterDialog *genericParameterDialogParent);
+        GenericParametersOptions(FXHorizontalFrame* frame, GNEGenericParameterDialog* genericParameterDialogParent);
 
         /// @brief destructor
         ~GenericParametersOptions();
@@ -220,26 +221,26 @@ public:
         };
 
         /// @brief pointer to Shape Frame Parent
-        GNEGenericParameterDialog *myGenericParameterDialogParent;
+        GNEGenericParameterDialog* myGenericParameterDialogParent;
 
         /// @brief sort button
-        FXButton *mySortButton;
+        FXButton* mySortButton;
 
         /// @brief clear button
-        FXButton *myClearButton;
+        FXButton* myClearButton;
 
         /// @brief load button
-        FXButton *myLoadButton;
+        FXButton* myLoadButton;
 
         /// @brief save button
-        FXButton *mySaveButton;
+        FXButton* mySaveButton;
 
         /// @brief help button
         FXButton* myHelpButton;
     };
 
     /// @brief Constructor
-    GNEGenericParameterDialog(GNEViewNet* viewNet, std::vector<std::pair<std::string, std::string> > *genericParameters);
+    GNEGenericParameterDialog(GNEViewNet* viewNet, std::vector<std::pair<std::string, std::string> >* genericParameters);
 
     /// @brief destructor
     ~GNEGenericParameterDialog();
@@ -273,12 +274,12 @@ protected:
     FXButton* myResetButton;
 
 private:
-    
+
     /// @brief pointer to generic parameters values
-    GenericParametersValues *myGenericParametersValues;
+    GenericParametersValues* myGenericParametersValues;
 
     /// @brief pointer to generic parameters options
-    GenericParametersOptions *myGenericParametersOptions;
+    GenericParametersOptions* myGenericParametersOptions;
 
     // @brief copy of current edited Generic Parameters (used for reset)
     const std::vector<std::pair<std::string, std::string> > myCopyOfGenericParameters;

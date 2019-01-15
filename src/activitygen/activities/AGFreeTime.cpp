@@ -30,6 +30,7 @@
 #include <cmath>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StdDefs.h>
+#include <activitygen/city/AGCity.h>
 #include <activitygen/city/AGTime.h>
 #include "AGFreeTime.h"
 

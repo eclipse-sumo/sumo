@@ -64,14 +64,19 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myAmSource(false),
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
-    myCombinedPermissions(0) {
+    myCombinedPermissions(0),
+    myTimePenalty(0)
+{
     while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);
     }
     myEdges[index] = this;
-    if (from == 0 && to == 0) {
+    if (from == nullptr && to == nullptr) {
         // TAZ edge, no lanes
         myCombinedPermissions = SVCAll;
+    } else {
+        myBoundary.add(from->getPosition());
+        myBoundary.add(to->getPosition());
     }
 }
 
@@ -98,16 +103,22 @@ ROEdge::addLane(ROLane* lane) {
 
 void
 ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
+    if (isInternal()) {
+        // for internal edges after an internal junction, 
+        // this is called twice and only the second call counts
+        myFollowingEdges.clear();
+        myFollowingViaEdges.clear();
+    }
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));
         if (isTazConnector()) {
-            myTazBoundary.add(s->getFromJunction()->getPosition());
+            myBoundary.add(s->getFromJunction()->getPosition());
         }
         if (!isInternal()) {
             s->myApproachingEdges.push_back(this);
             if (s->isTazConnector()) {
-                s->myTazBoundary.add(getToJunction()->getPosition());
+                s->myBoundary.add(getToJunction()->getPosition());
             }
             if (via != nullptr) {
                 if (via->myApproachingEdges.size() == 0) {
@@ -137,22 +148,25 @@ double
 ROEdge::getEffort(const ROVehicle* const veh, double time) const {
     double ret = 0;
     if (!getStoredEffort(time, ret)) {
-        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed);
+        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed) + myTimePenalty;
     }
     return ret;
 }
 
 
 double
-ROEdge::getDistanceTo(const ROEdge* other) const {
+ROEdge::getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate) const {
+    if (doBoundaryEstimate) {
+        return myBoundary.distanceTo2D(other->myBoundary);
+    }
     if (isTazConnector()) {
         if (other->isTazConnector()) {
-            return myTazBoundary.distanceTo2D(other->myTazBoundary);
+            return myBoundary.distanceTo2D(other->myBoundary);
         }
-        return myTazBoundary.distanceTo2D(other->getFromJunction()->getPosition());
+        return myBoundary.distanceTo2D(other->getFromJunction()->getPosition());
     }
     if (other->isTazConnector()) {
-        return other->myTazBoundary.distanceTo2D(getToJunction()->getPosition());
+        return other->myBoundary.distanceTo2D(getToJunction()->getPosition());
     }
     return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
 }
@@ -185,7 +199,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
         }
     }
     const double speed = veh != nullptr ? MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor.getParameter()[0] * mySpeed) : mySpeed;
-    return myLength / speed;
+    return myLength / speed + myTimePenalty;
 }
 
 
@@ -294,7 +308,7 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
         myEfforts.fillGaps(value, boundariesOverride);
     }
     if (myUsingTTTimeLine) {
-        myTravelTimes.fillGaps(myLength / mySpeed, boundariesOverride);
+        myTravelTimes.fillGaps(myLength / mySpeed + myTimePenalty, boundariesOverride);
     }
 }
 
@@ -316,6 +330,14 @@ ROEdge::getAllEdges() {
 }
 
 
+const Position
+ROEdge::getStopPosition(const SUMOVehicleParameter::Stop& stop) {
+    const double middle = (stop.endPos + stop.startPos) / 2.;
+    const ROEdge* const edge = RONet::getInstance()->getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane));
+    return (edge->getFromJunction()->getPosition() + edge->getToJunction()->getPosition()) * (middle / edge->getLength());
+}
+
+
 const ROEdgeVector&
 ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
     if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || isTazConnector()) {
@@ -331,9 +353,9 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
     }
     // this vClass is requested for the first time. rebuild all successors
     std::set<ROEdge*> followers;
-    for (const ROLane* const lane: myLanes) {
+    for (const ROLane* const lane : myLanes) {
         if ((lane->getPermissions() & vClass) != 0) {
-            for (const auto& next: lane->getOutgoingViaLanes()) {
+            for (const auto& next : lane->getOutgoingViaLanes()) {
                 if ((next.first->getPermissions() & vClass) != 0) {
                     followers.insert(&next.first->getEdge());
                 }
@@ -347,7 +369,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
         }
     }
     myClassesSuccessorMap[vClass].insert(myClassesSuccessorMap[vClass].begin(),
-        followers.begin(), followers.end());
+                                         followers.begin(), followers.end());
     return myClassesSuccessorMap[vClass];
 }
 
@@ -367,9 +389,9 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     }
     // this vClass is requested for the first time. rebuild all successors
     std::set<std::pair<const ROEdge*, const ROEdge*> > followers;
-    for (const ROLane* const lane: myLanes) {
+    for (const ROLane* const lane : myLanes) {
         if ((lane->getPermissions() & vClass) != 0) {
-            for (const auto& next: lane->getOutgoingViaLanes()) {
+            for (const auto& next : lane->getOutgoingViaLanes()) {
                 if ((next.first->getPermissions() & vClass) != 0) {
                     followers.insert(std::make_pair(&next.first->getEdge(), next.second));
                 }
@@ -383,14 +405,14 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         }
     }
     myClassesViaSuccessorMap[vClass].insert(myClassesViaSuccessorMap[vClass].begin(),
-        followers.begin(), followers.end());
+                                            followers.begin(), followers.end());
     return myClassesViaSuccessorMap[vClass];
 }
 
 
 bool
 ROEdge::isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const {
-    const SUMOVehicleClass vClass = (vehicle == 0 ? SVC_IGNORING : vehicle->getVClass());
+    const SUMOVehicleClass vClass = (vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass());
     const ROEdgeVector& followers = getSuccessors(vClass);
     return std::find(followers.begin(), followers.end(), e) != followers.end();
 }

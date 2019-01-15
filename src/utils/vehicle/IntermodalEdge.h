@@ -38,12 +38,12 @@
 template<class E, class L, class N, class V>
 class IntermodalEdge : public Named {
 public:
-    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line) :
+    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = 0.) :
         Named(id),
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge == nullptr ? 0. : edge->getLength()),
+        myLength(edge == nullptr || length > 0. ? length : edge->getLength()),
         myEfforts(nullptr) { }
 
     virtual ~IntermodalEdge() {}
@@ -64,7 +64,7 @@ public:
         return myNumericalID;
     }
 
-    void addSuccessor(IntermodalEdge* const s, IntermodalEdge* const via=nullptr) {
+    void addSuccessor(IntermodalEdge* const s, IntermodalEdge* const via = nullptr) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));
     }
@@ -87,13 +87,13 @@ public:
         }
     }
 
-    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+    virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
         UNUSED_PARAMETER(vClass);
         // the network is already tailored. No need to check for permissions here
         return myFollowingEdges;
     }
 
-    virtual const std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass=SVC_IGNORING) const {
+    virtual const std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
         UNUSED_PARAMETER(vClass);
         // the network is already tailored. No need to check for permissions here
         return myFollowingViaEdges;
@@ -132,8 +132,40 @@ public:
         myLength = length;
     }
 
+    inline bool isInternal() const {
+        return myEdge != nullptr && myEdge->isInternal();
+    }
+
     virtual bool hasEffort() const {
         return myEfforts != nullptr;
+    }
+
+    virtual double getStartPos() const {
+        return 0.;
+    }
+
+    virtual double getEndPos() const {
+        return myLength;
+    }
+
+    // only used by AStar
+    inline double getSpeedLimit() const {
+        return myEdge != nullptr ? myEdge->getSpeedLimit() : 200. / 3.6;
+    }
+
+    // only used by AStar
+    inline double getLengthGeometryFactor() const {
+        return myEdge != nullptr ? myEdge->getLengthGeometryFactor() : 1;
+    }
+
+    // only used by AStar
+    inline double getDistanceTo(const IntermodalEdge* other) const {
+        return myEdge != nullptr && other->myEdge != nullptr ? myEdge->getDistanceTo(other->myEdge, true) : 0.;
+    }
+
+    // only used by AStar
+    inline double getMinimumTravelTime(const IntermodalTrip<E, N, V>* const trip) const {
+        return myLength / trip->getMaxSpeed();
     }
 
 protected:

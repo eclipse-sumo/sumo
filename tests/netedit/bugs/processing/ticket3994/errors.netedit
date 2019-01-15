@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
 Debug: Key F5 (Compute) pressed
@@ -26,9 +23,8 @@ Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2togneE10_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2to-gneE4_0' in retrieveGNEConnection()
-Debug: Current selection: 0 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 1 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
-Debug: Current selection: 2 Junctions, 0 Edges, 0 Lanes, 0 connections, 0 Additionals, 0 Crossings, 0 Polygons, 0 POIs
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ16' into net
 Debug: net has to be saved
@@ -98,7 +94,7 @@ Debug: Removing edge '-gneE4' from net
 Debug: Setting new attribute from 'gneJ16' into edge 'gneE10'
 Debug: Removing junction 'B' from net
 Debug: Removing junction 'C' from net
-Debug: Setting new attribute id '_B_C' into junction 'gneJ16'
+Debug: Setting new attribute id 'cluster_B_C' into junction 'gneJ16'
 Debug: Created connection 'from-gneE5_0togneE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE5_0to-gneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE5_0togneE12_2' in retrieveGNEConnection()
@@ -180,7 +176,7 @@ Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in GNEEdge destr
 Debug: Deleting unreferenced connection 'fromgneE9_2togneE10_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_2to-gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'A' in GNENet destructor
-Debug: Deleting unreferenced junction '_B_C' in GNENet destructor
+Debug: Deleting unreferenced junction 'cluster_B_C' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ10' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ11' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ12' in GNENet destructor

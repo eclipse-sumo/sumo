@@ -1,26 +1,21 @@
-# create
-#create
-
-# delete
+# all test check also the undo-redo of modifications and save the lane into a file
+# delete lane
 #delete
 
-# inspect
-#inspect
+# inspect lane
+inspect
 
-# load
+# inspect selected lanes
+inspect_selected
+
+# load lane
 #load
 
-# move
+# move lane
 #move
 
-# lock/unlock
-#lock_unlock
+# check selection of lanes through allow and disallow parameter
+select_vtypes
 
-# restricted lanes
-#restrictedLanes
-
-# check selection of lanes throught allow parameter
-select_vtypes_allowed
-
-# check selection of lanes throught disallow parameter
-select_vtypes_disallowed
+# check contextual menu
+contextual_menu

@@ -89,7 +89,7 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
                    || edge->getFromJunction() == prv->getFromJunction()) ? FORWARD : BACKWARD;
         }
         if (edgesTransitionsMapping.find(edge) == edgesTransitionsMapping.end()) {
-            ProcessError("Cannot map edge : " + edge->getID() + " to remote simulation");
+            throw ProcessError("Cannot map edge : " + edge->getID() + " to remote simulation");
         };
         std::tuple<int, int> transitions = edgesTransitionsMapping[edge];
 
@@ -106,11 +106,11 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
     ClientContext context;
     Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
     if (!st.ok()) {
-        ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
+       throw ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
     }
     if (!rpl.val()) {
         //TODO not yet implemented
-        ProcessError("Remote simulation declined to accept person: " + person->getID() + ".");
+        throw ProcessError("Remote simulation declined to accept person: " + person->getID() + ".");
     }
 
     return state;
@@ -123,7 +123,7 @@ MSPModel_Remote::~MSPModel_Remote() {
     ClientContext context1;
     Status st = myHybridsimStub->shutdown(&context1, req, &rpl);
     if (!st.ok()) {
-        ProcessError("Could not shutdown remote server");
+        throw ProcessError("Could not shutdown remote server");
     }
 
 
@@ -141,7 +141,7 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
     ClientContext context1;
     Status st = myHybridsimStub->simulatedTimeInerval(&context1, interval, &rpl);
     if (!st.ok()) {
-        ProcessError("Could not simulated time interval from: " + toString(time) + " to: " + toString(time + DELTA_T));
+        throw ProcessError("Could not simulated time interval from: " + toString(time) + " to: " + toString(time + DELTA_T));
     }
 
     //2. receive trajectories
@@ -150,7 +150,7 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
     ClientContext context2;
     Status st2 = myHybridsimStub->receiveTrajectories(&context2, req2, &trajectories);
     if (!st2.ok()) {
-        ProcessError("Could not receive trajectories from remote simulation");
+        throw ProcessError("Could not receive trajectories from remote simulation");
     }
     for (hybridsim::Trajectory trajectory : trajectories.trajectories()) {
         if (remoteIdPStateMapping.find(trajectory.id()) != remoteIdPStateMapping.end()) {
@@ -168,7 +168,7 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
             }
 //            pState.
         } else {
-            ProcessError("Pedestrian with id: " + toString(trajectory.id()) + " is not known.");
+            throw ProcessError("Pedestrian with id: " + toString(trajectory.id()) + " is not known.");
         }
     }
 
@@ -178,7 +178,7 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
     ClientContext context3;
     Status st3 = myHybridsimStub->queryRetrievableAgents(&context3, req3, &agents);
     if (!st3.ok()) {
-        ProcessError("Could not query retrievable agents");
+        throw ProcessError("Could not query retrievable agents");
     }
     //TODO check whether agents can be retrieved
     for (hybridsim::Agent agent : agents.agents()) {
@@ -195,7 +195,7 @@ SUMOTime MSPModel_Remote::execute(SUMOTime time) {
     ClientContext context4;
     Status st4 = myHybridsimStub->confirmRetrievedAgents(&context4, agents, &rpl2);
     if (!st4.ok()) {
-        ProcessError("Could not confirm retrieved agents");
+        throw ProcessError("Could not confirm retrieved agents");
     }
 
     return DELTA_T;
@@ -206,7 +206,7 @@ MSLane* MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
             return lane;
         }
     }
-    ProcessError("Edge: " + edge->getID() + " does not allow pedestrians.");
+    throw ProcessError("Edge: " + edge->getID() + " does not allow pedestrians.");
 }
 
 void MSPModel_Remote::remove(PedestrianState* state) {
@@ -270,7 +270,7 @@ void MSPModel_Remote::initialize() {
     ClientContext context;
     Status st = myHybridsimStub->initScenario(&context, req, &rpl);
     if (!st.ok()) {
-        ProcessError("Remote side could not initialize scenario!");
+        throw ProcessError("Remote side could not initialize scenario!");
     }
 
 }

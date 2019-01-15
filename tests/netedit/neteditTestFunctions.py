@@ -17,26 +17,25 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
-from sikuli import Key, Region, Settings, click, drag, dropAt, hover, keyDown, keyUp, paste, wait, type
+import pyautogui
+import time
+import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.1
-DELAY_MOUSE = 1
-DELAY_QUESTION = 1
+DELAY_KEY = 0.2
+DELAY_KEY_TAB = 0.01
+DELAY_MOUSE = 0.1
+DELAY_QUESTION = 0.1
 DELAY_REFERENCE = 30
 DELAY_QUIT = 3
-DELAY_UNDOREDO = 1
-DELAY_VOLATILE = 6
-DELAY_SAVE = 4
-DELAY_REMOVESELECTION = 5
-
-Settings.MoveMouseDelay = 0.2
-Settings.DelayBeforeDrop = 0.2
-Settings.DelayAfterDrag = 0.2
+DELAY_UNDOREDO = 0.1
+DELAY_SELECT = 0.1
+DELAY_RECOMPUTE = 2
+DELAY_RECOMPUTE_VOLATILE = 2
+DELAY_REMOVESELECTION = 0.1
 
 NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
-referenceImage = os.path.join("imageResources", "reference.png")
 
 #################################################
 # interaction functions
@@ -48,10 +47,8 @@ referenceImage = os.path.join("imageResources", "reference.png")
 
 
 def typeEscape():
-    # wait before every operation
-    wait(DELAY_KEY)
-    # type ESC key (Sikulix Function)
-    type(Key.ESC)
+    # type ESC key
+    typeKey('esc')
 
 
 """
@@ -60,10 +57,8 @@ def typeEscape():
 
 
 def typeEnter():
-    # wait before every operation
-    wait(DELAY_KEY)
-    # type enter key (Sikulix Function)
-    type(Key.ENTER)
+    # type enter key
+    typeKey('enter')
 
 
 """
@@ -72,9 +67,8 @@ def typeEnter():
 
 
 def typeSpace():
-    wait(DELAY_KEY)
-    # type space key (Sikulix Function)
-    type(Key.SPACE)
+    # type space key
+    typeKey('space')
 
 
 """
@@ -84,9 +78,9 @@ def typeSpace():
 
 def typeTab():
     # wait before every operation
-    wait(DELAY_KEY)
-    # type tab key (Sikulix Function)
-    type(Key.TAB)
+    time.sleep(DELAY_KEY_TAB)
+    # type keys
+    pyautogui.hotkey('tab')
 
 
 """
@@ -96,9 +90,9 @@ def typeTab():
 
 def typeInvertTab():
     # wait before every operation
-    wait(DELAY_KEY)
-    # type Tab and Shift at the same time (Sikulix Function)
-    type(Key.TAB, Key.SHIFT)
+    time.sleep(DELAY_KEY_TAB)
+    # type two keys at the same time
+    pyautogui.hotkey('shift', 'tab')
 
 
 """
@@ -108,21 +102,33 @@ def typeInvertTab():
 
 def typeKey(key):
     # wait before every operation
-    wait(DELAY_KEY)
-    # type keys (Sikulix Function)
-    type(key)
+    time.sleep(DELAY_KEY)
+    # type keys
+    pyautogui.hotkey(key)
 
 
 """
-@brief type two keys at the same time
+@brief type two keys at the same time (key1 -> key2)
 """
 
 
 def typeTwoKeys(key1, key2):
     # wait before every operation
-    wait(DELAY_KEY)
-    # type two keys at the same time (Sikulix Function)
-    type(key1, key2)
+    time.sleep(DELAY_KEY)
+    # type two keys at the same time
+    pyautogui.hotkey(key1, key2)
+
+
+"""
+@brief type three keys at the same time (key1 -> key2 -> key3)
+"""
+
+
+def typeThreeKeys(key1, key2, key3):
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # type two keys at the same time
+    pyautogui.hotkey(key1, key2, key3)
 
 
 """
@@ -131,67 +137,73 @@ def typeTwoKeys(key1, key2):
 
 
 def pasteIntoTextField(value, removePreviousContents=True):
-    # wait before every operation
-    wait(DELAY_KEY)
+    print(value)
     # remove previous content
     if(removePreviousContents):
-        typeTwoKeys("a", Key.CTRL)
-        wait(0.1)
-    # paste string (Sikulix Function)
-    paste(value)
+        typeTwoKeys('ctrl', 'a')
+        time.sleep(DELAY_KEY)
+    # use copy & paste (due problems with certain characters, for example '|')
+    pyperclip.copy(value)
+    pyautogui.hotkey('ctrl', 'v')
 
 
 """
-@brief do left click over a position relative to match (pink square)
+@brief do left click over a position relative to referencePosition (pink square)
 """
 
 
-def leftClick(match, positionx, positiony):
+def leftClick(referencePosition, positionx, positiony):
     # wait before every operation
-    wait(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = match.getTarget().offset(positionx, positiony)
-    # click respect to offset
-    click(clickedPosition)
-    print("TestFunctions: Clicked over position", clickedPosition.x, '-', clickedPosition.y)
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    # click relative to offset
+    pyautogui.click(clickedPosition)
+    # wait after every operation
+    time.sleep(DELAY_MOUSE)
+    print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
 """
-@brief do left click over a position relative to match (pink square) while shift key is pressed
+@brief do left click over a position relative to referencePosition (pink square) while shift key is pressed
 """
 
 
-def leftClickShift(match, positionx, positiony):
-    # Leave Shift key pressed (Sikulix function)
-    keyDown(Key.SHIFT)
+def leftClickShift(referencePosition, positionx, positiony):
+    # Leave Shift key pressed
+    pyautogui.keyDown('shift')
     # wait before every operation
-    wait(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = match.getTarget().offset(positionx, positiony)
-    # click respect to offset
-    click(clickedPosition)
-    print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition.x, '-', clickedPosition.y)
-    # Release Shift key (Sikulix function)
-    keyUp(Key.SHIFT)
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    # click relative to offset
+    pyautogui.click(clickedPosition)
+    print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
+    # Release Shift key
+    pyautogui.keyUp('shift')
+    # wait after key up
+    time.sleep(DELAY_KEY)
 
 
 """
-@brief do left click over a position relative to match (pink square) while control key is pressed
+@brief do left click over a position relative to referencePosition (pink square) while control key is pressed
 """
 
 
-def leftClickControl(match, positionx, positiony):
-    # Leave Shift key pressed (Sikulix function)
-    keyDown(Key.CTRL)
+def leftClickControl(referencePosition, positionx, positiony):
+    # Leave Shift key pressed
+    pyautogui.keyDown('ctrl')
     # wait before every operation
-    wait(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE)
     # obtain clicked position
-    clickedPosition = match.getTarget().offset(positionx, positiony)
-    # click respect to offset
-    click(clickedPosition)
-    print("TestFunctions: Clicked with Control key pressed over position", clickedPosition.x, '-', clickedPosition.y)
-    # Release Shift key (Sikulix function)
-    keyUp(Key.CTRL)
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    # click relative to offset
+    pyautogui.click(clickedPosition)
+    print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
+    # Release Shift key
+    pyautogui.keyUp('ctrl')
+    # wait after key up
+    time.sleep(DELAY_KEY)
 
 
 """
@@ -199,12 +211,17 @@ def leftClickControl(match, positionx, positiony):
 """
 
 
-def dragDrop(match, x1, y1, x2, y2):
+def dragDrop(referencePosition, x1, y1, x2, y2):
     # wait before every operation
-    wait(DELAY_KEY)
-    drag(match.getTarget().offset(x1, y1))
-    wait(DELAY_MOUSE)
-    dropAt(match.getTarget().offset(x2, y2))
+    time.sleep(DELAY_KEY)
+    # obtain from and to position
+    fromPosition = [referencePosition[0] + x1, referencePosition[1] + y1]
+    tromPosition = [referencePosition[0] + x2, referencePosition[1] + y2]
+    # click relative to offset
+    pyautogui.click(fromPosition)
+    # drag mouse to X of 100, Y of 200 while holding down left mouse button
+    pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')
+
 
 #################################################
 # basic functions
@@ -227,10 +244,6 @@ def setup(NeteditTests):
         if os.path.exists(sandBox):
             textTestSandBox = sandBox
         os.remove(envFile)
-    # get reference for match
-    global referenceImage
-    referenceImage = os.path.join(
-        NeteditTests, "imageResources", "reference.png")
 
 
 """
@@ -288,26 +301,29 @@ def Popen(extraParameters, debugInformation):
 
 
 """
-@brief obtain reference match (pink square)
+@brief obtain reference referencePosition (pink square)
 """
 
 
 def getReferenceMatch(neProcess, waitTime):
+    # show information
     print("Finding reference")
-    try:
-        referenceMatch = wait(referenceImage, waitTime)
-    except BaseException:
-        referenceMatch = None
-    if (referenceMatch is not None):
-        # print debug information
-        print("TestFunctions: 'reference.png' found. Position: " + str(referenceMatch.getTarget().x) + ' - ' +
-              str(referenceMatch.getTarget().y))
-        if (referenceMatch.getTarget().x != 304 or referenceMatch.getTarget().y != 140):
+    # capture screen and search reference
+    positionOnScren = pyautogui.locateOnScreen('reference.png', waitTime)
+    # check if pos was found
+    if positionOnScren:
+        # adjust position to center
+        referencePosition = [positionOnScren[0] + 16, positionOnScren[1] + 16]
+        # break loop
+        print("TestFunctions: 'reference.png' found. Position: " +
+              str(referencePosition[0]) + " - " + str(referencePosition[1]))
+        # check that position is consistent (due scaling)
+        if (referencePosition[0] != 304 or referencePosition[1] != 140):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                   "is 100% (See #3746)")
-        # return reference match
-        return referenceMatch
+        return referencePosition
     else:
+        # reference not found, then kill netedit process
         neProcess.kill()
         # print debug information
         sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
@@ -318,25 +334,15 @@ def getReferenceMatch(neProcess, waitTime):
 """
 
 
-def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchReference=True, waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=DELAY_REFERENCE):
     setup(testRoot)
     # Open Netedit
     NeteditProcess = Popen(extraParameters, debugInformation)
     # atexit.register(quit, NeteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened successfully")
-    # Check if reference must be searched
-    if(searchReference):
-        # Wait for Netedit reference
-        return NeteditProcess, getReferenceMatch(NeteditProcess, waitTime)
-    else:
-        # print debug information
-        print("TestFunctions: 'searchReference' option disabled. Reference isn't searched")
-        # Wait 1 second for Netedit process
-        wait(2)
-        # focus netedit windows clicking over it
-        click(Region(200, 200, 10, 10))
-        return NeteditProcess
+    # Wait for Netedit reference
+    return NeteditProcess, getReferenceMatch(NeteditProcess, waitTime)
 
 
 """
@@ -345,9 +351,9 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, searchRef
 
 
 def rebuildNetwork():
-    typeKey(Key.F5)
+    typeKey('F5')
     # wait for output
-    wait(DELAY_VOLATILE)
+    time.sleep(DELAY_RECOMPUTE)
 
 
 """
@@ -356,12 +362,12 @@ def rebuildNetwork():
 
 
 def rebuildNetworkWithVolatileOptions(question=True):
-    typeTwoKeys(Key.F5, Key.SHIFT)
+    typeTwoKeys('shift', 'F5')
     # confirm recompute
     if question is True:
         waitQuestion('y')
         # wait for output
-        wait(DELAY_VOLATILE)
+        time.sleep(DELAY_RECOMPUTE_VOLATILE)
     else:
         waitQuestion('n')
 
@@ -372,7 +378,7 @@ def rebuildNetworkWithVolatileOptions(question=True):
 
 
 def cleanJunction():
-    typeKey(Key.F6)
+    typeKey('F6')
 
 
 """
@@ -381,7 +387,7 @@ def cleanJunction():
 
 
 def joinSelectedJunctions():
-    typeKey(Key.F7)
+    typeKey('F7')
 
 
 """
@@ -390,7 +396,7 @@ def joinSelectedJunctions():
 
 
 def focusOnFrame():
-    typeKey(Key.F12)
+    typeKey('F12')
 
 
 """
@@ -398,14 +404,14 @@ def focusOnFrame():
 """
 
 
-def undo(match, number):
+def undo(referencePosition, number):
     # needed to avoid errors with undo/redo (Provisionally)
-    typeKey("i")
-    # click over match
-    leftClick(match, 0, 0)
-    for x in range(0, number):
-        typeTwoKeys("z", Key.CTRL)
-        wait(DELAY_UNDOREDO)
+    typeKey('i')
+    # click over referencePosition
+    leftClick(referencePosition, 0, 0)
+    for _ in range(number):
+        typeTwoKeys('ctrl', 'z')
+        time.sleep(DELAY_UNDOREDO)
 
 
 """
@@ -413,14 +419,14 @@ def undo(match, number):
 """
 
 
-def redo(match, number):
+def redo(referencePosition, number):
     # needed to avoid errors with undo/redo (Provisionally)
-    typeKey("i")
-    # click over match
-    leftClick(match, 0, 0)
-    for x in range(0, number):
-        typeTwoKeys("y", Key.CTRL)
-        wait(DELAY_UNDOREDO)
+    typeKey('i')
+    # click over referencePosition
+    leftClick(referencePosition, 0, 0)
+    for _ in range(number):
+        typeTwoKeys('ctrl', 'y')
+        time.sleep(DELAY_UNDOREDO)
 
 
 """
@@ -430,9 +436,9 @@ def redo(match, number):
 
 def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
-    typeKey("v")
+    typeKey('v')
     # by default is in "load" button, then go to position X
-    for x in range(0, 3):
+    for _ in range(3):
         typeTab()
     # Paste position X
     pasteIntoTextField(positionX)
@@ -445,7 +451,7 @@ def setZoom(positionX, positionY, zoomLevel):
     # Paste Zoom Z
     pasteIntoTextField(zoomLevel)
     # press OK Button using shortcut
-    typeTwoKeys('o', Key.ALT)
+    typeTwoKeys('alt', 'o')
 
 
 """
@@ -455,9 +461,9 @@ def setZoom(positionX, positionY, zoomLevel):
 
 def waitQuestion(answer):
     # wait 0.5 second to question dialog
-    wait(DELAY_QUESTION)
+    time.sleep(DELAY_QUESTION)
     # Answer can be "y" or "n"
-    typeTwoKeys(answer, Key.ALT)
+    typeTwoKeys('alt', answer)
 
 
 """
@@ -474,42 +480,42 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         print("[log] TestFunctions: Netedit already closed")
     else:
         # first move cursor out of magenta square
-        hover(Region(150, 200, 10, 10))
+        pyautogui.moveTo(150, 200)
 
         # quit using hotkey
-        typeTwoKeys("q", Key.CTRL)
+        typeTwoKeys('ctrl', 'q')
 
         # Check if net must be saved
         if openNetNonSavedDialog:
             # Wait some seconds
-            wait(DELAY_QUESTION)
+            time.sleep(DELAY_QUESTION)
             if saveNet:
-                waitQuestion("s")
-                # wait for log 
-                wait(DELAY_SAVE)
+                waitQuestion('s')
+                # wait for log
+                time.sleep(DELAY_RECOMPUTE)
             else:
-                waitQuestion("q")
+                waitQuestion('q')
 
         # Check if additionals must be saved
         if openAdditionalsNonSavedDialog:
             # Wait some seconds
-            wait(DELAY_QUESTION)
+            time.sleep(DELAY_QUESTION)
             if saveAdditionals:
-                waitQuestion("s")
+                waitQuestion('s')
             else:
-                waitQuestion("q")
+                waitQuestion('q')
 
         # Check if additionals must be saved
         if openShapesNonSavedDialog:
             # Wait some seconds
-            wait(DELAY_QUESTION)
+            time.sleep(DELAY_QUESTION)
             if saveShapes:
-                waitQuestion("s")
+                waitQuestion('s')
             else:
-                waitQuestion("q")
+                waitQuestion('q')
 
         # wait some seconds
-        wait(DELAY_QUIT)
+        time.sleep(DELAY_QUIT)
         if NeteditProcess.poll() is not None:
             # print debug information
             print("TestFunctions: Netedit closed successfully")
@@ -526,14 +532,15 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 def openNetworkAs(waitTime=2):
     # open save network as dialog
-    typeTwoKeys("o", Key.CTRL)
+    typeTwoKeys('ctrl', 'o')
     # jump to filename TextField
-    typeTwoKeys("f", Key.ALT)
-    filename = os.path.join(textTestSandBox, "input_net_loadedmanually.net.xml")
-    pasteIntoTextField(filename)
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("input_net_loadedmanually.net.xml")
     typeEnter()
     # wait for saving
-    wait(waitTime)
+    time.sleep(waitTime)
 
 
 """
@@ -543,7 +550,9 @@ def openNetworkAs(waitTime=2):
 
 def saveNetwork():
     # save network using hotkey
-    typeTwoKeys("s", Key.CTRL)
+    typeTwoKeys('ctrl', 's')
+    # wait for debug
+    time.sleep(DELAY_RECOMPUTE)
 
 
 """
@@ -553,14 +562,17 @@ def saveNetwork():
 
 def saveNetworkAs(waitTime=2):
     # open save network as dialog
-    typeTwoKeys("s", Key.CTRL + Key.SHIFT)
+    typeThreeKeys('ctrl', 'shift', 's')
     # jump to filename TextField
-    typeTwoKeys("f", Key.ALT)
-    filename = os.path.join(textTestSandBox, "net.net.xml")
-    pasteIntoTextField(filename)
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("net.net.xml")
     typeEnter()
     # wait for saving
-    wait(waitTime)
+    time.sleep(waitTime)
+    # wait for debug
+    time.sleep(DELAY_RECOMPUTE)
 
 
 """
@@ -570,7 +582,7 @@ def saveNetworkAs(waitTime=2):
 
 def saveAdditionals():
     # save additionals using hotkey
-    typeTwoKeys("d", Key.CTRL + Key.SHIFT)
+    typeThreeKeys('ctrl', 'shift', 'd')
 
 
 """
@@ -580,7 +592,7 @@ def saveAdditionals():
 
 def saveShapes():
     # save additionals using hotkey
-    typeTwoKeys("p", Key.CTRL + Key.SHIFT)
+    typeThreeKeys('ctrl', 'shift', 'p')
 
 
 """
@@ -590,9 +602,9 @@ def saveShapes():
 
 def openAboutDialog(waitingTime=DELAY_QUESTION):
     # type F2 to open about dialog
-    typeKey(Key.F2)
+    typeKey('F2')
     # wait before closing
-    wait(waitingTime)
+    time.sleep(waitingTime)
     # press enter to close dialog (Ok must be focused)
     typeSpace()
 
@@ -604,14 +616,15 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
 
 def openConfigurationShortcut(waitTime=2):
     # open configuration dialog
-    typeTwoKeys("o", Key.CTRL + Key.SHIFT)
+    typeThreeKeys('ctrl', 'shift', 'o')
     # jump to filename TextField
-    typeTwoKeys("f", Key.ALT)
-    filename = os.path.join(textTestSandBox, "input_net.netccfg")
-    pasteIntoTextField(filename)
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("input_net.netccfg")
     typeEnter()
     # wait for loading
-    wait(waitTime)
+    time.sleep(waitTime)
 
 
 """
@@ -621,14 +634,15 @@ def openConfigurationShortcut(waitTime=2):
 
 def savePlainXML(waitTime=2):
     # open configuration dialog
-    typeTwoKeys("l", Key.CTRL)
+    typeTwoKeys('ctrl', 'l')
     # jump to filename TextField
-    typeTwoKeys("f", Key.ALT)
-    filename = os.path.join(textTestSandBox, "net")
-    pasteIntoTextField(filename)
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(textTestSandBox)
+    typeEnter()
+    pasteIntoTextField("net")
     typeEnter()
     # wait for loading
-    wait(waitTime)
+    time.sleep(waitTime)
 
 #################################################
 # Create nodes and edges
@@ -641,7 +655,7 @@ def savePlainXML(waitTime=2):
 
 
 def createEdgeMode():
-    typeKey("e")
+    typeKey('e')
 
 
 """
@@ -663,7 +677,7 @@ def changeChainOption():
     # cancel current created edge
     cancelEdge()
     # jump to chain
-    for x in range(0, 3):
+    for _ in range(3):
         typeInvertTab()
     # change chain mode
     typeSpace()
@@ -678,7 +692,7 @@ def changeTwoWayOption():
     # cancel current created edge
     cancelEdge()
     # jump to two way
-    for x in range(0, 2):
+    for _ in range(2):
         typeInvertTab()
     # change two way mode
     typeSpace()
@@ -694,7 +708,7 @@ def changeTwoWayOption():
 
 
 def inspectMode():
-    typeKey("i")
+    typeKey('i')
 
 
 """
@@ -706,7 +720,7 @@ def modifyAttribute(attributeNumber, value):
     # focus current frame
     focusOnFrame()
     # jump to attribute
-    for x in range(0, attributeNumber + 1):
+    for _ in range(attributeNumber + 1):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -723,7 +737,7 @@ def modifyBoolAttribute(attributeNumber):
     # focus current frame
     focusOnFrame()
     # jump to attribute
-    for x in range(0, attributeNumber + 1):
+    for _ in range(attributeNumber + 1):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -739,7 +753,7 @@ def modifyBoolAttribute(attributeNumber):
 
 
 def moveMode():
-    typeKey("m")
+    typeKey('m')
 
 
 """
@@ -747,13 +761,9 @@ def moveMode():
 """
 
 
-def moveElement(match, startX, startY, endX, endY):
-    # change mouse move delay
-    Settings.MoveMouseDelay = 0.5
+def moveElement(referencePosition, startX, startY, endX, endY):
     # move element
-    dragDrop(match, startX, startY, endX, endY)
-    # set back mouse move delay
-    Settings.MoveMouseDelay = 0.2
+    dragDrop(referencePosition, startX, startY, endX, endY)
 
 #################################################
 # crossings
@@ -766,7 +776,7 @@ def moveElement(match, startX, startY, endX, endY):
 
 
 def crossingMode():
-    typeKey("r")
+    typeKey('r')
 
 
 """
@@ -778,7 +788,7 @@ def createCrossing():
     # focus current frame
     focusOnFrame()
     # jump to create crossing button
-    for x in range(0, 7):
+    for _ in range(7):
         typeTab()
     # type space to create crossing
     typeSpace()
@@ -793,7 +803,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for x in range(0, numtabs + 1):
+    for _ in range(numtabs + 1):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -810,7 +820,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for x in range(0, numtabs + 1):
+    for _ in range(numtabs + 1):
         typeTab()
     # type space to change value
     typeSpace()
@@ -826,11 +836,11 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for x in range(0, 1):
+        for _ in range(1):
             typeTab()
     else:
         # jump to clear button
-        for x in range(0, 1):
+        for _ in range(1):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -846,14 +856,85 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for x in range(0, 1):
+        for _ in range(1):
             typeTab()
     else:
         # jump to clear button
-        for x in range(0, 2):
+        for _ in range(2):
             typeTab()
     # type space to activate button
     typeSpace()
+
+
+#################################################
+# crossings
+#################################################
+
+
+"""
+@brief Change to crossing mode
+"""
+
+
+def connectionMode():
+    typeKey('c')
+
+
+"""
+@brief show connections (Note: Inspector mode has to be enabled)
+"""
+
+
+def toogleShowConnectionsInspectorMode():
+    # focus current frame
+    focusOnFrame()
+    # go to check box
+    typeInvertTab()
+    # type space to toogle checkbox
+    typeSpace()
+    # focus frame again
+    typeTab()
+
+
+"""
+@brief create connection
+"""
+
+
+def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
+                     toLanePositionX, toLanePositionY, mode=""):
+    # check if connection has to be created in certain mode
+    if mode == "conflict":
+        pyautogui.keyDown('ctrl')
+    elif mode == "yield":
+        pyautogui.keyDown('shift')
+    # select first lane
+    leftClick(referencePosition, fromLanePositionX, fromLanePositionY)
+    # select another lane for create a connection
+    leftClick(referencePosition, toLanePositionX, toLanePositionY)
+    # check if connection has to be created in certain mode
+    if mode == "conflict":
+        pyautogui.keyUp('ctrl')
+    elif mode == "yield":
+        pyautogui.keyUp('shift')
+
+
+"""
+@brief Change to crossing mode
+"""
+
+
+def saveConnectionEdit():
+    # focus current frame
+    focusOnFrame()
+    # go to cancel button
+    for _ in range(2):
+        typeTab()
+    # type space to press button
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
 
 #################################################
 # additionals
@@ -894,7 +975,7 @@ def modifyAdditionalDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # paste new length
     pasteIntoTextField(length)
@@ -911,7 +992,7 @@ def modifyAdditionalDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for x in range(numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # Change current value
     typeSpace()
@@ -926,10 +1007,10 @@ def modifyStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
     # go to add line
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # add lines using space
-    for x in range(0, numLines):
+    for _ in range(numLines):
         typeSpace()
 
 
@@ -942,10 +1023,10 @@ def fillStoppingPlaceLines(numTabs, numLines):
     # focus current frame
     focusOnFrame()
     # place cursor in the first line
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # fill lines
-    for x in range(0, numLines):
+    for x in range(numLines):
         # paste line and number
         pasteIntoTextField("Line" + str(x))
         # go to next field
@@ -961,11 +1042,11 @@ def selectAdditionalChild(numTabs, childNumber):
     # focus current frame
     focusOnFrame()
     # place cursor in the list of childs
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # select child
-    for x in range(0, childNumber):
-        typeKey(Key.DOWN)
+    for _ in range(childNumber):
+        typeKey('down')
     typeSpace()
     # use TAB to select additional child
     typeTab()
@@ -979,19 +1060,19 @@ def selectAdditionalChild(numTabs, childNumber):
 def fixStoppingPlace(solution):
     # select bullet depending of solution
     if (solution == "saveInvalids"):
-        for x in range(0, 3):
+        for _ in range(3):
             typeInvertTab()
         typeSpace()
         # go back and press accept
-        for x in range(0, 3):
+        for _ in range(3):
             typeTab()
         typeSpace()
     elif (solution == "fixPositions"):
-        for x in range(0, 2):
+        for _ in range(2):
             typeInvertTab()
         typeSpace()
         # go back and press accept
-        for x in range(0, 2):
+        for _ in range(2):
             typeTab()
         typeSpace()
     elif (solution == "selectInvalids"):
@@ -1019,7 +1100,7 @@ def fixStoppingPlace(solution):
 
 
 def deleteMode():
-    typeKey("d")
+    typeKey('d')
 
 
 """
@@ -1028,9 +1109,9 @@ def deleteMode():
 
 
 def deleteUsingSuprKey():
-    typeKey(Key.DELETE)
+    typeKey('del')
     # wait for GL Debug
-    wait(DELAY_REMOVESELECTION)
+    time.sleep(DELAY_REMOVESELECTION)
 
 
 """
@@ -1038,7 +1119,7 @@ def deleteUsingSuprKey():
 """
 
 
-def changeAutomaticallyDeleteAdditionals(match):
+def changeAutomaticallyDeleteAdditionals(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # use TAB to go to check box
@@ -1054,7 +1135,7 @@ def changeAutomaticallyDeleteAdditionals(match):
 
 def waitAutomaticallyDeleteAdditionalsWarning():
     # wait 0.5 second to question dialog
-    wait(DELAY_QUESTION)
+    time.sleep(DELAY_QUESTION)
     # press enter to close dialog
     typeEnter()
 
@@ -1069,7 +1150,7 @@ def waitAutomaticallyDeleteAdditionalsWarning():
 
 
 def selectMode():
-    typeKey("s")
+    typeKey('s')
 
 
 """
@@ -1090,7 +1171,7 @@ def abortSelection():
 def toogleSelectEdges():
     focusOnFrame()
     # jump to toogle edge
-    for x in range(0, 3):
+    for _ in range(3):
         typeInvertTab()
     typeSpace()
     # Focus on frame again
@@ -1098,14 +1179,14 @@ def toogleSelectEdges():
 
 
 """
-@brief toogle select edges
+@brief toogle show connections (in select mode)
 """
 
 
 def toogleShowConnections():
     focusOnFrame()
     # jump to toogle edge
-    for x in range(0, 2):
+    for _ in range(2):
         typeInvertTab()
     typeSpace()
     # Focus on frame again
@@ -1121,7 +1202,7 @@ def lockSelection(glType):
     # focus current frame
     focusOnFrame()
     # go to selected glType
-    for x in range(0, glType):
+    for _ in range(glType):
         typeTab()
     # type enter to save change
     typeSpace()
@@ -1135,10 +1216,12 @@ def lockSelection(glType):
 def selectDefault():
     # focus current frame
     focusOnFrame()
-    for x in range(0, 19):
+    for _ in range(19):
         typeTab()
     # type enter to select it
     typeEnter()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1149,11 +1232,11 @@ def selectDefault():
 def saveSelection():
     focusOnFrame()
     # jump to save
-    for x in range(0, 24):
+    for _ in range(24):
         typeTab()
     typeSpace()
     # jump to filename TextField
-    typeTwoKeys("f", Key.ALT)
+    typeTwoKeys('alt', 'f')
     filename = os.path.join(textTestSandBox, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
@@ -1167,14 +1250,16 @@ def saveSelection():
 def loadSelection():
     focusOnFrame()
     # jump to save
-    for x in range(0, 25):
+    for _ in range(25):
         typeTab()
     typeSpace()
     # jump to filename TextField
-    typeTwoKeys("f", Key.ALT)
+    typeTwoKeys('alt', 'f')
     filename = os.path.join(textTestSandBox, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1186,27 +1271,29 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for x in range(0, 13):
+    for _ in range(13):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
-    for x in range(0, 2):
+    for _ in range(2):
         typeTab()
     # paste the new elementType
     pasteIntoTextField(elementType)
     # jump to attribute
-    for x in range(0, 2):
+    for _ in range(2):
         typeTab()
     # paste the new attribute
     pasteIntoTextField(attribute)
     # jump to value
-    for x in range(0, 2):
+    for _ in range(2):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
     # type enter to select it
     typeEnter()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1215,7 +1302,9 @@ def selectItems(elementClass, elementType, attribute, value):
 
 
 def deleteSelectedItems():
-    typeKey(Key.DELETE)
+    typeKey('del')
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1227,7 +1316,7 @@ def modificationModeAdd():
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
-    for x in range(0, 9):
+    for _ in range(9):
         typeTab()
     # select it
     typeSpace()
@@ -1242,7 +1331,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
-    for x in range(0, 10):
+    for _ in range(10):
         typeTab()
     # select it
     typeSpace()
@@ -1257,7 +1346,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
-    for x in range(0, 11):
+    for _ in range(11):
         typeTab()
     # select it
     typeSpace()
@@ -1272,7 +1361,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
-    for x in range(0, 12):
+    for _ in range(12):
         typeTab()
     # select it
     typeSpace()
@@ -1283,17 +1372,15 @@ def modificationModeReplace():
 """
 
 
-def selectionRectangle(match, startX, startY, endX, endY):
-    # Leave Shift key pressed (Sikulix function)
-    keyDown(Key.SHIFT)
-    # change mouse move delay
-    Settings.MoveMouseDelay = 0.5
+def selectionRectangle(referencePosition, startX, startY, endX, endY):
+    # Leave Shift key pressed
+    pyautogui.keyDown('shift')
     # move element
-    dragDrop(match, startX, startY, endX, endY)
-    # set back mouse move delay
-    Settings.MoveMouseDelay = 0.2
-    # Release Shift key (Sikulix function)
-    keyUp(Key.SHIFT)
+    dragDrop(referencePosition, startX, startY, endX, endY)
+    # Release Shift key
+    pyautogui.keyUp('shift')
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1304,10 +1391,12 @@ def selectionRectangle(match, startX, startY, endX, endY):
 def selectionClear(previouslyInserted=False):
     # focus current frame
     focusOnFrame()
-    for x in range(0, 22):
+    for _ in range(22):
         typeTab()
     # type space to select clear option
     typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1318,10 +1407,12 @@ def selectionClear(previouslyInserted=False):
 def selectionInvert():
     # focus current frame
     focusOnFrame()
-    for x in range(0, 23):
+    for _ in range(23):
         typeTab()
     # type space to select invert operation
     typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
 
 
 """
@@ -1333,7 +1424,7 @@ def selectionToogleEdges():
     # focus current frame
     focusOnFrame()
     # go to check box "select edges"
-    for x in range(0, 3):
+    for _ in range(2):
         typeInvertTab()
     # type space to enable or disable edge selection
     typeSpace()
@@ -1349,7 +1440,7 @@ def selectionToogleEdges():
 
 
 def selectTLSMode():
-    typeKey("t")
+    typeKey('t')
 
 
 """
@@ -1361,7 +1452,7 @@ def createTLS():
     # focus current frame
     focusOnFrame()
     # type tab 3 times to jump to create TLS button
-    for x in range(0, 3):
+    for _ in range(3):
         typeTab()
     # create TLS
     typeSpace()
@@ -1401,19 +1492,19 @@ def changeShape(shape):
 """
 
 
-def createSquaredPoly(match, positionx, positiony, size, close):
+def createSquaredPoly(referencePosition, positionx, positiony, size, close):
     # focus current frame
     focusOnFrame()
     # start draw
     typeEnter()
     # create polygon
-    leftClick(match, positionx, positiony)
-    leftClick(match, positionx, positiony - (size / 2))
-    leftClick(match, positionx - (size / 2), positiony - (size / 2))
-    leftClick(match, positionx - (size / 2), positiony)
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony)
     # check if polygon has to be closed
     if (close is True):
-        leftClick(match, positionx, positiony)
+        leftClick(referencePosition, positionx, positiony)
     # finish draw
     typeEnter()
 
@@ -1423,19 +1514,19 @@ def createSquaredPoly(match, positionx, positiony, size, close):
 """
 
 
-def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
+def createRectangledPoly(referencePosition, positionx, positiony, sizex, sizey, close):
     # focus current frame
     focusOnFrame()
     # start draw
     typeEnter()
     # create polygon
-    leftClick(match, positionx, positiony)
-    leftClick(match, positionx, positiony - (sizey / 2))
-    leftClick(match, positionx - (sizex / 2), positiony - (sizey / 2))
-    leftClick(match, positionx - (sizex / 2), positiony)
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony)
     # check if polygon has to be closed
     if (close is True):
-        leftClick(match, positionx, positiony)
+        leftClick(referencePosition, positionx, positiony)
     # finish draw
     typeEnter()
 
@@ -1445,17 +1536,17 @@ def createRectangledPoly(match, positionx, positiony, sizex, sizey, close):
 """
 
 
-def createLinePoly(match, positionx, positiony, sizex, sizey, close):
+def createLinePoly(referencePosition, positionx, positiony, sizex, sizey, close):
     # focus current frame
     focusOnFrame()
     # start draw
     typeEnter()
     # create polygon
-    leftClick(match, positionx, positiony)
-    leftClick(match, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
     # check if polygon has to be closed
     if (close is True):
-        leftClick(match, positionx, positiony)
+        leftClick(referencePosition, positionx, positiony)
     # finish draw
     typeEnter()
 
@@ -1469,7 +1560,7 @@ def modifyShapeDefaultValue(numTabs, value):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # paste new value
     pasteIntoTextField(value)
@@ -1486,15 +1577,15 @@ def changeColorUsingDialog(numTabs, color):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for x in range(0, numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     typeSpace()
     # go to list of colors TextField
-    for x in range(2):
+    for _ in range(2):
         typeInvertTab()
     # select color
-    for x in range(1 + color):
-        typeKey(Key.DOWN)
+    for _ in range(1 + color):
+        typeKey('down')
     # go to accept button and press it
     typeTab()
     typeSpace()
@@ -1509,7 +1600,90 @@ def modifyShapeDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for x in range(numTabs + 1):
+    for _ in range(numTabs + 1):
         typeTab()
     # Change current value
+    typeSpace()
+
+
+"""
+@brief create GEO POI
+"""
+
+
+def createGEOPOI():
+    # focus current frame
+    focusOnFrame()
+    # place cursor in create GEO POI
+    for _ in range(19):
+        typeTab()
+    # Change current value
+    typeSpace()
+
+
+"""
+@brief change GEO POI format as Lon Lat
+"""
+
+
+def GEOPOILonLat():
+    # focus current frame
+    focusOnFrame()
+    # place cursor in lon-lat
+    for _ in range(15):
+        typeTab()
+    # Change current value
+    typeSpace()
+
+
+"""
+@brief change GEO POI format as Lat Lon
+"""
+
+
+def GEOPOILatLon():
+    # focus current frame
+    focusOnFrame()
+    # place cursor in lat-lon
+    for _ in range(16):
+        typeTab()
+    # Change current value
+    typeSpace()
+
+
+#################################################
+# Contextual menu
+#################################################
+
+
+def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation1, suboperation2=0):
+    # obtain clicked position
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    # click relative to offset
+    pyautogui.rightClick(clickedPosition)
+    # place cursor over first operation
+    for _ in range(operation):
+        # wait before every down
+        time.sleep(DELAY_KEY_TAB)
+        # type down keys
+        pyautogui.hotkey('down')
+    if suboperation1 > 0:
+        # type right key for the second menu
+        typeSpace()
+        # place cursor over second operation
+        for _ in range(suboperation1):
+            # wait before every down
+            time.sleep(DELAY_KEY_TAB)
+            # type down keys
+            pyautogui.hotkey('down')
+    if suboperation2 > 0:
+        # type right key for the third menu
+        typeSpace()
+        # place cursor over third operation
+        for _ in range(suboperation2):
+            # wait before every down
+            time.sleep(DELAY_KEY_TAB)
+            # type down keys
+            pyautogui.hotkey('down')
+    # select current operation
     typeSpace()

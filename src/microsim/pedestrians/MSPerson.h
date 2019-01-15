@@ -112,13 +112,14 @@ public:
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
          */
-        virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
+        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
         /** @brief Called on writing vehroute output
          * @param[in] os The stream to write the information into
+         * @param[in] withRouteLength whether route length shall be written
          * @exception IOError not yet implemented
          */
-        virtual void routeOutput(OutputDevice& os) const;
+        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
         /** @brief Called for writing the events output
          * @param[in] os The stream to write the information into
@@ -140,7 +141,7 @@ public:
 
         /// @brief accessors to be used by MSPModel
         //@{
-        double getMaxSpeed(const MSPerson* person) const;
+        double getMaxSpeed(const MSTransportable* const person) const;
 
         inline double getDepartPos() const {
             return myDepartPos;
@@ -236,8 +237,8 @@ public:
     public:
         /// constructor
         MSPersonStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
-            const double arrivalPos, const std::vector<std::string>& lines,
-            const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
+                              const double arrivalPos, const std::vector<std::string>& lines,
+                              const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 
         /// destructor
         ~MSPersonStage_Driving();
@@ -255,14 +256,15 @@ public:
         * @param[in] transportable The person to write information about
         * @exception IOError not yet implemented
         */
-        virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
+        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
         /** @brief Called on writing vehroute output
-        *
-        * @param[in] os The stream to write the information into
-        * @exception IOError not yet implemented
-        */
-        virtual void routeOutput(OutputDevice& os) const;
+         *
+         * @param[in] os The stream to write the information into
+         * @param[in] withRouteLength whether route length shall be written
+         * @exception IOError not yet implemented
+         */
+        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
     };
 
     /**
@@ -295,10 +297,10 @@ public:
         * @param[in] transportable The person to write information about
         * @exception IOError not yet implemented
         */
-        void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
+        void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
         /// @brief Called on writing vehroute output. Currently does nothing.
-        void routeOutput(OutputDevice&) const {};
+        void routeOutput(OutputDevice&, const bool) const {};
 
         /// @brief Called on writing events output (begin of an action). Currently does nothing.
         void beginEventOutput(const MSTransportable&, SUMOTime, OutputDevice&) const {};
@@ -349,14 +351,14 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void tripInfoOutput(OutputDevice& os, MSTransportable* transportable) const;
+    virtual void tripInfoOutput(OutputDevice& os) const;
 
     /** @brief Called on writing vehroute output
     *
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    virtual void routeOutput(OutputDevice& os) const;
+    virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
 
     /// @brief whether this person is selected in the GUI
     virtual bool isSelected() const {

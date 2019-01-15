@@ -113,7 +113,7 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
             (*it)->removeTrafficLight(this);
         }
         WRITE_WARNING("The traffic light '" + getID() + "' does not control any links; it will not be build.");
-        return 0;
+        return nullptr;
     }
     // compute the time needed to brake
     int brakingTime = computeBrakingTime(oc.getFloat("tls.yellow.min-decel"));
@@ -200,7 +200,7 @@ NBTrafficLightDefinition::collectEdges() {
     for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end(); ++j) {
         NBEdge* edge = *j;
         // an edge lies within the logic if it is outgoing as well as incoming
-        EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
+        EdgeVector::iterator k = std::find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
             myEdgesWithin.push_back(edge);
         } else  {
@@ -218,7 +218,7 @@ NBTrafficLightDefinition::collectEdges() {
         // edges that are marked as 'inner' will not get their own phase when
         // computing traffic light logics (unless they cannot be reached from the outside at all)
         if (reachable.count(edge) == 1) {
-            edge->setIsInnerEdge();
+            edge->setInternal();
             // legacy behavior
             if (uncontrolledWithin && myControlledInnerEdges.count(edge->getID()) == 0) {
                 myIncomingEdges.erase(find(myIncomingEdges.begin(), myIncomingEdges.end(), edge));
@@ -276,7 +276,7 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
                                   const NBEdge* const possProhibitedTo,
                                   bool regardNonSignalisedLowerPriority,
                                   bool sameNodeOnly) const {
-    if (possProhibitorFrom == 0 || possProhibitorTo == 0 || possProhibitedFrom == 0 || possProhibitedTo == 0) {
+    if (possProhibitorFrom == nullptr || possProhibitorTo == nullptr || possProhibitedFrom == nullptr || possProhibitedTo == nullptr) {
         return false;
     }
     // retrieve both nodes
@@ -391,7 +391,7 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
 bool
 NBTrafficLightDefinition::foes(const NBEdge* const from1, const NBEdge* const to1,
                                const NBEdge* const from2, const NBEdge* const to2) const {
-    if (to1 == 0 || to2 == 0) {
+    if (to1 == nullptr || to2 == nullptr) {
         return false;
     }
     // retrieve both nodes (it is possible that a connection
@@ -462,7 +462,7 @@ NBTrafficLightDefinition::collectAllLinks() {
             for (std::vector<NBEdge::Connection>::iterator k = connected.begin(); k != connected.end(); k++) {
                 const NBEdge::Connection& el = *k;
                 if (incoming->mayBeTLSControlled(el.fromLane, el.toEdge, el.toLane)) {
-                    if (el.toEdge != 0 && el.toLane >= (int) el.toEdge->getNumLanes()) {
+                    if (el.toEdge != nullptr && el.toLane >= (int) el.toEdge->getNumLanes()) {
                         throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
                     }
                     if (incoming->getToNode()->getType() != NODETYPE_RAIL_CROSSING || !isRailway(incoming->getPermissions())) {
@@ -523,6 +523,11 @@ NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
         //}
     }
     return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
+}
+
+std::string 
+NBTrafficLightDefinition::getDescription() const {
+    return getID() + ':' + getProgramID() + '@' + toString(this);
 }
 
 /****************************************************************************/

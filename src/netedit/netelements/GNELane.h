@@ -75,6 +75,15 @@ public:
     /// @brief get lenght geometry factor
     double getLengthGeometryFactor() const;
 
+    /// @name functions for edit geometry
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startGeometryMoving();
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endGeometryMoving();
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     // @brief Returns the name of the parent object (if any)
@@ -181,18 +190,6 @@ public:
     /// @name Function related with Generic Parameters
     /// @{
 
-    /// @brief add generic parameter
-    bool addGenericParameter(const std::string &key, const std::string &value);
-
-    /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string &key);
-
-    /// @brief update generic parameter
-    bool updateGenericParameter(const std::string &oldKey, const std::string &newKey);
-
-    /// @brief update value generic parameter 
-    bool updateGenericParameterValue(const std::string &key, const std::string &newValue);
-
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
 
@@ -200,17 +197,17 @@ public:
     std::vector<std::pair<std::string, std::string> > getGenericParameters() const;
 
     /// @brief set generic parameters in string format
-    void setGenericParametersStr(const std::string &value);
+    void setGenericParametersStr(const std::string& value);
 
     /// @}
 
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color
      */
-    void setSpecialColor(const RGBColor* Color2);
+    void setSpecialColor(const RGBColor* Color2, double colorValue=std::numeric_limits<double>::max());
 
     /// @brief return value for lane coloring according to the given scheme
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief remove lane of Additional Parent
     void removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty);
@@ -221,6 +218,9 @@ protected:
 
     /// @brief The Edge that to which this lane belongs
     GNEEdge& myParentEdge;
+
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
 
     /// @brief The index of this lane
     int myIndex;
@@ -245,12 +245,11 @@ protected:
 
     /// @brief optional special color
     const RGBColor* mySpecialColor;
+    /// @brief optional value that corresponds to which the special color corresponds
+    double mySpecialColorValue;
 
     /// @brief The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;
-
-    /// @brief the tls-editor for setting multiple links in TLS-mode
-    GNETLSEditorFrame* myTLSEditor;
 
 private:
     /// @brief set attribute after validation

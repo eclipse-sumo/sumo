@@ -65,7 +65,7 @@ GUIDialog_Options::GUIDialog_Options(FXWindow* parent,  const char* titleName, i
     new FXStatusBar(this, GUIDesignStatusBar);
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
 
-    FXTabBook* tabbook = new FXTabBook(contentFrame, 0, 0, GUIDesignTabBook);
+    FXTabBook* tabbook = new FXTabBook(contentFrame, nullptr, 0, GUIDesignTabBook);
 
     for (auto it_topic : oc.getSubTopics()) {
         if (it_topic == "Configuration") {
@@ -137,10 +137,10 @@ GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     oc.resetWritable();
     oc.set(myName, myCheck->getCheck() ? "true" : "false");
     // special checks for Debug flags
-    if((myName == "gui-testing-debug") && oc.isSet("gui-testing-debug")) {
+    if ((myName == "gui-testing-debug") && oc.isSet("gui-testing-debug")) {
         MsgHandler::enableDebugMessages(oc.getBool("gui-testing-debug"));
     }
-    if((myName == "gui-testing-debug-gl") && oc.isSet("gui-testing-debug-gl")) {
+    if ((myName == "gui-testing-debug-gl") && oc.isSet("gui-testing-debug-gl")) {
         MsgHandler::enableDebugGLMessages(oc.getBool("gui-testing-debug-gl"));
     }
     return 1;

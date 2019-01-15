@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Jan 12 20:51:02 2019 by Eclipse SUMO duarouter Version v1_0_1+1015-8e01b2d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="test" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="58.30" probability="1.00000000" edges="152331#0 152331#1 152331#2"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="test2" depart="0.00">
+        <routeDistribution last="1">
+            <route cost="63.55" probability="0.49946043" edges="152331#0 152406 152331#2"/>
+            <route cost="58.30" probability="0.50053957" edges="152331#0 152331#1 152331#2"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

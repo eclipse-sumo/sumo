@@ -43,11 +43,11 @@ bool GUIMessageWindow::myLocateLinks = true;
 // method definitions
 // ===========================================================================
 GUIMessageWindow::GUIMessageWindow(FXComposite* parent) :
-    FXText(parent, 0, 0, 0, 0, 0, 0, 50),
+    FXText(parent, nullptr, 0, 0, 0, 0, 0, 50),
     myStyles(new FXHiliteStyle[8]),
-    myErrorRetriever(0),
-    myMessageRetriever(0),
-    myWarningRetriever(0) {
+    myErrorRetriever(nullptr),
+    myMessageRetriever(nullptr),
+    myWarningRetriever(nullptr) {
     setStyled(true);
     setEditable(false);
     const FXColor white   = FXRGB(0xff, 0xff, 0xff);
@@ -127,7 +127,7 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
             return GUIGlObjectStorage::gIDStorage.getObjectBlocking(type + ":" + id);
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -140,10 +140,10 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
         if (viewIDs.empty()) {
             return;
         }
-        GUIGlChildWindow* const child = dynamic_cast<GUIGlChildWindow*>(main->getViewByID(viewIDs[0]));
+        GUIGlChildWindow* const child = main->getViewByID(viewIDs[0]);
         const FXString text = getText();
         const GUIGlObject* const glObj = getActiveStringObject(text, pos, lineStart(pos), lineEnd(pos));
-        if (glObj != 0) {
+        if (glObj != nullptr) {
             child->setView(glObj->getGlID());
             GUIGlObjectStorage::gIDStorage.unblockObject(glObj->getGlID());
             if (getApp()->getKeyState(KEY_Control_L)) {
@@ -190,7 +190,7 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
         FXint pos = text.find("'");
         while (pos >= 0) {
             const GUIGlObject* const glObj = getActiveStringObject(text, pos + 1, 0, text.length());
-            if (glObj != 0) {
+            if (glObj != nullptr) {
                 GUIGlObjectStorage::gIDStorage.unblockObject(glObj->getGlID());
                 FXString insText = text.left(pos + 1);
                 FXText::appendStyledText(insText, style + 1);
@@ -242,7 +242,7 @@ GUIMessageWindow::clear() {
 
 void
 GUIMessageWindow::registerMsgHandlers() {
-    if (myMessageRetriever == 0) {
+    if (myMessageRetriever == nullptr) {
         // initialize only if registration is requested
         myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURRED);
         myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURRED);

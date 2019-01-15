@@ -102,6 +102,13 @@ public:
      */
     void planMovements(SUMOTime t);
 
+    /** @brief Register junction approaches for all vehicles after velocities
+     * have been planned. This is a prerequisite for executeMovements
+     *
+     * This method goes through all active lanes calling their "setJunctionApproaches" method.
+     */
+    void setJunctionApproaches(SUMOTime t);
+
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -187,10 +194,6 @@ public:
     struct LaneUsage {
         /// @brief The described lane
         MSLane* lane;
-        /// @brief The lane left to the described lane (==lastNeigh if none)
-        std::vector<MSLane*>::const_iterator firstNeigh;
-        /// @brief The end of this lane's edge's lane container
-        std::vector<MSLane*>::const_iterator lastNeigh;
         /// @brief Information whether this lane is active
         bool amActive;
         /// @brief Information whether this lane belongs to a multi-lane edge
@@ -214,7 +217,7 @@ private:
     std::vector<MSLane*> myWithVehicles2Integrate;
 
     /// @brief Lanes which changed the state without informing the control
-    std::set<MSLane*, ComparatorIdLess> myChangedStateLanes;
+    std::set<MSLane*, ComparatorNumericalIdLess> myChangedStateLanes;
 
     /// @brief The list of active (not empty) lanes
     std::vector<SUMOTime> myLastLaneChange;

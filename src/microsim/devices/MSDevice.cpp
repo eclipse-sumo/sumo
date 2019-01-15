@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSTransportable.h>
 #include <microsim/MSVehicleControl.h>
@@ -40,6 +40,8 @@
 #include "MSDevice_DriverState.h"
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
+#include "MSPersonDevice_Routing.h"
+#include "MSRoutingEngine.h"
 
 
 // ===========================================================================
@@ -85,7 +87,7 @@ MSDevice::checkOptions(OptionsCont& oc) {
 
 
 void
-MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     MSDevice_Vehroutes::buildVehicleDevices(v, into);
     MSDevice_Tripinfo::buildVehicleDevices(v, into);
     MSDevice_Routing::buildVehicleDevices(v, into);
@@ -101,73 +103,33 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
     MSDevice_FCD::buildVehicleDevices(v, into);
 }
 
+
+void
+MSDevice::buildPersonDevices(MSTransportable& p, std::vector<MSPersonDevice*>& into) {
+    MSPersonDevice_Routing::buildDevices(p, into);
+}
+
+
 void
 MSDevice::cleanupAll() {
-    MSDevice_Routing::cleanup();
+    MSRoutingEngine::cleanup();
     MSDevice_Tripinfo::cleanup();
     MSDevice_FCD::cleanup();
 }
 
 void
-MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc) {
-    oc.doRegister("device." + deviceName + ".probability", new Option_Float(-1.0));// (default: no need to call RNG)
-    oc.addDescription("device." + deviceName + ".probability", optionsTopic, "The probability for a vehicle to have a '" + deviceName + "' device");
+MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc, const bool isPerson) {
+    const std::string prefix = (isPerson ? "person-device." : "device.") + deviceName;
+    const std::string object = isPerson ? "person" : "vehicle";
+    oc.doRegister(prefix + ".probability", new Option_Float(-1.0));// (default: no need to call RNG)
+    oc.addDescription(prefix + ".probability", optionsTopic, "The probability for a " + object + " to have a '" + deviceName + "' device");
 
-    oc.doRegister("device." + deviceName + ".explicit", new Option_String());//!!! describe
-    oc.addSynonyme("device." + deviceName + ".explicit", "device." + deviceName + ".knownveh", true);
-    oc.addDescription("device." + deviceName + ".explicit", optionsTopic, "Assign a '" + deviceName + "' device to named vehicles");
+    oc.doRegister(prefix + ".explicit", new Option_String());
+    oc.addSynonyme(prefix + ".explicit", prefix + ".knownveh", true);
+    oc.addDescription(prefix + ".explicit", optionsTopic, "Assign a '" + deviceName + "' device to named " + object + "s");
 
-    oc.doRegister("device." + deviceName + ".deterministic", new Option_Bool(false)); //!!! describe
-    oc.addDescription("device." + deviceName + ".deterministic", optionsTopic, "The '" + deviceName + "' devices are set deterministic using a fraction of 1000");
-}
-
-
-bool
-MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, SUMOVehicle& v, bool outputOptionSet) {
-    // assignment by number
-    bool haveByNumber = false;
-    bool numberGiven = false;
-    if (oc.exists("device." + deviceName + ".deterministic") && oc.getBool("device." + deviceName + ".deterministic")) {
-        numberGiven = true;
-        haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat("device." + deviceName + ".probability")) == 1;
-    } else {
-        if (oc.exists("device." + deviceName + ".probability") && oc.getFloat("device." + deviceName + ".probability") >= 0) {
-            numberGiven = true;
-            haveByNumber = RandHelper::rand(&myEquipmentRNG) <= oc.getFloat("device." + deviceName + ".probability");
-        }
-    }
-    // assignment by name
-    bool haveByName = false;
-    bool nameGiven = false;
-    if (oc.exists("device." + deviceName + ".explicit") && oc.isSet("device." + deviceName + ".explicit")) {
-        nameGiven = true;
-        if (myExplicitIDs.find(deviceName) == myExplicitIDs.end()) {
-            myExplicitIDs[deviceName] = std::set<std::string>();
-            const std::vector<std::string> idList = OptionsCont::getOptions().getStringVector("device." + deviceName + ".explicit");
-            myExplicitIDs[deviceName].insert(idList.begin(), idList.end());
-        }
-        haveByName = myExplicitIDs[deviceName].count(v.getID()) > 0;
-    }
-    // assignment by abstract parameters
-    bool haveByParameter = false;
-    bool parameterGiven = false;
-    const std::string key = "has." + deviceName + ".device";
-    if (v.getParameter().knowsParameter(key)) {
-        parameterGiven = true;
-        haveByParameter = TplConvert::_2bool(v.getParameter().getParameter(key, "false").c_str());
-    } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
-        parameterGiven = true;
-        haveByParameter = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter(key, "false").c_str());
-    }
-    if (haveByName) {
-        return true;
-    } else if (parameterGiven) {
-        return haveByParameter;
-    } else if (numberGiven) {
-        return haveByNumber;
-    } else {
-        return !nameGiven && outputOptionSet;
-    }
+    oc.doRegister(prefix + ".deterministic", new Option_Bool(false));
+    oc.addDescription(prefix + ".deterministic", optionsTopic, "The '" + deviceName + "' devices are set deterministic using a fraction of 1000");
 }
 
 
@@ -175,9 +137,9 @@ bool
 MSDevice::equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet) {
     const std::string key = "has." + deviceName + ".device";
     if (t->getParameter().knowsParameter(key)) {
-        return TplConvert::_2bool(t->getParameter().getParameter(key, "false").c_str());
+        return StringUtils::toBool(t->getParameter().getParameter(key, "false"));
     } else if (t->getVehicleType().getParameter().knowsParameter(key)) {
-        return TplConvert::_2bool(t->getVehicleType().getParameter().getParameter(key, "false").c_str());
+        return StringUtils::toBool(t->getVehicleType().getParameter().getParameter(key, "false"));
     }
     return outputOptionSet;
 }
@@ -197,28 +159,28 @@ MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 std::string
 MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required) {
     std::string result = deflt;
-    if (v.getParameter().knowsParameter("device."+paramName)) {
+    if (v.getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = v.getParameter().getParameter("device."+paramName, "").c_str();
+            result = v.getParameter().getParameter("device." + paramName, "").c_str();
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device."+paramName, "") + "'for vehicle parameter 'toc."+paramName+"'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device." + paramName, "") + "'for vehicle parameter 'toc." + paramName + "'");
         }
-    } else if (v.getVehicleType().getParameter().knowsParameter("device."+paramName)) {
+    } else if (v.getVehicleType().getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = v.getVehicleType().getParameter().getParameter("device."+paramName, "").c_str();
+            result = v.getVehicleType().getParameter().getParameter("device." + paramName, "").c_str();
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device." + paramName, "") + "'for vType parameter 'toc." + paramName + "'");
         }
     } else {
-        if (oc.isSet("device."+paramName)) {
-            result = oc.getString("device."+paramName);
+        if (oc.isSet("device." + paramName)) {
+            result = oc.getString("device." + paramName);
         } else {
             if (required) {
-                throw ProcessError("Missing parameter 'device."+paramName+"' for vehicle '" + v.getID());
+                throw ProcessError("Missing parameter 'device." + paramName + "' for vehicle '" + v.getID());
             } else {
                 result = deflt;
 #ifdef DEBUG_DEVICE_PARAMS
-                std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device."+paramName+"'. Using default of '" << result << "'\n";
+                std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device." + paramName + "'. Using default of '" << result << "'\n";
 #endif
             }
         }
@@ -230,28 +192,28 @@ MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::strin
 double
 MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, double deflt, bool required) {
     double result = deflt;
-    if (v.getParameter().knowsParameter("device."+paramName)) {
+    if (v.getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2double(v.getParameter().getParameter("device."+paramName, "").c_str());
+            result = StringUtils::toDouble(v.getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device."+paramName, "") + "'for vehicle parameter 'toc."+paramName+"'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device." + paramName, "") + "'for vehicle parameter 'toc." + paramName + "'");
         }
-    } else if (v.getVehicleType().getParameter().knowsParameter("device."+paramName)) {
+    } else if (v.getVehicleType().getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2double(v.getVehicleType().getParameter().getParameter("device."+paramName, "").c_str());
+            result = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device." + paramName, "") + "'for vType parameter 'toc." + paramName + "'");
         }
     } else {
-        if (oc.isSet("device."+paramName)) {
-            result = oc.getFloat("device."+paramName);
+        if (oc.isSet("device." + paramName)) {
+            result = oc.getFloat("device." + paramName);
         } else {
             if (required) {
-                throw ProcessError("Missing parameter 'device."+paramName+"' for vehicle '" + v.getID());
+                throw ProcessError("Missing parameter 'device." + paramName + "' for vehicle '" + v.getID());
             } else {
                 result = deflt;
 #ifdef DEBUG_DEVICE_PARAMS
-            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device."+paramName+"'. Using default of '" << result << "'\n";
+                std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device." + paramName + "'. Using default of '" << result << "'\n";
 #endif
             }
         }
@@ -263,28 +225,28 @@ MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string
 bool
 MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, bool deflt, bool required) {
     bool result = deflt;
-    if (v.getParameter().knowsParameter("device."+paramName)) {
+    if (v.getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2bool(v.getParameter().getParameter("device."+paramName, "").c_str());
+            result = StringUtils::toBool(v.getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device."+paramName, "") + "'for vehicle parameter 'toc."+paramName+"'");
+            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device." + paramName, "") + "'for vehicle parameter 'toc." + paramName + "'");
         }
-    } else if (v.getVehicleType().getParameter().knowsParameter("device."+paramName)) {
+    } else if (v.getVehicleType().getParameter().knowsParameter("device." + paramName)) {
         try {
-            result = TplConvert::_2bool(v.getVehicleType().getParameter().getParameter("device."+paramName, "").c_str());
+            result = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device." + paramName, ""));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device."+paramName, "") + "'for vType parameter 'toc."+paramName+"'");
+            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device." + paramName, "") + "'for vType parameter 'toc." + paramName + "'");
         }
     } else {
-        if (oc.isSet("device."+paramName)) {
-            result = oc.getBool("device."+paramName);
+        if (oc.isSet("device." + paramName)) {
+            result = oc.getBool("device." + paramName);
         } else {
             if (required) {
-                throw ProcessError("Missing parameter 'device."+paramName+"' for vehicle '" + v.getID());
+                throw ProcessError("Missing parameter 'device." + paramName + "' for vehicle '" + v.getID());
             } else {
                 result = deflt;
 #ifdef DEBUG_DEVICE_PARAMS
-            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device."+paramName+"'. Using default of '" << result << "'\n";
+                std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device." + paramName + "'. Using default of '" << result << "'\n";
 #endif
             }
         }

@@ -44,7 +44,7 @@ TraCIAPI::TraCIAPI()
       person(*this), poi(*this), polygon(*this), route(*this),
       simulation(*this), trafficlights(*this),
       vehicle(*this), vehicletype(*this),
-      mySocket(0) {
+      mySocket(nullptr) {
     myDomains[RESPONSE_SUBSCRIBE_EDGE_VARIABLE] = &edge;
     myDomains[RESPONSE_SUBSCRIBE_GUI_VARIABLE] = &gui;
     myDomains[RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE] = &junction;
@@ -77,7 +77,7 @@ TraCIAPI::connect(const std::string& host, int port) {
         mySocket->connect();
     } catch (tcpip::SocketException&) {
         delete mySocket;
-        mySocket = 0;
+        mySocket = nullptr;
         throw;
     }
 }
@@ -110,12 +110,12 @@ TraCIAPI::close() {
 
 void
 TraCIAPI::closeSocket() {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         return;
     }
     mySocket->close();
     delete mySocket;
-    mySocket = 0;
+    mySocket = nullptr;
 }
 
 
@@ -158,13 +158,13 @@ TraCIAPI::send_commandSetOrder(int order) const {
 
 void
 TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* add) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
     // command length
     int length = 1 + 1 + 1 + 4 + (int) objID.length();
-    if (add != 0) {
+    if (add != nullptr) {
         length += (int)add->size();
     }
     outMsg.writeUnsignedByte(length);
@@ -175,7 +175,7 @@ TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID
     // object id
     outMsg.writeString(objID);
     // additional values
-    if (add != 0) {
+    if (add != nullptr) {
         outMsg.writeStorage(*add);
     }
     // send request message
@@ -185,12 +185,18 @@ TraCIAPI::send_commandGetVariable(int domID, int varID, const std::string& objID
 
 void
 TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, tcpip::Storage& content) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
     // command length (domID, varID, objID, dataType, data)
-    outMsg.writeUnsignedByte(1 + 1 + 1 + 4 + (int) objID.length() + (int)content.size());
+    int length = 1 + 1 + 1 + 4 + (int) objID.length() + (int)content.size();
+    if (length <= 255) {
+        outMsg.writeUnsignedByte(length);
+    } else {
+        outMsg.writeUnsignedByte(0);
+        outMsg.writeInt(length + 4);
+    }
     // command id
     outMsg.writeUnsignedByte(domID);
     // variable id
@@ -207,7 +213,7 @@ TraCIAPI::send_commandSetValue(int domID, int varID, const std::string& objID, t
 void
 TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime,
         const std::vector<int>& vars) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
@@ -235,7 +241,7 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
 void
 TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
         int domain, double range, const std::vector<int>& vars) const {
-    if (mySocket == 0) {
+    if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     tcpip::Storage outMsg;
@@ -295,28 +301,28 @@ TraCIAPI::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreComma
         cmdLength = inMsg.readUnsignedByte();
         cmdId = inMsg.readUnsignedByte();
         if (command != cmdId && !ignoreCommandId) {
-            throw tcpip::SocketException("#Error: received status response to command: " + toString(cmdId) + " but expected: " + toString(command));
+            throw libsumo::TraCIException("#Error: received status response to command: " + toString(cmdId) + " but expected: " + toString(command));
         }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
     } catch (std::invalid_argument&) {
-        throw tcpip::SocketException("#Error: an exception was thrown while reading result state message");
+        throw libsumo::TraCIException("#Error: an exception was thrown while reading result state message");
     }
     switch (resultType) {
         case RTYPE_ERR:
-            throw tcpip::SocketException(".. Answered with error to command (" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Answered with error to command (" + toString(command) + "), [description: " + msg + "]");
         case RTYPE_NOTIMPLEMENTED:
-            throw tcpip::SocketException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
         case RTYPE_OK:
-            if (acknowledgement != 0) {
+            if (acknowledgement != nullptr) {
                 (*acknowledgement) = ".. Command acknowledged (" + toString(command) + "), [description: " + msg + "]";
             }
             break;
         default:
-            throw tcpip::SocketException(".. Answered with unknown result code(" + toString(resultType) + ") to command(" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Answered with unknown result code(" + toString(resultType) + ") to command(" + toString(command) + "), [description: " + msg + "]");
     }
     if ((cmdStart + cmdLength) != (int) inMsg.position()) {
-        throw tcpip::SocketException("#Error: command at position " + toString(cmdStart) + " has wrong length");
+        throw libsumo::TraCIException("#Error: command at position " + toString(cmdStart) + " has wrong length");
     }
 }
 
@@ -330,7 +336,7 @@ TraCIAPI::check_commandGetResult(tcpip::Storage& inMsg, int command, int expecte
     }
     int cmdId = inMsg.readUnsignedByte();
     if (!ignoreCommandId && cmdId != (command + 0x10)) {
-        throw tcpip::SocketException("#Error: received response with command id: " + toString(cmdId) + "but expected: " + toString(command + 0x10));
+        throw libsumo::TraCIException("#Error: received response with command id: " + toString(cmdId) + "but expected: " + toString(command + 0x10));
     }
     if (expectedType >= 0) {
         // not called from the TraCITestClient but from within the TraCIAPI
@@ -338,7 +344,7 @@ TraCIAPI::check_commandGetResult(tcpip::Storage& inMsg, int command, int expecte
         inMsg.readString(); // objectID
         int valueDataType = inMsg.readUnsignedByte();
         if (valueDataType != expectedType) {
-            throw tcpip::SocketException("Expected " + toString(expectedType) + " but got " + toString(valueDataType));
+            throw libsumo::TraCIException("Expected " + toString(expectedType) + " but got " + toString(valueDataType));
         }
     }
     return cmdId;
@@ -393,7 +399,10 @@ TraCIAPI::getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* ad
     tcpip::Storage inMsg;
     send_commandGetVariable(cmd, var, id, add);
     processGET(inMsg, cmd, TYPE_POLYGON);
-    int size = inMsg.readByte();
+    int size = inMsg.readUnsignedByte();
+    if (size == 0) {
+        size = inMsg.readInt();
+    }
     libsumo::TraCIPositionVector ret;
     for (int i = 0; i < size; ++i) {
         libsumo::TraCIPosition p;
@@ -526,10 +535,10 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                 // TODO Other data types
 
                 default:
-                    throw tcpip::SocketException("Unimplemented subscription type: " + toString(type));
+                    throw libsumo::TraCIException("Unimplemented subscription type: " + toString(type));
             }
         } else {
-            throw tcpip::SocketException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
+            throw libsumo::TraCIException("Subscription response error: variableID=" + toString(variableID) + " status=" + toString(status));
         }
 
         variableCount--;
@@ -561,7 +570,7 @@ TraCIAPI::readContextSubscription(int cmdId, tcpip::Storage& inMsg) {
 
 
 void
-TraCIAPI::simulationStep(int time) {
+TraCIAPI::simulationStep(double time) {
     send_commandSimulationStep(time);
     tcpip::Storage inMsg;
     check_resultState(inMsg, CMD_SIMSTEP);
@@ -605,7 +614,7 @@ TraCIAPI::load(const std::vector<std::string>& args) {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::EdgeScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_EDGE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_EDGE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -712,6 +721,12 @@ TraCIAPI::EdgeScope::getLaneNumber(const std::string& edgeID) const {
 }
 
 
+std::string
+TraCIAPI::EdgeScope::getStreetName(const std::string& edgeID) const {
+    return myParent.getString(CMD_GET_EDGE_VARIABLE, VAR_NAME, edgeID);
+}
+
+
 void
 TraCIAPI::EdgeScope::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) const {
     tcpip::Storage content;
@@ -770,7 +785,7 @@ TraCIAPI::EdgeScope::setMaxSpeed(const std::string& edgeID, double speed) const 
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::GUIScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_GUI_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_GUI_VARIABLE, TRACI_ID_LIST, "");
 }
 
 double
@@ -797,6 +812,7 @@ TraCIAPI::GUIScope::getBoundary(const std::string& viewID) const {
 void
 TraCIAPI::GUIScope::setZoom(const std::string& viewID, double zoom) const {
     tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
     content.writeDouble(zoom);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_ZOOM, viewID, content);
     tcpip::Storage inMsg;
@@ -831,10 +847,8 @@ TraCIAPI::GUIScope::setBoundary(const std::string& viewID, double xmin, double y
     content.writeByte(2);
     content.writeDouble(xmin);
     content.writeDouble(ymin);
-    content.writeDouble(0.);
     content.writeDouble(xmax);
     content.writeDouble(ymax);
-    content.writeDouble(0.);
     myParent.send_commandSetValue(CMD_SET_GUI_VARIABLE, VAR_VIEW_BOUNDARY, viewID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_GUI_VARIABLE);
@@ -874,7 +888,7 @@ TraCIAPI::GUIScope::trackVehicle(const std::string& viewID, const std::string& v
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::InductionLoopScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_INDUCTIONLOOP_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_INDUCTIONLOOP_VARIABLE, TRACI_ID_LIST, "");
 }
 
 double
@@ -958,7 +972,7 @@ TraCIAPI::InductionLoopScope::getVehicleData(const std::string& loopID) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::JunctionScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_JUNCTION_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_JUNCTION_VARIABLE, TRACI_ID_LIST, "");
 }
 
 libsumo::TraCIPosition
@@ -974,7 +988,7 @@ TraCIAPI::JunctionScope::getPosition(const std::string& junctionID) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::LaneScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_LANE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1050,13 +1064,13 @@ TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
         double length = inMsg.readDouble();
 
         ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                      hasPrio,
-                                      isOpen,
-                                      hasFoe,
-                                      approachedLaneInternal,
-                                      state,
-                                      direction,
-                                      length));
+                                               hasPrio,
+                                               isOpen,
+                                               hasFoe,
+                                               approachedLaneInternal,
+                                               state,
+                                               direction,
+                                               length));
 
     }
     return ret;
@@ -1222,7 +1236,7 @@ TraCIAPI::LaneScope::setLength(const std::string& laneID, double length) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::LaneAreaScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_LANEAREA_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_LANEAREA_VARIABLE, TRACI_ID_LIST, "");
 }
 
 
@@ -1233,7 +1247,7 @@ TraCIAPI::LaneAreaScope::getIDList() const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::MeMeScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_MULTIENTRYEXIT_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_MULTIENTRYEXIT_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1263,7 +1277,12 @@ TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string& detID) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::POIScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_POI_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_POI_VARIABLE, TRACI_ID_LIST, "");
+}
+
+int
+TraCIAPI::POIScope::getIDCount() const {
+    return myParent.getInt(CMD_GET_POI_VARIABLE, ID_COUNT, "");
 }
 
 std::string
@@ -1357,7 +1376,17 @@ TraCIAPI::POIScope::remove(const std::string& poiID, int layer) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::PolygonScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_POLYGON_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_POLYGON_VARIABLE, TRACI_ID_LIST, "");
+}
+
+int
+TraCIAPI::PolygonScope::getIDCount() const {
+    return myParent.getInt(CMD_GET_POLYGON_VARIABLE, ID_COUNT, "");
+}
+
+double
+TraCIAPI::PolygonScope::getLineWidth(const std::string& polygonID) const {
+    return myParent.getDouble(CMD_GET_POLYGON_VARIABLE, VAR_WIDTH, polygonID);
 }
 
 std::string
@@ -1375,6 +1404,15 @@ TraCIAPI::PolygonScope::getColor(const std::string& polygonID) const {
     return myParent.getColor(CMD_GET_POLYGON_VARIABLE, VAR_COLOR, polygonID);
 }
 
+void
+TraCIAPI::PolygonScope::setLineWidth(const std::string& polygonID, const double lineWidth) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(lineWidth);
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_WIDTH, polygonID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_POLYGON_VARIABLE);
+}
 
 void
 TraCIAPI::PolygonScope::setType(const std::string& polygonID, const std::string& setType) const {
@@ -1386,19 +1424,26 @@ TraCIAPI::PolygonScope::setType(const std::string& polygonID, const std::string&
     myParent.check_resultState(inMsg, CMD_SET_POLYGON_VARIABLE);
 }
 
+
 void
 TraCIAPI::PolygonScope::setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_POLYGON);
-    content.writeInt((int)shape.size());
-    for (int i = 0; i < (int)shape.size(); ++i) {
-        content.writeDouble(shape[i].x);
-        content.writeDouble(shape[i].y);
+    if (shape.size() < 256) {
+        content.writeUnsignedByte((int)shape.size());
+    } else {
+        content.writeUnsignedByte(0);
+        content.writeInt((int)shape.size());
     }
-    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_POSITION, polygonID, content);
+    for (const libsumo::TraCIPosition& pos : shape) {
+        content.writeDouble(pos.x);
+        content.writeDouble(pos.y);
+    }
+    myParent.send_commandSetValue(CMD_SET_POLYGON_VARIABLE, VAR_SHAPE, polygonID, content);
     tcpip::Storage inMsg;
     myParent.check_resultState(inMsg, CMD_SET_POLYGON_VARIABLE);
 }
+
 
 void
 TraCIAPI::PolygonScope::setColor(const std::string& polygonID, const libsumo::TraCIColor& c) const {
@@ -1458,7 +1503,7 @@ TraCIAPI::PolygonScope::remove(const std::string& polygonID, int layer) const {
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::RouteScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_ROUTE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_ROUTE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 std::vector<std::string>
@@ -1606,7 +1651,7 @@ TraCIAPI::SimulationScope::getDistanceRoad(const std::string& edgeID1, double po
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::TrafficLightScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_TL_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_TL_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -1626,32 +1671,42 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
     myParent.processGET(inMsg, CMD_GET_TL_VARIABLE, TYPE_COMPOUND);
     std::vector<libsumo::TraCILogic> ret;
 
-    inMsg.readUnsignedByte();
-    inMsg.readInt();
-
     int logicNo = inMsg.readInt();
     for (int i = 0; i < logicNo; ++i) {
         inMsg.readUnsignedByte();
-        std::string subID = inMsg.readString();
+        inMsg.readInt();
         inMsg.readUnsignedByte();
-        int type = inMsg.readInt();
+        const std::string programID = inMsg.readString();
         inMsg.readUnsignedByte();
-        inMsg.readInt(); // add
+        const int type = inMsg.readInt();
         inMsg.readUnsignedByte();
-        int phaseIndex = inMsg.readInt();
+        const int phaseIndex = inMsg.readInt();
         inMsg.readUnsignedByte();
-        int phaseNumber = inMsg.readInt();
-        libsumo::TraCILogic logic(subID, type, phaseIndex);
-        for (int j = 0; j < phaseNumber; ++j) {
+        const int phaseNumber = inMsg.readInt();
+        libsumo::TraCILogic logic(programID, type, phaseIndex);
+        for (int j = 0; j < phaseNumber; j++) {
+            inMsg.readUnsignedByte();
+            inMsg.readInt();
             inMsg.readUnsignedByte();
             const double duration = inMsg.readDouble();
             inMsg.readUnsignedByte();
-            const double duration1 = inMsg.readDouble();
+            const std::string state = inMsg.readString();
             inMsg.readUnsignedByte();
-            const double duration2 = inMsg.readDouble();
+            const double minDur = inMsg.readDouble();
             inMsg.readUnsignedByte();
-            std::string phase = inMsg.readString();
-            logic.phases.emplace_back(libsumo::TraCIPhase(duration, duration1, duration2, phase));
+            const double maxDur = inMsg.readDouble();
+            inMsg.readUnsignedByte();
+            const int next = inMsg.readInt();
+            inMsg.readUnsignedByte();
+            const std::string name = inMsg.readString();
+            logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next, name));
+        }
+        inMsg.readUnsignedByte();
+        const int paramNumber = inMsg.readInt();
+        for (int j = 0; j < paramNumber; j++) {
+            inMsg.readUnsignedByte();
+            const std::vector<std::string> par = inMsg.readStringList();
+            logic.subParameter[par[0]] = par[1];
         }
         ret.emplace_back(logic);
     }
@@ -1701,6 +1756,11 @@ TraCIAPI::TrafficLightScope::getPhase(const std::string& tlsID) const {
     return myParent.getInt(CMD_GET_TL_VARIABLE, TL_CURRENT_PHASE, tlsID);
 }
 
+std::string
+TraCIAPI::TrafficLightScope::getPhaseName(const std::string& tlsID) const {
+    return myParent.getString(CMD_GET_TL_VARIABLE, VAR_NAME, tlsID);
+}
+
 double
 TraCIAPI::TrafficLightScope::getPhaseDuration(const std::string& tlsID) const {
     return myParent.getDouble(CMD_GET_TL_VARIABLE, TL_PHASE_DURATION, tlsID);
@@ -1733,6 +1793,16 @@ TraCIAPI::TrafficLightScope::setPhase(const std::string& tlsID, int index) const
 }
 
 void
+TraCIAPI::TrafficLightScope::setPhaseName(const std::string& tlsID, const std::string& name) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(name);
+    myParent.send_commandSetValue(CMD_SET_TL_VARIABLE, VAR_NAME, tlsID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_TL_VARIABLE);
+}
+
+void
 TraCIAPI::TrafficLightScope::setProgram(const std::string& tlsID, const std::string& programID) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRING);
@@ -1756,26 +1826,38 @@ void
 TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(5 + 4 * (int)logic.phases.size());
+    content.writeInt(5);
     content.writeUnsignedByte(TYPE_STRING);
-    content.writeString(logic.subID);
+    content.writeString(logic.programID);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(logic.type);
-    content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(0);
     content.writeUnsignedByte(TYPE_INTEGER);
     content.writeInt(logic.currentPhaseIndex);
-    content.writeUnsignedByte(TYPE_INTEGER);
+    content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt((int)logic.phases.size());
     for (const libsumo::TraCIPhase& p : logic.phases) {
+        content.writeUnsignedByte(TYPE_COMPOUND);
+        content.writeInt(6);
         content.writeUnsignedByte(TYPE_DOUBLE);
         content.writeDouble(p.duration);
-        content.writeUnsignedByte(TYPE_DOUBLE);
-        content.writeDouble(p.duration1);
-        content.writeUnsignedByte(TYPE_DOUBLE);
-        content.writeDouble(p.duration2);
         content.writeUnsignedByte(TYPE_STRING);
-        content.writeString(p.phase);
+        content.writeString(p.state);
+        content.writeUnsignedByte(TYPE_DOUBLE);
+        content.writeDouble(p.minDur);
+        content.writeUnsignedByte(TYPE_DOUBLE);
+        content.writeDouble(p.maxDur);
+        content.writeUnsignedByte(TYPE_INTEGER);
+        content.writeInt(p.next);
+        content.writeUnsignedByte(TYPE_STRING);
+        content.writeString(p.name);
+    }
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    content.writeInt((int)logic.subParameter.size());
+    for (const auto& item : logic.subParameter) {
+        content.writeUnsignedByte(TYPE_STRINGLIST);
+        content.writeInt(2);
+        content.writeString(item.first);
+        content.writeString(item.second);
     }
     myParent.send_commandSetValue(CMD_SET_TL_VARIABLE, TL_COMPLETE_PROGRAM_RYG, tlsID, content);
     tcpip::Storage inMsg;
@@ -1791,7 +1873,7 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::VehicleTypeScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_VEHICLETYPE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_VEHICLETYPE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 double
@@ -2120,7 +2202,7 @@ TraCIAPI::VehicleTypeScope::setColor(const std::string& typeID, const libsumo::T
 // ---------------------------------------------------------------------------
 std::vector<std::string>
 TraCIAPI::VehicleScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_VEHICLE_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -2715,6 +2797,30 @@ TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, double speed, dou
 }
 
 void
+TraCIAPI::VehicleScope::openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_COMPOUND);
+    if (maxDecel > 0) {
+        content.writeInt(4);
+    } else {
+        content.writeInt(3);
+    }
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(newTau);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(duration);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(changeRate);
+    if (maxDecel > 0) {
+        content.writeUnsignedByte(TYPE_DOUBLE);
+        content.writeDouble(maxDecel);
+    }
+    myParent.send_commandSetValue(CMD_SET_VEHICLE_VARIABLE, CMD_OPENGAP, vehicleID, content);
+    tcpip::Storage inMsg;
+    myParent.check_resultState(inMsg, CMD_SET_VEHICLE_VARIABLE);
+}
+
+void
 TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, double speed) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_DOUBLE);
@@ -2736,7 +2842,7 @@ TraCIAPI::VehicleScope::setSpeedMode(const std::string& vehicleID, int mode) con
 
 void
 TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string edgeID, const double endPos, const int laneIndex,
-        const double duration, const int flags, const double startPos, const double until) const {
+                                const double duration, const int flags, const double startPos, const double until) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(7);
@@ -2873,7 +2979,7 @@ TraCIAPI::VehicleScope::setEmissionClass(const std::string& vehicleID, const std
 
 std::vector<std::string>
 TraCIAPI::PersonScope::getIDList() const {
-    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, ID_LIST, "");
+    return myParent.getStringVector(CMD_GET_PERSON_VARIABLE, TRACI_ID_LIST, "");
 }
 
 int
@@ -2889,6 +2995,31 @@ TraCIAPI::PersonScope::getSpeed(const std::string& personID) const {
 libsumo::TraCIPosition
 TraCIAPI::PersonScope::getPosition(const std::string& personID) const {
     return myParent.getPosition(CMD_GET_PERSON_VARIABLE, VAR_POSITION, personID);
+}
+
+libsumo::TraCIPosition
+TraCIAPI::PersonScope::getPosition3D(const std::string& personID) const {
+    return myParent.getPosition3D(CMD_GET_PERSON_VARIABLE, VAR_POSITION3D, personID);
+}
+
+double
+TraCIAPI::PersonScope::getAngle(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_ANGLE, personID);
+}
+
+double
+TraCIAPI::PersonScope::getLanePosition(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_LANEPOSITION, personID);
+}
+
+libsumo::TraCIColor
+TraCIAPI::PersonScope::getColor(const std::string& personID) const {
+    return myParent.getColor(CMD_GET_PERSON_VARIABLE, VAR_COLOR, personID);
+}
+
+double
+TraCIAPI::PersonScope::getLength(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_LENGTH, personID);
 }
 
 std::string

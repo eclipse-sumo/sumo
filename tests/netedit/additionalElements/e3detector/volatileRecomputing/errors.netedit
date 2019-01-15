@@ -1,6 +1,3 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
@@ -18,19 +15,19 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,64.40
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
+GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
@@ -38,83 +35,11 @@ GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-1
 Debug: Adding detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
+GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detEntry 'e3Detector_0detEntry2' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detEntry 'e3Detector_0detEntry3' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detEntry 'e3Detector_0detEntry4' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detEntry 'e3Detector_0detEntry5' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detEntry 'e3Detector_0detEntry6' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detEntry 'e3Detector_0detEntry7' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
+GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
@@ -122,15 +47,11 @@ GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-1
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
+GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
@@ -138,135 +59,35 @@ GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-1
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
+GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
+GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
+GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detExit 'e3Detector_0detExit4' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detExit 'e3Detector_0detExit5' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detExit 'e3Detector_0detExit6' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-Debug: Adding detExit 'e3Detector_0detExit7' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
+GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 10.39,14.40,50.39,54.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
@@ -274,139 +95,11 @@ GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.
 Debug: Adding detEntry 'e3Detector_1detEntry1' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 7.13,11.20,47.13,51.20
+GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 10.39,14.40,50.39,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detEntry 'e3Detector_1detEntry2' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detEntry 'e3Detector_1detEntry3' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detEntry 'e3Detector_1detEntry4' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detEntry 'e3Detector_1detEntry5' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detEntry 'e3Detector_1detEntry6' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detEntry 'e3Detector_1detEntry7' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
+GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 10.39,14.40,50.39,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
@@ -414,23 +107,15 @@ GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.
 Debug: Adding detExit 'e3Detector_1detExit0' in GNEChange_Additional
 GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 26.45,14.40,66.45,54.40
+GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
+GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 10.39,14.40,50.39,54.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 10.39,14.40,50.39,54.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 26.45,14.40,66.45,54.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 26.45,14.40,66.45,54.40
+GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
+GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
@@ -438,167 +123,15 @@ GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.
 Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
 GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 24.22,11.20,64.22,51.20
+GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 26.45,14.40,66.45,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 7.13,11.20,47.13,51.20
+GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 10.39,14.40,50.39,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 24.22,11.20,64.22,51.20
-GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 24.22,11.20,64.22,51.20
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detExit 'e3Detector_1detExit2' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_1detExit2 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit2 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit2 into SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit2 from SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Inserted exitDetector:e3Detector_1detExit2 into SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detExit 'e3Detector_1detExit3' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_1detExit3 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit3 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit3 into SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit3 from SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Inserted exitDetector:e3Detector_1detExit3 into SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detExit 'e3Detector_1detExit4' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_1detExit4 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit4 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit4 into SUMORTree with boundary 10.99,1.60,50.99,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit4 from SUMORTree with boundary 10.99,1.60,50.99,41.60
-GLDebug: Inserted exitDetector:e3Detector_1detExit4 into SUMORTree with boundary 10.99,1.60,50.99,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detExit 'e3Detector_1detExit5' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_1detExit5 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit5 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit5 into SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit5 from SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit5 into SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detExit 'e3Detector_1detExit6' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_1detExit6 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit6 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit6 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit6 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
-GLDebug: Inserted exitDetector:e3Detector_1detExit6 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Adding detExit 'e3Detector_1detExit7' in GNEChange_Additional
-GLDebug: Inserted exitDetector:e3Detector_1detExit7 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit7 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit7 into SUMORTree with boundary 3.95,-21.60,43.95,18.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit7 from SUMORTree with boundary 3.95,-21.60,43.95,18.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit7 into SUMORTree with boundary 3.95,-21.60,43.95,18.40
+GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 26.45,14.40,66.45,54.40
+GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 26.45,14.40,66.45,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
@@ -617,74 +150,26 @@ GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,64.40
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit7'
-GLDebug: Removed object exitDetector:e3Detector_1detExit7 from SUMORTree with boundary 3.95,-21.60,43.95,18.40
+Debug: Deleting unreferenced detExit 'e3Detector_1detExit1'
+GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 26.45,14.40,66.45,54.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit6'
-GLDebug: Removed object exitDetector:e3Detector_1detExit6 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit5'
-GLDebug: Removed object exitDetector:e3Detector_1detExit5 from SUMORTree with boundary 8.24,-1.60,48.24,38.40
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit4'
-GLDebug: Removed object exitDetector:e3Detector_1detExit4 from SUMORTree with boundary 10.99,1.60,50.99,41.60
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit3'
-GLDebug: Removed object exitDetector:e3Detector_1detExit3 from SUMORTree with boundary 16.32,4.80,56.32,44.80
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit2'
-GLDebug: Removed object exitDetector:e3Detector_1detExit2 from SUMORTree with boundary 19.75,8.00,59.75,48.00
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit1'
-GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 24.22,11.20,64.22,51.20
 Debug: Deleting unreferenced detExit 'e3Detector_1detExit0'
-GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 26.45,14.40,66.45,54.40
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry7'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry6'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry5'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry4'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary -1.03,1.60,38.97,41.60
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry3'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 2.23,4.80,42.23,44.80
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry2'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 3.69,8.00,43.69,48.00
+GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
 Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry1'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 7.13,11.20,47.13,51.20
+GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 10.39,14.40,50.39,54.40
 Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
-GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
 Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit7'
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit6'
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit5'
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit4'
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit3'
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit2'
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
+GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry7'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry6'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry5'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry4'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry3'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry2'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
+GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry1'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
+GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
@@ -703,552 +188,112 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
+GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
+GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
+GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
+GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
+GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
+GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
+GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
+GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 10.39,14.40,50.39,54.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 7.13,11.20,47.13,51.20
+GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 10.39,14.40,50.39,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
+GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 10.39,14.40,50.39,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 26.45,14.40,66.45,54.40
+GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
+GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 10.39,14.40,50.39,54.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 10.39,14.40,50.39,54.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 26.45,14.40,66.45,54.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 26.45,14.40,66.45,54.40
+GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
+GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 24.22,11.20,64.22,51.20
+GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 26.45,14.40,66.45,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 7.13,11.20,47.13,51.20
+GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 10.39,14.40,50.39,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 24.22,11.20,64.22,51.20
-GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 24.22,11.20,64.22,51.20
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit2 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit2 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit2 into SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit2 from SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Inserted exitDetector:e3Detector_1detExit2 into SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit3 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit3 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit3 into SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit3 from SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Inserted exitDetector:e3Detector_1detExit3 into SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit4 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit4 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit4 into SUMORTree with boundary 10.99,1.60,50.99,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit4 from SUMORTree with boundary 10.99,1.60,50.99,41.60
-GLDebug: Inserted exitDetector:e3Detector_1detExit4 into SUMORTree with boundary 10.99,1.60,50.99,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit5 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit5 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit5 into SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit5 from SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit5 into SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit6 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit6 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit6 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit6 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
-GLDebug: Inserted exitDetector:e3Detector_1detExit6 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit7 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit7 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted exitDetector:e3Detector_1detExit7 into SUMORTree with boundary 3.95,-21.60,43.95,18.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit7 from SUMORTree with boundary 3.95,-21.60,43.95,18.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit7 into SUMORTree with boundary 3.95,-21.60,43.95,18.40
+GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 26.45,14.40,66.45,54.40
+GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 26.45,14.40,66.45,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
@@ -1284,20 +329,12 @@ GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-3.20
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-3.20,22.00,58.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-34.20,80.00,30.00
-GLDebug: Removed object entryDetector:e3Detector_0detEntry7 from SUMORTree with boundary -9.28,-21.60,30.72,18.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry7 into SUMORTree with boundary -9.28,-21.60,30.72,18.40
+GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit7 from SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit7 into SUMORTree with boundary 18.04,-21.60,58.04,18.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry7 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry7 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit7 from SUMORTree with boundary 3.95,-21.60,43.95,18.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit7 into SUMORTree with boundary 3.95,-21.60,43.95,18.40
+GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary -15.03,-21.60,24.97,18.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary -15.03,-21.60,24.97,18.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object connection:fromgneE1_1togneE0_1 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
@@ -1307,20 +344,12 @@ GLDebug: Inserted connection:fromgneE0_1togneE1_1 into SUMORTree with boundary 2
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,34.20
-GLDebug: Removed object entryDetector:e3Detector_0detEntry6 from SUMORTree with boundary -6.87,-18.40,33.13,21.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry6 into SUMORTree with boundary -6.87,-18.40,33.13,21.60
+GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
+GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit6 from SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit6 into SUMORTree with boundary 21.81,-18.40,61.81,21.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry6 from SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry6 into SUMORTree with boundary -12.11,-18.40,27.89,21.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit6 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
-GLDebug: Inserted exitDetector:e3Detector_1detExit6 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
+GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 6.78,-18.40,46.78,21.60
+GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 6.78,-18.40,46.78,21.60
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
@@ -1328,84 +357,12 @@ GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Removed object connection:fromgneE4_0togneE2_5 from SUMORTree with boundary 29.90,-0.10,70.10,70.10
 GLDebug: Inserted connection:fromgneE4_0togneE2_5 into SUMORTree with boundary 29.00,-1.60,69.00,41.60
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 21.41,14.40,61.41,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit0 from SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit0 into SUMORTree with boundary 28.60,14.40,68.60,54.40
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 10.39,14.40,50.39,54.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 10.39,14.40,50.39,54.40
+GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 10.39,14.40,50.39,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit0 from SUMORTree with boundary 26.45,14.40,66.45,54.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit0 into SUMORTree with boundary 26.45,14.40,66.45,54.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry1 from SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Inserted entryDetector:e3Detector_0detEntry1 into SUMORTree with boundary 15.06,11.20,55.06,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 26.54,11.20,66.54,51.20
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry1 from SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Inserted entryDetector:e3Detector_1detEntry1 into SUMORTree with boundary 7.13,11.20,47.13,51.20
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 24.22,11.20,64.22,51.20
-GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 24.22,11.20,64.22,51.20
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry2 from SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry2 into SUMORTree with boundary 9.63,8.00,49.63,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit2 from SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Inserted exitDetector:e3Detector_0detExit2 into SUMORTree with boundary 23.27,8.00,63.27,48.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry2 from SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Inserted entryDetector:e3Detector_1detEntry2 into SUMORTree with boundary 3.69,8.00,43.69,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit2 from SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Inserted exitDetector:e3Detector_1detExit2 into SUMORTree with boundary 19.75,8.00,59.75,48.00
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry3 from SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Inserted entryDetector:e3Detector_0detEntry3 into SUMORTree with boundary 5.90,4.80,45.90,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit3 from SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Inserted exitDetector:e3Detector_0detExit3 into SUMORTree with boundary 20.70,4.80,60.70,44.80
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry3 from SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Inserted entryDetector:e3Detector_1detEntry3 into SUMORTree with boundary 2.23,4.80,42.23,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit3 from SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Inserted exitDetector:e3Detector_1detExit3 into SUMORTree with boundary 16.32,4.80,56.32,44.80
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object entryDetector:e3Detector_0detEntry4 from SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Inserted entryDetector:e3Detector_0detEntry4 into SUMORTree with boundary 1.83,1.60,41.83,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit4 from SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Inserted exitDetector:e3Detector_0detExit4 into SUMORTree with boundary 17.69,1.60,57.69,41.60
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry4 from SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Inserted entryDetector:e3Detector_1detEntry4 into SUMORTree with boundary -1.03,1.60,38.97,41.60
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit4 from SUMORTree with boundary 10.99,1.60,50.99,41.60
-GLDebug: Inserted exitDetector:e3Detector_1detExit4 into SUMORTree with boundary 10.99,1.60,50.99,41.60
+GLDebug: Removed object exitDetector:e3Detector_1detExit1 from SUMORTree with boundary 26.45,14.40,66.45,54.40
+GLDebug: Inserted exitDetector:e3Detector_1detExit1 into SUMORTree with boundary 26.45,14.40,66.45,54.40
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object connection:fromgneE2_5togneE4_0 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
@@ -1413,22 +370,14 @@ GLDebug: Inserted connection:fromgneE2_5togneE4_0 into SUMORTree with boundary -
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object entryDetector:e3Detector_0detEntry5 from SUMORTree with boundary -1.27,-1.60,38.73,38.40
-GLDebug: Inserted entryDetector:e3Detector_0detEntry5 into SUMORTree with boundary -1.27,-1.60,38.73,38.40
+GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
+GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object exitDetector:e3Detector_0detExit5 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
-GLDebug: Inserted exitDetector:e3Detector_0detExit5 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
+GLDebug: Removed object exitDetector:e3Detector_0detExit1 from SUMORTree with boundary 14.51,-1.60,54.51,38.40
+GLDebug: Inserted exitDetector:e3Detector_0detExit1 into SUMORTree with boundary 14.51,-1.60,54.51,38.40
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Removed object entryDetector:e3Detector_1detEntry5 from SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Inserted entryDetector:e3Detector_1detEntry5 into SUMORTree with boundary -6.18,-1.60,33.82,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Removed object exitDetector:e3Detector_1detExit5 from SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Inserted exitDetector:e3Detector_1detExit5 into SUMORTree with boundary 8.24,-1.60,48.24,38.40
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 40.44,-7.96,80.44,32.04
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -1457,36 +406,12 @@ Debug: Deleting unreferenced e3Detector 'e3Detector_0' in GNENet destructor
 Debug: Deleting unreferenced e3Detector 'e3Detector_1' in GNENet destructor
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destructor
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry1' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry2' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry3' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry4' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry5' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry6' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry7' in GNENet destructor
 Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0' in GNENet destructor
 Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry1' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry2' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry3' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry4' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry5' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry6' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry7' in GNENet destructor
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit2' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit3' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit4' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit5' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit6' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit7' in GNENet destructor
 Debug: Deleting unreferenced detExit 'e3Detector_1detExit0' in GNENet destructor
 Debug: Deleting unreferenced detExit 'e3Detector_1detExit1' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit2' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit3' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit4' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit5' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit6' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit7' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 46
+GLDebug: Number of objects in SUMORTree during call destructor: 22

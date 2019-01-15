@@ -32,10 +32,12 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSJunction.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSEdge.h>
@@ -72,7 +74,7 @@ template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinit
 // member method definitions
 // ===========================================================================
 GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
-               MSEventControl* endOfTimestepEvents, 
+               MSEventControl* endOfTimestepEvents,
                MSEventControl* insertionEvents) :
     MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
     GUIGlObject(GLO_NETWORK, ""),
@@ -101,6 +103,9 @@ GUINet::~GUINet() {
     for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorWrapper.begin(); i != myDetectorWrapper.end(); ++i) {
         delete *i;
     }
+    for (auto& item : myLoadedEdgeData) {
+        delete item.second;
+    }
 }
 
 
@@ -112,7 +117,7 @@ GUINet::getBoundary() const {
 
 MSTransportableControl&
 GUINet::getPersonControl() {
-    if (myPersonControl == 0) {
+    if (myPersonControl == nullptr) {
         myPersonControl = new GUITransportableControl();
     }
     return *myPersonControl;
@@ -121,7 +126,7 @@ GUINet::getPersonControl() {
 
 MSTransportableControl&
 GUINet::getContainerControl() {
-    if (myContainerControl == 0) {
+    if (myContainerControl == nullptr) {
         myContainerControl = new GUITransportableControl();
     }
     return *myContainerControl;
@@ -177,7 +182,7 @@ GUINet::getJunctionPosition(const std::string& name) const {
 
 bool
 GUINet::vehicleExists(const std::string& name) const {
-    return myVehicleControl->getVehicle(name) != 0;
+    return myVehicleControl->getVehicle(name) != nullptr;
 }
 
 
@@ -257,7 +262,7 @@ GUINet::initGUIStructures() {
     for (std::vector<SumoXMLTag>::const_iterator i = types.begin(); i != types.end(); ++i) {
         for (const auto& j : myDetectorControl->getTypedDetectors(*i)) {
             GUIDetectorWrapper* wrapper = j.second->buildDetectorGUIRepresentation();
-            if (wrapper != 0) {
+            if (wrapper != nullptr) {
                 myDetectorWrapper.push_back(wrapper);
                 myGrid.addAdditionalGLObject(wrapper);
             }
@@ -277,8 +282,16 @@ GUINet::initGUIStructures() {
     // initialise junction storage for gui
     int size = myJunctions->size();
     myJunctionWrapper.reserve(size);
+    std::map<MSJunction*, std::string> junction2TLL;
+    for (const auto tls : getTLSControl().getAllLogics()) {
+        for (const auto& links : tls->getLinks()) {
+            for (const MSLink* l : links) {
+                junction2TLL[l->getJunction()] = l->getTLLogic()->getID();
+            }
+        }
+    }
     for (const auto& i : *myJunctions) {
-        myJunctionWrapper.push_back(new GUIJunctionWrapper(*i.second));
+        myJunctionWrapper.push_back(new GUIJunctionWrapper(*i.second, junction2TLL[i.second]));
     }
     // build the visualization tree
     for (std::vector<GUIEdge*>::iterator i = myEdgeWrapper.begin(); i != myEdgeWrapper.end(); ++i) {
@@ -435,7 +448,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeed));
     ret->mkItem("avg. relative speed", true,
                 new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeedRelative));
-    if (myPersonControl != 0) {
+    if (myPersonControl != nullptr) {
         ret->mkItem("loaded persons [#]", true,
                     new FunctionBinding<MSTransportableControl, int>(&getPersonControl(), &MSTransportableControl::getLoadedNumber));
         ret->mkItem("running persons [#]", true,
@@ -470,7 +483,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
             ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
             ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
             ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
-            if (myPersonControl != 0) {
+            if (myPersonControl != nullptr) {
                 ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
                 ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
                 ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
@@ -502,7 +515,7 @@ GUINet::getCenteringBoundary() const {
 GUINet*
 GUINet::getGUIInstance() {
     GUINet* net = dynamic_cast<GUINet*>(MSNet::getInstance());
-    if (net != 0) {
+    if (net != nullptr) {
         return net;
     }
     throw ProcessError("A gui-network was not yet constructed.");
@@ -529,6 +542,87 @@ GUINet::unlock() {
 GUIMEVehicleControl*
 GUINet::getGUIMEVehicleControl() {
     return dynamic_cast<GUIMEVehicleControl*>(myVehicleControl);
+}
+
+
+double 
+GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
+    auto it = myLoadedEdgeData.find(attr);
+    if (it != myLoadedEdgeData.end()) {
+        double value;
+        bool found = it->second->retrieveExistingEffort(edge, STEPS2TIME(getCurrentTimeStep()), value);
+        if (found) {
+            return value;
+        } else {
+            return -1;
+        }
+    } else {
+        return -2;
+    }
+}
+
+
+void 
+GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+    if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
+        std::vector<std::string> tmp = attrs.getAttributeNames();
+        edgeAttrs.insert(tmp.begin(), tmp.end());
+    } else if (element == SUMO_TAG_INTERVAL) {
+        bool ok;
+        lastIntervalEnd = MAX2(lastIntervalEnd, attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
+    }
+}
+
+std::vector<std::string> 
+GUINet::DiscoverAttributes::getEdgeAttrs() {
+    edgeAttrs.erase(toString(SUMO_ATTR_ID));
+    return std::vector<std::string>(edgeAttrs.begin(), edgeAttrs.end());
+}
+
+void
+GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
+        double value, double begTime, double endTime) const {
+    MSEdge* edge = MSEdge::dictionary(id);
+    if (edge != nullptr) {
+        myWeightStorage->addEffort(edge, begTime, endTime, value);
+    } else {
+        WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
+    }
+}
+
+
+bool
+GUINet::loadEdgeData(const std::string& file) {
+    // discover edge attributes
+    DiscoverAttributes discoveryHandler(file);
+    XMLSubSys::runParser(discoveryHandler, file);
+    std::vector<std::string> attrs = discoveryHandler.getEdgeAttrs();
+    WRITE_MESSAGE("Loading edgedata from '" + file 
+            + "' Found " + toString(attrs.size())
+            + " attributes: " + toString(attrs));
+    myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
+    // create a retriever for each attribute
+    std::vector<EdgeFloatTimeLineRetriever_GUI> retrieverDefsInternal;
+    retrieverDefsInternal.reserve(attrs.size());
+    std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
+    for (const std::string& attr : attrs) {
+        MSEdgeWeightsStorage* ws = new MSEdgeWeightsStorage();
+        myLoadedEdgeData[attr] = ws;
+        retrieverDefsInternal.push_back(EdgeFloatTimeLineRetriever_GUI(ws));
+        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(attr, true, retrieverDefsInternal.back()));
+    }
+    SAXWeightsHandler handler(retrieverDefs, "");
+    return XMLSubSys::runParser(handler, file);
+}
+
+
+std::vector<std::string> 
+GUINet::getEdgeDataAttrs() const {
+    std::vector<std::string> result;
+    for (const auto& item : myLoadedEdgeData) {
+        result.push_back(item.first);
+    }
+    return result;
 }
 
 

@@ -100,10 +100,10 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
     */
 }
 
-bool 
-noMandatory(const ConstROEdgeVector& mandatory, 
-        ConstROEdgeVector::const_iterator start,
-        ConstROEdgeVector::const_iterator end) {
+bool
+noMandatory(const ConstROEdgeVector& mandatory,
+            ConstROEdgeVector::const_iterator start,
+            ConstROEdgeVector::const_iterator end) {
     for (const ROEdge* m : mandatory) {
         for (auto it = start; it != end; it++) {
             if (*it == m) {

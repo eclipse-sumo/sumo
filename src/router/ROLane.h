@@ -100,7 +100,7 @@ public:
         return myOutgoingLanes;
     }
 
-    void addOutgoingLane(ROLane* lane, ROEdge* via=nullptr) {
+    void addOutgoingLane(ROLane* lane, ROEdge* via = nullptr) {
         myOutgoingLanes.push_back(std::make_pair(lane, via));
     }
 

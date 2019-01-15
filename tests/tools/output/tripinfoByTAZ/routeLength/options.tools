@@ -1,0 +1,1 @@
+-t tripinfos.xml -r input_trips.trips.xml -a routeLength tools/output/tripinfoByTAZ.py

@@ -1,0 +1,8 @@
+Valid area contains 4 edges
+Kept 1 of 1 busStops
+Parsing routes from input_routes.rou.xml
+Could not reconstruct new departure time for vehicle 'straight'. Using old departure time.
+Skipping bus stop 'busstop0', which could not be located.
+Parsed 1 vehicles and kept 1 routes
+Number of disconnected routes: 0. Most frequent missing edges:
+Wrote 1 routes

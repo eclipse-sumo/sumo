@@ -30,20 +30,15 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
-#include <utils/vehicle/AStarRouter.h>
 #include <microsim/MSVehicle.h>
-#include "MSDevice.h"
-
-#ifdef HAVE_FOX
-#include <utils/foxtools/FXWorkerThread.h>
-#endif
+#include "MSVehicleDevice.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class MSLane;
+
 
 // ===========================================================================
 // class definitions
@@ -52,12 +47,9 @@ class MSLane;
  * @class MSDevice_Routing
  * @brief A device that performs vehicle rerouting based on current edge speeds
  *
- * The routing-device system consists of in-vehicle devices that perform a routing
- *  and a simulation-wide (static) methods for colecting edge weights.
- *
- * The edge weights container "myEdgeSpeeds" is pre-initialised as soon as one
- *  device is built and is kept updated via an event that adapts it to the current
- *  mean speed on the simulated network's edges.
+ * The routing-device system consists of in-vehicle devices that perform the routing
+ *  and simulation-wide static methods for collecting edge weights and 
+ *  parallelizing in MSRoutingEngine.
  *
  * A device is assigned to a vehicle using the common explicit/probability - procedure.
  *
@@ -66,7 +58,7 @@ class MSLane;
  *  x time steps where x is the period. This is triggered by an event that executes
  *  "wrappedRerouteCommandExecute".
  */
-class MSDevice_Routing : public MSDevice {
+class MSDevice_Routing : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_Routing-options
      * @param[filled] oc The options container to add the options to
@@ -89,44 +81,14 @@ public:
      *  In addition, an event is generated which updates these weights is
      *  built and added to the list of events to execute at a simulation end.
      *
-     * For each seen vehicle, the global vehicle index is increased.
-     *
      * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into);
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
 
-    /// @brief deletes the router instance
-    static void cleanup();
-
-    /// @brief returns whether any routing actions take place
-    static bool isEnabled() {
-        return !myWithTaz && myAdaptationInterval >= 0;
-    }
-
-    /// @brief return the router instance
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
-        const MSEdgeVector& prohibited = MSEdgeVector());
-
-#ifdef HAVE_FOX
-    static void waitForAll();
-    static void lock() {
-        myThreadPool.lock();
-    }
-    static void unlock() {
-        myThreadPool.unlock();
-    }
-    static bool isParallel() {
-        return myThreadPool.size() > 0;
-    }
-#endif
-
-
-
-public:
     /// @brief Destructor.
     ~MSDevice_Routing();
 
@@ -189,9 +151,6 @@ public:
         mySkipRouting = currentTime;
     }
 
-    /// @brief return current travel speed assumption
-    static double getAssumedSpeed(const MSEdge* edge);
-
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
 
@@ -200,45 +159,6 @@ public:
 
 
 private:
-#ifdef HAVE_FOX
-    /**
-     * @class WorkerThread
-     * @brief the thread which provides the router instance as context
-     */
-    class WorkerThread : public FXWorkerThread {
-    public:
-        WorkerThread(FXWorkerThread::Pool& pool,
-                     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router)
-            : FXWorkerThread(pool), myRouter(router) {}
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter() const {
-            return *myRouter;
-        }
-        virtual ~WorkerThread() {
-            stop();
-            delete myRouter;
-        }
-    private:
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
-    };
-
-    /**
-     * @class RoutingTask
-     * @brief the routing task which mainly calls reroute of the vehicle
-     */
-    class RoutingTask : public FXWorkerThread::Task {
-    public:
-        RoutingTask(SUMOVehicle& v, const SUMOTime time, const bool onInit)
-            : myVehicle(v), myTime(time), myOnInit(onInit) {}
-        void run(FXWorkerThread* context);
-    private:
-        SUMOVehicle& myVehicle;
-        const SUMOTime myTime;
-        const bool myOnInit;
-    private:
-        /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&);
-    };
-#endif
 
     /** @brief Constructor
      *
@@ -248,12 +168,6 @@ private:
      * @param[in] preInsertionPeriod The route search period before insertion
      */
     MSDevice_Routing(SUMOVehicle& holder, const std::string& id, SUMOTime period, SUMOTime preInsertionPeriod);
-
-    /// @brief initialize the edge weights if not done before
-    static void initEdgeWeights();
-
-    /// @brief intialize period edge weight update
-    static void initWeightUpdate();
 
     /** @brief Performs rerouting before insertion into the network
      *
@@ -285,42 +199,6 @@ private:
     SUMOTime wrappedRerouteCommandExecute(SUMOTime currentTime);
 
 
-    /** @brief Returns the effort to pass an edge
-     *
-     * This method is given to the used router in order to obtain the efforts
-     *  to pass an edge from the internal edge weights container.
-     *
-     * The time is not used, here, as the current simulation state is
-     *  used in an aggregated way.
-     *
-     * @param[in] e The edge for which the effort to be passed shall be returned
-     * @param[in] v The vehicle that is rerouted
-     * @param[in] t The time for which the effort shall be returned
-     * @return The effort (time to pass in this case) for an edge
-     * @see DijkstraRouter_ByProxi
-     */
-    static double getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t);
-
-
-
-    /// @name Network state adaptation
-    /// @{
-
-    /** @brief Adapt edge efforts by the current edge states
-     *
-     * This method is called by the event handler at the end of a simulation
-     *  step. The current edge weights are combined with the previously stored.
-     *
-     * @param[in] currentTime The current simulation time
-     * @return The offset to the next call (always 1 in this case - edge weights are updated each time step)
-     * @todo Describe how the weights are adapted
-     * @see MSEventHandler
-     * @see StaticCommand
-     */
-    static SUMOTime adaptEdgeEfforts(SUMOTime currentTime);
-    /// @}
-
-
 private:
     /// @brief The period with which a vehicle shall be rerouted
     SUMOTime myPeriod;
@@ -336,49 +214,6 @@ private:
 
     /// @brief The (optional) command responsible for rerouting
     WrappingCommand< MSDevice_Routing >* myRerouteCommand;
-
-    /// @brief The weights adaptation/overwriting command
-    static Command* myEdgeWeightSettingCommand;
-
-    /// @brief The container of edge speeds
-    static std::vector<double> myEdgeSpeeds;
-
-    /// @brief Information which weight prior edge efforts have
-    static double myAdaptationWeight;
-
-    /// @brief At which time interval the edge weights get updated
-    static SUMOTime myAdaptationInterval;
-
-    /// @brief Information when the last edge weight adaptation occurred
-    static SUMOTime myLastAdaptation;
-
-    /// @brief The number of steps for averaging edge speeds (ring-buffer)
-    static int myAdaptationSteps;
-
-    /// @brief The current index in the pastEdgeSpeed ring-buffer
-    static int myAdaptationStepsIndex;
-
-    /// @brief The container of edge speeds
-    static std::vector<std::vector<double> > myPastEdgeSpeeds;
-
-    /// @brief whether taz shall be used at initial rerouting
-    static bool myWithTaz;
-
-    /// @brief The container of pre-calculated routes
-    static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
-
-    /// @brief The router to use
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
-
-    /// @brief The router to use by rerouter elements
-    static AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
-
-    /// @brief Whether to disturb edge weights dynamically
-    static double myRandomizeWeightsFactor;
-
-#ifdef HAVE_FOX
-    static FXWorkerThread::Pool myThreadPool;
-#endif
 
 private:
     /// @brief Invalidated copy constructor.
