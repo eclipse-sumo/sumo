@@ -234,6 +234,9 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
         try {
             WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
             myServerSocket = new tcpip::Socket(port);
+            if (numClients > 1) {
+                WRITE_MESSAGE("  waiting for " + toString(numClients) + " clients...");
+            }
             while ((int)mySockets.size() < numClients) {
                 int index = (int)mySockets.size() + MAX_ORDER + 1;
                 mySockets[index] = new SocketInfo(myServerSocket->accept(true), begin);
@@ -249,6 +252,9 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
                 mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
                 mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_COLLISION] = std::vector<std::string>();
                 mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_EMERGENCYSTOP] = std::vector<std::string>();
+                if (numClients > 1) {
+                    WRITE_MESSAGE("  client connected");
+                }
             }
             // When got here, all clients have connected
             if (numClients > 1) {
