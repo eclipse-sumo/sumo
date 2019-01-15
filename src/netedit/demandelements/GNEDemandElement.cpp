@@ -972,37 +972,6 @@ GNEDemandElement::changeSecondDemandElementParent(const std::string& newDemandEl
 }
 
 
-void
-GNEDemandElement::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONAL);
-        if (changeFlag) {
-            mySelected = true;
-        }
-    }
-}
-
-
-void
-GNEDemandElement::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
-        // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONAL);
-        if (changeFlag) {
-            mySelected = false;
-
-        }
-    }
-}
-
-
 bool
 GNEDemandElement::isAttributeCarrierSelected() const {
     return mySelected;

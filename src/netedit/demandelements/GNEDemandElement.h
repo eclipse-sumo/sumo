@@ -232,10 +232,10 @@ public:
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /// @brief select attribute carrier using GUIGlobalSelection
-    void selectAttributeCarrier(bool changeFlag = true);
+    virtual void selectAttributeCarrier(bool changeFlag = true) = 0;
 
     /// @brief unselect attribute carrier using GUIGlobalSelection
-    void unselectAttributeCarrier(bool changeFlag = true);
+    virtual void unselectAttributeCarrier(bool changeFlag = true) = 0;
 
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;

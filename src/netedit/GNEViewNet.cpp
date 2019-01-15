@@ -2603,15 +2603,11 @@ GNEViewNet::buildEditModeControls() {
     // build menu checks for Demand checkable buttons
     myDemandCheckableButtons.buildDemandCheckableButtons();
 
-    // @ToDo add here new FXToolBarGrip(myNavigationToolBar, nullptr, 0, GUIDesignToolbarGrip);
-
-    // initialize mode specific controls
+    // build menu checks of view options
+    myViewOptions.buildViewOptionsMenuChecks();
 
     // build menu checks of create edges options
     myCreateEdgeOptions.buildCreateEdgeOptionMenuChecks();
-
-    // build menu checks of view options
-    myViewOptions.buildViewOptionsMenuChecks();
 }
 
 
