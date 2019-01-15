@@ -1044,11 +1044,6 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNELane::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
-
-void
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (mySpecialColor != nullptr) {
         // If special color is enabled, set it

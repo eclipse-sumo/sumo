@@ -577,10 +577,4 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-void
-GNEPOI::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
-
 /****************************************************************************/

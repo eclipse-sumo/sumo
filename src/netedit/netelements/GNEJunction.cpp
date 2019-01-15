@@ -225,11 +225,6 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    /*
-        // first call function mouseOverObject  (to check if this object is under cursor)
-        // @note currently disabled. It will be implemented in an different ticket of #2905
-        mouseOverObject(s);
-    */
     // declare variables
     GLfloat color[4];
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
@@ -1250,35 +1245,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
-    }
-}
-
-
-void
-GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
-    // only continue if there isn't already a AC under cursor
-    if (myNet->getViewNet()->getDottedAC() == nullptr) {
-        // obtain current x-y coordinates
-        Position mousePos = myNet->getViewNet()->getPositionInformation();
-        // check if junction are drawn as buuble or as polygon
-        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
-        const bool drawBubble = (((!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape) || myNet->getViewNet()->showJunctionAsBubbles());
-        // declare values for circles
-        double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
-        exaggeration *= s.junctionSize.getExaggeration(s, this);
-        double circleWidth = BUBBLE_RADIUS * exaggeration;
-        double circleWidthSquared = circleWidth * circleWidth;
-        if (drawBubble) {
-            // check if cursor is whithin the circle
-            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= circleWidthSquared) {
-                myNet->getViewNet()->setDottedAC(this);
-            }
-        } else if (drawShape) {
-            // check if cursor is within the shape
-            if (myNBNode.getShape().around(mousePos)) {
-                myNet->getViewNet()->setDottedAC(this);
-            }
-        }
     }
 }
 

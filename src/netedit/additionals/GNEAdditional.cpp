@@ -647,41 +647,6 @@ GNEAdditional::getCenteringBoundary() const {
 }
 
 
-bool
-GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
-    if (edges.size() == 0) {
-        // routes cannot be empty
-        return false;
-    } else if (edges.size() == 1) {
-        // routes with a single edge are valid
-        return true;
-    } else {
-        // iterate over edges to check that compounds a chain
-        auto it = edges.begin();
-        while (it != edges.end() - 1) {
-            GNEEdge* currentEdge = *it;
-            GNEEdge* nextEdge = *(it + 1);
-            // consecutive edges aren't allowed
-            if (currentEdge->getID() == nextEdge->getID()) {
-                return false;
-            }
-            // make sure that edges are consecutives
-            if (std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
-                          currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
-                          nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
-                if (report) {
-                    WRITE_WARNING("Parameter 'Route' invalid. " + currentEdge->getTagStr() + " '" + currentEdge->getID() +
-                                  "' ins't consecutive to " + nextEdge->getTagStr() + " '" + nextEdge->getID() + "'");
-                }
-                return false;
-            }
-            it++;
-        }
-    }
-    return true;
-}
-
-
 void 
 GNEAdditional::updateAdditionalParent() {
     // by default nothing to do
@@ -1151,11 +1116,5 @@ GNEAdditional::setGenericParametersStr(const std::string& value) {
         }
     }
 }
-
-
-void
-GNEAdditional::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
 
 /****************************************************************************/

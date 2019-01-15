@@ -892,17 +892,4 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-
-void
-GNEPoly::mouseOverObject(const GUIVisualizationSettings&) const {
-    // only continue if there isn't already a AC under cursor
-    if (myNet->getViewNet()->getDottedAC() == nullptr) {
-        // check if cursor is within the shape
-        if (getShape().around(myNet->getViewNet()->getPositionInformation())) {
-            myNet->getViewNet()->setDottedAC(this);
-        }
-    }
-}
-
-
 /****************************************************************************/

@@ -141,10 +141,4 @@ GNEShape::getHierarchyName() const {
     return getTagStr();
 }
 
-
-void
-GNEShape::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
-
 /****************************************************************************/

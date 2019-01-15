@@ -1066,9 +1066,4 @@ GNEDemandElement::setGenericParametersStr(const std::string& value) {
     }
 }
 
-
-void
-GNEDemandElement::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
 /****************************************************************************/

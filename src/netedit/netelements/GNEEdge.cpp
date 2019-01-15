@@ -1357,11 +1357,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEEdge::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
-
-void
 GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     undoList->p_begin("change number of " + toString(SUMO_TAG_LANE) +  "s");
     myGNEJunctionSource->setLogicValid(false, undoList);

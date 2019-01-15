@@ -293,12 +293,6 @@ public:
 
     /// @}
 
-    /** @brief check if a route is valid
-     * @param[in] edges vector with the route's edges
-     * @param[in] report enable or disable writting warnings if route isn't valid
-     */
-    static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
-
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
     virtual void updateAdditionalParent();
 
@@ -495,9 +489,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for check if mouse is over objects
-    void mouseOverObject(const GUIVisualizationSettings& s) const;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;
