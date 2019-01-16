@@ -243,7 +243,6 @@ GNERoute::unselectAttributeCarrier(bool changeFlag) {
 }
 
 
-
 std::string
 GNERoute::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -253,6 +252,8 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return parseIDs(myEdges);
         case SUMO_ATTR_COLOR:
             return toString(myColor);
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -270,6 +271,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
+        case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -293,6 +295,8 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
@@ -327,6 +331,13 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

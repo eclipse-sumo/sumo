@@ -3415,12 +3415,20 @@ void
 GNEViewNet::SelectingArea::processBoundarySelection(const Boundary &boundary) {
     if (myViewNet->makeCurrent()) {
         std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundary = myViewNet->getAttributeCarriersInBoundary(boundary);
+        // filter ACsInBoundary depending of current supermode
+        std::set<std::pair<std::string, GNEAttributeCarrier*> > ACsInBoundaryFiltered;
+        for (const auto &i : ACsInBoundary) {
+            if ((myViewNet->myEditMoves.currentSupermode == GNE_SUPERMODE_NETWORK && !i.second->getTagProperty().isDemandElement()) ||
+                (myViewNet->myEditMoves.currentSupermode == GNE_SUPERMODE_DEMAND && i.second->getTagProperty().isDemandElement())) {
+                ACsInBoundaryFiltered.insert(i);
+            }
+        }
         // declare two sets of attribute carriers, one for select and another for unselect
         std::vector<GNEAttributeCarrier*> ACToSelect;
         std::vector<GNEAttributeCarrier*> ACToUnselect;
-        // reserve memory (we assume that in the worst case we're going to insert all elements of ACsInBoundary
-        ACToSelect.reserve(ACsInBoundary.size());
-        ACToUnselect.reserve(ACsInBoundary.size());
+        // reserve memory (we assume that in the worst case we're going to insert all elements of ACsInBoundaryFiltered
+        ACToSelect.reserve(ACsInBoundaryFiltered.size());
+        ACToUnselect.reserve(ACsInBoundaryFiltered.size());
         // in restrict AND replace mode all current selected attribute carriers will be unselected
         if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
                 (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE)) {
@@ -3429,7 +3437,7 @@ GNEViewNet::SelectingArea::processBoundarySelection(const Boundary &boundary) {
             }
         }
         // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
-        for (auto i : ACsInBoundary) {
+        for (auto i : ACsInBoundaryFiltered) {
             switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
                 case GNESelectorFrame::ModificationMode::SET_SUB:
                     ACToUnselect.push_back(i.second);
@@ -4188,7 +4196,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case GNE_NMODE_DELETE: {
-            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+            // check that we have clicked over an non-demand element
+            if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                 // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
                 if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myKeyPressed.shiftKeyPressed()) {
                     myObjectsUnderCursor.swapLane2Edge();
@@ -4218,8 +4227,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // begin rectangle selection
                 mySelectingArea.beginRectangleSelection();
             } else {
-                // first check that under cursor there is an attribute carrier and is selectable
-                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+                // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
+                if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                     // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
                     if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
@@ -4454,7 +4463,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case GNE_DMODE_DELETE: {
-            if (myObjectsUnderCursor.getAttributeCarrierFront()) {
+            // check that we have clicked over an demand element
+            if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
@@ -4473,20 +4483,26 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 // begin rectangle selection
                 mySelectingArea.beginRectangleSelection();
             } else {
-                // first check that under cursor there is an attribute carrier and is selectable
-                if (myObjectsUnderCursor.getAttributeCarrierFront()) {
-                    // Check if this GLobject type is locked
-                    if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                        // toogle netElement selection
-                        if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                            myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                        } else {
-                            myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                // check if a rect for selecting is being created
+                if (myKeyPressed.shiftKeyPressed()) {
+                    // begin rectangle selection
+                    mySelectingArea.beginRectangleSelection();
+                } else {
+                    // first check that under cursor there is an attribute carrier, is demand element and is selectable
+                    if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                        // Check if this GLobject type is locked
+                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                            // toogle netElement selection
+                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                            } else {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                            }
                         }
                     }
+                    // process click
+                    processClick(eventData);
                 }
-                // process click
-                processClick(eventData);
             }
             break;
         case GNE_DMODE_ROUTES: {
@@ -4509,13 +4525,24 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
 
 void 
 GNEViewNet::processLeftButtonReleaseDemand() {
-    //
+    if (mySelectingArea.selectingUsingRectangle) {
+        // check if we're creating a rectangle selection or we want only to select a lane
+        if(mySelectingArea.startDrawing) {
+            // process rectangle selection
+            mySelectingArea.processRectangleSelection();
+            // finish rectangle selection
+            mySelectingArea.finishRectangleSelection();
+        }
+    }
 }
 
 
 void 
 GNEViewNet::processMoveMouseDemand() {
-    //
+    if (mySelectingArea.selectingUsingRectangle) {
+        // update selection corner of selecting area
+        mySelectingArea.moveRectangleSelection();
+    }
 }
 
 /****************************************************************************/

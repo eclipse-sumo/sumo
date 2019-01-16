@@ -2131,7 +2131,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGES, additional, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_EDGES, additional, ICON_ROUTE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

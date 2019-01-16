@@ -251,9 +251,7 @@ GNERouteFrame::EdgeToEdge::createRoute() {
     // create edge only if there is route edges
     if(myRouteEdges.size() > 0) {
         // creaste edge using buildRoute function of GNEDemandHandler
-/** TEMPORAL **/
-        GNEDemandHandler::buildRoute(myRouteFrameParent->getViewNet(), true, "TEST", myRouteEdges, RGBColor::BLUE);
-/** **/
+        GNEDemandHandler::buildRoute(myRouteFrameParent->getViewNet(), true, myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), myRouteEdges, RGBColor::BLUE);
         // abort route creation (because route it was already seleted and vector/colors has to be cleaned)
         abortRouteCreation();
     }
