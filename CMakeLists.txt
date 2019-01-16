@@ -3,6 +3,7 @@ option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
 option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)" false)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
+option(SUMO_UTILS "Enable generation of a shared library for the utility functions for option handling, XML parsing etc." false)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 
@@ -62,6 +63,12 @@ endif ()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+endif ()
+
+# we need to build position independent code when generating a shared library
+if (SUMO_UTILS)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} SumoUtilsLibrary")
 endif ()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
@@ -254,9 +261,7 @@ if (CHECK_OPTIONAL_LIBS)
 
     find_package(SWIG 3.0)
     if (SWIG_FOUND)
-        if (NOT MSVC)
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-        endif ()
+		set(CMAKE_POSITION_INDEPENDENT_CODE ON)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
     endif ()
 

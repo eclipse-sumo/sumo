@@ -193,7 +193,7 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
         for (const MSEdge* e : edges) {
             dev.openTag(SUMO_TAG_EDGE);
             dev.writeAttr(SUMO_ATTR_ID, e->getID());
-            dev.writeAttr("traveltime", getEffort(e, nullptr, currentTime));
+            dev.writeAttr("traveltime", getEffort(e, nullptr, STEPS2TIME(currentTime)));
             dev.closeTag();
         }
         dev.closeTag();

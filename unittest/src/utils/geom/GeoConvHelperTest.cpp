@@ -33,6 +33,6 @@ TEST(GeoConvHelper, test_method_x2cartesian) {
     Position pos(13.5326994, 52.428098100000007);
     gch.x2cartesian(pos);
     
-	EXPECT_FLOAT_EQ(400235.50494557252, pos.x());
-	EXPECT_FLOAT_EQ(5809666.826070101, pos.y());
+    EXPECT_NEAR(400235.50494557252, pos.x(), 1e-6);
+    EXPECT_NEAR(5809666.826070101, pos.y(), 1e-6);
 }

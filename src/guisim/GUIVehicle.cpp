@@ -93,7 +93,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     const int sublaneParams = MSGlobals::gLateralResolution > 0 ? 4 : 0;
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getParametersMap().size());
+        new GUIParameterTableWindow(app, *this, 39 + sublaneParams + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
@@ -165,6 +165,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
+
+    ret->mkItem("lcState right", false, getLaneChangeModel().hasSavedState(-1) ? toString((LaneChangeAction)getLaneChangeModel().getSavedState(-1).second) : "");
+    ret->mkItem("lcState left", false, getLaneChangeModel().hasSavedState(1) ? toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second) : "");
     // close building
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("right side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));
