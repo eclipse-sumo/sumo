@@ -27,6 +27,7 @@ import collectinghandler  # noqa
 import connections  # noqa
 import turndefinitions  # noqa
 
+
 class TurnDefinitionsTestCase(unittest.TestCase):
     # pylint: disable=C,R,W,E,F
 
@@ -179,6 +180,7 @@ class CreateTurnDefinitionsTestCase(unittest.TestCase):
 
         self.assertEqual(turn_definitions,
                          turndefinitions.from_connections(input_connections))
+
 
 class UniformDestinationWeightCalculatorTestCase(unittest.TestCase):
     # pylint: disable=C,W,R,E,F

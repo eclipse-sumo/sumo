@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    NIXMLPTHandler.cpp
+/// @file    NIXMLShapeHandler.cpp
 /// @author  Jakob Erdmann
 /// @date    Sat, 28 Jul 2018
 /// @version $Id$
