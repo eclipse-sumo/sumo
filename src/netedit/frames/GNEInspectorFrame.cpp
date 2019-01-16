@@ -817,7 +817,7 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::showAttribute(SumoXMLTag AC
         }
     }
     // if Tag correspond to an network element but we're in demand mode, disable all elements
-    if ((myAttributesEditorParent->myInspectorFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) && !GNEAttributeCarrier::getTagProperties(myTag).isDemandElement()) {
+    if ((myAttributesEditorParent->myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !GNEAttributeCarrier::getTagProperties(myTag).isDemandElement()) {
         myTextFieldInt->disable();
         myTextFieldReal->disable();
         myTextFieldStrings->disable();
@@ -1395,7 +1395,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             myTextFieldAdditionalParent->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if ((myInspectorFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->getInspectedACs().front()->getTagProperty().isDemandElement()) {
+        if ((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->getInspectedACs().front()->getTagProperty().isDemandElement()) {
             myTextFieldAdditionalParent->disable();
             myCheckBoxBlockMovement->disable();
             myCheckBoxBlockShape->disable();
@@ -1635,7 +1635,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
             }
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if ((myInspectorFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->getInspectedACs().front()->getTagProperty().isDemandElement()) {
+        if ((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myInspectorFrameParent->getInspectedACs().front()->getTagProperty().isDemandElement()) {
             myGEOAttributeTextField->disable();
             myUseGEOCheckButton->disable();
         }
@@ -1767,7 +1767,7 @@ GNEInspectorFrame::TemplateEditor::~TemplateEditor() {
 
 void
 GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
-    if ((myInspectorFrameParent->getViewNet()->getCurrentSuperMode() != GNE_SUPERMODE_DEMAND) && (myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+    if ((myInspectorFrameParent->getViewNet()->getEditModes().currentSupermode != GNE_SUPERMODE_DEMAND) && (myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // show template editor
         show();
         // show "Copy Template" (caption supplied via onUpdate)

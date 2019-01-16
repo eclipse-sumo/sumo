@@ -980,7 +980,7 @@ GNEDemandElement::isAttributeCarrierSelected() const {
 
 bool
 GNEDemandElement::drawUsingSelectColor() const {
-    if (mySelected && (myViewNet->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND)) {
+    if (mySelected && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
         return true;
     } else {
         return false;

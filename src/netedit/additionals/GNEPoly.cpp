@@ -282,7 +282,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * circleWidth > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
-        bool modeMove = myNet->getViewNet()->getCurrentNetworkEditMode() == GNE_NMODE_MOVE;
+        bool modeMove = myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
         // set colors

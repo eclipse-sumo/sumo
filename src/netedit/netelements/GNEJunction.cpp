@@ -179,7 +179,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
     FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
     // check if menu commands has to be disabled
-    NetworkEditMode editMode = myNet->getViewNet()->getCurrentNetworkEditMode();
+    NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
     const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
     if (wrongMode) {
         mcCustomShape->disable();

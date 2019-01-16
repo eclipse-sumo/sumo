@@ -1501,7 +1501,7 @@ long
 GNEApplicationWindow::onCmdSetSuperMode(FXObject* sender, FXSelector sel, void* ptr) {
     // check that currently there is a View
     if (myViewNet) {
-        myViewNet->onCmdSetSupermode(this, sel, ptr);
+        myViewNet->onCmdSetSupermode(sender, sel, ptr);
     }
     return 1;
 }
@@ -1632,12 +1632,12 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if (myViewNet->getMenuCheckShowGrid()->getCheck() == TRUE) {
-            myViewNet->getMenuCheckShowGrid()->setCheck(0);
+        if (myViewNet->getViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
+            myViewNet->getViewOptions().menuCheckShowGrid->setCheck(FALSE);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            myViewNet->getMenuCheckShowGrid()->setCheck(1);
+            myViewNet->getViewOptions().menuCheckShowGrid->setCheck(TRUE);
             // show extra information for tests
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }

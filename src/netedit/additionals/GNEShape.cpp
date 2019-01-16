@@ -132,7 +132,7 @@ GNEShape::isAttributeCarrierSelected() const {
 
 bool
 GNEShape::drawUsingSelectColor() const {
-    if (mySelected && (myNet->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK)) {
+    if (mySelected && (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK)) {
         return true;
     } else {
         return false;

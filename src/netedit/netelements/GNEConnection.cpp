@@ -269,7 +269,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
     // check if menu commands has to be disabled
-    NetworkEditMode editMode = myNet->getViewNet()->getCurrentNetworkEditMode();
+    NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
     const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
     if (wrongMode) {
         mcCustomShape->disable();
@@ -289,7 +289,7 @@ GNEConnection::getCenteringBoundary() const {
 void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
-    if (!myShapeDeprecated && (myNet->getViewNet()->getViewOptions().showConnections() || (myNet->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_DEMAND))) {
+    if (!myShapeDeprecated && (myNet->getViewNet()->getViewOptions().showConnections() || (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND))) {
         // Push draw matrix 1
         glPushMatrix();
         // Push name

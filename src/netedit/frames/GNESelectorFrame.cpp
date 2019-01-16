@@ -352,7 +352,7 @@ void
 GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
     for (const auto &i : myTypeEntries) {
         // showr or hidde type entries depending of current supermode
-        if (i.second.first == mySelectorFrameParent->getViewNet()->getCurrentSuperMode()) {
+        if (i.second.first == mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode) {
             i.second.second->showObjectTypeEntry();
         } else {
             i.second.second->hideObjectTypeEntry();
@@ -511,7 +511,7 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
     // first clear item
     mySetComboBox->clearItems();
     // now fill elements depending of supermode
-    if(mySelectorFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK) {
+    if(mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         mySetComboBox->appendItem("Net Element");
         mySetComboBox->appendItem("Additional");
         mySetComboBox->appendItem("Shape");
@@ -527,7 +527,7 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
 long
 GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     // check depending of current supermode
-    if(mySelectorFrameParent->getViewNet()->getCurrentSuperMode() == GNE_SUPERMODE_NETWORK) {
+    if(mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         if (mySetComboBox->getText() == "Net Element") {
             myCurrentElementSet = ELEMENTSET_NETELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));

@@ -262,6 +262,62 @@ public:
     private:
         /// @brief information of event
         FXEvent* myEventInfo;
+
+        /// @brief Invalidated copy constructor.
+        KeyPressed(const KeyPressed&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        KeyPressed& operator=(const KeyPressed&) = delete;
+    };
+
+    /// @brief struct used to group all variables related with Supermodes
+    struct EditMoves {
+
+        /// @brief default constructor
+        EditMoves(GNEViewNet* viewNet);
+        
+        /// @brief destructor
+        ~EditMoves();
+
+        /// @brief build checkable buttons
+        void buildSuperModeButtons();
+      
+        /// @brief set Network edit mode
+        void setSupermode(Supermode supermode);
+
+        /// @brief set Network edit mode
+        void setNetworkEditMode(NetworkEditMode networkMode, bool force = false);
+
+        /// @brief set Demand edit mode
+        void setDemandEditMode(DemandEditMode demandMode, bool force = false);
+
+        /// @brief the current supermode
+        Supermode currentSupermode;
+
+        /// @brief the current Network edit mode
+        NetworkEditMode networkEditMode;
+
+        /// @brief the current Demand edit mode
+        DemandEditMode demandEditMode;
+
+        /// @brief chekable button for supermode Network
+        MFXCheckableButton* networkButton;
+
+        /// @brief chekable button for supermode Demand
+        MFXCheckableButton* demandButton;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief separator between menu bar and Super mode buttons
+        FXVerticalSeparator *myVerticalSeparator;
+
+        /// @brief Invalidated copy constructor.
+        EditMoves(const EditMoves&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        EditMoves& operator=(const EditMoves&) = delete;
     };
 
     /// @brief struct used to group all variables related to view options
@@ -309,6 +365,12 @@ public:
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        ViewOptions(const ViewOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ViewOptions& operator=(const ViewOptions&) = delete;
     };
 
     /// @brief struct used to group all variables related to create edges
@@ -338,6 +400,12 @@ public:
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        MoveOptions(const MoveOptions&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        MoveOptions& operator=(const MoveOptions&) = delete;
     };
 
     /* @brief constructor
@@ -359,7 +427,7 @@ public:
     ~GNEViewNet();
 
     /// @brief builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow&);
+    void buildViewToolBars(GUIGlChildWindow&);
 
     /// @brief get AttributeCarriers in Boundary
     std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary &boundary, bool forceSelectEdges = false);
@@ -378,6 +446,18 @@ public:
 
     //@brief open object dialog
     void openObjectDialog();
+
+    /// @brief get edit modes
+    const EditMoves &getEditModes() const;
+
+    /// @brief get move options
+    const MoveOptions &getMoveOptions() const;
+
+    /// @brief get view options
+    const ViewOptions &getViewOptions() const;
+
+    /// @brief get Key Pressed modul
+    const KeyPressed &getKeyPressed() const;
 
     /// @name overloaded handlers
     /// @{
@@ -542,27 +622,6 @@ public:
     /// @brief get the undoList object
     GNEUndoList* getUndoList() const;
 
-    /// @brief get move options
-    const MoveOptions &getMoveOptions() const;
-
-    /// @brief get view options
-    const ViewOptions &getViewOptions() const;
-
-    /// @brief get the current SuperMode
-    Supermode getCurrentSuperMode() const;
-
-    /// @brief get the current Network edit mode
-    NetworkEditMode getCurrentNetworkEditMode() const;
-
-    /// @brief get the current Demand edit mode
-    DemandEditMode getCurrentDemandEditMode() const;
-
-    /// @brief get Key Pressed modul
-    const KeyPressed &getKeyPressed() const;
-
-    /// @brief get grid button
-    FXMenuCheck* getMenuCheckShowGrid() const;
-
     /// @brief get AttributeCarrier under cursor
     const GNEAttributeCarrier* getDottedAC() const;
 
@@ -607,7 +666,6 @@ protected:
     void doInit();
 
 private:
-
     /// @brief struct used to group all variables related with movement of single elements
     struct MoveSingleElementValues {
 
@@ -807,41 +865,6 @@ private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
     };
-    
-    /// @brief struct used to group all variables related with Supermodes
-    struct SuperModes {
-
-        /// @brief default constructor
-        SuperModes(GNEViewNet* viewNet);
-        
-        /// @brief destructor
-        ~SuperModes();
-
-        /// @brief build checkable buttons
-        void buildSuperModeButtons();
-      
-        /// @brief the current supermode
-        Supermode currentSupermode;
-
-        /// @brief the current Network edit mode
-        NetworkEditMode networkEditMode;
-
-        /// @brief the current Demand edit mode
-        DemandEditMode demandEditMode;
-
-        /// @brief chekable button for supermode Network
-        MFXCheckableButton* networkButton;
-
-        /// @brief chekable button for supermode Demand
-        MFXCheckableButton* demandButton;
-
-    private:
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
-
-        /// @brief separator between menu bar and Super mode buttons
-        FXVerticalSeparator *myVerticalSeparator;
-    };
 
     /// @brief struct used to group all variables related with common chekable Buttons
     struct CommonCheckableButtons {
@@ -960,15 +983,6 @@ private:
         GNEViewNet* myViewNet;
     };
 
-    /// @brief view parent
-    GNEViewParent* myViewParent;
-
-    /// @brief Pointer to current net. (We are not responsible for deletion)
-    GNENet* myNet;
-
-    /// @brief the current frame
-    GNEFrame* myCurrentFrame;
-
     /// @name structs
     /// @{
 
@@ -999,8 +1013,8 @@ private:
     /// @brief variable used to save variables related with view options
     ViewOptions myViewOptions;
 
-    /// @brief variable used to save variables related with super modes
-    SuperModes mySuperModes;
+    /// @brief variable used to save variables related with edit moves modes
+    EditMoves myEditMoves;
 
     /// @brief variable used to save checkable buttons for common supermodes
     CommonCheckableButtons myCommonCheckableButtons;
@@ -1011,6 +1025,15 @@ private:
     /// @brief variable used to save checkable buttons for Supermode Demand
     DemandCheckableButtons myDemandCheckableButtons;
     // @}
+
+    /// @brief view parent
+    GNEViewParent* myViewParent;
+
+    /// @brief Pointer to current net. (We are not responsible for deletion)
+    GNENet* myNet;
+
+    /// @brief the current frame
+    GNEFrame* myCurrentFrame;
 
     /// @brief a reference to the toolbar in View Parent
     FXToolBar* myToolbar;
@@ -1032,16 +1055,7 @@ private:
     NetworkEditMode myPreviousNetworkEditMode;
     /// @}
 
-    /// @brief set Network edit mode
-    void setSupermode(Supermode supermode);
-
-    /// @brief set Network edit mode
-    void setNetworkEditMode(NetworkEditMode networkMode, bool force = false);
-
-    /// @brief set Demand edit mode
-    void setDemandEditMode(DemandEditMode demandMode, bool force = false);
-
-    /// @brief adds controls for setting the edit mode and supermodes
+    /// @brief create edit mode buttons and elements
     void buildEditModeControls();
 
     /// @brief updates Network mode specific controls
