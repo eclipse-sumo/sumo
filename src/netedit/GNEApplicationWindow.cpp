@@ -988,7 +988,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // check if demand elements has to be loaded at start
     if (oc.isSet("sumo-demandelements-file") && !oc.getString("sumo-demandelements-file").empty() && myNet) {
-        myDemandElementsFile = oc.getString("sumo-demand elements-file");
+        myDemandElementsFile = oc.getString("sumo-demandelements-file");
         WRITE_MESSAGE("Loading demand elements from '" + myDemandElementsFile + "'");
         GNEDemandHandler demandElementHandler(myDemandElementsFile, myNet->getViewNet());
         // disable validation for demand elements
