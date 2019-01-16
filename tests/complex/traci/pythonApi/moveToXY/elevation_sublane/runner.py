@@ -17,7 +17,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import os
-import subprocess
 import sys
 
 if 'SUMO_HOME' in os.environ:
@@ -26,18 +25,20 @@ if 'SUMO_HOME' in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
+import sumolib  # noqa
 import traci  # noqa
 
-sumoBinary = os.environ["SUMO_BINARY"]
-traci.start([sumoBinary, 
-    '-n', 'input_net.net.xml',
-    '--no-step-log',
-    '-S', '-Q'
-    ])
+sumoBinary = sumolib.checkBinary("sumo")
+traci.start([sumoBinary,
+             '-n', 'input_net.net.xml',
+             '--no-step-log',
+             '-S', '-Q'
+             ])
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
 INVALID = traci.constants.INVALID_DOUBLE_VALUE
 vehID = "v0"
+
 
 def check(x, y, angle, exZ, comment):
     traci.vehicle.moveToXY(vehID, "", angle, x, y, keepRoute=2)

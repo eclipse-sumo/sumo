@@ -231,7 +231,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadEOL = False
             self._hadKeywords = False
 
-    def checkFile(self, fileName=None):
+    def checkFile(self, fileName=None, exclude=None):
         if fileName is not None:
             self._file = fileName
         ext = os.path.splitext(self._file)[1]
@@ -240,7 +240,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         except UnicodeDecodeError as e:
             print(self._file, e)
         self.checkFileHeader(ext)
-        if self._pep and ext == ".py" and "contributed/" not in self._file:
+        if exclude:
+            for x in exclude:
+                if x + "/" in self._file:
+                    return
+        if self._pep and ext == ".py":
             if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
                 subprocess.call(["flake8", "--max-line-length", "120", self._file])
             if HAVE_AUTOPEP and self._fix:
@@ -255,6 +259,8 @@ optParser.add_option("-f", "--fix", action="store_true",
 optParser.add_option("-s", "--skip-pep", action="store_true",
                      default=False, help="skip autopep8 and flake8 tests")
 optParser.add_option("-d", "--directory", help="check given subdirectory of sumo tree")
+optParser.add_option("-x", "--exclude", default="contributed",
+                     help="comma-separated list of (sub-)paths to exclude from pep checks")
 (options, args) = optParser.parse_args()
 seen = set()
 sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -271,10 +277,11 @@ for repoRoot in repoRoots:
     try:
         oldDir = os.getcwd()
         os.chdir(repoRoot)
+        exclude = options.exclude.split(",")
         for name in subprocess.check_output(["git", "ls-files"]).splitlines():
             ext = os.path.splitext(name)[1]
             if ext in _SOURCE_EXT:
-                propRead.checkFile(name)
+                propRead.checkFile(name, exclude)
         os.chdir(oldDir)
         continue
     except (OSError, subprocess.CalledProcessError) as e:
