@@ -2649,11 +2649,11 @@ GNEViewNet::deleteSelectedAdditionals() {
 
 void
 GNEViewNet::deleteSelectedDemandElements() {
-    std::vector<GNEDemandElement*> additionals = myNet->retrieveDemandElements(true);
-    if (additionals.size() > 0) {
-        std::string plural = additionals.size() == 1 ? ("") : ("s");
+    std::vector<GNEDemandElement*> demandElements = myNet->retrieveDemandElements(true);
+    if (demandElements.size() > 0) {
+        std::string plural = demandElements.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected demand elements" + plural);
-        for (auto i : additionals) {
+        for (auto i : demandElements) {
             // due there are demand elements that are removed when their parent is removed, we need to check if yet exists before removing
             if (myNet->retrieveDemandElement(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
                 myNet->deleteDemandElement(i, myUndoList);
