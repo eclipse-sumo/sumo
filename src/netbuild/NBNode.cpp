@@ -839,7 +839,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
 bool
 NBNode::tlsContConflict(const NBEdge* from, const NBEdge::Connection& c,
                         const NBEdge* foeFrom, const NBEdge::Connection& foe) const {
-    return (foe.haveVia && isTLControlled()
+    return (foe.haveVia && isTLControlled() && c.tlLinkIndex >= 0 && foe.tlLinkIndex >= 0
             && !foeFrom->isTurningDirectionAt(foe.toEdge)
             && foes(from, c.toEdge, foeFrom, foe.toEdge)
             && !needsCont(foeFrom, from, foe, c));
