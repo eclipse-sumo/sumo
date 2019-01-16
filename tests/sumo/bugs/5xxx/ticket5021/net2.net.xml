@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 10 15:51:23 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Jan 16 12:40:36 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="plain.nod.xml"/>
-        <edge-files value="plain.edg.xml"/>
-        <connection-files value="plain.con.xml"/>
+        <sumo-net-file value="net2.net.xml"/>
     </input>
 
     <output>
         <output-file value="net2.net.xml"/>
     </output>
 
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
     <junctions>
         <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
     </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
 </configuration>
 -->
@@ -95,9 +106,9 @@
     <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="-gneE0_0 -gneE0_1" intLanes="" shape="0.00,0.00 0.00,5.20 0.00,0.00"/>
     <junction id="gneJ1" type="traffic_light" x="100.00" y="0.00" incLanes="-gneE2_0 -gneE2_1 -gneE1_0 -gneE1_1 gneE0_0 :gneJ1_w1_0" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_6_0 :gneJ1_3_0 :gneJ1_4_0 :gneJ1_7_0 :gneJ1_c0_0" shape="94.80,11.20 105.20,11.20 105.87,7.87 106.70,6.70 107.87,5.87 109.37,5.37 111.20,5.20 111.20,-3.20 88.80,-3.20 88.80,5.20 92.13,5.87 93.30,6.70 94.13,7.87 94.63,9.37" radius="6.00">
         <request index="0" response="1000000" foes="1001000" cont="0"/>
-        <request index="1" response="1100000" foes="1111000" cont="0"/>
-        <request index="2" response="1100000" foes="1100000" cont="1"/>
-        <request index="3" response="0100011" foes="0100011" cont="0"/>
+        <request index="1" response="1000000" foes="1111000" cont="0"/>
+        <request index="2" response="1000000" foes="1100000" cont="1"/>
+        <request index="3" response="0000011" foes="0100011" cont="0"/>
         <request index="4" response="0000010" foes="0000010" cont="0"/>
         <request index="5" response="1001110" foes="1001110" cont="1"/>
         <request index="6" response="0000000" foes="0100111" cont="0"/>
