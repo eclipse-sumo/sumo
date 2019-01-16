@@ -521,11 +521,6 @@ public:
     /// @brief toogle show grid
     long onCmdShowGrid(FXObject*, FXSelector, void*);
 
-    /**@brief sets edit mode (from hotkey)
-     * @param[in] selid An id MID_GNE_SETMODE_<foo> as defined in GUIAppEnum
-     **/
-    void setEditModeFromHotkey(FXushort selid);
-
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
 

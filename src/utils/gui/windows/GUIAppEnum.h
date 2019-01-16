@@ -415,6 +415,10 @@ enum {
     MID_HOTKEY_F1,    
     /// @brief hot key <F2> open about dialog
     MID_HOTKEY_F2,
+    /// @brief hot key <F3> set network mode in NETEDIT
+    MID_HOTKEY_F3_SUPERMODE_NETWORK,    
+    /// @brief hot key <F4> set demand mode in NETEDIT
+    MID_HOTKEY_F4_SUPERMODE_DEMAND,
     /// @brief hot key <ESC> abort current edit operation
     MID_GNE_HOTKEY_ESC,
     /// @brief hot key <F12> focus upper element of current frame
@@ -480,17 +484,6 @@ enum {
     /// @brief open options menu
     MID_GNE_HOTKEY_F10,
     /// @}
-
-        
-    /// @name Toolbar set supermodes messages
-    /// @{
-
-    /// @brief supermode for edit network elements
-    MID_GNE_SETSUPERMODE_NETWORK,
-    /// @brief supermode for edit demand
-    MID_GNE_SETSUPERMODE_DEMAND,
-    /// @}
-
 
     /// @name Toolbar set network modes messages
     /// @{

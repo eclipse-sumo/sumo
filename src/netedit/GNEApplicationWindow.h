@@ -274,6 +274,9 @@ public:
     /// @brief called when the command/FXCall clipboard request is executed
     long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user hits an edit-supermode hotkey
+    long onCmdSetSuperMode(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called if the user hits an edit-mode hotkey
     long onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr);
 

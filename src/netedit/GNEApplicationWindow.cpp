@@ -114,6 +114,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,      GNEApplicationWindow::onCmdSaveDemandElementsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,      GNEApplicationWindow::onUpdNeedsNetwork),
 
+    // Toolbar supermode
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F3_SUPERMODE_NETWORK,        GNEApplicationWindow::onCmdSetSuperMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F4_SUPERMODE_DEMAND,         GNEApplicationWindow::onCmdSetSuperMode),
+
     // Toolbar edit
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_E,                     GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_M,                     GNEApplicationWindow::onCmdSetMode),
@@ -316,6 +320,8 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(65647, this, FXSEL(SEL_COMMAND, MID_LOCATEPOI));      // Shift + O
     getAccelTable()->addAccel(65644, this, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));     // Shift + L
     // initialize rest of hotkeys
+    getAccelTable()->addAccel(parseAccel("F3"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_NETWORK));
+    getAccelTable()->addAccel(parseAccel("F4"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DEMAND));
     getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
     getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
     getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
@@ -937,7 +943,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setTitle(MFXUtils::getTitleText(myTitlePrefix, ec->myFile.c_str()));
         // set supermode network
         if(myViewNet) {
-            myViewNet->onCmdSetSupermode(0, MID_GNE_SETSUPERMODE_NETWORK, 0);
+            myViewNet->onCmdSetSupermode(0, MID_HOTKEY_F3_SUPERMODE_NETWORK, 0);
         }
         if (myViewNet && ec->myViewportFromRegistry) {
             Position off;
@@ -1491,11 +1497,21 @@ GNEApplicationWindow::disableSaveDemandElementsMenu() {
 }
 
 
-long
-GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
+long 
+GNEApplicationWindow::onCmdSetSuperMode(FXObject* sender, FXSelector sel, void* ptr) {
     // check that currently there is a View
     if (myViewNet) {
-        myViewNet->setEditModeFromHotkey(FXSELID(sel));
+        myViewNet->onCmdSetSupermode(this, sel, ptr);
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr) {
+    // check that currently there is a View
+    if (myViewNet) {
+        myViewNet->onCmdSetMode(sender, sel, ptr);
     }
     return 1;
 }
