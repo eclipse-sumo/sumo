@@ -43,6 +43,7 @@ public class ConfigurationFile implements Iterable<ConfigurationFile.CFControlUn
     private File configurationFile;
     private String lisaDirectoryName;
     private File lisaDirectory;
+    private int sumoPort = 0;
 
     @Override
     public Iterator<CFControlUnit> iterator() {
@@ -65,6 +66,10 @@ public class ConfigurationFile implements Iterable<ConfigurationFile.CFControlUn
         return lisaDirectory;
     }
 
+    public int getSumoPort() {
+        return sumoPort;
+    }
+        
     /**
      *
      * @param configurationFile
@@ -76,15 +81,23 @@ public class ConfigurationFile implements Iterable<ConfigurationFile.CFControlUn
             XMLAdmin2 x = new XMLAdmin2().load(configurationFile);
 
             try {
-                DLRLogger.info(this, "Reading configuration file: " + configurationFile);
+                DLRLogger.info(this, "Opening and reading Lisum configuration file: " + configurationFile);
 
                 lisaDirectoryName = x.getNode("input.lisa").getValue();
                 lisaDirectory = new File(lisaDirectoryName);
-
+                                                
                 if (!lisaDirectory.isAbsolute())
                     lisaDirectory = new File(this.configurationFile.getParentFile()
-                            + File.separator + lisaDirectoryName);                
+                            + File.separator + lisaDirectoryName);
+                
+                DLRLogger.config(this, "LISA input files are in " + lisaDirectory);
 
+                if(x.hasNode("sumo") && x.hasNode("sumo.port")) {
+                    sumoPort = x.getNode("sumo.port").getValue(0);                                        
+                }
+                
+                DLRLogger.config(this, "Setting SUMO comm port to " + sumoPort);
+                
                 int count = x.getNodesCount("controlUnits.controlUnit");
 
                 for (int i = 0; i < count; i++) {
@@ -96,7 +109,7 @@ public class ConfigurationFile implements Iterable<ConfigurationFile.CFControlUn
 
                     CFControlUnit controlUnit = new CFControlUnit(_lisa, _sumo);
                     controlUnits.add(controlUnit);
-                    DLRLogger.info(this, "Reading ControlUnit " + _lisa + " is " + _sumo);
+                    DLRLogger.config(this, "Reading ControlUnit " + _lisa + " is " + _sumo);
 
                     if (controlUnitNode.hasNode("signalGroups")) {
                         extractSignalGroups(controlUnit, controlUnitNode);

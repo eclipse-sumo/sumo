@@ -206,8 +206,10 @@ public class SimulationControlUnits
                 
                 lightColor = LightColor.OFF;
             }
-            
-            if(lightColor.isOff() && !sgs.get(0).ifOff.isEmpty())
+                        
+            if(lightColor.isOff() && 
+                    sgs.get(0).ifOff != null && 
+                    !sgs.get(0).ifOff.isEmpty())
                 lightColor = cui.getLightColor(sgs.get(0).ifOff);            
             
             return lightColor;

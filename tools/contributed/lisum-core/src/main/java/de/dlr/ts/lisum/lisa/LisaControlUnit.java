@@ -151,7 +151,10 @@ final class LisaControlUnit implements ControlUnitInterface
             //Sending message to Lisa and receiving a response
             PutMessageResponse messageResponseFromLisa = commands.putMessage(commandToLisa);
             
-            lisaSignalGroups.parseStates(messageResponseFromLisa.getSignalsStateVector()); //Catch NULL value
+            try {
+                lisaSignalGroups.parseStates(messageResponseFromLisa.getSignalsStateVector()); //Catch NULL value
+            } catch (NullPointerException e) {
+            }            
         }        
     }
 

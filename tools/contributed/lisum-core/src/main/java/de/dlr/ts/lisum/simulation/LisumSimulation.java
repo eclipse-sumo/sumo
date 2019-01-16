@@ -61,14 +61,13 @@ public class LisumSimulation implements SimulationListener {
 
     private final String sumoExec;
     private String sumoConfig;
-    //private final int sumoPort;
+    //private int sumoPort;
     private final String lisaServerAddress;
     private final int lisaServerPort;
     
     /**
      *
-     * @param sumoExec     
-     * @param sumoPort
+     * @param sumoExec          
      * @param lisaServerAddress
      * @param lisaServerPort
      */
