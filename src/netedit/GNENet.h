@@ -477,8 +477,8 @@ public:
     /// @brief get view net
     GNEViewNet* getViewNet() const;
 
-    /// @brief get all selected attribute carriers
-    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers();
+    /// @brief get all selected attribute carriers (or only relative to current supermode
+    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers(bool ignoreCurrentSupermode);
 
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();

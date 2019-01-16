@@ -232,8 +232,11 @@ GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
     if (AC != nullptr) {
         myViewNet->setDottedAC(AC);
         if (AC->isAttributeCarrierSelected()) {
-            std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers();
+            // obtain selected ACs depending of current supermode
+            std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+            // iterate over selected ACs
             for (const auto &i : selectedACs) {
+                // filter ACs to inspect using Tag as criterium
                 if (i->getTagProperty().getTag() == AC->getTagProperty().getTag()) {
                     itemsToInspect.push_back(i);
                 }

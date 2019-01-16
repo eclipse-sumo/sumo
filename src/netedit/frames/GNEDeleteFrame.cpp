@@ -97,10 +97,11 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 
 GNEDeleteFrame::~GNEDeleteFrame() {}
 
+
 void
 GNEDeleteFrame::show() {
-    if (myViewNet->getNet()->getSelectedAttributeCarriers().size() == 1) {
-        myACHierarchy->showACHierarchy(*myViewNet->getNet()->getSelectedAttributeCarriers().begin());
+    if (myViewNet->getNet()->getSelectedAttributeCarriers(false).size() == 1) {
+        myACHierarchy->showACHierarchy(*myViewNet->getNet()->getSelectedAttributeCarriers(false).begin());
     } else {
         myACHierarchy->hideACHierarchy();
     }
@@ -119,8 +120,8 @@ void
 GNEDeleteFrame::removeSelectedAttributeCarriers() {
     // remove all selected attribute carriers
     myViewNet->getUndoList()->p_begin("remove selected items");
-    while (myViewNet->getNet()->getSelectedAttributeCarriers().size() > 0) {
-        removeAttributeCarrier(*myViewNet->getNet()->getSelectedAttributeCarriers().begin(), true);
+    while (myViewNet->getNet()->getSelectedAttributeCarriers(false).size() > 0) {
+        removeAttributeCarrier(*myViewNet->getNet()->getSelectedAttributeCarriers(false).begin(), true);
     }
     myViewNet->getUndoList()->p_end();
 }

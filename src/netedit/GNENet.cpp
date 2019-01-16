@@ -1910,13 +1910,23 @@ GNENet::getViewNet() const {
 
 
 std::vector<GNEAttributeCarrier*>
-GNENet::getSelectedAttributeCarriers() {
+GNENet::getSelectedAttributeCarriers(bool ignoreCurrentSupermode) {
+    // declare vector to save result
     std::vector<GNEAttributeCarrier*> result;
     result.reserve(gSelected.getSelected().size());
+    // iterate over all elements of global selection
     for (auto i : gSelected.getSelected()) {
+        // obtain AC
         GNEAttributeCarrier* AC = retrieveAttributeCarrier(i, false);
+        // check if attribute carrier exist and is selected
         if (AC && AC->isAttributeCarrierSelected()) {
-            result.push_back(AC);
+            // now check if selected supermode is correct
+            if (ignoreCurrentSupermode ||
+                ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
+                ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
+                // add it into result vector
+                result.push_back(AC);
+            }
         }
     }
     return result;
@@ -1927,6 +1937,7 @@ NBTrafficLightLogicCont&
 GNENet::getTLLogicCont() {
     return myNetBuilder->getTLLogicCont();
 }
+
 
 NBEdgeCont& 
 GNENet::getEdgeCont() {

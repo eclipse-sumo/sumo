@@ -132,7 +132,8 @@ void
 GNESelectorFrame::clearCurrentSelection() const {
     // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
     myViewNet->getUndoList()->p_begin("clear selection");
-    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    // obtain selected ACs depending of current supermode
+    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
     // change attribute GNE_ATTR_SELECTED of all selected items to false
     for (auto i : selectedAC) {
         i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
@@ -152,7 +153,10 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, Modifi
     std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToUnselect;
     // in restrict AND replace mode all current selected attribute carriers will be unselected
     if ((setOperation == ModificationMode::SET_REPLACE) || (setOperation == ModificationMode::SET_RESTRICT)) {
-        for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers()) {
+        // obtain selected ACs depending of current supermode
+        std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+        // add id into ACs to unselect
+        for (auto i : selectedAC) {
             ACToUnselect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
         }
     }
@@ -944,7 +948,10 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                     // obtain GNEAttributeCarrier
                     GNEAttributeCarrier* AC = mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
                     // check if AC exist and if is selectable
-                    if (AC != nullptr) {
+                    if (AC && AC->getTagProperty().isSelectable())
+                        // now check if we're in the correct supermode to load this element
+                        if(((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
+                           ((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
                         loadedACs.push_back(AC);
                     }
                 }
@@ -971,7 +978,7 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
     }
     try {
         OutputDevice& dev = OutputDevice::getDevice(file.text());
-        for (auto i : mySelectorFrameParent->myViewNet->getNet()->getSelectedAttributeCarriers()) {
+        for (auto i : mySelectorFrameParent->myViewNet->getNet()->getSelectedAttributeCarriers(false)) {
             GUIGlObject* object = dynamic_cast<GUIGlObject*>(i);
             if (object) {
                 dev << GUIGlObject::TypeNames.getString(object->getType()) << ":" << i->getID() << "\n";
@@ -1001,7 +1008,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // first make a copy of current selected elements
-    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
+    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(false);
     // for invert selection, first clean current selection and next select elements of set "unselectedElements"
     mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("invert selection");
     // select junctions, edges, lanes connections and crossings

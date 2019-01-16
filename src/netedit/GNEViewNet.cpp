@@ -3443,8 +3443,11 @@ GNEViewNet::SelectingArea::processBoundarySelection(const Boundary &boundary) {
         ACToUnselect.reserve(ACsInBoundaryFiltered.size());
         // in restrict AND replace mode all current selected attribute carriers will be unselected
         if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_RESTRICT) ||
-                (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE)) {
-            for (auto i : myViewNet->myNet->getSelectedAttributeCarriers()) {
+            (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::SET_REPLACE)) {
+            // obtain selected ACs depending of current supermode
+            std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+            // add id into ACs to unselect
+            for (auto i : selectedAC) {
                 ACToUnselect.push_back(i);
             }
         }
