@@ -511,9 +511,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar) :
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getVisualisationSpeedUp(), glVis, share),
-    myViewParent(viewParent),
-    myNet(net),
-    myCurrentFrame(nullptr),
     myCreateEdgeOptions(this),
     myMoveOptions(this),
     myMoveSingleElementValues(this), 
@@ -525,6 +522,9 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
+    myViewParent(viewParent),
+    myNet(net),
+    myCurrentFrame(nullptr),
     myToolbar(toolBar),
     myUndoList(undoList),
     myEditShapePoly(nullptr) {
@@ -1071,7 +1071,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         }
     } else if (myEditMoves.currentSupermode == GNE_SUPERMODE_DEMAND) {
         // abort operation depending of current mode
-        if (myEditMoves.networkEditMode == GNE_DMODE_SELECT) {
+        if (myEditMoves.demandEditMode == GNE_DMODE_SELECT) {
             mySelectingArea.selectingUsingRectangle = false;
             // check if current selection has to be cleaned
             if (clearSelection) {
