@@ -1071,7 +1071,13 @@ GNEViewNet::abortOperation(bool clearSelection) {
         }
     } else if (myEditMoves.currentSupermode == GNE_SUPERMODE_DEMAND) {
         // abort operation depending of current mode
-        if (myEditMoves.demandEditMode == GNE_DMODE_ROUTES) {
+        if (myEditMoves.networkEditMode == GNE_DMODE_SELECT) {
+            mySelectingArea.selectingUsingRectangle = false;
+            // check if current selection has to be cleaned
+            if (clearSelection) {
+                myViewParent->getSelectorFrame()->clearCurrentSelection();
+            }
+        } else if (myEditMoves.demandEditMode == GNE_DMODE_ROUTES) {
             myViewParent->getRouteFrame()->hotKeyEsc();
         }
     }
@@ -1085,16 +1091,22 @@ GNEViewNet::hotkeyDel() {
     if (myEditMoves.networkEditMode == GNE_NMODE_CONNECT || myEditMoves.networkEditMode == GNE_NMODE_TLS) {
         setStatusBarText("Cannot delete in this mode");
     } else {
-        myUndoList->p_begin("delete selection");
-        deleteSelectedConnections();
-        deleteSelectedCrossings();
-        deleteSelectedAdditionals();
-        deleteSelectedDemandElements();
-        deleteSelectedLanes();
-        deleteSelectedEdges();
-        deleteSelectedJunctions();
-        deleteSelectedShapes();
-        myUndoList->p_end();
+        // delete elements depending of current supermode
+        if (myEditMoves.currentSupermode == GNE_SUPERMODE_NETWORK) {
+            myUndoList->p_begin("delete network selection");
+            deleteSelectedConnections();
+            deleteSelectedCrossings();
+            deleteSelectedAdditionals();
+            deleteSelectedLanes();
+            deleteSelectedEdges();
+            deleteSelectedJunctions();
+            deleteSelectedShapes();
+            myUndoList->p_end();
+        } else {
+            myUndoList->p_begin("delete demand selection");
+            deleteSelectedDemandElements();
+            myUndoList->p_end();
+        }
     }
 }
 
@@ -4228,7 +4240,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 mySelectingArea.beginRectangleSelection();
             } else {
                 // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
-                if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                     // change the selected attribute carrier if myViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
                     if (myViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
                         myObjectsUnderCursor.swapLane2Edge();
