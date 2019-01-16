@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jan 16 10:58:16 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE0" from="gneJ1" to="gneJ0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="-gneE1" from="gneJ2" to="gneJ1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="-gneE2" from="gneJ3" to="gneJ1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="gneE1" from="gneJ1" to="gneJ2" priority="-1" numLanes="1" speed="13.89" disallow="pedestrian"/>
+    <edge id="gneE2" from="gneJ1" to="gneJ3" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+</edges>

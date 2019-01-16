@@ -24,3 +24,6 @@ right_on_red_layout_incoming
 
 # load program with extra transition states
 extra_transitions
+
+# traffic light with one uncontrolled connection
+uncontrolled_links
