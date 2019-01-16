@@ -52,15 +52,21 @@ public:
         /// @brief check if only delete geometry points checkbox is enabled
         bool deleteOnlyGeometryPoints() const;
 
+        /// @brief check if protect demand elements checkbox is enabled
+        bool protectDemandElements() const;
+
     private:
         /// @brief pointer to delete Frame Parent
         GNEDeleteFrame* myDeleteFrameParent;
 
-        /// @brief checkbox for enable/disable automatically delete additionals childs
+        /// @brief checkbox for enable/disable automatic deletion of additionals childs
         FXCheckButton* myForceDeleteAdditionals;
 
         /// @brief checkbox for enable/disable delete only geometry points
         FXCheckButton* myDeleteOnlyGeometryPoints;
+        
+        /// @brief checkbox for enable/disable automatic deletion of demand childs
+        FXCheckButton* myProtectDemandElements;
     };
 
     /**@brief Constructor

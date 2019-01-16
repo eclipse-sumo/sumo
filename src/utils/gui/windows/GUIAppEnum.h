@@ -368,10 +368,6 @@ enum {
     MID_GNE_DELETEFRAME_INSPECT,
     /// @brief In GNEDeleteFrame, delete element
     MID_GNE_DELETEFRAME_DELETE,
-    /// @brief delete only geometry points
-    MID_GNE_DELETEFRAME_ONLYGEOMETRYPOINTS,
-    /// @brief automatically delete additional childs
-    MID_GNE_DELETEFRAME_AUTODELETEADDITIONALS,
     /// @}
 
 
