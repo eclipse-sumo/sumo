@@ -208,7 +208,7 @@ protected:
     /// @brief list of demand elements parents of this NetElement
     std::vector<GNEDemandElement*> myDemandElementParents;
 
-    /// @brief list of demand elements Childs of this NetElement
+    /// @brief list of demand elements Childs of this NetElement (note: Can be inserted multiples times)
     std::vector<GNEDemandElement*> myDemandElementChilds;
 
 private:

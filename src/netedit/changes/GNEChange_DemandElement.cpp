@@ -83,8 +83,6 @@ GNEChange_DemandElement::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
-        // delete demand element of test
-        myNet->deleteDemandElement(myDemandElement);
         // 1 - If demand element own a lane parent, remove it from lane
         for (auto i : myLaneParents) {
             i->removeDemandElementChild(myDemandElement);
@@ -109,6 +107,8 @@ GNEChange_DemandElement::undo() {
         for (auto i : myLaneChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
+        // delete demand element of net
+        myNet->deleteDemandElement(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -182,8 +182,6 @@ GNEChange_DemandElement::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
-        // delete demand element of test
-        myNet->deleteDemandElement(myDemandElement);
         // 1 - If demand element own a lane parent, remove it from lane
         for (auto i : myLaneParents) {
             i->removeDemandElementChild(myDemandElement);
@@ -208,6 +206,8 @@ GNEChange_DemandElement::redo() {
         for (auto i : myLaneChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
+        // delete demand element of net
+        myNet->deleteDemandElement(myDemandElement);
     }
     // Requiere always save demandElements
     myNet->requiereSaveDemandElements(true);

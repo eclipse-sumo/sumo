@@ -148,26 +148,22 @@ GNENetElement::removeDemandElementParent(GNEDemandElement* demandElement) {
 
 void
 GNENetElement::addDemandElementChild(GNEDemandElement* demandElement) {
-    // First check that demand element wasn't already inserted
-    if (std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement) != myDemandElementChilds.end()) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myDemandElementChilds.push_back(demandElement);
-        // update geometry is needed for stacked demandElements (routeProbes and Vaporicers)
-        updateGeometry(true);
-    }
+    // demand element childs can be multiples
+    myDemandElementChilds.push_back(demandElement);
+    // update geometry is needed for stacked demandElements (routeProbes and Vaporicers)
+    updateGeometry(true);
 }
 
 
 void
 GNENetElement::removeDemandElementChild(GNEDemandElement* demandElement) {
-    // First check that demand element was already inserted
+    // First check that at least one demand element was already inserted
     auto it = std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement);
     if (it == myDemandElementChilds.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myDemandElementChilds.erase(it);
-        // update geometry is needed for stacked demandElements (routeProbes and Vaporizers)
+        // update geometry is needed for stacked demandElements
         updateGeometry(true);
     }
 }
