@@ -66,6 +66,8 @@ enum {
     MID_OPEN_CONFIG,
     /// @brief Open network - ID
     MID_OPEN_NETWORK,
+    /// @brief Load additional file with poi and polygons
+    MID_HOTKEY_CTRL_P,
     /// @brief Load edge data for visualization
     MID_OPEN_EDGEDATA,
     /// @brief Load additional file with additional elements
