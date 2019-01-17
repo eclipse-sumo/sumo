@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 17 Jan 2019 11:29:04 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/scr1/sumo/tests/netconvert/function/crossings/specified/4_arm_3_neighboring_split_customshape_shifted2/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="200.00,120.00" convBoundary="100.00,20.00,300.00,220.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="C" x="200.00" y="120.00" type="traffic_light" tl="C" shape="184.16,145.68 218.80,138.59 218.80,137.77 219.55,137.16 219.95,104.22 218.90,103.61 218.54,102.85 218.29,101.78 218.14,100.41 218.11,98.73 207.33,98.68 201.13,101.55 194.73,98.87 184.06,98.86 183.33,100.06 182.40,100.81 181.11,101.67 179.45,102.62 177.41,103.68 182.28,113.43 182.75,124.99 178.69,135.10 180.77,136.87 181.71,138.41 182.59,140.39 183.41,142.82 184.16,145.68"/>
+    <node id="E" x="300.00" y="120.00" type="dead_end"/>
+    <node id="N" x="200.00" y="220.00" type="dead_end"/>
+    <node id="S" x="200.00" y="20.00" type="dead_end"/>
+    <node id="W" x="100.00" y="120.00" type="dead_end"/>
+</nodes>
