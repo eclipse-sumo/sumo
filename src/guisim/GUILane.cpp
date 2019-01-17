@@ -367,7 +367,10 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
         if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LINKSTATE_MAJOR) {
             // the white bar should be the default for most railway
             // links and looks ugly so we do not draw it
-            const double scale = isInternal() ? 0.5 : 1;
+            double scale = isInternal() ? 0.5 : 1;
+            if (myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL) {
+                scale *= MAX2(s.laneWidthExaggeration, s.junctionSize.getExaggeration(s, this, 10));
+            }
             glScaled(scale, scale, 1);
             glBegin(GL_QUADS);
             glVertex2d(x1 - myHalfLaneWidth, 0.0);
@@ -490,7 +493,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     }
-    const bool drawDetails =  (s.scale * exaggeration > 5 || s.junctionSize.minSize == 0) && !s.drawForSelecting;
+    const bool hasRailSignal = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL;
+    const bool detailZoom = s.scale * exaggeration > 5;
+    const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal) && !s.drawForSelecting;
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
@@ -555,11 +560,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth);
                 }
                 // Draw white on top with reduced width (the area between the two tracks)
-                glColor3d(1, 1, 1);
-                glTranslated(0, 0, .1);
-                GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
-                setColor(s);
-                GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
+                if (detailZoom) {
+                    glColor3d(1, 1, 1);
+                    glTranslated(0, 0, .1);
+                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
+                    setColor(s);
+                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
+                }
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);

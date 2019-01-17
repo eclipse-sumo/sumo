@@ -68,16 +68,25 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& 
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
     myIsInternal = myJunction.getType() == NODETYPE_INTERNAL;
     myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
-    for (ConstMSEdgeVector::const_iterator it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end(); ++it) {
-        if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
-            myAmWaterway = false;
-            break;
+    myAmRailway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
+    for (auto it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end() && (myAmWaterway || myAmRailway); ++it) {
+        if (!(*it)->isInternal()) {
+            if (!isWaterway((*it)->getPermissions())) {
+                myAmWaterway = false;
+            }
+            if (!isRailway((*it)->getPermissions())) {
+                myAmRailway = false;
+            }
         }
     }
-    for (ConstMSEdgeVector::const_iterator it = myJunction.getOutgoing().begin(); it != myJunction.getOutgoing().end(); ++it) {
-        if (!(*it)->isInternal() && !isWaterway((*it)->getPermissions())) {
-            myAmWaterway = false;
-            break;
+    for (auto it = myJunction.getOutgoing().begin(); it != myJunction.getOutgoing().end() && (myAmWaterway || myAmRailway); ++it) {
+        if (!(*it)->isInternal()) {
+            if (!isWaterway((*it)->getPermissions())) {
+                myAmWaterway = false;
+            }
+            if (!isRailway((*it)->getPermissions())) {
+                myAmRailway = false;
+            }
         }
     }
 }
@@ -183,6 +192,8 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
         case 0:
             if (myAmWaterway) {
                 return 1;
+            }else if (myAmRailway) {
+                return 2;
             } else {
                 return 0;
             }

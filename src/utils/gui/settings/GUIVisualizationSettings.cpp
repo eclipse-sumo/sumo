@@ -509,6 +509,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     /// add junction coloring schemes
     scheme = GUIColorScheme("uniform", RGBColor::BLACK, "", true);
     scheme.addColor(RGBColor(150, 200, 200), 1, "waterway");
+    scheme.addColor(RGBColor(0, 0, 0, 0), 2, "railway");
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");

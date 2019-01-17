@@ -157,6 +157,8 @@ private:
 
     /// @brief whether this junction has only waterways as incoming and outgoing edges
     bool myAmWaterway;
+    /// @brief whether this junction has only railways as incoming and outgoing edges
+    bool myAmRailway;
 
     /// @brief the associated traffic light or ""
     const std::string myTLLID;
