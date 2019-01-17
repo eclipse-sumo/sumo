@@ -1436,8 +1436,8 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     if (shapePath != "") {
         // new shapes has to be inserted without possibility of undo/redo
         myAllowUndoShapes = false;
-        GNEApplicationWindow::GNEShapeHandler handler(shapePath, this);
-        if (!XMLSubSys::runParser(handler, shapePath, false)) {
+        GNEAdditionalHandler additionalHandler(shapePath, myViewNet);
+        if (!XMLSubSys::runParser(additionalHandler, shapePath, false)) {
             WRITE_MESSAGE("Loading of " + shapePath + " failed.");
         }
         // restore flag

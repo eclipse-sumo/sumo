@@ -677,13 +677,13 @@ GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        GNEShapeHandler handler(file, myNet);
+        GNEAdditionalHandler additionalHandler(file, myViewNet);
         // disable validation for shapes
         XMLSubSys::setValidation("never", "auto");
         // begin undo operation
         myUndoList->p_begin("Loading shapes from '" + file + "'");
         // run parser for shapes
-        if (!XMLSubSys::runParser(handler, file, false)) {
+        if (!XMLSubSys::runParser(additionalHandler, file, false)) {
             WRITE_MESSAGE("Loading of shapes failed.");
         }
         // end undoList operation and update view
@@ -974,12 +974,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (oc.isSet("sumo-shapes-file") && !oc.getString("sumo-shapes-file").empty() && myNet) {
         myShapesFile = oc.getString("sumo-shapes-file");
         WRITE_MESSAGE("Loading shapes");
-        GNEShapeHandler shapeHandler(myShapesFile, myNet);
+        GNEAdditionalHandler additionalHandler(myShapesFile, myViewNet);
         // disable validation for shapes
         XMLSubSys::setValidation("never", "auto");
         // Run parser
         myUndoList->p_begin("Loading shapes from '" + myShapesFile + "'");
-        if (!XMLSubSys::runParser(shapeHandler, myShapesFile, false)) {
+        if (!XMLSubSys::runParser(additionalHandler, myShapesFile, false)) {
             WRITE_ERROR("Loading of shapes failed.");
         }
         // enable validation for shapes
@@ -2495,37 +2495,6 @@ GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* eventData)
         }
     }
     return 0;
-}
-
-// ---------------------------------------------------------------------------
-// GNEApplicationWindow::GNEShapeHandler - methods
-// ---------------------------------------------------------------------------
-
-GNEApplicationWindow::GNEShapeHandler::GNEShapeHandler(const std::string& file, GNENet* net) :
-    ShapeHandler(file, *net),
-    myNet(net) {}
-
-
-GNEApplicationWindow::GNEShapeHandler::~GNEShapeHandler() {}
-
-
-Position
-GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
-    std::string edgeID;
-    int laneIndex;
-    NBHelpers::interpretLaneID(laneID, edgeID, laneIndex);
-    NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
-    if (edge == nullptr || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
-        WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
-        return Position::INVALID;
-    }
-    if (lanePos < 0) {
-        lanePos = edge->getLength() + lanePos;
-    }
-    if (lanePos < 0 || lanePos > edge->getLength()) {
-        WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
-    }
-    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
 }
 
 /****************************************************************************/

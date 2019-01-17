@@ -23,10 +23,10 @@
 
 #include <config.h>
 
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/shapes/ShapeHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -44,7 +44,7 @@ class GNEAdditional;
 
 /// @class GNEAdditionalHandler
 /// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
-class GNEAdditionalHandler : public SUMOSAXHandler {
+class GNEAdditionalHandler : public ShapeHandler {
 public:
     /// @brief Constructor
     GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals = true, GNEAdditional* additionalParent = nullptr);
@@ -52,7 +52,7 @@ public:
     /// @brief Destructor
     ~GNEAdditionalHandler();
 
-    /// @name inherited from GenericSAXHandler
+    /// @name inherited from ShapeHandler
     /// @{
     /**@brief Called on the opening of a tag;
      * @param[in] element ID of the currently opened element
@@ -69,6 +69,12 @@ public:
      */
     void myEndElement(int element);
 
+    /**@brief get lane position
+     * @param[in] poi poi ID
+     * @param[in] laneID lane ID
+     * @param[in] SlanePos position in the lane
+     */
+    Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
     /// @}
 
     /// @name parsing methods

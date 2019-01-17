@@ -61,35 +61,6 @@ class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
     FXDECLARE(GNEApplicationWindow)
 
 public:
-    /**
-    * @class GNEShapeHandler
-    * @brief The XML-Handler for shapes loading network loading
-    *
-    * This subclasses ShapeHandler with netbuild specific function
-    */
-    class GNEShapeHandler : public ShapeHandler {
-    public:
-        /**@brief Constructor
-        * @param[in] file file with the shapes
-        * @param[in] net network in which add shapes
-        */
-        GNEShapeHandler(const std::string& file, GNENet* net);
-
-        /// @brief Destructor
-        ~GNEShapeHandler();
-
-        /**@brief get lane position
-        * @param[in] poi poi ID
-        * @param[in] laneID lane ID
-        * @param[in] SlanePos position in the lane
-        */
-        Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat);
-
-    private:
-        /// @brief pointer of the net
-        GNENet* myNet;
-    };
-
     /**@brief Constructor
      * @param[in] a The FOX application
      * @param[in] configPattern The pattern used for loading configurations

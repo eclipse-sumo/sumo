@@ -64,14 +64,17 @@
 // ===========================================================================
 
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNEViewNet* viewNet, bool undoAdditionals, GNEAdditional* additionalParent) :
-    SUMOSAXHandler(file),
+    ShapeHandler(file, *viewNet->getNet()),
     myViewNet(viewNet),
     myUndoAdditionals(undoAdditionals),
     myAdditionalParent(additionalParent) {
+    // check if we're loading values of another additionals (example: Rerouter values)
     if (additionalParent) {
         myHierarchyInsertedAdditionals.insertElement(additionalParent->getTagProperty().getTag());
         myHierarchyInsertedAdditionals.commitElementInsertion(additionalParent);
     }
+    // define default values for shapes
+    setDefaults("", RGBColor::RED, Shape::DEFAULT_LAYER_POI, true);
 }
 
 
@@ -186,6 +189,13 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             case SUMO_TAG_ROUTE_PROB_REROUTE:
                 parseAndBuildRerouterRouteProbReroute(attrs, tag);
                 break;
+            // shapes (use functions from GNEShapeHandler)
+            case SUMO_TAG_POLY:
+                addPoly(attrs, false, false);
+                break;
+            case SUMO_TAG_POI:
+                addPOI(attrs, false, false);
+                break;
             default:
                 break;
         }
@@ -224,6 +234,28 @@ GNEAdditionalHandler::myEndElement(int element) {
     }
     // pop last inserted element
     myHierarchyInsertedAdditionals.popElement();
+    // execute myEndElement of ShapeHandler (needed to update myLastParameterised)
+    ShapeHandler::myEndElement(element);
+}
+
+
+Position
+GNEAdditionalHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
+    std::string edgeID;
+    int laneIndex;
+    NBHelpers::interpretLaneID(laneID, edgeID, laneIndex);
+    NBEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID)->getNBEdge();
+    if (edge == nullptr || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
+        WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
+        return Position::INVALID;
+    }
+    if (lanePos < 0) {
+        lanePos = edge->getLength() + lanePos;
+    }
+    if (lanePos < 0 || lanePos > edge->getLength()) {
+        WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
+    }
+    return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
 }
 
 
@@ -472,7 +504,37 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
 
 void
 GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
-    if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()) {
+    // we have two cases: if we're parsing a Shape or we're parsing an Additional
+    if(getLastParameterised()) {
+        bool ok = true;
+        std::string key;
+        if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
+            // obtain key
+            key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
+            if (key.empty()) {
+                WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
+                ok = false;
+            }
+            if (!SUMOXMLDefinitions::isValidTypeID(key)) {
+                WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");
+                ok = false;
+            }
+        } else {
+            WRITE_WARNING("Error parsing key from shape generic parameter. Key doesn't exist");
+            ok = false;
+        }
+        // circumventing empty string test
+        const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+        if (!SUMOXMLDefinitions::isValidAttribute(val)) {
+            WRITE_WARNING("Error parsing value from shape generic parameter. Value contains invalid characters");
+            ok = false;
+        }
+        // set parameter in last inserted additional
+        if (ok) {
+            WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
+            getLastParameterised()->setParameter(key, val);
+        }
+    } else if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()) {
         // first check if given additional supports generic parameters
         if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagProperty().hasGenericParameters()) {
             bool ok = true;
@@ -504,10 +566,10 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
                 myHierarchyInsertedAdditionals.getLastInsertedAdditional()->setParameter(key, val);
             }
         } else {
-        WRITE_WARNING("Additionals of type '" + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + "' doesn't support Generic Parameters");
+            WRITE_WARNING("Additionals of type '" + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + "' doesn't support Generic Parameters");
         }
     } else {
-        WRITE_WARNING("Generic Parameters has to be declared within the definition of an additional element");
+        WRITE_WARNING("Generic Parameters has to be declared within the definition of an additional or a shape element");
     }
 }
 
