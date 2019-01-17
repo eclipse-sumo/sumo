@@ -226,24 +226,29 @@ GNEApplicationWindow::dependentBuild() {
     hadDependentBuild = true;
     setTarget(this);
     setSelector(MID_WINDOW);
-    // build menu bar (for File, edit, processing...)
-    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
-    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, LAYOUT_SIDE_TOP | FRAME_RAISED);
+    // build menu bar (for File, edit, processing...) using specify design
+    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBar);
+    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignToolbarMenuBarNetedit);
     // declare toolbar grip for menu bar
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for supermode
-    myMenuBarDragSuperModes = new FXToolBarShell(this, GUIDesignToolBarShell3);
-    myMenuBarSuperModes = new FXMenuBar(myTopDock, myMenuBarDragSuperModes, FRAME_RAISED);
+    // build menu bar for supermodes (next to menu bar)
+    myMenuBarDragSuperModes = new FXToolBarShell(this, GUIDesignToolBar);
+    myMenuBarSuperModes = new FXMenuBar(myTopDock, myMenuBarDragSuperModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar Supermodes
     new FXToolBarGrip(myMenuBarSuperModes, myMenuBarSuperModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for navigation (bot to menu bar)
+    myMenuBarDragNavigation = new FXToolBarShell(this, GUIDesignToolBar);
+    myMenuBarNavigation = new FXMenuBar(myTopDock, myMenuBarDragNavigation, GUIDesignToolBarRaisedNext);
+    // declare toolbar grip for menu bar Navigation
+    new FXToolBarGrip(myMenuBarNavigation, myMenuBarNavigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for modes
-    myMenuBarDragModes = new FXToolBarShell(this, GUIDesignToolBarShell3);
-    myMenuBarModes = new FXMenuBar(myTopDock, myMenuBarDragModes, FRAME_RAISED);
+    myMenuBarDragModes = new FXToolBarShell(this, GUIDesignToolBar);
+    myMenuBarModes = new FXMenuBar(myTopDock, myMenuBarDragModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(myMenuBarModes, myMenuBarModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for mode Options
-    myMenuBarDragModeOptions = new FXToolBarShell(this, GUIDesignToolBarShell3);
-    myMenuBarModeOptions = new FXMenuBar(myTopDock, myMenuBarDragModeOptions, FRAME_RAISED);
+    myMenuBarDragModeOptions = new FXToolBarShell(this, GUIDesignToolBar);
+    myMenuBarModeOptions = new FXMenuBar(myTopDock, myMenuBarDragModeOptions, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(myMenuBarModeOptions, myMenuBarModeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // menu bar modes is by default hidden
@@ -2216,6 +2221,12 @@ GNEApplicationWindow::updateControls() {
 FXMenuBar* 
 GNEApplicationWindow::getMenuBarSuperModes() const {
     return myMenuBarSuperModes;
+}
+
+
+FXMenuBar* 
+GNEApplicationWindow::getMenuBarNavigation() const {
+    return myMenuBarNavigation;
 }
 
 

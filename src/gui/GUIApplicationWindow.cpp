@@ -233,8 +233,8 @@ GUIApplicationWindow::dependentBuild() {
     setSelector(MID_WINDOW);
 
     // build menu bar
-    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
-    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignBar);
+    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBar);
+    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignToolbarMenuBar);
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     buildToolBars();
     // build the thread - io
@@ -600,8 +600,8 @@ GUIApplicationWindow::buildToolBars() {
     // build tool bars
     {
         // file and simulation tool bar
-        myToolBarDrag1 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar1 = new FXToolBar(myTopDock, myToolBarDrag1, GUIDesignToolBarShell1);
+        myToolBarDrag1 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar1 = new FXToolBar(myTopDock, myToolBarDrag1, GUIDesignToolBarRaisedNextTop);
         new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build file tools
         new FXButton(myToolBar1, "\t\tOpen a simulation (Configuration file).", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG, GUIDesignButtonToolbar);
@@ -610,8 +610,8 @@ GUIApplicationWindow::buildToolBars() {
     }
     {
         // simulation toolbar
-        myToolBarDrag2 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GUIDesignToolBarShell2);
+        myToolBarDrag2 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build simulation tools
         new FXButton(myToolBar2, "\t\tStart the loaded simulation.", GUIIconSubSys::getIcon(ICON_START), this, MID_HOTKEY_CTRL_A, GUIDesignButtonToolbar);
@@ -620,8 +620,8 @@ GUIApplicationWindow::buildToolBars() {
     }
     {
         // Simulation Step Display
-        myToolBarDrag3 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar3 = new FXToolBar(myTopDock, myToolBarDrag3, GUIDesignToolBarShell2);
+        myToolBarDrag3 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar3 = new FXToolBar(myTopDock, myToolBarDrag3, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXButton(myToolBar3, "Time:\t\tToggle between seconds and hour:minute:seconds display", nullptr, this, MID_TIME_TOOGLE, GUIDesignButtonToolbarText);
 
@@ -634,8 +634,8 @@ GUIApplicationWindow::buildToolBars() {
     }
     {
         // Simulation Delay
-        myToolBarDrag4 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GUIDesignToolBarShell2);
+        myToolBarDrag4 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar4 = new FXToolBar(myTopDock, myToolBarDrag4, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXButton(myToolBar4, "Delay (ms):\t\tDelay per simulated second. Click to toggle between the last two delay values", nullptr, this, MID_DELAY_TOOGLE, GUIDesignButtonToolbarText);
 
@@ -656,8 +656,8 @@ GUIApplicationWindow::buildToolBars() {
     }
     {
         // Scale traffic (flows and incrementally loaded vehicles)
-        myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarShell2);
+        myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar8 = new FXToolBar(myTopDock, myToolBarDrag8, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar8, myToolBar8, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar8, "Scale Traffic:\t\tScale traffic from flows and vehicles that are loaded incrementally from route files", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myDemandScaleSpinner = new FXRealSpinner(myToolBar8, 7, this, MID_DEMAND_SCALE, GUIDesignSpinDial);
@@ -667,8 +667,8 @@ GUIApplicationWindow::buildToolBars() {
     }
     {
         // Views
-        myToolBarDrag5 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar5 = new FXToolBar(myTopDock, myToolBarDrag5, GUIDesignToolBarShell2);
+        myToolBarDrag5 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar5 = new FXToolBar(myTopDock, myToolBarDrag5, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build view tools
         new FXButton(myToolBar5, "\t\tOpen a new microscopic view.",
@@ -681,8 +681,8 @@ GUIApplicationWindow::buildToolBars() {
     {
         /// game specific stuff
         // total waitingTime
-        myToolBarDrag6 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, GUIDesignToolBarShell2);
+        myToolBarDrag6 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar6 = new FXToolBar(myTopDock, myToolBarDrag6, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar6, myToolBar6, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar6, "Waiting Time:\t\tTime spent waiting accumulated for all vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myWaitingTimeLabel = new FXEX::FXLCDLabel(myToolBar6, 13, nullptr, 0, JUSTIFY_RIGHT);
@@ -693,8 +693,8 @@ GUIApplicationWindow::buildToolBars() {
         myWaitingTimeLabel->setText("-------------");
 
         // idealistic time loss
-        myToolBarDrag7 = new FXToolBarShell(this, GUIDesignToolBarShell3);
-        myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, GUIDesignToolBarShell2);
+        myToolBarDrag7 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar7 = new FXToolBar(myTopDock, myToolBarDrag7, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar7, myToolBar7, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar7, "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for all vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
         myTimeLossLabel = new FXEX::FXLCDLabel(myToolBar7, 13, nullptr, 0, JUSTIFY_RIGHT);

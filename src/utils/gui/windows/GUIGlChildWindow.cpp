@@ -52,7 +52,7 @@ FXIMPLEMENT(GUIGlChildWindow, FXMDIChild, GUIGlChildWindowMap, ARRAYNUMBER(GUIGl
 // member method definitions
 // ===========================================================================
 GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, FXMDIMenu* mdimenu, 
-    const FXString& name, bool gripElements, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
+    const FXString& name, FXMenuBar* menuBarGripElements, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
     FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
     myView(nullptr),
     myParent(parentWindow) {
@@ -60,19 +60,16 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, 
     setTracking();
     // create a vertical frame to add elements
     myContentFrame = new FXVerticalFrame(this, GUIDesignFrameArea);
-    // build navigation toolbar (for center, zoom, etc...)
-    myNavigationToolBarDrag = new FXToolBarShell(parentWindow, GUIDesignToolBarShell3);
-    myNavigationToolBar = new FXMenuBar(parentWindow, myNavigationToolBarDrag, LAYOUT_SIDE_TOP | FRAME_RAISED);
-    // declare toolbar grip for menu bar
-    new FXToolBarGrip(myNavigationToolBar, myNavigationToolBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // if menuBarGripElements isn't NULL, use it to create a grip navigation elements. In other cas, create a static FXToolbar 
+    if (menuBarGripElements) {
+        myNavigationToolBar = menuBarGripElements;
+    } else {
+        myNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignToolbarMenuBar);
+    }
     // build the tool bars
     buildNavigationToolBar(); // always there (recenter)
     buildColoringToolBar(); // always there (coloring)
     buildScreenshotToolBar(); // always there (screenshot)
-    /*
-    // Build navigation toolbar
-    myNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignBar);
-    */
 }
 
 

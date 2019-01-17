@@ -94,7 +94,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      GUIMainWindow* parentWindow,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h) : 
-    GUIGlChildWindow(p, parentWindow, mdimenu, name, false, ic, opts, x, y, w, h) {
+    GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h) {
     myParent->addGLChild(this);
 }
 

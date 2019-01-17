@@ -97,7 +97,7 @@ GUIParameterTracker::create() {
 
 void
 GUIParameterTracker::buildToolBar() {
-    myToolBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
+    myToolBarDrag = new FXToolBarShell(this, GUIDesignToolBar);
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // save button

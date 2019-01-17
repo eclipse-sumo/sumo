@@ -75,12 +75,15 @@ FXIMPLEMENT(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEVi
 
 GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString& name, GNEApplicationWindow* parentWindow,
                              FXGLCanvas* share, GNENet* net, GNEUndoList* undoList, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
-    GUIGlChildWindow(p, parentWindow, mdimenu, name, true, ic, opts, x, y, w, h),
+    GUIGlChildWindow(p, parentWindow, mdimenu, name, parentWindow->getMenuBarNavigation(), ic, opts, x, y, w, h),
     myGNEAppWindows(parentWindow) {
     // Add child to parent
     myParent->addGLChild(this);
 
-    // add undo/redo buttons
+    // Create Vertical separator
+    new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
+
+    // add undo /redo buttons
     new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GUIDesignButtonToolbar);
     new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GUIDesignButtonToolbar);
 

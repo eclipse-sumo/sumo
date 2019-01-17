@@ -280,22 +280,33 @@
 
 /// @name designs for toolbars
 /// @{
-/// @brief design for all toolbars and menubars
-#define GUIDesignBar                        (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
+/// @brief design for top toolbar (file, edit, processing...)
+#define GUIDesignToolbarMenuBar             (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
+
+/// @brief design for top toolbar (file, edit, processing...) used only in netedit (due supermodes buttons)
+#define GUIDesignToolbarMenuBarNetedit      (LAYOUT_SIDE_TOP | FRAME_RAISED)
+
+/// @brief design for default toolbar
+#define GUIDesignToolBar                    (FRAME_NORMAL)
+
+/// @brief design for toolbar
+#define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
+
+/// @brief design for first toolbar shell positioned in the next position of dock
+#define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)
 
 /// @brief design used in status bar
 #define GUIDesignStatusBar                  (LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X | FRAME_RAISED)
 
-/// @brief design for toolbar grip     (used to change the position of toolbar with mouse)
+/// @brief design for toolbar grip (used to change the position of toolbar with mouse)
 #define GUIDesignToolBarGrip                (TOOLBARGRIP_DOUBLE)
 
-/// @brief design for first toolbar shell positioned in the next position of dock
-#define GUIDesignToolBarShell1              (LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED)
+/// @brief design for first toolbar shell positioned in the next-top position of dock
+#define GUIDesignToolBarRaisedNextTop       (LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED)
 
 /// @brief design for first toolbar shell positioned in the same  position of dock
-#define GUIDesignToolBarShell2              (LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED)
+#define GUIDesignToolBarRaisedSameTop       (LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED)
 
-#define GUIDesignToolBarShell3              (FRAME_NORMAL)
 /// @}
 
 

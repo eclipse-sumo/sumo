@@ -294,8 +294,11 @@ public:
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
-    /// @brief The menu bar for group supermodes
+    /// @brief The menu bar for group supermode buttons
     FXMenuBar* getMenuBarSuperModes() const;
+
+    /// @brief The menu bar for group navigation buttons
+    FXMenuBar* getMenuBarNavigation() const;
 
     /// @brief The menu bar for group modes
     FXMenuBar* getMenuBarModes() const;
@@ -341,6 +344,9 @@ protected:
 
     /// @brief The application menu bar for supermodes (network and demand)
     FXMenuBar* myMenuBarSuperModes;
+
+    /// @brief The application menu bar for navigation (zoom, coloring...)
+    FXMenuBar* myMenuBarNavigation;
 
     /// @brief The application menu bar (for select, inspect...)
     FXMenuBar* myMenuBarModes;
@@ -517,8 +523,11 @@ private:
     /// @brief menu bar drag (for file, edit, processing...)
     FXToolBarShell* myMenuBarDrag;
 
-    /// @brief menu bar drag for modes (network and demand...)
+    /// @brief menu bar drag for modes (network and demand)
     FXToolBarShell* myMenuBarDragSuperModes;
+
+    /// @brief menu bar drag for navigation (Zoom, coloring...)
+    FXToolBarShell* myMenuBarDragNavigation;
 
     /// @brief menu bar drag for modes (select, inspect, delete...)
     FXToolBarShell* myMenuBarDragModes;
