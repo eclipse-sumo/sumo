@@ -32,6 +32,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
+
 #include "Shape.h"
 #include "ShapeContainer.h"
 #include "ShapeHandler.h"
@@ -40,12 +41,17 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc, const GeoConvHelper* geoConvHelper) :
-    SUMOSAXHandler(file), myShapeContainer(sc),
-    myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false),
-    myLastParameterised(0),
-    myGeoConvHelper(geoConvHelper)
-{ }
+    SUMOSAXHandler(file), 
+    myShapeContainer(sc),
+    myPrefix(""), 
+    myDefaultColor(RGBColor::RED), 
+    myDefaultLayer(0), 
+    myDefaultFill(false),
+    myLastParameterised(nullptr),
+    myGeoConvHelper(geoConvHelper) { 
+}
 
 
 ShapeHandler::~ShapeHandler() {}
@@ -56,10 +62,12 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     try {
         switch (element) {
             case SUMO_TAG_POLY:
+                // default layer is different depending if we're parsing a Poly or a POI, therefore it has to be here defined
                 myDefaultLayer = Shape::DEFAULT_LAYER;
                 addPoly(attrs, false, false);
                 break;
             case SUMO_TAG_POI:
+                // default layer is different depending if we're parsing a Poly or a POI, therefore it has to be here defined
                 myDefaultLayer = Shape::DEFAULT_LAYER_POI;
                 addPOI(attrs, false, false);
                 break;
@@ -99,6 +107,7 @@ ShapeHandler::myEndElement(int element) {
         myLastParameterised = nullptr;
     }
 }
+
 
 void
 ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
@@ -234,6 +243,11 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
 }
 
 
+Parameterised* 
+ShapeHandler::getLastParameterised() const {
+    return myLastParameterised;
+}
+
 
 bool
 ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh) {
@@ -256,5 +270,9 @@ ShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, cons
 }
 
 
+bool 
+ShapeHandler::addLanePosParams() {
+    return false;
+}
 
 /****************************************************************************/

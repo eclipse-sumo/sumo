@@ -76,8 +76,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      * @todo Refactor/describe
      */
-    virtual void myStartElement(int element,
-                                const SUMOSAXAttributes& attrs);
+    virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
     /** @brief Called when a closing tag occurs
      *
@@ -89,13 +88,11 @@ protected:
     virtual void myEndElement(int element);
     //@}
 
-    /// @brief get position for a given laneID
+    /// @brief get position for a given laneID (Has to be implemented in all child)
     virtual Position getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) = 0;
 
-    /// @brief Whether some input attributes shall be automatically added as params
-    virtual bool addLanePosParams() {
-        return false;
-    }
+    /// @brief Whether some input attributes shall be automatically added as params  (Can be implemented in all child)
+    virtual bool addLanePosParams();
 
 protected:
     /// @brief set default values
@@ -107,10 +104,13 @@ protected:
     /// @brief adds a polygon
     void addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing);
 
+    /// @brief get last parameterised object
+    Parameterised* getLastParameterised() const;
+
 protected:
+    /// @brief reference to shape container in which all Shares are being added
     ShapeContainer& myShapeContainer;
 
-private:
     /// @brief The prefix to use
     std::string myPrefix;
 
@@ -129,7 +129,6 @@ private:
     /// @brief geo-conversion to use during loading
     const GeoConvHelper* myGeoConvHelper;
 
-private:
     /// @brief invalidate copy constructor
     ShapeHandler(const ShapeHandler& s) = delete;
 
