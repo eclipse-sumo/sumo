@@ -2612,7 +2612,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     }
 #endif
     // store state before canceling
-    myCanceledStates[laneOffset] |= ret;
+    getCanceledState(laneOffset) |= ret;
     int retTraCI = myVehicle.influenceChangeDecision(ret);
     if ((retTraCI & LCA_TRACI) != 0) {
         if ((retTraCI & LCA_STAY) != 0) {

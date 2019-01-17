@@ -394,7 +394,7 @@ MSAbstractLaneChangeModel::cleanupTargetLane() {
 bool
 MSAbstractLaneChangeModel::cancelRequest(int state, int laneOffset) {
     // store request before canceling
-    myCanceledStates[laneOffset] |= state;
+    getCanceledState(laneOffset) |= state;
     int ret = myVehicle.influenceChangeDecision(state);
     return ret != state;
 }
@@ -836,14 +836,14 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
 
 bool 
 MSAbstractLaneChangeModel::isStrategicBlocked() const {
-    const int stateRight = mySavedStates.find(-1)->second.second;
+    const int stateRight = mySavedStateRight.second;
     if (
             (stateRight & LCA_STRATEGIC) != 0
             && (stateRight & LCA_RIGHT) != 0
             && (stateRight & LCA_BLOCKED) != 0) {
         return true;
     }
-    const int stateLeft = mySavedStates.find(1)->second.second;
+    const int stateLeft = mySavedStateLeft.second;
     if (
             (stateLeft & LCA_STRATEGIC) != 0
             && (stateLeft & LCA_LEFT) != 0

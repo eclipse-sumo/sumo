@@ -1384,7 +1384,7 @@ MSLCM_LC2013::_wantsChange(
     }
 #endif
     // store state before canceling
-    myCanceledStates[laneOffset] |= ret;
+    getCanceledState(laneOffset) |= ret;
     ret = myVehicle.influenceChangeDecision(ret);
     if ((ret & lcaCounter) != 0) {
         // we are not interested in traci requests for the opposite direction here

@@ -166,8 +166,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
 
-    ret->mkItem("lcState right", false, getLaneChangeModel().hasSavedState(-1) ? toString((LaneChangeAction)getLaneChangeModel().getSavedState(-1).second) : "");
-    ret->mkItem("lcState left", false, getLaneChangeModel().hasSavedState(1) ? toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second) : "");
+    ret->mkItem("lcState right", false, toString((LaneChangeAction)getLaneChangeModel().getSavedState(-1).second));
+    ret->mkItem("lcState left", false, toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("right side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));

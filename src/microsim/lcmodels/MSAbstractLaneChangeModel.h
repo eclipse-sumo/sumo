@@ -192,15 +192,34 @@ public:
     virtual void updateSafeLatDist(const double travelledLatDist);
 
     const std::pair<int, int>& getSavedState(const int dir) const {
-        return mySavedStates.find(dir)->second;
-    }
-
-    bool hasSavedState(const int dir) const {
-        return mySavedStates.find(dir) != mySavedStates.end();
+        if (dir == -1) {
+            return mySavedStateRight;
+        } else if (dir == 0) {
+            return mySavedStateCenter;
+        } else {
+            return mySavedStateLeft;
+        }
     }
 
     void saveLCState(const int dir, const int stateWithoutTraCI, const int state) {
-        mySavedStates[dir] = std::make_pair(stateWithoutTraCI | myCanceledStates[dir], state);
+        const auto pair = std::make_pair(stateWithoutTraCI | getCanceledState(dir), state);
+        if (dir == -1) {
+            mySavedStateRight = pair;
+        } else if (dir == 0) {
+            mySavedStateCenter = pair;
+        } else {
+            mySavedStateLeft = pair;
+        }
+    }
+
+    int& getCanceledState(const int dir) {
+        if (dir == -1) {
+            return myCanceledStateRight;
+        } else if (dir == 0) {
+            return myCanceledStateCenter;
+        } else {
+            return myCanceledStateLeft;
+        }
     }
 
     /// @return whether this vehicle is blocked from performing a strategic change
@@ -214,9 +233,9 @@ public:
     void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
     virtual void prepareStep() {
-        myCanceledStates[-1] = LCA_NONE;
-        myCanceledStates[0] = LCA_NONE;
-        myCanceledStates[1] = LCA_NONE;
+        getCanceledState(-1) = LCA_NONE;
+        getCanceledState(0) = LCA_NONE;
+        getCanceledState(1) = LCA_NONE;
         saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
         saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
         saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
@@ -577,8 +596,12 @@ protected:
     /// @brief lane changing state from step before the previous simulation step
     int myPreviousState2;
 
-    std::map<int, std::pair<int, int> > mySavedStates;
-    std::map<int, int> myCanceledStates;
+    std::pair<int, int> mySavedStateRight;
+    std::pair<int, int> mySavedStateCenter;
+    std::pair<int, int> mySavedStateLeft;
+    int myCanceledStateRight;
+    int myCanceledStateCenter;
+    int myCanceledStateLeft;
 
     /// @brief the current lateral speed
     double mySpeedLat;
