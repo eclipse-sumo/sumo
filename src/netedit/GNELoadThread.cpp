@@ -223,25 +223,20 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
-    oc.addDescription("additional-files", "Netedit", "Load further descriptions from FILE(s)");
+    oc.addDescription("additional-files", "Netedit", "Load additional and shapes descriptions from FILE(s)");
 
     oc.doRegister("additionals-output", new Option_String());
     oc.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
 
-    oc.doRegister("sumo-shapes-file", new Option_String());
-    oc.addDescription("sumo-shapes-file", "Netedit", "file in which shapes are loaded");
-
-    oc.doRegister("shapes-output", new Option_String());
-    oc.addDescription("shapes-output", "Netedit", "file in which shapes must be saved");
-
-    oc.doRegister("TLSPrograms-output", new Option_String());
-    oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
-
-    oc.doRegister("sumo-demandelements-file", 'd', new Option_String());
-    oc.addDescription("sumo-demandelements-file", "Netedit", "file in which demand elements are loaded");
+    oc.doRegister("route-files", 'r', new Option_FileName());
+    oc.addSynonyme("route-files", "routes");
+    oc.addDescription("route-files", "Netedit", "Load demand elements descriptions from FILE(s)");
 
     oc.doRegister("demandelements-output", new Option_String());
     oc.addDescription("demandelements-output", "Netedit", "file in which demand elements must be saved");
+
+    oc.doRegister("TLSPrograms-output", new Option_String());
+    oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
