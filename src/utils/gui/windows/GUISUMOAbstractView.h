@@ -313,7 +313,7 @@ public:
 
 public:
     /// @brief get coloring schemes combo
-    FXComboBox& getColoringSchemesCombo();
+    FXComboBox* getColoringSchemesCombo();
 
     /// @brief Returns the cursor's x/y position within the network
     Position getPositionInformation() const;

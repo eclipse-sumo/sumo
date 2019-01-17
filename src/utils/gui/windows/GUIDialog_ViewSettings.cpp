@@ -1040,10 +1040,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         // - the comboBox of all other views (only append) XXX @todo
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         mySchemeName->setCurrentItem(index);
-        myParent->getColoringSchemesCombo().appendItem(tmpSettings.name.c_str());
+        myParent->getColoringSchemesCombo()->appendItem(tmpSettings.name.c_str());
     }
-    myParent->getColoringSchemesCombo().setCurrentItem(
-        myParent->getColoringSchemesCombo().findItem(tmpSettings.name.c_str()));
+    myParent->getColoringSchemesCombo()->setCurrentItem(
+        myParent->getColoringSchemesCombo()->findItem(tmpSettings.name.c_str()));
     gSchemeStorage.add(tmpSettings); // overwrites existing
     mySettings = &gSchemeStorage.get(tmpSettings.name);
     myParent->setColorScheme(tmpSettings.name);
@@ -1155,7 +1155,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
     tmpSettings.name = name;
     gSchemeStorage.add(tmpSettings);
     mySchemeName->setItemText(index, tmpSettings.name.c_str());
-    myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
+    myParent->getColoringSchemesCombo()->setItemText(index, tmpSettings.name.c_str());
     myParent->setColorScheme(tmpSettings.name);
     mySettings = &gSchemeStorage.get(name);
     myBackup = *mySettings;

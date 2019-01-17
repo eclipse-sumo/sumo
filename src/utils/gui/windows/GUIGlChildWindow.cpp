@@ -28,6 +28,7 @@
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
+
 #include "GUIGlChildWindow.h"
 
 
@@ -49,12 +50,8 @@ FXIMPLEMENT(GUIGlChildWindow, FXMDIChild, GUIGlChildWindowMap, ARRAYNUMBER(GUIGl
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIGlChildWindow::GUIGlChildWindow(
-    FXMDIClient* p,
-    GUIMainWindow* parentWindow,
-    FXMDIMenu* mdimenu, const FXString& name,
-    FXIcon* ic,
-    FXuint opts, FXint x, FXint y, FXint w, FXint h) :
+GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, FXMDIMenu* mdimenu, 
+    const FXString& name, bool gripElements, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
     FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
     myView(nullptr),
     myParent(parentWindow) {
@@ -62,9 +59,9 @@ GUIGlChildWindow::GUIGlChildWindow(
     setTracking();
     myContentFrame = new FXVerticalFrame(this, GUIDesignFrameArea);
     // build the tool bar
-    buildNavigationToolBar(); // always there (recenter)
-    buildColoringToolBar(); // always there (coloring)
-    buildScreenshotToolBar(); // always there (screen shot)
+    buildNavigationToolBar(gripElements); // always there (recenter)
+    buildColoringToolBar(gripElements); // always there (coloring)
+    buildScreenshotToolBar(gripElements); // always there (screenshot)
 }
 
 
@@ -83,8 +80,20 @@ GUIGlChildWindow::create() {
 }
 
 
+GUISUMOAbstractView* 
+GUIGlChildWindow::getView() const {
+    return myView;
+}
+
+
+GUIMainWindow* 
+GUIGlChildWindow::getParent() {
+    return myParent;
+}
+
+
 void
-GUIGlChildWindow::buildNavigationToolBar() {
+GUIGlChildWindow::buildNavigationToolBar(bool gripElements) {
     // Build navigation toolbar
     myNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignBar);
 
@@ -112,15 +121,13 @@ GUIGlChildWindow::buildNavigationToolBar() {
     new MFXCheckableButton(false, myNavigationToolBar,
                            "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
                            GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GUIDesignButtonToolbarCheckable);
-
 }
 
 
 void
-GUIGlChildWindow::buildColoringToolBar() {
+GUIGlChildWindow::buildColoringToolBar(bool gripElements) {
     // Create Vertical separator
     new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
-
     // build coloring tools
     // combo
     myColoringSchemes = new FXComboBox(myNavigationToolBar, GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
@@ -132,7 +139,7 @@ GUIGlChildWindow::buildColoringToolBar() {
 
 
 void
-GUIGlChildWindow::buildScreenshotToolBar() {
+GUIGlChildWindow::buildScreenshotToolBar(bool gripElements) {
     // Create Vertical separator
     new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
     // snapshot
@@ -148,9 +155,9 @@ GUIGlChildWindow::getBuildGLCanvas() const {
 }
 
 
-FXToolBar&
+FXToolBar*
 GUIGlChildWindow::getNavigationToolBar(GUISUMOAbstractView&) {
-    return *myNavigationToolBar;
+    return myNavigationToolBar;
 }
 
 
@@ -160,9 +167,9 @@ GUIGlChildWindow::getLocatorPopup() {
 }
 
 
-FXComboBox&
+FXComboBox*
 GUIGlChildWindow::getColoringSchemesCombo() {
-    return *myColoringSchemes;
+    return myColoringSchemes;
 }
 
 
@@ -230,5 +237,6 @@ bool
 GUIGlChildWindow::isSelected(GUIGlObject* o) const {
     return gSelected.isSelected(o->getType(), o->getGlID());
 }
+
 /****************************************************************************/
 

@@ -1246,7 +1246,7 @@ GUISUMOAbstractView::onGamingClick(Position /*pos*/) {
 }
 
 
-FXComboBox&
+FXComboBox*
 GUISUMOAbstractView::getColoringSchemesCombo() {
     return myParent->getColoringSchemesCombo();
 }
