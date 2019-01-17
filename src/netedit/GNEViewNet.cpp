@@ -509,7 +509,7 @@ GNEViewNet::KeyPressed::controlKeyPressed() const {
 
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
-                       FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar) :
+                       FXGLVisual* glVis, FXGLCanvas* share) :
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getVisualisationSpeedUp(), glVis, share),
     myCreateEdgeOptions(this),
     myMoveOptions(this),
@@ -525,7 +525,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myViewParent(viewParent),
     myNet(net),
     myCurrentFrame(nullptr),
-    myToolbar(toolBar),
     myUndoList(undoList),
     myEditShapePoly(nullptr) {
     // view must be the final member of actualParent
@@ -2518,7 +2517,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     // Update Network buttons
     myNetworkCheckableButtons.updateNetworkCheckableButtons();
     // recalc toolbar
-    myToolbar->recalc();
+    myViewParent->getGNEAppWindows()->getMenuBarModes()->recalc();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
@@ -2578,7 +2577,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // Update Demand buttons
     myDemandCheckableButtons.updateDemandCheckableButtons();
     // recalc toolbar
-    myToolbar->recalc();
+    myViewParent->getGNEAppWindows()->getMenuBarModes()->recalc();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
@@ -3589,13 +3588,18 @@ GNEViewNet::CreateEdgeOptions::CreateEdgeOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNet::CreateEdgeOptions::buildCreateEdgeOptionMenuChecks() {
-    chainEdges = new FXMenuCheck(myViewNet->myToolbar, ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    chainEdges = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     chainEdges->setHeight(23);
     chainEdges->setCheck(false);
+    chainEdges->create();
 
-    autoOppositeEdge = new FXMenuCheck(myViewNet->myToolbar, ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    autoOppositeEdge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     autoOppositeEdge->setHeight(23);
     autoOppositeEdge->setCheck(false);
+    autoOppositeEdge->create();
+
+    // recalc after creating menu bar mode options
+    myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions()->recalc();
 }
 
 
@@ -3616,17 +3620,23 @@ GNEViewNet::MoveOptions::MoveOptions(GNEViewNet* viewNet) :
 
 void
 GNEViewNet::MoveOptions::buildMoveOptionMenuChecks() {
-    warnAboutMerge = new FXMenuCheck(myViewNet->myToolbar, ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    warnAboutMerge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     warnAboutMerge->setHeight(23);
     warnAboutMerge->setCheck(true);
+    warnAboutMerge->create();
 
-    showJunctionBubble = new FXMenuCheck(myViewNet->myToolbar, ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_BUBBLES, LAYOUT_FIX_HEIGHT);
+    showJunctionBubble = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_BUBBLES, LAYOUT_FIX_HEIGHT);
     showJunctionBubble->setHeight(23);
     showJunctionBubble->setCheck(false);
+    showJunctionBubble->create();
 
-    moveElevation = new FXMenuCheck(myViewNet->myToolbar, "Elevation\t\tApply mouse movement to elevation instead of x,y position", myViewNet, MID_GNE_VIEWNET_MOVE_ELEVATION, LAYOUT_FIX_HEIGHT);
+    moveElevation = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), "Elevation\t\tApply mouse movement to elevation instead of x,y position", myViewNet, MID_GNE_VIEWNET_MOVE_ELEVATION, LAYOUT_FIX_HEIGHT);
     moveElevation->setHeight(23);
     moveElevation->setCheck(false);
+    moveElevation->create();
+
+    // recalc after creating menu bar mode options
+    myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions()->recalc();
 }
 
 
@@ -3676,13 +3686,14 @@ GNEViewNet::EditMoves::~EditMoves() {
 void
 GNEViewNet::EditMoves::buildSuperModeButtons() {
     // create buttons
-    networkButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes(), "Network\t\tSet mode for edit network elements.",
+    networkButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarSuperModes(), "Network\t\tSet mode for edit network elements.",
         GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myViewNet, MID_HOTKEY_F3_SUPERMODE_NETWORK, GUIDesignButtonToolbarSupermode);
-    demandButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes(), "Demand\t\tSet mode for edit traffic demand.",
-        GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F4_SUPERMODE_DEMAND, GUIDesignButtonToolbarSupermode);
-    // new elements has to be created manually (because MenuBar already exists)
     networkButton->create();
+
+    demandButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarSuperModes(), "Demand\t\tSet mode for edit traffic demand.",
+        GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F4_SUPERMODE_DEMAND, GUIDesignButtonToolbarSupermode);
     demandButton->create();
+
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes()->recalc();
     // show menu bar modes
@@ -3816,33 +3827,43 @@ GNEViewNet::ViewOptions::ViewOptions(GNEViewNet* viewNet) :
 
 void 
 GNEViewNet::ViewOptions::buildViewOptionsMenuChecks() {
-    menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myToolbar, "Show demand elements\t\tToggle show demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
+    menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), "Show demand elements\t\tToggle show demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
     menuCheckShowDemandElements->setHeight(23);
     menuCheckShowDemandElements->setCheck(false);
+    menuCheckShowDemandElements->create();
 
-    menuCheckSelectEdges = new FXMenuCheck(myViewNet->myToolbar, ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SELECT_EDGES, LAYOUT_FIX_HEIGHT);
+    menuCheckSelectEdges = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SELECT_EDGES, LAYOUT_FIX_HEIGHT);
     menuCheckSelectEdges->setHeight(23);
     menuCheckSelectEdges->setCheck(true);
+    menuCheckSelectEdges->create();
 
-    menuCheckShowConnections = new FXMenuCheck(myViewNet->myToolbar, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_CONNECTIONS, LAYOUT_FIX_HEIGHT);
+    menuCheckShowConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_CONNECTIONS, LAYOUT_FIX_HEIGHT);
     menuCheckShowConnections->setHeight(23);
     menuCheckShowConnections->setCheck(myViewNet->myVisualizationSettings->showLane2Lane);
+    menuCheckShowConnections->create();
 
-    menuCheckHideConnections = new FXMenuCheck(myViewNet->myToolbar, ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    menuCheckHideConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     menuCheckHideConnections->setHeight(23);
     menuCheckHideConnections->setCheck(false);
+    menuCheckHideConnections->create();
 
-    menuCheckExtendSelection = new FXMenuCheck(myViewNet->myToolbar, ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    menuCheckExtendSelection = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     menuCheckExtendSelection->setHeight(23);
     menuCheckExtendSelection->setCheck(false);
+    menuCheckExtendSelection->create();
     
-    menuCheckChangeAllPhases = new FXMenuCheck(myViewNet->myToolbar, ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    menuCheckChangeAllPhases = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
     menuCheckChangeAllPhases->setHeight(23);
     menuCheckChangeAllPhases->setCheck(false);
+    menuCheckChangeAllPhases->create();
 
-    menuCheckShowGrid = new FXMenuCheck(myViewNet->myToolbar, "Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)", myViewNet, MID_GNE_VIEWNET_SHOW_GRID, LAYOUT_FIX_HEIGHT);
+    menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions(), "Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)", myViewNet, MID_GNE_VIEWNET_SHOW_GRID, LAYOUT_FIX_HEIGHT);
     menuCheckShowGrid->setHeight(23);
     menuCheckShowGrid->setCheck(false);
+    menuCheckShowGrid->create();
+
+    // always recalc after creating new elements
+    myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModeOptions()->recalc();
 }
 
 void 
@@ -3907,12 +3928,19 @@ GNEViewNet::CommonCheckableButtons::CommonCheckableButtons(GNEViewNet* viewNet) 
 
 void
 GNEViewNet::CommonCheckableButtons::buildCommonCheckableButtons() {
-    inspectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset inspect mode\tMode for inspect elements and change their attributes.",
+    inspectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset inspect mode\tMode for inspect elements and change their attributes.",
         GUIIconSubSys::getIcon(ICON_MODEINSPECT), myViewNet, MID_GNE_SHORTCUT_I, GUIDesignButtonToolbarCheckable);
-    deleteButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset delete mode\tMode for delete elements.",
+    inspectButton->create();
+    
+    deleteButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset delete mode\tMode for delete elements.",
         GUIIconSubSys::getIcon(ICON_MODEDELETE), myViewNet, MID_GNE_SHORTCUT_D, GUIDesignButtonToolbarCheckable);
-    selectButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset select mode\tMode for select elements.",
+    deleteButton->create();
+    
+    selectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset select mode\tMode for select elements.",
         GUIIconSubSys::getIcon(ICON_MODESELECT), myViewNet, MID_GNE_SHORTCUT_S, GUIDesignButtonToolbarCheckable);
+    selectButton->create();
+    // always recalc menu bar after creating new elements
+    myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes()->recalc();
 }
 
 
@@ -3966,24 +3994,44 @@ GNEViewNet::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet
 
 void
 GNEViewNet::NetworkCheckableButtons::buildNetworkCheckableButtons() {
-    createEdgeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset create edge mode\tMode for creating junction and edges.",
+    createEdgeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset create edge mode\tMode for creating junction and edges.",
         GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myViewNet, MID_GNE_SHORTCUT_E, GUIDesignButtonToolbarCheckable);
-    moveButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset move mode\tMode for move elements.",
+    createEdgeButton->create();
+
+    moveButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset move mode\tMode for move elements.",
         GUIIconSubSys::getIcon(ICON_MODEMOVE), myViewNet, MID_GNE_SHORTCUT_M, GUIDesignButtonToolbarCheckable);
-    connectionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset connection mode\tMode for edit connections between lanes.",
+    moveButton->create();
+
+    connectionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset connection mode\tMode for edit connections between lanes.",
         GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_GNE_SHORTCUT_C, GUIDesignButtonToolbarCheckable);
-    prohibitionButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset prohibition mode\tMode for editing connection prohibitions.",
+    connectionButton->create();
+
+    prohibitionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset prohibition mode\tMode for editing connection prohibitions.",
         GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myViewNet, MID_GNE_SHORTCUT_W, GUIDesignButtonToolbarCheckable);
-    trafficLightButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset traffic light mode\tMode for edit traffic lights over junctions.",
+    prohibitionButton->create();
+
+    trafficLightButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset traffic light mode\tMode for edit traffic lights over junctions.",
         GUIIconSubSys::getIcon(ICON_MODETLS), myViewNet, MID_GNE_SHORTCUT_T, GUIDesignButtonToolbarCheckable);
-    additionalButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset additional mode\tMode for adding additional elements.",
+    trafficLightButton->create();
+
+    additionalButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset additional mode\tMode for adding additional elements.",
         GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_GNE_SHORTCUT_A, GUIDesignButtonToolbarCheckable);
-    crossingButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset crossing mode\tMode for creating crossings between edges.",
+    additionalButton->create();
+
+    crossingButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset crossing mode\tMode for creating crossings between edges.",
         GUIIconSubSys::getIcon(ICON_MODECROSSING), myViewNet, MID_GNE_SHORTCUT_R, GUIDesignButtonToolbarCheckable);
-    TAZButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
+    crossingButton->create();
+
+    TAZButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
         GUIIconSubSys::getIcon(ICON_MODETAZ), myViewNet, MID_GNE_SHORTCUT_Z, GUIDesignButtonToolbarCheckable);
-    shapeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tset polygon mode\tMode for creating polygons and POIs.",
+    TAZButton->create();
+
+    shapeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tset polygon mode\tMode for creating polygons and POIs.",
         GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_GNE_SHORTCUT_P, GUIDesignButtonToolbarCheckable);
+    shapeButton->create();
+
+    // always recalc after creating new elements
+    myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes()->recalc();
 }
 
 
@@ -4054,8 +4102,12 @@ GNEViewNet::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) 
 
 void 
 GNEViewNet::DemandCheckableButtons::buildDemandCheckableButtons() {
-    routeButton = new MFXCheckableButton(false, myViewNet->myToolbar, "\tcreate route mode\tMode for creating routes.",
+    routeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes(), "\tcreate route mode\tMode for creating routes.",
         GUIIconSubSys::getIcon(ICON_MODEROUTE), myViewNet, MID_GNE_SHORTCUT_R, GUIDesignButtonToolbarCheckable);
+    routeButton->create();
+
+    // always recalc after creating new elements
+    myViewNet->myViewParent->getGNEAppWindows()->getMenuBarModes()->recalc();
 }
 
 

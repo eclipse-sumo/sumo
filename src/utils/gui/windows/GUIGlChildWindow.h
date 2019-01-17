@@ -92,13 +92,16 @@ public:
 
 protected:
     /// @brief fox need this
-    GUIGlChildWindow() { }
+    GUIGlChildWindow() {}
 
     /// @brief The view
     GUISUMOAbstractView* myView;
 
     /// @brief The tool bar
     FXToolBar* myNavigationToolBar;
+
+    /// @brief  the toolbar shell (used for drag and drop navigation toolbar)
+    FXToolBarShell *myNavigationToolBarDrag;
 
     /// The locator menu
     FXPopup* myLocatorPopup;
@@ -114,15 +117,15 @@ protected:
 
     /// @brief The parent window
     GUIMainWindow* myParent;
-    
+
     /// @brief build navigation toolbar
-    void buildNavigationToolBar(bool gripElements);
+    void buildNavigationToolBar();
 
     /// @brief build coloring toolbar
-    void buildColoringToolBar(bool gripElements);
+    void buildColoringToolBar();
 
     /// @brief build screenshot toolbar
-    void buildScreenshotToolBar(bool gripElements);
+    void buildScreenshotToolBar();
 
 private:
     /// @brief Invalidated copy constructor.

@@ -294,8 +294,14 @@ public:
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
-    /// @brief The application menu bar
+    /// @brief The menu bar for group supermodes
+    FXMenuBar* getMenuBarSuperModes() const;
+
+    /// @brief The menu bar for group modes
     FXMenuBar* getMenuBarModes() const;
+
+    /// @brief The menu bar for group mode options
+    FXMenuBar* getMenuBarModeOptions() const;
 
     /// @brief update FXMenuCommands
     void updateSuperModeMenuCommands(int supermode);
@@ -333,8 +339,14 @@ protected:
     /// @brief The application menu bar (for file, edit, processing...)
     FXMenuBar* myMenuBar;
 
-    /// @brief The application menu bar for modes
+    /// @brief The application menu bar for supermodes (network and demand)
+    FXMenuBar* myMenuBarSuperModes;
+
+    /// @brief The application menu bar (for select, inspect...)
     FXMenuBar* myMenuBarModes;
+
+    /// @brief The application menu bar for mode options (show connections, select edges...)
+    FXMenuBar* myMenuBarModeOptions;
 
     /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
@@ -505,8 +517,14 @@ private:
     /// @brief menu bar drag (for file, edit, processing...)
     FXToolBarShell* myMenuBarDrag;
 
-    /// @brief menu bar drag for modes
+    /// @brief menu bar drag for modes (network and demand...)
+    FXToolBarShell* myMenuBarDragSuperModes;
+
+    /// @brief menu bar drag for modes (select, inspect, delete...)
     FXToolBarShell* myMenuBarDragModes;
+
+    /// @brief menu bar drag for mode options(show connections, select edges...)
+    FXToolBarShell* myMenuBarDragModeOptions;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

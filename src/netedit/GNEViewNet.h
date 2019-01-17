@@ -414,11 +414,10 @@ public:
      * @param[in] undoList pointer to UndoList modul
      * @param[in] glVis a reference to GLVisuals
      * @param[in] share a reference to FXCanvas
-     * @param[in] toolbar A reference to the parents toolbar
      */
     GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
                GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
-               FXGLVisual* glVis, FXGLCanvas* share, FXToolBar* toolBar);
+               FXGLVisual* glVis, FXGLCanvas* share);
 
     /// @brief destructor
     ~GNEViewNet();
@@ -1031,9 +1030,6 @@ private:
 
     /// @brief the current frame
     GNEFrame* myCurrentFrame;
-
-    /// @brief a reference to the toolbar in View Parent
-    FXToolBar* myToolbar;
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;

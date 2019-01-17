@@ -28,6 +28,7 @@
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 
 #include "GUIGlChildWindow.h"
 
@@ -57,11 +58,21 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, 
     myParent(parentWindow) {
     // Make MDI Window Menu
     setTracking();
+    // create a vertical frame to add elements
     myContentFrame = new FXVerticalFrame(this, GUIDesignFrameArea);
-    // build the tool bar
-    buildNavigationToolBar(gripElements); // always there (recenter)
-    buildColoringToolBar(gripElements); // always there (coloring)
-    buildScreenshotToolBar(gripElements); // always there (screenshot)
+    // build navigation toolbar (for center, zoom, etc...)
+    myNavigationToolBarDrag = new FXToolBarShell(parentWindow, GUIDesignToolBarShell3);
+    myNavigationToolBar = new FXMenuBar(parentWindow, myNavigationToolBarDrag, LAYOUT_SIDE_TOP | FRAME_RAISED);
+    // declare toolbar grip for menu bar
+    new FXToolBarGrip(myNavigationToolBar, myNavigationToolBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build the tool bars
+    buildNavigationToolBar(); // always there (recenter)
+    buildColoringToolBar(); // always there (coloring)
+    buildScreenshotToolBar(); // always there (screenshot)
+    /*
+    // Build navigation toolbar
+    myNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignBar);
+    */
 }
 
 
@@ -93,10 +104,7 @@ GUIGlChildWindow::getParent() {
 
 
 void
-GUIGlChildWindow::buildNavigationToolBar(bool gripElements) {
-    // Build navigation toolbar
-    myNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignBar);
-
+GUIGlChildWindow::buildNavigationToolBar() {
     // build the view settings
     // recenter view
     new FXButton(myNavigationToolBar,
@@ -125,7 +133,7 @@ GUIGlChildWindow::buildNavigationToolBar(bool gripElements) {
 
 
 void
-GUIGlChildWindow::buildColoringToolBar(bool gripElements) {
+GUIGlChildWindow::buildColoringToolBar() {
     // Create Vertical separator
     new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
@@ -139,7 +147,7 @@ GUIGlChildWindow::buildColoringToolBar(bool gripElements) {
 
 
 void
-GUIGlChildWindow::buildScreenshotToolBar(bool gripElements) {
+GUIGlChildWindow::buildScreenshotToolBar() {
     // Create Vertical separator
     new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
     // snapshot

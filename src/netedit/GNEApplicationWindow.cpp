@@ -231,11 +231,21 @@ GNEApplicationWindow::dependentBuild() {
     myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, LAYOUT_SIDE_TOP | FRAME_RAISED);
     // declare toolbar grip for menu bar
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for supermodes
+    // build menu bar for supermode
+    myMenuBarDragSuperModes = new FXToolBarShell(this, GUIDesignToolBarShell3);
+    myMenuBarSuperModes = new FXMenuBar(myTopDock, myMenuBarDragSuperModes, FRAME_RAISED);
+    // declare toolbar grip for menu bar Supermodes
+    new FXToolBarGrip(myMenuBarSuperModes, myMenuBarSuperModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for modes
     myMenuBarDragModes = new FXToolBarShell(this, GUIDesignToolBarShell3);
     myMenuBarModes = new FXMenuBar(myTopDock, myMenuBarDragModes, FRAME_RAISED);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(myMenuBarModes, myMenuBarModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for mode Options
+    myMenuBarDragModeOptions = new FXToolBarShell(this, GUIDesignToolBarShell3);
+    myMenuBarModeOptions = new FXMenuBar(myTopDock, myMenuBarDragModeOptions, FRAME_RAISED);
+    // declare toolbar grip for menu bar modes
+    new FXToolBarGrip(myMenuBarModeOptions, myMenuBarModeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // menu bar modes is by default hidden
     myMenuBarModes->hide();
     // build the thread - io
@@ -2204,8 +2214,19 @@ GNEApplicationWindow::updateControls() {
 
 
 FXMenuBar* 
+GNEApplicationWindow::getMenuBarSuperModes() const {
+    return myMenuBarSuperModes;
+}
+
+
+FXMenuBar* 
 GNEApplicationWindow::getMenuBarModes() const {
     return myMenuBarModes;
+}
+
+FXMenuBar* 
+GNEApplicationWindow::getMenuBarModeOptions() const {
+    return myMenuBarModeOptions;
 }
 
 
