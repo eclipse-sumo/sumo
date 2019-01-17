@@ -630,7 +630,7 @@ public:
 
     // return whether there have been vehicles on this edge at least once
     inline bool isDelayed() const {
-        return myAmDelayed;
+        return myAmDelayed || myBidiEdge == nullptr || myBidiEdge->myAmDelayed;
     }
 
     bool hasLaneChanger() const {

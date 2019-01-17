@@ -766,6 +766,13 @@ MSEdge::getMeanSpeed() const {
             v += vehNo * (*i)->getMeanSpeed();
             no += vehNo;
         }
+        if (myBidiEdge != nullptr) {
+            for (const MSLane* lane : myBidiEdge->getLanes()) {
+                const double vehNo = (double)lane->getVehicleNumber();
+                v += vehNo * lane->getMeanSpeed();
+                no += vehNo;
+            }
+        }
         if (no == 0) {
             return getSpeedLimit();
         }
