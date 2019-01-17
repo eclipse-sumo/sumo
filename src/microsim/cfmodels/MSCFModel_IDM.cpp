@@ -67,6 +67,12 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
+MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+    return followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
+}
+
+
+double
 MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     if (gap < 0.01) {
         return 0;
