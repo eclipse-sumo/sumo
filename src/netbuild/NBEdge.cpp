@@ -1601,7 +1601,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if (this == edge || con.toEdge == edge) {
                             foeInternalLinks.push_back(index);
                             if (con.toEdge == edge &&
-                                    ((isRightTurn && getJunctionPriority(&n) > 0) || (isTurn && n.isTLControlled()))) {
+                                    ((isRightTurn && getJunctionPriority(&n) > 0) || (isTurn && con.tlID != ""))) {
                                 // build internal junctions (not for left turns at uncontrolled intersections)
                                 PositionVector crossingShape = crossing.shape;
                                 crossingShape.extrapolate(5.0); // sometimes shapes miss each other by a small margin
