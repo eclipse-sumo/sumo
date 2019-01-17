@@ -1872,7 +1872,10 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     if (myType == NODETYPE_ZIPPER && mustBrake(incoming, outgoing, fromlane, toLane, false)) {
         return LINKSTATE_ZIPPER;
     }
-    if ((!incoming->isInternal() && mustBrake(incoming, outgoing, fromlane, toLane, true)) && !mayDefinitelyPass) {
+    if (!mayDefinitelyPass
+            && mustBrake(incoming, outgoing, fromlane, toLane, true)
+            // legacy mode
+            && (!incoming->isInternal() || getDirection(incoming, outgoing) != LINKDIR_STRAIGHT)) {
         return myType == NODETYPE_PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here
