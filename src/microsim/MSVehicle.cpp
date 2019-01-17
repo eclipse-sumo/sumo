@@ -2659,6 +2659,15 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
         // the leading, in-lapping vehicle is occupying the complete next lane
         // stop before entering this lane
         vsafeLeader = cfModel.stopSpeed(this, getSpeed(), seen - lane->getLength() - POSITION_EPS);
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << getID() << "  stopping before junction: lane=" << lane->getID() << " seen=" << seen 
+                << " laneLength=" << lane->getLength() 
+                << " stopDist=" << seen - lane->getLength()  - POSITION_EPS
+                << " vsafeLeader=" << vsafeLeader
+                << "\n";
+        }
+#endif
     }
     if (distToCrossing >= 0) {
         // drive up to the crossing point with the current link leader
