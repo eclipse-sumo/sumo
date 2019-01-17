@@ -203,6 +203,9 @@ public:
         mySavedStates[dir] = std::make_pair(stateWithoutTraCI | myCanceledStates[dir], state);
     }
 
+    /// @return whether this vehicle is blocked from performing a strategic change
+    bool isStrategicBlocked() const;
+
     void setFollowerGaps(CLeaderDist follower, double secGap);
     void setLeaderGaps(CLeaderDist, double secGap);
     void setOrigLeaderGaps(CLeaderDist, double secGap);

@@ -82,6 +82,9 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
         // ensure that stops can be reached:
         result = maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs());
     }
+    //if (result * TS > gap) {
+    //    std::cout << "Maximum stop speed exceeded for gap=" << gap << " result=" << result << " veh=" << veh->getID() << " speed=" << speed << " t=" << SIMTIME << "\n";
+    //}
     return result;
 }
 

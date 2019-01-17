@@ -1029,7 +1029,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {
                         if (gDebugFlag1) {
-                            std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist << "\n";
+                            std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist 
+                                << " blockedStrategic=" << leader->getLaneChangeModel().isStrategicBlocked() 
+                                //<< " stateRight=" << toString((LaneChangeAction)leader->getLaneChangeModel().getSavedState(-1).second)
+                                << "\n";
                         }
                         if (leaderBackDist + foeCrossingWidth < 0) {
                             // leader is completely past the crossing point
@@ -1037,6 +1040,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             continue; // next vehicle
                         }
                         gap = distToCrossing - ego->getVehicleType().getMinGap() - leaderBackDist - foeCrossingWidth;
+                        if (gap < leader->getVehicleType().getLength() && leader->getLaneChangeModel().isStrategicBlocked()) {
+                            // do not encroach on leader when it tries to change lanes
+                            gap = -1;
+                        }
                     }
                     // if the foe is already moving off the intersection, we may
                     // advance up to the crossing point unless we have the same target or same source

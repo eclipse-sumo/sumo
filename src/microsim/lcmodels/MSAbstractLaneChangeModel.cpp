@@ -117,6 +117,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     myLastLaneChangeOffset(0),
     myAmOpposite(false) {
+        saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+        saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
 }
 
 
@@ -828,4 +831,24 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
             }
         }
     }
+}
+
+
+bool 
+MSAbstractLaneChangeModel::isStrategicBlocked() const {
+    const int stateRight = mySavedStates.find(-1)->second.second;
+    if (
+            (stateRight & LCA_STRATEGIC) != 0
+            && (stateRight & LCA_RIGHT) != 0
+            && (stateRight & LCA_BLOCKED) != 0) {
+        return true;
+    }
+    const int stateLeft = mySavedStates.find(1)->second.second;
+    if (
+            (stateLeft & LCA_STRATEGIC) != 0
+            && (stateLeft & LCA_LEFT) != 0
+            && (stateLeft & LCA_BLOCKED) != 0) {
+        return true;
+    }
+    return false;
 }
