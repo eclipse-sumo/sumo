@@ -582,6 +582,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         crossings.back().width = attrs.get<double>(SUMO_ATTR_WIDTH, id.c_str(), ok);
         if (myCurrentLane->customShape) {
             crossings.back().customShape = myCurrentLane->shape;
+            NBNetBuilder::transformCoordinates(crossings.back().customShape, true, myLocation);
         }
     } else if (myCurrentEdge->func == EDGEFUNC_WALKINGAREA) {
         // save custom shape if needed but don't do anything else
@@ -687,7 +688,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     }
     // handle custom shape
     if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, nullptr, ok, false)) {
-        node->setCustomShape(attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok));
+        PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
+        NBNetBuilder::transformCoordinates(shape);
+        node->setCustomShape(shape);
     }
     if (type == NODETYPE_RAIL_SIGNAL || type == NODETYPE_RAIL_CROSSING) {
         // both types of nodes come without a tlLogic

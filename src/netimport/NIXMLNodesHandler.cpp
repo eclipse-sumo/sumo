@@ -207,6 +207,9 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     PositionVector shape;
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nodeID.c_str(), ok, PositionVector());
+        if (!NBNetBuilder::transformCoordinates(shape)) {
+            WRITE_ERROR("Unable to project node shape at node '" + node->getID() + "'.");
+        }
         if (shape.size() > 2) {
             shape.closePolygon();
         }
