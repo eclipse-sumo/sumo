@@ -157,6 +157,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,       GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,            GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,       GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,       GUIApplicationWindow::onUpdTraCIStatus),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1,          GUIApplicationWindow::onCmdHelp),
 
     // forward requests to the active view
@@ -566,6 +567,8 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuTitle(myMenuBar, "&Help", nullptr, myHelpMenu);
     new FXMenuCommand(myHelpMenu, "&Online Documentation\tF1\tOpen Online documentation", nullptr, this, MID_HOTKEY_F1);
     new FXMenuCommand(myHelpMenu, "&About\tF2\tAbout sumo-gui", GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_HOTKEY_F2);
+
+    //new FXButton(myMenuBar, "\t\tShows TraCI status", GUIIconSubSys::getIcon(ICON_ADD), this, MID_TRACI_STATUS, 0, 0, 0, 14, 14, 0, 0, 0, 0);
 
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));  // Ctrl + N
@@ -1126,6 +1129,12 @@ GUIApplicationWindow::onUpdNeedsSimulation(FXObject* sender, FXSelector, void* p
     } else {
         mySelectLanesMenuCascade->enable();
     }
+    return 1;
+}
+
+long
+GUIApplicationWindow::onUpdTraCIStatus(FXObject* sender, FXSelector, void* ptr) {
+    sender->handle(this, TraCIServer::getInstance() == nullptr ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), ptr);
     return 1;
 }
 

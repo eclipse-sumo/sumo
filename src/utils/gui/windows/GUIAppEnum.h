@@ -158,6 +158,8 @@ enum {
     /// @brief Show person statistics
     MID_SHOWPERSONSTATS,
 
+    /// @brief update traci status
+    MID_TRACI_STATUS,
 
     /// @name Common View Settings - IDs
     /// @{

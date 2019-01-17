@@ -241,6 +241,9 @@ public:
     /// @brief Determines whether some buttons which require an active simulation may be shown
     long onUpdNeedsSimulation(FXObject*, FXSelector, void*);
 
+    /// @brief Determines whether traci is active
+    long onUpdTraCIStatus(FXObject*, FXSelector, void*);
+
     /// @brief Called if the message window shall be cleared
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
