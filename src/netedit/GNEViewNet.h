@@ -310,9 +310,6 @@ public:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
 
-        /// @brief separator between menu bar and Super mode buttons
-        FXVerticalSeparator *myVerticalSeparator;
-
         /// @brief Invalidated copy constructor.
         EditMoves(const EditMoves&) = delete;
 

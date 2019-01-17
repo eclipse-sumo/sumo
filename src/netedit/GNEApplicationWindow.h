@@ -295,7 +295,7 @@ public:
     void updateControls();
 
     /// @brief The application menu bar
-    FXMenuBar* getMenuBar() const;
+    FXMenuBar* getMenuBarModes() const;
 
     /// @brief update FXMenuCommands
     void updateSuperModeMenuCommands(int supermode);
@@ -330,8 +330,11 @@ protected:
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu;
 
-    /// @brief The application menu bar
+    /// @brief The application menu bar (for file, edit, processing...)
     FXMenuBar* myMenuBar;
+
+    /// @brief The application menu bar for modes
+    FXMenuBar* myMenuBarModes;
 
     /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
@@ -498,6 +501,12 @@ private:
 
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;
+
+    /// @brief menu bar drag (for file, edit, processing...)
+    FXToolBarShell* myMenuBarDrag;
+
+    /// @brief menu bar drag for modes
+    FXToolBarShell* myMenuBarDragModes;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

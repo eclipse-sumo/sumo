@@ -206,8 +206,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
     myViewNet(nullptr), 
-    myTitlePrefix("NETEDIT " VERSION_STRING) 
-{
+    myTitlePrefix("NETEDIT " VERSION_STRING) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init Textures
@@ -227,10 +226,20 @@ GNEApplicationWindow::dependentBuild() {
     hadDependentBuild = true;
     setTarget(this);
     setSelector(MID_WINDOW);
-    // build menu bar
-    myMenuBar = new FXMenuBar(myTopDock, this, GUIDesignBar);
+    // build menu bar (for File, edit, processing...)
+    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBarShell3);
+    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, LAYOUT_SIDE_TOP | FRAME_RAISED);
+    // declare toolbar grip for menu bar
+    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for supermodes
+    myMenuBarDragModes = new FXToolBarShell(this, GUIDesignToolBarShell3);
+    myMenuBarModes = new FXMenuBar(myTopDock, myMenuBarDragModes, FRAME_RAISED);
+    // declare toolbar grip for menu bar modes
+    new FXToolBarGrip(myMenuBarModes, myMenuBarModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // menu bar modes is by default hidden
+    myMenuBarModes->hide();
     // build the thread - io
-    myLoadThreadEvent.setTarget(this), myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
+    myLoadThreadEvent.setTarget(this),  myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     {
@@ -2195,8 +2204,8 @@ GNEApplicationWindow::updateControls() {
 
 
 FXMenuBar* 
-GNEApplicationWindow::getMenuBar() const {
-    return myMenuBar;
+GNEApplicationWindow::getMenuBarModes() const {
+    return myMenuBarModes;
 }
 
 

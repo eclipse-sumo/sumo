@@ -3657,40 +3657,36 @@ GNEViewNet::EditMoves::EditMoves(GNEViewNet* viewNet) :
     demandEditMode(GNE_DMODE_INSPECT),
     networkButton(nullptr),
     demandButton(nullptr),
-    myViewNet(viewNet)
-{ }
+    myViewNet(viewNet) { 
+}
 
 
 GNEViewNet::EditMoves::~EditMoves() {
-    // destroy and delete vertical separator button
-    myVerticalSeparator->destroy();
-    delete myVerticalSeparator;
     // destroy and delete network button
     networkButton->destroy();
     delete networkButton;
     // destroy and delete demand button
     demandButton->destroy();
     delete demandButton;
-    // recalc menu bar because there is removed elements
-    myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar()->recalc();
+    // hide menu bar modes
+    myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes()->hide();
 }
 
 
 void
 GNEViewNet::EditMoves::buildSuperModeButtons() {
-    // Create Vertical separator
-    myVerticalSeparator = new FXVerticalSeparator(myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar(), GUIDesignVerticalSeparator);
     // create buttons
-    networkButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar(), "Network\t\tSet mode for edit network elements.",
+    networkButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes(), "Network\t\tSet mode for edit network elements.",
         GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myViewNet, MID_HOTKEY_F3_SUPERMODE_NETWORK, GUIDesignButtonToolbarSupermode);
-    demandButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar(), "Demand\t\tSet mode for edit traffic demand.",
+    demandButton = new MFXCheckableButton(false, myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes(), "Demand\t\tSet mode for edit traffic demand.",
         GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F4_SUPERMODE_DEMAND, GUIDesignButtonToolbarSupermode);
     // new elements has to be created manually (because MenuBar already exists)
-    myVerticalSeparator->create();
     networkButton->create();
     demandButton->create();
     // recalc menu bar because there is new elements
-    myViewNet->getViewParent()->getGNEAppWindows()->getMenuBar()->recalc();
+    myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes()->recalc();
+    // show menu bar modes
+    myViewNet->getViewParent()->getGNEAppWindows()->getMenuBarModes()->show();
 }
 
 
