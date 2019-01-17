@@ -221,8 +221,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
-    oc.doRegister("sumo-additionals-file", 'a', new Option_String());
-    oc.addDescription("sumo-additionals-file", "Netedit", "file in which additionals are loaded");
+    oc.doRegister("additional-files", 'a', new Option_FileName());
+    oc.addSynonyme("additional-files", "additional");
+    oc.addDescription("additional-files", "Netedit", "Load further descriptions from FILE(s)");
 
     oc.doRegister("additionals-output", new Option_String());
     oc.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");

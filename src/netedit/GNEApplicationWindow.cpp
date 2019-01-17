@@ -916,8 +916,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
     // check if additionals/shapes has to be loaded at start
-    if (oc.isSet("sumo-additionals-file") && !oc.getString("sumo-additionals-file").empty() && myNet) {
-        myAdditionalsFile = oc.getString("sumo-additionals-file");
+    if (oc.isSet("additional-files") && !oc.getString("additional-files").empty() && myNet) {
+        myAdditionalsFile = oc.getString("additional-files");
         WRITE_MESSAGE("Loading additionals and shpes from '" + myAdditionalsFile + "'");
         GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
         // disable validation for additionals
