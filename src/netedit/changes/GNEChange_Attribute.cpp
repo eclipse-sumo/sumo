@@ -141,15 +141,10 @@ GNEChange_Attribute::undo() {
     if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
-        } else if (myAdditional) {
+        } else if (myAdditional || myShape) {
             myNet->requiereSaveAdditionals(true);
-        } else if (myShape) {
-            myNet->requiereSaveShapes(true);
         } else if (myDemandElement) {
-            ;
-            /*
-            myNet->requiereSaveDemand(true);
-            */
+            myNet->requiereSaveDemandElements(true);
         }
     }
 }
@@ -165,15 +160,10 @@ GNEChange_Attribute::redo() {
     if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
-        } else if (myAdditional) {
+        } else if (myAdditional || myShape) {
             myNet->requiereSaveAdditionals(true);
-        } else if (myShape) {
-            myNet->requiereSaveShapes(true);
         } else if (myDemandElement) {
-            ;
-            /*
-            myNet->requiereSaveDemand(true);
-            */
+            myNet->requiereSaveDemandElements(true);
         }
     }
 }

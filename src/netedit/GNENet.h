@@ -497,10 +497,9 @@ public:
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
      * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
-     * param[in] shapePath path in wich shapes were saved before recomputing with volatile options
      * param[in] demandPath path in wich demand elements were saved before recomputing with volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapePath = "",  std::string demandPath = "");
+    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "");
 
     /**@brief join selected junctions
      * @note difference to mergeJunctions:
@@ -663,14 +662,6 @@ public:
     /// @brief change Shape ID
     void changeShapeID(GNEShape* s, const std::string& OldID);
 
-    /// @brief inform that shapes has to be saved
-    void requiereSaveShapes(bool value);
-
-    /**@brief save shapes elements of the network
-     * @param[in] filename name of the file in wich save shapes
-     */
-    void saveShapes(const std::string& filename);
-
     /// @brief get number of shapes
     int getNumberOfShapes() const;
     /// @}
@@ -734,9 +725,6 @@ protected:
 
     /// @brief Flag to check if additionals has to be saved
     bool myAdditionalsSaved;
-
-    /// @brief Flag to check if shapes has to be saved
-    bool myShapesSaved;
 
     /// @brief Flag to check if shapes has to be saved
     bool myTLSProgramsSaved;

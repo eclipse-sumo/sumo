@@ -79,8 +79,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,                        GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENFOREIGN,        GNEApplicationWindow::onCmdOpenForeign),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENFOREIGN,        GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_P,                      GNEApplicationWindow::onCmdOpenShapes),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,                      GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_ADDITIONALS,                   GNEApplicationWindow::onCmdOpenAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN_ADDITIONALS,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_TLSPROGRAMS,                   GNEApplicationWindow::onCmdOpenTLSPrograms),
@@ -99,8 +97,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_L,                  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_J,                  GNEApplicationWindow::onCmdSaveJoined),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_J,                  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_P,            GNEApplicationWindow::onCmdSaveShapes),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESHAPES_AS,      GNEApplicationWindow::onCmdSaveShapesAs),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_D,            GNEApplicationWindow::onCmdSaveAdditionals),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS, GNEApplicationWindow::onCmdSaveAdditionalsAs),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_SHIFT_K,            GNEApplicationWindow::onCmdSaveTLSPrograms),
@@ -298,8 +294,10 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(327695, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_S));   // Ctrl + Shift + S
     getAccelTable()->addAccel(262220, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_L));         // Ctrl + L
     getAccelTable()->addAccel(262218, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_J));         // Ctrl + J
+    /*
     getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));             // Ctrl + P
     getAccelTable()->addAccel(327692, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_P));   // Ctrl + Shift + P
+    */
     getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));          // Ctrl + D
     getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_D));   // Ctrl + Shift + D
     getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));          // Ctrl + K
@@ -337,7 +335,6 @@ GNEApplicationWindow::create() {
     myMenuBar->create();
     myFileMenu->create();
     myEditMenu->create();
-    myFileMenuShapes->create();
     myFileMenuAdditionals->create();
     myFileMenuTLS->create();
     myFileMenuDemandElements->create();
@@ -369,7 +366,6 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
-    delete myFileMenuShapes,
     delete myFileMenuAdditionals,
     delete myFileMenuTLS,
     delete myFileMenuDemandElements,
@@ -609,9 +605,8 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         loadConfigOrNet(file, true);
         myRecentNets.appendFile(file.c_str());
-        // when a net is loaded, save additional, shapes an TLSPrograms are disabled
+        // when a net is loaded, save additionals and TLSPrograms are disabled
         disableSaveAdditionalsMenu();
-        disableSaveShapesMenu();
         myFileMenuCommands.saveTLSPrograms->disable();
     }
     return 1;
@@ -659,39 +654,6 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
             NIFrame::checkOptions(); // needed to set projection parameters
             loadConfigOrNet("", false, false, false);
         }
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
-    // get the shape file name
-    FXFileDialog opendialog(this, "Open Shapes file");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_MODEPOLYGON));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Shape files (*.xml)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        GNEAdditionalHandler additionalHandler(file, myViewNet);
-        // disable validation for shapes
-        XMLSubSys::setValidation("never", "auto");
-        // begin undo operation
-        myUndoList->p_begin("Loading shapes from '" + file + "'");
-        // run parser for shapes
-        if (!XMLSubSys::runParser(additionalHandler, file, false)) {
-            WRITE_MESSAGE("Loading of shapes failed.");
-        }
-        // end undoList operation and update view
-        myUndoList->p_end();
-        update();
-        // enable validation for shapes
-        XMLSubSys::setValidation("auto", "auto");
-        update();
     }
     return 1;
 }
@@ -816,9 +778,8 @@ long
 GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges()) {
         closeAllWindows();
-        // disable save additionals, shapes and TLS menu
+        // disable save additionals and TLS menu
         disableSaveAdditionalsMenu();
-        disableSaveShapesMenu();
         myFileMenuCommands.saveTLSPrograms->disable();
         // hide all Network and demand commands
         myNetworkMenuCommands.hideNetworkMenuCommands();
@@ -954,35 +915,19 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
-    // check if additionals has to be loaded at start
+    // check if additionals/shapes has to be loaded at start
     if (oc.isSet("sumo-additionals-file") && !oc.getString("sumo-additionals-file").empty() && myNet) {
         myAdditionalsFile = oc.getString("sumo-additionals-file");
-        WRITE_MESSAGE("Loading additionals from '" + myAdditionalsFile + "'");
+        WRITE_MESSAGE("Loading additionals and shpes from '" + myAdditionalsFile + "'");
         GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Run parser
-        myUndoList->p_begin("Loading additionals from '" + myAdditionalsFile + "'");
+        myUndoList->p_begin("Loading additionals and shapes from '" + myAdditionalsFile + "'");
         if (!XMLSubSys::runParser(additionalHandler, myAdditionalsFile, false)) {
             WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
         }
         // disable validation for additionals
-        XMLSubSys::setValidation("auto", "auto");
-        myUndoList->p_end();
-    }
-    // check if shapes has to be loaded at start
-    if (oc.isSet("sumo-shapes-file") && !oc.getString("sumo-shapes-file").empty() && myNet) {
-        myShapesFile = oc.getString("sumo-shapes-file");
-        WRITE_MESSAGE("Loading shapes");
-        GNEAdditionalHandler additionalHandler(myShapesFile, myViewNet);
-        // disable validation for shapes
-        XMLSubSys::setValidation("never", "auto");
-        // Run parser
-        myUndoList->p_begin("Loading shapes from '" + myShapesFile + "'");
-        if (!XMLSubSys::runParser(additionalHandler, myShapesFile, false)) {
-            WRITE_ERROR("Loading of shapes failed.");
-        }
-        // enable validation for shapes
         XMLSubSys::setValidation("auto", "auto");
         myUndoList->p_end();
     }
@@ -1005,10 +950,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
         myAdditionalsFile = oc.getString("additionals-output");
-    }
-    // check if shapes output must be changed
-    if (oc.isSet("shapes-output")) {
-        myShapesFile = oc.getString("shapes-output");
     }
     // check if TLSPrograms output must be changed
     if (oc.isSet("TLSPrograms-output")) {
@@ -1071,20 +1012,6 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
     new FXMenuCommand(fileMenu,
                       "Save &joined junctions...\tCtrl+J\tSave log of joined junctions (allows reproduction of joins).",
                       GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_J);
-    // create Shapes menu options
-    myGNEApp->myFileMenuShapes = new FXMenuPane(myGNEApp);
-    new FXMenuCommand(myGNEApp->myFileMenuShapes,
-                      "Load S&hapes...\tCtrl+P\tLoad shapes into the network view.",
-                      GUIIconSubSys::getIcon(ICON_OPEN_SHAPES), myGNEApp, MID_HOTKEY_CTRL_P);
-    saveShapes = new FXMenuCommand(myGNEApp->myFileMenuShapes,
-            "Save Shapes\tCtrl+Shift+P\tSave shapes elements.",
-            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_HOTKEY_CTRL_SHIFT_P);
-    saveShapes->disable();
-    saveShapesAs = new FXMenuCommand(myGNEApp->myFileMenuShapes,
-            "Save Shapes As...\t\tSave shapes elements in another files.",
-            GUIIconSubSys::getIcon(ICON_SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVESHAPES_AS);
-    saveShapesAs->disable();
-    new FXMenuCascade(fileMenu, "Shapes", GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp->myFileMenuShapes);
     // create Additionals menu options
     myGNEApp->myFileMenuAdditionals = new FXMenuPane(myGNEApp);
     new FXMenuCommand(myGNEApp->myFileMenuAdditionals,
@@ -1397,7 +1324,6 @@ GNEApplicationWindow::closeAllWindows() {
     GLHelper::resetFont();
     // disable saving commmand
     disableSaveAdditionalsMenu();
-    disableSaveShapesMenu();
 }
 
 
@@ -1428,12 +1354,6 @@ GNEApplicationWindow::setAdditionalsFile(const std::string& additionalsFile) {
 
 
 void
-GNEApplicationWindow::setShapesFile(const std::string& shapesFile) {
-    myShapesFile = shapesFile;
-}
-
-
-void
 GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
     myTLSProgramsFile = TLSProgramsFile;
 }
@@ -1456,20 +1376,6 @@ void
 GNEApplicationWindow::disableSaveAdditionalsMenu() {
     myFileMenuCommands.saveAdditionals->disable();
     myFileMenuCommands.saveAdditionalsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveShapesMenu() {
-    myFileMenuCommands.saveShapes->enable();
-    myFileMenuCommands.saveShapesAs->enable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveShapesMenu() {
-    myFileMenuCommands.saveShapes->disable();
-    myFileMenuCommands.saveShapesAs->disable();
 }
 
 
@@ -1667,7 +1573,6 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
     FXuint answer = 0;
     // declare string to save paths in wich additionals, shapes and demand will be saved
     std::string additionalsSavePath = myAdditionalsFile;
-    std::string shapesSavePath = myShapesFile;
     std::string demandElementsSavePath = myDemandElementsFile;
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Keys Shift + F5 (Compute with volatile options) pressed");
@@ -1739,58 +1644,6 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             // clear additional path
             additionalsSavePath = "";
         }
-        // Check if there are shapes in our net
-        if (myNet->getNumberOfShapes() > 0) {
-            // ask user if want to save shapes if weren't saved previously
-            if (myShapesFile == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save shapes before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save shapes before recomputing with volatile options",
-                                                "Would you like to save shapes before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save shapes before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save shapes before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save shapes before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    myShapesFile = MFXUtils::getFilename2Write(this,
-                                   "Select name of the shape file", ".xml",
-                                   GUIIconSubSys::getIcon(ICON_MODEPOLYGON),
-                                   gCurrentFolder).text();
-                    // set obtanied filename output into shapesSavePath (can be "")
-                    shapesSavePath = myShapesFile;
-                }
-            }
-            // Check if shape must be saved in a temporal directory, if user didn't define a directory for shapes
-            if (myShapesFile == "") {
-                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
-                shapesSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpShapesNetedit.xml");
-            }
-            // Start saving shapes
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveShapes(shapesSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving shapes before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, "Saving shapes in temporal folder failed!", "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving shapes before recomputing' with 'OK'");
-            }
-            // end saving shapes
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-        } else {
-            // clear save path
-            shapesSavePath = "";
-        }
         // Check if there are demand elements in our net
         if (myNet->getNumberOfDemandElements() > 0) {
             // ask user if want to save demand elements if weren't saved previously
@@ -1844,7 +1697,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             demandElementsSavePath = "";
         }
         // compute with volatile options
-        myNet->computeEverything(this, true, true, additionalsSavePath, shapesSavePath);
+        myNet->computeEverything(this, true, true, additionalsSavePath);
         updateControls();
         return 1;
     }
@@ -1995,62 +1848,6 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     }
     getApp()->endWaitCursor();
     return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdSaveShapes(FXObject*, FXSelector, void*) {
-    // check if save shapes menu is enabled
-    if (myFileMenuCommands.saveShapes->isEnabled()) {
-        // Check if shapes file was already set at start of netedit or with a previous save
-        if (myShapesFile == "") {
-            FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the shape file", ".xml",
-                            GUIIconSubSys::getIcon(ICON_MODEPOLYGON),
-                            gCurrentFolder);
-            if (file == "") {
-                // None shapes file was selected, then stop function
-                return 0;
-            } else {
-                myShapesFile = file.text();
-            }
-        }
-        getApp()->beginWaitCursor();
-        try {
-            myNet->saveShapes(myShapesFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Shapes saved in " + myShapesFile + ".\n");
-            myFileMenuCommands.saveShapes->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'Error saving shapes'");
-            // open error dialog box
-            FXMessageBox::error(this, MBOX_OK, "Saving POIs failed!", "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Error saving shapes' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-
-long GNEApplicationWindow::onCmdSaveShapesAs(FXObject*, FXSelector, void*) {
-    // Open window to select shape file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the shape file", ".xml",
-                    GUIIconSubSys::getIcon(ICON_MODEPOLYGON),
-                    gCurrentFolder);
-    if (file != "") {
-        // Set new shape file
-        myShapesFile = file.text();
-        // save shapes
-        return onCmdSaveShapes(nullptr, 0, nullptr);
-    } else {
-        return 1;
-    }
 }
 
 
@@ -2301,7 +2098,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Confirm closing network' with 'Quit'");
-            if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+            if (continueWithUnsavedAdditionalChanges()) {
                 // clear undo list and return true to continue with closing/reload
                 myUndoList->p_clear();
                 return true;
@@ -2315,7 +2112,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                 // saving failed
                 return false;
             }
-            if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+            if (continueWithUnsavedAdditionalChanges()) {
                 // clear undo list and return true to continue with closing/reload
                 myUndoList->p_clear();
                 return true;
@@ -2333,7 +2130,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             return false;
         }
     } else {
-        if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedShapeChanges()) {
+        if (continueWithUnsavedAdditionalChanges()) {
             // clear undo list and return true to continue with closing/reload
             myUndoList->p_clear(); //only ask once
             return true;
@@ -2383,48 +2180,6 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
         }
     } else {
         // nothing to save, return true
-        return true;
-    }
-}
-
-
-bool
-GNEApplicationWindow::continueWithUnsavedShapeChanges() {
-    // Check if there are non saved additionals
-    if (myViewNet && myFileMenuCommands.saveShapes->isEnabled()) {
-        WRITE_DEBUG("Opening FXMessageBox 'Save shapes before exit'");
-        // open question box
-        FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
-                                               "Save shapes before exit", "%s",
-                                               "You have unsaved shapes. Do you wish to quit and discard all changes?");
-        // restore focus to view net
-        myViewNet->setFocus();
-        // if answer was affirmative, but there was an error during saving additional, return false to stop closing/reloading
-        if (answer == MBOX_CLICKED_QUIT) {
-            WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Quit'");
-            return true;
-        } else if (answer == MBOX_CLICKED_SAVE) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Yes'");
-            if (onCmdSaveShapes(nullptr, 0, nullptr) == 1) {
-                // shapes sucesfully saved
-                return true;
-            } else {
-                // error saving shapes, abort saving
-                return false;
-            }
-        } else {
-            // write warning if netedit is running in testing mode
-            if (answer == 2) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'No'");
-            } else if (answer == 4) {
-                WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'ESC'");
-            }
-            // abort saving
-            return false;
-        }
-    } else {
-        // nothing to save, then return true
         return true;
     }
 }

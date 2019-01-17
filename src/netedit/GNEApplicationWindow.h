@@ -85,9 +85,6 @@ public:
     /// @brief set additionals file
     void setAdditionalsFile(const std::string& additionalsFile);
 
-    /// @brief set shapes file
-    void setShapesFile(const std::string& shapesFile);
-
     /// @brief set TLS Programs file
     void setTLSProgramsFile(const std::string& TLSProgramsFile);
 
@@ -99,12 +96,6 @@ public:
 
     /// @brief disable save additionals
     void disableSaveAdditionalsMenu();
-
-    /// @brief enable save shapes
-    void enableSaveShapesMenu();
-
-    /// @brief disable save shapes
-    void disableSaveShapesMenu();
 
     /// @brief enable save TLS Programs
     void enableSaveTLSProgramsMenu();
@@ -140,9 +131,6 @@ public:
 
     /// @brief called when the command/FXCall open foreign is executed
     long onCmdOpenForeign(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall open shapes is executed
-    long onCmdOpenShapes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
@@ -209,12 +197,6 @@ public:
 
     /// @brief called when the command/FXCall save joined is executed
     long onCmdSaveJoined(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save shapes is executed
-    long onCmdSaveShapes(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save shapes as is executed
-    long onCmdSaveShapesAs(FXObject*, FXSelector, void*);
 
     /// @brief called when a key is pressed
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
@@ -327,7 +309,6 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu,
-                *myFileMenuShapes,
                 *myFileMenuAdditionals,
                 *myFileMenuTLS,
                 *myFileMenuDemandElements,
@@ -376,9 +357,6 @@ protected:
     /// @brief filename for load/save additionals
     std::string myAdditionalsFile;
 
-    /// @brief filename for load/save shapes
-    std::string myShapesFile;
-
     /// @brief filename for load/save TLS Programs
     std::string myTLSProgramsFile;
 
@@ -406,12 +384,6 @@ private:
 
         /// @brief FXMenuCommand for enable or disable save additionals As
         FXMenuCommand* saveAdditionalsAs;
-
-        /// @brief FXMenuCommand for enable or disable save shapes
-        FXMenuCommand* saveShapes;
-
-        /// @brief FXMenuCommand for enable or disable save shapes
-        FXMenuCommand* saveShapesAs;
 
         /// @brief FXMenuCommand for enable or disable save additionals
         FXMenuCommand* saveTLSPrograms;
@@ -538,9 +510,6 @@ private:
 
     /// @brief warns about unsaved changes in additionals and gives the user the option to abort
     bool continueWithUnsavedAdditionalChanges();
-
-    /// @brief warns about unsaved changes in shapes  and gives the user the option to abort
-    bool continueWithUnsavedShapeChanges();
 };
 
 

@@ -66,8 +66,6 @@ enum {
     MID_OPEN_CONFIG,
     /// @brief Open network - ID
     MID_OPEN_NETWORK,
-    /// @brief Load additional file with poi and polygons
-    MID_HOTKEY_CTRL_P,
     /// @brief Load edge data for visualization
     MID_OPEN_EDGEDATA,
     /// @brief Load additional file with additional elements
@@ -443,10 +441,6 @@ enum {
     MID_GNE_HOTKEY_CTRL_L,
     /// @brief save joined junctions
     MID_GNE_HOTKEY_CTRL_J,
-    /// @brief Save shapes
-    MID_GNE_HOTKEY_CTRL_SHIFT_P,
-    /// @brief save shapes as
-    MID_GNE_TOOLBARFILE_SAVESHAPES_AS,
     /// @brief Save additionals
     MID_GNE_HOTKEY_CTRL_SHIFT_D,
     /// @brief save additionals as

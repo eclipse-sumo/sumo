@@ -94,7 +94,6 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myNeedRecompute(true),
     myNetSaved(true),
     myAdditionalsSaved(true),
-    myShapesSaved(true),
     myTLSProgramsSaved(true),
     myDemandElementsSaved(true),
     myAllowUndoShapes(true) {
@@ -929,9 +928,8 @@ GNENet::requiereSaveNet(bool value) {
     if (myNetSaved == true) {
         WRITE_DEBUG("net has to be saved");
         std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        std::string shapeSaved = (myShapesSaved ? "saved" : "unsaved");
         std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", shapes " + shapeSaved + ", demand elements " + demandElementsSaved);
+        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved + ", demand elements " + demandElementsSaved);
     }
     myNetSaved = !value;
 }
@@ -1378,7 +1376,7 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
 
 
 void
-GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string shapePath, std::string demandPath) {
+GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string demandPath) {
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
@@ -1431,17 +1429,6 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
         // clear myEdgesAndNumberOfLanes after reload additionals
         myEdgesAndNumberOfLanes.clear();
-    }
-    // load shapes if was recomputed with volatile options
-    if (shapePath != "") {
-        // new shapes has to be inserted without possibility of undo/redo
-        myAllowUndoShapes = false;
-        GNEAdditionalHandler additionalHandler(shapePath, myViewNet);
-        if (!XMLSubSys::runParser(additionalHandler, shapePath, false)) {
-            WRITE_MESSAGE("Loading of " + shapePath + " failed.");
-        }
-        // restore flag
-        myAllowUndoShapes = true;
     }
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
@@ -2033,8 +2020,7 @@ GNENet::requiereSaveAdditionals(bool value) {
     if (myAdditionalsSaved == true) {
         WRITE_DEBUG("Additionals has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string shapeSaved = (myShapesSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, shapes " + shapeSaved);
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved");
     }
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
@@ -2160,8 +2146,7 @@ GNENet::requiereSaveDemandElements(bool value) {
     if (myDemandElementsSaved == true) {
         WRITE_DEBUG("DemandElements has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string shapeSaved = (myShapesSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", demand elements unsaved, shapes " + shapeSaved);
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", demand elements unsaved");
     }
     myDemandElementsSaved = !value;
     if (myViewNet != nullptr) {
@@ -2246,7 +2231,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
             }
         }
     }
-    // finally write rest of additionals
+    // now write rest of additionals
     for (auto i : myAttributeCarriers.additionals) {
         const auto& tagValue = GNEAttributeCarrier::getTagProperties(i.first);
         if (!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first != SUMO_TAG_ROUTEPROBE) && (i.first != SUMO_TAG_VTYPE) && (i.first != SUMO_TAG_ROUTE)) {
@@ -2257,6 +2242,13 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
                 }
             }
         }
+    }
+    // now write shapes and POIs
+    for (const auto& i : myPolygons) {
+        dynamic_cast<GNEShape*>(i.second)->writeShape(device);
+    }
+    for (const auto& i : myPOIs) {
+        dynamic_cast<GNEShape*>(i.second)->writeShape(device);
     }
     device.close();
 }
@@ -2350,44 +2342,6 @@ GNENet::changeShapeID(GNEShape* s, const std::string& OldID) {
             myPOIs.changeID(OldID, s->getID());
         }
     }
-}
-
-
-void
-GNENet::requiereSaveShapes(bool value) {
-    if (myShapesSaved == true) {
-        WRITE_DEBUG("Shapes has to be saved");
-        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", shapes unsaved");
-    }
-    myShapesSaved = !value;
-    if (myShapesSaved) {
-        myViewNet->getViewParent()->getGNEAppWindows()->disableSaveShapesMenu();
-    } else {
-        myViewNet->getViewParent()->getGNEAppWindows()->enableSaveShapesMenu();
-    }
-}
-
-
-void
-GNENet::saveShapes(const std::string& filename) {
-    // save Shapes
-    OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("additional", "additional_file.xsd");
-    // write only visible polygons
-    for (const auto& i : myPolygons) {
-        dynamic_cast<GNEShape*>(i.second)->writeShape(device);
-    }
-    // write only visible POIs
-    for (const auto& i : myPOIs) {
-        dynamic_cast<GNEShape*>(i.second)->writeShape(device);
-    }
-    device.close();
-    // change flag to true
-    myShapesSaved = true;
-    // show debug information
-    WRITE_DEBUG("Shapes saved");
 }
 
 
@@ -2739,8 +2693,8 @@ GNENet::insertShape(GNEShape* shape) {
     if (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->addShapeChild(shape);
     }
-    // insert shape requieres always save shapes
-    requiereSaveShapes(true);
+    // insert shape requieres always save additionals
+    requiereSaveAdditionals(true);
     // update view
     myViewNet->update();
 }
@@ -2767,8 +2721,8 @@ GNENet::removeShape(GNEShape* shape) {
     if (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) {
         retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(shape);
     }
-    // remove shape requires always save shapes
-    requiereSaveShapes(true);
+    // remove shape requires always save additionals
+    requiereSaveAdditionals(true);
     // update view
     myViewNet->update();
 }
