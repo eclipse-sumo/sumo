@@ -490,7 +490,15 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
     if (endOffset > 0 || startOffset > 0) {
-        shape = shape.getSubpart(startOffset, shape.length() - endOffset);
+        if (startOffset + endOffset < shape.length()) {
+            shape = shape.getSubpart(startOffset, shape.length() - endOffset);
+        } else {
+            WRITE_ERROR("Invalid endOffset " + toString(endOffset) + " at lane '" + lID 
+                    + "' with length " + toString(shape.length()) + " (startOffset " + toString(startOffset) + ")");
+            if (!OptionsCont::getOptions().getBool("ignore-errors")) {
+                throw ProcessError();
+            }
+        }
     }
     into.writeAttr(SUMO_ATTR_SHAPE, shape);
 

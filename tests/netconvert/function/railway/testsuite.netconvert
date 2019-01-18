@@ -8,3 +8,6 @@ all-bidi
 
 # apply endOffset to both directions
 bidi_endOffset
+
+# prevent invalid endOffset
+bidi_endOffset_invalid
