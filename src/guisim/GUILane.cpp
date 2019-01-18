@@ -294,7 +294,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     }
     // draw all links
     const double w = myWidth / (double) noLinks;
-    double x1 = 0;
+    double x1 = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL ? myWidth * 0.5 : 0;
     const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = 0; i < noLinks; ++i) {
         double x2 = x1 + w;
