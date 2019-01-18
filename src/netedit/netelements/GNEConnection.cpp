@@ -307,22 +307,27 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
         }
         // draw connection checking whether it is not too small if isn't being drawn for selecting
-        if ((s.scale < 1.) && !s.drawForSelecting) {
-            // If it's small, dra a simple line
+        if ((s.scale < 5.) && !s.drawForSelecting) {
+            // If it's small, draw a simple line
             GLHelper::drawLine(myShape);
         } else {
             // draw a list of lines
-            GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.2);
+            const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
+            PositionVector shape = myShape;
+            if (spreadSuperposed) {
+                shape.move2side(0.5);
+            }
+            GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, 0.2);
             glTranslated(0, 0, 0.1);
             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
             // check if internal junction marker has to be drawn
             if (myInternalJunctionMarker.size() > 0) {
                 GLHelper::drawLine(myInternalJunctionMarker);
             }
-        }
-        // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myShape, 0.25);
+            // check if dotted contour has to be drawn (not useful at high zoom)
+            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
+                GLHelper::drawShapeDottedContour(getType(), shape, 0.25);
+            }
         }
         // Pop name
         glPopName();
