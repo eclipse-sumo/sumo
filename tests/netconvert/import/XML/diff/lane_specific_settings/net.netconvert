@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:44 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 11:41:55 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -93,9 +93,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="CN_2" index="2" allow="bicycle" speed="13.89" length="86.10" shape="101.60,113.90 101.60,200.00"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="2">
-        <lane id="CW_0" index="0" speed="13.89" length="83.50" shape="83.50,108.80 0.00,108.80"/>
-        <lane id="CW_1" index="1" speed="13.89" length="75.50" endOffset="8.00" width="4.00" shape="83.50,105.20 8.00,105.20"/>
-        <lane id="CW_2" index="2" speed="13.89" length="83.50" shape="83.50,101.60 0.00,101.60"/>
+        <lane id="CW_0" index="0" speed="13.89" length="80.83" shape="83.50,108.80 0.00,108.80"/>
+        <lane id="CW_1" index="1" speed="13.89" length="80.83" endOffset="8.00" width="4.00" shape="83.50,105.20 8.00,105.20"/>
+        <lane id="CW_2" index="2" speed="13.89" length="80.83" shape="83.50,101.60 0.00,101.60"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="2">
         <lane id="EC_0" index="0" speed="13.89" length="88.10" shape="200.00,110.80 111.90,110.80"/>
@@ -108,9 +108,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="NC_2" index="2" speed="20.00" length="82.10" endOffset="4.00" width="5.00" shape="97.50,200.00 97.50,117.90"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="2">
-        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="83.50" shape="0.00,91.20 83.50,91.20"/>
-        <lane id="WC_1" index="1" allow="pedestrian" speed="13.89" length="75.50" endOffset="8.00" width="4.00" shape="0.00,94.80 75.50,94.80"/>
-        <lane id="WC_2" index="2" allow="pedestrian" speed="13.89" length="83.50" shape="0.00,98.40 83.50,98.40"/>
+        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="80.83" shape="0.00,91.20 83.50,91.20"/>
+        <lane id="WC_1" index="1" allow="pedestrian" speed="13.89" length="80.83" endOffset="8.00" width="4.00" shape="0.00,94.80 75.50,94.80"/>
+        <lane id="WC_2" index="2" allow="pedestrian" speed="13.89" length="80.83" shape="0.00,98.40 83.50,98.40"/>
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">

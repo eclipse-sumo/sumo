@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:43 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 11:41:55 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -135,9 +135,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="1o_0" index="0" speed="11.11" length="486.40" shape="486.40,501.60 0.00,501.60"/>
     </edge>
     <edge id="1si" from="m1" to="0" priority="3">
-        <lane id="1si_0" index="0" speed="13.89" length="222.40" endOffset="10.00" shape="254.00,492.00 476.40,492.00"/>
-        <lane id="1si_1" index="1" speed="13.89" length="232.40" shape="254.00,495.20 486.40,495.20"/>
-        <lane id="1si_2" index="2" speed="13.89" length="232.40" shape="254.00,498.40 486.40,498.40"/>
+        <lane id="1si_0" index="0" speed="13.89" length="229.07" endOffset="10.00" shape="254.00,492.00 476.40,492.00"/>
+        <lane id="1si_1" index="1" speed="13.89" length="229.07" shape="254.00,495.20 486.40,495.20"/>
+        <lane id="1si_2" index="2" speed="13.89" length="229.07" shape="254.00,498.40 486.40,498.40"/>
     </edge>
     <edge id="2fi" from="2" to="m2" priority="2">
         <lane id="2fi_0" index="0" speed="11.11" length="246.00" shape="1000.00,504.80 754.00,504.80"/>
@@ -147,9 +147,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="2o_0" index="0" speed="11.11" length="486.40" shape="513.60,498.40 1000.00,498.40"/>
     </edge>
     <edge id="2si" from="m2" to="0" priority="3">
-        <lane id="2si_0" index="0" speed="13.89" length="232.40" shape="746.00,508.00 513.60,508.00"/>
-        <lane id="2si_1" index="1" speed="13.89" length="230.40" endOffset="2.00" shape="746.00,504.80 515.60,504.80"/>
-        <lane id="2si_2" index="2" speed="13.89" length="232.40" shape="746.00,501.60 513.60,501.60"/>
+        <lane id="2si_0" index="0" speed="13.89" length="231.73" shape="746.00,508.00 513.60,508.00"/>
+        <lane id="2si_1" index="1" speed="13.89" length="231.73" endOffset="2.00" shape="746.00,504.80 515.60,504.80"/>
+        <lane id="2si_2" index="2" speed="13.89" length="231.73" shape="746.00,501.60 513.60,501.60"/>
     </edge>
     <edge id="3fi" from="3" to="m3" priority="2">
         <lane id="3fi_0" index="0" speed="11.11" length="246.00" shape="504.80,0.00 504.80,246.00"/>
@@ -159,9 +159,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="3o_0" index="0" speed="11.11" length="486.40" shape="498.40,486.40 498.40,0.00"/>
     </edge>
     <edge id="3si" from="m3" to="0" priority="3">
-        <lane id="3si_0" index="0" speed="13.89" length="232.40" shape="508.00,254.00 508.00,486.40"/>
-        <lane id="3si_1" index="1" speed="13.89" length="232.40" shape="504.80,254.00 504.80,486.40"/>
-        <lane id="3si_2" index="2" speed="13.89" length="228.40" endOffset="4.00" shape="501.60,254.00 501.60,482.40"/>
+        <lane id="3si_0" index="0" speed="13.89" length="231.07" shape="508.00,254.00 508.00,486.40"/>
+        <lane id="3si_1" index="1" speed="13.89" length="231.07" shape="504.80,254.00 504.80,486.40"/>
+        <lane id="3si_2" index="2" speed="13.89" length="231.07" endOffset="4.00" shape="501.60,254.00 501.60,482.40"/>
     </edge>
     <edge id="4fi" from="4" to="m4" priority="2">
         <lane id="4fi_0" index="0" speed="11.11" length="246.00" shape="495.20,1000.00 495.20,754.00"/>
@@ -171,9 +171,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="4o_0" index="0" speed="11.11" length="486.40" shape="501.60,513.60 501.60,1000.00"/>
     </edge>
     <edge id="4si" from="m4" to="0" priority="3">
-        <lane id="4si_0" index="0" speed="13.89" length="227.40" endOffset="5.00" shape="492.00,746.00 492.00,518.60"/>
-        <lane id="4si_1" index="1" speed="13.89" length="232.40" shape="495.20,746.00 495.20,513.60"/>
-        <lane id="4si_2" index="2" speed="13.89" length="232.40" shape="498.40,746.00 498.40,513.60"/>
+        <lane id="4si_0" index="0" speed="13.89" length="230.73" endOffset="5.00" shape="492.00,746.00 492.00,518.60"/>
+        <lane id="4si_1" index="1" speed="13.89" length="230.73" shape="495.20,746.00 495.20,513.60"/>
+        <lane id="4si_2" index="2" speed="13.89" length="230.73" shape="498.40,746.00 498.40,513.60"/>
     </edge>
 
     <junction id="0" type="priority" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_8_0 :0_9_0 :0_18_0 :0_19_0 :0_12_0 :0_13_0 :0_14_0 :0_15_0" shape="490.40,513.60 503.20,513.60 504.36,511.38 505.80,510.60 507.82,510.04 510.42,509.71 513.60,509.60 513.60,496.80 511.38,495.64 510.60,494.20 510.04,492.18 509.71,489.58 509.60,486.40 496.80,486.40 495.64,488.62 494.20,489.40 492.18,489.96 489.58,490.29 486.40,490.40 486.40,503.20 488.62,504.36 489.40,505.80 489.96,507.82 490.29,510.42">
