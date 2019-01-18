@@ -268,13 +268,13 @@ def Popen(extraParameters, debugInformation):
 
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
-        NeteditCall += ['--sumo-additionals-file',
+        NeteditCall += ['-a',
                         os.path.join(textTestSandBox, "input_additionals.add.xml")]
 
-    # Check if shapes must be loaded
-    if os.path.exists(os.path.join(textTestSandBox, "input_shapes.add.xml")):
-        NeteditCall += ['--sumo-shapes-file',
-                        os.path.join(textTestSandBox, "input_shapes.add.xml")]
+    # Check if demand elements must be loaded
+    if os.path.exists(os.path.join(textTestSandBox, "input_routes.rou.xml")):
+        NeteditCall += ['r',
+                        os.path.join(textTestSandBox, "input_routes.rou.xml")]
 
     # check if a gui settings file has to be load
     if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
@@ -289,9 +289,9 @@ def Popen(extraParameters, debugInformation):
     NeteditCall += ['--additionals-output',
                     os.path.join(textTestSandBox, "additionals.xml")]
 
-    # set output for shapes
-    NeteditCall += ['--shapes-output',
-                    os.path.join(textTestSandBox, "shapes.xml")]
+    # set output for demand elements
+    NeteditCall += ['--demandelements-output',
+                    os.path.join(textTestSandBox, "routes.xml")]
 
     # add extra parameters
     NeteditCall += extraParameters
