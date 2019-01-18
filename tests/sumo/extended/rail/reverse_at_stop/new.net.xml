@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 18 13:22:51 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Fri Jan 18 13:24:09 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
-        <ptstop-files value="input_ptstops.xml"/>
-        <ptline-files value="input_ptlines.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <ptstop-output value="additional.xml"/>
-        <ptline-output value="ptlines.xml"/>
-        <railway.topology.output value="topology.xml"/>
+        <output-file value="new.net.xml"/>
     </output>
 
     <processing>
@@ -37,15 +27,6 @@ SPDX-License-Identifier: EPL-2.0
     <pedestrian>
         <walkingareas value="false"/>
     </pedestrian>
-
-    <railway>
-        <railway.topology.repair value="true"/>
-    </railway>
-
-    <report>
-        <verbose value="true"/>
-        <xml-validation value="never"/>
-    </report>
 
 </configuration>
 -->

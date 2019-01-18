@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:59 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 13:22:50 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,16 +54,16 @@ SPDX-License-Identifier: EPL-2.0
 
     <location netOffset="0.00,0.00" convBoundary="-100.00,-100.00,200.00,-100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <edge id=":gneJ38_0" function="internal">
+    <edge id=":gneJ38_0" function="internal" bidi=":gneJ38_1">
         <lane id=":gneJ38_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
     </edge>
-    <edge id=":gneJ38_1" function="internal">
+    <edge id=":gneJ38_1" function="internal" bidi=":gneJ38_0">
         <lane id=":gneJ38_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
     </edge>
-    <edge id=":gneJ39_0" function="internal">
+    <edge id=":gneJ39_0" function="internal" bidi=":gneJ39_1">
         <lane id=":gneJ39_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-100.00 100.00,-100.00"/>
     </edge>
-    <edge id=":gneJ39_1" function="internal">
+    <edge id=":gneJ39_1" function="internal" bidi=":gneJ39_0">
         <lane id=":gneJ39_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="100.00,-100.00 100.00,-100.00"/>
     </edge>
     <edge id=":gneJ40_0" function="internal">
