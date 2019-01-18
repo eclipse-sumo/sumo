@@ -128,11 +128,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_P,                     GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SHORTCUT_W,                     GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                     GNEApplicationWindow::onCmdEditViewScheme),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                       GNEApplicationWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_G,                  GNEApplicationWindow::onCmdToogleGrid),
-    FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                       GNEApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_G,                  GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_T,                  GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_T,                  GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -389,7 +387,6 @@ GNEApplicationWindow::create() {
     setWindowSizeAndPos();
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
-    myToolbarsGrip.menu->create();
     myFileMenu->create();
     myEditMenu->create();
     myFileMenuAdditionals->create();

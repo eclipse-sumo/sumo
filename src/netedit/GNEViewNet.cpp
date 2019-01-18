@@ -3899,6 +3899,7 @@ GNEViewNet::ViewOptions::buildViewOptionsMenuChecks() {
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
 }
 
+
 void 
 GNEViewNet::ViewOptions::hideViewOptionsMenuChecks() {
     menuCheckShowDemandElements->hide();

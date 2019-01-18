@@ -43,7 +43,7 @@ class GUIGlChildWindow : public FXMDIChild {
 public:
     /// @brief constructor
     GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow,
-                     FXMDIMenu* mdimenu, const FXString& name, FXMenuBar* menuBarGripElements,
+                     FXMDIMenu* mdimenu, const FXString& name, FXMenuBar* gripNavigationToolbar,
                      FXIcon* ic = NULL, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
     /// @brief destructor
@@ -97,8 +97,11 @@ protected:
     /// @brief The view
     GUISUMOAbstractView* myView;
 
-    /// @brief The tool bar
-    FXToolBar* myNavigationToolBar;
+    /// @brief The static navigation tool bar
+    FXToolBar* myStaticNavigationToolBar;
+    
+    // @brief The grip navigation tool bar
+    FXMenuBar* myGripNavigationToolbar;
 
     /// The locator menu
     FXPopup* myLocatorPopup;
