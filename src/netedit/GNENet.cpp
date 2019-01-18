@@ -1753,6 +1753,7 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
 
         newShape.append(continuation->getNBEdge()->getInnerGeometry());
         begin->setAttribute(GNE_ATTR_SHAPE_END, continuation->getAttribute(GNE_ATTR_SHAPE_END), undoList);
+        begin->setAttribute(SUMO_ATTR_ENDOFFSET, continuation->getAttribute(SUMO_ATTR_ENDOFFSET), undoList);
         begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
     }
     //delete replaced junction
