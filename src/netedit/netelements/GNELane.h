@@ -215,6 +215,10 @@ public:
     /// @brief remove lane of demand parent
     void removeLaneOfDemandElementParents(GNEUndoList* undoList, bool allowEmpty);
 
+    /// @brief whether to draw this lane as a railway
+    bool drawAsRailway(const GUIVisualizationSettings& s) const;
+
+
 protected:
     /// @brief FOX needs this
     GNELane();
@@ -281,9 +285,6 @@ private:
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIColorer& c) const;
-
-    /// @brief whether to draw this lane as a railway
-    bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
     /// @brief whether to draw this lane as a waterways
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
