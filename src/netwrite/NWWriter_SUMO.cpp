@@ -320,6 +320,16 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, edgeID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, EDGEFUNC_INTERNAL);
+                    if ((*i)->isBidiRail() && (*k).toEdge->isBidiRail() &&
+                            (*i) != (*k).toEdge->getTurnDestination(true)) {
+                        try {
+                            NBEdge::Connection bidiCon = (*k).toEdge->getTurnDestination(true)->getConnection(
+                                    0, (*i)->getTurnDestination(true), 0);
+                            into.writeAttr(SUMO_ATTR_BIDI, bidiCon.id);
+                        } catch (ProcessError&) {
+                            std::cout << " could not find bidi-connection\n";
+                        }
+                    }
                     // open a new edge
                 }
                 // to avoid changing to an internal lane which has a successor
