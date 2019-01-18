@@ -3588,6 +3588,9 @@ NBEdge::getFinalLength() const {
     for (const Lane& lane : myLanes) {
         avgEndOffset += lane.endOffset;
     }
+    if (isBidiRail()) {
+        avgEndOffset += myPossibleTurnDestination->getEndOffset();
+    }
     avgEndOffset /= myLanes.size();
     return MAX2(result - avgEndOffset, POSITION_EPS);
 }
