@@ -61,6 +61,56 @@ class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
     FXDECLARE(GNEApplicationWindow)
 
 public:
+    /// @brief struct for griped toolbars
+    struct ToolbarsGrip {
+        
+        /// @brief constructor
+        ToolbarsGrip(GNEApplicationWindow *GNEAppWindows);
+        
+        /// @brief build toolbars grips
+        void buildToolbarsGrips();
+
+        /// @brief show toolbar grips
+        void showToolbarGrips() const;
+
+        /// @brief hide toolbar grips (except menu, that always it's been shown)
+        void hideToolbarGrips() const;
+
+        /// @brief The application menu bar (for file, edit, processing...)
+        FXMenuBar* menu;
+
+        /// @brief The application menu bar for supermodes (network and demand)
+        FXMenuBar* superModes;
+
+        /// @brief The application menu bar for navigation (zoom, coloring...)
+        FXMenuBar* navigation;
+
+        /// @brief The application menu bar (for select, inspect...)
+        FXMenuBar* modes;
+
+        /// @brief The application menu bar for mode options (show connections, select edges...)
+        FXMenuBar* modeOptions;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindow
+        GNEApplicationWindow *myGNEAppWindows;
+
+        /// @brief menu bar drag (for file, edit, processing...)
+        FXToolBarShell* myToolBarShellMenu;
+
+        /// @brief menu bar drag for modes (network and demand)
+        FXToolBarShell* myToolBarShellSuperModes;
+
+        /// @brief menu bar drag for navigation (Zoom, coloring...)
+        FXToolBarShell* myToolBarShellNavigation;
+
+        /// @brief menu bar drag for modes (select, inspect, delete...)
+        FXToolBarShell* myToolBarShellModes;
+
+        /// @brief menu bar drag for mode options(show connections, select edges...)
+        FXToolBarShell* myToolBarShellModeOptions;
+    };
+
     /**@brief Constructor
      * @param[in] a The FOX application
      * @param[in] configPattern The pattern used for loading configurations
@@ -291,20 +341,11 @@ public:
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
+    /// @brief get ToolbarsGrip
+    const ToolbarsGrip &getToolbarsGrip() const;
+
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
-
-    /// @brief The menu bar for group supermode buttons
-    FXMenuBar* getMenuBarSuperModes() const;
-
-    /// @brief The menu bar for group navigation buttons
-    FXMenuBar* getMenuBarNavigation() const;
-
-    /// @brief The menu bar for group modes
-    FXMenuBar* getMenuBarModes() const;
-
-    /// @brief The menu bar for group mode options
-    FXMenuBar* getMenuBarModeOptions() const;
 
     /// @brief update FXMenuCommands
     void updateSuperModeMenuCommands(int supermode);
@@ -335,24 +376,6 @@ protected:
 
     /// @brief List of got requests
     MFXEventQue<GUIEvent*> myEvents;
-
-    /// @brief The menu used for the MDI-windows
-    FXMDIMenu* myMDIMenu;
-
-    /// @brief The application menu bar (for file, edit, processing...)
-    FXMenuBar* myMenuBar;
-
-    /// @brief The application menu bar for supermodes (network and demand)
-    FXMenuBar* myMenuBarSuperModes;
-
-    /// @brief The application menu bar for navigation (zoom, coloring...)
-    FXMenuBar* myMenuBarNavigation;
-
-    /// @brief The application menu bar (for select, inspect...)
-    FXMenuBar* myMenuBarModes;
-
-    /// @brief The application menu bar for mode options (show connections, select edges...)
-    FXMenuBar* myMenuBarModeOptions;
 
     /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
@@ -505,6 +528,9 @@ private:
         FXMenuSeparator *myHorizontalSeparator;
     };
 
+    /// @brief Toolbars Grip
+    ToolbarsGrip myToolbarsGrip;
+
     /// @brief File Menu Commands
     FileMenuCommands myFileMenuCommands;
 
@@ -520,20 +546,8 @@ private:
     /// @brief the prefix for the window title
     const FXString myTitlePrefix;
 
-    /// @brief menu bar drag (for file, edit, processing...)
-    FXToolBarShell* myMenuBarDrag;
-
-    /// @brief menu bar drag for modes (network and demand)
-    FXToolBarShell* myMenuBarDragSuperModes;
-
-    /// @brief menu bar drag for navigation (Zoom, coloring...)
-    FXToolBarShell* myMenuBarDragNavigation;
-
-    /// @brief menu bar drag for modes (select, inspect, delete...)
-    FXToolBarShell* myMenuBarDragModes;
-
-    /// @brief menu bar drag for mode options(show connections, select edges...)
-    FXToolBarShell* myMenuBarDragModeOptions;
+    /// @brief The menu used for the MDI-windows
+    FXMDIMenu* myMDIMenu;
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

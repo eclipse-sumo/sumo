@@ -189,8 +189,63 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNUMBER(GNEApplicationWindowMap))
 
+
 // ===========================================================================
-// member method definitions
+// GNEApplicationWindow::ToolbarsGrip method definitions
+// ===========================================================================
+
+GNEApplicationWindow::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow *GNEAppWindows) :
+    myGNEAppWindows(GNEAppWindows) {
+}
+
+
+void
+GNEApplicationWindow::ToolbarsGrip::buildToolbarsGrips() {
+    // build menu bar (for File, edit, processing...) using specify design
+    myToolBarShellMenu = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
+    menu = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
+    // declare toolbar grip for menu bar
+    new FXToolBarGrip(menu, menu, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for supermodes (next to menu bar)
+    myToolBarShellSuperModes = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
+    superModes = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    // declare toolbar grip for menu bar Supermodes
+    new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for navigation (bot to menu bar)
+    myToolBarShellNavigation = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
+    navigation = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedNext);
+    // declare toolbar grip for menu bar Navigation
+    new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for modes
+    myToolBarShellModes = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
+    modes = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellModes, GUIDesignToolBarRaisedSame);
+    // declare toolbar grip for menu bar modes
+    new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for mode Options
+    myToolBarShellModeOptions = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
+    modeOptions = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
+    // declare toolbar grip for menu bar modes
+    new FXToolBarGrip(modeOptions, modeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+}
+
+
+void 
+GNEApplicationWindow::ToolbarsGrip::showToolbarGrips() const {
+    navigation->show();
+    superModes->show();
+    modeOptions->show();
+}
+
+
+void 
+GNEApplicationWindow::ToolbarsGrip::hideToolbarGrips() const {
+    navigation->hide();
+    superModes->hide();
+    modeOptions->hide();
+}
+
+// ===========================================================================
+// GNEApplicationWindow method definitions
 // ===========================================================================
 
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
@@ -202,6 +257,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
+    myToolbarsGrip(this),
     myFileMenuCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
@@ -226,33 +282,10 @@ GNEApplicationWindow::dependentBuild() {
     hadDependentBuild = true;
     setTarget(this);
     setSelector(MID_WINDOW);
-    // build menu bar (for File, edit, processing...) using specify design
-    myMenuBarDrag = new FXToolBarShell(this, GUIDesignToolBar);
-    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag, GUIDesignToolbarMenuBarNetedit);
-    // declare toolbar grip for menu bar
-    new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for supermodes (next to menu bar)
-    myMenuBarDragSuperModes = new FXToolBarShell(this, GUIDesignToolBar);
-    myMenuBarSuperModes = new FXMenuBar(myTopDock, myMenuBarDragSuperModes, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar Supermodes
-    new FXToolBarGrip(myMenuBarSuperModes, myMenuBarSuperModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for navigation (bot to menu bar)
-    myMenuBarDragNavigation = new FXToolBarShell(this, GUIDesignToolBar);
-    myMenuBarNavigation = new FXMenuBar(myTopDock, myMenuBarDragNavigation, GUIDesignToolBarRaisedNext);
-    // declare toolbar grip for menu bar Navigation
-    new FXToolBarGrip(myMenuBarNavigation, myMenuBarNavigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for modes
-    myMenuBarDragModes = new FXToolBarShell(this, GUIDesignToolBar);
-    myMenuBarModes = new FXMenuBar(myTopDock, myMenuBarDragModes, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar modes
-    new FXToolBarGrip(myMenuBarModes, myMenuBarModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for mode Options
-    myMenuBarDragModeOptions = new FXToolBarShell(this, GUIDesignToolBar);
-    myMenuBarModeOptions = new FXMenuBar(myTopDock, myMenuBarDragModeOptions, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar modes
-    new FXToolBarGrip(myMenuBarModeOptions, myMenuBarModeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // menu bar modes is by default hidden
-    myMenuBarModes->hide();
+    // build toolbar grips
+    myToolbarsGrip.buildToolbarsGrips();
+    // hide toolbars grid (because there isn't a net)
+    myToolbarsGrip.hideToolbarGrips();
     // build the thread - io
     myLoadThreadEvent.setTarget(this),  myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
@@ -356,7 +389,7 @@ GNEApplicationWindow::create() {
     setWindowSizeAndPos();
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     FXMainWindow::create();
-    myMenuBar->create();
+    myToolbarsGrip.menu->create();
     myFileMenu->create();
     myEditMenu->create();
     myFileMenuAdditionals->create();
@@ -417,12 +450,12 @@ void
 GNEApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
+    new FXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu);
     myFileMenuCommands.buildFileMenuCommands(myFileMenu);
 
     // build edit menu
     myEditMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Edit", nullptr, myEditMenu);
+    new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu);
 
     // build undo/redo command
     new FXMenuCommand(myEditMenu,
@@ -458,7 +491,7 @@ GNEApplicationWindow::fillMenuBar() {
 
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Processing", nullptr, myProcessingMenu);
+    new FXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu);
     new FXMenuCommand(myProcessingMenu,
                       "Compute Junctions\tF5\tComputes junction shape and logic.",
                       GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_HOTKEY_F5);
@@ -480,14 +513,14 @@ GNEApplicationWindow::fillMenuBar() {
     // build settings menu
     /*
     mySettingsMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar,"&Settings",0,mySettingsMenu);
+    new FXMenuTitle(menu,"&Settings",0,mySettingsMenu);
     new FXMenuCheck(mySettingsMenu,
                     "Gaming Mode\t\tToggle gaming mode on/off.",
                     this,MID_GAMING);
     */
     // build Locate menu
     myLocatorMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Locate", nullptr, myLocatorMenu);
+    new FXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &Junctions\tShift+J\tOpen a Dialog for Locating a Junction.",
                       GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
@@ -508,7 +541,7 @@ GNEApplicationWindow::fillMenuBar() {
                       GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Windows", nullptr, myWindowsMenu);
+    new FXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu);
     new FXMenuCheck(myWindowsMenu,
                     "&Show Status Line\t\tToggle this Status Bar on/off.",
                     myStatusbar, FXWindow::ID_TOGGLESHOWN);
@@ -544,7 +577,7 @@ GNEApplicationWindow::fillMenuBar() {
 
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Help", nullptr, myHelpMenu);
+    new FXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);
     new FXMenuCommand(myHelpMenu,
                       "&Online Documentation\tF1\tOpen Online documentation.",
                       nullptr, this, MID_HOTKEY_F1);
@@ -1309,6 +1342,12 @@ GNEApplicationWindow::getTrackerInterval() const {
 GNEUndoList*
 GNEApplicationWindow::getUndoList() {
     return myUndoList;
+}
+
+
+const GNEApplicationWindow::ToolbarsGrip&
+GNEApplicationWindow::getToolbarsGrip() const {
+    return myToolbarsGrip;
 }
 
 
@@ -2218,29 +2257,6 @@ GNEApplicationWindow::updateControls() {
 }
 
 
-FXMenuBar* 
-GNEApplicationWindow::getMenuBarSuperModes() const {
-    return myMenuBarSuperModes;
-}
-
-
-FXMenuBar* 
-GNEApplicationWindow::getMenuBarNavigation() const {
-    return myMenuBarNavigation;
-}
-
-
-FXMenuBar* 
-GNEApplicationWindow::getMenuBarModes() const {
-    return myMenuBarModes;
-}
-
-FXMenuBar* 
-GNEApplicationWindow::getMenuBarModeOptions() const {
-    return myMenuBarModeOptions;
-}
-
-
 void 
 GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
     // cast supermode
@@ -2262,6 +2278,7 @@ GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindow::GNEApplicationWindow() :
+    myToolbarsGrip(this),
     myFileMenuCommands(this),
     myNetworkMenuCommands(this), 
     myDemandMenuCommands(this) {
