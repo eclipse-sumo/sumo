@@ -1,3 +1,6 @@
+# tests for rail signals
+rail_signal
+
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
 
