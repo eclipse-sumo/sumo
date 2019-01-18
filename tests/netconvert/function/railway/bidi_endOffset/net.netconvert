@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 18 12:41:12 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
+<!-- generated on Fri Jan 18 12:54:20 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,10 +33,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ0_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="0.00,100.00 0.00,100.00"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" allow="rail" speed="13.89" length="10.16" shape="208.28,100.00 198.12,100.00"/>
+        <lane id=":gneJ1_0_0" index="0" allow="rail" speed="13.89" length="60.16" shape="208.28,100.00 198.12,100.00 148.12,100.00"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" allow="rail" speed="13.89" length="10.19" shape="207.40,96.30 204.77,97.82 202.96,98.99 201.05,99.74 198.12,100.00"/>
+        <lane id=":gneJ1_1_0" index="0" allow="rail" speed="13.89" length="60.19" shape="207.40,96.30 204.77,97.82 202.96,98.99 201.05,99.74 198.12,100.00 148.12,100.00"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
         <lane id=":gneJ1_2_0" index="0" allow="rail" speed="13.89" length="60.19" shape="148.12,100.00 198.12,100.00 201.05,99.74 202.96,98.99 204.77,97.82 207.40,96.30"/>

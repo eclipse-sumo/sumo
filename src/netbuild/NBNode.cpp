@@ -726,6 +726,10 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         beg.append(ret);
         ret = beg;
     }
+    if (con.toEdge->isBidiRail() && con.toEdge->getTurnDestination(true)->getEndOffset() > 0) {
+        PositionVector end = toShape.getSubpart(0,con.toEdge->getTurnDestination(true)->getEndOffset());
+        ret.append(end);
+    }
     return ret;
 }
 
