@@ -2541,6 +2541,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getProhibitionFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getProhibitionFrame();
             myNetworkCheckableButtons.prohibitionButton->setChecked(true);
+            // hide toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
         default:
             break;
@@ -2582,18 +2584,24 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
             myCommonCheckableButtons.inspectButton->setChecked(true);
+            // hide toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
         case GNE_DMODE_DELETE:
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
             myCommonCheckableButtons.deleteButton->setChecked(true);
+            // hide toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
         case GNE_DMODE_SELECT:
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
             myCommonCheckableButtons.selectButton->setChecked(true);
+            // hide toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
         // specific modes
         case GNE_DMODE_ROUTES:
@@ -2601,6 +2609,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getRouteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getRouteFrame();
             myDemandCheckableButtons.routeButton->setChecked(true);
+            // hide toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
         default:
             break;
@@ -3704,18 +3714,6 @@ GNEViewNet::EditMoves::EditMoves(GNEViewNet* viewNet) :
 }
 
 
-GNEViewNet::EditMoves::~EditMoves() {
-    // destroy and delete network button
-    networkButton->destroy();
-    delete networkButton;
-    // destroy and delete demand button
-    demandButton->destroy();
-    delete demandButton;
-    // hide menu bar modes
-    myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().modes->hide();
-}
-
-
 void
 GNEViewNet::EditMoves::buildSuperModeButtons() {
     // create buttons
@@ -3958,8 +3956,8 @@ GNEViewNet::CommonCheckableButtons::CommonCheckableButtons(GNEViewNet* viewNet) 
     inspectButton(nullptr),
     deleteButton(nullptr),
     selectButton(nullptr),
-    myViewNet(viewNet)
-{ }
+    myViewNet(viewNet) {
+}
 
 
 void
@@ -4016,16 +4014,8 @@ GNEViewNet::CommonCheckableButtons::updateCommonCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNet::NetworkCheckableButtons::NetworkCheckableButtons(GNEViewNet* viewNet) : 
-    createEdgeButton(nullptr),
-    moveButton(nullptr),
-    connectionButton(nullptr),
-    trafficLightButton(nullptr),
-    additionalButton(nullptr),
-    crossingButton(nullptr),
-    shapeButton(nullptr),
-    prohibitionButton(nullptr),
-    myViewNet(viewNet)
-{ }
+    myViewNet(viewNet) {
+}
 
 
 void
@@ -4132,8 +4122,8 @@ GNEViewNet::NetworkCheckableButtons::updateNetworkCheckableButtons() {
 
 GNEViewNet::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* viewNet) : 
     routeButton(nullptr),
-    myViewNet(viewNet)
-{ }
+    myViewNet(viewNet) { 
+}
 
 
 void 

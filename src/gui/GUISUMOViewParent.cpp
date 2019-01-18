@@ -114,7 +114,7 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
     }
     myView->buildViewToolBars(*this);
     if (myParent->isGaming()) {
-        myNavigationToolBar->hide();
+        myStaticNavigationToolBar->hide();
     }
     return myView;
 }
@@ -128,9 +128,9 @@ GUISUMOViewParent::~GUISUMOViewParent() {
 void
 GUISUMOViewParent::setToolBarVisibility(const bool value) {
     if (value) {
-        myNavigationToolBar->show();
+        myStaticNavigationToolBar->show();
     } else {
-        myNavigationToolBar->hide();
+        myStaticNavigationToolBar->hide();
     }
 }
 

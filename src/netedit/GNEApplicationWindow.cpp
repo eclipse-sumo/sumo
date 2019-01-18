@@ -198,12 +198,17 @@ GNEApplicationWindow::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow *GNEAppWin
 
 
 void
-GNEApplicationWindow::ToolbarsGrip::buildToolbarsGrips() {
+GNEApplicationWindow::ToolbarsGrip::buildMenuToolbarsGrip() {
     // build menu bar (for File, edit, processing...) using specify design
     myToolBarShellMenu = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
     menu = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
     // declare toolbar grip for menu bar
     new FXToolBarGrip(menu, menu, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+}
+
+
+void
+GNEApplicationWindow::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build menu bar for supermodes (next to menu bar)
     myToolBarShellSuperModes = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
     superModes = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
@@ -224,22 +229,35 @@ GNEApplicationWindow::ToolbarsGrip::buildToolbarsGrips() {
     modeOptions = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modeOptions, modeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // create menu bars
+    superModes->create();
+    navigation->create();
+    modes->create();
+    modeOptions->create();
+    // create shell supermodes
+    myToolBarShellSuperModes->create();
+    myToolBarShellNavigation->create();
+    myToolBarShellModes->create();
+    myToolBarShellModeOptions->create();
+    // recalc top dop after creating elements
+    myGNEAppWindows->myTopDock->recalc();
 }
 
 
-void 
-GNEApplicationWindow::ToolbarsGrip::showToolbarGrips() const {
-    navigation->show();
-    superModes->show();
-    modeOptions->show();
-}
-
-
-void 
-GNEApplicationWindow::ToolbarsGrip::hideToolbarGrips() const {
-    navigation->hide();
-    superModes->hide();
-    modeOptions->hide();
+void
+GNEApplicationWindow::ToolbarsGrip::destroyParentToolbarsGrips() {
+    // delete Menu bars
+    delete superModes;
+    delete navigation;
+    delete modes;
+    delete modeOptions;
+    // also delete toolbar shells to avoid floating windows
+    delete myToolBarShellSuperModes;
+    delete myToolBarShellNavigation;
+    delete myToolBarShellModes;
+    delete myToolBarShellModeOptions;
+    // recalc top dop after deleting elements
+    myGNEAppWindows->myTopDock->recalc();
 }
 
 // ===========================================================================
@@ -280,10 +298,8 @@ GNEApplicationWindow::dependentBuild() {
     hadDependentBuild = true;
     setTarget(this);
     setSelector(MID_WINDOW);
-    // build toolbar grips
-    myToolbarsGrip.buildToolbarsGrips();
-    // hide toolbars grid (because there isn't a net)
-    myToolbarsGrip.hideToolbarGrips();
+    // build toolbar menu
+    myToolbarsGrip.buildMenuToolbarsGrip();
     // build the thread - io
     myLoadThreadEvent.setTarget(this),  myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
     // build the status bar
@@ -938,6 +954,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // report success
         setStatusBarText("'" + ec->myFile + "' loaded.");
         setWindowSizeAndPos();
+        // build viewparent toolbar grips before creating view parent
+        myToolbarsGrip.buildViewParentToolbarsGrips();
         // initialise NETEDIT View
         GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
@@ -1342,8 +1360,8 @@ GNEApplicationWindow::getUndoList() {
 }
 
 
-const GNEApplicationWindow::ToolbarsGrip&
-GNEApplicationWindow::getToolbarsGrip() const {
+GNEApplicationWindow::ToolbarsGrip&
+GNEApplicationWindow::getToolbarsGrip() {
     return myToolbarsGrip;
 }
 

@@ -67,14 +67,14 @@ public:
         /// @brief constructor
         ToolbarsGrip(GNEApplicationWindow *GNEAppWindows);
         
+        /// @brief build menu toolbar grips
+        void buildMenuToolbarsGrip();
+
         /// @brief build toolbars grips
-        void buildToolbarsGrips();
+        void buildViewParentToolbarsGrips();
 
-        /// @brief show toolbar grips
-        void showToolbarGrips() const;
-
-        /// @brief hide toolbar grips (except menu, that always it's been shown)
-        void hideToolbarGrips() const;
+        /// @brief build toolbars grips
+        void destroyParentToolbarsGrips();
 
         /// @brief The application menu bar (for file, edit, processing...)
         FXMenuBar* menu;
@@ -342,7 +342,7 @@ public:
     GNEUndoList* getUndoList();
 
     /// @brief get ToolbarsGrip
-    const ToolbarsGrip &getToolbarsGrip() const;
+    ToolbarsGrip &getToolbarsGrip();
 
     /// @brief update control contents after undo/redo or recompute
     void updateControls();

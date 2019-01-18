@@ -275,9 +275,6 @@ public:
 
         /// @brief default constructor
         EditMoves(GNEViewNet* viewNet);
-        
-        /// @brief destructor
-        ~EditMoves();
 
         /// @brief build checkable buttons
         void buildSuperModeButtons();
