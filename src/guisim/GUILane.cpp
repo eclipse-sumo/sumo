@@ -533,7 +533,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         // draw lane
         // check whether it is not too small
         if (s.scale * exaggeration < 1. && junctionExaggeration == 1 && s.junctionSize.minSize != 0) {
-            if (!isInternal) {
+            if (!isInternal || hasRailSignal) {
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawLine(myShape, myShapeColors);
                 } else {
