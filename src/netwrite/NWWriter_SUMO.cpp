@@ -456,9 +456,6 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     } else if (speed < 0) {
         throw ProcessError("Negative allowed speed (" + toString(speed) + ") on lane '" + lID + "', use --speed.minimum to prevent this.");
     }
-    if (endOffset > 0) {
-        length = length - endOffset;
-    }
     into.writeAttr(SUMO_ATTR_SPEED, speed);
     into.writeAttr(SUMO_ATTR_LENGTH, length);
     if (endOffset != NBEdge::UNSPECIFIED_OFFSET) {

@@ -3584,7 +3584,12 @@ NBEdge::getFinalLength() const {
         geom.push_front_noDoublePos(getFromNode()->getCenter());
         result = geom.length();
     }
-    return MAX2(result, POSITION_EPS);
+    double avgEndOffset = 0;
+    for (const Lane& lane : myLanes) {
+        avgEndOffset += lane.endOffset;
+    }
+    avgEndOffset /= myLanes.size();
+    return MAX2(result - avgEndOffset, POSITION_EPS);
 }
 
 void
