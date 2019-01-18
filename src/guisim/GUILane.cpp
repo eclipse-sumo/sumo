@@ -543,29 +543,35 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
-            if (hiddenBidi) {
+            const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myEdge->getBidiEdge() != nullptr;
+            if (hiddenBidi && !spreadSuperposed) {
                 // do not draw shape
-            } else if (drawAsRailway(s)) {
+            } else if (drawAsRailway(s) && (!s.drawForSelecting || spreadSuperposed)) {
                 // draw as railway: assume standard gauge of 1435mm when lane width is not set
                 // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
                 // assume crosstie length of 181% gauge (2600mm for standard gauge)
+                PositionVector shape = myShape;
                 const double width = myWidth;
-                const double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
+                double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
+                if (spreadSuperposed) {
+                    shape.move2side(halfGauge * 0.8);
+                    halfGauge *= 0.4;
+                }
                 const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
                 const double halfRailWidth = halfInnerFeetWidth + 0.15 * exaggeration;
                 const double halfCrossTieWidth = halfGauge * 1.81;
                 if (myShapeColors.size() > 0) {
-                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
+                    GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
                 } else {
-                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfRailWidth);
+                    GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfRailWidth);
                 }
                 // Draw white on top with reduced width (the area between the two tracks)
                 if (detailZoom) {
                     glColor3d(1, 1, 1);
                     glTranslated(0, 0, .1);
-                    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
+                    GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
                     setColor(s);
-                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
+                    GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForSelecting);
                 }
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
@@ -623,7 +629,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             glColor3d(0.3, 0.3, 0.3);
                         }
                         if (!isCrossing || s.drawCrossingsAndWalkingareas) {
-                            drawDirectionIndicators(exaggeration);
+                            drawDirectionIndicators(exaggeration, spreadSuperposed);
                         }
                     }
                     if ((!isInternal || isCrossing)) {
@@ -757,13 +763,15 @@ GUILane::drawBikeMarkings() const {
 }
 
 void
-GUILane::drawDirectionIndicators(double exaggeration) const {
+GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     int e = (int) getShape().size() - 1;
-    const double w = MAX2(POSITION_EPS, myWidth);
-    const double w2 = MAX2(POSITION_EPS, myHalfLaneWidth);
-    const double w4 = MAX2(POSITION_EPS, myQuarterLaneWidth);
+    const double widthFactor = spreadSuperposed ? 0.4 : 1;
+    const double w = MAX2(POSITION_EPS, myWidth * widthFactor);
+    const double w2 = MAX2(POSITION_EPS, myHalfLaneWidth * widthFactor);
+    const double w4 = MAX2(POSITION_EPS, myQuarterLaneWidth * widthFactor);
+    const double sideOffset = spreadSuperposed ? w * -0.5 : 0;
     for (int i = 0; i < e; ++i) {
         glPushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
@@ -771,9 +779,9 @@ GUILane::drawDirectionIndicators(double exaggeration) const {
         for (double t = 0; t < myShapeLengths[i]; t += w) {
             const double length = MIN2(w2, myShapeLengths[i] - t) * exaggeration;
             glBegin(GL_TRIANGLES);
-            glVertex2d(0, -t - length);
-            glVertex2d(-w4 * exaggeration, -t);
-            glVertex2d(+w4 * exaggeration, -t);
+            glVertex2d(sideOffset, -t - length);
+            glVertex2d(sideOffset - w4 * exaggeration, -t);
+            glVertex2d(sideOffset + w4 * exaggeration, -t);
             glEnd();
         }
         glPopMatrix();
@@ -1242,7 +1250,7 @@ GUILane::getScaleValue(int activeScheme) const {
 
 bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myPermissions) && s.showRails && !s.drawForSelecting;
+    return isRailway(myPermissions) && s.showRails && (!s.drawForSelecting || s.spreadSuperposed);
 }
 
 

@@ -221,7 +221,7 @@ public:
     void drawBikeMarkings() const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(double exaggeration) const;
+    void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
 
     /// @brief draw intersection positions of foe internal lanes with this one
     void debugDrawFoeIntersections() const;
