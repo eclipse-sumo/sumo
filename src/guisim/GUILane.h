@@ -263,6 +263,10 @@ public:
      */
     bool setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme=-1) const;
 
+    /// @brief whether to draw this lane as a railway
+    bool drawAsRailway(const GUIVisualizationSettings& s) const;
+
+
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     void swapAfterLaneChange(SUMOTime t);
@@ -309,9 +313,6 @@ private:
 
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;
-
-    /// @brief whether to draw this lane as a railway
-    bool drawAsRailway(const GUIVisualizationSettings& s) const;
 
     /// @brief whether to draw this lane as a waterway
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
