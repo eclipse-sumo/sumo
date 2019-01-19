@@ -52,7 +52,7 @@ GNEDetectorE1::isAdditionalValid() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return fabs(myPositionOverLane) <= myLane->getParentEdge().getNBEdge()->getFinalLength();
     }
 }
 
@@ -61,11 +61,12 @@ std::string
 GNEDetectorE1::getAdditionalProblem() const {
     // declare variable for error position 
     std::string errorPosition;
+    const double len = myLane->getParentEdge().getNBEdge()->getFinalLength();
     // check positions over lane
-    if (myPositionOverLane < 0) {
+    if (myPositionOverLane < -len ) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
     }
-    if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+    if (myPositionOverLane > len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
     }
     return errorPosition;
@@ -90,7 +91,11 @@ GNEDetectorE1::moveGeometry(const Position& offset) {
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
+    const bool storeNegative = myPositionOverLane < 0;
     myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
+    if (storeNegative) {
+        myPositionOverLane -= myLane->getParentEdge().getNBEdge()->getFinalLength();
+    }
     // Update geometry
     updateGeometry(false);
 }
@@ -116,8 +121,7 @@ GNEDetectorE1::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // obtain position over lane
-    double fixedPositionOverLane = myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength() ? myLane->getParentEdge().getNBEdge()->getFinalLength() : myPositionOverLane < 0 ? 0 : myPositionOverLane;
-    myGeometry.shape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor()));
+    myGeometry.shape.push_back(getPositionInView());
 
     // Obtain first position
     Position f = myGeometry.shape[0] - Position(1, 0);
@@ -126,7 +130,7 @@ GNEDetectorE1::updateGeometry(bool updateGrid) {
     Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
+    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
@@ -324,7 +328,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return canParse<double>(value);
+            return canParse<double>(value) && fabs(parse<double>(value)) < myLane->getParentEdge().getNBEdge()->getFinalLength();
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_NAME:

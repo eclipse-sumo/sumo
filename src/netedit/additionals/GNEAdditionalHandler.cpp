@@ -2491,7 +2491,7 @@ GNEAdditionalHandler::fixStoppinPlacePosition(std::string& startPos, std::string
 
 
 bool GNEAdditionalHandler::checkAndFixDetectorPosition(double& pos, const double laneLength, const bool friendlyPos) {
-    if ((pos < 0) || (pos > laneLength)) {
+    if (fabs(pos) > laneLength) {
         if (!friendlyPos) {
             return false;
         } else if (pos < 0) {
