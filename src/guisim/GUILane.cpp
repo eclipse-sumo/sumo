@@ -543,7 +543,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
-            const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myEdge->getBidiEdge() != nullptr;
+            const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr && drawAsRailway(s);
             if (hiddenBidi && !spreadSuperposed) {
                 // do not draw shape
             } else if (drawAsRailway(s) && (!s.drawForSelecting || spreadSuperposed)) {
