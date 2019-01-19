@@ -211,7 +211,7 @@ protected:
     std::map<MSLane*, std::vector<const MSLane*> > mySucceedingBlocks;
 
     /// A map of lanes to links of approaching vehicles of succeeding blocks
-    std::map<const MSLane*, const MSLink*> mySucceedingBlocksIncommingLinks;
+    std::map<const MSLane*, std::vector<const MSLink*> > mySucceedingBlocksIncomingLinks;
 
 
 protected:

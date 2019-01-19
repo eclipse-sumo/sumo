@@ -128,6 +128,11 @@ MSRailSignal::init(NLDetectorBuilder&) {
             if (std::find(myOutgoingLanes.begin(), myOutgoingLanes.end(), toLane) == myOutgoingLanes.end()) { //if toLane was not already contained in myOutgoingLanes
                 myOutgoingLanes.push_back(toLane);
                 std::vector<const MSLane*> succeedingBlock;   //the vector of lanes leading to the next rail signal
+                for (const auto& ili : toLane->getIncomingLanes()) {
+                    if (ili.lane->isInternal()) {
+                        succeedingBlock.push_back(ili.lane);
+                    }
+                }
                 succeedingBlock.push_back(toLane);
                 currentLane = toLane;
                 bool noRailSignalLocal = true;   //true if the considered lane is not ending at a rail signal
@@ -147,9 +152,9 @@ MSRailSignal::init(NLDetectorBuilder&) {
                         //get the next lane
                         std::vector<const MSLane*> outGoingLanes;
                         // ignore outgoing lanes for non-rail classes
-                        for (auto it : currentLane->getOutgoingViaLanes()) {
-                            if ((it.first->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-                                outGoingLanes.push_back(it.first);
+                        for (MSLink* link : currentLane->getLinkCont()) {
+                            if ((link->getLane()->getPermissions() & SVC_RAIL_CLASSES) != 0 && link->getDirection() != LINKDIR_TURN) {
+                                outGoingLanes.push_back(link->getLane());
                             }
                         }
                         if (outGoingLanes.size() == 0) {    //if the current lane has no outgoing lanes (deadend)
@@ -188,29 +193,51 @@ MSRailSignal::init(NLDetectorBuilder&) {
 #endif
 
 
-    for (std::map<MSLane*, std::vector<const MSLane*> >::iterator it = mySucceedingBlocks.begin(); it != mySucceedingBlocks.end(); it++) {
-        std::queue<const MSLane*> revLanes;
-        for (std::vector<const MSLane*>::iterator laneIt = it->second.begin(); laneIt != it->second.end(); laneIt++) {
-            const MSLane* lane = *laneIt;
-
+    for (auto& item : mySucceedingBlocks) {
+        MSLane* out = item.first; 
+        std::vector<const MSLane*> forwardSuccessors = item.second;
+        std::vector<const MSLane*>& succeedingBlock = item.second;
+        for (const MSLane* lane : forwardSuccessors) {
             const MSEdge* reverseEdge = lane->getEdge().getBidiEdge();
             if (reverseEdge != nullptr) {
                 const MSLane* revLane = reverseEdge->getLanes()[0];
-                revLanes.push(revLane);
-                const MSLane* pred = revLane->getCanonicalPredecessorLane();
-                if (pred != nullptr) {
-                    const MSLink* msLink = pred->getLinkTo(revLane);
-                    mySucceedingBlocksIncommingLinks[lane] = msLink;
+                succeedingBlock.push_back(revLane);
+                for (const auto& ili : revLane->getIncomingLanes()) {
+                    succeedingBlock.push_back(ili.lane);
+                }
+                const MSJunction* to = lane->getEdge().getToJunction();
+                if (to != out->getEdge().getFromJunction()) {
+                    // no loops
+                    if (to->getType() == NODETYPE_RAIL_SIGNAL || to->getType() == NODETYPE_TRAFFIC_LIGHT) {
+                        // find all entry links that appproach revLane
+                        for (MSLane* internal : to->getInternalLanes()) {
+                            for (const auto& ili : internal->getIncomingLanes()) {
+                                if (ili.viaLink->getLane() == revLane) {
+                                    mySucceedingBlocksIncomingLinks[out].push_back(ili.viaLink);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-
-        while (!revLanes.empty()) {
-            const MSLane* revLane = revLanes.front();
-            it->second.push_back(revLane);
-            revLanes.pop();
+    }
+#ifdef DEBUG_SUCCEEDINGBLOCKS
+    if (DEBUG_COND) {
+        std::cout << " mySucceedingBlocks with bidi:\n";
+        for (auto item : mySucceedingBlocks) {
+            std::cout << "   toLane=" << item.first->getID() << " succ=" << toString(item.second) << "\n";
+        }
+        std::cout << " blockIncomingLinks:\n";
+        for (auto item : mySucceedingBlocksIncomingLinks) {
+            std::cout << "   lane=" << item.first->getID() << " links=";
+            for (const MSLink* link : item.second) {
+                std::cout << link->getViaLaneOrLane()->getID() << " ";
+            }
+            std::cout << "\n";
         }
     }
+#endif
 
     updateCurrentPhase();   //check if this is necessary or if will be done already at another stage
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
@@ -258,11 +285,13 @@ MSRailSignal::getAppropriateState() {
             for (const MSLane* l : mySucceedingBlocks.at(lane)) {
                 std::cout << "   succ=" << l->getID() << " occ=" << !l->isEmpty() << "\n";
             }
-            auto itLink = mySucceedingBlocksIncommingLinks.find(lane);
-            if (itLink != mySucceedingBlocksIncommingLinks.end()) {
-                std::cout << "   incomingLink=" << itLink->second->getLaneBefore()->getID() << "->" << itLink->second->getLane()->getID() << "\n";
-                for (const auto& ap : itLink->second->getApproaching()) {
-                    std::cout << "     ap=" << ap.first->getID() << " asb=" << ap.second.arrivalSpeedBraking << "\n";
+            auto itLinks = mySucceedingBlocksIncomingLinks.find(lane);
+            if (itLinks != mySucceedingBlocksIncomingLinks.end()) {
+                for (const MSLink* l : itLinks->second) {
+                    std::cout << "   incomingLink=" << l->getLaneBefore()->getID() << "->" << l->getLane()->getID() << "\n";
+                    for (const auto& ap : l->getApproaching()) {
+                        std::cout << "     ap=" << ap.first->getID() << " asb=" << ap.second.arrivalSpeedBraking << "\n";
+                    }
                 }
             }
 
@@ -270,16 +299,17 @@ MSRailSignal::getAppropriateState() {
 #endif
         if (!succeedingBlockOccupied) {
             // check whether approaching vehicles reserve the block
-            std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
-            if (it != mySucceedingBlocksIncommingLinks.end()) {
-                for (auto apprIt : it->second->getApproaching()) {
-                    MSLink::ApproachingVehicleInformation info = apprIt.second;
-                    if (info.arrivalSpeedBraking > 0) {
-                        succeedingBlockOccupied = true;
-                        break;
+            const auto itLinks = mySucceedingBlocksIncomingLinks.find(lane);
+            if (itLinks != mySucceedingBlocksIncomingLinks.end()) {
+                for (const MSLink* l : itLinks->second) {
+                    for (auto apprIt : l->getApproaching()) {
+                        MSLink::ApproachingVehicleInformation info = apprIt.second;
+                        if (info.arrivalSpeedBraking > 0) {
+                            succeedingBlockOccupied = true;
+                            break;
+                        }
                     }
                 }
-
             }
         }
 
