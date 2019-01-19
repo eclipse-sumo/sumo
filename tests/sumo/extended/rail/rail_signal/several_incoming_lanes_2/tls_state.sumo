@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/14/16 16:02:16 by SUMO Version dev-SVN-r21978
+<!-- generated on Sat Jan 19 20:07:49 2019 by Eclipse SUMO Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,17 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
     <time>
         <end value="200"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -75,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="40.00" id="gneJ2" programID="0" phase="0" state="rrG"/>
     <tlsState time="41.00" id="gneJ2" programID="0" phase="0" state="rrG"/>
     <tlsState time="42.00" id="gneJ2" programID="0" phase="0" state="rrG"/>
-    <tlsState time="43.00" id="gneJ2" programID="0" phase="0" state="rrG"/>
+    <tlsState time="43.00" id="gneJ2" programID="0" phase="0" state="rrr"/>
     <tlsState time="44.00" id="gneJ2" programID="0" phase="0" state="rrr"/>
     <tlsState time="45.00" id="gneJ2" programID="0" phase="0" state="rrr"/>
     <tlsState time="46.00" id="gneJ2" programID="0" phase="0" state="rrr"/>
