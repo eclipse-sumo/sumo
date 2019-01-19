@@ -169,7 +169,7 @@ private:
      * @param[in] current The lane of which the predecessor should be returned
      * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
      */
-    MSLane* getPreviousLane(MSLane* current, int& furtherIndex) const;
+    MSLane* getPreviousLane(MSLane* current, int& routeIndex) const;
 
     /// @brief return the number of passengers
     int getNumPassengers() const;

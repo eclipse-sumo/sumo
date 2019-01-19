@@ -494,25 +494,26 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
 
 
 MSLane*
-GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
-    if (furtherIndex < (int)myFurtherLanes.size()) {
-        return myFurtherLanes[furtherIndex++];
-    } else {
-        const int routeIndex = (int)(getCurrentRouteEdge() - myRoute->begin());
-        int backIndex = furtherIndex + 1;
-        for (MSLane* l : myFurtherLanes) {
-            if (l->isInternal()) {
-                backIndex--;
+GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
+    if (current->isInternal()) {
+        return current->getIncomingLanes().front().lane;
+    }
+    if (routeIndex > 0) {
+        routeIndex--;
+        const MSEdge* prevNormal = myRoute->getEdges()[routeIndex];
+        for (MSLane* cand : prevNormal->getLanes()) {
+            for (MSLink* link : cand->getLinkCont()) {
+                if (link->getLane() == current) {
+                    if (link->getViaLane() != nullptr) {
+                        return link->getViaLane();
+                    } else {
+                        return const_cast<MSLane*>(link->getLaneBefore());
+                    }
+                }
             }
         }
-        if (routeIndex >= backIndex) {
-            furtherIndex++;
-            // could also look for the first lane that allows this vehicle class
-            // but this is probably not an issue for trains
-            return (*(getCurrentRouteEdge() - backIndex))->getLanes()[0];
-        }
-        return current;
     }
+    return current;
 }
 
 
@@ -546,10 +547,10 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     const double carriageLength = carriageLengthWithGap - carriageGap;
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
-    int furtherIndex = 0;
+    int routeIndex = getRoutePosition();
     // lane on which the carriage back is situated
     MSLane* backLane = myLane;
-    int backFurtherIndex = furtherIndex;
+    int backRouteIndex = routeIndex;
     // offsets of front and back
     double carriageOffset = myState.pos();
     double carriageBackOffset = myState.pos() - carriageLength;
@@ -563,7 +564,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     // draw individual carriages
     for (int i = 0; i < numCarriages; ++i) {
         while (carriageOffset < 0) {
-            MSLane* prev = getPreviousLane(lane, furtherIndex);
+            MSLane* prev = getPreviousLane(lane, routeIndex);
             if (prev != lane) {
                 carriageOffset += prev->getLength();
             } else {
@@ -573,7 +574,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
             lane = prev;
         }
         while (carriageBackOffset < 0) {
-            MSLane* prev = getPreviousLane(backLane, backFurtherIndex);
+            MSLane* prev = getPreviousLane(backLane, backRouteIndex);
             if (prev != backLane) {
                 carriageBackOffset += prev->getLength();
             } else {
