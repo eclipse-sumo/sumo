@@ -224,7 +224,8 @@ void
 TraCITestClient::commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData) {
     tcpip::Storage inMsg;
     try {
-        send_commandGetVariable(domID, varID, objID, addData);
+        createCommand(domID, varID, objID, addData);
+        mySocket->sendExact(myOutput);
         answerLog << std::endl << "-> Command sent: <GetVariable>:" << std::endl
                   << "  domID=" << domID << " varID=" << varID
                   << " objID=" << objID << std::endl;
@@ -262,7 +263,8 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
     if (msgS != "") {
         errorMsg(msg);
     }
-    send_commandSetValue(domID, varID, objID, tmp);
+    createCommand(domID, varID, objID, &tmp);
+    mySocket->sendExact(myOutput);
     answerLog << std::endl << "-> Command sent: <SetValue>:" << std::endl
               << "  domID=" << domID << " varID=" << varID
               << " objID=" << objID << std::endl;

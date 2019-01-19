@@ -55,10 +55,8 @@ public:
      */
     TraCIAPI();
 
-
     /// @brief Destructor
     ~TraCIAPI();
-
 
     /// @name Connection handling
     /// @{
@@ -97,6 +95,9 @@ public:
     libsumo::TraCIColor getColor(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     /// @}
 
+    const tcpip::Storage& getCommandStorage() const {
+        return myOutput;
+    }
 
     /** @class TraCIScopeWrapper
      * @brief An abstract interface for accessing type-dependent values
@@ -901,22 +902,14 @@ protected:
      */
     void send_commandSetOrder(int order) const;
 
-    /** @brief Sends a GetVariable request
-     * @param[in] domID The domain of the variable
+    /** @brief Sends a GetVariable / SetVariable request if mySocket is connected.
+     * Otherwise writes to myOutput only.
+     * @param[in] cmdID The command and domain of the variable
      * @param[in] varID The variable to retrieve
      * @param[in] objID The object to retrieve the variable from
      * @param[in] add Optional additional parameter
      */
-    void send_commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* add = 0) const;
-
-
-    /** @brief Sends a SetVariable request
-     * @param[in] domID The domain of the variable
-     * @param[in] varID The variable to set
-     * @param[in] objID The object to change
-     * @param[in] content The value of the variable
-     */
-    void send_commandSetValue(int domID, int varID, const std::string& objID, tcpip::Storage& content) const;
+    void createCommand(int cmdID, int varID, const std::string& objID, tcpip::Storage* add = nullptr) const;
 
 
     /** @brief Sends a SubscribeVariable request
@@ -943,10 +936,6 @@ protected:
     /// @}
 
 
-    void send_commandMoveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane,
-                              const double x, const double y, const double angle, const int keepRoute) const;
-
-
     /// @name Command sending methods
     /// @{
 
@@ -963,7 +952,8 @@ protected:
      */
     int check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType = -1, bool ignoreCommandId = false) const;
 
-    void processGET(tcpip::Storage& inMsg, int command, int expectedType, bool ignoreCommandId = false) const;
+    bool processGet(int command, int expectedType, bool ignoreCommandId = false);
+    bool processSet(int command);
     /// @}
 
     void readVariableSubscription(int cmdId, tcpip::Storage& inMsg);
@@ -986,10 +976,13 @@ protected:
     std::map<int, TraCIScopeWrapper*> myDomains;
     /// @brief The socket
     tcpip::Socket* mySocket;
+    /// @brief The reusable output storage
+    mutable tcpip::Storage myOutput;
+    /// @brief The reusable input storage
+    mutable tcpip::Storage myInput;
 };
 
 
 #endif
 
 /****************************************************************************/
-
