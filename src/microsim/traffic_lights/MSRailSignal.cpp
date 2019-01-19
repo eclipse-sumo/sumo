@@ -45,6 +45,7 @@
 #define MAX_SIGNAL_WARNINGS 10
 
 //#define DEBUG_SUCCEEDINGBLOCKS
+//#define DEBUG_SIGNALSTATE
 #define DEBUG_COND (getID() == "disabled")
 
 // ===========================================================================
@@ -237,6 +238,9 @@ MSRailSignal::trySwitch() {
 
 std::string
 MSRailSignal::getAppropriateState() {
+#ifdef DEBUG_SIGNALSTATE
+    if (DEBUG_COND) std::cout << SIMTIME << " getAppropriateState railSignal=" << getID() << "\n";
+#endif
     std::string state(myLinks.size(), 'G');   //the state of the phase definition (all signal are green)
     for (MSLane* lane : myOutgoingLanes) {
         //check if the succeeding block is used by a train
@@ -248,6 +252,22 @@ MSRailSignal::getAppropriateState() {
                 break;
             }
         }
+#ifdef DEBUG_SIGNALSTATE
+        if (DEBUG_COND) {
+            std::cout << " out=" << lane->getID() << "\n";
+            for (const MSLane* l : mySucceedingBlocks.at(lane)) {
+                std::cout << "   succ=" << l->getID() << " occ=" << !l->isEmpty() << "\n";
+            }
+            auto itLink = mySucceedingBlocksIncommingLinks.find(lane);
+            if (itLink != mySucceedingBlocksIncommingLinks.end()) {
+                std::cout << "   incomingLink=" << itLink->second->getLaneBefore()->getID() << "->" << itLink->second->getLane()->getID() << "\n";
+                for (const auto& ap : itLink->second->getApproaching()) {
+                    std::cout << "     ap=" << ap.first->getID() << " asb=" << ap.second.arrivalSpeedBraking << "\n";
+                }
+            }
+
+        }
+#endif
         if (!succeedingBlockOccupied) {
             // check whether approaching vehicles reserve the block
             std::map<const MSLane*, const MSLink*>::iterator it = mySucceedingBlocksIncommingLinks.find(lane);
