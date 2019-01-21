@@ -168,8 +168,9 @@ GNEStoppingPlace::fixStoppinPlacePosition(std::string& startPosStr, std::string&
     // obtain start and end position in double format
     double startPos = fabs(canParse<double>(startPosStr)? parse<double>(startPosStr) : 0);
     double endPos = fabs(parse<double>(endPosStr)? parse<double>(endPosStr) : laneLength);
+    double minLength = POSITION_EPS + 0.01;
     // return check stop pos (note: this is the same function of SUMORouteHandler::checkStopPos)
-    if (POSITION_EPS > laneLength) {
+    if (minLength > laneLength) {
         return false;
     }
     if (startPos < 0) {
@@ -178,26 +179,26 @@ GNEStoppingPlace::fixStoppinPlacePosition(std::string& startPosStr, std::string&
     if (endPos < 0) {
         endPos += laneLength;
     }
-    if (endPos < POSITION_EPS || endPos > laneLength) {
+    if (endPos < minLength || endPos > laneLength) {
         if (!friendlyPos) {
             return false;
         }
-        if (endPos < POSITION_EPS) {
-            endPos = POSITION_EPS;
+        if (endPos < minLength) {
+            endPos = minLength;
         }
         if (endPos > laneLength) {
             endPos = laneLength;
         }
     }
-    if (startPos < 0 || startPos > endPos - POSITION_EPS) {
+    if (startPos < 0 || startPos > endPos - minLength) {
         if (!friendlyPos) {
             return false;
         }
         if (startPos < 0) {
             startPos = 0;
         }
-        if (startPos > endPos - POSITION_EPS) {
-            startPos = endPos - POSITION_EPS;
+        if (startPos > endPos - minLength) {
+            startPos = endPos - minLength;
         }
     }
     startPosStr = toString(startPos);
