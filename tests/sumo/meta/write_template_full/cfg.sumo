@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jan 12 13:55:18 2019 by Eclipse SUMO Version v1_0_1+1015-8e01b2d
+<!-- generated on Mon Jan 21 11:42:12 2019 by Eclipse SUMO Version v1_0_1+0844-f7f8512451
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -80,6 +80,7 @@
 
     <processing>
         <step-method.ballistic value="false" type="BOOL" help="Whether to use ballistic method for the positional update of vehicles (default is a semi-implicit Euler method)."/>
+        <threads value="1" type="INT" help="Defines the number of threads for parallel simulation"/>
         <lateral-resolution value="-1" type="FLOAT" help="Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane"/>
         <route-steps value="200" synonymes="s" type="TIME" help="Load routes for the next number of seconds ahead"/>
         <no-internal-links value="false" type="BOOL" help="Disable (junction) internal links"/>
@@ -272,6 +273,7 @@
     <random_number>
         <random value="false" synonymes="abs-rand" type="BOOL" help="Initialises the random number generator with the current system time"/>
         <seed value="23423" synonymes="srand" type="INT" help="Initialises the random number generator with the given value"/>
+        <thread-rngs value="64" type="INT" help="Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations. This number should be at least as high as the number of threads. Simulations with the same seed and the same number of thread-rngs will produce the same result"/>
     </random_number>
 
     <gui_only>
@@ -287,7 +289,6 @@
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
     </gui_only>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jan 12 13:55:18 2019 by Eclipse SUMO Version v1_0_1+1015-8e01b2d
+<!-- generated on Mon Jan 21 11:42:12 2019 by Eclipse SUMO Version v1_0_1+0844-f7f8512451
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -203,6 +203,9 @@
     <processing>
         <!-- Whether to use ballistic method for the positional update of vehicles (default is a semi-implicit Euler method). -->
         <step-method.ballistic value="false" type="BOOL"/>
+
+        <!-- Defines the number of threads for parallel simulation -->
+        <threads value="1" type="INT"/>
 
         <!-- Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane -->
         <lateral-resolution value="-1" type="FLOAT"/>
@@ -696,6 +699,9 @@
         <!-- Initialises the random number generator with the given value -->
         <seed value="23423" synonymes="srand" type="INT"/>
 
+        <!-- Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations. This number should be at least as high as the number of threads. Simulations with the same seed and the same number of thread-rngs will produce the same result -->
+        <thread-rngs value="64" type="INT"/>
+
     </random_number>
 
     <gui_only>
@@ -734,9 +740,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
