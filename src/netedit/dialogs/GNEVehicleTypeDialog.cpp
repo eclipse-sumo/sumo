@@ -31,7 +31,7 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/demandElements/GNEVehicleType.h>
+#include <netedit/demandelements/GNEVehicleType.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEVehicleTypeDialog.h"
