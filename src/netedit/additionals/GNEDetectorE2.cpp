@@ -201,7 +201,17 @@ GNEDetectorE2::moveGeometry(const Position& offset) {
     double offsetLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false) - myLanes.front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
     // move geometry depending of number of lanes
     if(myLanes.size() == 1) {
-        myPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+        // calculate new position over lane
+        double newPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+        // obtain lane length
+        double laneLenght = myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()*getLane()->getLengthGeometryFactor();
+        if (newPositionOverLane < 0) {
+            myPositionOverLane = 0;
+        } else if (newPositionOverLane + myLength > laneLenght) {
+            myPositionOverLane = laneLenght - myLength;
+        } else {
+            myPositionOverLane = newPositionOverLane;
+        }
     } else {
         // calculate new start and end positions
         double newStartPosition = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
