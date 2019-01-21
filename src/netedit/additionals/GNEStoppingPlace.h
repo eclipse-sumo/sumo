@@ -64,6 +64,24 @@ public:
     void fixAdditionalProblem();
     /// @}
 
+    /**@brief check if the position of an stoppingPlace over a lane is valid (without modifications)
+    * @param[in] startPosStr Start position of stoppingPlace in string format
+    * @param[in] endPosStr End position of stoppingPlace in string format
+    * @param[in] laneLength Length of the lane
+    * @param[in] friendlyPos Attribute of stoppingPlace
+    * @return true if the stoppingPlace position is valid, false in otherweise
+    */
+    static bool checkStoppinPlacePosition(const std::string &startPosStr, const std::string &endPosStr, const double laneLength, const bool friendlyPos);
+
+    /**@brief check if the position of an stoppingPlace over a la can be fixed
+    * @param[in] startPosStr Start position of stoppingPlace in string format (note: it can be modified)
+    * @param[in] endPosStr End position of stoppingPlace in string format (note: it can be modified)
+    * @param[in] laneLength Length of the lane in which stopping place is placed
+    * @param[in] friendlyPos boolean attribute of stoppingPlace
+    * @return true if the stoppingPlace position was sucesfully fixed, false in other case
+    */
+    static bool fixStoppinPlacePosition(std::string& startPosStr, std::string& endPosStr, const double laneLength, const bool friendlyPos);
+
     /// @brief get Lane
     GNELane* getLane() const;
 
@@ -150,9 +168,6 @@ protected:
     /// @brief The position of the sign
     Position mySignPos;
 
-    /// @brief set geometry common to all stopping places
-    void setStoppingPlaceGeometry(double movingToSide);
-
     /// @brief circle width resolution for all stopping places
     static const double myCircleWidth;
 
@@ -164,6 +179,15 @@ protected:
 
     /// @brief text inner circle width resolution for all stopping places
     static const double myCircleInText;
+
+    /// @brief set geometry common to all stopping places
+    void setStoppingPlaceGeometry(double movingToSide);
+
+    /// @brief get start position over lane that is applicable to the shape
+    double getStartGeometryPositionOverLane() const;
+
+    /// @brief get end position over lane that is applicable to the shape
+    double getEndGeometryPositionOverLane() const;
 
 private:
     /// @brief set attribute after validation

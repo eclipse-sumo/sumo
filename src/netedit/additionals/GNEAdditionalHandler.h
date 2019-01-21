@@ -703,16 +703,6 @@ public:
      */
     double getPosition(double pos, GNELane& lane, bool friendlyPos, const std::string& additionalID);
 
-    /**@brief check if the position of an stoppingPlace over a lane is valid
-    * @param[in] startPos Start position of stoppingPlace
-    * @param[in] endPos End position of stoppingPlace
-    * @param[in] laneLength Length of the lane
-    * @param[in] minLength Min length of the stoppingPlace
-    * @param[in] friendlyPos Attribute of stoppingPlace
-    * @return true if the stoppingPlace position is valid, false in otherweise
-    */
-    static bool fixStoppinPlacePosition(std::string& startPos, std::string& endPos, const double laneLength, const double minLength, const bool friendlyPos);
-
     /**@brief check if the position of a detector over a lane is valid
     * @param[in] pos pos position of detector
     * @param[in] laneLength Length of the lane

@@ -253,32 +253,18 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_STARTPOS:
             if (value.empty()) {
                 return true;
+            } else if (canParse<double>(value)) {
+                return checkStoppinPlacePosition(value, myEndPosition, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
-                if (canParse<double>(value)) {
-                    if (canParse<double>(myEndPosition)) {
-                        // Check that new start Position is smaller that end position
-                        return (parse<double>(value) < parse<double>(myEndPosition));
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
+                return false;
             }
         case SUMO_ATTR_ENDPOS:
             if (value.empty()) {
                 return true;
+            } else if (canParse<double>(value)) {
+                return checkStoppinPlacePosition(myStartPosition, value, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
-                if (canParse<double>(value)) {
-                    if (canParse<double>(myStartPosition)) {
-                        // Check that new start Position is smaller that end position
-                        return (parse<double>(myStartPosition) < parse<double>(value));
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
+                return false;
             }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);

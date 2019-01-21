@@ -28,7 +28,6 @@
 #include <netedit/GNENet.h>
 #include <utils/options/OptionsCont.h>
 
-
 #include "GNEAdditionalHandler.h"
 #include "GNEBusStop.h"
 #include "GNEAccess.h"
@@ -813,7 +812,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // Write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
@@ -845,7 +844,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
@@ -911,7 +910,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
@@ -947,7 +946,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
             WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
-        } else if (!fixStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition)) {
+        } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
             WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
         } else {
@@ -2378,115 +2377,6 @@ GNEAdditionalHandler::getPosition(double pos, GNELane& lane, bool friendlyPos , 
         }
     }
     return pos;
-}
-
-
-bool
-GNEAdditionalHandler::fixStoppinPlacePosition(std::string& startPos, std::string& endPos, const double laneLength, const double minLength, const bool friendlyPos) {
-    // first check if startPos and endPos were defined
-    if (GNEAttributeCarrier::canParse<double>(startPos) && GNEAttributeCarrier::canParse<double>(endPos)) {
-        // first parse strings to numerical values
-        double startPosDouble = GNEAttributeCarrier::parse<double>(startPos);
-        double endPosDouble = GNEAttributeCarrier::parse<double>(endPos);
-
-        // fix both positions
-        if (minLength > laneLength) {
-            return false;
-        }
-        if (startPosDouble < 0) {
-            startPosDouble += laneLength;
-        }
-        if (endPosDouble < 0) {
-            endPosDouble += laneLength;
-        }
-        if ((endPosDouble < minLength) || (endPosDouble > laneLength)) {
-            if (!friendlyPos) {
-                return false;
-            }
-            if (endPosDouble < minLength) {
-                endPosDouble = minLength;
-            }
-            if (endPosDouble > laneLength) {
-                endPosDouble = laneLength;
-            }
-        }
-        if ((startPosDouble < 0) || (startPosDouble > (endPosDouble - minLength))) {
-            if (!friendlyPos) {
-                return false;
-            }
-            if (startPosDouble < 0) {
-                startPosDouble = 0;
-            }
-            if (startPosDouble > (endPosDouble - minLength)) {
-                startPosDouble = (endPosDouble - minLength);
-            }
-        }
-        // Modify original positions
-        startPos = toString(startPosDouble);
-        endPos = toString(endPosDouble);
-    } else if (GNEAttributeCarrier::canParse<double>(startPos)) {
-        // check that endPosition is valid
-        if (endPos.empty() || !GNEAttributeCarrier::canParse<double>(endPos)) {
-            // first parse to double only startPos
-            double startPosDouble = GNEAttributeCarrier::parse<double>(startPos);
-            // fix both positions
-            if (minLength > laneLength) {
-                return false;
-            }
-            if (startPosDouble < 0) {
-                startPosDouble += laneLength;
-            }
-            if ((startPosDouble < 0) || startPosDouble > (laneLength - minLength)) {
-                if (!friendlyPos) {
-                    return false;
-                }
-                if (startPosDouble < 0) {
-                    startPosDouble = 0;
-                }
-                if (startPosDouble > (laneLength - minLength)) {
-                    startPosDouble = (laneLength - minLength);
-                }
-            }
-            // Modify only start position
-            startPos = toString(startPosDouble);
-        } else {
-            return false;
-        }
-    } else if (GNEAttributeCarrier::canParse<double>(endPos)) {
-        // check that endPosition is valid
-        if (startPos.empty() || !GNEAttributeCarrier::canParse<double>(startPos)) {
-            // first parse to double only endPos
-            double endPosDouble = GNEAttributeCarrier::parse<double>(endPos);
-            // fix both positions
-            if (minLength > laneLength) {
-                return false;
-            }
-            if (endPosDouble < 0) {
-                endPosDouble += laneLength;
-            }
-            if ((endPosDouble < minLength) || (endPosDouble > laneLength)) {
-                if (!friendlyPos) {
-                    return false;
-                }
-                if (endPosDouble < minLength) {
-                    endPosDouble = minLength;
-                }
-                if (endPosDouble > laneLength) {
-                    endPosDouble = laneLength;
-                }
-            }
-            if (0 > (endPosDouble - minLength)) {
-                if (!friendlyPos) {
-                    return false;
-                }
-            }
-            // Modify only end position
-            endPos = toString(endPosDouble);
-        } else {
-            return false;
-        }
-    }
-    return true;
 }
 
 
