@@ -98,6 +98,9 @@ public:
     */
     static MSNet* init();
 
+    /// @brief initializes all RNGs
+    static void initRandomness();
+
 
 protected:
     /** @brief Loads a described subpart form the given list of files

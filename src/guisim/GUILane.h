@@ -30,7 +30,6 @@
 #include <utility>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -131,11 +130,11 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool executeMovements(SUMOTime t, std::vector<MSLane*>& into);
+    void executeMovements(const SUMOTime t);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool integrateNewVehicle(SUMOTime t);
+    void integrateNewVehicles();
     ///@}
 
 
@@ -347,7 +346,7 @@ private:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     /// @brief special color to signify alternative coloring scheme
     static const RGBColor MESO_USE_LANE_COLOR;

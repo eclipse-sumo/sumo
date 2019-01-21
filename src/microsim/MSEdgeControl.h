@@ -34,8 +34,14 @@
 #include <iostream>
 #include <list>
 #include <set>
+#include <queue>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
+
+#include <utils/foxtools/FXSynchQue.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXWorkerThread.h>
+#endif
 
 
 // ===========================================================================
@@ -121,9 +127,12 @@ public:
      *
      * @see MSLane::executeMovements
      * @see MSLane::integrateNewVehicle
-     * @todo When moving to parallel processing, the usage of myWithVehicles2Integrate would get insecure!!
      */
     void executeMovements(SUMOTime t);
+
+    void needsVehicleIntegration(MSLane* const l) {
+        myWithVehicles2Integrate.push_back(l);
+    }
     /// @}
 
 
@@ -135,7 +144,7 @@ public:
      *
      * @see MSEdge::changeLanes
      */
-    void changeLanes(SUMOTime t);
+    void changeLanes(const SUMOTime t);
 
 
     /** @brief Detect collisions
@@ -214,13 +223,19 @@ private:
     std::list<MSLane*> myActiveLanes;
 
     /// @brief A storage for lanes which shall be integrated because vehicles have moved onto them
-    std::vector<MSLane*> myWithVehicles2Integrate;
+    FXSynchQue<MSLane*, std::vector<MSLane*> > myWithVehicles2Integrate;
 
     /// @brief Lanes which changed the state without informing the control
     std::set<MSLane*, ComparatorNumericalIdLess> myChangedStateLanes;
 
     /// @brief The list of active (not empty) lanes
     std::vector<SUMOTime> myLastLaneChange;
+
+#ifdef HAVE_FOX
+    FXWorkerThread::Pool myThreadPool;
+#endif
+
+    std::priority_queue<std::pair<int, int> > myRNGLoad;
 
 private:
     /// @brief Copy constructor.

@@ -132,10 +132,14 @@ MSCFModel_SmartSK::stopSpeed(const MSVehicle* const veh, const double speed, dou
     return MAX2(getSpeedAfterMaxDecel(speed), MIN2(_vsafe(veh, gap, 0), maxNextSpeed(speed, veh)));
 }
 
+double
+MSCFModel_SmartSK::patchSpeedBeforeLC(const MSVehicle* veh, double /*vMin*/, double /*vMax*/) const {
+    return dawdle(veh->getSpeed(), veh->getRNG());
+}
 
 double
-MSCFModel_SmartSK::dawdle(double speed) const {
-    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
+MSCFModel_SmartSK::dawdle(double speed, std::mt19937* rng) const {
+    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand(rng)));
 }
 
 

@@ -24,8 +24,8 @@
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/FXSynchQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/geom/Position.h>
 #include <utils/gui/div/GUIMessageWindow.h>
@@ -375,7 +375,7 @@ protected:
     FXSplitter* myMainSplitter;
 
     /// @brief List of got requests
-    MFXEventQue<GUIEvent*> myEvents;
+    FXSynchQue<GUIEvent*> myEvents;
 
     /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;

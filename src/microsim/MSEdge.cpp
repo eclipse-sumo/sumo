@@ -187,6 +187,7 @@ MSEdge::closeBuilding() {
                 }
             }
         }
+        lane->checkBufferType();
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
     rebuildAllowedLanes();

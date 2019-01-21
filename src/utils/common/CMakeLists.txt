@@ -1,5 +1,4 @@
 set(utils_common_STAT_SRCS
-   AbstractMutex.h
    Command.h
    FileHelpers.cpp
    FileHelpers.h

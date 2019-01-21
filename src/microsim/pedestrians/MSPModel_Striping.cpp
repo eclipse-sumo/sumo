@@ -105,8 +105,9 @@ const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
 // ===========================================================================
 
 MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
-    myNumActivePedestrians(0) {
-    net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
+    myNumActivePedestrians(0),
+    myAmActive(false)
+{
     initWalkingAreaPaths(net);
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
@@ -125,11 +126,16 @@ MSPModel_Striping::~MSPModel_Striping() {
 
 PedestrianState*
 MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime) {
+    MSNet* net = MSNet::getInstance();
+    if (!myAmActive) {
+        net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
+        myAmActive = true;
+    }
     assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
     if (lane == nullptr) {
         std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
-                            + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
+                            + time2string(net->getCurrentTimeStep()) + ".";
         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
             WRITE_WARNING(error);
             return nullptr;

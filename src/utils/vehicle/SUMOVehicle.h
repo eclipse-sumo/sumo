@@ -386,6 +386,11 @@ public:
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const = 0;
 
+    /** @brief Returns the associated RNG for this vehicle
+    * @return The vehicle's associated RNG
+    */
+    virtual std::mt19937* getRNG() const = 0;
+
     /// @brief return the numerical ID which is only for internal usage
     //  (especially fast comparison in maps which need vehicles as keys)
     virtual NumericalID getNumericalID() const = 0;

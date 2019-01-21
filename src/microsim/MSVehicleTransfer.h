@@ -30,6 +30,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <utils/foxtools/FXSynchQue.h>
 
 
 // ===========================================================================
@@ -98,14 +99,8 @@ public:
     void checkInsertions(SUMOTime time);
 
 
-    /** @brief Checks whether stored vehicles are present
-     *
-     * @return whether any vehicles wait for transfer
-     */
-    bool hasPending() const;
-
     /** @brief Saves the current state into the given stream */
-    void saveState(OutputDevice& out) const;
+    void saveState(OutputDevice& out);
 
     /** @brief Loads one transfer vehicle state from the given descriptionn */
     void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc);
@@ -146,20 +141,16 @@ protected:
         VehicleInformation(SUMOTime t, MSVehicle* veh, SUMOTime proceedTime, bool parking)
             : myTransferTime(t), myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
 
+        /// @brief sort by vehicle ID for repeatable parallel simulation
+        bool operator<(const VehicleInformation& v2) const;
     };
 
 
-    /// @brief Definition of a container for vehicle information
-    typedef std::vector<VehicleInformation> VehicleInfVector;
-
     /// @brief The information about stored vehicles to move virtually
-    VehicleInfVector myVehicles;
+    FXSynchQue<VehicleInformation, std::vector<VehicleInformation> > myVehicles;
 
     /// @brief The static singleton-instance
     static MSVehicleTransfer* myInstance;
-
-    /// @brief an empty set for convenience
-    static const std::set<const MSVehicle*> myEmptyVehicleSet;
 
 };
 

@@ -30,7 +30,6 @@
 #include <algorithm>
 #include <functional>
 #include <fx.h>
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/SUMOTime.h>
 #include "GUIParameterTableItem.h"
@@ -197,7 +196,7 @@ public:
     /** @brief Updates all instances
      */
     static void updateAll() {
-        AbstractMutex::ScopedLocker locker(myGlobalContainerLock);
+        FXMutexLock locker(myGlobalContainerLock);
         std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GUIParameterTableWindow::updateTable));
     }
 
@@ -211,7 +210,7 @@ protected:
     void updateTable();
 
     /// @brief The mutex used to avoid concurrent updates of the instance container
-    static MFXMutex myGlobalContainerLock;
+    static FXMutex myGlobalContainerLock;
 
     /// @brief The container of items that shall be updated
     static std::vector<GUIParameterTableWindow*> myContainer;
@@ -233,7 +232,7 @@ private:
     unsigned myCurrentPos;
 
     /// @brief A lock assuring save updates in case of object deletion
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     /// @brief returns the number of parameters if obj is Parameterised and 0 otherwise
     static int numParams(const GUIGlObject* obj);

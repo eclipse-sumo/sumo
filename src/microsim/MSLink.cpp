@@ -343,9 +343,8 @@ MSLink::contIntersect(const MSLane* lane, const MSLane* foe) {
         return intersections.size() > 0;
     }
     return false;
-
-
 }
+
 
 void
 MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const double arrivalSpeed, const double leaveSpeed,
@@ -359,9 +358,9 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
         }
     }
 #endif
-    myApproachingVehicles.insert(std::make_pair(approaching,
+    myApproachingVehicles.emplace(approaching,
                                  ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
-                                         arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist)));
+                                         arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist));
 }
 
 
@@ -376,7 +375,7 @@ MSLink::setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInforma
         }
     }
 #endif
-    myApproachingVehicles.insert(std::make_pair(approaching, ai));
+    myApproachingVehicles.emplace(approaching, ai);
 }
 
 
@@ -567,7 +566,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                 && (ego == nullptr
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.first->getSpeed()
-                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand())
+                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
                 && blockedByFoe(it.first, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, sameTargetLane,
                                 impatience, decel, waitingTime, ego)) {
             if (collectFoes == nullptr) {
@@ -1056,7 +1055,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
 
             }
-            if (ego != nullptr) {
+            if (ego != nullptr && MSNet::getInstance()->hasPersons()) {
                 // check for crossing pedestrians (keep driving if already on top of the crossing
                 const double distToPeds = distToCrossing - MSPModel::SAFETY_GAP;
                 const double vehWidth = ego->getVehicleType().getWidth() + MSPModel::SAFETY_GAP; // + configurable safety gap

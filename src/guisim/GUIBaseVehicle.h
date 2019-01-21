@@ -29,8 +29,8 @@
 #include <vector>
 #include <set>
 #include <string>
+#include <fx.h>
 #include <utils/common/RGBColor.h>
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -340,7 +340,7 @@ protected:
 
 protected:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     /// @brief positions of seats in the vehicle (updated at every drawing step)
     mutable PositionVector mySeatPositions;

@@ -120,6 +120,9 @@ public:
     /// whether the simulationLoop is in the lane changing phase
     static bool gComputeLC;
 
+    /// how many threads to use for simulation
+    static int gNumSimThreads;
+
     /// treshold for warning about strong deceleration
     static double gEmergencyDecelWarningThreshold;
 

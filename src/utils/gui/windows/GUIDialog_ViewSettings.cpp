@@ -77,7 +77,7 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, MFXMutex* decalsLock) :
+GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", GUIDesignViewSettingsMainDialog),
     myParent(parent), mySettings(settings),
     myDecals(decals), myDecalsLock(decalsLock),

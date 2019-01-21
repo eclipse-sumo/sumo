@@ -34,7 +34,6 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/common/AbstractMutex.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -330,14 +329,14 @@ GUIContainer::getColorValue(int activeScheme) const {
 
 double
 GUIContainer::getEdgePos() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSContainer::getEdgePos();
 }
 
 
 Position
 GUIContainer::getPosition() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     if (getCurrentStageType() == WAITING && getEdge()->getPermissions() == SVC_SHIP) {
         MSLane* lane = getEdge()->getLanes().front();   //the most right lane of the water way
         PositionVector laneShape = lane->getShape();
@@ -349,21 +348,21 @@ GUIContainer::getPosition() const {
 
 double
 GUIContainer::getAngle() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSContainer::getAngle();
 }
 
 
 double
 GUIContainer::getWaitingSeconds() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSContainer::getWaitingSeconds();
 }
 
 
 double
 GUIContainer::getSpeed() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSContainer::getSpeed();
 }
 

@@ -30,10 +30,10 @@
 #include <vector>
 #include <map>
 #include <functional>
+#include <fx.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -66,7 +66,7 @@ public:
      */
     GLObjectValuePassConnector(GUIGlObject& o, ValueSource<T>* source, ValueRetriever<T>* retriever)
         : myObject(o), mySource(source), myRetriever(retriever) { /*, myIsInvalid(false) */
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         myContainer.push_back(this);
     }
 
@@ -89,7 +89,7 @@ public:
     /** @brief Updates all instances (passes values)
      */
     static void updateAll() {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GLObjectValuePassConnector<T>::passValue));
     }
 
@@ -97,7 +97,7 @@ public:
     /** @brief Deletes all instances
      */
     static void clear() {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         while (!myContainer.empty()) {
             delete(*myContainer.begin());
         }
@@ -111,7 +111,7 @@ public:
      * @param[in] o The object which shall no longer be asked for values
      */
     static void removeObject(GUIGlObject& o) {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         for (typename std::vector< GLObjectValuePassConnector<T>* >::iterator i = myContainer.begin(); i != myContainer.end();) {
             if ((*i)->myObject.getGlID() == o.getGlID()) {
                 i = myContainer.erase(i);
@@ -147,7 +147,7 @@ protected:
     ValueRetriever<T>* myRetriever;
 
     /// @brief The mutex used to avoid concurrent updates of the connectors container
-    static MFXMutex myLock;
+    static FXMutex myLock;
 
     /// @brief The container of items that shall be updated
     static std::vector< GLObjectValuePassConnector<T>* > myContainer;
@@ -167,7 +167,7 @@ private:
 template<typename T>
 std::vector< GLObjectValuePassConnector<T>* > GLObjectValuePassConnector<T>::myContainer;
 template<typename T>
-MFXMutex GLObjectValuePassConnector<T>::myLock;
+FXMutex GLObjectValuePassConnector<T>::myLock;
 
 
 #endif

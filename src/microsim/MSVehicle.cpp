@@ -1882,10 +1882,12 @@ MSVehicle::checkActionStep(const SUMOTime t) {
     return myActionStep;
 }
 
+
 void
 MSVehicle::resetActionOffset(const SUMOTime timeUntilNextAction) {
     myLastActionTime = MSNet::getInstance()->getCurrentTimeStep() + timeUntilNextAction;
 }
+
 
 void
 MSVehicle::updateActionOffset(const SUMOTime oldActionStepLength, const SUMOTime newActionStepLength) {
@@ -2008,7 +2010,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     double seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos;
     myNextTurn.first = seen;
     myNextTurn.second = LINKDIR_NODIR;
-    bool encounteredTurn = false;
+    bool encounteredTurn = (MSGlobals::gLateralResolution <= 0); // next turn is only needed for sublane
     double seenNonInternal = 0;
     double seenInternal = myLane->isInternal() ? seen : 0;
     double vLinkPass = MIN2(cfModel.estimateSpeedAfterDistance(seen, v, cfModel.getMaxAccel()), laneMaxV); // upper bound
@@ -2677,7 +2679,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
 }
 
 double
-MSVehicle::getDeltaPos(double accel) {
+MSVehicle::getDeltaPos(const double accel) const {
     double vNext = myState.mySpeed + ACCEL2SPEED(accel);
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // apply implicit Euler positional update
@@ -2699,7 +2701,7 @@ MSVehicle::getDeltaPos(double accel) {
 }
 
 void
-MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMinDist) {
+MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeMinDist) {
 
     // Speed limit due to zipper merging
     double vSafeZipper = std::numeric_limits<double>::max();
@@ -2709,8 +2711,8 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 
     // Get safe velocities from DriveProcessItems.
     assert(myLFLinkLanes.size() != 0 || isRemoteControlled());
-    for (DriveItemVector::iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
-        MSLink* link = (*i).myLink;
+    for (const DriveProcessItem& dpi : myLFLinkLanes) {
+        MSLink* const link = dpi.myLink;
 
 #ifdef DEBUG_EXEC_MOVE
         if (DEBUG_COND) {
@@ -2718,26 +2720,26 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                     << SIMTIME
                     << " veh=" << getID()
                     << " link=" << (link == 0 ? "NULL" : link->getViaLaneOrLane()->getID())
-                    << " req=" << (*i).mySetRequest
-                    << " vP=" << (*i).myVLinkPass
-                    << " vW=" << (*i).myVLinkWait
-                    << " d=" << (*i).myDistance
+                    << " req=" << dpi.mySetRequest
+                    << " vP=" << dpi.myVLinkPass
+                    << " vW=" << dpi.myVLinkWait
+                    << " d=" << dpi.myDistance
                     << "\n";
             gDebugFlag1 = true; // See MSLink_DEBUG_OPENED
         }
 #endif
 
         // the vehicle must change the lane on one of the next lanes (XXX: refs to code further below???, Leo)
-        if (link != nullptr && (*i).mySetRequest) {
+        if (link != nullptr && dpi.mySetRequest) {
 
             const LinkState ls = link->getState();
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
             const bool yellow = link->haveYellow();
-            const bool canBrake = ((*i).myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
+            const bool canBrake = (dpi.myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
                                    || (MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
             const bool ignoreRedLink = ignoreRed(link, canBrake);
             if (yellow && canBrake && !ignoreRedLink) {
-                vSafe = (*i).myVLinkWait;
+                vSafe = dpi.myVLinkWait;
                 myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
@@ -2750,19 +2752,19 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             const bool influencerPrio = (myInfluencer != nullptr && !myInfluencer->getRespectJunctionPriority());
             std::vector<const SUMOVehicle*> collectFoes;
             bool opened = (yellow || influencerPrio
-                           || link->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
-                                           getVehicleType().getLength(), 
+                           || link->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                                           getVehicleType().getLength(),
                                            canBrake ? getImpatience() : 1,
                                            getCarFollowModel().getMaxDecel(),
                                            getWaitingTime(), getLateralPositionOnLane(),
                                            ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
                                            ignoreRedLink, this));
             if (opened && getLaneChangeModel().getShadowLane() != nullptr) {
-                MSLink* parallelLink = (*i).myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+                MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != nullptr) {
                     const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
                                                     myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
-                    opened = yellow || influencerPrio || (opened & parallelLink->opened((*i).myArrivalTime, (*i).myArrivalSpeed, (*i).getLeaveSpeed(),
+                    opened = yellow || influencerPrio || (opened & parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                                           getVehicleType().getLength(), getImpatience(),
                                                           getCarFollowModel().getMaxDecel(),
                                                           getWaitingTime(), shadowLatPos, nullptr,
@@ -2795,9 +2797,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
 #endif
             if (opened && !influencerPrio && !link->havePriority() && !link->lastWasContMajor() && !link->isCont() && !ignoreRedLink) {
                 double visibilityDistance = link->getFoeVisibilityDistance();
-                double determinedFoePresence = i->myDistance <= visibilityDistance;
+                double determinedFoePresence = dpi.myDistance <= visibilityDistance;
                 if (!determinedFoePresence && (canBrake || !yellow)) {
-                    vSafe = (*i).myVLinkWait;
+                    vSafe = dpi.myVLinkWait;
                     myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                     if (DEBUG_COND) {
@@ -2820,11 +2822,11 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                     // XXX: There is a problem in subsecond simulation: If we cannot
                     // make it across the minor link in one step, new traffic
                     // could appear on a major foe link and cause a collision. Refs. #1845, #2123
-                    vSafeMinDist = i->myDistance; // distance that must be covered
+                    vSafeMinDist = dpi.myDistance; // distance that must be covered
                     if (MSGlobals::gSemiImplicitEulerUpdate) {
-                        vSafeMin = MIN2((double) DIST2SPEED(vSafeMinDist + POSITION_EPS), (*i).myVLinkPass);
+                        vSafeMin = MIN2((double) DIST2SPEED(vSafeMinDist + POSITION_EPS), dpi.myVLinkPass);
                     } else {
-                        vSafeMin = MIN2((double) DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), (*i).myVLinkPass);
+                        vSafeMin = MIN2((double) DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), dpi.myVLinkPass);
                     }
                     canBrakeVSafeMin = canBrake;
 #ifdef DEBUG_EXEC_MOVE
@@ -2836,8 +2838,8 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
             }
             // have waited; may pass if opened...
             if (opened) {
-                vSafe = (*i).myVLinkPass;
-                if (vSafe < getCarFollowModel().getMaxDecel() && vSafe <= (*i).myVLinkWait && vSafe < getCarFollowModel().maxNextSpeed(getSpeed(), this)) {
+                vSafe = dpi.myVLinkPass;
+                if (vSafe < getCarFollowModel().getMaxDecel() && vSafe <= dpi.myVLinkWait && vSafe < getCarFollowModel().maxNextSpeed(getSpeed(), this)) {
                     // this vehicle is probably not gonna drive across the next junction (heuristic)
                     myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
@@ -2848,9 +2850,9 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 }
             } else if (link->getState() == LINKSTATE_ZIPPER) {
                 vSafeZipper = MIN2(vSafeZipper,
-                                   link->getZipperSpeed(this, (*i).myDistance, (*i).myVLinkPass, (*i).myArrivalTime, &collectFoes));
+                                   link->getZipperSpeed(this, dpi.myDistance, dpi.myVLinkPass, dpi.myArrivalTime, &collectFoes));
             } else {
-                vSafe = (*i).myVLinkWait;
+                vSafe = dpi.myVLinkWait;
                 myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
                 if (DEBUG_COND) {
@@ -2880,7 +2882,7 @@ MSVehicle::processLinkAproaches(double& vSafe, double& vSafeMin, double& vSafeMi
                 myJunctionConflictEntryTime = SUMOTime_MAX;
             }
             // we have: i->link == 0 || !i->setRequest
-            vSafe = (*i).myVLinkWait;
+            vSafe = dpi.myVLinkWait;
             if (vSafe < getSpeed()) {
                 myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
@@ -3042,10 +3044,10 @@ MSVehicle::updateDriveItems() {
         DriveItemVector::iterator i;
         for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
             std::cout
-                    << " vPass=" << (*i).myVLinkPass
-                    << " vWait=" << (*i).myVLinkWait
-                    << " linkLane=" << ((*i).myLink == 0 ? "NULL" : (*i).myLink->getViaLaneOrLane()->getID())
-                    << " request=" << (*i).mySetRequest
+                    << " vPass=" << dpi.myVLinkPass
+                    << " vWait=" << dpi.myVLinkWait
+                    << " linkLane=" << (dpi.myLink == 0 ? "NULL" : dpi.myLink->getViaLaneOrLane()->getID())
+                    << " request=" << dpi.mySetRequest
                     << "\n";
         }
         std::cout << " myNextDriveItem's linked lane: " << (myNextDriveItem->myLink == 0 ? "NULL" : myNextDriveItem->myLink->getViaLaneOrLane()->getID()) << std::endl;
@@ -3177,10 +3179,10 @@ MSVehicle::updateDriveItems() {
         DriveItemVector::iterator i;
         for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
             std::cout
-                    << " vPass=" << (*i).myVLinkPass
-                    << " vWait=" << (*i).myVLinkWait
-                    << " linkLane=" << ((*i).myLink == 0 ? "NULL" : (*i).myLink->getViaLaneOrLane()->getID())
-                    << " request=" << (*i).mySetRequest
+                    << " vPass=" << dpi.myVLinkPass
+                    << " vWait=" << dpi.myVLinkWait
+                    << " linkLane=" << (dpi.myLink == 0 ? "NULL" : dpi.myLink->getViaLaneOrLane()->getID())
+                    << " request=" << dpi.mySetRequest
                     << "\n";
         }
     }
@@ -3418,7 +3420,7 @@ MSVehicle::executeMove() {
 
     if (myActionStep) {
         // Actuate control (i.e. choose bounds for safe speed in current simstep (euler), resp. after current sim step (ballistic))
-        processLinkAproaches(vSafe, vSafeMin, vSafeMinDist);
+        processLinkApproaches(vSafe, vSafeMin, vSafeMinDist);
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
         std::cout << SIMTIME << " vehicle '" << getID() << "'\n"
@@ -4054,7 +4056,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
     for (DriveProcessItem& dpi : myLFLinkLanes) {
         if (dpi.myLink != nullptr) {
             if (dpi.myLink->getState() == LINKSTATE_ALLWAY_STOP) {
-                dpi.myArrivalTime += (SUMOTime)RandHelper::rand((int)2); // tie braker
+                dpi.myArrivalTime += (SUMOTime)RandHelper::rand((int)2, getRNG()); // tie braker
             }
             dpi.myLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                         dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance);
@@ -4062,7 +4064,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
     }
     if (getLaneChangeModel().getShadowLane() != nullptr) {
         // register on all shadow links
-        for (DriveProcessItem& dpi : myLFLinkLanes) {
+        for (const DriveProcessItem& dpi : myLFLinkLanes) {
             if (dpi.myLink != nullptr) {
                 MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != nullptr) {
@@ -4688,6 +4690,9 @@ MSVehicle::updateOccupancyAndCurrentBestLane(const MSLane* startLane) {
             nextOccupation += (*j)->getBruttoVehLenSum();
         }
         (*i).nextOccupation = nextOccupation;
+#ifdef DEBUG_BESTLANES
+        if (DEBUG_COND) std::cout << "     lane=" << (*i).lane->getID() << " nextOccupation=" << nextOccupation << "\n";
+#endif
         if ((*i).lane == startLane) {
             myCurrentLaneInBestLanes = i;
         }
@@ -5127,11 +5132,12 @@ MSVehicle::getLateralOverlap() const {
     return getLateralOverlap(getLateralPositionOnLane());
 }
 
+
 void
-MSVehicle::removeApproachingInformation(DriveItemVector& lfLinks) const {
-    for (DriveItemVector::iterator i = lfLinks.begin(); i != lfLinks.end(); ++i) {
-        if ((*i).myLink != nullptr) {
-            (*i).myLink->removeApproaching(this);
+MSVehicle::removeApproachingInformation(const DriveItemVector& lfLinks) const {
+    for (const DriveProcessItem& dpi : lfLinks) {
+        if (dpi.myLink != nullptr) {
+            dpi.myLink->removeApproaching(this);
         }
     }
     // unregister on all shadow links

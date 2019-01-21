@@ -145,7 +145,7 @@ private:
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    virtual double dawdle(double speed) const;
+    virtual double dawdle(double speed, std::mt19937* rng) const;
 
 protected:
     /// @brief The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.

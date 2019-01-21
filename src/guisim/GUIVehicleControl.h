@@ -26,14 +26,9 @@
 #include <config.h>
 
 #include <vector>
+#include <fx.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class MFXMutex;
 
 
 // ===========================================================================
@@ -127,7 +122,7 @@ public:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 
 private:

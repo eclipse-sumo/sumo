@@ -33,7 +33,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXMutex;
 class MFXIconComboBox;
 
 
@@ -92,7 +91,7 @@ public:
     GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                            GUIVisualizationSettings* settings,
                            std::vector<GUISUMOAbstractView::Decal>* decals,
-                           MFXMutex* decalsLock);
+                           FXMutex* decalsLock);
 
 
     /// @brief Destructor
@@ -247,7 +246,7 @@ private:
     std::vector<GUISUMOAbstractView::Decal>* myDecals;
 
     /// @brief Lock used when changing the decals
-    MFXMutex* myDecalsLock;
+    FXMutex* myDecalsLock;
 
     /// @name Dialog elements
     /// @{

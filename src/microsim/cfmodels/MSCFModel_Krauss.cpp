@@ -58,7 +58,7 @@ MSCFModel_Krauss::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double v
     const double sigma = (veh->passingMinor()
                           ? veh->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_SIGMA_MINOR, myDawdle)
                           : myDawdle);
-    const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma));
+    const double vDawdle = MAX2(vMin, dawdle2(vMax, sigma, veh->getRNG()));
     return vDawdle;
 }
 
@@ -99,7 +99,7 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
 }
 
 double
-MSCFModel_Krauss::dawdle2(double speed, double sigma) const {
+MSCFModel_Krauss::dawdle2(double speed, double sigma, std::mt19937* rng) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.
@@ -109,7 +109,7 @@ MSCFModel_Krauss::dawdle2(double speed, double sigma) const {
         }
     }
     // generate random number out of [0,1)
-    const double random = RandHelper::rand();
+    const double random = RandHelper::rand(rng);
     // Dawdle.
     if (speed < myAccel) {
         // we should not prevent vehicles from driving just due to dawdling

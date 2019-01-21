@@ -27,11 +27,11 @@
 #include <vector>
 #include <set>
 #include <string>
+#include <fx.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
 #include <microsim/MSContainer.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
 
 
@@ -185,7 +185,7 @@ public:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     /// The position of a container while riding a vehicle
     Position myPositionInVehicle;

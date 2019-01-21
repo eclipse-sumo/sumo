@@ -461,6 +461,9 @@ private:
     /// @brief store of all lanes which have pedestrians on them
     ActiveLanes myActiveLanes;
 
+    /// @brief whether an event for pedestrian processing was added
+    bool myAmActive;
+
     /// @brief store for walkinArea elements
     static WalkingAreaPaths myWalkingAreaPaths;
     static MinNextLengths myMinNextLengths;

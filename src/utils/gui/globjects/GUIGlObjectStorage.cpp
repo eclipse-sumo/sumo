@@ -26,7 +26,7 @@
 #include <map>
 #include <iostream>
 #include <cassert>
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
 
@@ -49,7 +49,7 @@ GUIGlObjectStorage::~GUIGlObjectStorage() {}
 
 GUIGlID
 GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullName) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     GUIGlID id = myAktID++;
     myMap[id] = object;
     myFullNameMap[fullName] = object;
@@ -59,7 +59,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject* object, const std::string& fullN
 
 GUIGlObject*
 GUIGlObjectStorage::getObjectBlocking(GUIGlID id) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     ObjectMap::iterator i = myMap.find(id);
     if (i == myMap.end()) {
         i = myBlocked.find(id);
@@ -78,7 +78,7 @@ GUIGlObjectStorage::getObjectBlocking(GUIGlID id) {
 
 GUIGlObject*
 GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     if (myFullNameMap.count(fullName)) {
         GUIGlID id = myFullNameMap[fullName]->getGlID();
         return getObjectBlocking(id);
@@ -89,7 +89,7 @@ GUIGlObjectStorage::getObjectBlocking(const std::string& fullName) {
 
 bool
 GUIGlObjectStorage::remove(GUIGlID id) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     ObjectMap::iterator i = myMap.find(id);
     if (i == myMap.end()) {
         i = myBlocked.find(id);
@@ -108,7 +108,7 @@ GUIGlObjectStorage::remove(GUIGlID id) {
 
 void
 GUIGlObjectStorage::clear() {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     myMap.clear();
     myAktID = 0;
 }
@@ -116,7 +116,7 @@ GUIGlObjectStorage::clear() {
 
 void
 GUIGlObjectStorage::unblockObject(GUIGlID id) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     ObjectMap::iterator i = myBlocked.find(id);
     if (i == myBlocked.end()) {
         return;
@@ -129,7 +129,7 @@ GUIGlObjectStorage::unblockObject(GUIGlID id) {
 
 std::set<GUIGlID>
 GUIGlObjectStorage::getAllIDs() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     std::set<GUIGlID> result;
     for (ObjectMap::const_iterator it = myMap.begin(); it != myMap.end(); it++) {
         result.insert(it->first);

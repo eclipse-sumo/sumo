@@ -25,7 +25,7 @@
 
 #include <string>
 #include <utility>
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Position.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -80,7 +80,8 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
 #ifdef HAVE_OSG
     myGeom(0),
 #endif
-    myAmClosed(false) {
+    myAmClosed(false),
+    myLock(true) {
     if (MSGlobals::gUseMesoSim) {
         myShape = splitAtSegments(shape);
         assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
@@ -115,7 +116,7 @@ void
 GUILane::incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat,
                             const MSLane::VehCont::iterator& at,
                             MSMoveReminder::Notification notification) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSLane::incorporateVehicle(veh, pos, speed, posLat, at, notification);
 }
 
@@ -136,69 +137,69 @@ GUILane::releaseVehicles() const {
 
 void
 GUILane::planMovements(const SUMOTime t) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSLane::planMovements(t);
 }
 
 void
 GUILane::setJunctionApproaches(const SUMOTime t) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSLane::setJunctionApproaches(t);
 }
 
 
-bool
-GUILane::executeMovements(SUMOTime t, std::vector<MSLane*>& into) {
-    AbstractMutex::ScopedLocker locker(myLock);
-    return MSLane::executeMovements(t, into);
+void
+GUILane::executeMovements(const SUMOTime t) {
+    FXMutexLock locker(myLock);
+    MSLane::executeMovements(t);
 }
 
 
 MSVehicle*
 GUILane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSLane::removeVehicle(remVehicle, notification, notify);
 }
 
 
 void
 GUILane::removeParking(MSVehicle* remVehicle) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSLane::removeParking(remVehicle);
 }
 
 
 void
 GUILane::swapAfterLaneChange(SUMOTime t) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSLane::swapAfterLaneChange(t);
 }
 
 
-bool
-GUILane::integrateNewVehicle(SUMOTime t) {
-    AbstractMutex::ScopedLocker locker(myLock);
-    return MSLane::integrateNewVehicle(t);
+void
+GUILane::integrateNewVehicles() {
+    FXMutexLock locker(myLock);
+    MSLane::integrateNewVehicles();
 }
 
 
 void
 GUILane::detectCollisions(SUMOTime timestep, const std::string& stage) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSLane::detectCollisions(timestep, stage);
 }
 
 
 double
 GUILane::setPartialOccupation(MSVehicle* v) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSLane::setPartialOccupation(v);
 }
 
 
 void
 GUILane::resetPartialOccupation(MSVehicle* v) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSLane::resetPartialOccupation(v);
 }
 

@@ -30,7 +30,6 @@
 #include <set>
 #include <fx.h>
 #include "GUIGlObject.h"
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -167,7 +166,7 @@ private:
     GUIGlID myAktID;
 
     /// @brief A lock to avoid parallel access on the storages
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     /// @brief The network object
     GUIGlObject* myNetObject;

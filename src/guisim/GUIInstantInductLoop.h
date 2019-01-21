@@ -23,7 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #include <microsim/output/MSInstantInductLoop.h>
 #include <utils/geom/Position.h>
 #include "GUIDetectorWrapper.h"
@@ -135,7 +135,7 @@ public:
 
 
     /// @brief Mutex preventing parallel read/write access to internal MSInductLoop state
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 };
 

@@ -662,6 +662,15 @@ MSBaseVehicle::getSingularType() {
     return *type;
 }
 
+std::mt19937* 
+MSBaseVehicle::getRNG() const {
+    const MSLane* lane = getLane();
+    if (lane == nullptr) {
+        return getEdge()->getLanes()[0]->getRNG();
+    } else {
+        return lane->getRNG();
+    }
+}
 
 #ifdef _DEBUG
 void

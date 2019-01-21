@@ -35,7 +35,6 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/common/AbstractMutex.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -435,21 +434,21 @@ GUIPerson::getColorValue(int activeScheme) const {
 
 double
 GUIPerson::getEdgePos() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSPerson::getEdgePos();
 }
 
 
 Position
 GUIPerson::getPosition() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSPerson::getPosition();
 }
 
 
 Position
 GUIPerson::getGUIPosition() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle() && myPositionInVehicle != Position::INVALID) {
         return myPositionInVehicle;
     } else {
@@ -460,21 +459,21 @@ GUIPerson::getGUIPosition() const {
 
 double
 GUIPerson::getNaviDegree() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return GeomHelper::naviDegree(MSPerson::getAngle());
 }
 
 
 double
 GUIPerson::getWaitingSeconds() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSPerson::getWaitingSeconds();
 }
 
 
 double
 GUIPerson::getSpeed() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSPerson::getSpeed();
 }
 

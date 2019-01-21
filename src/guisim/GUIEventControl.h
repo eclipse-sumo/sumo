@@ -24,13 +24,8 @@
 // ===========================================================================
 #include <config.h>
 
+#include <fx.h>
 #include <microsim/MSEventControl.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class MFXMutex;
 
 
 // ===========================================================================
@@ -79,7 +74,7 @@ public:
 
 private:
     /// @brief The lock used to prohibit parallel addition and processing of events
-    MFXMutex myLock;
+    FXMutex myLock;
 
 
 private:

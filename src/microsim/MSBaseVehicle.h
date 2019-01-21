@@ -461,6 +461,9 @@ public:
         return false;
     }
 
+    /// @brief @return The vehicle's associated RNG
+    std::mt19937* getRNG() const;
+
     inline NumericalID getNumericalID() const {
         return myNumericalID;
     }

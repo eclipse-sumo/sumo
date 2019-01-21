@@ -53,7 +53,7 @@ FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, A
 // ===========================================================================
 // static value definitions
 // ===========================================================================
-MFXMutex GUIParameterTableWindow::myGlobalContainerLock;
+FXMutex GUIParameterTableWindow::myGlobalContainerLock;
 std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 
 // ===========================================================================
@@ -85,7 +85,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myLock.lock();
     myObject->addParameterTable(this);
     myLock.unlock();
-    AbstractMutex::ScopedLocker locker(myGlobalContainerLock);
+    FXMutexLock locker(myGlobalContainerLock);
     myContainer.push_back(this);
     // Table cannot be editable
     myTable->setEditable(FALSE);
@@ -102,7 +102,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
         myObject->removeParameterTable(this);
     }
     myLock.unlock();
-    AbstractMutex::ScopedLocker locker(myGlobalContainerLock);
+    FXMutexLock locker(myGlobalContainerLock);
     std::vector<GUIParameterTableWindow*>::iterator i = std::find(myContainer.begin(), myContainer.end(), this);
     if (i != myContainer.end()) {
         myContainer.erase(i);
@@ -112,7 +112,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
 
 void
 GUIParameterTableWindow::removeObject(GUIGlObject* /*i*/) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     myObject = nullptr;
 }
 
@@ -204,7 +204,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, long long int va
 
 void
 GUIParameterTableWindow::updateTable() {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     if (myObject == nullptr) {
         return;
     }

@@ -52,7 +52,6 @@
 class GUIMainWindow;
 class MSTrafficLightLogic;
 class GUITrafficLightLogicWrapper;
-class MFXMutex;
 
 
 // ===========================================================================
@@ -201,7 +200,7 @@ private:
     GUITLLogicPhasesTrackerPanel* myPanel;
 
     /// @brief A lock to avoid addition of new values while drawing
-    MFXMutex myLock;
+    FXMutex myLock;
 
     /** @brief The names of links
      *
@@ -250,4 +249,3 @@ protected:
 #endif
 
 /****************************************************************************/
-

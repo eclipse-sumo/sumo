@@ -18,6 +18,10 @@
 #ifndef FXWorkerThread_h
 #define FXWorkerThread_h
 
+#define WORKLOAD_PROFILING
+// at which interval report maximum workload of the threads, needs WORKLOAD_PROFILING
+// undefine to use summary report only
+#define WORKLOAD_INTERVAL 100
 
 // ===========================================================================
 // included modules
@@ -27,7 +31,11 @@
 #include <list>
 #include <vector>
 #include <fx.h>
-#include <FXThread.h>
+#ifdef WORKLOAD_PROFILING
+#include <chrono>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#endif
 
 
 // ===========================================================================
@@ -85,7 +93,20 @@ public:
          *
          * @param[in] numThreads the number of threads to create
          */
-        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0), myNumFinished(0) {
+        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0)
+#ifdef WORKLOAD_PROFILING
+        , myNumBatches(0), myTotalMaxLoad(0.), myTotalSpread(0.)
+#endif
+        {
+#ifdef WORKLOAD_PROFILING
+            long long int timeDiff = 0;
+            for (int i = 0; i < 100; i++) {
+                const auto begin = std::chrono::high_resolution_clock::now();
+                const auto end = std::chrono::high_resolution_clock::now();
+                timeDiff += std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count();
+            }
+            //std::cout << ("Average cost of a timing call (in ns): " + toString(timeDiff / 100.)) << std::endl;
+#endif
             while (numThreads > 0) {
                 new FXWorkerThread(*this);
                 numThreads--;
@@ -103,8 +124,8 @@ public:
         /** @brief Stops and deletes all worker threads.
          */
         void clear() {
-            for (std::vector<FXWorkerThread*>::iterator it = myWorkers.begin(); it != myWorkers.end(); ++it) {
-                delete *it;
+            for (FXWorkerThread* const worker : myWorkers) {
+                delete worker;
             }
             myWorkers.clear();
         }
@@ -114,7 +135,6 @@ public:
          * @param[in] w the thread to add
          */
         void addWorker(FXWorkerThread* const w) {
-//            if (myWorkers.empty()) std::cout << "created pool at " << SysUtils::getCurrentMillis() << std::endl;
             myWorkers.push_back(w);
         }
 
@@ -125,23 +145,30 @@ public:
          * @param[in] index index of the worker thread to use or -1 for an arbitrary one
          */
         void add(Task* const t, int index = -1) {
-            t->setIndex(myRunningIndex++);
             if (index < 0) {
                 index = myRunningIndex % myWorkers.size();
             }
+#ifdef WORKLOAD_PROFILING
+            if (myRunningIndex == 0) {
+                for (FXWorkerThread* const worker : myWorkers) {
+                    worker->startProfile();
+                }
+                myProfileStart = std::chrono::high_resolution_clock::now();
+            }
+#endif
+            t->setIndex(myRunningIndex++);
             myWorkers[index]->add(t);
         }
 
-        /** @brief Adds the given task to the list of finished tasks and assigns it to a randomly chosen worker.
+        /** @brief Adds the given tasks to the list of finished tasks.
          *
-         * Locks the internal mutex and counts the finished tasks. This is to be called by the worker thread only.
+         * Locks the internal mutex and appends the finished tasks. This is to be called by the worker thread only.
          *
-         * @param[in] t the task to add
+         * @param[in] tasks the tasks to add
          */
-        void addFinished(Task* const t) {
+        void addFinished(std::list<Task*>& tasks) {
             myMutex.lock();
-            myNumFinished++;
-            myFinishedTasks.push_back(t);
+            myFinishedTasks.splice(myFinishedTasks.end(), tasks);
             myCondition.signal();
             myMutex.unlock();
         }
@@ -149,10 +176,32 @@ public:
         /// @brief waits for all tasks to be finished
         void waitAll(const bool deleteFinished = true) {
             myMutex.lock();
-            while (myNumFinished < myRunningIndex) {
+            while ((int)myFinishedTasks.size() < myRunningIndex) {
                 myCondition.wait(myMutex);
             }
-//            if (myRunningIndex > 0) std::cout << "finished waiting for " << myRunningIndex << " tasks at " << SysUtils::getCurrentMillis() << std::endl;
+#ifdef WORKLOAD_PROFILING
+            if (myRunningIndex > 0) {
+                const auto end = std::chrono::high_resolution_clock::now();
+                const long long int elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - myProfileStart).count();
+                double minLoad = std::numeric_limits<double>::max();
+                double maxLoad = 0.;
+                for (FXWorkerThread* const worker : myWorkers) {
+                    const double load = worker->endProfile(elapsed);
+                    minLoad = MIN2(minLoad, load);
+                    maxLoad = MAX2(maxLoad, load);
+                }
+#ifdef WORKLOAD_INTERVAL
+                myTotalMaxLoad += maxLoad;
+                myTotalSpread += maxLoad / minLoad;
+                myNumBatches++;
+                if (myNumBatches % WORKLOAD_INTERVAL == 0) {
+                    WRITE_MESSAGE(toString(myFinishedTasks.size()) + " tasks, average maximum load: " + toString(myTotalMaxLoad / WORKLOAD_INTERVAL) + ", average spread: " + toString(myTotalSpread / WORKLOAD_INTERVAL));
+                    myTotalMaxLoad = 0.;
+                    myTotalSpread = 0.;
+                }
+#endif
+            }
+#endif
             if (deleteFinished) {
                 for (Task* task : myFinishedTasks) {
                     delete task;
@@ -160,7 +209,6 @@ public:
             }
             myFinishedTasks.clear();
             myRunningIndex = 0;
-            myNumFinished = 0;
             myMutex.unlock();
         }
 
@@ -172,7 +220,7 @@ public:
          * @return whether there are enough tasks to let all threads work
          */
         bool isFull() const {
-            return myRunningIndex - myNumFinished >= size();
+            return myRunningIndex - (int)myFinishedTasks.size() >= size();
         }
 
         /** @brief Returns the number of threads in the pool.
@@ -206,8 +254,16 @@ public:
         std::list<Task*> myFinishedTasks;
         /// @brief the running index for the next task
         int myRunningIndex;
-        /// @brief the number of finished tasks (is reset when the pool runs empty)
-        int myNumFinished;
+#ifdef WORKLOAD_PROFILING
+        /// @brief the number of finished batch runs
+        int myNumBatches;
+        /// @brief the sum over the maximum loads
+        double myTotalMaxLoad;
+        /// @brief the sum over the load spreads
+        double myTotalSpread;
+        /// @brief the time when profiling started
+        std::chrono::high_resolution_clock::time_point myProfileStart;
+#endif
     };
 
 public:
@@ -217,7 +273,11 @@ public:
      *
      * @param[in] pool the pool for this thread
      */
-    FXWorkerThread(Pool& pool): FXThread(), myPool(pool), myStopped(false), myCounter(0) {
+    FXWorkerThread(Pool& pool): FXThread(), myPool(pool), myStopped(false)
+#ifdef WORKLOAD_PROFILING
+    , myCounter(0), myBusyTime(0), myTotalBusyTime(0), myTotalTime(0)
+#endif
+    {
         pool.addWorker(this);
         start();
     }
@@ -228,6 +288,12 @@ public:
      */
     virtual ~FXWorkerThread() {
         stop();
+#ifdef WORKLOAD_PROFILING
+        const double load = 100. * myTotalBusyTime / myTotalTime;
+        WRITE_MESSAGE("Thread " + toString((long long int)this) + " ran " + toString(myCounter) +
+                      " tasks and had a load of " + toString(load) + "% (" + toString(myTotalBusyTime) +
+                      "us / " + toString(myTotalTime) +"us), " + toString(myTotalBusyTime / (double)myCounter) + " per task.");
+#endif
     }
 
     /** @brief Adds the given task to this thread to be calculated
@@ -257,15 +323,21 @@ public:
                 myMutex.unlock();
                 break;
             }
-            Task* t = myTasks.front();
-            myTasks.pop_front();
+            myCurrentTasks.splice(myCurrentTasks.end(), myTasks);
             myMutex.unlock();
-            t->run(this);
-            myCounter++;
-//            if (myCounter % 1000 == 0) std::cout << (int)this << " ran " << myCounter << " tasks " << std::endl;
-            myPool.addFinished(t);
+            for (Task* const t : myCurrentTasks) {
+#ifdef WORKLOAD_PROFILING
+                const auto before = std::chrono::high_resolution_clock::now();
+#endif
+                t->run(this);
+#ifdef WORKLOAD_PROFILING
+                const auto after = std::chrono::high_resolution_clock::now();
+                myBusyTime += std::chrono::duration_cast<std::chrono::microseconds>(after - before).count();
+                myCounter++;
+#endif
+            }
+            myPool.addFinished(myCurrentTasks);
         }
-//        std::cout << "ran " << myCounter << " tasks " << std::endl;
         return 0;
     }
 
@@ -281,6 +353,18 @@ public:
         join();
     }
 
+#ifdef WORKLOAD_PROFILING
+    void startProfile() {
+        myBusyTime = 0;
+    }
+
+    double endProfile(const long long int time) {
+        myTotalTime += time;
+        myTotalBusyTime += myBusyTime;
+        return time == 0 ? 100. : 100. * myBusyTime / time;
+    }
+#endif
+
 private:
     /// @brief the pool for this thread
     Pool& myPool;
@@ -290,10 +374,20 @@ private:
     FXCondition myCondition;
     /// @brief the list of pending tasks
     std::list<Task*> myTasks;
+    /// @brief the list of tasks which are currently calculated
+    std::list<Task*> myCurrentTasks;
     /// @brief whether we are still running
     bool myStopped;
-    /// @brief counting completed tasks for debugging / profiling
+#ifdef WORKLOAD_PROFILING
+    /// @brief counting completed tasks
     int myCounter;
+    /// @brief the time spent in calculations during the current batch
+    long long int myBusyTime;
+    /// @brief the total busy time
+    long long int myTotalBusyTime;
+    /// @brief the total time while anyone had tasks
+    long long int myTotalTime;
+#endif
 };
 
 

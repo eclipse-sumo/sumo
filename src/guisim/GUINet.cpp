@@ -64,10 +64,10 @@
 // definition of static variables used for visualisation of objects' values
 // ===========================================================================
 template std::vector< GLObjectValuePassConnector<double>* > GLObjectValuePassConnector<double>::myContainer;
-template MFXMutex GLObjectValuePassConnector<double>::myLock;
+template FXMutex GLObjectValuePassConnector<double>::myLock;
 
 template std::vector< GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myContainer;
-template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myLock;
+template FXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myLock;
 
 
 // ===========================================================================
@@ -223,7 +223,7 @@ GUINet::guiSimulationStep() {
 
 void
 GUINet::simulationStep() {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSNet::simulationStep();
 }
 

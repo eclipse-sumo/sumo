@@ -30,7 +30,7 @@
 #include <vector>
 #include <iostream>
 #include <fx.h>
-#include <utils/foxtools/MFXEventQue.h>
+#include <utils/foxtools/FXSynchQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/foxtools/FXLCDLabel.h>
@@ -377,7 +377,7 @@ protected:
     double myAlternateSimDelay;
 
     /// @brief List of got requests
-    MFXEventQue<GUIEvent*> myEvents;
+    FXSynchQue<GUIEvent*> myEvents;
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu;

@@ -59,7 +59,6 @@ class OutputDevice;
 class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
-class MFXMutex;
 class GUIMEVehicleControl;
 
 
@@ -424,7 +423,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 };
 

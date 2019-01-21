@@ -26,7 +26,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/FXSingleEventThread.h>
-#include <utils/foxtools/MFXEventQue.h>
+#include <utils/foxtools/FXSynchQue.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 
 
@@ -46,7 +46,7 @@ class GUIEvent;
 class GNELoadThread : public FXSingleEventThread {
 public:
     /// @brief constructor
-    GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq,
+    GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, FXSynchQue<GUIEvent*>& eq,
                   FXEX::FXThreadEvent& ev);
 
     /// @brief destructor
@@ -93,7 +93,7 @@ protected:
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever, *myDebugRetriever, *myGLDebugRetriever;
 
     /// @brief event Queue
-    MFXEventQue<GUIEvent*>& myEventQue;
+    FXSynchQue<GUIEvent*>& myEventQue;
 
     /// @brief event throw
     FXEX::FXThreadEvent& myEventThrow;

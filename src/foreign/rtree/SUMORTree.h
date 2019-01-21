@@ -23,12 +23,12 @@
 // ===========================================================================
 #include <config.h>
 
+#include <fx.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/Boundary.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/geom/Boundary.h>
-#include <utils/foxtools/MFXMutex.h>
 
 #include "RTree.h"
 
@@ -75,11 +75,12 @@ public:
     /// @brief Destructor
     virtual ~SUMORTree() {
         // check if lock is locked before insert objects
-        if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked during call destructor (Lock value = " + toString(myLock.lockCount())+ ")");
+        if (myLock.locked()) {
+            // cannot throw exception in destructor
+            WRITE_ERROR("Mutex of SUMORTree is locked during call of the destructor");
         }
         // show information in gui testing debug gl mode
-        WRITE_GLDEBUG("Number of objects in SUMORTree during call destructor: " + toString(myTreeDebug.size()));
+        WRITE_GLDEBUG("Number of objects in SUMORTree during call of the destructor: " + toString(myTreeDebug.size()));
     }
 
     /** @brief Insert entry
@@ -89,7 +90,7 @@ public:
      * @see RTree::Insert
      */
     virtual void Insert(const float a_min[2], const float a_max[2], GUIGlObject* const & a_dataId) {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         GUI_RTREE_QUAL::Insert(a_min, a_max, a_dataId);
     }
 
@@ -100,7 +101,7 @@ public:
      * @see RTree::Remove
      */
     virtual void Remove(const float a_min[2], const float a_max[2], GUIGlObject* const & a_dataId) {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         GUI_RTREE_QUAL::Remove(a_min, a_max, a_dataId);
     }
 
@@ -114,7 +115,7 @@ public:
      * @see RTree::Search
      */
     virtual int Search(const float a_min[2], const float a_max[2], const GUIVisualizationSettings& c) const {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         return GUI_RTREE_QUAL::Search(a_min, a_max, c);
     }
 
@@ -124,10 +125,10 @@ public:
     void addAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked before insert objects
         if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object insertion (Lock value = " + toString(myLock.lockCount())+ ")");
+            ProcessError("Mutex of SUMORTree is locked before object insertion");
         }
         // lock mutex
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
         // show information in gui testing debug gl mode
@@ -152,10 +153,10 @@ public:
     void removeAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked remove insert objects
         if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object remove (Lock value = " + toString(myLock.lockCount())+ ")");
+            ProcessError("Mutex of SUMORTree is locked before object remove");
         }
         // lock mutex
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
         // show information in gui testing debug gl mode
@@ -175,7 +176,7 @@ public:
 
 protected:
     /// @brief A mutex avoiding parallel change and traversal of the tree
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 private:
     /**@brief Map only used for check that SUMORTree works as expected, only is used if option "gui-testing-debug-gl" is enabled.

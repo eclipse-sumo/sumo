@@ -117,17 +117,11 @@ MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) 
 
 void
 MSXMLRawOut::writeLane(OutputDevice& of, const MSLane& lane) {
-    of.openTag("lane") << " id=\"" << lane.myID << "\"";
-    if (lane.getVehicleNumber() != 0) {
-        for (std::vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin();
-                veh != lane.myVehBuffer.end(); ++veh) {
-            writeVehicle(of, **veh);
-        }
-        for (MSLane::VehCont::const_iterator veh = lane.myVehicles.begin();
-                veh != lane.myVehicles.end(); ++veh) {
-            writeVehicle(of, **veh);
-        }
+    of.openTag("lane").writeAttr(SUMO_ATTR_ID, lane.getID());
+    for (const MSBaseVehicle* const veh : lane.getVehiclesSecure()) {
+        writeVehicle(of, *veh);
     }
+    lane.releaseVehicles();
     of.closeTag();
 }
 

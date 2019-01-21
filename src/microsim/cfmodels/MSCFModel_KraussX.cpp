@@ -54,12 +54,12 @@ MSCFModel_KraussX::duplicate(const MSVehicleType* vtype) const {
 
 double
 MSCFModel_KraussX::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
-    return dawdleX(veh->getSpeed(), vMin, vMax);
+    return dawdleX(veh->getSpeed(), vMin, vMax, veh->getRNG());
 }
 
 
 double
-MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax) const {
+MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax, std::mt19937* rng) const {
     double speed = vMax;
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
@@ -73,7 +73,7 @@ MSCFModel_KraussX::dawdleX(double vOld, double vMin, double vMax) const {
     if (vOld < myAccel) {
         speed -= ACCEL2SPEED(myTmp1 * myAccel);
     }
-    const double random = RandHelper::rand();
+    const double random = RandHelper::rand(rng);
     speed -= ACCEL2SPEED(myDawdle * myAccel * random);
     // overbraking
     if (vOld > vMax) {

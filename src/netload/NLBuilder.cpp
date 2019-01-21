@@ -231,9 +231,7 @@ NLBuilder::init() {
         throw ProcessError();
     }
     MsgHandler::initOutputOptions();
-    RandHelper::initRandGlobal();
-    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
-    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
+    initRandomness();
     MSFrame::setMSGlobals(oc);
     MSVehicleControl* vc = nullptr;
     if (MSGlobals::gUseMesoSim) {
@@ -264,6 +262,13 @@ NLBuilder::init() {
     throw ProcessError();
 }
 
+void 
+NLBuilder::initRandomness() {
+    RandHelper::initRandGlobal();
+    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
+    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
+    MSLane::initRNGs(OptionsCont::getOptions());
+}
 
 void
 NLBuilder::buildNet() {

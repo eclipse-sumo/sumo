@@ -61,7 +61,7 @@ TrackerValueDesc::addValue(double value) {
         myMin = value < myMin ? value : myMin;
         myMax = value > myMax ? value : myMax;
     }
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     myValues.push_back(value);
     if (value != myInvalidValue) {
         myTmpLastAggValue += value;
@@ -137,7 +137,7 @@ TrackerValueDesc::unlockValues() {
 
 void
 TrackerValueDesc::setAggregationSpan(SUMOTime as) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     if (myAggregationInterval != as / DELTA_T) {
         myAggregationInterval = (int)(as / DELTA_T);
         // ok, the aggregation has changed,

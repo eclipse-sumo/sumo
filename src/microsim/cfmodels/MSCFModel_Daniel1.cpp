@@ -63,7 +63,7 @@ MSCFModel_Daniel1::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
     }
 #endif
-    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax)), vMax, *this);
+    return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax, veh->getRNG())), vMax, *this);
 }
 
 
@@ -80,8 +80,8 @@ MSCFModel_Daniel1::stopSpeed(const MSVehicle* const veh, const double speed, dou
 
 
 double
-MSCFModel_Daniel1::dawdle(double speed) const {
-    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
+MSCFModel_Daniel1::dawdle(double speed, std::mt19937* rng) const {
+    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand(rng)));
 }
 
 

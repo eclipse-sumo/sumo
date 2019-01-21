@@ -27,25 +27,26 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#ifdef HAVE_FOX
+#include <fx.h>
+#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
-
 #include "MsgHandler.h"
-#include "AbstractMutex.h"
 
 
 // ===========================================================================
 // static member variables
 // ===========================================================================
 
+MsgHandler::Factory MsgHandler::myFactory = nullptr;
 MsgHandler* MsgHandler::myDebugInstance = nullptr;
 MsgHandler* MsgHandler::myGLDebugInstance = nullptr;
 MsgHandler* MsgHandler::myErrorInstance = nullptr;
 MsgHandler* MsgHandler::myWarningInstance = nullptr;
 MsgHandler* MsgHandler::myMessageInstance = nullptr;
 bool MsgHandler::myAmProcessingProcess = false;
-AbstractMutex* MsgHandler::myLock = nullptr;
 bool MsgHandler::myWriteDebugMessages(false);
 bool MsgHandler::myWriteDebugGLMessages(false);
 
@@ -57,7 +58,11 @@ bool MsgHandler::myWriteDebugGLMessages(false);
 MsgHandler*
 MsgHandler::getMessageInstance() {
     if (myMessageInstance == nullptr) {
-        myMessageInstance = new MsgHandler(MT_MESSAGE);
+        if (myFactory == nullptr) {
+            myMessageInstance = new MsgHandler(MT_MESSAGE);
+        } else {
+            myMessageInstance = myFactory(MT_MESSAGE);
+        }
     }
     return myMessageInstance;
 }
@@ -111,9 +116,6 @@ MsgHandler::enableDebugGLMessages(bool enable) {
 
 void
 MsgHandler::inform(std::string msg, bool addType) {
-    if (myLock != nullptr) {
-        myLock->lock();
-    }
     // beautify progress output
     if (myAmProcessingProcess) {
         myAmProcessingProcess = false;
@@ -126,17 +128,11 @@ MsgHandler::inform(std::string msg, bool addType) {
     }
     // set the information that something occurred
     myWasInformed = true;
-    if (myLock != nullptr) {
-        myLock->unlock();
-    }
 }
 
 
 void
 MsgHandler::beginProcessMsg(std::string msg, bool addType) {
-    if (myLock != nullptr) {
-        myLock->lock();
-    }
     msg = build(msg, addType);
     // inform all other receivers
     for (auto i : myRetrievers) {
@@ -145,17 +141,11 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     }
     // set the information that something occurred
     myWasInformed = true;
-    if (myLock != nullptr) {
-        myLock->unlock();
-    }
 }
 
 
 void
 MsgHandler::endProcessMsg(std::string msg) {
-    if (myLock != nullptr) {
-        myLock->lock();
-    }
     // inform all other receivers
     for (auto i : myRetrievers) {
         i->inform(msg);
@@ -163,49 +153,28 @@ MsgHandler::endProcessMsg(std::string msg) {
     // set the information that something occurred
     myWasInformed = true;
     myAmProcessingProcess = false;
-    if (myLock != nullptr) {
-        myLock->unlock();
-    }
 }
 
 
 void
 MsgHandler::clear() {
-    if (myLock != nullptr) {
-        myLock->lock();
-    }
     myWasInformed = false;
-    if (myLock != nullptr) {
-        myLock->unlock();
-    }
 }
 
 
 void
 MsgHandler::addRetriever(OutputDevice* retriever) {
-    if (myLock != nullptr) {
-        myLock->lock();
-    }
     if (!isRetriever(retriever)) {
         myRetrievers.push_back(retriever);
-    }
-    if (myLock != nullptr) {
-        myLock->unlock();
     }
 }
 
 
 void
 MsgHandler::removeRetriever(OutputDevice* retriever) {
-    if (myLock != nullptr) {
-        myLock->lock();
-    }
-    RetrieverVector::iterator i = std::find(myRetrievers.begin(), myRetrievers.end(), retriever);
+    std::vector<OutputDevice*>::iterator i = find(myRetrievers.begin(), myRetrievers.end(), retriever);
     if (i != myRetrievers.end()) {
         myRetrievers.erase(i);
-    }
-    if (myLock != nullptr) {
-        myLock->unlock();
     }
 }
 
@@ -270,9 +239,6 @@ MsgHandler::initOutputOptions() {
 
 void
 MsgHandler::cleanupOnEnd() {
-    if (myLock != nullptr) {
-        myLock->lock();
-    }
     delete myMessageInstance;
     myMessageInstance = nullptr;
     delete myWarningInstance;
@@ -283,9 +249,6 @@ MsgHandler::cleanupOnEnd() {
     myDebugInstance = nullptr;
     delete myGLDebugInstance;
     myGLDebugInstance = nullptr;
-    if (myLock != nullptr) {
-        myLock->unlock();
-    }
 }
 
 
@@ -309,11 +272,4 @@ MsgHandler::wasInformed() const {
 }
 
 
-void
-MsgHandler::assignLock(AbstractMutex* lock) {
-    assert(myLock == 0);
-    myLock = lock;
-}
-
 /****************************************************************************/
-

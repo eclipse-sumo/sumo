@@ -21,7 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <gui/GUIGlobals.h>
 #include <microsim/MSRouteHandler.h>
@@ -59,21 +59,21 @@ GUIMEVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 bool
 GUIMEVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MEVehicleControl::addVehicle(id, v);
 }
 
 
 void
 GUIMEVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MEVehicleControl::deleteVehicle(veh, discard);
 }
 
 
 void
 GUIMEVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         SUMOVehicle* veh = (*i).second;

@@ -113,7 +113,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
     const double sdv_root = (dx - myAX) / myCX;
     const double sdv = sdv_root * sdv_root;
     const double cldv = sdv * ex * ex;
-    const double opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15));
+    const double opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15, veh->getRNG()));
     // select the regime, get new acceleration, compute new speed based
     double accel;
     if (dx <= abx) {

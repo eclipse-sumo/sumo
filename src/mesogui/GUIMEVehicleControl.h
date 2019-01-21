@@ -24,14 +24,10 @@
 #include <config.h>
 
 #include <vector>
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <mesosim/MEVehicleControl.h>
 
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
 
 // ===========================================================================
 // class definitions
@@ -105,7 +101,7 @@ public:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 
 private:

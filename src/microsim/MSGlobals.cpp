@@ -66,6 +66,8 @@ bool MSGlobals::gUnitTests(false);
 
 bool MSGlobals::gComputeLC;
 
+int MSGlobals::gNumSimThreads;
+
 double MSGlobals::gEmergencyDecelWarningThreshold(1);
 
 double MSGlobals::gMinorPenalty(0);

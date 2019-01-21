@@ -251,6 +251,9 @@ MSFrame::fillOptions() {
     oc.doRegister("step-method.ballistic", new Option_Bool(false));
     oc.addDescription("step-method.ballistic", "Processing", "Whether to use ballistic method for the positional update of vehicles (default is a semi-implicit Euler method).");
 
+    oc.doRegister("threads", new Option_Integer(1));
+    oc.addDescription("threads", "Processing", "Defines the number of threads for parallel simulation");
+
     oc.doRegister("lateral-resolution", new Option_Float(-1));
     oc.addDescription("lateral-resolution", "Processing", "Defines the resolution in m when handling lateral positioning within a lane (with -1 all vehicles drive at the center of their lane");
 
@@ -643,6 +646,9 @@ MSFrame::checkOptions() {
             ok = false;
         }
     };
+    if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
+        WRITE_WARNING("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results");
+    }
 
     ok &= MSDevice::checkOptions(oc);
     ok &= SystemFrame::checkOptions();
@@ -704,10 +710,11 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         // value already checked in checkOptions()
         MSGlobals::gDefaultEmergencyDecel = StringUtils::toDouble(defaultEmergencyDecelOption);
     }
+    MSGlobals::gNumSimThreads = OptionsCont::getOptions().getInt("threads");
 
     MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
     MSGlobals::gMinorPenalty = oc.getFloat("weights.minor-penalty");
-    
+
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {
         MSBaseVehicle::initMoveReminderOutput(oc);
@@ -716,6 +723,4 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
 }
 
 
-
 /****************************************************************************/
-
