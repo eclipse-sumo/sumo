@@ -250,6 +250,9 @@ invertPermissions(SVCPermissions permissions) {
 SVCPermissions
 parseVehicleClasses(const std::vector<std::string>& allowedS) {
     SVCPermissions result = 0;
+	if (std::find(allowedS.begin(), allowedS.end(), "all") != allowedS.end()) {
+		return SVCAll;
+	}
     for (std::vector<std::string>::const_iterator i = allowedS.begin(); i != allowedS.end(); ++i) {
         const SUMOVehicleClass vc = getVehicleClassID(*i);
         const std::string& realName = SumoVehicleClassStrings.getString(vc);
