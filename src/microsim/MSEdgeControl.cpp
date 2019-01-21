@@ -90,6 +90,7 @@ MSEdgeControl::patchActiveLanes() {
     myChangedStateLanes.clear();
 }
 
+
 void
 MSEdgeControl::planMovements(SUMOTime t) {
 #ifdef HAVE_FOX

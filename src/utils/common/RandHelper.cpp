@@ -54,7 +54,7 @@ RandHelper::insertRandOptions() {
     oc.addDescription("seed", "Random Number", "Initialises the random number generator with the given value");
 
     oc.doRegister("thread-rngs", new Option_Integer(64));
-    oc.addDescription("thread-rngs", "Random Number", "Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations. This number should be at least as high as the number of threads. Simulations with the same seend and the same number of thread-rngs will produce the same result");
+    oc.addDescription("thread-rngs", "Random Number", "Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations. This number should be at least as high as the number of threads. Simulations with the same seed and the same number of thread-rngs will produce the same result");
 }
 
 

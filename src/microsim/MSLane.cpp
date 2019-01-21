@@ -83,9 +83,10 @@
 //#define DEBUG_COND (false)
 //#define DEBUG_COND (getID() == "undefined")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
+
 
 // ===========================================================================
 // static member definitions
@@ -97,11 +98,10 @@ SUMOTime MSLane::myCollisionStopTime(0);
 double  MSLane::myCollisionMinGapFactor(1.0);
 std::vector<std::mt19937> MSLane::myRNGs;
 
+
 // ===========================================================================
 // internal class method definitions
 // ===========================================================================
-
-
 MSLane::AnyVehicleIterator&
 MSLane::AnyVehicleIterator::operator++() {
     if (nextIsMyVehicles()) {
