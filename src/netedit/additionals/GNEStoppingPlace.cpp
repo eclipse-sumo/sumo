@@ -60,17 +60,27 @@ GNEStoppingPlace::isAdditionalValid() const {
     if (myFriendlyPosition) {
         return true;
     } else {
+        // obtain lane length
+        double laneLenght = myLane->getParentEdge().getNBEdge()->getFinalLength()*getLane()->getLengthGeometryFactor();
+        // calculate start and end positions
+        double startPos = canParse<double>(myStartPosition)? parse<double>(myStartPosition) : 0;
+        double endPos = canParse<double>(myEndPosition)? parse<double>(myEndPosition) : laneLenght;
+        // check if position has to be fixed
+        if (startPos < 0) {
+            startPos += laneLenght;
+        }
+        if (endPos < 0) {
+            endPos += laneLenght;
+        }
+        // check values
         if (myStartPosition.empty() && myEndPosition.empty()) {
             return true;
         } else if (myStartPosition.empty()) {
-            return (canParse<double>(myEndPosition) && (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()));
+            return (endPos <= myLane->getParentEdge().getNBEdge()->getFinalLength());
         } else if (myEndPosition.empty()) {
-            return (canParse<double>(myStartPosition) && (parse<double>(myStartPosition) >= 0));
+            return (startPos >= 0);
         } else {
-            return canParse<double>(myStartPosition) && canParse<double>(myEndPosition) &&
-                   (parse<double>(myStartPosition) >= 0) &&
-                   (parse<double>(myEndPosition) <= myLane->getParentEdge().getNBEdge()->getFinalLength()) &&
-                   ((parse<double>(myEndPosition) - parse<double>(myStartPosition)) >= POSITION_EPS);
+            return ((startPos >= 0) && (endPos <= myLane->getParentEdge().getNBEdge()->getFinalLength()) && ((endPos - startPos) >= POSITION_EPS));
         }
     }
 }
@@ -78,22 +88,30 @@ GNEStoppingPlace::isAdditionalValid() const {
 
 std::string 
 GNEStoppingPlace::getAdditionalProblem() const {
+    // calculate start and end positions
+    double startPos = canParse<double>(myStartPosition)? parse<double>(myStartPosition) : 0;
+    double endPos = canParse<double>(myEndPosition)? parse<double>(myEndPosition) : myLane->getParentEdge().getNBEdge()->getFinalLength();
+    // obtain lane lenght
+    double laneLenght = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    // check if position has to be fixed
+    if (startPos < 0) {
+        startPos += laneLenght;
+    }
+    if (endPos < 0) {
+        endPos += laneLenght;
+    }
     // declare variables 
     std::string errorStart, separator, errorEnd;
     // check positions over lane
-    if(canParse<double>(myStartPosition)) {
-        if (parse<double>(myStartPosition) < 0) {
-            errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
-        } else if (parse<double>(myStartPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
-            errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
-        }
+    if (startPos < 0) {
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
+    } else if (startPos > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
     }
-    if(canParse<double>(myEndPosition)) {
-        if (parse<double>(myEndPosition) < 0) {
-            errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
-        } else if (parse<double>(myEndPosition) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
-            errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
-        }
+    if (endPos < 0) {
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
+    } else if (endPos > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
     }
     // check separator
     if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
@@ -190,8 +208,10 @@ GNEStoppingPlace::fixStoppinPlacePosition(std::string& startPosStr, std::string&
 
 Position
 GNEStoppingPlace::getPositionInView() const {
+    // calculate start and end positions as absolute values
     double startPos = fabs(canParse<double>(myStartPosition)? parse<double>(myStartPosition) : 0);
     double endPos = fabs(canParse<double>(myEndPosition)? parse<double>(myEndPosition) : myLane->getParentEdge().getNBEdge()->getFinalLength());
+    // obtain position in view depending if both positions are defined
     if (myStartPosition.empty() && myEndPosition.empty()) {
         return myLane->getShape().positionAtOffset(myLane->getShape().length() / 2);
     } else if (myStartPosition.empty()) {
@@ -214,14 +234,31 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         double offsetLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false) - myLane->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
-        std::cout << offsetLane << std::endl;
-        // check if start position must be moved  
-        if (!myStartPosition.empty()) {
-            myStartPosition = toString(parse<double>(myMove.firstOriginalLanePosition) + offsetLane);
-        }
-        // check if start position must be moved
-        if (!myStartPosition.empty()) {
-            myEndPosition = toString(parse<double>(myMove.secondOriginalPosition) + offsetLane);
+        // check if both position has to be moved
+        if (!myStartPosition.empty() && !myEndPosition.empty()) {
+            // calculate stoppingPlace lenght and lane lenght (After apply geometry factor)
+            double stoppingPlaceLenght = fabs(parse<double>(myMove.secondOriginalPosition) - parse<double>(myMove.firstOriginalLanePosition));
+            double laneLengt = getLane()->getParentEdge().getNBEdge()->getFinalLength() * getLane()->getLengthGeometryFactor();
+            // avoid changing stopping place's lenght
+            if ((parse<double>(myMove.firstOriginalLanePosition) + offsetLane) < 0) {
+                myStartPosition = "0";
+                myEndPosition = toString(stoppingPlaceLenght);
+            } else if ((parse<double>(myMove.secondOriginalPosition) + offsetLane) > laneLengt) {
+                myStartPosition = toString(laneLengt - stoppingPlaceLenght);
+                myEndPosition = toString(laneLengt);
+            } else {
+                myStartPosition = toString(parse<double>(myMove.firstOriginalLanePosition) + offsetLane);
+                myEndPosition = toString(parse<double>(myMove.secondOriginalPosition) + offsetLane);
+            }
+        } else {
+            // check if start position must be moved  
+            if (!myStartPosition.empty()) {
+                myStartPosition = toString(parse<double>(myMove.firstOriginalLanePosition) + offsetLane);
+            }
+            // check if start position must be moved
+            if (!myEndPosition.empty()) {
+                myEndPosition = toString(parse<double>(myMove.secondOriginalPosition) + offsetLane);
+            }
         }
         // Update geometry
         updateGeometry(false);
