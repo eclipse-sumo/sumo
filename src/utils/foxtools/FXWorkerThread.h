@@ -18,7 +18,7 @@
 #ifndef FXWorkerThread_h
 #define FXWorkerThread_h
 
-#define WORKLOAD_PROFILING
+// #define WORKLOAD_PROFILING
 // at which interval report maximum workload of the threads, needs WORKLOAD_PROFILING
 // undefine to use summary report only
 #define WORKLOAD_INTERVAL 100
