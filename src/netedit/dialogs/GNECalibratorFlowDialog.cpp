@@ -32,7 +32,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/additionals/GNECalibratorFlow.h>
-#include <netedit/additionals/GNECalibratorVehicleType.h>
+#include <netedit/demandelements/GNEVehicleType.h>
 #include <netedit/additionals/GNECalibrator.h>
 #include <netedit/demandelements/GNERoute.h>
 
@@ -135,13 +135,13 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
 
     // fill comboBox of VTypes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE)) {
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE)) {
         myComboBoxVehicleType->appendItem(i.first.c_str());
     }
     myComboBoxVehicleType->setNumVisible((int)myComboBoxVehicleType->getNumItems());
 
     // fill comboBox of Routes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE)) {
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
         myComboBoxRoute->appendItem(i.first.c_str());
     }
     myComboBoxRoute->setNumVisible((int)myComboBoxRoute->getNumItems());

@@ -30,7 +30,8 @@
 #include <netbuild/NBAlgorithms.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/additionals/GNECalibratorVehicleType.h>
+#include <netedit/demandelements/GNEVehicleType.h>
+#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/demandelements/GNEDemandHandler.h>
@@ -125,8 +126,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     }
 
     // default vehicle type is always available
-    GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-    myAttributeCarriers.additionals.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+    myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
@@ -1414,8 +1415,8 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
 
         // default vehicle type is always available
-        GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-        myAttributeCarriers.additionals.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+        GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+        myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
         defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
         // Create additional handler
@@ -1439,7 +1440,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         }
         /*
         // default vehicle type is always available
-        GNECalibratorVehicleType* defaultVehicleType = new GNECalibratorVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+        GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
         myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
         defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
         */

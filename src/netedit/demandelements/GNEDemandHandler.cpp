@@ -30,6 +30,7 @@
 
 #include "GNEDemandHandler.h"
 #include "GNERoute.h"
+#include "GNEVehicleType.h"
 
 // ===========================================================================
 // member method definitions
@@ -68,6 +69,9 @@ GNEDemandHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             case SUMO_TAG_ROUTE:
                 parseAndBuildRoute(attrs, tag);
                 break;
+            case SUMO_TAG_VTYPE:
+                parseAndBuildVehicleType(attrs, tag);
+                break;
             default:
                 break;
         }
@@ -97,13 +101,86 @@ GNEDemandHandler::parseAndBuildRoute(const SUMOSAXAttributes& attrs, const SumoX
             edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgeIDs);
         }
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTE, routeID, false) != nullptr) {
+        if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + routeID + "'.");
         } else if (edges.size() == 0) {
             WRITE_WARNING("Routes needs at least one edge.");
         } else {
             // save ID of last created element
             myHierarchyInsertedDemandElements.commitElementInsertion(buildRoute(myViewNet, myUndoDemandElements, routeID, edges, color));
+        }
+    }
+}
+
+
+
+GNEDemandElement*
+GNEDemandHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
+                                       double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
+                                       double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
+                                       SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
+                                       const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
+                                       double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) {
+    if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleTypeID, false) == nullptr) {
+        // create vehicle type and add it to calibrator parent
+        GNEVehicleType* vType = new GNEVehicleType(viewNet, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
+                speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
+                laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration,
+                loadingDuration, latAlignment, minGapLat, maxSpeedLat);
+        if (allowUndoRedo) {
+            viewNet->getUndoList()->p_begin("add " + vType->getTagStr());
+            viewNet->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertDemandElement(vType);
+            vType->incRef("buildCalibratorVehicleType");
+        }
+        return vType;
+    } else {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_VTYPE) + " with ID '" + vehicleTypeID + "' in netedit; probably declared twice.");
+    }
+}
+
+
+void
+GNEDemandHandler::parseAndBuildVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+    bool abort = false;
+    // parse attribute of calibrator vehicle types
+    std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
+    double accel = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_ACCEL, abort);
+    double decel = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_DECEL, abort);
+    double sigma = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_SIGMA, abort);
+    double tau = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_TAU, abort);
+    double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_LENGTH, abort);
+    double minGap = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_MINGAP, abort);
+    double maxSpeed = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_MAXSPEED, abort);
+    double speedFactor = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_SPEEDFACTOR, abort);
+    double speedDev = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_SPEEDDEV, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, vehicleTypeID, tag, SUMO_ATTR_COLOR, abort);
+    SUMOVehicleClass vClass = GNEAttributeCarrier::parseAttributeFromXML<SUMOVehicleClass>(attrs, vehicleTypeID, tag, SUMO_ATTR_VCLASS, abort);
+    std::string emissionClass = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, vehicleTypeID, tag, SUMO_ATTR_EMISSIONCLASS, abort);
+    SUMOVehicleShape shape = GNEAttributeCarrier::parseAttributeFromXML<SUMOVehicleShape>(attrs, vehicleTypeID, tag, SUMO_ATTR_GUISHAPE, abort);
+    double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_WIDTH, abort);
+    std::string filename = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, vehicleTypeID, tag, SUMO_ATTR_IMGFILE, abort);
+    double impatience = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_IMPATIENCE, abort);
+    std::string laneChangeModel = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, vehicleTypeID, tag, SUMO_ATTR_LANE_CHANGE_MODEL, abort);
+    std::string carFollowModel = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, vehicleTypeID, tag, SUMO_ATTR_CAR_FOLLOW_MODEL, abort);
+    int personCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, vehicleTypeID, tag, SUMO_ATTR_PERSON_CAPACITY, abort);
+    int containerCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, vehicleTypeID, tag, SUMO_ATTR_CONTAINER_CAPACITY, abort);
+    double boardingDuration = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_BOARDING_DURATION, abort);
+    double loadingDuration = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_LOADING_DURATION, abort);
+    std::string latAlignment = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, vehicleTypeID, tag, SUMO_ATTR_LATALIGNMENT, abort);
+    double minGapLat = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_MINGAP_LAT, abort);
+    double maxSpeedLat = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, vehicleTypeID, tag, SUMO_ATTR_MAXSPEED_LAT, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // check that all elements are valid
+        if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleTypeID, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + vehicleTypeID + "'.");
+        } else {
+            // save ID of last created element
+            myHierarchyInsertedDemandElements.commitElementInsertion(buildVehicleType(myViewNet, true, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev, color, vClass, emissionClass, shape, width,
+                                                                     filename, impatience, laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat));
         }
     }
 }

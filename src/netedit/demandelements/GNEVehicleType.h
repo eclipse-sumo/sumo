@@ -7,12 +7,12 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNECalibratorVehicleType.h
+/// @file    GNEVehicleType.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Nov 2015
+/// @date    Jan 2018
 /// @version $Id$
 ///
-// VehicleType used by GNECalibrators
+// Definition of Vehicle Types in NETEDIT
 /****************************************************************************/
 #ifndef GNECalibratorVehicleType_h
 #define GNECalibratorVehicleType_h
@@ -22,7 +22,7 @@
 // included modules
 // ===========================================================================
 
-#include "GNEAdditional.h"
+#include "GNEDemandElement.h"
 
 // ===========================================================================
 // class declaration
@@ -35,20 +35,20 @@ class GNECalibratorDialog;
 // class definitions
 // ===========================================================================
 /**
- * @class GNECalibratorVehicleType
+ * @class GNEVehicleType
  * vehicleType vehicleType used by GNECalibrators
  */
-class GNECalibratorVehicleType : public GNEAdditional {
+class GNEVehicleType : public GNEDemandElement {
 
 public:
     /// @brief constructor (Used only in GNECalibratorDialog)
-    GNECalibratorVehicleType(GNEViewNet* viewNet);
+    GNEVehicleType(GNEViewNet* viewNet);
 
     /// @brief constructor in which ID can be specified
-    GNECalibratorVehicleType(GNEViewNet* viewNet, const std::string& id);
+    GNEVehicleType(GNEViewNet* viewNet, const std::string& id);
 
     /// @brief parameter constructor
-    GNECalibratorVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
+    GNEVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
                              double accel, double decel, double sigma, double tau, double length, double minGap,
                              double maxSpeed, double speedFactor, double speedDev, const RGBColor& color,
                              SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape,
@@ -57,7 +57,7 @@ public:
                              double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
 
     /// @brief destructor
-    ~GNECalibratorVehicleType();
+    ~GNEVehicleType();
 
     /// @name Functions related with geometry of element
     /// @{
@@ -94,6 +94,12 @@ public:
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
+    /// @brief select attribute carrier using GUIGlobalSelection
+    void selectAttributeCarrier(bool changeFlag = true);
+
+    /// @brief unselect attribute carrier using GUIGlobalSelection
+    void unselectAttributeCarrier(bool changeFlag = true);
+
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key
@@ -203,10 +209,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
-    GNECalibratorVehicleType(GNECalibratorVehicleType*) = delete;
+    GNEVehicleType(GNEVehicleType*) = delete;
 
     /// @brief Invalidated assignment operator
-    GNECalibratorVehicleType* operator=(GNECalibratorVehicleType*) = delete;
+    GNEVehicleType* operator=(GNEVehicleType*) = delete;
 };
 
 #endif

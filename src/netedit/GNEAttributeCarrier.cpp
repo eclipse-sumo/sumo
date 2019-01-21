@@ -1471,6 +1471,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "sets custom shape for the connection",
                                                  "");
     }
+    // additional elements
     currentTag = SUMO_TAG_BUS_STOP;
     {
         // set values of tag
@@ -2128,24 +2129,6 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "center",
                                                  SUMOXMLDefinitions::LateralAlignments.getStrings());
     }
-    currentTag = SUMO_TAG_ROUTE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_EDGES, additional, ICON_ROUTE);
-        // set values of attributes
-        myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
-                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
-                                                 "The id of Route",
-                                                 "");
-        myTagProperties[currentTag].addAttribute(SUMO_ATTR_EDGES,
-                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
-                                                 "The edges the vehicle shall drive along, given as their ids, separated using spaces",
-                                                 "");
-        myTagProperties[currentTag].addAttribute(SUMO_ATTR_COLOR,
-                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                                                 "This route's color",
-                                                 "yellow");
-    }
     currentTag = SUMO_TAG_REROUTER;
     {
         // set values of tag
@@ -2389,10 +2372,29 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "Arrival weight associated to this Edget",
                                                  "1");
     }
+    // demand elements
+    currentTag = SUMO_TAG_ROUTE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_EDGES, additional, ICON_ROUTE);
+        // set values of attributes
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
+                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                                 "The id of Route",
+                                                 "");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_EDGES,
+                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+                                                 "The edges the vehicle shall drive along, given as their ids, separated using spaces",
+                                                 "");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_COLOR,
+                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                                                 "This route's color",
+                                                 "yellow");
+    }
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_VTYPE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_VIEW, additional, ICON_VTYPE);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                                                  ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -2506,6 +2508,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                                                  "The maximum lateral speed when using the sublane-model",
                                                  "1.00");
     }
+    // shapes
     currentTag = SUMO_TAG_POLY;
     {
         // set values of tag

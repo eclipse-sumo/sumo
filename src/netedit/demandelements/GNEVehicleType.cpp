@@ -7,12 +7,12 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNECalibratorVehicleType.cpp
+/// @file    GNEVehicleType.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    March 2016
+/// @date    Jan 2019
 /// @version $Id$
 ///
-//
+// Definition of Vehicle Types in NETEDIT
 /****************************************************************************/
 
 // ===========================================================================
@@ -22,36 +22,39 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/frames/GNESelectorFrame.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
-#include "GNECalibratorVehicleType.h"
+#include "GNEVehicleType.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet) :
-    GNEAdditional(viewNet->getNet()->generateAdditionalID(SUMO_TAG_VTYPE), viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false) {
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID(SUMO_TAG_VTYPE), viewNet, GLO_VTYPE, SUMO_TAG_VTYPE) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet, const std::string& id) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false) {
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& id) :
+    GNEDemandElement(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE) {
     // fill calibrator vehicle type with default values
     setDefaultValues();
 }
 
 
-GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
         double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
         double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
         SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
         const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
         double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) :
-    GNEAdditional(vehicleTypeID, viewNet, GLO_CALIBRATOR, SUMO_TAG_VTYPE, "", false),
+    GNEDemandElement(vehicleTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE),
     myAccel(accel),
     myDecel(decel),
     mySigma(sigma),
@@ -80,50 +83,81 @@ GNECalibratorVehicleType::GNECalibratorVehicleType(GNEViewNet* viewNet, std::str
 }
 
 
-GNECalibratorVehicleType::~GNECalibratorVehicleType() {}
+GNEVehicleType::~GNEVehicleType() {}
 
 
 void
-GNECalibratorVehicleType::moveGeometry(const Position&) {
+GNEVehicleType::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNECalibratorVehicleType::commitGeometryMoving(GNEUndoList*) {
+GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
 
 void
-GNECalibratorVehicleType::updateGeometry(bool /*updateGrid*/) {
+GNEVehicleType::updateGeometry(bool /*updateGrid*/) {
     // Currently this additional doesn't own a Geometry
 }
 
 
 Position
-GNECalibratorVehicleType::getPositionInView() const {
+GNEVehicleType::getPositionInView() const {
     return Position();
 }
 
 
 std::string
-GNECalibratorVehicleType::getParentName() const {
+GNEVehicleType::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
 }
 
 
 void
-GNECalibratorVehicleType::drawGL(const GUIVisualizationSettings&) const {
+GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
     // Currently This additional isn't drawn
 }
 
 
+void
+GNEVehicleType::selectAttributeCarrier(bool changeFlag) {
+    if (!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else {
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // add object of list into selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ROUTE);
+        if (changeFlag) {
+            mySelected = true;
+        }
+    }
+}
+
+
+void
+GNEVehicleType::unselectAttributeCarrier(bool changeFlag) {
+    if (!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else {
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // remove object of list of selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ROUTE);
+        if (changeFlag) {
+            mySelected = false;
+
+        }
+    }
+}
+
+
 std::string
-GNECalibratorVehicleType::getAttribute(SumoXMLAttr key) const {
+GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getAdditionalID();
+            return getDemandElementID();
         case SUMO_ATTR_ACCEL:
             return toString(myAccel);
         case SUMO_ATTR_DECEL:
@@ -183,7 +217,7 @@ GNECalibratorVehicleType::getAttribute(SumoXMLAttr key) const {
 
 
 void
-GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -224,10 +258,10 @@ GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value
 
 
 bool
-GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
+GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidDemandElementID(value);
         case SUMO_ATTR_ACCEL:
             return canParse<double>(value);
         case SUMO_ATTR_DECEL:
@@ -295,13 +329,13 @@ GNECalibratorVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 std::string
-GNECalibratorVehicleType::getPopUpID() const {
+GNEVehicleType::getPopUpID() const {
     return getTagStr() + ": " + getID();
 }
 
 
 std::string
-GNECalibratorVehicleType::getHierarchyName() const {
+GNEVehicleType::getHierarchyName() const {
     return getTagStr();
 }
 
@@ -310,10 +344,10 @@ GNECalibratorVehicleType::getHierarchyName() const {
 // ===========================================================================
 
 void
-GNECalibratorVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            changeAdditionalID(value);
+            changeDemandElementID(value);
             break;
         case SUMO_ATTR_ACCEL:
             myAccel = parse<double>(value);

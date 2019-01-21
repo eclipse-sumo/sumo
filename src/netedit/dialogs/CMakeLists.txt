@@ -23,8 +23,8 @@ set(netedit_dialogs_SRCS
    GNECalibratorFlowDialog.cpp
    GNERouteDialog.h
    GNERouteDialog.cpp
-   GNECalibratorVehicleTypeDialog.h
-   GNECalibratorVehicleTypeDialog.cpp
+   GNEVehicleTypeDialog.h
+   GNEVehicleTypeDialog.cpp
    GNEDialogACChooser.h
    GNEDialogACChooser.cpp
    )

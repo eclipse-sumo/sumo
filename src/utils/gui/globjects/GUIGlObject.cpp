@@ -84,6 +84,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"person",              GLO_PERSON},
     {"container",           GLO_CONTAINER},
     {"route",               GLO_ROUTE},
+    {"vType",               GLO_VTYPE},
     {"undefined",           GLO_MAX}
 };
 

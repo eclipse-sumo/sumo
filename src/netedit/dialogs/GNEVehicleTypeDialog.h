@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNECalibratorVehicleTypeDialog.h
+/// @file    GNEVehicleTypeDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    March 2017
+/// @date    Jan 2019
 /// @version $Id$
 ///
 // Dialog for edit calibrator vehicleTypes
 /****************************************************************************/
-#ifndef GNECalibratorVehicleTypeDialog_h
-#define GNECalibratorVehicleTypeDialog_h
+#ifndef GNEVehicleTypeDialog_h
+#define GNEVehicleTypeDialog_h
 
 // ===========================================================================
 // included modules
@@ -23,33 +23,33 @@
 
 #include <config.h>
 
-#include "GNEAdditionalDialog.h"
+#include "GNEDemandElementDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNECalibratorVehicleType;
+class GNEVehicleType;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class GNECalibratorVehicleTypeDialog
+ * @class GNEVehicleTypeDialog
  * @brief Dialog for edit rerouter intervals
  */
 
-class GNECalibratorVehicleTypeDialog : public GNEAdditionalDialog {
+class GNEVehicleTypeDialog : public GNEDemandElementDialog {
     /// @brief FOX-declaration
-    FXDECLARE(GNECalibratorVehicleTypeDialog)
+    FXDECLARE(GNEVehicleTypeDialog)
 
 public:
     /// @brief constructor
-    GNECalibratorVehicleTypeDialog(GNEAdditional* editedCalibratorVehicleType, bool updatingElement);
+    GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement);
 
     /// @brief destructor
-    ~GNECalibratorVehicleTypeDialog();
+    ~GNEVehicleTypeDialog();
 
     /// @name FOX-callbacks
     /// @{
@@ -68,10 +68,10 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNECalibratorVehicleTypeDialog() {}
+    GNEVehicleTypeDialog() {}
 
     /// @brief flag to check if current calibrator vehicleType is valid
-    bool myCalibratorVehicleTypeValid;
+    bool myVehicleTypeValid;
 
     /// @brief current sumo attribute invalid
     SumoXMLAttr myInvalidAttr;
@@ -161,17 +161,17 @@ protected:
     FXTextField* myTextFieldMaxSpeedLat;
 
     /// @brief update data fields
-    void updateCalibratorVehicleTypeValues();
+    void updateVehicleTypeValues();
 
     /// @brief set VClass texture
     void setVClassLabelImage();
 
 private:
     /// @brief Invalidated copy constructor.
-    GNECalibratorVehicleTypeDialog(const GNECalibratorVehicleTypeDialog&) = delete;
+    GNEVehicleTypeDialog(const GNEVehicleTypeDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNECalibratorVehicleTypeDialog& operator=(const GNECalibratorVehicleTypeDialog&) = delete;
+    GNEVehicleTypeDialog& operator=(const GNEVehicleTypeDialog&) = delete;
 };
 
 #endif

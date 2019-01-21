@@ -35,8 +35,8 @@
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false) {
     // if exist a reroute, set newRoute ID
-    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).size() > 0) {
-        myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_ROUTE).begin()->first;
+    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() > 0) {
+        myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).begin()->first;
     }
     // fill route prob reroute interval with default values
     setDefaultValues();

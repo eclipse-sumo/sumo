@@ -12,5 +12,5 @@ GNERerouterIntervalDialog.cpp GNERerouterIntervalDialog.h \
 GNECalibratorDialog.cpp GNECalibratorDialog.h \
 GNECalibratorFlowDialog.cpp GNECalibratorFlowDialog.h \
 GNERouteDialog.cpp GNERouteDialog.h \
-GNECalibratorVehicleTypeDialog.cpp GNECalibratorVehicleTypeDialog.h \
+GNEVehicleTypeDialog.cpp GNEVehicleTypeDialog.h \
 GNEDialogACChooser.cpp GNEDialogACChooser.h

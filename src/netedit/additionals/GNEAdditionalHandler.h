@@ -37,6 +37,7 @@ class GNEViewNet;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -249,12 +250,6 @@ public:
      * @param[in] tag of the additional
      */
     void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
-
-    /**@brief Parses vehicle type values of Calibrators
-     * @param[in] attrs SAX-attributes which define the vehicle types
-     * @param[in] tag of the additional
-     */
-    void parseAndBuildCalibratorVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
@@ -538,17 +533,7 @@ public:
     /**
     DOCUMENTAR
     */
-    static GNEAdditional* buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
-                                           double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
-                                           double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
-                                           SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
-                                           const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
-                                           double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
-
-    /**
-    DOCUMENTAR
-    */
-    static GNEAdditional* buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEAdditional* route, GNEAdditional* vtype,
+    static GNEAdditional* buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vType,
             const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
             const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed,
             const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,

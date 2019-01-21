@@ -82,6 +82,12 @@ public:
      */
     void parseAndBuildRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
 
+    /**@brief Parses and build a vehicle type
+     * @param[in] attrs SAX-attributes which define the vehicle types
+     * @param[in] tag of the demand element
+     */
+    void parseAndBuildVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+
     /**@brief Parse generic parameter and insert it in the last created demand element
      * @param[in] attrs SAX-attributes which define the generic parameter
      */
@@ -106,6 +112,16 @@ public:
 
     /// @}
     static GNEDemandElement* buildRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
+
+    /**
+    DOCUMENTAR
+    */
+    static GNEDemandElement* buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
+                                           double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
+                                           double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
+                                           SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
+                                           const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
+                                           double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
 
 private:
     /// @brief Stack used to save the last inserted element

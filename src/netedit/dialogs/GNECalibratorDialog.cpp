@@ -34,12 +34,12 @@
 #include <netedit/demandelements/GNERoute.h>
 #include <netedit/additionals/GNECalibrator.h>
 #include <netedit/additionals/GNECalibratorFlow.h>
-#include <netedit/additionals/GNECalibratorVehicleType.h>
+#include <netedit/demandelements/GNEVehicleType.h>
 
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"
 #include "GNERouteDialog.h"
-#include "GNECalibratorVehicleTypeDialog.h"
+#include "GNEVehicleTypeDialog.h"
 
 // ===========================================================================
 // FOX callback mapping
@@ -229,7 +229,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
-    // only add flow if there is CalibratorRoutes and Calibrator vehicle types
+    // only add flow if there is at least a GNERoute (There is always a Vehicle Type)
     if (myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
         GNECalibratorFlowDialog(new GNECalibratorFlow(myEditedAdditional), false);
@@ -267,8 +267,8 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
-    // create new calibrator flow and configure it with GNECalibratorVehicleTypeDialog
-    GNECalibratorVehicleTypeDialog(new GNECalibratorVehicleType(myEditedAdditional->getViewNet()), false);
+    // create new calibrator flow and configure it with GNEVehicleTypeDialog
+    GNEVehicleTypeDialog(new GNEVehicleType(myEditedAdditional->getViewNet()), false);
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;
@@ -278,9 +278,9 @@ GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE).size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE).size(); i++) {
         // obtain vehicle type
-        GNEAdditional* vType = myEditedAdditional->getViewNet()->getNet()->retrieveAdditional(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
+        GNEDemandElement* vType = myEditedAdditional->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
         // Make sure that default vehicle isn't edited
         if ((i == 0) && (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus() || myVehicleTypeList->getItem(i, 2)->hasFocus())) {
             FXMessageBox::warning(getApp(), MBOX_OK,
@@ -316,7 +316,7 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                         myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(j, false), true);
                     }
                     // remove vehicle type of calibrator vehicle types
-                    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(vType, false), true);
+                    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, false), true);
                     // update flows and vehicle types table
                     updateFlowTable();
                     updateVehicleTypeTable();
@@ -324,14 +324,14 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                 }
             } else {
                 // remove vehicle type of calibrator vehicle types
-                myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(vType, false), true);
+                myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, false), true);
                 // update vehicle types table
                 updateVehicleTypeTable();
                 return 1;
             }
         } else if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
-            // modify vehicle type of calibratorVehicleTypes
-            GNECalibratorVehicleTypeDialog(vType, true);
+            // modify vehicle type
+            GNEVehicleTypeDialog(vType, true);
             // update vehicle types table
             updateVehicleTypeTable();
             // update Flows routes also because VType ID could be changed
@@ -427,7 +427,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     // clear table
     myVehicleTypeList->clearItems();
     // set number of rows
-    myVehicleTypeList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE).size()), 3);
+    myVehicleTypeList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE).size()), 3);
     // Configure list
     myVehicleTypeList->setVisibleColumns(4);
     myVehicleTypeList->setColumnWidth(0, 136);
@@ -441,7 +441,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over vehicle types
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_VTYPE)) {
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE)) {
         // Set id
         item = new FXTableItem(i.second->getAttribute(SUMO_ATTR_ID).c_str());
         myVehicleTypeList->setItem(indexRow, 0, item);
