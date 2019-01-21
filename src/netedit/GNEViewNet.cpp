@@ -2333,13 +2333,17 @@ GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
+    // make GL current (To allow take objects in popup position)
     if (makeCurrent()) {
         int id = getObjectAtPosition(getPopupPosition());
         GNEAttributeCarrier* ACToselect = dynamic_cast <GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        // make sure that AC is selected before selecting
         if (ACToselect && !ACToselect->isAttributeCarrierSelected()) {
             ACToselect->selectAttributeCarrier();
         }
+        // make non current
+        makeNonCurrent();
     }
     return 1;
 }
@@ -2347,13 +2351,17 @@ GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
+    // make GL current (To allow take objects in popup position)
     if (makeCurrent()) {
         int id = getObjectAtPosition(getPopupPosition());
         GNEAttributeCarrier* ACToselect = dynamic_cast <GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
+        // make sure that AC is selected before unselecting
         if (ACToselect && ACToselect->isAttributeCarrierSelected()) {
             ACToselect->unselectAttributeCarrier();
         }
+        // make non current
+        makeNonCurrent();
     }
     return 1;
 }
