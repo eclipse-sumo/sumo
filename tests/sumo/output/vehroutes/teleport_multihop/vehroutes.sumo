@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 20 14:55:30 2017 by SUMO Version dev-SVN-r23985
+<!-- generated on Mon Jan 21 21:59:24 2019 by Eclipse SUMO Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,9 +14,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
         <vehroute-output.exit-times value="true"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -28,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="2" depart="160.00" departPos="100.00" departSpeed="10.00" arrival="973.00">
+    <vehicle id="2" depart="160.00" departPos="100.00" departSpeed="10.00" arrival="974.00">
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" exitTimes="191.00 231.00 572.00 973.00"/>
     </vehicle>
 
