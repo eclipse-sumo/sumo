@@ -600,6 +600,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 
     // (optionally) draw the name and/or the street name if isn't being drawn for selecting
     const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
+    const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail();
     if (!s.drawForSelecting && (s.edgeName.show || drawStreetName || s.edgeValue.show)) {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
@@ -607,6 +608,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
         p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
         p.mul(.5);
+        if (spreadSuperposed) {
+            // move name to the right of the edge and towards its beginning
+            const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
+            const double shiftA = lane1->getShape().rotationAtOffset(lane1->getShape().length() / (double) 2.) - DEG2RAD(135);
+            Position shift(dist * cos(shiftA), dist * sin(shiftA));
+            p.add(shift);
+        }
         double angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.);
         angle += 90;
         if (angle > 90 && angle < 270) {
@@ -627,7 +635,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
         // draw dotted contor around the first and last lane
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
-        const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail();
         const double myHalfLaneWidthBack = spreadSuperposed ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
         GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getShape(), myHalfLaneWidthFront, myLanes.back()->getShape(), -1 * myHalfLaneWidthBack);
     }
