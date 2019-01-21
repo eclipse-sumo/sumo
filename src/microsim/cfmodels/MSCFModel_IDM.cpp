@@ -77,9 +77,10 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
     if (gap < 0.01) {
         return 0;
     }
-    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
-    if (gap > 0 && speed < NUMERICAL_EPS) {
+    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh));
+    if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
+        //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";
         result = maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs());
     }
     //if (result * TS > gap) {
