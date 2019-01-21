@@ -96,8 +96,6 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         // Call parse and build depending of tag
         switch (tag) {
             case SUMO_TAG_BUS_STOP:
-                parseAndBuildBusStop(attrs, tag);
-                break;
             case SUMO_TAG_TRAIN_STOP:
                 parseAndBuildBusStop(attrs, SUMO_TAG_BUS_STOP);
                 break;
@@ -112,15 +110,15 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 break;
             case SUMO_TAG_E1DETECTOR:
             case SUMO_TAG_INDUCTION_LOOP:
-                parseAndBuildDetectorE1(attrs, tag);
+                parseAndBuildDetectorE1(attrs, SUMO_TAG_E1DETECTOR);
                 break;
             case SUMO_TAG_E2DETECTOR:
             case SUMO_TAG_LANE_AREA_DETECTOR:
-                parseAndBuildDetectorE2(attrs, tag);
+                parseAndBuildDetectorE2(attrs, SUMO_TAG_E2DETECTOR);
                 break;
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-                parseAndBuildDetectorE3(attrs, tag);
+                parseAndBuildDetectorE3(attrs, SUMO_TAG_E3DETECTOR);
                 break;
             case SUMO_TAG_DET_ENTRY:
                 parseAndBuildDetectorEntry(attrs, tag);
