@@ -69,8 +69,9 @@ inline GUI_RTREE_QUAL::Rect GUI_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_r
 class SUMORTree : private GUI_RTREE_QUAL, public Boundary {
 public:
     /// @brief Constructor
-    SUMORTree() : GUI_RTREE_QUAL(&GUIGlObject::drawGL) {
-    }
+    SUMORTree() : GUI_RTREE_QUAL(&GUIGlObject::drawGL),
+        myLock(true)
+    { }
 
     /// @brief Destructor
     virtual ~SUMORTree() {
