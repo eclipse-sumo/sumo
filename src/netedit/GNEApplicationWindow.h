@@ -65,7 +65,7 @@ public:
     struct ToolbarsGrip {
         
         /// @brief constructor
-        ToolbarsGrip(GNEApplicationWindow *GNEAppWindows);
+        ToolbarsGrip(GNEApplicationWindow *GNEApp);
         
         /// @brief build menu toolbar grips
         void buildMenuToolbarsGrip();
@@ -93,7 +93,7 @@ public:
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow *myGNEAppWindows;
+        GNEApplicationWindow *myGNEApp;
 
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myToolBarShellMenu;
@@ -131,15 +131,6 @@ public:
 
     /// @brief set text of the statusBar
     void setStatusBarText(const std::string& statusBarText);
-
-    /// @brief set additionals file
-    void setAdditionalsFile(const std::string& additionalsFile);
-
-    /// @brief set TLS Programs file
-    void setTLSProgramsFile(const std::string& TLSProgramsFile);
-
-    /// @brief set demand elements file
-    void setDemandElementsFile(const std::string& demandElementsFile);
 
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
@@ -351,6 +342,9 @@ public:
     void updateSuperModeMenuCommands(int supermode);
 
 protected:
+    /// @brief FOX needs this for static members
+    GNEApplicationWindow();
+
     /// @brief the thread that loads the network
     GNELoadThread* myLoadThread;
 
@@ -380,15 +374,6 @@ protected:
     /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
 
-    /// @brief List of recent config files
-    FXRecentFiles myRecentConfigs;
-
-    /// @brief List of recent nets
-    FXRecentFiles myRecentNets;
-
-    /// @brief Input file pattern
-    std::string myConfigPattern;
-
     /// @brief check if had dependent build
     bool hadDependentBuild;
 
@@ -398,22 +383,39 @@ protected:
     /// @brief the one and only undo list
     GNEUndoList* myUndoList;
 
-    /// @brief filename for load/save additionals
-    std::string myAdditionalsFile;
-
-    /// @brief filename for load/save TLS Programs
-    std::string myTLSProgramsFile;
-
-    /// @brief filename for load/save demand elemetns
-    std::string myDemandElementsFile;
-
-    /// @brief FOX needs this for static members
-    GNEApplicationWindow();
-
-    /// @brief Builds the menu bar
-    void fillMenuBar();
+    /// @brief Input file pattern
+    std::string myConfigPattern;
 
 private:    
+    /// @brief struct for menu bar file
+    struct MenuBarFile {
+        
+        /// @brief constructor
+        MenuBarFile(GNEApplicationWindow *GNEApp);
+        
+        /// @brief build recent files
+        void buildRecentFiles(FXMenuPane* fileMenu);
+    
+        /// @brief filename for load/save additionals
+        std::string myAdditionalsFile;
+
+        /// @brief filename for load/save TLS Programs
+        std::string myTLSProgramsFile;
+
+        /// @brief filename for load/save demand elemetns
+        std::string myDemandElementsFile;
+
+        /// @brief List of recent config files
+        FXRecentFiles myRecentConfigs;
+
+        /// @brief List of recent nets
+        FXRecentFiles myRecentNets;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindow
+        GNEApplicationWindow *myGNEApp;
+    };
+
     /// @brief struct for File menu commands
     struct FileMenuCommands {
 
@@ -531,6 +533,9 @@ private:
     /// @brief Toolbars Grip
     ToolbarsGrip myToolbarsGrip;
 
+    /// @brief MenuBarFile
+    MenuBarFile myMenuBarFile;
+
     /// @brief File Menu Commands
     FileMenuCommands myFileMenuCommands;
 
@@ -548,6 +553,9 @@ private:
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu;
+
+    /// @brief Builds the menu bar
+    void fillMenuBar();
 
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);

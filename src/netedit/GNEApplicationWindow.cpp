@@ -192,16 +192,16 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // GNEApplicationWindow::ToolbarsGrip method definitions
 // ===========================================================================
 
-GNEApplicationWindow::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow *GNEAppWindows) :
-    myGNEAppWindows(GNEAppWindows) {
+GNEApplicationWindow::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow *GNEApp) :
+    myGNEApp(GNEApp) {
 }
 
 
 void
 GNEApplicationWindow::ToolbarsGrip::buildMenuToolbarsGrip() {
     // build menu bar (for File, edit, processing...) using specify design
-    myToolBarShellMenu = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
-    menu = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
+    myToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    menu = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
     // declare toolbar grip for menu bar
     new FXToolBarGrip(menu, menu, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
 }
@@ -210,23 +210,23 @@ GNEApplicationWindow::ToolbarsGrip::buildMenuToolbarsGrip() {
 void
 GNEApplicationWindow::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build menu bar for supermodes (next to menu bar)
-    myToolBarShellSuperModes = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
-    superModes = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    myToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    superModes = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar Supermodes
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for navigation (bot to menu bar)
-    myToolBarShellNavigation = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
-    navigation = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedNext);
+    myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    navigation = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedNext);
     // declare toolbar grip for menu bar Navigation
     new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for modes
-    myToolBarShellModes = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
-    modes = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellModes, GUIDesignToolBarRaisedSame);
+    myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    modes = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for mode Options
-    myToolBarShellModeOptions = new FXToolBarShell(myGNEAppWindows, GUIDesignToolBar);
-    modeOptions = new FXMenuBar(myGNEAppWindows->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
+    myToolBarShellModeOptions = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    modeOptions = new FXMenuBar(myGNEApp->myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modeOptions, modeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
@@ -240,7 +240,7 @@ GNEApplicationWindow::ToolbarsGrip::buildViewParentToolbarsGrips() {
     myToolBarShellModes->create();
     myToolBarShellModeOptions->create();
     // recalc top dop after creating elements
-    myGNEAppWindows->myTopDock->recalc();
+    myGNEApp->myTopDock->recalc();
 }
 
 
@@ -257,7 +257,7 @@ GNEApplicationWindow::ToolbarsGrip::destroyParentToolbarsGrips() {
     delete myToolBarShellModes;
     delete myToolBarShellModeOptions;
     // recalc top dop after deleting elements
-    myGNEAppWindows->myTopDock->recalc();
+    myGNEApp->myTopDock->recalc();
 }
 
 // ===========================================================================
@@ -268,12 +268,12 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUIMainWindow(a),
     myLoadThread(nullptr),
     myAmLoading(false),
-    myRecentNets(a, "nets"),
     myConfigPattern(configPattern),
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
     myToolbarsGrip(this),
+    myMenuBarFile(this),
     myFileMenuCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
@@ -459,147 +459,6 @@ GNEApplicationWindow::~GNEApplicationWindow() {
 }
 
 
-void
-GNEApplicationWindow::fillMenuBar() {
-    // build file menu
-    myFileMenu = new FXMenuPane(this);
-    new FXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu);
-
-    // build edit menu
-    myEditMenu = new FXMenuPane(this);
-    new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu);
-
-    // build undo/redo command
-    new FXMenuCommand(myEditMenu,
-                      "&Undo\tCtrl+Z\tUndo the last change.",
-                      GUIIconSubSys::getIcon(ICON_UNDO), myUndoList, FXUndoList::ID_UNDO);
-    new FXMenuCommand(myEditMenu,
-                      "&Redo\tCtrl+Y\tRedo the last change.",
-                      GUIIconSubSys::getIcon(ICON_REDO), myUndoList, FXUndoList::ID_REDO);
-
-    new FXMenuSeparator(myEditMenu);
-
-    // build Network modes commands and hide it
-    myNetworkMenuCommands.buildNetworkMenuCommands(myEditMenu);
-    myNetworkMenuCommands.hideNetworkMenuCommands();
-
-    // build Demand Modes commands
-    myDemandMenuCommands.buildDemandMenuCommands(myEditMenu);
-    myDemandMenuCommands.hideDemandMenuCommands();
-
-    new FXMenuCommand(myEditMenu,
-                      "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
-                      nullptr, this, MID_EDITVIEWSCHEME);
-    new FXMenuCommand(myEditMenu,
-                      "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-                      nullptr, this, MID_EDITVIEWPORT);
-    new FXMenuCommand(myEditMenu,
-                      "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
-                      nullptr, this, MID_GNE_HOTKEY_CTRL_G);
-    new FXMenuSeparator(myEditMenu);
-    new FXMenuCommand(myEditMenu,
-                      "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
-                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_GNE_HOTKEY_CTRL_T);
-
-    // processing menu (trigger netbuild computations)
-    myProcessingMenu = new FXMenuPane(this);
-    new FXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu);
-    new FXMenuCommand(myProcessingMenu,
-                      "Compute Junctions\tF5\tComputes junction shape and logic.",
-                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_HOTKEY_F5);
-    new FXMenuCommand(myProcessingMenu,
-                      "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
-                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_HOTKEY_SHIFT_F5);
-    new FXMenuCommand(myProcessingMenu,
-                      "Clean Junctions\tF6\tRemoves solitary junctions.",
-                      GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_HOTKEY_F6);
-    new FXMenuCommand(myProcessingMenu,
-                      "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
-                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F7);
-    new FXMenuCommand(myProcessingMenu,
-                      "Clean invalid crossings\tF8\tClear invalid crossings.",
-                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F8);
-    new FXMenuCommand(myProcessingMenu,
-                      "Options\tF10\t\tConfigure Processing Options.",
-                      GUIIconSubSys::getIcon(ICON_OPTIONS), this, MID_GNE_HOTKEY_F10);
-    // build settings menu
-    /*
-    mySettingsMenu = new FXMenuPane(this);
-    new FXMenuTitle(menu,"&Settings",0,mySettingsMenu);
-    new FXMenuCheck(mySettingsMenu,
-                    "Gaming Mode\t\tToggle gaming mode on/off.",
-                    this,MID_GAMING);
-    */
-    // build Locate menu
-    myLocatorMenu = new FXMenuPane(this);
-    new FXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Junctions\tShift+J\tOpen a Dialog for Locating a Junction.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Edges\tShift+E\tOpen a Dialog for Locating an Edge.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEEDGE), this, MID_LOCATEEDGE);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &TLS\tShift+T\tOpen a Dialog for Locating a Traffic Light.",
-                      GUIIconSubSys::getIcon(ICON_LOCATETLS), this, MID_LOCATETLS);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Additional\tShift+A\tOpen a Dialog for Locating an Additional Structure.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEADD), this, MID_LOCATEADD);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate P&oI\tShift+O\tOpen a Dialog for Locating a Point of Intereset.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEPOI), this, MID_LOCATEPOI);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate Po&lygon\tShift+L\tOpen a Dialog for Locating a Polygon.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
-    // build windows menu
-    myWindowsMenu = new FXMenuPane(this);
-    new FXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu);
-    new FXMenuCheck(myWindowsMenu,
-                    "&Show Status Line\t\tToggle this Status Bar on/off.",
-                    myStatusbar, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowsMenu,
-                    "Show &Message Window\t\tToggle the Message Window on/off.",
-                    myMessageWindow, FXWindow::ID_TOGGLESHOWN);
-    /*
-    new FXMenuSeparator(myWindowsMenu);
-    new FXMenuCommand(myWindowsMenu,"Tile &Horizontally",
-                      GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_HORI),
-                      myMDIClient,FXMDIClient::ID_MDI_TILEHORIZONTAL);
-    new FXMenuCommand(myWindowsMenu,"Tile &Vertically",
-                      GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_VERT),
-                      myMDIClient,FXMDIClient::ID_MDI_TILEVERTICAL);
-    new FXMenuCommand(myWindowsMenu,"C&ascade",
-                      GUIIconSubSys::getIcon(ICON_WINDOWS_CASCADE),
-                      myMDIClient,FXMDIClient::ID_MDI_CASCADE);
-    new FXMenuCommand(myWindowsMenu,"&Close",0,
-                      myMDIClient,FXMDIClient::ID_MDI_CLOSE);
-    sep1=new FXMenuSeparator(myWindowsMenu);
-    sep1->setTarget(myMDIClient);
-    sep1->setSelector(FXMDIClient::ID_MDI_ANY);
-    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_1);
-    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_2);
-    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_3);
-    new FXMenuCommand(myWindowsMenu,"",0,myMDIClient,FXMDIClient::ID_MDI_4);
-    new FXMenuCommand(myWindowsMenu,"&Others...",0,myMDIClient,FXMDIClient::ID_MDI_OVER_5);
-    new FXMenuSeparator(myWindowsMenu);
-    */
-    new FXMenuCommand(myWindowsMenu,
-                      "&Clear Message Window\t\tClear the message window.",
-                      nullptr, this, MID_CLEARMESSAGEWINDOW);
-
-    // build help menu
-    myHelpMenu = new FXMenuPane(this);
-    new FXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);
-    new FXMenuCommand(myHelpMenu,
-                      "&Online Documentation\tF1\tOpen Online documentation.",
-                      nullptr, this, MID_HOTKEY_F1);
-    new FXMenuCommand(myHelpMenu,
-                      "&About\tF2\tAbout netedit.",
-                      nullptr, this, MID_HOTKEY_F2);
-}
-
-
 long
 GNEApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
     if (continueWithUnsavedChanges()) {
@@ -654,7 +513,8 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         loadConfigOrNet(file, false);
-        myRecentConfigs.appendFile(file.c_str());
+        // add it into recent configs
+        myMenuBarFile.myRecentConfigs.appendFile(file.c_str());
     }
     return 1;
 }
@@ -674,7 +534,8 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         loadConfigOrNet(file, true);
-        myRecentNets.appendFile(file.c_str());
+        // add it into recent nets
+        myMenuBarFile.myRecentNets.appendFile(file.c_str());
         // when a net is loaded, save additionals and TLSPrograms are disabled
         disableSaveAdditionalsMenu();
         myFileMenuCommands.saveTLSPrograms->disable();
@@ -831,7 +692,7 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* fileDa
         return 1;
     }
     std::string file((const char*)fileData);
-    loadConfigOrNet(file, sender == &myRecentNets);
+    loadConfigOrNet(file, sender == &myMenuBarFile.myRecentNets);
     return 1;
 }
 
@@ -989,15 +850,15 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     myMessageWindow->registerMsgHandlers();
     // check if additionals/shapes has to be loaded at start
     if (oc.isSet("additional-files") && !oc.getString("additional-files").empty() && myNet) {
-        myAdditionalsFile = oc.getString("additional-files");
-        WRITE_MESSAGE("Loading additionals and shpes from '" + myAdditionalsFile + "'");
-        GNEAdditionalHandler additionalHandler(myAdditionalsFile, myNet->getViewNet());
+        myMenuBarFile.myAdditionalsFile = oc.getString("additional-files");
+        WRITE_MESSAGE("Loading additionals and shpes from '" + myMenuBarFile.myAdditionalsFile + "'");
+        GNEAdditionalHandler additionalHandler(myMenuBarFile.myAdditionalsFile, myNet->getViewNet());
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Run parser
-        myUndoList->p_begin("Loading additionals and shapes from '" + myAdditionalsFile + "'");
-        if (!XMLSubSys::runParser(additionalHandler, myAdditionalsFile, false)) {
-            WRITE_ERROR("Loading of " + myAdditionalsFile + " failed.");
+        myUndoList->p_begin("Loading additionals and shapes from '" + myMenuBarFile.myAdditionalsFile + "'");
+        if (!XMLSubSys::runParser(additionalHandler, myMenuBarFile.myAdditionalsFile, false)) {
+            WRITE_ERROR("Loading of " + myMenuBarFile.myAdditionalsFile + " failed.");
         }
         // disable validation for additionals
         XMLSubSys::setValidation("auto", "auto");
@@ -1005,15 +866,15 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // check if demand elements has to be loaded at start
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
-        myDemandElementsFile = oc.getString("route-files");
-        WRITE_MESSAGE("Loading demand elements from '" + myDemandElementsFile + "'");
-        GNEDemandHandler demandElementHandler(myDemandElementsFile, myNet->getViewNet());
+        myMenuBarFile.myDemandElementsFile = oc.getString("route-files");
+        WRITE_MESSAGE("Loading demand elements from '" + myMenuBarFile.myDemandElementsFile + "'");
+        GNEDemandHandler demandElementHandler(myMenuBarFile.myDemandElementsFile, myNet->getViewNet());
         // disable validation for demand elements
         XMLSubSys::setValidation("never", "auto");
         // Run parser
-        myUndoList->p_begin("Loading demand elements from '" + myDemandElementsFile + "'");
-        if (!XMLSubSys::runParser(demandElementHandler, myDemandElementsFile, false)) {
-            WRITE_ERROR("Loading of " + myDemandElementsFile + " failed.");
+        myUndoList->p_begin("Loading demand elements from '" + myMenuBarFile.myDemandElementsFile + "'");
+        if (!XMLSubSys::runParser(demandElementHandler, myMenuBarFile.myDemandElementsFile, false)) {
+            WRITE_ERROR("Loading of " + myMenuBarFile.myDemandElementsFile + " failed.");
         }
         // disable validation for demand elements
         XMLSubSys::setValidation("auto", "auto");
@@ -1021,15 +882,15 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
-        myAdditionalsFile = oc.getString("additionals-output");
+        myMenuBarFile.myAdditionalsFile = oc.getString("additionals-output");
     }
     // check if TLSPrograms output must be changed
     if (oc.isSet("TLSPrograms-output")) {
-        myTLSProgramsFile = oc.getString("TLSPrograms-output");
+        myMenuBarFile.myTLSProgramsFile = oc.getString("TLSPrograms-output");
     }
     // check if demand elements output must be changed
     if (oc.isSet("demandelements-output")) {
-        myDemandElementsFile = oc.getString("demandelements-output");
+        myMenuBarFile.myDemandElementsFile = oc.getString("demandelements-output");
     }
     // after loading net shouldn't be saved
     if (myNet) {
@@ -1044,6 +905,52 @@ void
 GNEApplicationWindow::handleEvent_Message(GUIEvent* e) {
     GUIEvent_Message* ec = static_cast<GUIEvent_Message*>(e);
     myMessageWindow->appendMsg(ec->getOwnType(), ec->getMsg());
+}
+
+// ===========================================================================
+// GNEApplicationWindow::MenuBarFile method definitions
+// ===========================================================================
+
+GNEApplicationWindow::MenuBarFile::MenuBarFile(GNEApplicationWindow *GNEApp) :
+    myGNEApp(GNEApp),
+    myRecentNets(GNEApp->getApp(), "nets") {
+}
+
+
+void
+GNEApplicationWindow::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) {
+    FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);
+    sep1->setTarget(&myRecentConfigs);
+    sep1->setSelector(FXRecentFiles::ID_ANYFILES);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(fileMenu, "Clear Recent Configurat&ions", nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
+    myRecentConfigs.setTarget(myGNEApp);
+    myRecentConfigs.setSelector(MID_RECENTFILE);
+    FXMenuSeparator* sep2 = new FXMenuSeparator(fileMenu);
+    sep2->setTarget(&myRecentNets);
+    sep2->setSelector(FXRecentFiles::ID_ANYFILES);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(fileMenu, "Cl&ear Recent Networks", nullptr, &myRecentNets, FXRecentFiles::ID_CLEAR);
+    myRecentNets.setTarget(myGNEApp);
+    myRecentNets.setSelector(MID_RECENTFILE);
 }
 
 // ---------------------------------------------------------------------------
@@ -1130,39 +1037,8 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
     new FXMenuCommand(fileMenu,
                       "Close\tCtrl+W\tClose the net&work.",
                       GUIIconSubSys::getIcon(ICON_CLOSE), myGNEApp, MID_HOTKEY_CTRL_W);
-    // Recent files
-    FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);
-    sep1->setTarget(&myGNEApp->myRecentConfigs);
-    sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(fileMenu, "Clear Recent Configurat&ions", nullptr, &myGNEApp->myRecentConfigs, FXRecentFiles::ID_CLEAR);
-    myGNEApp->myRecentConfigs.setTarget(myGNEApp);
-    myGNEApp->myRecentConfigs.setSelector(MID_RECENTFILE);
-    FXMenuSeparator* sep2 = new FXMenuSeparator(fileMenu);
-    sep2->setTarget(&myGNEApp->myRecentNets);
-    sep2->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(fileMenu, "", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(fileMenu, "Cl&ear Recent Networks", nullptr, &myGNEApp->myRecentNets, FXRecentFiles::ID_CLEAR);
-    myGNEApp->myRecentNets.setTarget(myGNEApp);
-    myGNEApp->myRecentNets.setSelector(MID_RECENTFILE);
+    // build recent files
+    myGNEApp->myMenuBarFile.buildRecentFiles(fileMenu);
     new FXMenuSeparator(fileMenu);
     new FXMenuCommand(fileMenu, "&Quit\tCtrl+Q\tQuit the Application.", nullptr, myGNEApp, MID_HOTKEY_CTRL_Q, 0);
 
@@ -1185,8 +1061,8 @@ GNEApplicationWindow::NetworkMenuCommands::NetworkMenuCommands(GNEApplicationWin
     crossingMode(nullptr),
     TAZMode(nullptr),
     shapeMode(nullptr),
-    myGNEApp(GNEApp) 
-{}
+    myGNEApp(GNEApp) {
+}
 
 
 void 
@@ -1312,6 +1188,121 @@ GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* ed
 // ---------------------------------------------------------------------------
 
 void
+GNEApplicationWindow::fillMenuBar() {
+    // declare a FXMenuTitle needed to set height in all menu titles
+    FXMenuTitle* menuTitle;
+    // build file menu
+    myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
+    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu, LAYOUT_FIX_HEIGHT);
+    menuTitle->setHeight(23);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu);
+    // build edit menu
+    myEditMenu = new FXMenuPane(this);
+    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
+    menuTitle->setHeight(23);
+    // build undo/redo command
+    new FXMenuCommand(myEditMenu,
+                      "&Undo\tCtrl+Z\tUndo the last change.",
+                      GUIIconSubSys::getIcon(ICON_UNDO), myUndoList, FXUndoList::ID_UNDO);
+    new FXMenuCommand(myEditMenu,
+                      "&Redo\tCtrl+Y\tRedo the last change.",
+                      GUIIconSubSys::getIcon(ICON_REDO), myUndoList, FXUndoList::ID_REDO);
+    // build separator
+    new FXMenuSeparator(myEditMenu);
+    // build Network modes commands and hide it
+    myNetworkMenuCommands.buildNetworkMenuCommands(myEditMenu);
+    myNetworkMenuCommands.hideNetworkMenuCommands();
+    // build Demand Modes commands
+    myDemandMenuCommands.buildDemandMenuCommands(myEditMenu);
+    myDemandMenuCommands.hideDemandMenuCommands();
+    new FXMenuCommand(myEditMenu,
+                      "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
+                      nullptr, this, MID_EDITVIEWSCHEME);
+    new FXMenuCommand(myEditMenu,
+                      "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                      nullptr, this, MID_EDITVIEWPORT);
+    new FXMenuCommand(myEditMenu,
+                      "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                      nullptr, this, MID_GNE_HOTKEY_CTRL_G);
+    new FXMenuSeparator(myEditMenu);
+    new FXMenuCommand(myEditMenu,
+                      "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
+                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_GNE_HOTKEY_CTRL_T);
+    // processing menu (trigger netbuild computations)
+    myProcessingMenu = new FXMenuPane(this);
+    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu, LAYOUT_FIX_HEIGHT);
+    menuTitle->setHeight(23);
+    // build processing menu commands
+    new FXMenuCommand(myProcessingMenu,
+                      "Compute Junctions\tF5\tComputes junction shape and logic.",
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_HOTKEY_F5);
+    new FXMenuCommand(myProcessingMenu,
+                      "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_HOTKEY_SHIFT_F5);
+    new FXMenuCommand(myProcessingMenu,
+                      "Clean Junctions\tF6\tRemoves solitary junctions.",
+                      GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_HOTKEY_F6);
+    new FXMenuCommand(myProcessingMenu,
+                      "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F7);
+    new FXMenuCommand(myProcessingMenu,
+                      "Clean invalid crossings\tF8\tClear invalid crossings.",
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F8);
+    new FXMenuCommand(myProcessingMenu,
+                      "Options\tF10\t\tConfigure Processing Options.",
+                      GUIIconSubSys::getIcon(ICON_OPTIONS), this, MID_GNE_HOTKEY_F10);
+    // build locate menu
+    myLocatorMenu = new FXMenuPane(this);
+    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu, LAYOUT_FIX_HEIGHT);
+    menuTitle->setHeight(23);
+    // build locate menu commands
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Junctions\tShift+J\tOpen a Dialog for Locating a Junction.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Edges\tShift+E\tOpen a Dialog for Locating an Edge.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEEDGE), this, MID_LOCATEEDGE);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &TLS\tShift+T\tOpen a Dialog for Locating a Traffic Light.",
+                      GUIIconSubSys::getIcon(ICON_LOCATETLS), this, MID_LOCATETLS);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Additional\tShift+A\tOpen a Dialog for Locating an Additional Structure.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEADD), this, MID_LOCATEADD);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate P&oI\tShift+O\tOpen a Dialog for Locating a Point of Intereset.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOI), this, MID_LOCATEPOI);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate Po&lygon\tShift+L\tOpen a Dialog for Locating a Polygon.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
+    // build windows menu
+    myWindowsMenu = new FXMenuPane(this);
+    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu, LAYOUT_FIX_HEIGHT);
+    menuTitle->setHeight(23);
+    // build windows menu commands
+    new FXMenuCheck(myWindowsMenu,
+                    "&Show Status Line\t\tToggle this Status Bar on/off.",
+                    myStatusbar, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuCheck(myWindowsMenu,
+                    "Show &Message Window\t\tToggle the Message Window on/off.",
+                    myMessageWindow, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuCommand(myWindowsMenu,
+                      "&Clear Message Window\t\tClear the message window.",
+                      nullptr, this, MID_CLEARMESSAGEWINDOW);
+    // build help menu
+    myHelpMenu = new FXMenuPane(this);
+    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu, LAYOUT_FIX_HEIGHT);
+    menuTitle->setHeight(23);
+    // build help menu commands
+    new FXMenuCommand(myHelpMenu,
+                      "&Online Documentation\tF1\tOpen Online documentation.",
+                      nullptr, this, MID_HOTKEY_F1);
+    new FXMenuCommand(myHelpMenu,
+                      "&About\tF2\tAbout netedit.",
+                      nullptr, this, MID_HOTKEY_F2);
+}
+
+
+void
 GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool useStartupOptions, bool newNet) {
     if (!continueWithUnsavedChanges()) {
         return;
@@ -1422,24 +1413,6 @@ void
 GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
     myStatusbar->getStatusLine()->setText(statusBarText.c_str());
     myStatusbar->getStatusLine()->setNormalText(statusBarText.c_str());
-}
-
-
-void
-GNEApplicationWindow::setAdditionalsFile(const std::string& additionalsFile) {
-    myAdditionalsFile = additionalsFile;
-}
-
-
-void
-GNEApplicationWindow::setTLSProgramsFile(const std::string& TLSProgramsFile) {
-    myTLSProgramsFile = TLSProgramsFile;
-}
-
-
-void
-GNEApplicationWindow::setDemandElementsFile(const std::string& demandElementsFile) {
-    myDemandElementsFile = demandElementsFile;
 }
 
 
@@ -1650,8 +1623,8 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
     // declare string to save paths in wich additionals, shapes and demand will be saved
-    std::string additionalsSavePath = myAdditionalsFile;
-    std::string demandElementsSavePath = myDemandElementsFile;
+    std::string additionalsSavePath = myMenuBarFile.myAdditionalsFile;
+    std::string demandElementsSavePath = myMenuBarFile.myDemandElementsFile;
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Keys Shift + F5 (Compute with volatile options) pressed");
     WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
@@ -1673,7 +1646,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
         // Check if there are additionals in our net
         if (myNet->getNumberOfAdditionals() > 0) {
             // ask user if want to save additionals if weren't saved previously
-            if (myAdditionalsFile == "") {
+            if (myMenuBarFile.myAdditionalsFile == "") {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Save additionals before recomputing'");
                 // open question dialog box
@@ -1690,16 +1663,16 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                     // write warning if netedit is running in testing mode
                     WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
-                    myAdditionalsFile = MFXUtils::getFilename2Write(this,
+                    myMenuBarFile.myAdditionalsFile = MFXUtils::getFilename2Write(this,
                                         "Select name of the additional file", ".xml",
                                         GUIIconSubSys::getIcon(ICON_MODETLS),
                                         gCurrentFolder).text();
                     // set obtanied filename output into additionalsSavePath (can be "")
-                    additionalsSavePath = myAdditionalsFile;
+                    additionalsSavePath = myMenuBarFile.myAdditionalsFile;
                 }
             }
             // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
-            if (myAdditionalsFile == "") {
+            if (myMenuBarFile.myAdditionalsFile == "") {
                 // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
                 additionalsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
             }
@@ -1725,7 +1698,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
         // Check if there are demand elements in our net
         if (myNet->getNumberOfDemandElements() > 0) {
             // ask user if want to save demand elements if weren't saved previously
-            if (myDemandElementsFile == "") {
+            if (myMenuBarFile.myDemandElementsFile == "") {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before recomputing'");
                 // open question dialog box
@@ -1742,16 +1715,16 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                     // write warning if netedit is running in testing mode
                     WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
-                    myDemandElementsFile = MFXUtils::getFilename2Write(this,
+                    myMenuBarFile.myDemandElementsFile = MFXUtils::getFilename2Write(this,
                                         "Select name of the demand element file", ".xml",
                                         GUIIconSubSys::getIcon(ICON_MODETLS),
                                         gCurrentFolder).text();
                     // set obtanied filename output into demand elementSavePath (can be "")
-                    demandElementsSavePath = myDemandElementsFile;
+                    demandElementsSavePath = myMenuBarFile.myDemandElementsFile;
                 }
             }
             // Check if demand element must be saved in a temporal directory, if user didn't define a directory for demand elements
-            if (myDemandElementsFile == "") {
+            if (myMenuBarFile.myDemandElementsFile == "") {
                 // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
                 demandElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDemandElementsNetedit.xml");
             }
@@ -1965,7 +1938,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
         // After saveing a net sucesfully, add it into Recent Nets list.
-        myRecentNets.appendFile(oc.getString("output-file").c_str());
+        myMenuBarFile.myRecentNets.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
         return 1;
@@ -1978,7 +1951,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
     // check if save additional menu is enabled
     if (myFileMenuCommands.saveAdditionals->isEnabled()) {
         // Check if additionals file was already set at start of netedit or with a previous save
-        if (myAdditionalsFile == "") {
+        if (myMenuBarFile.myAdditionalsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the additional file", ".xml",
                             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
@@ -1987,14 +1960,14 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
                 // None additionals file was selected, then stop function
                 return 0;
             } else {
-                myAdditionalsFile = file.text();
+                myMenuBarFile.myAdditionalsFile = file.text();
             }
         }
         // Start saving additionals
         getApp()->beginWaitCursor();
         try {
-            myNet->saveAdditionals(myAdditionalsFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Additionals saved in " + myAdditionalsFile + ".\n");
+            myNet->saveAdditionals(myMenuBarFile.myAdditionalsFile);
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Additionals saved in " + myMenuBarFile.myAdditionalsFile + ".\n");
             myFileMenuCommands.saveAdditionals->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -2022,7 +1995,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
                     gCurrentFolder);
     if (file != "") {
         // Set new additional file
-        myAdditionalsFile = file.text();
+        myMenuBarFile.myAdditionalsFile = file.text();
         // save additionals
         return onCmdSaveAdditionals(nullptr, 0, nullptr);
     } else {
@@ -2036,7 +2009,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
     // check if save additional menu is enabled
     if (myFileMenuCommands.saveTLSPrograms->isEnabled()) {
         // Check if TLS Programs file was already set at start of netedit or with a previous save
-        if (myTLSProgramsFile == "") {
+        if (myMenuBarFile.myTLSProgramsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the additional file", ".xml",
                             GUIIconSubSys::getIcon(ICON_MODETLS),
@@ -2045,14 +2018,14 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
                 // None TLS Programs file was selected, then stop function
                 return 0;
             } else {
-                myTLSProgramsFile = file.text();
+                myMenuBarFile.myTLSProgramsFile = file.text();
             }
         }
         // Start saving TLS Programs
         getApp()->beginWaitCursor();
         try {
-            myNet->saveTLSPrograms(myTLSProgramsFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + myTLSProgramsFile + ".\n");
+            myNet->saveTLSPrograms(myMenuBarFile.myTLSProgramsFile);
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + myMenuBarFile.myTLSProgramsFile + ".\n");
             myFileMenuCommands.saveTLSPrograms->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -2080,7 +2053,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
                     gCurrentFolder);
     if (file != "") {
         // Set new TLS Program file
-        myTLSProgramsFile = file.text();
+        myMenuBarFile.myTLSProgramsFile = file.text();
         // save TLS Programs
         return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
     } else {
@@ -2094,7 +2067,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
     // check if save demand element menu is enabled
     if (myFileMenuCommands.saveDemandElements->isEnabled()) {
         // Check if demand elements file was already set at start of netedit or with a previous save
-        if (myDemandElementsFile == "") {
+        if (myMenuBarFile.myDemandElementsFile == "") {
             FXString file = MFXUtils::getFilename2Write(this,
                             "Select name of the demand element file", ".xml",
                             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
@@ -2103,14 +2076,14 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
                 // None demand elements file was selected, then stop function
                 return 0;
             } else {
-                myDemandElementsFile = file.text();
+                myMenuBarFile.myDemandElementsFile = file.text();
             }
         }
         // Start saving demand elements
         getApp()->beginWaitCursor();
         try {
-            myNet->saveDemandElements(myDemandElementsFile);
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Demand elements saved in " + myDemandElementsFile + ".\n");
+            myNet->saveDemandElements(myMenuBarFile.myDemandElementsFile);
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Demand elements saved in " + myMenuBarFile.myDemandElementsFile + ".\n");
             myFileMenuCommands.saveDemandElements->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -2138,7 +2111,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
                     gCurrentFolder);
     if (file != "") {
         // Set new demand element file
-        myDemandElementsFile = file.text();
+        myMenuBarFile.myDemandElementsFile = file.text();
         // save demand elements
         return onCmdSaveDemandElements(nullptr, 0, nullptr);
     } else {
@@ -2294,6 +2267,7 @@ GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
 
 GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
+    myMenuBarFile(this),
     myFileMenuCommands(this),
     myNetworkMenuCommands(this), 
     myDemandMenuCommands(this) {
