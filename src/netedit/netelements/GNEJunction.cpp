@@ -171,6 +171,12 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
     //}
     const int numEndpoints = (int)myNBNode.getEndPoints().size();
+    // check if we're handling a selection
+    bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
+    // check if menu commands has to be disabled
+    const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CONNECT) || 
+                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) || 
+                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CREATE_EDGE);
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
     FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
@@ -178,24 +184,26 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
     FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
     FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
-    // check if menu commands has to be disabled
-    NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
-    const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
+    // check if current mode  is correct
     if (wrongMode) {
         mcCustomShape->disable();
         mcClearConnections->disable();
         mcResetConnections->disable();
+    }
+    // check if we're handling a selection
+    if (handlingSelection) {
+        mcResetCustomShape->setText("Reset junction shapes");
     }
     // disable mcClearConnections if juction hasn't connections
     if (getGNEConnections().empty()) {
         mcClearConnections->disable();
     }
     // disable mcResetCustomShape if junction doesn't have a custom shape
-    if (!myNBNode.hasCustomShape()) {
+    if (myNBNode.getShape().size() == 0) {
         mcResetCustomShape->disable();
     }
     // checkIsRemovable requiers turnarounds to be computed. This is ugly
-    if (myNBNode.getIncomingEdges().size() == 2 && myNBNode.getOutgoingEdges().size() == 2) {
+    if ((myNBNode.getIncomingEdges().size() == 2) && (myNBNode.getOutgoingEdges().size() == 2)) {
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
     }
     std::string reason = "wrong edit mode";
