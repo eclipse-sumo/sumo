@@ -30,7 +30,9 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
-GUIEventControl::GUIEventControl() {}
+GUIEventControl::GUIEventControl() :
+    myLock(true)
+{}
 
 
 GUIEventControl::~GUIEventControl() {

@@ -40,8 +40,10 @@ GUIGlObjectStorage GUIGlObjectStorage::gIDStorage;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIGlObjectStorage::GUIGlObjectStorage()
-    : myAktID(1) {}
+GUIGlObjectStorage::GUIGlObjectStorage() :
+    myAktID(1),
+    myLock(true)
+{}
 
 
 GUIGlObjectStorage::~GUIGlObjectStorage() {}
