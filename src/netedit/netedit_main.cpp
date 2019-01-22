@@ -79,7 +79,7 @@ main(int argc, char** argv) {
         gSchemeStorage.init(&application, true);
         window->dependentBuild();
         // Create app
-        application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q);
+        application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q_CLOSE);
         application.create();
         // Load configuration given on command line
         if (argc > 1) {

@@ -39,13 +39,113 @@ enum {
     /// @brief Show about - dialog
     ID_ABOUT = FXMainWindow::ID_LAST,
 
+
+    /// @name hotkeys
+    /// @{
+    /// @brief hotkey for mode editing additional
+    MID_HOTKEY_A_ADDITIONALMODE,
+    /// @brief hotkey for mode connecting lanes
+    MID_HOTKEY_C_CONNECTMODE,
+    /// @brief hotkey for mode deleting things
+    MID_HOTKEY_D_DELETEMODE,
+    /// @brief hotkey for mode adding edges
+    MID_HOTKEY_E_EDGEMODE,
+    /// @brief hotkey for mode inspecting object attributes
+    MID_HOTKEY_I_INSPECTMODE,
+    /// @brief hotkey for mode moving element
+    MID_HOTKEY_M_MOVEMODE,
+    /// @brief hotkey for mode creating polygons
+    MID_HOTKEY_P_POLYGONMODE,
+    /// @brief hotkey for mode selecting objects
+    MID_HOTKEY_S_SELECTMODE,
+    /// @brief hotkey for mode editing crossing AND routes
+    MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,
+    /// @brief hotkey for mode editing TLS
+    MID_HOTKEY_T_TLSMODE,
+    /// @brief hotkey for mode editing connection prohibitions
+    MID_HOTKEY_W_PROHIBITIONMODE,
+    /// @brief hotkey for mode editing TAZ
+    MID_HOTKEY_Z_TAZMODE,
+
+    /// @}
+
+    /// @name Ctrl - hotkeys
+    /// @{
+    /// @brief Start the simulation
+    MID_HOTKEY_CTRL_A_STARTSIMULATION,
+    /// @brief Edit simulation breakpoints
+    MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT,
+    /// @brief Perform a single simulation step
+    MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP,
+    /// @brief Gaming mode or toogle grid
+    MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,
+    /// @brief Fullscreen mode - menu entry
+    MID_HOTKEY_CTRL_F_FULSCREENMODE,
+    /// @brief save joined junctions
+    MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS,
+    /// @brief save network as plain XML
+    MID_HOTKEY_CTRL_L_SAVEASPLAINXML,
+    /// @brief create new empty newtork
+    MID_HOTKEY_CTRL_N_NEWNETWORK,
+    /// @brief Main window closes
+    MID_HOTKEY_CTRL_Q_CLOSE,
+    /// @brief save newtork and Stop the simulation
+    MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION,
+    /// @brief Reload the previously loaded simulation
+    MID_HOTKEY_CTRL_R_RELOAD,
+    /// @brief Open in SUMO GUI or in NETEDIT
+    MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
+    /// @brief Close simulation - ID
+    MID_HOTKEY_CTRL_W_CLOSESIMULATION,
+
+    /// @}
+
+    /// @name Other hotkeys
+    /// @{
+
+    /// @brief save newtwork as
+    MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
+    /// @brief Save additionals
+    MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL,
+    /// @brief compute junctions
+    MID_HOTKEY_F5_RECOMPUTE,
+    /// @brief compute junctions with volatile options
+    MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE,
+    /// @brief hot key <F1> open online documentation
+    MID_HOTKEY_F1_ONLINEDOCUMENTATION,    
+    /// @brief hot key <F2> open about dialog
+    MID_HOTKEY_F2_ABOUT,
+    /// @brief hot key <F3> set network mode in NETEDIT
+    MID_HOTKEY_F3_SUPERMODE_NETWORK,    
+    /// @brief hot key <F4> set demand mode in NETEDIT
+    MID_HOTKEY_F4_SUPERMODE_DEMAND,
+    /// @brief hot key <ESC> abort current edit operation
+    MID_GNE_HOTKEY_ESC,
+    /// @brief hot key <F12> focus upper element of current frame
+    MID_GNE_HOTKEY_F12,
+    /// @brief hot key <DEL> delete selections or elements
+    MID_GNE_HOTKEY_DEL,
+    /// @brief hot key <ENTER> accept current operation
+    MID_GNE_HOTKEY_ENTER,
+    /// @brief save TLS Programs
+    MID_GNE_HOTKEY_CTRL_SHIFT_K,
+    /// @brief clean junctions without edges
+    MID_GNE_HOTKEY_F6,
+    /// @brief join selected junctions
+    MID_GNE_HOTKEY_F7,
+    /// @brief clean invalid crossings
+    MID_GNE_HOTKEY_F8,
+    /// @brief open options menu
+    MID_GNE_HOTKEY_F10,
+
+    /// @}
+
     /// @name application specific
     /// @{
 
     /// @brief Main window-ID
     MID_WINDOW,
-    /// @brief Main window closes
-    MID_HOTKEY_CTRL_Q,
+
     /// @}
 
 
@@ -74,24 +174,13 @@ enum {
     MID_OPEN_ADDITIONALS,
     /// @brief Load additional file with additional elements
     MID_OPEN_TLSPROGRAMS,
-    /// @brief Reload the previously loaded simulation
-    MID_HOTKEY_CTRL_R,
     /// @brief Loads a file previously loaded
     MID_RECENTFILE,
-    /// @brief Close simulation - ID
-    MID_HOTKEY_CTRL_W,
     /// @}
 
 
     /// @name Main Window Simulation Control - IDs
     /// @{
-
-    /// @brief Start the simulation
-    MID_HOTKEY_CTRL_A,
-    /// @brief Stop the simulation
-    MID_HOTKEY_CTRL_S,
-    /// @brief Perform a single simulation step
-    MID_HOTKEY_CTRL_D,
     /// @brief Save state to file
     MID_SIMSAVE,
     /// @}
@@ -124,12 +213,8 @@ enum {
 
     /// @brief Open editor for selections
     MID_EDITCHOSEN,
-    /// @brief Edit simulation breakpoints
-    MID_GNE_HOTKEY_CTRL_B,
     /// @brief Open in netedit
     MID_NETEDIT,
-    /// @brief Open in SUMO GUI
-    MID_GNE_HOTKEY_CTRL_T,
     /// @}
 
 
@@ -138,10 +223,6 @@ enum {
 
     /// @brief Application settings - menu entry
     MID_APPSETTINGS,
-    /// @brief Gaming mode - menu entry
-    MID_HOTKEY_CTRL_G,
-    /// @brief Fullscreen mode - menu entry
-    MID_HOTKEY_CTRL_F,
     /// @brief Locator configuration - menu entry
     MID_LISTINTERNAL,
     MID_LISTPARKING,
@@ -405,52 +486,14 @@ enum {
     MID_ADD_REROUTER,
     /// @}
 
-
-    /// @name NETEDIT hotkeys
-    /// @{
-
-    /// @brief hot key <F1> open online documentation
-    MID_HOTKEY_F1,    
-    /// @brief hot key <F2> open about dialog
-    MID_HOTKEY_F2,
-    /// @brief hot key <F3> set network mode in NETEDIT
-    MID_HOTKEY_F3_SUPERMODE_NETWORK,    
-    /// @brief hot key <F4> set demand mode in NETEDIT
-    MID_HOTKEY_F4_SUPERMODE_DEMAND,
-    /// @brief hot key <ESC> abort current edit operation
-    MID_GNE_HOTKEY_ESC,
-    /// @brief hot key <F12> focus upper element of current frame
-    MID_GNE_HOTKEY_F12,
-    /// @brief hot key <DEL> delete selections or elements
-    MID_GNE_HOTKEY_DEL,
-    /// @brief hot key <ENTER> accept current operation
-    MID_GNE_HOTKEY_ENTER,
-    /// @brief hot key <Ctrl + G> for toogle grid
-    MID_GNE_HOTKEY_CTRL_G,
-    /// @}
-
-
     /// @name Toolbar file messages
     /// @{
 
-    /// @brief create new empty newtork
-    MID_GNE_HOTKEY_CTRL_N,
     /// @brief open foreign network
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
-    /// @brief save newtork
-    MID_GNE_HOTKEY_CTRL_S,
-    /// @brief save newtwork as
-    MID_GNE_HOTKEY_CTRL_SHIFT_S,
-    /// @brief save network as plain XML
-    MID_GNE_HOTKEY_CTRL_L,
-    /// @brief save joined junctions
-    MID_GNE_HOTKEY_CTRL_J,
-    /// @brief Save additionals
-    MID_GNE_HOTKEY_CTRL_SHIFT_D,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
-    /// @brief save TLS Programs
-    MID_GNE_HOTKEY_CTRL_SHIFT_K,
+
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
     /// @brief open demand elements
@@ -459,52 +502,6 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEDEMAND,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
-    /// @}
-
-
-    /// @name Toolbar processing messages
-    /// @{
-
-    /// @brief compute junctions
-    MID_GNE_HOTKEY_F5,
-    /// @brief compute junctions with volatile options
-    MID_GNE_HOTKEY_SHIFT_F5,
-    /// @brief clean junctions without edges
-    MID_GNE_HOTKEY_F6,
-    /// @brief join selected junctions
-    MID_GNE_HOTKEY_F7,
-    /// @brief clean invalid crossings
-    MID_GNE_HOTKEY_F8,
-    /// @brief open options menu
-    MID_GNE_HOTKEY_F10,
-    /// @}
-
-    /// @name Toolbar set network modes messages
-    /// @{
-    /// @brief shortcut for mode adding edges
-    MID_GNE_SHORTCUT_E,
-    /// @brief shortcut for mode moving element
-    MID_GNE_SHORTCUT_M,
-    /// @brief shortcut for mode deleting things
-    MID_GNE_SHORTCUT_D,
-    /// @brief shortcut for mode inspecting object attributes
-    MID_GNE_SHORTCUT_I,
-    /// @brief shortcut for mode selecting objects
-    MID_GNE_SHORTCUT_S,
-    /// @brief shortcut for mode connecting lanes
-    MID_GNE_SHORTCUT_C,
-    /// @brief shortcut for mode editing TLS
-    MID_GNE_SHORTCUT_T,
-    /// @brief shortcut for mode editing additional
-    MID_GNE_SHORTCUT_A,
-    /// @brief shortcut for mode editing crossing AND routes
-    MID_GNE_SHORTCUT_R,
-    /// @brief shortcut for mode editing TAZ
-    MID_GNE_SHORTCUT_Z,
-    /// @brief shortcut for mode creating polygons
-    MID_GNE_SHORTCUT_P,
-    /// @brief shortcut for mode editing connection prohibitions
-    MID_GNE_SHORTCUT_W,
     /// @}
 
 
