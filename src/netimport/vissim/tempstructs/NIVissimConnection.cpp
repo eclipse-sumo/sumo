@@ -68,7 +68,7 @@ NIVissimConnection::NIVissimConnection(int id,
 
 NIVissimConnection::~NIVissimConnection() {
     for (NIVissimClosedLanesVector::iterator i = myClosedLanes.begin(); i != myClosedLanes.end(); i++) {
-        delete(*i);
+        delete (*i);
     }
     myClosedLanes.clear();
 }

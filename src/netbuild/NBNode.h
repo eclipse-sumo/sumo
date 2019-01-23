@@ -780,7 +780,7 @@ private:
 
     /// @brief returns whether sub is a subset of super
     static bool includes(const std::set<NBEdge*, ComparatorIdLess>& super,
-                  const std::set<const NBEdge*, ComparatorIdLess>& sub);
+                         const std::set<const NBEdge*, ComparatorIdLess>& sub);
 
 private:
     /// @brief The position the node lies at

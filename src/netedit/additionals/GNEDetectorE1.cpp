@@ -46,7 +46,7 @@ GNEDetectorE1::~GNEDetectorE1() {
 }
 
 
-bool 
+bool
 GNEDetectorE1::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
@@ -57,13 +57,13 @@ GNEDetectorE1::isAdditionalValid() const {
 }
 
 
-std::string 
+std::string
 GNEDetectorE1::getAdditionalProblem() const {
-    // declare variable for error position 
+    // declare variable for error position
     std::string errorPosition;
     const double len = myLane->getParentEdge().getNBEdge()->getFinalLength();
     // check positions over lane
-    if (myPositionOverLane < -len ) {
+    if (myPositionOverLane < -len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
     }
     if (myPositionOverLane > len) {
@@ -73,7 +73,7 @@ GNEDetectorE1::getAdditionalProblem() const {
 }
 
 
-void 
+void
 GNEDetectorE1::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
@@ -402,7 +402,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

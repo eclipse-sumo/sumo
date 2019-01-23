@@ -107,7 +107,7 @@ GNEProhibitionFrame::~GNEProhibitionFrame() {}
 
 
 void
-GNEProhibitionFrame::handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+GNEProhibitionFrame::handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
     // build prohibition
     buildProhibition(objectsUnderCursor.getConnectionFront(), myViewNet->getKeyPressed().shiftKeyPressed(), myViewNet->getKeyPressed().controlKeyPressed(), true);
 }

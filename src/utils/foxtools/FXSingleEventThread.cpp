@@ -122,7 +122,7 @@ FXSingleEventThread::onThreadSignal(FXObject*, FXSelector, void*) {
 
 
 long
-FXSingleEventThread::onThreadEvent(FXObject*, FXSelector , void*) {
+FXSingleEventThread::onThreadEvent(FXObject*, FXSelector, void*) {
     myClient->eventOccurred();
     /*
     FXuint seltype1 = FXSELTYPE(SEL_THREAD);

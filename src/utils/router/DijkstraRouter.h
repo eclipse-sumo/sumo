@@ -80,8 +80,8 @@ public:
 
     /// Constructor
     DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation effortOperation,
-        typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc=nullptr) :
-                   BASE("DijkstraRouter", effortOperation, ttOperation),
+                   typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc = nullptr) :
+        BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -143,8 +143,8 @@ public:
             fromInfo->effort = 0.;
             fromInfo->prev = nullptr;
             fromInfo->leaveTime = STEPS2TIME(msTime);
-            if( myExternalEffort != nullptr ){
-              myExternalEffort->setInitialState(fromInfo->edge->getNumericalID());
+            if (myExternalEffort != nullptr) {
+                myExternalEffort->setInitialState(fromInfo->edge->getNumericalID());
             }
             myFrontierList.push_back(fromInfo);
         }
@@ -164,7 +164,7 @@ public:
 #endif
             // check whether the destination node was already reached
             if (minEdge == to) {
-              //propagate last external effort state to destination edge
+                //propagate last external effort state to destination edge
                 if (myExternalEffort != nullptr) {
                     myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
                 }
@@ -206,8 +206,8 @@ public:
                         std::push_heap(myFrontierList.begin(), myFrontierList.end(), myComparator);
                     } else {
                         std::push_heap(myFrontierList.begin(),
-                                  std::find(myFrontierList.begin(), myFrontierList.end(), followerInfo) + 1,
-                                  myComparator);
+                                       std::find(myFrontierList.begin(), myFrontierList.end(), followerInfo) + 1,
+                                       myComparator);
                     }
                 }
             }

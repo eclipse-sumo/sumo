@@ -116,10 +116,10 @@ GNERoute::updateGeometry(bool updateGrid) {
             // add lane shape
             myGeometry.multiShape.push_back(myEdges.at(i)->getLanes().front()->getShape());
             // add empty shape for connection
-            myGeometry.multiShape.push_back(PositionVector{myEdges.at(i)->getLanes().front()->getShape().back(), myEdges.at(i+1)->getLanes().front()->getShape().front()});
+            myGeometry.multiShape.push_back(PositionVector{myEdges.at(i)->getLanes().front()->getShape().back(), myEdges.at(i + 1)->getLanes().front()->getShape().front()});
             // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : myEdges.at(i)->getGNEConnections()) {
-                if (j->getLaneTo() == myEdges.at(i+1)->getLanes().front()) {
+                if (j->getLaneTo() == myEdges.at(i + 1)->getLanes().front()) {
                     myGeometry.multiShape.back() = j->getShape();
                 }
             }
@@ -162,7 +162,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getViewOptions().showDemandElements()) {
         // calculate route width
-        double routeWidth = s.addSize.getExaggeration(s, this)*0.66;
+        double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
 
         // Start drawing adding an gl identificator
         glPushName(getGlID());
@@ -199,7 +199,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
 
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            if(myGeometry.shape.size() > 0) {
+            if (myGeometry.shape.size() > 0) {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, routeWidth);
             } else {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, routeWidth);

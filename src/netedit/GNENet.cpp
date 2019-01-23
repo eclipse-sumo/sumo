@@ -724,7 +724,7 @@ GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge& edge, int index, GNE
     }
     // duplicate selected lane
     duplicateLane(edge.getLanes().at(MIN2(index, numLanes - 1)), undoList, true);
-    // transform the created lane 
+    // transform the created lane
     return restrictLane(vclass, edge.getLanes().at(index), undoList);
 }
 
@@ -821,7 +821,7 @@ void
 GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos, GNEUndoList* undoList) {
     GNEJunction* newJunction = nullptr;
     undoList->p_begin("split " + toString(SUMO_TAG_EDGE) + "s");
-    // split edge and save created junction 
+    // split edge and save created junction
     newJunction = splitEdge(edge, pos, undoList, newJunction);
     // split second edge
     splitEdge(oppositeEdge, pos, undoList, newJunction);
@@ -1834,11 +1834,11 @@ GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
                 duplicateLane(newEdge->getLanes().back(), undoList, true);
             }
             // copy permissions
-            newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW, 
+            newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW,
                     in->getLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
         }
     }
-    
+
     deleteJunction(junction, undoList);
     // finish operation
     undoList->p_end();
@@ -1911,8 +1911,8 @@ GNENet::getSelectedAttributeCarriers(bool ignoreCurrentSupermode) {
         if (AC && AC->isAttributeCarrierSelected()) {
             // now check if selected supermode is correct
             if (ignoreCurrentSupermode ||
-                ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
-                ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
+                    ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
+                    ((myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
                 // add it into result vector
                 result.push_back(AC);
             }
@@ -1928,7 +1928,7 @@ GNENet::getTLLogicCont() {
 }
 
 
-NBEdgeCont& 
+NBEdgeCont&
 GNENet::getEdgeCont() {
     return myNetBuilder->getEdgeCont();
 }
@@ -2281,7 +2281,7 @@ GNEPoly*
 GNENet::addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col) {
     if (shape.size() > 0) {
         // create poly for edit shapes
-        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, fill, 0.3, col, GLO_POLYGON, 0, "", false, false , false);
+        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, fill, 0.3, col, GLO_POLYGON, 0, "", false, false, false);
         shapePoly->setShapeEditedElement(netElement);
         myGrid.addAdditionalGLObject(shapePoly);
         myViewNet->update();
@@ -2386,12 +2386,12 @@ GNENet::getNumberOfTLSPrograms() const {
 }
 
 
-bool 
+bool
 GNENet::additionalExist(GNEAdditional* additional) {
     // first check that additional pointer is valid
-    if(additional) {
+    if (additional) {
         // iterate over additionals to ifnd it
-        for (const auto & i : myAttributeCarriers.additionals.at(additional->getTagProperty().getTag())) {
+        for (const auto& i : myAttributeCarriers.additionals.at(additional->getTagProperty().getTag())) {
             if (i.second == additional) {
                 return true;
             }
@@ -2429,10 +2429,10 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 bool
 GNENet::deleteAdditional(GNEAdditional* additional) {
     // first check that additional pointer is valid
-    if(additional) {
+    if (additional) {
         // iterate over additionals to find it
-        for (auto i = myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).begin(); 
-            i != myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).end(); i++) {
+        for (auto i = myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).begin();
+                i != myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).end(); i++) {
             if (i->second == additional) {
                 // remove it from Inspector Frame
                 myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
@@ -2462,12 +2462,12 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
 }
 
 
-bool 
+bool
 GNENet::demandElementExist(GNEDemandElement* demandElement) {
     // first check that demandElement pointer is valid
-    if(demandElement) {
+    if (demandElement) {
         // iterate over demandElements to ifnd it
-        for (const auto & i : myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag())) {
+        for (const auto& i : myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag())) {
             if (i.second == demandElement) {
                 return true;
             }
@@ -2505,10 +2505,10 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
 bool
 GNENet::deleteDemandElement(GNEDemandElement* demandElement) {
     // first check that demandElement pointer is valid
-    if(demandElement) {
+    if (demandElement) {
         // iterate over demandElements to find it
-        for (auto i = myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).begin(); 
-            i != myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).end(); i++) {
+        for (auto i = myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).begin();
+                i != myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).end(); i++) {
             if (i->second == demandElement) {
                 // remove it from Inspector Frame
                 myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(demandElement);
@@ -2754,11 +2754,11 @@ GNENet::reserveJunctionID(const std::string& id) {
 
 void
 GNENet::initGNEConnections() {
-    for (const auto &i : myAttributeCarriers.edges) {
+    for (const auto& i : myAttributeCarriers.edges) {
         // remake connections
         i.second->remakeGNEConnections();
         // update geometry of connections
-        for (const auto &j : i.second->getGNEConnections()) {
+        for (const auto& j : i.second->getGNEConnections()) {
             j->updateGeometry(true);
         }
     }

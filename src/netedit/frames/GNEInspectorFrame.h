@@ -52,7 +52,7 @@ public:
         ~OverlappedInspection();
 
         /// @brief show template editor
-        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
+        void showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
 
         /// @brief hide template editor
         void hideOverlappedInspection();
@@ -61,17 +61,17 @@ public:
         bool overlappedInspectionShown() const;
 
         /// @brief check if given position is near to saved position
-        bool checkSavedPosition(const Position &clickedPosition) const;
+        bool checkSavedPosition(const Position& clickedPosition) const;
 
         /// @brief try to go to next element if clicked position is near to saved position
-        bool nextElement(const Position &clickedPosition);
+        bool nextElement(const Position& clickedPosition);
 
         /// @brief try to go to previous element if clicked position is near to saved position
-        bool previousElement(const Position &clickedPosition);
+        bool previousElement(const Position& clickedPosition);
 
         /// @name FOX-callbacks
         /// @{
-        
+
         /// @brief Inspect next Element (from top to bot)
         long onCmdNextElement(FXObject*, FXSelector, void*);
 
@@ -106,7 +106,7 @@ public:
         FXButton* myNextElement;
 
         /// @brief list of overlapped elements
-        FXList *myOverlappedElementList;
+        FXList* myOverlappedElementList;
 
         /// @brief button for help
         FXButton* myHelpButton;
@@ -480,14 +480,14 @@ public:
     * @param[in] objectsUnderCursor objects under cursors
     * @return true if something was sucefully done
     */
-    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    bool processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /**@brief process click over Viewnet in Supermode Demand
     * @param[in] clickedPosition clicked position over ViewNet
     * @param[in] objectsUnderCursor objects under cursors
     * @return true if something was sucefully done
     */
-    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    bool processDemandSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief Inspect a single element
     void inspectSingleElement(GNEAttributeCarrier* AC);
@@ -531,7 +531,7 @@ protected:
     GNEInspectorFrame() {}
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
-    void inspectClickedElement(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, const Position &clickedPosition);
+    void inspectClickedElement(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
 
 private:
     /// @brief Overlapped Inspection

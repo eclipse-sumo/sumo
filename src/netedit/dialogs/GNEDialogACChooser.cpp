@@ -51,8 +51,7 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myACs(ACs),
     myViewParent(viewParent),
-    myLocateTLS(title.find("TLS") != std::string::npos)
-{
+    myLocateTLS(title.find("TLS") != std::string::npos) {
     // @note refresh must be called here because the base class constructor cannot
     // call the virtual function getObjectName
     std::vector<GUIGlID> ids;

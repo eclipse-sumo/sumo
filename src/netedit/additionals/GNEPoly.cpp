@@ -270,7 +270,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // push name (needed for getGUIGlObjectsUnderCursor(...)
     glPushName(getGlID());
     // first check if inner polygon can be drawn
-    if(checkDraw(s)) {
+    if (checkDraw(s)) {
         // draw inner polygon
         drawInnerPolygon(s, drawUsingSelectColor());
     }
@@ -776,7 +776,7 @@ GNEPoly::setGenericParametersStr(const std::string& value) {
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     // first remove object from grid due almost modificactions affects to boundary (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         myNet->removeGLObjectFromGrid(this);
     }
     switch (key) {
@@ -888,7 +888,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // add object into grid again (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         myNet->addGLObjectIntoGrid(this);
     }
 }

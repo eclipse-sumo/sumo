@@ -126,7 +126,7 @@ NIVissimEdge::NIVissimEdge(int id, const std::string& name,
 
 NIVissimEdge::~NIVissimEdge() {
     for (NIVissimClosedLanesVector::iterator i = myClosedLanes.begin(); i != myClosedLanes.end(); i++) {
-        delete(*i);
+        delete (*i);
     }
     myClosedLanes.clear();
 }

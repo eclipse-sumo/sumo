@@ -86,7 +86,7 @@ MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, d
 
 
 double
-MSCFModel_Wiedemann::interactionGap(const MSVehicle* const , double vL) const {
+MSCFModel_Wiedemann::interactionGap(const MSVehicle* const, double vL) const {
     UNUSED_PARAMETER(vL);
     return D_MAX;
 }

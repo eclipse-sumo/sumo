@@ -441,7 +441,7 @@ public:
      * @todo Recheck usage
      * @see NBEdge::computeEdgeShape
      */
-    void computeEdgeShapes(double smoothElevationThreshold=-1);
+    void computeEdgeShapes(double smoothElevationThreshold = -1);
 
 
     /** @brief Computes the shapes of all lanes of all edges stored in the container

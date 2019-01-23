@@ -107,7 +107,7 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    double interactionGap(const MSVehicle* const , double vL) const;
+    double interactionGap(const MSVehicle* const, double vL) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)

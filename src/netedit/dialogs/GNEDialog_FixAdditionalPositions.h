@@ -67,7 +67,7 @@ protected:
     /// @brief struct for group all radio buttons related with position
     struct PositionOptions {
         /// @brief build Position Options
-        void buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        void buildPositionOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -94,7 +94,7 @@ protected:
     /// @brief struct for group all radio buttons related with position
     struct ConsecutiveLaneOptions {
         /// @brief build consecutive lane Options
-        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame);
 
         /// @brief select option
         void selectOption(FXObject* option);

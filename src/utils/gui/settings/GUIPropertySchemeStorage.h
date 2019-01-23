@@ -60,9 +60,9 @@ public:
     /// @brief Fills the given combobox with the names of available colorings
     void fill(MFXIconComboBox& cb) {
         for (const auto& scheme : mySchemes) {
-            cb.appendIconItem(scheme.getName().c_str(), 
-                    scheme.getIcon() == ICON_EMPTY ? nullptr : GUIIconSubSys::getIcon(scheme.getIcon()), 
-                    MFXUtils::getFXColor(scheme.getBackgroundColor()));
+            cb.appendIconItem(scheme.getName().c_str(),
+                              scheme.getIcon() == ICON_EMPTY ? nullptr : GUIIconSubSys::getIcon(scheme.getIcon()),
+                              MFXUtils::getFXColor(scheme.getBackgroundColor()));
         }
         cb.setCurrentItem((FXint)myActiveScheme);
     }

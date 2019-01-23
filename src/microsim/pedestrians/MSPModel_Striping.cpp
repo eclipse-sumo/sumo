@@ -106,8 +106,7 @@ const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
 
 MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     myNumActivePedestrians(0),
-    myAmActive(false)
-{
+    myAmActive(false) {
     initWalkingAreaPaths(net);
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
@@ -1038,8 +1037,8 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 // to brake, otherwise the person must be able to cross in time
                 const double distToCrossBeforeVeh = (dir == FORWARD ? vo.xFwd : crossing->getLength() - vo.xBack);
                 const double bGap = (prio
-                        ? veh->getCarFollowModel().brakeGap(veh->getSpeed(), veh->getCarFollowModel().getMaxDecel(), 0)
-                        : veh->getSpeed() * distToCrossBeforeVeh); // walking 1m/s
+                                     ? veh->getCarFollowModel().brakeGap(veh->getSpeed(), veh->getCarFollowModel().getMaxDecel(), 0)
+                                     : veh->getSpeed() * distToCrossBeforeVeh); // walking 1m/s
                 double vehYmin;
                 double vehYmax;
                 // relY increases from left to right (the other way around from vehicles)
@@ -1819,18 +1818,18 @@ MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2
     for (int i = 0; i < (int)into.size(); ++i) {
         if (gDebugFlag1) {
             std::cout << "     i=" << i
-                << " into=" << into[i].description << " iDist=" << distanceTo(into[i])
-                << " obs2=" << obs2[i].description << " oDist=" << distanceTo(obs2[i]) << "\n";
+                      << " into=" << into[i].description << " iDist=" << distanceTo(into[i])
+                      << " obs2=" << obs2[i].description << " oDist=" << distanceTo(obs2[i]) << "\n";
         }
         const double dO = distanceTo(obs2[i]);
         const double dI = distanceTo(into[i]);
         if (dO < dI) {
             into[i] = obs2[i];
         } else if (dO == dI
-                && into[i].type != OBSTACLE_PED
-                && into[i].type != OBSTACLE_VEHICLE
-                && (obs2[i].type == OBSTACLE_PED ||
-                    obs2[i].type == OBSTACLE_VEHICLE)) {
+                   && into[i].type != OBSTACLE_PED
+                   && into[i].type != OBSTACLE_VEHICLE
+                   && (obs2[i].type == OBSTACLE_PED ||
+                       obs2[i].type == OBSTACLE_VEHICLE)) {
             into[i] = obs2[i];
         }
     }

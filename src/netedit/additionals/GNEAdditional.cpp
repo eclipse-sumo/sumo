@@ -151,13 +151,13 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
-                        } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                             device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                             // write 0 only if is different from 0 (the default value)
-                            if(pos.z() != 0) {
+                            if (pos.z() != 0) {
                                 device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                             }
                         } else {
@@ -176,13 +176,13 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
-                    } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                    } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                         // get position attribute and write it separate
                         Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                         device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                         device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                         // write 0 only if is different from 0 (the default value)
-                        if(pos.z() != 0) {
+                        if (pos.z() != 0) {
                             device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                         }
                     } else {
@@ -224,19 +224,19 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNEAdditional::isAdditionalValid() const {
     return true;
 }
 
 
-std::string 
+std::string
 GNEAdditional::getAdditionalProblem() const {
     return "";
 }
 
 
-void 
+void
 GNEAdditional::fixAdditionalProblem() {
     throw InvalidArgument(getTagStr() + " cannot fix any problem");
 }
@@ -256,7 +256,7 @@ GNEAdditional::startGeometryMoving() {
     const TagProperties& tagProperties = myTagProperty;
     // check if position over lane or lanes has to be saved
     if (tagProperties.canBePlacedOverLane()) {
-        if(tagProperties.canMaskStartEndPos()) {
+        if (tagProperties.canMaskStartEndPos()) {
             // obtain start and end position
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
             myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
@@ -611,7 +611,7 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, myTagProperty.getNumberOfAttributes());
     // Iterate over attributes
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
         if (i.second.isUnique()) {
             ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
@@ -647,7 +647,7 @@ GNEAdditional::getCenteringBoundary() const {
 }
 
 
-void 
+void
 GNEAdditional::updateAdditionalParent() {
     // by default nothing to do
 }
@@ -656,7 +656,7 @@ GNEAdditional::updateAdditionalParent() {
 GNEAdditional::AdditionalGeometry::AdditionalGeometry() {}
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::clearGeometry() {
     shape.clear();
     multiShape.clear();
@@ -668,7 +668,7 @@ GNEAdditional::AdditionalGeometry::clearGeometry() {
 }
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::calculateMultiShapeUnified() {
     // merge all multishape parts in a single shape
     for (auto i : multiShape) {
@@ -677,7 +677,7 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeUnified() {
 }
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::calculateShapeRotationsAndLengths() {
     // Get number of parts of the shape
     int numberOfSegments = (int)shape.size() - 1;
@@ -701,14 +701,14 @@ GNEAdditional::AdditionalGeometry::calculateShapeRotationsAndLengths() {
 }
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
     // Get number of parts of the shape for every part shape
     std::vector<int> numberOfSegments;
     for (auto i : multiShape) {
         // numseg cannot be 0
         int numSeg = (int)i.size() - 1;
-        numberOfSegments.push_back((numSeg>=0)? numSeg : 0);
+        numberOfSegments.push_back((numSeg >= 0) ? numSeg : 0);
         multiShapeRotations.push_back(std::vector<double>());
         multiShapeLengths.push_back(std::vector<double>());
     }
@@ -732,7 +732,7 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
 }
 
 
-GNEAdditional::BlockIcon::BlockIcon(GNEAdditional *additional) :
+GNEAdditional::BlockIcon::BlockIcon(GNEAdditional* additional) :
     myAdditional(additional),
     rotation(0.) {}
 
@@ -798,7 +798,7 @@ GNEAdditional::BlockIcon::draw(double size) const {
 }
 
 
-GNEAdditional::ChildConnections::ChildConnections(GNEAdditional *additional) : 
+GNEAdditional::ChildConnections::ChildConnections(GNEAdditional* additional) :
     myAdditional(additional) {}
 
 
@@ -914,7 +914,7 @@ GNEAdditional::ChildConnections::draw() const {
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         if (i.second.hasDefaultValue()) {
             setAttribute(i.first, i.second.getDefaultValue());
         }
@@ -938,7 +938,7 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 }
 
 
-bool 
+bool
 GNEAdditional::isValidDetectorID(const std::string& newID) const {
     if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;

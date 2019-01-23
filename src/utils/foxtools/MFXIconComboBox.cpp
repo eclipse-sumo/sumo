@@ -35,57 +35,61 @@
 FXIMPLEMENT(MFXListItem, FXListItem, nullptr, 0)
 FXIMPLEMENT(MFXIconComboBox, FXComboBox, nullptr, 0)
 
-void MFXListItem::draw(const FXList* list,FXDC& dc,FXint xx,FXint yy,FXint ww,FXint hh) {
+void MFXListItem::draw(const FXList* list, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     // almost the same code as FXListItem::draw except for using custom background color
-    register FXFont *font=list->getFont();
-    register FXint ih=0,th=0;
-    if(icon) ih=icon->getHeight();
-    if(!label.empty()) th=font->getFontHeight();
-    if(isSelected())
+    register FXFont* font = list->getFont();
+    register FXint ih = 0, th = 0;
+    if (icon) {
+        ih = icon->getHeight();
+    }
+    if (!label.empty()) {
+        th = font->getFontHeight();
+    }
+    if (isSelected()) {
         dc.setForeground(list->getSelBackColor());
-    else
-        if (bgColor != FXRGBA(0,0,0,0)) {
-            dc.setForeground(bgColor);     // custom code here
-        } else {
-            dc.setForeground(list->getBackColor());
-        }
-    dc.fillRectangle(xx,yy,ww,hh);
-    if(hasFocus()){
-        dc.drawFocusRectangle(xx+1,yy+1,ww-2,hh-2);
+    } else if (bgColor != FXRGBA(0, 0, 0, 0)) {
+        dc.setForeground(bgColor);     // custom code here
+    } else {
+        dc.setForeground(list->getBackColor());
     }
-    xx+=SIDE_SPACING/2;
-    if(icon){
-        dc.drawIcon(icon,xx,yy+(hh-ih)/2);
-        xx+=ICON_SPACING+icon->getWidth();
+    dc.fillRectangle(xx, yy, ww, hh);
+    if (hasFocus()) {
+        dc.drawFocusRectangle(xx + 1, yy + 1, ww - 2, hh - 2);
     }
-    if(!label.empty()){
+    xx += SIDE_SPACING / 2;
+    if (icon) {
+        dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
+        xx += ICON_SPACING + icon->getWidth();
+    }
+    if (!label.empty()) {
         dc.setFont(font);
-        if(!isEnabled())
+        if (!isEnabled()) {
             dc.setForeground(makeShadowColor(list->getBackColor()));
-        else if(isSelected())
+        } else if (isSelected()) {
             dc.setForeground(list->getSelTextColor());
-        else
+        } else {
             dc.setForeground(list->getTextColor());
-        dc.drawText(xx,yy+(hh-th)/2+font->getFontAscent(),label);
+        }
+        dc.drawText(xx, yy + (hh - th) / 2 + font->getFontAscent(), label);
     }
 }
 
 
 MFXIconComboBox::MFXIconComboBox(
-        FXComposite *p,FXint cols,FXObject* tgt,
-        FXSelector sel,FXuint opts,
-        FXint x,FXint y,FXint w,FXint h,
-        FXint pl,FXint pr,FXint pt,FXint pb):
+    FXComposite* p, FXint cols, FXObject* tgt,
+    FXSelector sel, FXuint opts,
+    FXint x, FXint y, FXint w, FXint h,
+    FXint pl, FXint pr, FXint pt, FXint pb):
     FXComboBox(p, cols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb)
 {}
 
-FXint 
+FXint
 MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor,  void* ptr) {
-  FXint index=list->appendItem(new MFXListItem(text,icon,bgColor,ptr));
-  if(isItemCurrent(getNumItems()-1)){
-      field->setText(text);
-  }
-  recalc();
-  return index;
+    FXint index = list->appendItem(new MFXListItem(text, icon, bgColor, ptr));
+    if (isItemCurrent(getNumItems() - 1)) {
+        field->setText(text);
+    }
+    recalc();
+    return index;
 }
 

@@ -203,7 +203,7 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 class TraCIPhase {
 public:
     TraCIPhase() {}
-    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = INVALID_DOUBLE_VALUE, const double _maxDur = INVALID_DOUBLE_VALUE, const int _next = -1, const std::string& _name="")
+    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = INVALID_DOUBLE_VALUE, const double _maxDur = INVALID_DOUBLE_VALUE, const int _next = -1, const std::string& _name = "")
         : duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name) {}
     ~TraCIPhase() {}
 
@@ -217,7 +217,7 @@ public:
 
 
 #ifdef SWIG
-%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
+% template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase>;
 #endif
 
 

@@ -249,7 +249,7 @@ public:
                 delete *it;
             }
             for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
-                delete(*it)->getRouteDefinition();
+                delete (*it)->getRouteDefinition();
                 delete *it;
             }
         }

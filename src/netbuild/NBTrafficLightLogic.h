@@ -91,10 +91,10 @@ public:
          * @return Whether this and the given phases are same
          */
         bool operator!=(const PhaseDefinition& pd) const {
-            return (pd.duration != duration 
+            return (pd.duration != duration
                     || pd.minDur != minDur
-                    || pd.maxDur!= maxDur
-                    || pd.state != state 
+                    || pd.maxDur != maxDur
+                    || pd.state != state
                     || pd.next != next
                     || pd.name != name);
         }
@@ -135,8 +135,8 @@ public:
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string& state, int next=-1, const std::string& name="", int index=-1);
-    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next=-1, const std::string& name="", int index=-1);
+    void addStep(SUMOTime duration, const std::string& state, int next = -1, const std::string& name = "", int index = -1);
+    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next = -1, const std::string& name = "", int index = -1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)

@@ -193,7 +193,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
 
     for (auto& item : mySucceedingBlocks) {
-        MSLane* out = item.first; 
+        MSLane* out = item.first;
         std::vector<const MSLane*> forwardSuccessors = item.second;
         std::vector<const MSLane*>& succeedingBlock = item.second;
         for (const MSLane* lane : forwardSuccessors) {
@@ -265,7 +265,9 @@ MSRailSignal::trySwitch() {
 std::string
 MSRailSignal::getAppropriateState() {
 #ifdef DEBUG_SIGNALSTATE
-    if (DEBUG_COND) std::cout << SIMTIME << " getAppropriateState railSignal=" << getID() << "\n";
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " getAppropriateState railSignal=" << getID() << "\n";
+    }
 #endif
     std::string state(myLinks.size(), 'G');   //the state of the phase definition (all signal are green)
     for (MSLane* lane : myOutgoingLanes) {

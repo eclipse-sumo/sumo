@@ -69,7 +69,7 @@ FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBox, ConnectionOp
 // GNEConnectorFrame::CurrentLane - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::CurrentLane::CurrentLane(GNEConnectorFrame* connectorFrameParent) : 
+GNEConnectorFrame::CurrentLane::CurrentLane(GNEConnectorFrame* connectorFrameParent) :
     FXGroupBox(connectorFrameParent->myContentFrame, "Lane", GUIDesignGroupBoxFrame) {
     // create lane label
     myCurrentLaneLabel = new FXLabel(this, "No lane selected", 0, GUIDesignLabelLeft);
@@ -79,9 +79,9 @@ GNEConnectorFrame::CurrentLane::CurrentLane(GNEConnectorFrame* connectorFramePar
 GNEConnectorFrame::CurrentLane::~CurrentLane() {}
 
 
-void 
-GNEConnectorFrame::CurrentLane::updateCurrentLaneLabel(const std::string &laneID) {
-    if(laneID.empty()) {
+void
+GNEConnectorFrame::CurrentLane::updateCurrentLaneLabel(const std::string& laneID) {
+    if (laneID.empty()) {
         myCurrentLaneLabel->setText("No lane selected");
     } else {
         myCurrentLaneLabel->setText((std::string("Current Lane: ") + laneID).c_str());
@@ -92,7 +92,7 @@ GNEConnectorFrame::CurrentLane::updateCurrentLaneLabel(const std::string &laneID
 // GNEConnectorFrame::ConnectionModifications - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnectorFrame* connectorFrameParent) : 
+GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnectorFrame* connectorFrameParent) :
     FXGroupBox(connectorFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame),
     myConnectorFrameParent(connectorFrameParent) {
 
@@ -139,7 +139,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
 // GNEConnectorFrame::ConnectionOperations - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame* connectorFrameParent) : 
+GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame* connectorFrameParent) :
     FXGroupBox(connectorFrameParent->myContentFrame, "Operations", GUIDesignGroupBoxFrame),
     myConnectorFrameParent(connectorFrameParent) {
 
@@ -293,7 +293,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 // GNEConnectorFrame::ConnectionSelection - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) : 
+GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) :
     FXGroupBox(connectorFrameParent->myContentFrame, "Selection", GUIDesignGroupBoxFrame) {
     // create Selection Hint
     myHoldShiftLabel = new FXLabel(this, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
@@ -307,7 +307,7 @@ GNEConnectorFrame::ConnectionSelection::~ConnectionSelection() {}
 // GNEConnectorFrame::ConnectionLegend - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::ConnectionLegend::ConnectionLegend(GNEConnectorFrame* connectorFrameParent) : 
+GNEConnectorFrame::ConnectionLegend::ConnectionLegend(GNEConnectorFrame* connectorFrameParent) :
     FXGroupBox(connectorFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame),
     mySourceColor(RGBColor::CYAN),
     myTargetColor(RGBColor::GREEN),
@@ -340,31 +340,31 @@ GNEConnectorFrame::ConnectionLegend::ConnectionLegend(GNEConnectorFrame* connect
 GNEConnectorFrame::ConnectionLegend::~ConnectionLegend() {}
 
 
-const RGBColor& 
+const RGBColor&
 GNEConnectorFrame::ConnectionLegend::getSourceColor() const {
     return mySourceColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEConnectorFrame::ConnectionLegend::getTargetColor() const {
     return myTargetColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEConnectorFrame::ConnectionLegend::getPotentialTargetColor() const {
     return myPotentialTargetColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEConnectorFrame::ConnectionLegend::getTargetPassColor() const {
     return myTargetPassColor;
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEConnectorFrame::ConnectionLegend::getConflictColor() const {
     return myConflictColor;
 }
@@ -397,7 +397,7 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 
 
 void
-GNEConnectorFrame::handleLaneClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+GNEConnectorFrame::handleLaneClick(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
     // build connection
     buildConnection(objectsUnderCursor.getLaneFront(), myViewNet->getKeyPressed().shiftKeyPressed(), myViewNet->getKeyPressed().controlKeyPressed(), true);
 }

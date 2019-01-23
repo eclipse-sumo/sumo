@@ -54,7 +54,7 @@ public:
     /** Replaces all occurences of the second string by the third
         string within the first string */
     static std::string replace(std::string str, const char* what,
-        const char* by);
+                               const char* by);
 
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);

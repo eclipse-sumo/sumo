@@ -114,10 +114,10 @@ public:
     /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in childs)
     virtual bool isAdditionalValid() const;
 
-    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in childs) 
+    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in childs)
     virtual std::string getAdditionalProblem() const;
 
-    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in childs) 
+    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in childs)
     virtual void fixAdditionalProblem();
     /// @}
 
@@ -357,7 +357,7 @@ protected:
     /// @brief struct for pack all variables and functions related with Block Icon
     struct BlockIcon {
         /// @brief constructor
-        BlockIcon(GNEAdditional *additional);
+        BlockIcon(GNEAdditional* additional);
 
         /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
         void setRotation(GNELane* additionalLane = nullptr);
@@ -367,7 +367,7 @@ protected:
 
     private:
         /// @brief pointer to additional parent
-        GNEAdditional *myAdditional;
+        GNEAdditional* myAdditional;
 
     public:
         /// @brief position of the block icon
@@ -383,7 +383,7 @@ protected:
     /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs
     struct ChildConnections {
         /// @brief constructor
-        ChildConnections(GNEAdditional *additional);
+        ChildConnections(GNEAdditional* additional);
 
         /// @brief update Connection's geometry
         void update();
@@ -399,7 +399,7 @@ protected:
 
     private:
         /// @brief pointer to additional parent
-        GNEAdditional *myAdditional;
+        GNEAdditional* myAdditional;
     };
 
     /// @brief The GNEViewNet this additional element belongs

@@ -65,8 +65,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
     myCombinedPermissions(0),
-    myTimePenalty(0)
-{
+    myTimePenalty(0) {
     while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);
     }
@@ -83,7 +82,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 
 ROEdge::~ROEdge() {
     for (std::vector<ROLane*>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        delete(*i);
+        delete (*i);
     }
 }
 
@@ -104,7 +103,7 @@ ROEdge::addLane(ROLane* lane) {
 void
 ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
     if (isInternal()) {
-        // for internal edges after an internal junction, 
+        // for internal edges after an internal junction,
         // this is called twice and only the second call counts
         myFollowingEdges.clear();
         myFollowingViaEdges.clear();

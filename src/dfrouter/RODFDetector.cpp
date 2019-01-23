@@ -955,7 +955,7 @@ RODFDetectorCon::getAnyDetectorForEdge(const RODFEdge* const edge) const {
 void
 RODFDetectorCon::clearDists(std::map<SUMOTime, RandomDistributor<int>* >& dists) const {
     for (std::map<SUMOTime, RandomDistributor<int>* >::iterator i = dists.begin(); i != dists.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
 }
 

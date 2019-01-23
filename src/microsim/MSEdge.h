@@ -233,7 +233,7 @@ public:
 
 
     /// @brief check and register the opposite superposable edge if any
-    void checkAndRegisterBiDirEdge(const std::string& bidiID="");
+    void checkAndRegisterBiDirEdge(const std::string& bidiID = "");
 
     /// @brief return opposite superposable/congruent edge, if it exist and 0 else
     inline const MSEdge* getBidiEdge() const {
@@ -547,7 +547,7 @@ public:
 
     void rebuildAllowedLanes();
 
-    void rebuildAllowedTargets(const bool updateVehicles=true);
+    void rebuildAllowedTargets(const bool updateVehicles = true);
 
 
     /** @brief optimistic air distance heuristic for use in routing
@@ -555,7 +555,7 @@ public:
      * @param[in] doBoundaryEstimate whether the distance should be estimated by looking at the distance of the bounding boxes
      * @return The distance to the other edge
      */
-    double getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate=false) const;
+    double getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate = false) const;
 
 
     /// @brief return the coordinates of the center of the given stop

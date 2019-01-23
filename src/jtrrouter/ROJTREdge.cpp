@@ -41,7 +41,7 @@ ROJTREdge::ROJTREdge(const std::string& id, RONode* from, RONode* to, int index,
 
 ROJTREdge::~ROJTREdge() {
     for (FollowerUsageCont::iterator i = myFollowingDefs.begin(); i != myFollowingDefs.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
 }
 

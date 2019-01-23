@@ -92,7 +92,7 @@ GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
 }
 
 
-int 
+int
 GNETAZ::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
     // only move shape if block movement block shape are disabled
     if (!myBlockMovement && !myBlockShape && (index != -1)) {
@@ -127,7 +127,7 @@ GNETAZ::moveVertexShape(const int index, const Position& oldPos, const Position&
 }
 
 
-void 
+void
 GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // only move shape if block movement is disabled and block shape is enabled
     if (!myBlockMovement && myBlockShape) {
@@ -143,7 +143,7 @@ GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) 
 }
 
 
-void 
+void
 GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // disable current moving vertex
@@ -170,7 +170,7 @@ GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList)
 }
 
 
-int 
+int
 GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
     // check if position has to be snapped to grid
     if (snapToGrid) {
@@ -191,7 +191,7 @@ GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
 }
 
 
-void 
+void
 GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
     if (myGeometry.shape.size() > 2) {
         // obtain index
@@ -224,7 +224,7 @@ GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
 }
 
 
-bool 
+bool
 GNETAZ::isShapeBlocked() const {
     return myBlockShape;
 }
@@ -340,7 +340,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
-         case GNE_ATTR_BLOCK_SHAPE:
+        case GNE_ATTR_BLOCK_SHAPE:
             return toString(myBlockShape);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -427,7 +427,7 @@ GNETAZ::getHierarchyName() const {
 }
 
 
-void 
+void
 GNETAZ::updateAdditionalParent() {
     // reset all stadistic variables
     myMaxWeightSource = 0;

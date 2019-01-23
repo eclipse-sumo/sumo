@@ -252,7 +252,7 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
                 typedef AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> > AStar;
                 std::shared_ptr<const AStar::LookupTable> lookup;
                 if (oc.isSet("astar.all-distances")) {
-                    lookup = std::shared_ptr<const AStar::LookupTable> ( new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size()));
+                    lookup = std::shared_ptr<const AStar::LookupTable> (new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size()));
                 } else if (oc.isSet("astar.landmark-distances")) {
                     const double speedFactor = vehicle.getChosenSpeedFactor();
                     // we need an exemplary vehicle with speedFactor 1

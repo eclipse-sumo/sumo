@@ -907,10 +907,10 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
                 if (tmp.distance2D(center) < sideOffset) {
                     sideOffset *= -1;
                 }
-                //std::cout << " id=" << id 
-                //    << " shape=" << shape 
-                //    << " center=" << center 
-                //    << " edgeOffset=" << edgeOffset 
+                //std::cout << " id=" << id
+                //    << " shape=" << shape
+                //    << " center=" << center
+                //    << " edgeOffset=" << edgeOffset
                 //    << "\n";
                 device.writeAttr("id", id);
                 device.writeAttr("type", p->getShapeType());
@@ -925,7 +925,7 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
         }
         device.setPrecision(gPrecision);
         device.closeTag();
-    } else { 
+    } else {
         device << "        <objects/>\n";
     }
 }

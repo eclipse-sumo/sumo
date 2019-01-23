@@ -45,7 +45,7 @@ SUMORouteLoaderControl::SUMORouteLoaderControl(SUMOTime inAdvanceStepNo):
 SUMORouteLoaderControl::~SUMORouteLoaderControl() {
     for (std::vector<SUMORouteLoader*>::iterator i = myRouteLoaders.begin();
             i != myRouteLoaders.end(); ++i) {
-        delete(*i);
+        delete (*i);
     }
 }
 

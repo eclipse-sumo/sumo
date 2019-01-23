@@ -77,11 +77,11 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
 GUIParameterTracker::~GUIParameterTracker() {
     myApplication->removeChild(this);
     for (std::vector<TrackerValueDesc*>::iterator i1 = myTracked.begin(); i1 != myTracked.end(); i1++) {
-        delete(*i1);
+        delete (*i1);
     }
     // deleted by GUINet
     for (std::vector<GLObjectValuePassConnector<double>*>::iterator i2 = myValuePassers.begin(); i2 != myValuePassers.end(); i2++) {
-        delete(*i2);
+        delete (*i2);
     }
     delete myToolBarDrag;
     delete myToolBar;

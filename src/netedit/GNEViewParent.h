@@ -123,7 +123,7 @@ public:
 
     /// @brief get frame for GNE_NMODE_PROHIBITION
     GNEProhibitionFrame* getProhibitionFrame() const;
-    
+
     /// @brief get frame for GNE_NMODE_CREATEEDGE
     GNECreateEdgeFrame* getCreateEdgeFrame() const;
 

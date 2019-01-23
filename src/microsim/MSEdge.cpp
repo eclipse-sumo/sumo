@@ -80,7 +80,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myAmDelayed(false),
     myAmRoundabout(false),
     myAmFringe(true),
-    myBidiEdge(nullptr) 
+    myBidiEdge(nullptr)
 { }
 
 
@@ -240,7 +240,7 @@ MSEdge::allowsLaneChanging() const {
 }
 
 
-void 
+void
 MSEdge::addToAllowed(const SVCPermissions permissions, const std::vector<MSLane*>* allowedLanes, AllowedLanesCont& laneCont) const {
     // recheck whether we had this list to save memory
     if (allowedLanes->empty()) {
@@ -841,7 +841,7 @@ MSEdge::getAllEdges() {
 void
 MSEdge::clear() {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     myDict.clear();
     myEdges.clear();
@@ -1121,7 +1121,7 @@ void MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
             WRITE_ERROR("Bidi-edge '" + bidiID + "' does not exist");
         }
         return;
-    } 
+    }
     if (getFunction() != EDGEFUNC_NORMAL) {
         return;
     }

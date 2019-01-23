@@ -40,7 +40,7 @@ GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* 
     GNEDetector(parent, viewNet, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement),
     myLane(lane) {
     //check that this is a TAZ Source OR a TAZ Sink
-    if((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
+    if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");
     }
 }
@@ -49,7 +49,7 @@ GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* 
 GNEDetectorEntryExit::~GNEDetectorEntryExit() {}
 
 
-bool 
+bool
 GNEDetectorEntryExit::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
@@ -60,13 +60,13 @@ GNEDetectorEntryExit::isAdditionalValid() const {
 }
 
 
-std::string 
+std::string
 GNEDetectorEntryExit::getAdditionalProblem() const {
-    // declare variable for error position 
+    // declare variable for error position
     std::string errorPosition;
     const double len = myLane->getParentEdge().getNBEdge()->getFinalLength();
     // check positions over lane
-    if (myPositionOverLane < -len ) {
+    if (myPositionOverLane < -len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
     }
     if (myPositionOverLane > len) {
@@ -76,7 +76,7 @@ GNEDetectorEntryExit::getAdditionalProblem() const {
 }
 
 
-void 
+void
 GNEDetectorEntryExit::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
@@ -177,7 +177,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
         GLHelper::setColor(s.SUMO_color_E3Exit);
     }
-    
+
     // Set initial values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -187,7 +187,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
     glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-  
+
     // draw details if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Draw polygon
@@ -395,7 +395,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

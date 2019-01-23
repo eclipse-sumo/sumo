@@ -308,7 +308,7 @@ StringUtils::hexToInt(const std::string& sData) {
 }
 
 
-double 
+double
 StringUtils::toDouble(const std::string& sData) {
     if (sData.size() == 0) {
         throw EmptyData();

@@ -154,7 +154,7 @@ public:
     * @return whether the polygon could be added
     */
     bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, 
+                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
                     bool geo, bool fill, double lineWidth, bool ignorePruning = false);
 
     /**@brief Builds a POI using the given values and adds it to the container

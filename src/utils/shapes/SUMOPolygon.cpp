@@ -39,8 +39,7 @@ SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type,
     myShape(shape),
     myGEO(geo),
     myFill(fill),
-    myLineWidth(lineWidth)
-{
+    myLineWidth(lineWidth) {
 }
 
 

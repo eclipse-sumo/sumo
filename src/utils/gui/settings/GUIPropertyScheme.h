@@ -54,8 +54,7 @@ public:
         myIsFixed(isFixed),
         myAllowNegativeValues(false),
         myIcon(icon),
-        myBgColor(bgColor)
-    {
+        myBgColor(bgColor) {
         addColor(baseColor, baseValue, colName);
     }
 

@@ -662,7 +662,7 @@ MSBaseVehicle::getSingularType() {
     return *type;
 }
 
-std::mt19937* 
+std::mt19937*
 MSBaseVehicle::getRNG() const {
     const MSLane* lane = getLane();
     if (lane == nullptr) {

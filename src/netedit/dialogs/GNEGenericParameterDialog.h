@@ -83,7 +83,7 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief on paint function (reimplemented from FXGroupBox)
-        long onPaint(FXObject* o, FXSelector f , void* p);
+        long onPaint(FXObject* o, FXSelector f, void* p);
 
         /// @brief event when user change an attribute
         long onCmdSetAttribute(FXObject*, FXSelector, void*);

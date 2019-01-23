@@ -550,7 +550,7 @@ public:
         int getPhase(const std::string& tlsID) const;
         double getPhaseDuration(const std::string& tlsID) const;
         double getNextSwitch(const std::string& tlsID) const;
-        std::string getPhaseName(const std::string& tlsID) const; 
+        std::string getPhaseName(const std::string& tlsID) const;
 
         void setRedYellowGreenState(const std::string& tlsID, const std::string& state) const;
         void setPhase(const std::string& tlsID, int index) const;
@@ -963,7 +963,7 @@ protected:
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = PRECISION) {
         std::ostringstream oss;
-        oss.setf(std::ios::fixed , std::ios::floatfield);
+        oss.setf(std::ios::fixed, std::ios::floatfield);
         oss << std::setprecision(accuracy);
         oss << t;
         return oss.str();

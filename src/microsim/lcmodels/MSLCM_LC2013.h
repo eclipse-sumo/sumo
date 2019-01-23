@@ -103,7 +103,7 @@ public:
 
     double getSafetyFactor() const;
 
-    double getOppositeSafetyFactor() const; 
+    double getOppositeSafetyFactor() const;
 
     void prepareStep();
 

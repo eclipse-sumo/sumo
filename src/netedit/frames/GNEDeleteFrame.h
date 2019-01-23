@@ -64,7 +64,7 @@ public:
 
         /// @brief checkbox for enable/disable delete only geometry points
         FXCheckButton* myDeleteOnlyGeometryPoints;
-        
+
         /// @brief checkbox for enable/disable automatic deletion of demand childs
         FXCheckButton* myProtectDemandElements;
     };

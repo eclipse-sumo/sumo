@@ -225,8 +225,8 @@ private:
                               const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
 
     /// @brief whether the given connections must be checked for lane conflicts due to disjunct target lanes
-    bool checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connection& con, 
-            const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
+    bool checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connection& con,
+                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
 
     /** @brief return whether the given laneToLane connections prohibit each other
      * under the assumption that the edge2edge connections are in conflict

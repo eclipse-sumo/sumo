@@ -55,8 +55,8 @@ public:
         /// Constructor
         EdgeInfo(const E* const e)
             : edge(e), effort(std::numeric_limits<double>::max()),
-            heuristicEffort(std::numeric_limits<double>::max()),
-            leaveTime(0.), prev(nullptr), visited(false) {}
+              heuristicEffort(std::numeric_limits<double>::max()),
+              leaveTime(0.), prev(nullptr), visited(false) {}
 
         /// The current edge
         const E* const edge;
@@ -151,7 +151,7 @@ public:
     }
 
 
-    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp=nullptr) const {
+    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, SUMOTime msTime, double* lengthp = nullptr) const {
         double time = STEPS2TIME(msTime);
         double effort = 0.;
         double length = 0.;

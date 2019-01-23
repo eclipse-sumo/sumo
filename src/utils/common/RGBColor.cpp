@@ -330,7 +330,7 @@ RGBColor::fromHSV(double h, double s, double v) {
     return RGBColor(255, 255, 255, 255);
 }
 
-RGBColor 
+RGBColor
 RGBColor::randomHue(double s, double v) {
     return fromHSV(RandHelper::rand(360, &myRNG), s, v);
 }

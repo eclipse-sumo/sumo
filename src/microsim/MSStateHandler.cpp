@@ -191,7 +191,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                     mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex++);
                 } else {
                     MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes()[myEdgeAndLane.second]->loadState(
-                            vehIDs, MSNet::getInstance()->getVehicleControl());
+                        vehIDs, MSNet::getInstance()->getVehicleControl());
                 }
             } catch (EmptyData&) {} // attr may be empty
             break;

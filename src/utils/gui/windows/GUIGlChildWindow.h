@@ -99,7 +99,7 @@ protected:
 
     /// @brief The static navigation tool bar
     FXToolBar* myStaticNavigationToolBar;
-    
+
     // @brief The grip navigation tool bar
     FXMenuBar* myGripNavigationToolbar;
 

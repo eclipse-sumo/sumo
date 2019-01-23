@@ -190,7 +190,7 @@ GNEViewParent::getCrossingFrame() const {
 }
 
 
-GNETAZFrame* 
+GNETAZFrame*
 GNEViewParent::getTAZFrame() const {
     return myFrames.TAZFrame;
 }
@@ -214,13 +214,13 @@ GNEViewParent::getProhibitionFrame() const {
 }
 
 
-GNECreateEdgeFrame* 
+GNECreateEdgeFrame*
 GNEViewParent::getCreateEdgeFrame() const {
     return myFrames.createEdgeFrame;
 }
 
 
-GNERouteFrame* 
+GNERouteFrame*
 GNEViewParent::getRouteFrame() const {
     return myFrames.routeFrame;
 }
@@ -453,7 +453,7 @@ GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
 // GNEViewParent::Frames - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::Frames::Frames() : 
+GNEViewParent::Frames::Frames() :
     inspectorFrame(nullptr),
     selectorFrame(nullptr),
     connectorFrame(nullptr),
@@ -488,7 +488,7 @@ GNEViewParent::Frames::hideFrames() {
 }
 
 
-void 
+void
 GNEViewParent::Frames::setWidth(int frameWidth) {
     // set width in all frames
     inspectorFrame->setFrameWidth(frameWidth);
@@ -508,7 +508,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
 }
 
 
-bool 
+bool
 GNEViewParent::Frames::isFrameShown() const {
     // check all frames
     if (inspectorFrame->shown()) {
@@ -531,10 +531,10 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (prohibitionFrame->shown()) {
         return true;
-    /** currently createEdgeFrame unused
-    } else if (createEdgeFrame->shown()) {
-        return true;
-    **/
+        /** currently createEdgeFrame unused
+        } else if (createEdgeFrame->shown()) {
+            return true;
+        **/
     } else if (routeFrame->shown()) {
         return true;
     } else {
@@ -546,7 +546,7 @@ GNEViewParent::Frames::isFrameShown() const {
 // GNEViewParent::ACChoosers - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::ACChoosers::ACChoosers() : 
+GNEViewParent::ACChoosers::ACChoosers() :
     ACChooserJunction(nullptr),
     ACChooserEdges(nullptr),
     ACChooserTLS(nullptr),

@@ -52,7 +52,7 @@ FXMutex MSRoute::myDictMutex(true);
 MSRoute::MSRoute(const std::string& id,
                  const ConstMSEdgeVector& edges,
                  const bool isPermanent, const RGBColor* const c,
-                 const std::vector<SUMOVehicleParameter::Stop>& stops) : 
+                 const std::vector<SUMOVehicleParameter::Stop>& stops) :
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
     myReferenceCounter(isPermanent ? 1 : 0),
     myColor(c),

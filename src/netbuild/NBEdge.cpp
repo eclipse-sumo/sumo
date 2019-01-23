@@ -343,8 +343,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
 
 
 NBEdge::NBEdge() :
-    Named("DUMMY")
-{
+    Named("DUMMY") {
 }
 
 void

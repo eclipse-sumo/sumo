@@ -499,7 +499,7 @@ MFXAddEditTypedTable::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
 
 // Clicked in list
 long
-MFXAddEditTypedTable::onClicked(FXObject*, FXSelector , void* ptr) {
+MFXAddEditTypedTable::onClicked(FXObject*, FXSelector, void* ptr) {
     if (editor) {
         delete editor;
         input.fm.row = -1;

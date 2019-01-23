@@ -116,8 +116,8 @@ public:
                             std::push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
                         } else {
                             std::push_heap(myFrontier.begin(),
-                                      std::find(myFrontier.begin(), myFrontier.end(), follower) + 1,
-                                      myCmp);
+                                           std::find(myFrontier.begin(), myFrontier.end(), follower) + 1,
+                                           myCmp);
                         }
                     }
                 }
@@ -196,8 +196,8 @@ private:
                             std::push_heap(myFrontier.begin(), myFrontier.end(), myCmp);
                         } else {
                             std::push_heap(myFrontier.begin(),
-                                      std::find(myFrontier.begin(), myFrontier.end(), follower) + 1,
-                                      myCmp);
+                                           std::find(myFrontier.begin(), myFrontier.end(), follower) + 1,
+                                           myCmp);
                         }
                     }
                 }

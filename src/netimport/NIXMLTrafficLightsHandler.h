@@ -52,7 +52,7 @@ public:
     /** @brief Constructor
      * @param[in] ec The traffic light container into which to load logics
      */
-    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec, bool ignoreUnknown=false);
+    NIXMLTrafficLightsHandler(NBTrafficLightLogicCont& tlCont, NBEdgeCont& ec, bool ignoreUnknown = false);
 
 
     /// @brief Destructor

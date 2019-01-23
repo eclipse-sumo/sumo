@@ -48,7 +48,7 @@ public:
         ~CurrentLane();
 
         /// @brief set current junction label
-        void updateCurrentLaneLabel(const std::string &laneID);
+        void updateCurrentLaneLabel(const std::string& laneID);
 
     private:
         /// @brief Label for current Lane
@@ -194,19 +194,19 @@ public:
         ~ConnectionLegend();
 
         /// @brief get color for the from-lane of a connection
-        const RGBColor &getSourceColor() const;
+        const RGBColor& getSourceColor() const;
 
         /// @brief get color for the to-lane of a connection
-        const RGBColor &getTargetColor() const;
-        
+        const RGBColor& getTargetColor() const;
+
         /// @brief get color for potential to-lane targets (currently unconnected)
-        const RGBColor &getPotentialTargetColor() const;
+        const RGBColor& getPotentialTargetColor() const;
 
         /// @brief get color for the to-lane of a connection with pass attribute
-        const RGBColor &getTargetPassColor() const;
+        const RGBColor& getTargetPassColor() const;
 
         /// @brief get color for a to-lane that cannot be used because another connection conflicts
-        const RGBColor &getConflictColor() const;
+        const RGBColor& getConflictColor() const;
 
     private:
         /// @brief source label
@@ -252,10 +252,10 @@ public:
     /**@brief either sets the current lane or toggles the connection of the
      * @param objectsUnderCursor collection of objects under cursor after click over view
      */
-    void handleLaneClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    void handleLaneClick(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get pointer to ConnectionModifications modul
-    ConnectionModifications *getConnectionModifications() const;
+    ConnectionModifications* getConnectionModifications() const;
 
 private:
     /// @brief the status of a target lane
@@ -287,19 +287,19 @@ private:
     LaneStatus getLaneStatus(const std::vector<NBEdge::Connection>& connections, GNELane* targetLane);
 
     /// @brief CurrentLane modul
-    CurrentLane *myCurrentLane;
+    CurrentLane* myCurrentLane;
 
     /// @brief ConnectionModifications modul
-    ConnectionModifications *myConnectionModifications;
+    ConnectionModifications* myConnectionModifications;
 
     /// @brief ConnectionOperations modul
-    ConnectionOperations *myConnectionOperations;
+    ConnectionOperations* myConnectionOperations;
 
     /// @brief ConnectionSelection modul
-    ConnectionSelection *myConnectionSelection;
+    ConnectionSelection* myConnectionSelection;
 
     /// @brief ConnectionLegend modul
-    ConnectionLegend *myConnectionLegend;
+    ConnectionLegend* myConnectionLegend;
 
     /// @brief the lane of which connections are to be modified
     GNELane* myCurrentEditedLane;

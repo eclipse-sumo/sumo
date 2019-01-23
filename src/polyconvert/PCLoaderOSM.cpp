@@ -107,7 +107,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
         PROGRESS_BEGIN_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
         if (!XMLSubSys::runParser(nodesHandler, *file)) {
             for (std::map<long long int, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
-                delete(*i).second;
+                delete (*i).second;
             }
             throw ProcessError();
         }
@@ -325,15 +325,15 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     }
     // delete nodes
     for (std::map<long long int, PCOSMNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     // delete edges
     for (EdgeMap::iterator i = edges.begin(); i != edges.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     // delete relations
     for (Relations::iterator i = relations.begin(); i != relations.end(); ++i) {
-        delete(*i);
+        delete (*i);
     }
 }
 

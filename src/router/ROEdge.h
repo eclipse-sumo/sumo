@@ -437,7 +437,7 @@ public:
 
 
     /// @brief optimistic distance heuristic for use in routing
-    double getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate=false) const;
+    double getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate = false) const;
 
 
     /** @brief Returns all ROEdges */

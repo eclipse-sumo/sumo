@@ -178,9 +178,9 @@ MSEdgeControl::executeMovements(SUMOTime t) {
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
         if (
 #ifdef PARALLEL_EXEC_MOVE
-        MSGlobals::gNumSimThreads <= 1 && 
+            MSGlobals::gNumSimThreads <= 1 &&
 #endif
-        (*i)->getVehicleNumber() > 0) {
+            (*i)->getVehicleNumber() > 0) {
             (*i)->executeMovements(t);
         }
         if ((*i)->getVehicleNumber() == 0) {

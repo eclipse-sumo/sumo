@@ -54,11 +54,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID): 
+GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID):
     GUIGlObject(GLO_JUNCTION, junction.getID()),
     myJunction(junction),
-    myTLLID(tllID)
-{
+    myTLLID(tllID) {
     if (myJunction.getShape().size() == 0) {
         Position pos = myJunction.getPosition();
         myBoundary = Boundary(pos.x() - 1., pos.y() - 1., pos.x() + 1., pos.y() + 1.);
@@ -192,7 +191,7 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
         case 0:
             if (myAmWaterway) {
                 return 1;
-            }else if (myAmRailway) {
+            } else if (myAmRailway) {
                 return 2;
             } else {
                 return 0;

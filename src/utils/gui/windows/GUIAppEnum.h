@@ -112,11 +112,11 @@ enum {
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE,
     /// @brief hot key <F1> open online documentation
-    MID_HOTKEY_F1_ONLINEDOCUMENTATION,    
+    MID_HOTKEY_F1_ONLINEDOCUMENTATION,
     /// @brief hot key <F2> open about dialog
     MID_HOTKEY_F2_ABOUT,
     /// @brief hot key <F3> set network mode in NETEDIT
-    MID_HOTKEY_F3_SUPERMODE_NETWORK,    
+    MID_HOTKEY_F3_SUPERMODE_NETWORK,
     /// @brief hot key <F4> set demand mode in NETEDIT
     MID_HOTKEY_F4_SUPERMODE_DEMAND,
     /// @brief hot key <ESC> abort current edit operation

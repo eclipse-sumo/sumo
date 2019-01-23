@@ -186,7 +186,7 @@ GNENetElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, myTagProperty.getNumberOfAttributes());
     // Iterate over attributes
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
         if (i.second.isUnique()) {
             ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
@@ -210,7 +210,7 @@ GNENetElement::selectAttributeCarrier(bool changeFlag) {
         myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
-            
+
         }
     }
 }
@@ -237,7 +237,7 @@ GNENetElement::isAttributeCarrierSelected() const {
 }
 
 
-bool 
+bool
 GNENetElement::drawUsingSelectColor() const {
     if (mySelected && (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK)) {
         return true;

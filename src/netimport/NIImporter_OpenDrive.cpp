@@ -754,7 +754,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // clean up
     // -------------------------
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
 }
 
@@ -846,12 +846,12 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
 #endif
                     for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
 #ifdef DEBUG_INTERNALSHAPES
-                        destPred += "  lane=" + toString(destLane.id) 
-                            + " pred=" + toString(destLane.predecessor) 
-                            + " succ=" + toString(destLane.successor) 
-                            + " wStart=" + toString(destLane.widthData.front().computeAt(0)) 
-                            + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D())) 
-                            + " width=" + toString(destLane.width) + "\n";
+                        destPred += "  lane=" + toString(destLane.id)
+                                    + " pred=" + toString(destLane.predecessor)
+                                    + " succ=" + toString(destLane.successor)
+                                    + " wStart=" + toString(destLane.widthData.front().computeAt(0))
+                                    + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D()))
+                                    + " width=" + toString(destLane.width) + "\n";
 #endif
                         if (abs(destLane.id) <= abs(referenceLane)) {
                             const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
@@ -875,14 +875,14 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     }
 #ifdef DEBUG_INTERNALSHAPES
                     std::cout << "internalShape "
-                        << c.getDescription()
-                        << " dest=" << dest->id
-                        << " refLane=" << referenceLane
-                        << " destPred\n" << destPred
-                        << " offsets=" << offsets
-                        << "\n shape=" << dest->geom
-                        << "\n shape2=" << cn.shape
-                        << "\n";
+                              << c.getDescription()
+                              << " dest=" << dest->id
+                              << " refLane=" << referenceLane
+                              << " destPred\n" << destPred
+                              << " offsets=" << offsets
+                              << "\n shape=" << dest->geom
+                              << "\n shape2=" << cn.shape
+                              << "\n";
 #endif
                     if (c.toCP == OPENDRIVE_CP_END) {
                         cn.shape = cn.shape.reverse();
@@ -940,12 +940,14 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
 #ifdef DEBUG_CONNECTIONS
-                    if (DEBUG_COND(src)) std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+                    if (DEBUG_COND(src)) {
+                        std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+                    }
 #endif
                 }
+            }
         }
-    }
-    if (laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT) != laneSection.lanesByDir.end()) {
+        if (laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT) != laneSection.lanesByDir.end()) {
             const std::vector<OpenDriveLane>& lanes = laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
             for (std::vector<OpenDriveLane>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
                 if (!myImportAllTypes && laneMap.find((*j).id) == laneMap.end()) {
@@ -1920,8 +1922,8 @@ NIImporter_OpenDrive::myStartElement(int element,
                 for (double x = 0; x <= length + NUMERICAL_EPS; x += dist) {
                     o.id = baseID + "#" + toString(index++);
                     const double a = x / length;
-                    o.width = wStart * (1 - a) + wEnd * a; 
-                    o.t = tStart * (1 - a) + tEnd * a; 
+                    o.width = wStart * (1 - a) + wEnd * a;
+                    o.t = tStart * (1 - a) + tEnd * a;
                     myCurrentEdge.objects.push_back(o);
                     o.s += dist;
                 }

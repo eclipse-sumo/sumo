@@ -45,7 +45,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) : 
+RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) :
     SUMOSAXHandler("sumo-network"),
     myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),

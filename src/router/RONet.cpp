@@ -72,8 +72,7 @@ RONet::RONet()
       myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
                      && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
       myKeepVTypeDist(OptionsCont::getOptions().exists("keep-vtype-distributions")
-                      && OptionsCont::getOptions().getBool("keep-vtype-distributions"))
-{
+                      && OptionsCont::getOptions().getBool("keep-vtype-distributions")) {
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
     }
@@ -219,7 +218,7 @@ RONet::openOutput(const OptionsCont& options) {
         myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
         myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
     }
-    if (options.exists("alternatives-output") && options.isSet("alternatives-output") 
+    if (options.exists("alternatives-output") && options.isSet("alternatives-output")
             && !(options.exists("write-trips") && options.getBool("write-trips"))) {
         myRouteAlternativesOutput = &OutputDevice::getDevice(options.getString("alternatives-output"));
         myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);

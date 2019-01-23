@@ -316,7 +316,7 @@ public:
     virtual SumoXMLNodeType getNodeType(bool& ok) const = 0;
 
     /**
-     * @brief Returns the right-of-way method 
+     * @brief Returns the right-of-way method
      */
     virtual RightOfWay getRightOfWay(bool& ok) const = 0;
 

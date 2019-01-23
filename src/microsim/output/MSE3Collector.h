@@ -100,7 +100,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::enter
          */
-        bool notifyMove(SUMOVehicle& veh, double , double newPos, double);
+        bool notifyMove(SUMOVehicle& veh, double, double newPos, double);
 
 
         /** @brief Processes state changes of a vehicle

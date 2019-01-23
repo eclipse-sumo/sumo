@@ -54,17 +54,17 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, G
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
-bool 
+bool
 GNEStoppingPlace::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
         // obtain lane length
-        double laneLenght = myLane->getParentEdge().getNBEdge()->getFinalLength()*getLane()->getLengthGeometryFactor();
+        double laneLenght = myLane->getParentEdge().getNBEdge()->getFinalLength() * getLane()->getLengthGeometryFactor();
         // calculate start and end positions
-        double startPos = canParse<double>(myStartPosition)? parse<double>(myStartPosition) : 0;
-        double endPos = canParse<double>(myEndPosition)? parse<double>(myEndPosition) : laneLenght;
+        double startPos = canParse<double>(myStartPosition) ? parse<double>(myStartPosition) : 0;
+        double endPos = canParse<double>(myEndPosition) ? parse<double>(myEndPosition) : laneLenght;
         // check if position has to be fixed
         if (startPos < 0) {
             startPos += laneLenght;
@@ -86,11 +86,11 @@ GNEStoppingPlace::isAdditionalValid() const {
 }
 
 
-std::string 
+std::string
 GNEStoppingPlace::getAdditionalProblem() const {
     // calculate start and end positions
-    double startPos = canParse<double>(myStartPosition)? parse<double>(myStartPosition) : 0;
-    double endPos = canParse<double>(myEndPosition)? parse<double>(myEndPosition) : myLane->getParentEdge().getNBEdge()->getFinalLength();
+    double startPos = canParse<double>(myStartPosition) ? parse<double>(myStartPosition) : 0;
+    double endPos = canParse<double>(myEndPosition) ? parse<double>(myEndPosition) : myLane->getParentEdge().getNBEdge()->getFinalLength();
     // obtain lane lenght
     double laneLenght = myLane->getParentEdge().getNBEdge()->getFinalLength();
     // check if position has to be fixed
@@ -100,7 +100,7 @@ GNEStoppingPlace::getAdditionalProblem() const {
     if (endPos < 0) {
         endPos += laneLenght;
     }
-    // declare variables 
+    // declare variables
     std::string errorStart, separator, errorEnd;
     // check positions over lane
     if (startPos < 0) {
@@ -121,7 +121,7 @@ GNEStoppingPlace::getAdditionalProblem() const {
 }
 
 
-void 
+void
 GNEStoppingPlace::fixAdditionalProblem() {
     // declare new start and end position
     std::string newStartPos = myStartPosition;
@@ -137,8 +137,8 @@ GNEStoppingPlace::fixAdditionalProblem() {
 bool
 GNEStoppingPlace::checkStoppinPlacePosition(const std::string& startPosStr, const std::string& endPosStr, const double laneLength, const bool friendlyPos) {
     // obtain start and end position in double format
-    double startPos = GNEAttributeCarrier::canParse<double>(startPosStr)? GNEAttributeCarrier::parse<double>(startPosStr) : 0;
-    double endPos = GNEAttributeCarrier::parse<double>(endPosStr)? GNEAttributeCarrier::parse<double>(endPosStr) : laneLength;
+    double startPos = GNEAttributeCarrier::canParse<double>(startPosStr) ? GNEAttributeCarrier::parse<double>(startPosStr) : 0;
+    double endPos = GNEAttributeCarrier::parse<double>(endPosStr) ? GNEAttributeCarrier::parse<double>(endPosStr) : laneLength;
     // return check stop pos (note: this is the same function of SUMORouteHandler::checkStopPos)
     if (POSITION_EPS > laneLength) {
         return false;
@@ -166,8 +166,8 @@ GNEStoppingPlace::checkStoppinPlacePosition(const std::string& startPosStr, cons
 bool
 GNEStoppingPlace::fixStoppinPlacePosition(std::string& startPosStr, std::string& endPosStr, const double laneLength, const bool friendlyPos) {
     // obtain start and end position in double format
-    double startPos = fabs(canParse<double>(startPosStr)? parse<double>(startPosStr) : 0);
-    double endPos = fabs(parse<double>(endPosStr)? parse<double>(endPosStr) : laneLength);
+    double startPos = fabs(canParse<double>(startPosStr) ? parse<double>(startPosStr) : 0);
+    double endPos = fabs(parse<double>(endPosStr) ? parse<double>(endPosStr) : laneLength);
     double minLength = POSITION_EPS + 0.01;
     // return check stop pos (note: this is the same function of SUMORouteHandler::checkStopPos)
     if (minLength > laneLength) {
@@ -210,8 +210,8 @@ GNEStoppingPlace::fixStoppinPlacePosition(std::string& startPosStr, std::string&
 Position
 GNEStoppingPlace::getPositionInView() const {
     // calculate start and end positions as absolute values
-    double startPos = fabs(canParse<double>(myStartPosition)? parse<double>(myStartPosition) : 0);
-    double endPos = fabs(canParse<double>(myEndPosition)? parse<double>(myEndPosition) : myLane->getParentEdge().getNBEdge()->getFinalLength());
+    double startPos = fabs(canParse<double>(myStartPosition) ? parse<double>(myStartPosition) : 0);
+    double endPos = fabs(canParse<double>(myEndPosition) ? parse<double>(myEndPosition) : myLane->getParentEdge().getNBEdge()->getFinalLength());
     // obtain position in view depending if both positions are defined
     if (myStartPosition.empty() && myEndPosition.empty()) {
         return myLane->getShape().positionAtOffset(myLane->getShape().length() / 2);
@@ -252,7 +252,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
                 myEndPosition = toString(parse<double>(myMove.secondOriginalPosition) + offsetLane);
             }
         } else {
-            // check if start position must be moved  
+            // check if start position must be moved
             if (!myStartPosition.empty()) {
                 myStartPosition = toString(parse<double>(myMove.firstOriginalLanePosition) + offsetLane);
             }
@@ -337,7 +337,7 @@ GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
 }
 
 
-double 
+double
 GNEStoppingPlace::getStartGeometryPositionOverLane() const {
     if (myStartPosition.empty()) {
         return 0;
@@ -352,7 +352,7 @@ GNEStoppingPlace::getStartGeometryPositionOverLane() const {
 }
 
 
-double 
+double
 GNEStoppingPlace::getEndGeometryPositionOverLane() const {
     if (myEndPosition.empty()) {
         return getLane()->getParentEdge().getNBEdge()->getFinalLength();

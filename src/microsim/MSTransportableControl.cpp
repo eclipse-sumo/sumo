@@ -51,7 +51,7 @@ MSTransportableControl::MSTransportableControl():
 
 MSTransportableControl::~MSTransportableControl() {
     for (std::map<std::string, MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     myTransportables.clear();
     myWaiting4Vehicle.clear();

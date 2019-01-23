@@ -230,7 +230,7 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GUIViewTraffic::getEdgeDataAttrs() const {
     if (GUINet::getGUIInstance() != nullptr) {
         return GUINet::getGUIInstance()->getEdgeDataAttrs();
@@ -239,7 +239,7 @@ GUIViewTraffic::getEdgeDataAttrs() const {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GUIViewTraffic::getEdgeLaneParamKeys(bool edgeKeys) const {
     std::set<std::string> keys;
     for (const MSEdge* e : MSEdge::getAllEdges()) {

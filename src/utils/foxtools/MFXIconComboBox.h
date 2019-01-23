@@ -31,20 +31,20 @@
 */
 
 class MFXListItem : public FXListItem {
-  FXDECLARE(MFXListItem)
+    FXDECLARE(MFXListItem)
 
 public:
-  /// Construct new item with given text, icon, and user-data
-  MFXListItem(const FXString& text, FXIcon* ic, FXColor _bgColor, void* ptr=NULL):
-      FXListItem(text, ic, ptr),
-      bgColor(_bgColor) {}
-  FXColor bgColor;
+    /// Construct new item with given text, icon, and user-data
+    MFXListItem(const FXString& text, FXIcon* ic, FXColor _bgColor, void* ptr = NULL):
+        FXListItem(text, ic, ptr),
+        bgColor(_bgColor) {}
+    FXColor bgColor;
 
 
-  void draw(const FXList* list,FXDC& dc,FXint x,FXint y,FXint w,FXint h);
+    void draw(const FXList* list, FXDC& dc, FXint x, FXint y, FXint w, FXint h);
 
 protected:
-  MFXListItem():FXListItem("", nullptr) {}
+    MFXListItem(): FXListItem("", nullptr) {}
 
 };
 
@@ -58,13 +58,13 @@ protected:
     MFXIconComboBox() {}
 public:
 
-    /// same constructor as parent 
-    MFXIconComboBox(FXComposite *p,FXint cols,FXObject* tgt=nullptr,FXSelector sel=0,FXuint opts=COMBOBOX_NORMAL,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+    /// same constructor as parent
+    MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt = nullptr, FXSelector sel = 0, FXuint opts = COMBOBOX_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// Destructor.
     virtual ~MFXIconComboBox() {};
 
-    FXint appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor=FXRGBA(0,0,0,0), void* ptr=NULL);
+    FXint appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor = FXRGBA(0, 0, 0, 0), void* ptr = NULL);
 
 };
 

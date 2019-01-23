@@ -165,7 +165,7 @@ OutputDevice::realString(const double v, const int precision) {
     if (v < pow(10., -precision)) {
         oss.setf(std::ios::scientific, std::ios::floatfield);
     } else {
-        oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+        oss.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
         oss.setf(std::ios::showpoint);    // print decimal point
         oss << std::setprecision(precision);
     }

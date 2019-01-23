@@ -183,8 +183,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myEdgeDataEndTime(-1),
     myRouterTT(nullptr),
     myRouterEffort(nullptr),
-    myPedestrianRouter(nullptr)
-{
+    myPedestrianRouter(nullptr) {
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
     }
@@ -375,13 +374,13 @@ MSNet::generateStatistics(SUMOTime start) {
     msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
     if (duration != 0) {
         msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
-        msg.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+        msg.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
         msg.setf(std::ios::showpoint);    // print decimal point
         msg << " UPS: " << ((double)myVehiclesMoved / ((double)duration / 1000)) << "\n";
     }
     // print vehicle statistics
     const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
-                                        " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
+                                       " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
     msg << "Vehicles: " << "\n"
         << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
         << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
@@ -811,7 +810,7 @@ void
 MSNet::postSimStepOutput() const {
     if (myLogExecutionTime) {
         std::ostringstream oss;
-        oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+        oss.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
         oss.setf(std::ios::showpoint);    // print decimal point
         oss << std::setprecision(gPrecision);
         if (mySimStepDuration != 0) {

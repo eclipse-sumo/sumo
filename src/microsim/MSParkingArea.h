@@ -167,7 +167,7 @@ public:
      * @return Whether the lot entry could be added
      */
     virtual void addLotEntry(double x, double y, double z,
-            double width, double length, double angle);
+                             double width, double length, double angle);
 
 
     /** @brief Returns the lot rectangle width

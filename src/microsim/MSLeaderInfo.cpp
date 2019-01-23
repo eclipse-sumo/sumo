@@ -162,7 +162,7 @@ MSLeaderInfo::operator[](int sublane) const {
 std::string
 MSLeaderInfo::toString() const {
     std::ostringstream oss;
-    oss.setf(std::ios::fixed , std::ios::floatfield);
+    oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(2);
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
         oss << Named::getIDSecure(myVehicles[i]);
@@ -268,7 +268,7 @@ MSLeaderDistanceInfo::operator[](int sublane) const {
 std::string
 MSLeaderDistanceInfo::toString() const {
     std::ostringstream oss;
-    oss.setf(std::ios::fixed , std::ios::floatfield);
+    oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(2);
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
         oss << Named::getIDSecure(myVehicles[i]) << ":";
@@ -386,7 +386,7 @@ MSCriticalFollowerDistanceInfo::clear() {
 std::string
 MSCriticalFollowerDistanceInfo::toString() const {
     std::ostringstream oss;
-    oss.setf(std::ios::fixed , std::ios::floatfield);
+    oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(2);
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
         oss << Named::getIDSecure(myVehicles[i]) << ":";

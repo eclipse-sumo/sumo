@@ -45,7 +45,7 @@ GUIUserIO::copyToClipboard(const FXApp& app, const std::string& text) {
 std::string
 GUIUserIO::copyFromClipboard(const FXApp& app) {
     FXString string;
-    if (app.getActiveWindow()->getDNDData(FROM_CLIPBOARD,FXWindow::utf8Type,string)) {
+    if (app.getActiveWindow()->getDNDData(FROM_CLIPBOARD, FXWindow::utf8Type, string)) {
         return string.text();
     };
     return string.text();

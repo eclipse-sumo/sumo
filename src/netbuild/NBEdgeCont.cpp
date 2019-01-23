@@ -136,11 +136,11 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
 void
 NBEdgeCont::clear() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        delete((*i).second);
+        delete ((*i).second);
     }
     myEdges.clear();
     for (EdgeCont::iterator i = myExtractedEdges.begin(); i != myExtractedEdges.end(); i++) {
-        delete((*i).second);
+        delete ((*i).second);
     }
     myExtractedEdges.clear();
 }

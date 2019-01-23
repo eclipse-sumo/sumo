@@ -49,7 +49,7 @@ class GUIGlObject;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128,0,0,0), bool _constSize = true) :
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128, 0, 0, 0), bool _constSize = true) :
         show(_show), size(_size), color(_color), bgColor(_bgColor), constSize(_constSize) {}
 
     bool show;

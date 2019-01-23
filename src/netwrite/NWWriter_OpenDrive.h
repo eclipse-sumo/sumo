@@ -109,7 +109,7 @@ protected:
     static void checkLaneGeometries(const NBEdge* e);
 
     /// @brief write road objects referenced as edge parameters
-    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc); 
+    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
 };
 
 

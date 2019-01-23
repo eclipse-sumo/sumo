@@ -359,8 +359,8 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
     }
 #endif
     myApproachingVehicles.emplace(approaching,
-                                 ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
-                                         arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist));
+                                  ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
+                                          arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist));
 }
 
 
@@ -1028,10 +1028,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                     } else {
                         if (gDebugFlag1) {
-                            std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist 
-                                << " blockedStrategic=" << leader->getLaneChangeModel().isStrategicBlocked() 
-                                //<< " stateRight=" << toString((LaneChangeAction)leader->getLaneChangeModel().getSavedState(-1).second)
-                                << "\n";
+                            std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist
+                                      << " blockedStrategic=" << leader->getLaneChangeModel().isStrategicBlocked()
+                                      //<< " stateRight=" << toString((LaneChangeAction)leader->getLaneChangeModel().getSavedState(-1).second)
+                                      << "\n";
                         }
                         if (leaderBackDist + foeCrossingWidth < 0) {
                             // leader is completely past the crossing point
@@ -1208,17 +1208,17 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
     if (secondsToArrival > ZIPPER_ADAPT_TIME && dist > ZIPPER_ADAPT_DIST) {
 #ifdef DEBUG_ZIPPER
         if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-            << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
+                                       << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
 #endif
         return vSafe;
     }
 #ifdef DEBUG_ZIPPER
     if (gDebugFlag1) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-        << " egoAT=" << arrivalTime
-        << " dist=" << dist
-        << " vSafe=" << vSafe
-        << " numFoes=" << collectFoes->size()
-        << "\n";
+                                   << " egoAT=" << arrivalTime
+                                   << " dist=" << dist
+                                   << " vSafe=" << vSafe
+                                   << " numFoes=" << collectFoes->size()
+                                   << "\n";
 #endif
     MSLink* foeLink = myFoeLinks[0];
     const double vSafeOrig = vSafe;
@@ -1234,14 +1234,14 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
             (avi.arrivalTime == arrivalTime && avi.dist == dist && ego->getLane()->getIndex() < foe->getLane()->getIndex())) {
 #ifdef DEBUG_ZIPPER
             if (gDebugFlag1) std::cout
-                << "    ignoring foe=" << foe->getID()
-                << " foeAT=" << avi.arrivalTime
-                << " foeDist=" << avi.dist
-                << " foeSpeed=" << foe->getSpeed()
-                << " egoSpeed=" << ego->getSpeed()
-                << " deltaDist=" << avi.dist - dist
-                << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
-                << "\n";
+                        << "    ignoring foe=" << foe->getID()
+                        << " foeAT=" << avi.arrivalTime
+                        << " foeDist=" << avi.dist
+                        << " foeSpeed=" << foe->getSpeed()
+                        << " egoSpeed=" << ego->getSpeed()
+                        << " deltaDist=" << avi.dist - dist
+                        << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
+                        << "\n";
 #endif
             continue;
         }
@@ -1253,17 +1253,17 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         vSafe = MIN2(vSafe, followInTime);
 #ifdef DEBUG_ZIPPER
         if (gDebugFlag1) std::cout << "    adapting to foe=" << foe->getID()
-            << " foeDist=" << avi.dist
-            << " follow=" << follow
-            << " followInTime=" << followInTime
-            << " gap=" << gap
-            << " foeSpeed=" << foe->getSpeed()
-            << " follow=" << follow
-            << " foeAT=" << avi.arrivalTime
-            << " foeLT=" << avi.leavingTime
-            << " foeAS=" << avi.arrivalSpeed
-            << " vSafe=" << vSafe
-            << "\n";
+                                       << " foeDist=" << avi.dist
+                                       << " follow=" << follow
+                                       << " followInTime=" << followInTime
+                                       << " gap=" << gap
+                                       << " foeSpeed=" << foe->getSpeed()
+                                       << " follow=" << follow
+                                       << " foeAT=" << avi.arrivalTime
+                                       << " foeLT=" << avi.leavingTime
+                                       << " foeAS=" << avi.arrivalSpeed
+                                       << " vSafe=" << vSafe
+                                       << "\n";
 #endif
     }
     return vSafe;

@@ -684,7 +684,7 @@ public:
      *  but may differ in actual geomtric length.
      * @note Depends on previous call to NBNodeCont::computeNodeShapes
      */
-    void computeEdgeShape(double smoothElevationThreshold=-1);
+    void computeEdgeShape(double smoothElevationThreshold = -1);
 
     /** @brief Returns the shape of the nth lane
      * @return The shape of the lane given by its index (counter from right)

@@ -43,14 +43,14 @@
 // ===========================================================================
 
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc, const GeoConvHelper* geoConvHelper) :
-    SUMOSAXHandler(file), 
+    SUMOSAXHandler(file),
     myShapeContainer(sc),
-    myPrefix(""), 
-    myDefaultColor(RGBColor::RED), 
-    myDefaultLayer(0), 
+    myPrefix(""),
+    myDefaultColor(RGBColor::RED),
+    myDefaultLayer(0),
     myDefaultFill(false),
     myLastParameterised(nullptr),
-    myGeoConvHelper(geoConvHelper) { 
+    myGeoConvHelper(geoConvHelper) {
 }
 
 
@@ -135,11 +135,11 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     if (!ok) {
         return;
     }
-    const GeoConvHelper* gch = (myGeoConvHelper != nullptr 
-            ? myGeoConvHelper 
-            : (useProcessing 
-                ? &GeoConvHelper::getProcessing()
-                : &GeoConvHelper::getFinal()));
+    const GeoConvHelper* gch = (myGeoConvHelper != nullptr
+                                ? myGeoConvHelper
+                                : (useProcessing
+                                   ? &GeoConvHelper::getProcessing()
+                                   : &GeoConvHelper::getFinal()));
     if (useProcessing && gch->usingGeoProjection()) {
         if (lat == INVALID_POSITION || lon == INVALID_POSITION) {
             lon = x;
@@ -243,7 +243,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
 }
 
 
-Parameterised* 
+Parameterised*
 ShapeHandler::getLastParameterised() const {
     return myLastParameterised;
 }
@@ -270,7 +270,7 @@ ShapeHandler::setDefaults(const std::string& prefix, const RGBColor& color, cons
 }
 
 
-bool 
+bool
 ShapeHandler::addLanePosParams() {
     return false;
 }

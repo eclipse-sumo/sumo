@@ -154,13 +154,13 @@ public:
 
 /// define SOFT_ASSERT raise an assertion in debug mode everywhere except on the windows test server
 #ifdef MSVC_TEST_SERVER
-  #ifdef _DEBUG
-    #define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError("should not happen");}
-  #else
-    #define SOFT_ASSERT(expr)
-  #endif
+#ifdef _DEBUG
+#define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError("should not happen");}
 #else
-  #define SOFT_ASSERT(expr) assert(expr);
+#define SOFT_ASSERT(expr)
+#endif
+#else
+#define SOFT_ASSERT(expr) assert(expr);
 #endif
 
 #endif

@@ -888,9 +888,9 @@ MSLaneChanger::checkChange(
 #ifdef DEBUG_CHECK_CHANGE
             if DEBUG_COND {
             std::cout << SIMTIME << " checkChange() too slow to guarantee completion of continuous lane change."
-            << "\nestimatedLCDuration=" << estimatedLCDuration
-            << "\ndistToNeighLane=" << distToNeighLane
-            << std::endl;
+                      << "\nestimatedLCDuration=" << estimatedLCDuration
+                      << "\ndistToNeighLane=" << distToNeighLane
+                      << std::endl;
         }
 #endif
         state |= LCA_INSUFFICIENT_SPEED;
@@ -907,11 +907,11 @@ MSLaneChanger::checkChange(
 #ifdef DEBUG_CHECK_CHANGE
             if DEBUG_COND {
             std::cout << SIMTIME << " checkChange() checking continuous lane change..."
-            << "\ndistToNeighLane=" << distToNeighLane
-            << " estimatedLCDuration=" << estimatedLCDuration
-            << " space2change=" << space2change
-            << " avgSpeed=" << avgSpeed
-            << std::endl;
+                      << "\ndistToNeighLane=" << distToNeighLane
+                      << " estimatedLCDuration=" << estimatedLCDuration
+                      << " space2change=" << space2change
+                      << " avgSpeed=" << avgSpeed
+                      << std::endl;
         }
 #endif
 

@@ -204,7 +204,7 @@ public:
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color
      */
-    void setSpecialColor(const RGBColor* Color2, double colorValue=std::numeric_limits<double>::max());
+    void setSpecialColor(const RGBColor* Color2, double colorValue = std::numeric_limits<double>::max());
 
     /// @brief return value for lane coloring according to the given scheme
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;

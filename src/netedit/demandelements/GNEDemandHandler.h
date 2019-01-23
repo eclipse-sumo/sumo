@@ -117,11 +117,11 @@ public:
     DOCUMENTAR
     */
     static GNEDemandElement* buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
-                                           double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
-                                           double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
-                                           SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
-                                           const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
-                                           double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
+            double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
+            double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
+            SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
+            const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
+            double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
 
 private:
     /// @brief Stack used to save the last inserted element

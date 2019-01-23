@@ -122,7 +122,7 @@ public:
 
 protected:
     /// @brief edge
-    GNEEdge *myEdge;
+    GNEEdge* myEdge;
 
     /// @brief depart Weight
     double myDepartWeight;

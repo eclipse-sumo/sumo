@@ -112,7 +112,7 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
-protected:    
+protected:
     /// @brief set color
     void setColor(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
 

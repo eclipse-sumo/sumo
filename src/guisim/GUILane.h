@@ -260,7 +260,7 @@ public:
     /* @brief sets the color according to the current scheme index and some lane function
      * @param[in] id override active scheme when calling from meso gui
      */
-    bool setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme=-1) const;
+    bool setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme = -1) const;
 
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;

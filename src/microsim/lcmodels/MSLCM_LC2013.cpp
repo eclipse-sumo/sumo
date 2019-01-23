@@ -1122,15 +1122,15 @@ MSLCM_LC2013::_wantsChange(
         driveToNextStop = myVehicle.nextStopDist();
         const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
 #ifdef DEBUG_WANTS_CHANGE
-    if (DEBUG_COND) {
-        std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
-                  << " stopDist=" << myVehicle.nextStopDist()
-                  << " lastDist=" << myVehicle.getLastStepDist()
-                  << " stopPos=" << stopPos
-                  << " currentDist=" << currentDist
-                  << " neighDist=" << neighDist
-                  << "\n";
-    }
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
+                      << " stopDist=" << myVehicle.nextStopDist()
+                      << " lastDist=" << myVehicle.getLastStepDist()
+                      << " stopPos=" << stopPos
+                      << " currentDist=" << currentDist
+                      << " neighDist=" << neighDist
+                      << "\n";
+        }
 #endif
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
@@ -1330,9 +1330,9 @@ MSLCM_LC2013::_wantsChange(
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
                 std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
-                    << " overtakeDist=" << overtakeDist
-                    << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
-                    << "\n";
+                          << " overtakeDist=" << overtakeDist
+                          << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
+                          << "\n";
             }
 #endif
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;

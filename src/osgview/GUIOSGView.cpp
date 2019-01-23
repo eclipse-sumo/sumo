@@ -430,8 +430,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (auto it = myPersons.begin(); it != myPersons.end();) {
         if (!it->second.active) {
             removeTransportable((it++)->first);
-        }
-        else {
+        } else {
             ++it;
         }
     }

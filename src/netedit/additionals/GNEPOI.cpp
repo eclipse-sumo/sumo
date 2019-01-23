@@ -235,7 +235,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     // first clear vertices
     myPOIVertices.clear();
     // check if POI can be drawn
-    if(checkDraw(s)) {
+    if (checkDraw(s)) {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
@@ -572,7 +572,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

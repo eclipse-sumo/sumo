@@ -70,7 +70,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // fill myTypeMatchBox with route modes
-    for (const auto &i : myRouteModesStrings) {
+    for (const auto& i : myRouteModesStrings) {
         myTypeMatchBox->appendItem(i.second.c_str());
     }
     // Set visible items
@@ -92,7 +92,7 @@ GNERouteFrame::RouteModeSelector::getCurrenRouteMode() const {
 void
 GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
     // make sure that route isn't invalid
-    if(routemode != ROUTEMODE_INVALID) {
+    if (routemode != ROUTEMODE_INVALID) {
         // restore color
         myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
         // set current route mode
@@ -115,7 +115,7 @@ GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
 long
 GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto &i : myRouteModesStrings) {
+    for (const auto& i : myRouteModesStrings) {
         if (i.second == myTypeMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
@@ -163,10 +163,10 @@ GNERouteFrame::EdgeToEdge::EdgeToEdge(GNERouteFrame* routeFrameParent) :
 GNERouteFrame::EdgeToEdge::~EdgeToEdge() {}
 
 
-void 
+void
 GNERouteFrame::EdgeToEdge::showEdgeToEdgeModul() {
     // only show modul if current route mode is valid
-    if(myRouteFrameParent->myRouteModeSelector->getCurrenRouteMode() == ROUTEMODE_EDGETOEDGE) {
+    if (myRouteFrameParent->myRouteModeSelector->getCurrenRouteMode() == ROUTEMODE_EDGETOEDGE) {
         show();
     } else {
         hide();
@@ -174,7 +174,7 @@ GNERouteFrame::EdgeToEdge::showEdgeToEdgeModul() {
 }
 
 
-void 
+void
 GNERouteFrame::EdgeToEdge::hideEdgeToEdgeModul() {
     // first abort route creation
     abortRouteCreation();
@@ -183,23 +183,23 @@ GNERouteFrame::EdgeToEdge::hideEdgeToEdgeModul() {
 }
 
 
-bool 
+bool
 GNERouteFrame::EdgeToEdge::addEdgeIntoRoute(GNEEdge* edge) {
     // check if currently we're creating a new route
     if (myRouteEdges.empty()) {
         myRouteEdges.push_back(edge);
         // set selected color in all edges
-        for (const auto &j : edge->getLanes()) {
+        for (const auto& j : edge->getLanes()) {
             j->setSpecialColor(&myRouteFrameParent->getEdgeCandidateColor());
         }
         // enable buttons
         myCreateRouteButton->enable();
         myAbortCreationButton->enable();
         // Change colors of candidate edges
-        for (const auto &i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto& i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
             if (i != edge) {
                 // set color in every lane
-                for (const auto &j : i->getLanes()) {
+                for (const auto& j : i->getLanes()) {
                     j->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());
                 }
             }
@@ -210,26 +210,26 @@ GNERouteFrame::EdgeToEdge::addEdgeIntoRoute(GNEEdge* edge) {
         return true;
     } else {
         // check if clicked edge is in the candidate edges
-        for (const auto &i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto& i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
             if (i == edge) {
                 // restore colors of outgoing edges
-                for (const auto &j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-                    for (const auto &k : j->getLanes()) {
+                for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+                    for (const auto& k : j->getLanes()) {
                         k->setSpecialColor(nullptr);
                     }
                 }
                 // add new edge in the list of route edges
                 myRouteEdges.push_back(edge);
                 // set selected color in all edges
-                for (const auto & j : myRouteEdges) {
-                    for (const auto &k : j->getLanes()) {
+                for (const auto& j : myRouteEdges) {
+                    for (const auto& k : j->getLanes()) {
                         k->setSpecialColor(&myRouteFrameParent->getEdgeCandidateColor());
                     }
                 }
                 // set new candidate colors
-                for (const auto &j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+                for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
                     if (j != edge) {
-                        for (const auto &k : j->getLanes()) {
+                        for (const auto& k : j->getLanes()) {
                             k->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());
                         }
                     }
@@ -246,10 +246,10 @@ GNERouteFrame::EdgeToEdge::addEdgeIntoRoute(GNEEdge* edge) {
 }
 
 
-void 
+void
 GNERouteFrame::EdgeToEdge::createRoute() {
     // create edge only if there is route edges
-    if(myRouteEdges.size() > 0) {
+    if (myRouteEdges.size() > 0) {
         // creaste edge using buildRoute function of GNEDemandHandler
         GNEDemandHandler::buildRoute(myRouteFrameParent->getViewNet(), true, myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), myRouteEdges, RGBColor::BLUE);
         // abort route creation (because route it was already seleted and vector/colors has to be cleaned)
@@ -258,19 +258,19 @@ GNERouteFrame::EdgeToEdge::createRoute() {
 }
 
 
-void 
+void
 GNERouteFrame::EdgeToEdge::abortRouteCreation() {
     // first check that there is route edges selected
     if (myRouteEdges.size() > 0) {
         // disable special color in candidate edges
-        for (const auto &j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-            for (const auto &k : j->getLanes()) {
+        for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+            for (const auto& k : j->getLanes()) {
                 k->setSpecialColor(nullptr);
             }
         }
         // disable special color in current route edges
-        for (const auto &j : myRouteEdges) {
-            for (const auto &k : j->getLanes()) {
+        for (const auto& j : myRouteEdges) {
+            for (const auto& k : j->getLanes()) {
                 k->setSpecialColor(nullptr);
             }
         }
@@ -302,22 +302,22 @@ GNERouteFrame::EdgeToEdge::onCmdAbortCreateRoute(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GNERouteFrame::EdgeToEdge::updateInfoRouteLabel() {
-    if(myRouteEdges.size() > 0) {
+    if (myRouteEdges.size() > 0) {
         // declare variables for route info
         double lenght = 0;
         double speed = 0;
-        for (const auto &i : myRouteEdges) {
+        for (const auto& i : myRouteEdges) {
             lenght += i->getNBEdge()->getLength();
             speed += i->getNBEdge()->getSpeed();
         }
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
-            << "- Number of Edges: " << toString(myRouteEdges.size()) << "\n"
-            << "- Lenght: " << toString(lenght) << "\n"
-            << "- Average speed: " << toString(speed/myRouteEdges.size());
+                << "- Number of Edges: " << toString(myRouteEdges.size()) << "\n"
+                << "- Lenght: " << toString(lenght) << "\n"
+                << "- Average speed: " << toString(speed / myRouteEdges.size());
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());
     } else {
@@ -358,38 +358,37 @@ GNERouteFrame::hide() {
 }
 
 
-void 
+void
 GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
     // make sure that Edge exist
-    if(clickedEdge) {
-        switch (myRouteModeSelector->getCurrenRouteMode())
-        {
-        case ROUTEMODE_EDGETOEDGE:
-            // check if edge can be inserted in edge to edge modul
-            if(myEdgeToEdge->addEdgeIntoRoute(clickedEdge)) {
-                WRITE_DEBUG("Edge added in EdgeToEdge mode");
-            } else {
-                WRITE_DEBUG("Edge wasn't added in EdgeToEdge mode");
-            }
-            break;
-        case ROUTEMODE_MAXVELOCITY:
-            break;
-        case ROUTEMODE_MINIMUMLENGHT:
-            break;
-        default:
-            break;
+    if (clickedEdge) {
+        switch (myRouteModeSelector->getCurrenRouteMode()) {
+            case ROUTEMODE_EDGETOEDGE:
+                // check if edge can be inserted in edge to edge modul
+                if (myEdgeToEdge->addEdgeIntoRoute(clickedEdge)) {
+                    WRITE_DEBUG("Edge added in EdgeToEdge mode");
+                } else {
+                    WRITE_DEBUG("Edge wasn't added in EdgeToEdge mode");
+                }
+                break;
+            case ROUTEMODE_MAXVELOCITY:
+                break;
+            case ROUTEMODE_MINIMUMLENGHT:
+                break;
+            default:
+                break;
         }
     }
 }
 
 
-void 
+void
 GNERouteFrame::hotKeyEnter() {
     myEdgeToEdge->createRoute();
 }
 
 
-void 
+void
 GNERouteFrame::hotKeyEsc() {
     myEdgeToEdge->abortRouteCreation();
 }

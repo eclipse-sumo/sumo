@@ -60,7 +60,7 @@ GNEEdge GNEEdge::DummyEdge;
 
 GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     GNENetElement(net, nbe.getID(), GLO_EDGE, SUMO_TAG_EDGE),
-    myNBEdge(nbe) ,
+    myNBEdge(nbe),
     myGNEJunctionSource(myNet->retrieveJunction(myNBEdge.getFromNode()->getID())),
     myGNEJunctionDestiny(myNet->retrieveJunction(myNBEdge.getToNode()->getID())),
     myLanes(0),
@@ -82,8 +82,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
 
 GNEEdge::GNEEdge() :
     GNENetElement(nullptr, "DUMMY", GLO_EDGE, SUMO_TAG_NOTHING),
-    myNBEdge(NBEdge::DummyEdge)
-{
+    myNBEdge(NBEdge::DummyEdge) {
 }
 
 GNEEdge::~GNEEdge() {
@@ -541,7 +540,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                         // draw Z value
                         GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
                         glPopMatrix();
-                    } 
+                    }
                 }
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
@@ -683,7 +682,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
             undoList->p_begin("set endpoint");
             int index = geom.indexOfClosest(pos);
-             // check if snap to existing geometry
+            // check if snap to existing geometry
             if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
                 pos = geom[index];
             }
@@ -841,7 +840,7 @@ GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
     while (myAdditionalParents.size() > 0) {
         // Obtain attribute Edge or Edges of additional
         std::vector<std::string> edgeIDs;
-        if(myAdditionalParents.front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+        if (myAdditionalParents.front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
             edgeIDs = parse<std::vector<std::string> >(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGES));
         } else {
             edgeIDs.push_back(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGE));
@@ -1160,7 +1159,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SHAPE_START: {
             if (value.empty()) {
                 return true;
-            } else if(canParse<Position>(value)) {
+            } else if (canParse<Position>(value)) {
                 Position shapeStart = parse<Position>(value);
                 return (shapeStart != myNBEdge.getGeometry()[-1]);
             } else {
@@ -1170,7 +1169,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SHAPE_END: {
             if (value.empty()) {
                 return true;
-            } else if(canParse<Position>(value)) {
+            } else if (canParse<Position>(value)) {
                 Position shapeEnd = parse<Position>(value);
                 return (shapeEnd != myNBEdge.getGeometry()[0]);
             } else {
@@ -1358,7 +1357,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

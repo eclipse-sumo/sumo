@@ -319,7 +319,7 @@ GUISUMOAbstractView::getObjectUnderCursor() {
 }
 
 
-std::vector<GUIGlID> 
+std::vector<GUIGlID>
 GUISUMOAbstractView::getObjectstUnderCursor() {
 
     return getObjectsAtPosition(getPositionInformation(), SENSITIVITY);
@@ -342,7 +342,7 @@ GUISUMOAbstractView::getObjectAtPosition(Position pos) {
     int idMax = 0;
     double maxLayer = -std::numeric_limits<double>::max();
     // iterate over obtained GUIGlIDs
-    for (const auto &i : ids) {
+    for (const auto& i : ids) {
         // obtain GUIGlObject
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
         // check that GUIGlObject exist
@@ -392,7 +392,7 @@ GUISUMOAbstractView::getObjectsAtPosition(Position pos, double radius) {
     // obtain GUIGlID of objects in boundary
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // iterate over obtained GUIGlIDs
-    for (const auto &i : ids) {
+    for (const auto& i : ids) {
         // obtain GUIGlObject
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
         // check that GUIGlObject exist
@@ -427,7 +427,7 @@ GUISUMOAbstractView::getGUIGlObjectsAtPosition(Position pos, double radius) {
     // obtain GUIGlID of objects in boundary
     const std::vector<GUIGlID> ids = getObjectsInBoundary(selection);
     // iterate over obtained GUIGlIDs
-    for (const auto &i : ids) {
+    for (const auto& i : ids) {
         // obtain GUIGlObject
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(i);
         // check that GUIGlObject exist
@@ -493,7 +493,7 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
             Position pos = getPositionInformation();
             pos.add(0, p2m(15));
             std::string label = object->getFullName();
-            if (myVisualizationSettings->edgeValue.show && 
+            if (myVisualizationSettings->edgeValue.show &&
                     (object->getType() == GLO_EDGE || object->getType() == GLO_LANE)) {
                 const int activeScheme = myVisualizationSettings->getLaneEdgeMode();
                 label += " (" + toString(object->getColorValue(*myVisualizationSettings, activeScheme)) + ")";
@@ -724,7 +724,7 @@ GUISUMOAbstractView::destroyPopup() {
 
 
 long
-GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector , void* data) {
+GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
     destroyPopup();
     setFocus();
     FXEvent* e = (FXEvent*) data;
@@ -755,7 +755,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector , void* data) {
 
 
 long
-GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector , void* data) {
+GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* data) {
     destroyPopup();
     myChanger->onLeftBtnRelease(data);
     if (myApp->isGaming()) {
@@ -779,7 +779,7 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector , void* data) {
+GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* data) {
     destroyPopup();
     myChanger->onRightBtnPress(data);
     grab();
@@ -806,7 +806,7 @@ GUISUMOAbstractView::onDoubleClicked(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
+GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* data) {
     if (!myApp->isGaming()) {
         myChanger->onMouseWheel(data);
         // upddate viewport
@@ -822,7 +822,7 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector , void* data) {
 
 
 long
-GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
+GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* data) {
     // if popup exist but isn't shown, destroy it first
     if (myPopup && (myPopup->shown() == false)) {
         destroyPopup();
@@ -843,7 +843,7 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector , void* data) {
 
 
 long
-GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector , void* /*data*/) {
+GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
     return 1;
 }
 
@@ -1463,7 +1463,7 @@ GUISUMOAbstractView::setDelay(double delay) {
 }
 
 
-void 
+void
 GUISUMOAbstractView::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
     myApp->setBreakpoints(breakpoints);
 }

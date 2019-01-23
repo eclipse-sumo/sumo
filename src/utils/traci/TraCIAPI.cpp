@@ -406,7 +406,7 @@ libsumo::TraCIPosition
 TraCIAPI::getPosition3D(int cmd, int var, const std::string& id, tcpip::Storage* add) {
     libsumo::TraCIPosition p;
     createCommand(cmd, var, id, add);
-    if (processGet(cmd, POSITION_3D)) { 
+    if (processGet(cmd, POSITION_3D)) {
         p.x = myInput.readDouble();
         p.y = myInput.readDouble();
         p.z = myInput.readDouble();
@@ -1024,16 +1024,16 @@ TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
             double length = myParent.myInput.readDouble();
 
             ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                                hasPrio,
-                                                isOpen,
-                                                hasFoe,
-                                                approachedLaneInternal,
-                                                state,
-                                                direction,
-                                                length));
+                                                   hasPrio,
+                                                   isOpen,
+                                                   hasFoe,
+                                                   approachedLaneInternal,
+                                                   state,
+                                                   direction,
+                                                   length));
 
         }
-            
+
     }
     return ret;
 }
@@ -1613,45 +1613,45 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
     std::vector<libsumo::TraCILogic> ret;
     myParent.createCommand(CMD_GET_TL_VARIABLE, TL_COMPLETE_DEFINITION_RYG, tlsID);
     if (myParent.processGet(CMD_GET_TL_VARIABLE, TYPE_COMPOUND)) {
-    const int logicNo = myParent.myInput.readInt();
-    for (int i = 0; i < logicNo; ++i) {
-        myParent.myInput.readUnsignedByte();
-        myParent.myInput.readInt();
-        myParent.myInput.readUnsignedByte();
-        const std::string programID = myParent.myInput.readString();
-        myParent.myInput.readUnsignedByte();
-        const int type = myParent.myInput.readInt();
-        myParent.myInput.readUnsignedByte();
-        const int phaseIndex = myParent.myInput.readInt();
-        myParent.myInput.readUnsignedByte();
-        const int phaseNumber = myParent.myInput.readInt();
-        libsumo::TraCILogic logic(programID, type, phaseIndex);
-        for (int j = 0; j < phaseNumber; j++) {
+        const int logicNo = myParent.myInput.readInt();
+        for (int i = 0; i < logicNo; ++i) {
             myParent.myInput.readUnsignedByte();
             myParent.myInput.readInt();
             myParent.myInput.readUnsignedByte();
-            const double duration = myParent.myInput.readDouble();
+            const std::string programID = myParent.myInput.readString();
             myParent.myInput.readUnsignedByte();
-            const std::string state = myParent.myInput.readString();
+            const int type = myParent.myInput.readInt();
             myParent.myInput.readUnsignedByte();
-            const double minDur = myParent.myInput.readDouble();
+            const int phaseIndex = myParent.myInput.readInt();
             myParent.myInput.readUnsignedByte();
-            const double maxDur = myParent.myInput.readDouble();
+            const int phaseNumber = myParent.myInput.readInt();
+            libsumo::TraCILogic logic(programID, type, phaseIndex);
+            for (int j = 0; j < phaseNumber; j++) {
+                myParent.myInput.readUnsignedByte();
+                myParent.myInput.readInt();
+                myParent.myInput.readUnsignedByte();
+                const double duration = myParent.myInput.readDouble();
+                myParent.myInput.readUnsignedByte();
+                const std::string state = myParent.myInput.readString();
+                myParent.myInput.readUnsignedByte();
+                const double minDur = myParent.myInput.readDouble();
+                myParent.myInput.readUnsignedByte();
+                const double maxDur = myParent.myInput.readDouble();
+                myParent.myInput.readUnsignedByte();
+                const int next = myParent.myInput.readInt();
+                myParent.myInput.readUnsignedByte();
+                const std::string name = myParent.myInput.readString();
+                logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next, name));
+            }
             myParent.myInput.readUnsignedByte();
-            const int next = myParent.myInput.readInt();
-            myParent.myInput.readUnsignedByte();
-            const std::string name = myParent.myInput.readString();
-            logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next, name));
+            const int paramNumber = myParent.myInput.readInt();
+            for (int j = 0; j < paramNumber; j++) {
+                myParent.myInput.readUnsignedByte();
+                const std::vector<std::string> par = myParent.myInput.readStringList();
+                logic.subParameter[par[0]] = par[1];
+            }
+            ret.emplace_back(logic);
         }
-        myParent.myInput.readUnsignedByte();
-        const int paramNumber = myParent.myInput.readInt();
-        for (int j = 0; j < paramNumber; j++) {
-            myParent.myInput.readUnsignedByte();
-            const std::vector<std::string> par = myParent.myInput.readStringList();
-            logic.subParameter[par[0]] = par[1];
-        }
-        ret.emplace_back(logic);
-    }
     }
     return ret;
 }
@@ -1667,24 +1667,24 @@ TraCIAPI::TrafficLightScope::getControlledLinks(const std::string& tlsID) const 
     myParent.createCommand(CMD_GET_TL_VARIABLE, TL_CONTROLLED_LINKS, tlsID);
     if (myParent.processGet(CMD_GET_TL_VARIABLE, TYPE_COMPOUND)) {
 
-    myParent.myInput.readUnsignedByte();
-    myParent.myInput.readInt();
-
-    int linkNo = myParent.myInput.readInt();
-    for (int i = 0; i < linkNo; ++i) {
         myParent.myInput.readUnsignedByte();
-        int no = myParent.myInput.readInt();
-        std::vector<libsumo::TraCILink> ret;
-        for (int i1 = 0; i1 < no; ++i1) {
+        myParent.myInput.readInt();
+
+        int linkNo = myParent.myInput.readInt();
+        for (int i = 0; i < linkNo; ++i) {
             myParent.myInput.readUnsignedByte();
-            myParent.myInput.readInt();
-            std::string from = myParent.myInput.readString();
-            std::string to = myParent.myInput.readString();
-            std::string via = myParent.myInput.readString();
-            ret.emplace_back(libsumo::TraCILink(from, via, to));
+            int no = myParent.myInput.readInt();
+            std::vector<libsumo::TraCILink> ret;
+            for (int i1 = 0; i1 < no; ++i1) {
+                myParent.myInput.readUnsignedByte();
+                myParent.myInput.readInt();
+                std::string from = myParent.myInput.readString();
+                std::string to = myParent.myInput.readString();
+                std::string via = myParent.myInput.readString();
+                ret.emplace_back(libsumo::TraCILink(from, via, to));
+            }
+            result.emplace_back(ret);
         }
-        result.emplace_back(ret);
-    }
     }
     return result;
 }
@@ -2293,26 +2293,26 @@ TraCIAPI::VehicleScope::getNextTLS(const std::string& vehID) const {
     std::vector<libsumo::TraCINextTLSData> result;
     myParent.createCommand(CMD_GET_VEHICLE_VARIABLE, VAR_NEXT_TLS, vehID);
     if (myParent.processGet(CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND)) {
-    myParent.myInput.readInt(); // components
-    // number of items
-    myParent.myInput.readUnsignedByte();
-    const int n = myParent.myInput.readInt();
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCINextTLSData d;
+        myParent.myInput.readInt(); // components
+        // number of items
         myParent.myInput.readUnsignedByte();
-        d.id = myParent.myInput.readString();
+        const int n = myParent.myInput.readInt();
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCINextTLSData d;
+            myParent.myInput.readUnsignedByte();
+            d.id = myParent.myInput.readString();
 
-        myParent.myInput.readUnsignedByte();
-        d.tlIndex = myParent.myInput.readInt();
+            myParent.myInput.readUnsignedByte();
+            d.tlIndex = myParent.myInput.readInt();
 
-        myParent.myInput.readUnsignedByte();
-        d.dist = myParent.myInput.readDouble();
+            myParent.myInput.readUnsignedByte();
+            d.dist = myParent.myInput.readDouble();
 
-        myParent.myInput.readUnsignedByte();
-        d.state = (char)myParent.myInput.readByte();
+            myParent.myInput.readUnsignedByte();
+            d.state = (char)myParent.myInput.readByte();
 
-        result.push_back(d);
-    }
+            result.push_back(d);
+        }
     }
     return result;
 }
@@ -2322,35 +2322,35 @@ TraCIAPI::VehicleScope::getBestLanes(const std::string& vehicleID) const {
     std::vector<libsumo::TraCIBestLanesData> result;
     myParent.createCommand(CMD_GET_VEHICLE_VARIABLE, VAR_BEST_LANES, vehicleID);
     if (myParent.processGet(CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND)) {
-    myParent.myInput.readInt();
-    myParent.myInput.readUnsignedByte();
-
-    const int n = myParent.myInput.readInt(); // number of following edge information
-    for (int i = 0; i < n; ++i) {
-        libsumo::TraCIBestLanesData info;
+        myParent.myInput.readInt();
         myParent.myInput.readUnsignedByte();
-        info.laneID = myParent.myInput.readString();
 
-        myParent.myInput.readUnsignedByte();
-        info.length = myParent.myInput.readDouble();
+        const int n = myParent.myInput.readInt(); // number of following edge information
+        for (int i = 0; i < n; ++i) {
+            libsumo::TraCIBestLanesData info;
+            myParent.myInput.readUnsignedByte();
+            info.laneID = myParent.myInput.readString();
 
-        myParent.myInput.readUnsignedByte();
-        info.occupation = myParent.myInput.readDouble();
+            myParent.myInput.readUnsignedByte();
+            info.length = myParent.myInput.readDouble();
 
-        myParent.myInput.readUnsignedByte();
-        info.bestLaneOffset = myParent.myInput.readByte();
+            myParent.myInput.readUnsignedByte();
+            info.occupation = myParent.myInput.readDouble();
 
-        myParent.myInput.readUnsignedByte();
-        info.allowsContinuation = (myParent.myInput.readUnsignedByte() == 1);
+            myParent.myInput.readUnsignedByte();
+            info.bestLaneOffset = myParent.myInput.readByte();
 
-        myParent.myInput.readUnsignedByte();
-        const int m = myParent.myInput.readInt();
-        for (int i = 0; i < m; ++i) {
-            info.continuationLanes.push_back(myParent.myInput.readString());
+            myParent.myInput.readUnsignedByte();
+            info.allowsContinuation = (myParent.myInput.readUnsignedByte() == 1);
+
+            myParent.myInput.readUnsignedByte();
+            const int m = myParent.myInput.readInt();
+            for (int i = 0; i < m; ++i) {
+                info.continuationLanes.push_back(myParent.myInput.readString());
+            }
+
+            result.push_back(info);
         }
-
-        result.push_back(info);
-    }
     }
     return result;
 }
@@ -2363,12 +2363,12 @@ TraCIAPI::VehicleScope::getLeader(const std::string& vehicleID, double dist) con
     content.writeDouble(dist);
     myParent.createCommand(CMD_GET_VEHICLE_VARIABLE, VAR_LEADER, vehicleID, &content);
     if (myParent.processGet(CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND)) {
-    myParent.myInput.readInt(); // components
-    myParent.myInput.readUnsignedByte();
-    const std::string leaderID = myParent.myInput.readString();
-    myParent.myInput.readUnsignedByte();
-    const double gap = myParent.myInput.readDouble();
-    return std::make_pair(leaderID, gap);
+        myParent.myInput.readInt(); // components
+        myParent.myInput.readUnsignedByte();
+        const std::string leaderID = myParent.myInput.readString();
+        myParent.myInput.readUnsignedByte();
+        const double gap = myParent.myInput.readDouble();
+        return std::make_pair(leaderID, gap);
     }
     return std::make_pair("", INVALID_DOUBLE_VALUE);
 }
@@ -2381,12 +2381,12 @@ TraCIAPI::VehicleScope::getLaneChangeState(const std::string& vehicleID, int dir
     content.writeInt(direction);
     myParent.createCommand(CMD_GET_VEHICLE_VARIABLE, CMD_CHANGELANE, vehicleID, &content);
     if (myParent.processGet(CMD_GET_VEHICLE_VARIABLE, TYPE_COMPOUND)) {
-    myParent.myInput.readInt(); // components
-    myParent.myInput.readUnsignedByte();
-    const int stateWithoutTraCI = myParent.myInput.readInt();
-    myParent.myInput.readUnsignedByte();
-    const int state = myParent.myInput.readInt();
-    return std::make_pair(stateWithoutTraCI, state);
+        myParent.myInput.readInt(); // components
+        myParent.myInput.readUnsignedByte();
+        const int stateWithoutTraCI = myParent.myInput.readInt();
+        myParent.myInput.readUnsignedByte();
+        const int state = myParent.myInput.readInt();
+        return std::make_pair(stateWithoutTraCI, state);
     }
     return std::make_pair(INVALID_DOUBLE_VALUE, INVALID_DOUBLE_VALUE);
 }

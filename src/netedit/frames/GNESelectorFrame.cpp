@@ -114,7 +114,7 @@ void
 GNESelectorFrame::show() {
     // show Type Entries depending of current supermode
     myLockGLObjectTypes->showTypeEntries();
-    // refresh element set 
+    // refresh element set
     myElementSet->refreshElementSet();
     // Show frame
     GNEFrame::show();
@@ -324,19 +324,19 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
 
 GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {
     // remove all type entries
-    for (const auto &i : myTypeEntries) {
+    for (const auto& i : myTypeEntries) {
         delete i.second.second;
     }
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::addedLockedObject(const GUIGlObjectType type) {
     myTypeEntries.at(type).second->counterUp();
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::removeLockedObject(const GUIGlObjectType type) {
     myTypeEntries.at(type).second->counterDown();
 }
@@ -352,9 +352,9 @@ GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(const GUIGlObjectType ty
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
-    for (const auto &i : myTypeEntries) {
+    for (const auto& i : myTypeEntries) {
         // showr or hidde type entries depending of current supermode
         if (i.second.first == mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode) {
             i.second.second->showObjectTypeEntry();
@@ -377,7 +377,7 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* 
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::showObjectTypeEntry() {
     myLabelCounter->show();
     myLabelTypeName->show();
@@ -385,7 +385,7 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::showObjectTypeEntry() {
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::hideObjectTypeEntry() {
     myLabelCounter->hide();
     myLabelTypeName->hide();
@@ -393,21 +393,21 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::hideObjectTypeEntry() {
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::counterUp() {
     myCounter++;
     myLabelCounter->setText(toString(myCounter).c_str());
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::counterDown() {
     myCounter--;
     myLabelCounter->setText(toString(myCounter).c_str());
 }
 
 
-bool 
+bool
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::isGLTypeLocked() const {
     return (myCheckBoxLocked->getCheck() == TRUE);
 }
@@ -415,7 +415,7 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::isGLTypeLocked() const {
 
 long
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::onCmdSetCheckBox(FXObject*, FXSelector, void*) {
-    if(myCheckBoxLocked->getCheck() == TRUE) {
+    if (myCheckBoxLocked->getCheck() == TRUE) {
         myCheckBoxLocked->setText("locked");
     } else {
         myCheckBoxLocked->setText("unlocked");
@@ -510,12 +510,12 @@ GNESelectorFrame::ElementSet::getElementSet() const {
 }
 
 
-void 
+void
 GNESelectorFrame::ElementSet::refreshElementSet() {
     // first clear item
     mySetComboBox->clearItems();
     // now fill elements depending of supermode
-    if(mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         mySetComboBox->appendItem("Net Element");
         mySetComboBox->appendItem("Additional");
         mySetComboBox->appendItem("Shape");
@@ -524,14 +524,14 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
     }
     mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
     // update rest of elements
-    onCmdSelectElementSet(0,0,0);
+    onCmdSelectElementSet(0, 0, 0);
 }
 
 
 long
 GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     // check depending of current supermode
-    if(mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         if (mySetComboBox->getText() == "Net Element") {
             myCurrentElementSet = ELEMENTSET_NETELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -950,10 +950,10 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                     // check if AC exist and if is selectable
                     if (AC && AC->getTagProperty().isSelectable())
                         // now check if we're in the correct supermode to load this element
-                        if(((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
-                           ((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
-                        loadedACs.push_back(AC);
-                    }
+                        if (((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
+                                ((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
+                            loadedACs.push_back(AC);
+                        }
                 }
             }
         }

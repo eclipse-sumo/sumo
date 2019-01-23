@@ -152,7 +152,7 @@ GNEGenericParameterDialog::GenericParametersValues::clearGenericParameters() {
 
 
 long
-GNEGenericParameterDialog::GenericParametersValues::onPaint(FXObject* o, FXSelector f , void* p) {
+GNEGenericParameterDialog::GenericParametersValues::onPaint(FXObject* o, FXSelector f, void* p) {
     // size of key label has to be updated in every interation
     if (myGenericParameterRows.size() > 0) {
         myKeyLabel->setWidth(myGenericParameterRows.front()->keyField->getWidth());

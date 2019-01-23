@@ -105,10 +105,10 @@ public:
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
     virtual bool isDemandElementValid() const;
 
-    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs) 
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
     virtual std::string getDemandElementProblem() const;
 
-    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs) 
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
     virtual void fixDemandElementProblem();
     /// @}
 
@@ -351,7 +351,7 @@ protected:
     /// @brief struct for pack all variables and functions relative to connections between DemandElements and their childs
     struct ChildConnections {
         /// @brief constructor
-        ChildConnections(GNEDemandElement *demandElement);
+        ChildConnections(GNEDemandElement* demandElement);
 
         /// @brief update Connection's geometry
         void update();
@@ -367,7 +367,7 @@ protected:
 
     private:
         /// @brief pointer to demand element parent
-        GNEDemandElement *myDemandElement;
+        GNEDemandElement* myDemandElement;
     };
 
     /// @brief The GNEViewNet this demand element element belongs

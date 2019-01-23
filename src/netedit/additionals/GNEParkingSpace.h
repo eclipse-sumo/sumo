@@ -48,7 +48,7 @@ public:
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position &pos, double width, double length, double angle, bool blockMovement);
+    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();

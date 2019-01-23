@@ -106,7 +106,7 @@ PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_
     ClientContext context;
     Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
     if (!st.ok()) {
-       throw ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
+        throw ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
     }
     if (!rpl.val()) {
         //TODO not yet implemented

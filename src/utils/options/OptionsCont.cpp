@@ -460,7 +460,7 @@ void
 OptionsCont::clear() {
     ItemAddressContType::iterator i;
     for (i = myAddresses.begin(); i != myAddresses.end(); i++) {
-        delete(*i);
+        delete (*i);
     }
     myAddresses.clear();
     myValues.clear();

@@ -61,10 +61,10 @@ public:
 
             /// @brief down count
             void counterDown();
-            
+
             /// @brief check if current GLType is blocked
             bool isGLTypeLocked() const;
-            
+
             /// @name FOX-callbacks
             /// @{
             /// @brief called when user change the CheckBox
@@ -204,7 +204,7 @@ public:
         /// @brief refresh element set
         void refreshElementSet();
 
-        /// @brief update current element set (called after 
+        /// @brief update current element set (called after
 
         /// @name FOX-callbacks
         /// @{

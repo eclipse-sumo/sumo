@@ -439,9 +439,9 @@ void
 Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs) {
 #ifdef DEBUG_SURROUNDING
     MSVehicle* _veh = libsumo::Vehicle::getVehicle(s.id);
-    std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() <<"'"
-            << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")\n"
-            << "objIDs = " << toString(objIDs) << std::endl;
+    std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() << "'"
+              << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")\n"
+              << "objIDs = " << toString(objIDs) << std::endl;
 #endif
 
     if (s.activeFilters == 0) {
@@ -461,7 +461,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
     std::set<const MSVehicle*> vehs;
-    if(s.activeFilters & SUBS_FILTER_NO_RTREE) {
+    if (s.activeFilters & SUBS_FILTER_NO_RTREE) {
         // Set defaults for upstream and downstream distances
         double downstreamDist = s.range, upstreamDist = s.range;
         if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
@@ -543,7 +543,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                         // Get leader on opposite
                         vehs.insert(vehs.end(), lane->getFollower(v, posOnOpposite, downstreamDist, true).first);
                         // Get follower (no search on consecutive lanes
-                        vehs.insert(vehs.end(), lane->getLeader(v, posOnOpposite-v->getLength(), std::vector<MSLane*>()).first);
+                        vehs.insert(vehs.end(), lane->getLeader(v, posOnOpposite - v->getLength(), std::vector<MSLane*>()).first);
                     }
                 }
             }
@@ -560,7 +560,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #ifdef DEBUG_SURROUNDING
                     std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
 #endif
-                    for(auto& foeLane : l->getFoeLanes()) {
+                    for (auto& foeLane : l->getFoeLanes()) {
                         // Check vehicles approaching the entry link corresponding to this lane
                         const MSLink* foeLink = foeLane->getEntryLink();
                         for (auto& vi : foeLink->getApproaching()) {
@@ -580,19 +580,19 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                 }
             }
 #ifdef DEBUG_SURROUNDING
-                std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
-                for (auto veh : vehs) {
-                    if (veh != nullptr) {
-                        std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-                    }
+            std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
+            for (auto veh : vehs) {
+                if (veh != nullptr) {
+                    std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
                 }
+            }
 #endif
         } else {
             // No maneuver filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
             assert(filterLanes.size() > 0);
             // This is to remember the lanes checked in the driving direction of the vehicle (their opposites can be added in a second pass)
             auto checkedLanesInDrivingDir = std::make_shared<LaneCoverageInfo>();
-            for (int offset : filterLanes){
+            for (int offset : filterLanes) {
                 MSLane* lane = vehLane->getParallelLane(offset);
                 if (lane != nullptr) {
 #ifdef DEBUG_SURROUNDING
@@ -602,7 +602,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     // (Coverage info is collected per origin lane since lanes reached from neighboring lanes may have different distances
                     // and aborting at previously scanned when coming from a closer origin may prevent scanning of parts that should be included.)
                     std::shared_ptr<LaneCoverageInfo> checkedLanes = std::make_shared<LaneCoverageInfo>();
-                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist+v->getLength(), checkedLanes);
+                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(v->getPositionOnLane(), downstreamDist, upstreamDist + v->getLength(), checkedLanes);
                     vehs.insert(new_vehs.begin(), new_vehs.end());
                     fuseLaneCoverage(checkedLanesInDrivingDir, checkedLanes);
                 } else if (!disregardOppositeDirection && offset > 0) {
@@ -627,7 +627,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                     }
                     lane = opposite->getLanes()[ix_opposite];
                     // Search vehs along opposite lanes (swap upstream and downstream distance)
-                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist+v->getLength(), downstreamDist, std::make_shared<LaneCoverageInfo>());
+                    const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist + v->getLength(), downstreamDist, std::make_shared<LaneCoverageInfo>());
                     vehs.insert(new_vehs.begin(), new_vehs.end());
                 }
 #ifdef DEBUG_SURROUNDING
@@ -662,7 +662,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                                 }
                                 // Add vehicles from corresponding range on opposite direction
                                 const MSLane* oppositeLane = *oppositeLaneIt;
-                                auto new_vehs = oppositeLane->getVehiclesInRange(lane->getLength()-range.second, lane->getLength()-range.first);
+                                auto new_vehs = oppositeLane->getVehiclesInRange(lane->getLength() - range.second, lane->getLength() - range.first);
                                 vehs.insert(new_vehs.begin(), new_vehs.end());
                             }
                         }

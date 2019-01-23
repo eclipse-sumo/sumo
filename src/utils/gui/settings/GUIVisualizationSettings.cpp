@@ -1312,9 +1312,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 double
 GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor) const {
     /// @note should look normal-sized at zoom 1000
-    return (constantSize && !s.drawForSelecting && (!constantSizeSelected || o == nullptr || gSelected.isSelected(o))) 
-        ? MAX2((double)exaggeration, exaggeration * factor / s.scale) 
-        : (!constantSizeSelected || o == nullptr || gSelected.isSelected(o) ? exaggeration : 1);
+    return (constantSize && !s.drawForSelecting && (!constantSizeSelected || o == nullptr || gSelected.isSelected(o)))
+           ? MAX2((double)exaggeration, exaggeration * factor / s.scale)
+           : (!constantSizeSelected || o == nullptr || gSelected.isSelected(o) ? exaggeration : 1);
 }
 
 

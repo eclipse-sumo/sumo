@@ -50,7 +50,7 @@ public:
      * @param oppositeEdge automatically create an opposite edge
      * @param chainEdge create edges in chain mode
      */
-    void processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, bool oppositeEdge, bool chainEdge);
+    void processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, bool oppositeEdge, bool chainEdge);
 
     /// @brief abort current edge creation
     void abortEdgeCreation();

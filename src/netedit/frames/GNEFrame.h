@@ -55,7 +55,7 @@ public:
         ~ItemSelector();
 
         /// @brief get current type tag
-        const GNEAttributeCarrier::TagProperties &getCurrentTagProperties() const;
+        const GNEAttributeCarrier::TagProperties& getCurrentTagProperties() const;
 
         /// @brief set current type manually
         void setCurrentTypeTag(SumoXMLTag typeTag);
@@ -87,7 +87,7 @@ public:
         std::vector<SumoXMLTag> myListOfTags;
 
         /// @brief dummy tag properties used if user select an invalid tag
-        GNEAttributeCarrier::TagProperties myInvalidTagProperty; 
+        GNEAttributeCarrier::TagProperties myInvalidTagProperty;
     };
 
     /// @brief class declaration
@@ -100,7 +100,7 @@ public:
     class ACAttributeRow : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrame::ACAttributeRow)
-        
+
     public:
         /// @brief constructor
         ACAttributeRow(ACAttributes* ACAttributesParent);
@@ -109,7 +109,7 @@ public:
         ~ACAttributeRow();
 
         /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeProperties &attrProperties, const std::string &value);
+        void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeProperties& attrProperties, const std::string& value);
 
         /// @brief hide all parameters
         void hideParameter();
@@ -193,7 +193,7 @@ public:
         ~ACAttributes();
 
         /// @brief show ACAttributes modul
-        void showACAttributesModul(const GNEAttributeCarrier::TagProperties &myTagProperties);
+        void showACAttributesModul(const GNEAttributeCarrier::TagProperties& myTagProperties);
 
         /// @brief hide group box
         void hideACAttributesModul();
@@ -478,7 +478,7 @@ public:
         void hideNeteditAttributesModul();
 
         /// @brief fill valuesMap with netedit attributes
-        bool getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const;
+        bool getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -537,7 +537,7 @@ public:
 
         /// @brief checkbox to enable/disable closing polygon
         FXCheckButton* myCloseShapeCheckButton;
-    
+
         /// @brief Button for help about the reference point
         FXButton* helpReferencePoint;
 
@@ -593,14 +593,14 @@ protected:
      */
     virtual bool buildShape();
 
-     /// @brief enable moduls depending of item selected in ItemSelector (can be reimplemented in frame childs)
-    virtual void enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties);
+    /// @brief enable moduls depending of item selected in ItemSelector (can be reimplemented in frame childs)
+    virtual void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
     virtual void disableModuls();
 
     /// @brief Open help attributes dialog
-    void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties &tagProperties) const;
+    void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;
 
     /// @brief get edge candidate color
     const RGBColor& getEdgeCandidateColor() const;
@@ -632,7 +632,7 @@ private:
 
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel;
-    
+
     /// @brief edge candidate color (used by some modulds to mark edges)
     RGBColor myEdgeCandidateColor;
 

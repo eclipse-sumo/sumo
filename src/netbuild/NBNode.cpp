@@ -727,7 +727,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         ret = beg;
     }
     if (con.toEdge->isBidiRail() && con.toEdge->getTurnDestination(true)->getEndOffset() > 0) {
-        PositionVector end = toShape.getSubpart(0,con.toEdge->getTurnDestination(true)->getEndOffset());
+        PositionVector end = toShape.getSubpart(0, con.toEdge->getTurnDestination(true)->getEndOffset());
         ret.append(end);
     }
     return ret;
@@ -1226,7 +1226,7 @@ EdgeVector*
 NBNode::getEdgesThatApproach(NBEdge* currentOutgoing) {
     // get the position of the node to get the approaching nodes of
     EdgeVector::const_iterator i = std::find(myAllEdges.begin(),
-                                        myAllEdges.end(), currentOutgoing);
+                                   myAllEdges.end(), currentOutgoing);
     // get the first possible approaching edge
     NBContHelper::nextCW(myAllEdges, i);
     // go through the list of edges clockwise and add the edges
@@ -2826,9 +2826,9 @@ NBNode::buildWalkingAreas(int cornerDetail) {
     }
 }
 
-bool 
+bool
 NBNode::includes(const std::set<NBEdge*, ComparatorIdLess>& super,
-                  const std::set<const NBEdge*, ComparatorIdLess>& sub) {
+                 const std::set<const NBEdge*, ComparatorIdLess>& sub) {
     // for some reason std::include does not work reliably
     for (const NBEdge* e : sub) {
         if (super.count(const_cast<NBEdge*>(e)) == 0) {

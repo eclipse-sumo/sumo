@@ -161,8 +161,8 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
 #ifdef DEBUG_ACC
     if DEBUG_COND {
     std::cout << SIMTIME << " MSCFModel_ACC::_v() for veh '" << veh->getID() << "'\n"
-        << "        gap=" << gap2pred << " speed="  << speed << " predSpeed=" << predSpeed
-        << " desSpeed=" << desSpeed << std::endl;
+                  << "        gap=" << gap2pred << " speed="  << speed << " predSpeed=" << predSpeed
+                  << " desSpeed=" << desSpeed << std::endl;
     }
 #endif
 

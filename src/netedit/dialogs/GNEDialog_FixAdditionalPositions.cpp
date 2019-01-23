@@ -128,13 +128,13 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
     // create position options
     myPositionOptions.buildPositionOptions(this, mainFrame);
     // check if position options has to be disabled
-    if(myInvalidSingleLaneAdditionals.empty()) {
+    if (myInvalidSingleLaneAdditionals.empty()) {
         myPositionOptions.disablePositionOptions();
     }
     // create consecutive lane options
     myConsecutiveLaneOptions.buildConsecutiveLaneOptions(this, mainFrame);
     // check if consecutive lane options has to be disabled
-    if(myInvalidMultiLaneAdditionals.empty()) {
+    if (myInvalidMultiLaneAdditionals.empty()) {
         myConsecutiveLaneOptions.disableConsecutiveLaneOptions();
     }
     // create dialog buttons bot centered
@@ -165,7 +165,7 @@ long
 GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
     bool continueSaving = true;
     // first check options from single lane additionals
-    if(myInvalidSingleLaneAdditionals.size() > 0) {
+    if (myInvalidSingleLaneAdditionals.size() > 0) {
         if (myPositionOptions.activateFriendlyPositionAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
@@ -191,8 +191,8 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
             continueSaving = false;
         }
     }
-     // now check options from multi lane additionals
-    if(myInvalidMultiLaneAdditionals.size() > 0) {
+    // now check options from multi lane additionals
+    if (myInvalidMultiLaneAdditionals.size() > 0) {
         myViewNet->getUndoList()->p_begin("fix multilane additionals problems");
         // fix problems of consecutive lanes
         if (myConsecutiveLaneOptions.buildConnectionBetweenLanes->getCheck() == TRUE) {
@@ -204,7 +204,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
             auto copyOfInvalidMultiLaneAdditionals = myInvalidMultiLaneAdditionals;
             myInvalidMultiLaneAdditionals.clear();
             for (auto i : copyOfInvalidMultiLaneAdditionals) {
-                if(!i->isAdditionalValid()) {
+                if (!i->isAdditionalValid()) {
                     myInvalidMultiLaneAdditionals.push_back(i);
                 }
             }
@@ -230,7 +230,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
         }
         myViewNet->getUndoList()->p_end();
     }
-    if(continueSaving) {
+    if (continueSaving) {
         // stop modal with TRUE (continue saving)
         getApp()->stopModal(this, TRUE);
     } else {
@@ -249,8 +249,8 @@ GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
 }
 
 
-void 
-GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+void
+GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
     // create label for elements
     new FXLabel(mainFrame, "Select a solution for StoppingPlaces and E2 detectors:", nullptr, GUIDesignLabelCenterThick);
     // create horizontal frames for radio buttons
@@ -258,7 +258,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialo
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions",
                                     fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
@@ -266,15 +266,15 @@ GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialo
     fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
                                             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors",
-                                                    fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
     activateFriendlyPositionAndSave->setCheck(true);
 }
 
 
-void 
+void
 GNEDialog_FixAdditionalPositions::PositionOptions::selectOption(FXObject* option) {
-     if (option == activateFriendlyPositionAndSave) {
+    if (option == activateFriendlyPositionAndSave) {
         activateFriendlyPositionAndSave->setCheck(true);
         fixPositionsAndSave->setCheck(false);
         saveInvalid->setCheck(false);
@@ -298,7 +298,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::selectOption(FXObject* option
 }
 
 
-void 
+void
 GNEDialog_FixAdditionalPositions::PositionOptions::enablePositionOptions() {
     activateFriendlyPositionAndSave->enable();
     fixPositionsAndSave->enable();
@@ -307,7 +307,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::enablePositionOptions() {
 }
 
 
-void 
+void
 GNEDialog_FixAdditionalPositions::PositionOptions::disablePositionOptions() {
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
@@ -316,8 +316,8 @@ GNEDialog_FixAdditionalPositions::PositionOptions::disablePositionOptions() {
 }
 
 
-void 
-GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+void
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
     // create label for elements
     new FXLabel(mainFrame, "Select a solution for Multilane E2 detectors:", nullptr, GUIDesignLabelCenterThick);
     // create horizontal frames for radio buttons
@@ -325,15 +325,15 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOp
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, "Build connections between lanes\t\tNew connections will be created between non-connected lanes",
-                                                    fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
-                                              fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // add a vertical separator beween both options
     new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
                                             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "buildConnectionBetweenLanes" and "activateFriendlyPositionAndSave" as default
@@ -342,7 +342,7 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOp
 }
 
 
-void 
+void
 GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::selectOption(FXObject* option) {
     // set top buttons
     if (option == buildConnectionBetweenLanes) {
@@ -363,7 +363,7 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::selectOption(FXObject*
 }
 
 
-void 
+void
 GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
     buildConnectionBetweenLanes->enable();
     removeInvalidElements->enable();
@@ -372,7 +372,7 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::enableConsecutiveLaneO
 }
 
 
-void 
+void
 GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
     buildConnectionBetweenLanes->disable();
     removeInvalidElements->disable();

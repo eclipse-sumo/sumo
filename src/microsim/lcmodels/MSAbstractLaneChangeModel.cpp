@@ -120,9 +120,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     myLastLaneChangeOffset(0),
     myAmOpposite(false) {
-        saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
-        saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
+    saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+    saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+    saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
 }
 
 
@@ -147,9 +147,9 @@ MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
     std::cout << SIMTIME
-    << " veh=" << myVehicle.getID()
-        << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
-        << std::endl;
+              << " veh=" << myVehicle.getID()
+                  << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
+                  << std::endl;
     }
 #endif
     myManeuverDist = dist;
@@ -837,20 +837,20 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
 }
 
 
-bool 
+bool
 MSAbstractLaneChangeModel::isStrategicBlocked() const {
     const int stateRight = mySavedStateRight.second;
     if (
-            (stateRight & LCA_STRATEGIC) != 0
-            && (stateRight & LCA_RIGHT) != 0
-            && (stateRight & LCA_BLOCKED) != 0) {
+        (stateRight & LCA_STRATEGIC) != 0
+        && (stateRight & LCA_RIGHT) != 0
+        && (stateRight & LCA_BLOCKED) != 0) {
         return true;
     }
     const int stateLeft = mySavedStateLeft.second;
     if (
-            (stateLeft & LCA_STRATEGIC) != 0
-            && (stateLeft & LCA_LEFT) != 0
-            && (stateLeft & LCA_BLOCKED) != 0) {
+        (stateLeft & LCA_STRATEGIC) != 0
+        && (stateLeft & LCA_LEFT) != 0
+        && (stateLeft & LCA_BLOCKED) != 0) {
         return true;
     }
     return false;

@@ -143,7 +143,7 @@ public:
         /// @brief return true if atribute is a string
         bool isString() const;
 
-		/// @brief return true if atribute is a position
+        /// @brief return true if atribute is a position
         bool isposition() const;
 
         /// @brief return true if atribute is a probability
@@ -261,16 +261,16 @@ public:
         TagProperties();
 
         /// @brief parameter constructor
-        TagProperties(SumoXMLTag tag, int tagProperty, int &positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+        TagProperties(SumoXMLTag tag, int tagProperty, int& positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
         /// @brief destructor
         ~TagProperties();
-  
+
         /// @brief get Tag vinculated with this attribute Property
         SumoXMLTag getTag() const;
-        
+
         /// @brief get Tag vinculated with this attribute Property in String Format (used to avoid multiple calls to toString(...)
-        const std::string &getTagStr() const;
+        const std::string& getTagStr() const;
 
         /// @brief check Tag integrity (this include all their attributes)
         void checkTagIntegrity() const;
@@ -398,7 +398,7 @@ public:
         /// @brief return true if tag correspond to an element that can be placed over a list of edges
         bool canBePlacedOverEdges() const;
 
-        /// @brief return true if tag correspond 
+        /// @brief return true if tag correspond
         bool canBePlacedOverLanes() const;
 
         /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "lenght"
@@ -509,10 +509,10 @@ public:
     virtual std::string getAttributeForSelection(SumoXMLAttr key) const;
 
     /// @brief get tag assigned to this object in string format
-    const std::string &getTagStr() const;
+    const std::string& getTagStr() const;
 
     /// @brief get Tag Property assigned to this object
-    const TagProperties &getTagProperty() const;
+    const TagProperties& getTagProperty() const;
 
     /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
@@ -696,7 +696,7 @@ public:
                 // check if we're parsing a single position or an entire shape
                 if (attrProperties.isList()) {
                     // check if parsed attribute can be parsed to Position Vector
-                    if(!canParse<PositionVector>(parsedAttribute)) {
+                    if (!canParse<PositionVector>(parsedAttribute)) {
                         errorFormat = "List of Positions aren't neither x,y nor x,y,z; ";
                         parsedOk = false;
                     }
@@ -741,10 +741,10 @@ public:
                     // parse to double and check if is in range
                     double range = parse<double>(parsedAttribute);
                     if (range < attrProperties.getMinimumRange()) {
-                        errorFormat = "Float cannot be smaller than " + toString(attrProperties.getMinimumRange())+ "; ";
+                        errorFormat = "Float cannot be smaller than " + toString(attrProperties.getMinimumRange()) + "; ";
                         parsedOk = false;
                     } else if (range > attrProperties.getMaximumRange()) {
-                        errorFormat = "Float cannot be greather than " + toString(attrProperties.getMaximumRange())+ "; ";
+                        errorFormat = "Float cannot be greather than " + toString(attrProperties.getMaximumRange()) + "; ";
                         parsedOk = false;
                     }
                 } else {
@@ -841,11 +841,11 @@ public:
             // if element can mask their XYPosition, then must be extracted X Y coordiantes separeted
             std::string x, y, z;
             // give a default value to parsedAttribute to avoid problem parsing invalid positions
-            parsedAttribute="0,0";
-            if(attrs.hasAttribute(SUMO_ATTR_X)) {
+            parsedAttribute = "0,0";
+            if (attrs.hasAttribute(SUMO_ATTR_X)) {
                 x = attrs.get<std::string>(SUMO_ATTR_X, objectID.c_str(), parsedOk, false);
                 // check that X attribute is valid
-                if(!canParse<double>(x)) {
+                if (!canParse<double>(x)) {
                     WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
                                   additionalOfWarningMessage +  " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     // abort parsing (and creation) of element
@@ -857,10 +857,10 @@ public:
                 // abort parsing (and creation) of element
                 abort = true;
             }
-            if(attrs.hasAttribute(SUMO_ATTR_Y)) {
+            if (attrs.hasAttribute(SUMO_ATTR_Y)) {
                 y = attrs.get<std::string>(SUMO_ATTR_Y, objectID.c_str(), parsedOk, false);
                 // check that X attribute is valid
-                if(!canParse<double>(y)) {
+                if (!canParse<double>(y)) {
                     WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
                                   additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     // abort parsing (and creation) of element
@@ -868,15 +868,15 @@ public:
                 }
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
-                            additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
+                              additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
                 // abort parsing (and creation) of element
                 abort = true;
             }
             // Z attribute is optional
-            if(attrs.hasAttribute(SUMO_ATTR_Z)) {                
+            if (attrs.hasAttribute(SUMO_ATTR_Z)) {
                 z = attrs.get<std::string>(SUMO_ATTR_Z, objectID.c_str(), parsedOk, false);
                 // check that Z attribute is valid
-                if(!canParse<double>(z)) {
+                if (!canParse<double>(z)) {
                     WRITE_WARNING("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Z) + "' of " +
                                   additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     // leave Z attribute empty
@@ -884,8 +884,8 @@ public:
                 }
             }
             // create Position attribute using parsed coordinates X, Y and, optionally, Z
-            if(!abort) {
-                if(z.empty()) {
+            if (!abort) {
+                if (z.empty()) {
                     parsedAttribute = x + "," + y;
                 } else {
                     parsedAttribute = x + "," + y + "," + z;
@@ -916,7 +916,7 @@ protected:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief the xml tag to which this attribute carrier corresponds
-    const TagProperties &myTagProperty;
+    const TagProperties& myTagProperty;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;

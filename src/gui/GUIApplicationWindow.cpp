@@ -107,7 +107,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,           GUIApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,  GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,                     GUIApplicationWindow::onCmdEditChosen),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT,GUIApplicationWindow::onCmdEditBreakpoints),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT, GUIApplicationWindow::onCmdEditBreakpoints),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                 GUIApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                   GUIApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT,                        GUIApplicationWindow::onCmdNetedit),
@@ -1458,8 +1458,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             }
             if (ec->myViewportFromRegistry) {
                 Position off;
-                off.set(getApp()->reg().readRealEntry("viewport", "x"), 
-                        getApp()->reg().readRealEntry("viewport", "y"), 
+                off.set(getApp()->reg().readRealEntry("viewport", "x"),
+                        getApp()->reg().readRealEntry("viewport", "y"),
                         getApp()->reg().readRealEntry("viewport", "z"));
                 Position p(off.x(), off.y(), 0);
                 GUISUMOAbstractView* view = myGLWindows[0]->getView();
@@ -1814,7 +1814,7 @@ GUIApplicationWindow::sendBlockingEvent(GUIEvent* event) {
     myEventMutex.unlock();
 }
 
-void 
+void
 GUIApplicationWindow::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
     if (myRunThread != nullptr) {
         myRunThread->getBreakpointLock().lock();

@@ -95,7 +95,7 @@ public:
          */
         Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0)
 #ifdef WORKLOAD_PROFILING
-        , myNumBatches(0), myTotalMaxLoad(0.), myTotalSpread(0.)
+            , myNumBatches(0), myTotalMaxLoad(0.), myTotalSpread(0.)
 #endif
         {
 #ifdef WORKLOAD_PROFILING
@@ -275,7 +275,7 @@ public:
      */
     FXWorkerThread(Pool& pool): FXThread(), myPool(pool), myStopped(false)
 #ifdef WORKLOAD_PROFILING
-    , myCounter(0), myBusyTime(0), myTotalBusyTime(0), myTotalTime(0)
+        , myCounter(0), myBusyTime(0), myTotalBusyTime(0), myTotalTime(0)
 #endif
     {
         pool.addWorker(this);
@@ -292,7 +292,7 @@ public:
         const double load = 100. * myTotalBusyTime / myTotalTime;
         WRITE_MESSAGE("Thread " + toString((long long int)this) + " ran " + toString(myCounter) +
                       " tasks and had a load of " + toString(load) + "% (" + toString(myTotalBusyTime) +
-                      "us / " + toString(myTotalTime) +"us), " + toString(myTotalBusyTime / (double)myCounter) + " per task.");
+                      "us / " + toString(myTotalTime) + "us), " + toString(myTotalBusyTime / (double)myCounter) + " per task.");
 #endif
     }
 

@@ -71,7 +71,7 @@ public:
     * @param[in] friendlyPos Attribute of stoppingPlace
     * @return true if the stoppingPlace position is valid, false in otherweise
     */
-    static bool checkStoppinPlacePosition(const std::string &startPosStr, const std::string &endPosStr, const double laneLength, const bool friendlyPos);
+    static bool checkStoppinPlacePosition(const std::string& startPosStr, const std::string& endPosStr, const double laneLength, const bool friendlyPos);
 
     /**@brief check if the position of an stoppingPlace over a la can be fixed
     * @param[in] startPosStr Start position of stoppingPlace in string format (note: it can be modified)

@@ -48,7 +48,7 @@
 // ===========================================================================
 TraCITestClient::TraCITestClient(std::string outputFileName)
     : outputFileName(outputFileName), answerLog("") {
-    answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
+    answerLog.setf(std::ios::fixed, std::ios::floatfield);  // use decimal format
     answerLog.setf(std::ios::showpoint); // print decimal point
     answerLog << std::setprecision(2);
 }
@@ -943,8 +943,8 @@ TraCITestClient::testAPI() {
     }
     libsumo::TraCILogic logic("custom", 0, 3);
     logic.phases = std::vector<libsumo::TraCIPhase>({ libsumo::TraCIPhase(5, "rrrrrrr", 5, 5), libsumo::TraCIPhase(10, "ggggggg", 5, 15),
-                                            libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
-                                            });
+                   libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
+                                                    });
     trafficlights.setCompleteRedYellowGreenDefinition("n_m4", logic);
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");

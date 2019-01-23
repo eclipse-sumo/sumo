@@ -122,7 +122,7 @@ private:
     /// @brief add a route and check for duplicates
     bool addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
 
-    const ConstROEdgeVector computePath(const ODCell* cell, const SUMOTime time=0, SUMOAbstractRouter<ROEdge, ROVehicle>* router=nullptr);
+    const ConstROEdgeVector computePath(const ODCell* cell, const SUMOTime time = 0, SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr);
 
     /// @brief get the k shortest paths
     void getKPaths(const int kPaths, const double penalty);

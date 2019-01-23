@@ -132,7 +132,7 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // fill myTypeMatchBox with list of tags
-    for (const auto &i : myListOfTags) {
+    for (const auto& i : myListOfTags) {
         myTypeMatchBox->appendItem(toString(i).c_str());
     }
     // Set visible items
@@ -172,17 +172,17 @@ GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
 }
 
 
-void 
+void
 GNEFrame::ItemSelector::refreshTagProperties() {
     // simply call onCmdSelectItem (to avoid duplicated code)
-    onCmdSelectItem(0,0,0);
+    onCmdSelectItem(0, 0, 0);
 }
 
 
 long
 GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto &i : myListOfTags) {
+    for (const auto& i : myListOfTags) {
         if (toString(i) == myTypeMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
@@ -230,7 +230,7 @@ GNEFrame::ACAttributeRow::~ACAttributeRow() {}
 
 
 void
-GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeProperties &attrProperties, const std::string &value) {
+GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeProperties& attrProperties, const std::string& value) {
     myAttrProperties = attrProperties;
     myXMLAttr = attr;
     myInvalidValue = "";
@@ -352,8 +352,8 @@ GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
                 // check if double value is a probability
             } else if (myAttrProperties.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
                 myInvalidValue = "'" + toString(myXMLAttr) + "' takes only values between 0 and 1";
-			} else if (myAttrProperties.hasAttrRange() && ((doubleValue < myAttrProperties.getMinimumRange()) || doubleValue > myAttrProperties.getMaximumRange())) {
-                myInvalidValue = "'" + toString(myXMLAttr) + "' takes only values between " + toString(myAttrProperties.getMinimumRange())+ " and " + toString(myAttrProperties.getMaximumRange());
+            } else if (myAttrProperties.hasAttrRange() && ((doubleValue < myAttrProperties.getMinimumRange()) || doubleValue > myAttrProperties.getMaximumRange())) {
+                myInvalidValue = "'" + toString(myXMLAttr) + "' takes only values between " + toString(myAttrProperties.getMinimumRange()) + " and " + toString(myAttrProperties.getMaximumRange());
             } else if ((myACAttributesParent->myTagProperties.getTag() == SUMO_TAG_E2DETECTOR) && (myXMLAttr == SUMO_ATTR_LENGTH) && (doubleValue == 0)) {
                 myInvalidValue = "E2 length cannot be 0";
             }
@@ -463,7 +463,7 @@ GNEFrame::ACAttributes::~ACAttributes() {
 
 
 void
-GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProperties &tagProperties) {
+GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // get current tag Properties
     myTagProperties = tagProperties;
     // Hide all fields
@@ -1382,7 +1382,7 @@ GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
     myBlockShapeLabel = new FXLabel(blockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
     myBlockShapeCheckButton = new FXCheckButton(blockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     // Create Frame for block close polygon and checkBox (By default disabled)
-    FXHorizontalFrame *closePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* closePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myClosePolygonLabel = new FXLabel(closePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
     myCloseShapeCheckButton = new FXCheckButton(closePolygonFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myBlockShapeCheckButton->setCheck(false);
@@ -1401,7 +1401,7 @@ GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrie
     // we assume that frame will not be show
     bool showFrame = false;
     // check if lenght text field has to be showed
-    if(tagProperty.canMaskStartEndPos()) {
+    if (tagProperty.canMaskStartEndPos()) {
         myLengthLabel->show();
         myLengthTextField->show();
         myReferencePointMatchBox->show();
@@ -1439,7 +1439,7 @@ GNEFrame::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrie
         myCloseShapeCheckButton->hide();
     }
     // if at least one element is show, show modul
-    if(showFrame) {
+    if (showFrame) {
         show();
     } else {
         hide();
@@ -1453,12 +1453,12 @@ GNEFrame::NeteditAttributes::hideNeteditAttributesModul() {
 }
 
 
-bool 
-GNEFrame::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane *lane) const {
+bool
+GNEFrame::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane) const {
     // check if we need to obtain a start and end position over an edge
-    if(myReferencePointMatchBox->shown()) {
+    if (myReferencePointMatchBox->shown()) {
         // we need a valid lane to calculate position over lane
-        if(lane == nullptr) {
+        if (lane == nullptr) {
             return false;
         } else if (myCurrentLengthValid) {
             // Obtain position of the mouse over lane (limited over grid)
@@ -1483,7 +1483,7 @@ GNEFrame::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr,
     }
     // Save block value if element can be blocked
     if (myBlockMovementCheckButton->shown()) {
-        if(myBlockMovementCheckButton->getCheck() == 1) {
+        if (myBlockMovementCheckButton->getCheck() == 1) {
             valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "true";
         } else {
             valuesMap[GNE_ATTR_BLOCK_MOVEMENT] = "false";
@@ -1491,7 +1491,7 @@ GNEFrame::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr,
     }
     // Save block shape value if shape's element can be blocked
     if (myBlockShapeCheckButton->shown()) {
-        if(myBlockShapeCheckButton->getCheck() == 1) {
+        if (myBlockShapeCheckButton->getCheck() == 1) {
             valuesMap[GNE_ATTR_BLOCK_SHAPE] = "true";
         } else {
             valuesMap[GNE_ATTR_BLOCK_SHAPE] = "false";
@@ -1499,7 +1499,7 @@ GNEFrame::NeteditAttributes::getNeteditAttributesAndValues(std::map<SumoXMLAttr,
     }
     // Save close shape value if shape's element can be closed
     if (myCloseShapeCheckButton->shown()) {
-        if(myCloseShapeCheckButton->getCheck() == 1) {
+        if (myCloseShapeCheckButton->getCheck() == 1) {
             valuesMap[GNE_ATTR_CLOSE_SHAPE] = "true";
         } else {
             valuesMap[GNE_ATTR_CLOSE_SHAPE] = "false";
@@ -1618,7 +1618,7 @@ GNEFrame::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
             << "\n"
             << "- Close shape: If enabled, the created polygon element will be closed. i.e. the last created geometry point\n"
             << "  will be connected with the first geometry point automatically. This option can be modified inspecting element.";
-    
+
     ****************/
 }
 
@@ -1639,7 +1639,7 @@ GNEFrame::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane,
 
 
 double
-GNEFrame::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const{
+GNEFrame::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
     switch (myActualAdditionalReferencePoint) {
         case GNE_ADDITIONALREFERENCEPOINT_LEFT:
             return positionOfTheMouseOverLane + lengthOfAdditional;
@@ -1750,27 +1750,27 @@ GNEFrame::getFrameHeaderFont() const {
 }
 
 
-bool 
+bool
 GNEFrame::buildShape() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
     return false;
 }
 
 
-void 
+void
 GNEFrame::enableModuls(const GNEAttributeCarrier::TagProperties&) {
     // this function has to be reimplemente in all child frames that uses a ItemSelector modul
 }
 
 
-void 
+void
 GNEFrame::disableModuls() {
     // this function has to be reimplemente in all child frames that uses a ItemSelector modul
 }
 
 
 void
-GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties &tagProperties) const {
+GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const {
     FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
@@ -1842,7 +1842,7 @@ GNEFrame::getEdgeCandidateColor() const {
 }
 
 
-const RGBColor& 
+const RGBColor&
 GNEFrame::getEdgeCandidateSelectedColor() const {
     return myEdgeCandidateSelectedColor;
 }

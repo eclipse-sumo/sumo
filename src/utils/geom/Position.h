@@ -39,15 +39,15 @@
 class Position {
 public:
     /// @brief default constructor
-    Position() : 
+    Position() :
         myX(0.0), myY(0.0), myZ(0.0) { }
 
     /// @brief Parametrised constructor (only for x-y)
-    Position(double x, double y) : 
+    Position(double x, double y) :
         myX(x), myY(y), myZ(0) { }
 
     /// @brief Parametrised constructor
-    Position(double x, double y, double z) : 
+    Position(double x, double y, double z) :
         myX(x), myY(y), myZ(z) { }
 
     /// @brief Destructor
@@ -275,7 +275,7 @@ public:
     void swapXY() {
         std::swap(myX, myY);
     }
-    
+
     /// @brief check if position is NAN
     bool isNAN() const {
         return (std::isnan(myX) || std::isnan(myY) || std::isnan(myZ));

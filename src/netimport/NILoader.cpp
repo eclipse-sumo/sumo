@@ -188,10 +188,10 @@ NILoader::loadXML(OptionsCont& oc) {
                     myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptline-files"), "public transport lines");
 
-    // load shapes for output formats that embed shape data 
+    // load shapes for output formats that embed shape data
     loadXMLType(new NIXMLShapeHandler(
-                myNetBuilder.getShapeCont(),
-                myNetBuilder.getEdgeCont()),
+                    myNetBuilder.getShapeCont(),
+                    myNetBuilder.getEdgeCont()),
                 oc.getStringVector("polygon-files"), "polygon data");
 }
 

@@ -36,7 +36,7 @@ GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZP
     myEdge(edge),
     myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
-    if((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
+    if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
         throw InvalidArgument("Invalid TAZ Child Tag");
     }
     // set edge as child
@@ -107,12 +107,12 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
                 // calculate percentage relative to the max and min weight
                 double percentage = (myDepartWeight - minWeightSource) / (maxWeightSource - minWeightSource);
                 // convert percentage to a value between [0-9] (because we have only 10 colors)
-                if(percentage >= 1) {
+                if (percentage >= 1) {
                     return "9";
-                } else if(percentage < 0) {
+                } else if (percentage < 0) {
                     return "0";
                 } else {
-                    return toString((int)(percentage*10));
+                    return toString((int)(percentage * 10));
                 }
             }
         }
@@ -125,7 +125,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
 void
 GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     // this additional is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)
-    if(undoList == nullptr) {
+    if (undoList == nullptr) {
         setAttribute(key, value);
     } else {
         if (value == getAttribute(key)) {
@@ -170,7 +170,7 @@ GNETAZSourceSink::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_WEIGHT);
 }
 
-Boundary 
+Boundary
 GNETAZSourceSink::getCenteringBoundary() const {
     return myEdge->getNBEdge()->getGeometry().getBoxBoundary();
 }

@@ -262,7 +262,7 @@ NLBuilder::init() {
     throw ProcessError();
 }
 
-void 
+void
 NLBuilder::initRandomness() {
     RandHelper::initRandGlobal();
     RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());

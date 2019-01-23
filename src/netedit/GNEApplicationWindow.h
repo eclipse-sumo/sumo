@@ -63,10 +63,10 @@ class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
 public:
     /// @brief struct for griped toolbars
     struct ToolbarsGrip {
-        
+
         /// @brief constructor
-        ToolbarsGrip(GNEApplicationWindow *GNEApp);
-        
+        ToolbarsGrip(GNEApplicationWindow* GNEApp);
+
         /// @brief build menu toolbar grips
         void buildMenuToolbarsGrip();
 
@@ -93,7 +93,7 @@ public:
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow *myGNEApp;
+        GNEApplicationWindow* myGNEApp;
 
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myToolBarShellMenu;
@@ -333,7 +333,7 @@ public:
     GNEUndoList* getUndoList();
 
     /// @brief get ToolbarsGrip
-    ToolbarsGrip &getToolbarsGrip();
+    ToolbarsGrip& getToolbarsGrip();
 
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
@@ -386,16 +386,16 @@ protected:
     /// @brief Input file pattern
     std::string myConfigPattern;
 
-private:    
+private:
     /// @brief struct for menu bar file
     struct MenuBarFile {
-        
+
         /// @brief constructor
-        MenuBarFile(GNEApplicationWindow *GNEApp);
-        
+        MenuBarFile(GNEApplicationWindow* GNEApp);
+
         /// @brief build recent files
         void buildRecentFiles(FXMenuPane* fileMenu);
-    
+
         /// @brief filename for load/save additionals
         std::string myAdditionalsFile;
 
@@ -413,14 +413,14 @@ private:
 
     private:
         /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow *myGNEApp;
+        GNEApplicationWindow* myGNEApp;
     };
 
     /// @brief struct for File menu commands
     struct FileMenuCommands {
 
         /// @brief constructor
-        FileMenuCommands(GNEApplicationWindow *GNEApp);
+        FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
         void buildFileMenuCommands(FXMenuPane* editMenu);
@@ -442,14 +442,14 @@ private:
 
     private:
         /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow *myGNEApp;
+        GNEApplicationWindow* myGNEApp;
     };
 
     /// @brief struct for network menu commands
     struct NetworkMenuCommands {
 
         /// @brief constructor
-        NetworkMenuCommands(GNEApplicationWindow *GNEApp);
+        NetworkMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
         void buildNetworkMenuCommands(FXMenuPane* editMenu);
@@ -461,54 +461,54 @@ private:
         void hideNetworkMenuCommands();
 
         /// @brief menu command for create edge
-        FXMenuCommand *createEdgeMode;
+        FXMenuCommand* createEdgeMode;
 
         /// @brief menu command for move mode
-        FXMenuCommand *moveMode;
+        FXMenuCommand* moveMode;
 
         /// @brief menu command for delete mode
-        FXMenuCommand *deleteMode;
+        FXMenuCommand* deleteMode;
 
         /// @brief menu command for inspect mode
-        FXMenuCommand *inspectMode;
+        FXMenuCommand* inspectMode;
 
         /// @brief menu command for select mode
-        FXMenuCommand *selectMode;
+        FXMenuCommand* selectMode;
 
         /// @brief menu command for connect mode
-        FXMenuCommand *connectMode;
+        FXMenuCommand* connectMode;
 
         /// @brief menu command for prohibition mode
-        FXMenuCommand *prohibitionMode;
+        FXMenuCommand* prohibitionMode;
 
         /// @brief menu command for TLS Mode
-        FXMenuCommand *TLSMode;
+        FXMenuCommand* TLSMode;
 
         /// @brief menu command for additional mode
-        FXMenuCommand *additionalMode;
+        FXMenuCommand* additionalMode;
 
         /// @brief menu command for crossing mode
-        FXMenuCommand *crossingMode;
+        FXMenuCommand* crossingMode;
 
         /// @brief menu command for TAZ mode
-        FXMenuCommand *TAZMode;
+        FXMenuCommand* TAZMode;
 
         /// @brief menu command for shape mode
-        FXMenuCommand *shapeMode;
+        FXMenuCommand* shapeMode;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow *myGNEApp;
+        GNEApplicationWindow* myGNEApp;
 
         /// @brief separator between sets of FXMenuCommand
-        FXMenuSeparator *myHorizontalSeparator;
+        FXMenuSeparator* myHorizontalSeparator;
     };
 
     /// @brief struct for Demand menu commands
     struct DemandMenuCommands {
 
         /// @brief constructor
-        DemandMenuCommands(GNEApplicationWindow *GNEApp);
+        DemandMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
         void buildDemandMenuCommands(FXMenuPane* editMenu);
@@ -520,14 +520,14 @@ private:
         void hideDemandMenuCommands();
 
         /// @brief menu command for route mode
-        FXMenuCommand *routeMode;
+        FXMenuCommand* routeMode;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow *myGNEApp;
+        GNEApplicationWindow* myGNEApp;
 
         /// @brief separator between sets of FXMenuCommand
-        FXMenuSeparator *myHorizontalSeparator;
+        FXMenuSeparator* myHorizontalSeparator;
     };
 
     /// @brief Toolbars Grip

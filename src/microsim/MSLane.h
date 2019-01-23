@@ -577,7 +577,7 @@ public:
     virtual void planMovements(const SUMOTime t);
 
     /** @brief Register junction approaches for all vehicles after velocities
-     * have been planned. 
+     * have been planned.
      *
      * This method goes through all vehicles calling their * "setApproachingForAllLinks" method.
      */

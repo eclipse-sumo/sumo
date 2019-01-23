@@ -313,11 +313,11 @@ public:
                          double width = -1);
 
     static void drawTextSettings(
-            const GUIVisualizationTextSettings& settings,
-            const std::string& text, const Position& pos,
-            const double scale,
-            const double angle = 0,
-            const double layer = 2048); // GLO_MAX
+        const GUIVisualizationTextSettings& settings,
+        const std::string& text, const Position& pos,
+        const double scale,
+        const double angle = 0,
+        const double layer = 2048); // GLO_MAX
 
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,

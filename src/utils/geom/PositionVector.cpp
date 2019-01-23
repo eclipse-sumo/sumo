@@ -1079,7 +1079,7 @@ PositionVector::move2side(double amount) {
 }
 
 
-void 
+void
 PositionVector::move2side(std::vector<double> amount) {
     if (size() < 2) {
         return;
@@ -1088,8 +1088,8 @@ PositionVector::move2side(std::vector<double> amount) {
         return;
     }
     if (size() != amount.size()) {
-        throw InvalidArgument("Numer of offsets (" + toString(amount.size()) 
-                + ") does not match number of points (" + toString(size()) + ")");
+        throw InvalidArgument("Numer of offsets (" + toString(amount.size())
+                              + ") does not match number of points (" + toString(size()) + ")");
     }
     PositionVector shape;
     for (int i = 0; i < static_cast<int>(size()); i++) {
@@ -1229,7 +1229,7 @@ PositionVector::isClosed() const {
 }
 
 
-bool 
+bool
 PositionVector::isNAN() const {
     // iterate over all positions and check if is NAN
     for (auto i = begin(); i != end(); i++) {

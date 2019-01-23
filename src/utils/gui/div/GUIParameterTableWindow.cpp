@@ -96,7 +96,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
     myApplication->removeChild(this);
     myLock.lock();
     for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); ++i) {
-        delete(*i);
+        delete (*i);
     }
     if (myObject != nullptr) {
         myObject->removeParameterTable(this);

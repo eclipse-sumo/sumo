@@ -46,7 +46,7 @@ const double MSVehicleTransfer::TeleportMinSpeed = 1;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-bool 
+bool
 MSVehicleTransfer::VehicleInformation::operator<(const VehicleInformation& v2) const {
     return myVeh->getNumericalID() < v2.myVeh->getNumericalID();
 }
@@ -185,7 +185,7 @@ MSVehicleTransfer::~MSVehicleTransfer() {
 
 void
 MSVehicleTransfer::saveState(OutputDevice& out) {
-    for (const VehicleInformation& vehInfo: myVehicles.getContainer()) {
+    for (const VehicleInformation& vehInfo : myVehicles.getContainer()) {
         out.openTag(SUMO_TAG_VEHICLETRANSFER);
         out.writeAttr(SUMO_ATTR_ID, vehInfo.myVeh->getID());
         out.writeAttr(SUMO_ATTR_DEPART, vehInfo.myProceedTime);

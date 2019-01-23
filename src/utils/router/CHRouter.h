@@ -79,7 +79,7 @@ public:
         Unidirectional(const std::vector<E*>& edges, bool forward):
             myAmForward(forward),
             myVehicle(0) {
-            for (const E* const e: edges) {
+            for (const E* const e : edges) {
                 myEdgeInfos.push_back(typename BASE::EdgeInfo(e));
             }
         }
@@ -188,8 +188,8 @@ public:
                         std::push_heap(myFrontier.begin(), myFrontier.end(), myComparator);
                     } else {
                         std::push_heap(myFrontier.begin(),
-                                  std::find(myFrontier.begin(), myFrontier.end(), upwardInfo) + 1,
-                                  myComparator);
+                                       std::find(myFrontier.begin(), myFrontier.end(), upwardInfo) + 1,
+                                       myComparator);
                     }
                 }
             }

@@ -416,7 +416,7 @@ public:
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
     static GNEAdditional* buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
-                                                    const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+            const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a multi-lane Area Detector (E2)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -437,8 +437,8 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static GNEAdditional* buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*> &lanes, double pos, double endPos, double freq, const std::string& filename,
-                                                    const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+    static GNEAdditional* buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, double freq, const std::string& filename,
+            const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -647,7 +647,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, const std::vector<GNEEdge*> &edges, bool blockMovement);
+    static GNEAdditional* buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement);
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -658,7 +658,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double departWeight);
+    static GNEAdditional* buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double departWeight);
 
     /**@brief Builds a TAZSink (Traffic Assignment Zone)
      * @param[in] viewNet viewNet in which element will be inserted
@@ -669,7 +669,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge,double arrivalWeight);
+    static GNEAdditional* buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double arrivalWeight);
 
     /**@brief Helper method to obtain the filename
      * @param[in] attrs The attributes to obtain the file name from

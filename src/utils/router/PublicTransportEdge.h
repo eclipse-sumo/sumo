@@ -35,7 +35,7 @@ class PublicTransportEdge : public IntermodalEdge<E, L, N, V> {
 private:
     struct Schedule {
         Schedule(const std::string& _id, const SUMOTime _begin, const int _repetitionNumber, const SUMOTime _period, const SUMOTime _travelTime)
-            : ids( {
+            : ids({
             _id
         }), begin(_begin), repetitionNumber(_repetitionNumber), period(_period), travelTime(_travelTime) {}
         // the id of the vehicle or flow from which this schedule is generated

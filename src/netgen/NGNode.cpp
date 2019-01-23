@@ -59,7 +59,7 @@ NGNode::~NGNode() {
     NGEdgeList::iterator li;
     while (LinkList.size() != 0) {
         li = LinkList.begin();
-        delete(*li);
+        delete (*li);
     }
 }
 

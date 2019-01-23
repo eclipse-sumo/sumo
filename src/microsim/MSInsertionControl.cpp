@@ -62,7 +62,7 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
 
 MSInsertionControl::~MSInsertionControl() {
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
-        delete(i->pars);
+        delete (i->pars);
     }
 }
 

@@ -81,8 +81,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myWalkingAreas(false),
       myLimitTurnSpeed(-1),
       myCheckLaneFoesAll(false),
-      myCheckLaneFoesRoundabout(true)
-{
+      myCheckLaneFoesRoundabout(true) {
 }
 
 

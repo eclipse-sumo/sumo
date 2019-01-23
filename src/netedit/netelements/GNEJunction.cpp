@@ -174,8 +174,8 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // check if we're handling a selection
     bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
     // check if menu commands has to be disabled
-    const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CONNECT) || 
-                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) || 
+    const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CONNECT) ||
+                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) ||
                            (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CREATE_EDGE);
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
@@ -1251,7 +1251,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

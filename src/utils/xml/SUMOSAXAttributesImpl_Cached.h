@@ -229,7 +229,7 @@ public:
     SumoXMLNodeType getNodeType(bool& ok) const;
 
     /// @brief returns rightOfWay method
-    RightOfWay getRightOfWay(bool& ok) const; 
+    RightOfWay getRightOfWay(bool& ok) const;
 
     /**
      * @brief Returns the value of the named attribute

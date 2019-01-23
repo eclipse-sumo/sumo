@@ -135,7 +135,7 @@ public:
         ObjectsUnderCursor();
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(const std::vector<GUIGlObject*> &GUIGlObjects, GNEPoly* editedPolyShape);
+        void updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects, GNEPoly* editedPolyShape);
 
         /// @brief swap lane to edge
         void swapLane2Edge();
@@ -189,7 +189,7 @@ public:
         GNEPoly* getPolyFront() const;
 
         /// @brief get vector with clicked ACs
-        const std::vector<GNEAttributeCarrier*> &getClickedAttributeCarriers() const;
+        const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
     private:
         /// @brief vector with the clicked GUIGlObjects
@@ -235,7 +235,7 @@ public:
         std::vector<GNEPoly*> myPolys;
 
         /// @brief invert GUIGlObjects
-        void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*> &GUIGlObjects);
+        void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects);
 
         /// @brief Invalidated copy constructor.
         ObjectsUnderCursor(const ObjectsUnderCursor&) = delete;
@@ -251,7 +251,7 @@ public:
         KeyPressed();
 
         /// @brief update status of KeyPressed
-        void update(void *eventData);
+        void update(void* eventData);
 
         /// @brief check if SHIFT key was pressed during click
         bool shiftKeyPressed() const;
@@ -278,7 +278,7 @@ public:
 
         /// @brief build checkable buttons
         void buildSuperModeButtons();
-      
+
         /// @brief set Network edit mode
         void setSupermode(Supermode supermode);
 
@@ -378,7 +378,7 @@ public:
 
         /// @brief hide all MenuChecks
         void hideMoveOptionMenuChecks();
-        
+
         /// @brief check if we're editing elevation
         bool editingElevation() const;
 
@@ -423,7 +423,7 @@ public:
     void buildViewToolBars(GUIGlChildWindow&);
 
     /// @brief get AttributeCarriers in Boundary
-    std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary &boundary, bool forceSelectEdges = false);
+    std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
@@ -441,16 +441,16 @@ public:
     void openObjectDialog();
 
     /// @brief get edit modes
-    const EditMoves &getEditModes() const;
+    const EditMoves& getEditModes() const;
 
     /// @brief get move options
-    const MoveOptions &getMoveOptions() const;
+    const MoveOptions& getMoveOptions() const;
 
     /// @brief get view options
-    const ViewOptions &getViewOptions() const;
+    const ViewOptions& getViewOptions() const;
 
     /// @brief get Key Pressed modul
-    const KeyPressed &getKeyPressed() const;
+    const KeyPressed& getKeyPressed() const;
 
     /// @name overloaded handlers
     /// @{
@@ -752,12 +752,12 @@ private:
         /// @brief flag to check if a selection is being moved
         bool myMovingSelection;
 
-        /// @brief container used for move junctions 
+        /// @brief container used for move junctions
         std::map<GNEJunction*, Position> myMovedJunctionOriginPositions;
 
         /// @brief container used for move entire edges
         std::map<GNEEdge*, PositionVector> myMovedEdgesOriginShape;
-    
+
         /// @brief container used for move GeometryPoints of edges
         std::map<GNEEdge*, MoveSingleElementValues*> myMovedEgdesGeometryPoints;
     };
@@ -785,20 +785,20 @@ private:
         std::vector<GNEEdge*> processEdgeRectangleSelection();
 
         /// @brief process shape selection
-        void processShapeSelection(const PositionVector &shape);
-        
+        void processShapeSelection(const PositionVector& shape);
+
         /// @brief draw rectangle selection
         void drawRectangleSelection(const RGBColor& color) const;
 
         /// @brief whether we have started rectangle-selection
         bool selectingUsingRectangle;
-                
+
         /// @brief whether we have started rectangle-selection
         bool startDrawing;
 
     private:
         /// @brief Process boundary Selection
-        void processBoundarySelection(const Boundary &boundary);
+        void processBoundarySelection(const Boundary& boundary);
 
         /// @brief firstcorner of the rectangle-selection
         Position selectionCorner1;
@@ -861,7 +861,7 @@ private:
 
     /// @brief struct used to group all variables related with common chekable Buttons
     struct CommonCheckableButtons {
-        
+
         /// @brief default constructor
         CommonCheckableButtons(GNEViewNet* viewNet);
 
@@ -896,7 +896,7 @@ private:
 
     /// @brief struct used to group all variables related with Network chekable Buttons
     struct NetworkCheckableButtons {
-        
+
         /// @brief default constructor
         NetworkCheckableButtons(GNEViewNet* viewNet);
 
@@ -949,7 +949,7 @@ private:
 
     /// @brief struct used to group all variables related with Demand checkable Buttons
     struct DemandCheckableButtons {
-        
+
         /// @brief default constructor
         DemandCheckableButtons(GNEViewNet* viewNet);
 
@@ -979,7 +979,7 @@ private:
     /// @name structs
     /// @{
 
-    /// @brief variable used to save key status after certain events 
+    /// @brief variable used to save key status after certain events
     KeyPressed myKeyPressed;
 
     /// @brief variable use to save all pointers to objects under cursor after a click
@@ -1002,7 +1002,7 @@ private:
 
     /// @brief variable used to save variables related with testing mode
     TestingMode myTestingMode;
-    
+
     /// @brief variable used to save variables related with view options
     ViewOptions myViewOptions;
 
@@ -1031,7 +1031,7 @@ private:
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
 
-    /**@brief current AttributeCarrier that is drawn using with a dotted contour 
+    /**@brief current AttributeCarrier that is drawn using with a dotted contour
      * note: it's constant because is edited from constant functions (example: drawGL(...) const)
      */
     const GNEAttributeCarrier* myDottedAC;
@@ -1129,7 +1129,7 @@ private:
     /// @brief draw temporal polygon  shape in Polygon Mode
     void drawTemporalDrawShape() const;
     /// @}
-   
+
     /// @brief mouse process functions
     /// @{
 

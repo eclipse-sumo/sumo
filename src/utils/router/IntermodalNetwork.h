@@ -149,8 +149,8 @@ public:
                 }
             } else {
                 for (const N* const node : {
-                edge->getFromJunction(), edge->getToJunction()
-                }) {
+                            edge->getFromJunction(), edge->getToJunction()
+                        }) {
                     if (myWalkingConnectorLookup.count(node) == 0) {
                         addEdge(new _IntermodalEdge(node->getID() + "_walking_connector", myNumericalID++, nullptr, "!connector"));
                         myWalkingConnectorLookup[node] = myEdges.back();

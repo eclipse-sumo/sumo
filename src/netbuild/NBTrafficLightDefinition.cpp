@@ -525,7 +525,7 @@ NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
     return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
 }
 
-std::string 
+std::string
 NBTrafficLightDefinition::getDescription() const {
     return getID() + ':' + getProgramID() + '@' + toString(this);
 }

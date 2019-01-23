@@ -552,7 +552,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lefthand",               SUMO_ATTR_LEFTHAND },
     { "limitTurnSpeed",         SUMO_ATTR_LIMIT_TURN_SPEED },
     { "checkLaneFoesAll",       SUMO_ATTR_CHECKLANEFOES_ALL },
-    { "checkLaneFoesRoundabout",SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT },
+    { "checkLaneFoesRoundabout", SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "vehicle",                SUMO_ATTR_VEHICLE },
@@ -674,7 +674,7 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
-    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY }, 
+    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY },
     {"default",      RIGHT_OF_WAY_DEFAULT } // default (must be the last one)
 };
 

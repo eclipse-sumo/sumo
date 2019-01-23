@@ -633,17 +633,17 @@ GLHelper::drawText(const std::string& text, const Position& pos,
 
 void
 GLHelper::drawTextSettings(
-            const GUIVisualizationTextSettings& settings,
-            const std::string& text, const Position& pos,
-            const double scale,
-            const double angle,
-            const double layer) {
+    const GUIVisualizationTextSettings& settings,
+    const std::string& text, const Position& pos,
+    const double scale,
+    const double angle,
+    const double layer) {
     drawTextBox(text, pos, layer,
-            settings.scaledSize(scale),
-            settings.color,
-            settings.bgColor,
-            RGBColor::INVISIBLE,
-            angle, 0, 0.2);
+                settings.scaledSize(scale),
+                settings.color,
+                settings.bgColor,
+                RGBColor::INVISIBLE,
+                angle, 0, 0.2);
 }
 
 
@@ -653,8 +653,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
                       const double angle,
                       const double relBorder,
-                      const double relMargin)
-{
+                      const double relMargin) {
     if (!initFont()) {
         return;
     };

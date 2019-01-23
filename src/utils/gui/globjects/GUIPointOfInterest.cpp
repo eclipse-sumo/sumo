@@ -99,7 +99,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     // first clear vertices
     myPOIVertices.clear();
     // check if POI can be drawn
-    if(checkDraw(s)) {
+    if (checkDraw(s)) {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
@@ -127,7 +127,7 @@ GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, bool disableSele
 }
 
 
-bool 
+bool
 GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s) const {
     // only continue if scale is valid
     if (s.scale * (1.3 / 3.0) *s.poiSize.getExaggeration(s, this) < s.poiSize.minSize) {
@@ -137,7 +137,7 @@ GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     const double exaggeration = s.poiSize.getExaggeration(s, this);
     glPushMatrix();
@@ -149,8 +149,8 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, bool disable
         int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
-                                                -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
-                                                myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
+                                               -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
+                                               myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
         }
     } else {
         // fallback if no image is defined

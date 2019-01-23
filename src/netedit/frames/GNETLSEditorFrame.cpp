@@ -430,7 +430,7 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
     return 1;
 }
 
-bool 
+bool
 GNETLSEditorFrame::fixedDuration() const {
     assert(myEditedDef != nullptr);
     return myEditedDef->getType() == TLTYPE_STATIC;

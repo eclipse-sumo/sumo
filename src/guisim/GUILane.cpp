@@ -994,12 +994,12 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme
         case 30: { // taz color
             col = c.getScheme().getColor(0);
             std::vector<RGBColor> tazColors;
-            for (MSEdge* e: myEdge->getPredecessors()) {
+            for (MSEdge* e : myEdge->getPredecessors()) {
                 if (e->isTazConnector() && e->knowsParameter("tazColor")) {
                     tazColors.push_back(RGBColor::parseColor(e->getParameter("tazColor")));
                 }
             }
-            for (MSEdge* e: myEdge->getSuccessors()) {
+            for (MSEdge* e : myEdge->getSuccessors()) {
                 if (e->isTazConnector() && e->knowsParameter("tazColor")) {
                     tazColors.push_back(RGBColor::parseColor(e->getParameter("tazColor")));
                 }

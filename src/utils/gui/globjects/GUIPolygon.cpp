@@ -143,7 +143,7 @@ GUIPolygon::getCenteringBoundary() const {
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
-    if(checkDraw(s)) {
+    if (checkDraw(s)) {
         FXMutexLock locker(myLock);
         //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
         //    storeTesselation(s.polySize.getExaggeration(s));
@@ -254,7 +254,7 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     glPushMatrix();
     glTranslated(0, 0, getShapeLayer());

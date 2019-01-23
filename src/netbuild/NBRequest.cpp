@@ -253,8 +253,8 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     }
 #ifdef DEBUG_SETBLOCKING
     if (DEBUGCOND) std::cout << "setBlocking"
-            << " 1:" << from1->getID() << "->" << to1->getID() 
-            << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
+                                 << " 1:" << from1->getID() << "->" << to1->getID()
+                                 << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
 #endif
     // check the priorities if required by node type
     if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
@@ -262,9 +262,9 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         int from2p = from2->getJunctionPriority(myJunction);
 #ifdef DEBUG_SETBLOCKING
         if (DEBUGCOND) std::cout << "setBlocking"
-            << " 1:" << from1->getID() << "->" << to1->getID() 
-            << " 2:" << from2->getID() << "->" << to2->getID()
-            << " p1=" << from1p << " p2=" << from2p << "\n";
+                                     << " 1:" << from1->getID() << "->" << to1->getID()
+                                     << " 2:" << from2->getID() << "->" << to2->getID()
+                                     << " p1=" << from1p << " p2=" << from2p << "\n";
 #endif
         // check if one of the connections is higher priorised when incoming into
         //  the junction, the connection road will yield
@@ -284,9 +284,9 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         LinkDirection ld2 = myJunction->getDirection(from2, to2);
 #ifdef DEBUG_SETBLOCKING
         if (DEBUGCOND) std::cout << "setBlocking"
-            << " 1:" << from1->getID() << "->" << to1->getID() 
-            << " 2:" << from2->getID() << "->" << to2->getID()
-            << " dir1=" << toString(ld1) << " dir2=" << toString(ld2) << "\n";
+                                     << " 1:" << from1->getID() << "->" << to1->getID()
+                                     << " 2:" << from2->getID() << "->" << to2->getID()
+                                     << " dir1=" << toString(ld1) << " dir2=" << toString(ld2) << "\n";
 #endif
         if (ld1 == LINKDIR_STRAIGHT) {
             if (ld2 != LINKDIR_STRAIGHT) {
@@ -349,10 +349,10 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         NBContHelper::nextCW(myAll, c2);
     }
 #ifdef DEBUG_SETBLOCKING
-        if (DEBUGCOND) std::cout << "setBlocking"
-            << " 1:" << from1->getID() << "->" << to1->getID() 
-            << " 2:" << from2->getID() << "->" << to2->getID()
-            << " noDecision\n";
+    if (DEBUGCOND) std::cout << "setBlocking"
+                                 << " 1:" << from1->getID() << "->" << to1->getID()
+                                 << " 2:" << from2->getID() << "->" << to2->getID()
+                                 << " noDecision\n";
 #endif
 }
 
@@ -371,7 +371,7 @@ NBRequest::distanceCounterClockwise(NBEdge* from, NBEdge* to) {
     return ret;
 }
 
-const std::string& 
+const std::string&
 NBRequest::getFoes(int linkIndex) const {
     assert(linkIndex >= 0);
     assert(linkIndex < (int)myFoes.size());
@@ -661,9 +661,9 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << "\n";
                     }
 #endif
-                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k]) 
-                                || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
-                            || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
+                    const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
+                                                    || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
+                                                  || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                     if ((myForbids[idx2][idx] && hasLaneConflict)
                             || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                             || mergeConflict(from, queryCon, *i, connected[k], false)
@@ -713,8 +713,8 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
             int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
                 const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
-                            || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
-                        || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
+                                                || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
+                                              || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                 if ((foes(from, to, (*i), connected[k].toEdge) && hasLaneConflict)
                         || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
@@ -825,7 +825,7 @@ NBRequest::checkLaneFoesByClass(const NBEdge::Connection& con,
 
 bool
 NBRequest::checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connection& con,
-        const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const {
+                                      const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const {
     if (con.toEdge != prohibitorCon.toEdge) {
         return false;
     }
@@ -841,7 +841,7 @@ NBRequest::checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connecti
     }
     for (const auto& c : prohibitorFrom->getConnections()) {
         if (c.toEdge == con.toEdge && fromTargetLanes.count(c.toLane) != 0) {
-            //std::cout << " con=" << con->getDescription(from) << " foe=" << prohibitorCon.getDescription(prohibitorFrom) 
+            //std::cout << " con=" << con->getDescription(from) << " foe=" << prohibitorCon.getDescription(prohibitorFrom)
             //    << " no cooperation (targets=" << joinToString(fromTargetLanes, ' ') << " index=" << c.toLane << "\n";
             return false;
         }

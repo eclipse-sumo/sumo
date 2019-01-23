@@ -30,10 +30,10 @@
 #include <list>
 #include <cassert>
 
-template<class T, class Container=std::list<T> >
+template<class T, class Container = std::list<T> >
 class FXSynchQue {
 public:
-    FXSynchQue (const bool condition=true): myCondition(condition) {}
+    FXSynchQue(const bool condition = true): myCondition(condition) {}
 
     T top() {
         assert(myItems.size() != 0);

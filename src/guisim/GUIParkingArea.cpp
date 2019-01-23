@@ -205,12 +205,12 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
 
 }
 
-void 
+void
 GUIParkingArea::addLotEntry(double x, double y, double z,
-        double width, double length, double angle) {
+                            double width, double length, double angle) {
     MSParkingArea::addLotEntry(x, y, z, width, length, angle);
     Boundary b;
-    b.add(Position(x,y));
+    b.add(Position(x, y));
     b.grow(MAX2(width, length) + 5);
     myBoundary.add(b);
 }

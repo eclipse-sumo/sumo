@@ -324,7 +324,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                             (*i) != (*k).toEdge->getTurnDestination(true)) {
                         try {
                             NBEdge::Connection bidiCon = (*k).toEdge->getTurnDestination(true)->getConnection(
-                                    0, (*i)->getTurnDestination(true), 0);
+                                                             0, (*i)->getTurnDestination(true), 0);
                             into.writeAttr(SUMO_ATTR_BIDI, bidiCon.id);
                         } catch (ProcessError&) {
                             std::cout << " could not find bidi-connection\n";
@@ -338,7 +338,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                 const double width = n.isConstantWidthTransition() && (*i)->getNumLanes() > (*k).toEdge->getNumLanes() ? (*i)->getLaneWidth((*k).fromLane) : successor.width;
                 writeLane(into, (*k).getInternalLaneID(), (*k).vmax,
                           successor.permissions, successor.preferred,
-                          NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET, 
+                          NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                           std::map<int, double>(), width, (*k).shape, &(*k),
                           (*k).length, (*k).internalLaneIndex, oppositeLaneID[(*k).getInternalLaneID()]);
                 haveVia = haveVia || (*k).haveVia;
@@ -377,7 +377,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", 1, SVC_PEDESTRIAN, 0,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                  std::map<int, double>(), c->width, c->shape, nullptr, 
+                  std::map<int, double>(), c->width, c->shape, nullptr,
                   MAX2(c->shape.length(), POSITION_EPS), 0, "", false, c->customShape.size() != 0);
         into.closeTag();
     }
@@ -442,7 +442,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
             stopOffsets = l.stopOffsets;
         }
         writeLane(into, e.getLaneID(i), l.speed,
-                  l.permissions, l.preferred, 
+                  l.permissions, l.preferred,
                   startOffset, l.endOffset,
                   stopOffsets, l.width, l.shape, &l,
                   length, i, l.oppositeID, l.accelRamp, l.customShape.size() > 0);
@@ -456,7 +456,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
 void
 NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          double speed, SVCPermissions permissions, SVCPermissions preferred,
-                         double startOffset, double endOffset, 
+                         double startOffset, double endOffset,
                          std::map<SVCPermissions, double> stopOffsets, double width, PositionVector shape,
                          const Parameterised* params, double length, int index,
                          const std::string& oppositeID, bool accelRamp, bool customShape) {
@@ -493,8 +493,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         if (startOffset + endOffset < shape.length()) {
             shape = shape.getSubpart(startOffset, shape.length() - endOffset);
         } else {
-            WRITE_ERROR("Invalid endOffset " + toString(endOffset) + " at lane '" + lID 
-                    + "' with length " + toString(shape.length()) + " (startOffset " + toString(startOffset) + ")");
+            WRITE_ERROR("Invalid endOffset " + toString(endOffset) + " at lane '" + lID
+                        + "' with length " + toString(shape.length()) + " (startOffset " + toString(startOffset) + ")");
             if (!OptionsCont::getOptions().getBool("ignore-errors")) {
                 throw ProcessError();
             }

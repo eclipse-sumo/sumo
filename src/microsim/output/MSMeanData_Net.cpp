@@ -126,13 +126,13 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
 #ifdef DEBUG_OCCUPANCY
     if DEBUG_COND {
     std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
-    << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
-        << ", timeOnLane=" << timeOnLane
-        << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
-        << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
-        << ", travelledDistanceVehicleOnLane=" << travelledDistanceVehicleOnLane
-        << ", meanLengthOnLane=" << meanLengthOnLane
-        << std::endl;
+              << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
+                  << ", timeOnLane=" << timeOnLane
+                  << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
+                  << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
+                  << ", travelledDistanceVehicleOnLane=" << travelledDistanceVehicleOnLane
+                  << ", meanLengthOnLane=" << meanLengthOnLane
+                  << std::endl;
     }
 #endif
     sampleSeconds += timeOnLane;

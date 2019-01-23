@@ -199,7 +199,7 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
     if DEBUG_COND {
     if (!debugLocked()) {
             std::cout << SIMTIME << " getPerceivedHeadway() for veh '" << myVehicle->getID() << "'\n"
-            << "    trueGap=" << trueGap << " objID=" << objID << std::endl;
+                      << "    trueGap=" << trueGap << " objID=" << objID << std::endl;
         }
     }
 #endif
@@ -225,7 +225,7 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
         if DEBUG_COND {
         if (!debugLocked()) {
                 std::cout << "    new perceived gap (=" << perceivedGap << ") does *not* differ significantly from the assumed (="
-                << (assumedGap->second) << ")" << std::endl;
+                          << (assumedGap->second) << ")" << std::endl;
             }
         }
 #endif
@@ -257,7 +257,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
     if DEBUG_COND {
     if (!debugLocked()) {
             std::cout << SIMTIME << " getPerceivedSpeedDifference() for veh '" << myVehicle->getID() << "'\n"
-            << "    trueGap=" << trueGap << " trueSpeedDifference=" << trueSpeedDifference << " objID=" << objID << std::endl;
+                      << "    trueGap=" << trueGap << " trueSpeedDifference=" << trueSpeedDifference << " objID=" << objID << std::endl;
         }
     }
 #endif
@@ -270,8 +270,8 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
         if DEBUG_COND {
         if (!debugLocked()) {
                 std::cout << "    new perceived speed difference (=" << perceivedSpeedDifference << ") differs significantly from the last perceived (="
-                << (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end() ? "NA" : toString(lastPerceivedSpeedDifference->second)) << ")"
-                << std::endl;
+                          << (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end() ? "NA" : toString(lastPerceivedSpeedDifference->second)) << ")"
+                          << std::endl;
             }
         }
 #endif

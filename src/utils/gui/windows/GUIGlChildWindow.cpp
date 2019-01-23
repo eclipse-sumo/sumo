@@ -51,8 +51,8 @@ FXIMPLEMENT(GUIGlChildWindow, FXMDIChild, GUIGlChildWindowMap, ARRAYNUMBER(GUIGl
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, FXMDIMenu* mdimenu, 
-    const FXString& name, FXMenuBar* gripNavigationToolbar, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
+GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, FXMDIMenu* mdimenu,
+                                   const FXString& name, FXMenuBar* gripNavigationToolbar, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
     FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
     myGripNavigationToolbar(gripNavigationToolbar),
     myStaticNavigationToolBar(nullptr),
@@ -62,7 +62,7 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, 
     setTracking();
     // create a vertical frame to add elements
     myContentFrame = new FXVerticalFrame(this, GUIDesignFrameArea);
-    // if menuBarGripElements isn't NULL, use it to create a grip navigation elements. In other cas, create a static FXToolbar 
+    // if menuBarGripElements isn't NULL, use it to create a grip navigation elements. In other cas, create a static FXToolbar
     if (myGripNavigationToolbar == nullptr) {
         myStaticNavigationToolBar = new FXToolBar(myContentFrame, GUIDesignToolbarMenuBar);
     }
@@ -76,7 +76,7 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, 
 GUIGlChildWindow::~GUIGlChildWindow() {
     delete myLocatorPopup;
     // only delete static navigation bar if it was created
-    if(myStaticNavigationToolBar) {
+    if (myStaticNavigationToolBar) {
         delete myStaticNavigationToolBar;
     }
 }
@@ -86,7 +86,7 @@ void
 GUIGlChildWindow::create() {
     FXMDIChild::create();
     // only create static navigation bar if it was created
-    if(myStaticNavigationToolBar) {
+    if (myStaticNavigationToolBar) {
         myStaticNavigationToolBar->create();
     } else {
         myGripNavigationToolbar->create();
@@ -96,13 +96,13 @@ GUIGlChildWindow::create() {
 }
 
 
-GUISUMOAbstractView* 
+GUISUMOAbstractView*
 GUIGlChildWindow::getView() const {
     return myView;
 }
 
 
-GUIMainWindow* 
+GUIMainWindow*
 GUIGlChildWindow::getParent() {
     return myParent;
 }
@@ -112,53 +112,53 @@ void
 GUIGlChildWindow::buildNavigationToolBar() {
     // build the view settings
     // recenter view
-    new FXButton(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tRecenter View\tRecenter view to the simulated area.",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
+    new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                 "\tRecenter View\tRecenter view to the simulated area.",
+                 GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
     // add viewport button
-    new FXButton(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
-        GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT, GUIDesignButtonToolbar);
+    new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                 "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
+                 GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
-    MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
-        GUIIconSubSys::getIcon(ICON_ZOOMSTYLE), this, MID_ZOOM_STYLE, GUIDesignButtonToolbarCheckable);
+    MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+            "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
+            GUIIconSubSys::getIcon(ICON_ZOOMSTYLE), this, MID_ZOOM_STYLE, GUIDesignButtonToolbarCheckable);
     zoomBut->setChecked(getApp()->reg().readIntEntry("gui", "zoomAtCenter", 1) != 1);
     // build the locator popup
-    myLocatorPopup = new FXPopup(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar, POPUP_VERTICAL);
+    myLocatorPopup = new FXPopup(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, POPUP_VERTICAL);
     // build locator button
-    myLocatorButton = new FXMenuButton(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar, 
-        "\tLocate Structures\tLocate structures within the network.",
-        GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup, GUIDesignButtonToolbarLocator);
+    myLocatorButton = new FXMenuButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                                       "\tLocate Structures\tLocate structures within the network.",
+                                       GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup, GUIDesignButtonToolbarLocator);
     // add toggle button for tool-tips on/off
-    new MFXCheckableButton(false, myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
-        GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GUIDesignButtonToolbarCheckable);
+    new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                           "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
+                           GUIIconSubSys::getIcon(ICON_SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GUIDesignButtonToolbarCheckable);
 }
 
 
 void
 GUIGlChildWindow::buildColoringToolBar() {
     // Create Vertical separator
-    new FXVerticalSeparator(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // build coloring tools
-    myColoringSchemes = new FXComboBox(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar, 
-        GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
+    myColoringSchemes = new FXComboBox(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                                       GUIDesignComboBoxNCol, this, MID_COLOURSCHEMECHANGE, GUIDesignComboBoxStatic);
     // editor
-    new FXButton(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tEdit Coloring Schemes...\tOpens a menu which lets you edit the coloring schemes.",
-        GUIIconSubSys::getIcon(ICON_COLORWHEEL), this, MID_EDITVIEWSCHEME, GUIDesignButtonToolbar);
+    new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                 "\tEdit Coloring Schemes...\tOpens a menu which lets you edit the coloring schemes.",
+                 GUIIconSubSys::getIcon(ICON_COLORWHEEL), this, MID_EDITVIEWSCHEME, GUIDesignButtonToolbar);
 }
 
 
 void
 GUIGlChildWindow::buildScreenshotToolBar() {
     // Create Vertical separator
-    new FXVerticalSeparator(myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, GUIDesignVerticalSeparator);
     // snapshot
-    new MFXCheckableButton(false, myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tMake Snapshot\tMakes a snapshot of the view.",
-        GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT, GUIDesignButtonToolbar);
+    new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
+                           "\tMake Snapshot\tMakes a snapshot of the view.",
+                           GUIIconSubSys::getIcon(ICON_CAMERA), this, MID_MAKESNAPSHOT, GUIDesignButtonToolbar);
 }
 
 
@@ -170,7 +170,7 @@ GUIGlChildWindow::getBuildGLCanvas() const {
 
 FXToolBar*
 GUIGlChildWindow::getNavigationToolBar(GUISUMOAbstractView&) {
-    return myGripNavigationToolbar? myGripNavigationToolbar : myStaticNavigationToolBar;
+    return myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar;
 }
 
 
@@ -232,7 +232,7 @@ GUIGlChildWindow::onCmdZoomStyle(FXObject* sender, FXSelector, void*) {
 
 
 long
-GUIGlChildWindow::onCmdChangeColorScheme(FXObject*, FXSelector , void* data) {
+GUIGlChildWindow::onCmdChangeColorScheme(FXObject*, FXSelector, void* data) {
     myView->setColorScheme((char*) data);
     return 1;
 }

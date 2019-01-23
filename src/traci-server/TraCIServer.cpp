@@ -285,7 +285,7 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
 #ifdef HAVE_PYTHON
             || OptionsCont::getOptions().isSet("python-script")
 #endif
-                                                   )) {
+                                                         )) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
                                      OptionsCont::getOptions().getInt("remote-port"),
                                      OptionsCont::getOptions().getInt("num-clients"));
@@ -786,7 +786,7 @@ TraCIServer::readCommandID(int& commandStart, int& commandLength) {
         commandLength = myInputStorage.readInt();
     }
 #ifdef DEBUG_RAW_INPUT
-    std::cout << " commandStart=" << commandStart << " commandLength=" << commandLength << " pos=" << myInputStorage.position() << " raw="; 
+    std::cout << " commandStart=" << commandStart << " commandLength=" << commandLength << " pos=" << myInputStorage.position() << " raw=";
     for (auto it = myInputStorage.begin(); it != myInputStorage.end(); ++it) {
         std::cout << (int)*it << " ";
     }
@@ -1356,7 +1356,7 @@ TraCIServer::addSubscriptionFilter() {
             // Read relative lanes to consider for context filter
             addSubscriptionFilterLeadFollow();
         }
-            break;
+        break;
         case FILTER_TYPE_TURN:
             addSubscriptionFilterTurn();
             break;
@@ -1477,7 +1477,7 @@ TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Stora
 }
 
 
-void 
+void
 TraCIServer::writePositionVector(tcpip::Storage& outputStorage, const libsumo::TraCIPositionVector& shape) {
     outputStorage.writeUnsignedByte(TYPE_POLYGON);
     if (shape.size() < 256) {

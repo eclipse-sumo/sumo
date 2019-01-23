@@ -207,7 +207,7 @@ GNEAdditionalHandler::myEndElement(int element) {
                 if (TAZ->getShape().size() == 0) {
                     Boundary b;
                     if (TAZ->getAdditionalChilds().size() > 0) {
-                        for (const auto &i : TAZ->getAdditionalChilds()) {
+                        for (const auto& i : TAZ->getAdditionalChilds()) {
                             b.add(i->getCenteringBoundary());
                         }
                         PositionVector boundaryShape;
@@ -279,7 +279,7 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
 }
 
 
-void 
+void
 GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Vaporizer
@@ -315,7 +315,7 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
 }
 
 
-void 
+void
 GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Vaporizer
@@ -339,7 +339,7 @@ GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, con
 }
 
 
-void 
+void
 GNEAdditionalHandler::parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
     bool abort = false;
     // parse attributes of Vaporizer
@@ -445,7 +445,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
         } else if (calibrator != nullptr) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildCalibratorFlow(myViewNet, true, calibrator, route, vtype, vehsPerHour, speed, color, departLane, departPos, departSpeed, arrivalLane, arrivalPos, arrivalSpeed,
-                                                                        line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end));
+                    line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end));
         }
     }
 }
@@ -454,7 +454,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
 void
 GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
     // we have two cases: if we're parsing a Shape or we're parsing an Additional
-    if(getLastParameterised()) {
+    if (getLastParameterised()) {
         bool ok = true;
         std::string key;
         if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
@@ -1022,16 +1022,16 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
 void
 GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag& /* tag */) {
     // Tag E2 detectors can build either E2 single lanes or E2 multilanes, depending of attribute "lanes"
-    SumoXMLTag E2Tag = attrs.hasAttribute(SUMO_ATTR_LANES)? SUMO_TAG_E2DETECTOR_MULTILANE : SUMO_TAG_E2DETECTOR;
+    SumoXMLTag E2Tag = attrs.hasAttribute(SUMO_ATTR_LANES) ? SUMO_TAG_E2DETECTOR_MULTILANE : SUMO_TAG_E2DETECTOR;
     bool abort = false;
     // start parsing ID
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", E2Tag, SUMO_ATTR_ID, abort);
     // parse attributes of E2 SingleLanes
-    std::string laneId = (E2Tag == SUMO_TAG_E2DETECTOR)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_LANE, abort):"";
-    double length = (E2Tag == SUMO_TAG_E2DETECTOR)?GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_LENGTH, abort):0;
+    std::string laneId = (E2Tag == SUMO_TAG_E2DETECTOR) ? GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_LANE, abort) : "";
+    double length = (E2Tag == SUMO_TAG_E2DETECTOR) ? GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_LENGTH, abort) : 0;
     // parse attributes of E2 Multilanes
-    std::string laneIds = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE)?GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_LANES, abort):"";
-    double endPos = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE)?GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_ENDPOS, abort):0;
+    std::string laneIds = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE) ? GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_LANES, abort) : "";
+    double endPos = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE) ? GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_ENDPOS, abort) : 0;
     // parse common attributes
     double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_POSITION, abort);
     double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_FREQUENCY, abort);
@@ -1047,7 +1047,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check if at leas lane or laneIDS are defined
-        if(laneId.empty() && laneIds.empty()) {
+        if (laneId.empty() && laneIds.empty()) {
             WRITE_WARNING("A " + toString(E2Tag) + " needs at least a lane or a list of lanes.");
         } else {
             // get pointer to lane
@@ -1055,7 +1055,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
             // get list of lanes
             std::vector<GNELane*> lanes;
             bool laneConsecutives = true;
-            if(GNEAttributeCarrier::canParse<std::vector<GNELane*> >(myViewNet->getNet(), laneIds, false)) {
+            if (GNEAttributeCarrier::canParse<std::vector<GNELane*> >(myViewNet->getNet(), laneIds, false)) {
                 lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(myViewNet->getNet(), laneIds);
                 // check if lanes are consecutives
                 laneConsecutives = GNEAttributeCarrier::lanesConsecutives(lanes);
@@ -1698,7 +1698,7 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 GNEAdditional*
 GNEAdditionalHandler::buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
-                                                const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
+        const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
@@ -1718,8 +1718,8 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowU
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*> &lanes, double pos, double endPos, double freq, const std::string& filename,
-                                      const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, double freq, const std::string& filename,
+        const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr) {
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lanes, viewNet, pos, endPos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
@@ -2120,8 +2120,8 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
 }
 
 
-GNEAdditional* 
-GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, const PositionVector &shape, const RGBColor &color, const std::vector<GNEEdge*> &edges, bool blockMovement) {
+GNEAdditional*
+GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement) {
     GNETAZ* TAZ = new GNETAZ(id, viewNet, shape, color, blockMovement);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
@@ -2154,17 +2154,17 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
 }
 
 
-GNEAdditional* 
-GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double departWeight) {
-    GNEAdditional *TAZSink = nullptr;
+GNEAdditional*
+GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double departWeight) {
+    GNEAdditional* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
     for (auto i : TAZ->getAdditionalChilds()) {
-        if((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSink = i;
         }
     }
     // check if TAZSink has to be created
-    if(TAZSink == nullptr) {
+    if (TAZSink == nullptr) {
         // Create TAZ with weight 0 (default)
         TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
         if (allowUndoRedo) {
@@ -2177,15 +2177,15 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
         }
     }
     // now check check if TAZSource exist
-    GNEAdditional *TAZSource = nullptr;
+    GNEAdditional* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
     for (auto i : TAZ->getAdditionalChilds()) {
-        if((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSource = i;
         }
     }
     // check if TAZSource has to be created
-    if(TAZSource == nullptr) {
+    if (TAZSource == nullptr) {
         // Create TAZ only with departWeight
         TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, departWeight);
         if (allowUndoRedo) {
@@ -2211,17 +2211,17 @@ GNEAdditionalHandler::buildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, GN
 }
 
 
-GNEAdditional* 
-GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional *TAZ, GNEEdge *edge, double arrivalWeight) {
-    GNEAdditional *TAZSource = nullptr;
+GNEAdditional*
+GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double arrivalWeight) {
+    GNEAdditional* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
     for (auto i : TAZ->getAdditionalChilds()) {
-        if((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSource = i;
         }
     }
     // check if TAZSource has to be created
-    if(TAZSource == nullptr) {
+    if (TAZSource == nullptr) {
         // Create TAZ with empty value
         TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
         if (allowUndoRedo) {
@@ -2233,15 +2233,15 @@ GNEAdditionalHandler::buildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, GNEA
             TAZSource->incRef("buildTAZSink");
         }
     }
-    GNEAdditional *TAZSink = nullptr;
+    GNEAdditional* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
     for (auto i : TAZ->getAdditionalChilds()) {
-        if((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSink = i;
         }
     }
     // check if TAZSink has to be created
-    if(TAZSink == nullptr) {
+    if (TAZSink == nullptr) {
         // Create TAZ only with arrivalWeight
         TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
         if (allowUndoRedo) {
@@ -2287,7 +2287,7 @@ GNEAdditionalHandler::getFileName(const SUMOSAXAttributes& attrs, const std::str
 
 
 double
-GNEAdditionalHandler::getPosition(double pos, GNELane& lane, bool friendlyPos , const std::string& additionalID) {
+GNEAdditionalHandler::getPosition(double pos, GNELane& lane, bool friendlyPos, const std::string& additionalID) {
     if (pos < 0) {
         pos = lane.getLaneShapeLength() + pos;
     }
@@ -2403,7 +2403,7 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveAdditionalParent(GNE
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
         return nullptr;
     } else {
-        if(myInsertedElements.size() < 2) {
+        if (myInsertedElements.size() < 2) {
             // additional was hierarchically bad loaded, then return nullptr
             return nullptr;
         } else if ((myInsertedElements.end() - 2)->second == nullptr) {
@@ -2427,7 +2427,7 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveAdditionalParent(GNE
 }
 
 
-GNEAdditional* 
+GNEAdditional*
 GNEAdditionalHandler::HierarchyInsertedAdditionals::getLastInsertedAdditional() const {
     // ierate in reverse mode over myInsertedElements to obtain last inserted additional
     for (std::vector<std::pair<SumoXMLTag, GNEAdditional*> >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {

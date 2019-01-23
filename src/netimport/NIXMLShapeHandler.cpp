@@ -33,11 +33,11 @@
 // ===========================================================================
 
 NIXMLShapeHandler::NIXMLShapeHandler(ShapeContainer& sc, const NBEdgeCont& ec) :
-    ShapeHandler("polgyon - file", sc, GeoConvHelper::getNumLoaded() == 0 ? nullptr : &GeoConvHelper::getLoaded()),
-    myEdgeCont(ec) 
-    {}
+    ShapeHandler("polgyon - file", sc, GeoConvHelper::getNumLoaded() == 0 ? nullptr : & GeoConvHelper::getLoaded()),
+    myEdgeCont(ec)
+{}
 
-Position 
+Position
 NIXMLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
     std::string edgeID;
     int laneIndex;

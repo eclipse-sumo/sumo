@@ -39,7 +39,7 @@ NBDistrictCont::NBDistrictCont() {}
 
 NBDistrictCont::~NBDistrictCont() {
     for (DistrictCont::iterator i = myDistricts.begin(); i != myDistricts.end(); i++) {
-        delete((*i).second);
+        delete ((*i).second);
     }
     myDistricts.clear();
 }

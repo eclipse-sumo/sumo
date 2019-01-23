@@ -43,7 +43,7 @@ PHEMCEPHandler::PHEMCEPHandler() {
 PHEMCEPHandler::~PHEMCEPHandler() {
     std::map<SUMOEmissionClass, PHEMCEP*>::iterator iter = _ceps.begin();
     while (iter != _ceps.end()) {
-        delete(iter->second);
+        delete (iter->second);
         iter++;
     } // end while
     _ceps.clear();

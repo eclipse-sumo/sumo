@@ -63,7 +63,7 @@ public:
     };
 
 private:
-    typedef MsgHandler*(*Factory)(MsgType);
+    typedef MsgHandler* (*Factory)(MsgType);
 
 public:
     /// @brief Sets the factory function to use for new MsgHandlers

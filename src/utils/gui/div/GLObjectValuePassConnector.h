@@ -99,7 +99,7 @@ public:
     static void clear() {
         FXMutexLock locker(myLock);
         while (!myContainer.empty()) {
-            delete(*myContainer.begin());
+            delete (*myContainer.begin());
         }
         myContainer.clear();
     }

@@ -227,7 +227,7 @@ GUILoadThread::run() {
     }
     delete eb;
     submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView,
-            oc.getBool("registry-viewport"));
+                        oc.getBool("registry-viewport"));
     return 0;
 }
 

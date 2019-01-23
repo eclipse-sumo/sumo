@@ -48,7 +48,7 @@ public:
         ~CurrentJunction();
 
         /// @brief set current junction label
-        void updateCurrentJunctionLabel(const std::string &junctionID);
+        void updateCurrentJunctionLabel(const std::string& junctionID);
 
     private:
         /// @brief Label for current Junction
@@ -260,7 +260,7 @@ public:
     /**@brief add Crossing element
      * @param objectsUnderCursor collection of objects under cursor after click over view
      */
-    void addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    void addCrossing(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief create crossing (used when user press ENTER key in Crossing mode)
     void createCrossingHotkey();

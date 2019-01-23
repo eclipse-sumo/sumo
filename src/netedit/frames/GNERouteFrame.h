@@ -57,7 +57,7 @@ public:
         ~RouteModeSelector();
 
         /// @brief get current route mode
-        const RouteMode &getCurrenRouteMode() const;
+        const RouteMode& getCurrenRouteMode() const;
 
         /// @brief set current route mode type manually
         void setCurrentRouteMode(RouteMode routemode);
@@ -144,7 +144,7 @@ public:
 
         /// @bief FXButton for abort creating route
         FXButton* myAbortCreationButton;
-        
+
         /// @brief vector with current route edges
         std::vector<GNEEdge*> myRouteEdges;
     };

@@ -890,7 +890,7 @@ NIImporter_Vissim::~NIImporter_Vissim() {
     NIVissimConnection::clearDict();
     NIVissimConflictArea::clearDict();
     for (ToParserMap::iterator i = myParsers.begin(); i != myParsers.end(); i++) {
-        delete(*i).second;
+        delete (*i).second;
     }
 }
 

@@ -116,11 +116,11 @@ GNEDemandHandler::parseAndBuildRoute(const SUMOSAXAttributes& attrs, const SumoX
 
 GNEDemandElement*
 GNEDemandHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
-                                       double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
-                                       double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
-                                       SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
-                                       const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
-                                       double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) {
+                                   double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
+                                   double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
+                                   SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
+                                   const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
+                                   double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) {
     if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleTypeID, false) == nullptr) {
         // create vehicle type and add it to calibrator parent
         GNEVehicleType* vType = new GNEVehicleType(viewNet, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
@@ -180,7 +180,7 @@ GNEDemandHandler::parseAndBuildVehicleType(const SUMOSAXAttributes& attrs, const
         } else {
             // save ID of last created element
             myHierarchyInsertedDemandElements.commitElementInsertion(buildVehicleType(myViewNet, true, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed, speedFactor, speedDev, color, vClass, emissionClass, shape, width,
-                                                                     filename, impatience, laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat));
+                    filename, impatience, laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration, loadingDuration, latAlignment, minGapLat, maxSpeedLat));
         }
     }
 }
@@ -222,7 +222,7 @@ GNEDemandHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
                 */
             }
         } else {
-        WRITE_WARNING("DemandElements of type '" + myHierarchyInsertedDemandElements.getLastInsertedDemandElement()->getTagStr() + "' doesn't support Generic Parameters");
+            WRITE_WARNING("DemandElements of type '" + myHierarchyInsertedDemandElements.getLastInsertedDemandElement()->getTagStr() + "' doesn't support Generic Parameters");
         }
     } else {
         WRITE_WARNING("Generic Parameters has to be declared within the definition of an demand element element");
@@ -277,7 +277,7 @@ GNEDemandHandler::HierarchyInsertedDemandElements::retrieveDemandElementParent(G
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
         return nullptr;
     } else {
-        if(myInsertedElements.size() < 2) {
+        if (myInsertedElements.size() < 2) {
             // demand element was hierarchically bad loaded, then return nullptr
             return nullptr;
         } else if ((myInsertedElements.end() - 2)->second == nullptr) {
@@ -301,7 +301,7 @@ GNEDemandHandler::HierarchyInsertedDemandElements::retrieveDemandElementParent(G
 }
 
 
-GNEDemandElement* 
+GNEDemandElement*
 GNEDemandHandler::HierarchyInsertedDemandElements::getLastInsertedDemandElement() const {
     // ierate in reverse mode over myInsertedElements to obtain last inserted demand element
     for (std::vector<std::pair<SumoXMLTag, GNEDemandElement*> >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {

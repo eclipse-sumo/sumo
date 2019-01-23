@@ -137,13 +137,13 @@ GNEDemandElement::writeDemandElement(OutputDevice& device) const {
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
-                        } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                             device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                             // write 0 only if is different from 0 (the default value)
-                            if(pos.z() != 0) {
+                            if (pos.z() != 0) {
                                 device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                             }
                         } else {
@@ -162,13 +162,13 @@ GNEDemandElement::writeDemandElement(OutputDevice& device) const {
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
-                    } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                    } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                         // get position attribute and write it separate
                         Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                         device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                         device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                         // write 0 only if is different from 0 (the default value)
-                        if(pos.z() != 0) {
+                        if (pos.z() != 0) {
                             device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                         }
                     } else {
@@ -210,19 +210,19 @@ GNEDemandElement::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNEDemandElement::isDemandElementValid() const {
     return true;
 }
 
 
-std::string 
+std::string
 GNEDemandElement::getDemandElementProblem() const {
     return "";
 }
 
 
-void 
+void
 GNEDemandElement::fixDemandElementProblem() {
     throw InvalidArgument(getTagStr() + " cannot fix any problem");
 }
@@ -242,7 +242,7 @@ GNEDemandElement::startGeometryMoving() {
     const TagProperties& tagProperties = myTagProperty;
     // check if position over lane or lanes has to be saved
     if (tagProperties.canBePlacedOverLane()) {
-        if(tagProperties.canMaskStartEndPos()) {
+        if (tagProperties.canMaskStartEndPos()) {
             // obtain start and end position
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
             myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
@@ -591,7 +591,7 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, myTagProperty.getNumberOfAttributes());
     // Iterate over attributes
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
         if (i.second.isUnique()) {
             ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
@@ -662,7 +662,7 @@ GNEDemandElement::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) 
 }
 
 
-void 
+void
 GNEDemandElement::updateDemandElementParent() {
     // by default nothing to do
 }
@@ -671,7 +671,7 @@ GNEDemandElement::updateDemandElementParent() {
 GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
 
 
-void 
+void
 GNEDemandElement::DemandElementGeometry::clearGeometry() {
     shape.clear();
     multiShape.clear();
@@ -683,7 +683,7 @@ GNEDemandElement::DemandElementGeometry::clearGeometry() {
 }
 
 
-void 
+void
 GNEDemandElement::DemandElementGeometry::calculateMultiShapeUnified() {
     // merge all multishape parts in a single shape
     for (auto i : multiShape) {
@@ -692,7 +692,7 @@ GNEDemandElement::DemandElementGeometry::calculateMultiShapeUnified() {
 }
 
 
-void 
+void
 GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
     // Get number of parts of the shape
     int numberOfSegments = (int)shape.size() - 1;
@@ -716,14 +716,14 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
 }
 
 
-void 
+void
 GNEDemandElement::DemandElementGeometry::calculateMultiShapeRotationsAndLengths() {
     // Get number of parts of the shape for every part shape
     std::vector<int> numberOfSegments;
     for (auto i : multiShape) {
         // numseg cannot be 0
         int numSeg = (int)i.size() - 1;
-        numberOfSegments.push_back((numSeg>=0)? numSeg : 0);
+        numberOfSegments.push_back((numSeg >= 0) ? numSeg : 0);
         multiShapeRotations.push_back(std::vector<double>());
         multiShapeLengths.push_back(std::vector<double>());
     }
@@ -747,7 +747,7 @@ GNEDemandElement::DemandElementGeometry::calculateMultiShapeRotationsAndLengths(
 }
 
 
-GNEDemandElement::ChildConnections::ChildConnections(GNEDemandElement *demandElementName) : 
+GNEDemandElement::ChildConnections::ChildConnections(GNEDemandElement* demandElementName) :
     myDemandElement(demandElementName) {}
 
 
@@ -863,7 +863,7 @@ GNEDemandElement::ChildConnections::draw() const {
 void
 GNEDemandElement::setDefaultValues() {
     // iterate over attributes and set default value
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         if (i.second.hasDefaultValue()) {
             setAttribute(i.first, i.second.getDefaultValue());
         }
@@ -887,7 +887,7 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 }
 
 
-bool 
+bool
 GNEDemandElement::isValidDetectorID(const std::string& newID) const {
     if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myViewNet->getNet()->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;

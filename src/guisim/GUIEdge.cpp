@@ -231,9 +231,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == EDGEFUNC_INTERNAL;
     const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA);
     const bool drawStreetName = s.streetName.show && myStreetName != "";
-    const bool drawEdgeValue = s.edgeValue.show && (myFunction == EDGEFUNC_NORMAL 
-            || (myFunction == EDGEFUNC_INTERNAL && !s.drawJunctionShape)
-            || ((myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA) && s.drawCrossingsAndWalkingareas));
+    const bool drawEdgeValue = s.edgeValue.show && (myFunction == EDGEFUNC_NORMAL
+                               || (myFunction == EDGEFUNC_INTERNAL && !s.drawJunctionShape)
+                               || ((myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA) && s.drawCrossingsAndWalkingareas));
     if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
@@ -263,9 +263,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             if (drawEdgeValue) {
                 const int activeScheme = s.getLaneEdgeMode();
                 // use value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
-                double value = (MSGlobals::gUseMesoSim 
-                    ? getColorValue(s, activeScheme)
-                    : lane2->getColorValue(s, activeScheme));
+                double value = (MSGlobals::gUseMesoSim
+                                ? getColorValue(s, activeScheme)
+                                : lane2->getColorValue(s, activeScheme));
                 GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
             }
         }
@@ -410,13 +410,13 @@ GUIEdge::setFunctionalColor(const GUIColorer& c) const {
     const int activeScheme = c.getActive();
     int activeMicroScheme = -1;
     switch (activeScheme) {
-        case 0: 
+        case 0:
             activeMicroScheme = 0; // color uniform
             break;
-        case 9: 
+        case 9:
             activeMicroScheme = 18; // color by angle
             break;
-        case 17: 
+        case 17:
             activeMicroScheme = 30; // color by TAZ
             break;
         default:
