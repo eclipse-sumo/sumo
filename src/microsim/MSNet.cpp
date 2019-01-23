@@ -89,6 +89,7 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <utils/vehicle/FareModul.h>
 
 #include "MSTransportableControl.h"
 #include "MSEdgeControl.h"
@@ -957,8 +958,7 @@ MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited
         }
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingMode == ROUTING_MODE_COMBINED) {
-            // replace nullptr here by your EffortCalculator
-            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, nullptr);
+            myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, new FareModul());
         } else {
             myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode);
         }
@@ -975,12 +975,17 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
         const MSEdge* const edge = &i.second->getLane().getEdge();
         router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), SUMO_TAG_PARKING_AREA);
     }
+    EffortCalculator* const external = router.getExternalEffort();
     // add access to all public transport stops
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
         const MSEdge* const edge = &i.second->getLane().getEdge();
-        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), SUMO_TAG_BUS_STOP);
+        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge),
+                                       i.second->getAccessDistance(edge), SUMO_TAG_BUS_STOP);
         for (const auto& a : i.second->getAllAccessPos()) {
             router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP);
+        }
+        if (external != nullptr) {
+            external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);
         }
     }
     myInstance->getInsertionControl().adaptIntermodalRouter(router);
@@ -1020,5 +1025,6 @@ MSNet::warnOnce(const std::string& typeAndID) {
     }
     return false;
 }
+
 
 /****************************************************************************/

@@ -126,6 +126,9 @@ public:
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
                         into.back().destStop = iEdge->getID();
+                        if (myExternalEffort != nullptr) {
+                            into.back().description = myExternalEffort->output(iEdge->getNumericalID());
+                        }
                         if (lastLine == "!ped") {
                             lastLine = ""; // a stop always starts a new trip item
                         }
@@ -223,6 +226,10 @@ public:
         return myIntermodalNet;
     }
 
+    EffortCalculator* getExternalEffort() const {
+        return myExternalEffort;
+    }
+
 private:
     IntermodalRouter(Network* net, const int carWalkTransfer, const std::string& routingAlgorithm,
                      const int routingMode, EffortCalculator* calc) :
@@ -235,7 +242,7 @@ private:
     }
 
     static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
-        return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge->getNumericalID());
+      return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge->getNumericalID());
     }
 
     inline void createNet() {
@@ -259,11 +266,11 @@ private:
                     break;
                 case 3:
                     if (myExternalEffort != nullptr) {
-                        std::vector<std::string> edgeIDs;
+                        std::vector<std::string> edgeLines;
                         for (const auto e : myIntermodalNet->getAllEdges()) {
-                            edgeIDs.push_back(e->getID());
+                            edgeLines.push_back(e->getLine());
                         }
-                        myExternalEffort->init(edgeIDs);
+                        myExternalEffort->init(edgeLines);
                     }
                     myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getCombined, &_IntermodalEdge::getTravelTimeStatic, false, myExternalEffort);
                     break;

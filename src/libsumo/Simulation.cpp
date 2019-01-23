@@ -514,7 +514,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     if (walkFactor < 0) {
         walkFactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
     }
-    const double externalFactor = StringUtils::toDouble(pedType->getParameter().getParameter("externalEffortFactor", "1.0"));
+    const double externalFactor = StringUtils::toDouble(pedType->getParameter().getParameter("externalEffortFactor", "100"));
     if (departPos < 0) {
         departPos += fromEdge->getLength();
     }

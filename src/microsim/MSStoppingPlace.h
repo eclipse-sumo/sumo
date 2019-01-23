@@ -29,6 +29,7 @@
 #include <map>
 #include <string>
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -56,7 +57,7 @@ class Position;
  * Please note that using the last free space disallows vehicles to enter a
  *  free space in between other vehicles.
  */
-class MSStoppingPlace : public Named {
+class MSStoppingPlace : public Named, public Parameterised {
 public:
     /** @brief Constructor
      *

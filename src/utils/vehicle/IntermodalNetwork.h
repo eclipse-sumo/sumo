@@ -408,7 +408,7 @@ public:
     _IntermodalEdge* getStopEdge(const std::string& stopId) const {
         auto it = myStopConnections.find(stopId);
         if (it == myStopConnections.end()) {
-            return 0;
+            return nullptr;
         }
         return it->second;
     }
