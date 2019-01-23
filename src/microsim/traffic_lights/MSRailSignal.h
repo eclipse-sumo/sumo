@@ -89,7 +89,8 @@ public:
      *
      * @return The state actually required for this signal.
      */
-    std::string getAppropriateState();
+    bool conflictLaneOccupied(int index);
+    bool hasLinkConflict(int index);
 
     /// @brief updates the current phase of the signal
     void updateCurrentPhase();
@@ -195,21 +196,22 @@ public:
 
 protected:
 
-    /// The set of lanes going out from the junction
-    std::vector<MSLane*> myOutgoingLanes;
+    /// The conflict lanes for each link index
+    std::vector<std::vector<MSLane*> > myConflictLanes;
 
-    /// A map that maps an outgoing lane from the junction  to its set of links that lead to this lane
-    std::map<MSLane*, std::vector<MSLink*> > myLinksToLane;
+    /// The conflict links for each link index
+    std::vector<std::vector<MSLink*> > myConflictLinks;
 
-    /// A map that maps a link from the junction to its vector of lanes leading from a previous signal to this link
-    std::map<MSLink*, std::vector<const MSLane*> > myAfferentBlocks;
+    /// @brief collect conflict lanes in step 1
+    void collectForwardBlock(MSLane* toLane, int length, std::vector<MSLane*>& forwardBlock);
 
-    /// A map that maps an outgoing lane from the junction to its vector of lanes leading to the next signal
-    std::map<MSLane*, std::vector<const MSLane*> > mySucceedingBlocks;
+    /// @brief collect bidirectional conflict lanes in step 2
+    void collectBidiBlock(MSLane* toLane, int length, bool foundSwitch, std::vector<MSLane*>& bidiBlock);
 
-    /// A map of lanes to links of approaching vehicles of succeeding blocks
-    std::map<const MSLane*, std::vector<const MSLink*> > mySucceedingBlocksIncomingLinks;
-
+    /// @brief collect additional conflict lanes and conflict links in step 3
+    void collectConflictLinks(MSLane* toLane, double length, 
+            std::set<MSLane*, ComparatorNumericalIdLess>& conflictLanesSet, 
+            std::vector<MSLink*>& conflictLinks);
 
 protected:
 
