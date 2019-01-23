@@ -18,10 +18,15 @@
 #ifndef SUMO_FAREZONES_H
 #define SUMO_FAREZONES_H
 
+// ===========================================================================
+// included modules
+// ===========================================================================
+#include <config.h>
+
 #include <unordered_map>
 #include <cstdint>
 
-static std::unordered_map<uint64_t, int> repToFareZone = std::unordered_map<uint64_t, int> {
+static std::unordered_map<long long int, int> repToFareZone = std::unordered_map<long long int, int> {
     {1, 110},
     {2, 121},
     {4, 122},
@@ -86,7 +91,7 @@ static std::unordered_map<uint64_t, int> repToFareZone = std::unordered_map<uint
     {2305843009213693952, 324}
 };
 
-static std::unordered_map<int, uint64_t> fareZoneToRep  = std::unordered_map<int, uint64_t > {
+static std::unordered_map<int, long long int> fareZoneToRep  = std::unordered_map<int, long long int > {
     {110, 1 },
     {121, 2 },
     {122, 4 },

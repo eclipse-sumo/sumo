@@ -14,6 +14,13 @@
 ///
 // Fare Modul for calculating prices during intermodal routing
 /****************************************************************************/
+#ifndef SUMO_FAREMODUL_H
+#define SUMO_FAREMODUL_H
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#include <config.h>
 
 #include <cassert>
 #include <string>
@@ -21,10 +28,11 @@
 #include "EffortCalculator.h"
 #include "FareToken.h"
 #include "FareZones.h"
-#ifndef SUMO_FAREMODUL_H
-#define SUMO_FAREMODUL_H
 
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class ZoneCounter {
 public:
 
@@ -33,12 +41,12 @@ public:
 
     }
 
-    inline  void addZone(int zoneNumber) {
+    inline void addZone(int zoneNumber) {
         zoneNumber = getOverlayZone(zoneNumber);
         if (zoneNumber == 0) {
             return;
         }
-        uint64_t repNum = fareZoneToRep[ zoneNumber ];
+        long long int repNum = fareZoneToRep[zoneNumber];
         //assert power of 2
         if (bitcount(repNum) == 0) {
             return;
@@ -53,9 +61,9 @@ public:
 
 
 private:
-    inline int bitcount(unsigned long int intVal) const {
+    inline int bitcount(long long int intVal) const {
         int count = 0;
-        uint64_t counter = intVal;
+        long long int counter = intVal;
 
         while (counter != 0) {
             counter = counter & (counter - 1);
@@ -65,7 +73,7 @@ private:
     }
 
 private:
-    uint64_t myCount;
+    long long int myCount;
 
 
 };
