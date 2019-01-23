@@ -42,6 +42,7 @@ const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
+const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 
 
 // ===========================================================================
@@ -2527,14 +2528,17 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                 "The RGBA color with which the polygon shall be displayed",
                 "red");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_FILL,
+                                                 ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE,
                 "An information whether the polygon shall be filled",
                 "0");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LINEWIDTH,
+                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                 "The default line width for drawing an unfilled polygon",
                 "1");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LAYER,
+                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
                 "The layer in which the polygon lies",
                 toString(Shape::DEFAULT_LAYER));
@@ -2558,7 +2562,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     currentTag = SUMO_TAG_POI;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_GEOPOSITION, shape, ICON_LOCATEPOI /* temporal */);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_SHAPE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE | TAGPROPERTY_BLOCKMOVEMENT | TAGPROPERTY_MASKXYZPOSITION | TAGPROPERTY_GEOPOSITION, shape, ICON_LOCATEPOI /* temporal */);
         // set values of attributes
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_ID,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

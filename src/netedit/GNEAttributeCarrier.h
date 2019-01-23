@@ -505,6 +505,9 @@ public:
     static const std::string FEATURE_APPROVED;
     /// @}
 
+    /// @brief invalid double position
+    static const double INVALID_POSITION;
+
     /// @brief method for getting the attribute in the context of object selection
     virtual std::string getAttributeForSelection(SumoXMLAttr key) const;
 
@@ -610,14 +613,36 @@ public:
             // return a dummy value
             return parse<T>("");
         }
-        // obtain attribute properties (Only for improving efficiency)
-        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
-        // check if we're obtaining attribute of an object with an already parsed ID
+        // now check if we're obtaining attribute of an object with an already parsed ID
         if (objectID != "") {
             additionalOfWarningMessage = tagProperties.getTagStr() + " with ID '" + objectID + "'";
         } else {
             additionalOfWarningMessage = tagProperties.getTagStr();
         }
+        // now check if we're parsing a GEO Attribute
+        if (tagProperties.hasGEOPosition() && ((attribute == SUMO_ATTR_LON) || (attribute == SUMO_ATTR_LAT))) {
+            // first check if GEO Attribute is defined
+            if (attrs.hasAttribute(attribute)) {
+                // First check if attribute can be parsed to string
+                parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
+                // check that sucesfully parsed attribute can be converted to type double
+                if (!canParse<double>(parsedAttribute)) {
+                    WRITE_WARNING("Format of GEO attribute '" + toString(attribute) + "' of " +
+                    additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
+                    parsedOk = false;
+                    // return default value
+                    return parse<T>("0");
+                } else {
+                    // return readed value
+                    return parse<T>(parsedAttribute);
+                }
+            }
+            parsedOk = false;
+            // return default value
+            return parse<T>("0");
+        }
+        // obtain attribute properties (Only for improving efficiency)
+        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
         // set a special default value for numerical and boolean attributes (To avoid errors parsing)
         if (attrProperties.isNumerical() || attrProperties.isBool()) {
             defaultValue = "0";
