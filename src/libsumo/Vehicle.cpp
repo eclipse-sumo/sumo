@@ -25,7 +25,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>

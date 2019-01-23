@@ -32,7 +32,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/MSEdge.h>

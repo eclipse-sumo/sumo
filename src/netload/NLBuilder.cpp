@@ -39,8 +39,8 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/ToString.h>
-#include <utils/xml/SUMORouteLoaderControl.h>
-#include <utils/xml/SUMORouteLoader.h>
+#include <utils/vehicle/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMORouteLoader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <mesosim/MEVehicleControl.h>
 #include <microsim/MSVehicleControl.h>

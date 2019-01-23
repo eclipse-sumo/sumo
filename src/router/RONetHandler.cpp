@@ -31,7 +31,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
-#include <utils/xml/SUMORouteHandler.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROEdge.h"

@@ -51,7 +51,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/pedestrians/MSPModel.h>

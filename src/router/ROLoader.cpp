@@ -40,8 +40,8 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/xml/SAXWeightsHandler.h>
-#include <utils/xml/SUMORouteLoader.h>
-#include <utils/xml/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMORouteLoader.h>
+#include <utils/vehicle/SUMORouteLoaderControl.h>
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"

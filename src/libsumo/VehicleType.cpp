@@ -26,7 +26,7 @@
 #include <microsim/MSVehicleType.h>
 #include <traci-server/TraCIConstants.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include "Helper.h"
 #include "VehicleType.h"
 

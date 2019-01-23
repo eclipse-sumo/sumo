@@ -34,7 +34,7 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/XMLSubSys.h>
 #include "SUMORouteHandler.h"

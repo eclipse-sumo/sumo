@@ -9,18 +9,10 @@ set(utils_xml_STAT_SRCS
    SUMOSAXAttributesImpl_Xerces.h
    SUMOSAXAttributesImpl_Cached.cpp
    SUMOSAXAttributesImpl_Cached.h
-   SUMORouteHandler.cpp
-   SUMORouteHandler.h
-   SUMORouteLoader.cpp
-   SUMORouteLoader.h
-   SUMORouteLoaderControl.cpp
-   SUMORouteLoaderControl.h
    SUMOSAXHandler.cpp
    SUMOSAXHandler.h
    SUMOSAXReader.cpp
    SUMOSAXReader.h
-   SUMOVehicleParserHelper.cpp
-   SUMOVehicleParserHelper.h
    SUMOXMLDefinitions.cpp
    SUMOXMLDefinitions.h
    SAXWeightsHandler.cpp

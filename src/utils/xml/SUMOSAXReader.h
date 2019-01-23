@@ -25,9 +25,12 @@
 // ===========================================================================
 #include <config.h>
 
+#include <string>
+#include <vector>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax/EntityResolver.hpp>
 #include <xercesc/sax/InputSource.hpp>
+#include "SUMOXMLDefinitions.h"
 
 
 // ===========================================================================

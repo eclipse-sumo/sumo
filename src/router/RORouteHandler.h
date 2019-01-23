@@ -30,7 +30,7 @@
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/router/PedestrianRouter.h>
-#include <utils/xml/SUMORouteHandler.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 
 
 // ===========================================================================

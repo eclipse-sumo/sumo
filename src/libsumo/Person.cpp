@@ -32,7 +32,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/router/PedestrianRouter.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include "VehicleType.h"
 #include "Person.h"
 

@@ -26,11 +26,11 @@
 #include <config.h>
 
 #include <string>
+#include <utils/common/SUMOTime.h>
+#include <utils/vehicle/SUMORouteHandler.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include "MSContainer.h"
 #include "MSVehicle.h"
-#include <utils/xml/SUMORouteHandler.h>
-#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================

@@ -1,7 +1,15 @@
 set(utils_vehicle_STAT_SRCS
+   SUMORouteHandler.cpp
+   SUMORouteHandler.h
+   SUMORouteLoader.cpp
+   SUMORouteLoader.h
+   SUMORouteLoaderControl.cpp
+   SUMORouteLoaderControl.h
    SUMOVehicle.h
    SUMOVehicleParameter.cpp
    SUMOVehicleParameter.h
+   SUMOVehicleParserHelper.cpp
+   SUMOVehicleParserHelper.h
    SUMOVTypeParameter.cpp
    SUMOVTypeParameter.h)
 

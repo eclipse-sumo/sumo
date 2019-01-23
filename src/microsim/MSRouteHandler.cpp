@@ -52,7 +52,7 @@
 #include "MSStoppingPlace.h"
 #include <microsim/MSGlobals.h>
 #include <microsim/trigger/MSChargingStation.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 
 
 // ===========================================================================

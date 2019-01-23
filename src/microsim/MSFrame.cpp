@@ -39,7 +39,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/MSBaseVehicle.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSRoute.h>

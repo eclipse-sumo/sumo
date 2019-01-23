@@ -16,31 +16,9 @@ if (FOX_FOUND)
 endif ()
 
 if (SUMO_UTILS)
-    set(xml_STAT_SRCS
-        xml/GenericSAXHandler.h
-        xml/GenericSAXHandler.cpp
-        xml/SUMOSAXAttributes.cpp
-        xml/SUMOSAXAttributes.h
-        xml/SUMOSAXAttributesImpl_Binary.cpp
-        xml/SUMOSAXAttributesImpl_Binary.h
-        xml/SUMOSAXAttributesImpl_Xerces.cpp
-        xml/SUMOSAXAttributesImpl_Xerces.h
-        xml/SUMOSAXAttributesImpl_Cached.cpp
-        xml/SUMOSAXAttributesImpl_Cached.h
-        xml/SUMOSAXHandler.cpp
-        xml/SUMOSAXHandler.h
-        xml/SUMOSAXReader.cpp
-        xml/SUMOSAXReader.h
-        xml/SUMOXMLDefinitions.cpp
-        xml/SUMOXMLDefinitions.h
-        xml/SAXWeightsHandler.cpp
-        xml/SAXWeightsHandler.h
-        xml/XMLSubSys.cpp
-        xml/XMLSubSys.h
-    )
-    set(utillibs utils_distribution utils_shapes utils_options
+    set(utillibs utils_distribution utils_shapes utils_options utils_xml
         utils_geom utils_common utils_importio utils_iodevices foreign_tcpip ${PROJ_LIBRARY})
-    add_library(sumoutils SHARED ${xml_STAT_SRCS})
+    add_library(sumoutils SHARED "")
     install(TARGETS sumoutils DESTINATION lib)
     if (MSVC OR APPLE)
         target_link_libraries(sumoutils ${utillibs})

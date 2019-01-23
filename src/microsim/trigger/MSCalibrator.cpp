@@ -39,7 +39,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include "MSCalibrator.h"

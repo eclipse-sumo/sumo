@@ -27,7 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <od/ODMatrix.h>
 #include "ROMARouteHandler.h"
 

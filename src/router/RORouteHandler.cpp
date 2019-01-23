@@ -35,7 +35,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice_String.h>
