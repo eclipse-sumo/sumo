@@ -2528,18 +2528,15 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                 "The RGBA color with which the polygon shall be displayed",
                 "red");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_FILL,
-                                                 ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE,
+                ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "An information whether the polygon shall be filled",
                 "0");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LINEWIDTH,
-                                                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The default line width for drawing an unfilled polygon",
                 "1");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LAYER,
-                                                 ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The layer in which the polygon lies",
                 toString(Shape::DEFAULT_LAYER));
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_TYPE,
