@@ -1648,7 +1648,7 @@ GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
         }
         // create polygon, or show an error if polygon already exists
         if (!myShapeContainer.addPolygon(polygonID, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, false)) {
-            WRITE_ERROR("Polygon with ID '" + polygonID + "' already exists.");
+            WRITE_WARNING("Polygon with ID '" + polygonID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted Polygon
             myLastParameterised = myShapeContainer.getPolygons().get(polygonID);
@@ -1686,6 +1686,11 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
         if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
             imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
         }
+        // check if lane exist
+        if (laneID != "" && !myViewNet->getNet()->retrieveLane(laneID, false)) {
+            WRITE_WARNING("The lane '" + laneID + "' to use within the PoI '" + POIID + "' is not known.");
+            return;
+        }
         // check position
         bool useGeo = false;
         // if position is invalid, then is either a POILane or a GEOPoi
@@ -1697,24 +1702,24 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
             } else {
                 // try computing x,y from lon,lat
                 if (lat == GNEAttributeCarrier::INVALID_POSITION || lon == GNEAttributeCarrier::INVALID_POSITION) {
-                    WRITE_ERROR("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '" + POIID + "'.");
+                    WRITE_WARNING("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '" + POIID + "'.");
                     return;
                 } else if (!GeoConvHelper::getFinal().usingGeoProjection()) {
-                    WRITE_ERROR("(lon, lat) is specified for PoI '" + POIID + "' but no geo-conversion is specified for the network.");
+                    WRITE_WARNING("(lon, lat) is specified for PoI '" + POIID + "' but no geo-conversion is specified for the network.");
                     return;
                 }
                 // set GEO Position
                 pos.set(lon, lat);
                 useGeo = true;
                 if (!GeoConvHelper::getFinal().x2cartesian_const(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for PoI '" + POIID + "'.");
+                    WRITE_WARNING("Unable to project coordinates for PoI '" + POIID + "'.");
                     return;
                 }
             }
         }
         // create POI, or show an error if POI already exists
         if (!myShapeContainer.addPOI(POIID, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, false)) {
-            WRITE_ERROR("POI with ID '" + POIID + "' already exists.");
+            WRITE_WARNING("POI with ID '" + POIID + "' already exists.");
         } else {
             // update myLastParameterised with the last inserted POI
             myLastParameterised = myShapeContainer.getPOIs().get(POIID);

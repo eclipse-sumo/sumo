@@ -2578,7 +2578,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                 "A typename for the poi",
                 toString(Shape::DEFAULT_TYPE));
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LAYER,
-                ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The layer of the poi for drawing and selecting",
                 toString(Shape::DEFAULT_LAYER_POI));
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_WIDTH,
@@ -2632,7 +2632,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                 "A typename for the poi",
                 toString(Shape::DEFAULT_TYPE));
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_LAYER,
-                ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The layer of the poi for drawing and selecting",
                 toString(Shape::DEFAULT_LAYER_POI));
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_WIDTH,
