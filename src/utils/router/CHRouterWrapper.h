@@ -35,7 +35,7 @@
 #include <utils/common/SysUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include "CHRouter.h"
 

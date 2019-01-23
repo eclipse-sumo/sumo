@@ -29,7 +29,7 @@
 #include <typeinfo>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/iodevices/OutputDevice.h>
 

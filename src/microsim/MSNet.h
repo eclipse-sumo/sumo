@@ -41,7 +41,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
 

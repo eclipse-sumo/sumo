@@ -47,11 +47,11 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/vehicle/RouteCostCalculator.h>
-#include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/CHRouter.h>
-#include <utils/vehicle/CHRouterWrapper.h>
+#include <utils/router/RouteCostCalculator.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/router/AStarRouter.h>
+#include <utils/router/CHRouter.h>
+#include <utils/router/CHRouterWrapper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <od/ODCell.h>
 #include <od/ODDistrict.h>

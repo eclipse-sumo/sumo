@@ -38,8 +38,8 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>

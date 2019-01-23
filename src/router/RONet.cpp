@@ -24,9 +24,9 @@
 #include <config.h>
 
 #include <algorithm>
-#include <utils/vehicle/RouteCostCalculator.h>
+#include <utils/router/RouteCostCalculator.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>

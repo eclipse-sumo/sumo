@@ -26,7 +26,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/router/PedestrianRouter.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>

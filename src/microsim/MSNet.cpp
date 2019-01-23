@@ -58,10 +58,10 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/shapes/ShapeContainer.h>
-#include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/IntermodalRouter.h>
-#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/router/AStarRouter.h>
+#include <utils/router/IntermodalRouter.h>
+#include <utils/router/PedestrianRouter.h>
 #include <utils/xml/SUMORouteLoaderControl.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
@@ -89,7 +89,7 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/trigger/MSChargingStation.h>
-#include <utils/vehicle/FareModul.h>
+#include <utils/router/FareModul.h>
 
 #include "MSTransportableControl.h"
 #include "MSEdgeControl.h"

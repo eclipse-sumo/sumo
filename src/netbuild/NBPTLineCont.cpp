@@ -20,7 +20,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
 #include "NBPTLineCont.h"
 #include "NBPTStop.h"
 #include "NBEdge.h"

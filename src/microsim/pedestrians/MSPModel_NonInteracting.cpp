@@ -25,7 +25,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/IntermodalNetwork.h>
+#include <utils/router/IntermodalNetwork.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -41,15 +41,6 @@
 #define DEBUG1 "disabled"
 #define DEBUG2 "disabled"
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
-
-// ===========================================================================
-// named (internal) constants
-// ===========================================================================
-
-
-// ===========================================================================
-// static members
-// ===========================================================================
 
 
 // ===========================================================================

@@ -27,7 +27,7 @@
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/RouterProvider.h>
+#include <utils/router/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 

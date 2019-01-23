@@ -18,7 +18,7 @@
 #include <cassert>
 #include <string>
 #include <vector>
-#include <utils/vehicle/EffortCalculator.h>
+#include "EffortCalculator.h"
 #include "FareToken.h"
 #include "FareZones.h"
 #ifndef SUMO_FAREMODUL_H

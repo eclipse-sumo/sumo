@@ -34,7 +34,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/WrappingCommand.h>
 #include <microsim/MSEdgeWeightsStorage.h>

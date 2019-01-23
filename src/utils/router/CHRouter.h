@@ -36,7 +36,7 @@
 #include <utils/common/SysUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include "CHBuilder.h"
 
 //#define CHRouter_DEBUG_QUERY

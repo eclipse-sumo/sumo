@@ -29,7 +29,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
-#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/router/IntermodalRouter.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include "MSGlobals.h"

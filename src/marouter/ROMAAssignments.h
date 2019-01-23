@@ -25,7 +25,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/common/SUMOTime.h>
 
 // ===========================================================================

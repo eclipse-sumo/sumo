@@ -37,7 +37,7 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/router/IntermodalRouter.h>
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXConditionalLock.h>
 #endif

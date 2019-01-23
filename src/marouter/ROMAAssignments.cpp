@@ -25,14 +25,14 @@
 
 #include <vector>
 #include <algorithm>
+#include <utils/common/SUMOTime.h>
+#include <utils/distribution/Distribution_Points.h>
+#include <utils/router/RouteCostCalculator.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <router/ROEdge.h>
-#include <utils/vehicle/RouteCostCalculator.h>
 #include <router/RONet.h>
 #include <router/RORoute.h>
-#include <utils/distribution/Distribution_Points.h>
 #include <od/ODMatrix.h>
-#include <utils/common/SUMOTime.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
 #include "ROMAEdge.h"
 #include "ROMAAssignments.h"
 

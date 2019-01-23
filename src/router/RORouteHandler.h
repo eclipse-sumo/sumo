@@ -29,7 +29,7 @@
 #include <vector>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/router/PedestrianRouter.h>
 #include <utils/xml/SUMORouteHandler.h>
 
 

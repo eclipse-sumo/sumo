@@ -36,8 +36,8 @@
 #include <utils/options/OptionsCont.h>
 #include "ROEdge.h"
 #include "RORoute.h"
-#include <utils/vehicle/SUMOAbstractRouter.h>
-#include <utils/vehicle/RouteCostCalculator.h>
+#include <utils/router/SUMOAbstractRouter.h>
+#include <utils/router/RouteCostCalculator.h>
 #include "RORouteDef.h"
 #include "ROVehicle.h"
 

@@ -28,8 +28,8 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/vehicle/IntermodalRouter.h>
-#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/router/IntermodalRouter.h>
+#include <utils/router/PedestrianRouter.h>
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>

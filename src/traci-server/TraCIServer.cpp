@@ -46,7 +46,7 @@
 #include <foreign/tcpip/socket.h>
 #include <foreign/tcpip/storage.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/MsgHandler.h>

@@ -31,7 +31,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/router/PedestrianRouter.h>
 #include <utils/xml/SUMOVehicleParserHelper.h>
 #include "VehicleType.h"
 #include "Person.h"

@@ -20,7 +20,7 @@
 
 
 #include <vector>
-#include "utils/vehicle/SUMOAbstractRouter.h"
+#include "utils/router/SUMOAbstractRouter.h"
 #include "NBPTLine.h"
 #include "NBEdgeCont.h"
 

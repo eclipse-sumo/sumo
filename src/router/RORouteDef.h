@@ -28,7 +28,7 @@
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include "RORoute.h"
 
 

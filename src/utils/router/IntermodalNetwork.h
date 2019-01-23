@@ -34,13 +34,13 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/Position.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include "AccessEdge.h"
 #include "CarEdge.h"
 #include "IntermodalEdge.h"
 #include "PedestrianEdge.h"
 #include "PublicTransportEdge.h"
 #include "StopEdge.h"
-#include "SUMOVehicleParameter.h"
 
 //#define IntermodalRouter_DEBUG_NETWORK
 

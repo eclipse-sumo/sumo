@@ -31,7 +31,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/vehicle/IntermodalNetwork.h>
+#include <utils/router/IntermodalNetwork.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>

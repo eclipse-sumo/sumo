@@ -35,7 +35,7 @@
 #include <utils/common/SysUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include "SPTree.h"
 
 //#define CHRouter_DEBUG_CONTRACTION

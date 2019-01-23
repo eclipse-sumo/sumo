@@ -29,7 +29,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 
 
 // ===========================================================================

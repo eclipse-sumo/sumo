@@ -24,7 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <router/RORoutable.h>
 
 

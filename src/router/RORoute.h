@@ -29,7 +29,7 @@
 #include <string>
 #include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
 

@@ -26,8 +26,8 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/vehicle/PedestrianRouter.h>
-#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/router/PedestrianRouter.h>
+#include <utils/router/IntermodalRouter.h>
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"

@@ -29,7 +29,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
-#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
 #include "NBNetBuilder.h"
 #include "NBAlgorithms.h"
 #include "NBNodeCont.h"
