@@ -504,6 +504,7 @@ src/utils/gui/windows/Makefile
 src/utils/importio/Makefile
 src/utils/iodevices/Makefile
 src/utils/options/Makefile
+src/utils/router/Makefile
 src/utils/shapes/Makefile
 src/utils/traci/Makefile
 src/utils/vehicle/Makefile
