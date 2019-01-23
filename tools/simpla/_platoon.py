@@ -75,16 +75,18 @@ class Platoon(object):
 
         if self.size() == 0:
             return
-
-        if self.size() == 1:
-            self.setMode(PlatoonMode.NONE)
-            return
-
-        if self.getMode() == PlatoonMode.CATCHUP:
-            self.setMode(PlatoonMode.CATCHUP)
-        else:
-            # remains the regular platoon situation
-            self.setMode(PlatoonMode.LEADER)
+        try:
+            if self.size() == 1:
+                self.setMode(PlatoonMode.NONE)
+                return
+    
+            if self.getMode() == PlatoonMode.CATCHUP:
+                self.setMode(PlatoonMode.CATCHUP)
+            else:
+                # remains the regular platoon situation
+                self.setMode(PlatoonMode.LEADER)
+        except:
+            warn("Ignoring error (probably due to platoon.setMode() operation on non-existing vehicle).")
 
     def getID(self):
         '''getID() -> int
