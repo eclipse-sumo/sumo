@@ -318,7 +318,7 @@ def getReferenceMatch(neProcess, waitTime):
         print("TestFunctions: 'reference.png' found. Position: " +
               str(referencePosition[0]) + " - " + str(referencePosition[1]))
         # check that position is consistent (due scaling)
-        if (referencePosition[0] != 304 or referencePosition[1] != 140):
+        if (referencePosition[0] != 304 or referencePosition[1] != 168):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                   "is 100% (See #3746)")
         return referencePosition

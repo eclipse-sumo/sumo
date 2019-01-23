@@ -1,3 +1,0 @@
-Warning: Essential unique string attribute 'id' of route is missing; route cannot be created
-Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
-Warning: There is another route with the same ID='route01'.
