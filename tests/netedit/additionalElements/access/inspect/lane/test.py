@@ -55,16 +55,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 208, 260)
 
 # Change parameter lane with a non valid value (dummy Lane)
-netedit.modifyAttribute(3, "dummyLane")
+netedit.modifyAttribute(4, "dummyLane")
 
 # Change parameter lane with a non valid value (Empty lane)
-netedit.modifyAttribute(3, "")
+netedit.modifyAttribute(4, "")
 
 # Change parameter lane with a non valid value (There is another Access in the same edge)
-netedit.modifyAttribute(3, "gneE3_0")
+netedit.modifyAttribute(4, "gneE3_0")
 
 # Change parameter lane with a valid value (other lane)
-netedit.modifyAttribute(3, "gneE1_0")
+netedit.modifyAttribute(4, "gneE1_0")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

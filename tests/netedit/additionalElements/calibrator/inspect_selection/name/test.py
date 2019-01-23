@@ -38,10 +38,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 475, 55)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(5, "///")
+netedit.modifyAttribute(6, "///")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(5, "customName")
+netedit.modifyAttribute(6, "customName")
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

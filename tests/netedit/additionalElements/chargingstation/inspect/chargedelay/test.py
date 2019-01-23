@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 160)
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(12, "dummyChargeDelay")
+netedit.modifyAttribute(13, "dummyChargeDelay")
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(12, "-100")
+netedit.modifyAttribute(13, "-100")
 
 # Change parameter chargeDelay with a valid value
-netedit.modifyAttribute(12, "30.5")
+netedit.modifyAttribute(13, "30.5")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

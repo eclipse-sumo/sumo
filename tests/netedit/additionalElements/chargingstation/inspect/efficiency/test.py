@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 160)
 
 # Change parameter efficiency with a non valid value
-netedit.modifyAttribute(10, "dummyEfficiency")
+netedit.modifyAttribute(11, "dummyEfficiency")
 
 # Change parameter efficiency with a non valid value
-netedit.modifyAttribute(10, "-10")
+netedit.modifyAttribute(11, "-10")
 
 # Change parameter efficiency with a non valid value
-netedit.modifyAttribute(10, "20")
+netedit.modifyAttribute(11, "20")
 
 # Change parameter efficiency with a non valid value
-netedit.modifyAttribute(10, "0.5")
+netedit.modifyAttribute(11, "0.5")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

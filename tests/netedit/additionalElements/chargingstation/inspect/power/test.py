@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 160)
 
 # Change parameter Power with a non valid value (dummy)
-netedit.modifyAttribute(9, "DummyPower")
+netedit.modifyAttribute(10, "DummyPower")
 
 # Change parameter Power with a non valid value (negative)
-netedit.modifyAttribute(9, "-300")
+netedit.modifyAttribute(10, "-300")
 
 # Change parameter Power with a valid value
-netedit.modifyAttribute(9, "500.5")
+netedit.modifyAttribute(10, "500.5")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -35,19 +35,19 @@ netedit.changeAdditional("busStop")
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create busStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(9, "line1, line2")
+netedit.modifyAttribute(10, "line1, line2")
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(9, "line1 line2")
+netedit.modifyAttribute(10, "line1 line2")
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

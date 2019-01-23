@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 160)
 
 # Change parameter charge in transit
-netedit.modifyBoolAttribute(11)
+netedit.modifyBoolAttribute(12)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

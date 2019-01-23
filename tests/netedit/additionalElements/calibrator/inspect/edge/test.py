@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 205)
 
 # Change parameter id with a non valid value (non existent ID)
-netedit.modifyAttribute(4, "dummyEdge")
+netedit.modifyAttribute(5, "dummyEdge")
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(4, "gneE3")
+netedit.modifyAttribute(5, "gneE3")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

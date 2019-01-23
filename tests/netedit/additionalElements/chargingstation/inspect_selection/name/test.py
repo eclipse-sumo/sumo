@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Set name
-netedit.modifyAttribute(3, "commonName")
+netedit.modifyAttribute(4, "commonName")
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

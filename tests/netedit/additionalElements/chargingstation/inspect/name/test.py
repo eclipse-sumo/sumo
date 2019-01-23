@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 160)
 
 # Change parameter name with a non valid value
-netedit.modifyAttribute(7, "%%%;:..&&%$%$")
+netedit.modifyAttribute(8, "%%%;:..&&%$%$")
 
 # Change parameter name with a non valid value
-netedit.modifyAttribute(7, "charging station name")
+netedit.modifyAttribute(8, "charging station name")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

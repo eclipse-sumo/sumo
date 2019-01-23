@@ -35,25 +35,25 @@ netedit.changeAdditional("busStop")
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create busStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter lane with a non valid value (dummy lane)
-netedit.modifyAttribute(4, "dummy lane")
+netedit.modifyAttribute(5, "dummy lane")
 
 # Change parameter lane with a valid value (different edge)
-netedit.modifyAttribute(4, "gneE0_0")
+netedit.modifyAttribute(5, "gneE0_0")
 
 # Change parameter lane with a valid value (original edge, same lane)
-netedit.modifyAttribute(4, "gneE2_1")
+netedit.modifyAttribute(5, "gneE2_1")
 
 # Change parameter lane with a valid value (original edge, different lane)
-netedit.modifyAttribute(4, "gneE2_0")
+netedit.modifyAttribute(5, "gneE2_0")
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

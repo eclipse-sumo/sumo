@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Set charge in transit
-netedit.modifyAttribute(4, "true")
+netedit.modifyAttribute(5, "true")
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 160)
 
 # Change parameter lane with a non valid value (dummy lane)
-netedit.modifyAttribute(4, "dummy lane")
+netedit.modifyAttribute(5, "dummy lane")
 
 # Change parameter lane with a valid value (different edge)
-netedit.modifyAttribute(4, "gneE0_0")
+netedit.modifyAttribute(5, "gneE0_0")
 
 # Change parameter lane with a valid value (original edge, same lane)
-netedit.modifyAttribute(4, "gneE2_1")
+netedit.modifyAttribute(5, "gneE2_1")
 
 # Change parameter lane with a valid value (original edge, different lane)
-netedit.modifyAttribute(4, "gneE2_0")
+netedit.modifyAttribute(5, "gneE2_0")
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

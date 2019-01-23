@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 205)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(9, "///;;")
+netedit.modifyAttribute(10, "///;;")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(9, "myOwnFilename")
+netedit.modifyAttribute(10, "myOwnFilename")
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

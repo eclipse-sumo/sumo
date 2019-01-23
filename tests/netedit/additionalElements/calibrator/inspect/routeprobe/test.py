@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 205)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(8, "///;;")
+netedit.modifyAttribute(9, "///;;")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(8, "customRouteProbeName")
+netedit.modifyAttribute(9, "customRouteProbeName")
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

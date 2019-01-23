@@ -6,16 +6,19 @@
 	<!-- enabled friendlyPos -->
     <busStop id="busStop_02" lane="gneE1_0" startPos="15" endPos="20" lines="lineA lineB" name="busStop" friendlyPos="true"/>
 	
+	<!-- enabled friendlyPos (negative positions)-->
+    <busStop id="busStop_03" lane="gneE1_0" startPos="-10" endPos="-20" lines="lineA lineB" name="busStop" friendlyPos="true"/>
+	
 	<!-- enabled friendlyPos, invalid positions 1 -->
-    <busStop id="busStop_03" lane="gneE1_0" startPos="-20" endPos="-10" lines="lineA lineB" name="busStop" friendlyPos="true"/>
+    <busStop id="busStop_04" lane="gneE1_0" startPos="-20" endPos="-10" lines="lineA lineB" name="busStop" friendlyPos="true"/>
 	
 	<!-- enabled friendlyPos, invalid positions 2 -->
-    <busStop id="busStop_04" lane="gneE1_0" startPos="200" endPos="300" lines="lineA lineB" name="busStop" friendlyPos="true"/>
+    <busStop id="busStop_05" lane="gneE1_0" startPos="200" endPos="300" lines="lineA lineB" name="busStop" friendlyPos="true"/>
 	
 	<!-- enabled friendlyPos, invalid positions 3 -->
-    <busStop id="busStop_05" lane="gneE1_0" startPos="50" endPos="20" lines="lineA lineB" name="busStop" friendlyPos="true"/>
+    <busStop id="busStop_06" lane="gneE1_0" startPos="50" endPos="20" lines="lineA lineB" name="busStop" friendlyPos="true"/>
 	
 	<!-- enabled friendlyPos, invalid positions 4 -->
-    <busStop id="busStop_06" lane="gneE1_0" startPos="20" endPos="20" lines="lineA lineB" name="busStop" friendlyPos="true"/>
+    <busStop id="busStop_07" lane="gneE1_0" startPos="20" endPos="20" lines="lineA lineB" name="busStop" friendlyPos="true"/>
 	
 </additional>

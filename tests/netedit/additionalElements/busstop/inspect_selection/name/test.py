@@ -35,10 +35,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect busstops
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, 150, 265)
 
 # Set name
-netedit.modifyAttribute(3, "common BusStop Name")
+netedit.modifyAttribute(4, "common BusStop Name")
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
