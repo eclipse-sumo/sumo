@@ -447,6 +447,9 @@ MSFrame::fillOptions() {
 
     // add rand options
     RandHelper::insertRandOptions();
+    oc.doRegister("thread-rngs", new Option_Integer(64));
+    oc.addDescription("thread-rngs", "Random Number",
+                      "Number of pre-allocated random number generators to ensure repeatable multi-threaded simulations (should be at least the number of threads for repeatable simulations).");
 
     // add GUI options
     // the reason that we include them in vanilla sumo as well is to make reusing config files easy
