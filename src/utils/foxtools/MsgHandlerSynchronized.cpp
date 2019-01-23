@@ -32,7 +32,7 @@
 // static member variables
 // ===========================================================================
 #ifdef HAVE_FOX
-FXMutex MsgHandlerSynchronized::myLock;
+FXMutex MsgHandlerSynchronized::myLock(true);
 #endif
 
 
