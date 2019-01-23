@@ -198,9 +198,6 @@ protected:
     /// The set of lanes going out from the junction
     std::vector<MSLane*> myOutgoingLanes;
 
-    /// A map that maps a link to its link index
-    std::map<MSLink*, int> myLinkIndices;
-
     /// A map that maps an outgoing lane from the junction  to its set of links that lead to this lane
     std::map<MSLane*, std::vector<MSLink*> > myLinksToLane;
 

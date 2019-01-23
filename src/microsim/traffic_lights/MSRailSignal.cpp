@@ -78,7 +78,6 @@ MSRailSignal::init(NLDetectorBuilder&) {
             MSLink* link = (*i);
             MSLane* toLane = link->getLane();   //the lane this link is leading to
             myLinksToLane[toLane].push_back(link);
-            myLinkIndices[link] = (int)std::distance(myLinks.begin(), i2); //assign the index of link to link
 
             //find all lanes leading from a previous signal to link (we presume that there exists only one path from a previous signal to link)
             std::vector<const MSLane*> afferentBlock; //the vector of lanes leading from a previous signal to link
@@ -322,9 +321,8 @@ MSRailSignal::getAppropriateState() {
           of them are occupied the signals for all links leading to lane, except one whose corresponding block
           is occupied, will be set to red. the signal for the remaining block will keep green*/
         if (succeedingBlockOccupied) {      //if the succeeding block is used by a train
-            std::vector<MSLink*>::const_iterator k;
-            for (k = myLinksToLane[lane].begin(); k != myLinksToLane[lane].end(); k++) { //for every link leading to this lane
-                state.replace(myLinkIndices[*k], 1, "r"); //set the signal of the link (*k) to red
+            for (MSLink* k : myLinksToLane[lane]) { //for every link leading to this lane
+                state.replace(k->getIndex(), 1, "r"); //set the signal of the link (*k) to red
             }
         } else {
             if (myLinksToLane[lane].size() > 1) {   //if there is more than one link leading to lane
@@ -339,7 +337,7 @@ MSRailSignal::getAppropriateState() {
                             std::vector<MSLink*>::const_iterator m;
                             for (m = myLinksToLane[lane].begin(); m != myLinksToLane[lane].end(); m++) { //for every link leading to lane
                                 if (*m != *k) { //if this link is not the one corresponding to occupiedBlock
-                                    state.replace(myLinkIndices[*m], 1, "r");   //set the signal of this link to red
+                                    state.replace((*m)->getIndex(), 1, "r");   //set the signal of this link to red
                                 }
                             }
                             break;  // we don't have to check the other lanes of this block anymore
