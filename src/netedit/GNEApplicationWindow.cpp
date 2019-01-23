@@ -268,10 +268,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUIMainWindow(a),
     myLoadThread(nullptr),
     myAmLoading(false),
-    myConfigPattern(configPattern),
     hadDependentBuild(false),
     myNet(nullptr),
     myUndoList(new GNEUndoList(this)),
+    myConfigPattern(configPattern),
     myToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
@@ -912,9 +912,9 @@ GNEApplicationWindow::handleEvent_Message(GUIEvent* e) {
 // ===========================================================================
 
 GNEApplicationWindow::MenuBarFile::MenuBarFile(GNEApplicationWindow* GNEApp) :
-    myGNEApp(GNEApp),
-    myRecentNets(GNEApp->getApp(), "nets") {
-}
+    myRecentNets(GNEApp->getApp(), "nets"),
+    myGNEApp(GNEApp)
+{ }
 
 
 void
