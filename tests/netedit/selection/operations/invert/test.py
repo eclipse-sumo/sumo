@@ -58,11 +58,8 @@ netedit.redo(referencePosition, 1)
 # extra wait for debug
 time.sleep(3)
 
-# save additionals
+# save additionals and shapes
 netedit.saveAdditionals()
-
-# save shapes
-netedit.saveShapes()
 
 # save network
 netedit.saveNetwork()

@@ -90,7 +90,7 @@ netedit.deleteSelectedItems()
 netedit.saveNetwork()
 
 # save shapes
-netedit.saveShapes()
+netedit.saveAdditionals()
 
 # quit netedit
 netedit.quit(neteditProcess)

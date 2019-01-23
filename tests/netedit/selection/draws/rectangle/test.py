@@ -71,11 +71,8 @@ netedit.selectionRectangle(referencePosition, 250, 150, 400, 300)
 netedit.undo(referencePosition, 8)
 netedit.redo(referencePosition, 8)
 
-# save additionals
+# save additionals and shapes
 netedit.saveAdditionals()
-
-# save shapes
-netedit.saveShapes()
 
 # save network
 netedit.saveNetwork()

@@ -30,7 +30,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(
 netedit.rebuildNetworkWithVolatileOptions()
 
 # save shapes
-netedit.saveShapes()
+netedit.saveAdditionals()
 
 # save network
 netedit.saveNetwork()

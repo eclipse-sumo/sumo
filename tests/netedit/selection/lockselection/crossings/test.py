@@ -53,11 +53,8 @@ netedit.selectionClear()
 netedit.undo(referencePosition, 6)
 netedit.redo(referencePosition, 6)
 
-# save additionals
+# save additionals and shapes
 netedit.saveAdditionals()
-
-# save shapes
-netedit.saveShapes()
 
 # save network
 netedit.saveNetwork()

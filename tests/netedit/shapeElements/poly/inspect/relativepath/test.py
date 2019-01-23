@@ -48,7 +48,7 @@ netedit.undo(referencePosition, 23)
 netedit.redo(referencePosition, 23)
 
 # save shapes
-netedit.saveShapes()
+netedit.saveAdditionals()
 
 # save network
 netedit.saveNetwork()

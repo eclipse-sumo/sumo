@@ -41,11 +41,8 @@ netedit.redo(referencePosition, 1)
 # save network
 netedit.saveNetwork()
 
-# save additionals
+# save additionals and shapes
 netedit.saveAdditionals()
-
-# save shapes
-netedit.saveShapes()
 
 # save network
 netedit.saveNetwork()

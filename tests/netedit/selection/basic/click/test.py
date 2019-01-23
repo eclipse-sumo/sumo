@@ -62,7 +62,7 @@ netedit.leftClickControl(referencePosition, 210, 210)
 netedit.saveNetwork()
 
 # save shapes
-netedit.saveShapes()
+netedit.saveAdditionals()
 
 # quit netedit
 netedit.quit(neteditProcess)

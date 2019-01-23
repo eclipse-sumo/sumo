@@ -273,7 +273,7 @@ def Popen(extraParameters, debugInformation):
 
     # Check if demand elements must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_routes.rou.xml")):
-        NeteditCall += ['r',
+        NeteditCall += ['-r',
                         os.path.join(textTestSandBox, "input_routes.rou.xml")]
 
     # check if a gui settings file has to be load
@@ -583,16 +583,6 @@ def saveNetworkAs(waitTime=2):
 def saveAdditionals():
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
-
-
-"""
-@brief save shapes
-"""
-
-
-def saveShapes():
-    # save additionals using hotkey
-    typeThreeKeys('ctrl', 'shift', 'p')
 
 
 """

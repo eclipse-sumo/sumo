@@ -41,7 +41,7 @@ netedit.changeShape("poi")
 netedit.leftClick(referencePosition, 150, 50)
 
 # save shapes
-netedit.saveShapes()
+netedit.saveAdditionals()
 
 # save network
 netedit.saveNetwork()
