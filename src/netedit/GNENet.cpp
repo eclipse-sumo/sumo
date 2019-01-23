@@ -2022,7 +2022,8 @@ GNENet::requiereSaveAdditionals(bool value) {
     if (myAdditionalsSaved == true) {
         WRITE_DEBUG("Additionals has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved");
+        std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, demand elements " + demandElementsSaved);
     }
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
@@ -2148,7 +2149,8 @@ GNENet::requiereSaveDemandElements(bool value) {
     if (myDemandElementsSaved == true) {
         WRITE_DEBUG("DemandElements has to be saved");
         std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", demand elements unsaved");
+        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
+        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved + ", demand elements unsaved");
     }
     myDemandElementsSaved = !value;
     if (myViewNet != nullptr) {
