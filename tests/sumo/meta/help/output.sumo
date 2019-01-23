@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_1+0844-f7f8512451
+Eclipse SUMO Version v1_1_0+0435-678c69824b
  Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -500,12 +500,9 @@ Random Number Options:
                                          with the given value
   --thread-rngs INT                    Number of pre-allocated random number
                                          generators to ensure repeatable
-                                         multi-threaded simulations. This number
-                                         should be at least as high as the
-                                         number of threads. Simulations with the
-                                         same seed and the same number of
-                                         thread-rngs will produce the same
-                                         result
+                                         multi-threaded simulations (should be
+                                         at least the number of threads for
+                                         repeatable simulations).
 
 GUI Only Options:
   -g, --gui-settings-file FILE         Load visualisation settings from FILE
@@ -526,6 +523,8 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
