@@ -131,6 +131,10 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                           GNEApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onCmdToogleGrid),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,    GNEApplicationWindow::onCmdToogleShowConnections),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,        GNEApplicationWindow::onCmdToogleSelectEdges),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -369,18 +373,20 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));             // Ctrl + P
     getAccelTable()->addAccel(327692, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_P));   // Ctrl + Shift + P
     */
-    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));          // Ctrl + D
-    getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL));   // Ctrl + Shift + D
-    getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));          // Ctrl + K
-    getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));   // Ctrl + Shift + K
-    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));             // Ctrl + W
-    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));             // Ctrl + Q
-    getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));           // Ctrl + Z
-    getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));           // Ctrl + Y
-    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));            // Ctrl + V
-    getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));              // Ctrl + I
-    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));         // Ctrl + G
+    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                      // Ctrl + D
+    getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL));    // Ctrl + Shift + D
+    getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                      // Ctrl + K
+    getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));               // Ctrl + Shift + K
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));         // Ctrl + W
+    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));                   // Ctrl + Q
+    getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                       // Ctrl + Z
+    getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                       // Ctrl + Y
+    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                        // Ctrl + V
+    getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                          // Ctrl + I
+    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));   // Ctrl + G
     getAccelTable()->addAccel(262228, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT));         // Ctrl + T
+    getAccelTable()->addAccel(parseAccel("ctrl+shift+c"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS));   // Ctrl + Shift + C
+    getAccelTable()->addAccel(parseAccel("ctrl+shift+i"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES));       // Ctrl + Shift + I
     // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
     getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
@@ -1596,6 +1602,49 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
         }
         // Call manually show grid function
         myViewNet->onCmdShowGrid(nullptr, 0, nullptr);
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdToogleShowConnections(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        // Toogle menuCheckShowConnections of GNEViewNet
+        if (myViewNet->getViewOptions().menuCheckShowConnections->getCheck() == TRUE) {
+            myViewNet->getViewOptions().menuCheckShowConnections->setCheck(FALSE);
+            // show extra information for tests
+            WRITE_DEBUG("Disabled show connections throught Ctrl+shift+c hotkey");
+        } else {
+            myViewNet->getViewOptions().menuCheckShowConnections->setCheck(TRUE);
+            // show extra information for tests
+            WRITE_WARNING("Disabled show connections throught Ctrl+shift+c hotkey");
+        }
+        // Call manually toogle show connection function
+        myViewNet->onCmdToogleShowConnection(nullptr, 0, nullptr);
+
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        // Toogle selectEdges of GNEViewNet
+        if (myViewNet->getViewOptions().menuCheckSelectEdges->getCheck() == TRUE) {
+            myViewNet->getViewOptions().menuCheckSelectEdges->setCheck(FALSE);
+            // show extra information for tests
+            WRITE_DEBUG("Disabled select edges throught Ctrl+shift+i hotkey");
+        } else {
+            myViewNet->getViewOptions().menuCheckSelectEdges->setCheck(TRUE);
+            // show extra information for tests
+            WRITE_WARNING("Disabled select edges throught Ctrl+shift+i hotkey");
+        }
+        // update view
+        myViewNet->update();
     }
     return 1;
 }

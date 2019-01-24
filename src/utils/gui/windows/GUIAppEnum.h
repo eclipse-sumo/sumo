@@ -97,6 +97,10 @@ enum {
     MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
     /// @brief Close simulation - ID
     MID_HOTKEY_CTRL_W_CLOSESIMULATION,
+    /// @brief Toogle show connections in Netedit
+    MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,
+    /// @brief Toogle select edges in Netedit
+    MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,
 
     /// @}
 
