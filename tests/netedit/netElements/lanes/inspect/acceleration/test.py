@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # toogle select lanes
-netedit.selectionToogleEdges()
+netedit.toogleSelectEdges()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 5 with a valid value
-netedit.modifyBoolAttribute(7)
+netedit.modifyBoolAttribute(7, False)
 
 # recompute
 netedit.rebuildNetwork()

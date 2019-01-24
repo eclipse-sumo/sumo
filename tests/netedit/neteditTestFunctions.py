@@ -1385,20 +1385,6 @@ def selectionInvert():
     time.sleep(DELAY_SELECT)
 
 
-"""
-@brief Toggle select edges and lanes
-"""
-
-
-def selectionToogleEdges():
-    # focus current frame
-    focusOnFrame()
-    # go to check box "select edges"
-    for _ in range(2):
-        typeInvertTab()
-    # type space to enable or disable edge selection
-    typeSpace()
-
 #################################################
 # traffic light
 #################################################

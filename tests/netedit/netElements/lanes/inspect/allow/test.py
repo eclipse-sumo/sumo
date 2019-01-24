@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # toogle select lanes
-netedit.selectionToogleEdges()
+netedit.toogleSelectEdges()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -38,19 +38,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 1 with an non valid value (dummy)
-netedit.modifyAttribute(2, "DummyAllowed")
+netedit.modifyAttribute(2, "DummyAllowed", False)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(2, "")
+netedit.modifyAttribute(2, "", False)
 
 # Change parameter 1 with a valid value (different separators)
-netedit.modifyAttribute(2, "authority  army, passenger; taxi. tram")
+netedit.modifyAttribute(2, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(2, "")
+netedit.modifyAttribute(2, "", False)
 
 # Change parameter 1 with a valid value (empty)
-netedit.modifyAttribute(2, "authority army vip passenger hov taxi bus coach tram bicycle")
+netedit.modifyAttribute(2, "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute
 netedit.rebuildNetwork()
