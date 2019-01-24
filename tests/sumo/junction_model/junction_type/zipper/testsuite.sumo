@@ -2,3 +2,6 @@ symmetric_approach
 
 # 2 zipper lanes and a non-zipper lane
 3lanes
+
+# input longer flow to test different configurations
+variations
