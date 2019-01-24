@@ -60,6 +60,7 @@ class MSCFModel_IDMTest : public testing::Test {
             if (!OptionsCont::getOptions().exists("step-length")) {
                 MSFrame::fillOptions();
             }
+            MSLane::initRNGs(OptionsCont::getOptions());
             tau = 1;
             MSGlobals::gUnitTests = true;
             defs = new SUMOVehicleParameter();
