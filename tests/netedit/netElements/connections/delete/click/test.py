@@ -29,13 +29,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # set delete mode
 netedit.deleteMode()
 
 # delete connection
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 138)
 
 # rebuild
 netedit.rebuildNetwork()

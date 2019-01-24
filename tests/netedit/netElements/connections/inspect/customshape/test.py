@@ -29,19 +29,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # inspect connection
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change shape with an invalid value
-netedit.modifyAttribute(9, "dummyShape")
+netedit.modifyAttribute(6, "dummyShape", True)
 
 # Change shape with an valid value (empty)
-netedit.modifyAttribute(9, "")
+netedit.modifyAttribute(6, "", True)
 
 # Change shape with an valid value
-netedit.modifyAttribute(9, "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60")
+netedit.modifyAttribute(6, "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60", True)
 
 # rebuild
 netedit.rebuildNetwork()

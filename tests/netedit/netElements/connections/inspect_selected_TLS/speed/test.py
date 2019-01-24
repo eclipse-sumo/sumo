@@ -29,34 +29,31 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # go to select mode
 netedit.selectMode()
 
-# select connection
-netedit.leftClick(referencePosition, 250, 125)
-netedit.leftClick(referencePosition, 250, 190)
-netedit.leftClick(referencePosition, 250, 257)
-netedit.leftClick(referencePosition, 250, 325)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode agaim
 netedit.inspectMode()
 
-# inspect selected connection
-netedit.leftClick(referencePosition, 250, 125)
+# inspect selected connections
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change speed with an invalid value
-netedit.modifyAttribute(9, "dummySpeed")
+netedit.modifyAttribute(6, "dummySpeed", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(9, "-3")
+netedit.modifyAttribute(6, "-3", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(9, "0")
+netedit.modifyAttribute(6, "0", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(9, "15.5")
+netedit.modifyAttribute(6, "15.5", True)
 
 # rebuild
 netedit.rebuildNetwork()

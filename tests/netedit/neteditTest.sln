@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NeteditTest", "neteditTest.pyproj", "{332513C9-75E6-4249-910E-A95E4D4EF0F6}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "NeteditTests", "neteditTests.pyproj", "{332513C9-75E6-4249-910E-A95E4D4EF0F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

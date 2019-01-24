@@ -29,22 +29,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # go to select mode
 netedit.selectMode()
 
-# select connection
-netedit.leftClick(referencePosition, 250, 125)
-netedit.leftClick(referencePosition, 250, 190)
-netedit.leftClick(referencePosition, 250, 257)
-netedit.leftClick(referencePosition, 250, 325)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode agaim
 netedit.inspectMode()
 
-# inspect selected connection
-netedit.leftClick(referencePosition, 250, 125)
+# inspect selected connections
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(10, "dummyGenericParameters", True)
@@ -59,7 +56,7 @@ netedit.modifyAttribute(10, "key1=value1|key2=value2|key3=value3", True)
 netedit.modifyAttribute(10, "key1=|key2=|key3=", True)
 
 # Change generic parameters with a valid value (all empty)
-netedit.modifyAttribute(10, "")
+netedit.modifyAttribute(10, "", True)
 
 # Change generic parameters with an invalid value (duplicated)
 netedit.modifyAttribute(10, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30.11.2018 12:39:04 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
+<!-- generated on 24.01.2019 15:18:16 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect/customshape\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_24Jan135313.1444/netedit.gui/netElements/connections/inspect/customshape\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect/customshape\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_24Jan135313.1444/netedit.gui/netElements/connections/inspect/customshape\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -29,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect/customshape\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect/customshape\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_24Jan135313.1444/netedit.gui/netElements/connections/inspect/customshape\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_24Jan135313.1444/netedit.gui/netElements/connections/inspect/customshape\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect/customshape\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_24Jan135313.1444/netedit.gui/netElements/connections/inspect/customshape\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +44,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect/customshape\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_24Jan135313.1444/netedit.gui/netElements/connections/inspect/customshape\log.txt"/>
     </report>
 
 </configuration>
@@ -122,8 +123,8 @@
     <connection from="7" to="4" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="7" to="2" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="8" to="2" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="8" to="3" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="8" to="3" fromLane="1" toLane="1" shape="60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60" dir="s" state="m"/>
+    <connection from="8" to="3" fromLane="0" toLane="0" shape="60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60" dir="s" state="m"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="8" to="1" fromLane="1" toLane="1" dir="l" state="m"/>
 
 </net>

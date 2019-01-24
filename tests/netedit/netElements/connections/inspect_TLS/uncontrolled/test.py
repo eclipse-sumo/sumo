@@ -29,13 +29,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # inspect connection
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change uncontrolled
-netedit.modifyBoolAttribute(6)
+netedit.modifyBoolAttribute(3, True)
 
 # rebuild
 netedit.rebuildNetwork()
