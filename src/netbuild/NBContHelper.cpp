@@ -213,7 +213,7 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
     //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " a1=" << relAngle1 << " a2=" << relAngle2 << "\n";
     if (fabs(fabs(relAngle1) - fabs(relAngle2)) < NUMERICAL_EPS && fabs(relAngle1 - relAngle2) > NUMERICAL_EPS) {
         // another tie braker, if we have one going to the right and one going to the left, take the one to the right
-        return relAngle1 < relAngle2;
+        return relAngle1 > relAngle2;
     }
     return fabs(relAngle1) < fabs(relAngle2);
 }

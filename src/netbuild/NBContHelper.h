@@ -93,6 +93,7 @@ public:
      * straightness_sorter
      * Class to sort edges according to how straight they are in relation to the
      * reference edge at the given node
+     * @TODO check whether we can replace it by edge_similar_direction_sorter
      */
     class straightness_sorter {
     public:
@@ -243,7 +244,7 @@ public:
      * edge_similar_direction_sorter
      * Class to sort edges by their angle in relation to the given edge
      * The resulting list should have the edge in the most similar direction
-     * to the given edge as her first entry
+     * to the given edge as its first entry
      */
     class edge_similar_direction_sorter {
     public:
@@ -253,8 +254,11 @@ public:
 
         /// comparing operation
         int operator()(NBEdge* e1, NBEdge* e2) const {
-            double d1 = GeomHelper::getMinAngleDiff(e1->getTotalAngle(), myAngle);
-            double d2 = GeomHelper::getMinAngleDiff(e2->getTotalAngle(), myAngle);
+            const double d1 = GeomHelper::getMinAngleDiff(e1->getTotalAngle(), myAngle);
+            const double d2 = GeomHelper::getMinAngleDiff(e2->getTotalAngle(), myAngle);
+            if (fabs(d1 - d2) < NUMERICAL_EPS) {
+                return e1->getNumericalID() < e2->getNumericalID();
+            }
             return d1 < d2;
         }
 
