@@ -231,11 +231,6 @@ public:
      */
     static void computeEdgePriorities(NBNodeCont& nc);
 
-    /** @brief Computes edge priorities within a single node
-     * @param[in] node the single node
-     */
-    static void computeEdgePrioritiesSingleNode(NBNode* node);
-
 private:
     /** @brief Sets the priorites in case of a priority junction
      * @param[in] n The node to set edges' priorities

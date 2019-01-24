@@ -272,31 +272,25 @@ NBNodeTypeComputer::isRailwayNode(NBNode* n) {
 // ---------------------------------------------------------------------------
 void
 NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        computeEdgePrioritiesSingleNode((*i).second);
-    }
-}
-
-
-void
-NBEdgePriorityComputer::computeEdgePrioritiesSingleNode(NBNode* node) {
-    // preset all junction's edge priorities to zero
-    for (EdgeVector::iterator j = node->myAllEdges.begin(); j != node->myAllEdges.end(); ++j) {
-        (*j)->setJunctionPriority(node, NBEdge::MINOR_ROAD);
-    }
-    node->markBentPriority(false);
-    // check if the junction is not a real junction
-    if (node->myIncomingEdges.size() == 1 && node->myOutgoingEdges.size() == 1) {
-        return;
-    }
-    // compute the priorities on junction when needed
-    if (node->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
-        if (node->getRightOfWay() == RIGHT_OF_WAY_EDGEPRIORITY) {
-            for (NBEdge* e : node->getIncomingEdges()) {
-                e->setJunctionPriority(node, e->getPriority());
+    for (const auto& node : nc) {
+        // preset all junction's edge priorities to zero
+        for (NBEdge* const edge : node.second->myAllEdges) {
+            edge->setJunctionPriority(node.second, NBEdge::MINOR_ROAD);
+        }
+        node.second->markBentPriority(false);
+        // check if the junction is not a real junction
+        if (node.second->myIncomingEdges.size() == 1 && node.second->myOutgoingEdges.size() == 1) {
+            continue;
+        }
+        // compute the priorities on junction when needed
+        if (node.second->getType() != NODETYPE_RIGHT_BEFORE_LEFT && node.second->getType() != NODETYPE_ALLWAY_STOP && node.second->getType() != NODETYPE_NOJUNCTION) {
+            if (node.second->getRightOfWay() == RIGHT_OF_WAY_EDGEPRIORITY) {
+                for (NBEdge* e : node.second->getIncomingEdges()) {
+                    e->setJunctionPriority(node.second, e->getPriority());
+                }
+            } else {
+                setPriorityJunctionPriorities(*node.second);
             }
-        } else {
-            setPriorityJunctionPriorities(*node);
         }
     }
 }
