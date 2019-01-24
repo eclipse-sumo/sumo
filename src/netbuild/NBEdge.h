@@ -1407,9 +1407,6 @@ private:
     /// @brief recomputes the edge priorities and manipulates them for a distribution of lanes on edges which is more like in real-life
     std::vector<int>* prepareEdgePriorities(const EdgeVector* outgoing);
 
-    /// @brief computes the sum of the given list's entries (sic!)
-    static int computePrioritySum(const std::vector<int>& priorities);
-
     /// @name Setting and getting connections
     /// @{
     /** @briefmoves a connection one place to the left;

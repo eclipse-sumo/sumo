@@ -29,25 +29,23 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <cmath>
+#include <iomanip>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/StdDefs.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/options/OptionsCont.h>
 #include "NBEdgeCont.h"
 #include "NBNode.h"
 #include "NBNodeCont.h"
 #include "NBContHelper.h"
 #include "NBHelpers.h"
 #include "NBTrafficLightDefinition.h"
-#include <cmath>
-#include <iomanip>
 #include "NBTypeCont.h"
-#include <utils/geom/GeomHelper.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/ToString.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/StdDefs.h>
 #include "NBEdge.h"
-#include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice.h>
 
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
@@ -2342,28 +2340,15 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
 void
 NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities) {
     //std::cout << "divideSelectedLanesOnEdges " << getID() << " out=" << toString(*outgoing) << " prios=" << toString(*priorities) << " avail=" << toString(availableLanes) << "\n";
-    // compute the sum of priorities (needed for normalisation)
-    int prioSum = computePrioritySum(*priorities);
-    // compute the resulting number of lanes that should be used to
-    //  reach the following edge
-    const int numOutgoing = (int) outgoing->size();
-    std::vector<double> resultingLanes;
-    resultingLanes.reserve(numOutgoing);
-    double sumResulting = 0.; // the sum of resulting lanes
-    double minResulting = 10000.; // the least number of lanes to reach an edge
+    // compute the resulting number of lanes that should be used to reach the following edge
+    const int numOutgoing = (int)outgoing->size();
+    std::vector<int> resultingLanesFactor;
+    resultingLanesFactor.reserve(numOutgoing);
+    int minResulting = std::numeric_limits<int>::max();
     for (int i = 0; i < numOutgoing; i++) {
-        // res will be the number of lanes which are meant to reach the
-        //  current outgoing edge
-        double res =
-            (double)(*priorities)[i] *
-            (double) availableLanes.size() / (double) prioSum;
-        // do not let this number be greater than the number of available lanes
-        if (res > availableLanes.size()) {
-            res = (double) availableLanes.size();
-        }
-        // add it to the list
-        resultingLanes.push_back(res);
-        sumResulting += res;
+        // res / minResulting will be the number of lanes which are meant to reach the current outgoing edge
+        const int res = (*priorities)[i] * (int)availableLanes.size();
+        resultingLanesFactor.push_back(res);
         if (minResulting > res && res > 0) {
             // prevent minResulting from becoming 0
             minResulting = res;
@@ -2378,18 +2363,17 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     EdgeVector transition;
     transition.reserve(numOutgoing);
     for (int i = 0; i < numOutgoing; i++) {
-        // tmpNo will be the number of connections from this edge
-        //  to the next edge
+        // tmpNum will be the number of connections from this edge to the next edge
         assert(i < (int)resultingLanes.size());
-        const int tmpNum = (int)std::ceil(resultingLanes[i] / minResulting);
+        const int tmpNum = (resultingLanesFactor[i] + minResulting - 1) / minResulting; // integer division rounding up
         numVirtual += tmpNum;
-        for (double j = 0; j < tmpNum; j++) {
+        for (int j = 0; j < tmpNum; j++) {
             transition.push_back((*outgoing)[i]);
         }
     }
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
-        std::cout << "   prioSum=" << prioSum << " sumResulting=" << sumResulting << " minResulting=" << minResulting << " numVirtual=" << numVirtual << " availLanes=" << toString(availableLanes) << " resLanes=" << toString(resultingLanes) << " transition=" << toString(transition) << "\n";
+        std::cout << "   minResulting=" << minResulting << " numVirtual=" << numVirtual << " availLanes=" << toString(availableLanes) << " resLanes=" << toString(resultingLanesFactor) << " transition=" << toString(transition) << "\n";
     }
 #endif
 
@@ -2398,12 +2382,10 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     ToEdgeConnectionsAdder adder(transition);
     Bresenham::compute(&adder, static_cast<int>(availableLanes.size()), numVirtual);
     const std::map<NBEdge*, std::vector<int> >& l2eConns = adder.getBuiltConnections();
-    for (EdgeVector::const_iterator i = outgoing->begin(); i != outgoing->end(); ++i) {
-        NBEdge* target = (*i);
+    for (NBEdge* const target : *outgoing) {
         assert(l2eConns.find(target) != l2eConns.end());
-        const std::vector<int> lanes = (l2eConns.find(target))->second;
-        for (std::vector<int>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-            const int fromIndex = availableLanes[*j];
+        for (const int j : l2eConns.find(target)->second) {
+            const int fromIndex = availableLanes[j];
             if ((getPermissions(fromIndex) & target->getPermissions()) == 0) {
                 // exclude connection if fromLane and toEdge have no common permissions
                 continue;
@@ -2418,7 +2400,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
             //    @todo To decide which target lanes are still available we need to do a
             // preliminary lane-to-lane assignment in regard to permissions (rather than to ordering)
             const int numConsToTarget = (int)count_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(target, true));
-            int targetLanes = (int)target->getNumLanes();
+            int targetLanes = target->getNumLanes();
             if (target->getPermissions(0) == SVC_PEDESTRIAN) {
                 --targetLanes;
             }
@@ -2427,9 +2409,9 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 // the speed limit is taken from rural roads (which allow cycles)
                 // (pending implementation of #1859)
                 if (getPermissions(fromIndex) == SVC_BICYCLE && getSpeed() <= (101 / 3.6)) {
-                    for (int ii = 0; ii < (int)myLanes.size(); ++ii) {
-                        if (myLanes[ii].permissions != SVC_PEDESTRIAN) {
-                            myLanes[ii].permissions |= SVC_BICYCLE;
+                    for (NBEdge::Lane& lane : myLanes) {
+                        if (lane.permissions != SVC_PEDESTRIAN) {
+                            lane.permissions |= SVC_BICYCLE;
                         }
                     }
                 }
@@ -2455,7 +2437,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
 
 void
 NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities) {
-    // ensure sufficient straight connections for the (hightest-priority straight target)
+    // ensure sufficient straight connections for the (highest-priority) straight target
     const int numOutgoing = (int) outgoing->size();
     NBEdge* target = nullptr;
     NBEdge* rightOfTarget = nullptr;
@@ -2622,16 +2604,6 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     }
     // return
     return priorities;
-}
-
-
-int
-NBEdge::computePrioritySum(const std::vector<int>& priorities) {
-    int sum = 0;
-    for (std::vector<int>::const_iterator i = priorities.begin(); i != priorities.end(); i++) {
-        sum += *i;
-    }
-    return sum;
 }
 
 

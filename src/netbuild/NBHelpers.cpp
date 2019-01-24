@@ -46,11 +46,11 @@
 double
 NBHelpers::relAngle(double angle1, double angle2) {
     angle2 -= angle1;
-    if (angle2 > 180) {
-        angle2 = (360 - angle2) * -1;
+    while (angle2 > 180.) {
+        angle2 -= 360.;
     }
-    while (angle2 < -180) {
-        angle2 = 360 + angle2;
+    while (angle2 < -180.) {
+        angle2 += 360.;
     }
     return angle2;
 }
