@@ -117,6 +117,10 @@ public:
         /// @brief The available lanes to which connections shall be built
         std::vector<int> myAvailableLanes;
 
+    private:
+        /// @brief Invalidated assignment operator.
+        ApproachingDivider& operator=(const ApproachingDivider&) = delete;
+
     };
 
     /** @struct Crossing

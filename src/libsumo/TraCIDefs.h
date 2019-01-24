@@ -24,8 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
+// we do not include config.h here, since we should be independent of a special sumo build
 #include <vector>
 #include <limits>
 #include <map>
