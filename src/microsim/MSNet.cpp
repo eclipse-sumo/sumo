@@ -830,7 +830,7 @@ MSNet::postSimStepOutput() const {
             << " BUF " << myInserter->getWaitingVehicleNo()
             << ")                                              ";
         std::string prev = "Step #" + time2string(myStep - DELTA_T);
-        std::cout << oss.str().substr(0, 78 - prev.length());
+        std::cout << oss.str().substr(0, 90 - prev.length());
     }
     std::cout << '\r';
 }
