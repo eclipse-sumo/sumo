@@ -203,10 +203,10 @@ protected:
     std::vector<std::vector<MSLink*> > myConflictLinks;
 
     /// @brief collect conflict lanes in step 1
-    void collectForwardBlock(MSLane* toLane, int length, std::vector<MSLane*>& forwardBlock);
+    void collectForwardBlock(MSLane* toLane, double length, std::vector<MSLane*>& forwardBlock);
 
     /// @brief collect bidirectional conflict lanes in step 2
-    void collectBidiBlock(MSLane* toLane, int length, bool foundSwitch, std::vector<MSLane*>& bidiBlock);
+    void collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock);
 
     /// @brief collect additional conflict lanes and conflict links in step 3
     void collectConflictLinks(MSLane* toLane, double length, 

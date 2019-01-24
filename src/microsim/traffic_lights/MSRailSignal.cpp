@@ -116,7 +116,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
         for (MSLink* link : links) {
             MSLane* toLane = link->getViaLaneOrLane();   //the lane this link is leading to
 
-            collectForwardBlock(toLane, 0, forwardBlock);
+            collectForwardBlock(toLane, 0., forwardBlock);
 #ifdef DEBUG_FORWARD_BLOCK
             if (DEBUG_COND)  std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " forwardBlock=" << toString(forwardBlock) << "\n";
 #endif
@@ -129,7 +129,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                             bidiBlock.push_back(bidiOutLink->getViaLane());
                         }
                     }
-                    collectBidiBlock(bidi, 0, false, bidiBlock);
+                    collectBidiBlock(bidi, 0., false, bidiBlock);
                     // assume bidirectional patches are continuous
                     break;
                 }
@@ -326,7 +326,7 @@ MSRailSignal::getIndexFromOffset(SUMOTime) const {
 
 
 void 
-MSRailSignal::collectForwardBlock(MSLane* toLane, int length, std::vector<MSLane*>& forwardBlock) {
+MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSLane*>& forwardBlock) {
     while (toLane != nullptr) {
         forwardBlock.push_back(toLane);
         length += toLane->getLength();
@@ -355,7 +355,7 @@ MSRailSignal::collectForwardBlock(MSLane* toLane, int length, std::vector<MSLane
 
 
 void 
-MSRailSignal::collectBidiBlock(MSLane* toLane, int length, bool foundSwitch, std::vector<MSLane*>& bidiBlock) {
+MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock) {
     while (toLane != nullptr) {
         //std::cout << " toLane=" << toLane->getID() << " length=" << length << " foundSwitch=" << foundSwitch << "\n";
         bidiBlock.push_back(toLane);
