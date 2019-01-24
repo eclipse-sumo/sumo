@@ -2364,7 +2364,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     transition.reserve(numOutgoing);
     for (int i = 0; i < numOutgoing; i++) {
         // tmpNum will be the number of connections from this edge to the next edge
-        assert(i < (int)resultingLanes.size());
+        assert(i < (int)resultingLanesFactor.size());
         const int tmpNum = (resultingLanesFactor[i] + minResulting - 1) / minResulting; // integer division rounding up
         numVirtual += tmpNum;
         for (int j = 0; j < tmpNum; j++) {
