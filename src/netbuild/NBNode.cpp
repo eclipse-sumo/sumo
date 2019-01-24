@@ -92,17 +92,14 @@ const int NBNode::FOUR_CONTROL_POINTS(4);
  * NBNode::ApproachingDivider-methods
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
-    EdgeVector* approaching, NBEdge* currentOutgoing) :
+    const EdgeVector& approaching, NBEdge* currentOutgoing) :
     myApproaching(approaching), myCurrentOutgoing(currentOutgoing) {
-    // check whether origin lanes have been given
-    assert(myApproaching != 0);
     // collect lanes which are expliclity targeted
     std::set<int> approachedLanes;
-    for (EdgeVector::iterator it = myApproaching->begin(); it != myApproaching->end(); ++it) {
-        const std::vector<NBEdge::Connection> conns = (*it)->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator it_con = conns.begin(); it_con != conns.end(); ++it_con) {
-            if ((*it_con).toEdge == myCurrentOutgoing) {
-                approachedLanes.insert((*it_con).toLane);
+    for (const NBEdge* const approachingEdge : myApproaching) {
+        for (const NBEdge::Connection& con : approachingEdge->getConnections()) {
+            if (con.toEdge == myCurrentOutgoing) {
+                approachedLanes.insert(con.toLane);
             }
         }
     }
@@ -116,7 +113,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
                 && approachedLanes.count(i) == 0) {
             continue;
         }
-        myAvailableLanes.push_back((int)i);
+        myAvailableLanes.push_back(i);
     }
 }
 
@@ -126,14 +123,13 @@ NBNode::ApproachingDivider::~ApproachingDivider() {}
 
 void
 NBNode::ApproachingDivider::execute(const int src, const int dest) {
-    assert((int)myApproaching->size() > src);
+    assert((int)myApproaching.size() > src);
     // get the origin edge
-    NBEdge* incomingEdge = (*myApproaching)[src];
+    NBEdge* incomingEdge = myApproaching[src];
     if (incomingEdge->getStep() == NBEdge::LANES2LANES_DONE || incomingEdge->getStep() == NBEdge::LANES2LANES_USER) {
         return;
     }
-    std::vector<int> approachingLanes =
-        incomingEdge->getConnectionLanes(myCurrentOutgoing);
+    std::vector<int> approachingLanes = incomingEdge->getConnectionLanes(myCurrentOutgoing);
     assert(approachingLanes.size() != 0);
     std::deque<int>* approachedLanes = spread(approachingLanes, dest);
     assert(approachedLanes->size() <= myAvailableLanes.size());
@@ -141,38 +137,36 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     for (int i = 0; i < (int)approachedLanes->size(); i++) {
         assert((int)approachingLanes.size() > i);
         int approached = myAvailableLanes[(*approachedLanes)[i]];
-        incomingEdge->setConnection((int) approachingLanes[i], myCurrentOutgoing,
-                                    approached, NBEdge::L2L_COMPUTED);
+        incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing, approached, NBEdge::L2L_COMPUTED);
     }
     delete approachedLanes;
 }
 
 
 std::deque<int>*
-NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
-                                   int dest) const {
+NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes, int dest) const {
     std::deque<int>* ret = new std::deque<int>();
-    int noLanes = (int) approachingLanes.size();
+    const int numLanes = (int)approachingLanes.size();
     // when only one lane is approached, we check, whether the double-value
     //  is assigned more to the left or right lane
-    if (noLanes == 1) {
+    if (numLanes == 1) {
         ret->push_back(dest);
         return ret;
     }
 
-    int noOutgoingLanes = (int)myAvailableLanes.size();
+    const int numOutgoingLanes = (int)myAvailableLanes.size();
     //
     ret->push_back(dest);
     int noSet = 1;
     int roffset = 1;
     int loffset = 1;
-    while (noSet < noLanes) {
+    while (noSet < numLanes) {
         // It may be possible, that there are not enough lanes the source
         //  lanes may be divided on
         //  In this case, they remain unset
         //  !!! this is only a hack. It is possible, that this yields in
         //   uncommon divisions
-        if (noOutgoingLanes == noSet) {
+        if (numOutgoingLanes == noSet) {
             return ret;
         }
 
@@ -181,7 +175,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
         //
         // check whether the left boundary of the approached street has
         //  been overridden; if so, move all lanes to the right
-        if (dest + loffset >= noOutgoingLanes) {
+        if (dest + loffset >= numOutgoingLanes) {
             loffset -= 1;
             roffset += 1;
             for (int i = 0; i < (int)ret->size(); i++) {
@@ -195,12 +189,12 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
         loffset += 1;
 
         // as above
-        if (noOutgoingLanes == noSet) {
+        if (numOutgoingLanes == noSet) {
             return ret;
         }
 
         // now we try to append the next lane to the right side, when needed
-        if (noSet < noLanes) {
+        if (noSet < numLanes) {
             // check whether the right boundary of the approached street has
             //  been overridden; if so, move all lanes to the right
             if (dest < roffset) {
@@ -217,6 +211,7 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes,
     }
     return ret;
 }
+
 
 NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex, int _customTLIndex2, const PositionVector& _customShape) :
     Parameterised(),
@@ -1122,21 +1117,18 @@ NBNode::computeLanes2Lanes() {
     //  for every outgoing edge, compute the distribution of the node's
     //  incoming edges on this edge when approaching this edge
     // the incoming edges' steps will then also be marked as LANE2LANE_RECHECK...
-    EdgeVector::reverse_iterator i;
-    for (i = myOutgoingEdges.rbegin(); i != myOutgoingEdges.rend(); i++) {
-        NBEdge* currentOutgoing = *i;
+    EdgeVector approaching;
+    for (NBEdge* currentOutgoing: myOutgoingEdges) {
         // get the information about edges that do approach this edge
-        EdgeVector* approaching = getEdgesThatApproach(currentOutgoing);
-        const int numApproaching = (int)approaching->size();
+        getEdgesThatApproach(currentOutgoing, approaching);
+        const int numApproaching = (int)approaching.size();
         if (numApproaching != 0) {
             ApproachingDivider divider(approaching, currentOutgoing);
             Bresenham::compute(&divider, numApproaching, divider.numAvailableLanes());
         }
-        delete approaching;
 
         // ensure that all modes have a connection if possible
-        for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
-            NBEdge* incoming = *i;
+        for (NBEdge* incoming : myIncomingEdges) {
             if (incoming->getConnectionLanes(currentOutgoing).size() > 0 && incoming->getStep() <= NBEdge::LANES2LANES_DONE) {
                 // no connections are needed for pedestrians during this step
                 // no satisfaction is possible if the outgoing edge disallows
@@ -1191,8 +1183,8 @@ NBNode::computeLanes2Lanes() {
     //  In this case, we have to mark the incoming edges as being in state
     //   LANE2LANE( not RECHECK) by hand
     if (myOutgoingEdges.size() == 0) {
-        for (i = myIncomingEdges.rbegin(); i != myIncomingEdges.rend(); i++) {
-            (*i)->markAsInLane2LaneState();
+        for (NBEdge* incoming : myIncomingEdges) {
+            incoming->markAsInLane2LaneState();
         }
     }
 
@@ -1222,26 +1214,26 @@ NBNode::isLongEnough(NBEdge* out, double minLength) {
     return true;
 }
 
-EdgeVector*
-NBNode::getEdgesThatApproach(NBEdge* currentOutgoing) {
+
+void
+NBNode::getEdgesThatApproach(NBEdge* currentOutgoing, EdgeVector& approaching) {
     // get the position of the node to get the approaching nodes of
     EdgeVector::const_iterator i = std::find(myAllEdges.begin(),
                                    myAllEdges.end(), currentOutgoing);
     // get the first possible approaching edge
     NBContHelper::nextCW(myAllEdges, i);
     // go through the list of edges clockwise and add the edges
-    EdgeVector* approaching = new EdgeVector();
+    approaching.clear();
     for (; *i != currentOutgoing;) {
         // check only incoming edges
         if ((*i)->getToNode() == this && (*i)->getTurnDestination() != currentOutgoing) {
             std::vector<int> connLanes = (*i)->getConnectionLanes(currentOutgoing);
             if (connLanes.size() != 0) {
-                approaching->push_back(*i);
+                approaching.push_back(*i);
             }
         }
         NBContHelper::nextCW(myAllEdges, i);
     }
-    return approaching;
 }
 
 
