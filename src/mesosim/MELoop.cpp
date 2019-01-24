@@ -74,7 +74,6 @@ MELoop::simulate(SUMOTime tMax) {
             assert(myLeaderCars.empty() || myLeaderCars.begin()->first >= time);
         }
     }
-    MSNet::getInstance()->getVehicleControl().removePending();
 }
 
 
