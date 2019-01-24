@@ -84,7 +84,6 @@ inline std::string tokenToString(FareToken const& token) {
         default:
             return "";
     }
-    return ""; //surpress compiler warning
 }
 
 

@@ -299,29 +299,28 @@ private:
 
         FareState const&   my = myFareStates[edge];
         std::stringstream msg;
-        if (false) {
-            msg << "Final fare state at edge of type: " << myEdges[edge] << std::endl;
-            msg << "Faretoken" << FareUtil::tokenToString(my.myFareToken) << std::endl;
-            msg << "Price:" << computePrice(my) << std::endl;
-            msg << "Zones " << my.myCounter.numZones() << std::endl;
-            msg << "Stations: " << my.myVisistedStops << std::endl;
-            msg << "Distance:" << my.myTravelledDistance << std::endl;
-        } else {
-            msg << FareUtil::tokenToTicket(my.myFareToken) << " ";
-            if (my.myFareToken == FareToken::Z) {
-                msg << my.myCounter.numZones() << " ";
-                if (my.myCounter.numZones() == 1) {
-                    msg << "Zone";
-                } else {
-                    msg << "Zonen";
-                }
-
-            } else if (my.myFareToken == FareToken::U) {
-                msg << my.myCounter.numZones() << "1 Zone";
-
+/*
+        msg << "Final fare state at edge of type: " << myEdges[edge] << std::endl;
+        msg << "Faretoken" << FareUtil::tokenToString(my.myFareToken) << std::endl;
+        msg << "Price:" << computePrice(my) << std::endl;
+        msg << "Zones " << my.myCounter.numZones() << std::endl;
+        msg << "Stations: " << my.myVisistedStops << std::endl;
+        msg << "Distance:" << my.myTravelledDistance << std::endl;
+*/
+        msg << FareUtil::tokenToTicket(my.myFareToken) << " ";
+        if (my.myFareToken == FareToken::Z) {
+            msg << my.myCounter.numZones() << " ";
+            if (my.myCounter.numZones() == 1) {
+                msg << "Zone";
+            } else {
+                msg << "Zonen";
             }
-            msg << ":" << computePrice(my);
+
+        } else if (my.myFareToken == FareToken::U) {
+            msg << my.myCounter.numZones() << "1 Zone";
+
         }
+        msg << ":" << computePrice(my);
         return msg.str();
     }
 
