@@ -35,19 +35,19 @@ netedit.changeShape("poiLane")
 netedit.modifyShapeDefaultValue(9, "%%$%$&$%$%$")
 
 # try to create POI
-netedit.leftClick(referencePosition, 150, 210)
+netedit.leftClick(referencePosition, 150, 215)
 
 # change imgfile (non exist)
 netedit.modifyShapeDefaultValue(9, "paris.ico")
 
 # try to create POI
-netedit.leftClick(referencePosition, 200, 210)
+netedit.leftClick(referencePosition, 200, 215)
 
 # change imgfile (valid)
 netedit.modifyShapeDefaultValue(9, "berlin_icon.ico")
 
 # create POI
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 250, 215)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

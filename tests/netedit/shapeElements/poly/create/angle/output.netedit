@@ -1,31 +1,31 @@
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
+TestFunctions: 'reference.png' found. Position: 304 - 168
 poly
 dummyAngle
-TestFunctions: Clicked over position 404 - 190
-TestFunctions: Clicked over position 404 - 140
-TestFunctions: Clicked over position 354 - 140
-TestFunctions: Clicked over position 354 - 190
-TestFunctions: Clicked over position 404 - 190
+TestFunctions: Clicked over position 404 - 218
+TestFunctions: Clicked over position 404 - 168
+TestFunctions: Clicked over position 354 - 168
+TestFunctions: Clicked over position 354 - 218
+TestFunctions: Clicked over position 404 - 218
 365
-TestFunctions: Clicked over position 504 - 190
-TestFunctions: Clicked over position 504 - 140
-TestFunctions: Clicked over position 454 - 140
-TestFunctions: Clicked over position 454 - 190
-TestFunctions: Clicked over position 504 - 190
+TestFunctions: Clicked over position 504 - 218
+TestFunctions: Clicked over position 504 - 168
+TestFunctions: Clicked over position 454 - 168
+TestFunctions: Clicked over position 454 - 218
+TestFunctions: Clicked over position 504 - 218
 -5
-TestFunctions: Clicked over position 604 - 190
-TestFunctions: Clicked over position 604 - 140
-TestFunctions: Clicked over position 554 - 140
-TestFunctions: Clicked over position 554 - 190
-TestFunctions: Clicked over position 604 - 190
+TestFunctions: Clicked over position 604 - 218
+TestFunctions: Clicked over position 604 - 168
+TestFunctions: Clicked over position 554 - 168
+TestFunctions: Clicked over position 554 - 218
+TestFunctions: Clicked over position 604 - 218
 5
-TestFunctions: Clicked over position 704 - 190
-TestFunctions: Clicked over position 704 - 140
-TestFunctions: Clicked over position 654 - 140
-TestFunctions: Clicked over position 654 - 190
-TestFunctions: Clicked over position 704 - 190
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 704 - 218
+TestFunctions: Clicked over position 704 - 168
+TestFunctions: Clicked over position 654 - 168
+TestFunctions: Clicked over position 654 - 218
+TestFunctions: Clicked over position 704 - 218
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

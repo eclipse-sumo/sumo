@@ -7,60 +7,51 @@ GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Selected item 'poly' in ItemSelector
 Debug: Selected item 'poly' in ItemSelector
 Debug: Key ENTER pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Setting new attribute blockMovement 'false' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
 Debug: Setting new attribute blockShape 'true' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
-Debug: Setting new attribute shape '22.00,-5.64 22.00,-0.64 17.00,-0.64 17.00,-5.64 22.00,-5.64' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,-7.64,24.00,1.36
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute shape '22.00,8.00 22.00,13.00 17.00,13.00 17.00,8.00 22.00,8.00' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,-7.64,24.00,1.36
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockShape '0' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
 Debug: Setting previous attribute blockMovement '0' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
 Debug: Removing poly 'poly_0' from viewNet
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
 Debug: Setting new attribute blockMovement 'false' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
 Debug: Setting new attribute blockShape 'true' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,6.00,24.00,15.00
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,16.00
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute shape '22.00,-5.64 22.00,-0.64 17.00,-0.64 17.00,-5.64 22.00,-5.64' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,6.00,24.00,15.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 15.00,-7.64,24.00,1.36
-Debug: Shapes saved
+Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
@@ -86,7 +77,7 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,-7.64,24.00,1.36
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,16.00
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -98,4 +89,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 12 with a valid value
 netedit.modifyAttribute(12, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 " +
-                            "-28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00")
+                            "-28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 29.08.2018 15:12:39 by Eclipse SUMO netedit Version b980bbd93f
+<!-- generated on 24.01.2019 10:35:29 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug150926.432/netedit.gui/shapeElements/poly/create/create_close_shape\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102809.484/netedit.gui/shapeElements/poly/create/close_shape\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug150926.432/netedit.gui/shapeElements/poly/create/create_close_shape\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102809.484/netedit.gui/shapeElements/poly/create/close_shape\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -19,7 +20,7 @@
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
     </junctions>
 
@@ -28,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug150926.432/netedit.gui/shapeElements/poly/create/create_close_shape\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug150926.432/netedit.gui/shapeElements/poly/create/create_close_shape\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102809.484/netedit.gui/shapeElements/poly/create/close_shape\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102809.484/netedit.gui/shapeElements/poly/create/close_shape\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug150926.432/netedit.gui/shapeElements/poly/create/create_close_shape\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102809.484/netedit.gui/shapeElements/poly/create/close_shape\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,12 +44,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug150926.432/netedit.gui/shapeElements/poly/create/create_close_shape\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102809.484/netedit.gui/shapeElements/poly/create/close_shape\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="12.000000,18.000000 12.000000,23.000000 7.000000,23.000000 7.000000,18.000000 12.000000,18.000000"/>
+    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="12.000000,19.000000 12.000000,24.000000 7.000000,24.000000 7.000000,19.000000 12.000000,19.000000"/>
 </additional>

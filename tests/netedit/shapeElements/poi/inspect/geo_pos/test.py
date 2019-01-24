@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 10 with a non valid value (dummy)
-netedit.modifyAttribute(12, "dummyGEO")
+netedit.modifyAttribute(12, "dummyGEO", False)
 
 # Change parameter 9 with a non valid value (empty)
-netedit.modifyAttribute(12, "")
+netedit.modifyAttribute(12, "", False)
 
 # Change parameter 9 with a valid value
-netedit.modifyAttribute(12, "3.73,74.30")
+netedit.modifyAttribute(12, "3.73,74.30", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

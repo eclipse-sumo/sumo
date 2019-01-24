@@ -38,10 +38,10 @@ netedit.leftClick(referencePosition, 100, 100)
 netedit.modifyShapeDefaultValue(3, "white")
 
 # Change parameter 6 with a valid value (To see icon)
-netedit.modifyAttribute(6, "10")
+netedit.modifyShapeDefaultValue(6, "10")
 
 # Change parameter 6 with a valid value (To see icon)
-netedit.modifyAttribute(7, "10")
+netedit.modifyShapeDefaultValue(7, "10")
 
 # change imgfile (valid)
 netedit.modifyShapeDefaultValue(8, "berlin_icon.ico")
@@ -56,13 +56,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 100)
 
 # block POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(12, True)
 
 # inspect second POI
 netedit.leftClick(referencePosition, 100, 350)
 
 # block POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(12, True)
 
 # go to move mode
 netedit.moveMode()
@@ -80,13 +80,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 100)
 
 # unblock POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(12, True)
 
 # inspect first POI
 netedit.leftClick(referencePosition, 100, 350)
 
 # unblock POI
-netedit.modifyBoolAttribute(15)
+netedit.modifyBoolAttribute(12, True)
 
 # go to move mode
 netedit.moveMode()

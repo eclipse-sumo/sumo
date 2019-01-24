@@ -32,25 +32,25 @@ netedit.shapeMode()
 netedit.changeShape("poiLane")
 
 # create poiLane
-netedit.leftClick(referencePosition, 150, 200)
+netedit.leftClick(referencePosition, 150, 215)
 
 # go to move mode
 netedit.moveMode()
 
 # move first POILane to right
-netedit.moveElement(referencePosition, -20, 200, 200, 200)
+netedit.moveElement(referencePosition, -20, 215, 200, 215)
 
 # move first POILane to left
-netedit.moveElement(referencePosition, 200, 200, 0, 200)
+netedit.moveElement(referencePosition, 200, 215, 0, 215)
 
 # move first POILane to left
-netedit.moveElement(referencePosition, 0, 200, -180, 200)
+netedit.moveElement(referencePosition, 0, 215, -180, 215)
 
 # move first POILane to left
-netedit.moveElement(referencePosition, -120, 200, 600, 200)
+netedit.moveElement(referencePosition, -120, 215, 600, 215)
 
 # move first POILane to left
-netedit.moveElement(referencePosition, 540, 200, 300, 200)
+netedit.moveElement(referencePosition, 540, 215, 300, 215)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

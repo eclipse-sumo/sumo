@@ -706,12 +706,16 @@ def inspectMode():
 """
 
 
-def modifyAttribute(attributeNumber, value):
+def modifyAttribute(attributeNumber, value, overlapped):
     # focus current frame
     focusOnFrame()
-    # jump to attribute
-    for _ in range(attributeNumber + 1):
-        typeTab()
+    # jump to attribute depending if it's a overlapped element
+    if (overlapped == True):
+        for _ in range(attributeNumber + 5):
+            typeTab()
+    else:
+        for _ in range(attributeNumber + 1):
+            typeTab()
     # paste the new value
     pasteIntoTextField(value)
     # type Enter to commit change
@@ -723,12 +727,16 @@ def modifyAttribute(attributeNumber, value):
 """
 
 
-def modifyBoolAttribute(attributeNumber):
+def modifyBoolAttribute(attributeNumber, overlapped):
     # focus current frame
     focusOnFrame()
-    # jump to attribute
-    for _ in range(attributeNumber + 1):
-        typeTab()
+    # jump to attribute depending if it's a overlapped element
+    if (overlapped == True):
+        for _ in range(attributeNumber + 5):
+            typeTab()
+    else:
+        for _ in range(attributeNumber + 1):
+            typeTab()
     # type SPACE to change value
     typeSpace()
 
