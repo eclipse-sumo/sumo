@@ -1506,12 +1506,14 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         std::swap(collider, victim);
     }
     std::string prefix = "Vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
-    const MSCFModel_CC *model = dynamic_cast<const MSCFModel_CC *>(&collider->getCarFollowModel());
-    if (model)
+    const MSCFModel_CC* model = dynamic_cast<const MSCFModel_CC*>(&collider->getCarFollowModel());
+    if (model) {
         model->setCrashed(collider, true);
-    model = dynamic_cast<const MSCFModel_CC *>(&victim->getCarFollowModel());
-    if (model)
+    }
+    model = dynamic_cast<const MSCFModel_CC*>(&victim->getCarFollowModel());
+    if (model) {
         model->setCrashed(victim, true, true);
+    }
     if (myCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0 && victim->collisionStopTime() >= 0) {
             return;

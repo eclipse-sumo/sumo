@@ -45,25 +45,24 @@
 // method definitions
 // ===========================================================================
 MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
-    myCcDecel         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CCDECEL, 1.5)),
-    myCcAccel         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CCACCEL, 1.5)),
-    myConstantSpacing (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CONSTSPACING, 5.0)),
-    myKp              (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_KP, 1.0)),
-    myLambda          (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LAMBDA, 0.1)),
-    myC1              (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_C1, 0.5)),
-    myXi              (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_XI, 1)),
-    myOmegaN          (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_OMEGAN, 0.2)),
-    myTau             (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_TAU, 0.5)),
-    myLanesCount      (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LANES_COUNT, -1)),
-    myPloegH          (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_H, 0.5)),
-    myPloegKp         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KP, 0.2)),
-    myPloegKd         (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KD, 0.7)),
-    myFlatbedKa       (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KA, 2.4)),
-    myFlatbedKv       (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KV, 0.6)),
-    myFlatbedKp       (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KP, 12.0)),
-    myFlatbedH        (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_H, 4)),
-    myFlatbedD        (vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_D, 5.0))
-{
+    myCcDecel(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CCDECEL, 1.5)),
+    myCcAccel(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CCACCEL, 1.5)),
+    myConstantSpacing(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_CONSTSPACING, 5.0)),
+    myKp(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_KP, 1.0)),
+    myLambda(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LAMBDA, 0.1)),
+    myC1(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_C1, 0.5)),
+    myXi(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_XI, 1)),
+    myOmegaN(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_OMEGAN, 0.2)),
+    myTau(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_TAU, 0.5)),
+    myLanesCount(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LANES_COUNT, -1)),
+    myPloegH(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_H, 0.5)),
+    myPloegKp(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KP, 0.2)),
+    myPloegKd(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KD, 0.7)),
+    myFlatbedKa(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KA, 2.4)),
+    myFlatbedKv(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KV, 0.6)),
+    myFlatbedKp(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KP, 12.0)),
+    myFlatbedH(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_H, 4)),
+    myFlatbedD(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_D, 5.0)) {
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
     if (myLanesCount == -1) {
@@ -81,7 +80,7 @@ MSCFModel_CC::~MSCFModel_CC() {}
 
 MSCFModel::VehicleVariables*
 MSCFModel_CC::createVehicleVariables() const {
-    CC_VehicleVariables *vars = new CC_VehicleVariables();
+    CC_VehicleVariables* vars = new CC_VehicleVariables();
     vars->ccKp = myKp;
     vars->accLambda = myLambda;
     vars->caccSpacing = myConstantSpacing;
@@ -93,7 +92,7 @@ MSCFModel_CC::createVehicleVariables() const {
     vars->caccAlpha1 = 1 - vars->caccC1;
     vars->caccAlpha2 = vars->caccC1;
     vars->caccAlpha3 = -(2 * vars->caccXi - vars->caccC1 * (vars->caccXi + sqrt(vars->caccXi * vars->caccXi - 1))) * vars->caccOmegaN;
-    vars->caccAlpha4 = -(vars->caccXi + sqrt(vars->caccXi* vars->caccXi - 1)) * vars->caccOmegaN * vars->caccC1;
+    vars->caccAlpha4 = -(vars->caccXi + sqrt(vars->caccXi * vars->caccXi - 1)) * vars->caccOmegaN * vars->caccC1;
     vars->caccAlpha5 = -vars->caccOmegaN * vars->caccOmegaN;
 
     vars->ploegH = myPloegH;
@@ -111,13 +110,13 @@ MSCFModel_CC::createVehicleVariables() const {
     vars->engine->setMaximumAcceleration(myAccel);
     vars->engine->setMaximumDeceleration(myDecel);
     vars->engineModel = CC_ENGINE_MODEL_FOLM;
-    return (VehicleVariables *)vars;
+    return (VehicleVariables*)vars;
 }
 
 void
-MSCFModel_CC::performAutoLaneChange(MSVehicle *const veh) const {
+MSCFModel_CC::performAutoLaneChange(MSVehicle* const veh) const {
     bool canChange;
-    CC_VehicleVariables *vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     // check for left lane change
     std::pair<int, int> state = libsumo::Vehicle::getLaneChangeState(veh->getID(), +1);
     int traciState = state.first;
@@ -135,8 +134,9 @@ MSCFModel_CC::performAutoLaneChange(MSVehicle *const veh) const {
             }
             if (canChange) {
                 libsumo::Vehicle::changeLane(veh->getID(), veh->getLaneIndex() + 1, 0);
-                for (auto m = vars->members.begin(); m != vars->members.end(); m++)
+                for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
                     libsumo::Vehicle::changeLane(m->second, veh->getLaneIndex() + 1, 0);
+                }
             }
 
         }
@@ -156,9 +156,10 @@ MSCFModel_CC::performAutoLaneChange(MSVehicle *const veh) const {
                 }
             }
             if (canChange) {
-                libsumo::Vehicle::changeLane(veh->getID(), veh->getLaneIndex() -1, 1);
-                for (auto m = vars->members.begin(); m != vars->members.end(); m++)
-                    libsumo::Vehicle::changeLane(m->second, veh->getLaneIndex() -1, 1);
+                libsumo::Vehicle::changeLane(veh->getID(), veh->getLaneIndex() - 1, 1);
+                for (auto m = vars->members.begin(); m != vars->members.end(); m++) {
+                    libsumo::Vehicle::changeLane(m->second, veh->getLaneIndex() - 1, 1);
+                }
             }
 
         }
@@ -174,7 +175,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     //acceleration after engine actuation
     double engineAcceleration;
 
-    CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
 
     //call processNextStop() to ensure vehicle removal in case of crash
     veh->processNextStop(vPos);
@@ -183,8 +184,9 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         veh->setChosenSpeedFactor(vars->ccDesiredSpeed / veh->getLane()->getSpeedLimit());
     }
 
-    if (vars->autoLaneChange)
+    if (vars->autoLaneChange) {
         performAutoLaneChange(veh);
+    }
 
     if (vars->activeController != Plexe::DRIVER) {
         controllerAcceleration = SPEED2ACCEL(vPos - veh->getSpeed());
@@ -193,9 +195,9 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         engineAcceleration = vars->engine->getRealAcceleration(veh->getSpeed(), veh->getAcceleration(), controllerAcceleration, MSNet::getInstance()->getCurrentTimeStep());
         vNext = MAX2(double(0), veh->getSpeed() + ACCEL2SPEED(engineAcceleration));
         vars->controllerAcceleration = controllerAcceleration;
-    }
-    else
+    } else {
         vNext = myHumanDriver->finalizeSpeed(veh, vPos);
+    }
 
     return vNext;
 }
@@ -205,13 +207,13 @@ double
 MSCFModel_CC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
 
     UNUSED_PARAMETER(pred);
-    CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
 
     if (vars->activeController != Plexe::DRIVER) {
         return _v(veh, gap2pred, speed, predSpeed);
-    }
-    else
+    } else {
         return myHumanDriver->followSpeed(veh, speed, gap2pred, predSpeed, predMaxDecel);
+    }
 }
 
 double
@@ -227,31 +229,29 @@ MSCFModel_CC::insertionFollowSpeed(const MSVehicle* const veh, double speed, dou
 double
 MSCFModel_CC::stopSpeed(const MSVehicle* const veh, double speed, double gap2pred) const {
 
-    CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
-    if (vars->activeController != Plexe::DRIVER)
-    {
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
+    if (vars->activeController != Plexe::DRIVER) {
         double gap2pred, relSpeed;
         getRadarMeasurements(veh, gap2pred, relSpeed);
-        if (gap2pred == -1)
+        if (gap2pred == -1) {
             gap2pred = std::numeric_limits<double>().max();
+        }
         return _v(veh, gap2pred, speed, speed + relSpeed);
-    }
-    else {
+    } else {
         return myHumanDriver->stopSpeed(veh, speed, gap2pred);
     }
 }
 
 double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
-    CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
-    if (vars->activeController != Plexe::DRIVER)
-    {
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
+    if (vars->activeController != Plexe::DRIVER) {
         double gap2pred, relSpeed;
         getRadarMeasurements(veh, gap2pred, relSpeed);
-        if (gap2pred == -1)
+        if (gap2pred == -1) {
             gap2pred = std::numeric_limits<double>().max();
+        }
         return _v(veh, gap2pred, speed, speed + relSpeed);
-    }
-    else {
+    } else {
         return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
     }
 }
@@ -259,13 +259,11 @@ double MSCFModel_CC::freeSpeed(const MSVehicle* const veh, double speed, double 
 double
 MSCFModel_CC::interactionGap(const MSVehicle* const veh, double vL) const {
 
-    CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
-    if (vars->activeController != Plexe::DRIVER)
-    {
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
+    if (vars->activeController != Plexe::DRIVER) {
         //maximum radar range is CC is enabled
         return 250;
-    }
-    else {
+    } else {
         return myHumanDriver->interactionGap(veh, vL);
     }
 
@@ -274,19 +272,21 @@ MSCFModel_CC::interactionGap(const MSVehicle* const veh, double vL) const {
 double
 MSCFModel_CC::maxNextSpeed(double speed, const MSVehicle* const veh) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
-    if (vars->engineModel == CC_ENGINE_MODEL_FOLM)
+    if (vars->engineModel == CC_ENGINE_MODEL_FOLM) {
         return speed + (double) ACCEL2SPEED(getMaxAccel());
-    else
+    } else {
         return speed + (double) ACCEL2SPEED(20);
+    }
 }
 
 double
 MSCFModel_CC::minNextSpeed(double speed, const MSVehicle* const veh) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
-    if (vars->engineModel == CC_ENGINE_MODEL_FOLM)
+    if (vars->engineModel == CC_ENGINE_MODEL_FOLM) {
         return MSCFModel::minNextSpeed(speed, veh);
-    else
+    } else {
         return MAX2((double)0, speed - (double) ACCEL2SPEED(20));
+    }
 }
 
 double
@@ -311,16 +311,17 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
 
-    if (vars->crashed || vars->crashedVictim)
+    if (vars->crashed || vars->crashedVictim) {
         return 0;
+    }
 
-    if (vars->usePrediction)
+    if (vars->usePrediction) {
         currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
+    }
 
     if (vars->activeController != Plexe::DRIVER && vars->useFixedAcceleration) {
         controllerAcceleration = vars->fixedAcceleration;
-    }
-    else {
+    } else {
 
         switch (vars->activeController) {
 
@@ -331,8 +332,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
 
                 if (gap2pred > 250 || ccAcceleration < accAcceleration) {
                     controllerAcceleration = ccAcceleration;
-                }
-                else {
+                } else {
                     controllerAcceleration = accAcceleration;
                 }
 
@@ -349,8 +349,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                 if (vars->useControllerAcceleration) {
                     predAcceleration = vars->frontControllerAcceleration;
                     leaderAcceleration = vars->leaderControllerAcceleration;
-                }
-                else {
+                } else {
                     predAcceleration = vars->frontAcceleration;
                     leaderAcceleration = vars->leaderAcceleration;
                 }
@@ -362,11 +361,13 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                     leaderSpeed += (currentTime - vars->leaderDataReadTime) * vars->leaderAcceleration;
                 }
 
-                if (vars->caccInitialized)
+                if (vars->caccInitialized) {
                     controllerAcceleration = _cacc(veh, egoSpeed, predSpeed, predAcceleration, gap2pred, leaderSpeed, leaderAcceleration, vars->caccSpacing);
-                else
+                } else
                     //do not let CACC take decisions until at least one packet has been received
+                {
                     controllerAcceleration = 0;
+                }
 
                 break;
 
@@ -381,8 +382,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                 if (vars->useControllerAcceleration) {
                     predAcceleration = vars->fakeData.frontControllerAcceleration;
                     leaderAcceleration = vars->fakeData.leaderControllerAcceleration;
-                }
-                else {
+                } else {
                     predAcceleration = vars->fakeData.frontAcceleration;
                     leaderAcceleration = vars->fakeData.leaderAcceleration;
                 }
@@ -397,29 +397,33 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
 
             case Plexe::PLOEG:
 
-                if (vars->autoFeed)
+                if (vars->autoFeed) {
                     getVehicleInformation(vars->frontVehicle, vars->frontSpeed, vars->frontAcceleration, vars->frontControllerAcceleration, pos, time);
+                }
 
-                if (vars->useControllerAcceleration)
+                if (vars->useControllerAcceleration) {
                     predAcceleration = vars->frontControllerAcceleration;
-                else
+                } else {
                     predAcceleration = vars->frontAcceleration;
+                }
                 //check if we received at least one packet
                 if (vars->frontInitialized)
                     //ploeg's controller computes \dot{u}_i, so we need to sum such value to the previously computed u_i
+                {
                     controllerAcceleration = vars->controllerAcceleration + _ploeg(veh, egoSpeed, predSpeed, predAcceleration, gap2pred);
-                else
+                } else {
                     controllerAcceleration = 0;
+                }
 
                 break;
 
             case Plexe::CONSENSUS:
 
                 controllerAcceleration = _consensus(veh,
-                        egoSpeed,
-                        veh->getPosition(),
-                        STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T)
-                );
+                                                    egoSpeed,
+                                                    veh->getPosition(),
+                                                    STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T)
+                                                   );
 
                 break;
 
@@ -438,11 +442,13 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                     leaderSpeed += (currentTime - vars->leaderDataReadTime) * vars->leaderAcceleration;
                 }
 
-                if (vars->caccInitialized)
+                if (vars->caccInitialized) {
                     controllerAcceleration = _flatbed(veh, veh->getAcceleration(), egoSpeed, predSpeed, gap2pred, leaderSpeed);
-                else
+                } else
                     //do not let CACC take decisions until at least one packet has been received
+                {
                     controllerAcceleration = 0;
+                }
 
                 break;
 
@@ -468,25 +474,25 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
 }
 
 double
-MSCFModel_CC::_cc(const MSVehicle *veh, double egoSpeed, double desSpeed) const {
+MSCFModel_CC::_cc(const MSVehicle* veh, double egoSpeed, double desSpeed) const {
 
-    CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     //Eq. 5.5 of the Rajamani book, with Ki = 0 and bounds on max and min acceleration
     return std::min(myCcAccel, std::max(-myCcDecel, -vars->ccKp * (egoSpeed - desSpeed)));
 
 }
 
 double
-MSCFModel_CC::_acc(const MSVehicle *veh, double egoSpeed, double predSpeed, double gap2pred, double headwayTime) const {
+MSCFModel_CC::_acc(const MSVehicle* veh, double egoSpeed, double predSpeed, double gap2pred, double headwayTime) const {
 
-    CC_VehicleVariables *vars = (CC_VehicleVariables *)veh->getCarFollowVariables();
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     //Eq. 6.18 of the Rajamani book
     return -1.0 / headwayTime * (egoSpeed - predSpeed + vars->accLambda * (-gap2pred + headwayTime * egoSpeed + 2));
 
 }
 
 double
-MSCFModel_CC::_cacc(const MSVehicle *veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred, double leaderSpeed, double leaderAcceleration, double spacing) const {
+MSCFModel_CC::_cacc(const MSVehicle* veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred, double leaderSpeed, double leaderAcceleration, double spacing) const {
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     //compute epsilon, i.e., the desired distance error
@@ -500,21 +506,21 @@ MSCFModel_CC::_cacc(const MSVehicle *veh, double egoSpeed, double predSpeed, dou
 }
 
 double
-MSCFModel_CC::_ploeg(const MSVehicle *veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred) const {
+MSCFModel_CC::_ploeg(const MSVehicle* veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred) const {
 
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
 
-    return (1/vars->ploegH * (
-        -vars->controllerAcceleration +
-        vars->ploegKp * (gap2pred - (2 + vars->ploegH * egoSpeed)) +
-        vars->ploegKd * (predSpeed - egoSpeed - vars->ploegH * veh->getAcceleration()) +
-        predAcceleration
-    )) * TS ;
+    return (1 / vars->ploegH * (
+                -vars->controllerAcceleration +
+                vars->ploegKp * (gap2pred - (2 + vars->ploegH * egoSpeed)) +
+                vars->ploegKd * (predSpeed - egoSpeed - vars->ploegH * veh->getAcceleration()) +
+                predAcceleration
+            )) * TS ;
 
 }
 
 double
-MSCFModel_CC::d_i_j(const struct Plexe::VEHICLE_DATA *vehicles, const double h[MAX_N_CARS], int i, int j) const {
+MSCFModel_CC::d_i_j(const struct Plexe::VEHICLE_DATA* vehicles, const double h[MAX_N_CARS], int i, int j) const {
 
     int k, min_i, max_i;
     double d = 0;
@@ -522,19 +528,20 @@ MSCFModel_CC::d_i_j(const struct Plexe::VEHICLE_DATA *vehicles, const double h[M
     if (j < i) {
         min_i = j;
         max_i = i - 1;
-    }
-    else {
+    } else {
         min_i = i;
         max_i = j - 1;
     }
     //compute distance
-    for (k = min_i; k <= max_i; k++)
+    for (k = min_i; k <= max_i; k++) {
         d += h[k] * vehicles[0].speed + vehicles[k].length + 15;
+    }
 
-    if (j < i)
+    if (j < i) {
         return d;
-    else
+    } else {
         return -d;
+    }
 
 }
 
@@ -546,7 +553,7 @@ MSCFModel_CC::_consensus(const MSVehicle* veh, double egoSpeed, Position egoPosi
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     int index = vars->position;
     int nCars = vars->nCars;
-    struct Plexe::VEHICLE_DATA *vehicles = vars->vehicles;
+    struct Plexe::VEHICLE_DATA* vehicles = vars->vehicles;
 
     //loop variable
     int j;
@@ -572,16 +579,18 @@ MSCFModel_CC::_consensus(const MSVehicle* veh, double egoSpeed, Position egoPosi
     //check that data from all vehicles have been received. the control
     //law might actually need a subset of all the data, but d_i_j needs
     //the lengths of all vehicles. uninitialized values might cause problems
-    if (vars->nInitialized != vars->nCars - 1)
+    if (vars->nInitialized != vars->nCars - 1) {
         return 0;
+    }
 
     //compute speed error.
     speedError = -vars->b[index] * (egoSpeed - vehicles[0].speed);
 
     //compute desired distance term
     for (j = 0; j < nCars; j++) {
-        if (j == index)
+        if (j == index) {
             continue;
+        }
         d_i += vars->L[index][j];
         desiredDistance -= vars->K[index][j] * vars->L[index][j] * d_i_j(vehicles, vars->h, index, j);
     }
@@ -589,8 +598,9 @@ MSCFModel_CC::_consensus(const MSVehicle* veh, double egoSpeed, Position egoPosi
 
     //compute actual distance term
     for (j = 0; j < nCars; j++) {
-        if (j == index)
+        if (j == index) {
             continue;
+        }
         //distance error for consensus with GPS equipped
         Position otherPosition;
         double dt = time - vehicles[j].time;
@@ -604,30 +614,30 @@ MSCFModel_CC::_consensus(const MSVehicle* veh, double egoSpeed, Position egoPosi
     actualDistance = actualDistance / (d_i);
 
     //original paper formula
-    u_i = (speedError + desiredDistance + actualDistance)/1000;
+    u_i = (speedError + desiredDistance + actualDistance) / 1000;
 
     return u_i;
 }
 
 double
-MSCFModel_CC::_flatbed(const MSVehicle *veh, double egoAcceleration, double egoSpeed, double predSpeed,
+MSCFModel_CC::_flatbed(const MSVehicle* veh, double egoAcceleration, double egoSpeed, double predSpeed,
                        double gap2pred, double leaderSpeed) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     return (
-        -vars->flatbedKa * egoAcceleration +
-        vars->flatbedKv * (predSpeed - egoSpeed) +
-        vars->flatbedKp * (gap2pred - vars->flatbedD - vars->flatbedH * (egoSpeed - leaderSpeed))
-    );
+               -vars->flatbedKa * egoAcceleration +
+               vars->flatbedKv * (predSpeed - egoSpeed) +
+               vars->flatbedKp * (gap2pred - vars->flatbedD - vars->flatbedH * (egoSpeed - leaderSpeed))
+           );
 }
 
 double
-MSCFModel_CC::getCACCConstantSpacing(const MSVehicle * veh) const {
+MSCFModel_CC::getCACCConstantSpacing(const MSVehicle* veh) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     return vars->caccSpacing;
 }
 
 void
-MSCFModel_CC::getVehicleInformation(const MSVehicle* veh, double& speed, double& acceleration, double& controllerAcceleration, Position &position, double &time) const {
+MSCFModel_CC::getVehicleInformation(const MSVehicle* veh, double& speed, double& acceleration, double& controllerAcceleration, Position& position, double& time) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     speed = veh->getSpeed();
     acceleration = veh->getAcceleration();
@@ -636,9 +646,9 @@ MSCFModel_CC::getVehicleInformation(const MSVehicle* veh, double& speed, double&
     time = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
 }
 
-void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const std::string& value) const {
+void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const {
     // vehicle variables used to set the parameter
-    CC_VehicleVariables *vars;
+    CC_VehicleVariables* vars;
 
     ParBuffer buf(value);
 
@@ -651,8 +661,9 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             vars->leaderPosition = Position(x, y);
             vars->leaderVelocity = Position(vx, vy);
             vars->leaderInitialized = true;
-            if (vars->frontInitialized)
+            if (vars->frontInitialized) {
                 vars->caccInitialized = true;
+            }
             return;
         }
         if (key.compare(PAR_PRECEDING_SPEED_AND_ACCELERATION) == 0) {
@@ -662,19 +673,21 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             vars->frontPosition = Position(x, y);
             vars->frontVelocity = Position(vx, vy);
             vars->frontInitialized = true;
-            if (vars->leaderInitialized)
+            if (vars->leaderInitialized) {
                 vars->caccInitialized = true;
+            }
             return;
         }
         if (key.compare(CC_PAR_VEHICLE_DATA) == 0) {
             struct Plexe::VEHICLE_DATA vehicle;
             buf >> vehicle.index >> vehicle.speed >> vehicle.acceleration >>
-                   vehicle.positionX >> vehicle.positionY >> vehicle.time >>
-                   vehicle.length >> vehicle.u >> vehicle.speedX >>
-                   vehicle.speedY >> vehicle.angle;
+                vehicle.positionX >> vehicle.positionY >> vehicle.time >>
+                vehicle.length >> vehicle.u >> vehicle.speedX >>
+                vehicle.speedY >> vehicle.angle;
             //if the index is larger than the number of cars, simply ignore the data
-            if (vehicle.index >= vars->nCars || vehicle.index == -1)
+            if (vehicle.index >= vars->nCars || vehicle.index == -1) {
                 return;
+            }
             vars->vehicles[vehicle.index] = vehicle;
             if (!vars->initialized[vehicle.index] && vehicle.index != vars->position) {
                 vars->nInitialized++;
@@ -685,15 +698,17 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
         if (key.compare(PAR_LEADER_FAKE_DATA) == 0) {
             buf >> vars->fakeData.leaderSpeed >> vars->fakeData.leaderAcceleration
                 >> vars->fakeData.leaderControllerAcceleration;
-            if (buf.last_empty())
+            if (buf.last_empty()) {
                 vars->useControllerAcceleration = false;
+            }
             return;
         }
         if (key.compare(PAR_FRONT_FAKE_DATA) == 0) {
             buf >> vars->fakeData.frontSpeed >> vars->fakeData.frontAcceleration >> vars->fakeData.frontDistance
                 >> vars->fakeData.frontControllerAcceleration;
-            if (buf.last_empty())
+            if (buf.last_empty()) {
                 vars->useControllerAcceleration = false;
+            }
             return;
         }
         if (key.compare(CC_PAR_VEHICLE_POSITION) == 0) {
@@ -708,8 +723,8 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
                 vars->nCars = MAX_N_CARS;
                 std::stringstream warn;
                 warn << "MSCFModel_CC: setting a number of cars of " << vars->nCars << " out of a maximum of " << MAX_N_CARS <<
-                        ". The CONSENSUS controller will not work properly if chosen. If you are using a different controller " <<
-                        "you can ignore this warning";
+                     ". The CONSENSUS controller will not work properly if chosen. If you are using a different controller " <<
+                     "you can ignore this warning";
                 WRITE_WARNING(warn.str());
             }
             return;
@@ -800,21 +815,21 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             }
             int engineModel = StringUtils::toInt(value.c_str());;
             switch (engineModel) {
-            case CC_ENGINE_MODEL_REALISTIC: {
-                vars->engine = new RealisticEngineModel();
-                vars->engine->setParameter(ENGINE_PAR_DT, TS);
-                veh->getInfluencer().setSpeedMode(0);
-                vars->engineModel = CC_ENGINE_MODEL_REALISTIC;
-                break;
-            }
-            case CC_ENGINE_MODEL_FOLM:
-            default: {
-                vars->engine = new FirstOrderLagModel();
-                vars->engine->setParameter(FOLM_PAR_DT, TS);
-                vars->engine->setParameter(FOLM_PAR_TAU, vars->engineTau);
-                vars->engineModel = CC_ENGINE_MODEL_FOLM;
-                break;
-            }
+                case CC_ENGINE_MODEL_REALISTIC: {
+                    vars->engine = new RealisticEngineModel();
+                    vars->engine->setParameter(ENGINE_PAR_DT, TS);
+                    veh->getInfluencer().setSpeedMode(0);
+                    vars->engineModel = CC_ENGINE_MODEL_REALISTIC;
+                    break;
+                }
+                case CC_ENGINE_MODEL_FOLM:
+                default: {
+                    vars->engine = new FirstOrderLagModel();
+                    vars->engine->setParameter(FOLM_PAR_DT, TS);
+                    vars->engine->setParameter(FOLM_PAR_TAU, vars->engineTau);
+                    vars->engineModel = CC_ENGINE_MODEL_FOLM;
+                    break;
+                }
             }
             vars->engine->setMaximumAcceleration(myAccel);
             vars->engine->setMaximumDeceleration(myDecel);
@@ -860,17 +875,21 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             if (vars->autoFeed) {
                 vars->usePrediction = false;
                 buf >> leaderId;
-                if (buf.last_empty())
+                if (buf.last_empty()) {
                     throw InvalidArgument("Trying to enable auto feeding without providing leader vehicle id");
-                vars->leaderVehicle = dynamic_cast<MSVehicle *>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderId));
-                if (vars->leaderVehicle == 0)
-                    throw libsumo::TraCIException( "Vehicle '" + leaderId + "' is not known");
+                }
+                vars->leaderVehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderId));
+                if (vars->leaderVehicle == 0) {
+                    throw libsumo::TraCIException("Vehicle '" + leaderId + "' is not known");
+                }
                 buf >> frontId;
-                if (buf.last_empty())
+                if (buf.last_empty()) {
                     throw InvalidArgument("Trying to enable auto feeding without providing front vehicle id");
-                vars->frontVehicle = dynamic_cast<MSVehicle *>(MSNet::getInstance()->getVehicleControl().getVehicle(frontId));
-                if (vars->frontVehicle == 0)
+                }
+                vars->frontVehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(frontId));
+                if (vars->frontVehicle == 0) {
                     throw libsumo::TraCIException("Vehicle '" + frontId + "' is not known");
+                }
                 vars->leaderInitialized = true;
                 vars->frontInitialized = true;
                 vars->caccInitialized = true;
@@ -881,25 +900,25 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             vars->usePrediction = StringUtils::toInt(value.c_str()) == 1;
             return;
         }
-    } catch (NumberFormatException &) {
+    } catch (NumberFormatException&) {
         throw InvalidArgument("Invalid value '" + value + "' for parameter '" + key + "' for vehicle '" + veh->getID() + "'");
     }
 
 }
 
-std::string MSCFModel_CC::getParameter(const MSVehicle *veh, const std::string& key) const {
+std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& key) const {
     // vehicle variables used to set the parameter
-    CC_VehicleVariables *vars;
+    CC_VehicleVariables* vars;
     ParBuffer buf;
 
     vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     if (key.compare(PAR_SPEED_AND_ACCELERATION) == 0) {
         Position velocity = veh->getVelocityVector();
         buf << veh->getSpeed() << veh->getAcceleration() <<
-               vars->controllerAcceleration << veh->getPosition().x() <<
-               veh->getPosition().y() <<
-               STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) <<
-               velocity.x() << velocity.y() << veh->getAngle();
+            vars->controllerAcceleration << veh->getPosition().x() <<
+            veh->getPosition().y() <<
+            STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) <<
+            velocity.x() << velocity.y() << veh->getAngle();
         return buf.str();
     }
     if (key.compare(PAR_CRASHED) == 0) {
@@ -917,11 +936,11 @@ std::string MSCFModel_CC::getParameter(const MSVehicle *veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_TO_END) == 0) {
         //route of the vehicle
-        const MSRoute *route;
+        const MSRoute* route;
         //edge the vehicle is currently traveling on
-        const MSEdge *currentEdge;
+        const MSEdge* currentEdge;
         //last edge of the route of this vehicle
-        const MSEdge *lastEdge;
+        const MSEdge* lastEdge;
         //current position of the vehicle on the edge its traveling in
         double positionOnEdge;
         //distance to trip end using
@@ -938,11 +957,11 @@ std::string MSCFModel_CC::getParameter(const MSVehicle *veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_FROM_BEGIN) == 0) {
         //route of the vehicle
-        const MSRoute *route;
+        const MSRoute* route;
         //edge the vehicle is currently traveling on
-        const MSEdge *currentEdge;
+        const MSEdge* currentEdge;
         //last edge of the route of this vehicle
-        const MSEdge *firstEdge;
+        const MSEdge* firstEdge;
         //current position of the vehicle on the edge its traveling in
         double positionOnEdge;
         //distance to trip end using
@@ -982,24 +1001,24 @@ std::string MSCFModel_CC::getParameter(const MSVehicle *veh, const std::string& 
         int index;
         inBuf >> index;
         struct Plexe::VEHICLE_DATA vehicle;
-        if (index >= vars->nCars || index < 0)
+        if (index >= vars->nCars || index < 0) {
             vehicle.index = -1;
-        else
+        } else {
             vehicle = vars->vehicles[index];
+        }
         buf << vehicle.index << vehicle.speed << vehicle.acceleration <<
-               vehicle.positionX << vehicle.positionY << vehicle.time <<
-               vehicle.length << vehicle.u << vehicle.speedX <<
-               vehicle.speedY << vehicle.angle;
+            vehicle.positionX << vehicle.positionY << vehicle.time <<
+            vehicle.length << vehicle.u << vehicle.speedX <<
+            vehicle.speedY << vehicle.angle;
         return buf.str();
     }
     if (key.compare(PAR_ENGINE_DATA) == 0) {
         uint8_t gear;
         double rpm;
-        RealisticEngineModel *engine = dynamic_cast<RealisticEngineModel *>(vars->engine);
+        RealisticEngineModel* engine = dynamic_cast<RealisticEngineModel*>(vars->engine);
         if (engine) {
             engine->getEngineData(veh->getSpeed(), gear, rpm);
-        }
-        else {
+        } else {
             gear = -1;
             rpm = 0;
         }
@@ -1009,16 +1028,16 @@ std::string MSCFModel_CC::getParameter(const MSVehicle *veh, const std::string& 
     return "";
 }
 
-void MSCFModel_CC::recomputeParameters(const MSVehicle *veh) const {
+void MSCFModel_CC::recomputeParameters(const MSVehicle* veh) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     vars->caccAlpha1 = 1 - vars->caccC1;
     vars->caccAlpha2 = vars->caccC1;
     vars->caccAlpha3 = -(2 * vars->caccXi - vars->caccC1 * (vars->caccXi + sqrt(vars->caccXi * vars->caccXi - 1))) * vars->caccOmegaN;
-    vars->caccAlpha4 = -(vars->caccXi + sqrt(vars->caccXi* vars->caccXi - 1)) * vars->caccOmegaN * vars->caccC1;
+    vars->caccAlpha4 = -(vars->caccXi + sqrt(vars->caccXi * vars->caccXi - 1)) * vars->caccOmegaN * vars->caccC1;
     vars->caccAlpha5 = -vars->caccOmegaN * vars->caccOmegaN;
 }
 
-void MSCFModel_CC::resetConsensus(const MSVehicle *veh) const {
+void MSCFModel_CC::resetConsensus(const MSVehicle* veh) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     for (int i = 0; i < MAX_N_CARS; i++) {
         vars->initialized[i] = false;
@@ -1026,46 +1045,47 @@ void MSCFModel_CC::resetConsensus(const MSVehicle *veh) const {
     }
 }
 
-void MSCFModel_CC::switchOnACC(const MSVehicle *veh, double ccDesiredSpeed)  const {
+void MSCFModel_CC::switchOnACC(const MSVehicle* veh, double ccDesiredSpeed)  const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     vars->ccDesiredSpeed = ccDesiredSpeed;
     vars->activeController = Plexe::ACC;
 }
 
-enum Plexe::ACTIVE_CONTROLLER MSCFModel_CC::getActiveController(const MSVehicle *veh) const {
+enum Plexe::ACTIVE_CONTROLLER MSCFModel_CC::getActiveController(const MSVehicle* veh) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     return vars->activeController;
 }
 
-void MSCFModel_CC::getRadarMeasurements(const MSVehicle * veh, double &distance, double &relativeSpeed) const {
+void MSCFModel_CC::getRadarMeasurements(const MSVehicle* veh, double& distance, double& relativeSpeed) const {
     std::pair<std::string, double> l = libsumo::Vehicle::getLeader(veh->getID(), 250);
     if (l.second < 0) {
         distance = -1;
         relativeSpeed = 0;
-    }
-    else {
+    } else {
         distance = l.second;
-        SUMOVehicle *leader = MSNet::getInstance()->getVehicleControl().getVehicle(l.first);
+        SUMOVehicle* leader = MSNet::getInstance()->getVehicleControl().getVehicle(l.first);
         relativeSpeed = leader->getSpeed() - veh->getSpeed();
     }
 }
 
-void MSCFModel_CC::setCrashed(const MSVehicle *veh, bool crashed, bool victim) const {
-    CC_VehicleVariables *vars = (CC_VehicleVariables *) veh->getCarFollowVariables();
-    if (victim)
+void MSCFModel_CC::setCrashed(const MSVehicle* veh, bool crashed, bool victim) const {
+    CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    if (victim) {
         vars->crashedVictim = crashed;
-    else
+    } else {
         vars->crashed = crashed;
+    }
 }
 
-double MSCFModel_CC::getACCAcceleration(const MSVehicle *veh) const {
-    CC_VehicleVariables *vars = (CC_VehicleVariables *) veh->getCarFollowVariables();
+double MSCFModel_CC::getACCAcceleration(const MSVehicle* veh) const {
+    CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     double distance, relSpeed;
     getRadarMeasurements(veh, distance, relSpeed);
-    if (distance < 0)
+    if (distance < 0) {
         return 0;
-    else
+    } else {
         return _acc(veh, veh->getSpeed(), relSpeed + veh->getSpeed(), distance, vars->accHeadwayTime);
+    }
 }
 
 int MSCFModel_CC::getMyLanesCount() const {

@@ -62,7 +62,7 @@ public:
     //number of gears
     uint8_t nGears;
     //gear ratios
-    double *gearRatios;
+    double* gearRatios;
     //differential ratio
     double differentialRatio;
     //wheel diameter in meters
@@ -126,11 +126,11 @@ public:
     /**
      * Writes the parameter to an output stream, for debugging purposes
      */
-    void dumpParameters(std::ostream &out);
+    void dumpParameters(std::ostream& out);
 
     EngineParameters();
-    EngineParameters(const EngineParameters &other);
-    EngineParameters &operator = (const EngineParameters &other);
+    EngineParameters(const EngineParameters& other);
+    EngineParameters& operator = (const EngineParameters& other);
     virtual ~EngineParameters();
 
 };

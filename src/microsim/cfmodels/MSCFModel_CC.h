@@ -134,7 +134,7 @@ public:
      * @return EGO's safe speed
      */
     virtual double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                               double maxSpeed, const bool onInsertion = false) const;
+                             double maxSpeed, const bool onInsertion = false) const;
 
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
 
@@ -150,7 +150,7 @@ public:
      * @todo evaluate signature
      * @see MSCFModel::interactionGap
      */
-    double interactionGap(const MSVehicle* const , double vL) const;
+    double interactionGap(const MSVehicle* const, double vL) const;
 
 
     /** @brief Returns the model's name
@@ -178,7 +178,7 @@ public:
      * @param[in] veh the vehicle to get constant spacing of
      * @return spacing the spacing in meters
      */
-    double getCACCConstantSpacing(const MSVehicle * veh) const;
+    double getCACCConstantSpacing(const MSVehicle* veh) const;
 
     /**
      * @brief set the information about a generic car. This method should be invoked
@@ -200,7 +200,7 @@ public:
      * @param[in] key the key of the parameter
      * @return the value of the requested parameter
      */
-    virtual std::string getParameter(const MSVehicle *veh, const std::string& key) const;
+    virtual std::string getParameter(const MSVehicle* veh, const std::string& key) const;
 
     /**
      * @brief try to set the given parameter for this carFollowingModel
@@ -209,7 +209,7 @@ public:
      * @param[in] key the key of the parameter
      * @param[in] value the value to be set for the given parameter
      */
-    virtual void setParameter(MSVehicle *veh, const std::string& key, const std::string& value) const;
+    virtual void setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const;
 
     /**
      * @brief get the information about a vehicle. This can be used by TraCI in order to
@@ -223,7 +223,7 @@ public:
      * the controller will be written in this variable. This might be different from
      * acceleration because of actuation lag
      */
-    void getVehicleInformation(const MSVehicle* veh, double& speed, double& acceleration, double& controllerAcceleration, Position &position, double &time) const;
+    void getVehicleInformation(const MSVehicle* veh, double& speed, double& acceleration, double& controllerAcceleration, Position& position, double& time) const;
 
     /**
      * @brief switch on the ACC, so disabling the human driver car control
@@ -231,7 +231,7 @@ public:
      * @param[in] veh the vehicle for which the ACC must be switched on
      * @param[in] ccDesiredSpeed the cruise control speed
      */
-    void switchOnACC(const MSVehicle *veh, double ccDesiredSpeed) const;
+    void switchOnACC(const MSVehicle* veh, double ccDesiredSpeed) const;
 
     /**
      * @brief return the currently active controller
@@ -239,12 +239,12 @@ public:
      * @param[in] veh the vehicle for which the action is requested
      * @return the currently active controller
      */
-    enum Plexe::ACTIVE_CONTROLLER getActiveController(const MSVehicle *veh) const;
+    enum Plexe::ACTIVE_CONTROLLER getActiveController(const MSVehicle* veh) const;
 
     /**
      * @brief return the data that is currently being measured by the radar
      */
-    void getRadarMeasurements(const MSVehicle * veh, double &distance, double &relativeSpeed) const;
+    void getRadarMeasurements(const MSVehicle* veh, double& distance, double& relativeSpeed) const;
 
     /**
      * @brief tells the module that in the last timestep the car has crashed (or not)
@@ -253,14 +253,14 @@ public:
      * @param[in] crashed whether the car has crashed or not
      * @param[in] victim whether the car was the victim or not
      */
-    void setCrashed(const MSVehicle *veh, bool crashed, bool victim=false) const;
+    void setCrashed(const MSVehicle* veh, bool crashed, bool victim = false) const;
 
     /**
      * @brief returns the ACC computed acceleration when the faked
      * CACC is controlling the car. This can be used to check for
      * vehicles in front
      */
-    double getACCAcceleration(const MSVehicle *veh) const;
+    double getACCAcceleration(const MSVehicle* veh) const;
 
     /**
      * @brief returns the number of lanes set in the configuration file
@@ -272,17 +272,17 @@ private:
     /**
      * @brief Recomputes controller related parameters after setting them
      */
-    void recomputeParameters(const MSVehicle *veh) const;
+    void recomputeParameters(const MSVehicle* veh) const;
 
     /**
      * @brief Resets the consensus controller. In particular, sets the
      * "initialized" vector all to false. This might be useful when changing
      * topology.
      */
-    void resetConsensus(const MSVehicle *veh) const;
+    void resetConsensus(const MSVehicle* veh) const;
 
 private:
-    void performAutoLaneChange(MSVehicle *const veh) const;
+    void performAutoLaneChange(MSVehicle* const veh) const;
 
     double _v(const MSVehicle* const veh, double gap2pred, double egoSpeed, double predSpeed) const;
 
@@ -292,7 +292,7 @@ private:
      * @param[in] desSpeed vehicle desired speed
      * @return the acceleration to be given to the actuator
      */
-    double _cc(const MSVehicle *veh, double egoSpeed, double desSpeed) const;
+    double _cc(const MSVehicle* veh, double egoSpeed, double desSpeed) const;
 
     /** @brief controller for the ACC which computes the acceleration to be applied. the value needs to be passed to the actuator
      *
@@ -302,7 +302,7 @@ private:
      * @param[in] headwayTime the headway time ACC should maintain
      * @return the acceleration to be given to the actuator
      */
-    double _acc(const MSVehicle *veh, double egoSpeed, double predSpeed, double gap2pred, double headwayTime) const;
+    double _acc(const MSVehicle* veh, double egoSpeed, double predSpeed, double gap2pred, double headwayTime) const;
 
     /** @brief controller for the CACC which computes the acceleration to be applied. the value needs to be passed to the actuator
      *
@@ -315,7 +315,7 @@ private:
      * @param[in] spacing the spacing to be kept
      * @return the acceleration to be given to the actuator
      */
-    double _cacc(const MSVehicle *veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred, double leaderSpeed, double leaderAcceleration, double spacing) const;
+    double _cacc(const MSVehicle* veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred, double leaderSpeed, double leaderAcceleration, double spacing) const;
 
     /** @brief controller for the Ploeg's CACC which computes the control input variation.
      * Opposed to other controllers, this method returns a value which needs to be summed
@@ -327,7 +327,7 @@ private:
      * @param[in] gap2pred the distance to preceding vehicle
      * @return the variation of desired acceleration
      */
-    double _ploeg(const MSVehicle *veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred) const;
+    double _ploeg(const MSVehicle* veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred) const;
 
     /** @brief controller based on consensus strategy
      *
@@ -347,7 +347,7 @@ private:
      * @return the desired distance between vehicle i and j
      *
      */
-    double d_i_j(const struct Plexe::VEHICLE_DATA *vehicles, const double h[MAX_N_CARS], int i, int j) const;
+    double d_i_j(const struct Plexe::VEHICLE_DATA* vehicles, const double h[MAX_N_CARS], int i, int j) const;
 
     /** @brief flatbed platoon towing model
      *
@@ -357,14 +357,14 @@ private:
      * @param[in] gap2pred distance to front vehicle
      * @param[in] leaderSpeed speed of leading vehicle
      */
-    double _flatbed(const MSVehicle *veh, double egoAcceleration, double egoSpeed, double predSpeed,
+    double _flatbed(const MSVehicle* veh, double egoAcceleration, double egoSpeed, double predSpeed,
                     double gap2pred, double leaderSpeed) const;
 
 
 private:
 
     /// @brief the car following model which drives the car when automated cruising is disabled, i.e., the human driver
-    MSCFModel *myHumanDriver;
+    MSCFModel* myHumanDriver;
 
     /// @brief The maximum deceleration that the CC can output
     const double myCcDecel;

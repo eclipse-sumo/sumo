@@ -46,7 +46,7 @@ RealisticEngineModel::RealisticEngineModel() {
 RealisticEngineModel::~RealisticEngineModel() {}
 
 double RealisticEngineModel::rpmToSpeed_mps(double rpm, double wheelDiameter_m = 0.94,
-    double differentialRatio = 4.6, double gearRatio = 4.5) {
+        double differentialRatio = 4.6, double gearRatio = 4.5) {
     return rpm * wheelDiameter_m * M_PI / (differentialRatio * gearRatio * 60);
 }
 
@@ -55,7 +55,7 @@ double RealisticEngineModel::rpmToSpeed_mps(double rpm) {
 }
 
 double RealisticEngineModel::speed_mpsToRpm(double speed_mps, double wheelDiameter_m,
-    double differentialRatio, double gearRatio) {
+        double differentialRatio, double gearRatio) {
     return speed_mps * differentialRatio * gearRatio * 60 / (wheelDiameter_m * M_PI);
 }
 
@@ -67,28 +67,31 @@ double RealisticEngineModel::speed_mpsToRpm(double speed_mps, double gearRatio) 
     return ep.__speedToRpmCoefficient * speed_mps * gearRatio;
 }
 
-double RealisticEngineModel::rpmToPower_hp(double rpm, const struct EngineParameters::PolynomialEngineModelRpmToHp *engineMapping) {
+double RealisticEngineModel::rpmToPower_hp(double rpm, const struct EngineParameters::PolynomialEngineModelRpmToHp* engineMapping) {
     double sum = engineMapping->x[0];
     uint8_t i;
-    for (i = 1; i < engineMapping->degree; i++)
+    for (i = 1; i < engineMapping->degree; i++) {
         sum += engineMapping->x[i] + pow(rpm, i);
+    }
     return sum;
 }
 
 double RealisticEngineModel::rpmToPower_hp(double rpm) {
-    if (rpm >= ep.maxRpm)
+    if (rpm >= ep.maxRpm) {
         rpm = ep.maxRpm;
+    }
     double sum = ep.engineMapping.x[0];
     uint8_t i;
-    for (i = 1; i < ep.engineMapping.degree; i++)
+    for (i = 1; i < ep.engineMapping.degree; i++) {
         sum += ep.engineMapping.x[i] * pow(rpm, i);
+    }
     return sum;
 }
 
 double RealisticEngineModel::speed_mpsToPower_hp(double speed_mps,
-    const struct EngineParameters::PolynomialEngineModelRpmToHp *engineMapping,
-    double wheelDiameter_m, double differentialRatio,
-    double gearRatio) {
+        const struct EngineParameters::PolynomialEngineModelRpmToHp* engineMapping,
+        double wheelDiameter_m, double differentialRatio,
+        double gearRatio) {
     double rpm = speed_mpsToRpm(speed_mps, wheelDiameter_m, differentialRatio, gearRatio);
     return rpmToPower_hp(rpm, engineMapping);
 }
@@ -98,9 +101,9 @@ double RealisticEngineModel::speed_mpsToPower_hp(double speed_mps) {
 }
 
 double RealisticEngineModel::speed_mpsToThrust_N(double speed_mps,
-    const struct EngineParameters::PolynomialEngineModelRpmToHp *engineMapping,
-    double wheelDiameter_m, double differentialRatio,
-    double gearRatio, double engineEfficiency) {
+        const struct EngineParameters::PolynomialEngineModelRpmToHp* engineMapping,
+        double wheelDiameter_m, double differentialRatio,
+        double gearRatio, double engineEfficiency) {
     double power_hp = speed_mpsToPower_hp(speed_mps, engineMapping, wheelDiameter_m, differentialRatio, gearRatio);
     return engineEfficiency * power_hp * HP_TO_W / speed_mps;
 }
@@ -125,7 +128,7 @@ double RealisticEngineModel::rollingResistance_N(double speed_mps) {
 }
 
 double RealisticEngineModel::gravityForce_N(double mass_kg, double slope = 0) {
-    return mass_kg * GRAVITY_MPS2 * sin(slope/180*M_PI);
+    return mass_kg * GRAVITY_MPS2 * sin(slope / 180 * M_PI);
 }
 
 double RealisticEngineModel::gravityForce_N() {
@@ -133,8 +136,8 @@ double RealisticEngineModel::gravityForce_N() {
 }
 
 double RealisticEngineModel::opposingForce_N(double speed_mps, double mass_kg, double slope,
-    double cAir, double a_m2, double rho_kgpm3,
-    double cr1, double cr2) {
+        double cAir, double a_m2, double rho_kgpm3,
+        double cr1, double cr2) {
     return airDrag_N(speed_mps, cAir, a_m2, rho_kgpm3) +
            rollingResistance_N(speed_mps, mass_kg, cr1, cr2) +
            gravityForce_N(mass_kg, slope);
@@ -144,7 +147,7 @@ double RealisticEngineModel::opposingForce_N(double speed_mps) {
 }
 
 double RealisticEngineModel::maxNoSlipAcceleration_mps2(double slope, double frictionCoefficient) {
-    return frictionCoefficient * GRAVITY_MPS2 * cos(slope/180*M_PI);
+    return frictionCoefficient * GRAVITY_MPS2 * cos(slope / 180 * M_PI);
 }
 
 double RealisticEngineModel::maxNoSlipAcceleration_mps2() {
@@ -160,10 +163,11 @@ uint8_t RealisticEngineModel::performGearShifting(double speed_mps, double accel
     double delta = acceleration_mps2 >= 0 ? ep.shiftingRule.deltaRpm : -ep.shiftingRule.deltaRpm;
     for (newGear = 0; newGear < ep.nGears - 1; newGear++) {
         double rpm = speed_mpsToRpm(speed_mps, ep.gearRatios[newGear]);
-        if (rpm >= ep.shiftingRule.rpm + delta)
+        if (rpm >= ep.shiftingRule.rpm + delta) {
             continue;
-        else
+        } else {
             break;
+        }
     }
     currentGear = newGear;
     return currentGear;
@@ -177,14 +181,16 @@ double RealisticEngineModel::maxEngineAcceleration_mps2(double speed_mps) {
 double RealisticEngineModel::getEngineTimeConstant_s(double rpm) {
     if (rpm <= 0) {
         return TAU_MAX;
-    }
-    else {
+    } else {
         if (ep.fixedTauBurn)
             //in this case, tau_burn is fixed and is within __engineTauDe_s
+        {
             return std::min(TAU_MAX, ep.__engineTau2 / rpm + ep.__engineTauDe_s);
-        else
+        } else
             //in this case, tau_burn is dynamic and is within __engineTau1
+        {
             return std::min(TAU_MAX, ep.__engineTau1 / rpm + ep.tauEx_s);
+        }
     }
 }
 
@@ -209,9 +215,8 @@ double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_
         double currentAccel_mps2 = accel_mps2 + thrust_NToAcceleration_mps2(opposingForce_N(speed_mps));
         //use standard first order lag with time constant depending on engine rpm
         //add back frictions resistance as well
-        realAccel_mps2 = alpha * engineAccel + (1-alpha) * currentAccel_mps2 - thrust_NToAcceleration_mps2(opposingForce_N(speed_mps));
-    }
-    else {
+        realAccel_mps2 = alpha * engineAccel + (1 - alpha) * currentAccel_mps2 - thrust_NToAcceleration_mps2(opposingForce_N(speed_mps));
+    } else {
         realAccel_mps2 = getRealBrakingAcceleration(speed_mps, accel_mps2, reqAccel_mps2, timeStep);
     }
 
@@ -227,7 +232,7 @@ double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_
         serv_addr.sin_port = htons(33333);
         inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
         //try to connect
-        if (connect(socketfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) != 0) {
+        if (connect(socketfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) != 0) {
             close(socketfd);
             socketfd = -1;
         }
@@ -237,11 +242,11 @@ double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_
         char buf[1024];
         //format the message for the dashboard
         double speedAfterAccel = std::max(speed_mps + realAccel_mps2 * ep.dt, 0.0);
-        sprintf(buf, "%f %f %d %f\r\n", speed_mpsToRpm(correctedSpeed), speed_mps*3.6, (int)currentGear+1, (speedAfterAccel - speed_mps) / ep.dt);
+        sprintf(buf, "%f %f %d %f\r\n", speed_mpsToRpm(correctedSpeed), speed_mps * 3.6, (int)currentGear + 1, (speedAfterAccel - speed_mps) / ep.dt);
         //send data to the dashboard
         if (write(socketfd, buf, strlen(buf)) != strlen(buf)) {
             close(socketfd);
-            connect(socketfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+            connect(socketfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
         }
     }
 #endif
@@ -249,7 +254,7 @@ double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_
     return realAccel_mps2;
 }
 
-void RealisticEngineModel::getEngineData(double speed_mps, uint8_t &gear, double &rpm) {
+void RealisticEngineModel::getEngineData(double speed_mps, uint8_t& gear, double& rpm) {
     gear = currentGear;
     rpm = speed_mpsToRpm(speed_mps);
 }
@@ -270,7 +275,7 @@ double RealisticEngineModel::getRealBrakingAcceleration(double speed_mps, double
 
 }
 
-void RealisticEngineModel::loadParameters(const ParMap &parameters) {
+void RealisticEngineModel::loadParameters(const ParMap& parameters) {
 
     std::string xmlFile, vehicleType;
 
@@ -293,7 +298,7 @@ void RealisticEngineModel::loadParameters() {
     reader->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgSAX2CoreValidation, true);
 
     //VehicleEngineHandler is our SAX parser
-    VehicleEngineHandler *engineHandler = new VehicleEngineHandler(vehicleType);
+    VehicleEngineHandler* engineHandler = new VehicleEngineHandler(vehicleType);
     reader->setContentHandler(engineHandler);
     reader->setErrorHandler(engineHandler);
     try {
@@ -305,8 +310,7 @@ void RealisticEngineModel::loadParameters() {
         ep.computeCoefficients();
         //compute "minimum speed" to be used when computing maximum acceleration at speeds close to 0
         minSpeed_mps = rpmToSpeed_mps(ep.minRpm, ep.wheelDiameter_m, ep.differentialRatio, ep.gearRatios[0]);
-    }
-    catch (XERCES_CPP_NAMESPACE::SAXException &e) {
+    } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
         std::cerr << "Error while parsing " << xmlFile << ": Does the file exist?" << std::endl;
         exit(1);
     }
@@ -316,18 +320,21 @@ void RealisticEngineModel::loadParameters() {
     delete reader;
 }
 
-void RealisticEngineModel::setParameter(const std::string parameter, const std::string &value) {
-    if (parameter == ENGINE_PAR_XMLFILE)
+void RealisticEngineModel::setParameter(const std::string parameter, const std::string& value) {
+    if (parameter == ENGINE_PAR_XMLFILE) {
         xmlFile = value;
+    }
     if (parameter == ENGINE_PAR_VEHICLE) {
         vehicleType = value;
-        if (xmlFile != "")
+        if (xmlFile != "") {
             loadParameters();
+        }
     }
 }
 void RealisticEngineModel::setParameter(const std::string parameter, double value) {
-    if (parameter == ENGINE_PAR_DT)
+    if (parameter == ENGINE_PAR_DT) {
         dt_s = value;
+    }
 }
 void RealisticEngineModel::setParameter(const std::string parameter, int value) {
     UNUSED_PARAMETER(parameter);

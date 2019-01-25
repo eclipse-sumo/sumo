@@ -16,8 +16,7 @@
 #include "CC_VehicleVariables.h"
 
 //initialize default L and K matrices
-const int CC_VehicleVariables::defaultL[][MAX_N_CARS] =
-    {
+const int CC_VehicleVariables::defaultL[][MAX_N_CARS] = {
     {0, 0, 0, 0, 0, 0, 0, 0},
     {1, 0, 0, 0, 0, 0, 0, 0},
     {1, 1, 0, 0, 0, 0, 0, 0},
@@ -26,18 +25,17 @@ const int CC_VehicleVariables::defaultL[][MAX_N_CARS] =
     {1, 0, 0, 0, 1, 0, 0, 0},
     {1, 0, 0, 0, 0, 1, 0, 0},
     {1, 0, 0, 0, 0, 0, 1, 0}
-    };
-const double CC_VehicleVariables::defaultK[][MAX_N_CARS] =
-    {
-    {0  , 0  , 0  , 0  , 0  , 0  , 0  , 0},
-    {460, 0  , 0  , 0  , 0  , 0  , 0  , 0},
-    {80 , 860, 0  , 0  , 0  , 0  , 0  , 0},
-    {80 , 0  , 860, 0  , 0  , 0  , 0  , 0},
-    {80 , 0  , 0  , 860, 0  , 0  , 0  , 0},
-    {80 , 0  , 0  , 0  , 860, 0  , 0  , 0},
-    {80 , 0  , 0  , 0  , 0  , 860, 0  , 0},
-    {80 , 0  , 0  , 0  , 0  , 0  , 860, 0}
-    };
+};
+const double CC_VehicleVariables::defaultK[][MAX_N_CARS] = {
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {460, 0, 0, 0, 0, 0, 0, 0},
+    {80, 860, 0, 0, 0, 0, 0, 0},
+    {80, 0, 860, 0, 0, 0, 0, 0},
+    {80, 0, 0, 860, 0, 0, 0, 0},
+    {80, 0, 0, 0, 860, 0, 0, 0},
+    {80, 0, 0, 0, 0, 860, 0, 0},
+    {80, 0, 0, 0, 0, 0, 860, 0}
+};
 const double CC_VehicleVariables::defaultB[MAX_N_CARS] = {1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800};
 const double CC_VehicleVariables::defaultH[MAX_N_CARS] = {0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8};
 
@@ -72,16 +70,18 @@ CC_VehicleVariables::CC_VehicleVariables() :
     leaderPosition.set(0, 0);
     frontPosition.set(0, 0);
     //init L, K, b, and h with default values
-    memcpy(L, defaultL, sizeof(int)*MAX_N_CARS*MAX_N_CARS);
-    memcpy(K, defaultK, sizeof(double)*MAX_N_CARS*MAX_N_CARS);
+    memcpy(L, defaultL, sizeof(int)*MAX_N_CARS * MAX_N_CARS);
+    memcpy(K, defaultK, sizeof(double)*MAX_N_CARS * MAX_N_CARS);
     memcpy(b, defaultB, sizeof(double)*MAX_N_CARS);
     memcpy(h, defaultH, sizeof(double)*MAX_N_CARS);
     //no data about any vehicle has been set
-    for (int i = 0; i < MAX_N_CARS; i++)
+    for (int i = 0; i < MAX_N_CARS; i++) {
         initialized[i] = false;
+    }
 }
 
 CC_VehicleVariables::~CC_VehicleVariables() {
-    if (engine)
+    if (engine) {
         delete engine;
+    }
 }

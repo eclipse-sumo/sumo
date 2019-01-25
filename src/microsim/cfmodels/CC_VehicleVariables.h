@@ -111,9 +111,9 @@ public:
     /// @brief determines whether CACC should automatically fetch data about other vehicles
     bool autoFeed;
     /// @brief leader vehicle, used for auto feeding
-    MSVehicle *leaderVehicle;
+    MSVehicle* leaderVehicle;
     /// @brief front sumo id, used for auto feeding
-    MSVehicle *frontVehicle;
+    MSVehicle* frontVehicle;
 
     /// @brief headway time for ACC
     double accHeadwayTime;
@@ -198,7 +198,7 @@ public:
     double flatbedH;
 
     /// @brief engine model employed by this car
-    GenericEngineModel *engine;
+    GenericEngineModel* engine;
     /// @brief numeric value indicating the employed model
     int engineModel;
 

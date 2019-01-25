@@ -35,29 +35,31 @@ double FirstOrderLagModel::getRealAcceleration(double speed_mps, double accel_mp
     UNUSED_PARAMETER(speed_mps);
     UNUSED_PARAMETER(timeStep);
     return std::min(
-        maxAcceleration_mpsps,
-        std::max(
-            -maxDeceleration_mpsps,
-            alpha * reqAccel_mps2 + oneMinusAlpha * accel_mps2
-        )
-    );
+               maxAcceleration_mpsps,
+               std::max(
+                   -maxDeceleration_mpsps,
+                   alpha * reqAccel_mps2 + oneMinusAlpha * accel_mps2
+               )
+           );
 }
 
-void FirstOrderLagModel::loadParameters(const ParMap &parameters) {
+void FirstOrderLagModel::loadParameters(const ParMap& parameters) {
     parseParameter(parameters, std::string(FOLM_PAR_TAU), tau_s);
     parseParameter(parameters, std::string(FOLM_PAR_DT), dt_s);
     computeParameters();
 }
 
-void FirstOrderLagModel::setParameter(const std::string parameter, const std::string &value) {
+void FirstOrderLagModel::setParameter(const std::string parameter, const std::string& value) {
     UNUSED_PARAMETER(parameter);
     UNUSED_PARAMETER(value);
 }
 void FirstOrderLagModel::setParameter(const std::string parameter, double value) {
-    if (parameter == FOLM_PAR_TAU)
+    if (parameter == FOLM_PAR_TAU) {
         tau_s = value;
-    if (parameter == FOLM_PAR_DT)
+    }
+    if (parameter == FOLM_PAR_DT) {
         dt_s = value;
+    }
     computeParameters();
 }
 void FirstOrderLagModel::setParameter(const std::string parameter, int value) {

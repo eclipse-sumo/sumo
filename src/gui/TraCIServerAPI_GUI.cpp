@@ -98,19 +98,22 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 break;
             }
             case VAR_TRACK_VEHICLE: {
-                GUIVehicle *gv = 0;
+                GUIVehicle* gv = 0;
                 std::string id;
                 GUIGlID gid = v->getTrackedID();
-                if (gid != GUIGlObject::INVALID_ID)
-                    gv = static_cast<GUIVehicle *>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(gid));
-                if (gv == 0)
+                if (gid != GUIGlObject::INVALID_ID) {
+                    gv = static_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(gid));
+                }
+                if (gv == 0) {
                     id = "";
-                else
+                } else {
                     id = gv->getID();
+                }
                 tempMsg.writeUnsignedByte(TYPE_STRING);
                 tempMsg.writeString(id);
-                if (gid != GUIGlObject::INVALID_ID)
+                if (gid != GUIGlObject::INVALID_ID) {
                     GUIGlObjectStorage::gIDStorage.unblockObject(gid);
+                }
                 break;
             }
             default:

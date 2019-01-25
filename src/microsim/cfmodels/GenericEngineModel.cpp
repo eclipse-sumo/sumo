@@ -24,30 +24,33 @@ void GenericEngineModel::printParameterError(std::string parameter, std::string 
     std::cerr << className << ": invalid value " << value << " for parameter " << parameter << std::endl;
 }
 
-void GenericEngineModel::parseParameter(const ParMap & parameters, std::string parameter, double &value) {
+void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, double& value) {
     ParMap::const_iterator par = parameters.find(parameter);
     double v;
     if (par != parameters.end()) {
-        if (sscanf(par->second.c_str(), "%lf", &v) != 1)
+        if (sscanf(par->second.c_str(), "%lf", &v) != 1) {
             printParameterError(par->first, par->second);
-        else
+        } else {
             value = v;
+        }
     }
 }
-void GenericEngineModel::parseParameter(const ParMap & parameters, std::string parameter, int &value) {
+void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, int& value) {
     ParMap::const_iterator par = parameters.find(parameter);
     int v;
     if (par != parameters.end()) {
-        if (sscanf(par->second.c_str(), "%d", &v) != 1)
+        if (sscanf(par->second.c_str(), "%d", &v) != 1) {
             printParameterError(par->first, par->second);
-        else
+        } else {
             value = v;
+        }
     }
 }
-void GenericEngineModel::parseParameter(const ParMap & parameters, std::string parameter, std::string &value) {
+void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, std::string& value) {
     ParMap::const_iterator par = parameters.find(parameter);
-    if (par != parameters.end())
+    if (par != parameters.end()) {
         value = par->second;
+    }
 }
 void GenericEngineModel::setMaximumAcceleration(double maxAcceleration_mpsps) {
     this->maxAcceleration_mpsps = maxAcceleration_mpsps;
