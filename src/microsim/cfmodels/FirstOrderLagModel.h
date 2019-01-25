@@ -65,7 +65,7 @@ public:
      * @param[in] parameters a map of strings (from parameter name to parameter
      * value) including configuration parameters
      */
-    virtual void loadParameters(const ParMap &parameters);
+    virtual void loadParameters(const ParMap& parameters);
 
     /**
      * Sets a single parameter value
@@ -73,7 +73,7 @@ public:
      * @param[in] parameter the name of the parameter
      * @param[in] value the value for the parameter
      */
-    virtual void setParameter(const std::string parameter, const std::string &value);
+    virtual void setParameter(const std::string parameter, const std::string& value);
     virtual void setParameter(const std::string parameter, double value);
     virtual void setParameter(const std::string parameter, int value);
 

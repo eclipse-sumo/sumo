@@ -72,8 +72,9 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
     // build the buttons
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     myCenterButton = new FXButton(layoutRight, "Center\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
-    if (title.text() == std::string("Vehicle Chooser"))
+    if (title.text() == std::string("Vehicle Chooser")) {
         myTrackButton = new FXButton(layoutRight, "Track\t\t", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_CHOOSER_TRACK, GUIDesignChooserButtons);
+    }
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
     new FXButton(layoutRight, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
@@ -118,7 +119,7 @@ GUIDialog_GLObjChooser::onCmdTrack(FXObject*, FXSelector, void*) {
         GUIGlID id = *static_cast<GUIGlID*>(myList->getItemData(selected));
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o->getType() == GLO_VEHICLE) {
-            GUIVehicle *v = (GUIVehicle *)o;
+            GUIVehicle* v = (GUIVehicle*)o;
             myParent->getView()->startTrack(v->getGlID());
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);

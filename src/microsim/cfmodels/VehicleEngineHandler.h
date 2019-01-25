@@ -96,7 +96,7 @@ public:
      *
      * @param[in] toLoad id of the vehicle to be loaded
      */
-    VehicleEngineHandler(const std::string &toLoad);
+    VehicleEngineHandler(const std::string& toLoad);
 
 
     /** @brief Destructor */
@@ -110,7 +110,7 @@ public:
 
     void endDocument();
 
-    const EngineParameters &getEngineParameters();
+    const EngineParameters& getEngineParameters();
 
 protected:
 
@@ -120,20 +120,21 @@ protected:
      * @param[out] value integer where to store the result, if successfull
      * @return true on success, false otherwise
      */
-    bool toInt(std::string val, int &value);
+    bool toInt(std::string val, int& value);
     /**
      * Tries to translate a string into a double
      * @param[in] val string to be translated
      * @param[out] value double where to store the result, if successfull
      * @return true on success, false otherwise
      */
-    bool toDouble(std::string val, double &value);
+    bool toDouble(std::string val, double& value);
 
     /**
      * Loads mass information, i.e., mass in kg and mass factor which takes
      * into account rotational parts of the engine
      */
-    void loadMassData(const XERCES_CPP_NAMESPACE::Attributes& attrs);\
+    void loadMassData(const XERCES_CPP_NAMESPACE::Attributes& attrs);
+    \
     /**
      * Load air drag related data such as drag coefficient and maximum vehicle
      * section
@@ -179,24 +180,24 @@ protected:
      *
      * @return the index, if the attribute exists, -1 otherwise
      */
-    int existsAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
+    int existsAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
     /**
      * Search and returns a string attribute if existing. If not, an error is
      * printed to stderr and the simulation is stopped
      */
-    std::string parseStringAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
+    std::string parseStringAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
     /**
      * Search and returns an integer attribute if existing. If not, an error is
      * printed to stderr and the simulation is stopped. The simulation is
      * stopped if the integer cannot be parsed as well
      */
-    int parseIntAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
+    int parseIntAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
     /**
      * Search and returns a double attribute if existing. If not, an error is
      * printed to stderr and the simulation is stopped. The simulation is
      * stopped if the double cannot be parsed as well
      */
-    double parseDoubleAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
+    double parseDoubleAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs);
     /**
      * Search for the x_i coefficient in the list of attributes. If not found,
      * an error is printed to stderr and the simulation is stopped. The
@@ -238,7 +239,7 @@ private:
     //vector of gear ratios
     std::vector<double> gearRatios;
     //engine map
-    std::vector<std::pair<double,double> > engineMap;
+    std::vector<std::pair<double, double> > engineMap;
 
 private:
     /// @brief invalidated copy constructor

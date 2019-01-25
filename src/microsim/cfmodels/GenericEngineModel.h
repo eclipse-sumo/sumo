@@ -47,9 +47,9 @@ protected:
     /**
      * Parses a value from the parameter map
      */
-    void parseParameter(const ParMap & parameters, std::string parameter, double &value);
-    void parseParameter(const ParMap & parameters, std::string parameter, int &value);
-    void parseParameter(const ParMap & parameters, std::string parameter, std::string &value);
+    void parseParameter(const ParMap& parameters, std::string parameter, double& value);
+    void parseParameter(const ParMap& parameters, std::string parameter, int& value);
+    void parseParameter(const ParMap& parameters, std::string parameter, std::string& value);
 
 public:
 
@@ -77,7 +77,7 @@ public:
      * @param[in] parameters a map of strings (from parameter name to parameter
      * value) including configuration parameters
      */
-    virtual void loadParameters(const ParMap &parameters) = 0;
+    virtual void loadParameters(const ParMap& parameters) = 0;
 
     /**
      * Sets a single parameter value
@@ -85,7 +85,7 @@ public:
      * @param[in] parameter the name of the parameter
      * @param[in] value the value for the parameter
      */
-    virtual void setParameter(const std::string parameter, const std::string &value) = 0;
+    virtual void setParameter(const std::string parameter, const std::string& value) = 0;
     virtual void setParameter(const std::string parameter, double value) = 0;
     virtual void setParameter(const std::string parameter, int value) = 0;
 

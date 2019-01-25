@@ -569,7 +569,7 @@ public:
      * @param[in] key the key of the parameter
      * @return the value of the requested parameter
      */
-    virtual std::string getParameter(const MSVehicle *veh, const std::string& key) const {
+    virtual std::string getParameter(const MSVehicle* veh, const std::string& key) const {
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(key);
         return "";
@@ -582,7 +582,7 @@ public:
      * @param[in] key the key of the parameter
      * @param[in] value the value to be set for the given parameter
      */
-    virtual void setParameter(MSVehicle *veh, const std::string& key, const std::string& value) const {
+    virtual void setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const {
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(key);
         UNUSED_PARAMETER(value);

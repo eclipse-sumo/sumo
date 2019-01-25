@@ -27,11 +27,11 @@
 
 //plexe's easter egg :)
 #ifdef EE
-    #include <sys/socket.h>
-    #include <sys/types.h>
-    #include <netinet/in.h>
-    #include <arpa/inet.h>
-    #include <unistd.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 #endif
 
 /**
@@ -76,7 +76,7 @@ protected:
      * @return vehicle speed in meters per second
      */
     double rpmToSpeed_mps(double rpm, double wheelDiameter_m,
-        double differentialRatio, double gearRatio);
+                          double differentialRatio, double gearRatio);
     /**
      * Computes vehicle speed in mps using stored values
      *
@@ -96,7 +96,7 @@ protected:
      * @return engine rotation speed in rpm
      */
     double speed_mpsToRpm(double speed_mps, double wheelDiameter_m,
-        double differentialRatio, double gearRatio);
+                          double differentialRatio, double gearRatio);
 
     /**
      * Computes engine rotation speed in rpm using stored values
@@ -124,7 +124,7 @@ protected:
      * @param[in] engineMapping engine mapping from rpm to hp
      * @return available horsepower
      */
-    double rpmToPower_hp(double rpm, const struct EngineParameters::PolynomialEngineModelRpmToHp *engineMapping);
+    double rpmToPower_hp(double rpm, const struct EngineParameters::PolynomialEngineModelRpmToHp* engineMapping);
 
     /**
      * Computes the available power (hp) using stored values
@@ -146,9 +146,9 @@ protected:
      * @return available horsepower
      */
     double speed_mpsToPower_hp(double speed_mps,
-        const struct EngineParameters::PolynomialEngineModelRpmToHp *engineMapping,
-        double wheelDiameter_m, double differentialRatio,
-        double gearRatio);
+                               const struct EngineParameters::PolynomialEngineModelRpmToHp* engineMapping,
+                               double wheelDiameter_m, double differentialRatio,
+                               double gearRatio);
 
     /**
      * Computes the available power at the current speed using stored values
@@ -171,9 +171,9 @@ protected:
      * @return available horsepower
      */
     double speed_mpsToThrust_N(double speed_mps,
-        const struct EngineParameters::PolynomialEngineModelRpmToHp *engineMapping,
-        double wheelDiameter_m, double differentialRatio,
-        double gearRatio, double engineEfficiency);
+                               const struct EngineParameters::PolynomialEngineModelRpmToHp* engineMapping,
+                               double wheelDiameter_m, double differentialRatio,
+                               double gearRatio, double engineEfficiency);
 
     /**
      * Computes the available maximum thrust at current speed using stored
@@ -251,8 +251,8 @@ protected:
      * @return total opposing force in N
      */
     double opposingForce_N(double speed_mps, double mass_kg, double slope,
-        double cAir, double a_m2, double rho_kgpm3,
-        double cr1, double cr2);
+                           double cAir, double a_m2, double rho_kgpm3,
+                           double cr1, double cr2);
 
     /**
      * Computes total opposing force, using stored values
@@ -350,7 +350,7 @@ public:
      * @param[in] parameters a map of strings (from parameter name to parameter
      * value) including configuration parameters
      */
-    virtual void loadParameters(const ParMap &parameters);
+    virtual void loadParameters(const ParMap& parameters);
 
     /**
      * Load parameters from xml file
@@ -363,7 +363,7 @@ public:
      * @param[in] parameter the name of the parameter
      * @param[in] value the value for the parameter
      */
-    virtual void setParameter(const std::string parameter, const std::string &value);
+    virtual void setParameter(const std::string parameter, const std::string& value);
     virtual void setParameter(const std::string parameter, double value);
     virtual void setParameter(const std::string parameter, int value);
 
@@ -374,7 +374,7 @@ public:
      * @param[out] gear current gear
      * @param[out] rpm engine's rpm
      */
-    void getEngineData(double speed_mps, uint8_t &gear, double &rpm);
+    void getEngineData(double speed_mps, uint8_t& gear, double& rpm);
 
 #ifdef EE
 private:

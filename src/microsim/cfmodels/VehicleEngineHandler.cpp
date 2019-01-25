@@ -25,7 +25,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-VehicleEngineHandler::VehicleEngineHandler(const std::string &toLoad)
+VehicleEngineHandler::VehicleEngineHandler(const std::string& toLoad)
     : currentTag(TAG_VEHICLES), skip(false), currentGear(1), engineMapType(POLYNOMIAL) {
     vehicleToLoad = toLoad;
 }
@@ -41,15 +41,15 @@ const XMLCh* transcode(const char* name) {
     return XERCES_CPP_NAMESPACE::XMLString::transcode(name);
 }
 
-std::string getAttributeValue(const char* attributeName, const XERCES_CPP_NAMESPACE::Attributes &attrs) {
+std::string getAttributeValue(const char* attributeName, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     return transcode(attrs.getValue(transcode(attributeName)));
 }
 
 void
 VehicleEngineHandler::startElement(const XMLCh* const /*uri*/,
-                                const XMLCh* const /*localname*/,
-                                const XMLCh* const qname,
-                                const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+                                   const XMLCh* const /*localname*/,
+                                   const XMLCh* const qname,
+                                   const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string tag = XERCES_CPP_NAMESPACE::XMLString::transcode(qname);
 
     switch (currentTag) {
@@ -57,15 +57,17 @@ VehicleEngineHandler::startElement(const XMLCh* const /*uri*/,
         case TAG_VEHICLES:
 
             //we are already inside the root. just ignore this
-            if (tag == ENGINE_TAG_VEHICLES)
+            if (tag == ENGINE_TAG_VEHICLES) {
                 break;
+            }
 
             //this is a new vehicle definition. is this the one we should load?
             if (tag == ENGINE_TAG_VEHICLE) {
-                if (getAttributeValue(ENGINE_TAG_VEHICLE_ID, attrs) != vehicleToLoad)
+                if (getAttributeValue(ENGINE_TAG_VEHICLE_ID, attrs) != vehicleToLoad) {
                     skip = true;
-                else
+                } else {
                     engineParameters.id = vehicleToLoad;
+                }
                 currentTag = TAG_VEHICLE;
             }
 
@@ -74,8 +76,9 @@ VehicleEngineHandler::startElement(const XMLCh* const /*uri*/,
         case TAG_VEHICLE:
 
             //we are not interested in this vehicle
-            if (skip)
+            if (skip) {
                 break;
+            }
 
             //definition of gear ratios
             if (tag == ENGINE_TAG_GEARS) {
@@ -105,8 +108,7 @@ VehicleEngineHandler::startElement(const XMLCh* const /*uri*/,
             //definition of brakes
             else if (tag == ENGINE_TAG_BRAKES) {
                 loadBrakesData(attrs);
-            }
-            else {
+            } else {
                 raiseUnknownTagError(tag);
             }
 
@@ -114,18 +116,17 @@ VehicleEngineHandler::startElement(const XMLCh* const /*uri*/,
 
         case TAG_GEARS:
 
-            if (skip)
+            if (skip) {
                 break;
+            }
 
             if (tag == ENGINE_TAG_GEAR) {
                 //definition of the ratio for a single gear
                 loadGearData(attrs);
-            }
-            else if (tag == ENGINE_TAG_GEAR_DIFFERENTIAL) {
+            } else if (tag == ENGINE_TAG_GEAR_DIFFERENTIAL) {
                 //definition of the ratio for the final drive
                 loadDifferentialData(attrs);
-            }
-            else {
+            } else {
                 raiseUnknownTagError(tag);
             }
 
@@ -133,16 +134,18 @@ VehicleEngineHandler::startElement(const XMLCh* const /*uri*/,
 
         case TAG_ENGINE:
 
-            if (skip)
+            if (skip) {
                 break;
+            }
 
             switch (engineMapType) {
                 case POLYNOMIAL:
                 default:
-                    if (tag == ENGINE_TAG_ENGINE_POWER)
+                    if (tag == ENGINE_TAG_ENGINE_POWER) {
                         loadEngineModelData(attrs);
-                    else
+                    } else {
                         raiseUnknownTagError(tag);
+                    }
                     break;
             }
 
@@ -159,8 +162,8 @@ VehicleEngineHandler::startElement(const XMLCh* const /*uri*/,
 
 void
 VehicleEngineHandler::endElement(const XMLCh* const /*uri*/,
-                              const XMLCh* const /*localname*/,
-                              const XMLCh* const qname) {
+                                 const XMLCh* const /*localname*/,
+                                 const XMLCh* const qname) {
     std::string tag = XERCES_CPP_NAMESPACE::XMLString::transcode(qname);
 
     switch (currentTag) {
@@ -182,8 +185,9 @@ VehicleEngineHandler::endElement(const XMLCh* const /*uri*/,
 
                 delete [] engineParameters.gearRatios;
                 engineParameters.gearRatios = new double[gearRatios.size()];
-                for (unsigned int i = 0; i < gearRatios.size(); i++)
+                for (unsigned int i = 0; i < gearRatios.size(); i++) {
                     engineParameters.gearRatios[i] = gearRatios[i];
+                }
                 engineParameters.nGears = gearRatios.size();
             }
 
@@ -207,7 +211,7 @@ void VehicleEngineHandler::endDocument() {
     engineParameters.computeCoefficients();
 }
 
-const EngineParameters &VehicleEngineHandler::getEngineParameters() {
+const EngineParameters& VehicleEngineHandler::getEngineParameters() {
     return engineParameters;
 }
 
@@ -234,16 +238,16 @@ void VehicleEngineHandler::loadEngineData(const XERCES_CPP_NAMESPACE::Attributes
     if (existsAttribute(ENGINE_TAG_ENGINE, ENGINE_TAG_ENGINE_TAU_BURN, attrs) != -1) {
         engineParameters.tauBurn_s = parseDoubleAttribute(ENGINE_TAG_ENGINE, ENGINE_TAG_ENGINE_TAU_BURN, attrs);
         engineParameters.fixedTauBurn = true;
-    }
-    else {
+    } else {
         engineParameters.fixedTauBurn = false;
     }
     engineParameters.maxRpm = parseIntAttribute(ENGINE_TAG_ENGINE, ENGINE_TAG_ENGINE_MAXRPM, attrs);
     std::string mapType = parseStringAttribute(ENGINE_TAG_ENGINE, ENGINE_TAG_ENGINE_TYPE, attrs);
-    if (mapType == "poly")
+    if (mapType == "poly") {
         engineMapType = POLYNOMIAL;
-    else
+    } else {
         raiseError("Invalid engine map type. Only \"poly\" is supported for now");
+    }
 }
 void VehicleEngineHandler::loadGearData(const XERCES_CPP_NAMESPACE::Attributes& attrs) {
 
@@ -266,11 +270,9 @@ void VehicleEngineHandler::loadEngineMapData(const XERCES_CPP_NAMESPACE::Attribu
     double power_hp;
     if (existsAttribute(ENGINE_TAG_ENGINE_POWER, ENGINE_TAG_ENGINE_POWER_HP, attrs)) {
         power_hp = parseDoubleAttribute(ENGINE_TAG_ENGINE_POWER, ENGINE_TAG_ENGINE_POWER_HP, attrs);
-    }
-    else if (existsAttribute(ENGINE_TAG_ENGINE_POWER, ENGINE_TAG_ENGINE_POWER_KW, attrs)) {
+    } else if (existsAttribute(ENGINE_TAG_ENGINE_POWER, ENGINE_TAG_ENGINE_POWER_KW, attrs)) {
         power_hp = parseDoubleAttribute(ENGINE_TAG_ENGINE_POWER, ENGINE_TAG_ENGINE_POWER_KW, attrs) / 1000 / HP_TO_W;
-    }
-    else {
+    } else {
         raiseError("Cannot find power for rpm. Please use either hp or kw");
     }
     engineMap.push_back(std::pair<double, double> (rpm, power_hp));
@@ -284,8 +286,9 @@ void VehicleEngineHandler::loadEngineModelData(const XERCES_CPP_NAMESPACE::Attri
         raiseError(ss.str());
     }
     //parse all polynomial coefficients
-    for (i = 0; i < attrs.getLength(); i++)
+    for (i = 0; i < attrs.getLength(); i++) {
         engineParameters.engineMapping.x[i] = parsePolynomialCoefficient(i, attrs);
+    }
     //save the actual degree
     engineParameters.engineMapping.degree = attrs.getLength();
 }
@@ -297,10 +300,10 @@ void VehicleEngineHandler::loadBrakesData(const XERCES_CPP_NAMESPACE::Attributes
     engineParameters.brakesTau_s = parseDoubleAttribute(ENGINE_TAG_BRAKES, ENGINE_TAG_BRAKES_TAU, attrs);
 }
 
-int VehicleEngineHandler::existsAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+int VehicleEngineHandler::existsAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     return attrs.getIndex(transcode(attribute));
 }
-std::string VehicleEngineHandler::parseStringAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+std::string VehicleEngineHandler::parseStringAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     int attributeIndex;
     std::string strValue;
     attributeIndex = existsAttribute(tag, attribute, attrs);
@@ -310,7 +313,7 @@ std::string VehicleEngineHandler::parseStringAttribute(std::string tag, const ch
     }
     return transcode(attrs.getValue(attributeIndex));
 }
-int VehicleEngineHandler::parseIntAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+int VehicleEngineHandler::parseIntAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string strValue;
     int intValue;
     strValue = parseStringAttribute(tag, attribute, attrs);
@@ -320,7 +323,7 @@ int VehicleEngineHandler::parseIntAttribute(std::string tag, const char *attribu
     }
     return intValue;
 }
-double VehicleEngineHandler::parseDoubleAttribute(std::string tag, const char *attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+double VehicleEngineHandler::parseDoubleAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string strValue;
     double doubleValue;
     strValue = parseStringAttribute(tag, attribute, attrs);
@@ -355,14 +358,16 @@ void VehicleEngineHandler::raiseUnknownTagError(std::string tag) {
     raiseError(ss.str());
 }
 
-bool VehicleEngineHandler::toInt(std::string val, int &value) {
-    if (sscanf(val.c_str(), "%d", &value) != 1)
+bool VehicleEngineHandler::toInt(std::string val, int& value) {
+    if (sscanf(val.c_str(), "%d", &value) != 1) {
         return false;
+    }
     return true;
 }
-bool VehicleEngineHandler::toDouble(std::string val, double &value) {
-    if (sscanf(val.c_str(), "%lf", &value) != 1)
+bool VehicleEngineHandler::toDouble(std::string val, double& value) {
+    if (sscanf(val.c_str(), "%lf", &value) != 1) {
         return false;
+    }
     return true;
 }
 
