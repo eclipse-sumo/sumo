@@ -175,12 +175,12 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         if (nbe == nullptr) { // inner edge or removed by explicit list, vclass, ...
             continue;
         }
+        const SumoXMLNodeType toType = nbe->getToNode()->getType();
         for (int fromLaneIndex = 0; fromLaneIndex < (int) ed->lanes.size(); ++fromLaneIndex) {
             LaneAttrs* lane = ed->lanes[fromLaneIndex];
             // connections
             const std::vector<Connection>& connections = lane->connections;
-            for (std::vector<Connection>::const_iterator c_it = connections.begin(); c_it != connections.end(); c_it++) {
-                const Connection& c = *c_it;
+            for (const Connection& c : connections) {
                 if (myEdges.count(c.toEdgeID) == 0) {
                     WRITE_ERROR("Unknown edge '" + c.toEdgeID + "' given in connection.");
                     continue;
@@ -192,9 +192,16 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 if (nbe->hasConnectionTo(toEdge, c.toLaneIdx)) {
                     WRITE_WARNING("Target lane '" + toEdge->getLaneID(c.toLaneIdx) + "' has multiple connections from '" + nbe->getID() + "'.");
                 }
+                // patch attribute uncontrolled for legacy networks where it is not set explicitly
+                bool uncontrolled = c.uncontrolled;
+
+                if ((NBNode::isTrafficLight(toType) || toType == NODETYPE_RAIL_SIGNAL)
+                        && c.tlLinkIndex == NBConnection::InvalidTlIndex) {
+                    uncontrolled = true;
+                }
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::L2L_VALIDATED,
-                    true, c.mayDefinitelyPass, c.keepClear, c.contPos, c.visibility, c.speed, c.customShape, c.uncontrolled);
+                    true, c.mayDefinitelyPass, c.keepClear, c.contPos, c.visibility, c.speed, c.customShape, uncontrolled);
 
                 // maybe we have a tls-controlled connection
                 if (c.tlID != "" && myRailSignals.count(c.tlID) == 0) {
@@ -733,6 +740,8 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.uncontrolled = attrs.getOpt<bool>(SUMO_ATTR_UNCONTROLLED, nullptr, ok, NBEdge::UNSPECIFIED_CONNECTION_UNCONTROLLED, false);
     if (conn.tlID != "") {
         conn.tlLinkIndex = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok);
+    } else {
+        conn.tlLinkIndex = NBConnection::InvalidTlIndex;
     }
     if ((int)from->lanes.size() <= fromLaneIdx) {
         WRITE_ERROR("Invalid lane index '" + toString(fromLaneIdx) + "' for connection from '" + fromID + "'.");

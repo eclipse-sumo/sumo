@@ -1518,16 +1518,6 @@ private:
     /// @brief Information whether this edge is a (macroscopic) connector
     bool myAmMacroscopicConnector;
 
-    /// @brief TLS Disabled Connections
-    struct TLSDisabledConnection {
-        int fromLane;
-        NBEdge* to;
-        int toLane;
-    };
-
-    /// @brief vector with the disabled connections
-    std::vector<TLSDisabledConnection> myTLSDisabledConnections;
-
     /// @brief The street name (or whatever arbitrary string you wish to attach)
     std::string myStreetName;
 
@@ -1554,35 +1544,6 @@ private:
     mutable NBConstEdgePairVector myViaSuccessors;
 
 public:
-    /// @class tls_disable_finder
-    class tls_disable_finder {
-    public:
-        /// @brief constructor
-        tls_disable_finder(const TLSDisabledConnection& tpl) : myDefinition(tpl) { }
-
-        /// @brief operator ()
-        bool operator()(const TLSDisabledConnection& e) const {
-            if (e.to != myDefinition.to) {
-                return false;
-            }
-            if (e.fromLane != myDefinition.fromLane) {
-                return false;
-            }
-            if (e.toLane != myDefinition.toLane) {
-                return false;
-            }
-            return true;
-        }
-
-    private:
-        /// @brief definition of disable connection
-        TLSDisabledConnection myDefinition;
-
-    private:
-        /// @brief invalidated assignment operator
-        tls_disable_finder& operator=(const tls_disable_finder& s);
-    };
-
 
     /// @class connections_toedge_finder
     class connections_toedge_finder {

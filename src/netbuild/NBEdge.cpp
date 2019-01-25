@@ -2706,12 +2706,12 @@ NBEdge::getMaxLaneOffset() {
 
 bool
 NBEdge::mayBeTLSControlled(int fromLane, NBEdge* toEdge, int toLane) const {
-    TLSDisabledConnection tpl;
-    tpl.fromLane = fromLane;
-    tpl.to = toEdge;
-    tpl.toLane = toLane;
-    std::vector<TLSDisabledConnection>::const_iterator i = find_if(myTLSDisabledConnections.begin(), myTLSDisabledConnections.end(), tls_disable_finder(tpl));
-    return i == myTLSDisabledConnections.end();
+    for (const Connection& c : myConnections) {
+        if (c.fromLane == fromLane && c.toEdge == toEdge && c.toLane == toLane && c.uncontrolled) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -2722,12 +2722,7 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
     const int toLane = c.getToLane();
     const int tlIndex = c.getTLIndex();
     // check whether the connection was not set as not to be controled previously
-    TLSDisabledConnection tpl;
-    tpl.fromLane = fromLane;
-    tpl.to = toEdge;
-    tpl.toLane = toLane;
-    std::vector<TLSDisabledConnection>::iterator i = find_if(myTLSDisabledConnections.begin(), myTLSDisabledConnections.end(), tls_disable_finder(tpl));
-    if (i != myTLSDisabledConnections.end()) {
+    if (!mayBeTLSControlled(fromLane, toEdge, toLane)) {
         return false;
     }
 
@@ -2785,16 +2780,6 @@ NBEdge::clearControllingTLInformation() {
     for (std::vector<Connection>::iterator it = myConnections.begin(); it != myConnections.end(); it++) {
         it->tlID = "";
     }
-}
-
-
-void
-NBEdge::disableConnection4TLS(int fromLane, NBEdge* toEdge, int toLane) {
-    TLSDisabledConnection c;
-    c.fromLane = fromLane;
-    c.to = toEdge;
-    c.toLane = toLane;
-    myTLSDisabledConnections.push_back(c);
 }
 
 

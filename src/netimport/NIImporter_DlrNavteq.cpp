@@ -814,7 +814,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         const bool warnOnly = st.size() > 7;
         myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true,
                                             NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                                            NBEdge::UNSPECIFIED_SPEED, PositionVector::EMPTY, warnOnly);
+                                            NBEdge::UNSPECIFIED_SPEED, PositionVector::EMPTY, false, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::INIT);
