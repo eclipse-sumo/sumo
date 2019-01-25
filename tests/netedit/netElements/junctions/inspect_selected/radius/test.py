@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 220)
 
 # set invalid radius
-netedit.modifyAttribute(1, "dummyRadius")
+netedit.modifyAttribute(1, "dummyRadius", False)
 
 # set invalid radius
-netedit.modifyAttribute(1, "-7")
+netedit.modifyAttribute(1, "-7", False)
 
 # change radio
-netedit.modifyAttribute(1, "2.3")
+netedit.modifyAttribute(1, "2.3", False)
 
 # rebuild network
 netedit.rebuildNetwork()

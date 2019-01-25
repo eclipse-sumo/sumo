@@ -44,34 +44,34 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 220)
 
 # Change generic parameters with a dummy value
-netedit.modifyAttribute(6, "dummyGenericParameters", True)
+netedit.modifyAttribute(6, "dummyGenericParameters", False)
 
 # Change generic parameters with a invalid format
-netedit.modifyAttribute(6, "key1|key2|key3", True)
+netedit.modifyAttribute(6, "key1|key2|key3", False)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(6, "key1=value1|key2=value2|key3=value3", True)
+netedit.modifyAttribute(6, "key1=value1|key2=value2|key3=value3", False)
 
 # Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(6, "key1=|key2=|key3=", True)
+netedit.modifyAttribute(6, "key1=|key2=|key3=", False)
 
 # Change generic parameters with a valid value (all empty)
-netedit.modifyAttribute(6, "")
+netedit.modifyAttribute(6, "", False)
 
 # Change generic parameters with an invalid value (duplicated)
-netedit.modifyAttribute(6, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)
+netedit.modifyAttribute(6, "key1duplicated=value1|key1duplicated=value2|key3=value3", False)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(6, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", True)
+netedit.modifyAttribute(6, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", False)
 
 # Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(6, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", True)
+netedit.modifyAttribute(6, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", False)
 
 # Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(6, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", True)
+netedit.modifyAttribute(6, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", False)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(6, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", True)
+netedit.modifyAttribute(6, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
 
 # rebuild network
 netedit.rebuildNetwork()

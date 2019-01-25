@@ -32,10 +32,10 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 325, 250)
 
 # set invalid value
-netedit.modifyAttribute(2, "dummyType")
+netedit.modifyAttribute(2, "dummyType", False)
 
 # change type of junction
-netedit.modifyAttribute(2, "zipper")
+netedit.modifyAttribute(2, "zipper", False)
 
 # rebuild network
 netedit.rebuildNetwork()

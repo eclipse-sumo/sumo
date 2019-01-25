@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 220)
 
 # set invalid value
-netedit.modifyAttribute(0, "dummyType")
+netedit.modifyAttribute(0, "dummyType", False)
 
 # change type of junction
-netedit.modifyAttribute(0, "traffic_light_right_on_red")
+netedit.modifyAttribute(0, "traffic_light_right_on_red", False)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -32,10 +32,10 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 325, 250)
 
 # set dummy value
-netedit.modifyAttribute(7, "dummyRightOfWay")
+netedit.modifyAttribute(7, "dummyRightOfWay", False)
 
 # change shape of junction
-netedit.modifyAttribute(7, "edgePriority")
+netedit.modifyAttribute(7, "edgePriority", False)
 
 # rebuild network
 netedit.rebuildNetwork()

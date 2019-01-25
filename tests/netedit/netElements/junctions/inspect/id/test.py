@@ -32,13 +32,13 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change ID (Duplicated)
-netedit.modifyAttribute(0, "gneJ1")
+netedit.modifyAttribute(0, "gneJ1", False)
 
 # change ID empty)
-netedit.modifyAttribute(0, "")
+netedit.modifyAttribute(0, "", False)
 
 # change ID
-netedit.modifyAttribute(0, "OwnID")
+netedit.modifyAttribute(0, "OwnID", False)
 
 # rebuild network
 netedit.rebuildNetwork()

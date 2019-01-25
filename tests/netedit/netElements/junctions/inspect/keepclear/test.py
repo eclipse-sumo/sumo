@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change keep clear
-netedit.modifyBoolAttribute(6)
+netedit.modifyBoolAttribute(6, False)
 
 # rebuild network
 netedit.rebuildNetwork()

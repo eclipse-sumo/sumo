@@ -32,7 +32,7 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change position with a non valid value
-netedit.modifyAttribute(1, "dummy position")
+netedit.modifyAttribute(1, "dummy position", False)
 
 # change position with a non valid value (another junction in the same position)
 # BUG #
@@ -43,7 +43,7 @@ netedit.modifyAttribute(1, "dummy position")
 # netedit.typeTwoKeys("n", Key.ALT)
 
 # change position with a valid value
-netedit.modifyAttribute(1, "40.00,40.00")
+netedit.modifyAttribute(1, "40.00,40.00", False)
 
 # rebuild network
 netedit.rebuildNetwork()

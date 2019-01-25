@@ -32,10 +32,10 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 325, 250)
 
 # set invalid value
-netedit.modifyAttribute(2, "dummyType")
+netedit.modifyAttribute(2, "dummyType", False)
 
 # change type of junction (should not be possible due is a dead_end)
-netedit.modifyAttribute(2, "unknown")
+netedit.modifyAttribute(2, "unknown", False)
 
 # rebuild network
 netedit.rebuildNetwork()
