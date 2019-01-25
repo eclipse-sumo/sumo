@@ -1,6 +1,6 @@
 Debug: Adding busStop 'busStop_00' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding busStop 'busStop_01' in GNEChange_Additional
 Debug: Adding busStop 'busStop_02' in GNEChange_Additional
 Debug: Adding busStop 'busStop_03' in GNEChange_Additional
@@ -19,15 +19,13 @@ Debug: Adding busStop 'busStop_16' in GNEChange_Additional
 Debug: Adding busStop 'busStop_17' in GNEChange_Additional
 Debug: Adding busStop 'busStop_18' in GNEChange_Additional
 Debug: Adding poly 'poly_0' into viewNet
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes unsaved
 Debug: Adding poly 'poly_1' into viewNet
 Debug: Adding poiLane 'POI_0' into viewNet
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Setting new attribute selected 'true' into busStop 'busStop_00'
 Debug: Setting new attribute selected 'true' into busStop 'busStop_01'
 Debug: Setting new attribute selected 'true' into busStop 'busStop_02'
@@ -80,7 +78,6 @@ Debug: Setting new attribute selected 'true' into busStop 'busStop_16'
 Debug: Key DEL (delete) pressed
 Debug: Removing busStop 'busStop_16' in GNEChange_Additional
 Debug: Additionals saved
-Debug: Shapes saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'POI_3' from net in ~GNEChange_Shape()
@@ -97,7 +94,7 @@ Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced busStop 'busStop_18'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced busStop 'busStop_17'
 Debug: Deleting unreferenced busStop 'busStop_16'
 Debug: Deleting unreferenced busStop 'busStop_15'

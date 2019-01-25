@@ -1,6 +1,6 @@
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
@@ -13,8 +13,6 @@ Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_3detExit0' in GNEChange_Additional
 Debug: Adding poly 'poly_0' into viewNet
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes unsaved
 Debug: Adding poi 'POI_0' into viewNet
 Debug: Adding poi 'POI_1' into viewNet
 Debug: Adding poi 'POI_2' into viewNet
@@ -22,7 +20,7 @@ Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding poiLane 'POI_4' into viewNet
 Debug: Adding poiLane 'POI_5' into viewNet
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes unsaved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
@@ -186,7 +184,6 @@ Debug: Setting new attribute selected 'false' into connection 'from8_2to3_2'
 Debug: Setting new attribute selected 'false' into connection 'from8_2to1_2'
 Debug: Key DEL (delete) pressed
 Debug: Additionals saved
-Debug: Shapes saved
 Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
@@ -203,7 +200,7 @@ Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced detExit 'e3Detector_3detExit0'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_3'
 Debug: Deleting unreferenced detExit 'e3Detector_2detExit0'

@@ -1,36 +1,24 @@
 Debug: Adding poly 'poly_0' into viewNet
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding poly 'poly_1' into viewNet
 Debug: Adding poiLane 'POI_0' into viewNet
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Key DEL (delete) pressed
-Debug: Removing poiLane 'POI_0' from viewNet
-Debug: Removing poiLane 'POI_1' from viewNet
-Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
-Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
-Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Debug: Removing edge 'gneE1' from net
-Debug: Shapes saved
-Debug: Deleting unreferenced edge 'gneE1' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Additionals saved
 Debug: Removing poi 'POI_3' from net in ~GNEChange_Shape()
 Debug: delete poi 'POI_3' in ~GNEChange_Shape()
 Debug: Removing poi 'POI_2' from net in ~GNEChange_Shape()
 Debug: delete poi 'POI_2' in ~GNEChange_Shape()
+Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()
+Debug: Removing poiLane 'POI_0' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_0' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_1' in ~GNEChange_Shape()
@@ -38,6 +26,10 @@ Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
