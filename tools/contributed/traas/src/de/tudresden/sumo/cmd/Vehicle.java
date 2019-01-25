@@ -854,7 +854,7 @@ public class Vehicle {
 	 * @return SumoCommand
 	 */
 
-	public static SumoCommand slowDown(String vehID, double speed, int duration){
+	public static SumoCommand slowDown(String vehID, double speed, double duration){
 		Object[] array = new Object[]{speed, duration};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_SLOWDOWN, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_INTEGER);
 	}
@@ -901,7 +901,7 @@ public class Vehicle {
 	 * @param duration duration
 	 * @return SumoCommand
 	 */
-	public static SumoCommand changeLane(String vehID, byte laneIndex, int duration){
+	public static SumoCommand changeLane(String vehID, byte laneIndex, double duration){
 
 		Object[] array = new Object[]{laneIndex, duration};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_CHANGELANE, vehID, array);
@@ -939,7 +939,7 @@ public class Vehicle {
 	 * @param duration duration
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setParkingAreaStop(String vehID, String stopID, int duration){
+	public static SumoCommand setParkingAreaStop(String vehID, String stopID, double duration){
 		SumoStopFlags sf = new SumoStopFlags(true, false, false, false, false);
     	return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
 	}
@@ -1373,7 +1373,7 @@ public class Vehicle {
 	 * @param sf stop flags
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, int duration, SumoStopFlags sf){
+	public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, double duration, SumoStopFlags sf){
 
 		Object[] array = new Object[]{edgeID, pos, laneIndex, duration, sf};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_STOP, vehID, array);
@@ -1390,7 +1390,7 @@ public class Vehicle {
 	 * @return SumoCommand
 	 */
 	
-	public static SumoCommand setChargingStationStop(String vehID, String stopID, int duration, int until){
+	public static SumoCommand setChargingStationStop(String vehID, String stopID, double duration, int until){
 		SumoStopFlags sf = new SumoStopFlags(false, false, false, true, false);
     	return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
 	}
@@ -1404,7 +1404,7 @@ public class Vehicle {
 	 * @param until
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setBusStop(String vehID, String stopID, int duration, int until){
+	public static SumoCommand setBusStop(String vehID, String stopID, double duration, int until){
 		SumoStopFlags sf = new SumoStopFlags(false, false, false, true, false);
     	return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
 	}
@@ -1420,7 +1420,7 @@ public class Vehicle {
 	 * @param until
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setContainerStop(String vehID, String stopID, int duration, int until){
+	public static SumoCommand setContainerStop(String vehID, String stopID, double duration, int until){
 		SumoStopFlags sf = new SumoStopFlags(false, false, false, false, true);
 		return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
 	}
