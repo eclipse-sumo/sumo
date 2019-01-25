@@ -17,9 +17,16 @@
 /compile
 /latex
 /mirror
+# eclipse project files
+/.settings
+/.cproject
+/.project
+/.pydevproject
 # build dir 
 /cmake-build*
+/cmake_build*
 /build/cmake-build*
+/build/cmake_build*
 /build/cmake-codeblocks*
 # bin dir
 /bin/TraCITestClient*
@@ -88,7 +95,8 @@
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
-/tools/contributed/lisum/target
+/tools/contributed/lisum-core/target
+/tools/contributed/lisum-gui/target
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release

@@ -15,8 +15,8 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,64.40
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
@@ -73,8 +73,8 @@ GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-1
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
@@ -188,8 +188,8 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
@@ -239,8 +239,8 @@ GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -31.53,-11.48,8.47,28.52
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -31.53,-11.48,8.47,28.52
-GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
-GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
+GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Inserted entryDetector:e3Detector_1detEntry0 into SUMORTree with boundary 40.44,-7.96,80.44,32.04
 GLDebug: Removed object entryDetector:e3Detector_1detEntry0 from SUMORTree with boundary 40.44,-7.96,80.44,32.04

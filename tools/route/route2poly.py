@@ -22,11 +22,13 @@ import sys
 import os
 import itertools
 import random
+from collections import defaultdict
 from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse  # noqa
 from sumolib.net import readNet  # noqa
 from sumolib.miscutils import Colorgen  # noqa
+from sumolib import geomhelper
 
 
 def parse_args(args):
@@ -43,11 +45,21 @@ def parse_args(args):
         "-l", "--layer", default=100, help="layer for generated polygons")
     optParser.add_option("--geo", action="store_true",
                          default=False, help="write polgyons with geo-coordinates")
+    optParser.add_option("--internal", action="store_true",
+                         default=False, help="include internal edges in generated shapes")
+    optParser.add_option("--spread", type="float", help="spread polygons laterally to avoid overlap")
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
+    optParser.add_option("--scale-width", type="float", dest="scaleWidth",
+                         help="group similar routes and scale width by group size multiplied with the given factor (in m)")
     optParser.add_option("--standalone", action="store_true", default=False,
                          help="Parse stand-alone routes that are not define as child-element of a vehicle")
+    optParser.add_option("--filter-output.file", dest="filterOutputFile",
+                         help="only write output for edges in the given selection file")
+    optParser.add_option("--seed", type="int", help="random seed")
     options, args = optParser.parse_args(args=args)
+    if options.seed:
+        random.seed(options.seed)
     if len(args) < 2:
         sys.exit(USAGE)
     try:
@@ -59,6 +71,7 @@ def parse_args(args):
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".poly.xml"
+
     return options
 
 
@@ -67,10 +80,29 @@ def randomize_pos(pos, blur):
 
 
 MISSING_EDGES = set()
+SPREAD = defaultdict(set)
+SPREAD_MAX = [0]
 
 
-def generate_poly(net, id, color, layer, geo, edges, blur, outf, type="route"):
+def getSpread(lanes):
+    """find the smalles spread value that is available for all lanes"""
+    cands = [0]
+    for i in range(1, SPREAD_MAX[0] + 2):
+        cands += [i, -i]
+    for i in cands:
+        if all([i not in SPREAD[l] for l in lanes]):
+            SPREAD_MAX[0] = max(SPREAD_MAX[0], i)
+            [SPREAD[l].add(i) for l in lanes]
+            return i
+        else:
+            pass
+            #print(i, [l.getID() for l in lanes])
+    assert(False)
+
+
+def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=None, params={}):
     lanes = []
+    spread = 0
     for e in edges:
         if net.hasEdge(e):
             lanes.append(net.getEdge(e).getLane(0))
@@ -78,22 +110,71 @@ def generate_poly(net, id, color, layer, geo, edges, blur, outf, type="route"):
             if e not in MISSING_EDGES:
                 sys.stderr.write("Warning: unknown edge '%s'\n" % e)
                 MISSING_EDGES.add(e)
+    if not lanes:
+        return
+    if options.internal and len(lanes) > 1:
+        lanes2 = []
+        preferedCon = -1
+        for i, lane in enumerate(lanes):
+            edge = lane.getEdge()
+            if i == 0:
+                cons = edge.getConnections(lanes[i + 1].getEdge())
+                if cons:
+                    lanes2.append(cons[preferedCon].getFromLane())
+                else:
+                    lanes2.append(lane)
+            else:
+                cons = lanes[i - 1].getEdge().getConnections(edge)
+                if cons:
+                    viaID = cons[preferedCon].getViaLaneID()
+                    if viaID:
+                        via = net.getLane(viaID)
+                        lanes2.append(via)
+                        cons2 = via.getEdge().getConnections(edge)
+                        if cons2:
+                            viaID2 = cons2[preferedCon].getViaLaneID()
+                            if viaID2:
+                                via2 = net.getLane(viaID2)
+                                lanes2.append(via2)
+                        lanes2.append(cons[preferedCon].getToLane())
+                else:
+                    lanes2.append(lane)
+        lanes = lanes2
+
     shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
-    if blur > 0:
-        shape = [randomize_pos(pos, blur) for pos in shape]
+    if options.spread:
+        spread = getSpread(lanes)
+        if spread:
+            shape = geomhelper.move2side(shape, options.spread * spread)
+            params["spread"] = str(spread)
+    if options.blur > 0:
+        shape = [randomize_pos(pos, options.blur) for pos in shape]
 
     geoFlag = ""
-    if geo:
+    lineWidth = '' if lineWidth is None else ' lineWidth="%s"' % lineWidth
+    if options.geo:
         shape = [net.convertXY2LonLat(*pos) for pos in shape]
         geoFlag = ' geo="true"'
     shapeString = ' '.join('%s,%s' % (x, y) for x, y in shape)
-    outf.write('<poly id="%s" color="%s" layer="%s" type="%s" shape="%s"%s/>\n' % (
-        id, color, layer, type, shapeString, geoFlag))
+    close = '/'
+    if params:
+        close = ''
+    outf.write('<poly id="%s" color="%s" layer="%s" type="%s" shape="%s"%s%s%s>\n' % (
+        id, color, options.layer, type, shapeString, geoFlag, lineWidth, close))
+    if params:
+        for key, value in params.items():
+            outf.write('    <param key="%s" value="%s"/>\n' % (key, value))
+        outf.write('</poly>\n')
 
 
-def main(args):
-    options = parse_args(args)
-    net = readNet(options.net)
+def filterEdges(edges, keep):
+    if keep is None:
+        return edges
+    else:
+        return [e for e in edges if e in keep]
+
+
+def parseRoutes(options):
     known_ids = set()
 
     def unique_id(cand, index=0):
@@ -106,22 +187,47 @@ def main(args):
             known_ids.add(cand2)
             return cand2
 
+    keep = None
+    if options.filterOutputFile is not None:
+        keep = set()
+        for line in open(options.filterOutputFile):
+            if line.startswith('edge:'):
+                keep.add(line.replace('edge:', '').strip())
+
+    for routefile in options.routefiles:
+        print("parsing %s" % routefile)
+        if options.standalone:
+            for route in parse(routefile, 'route'):
+                # print("found veh", vehicle.id)
+                yield unique_id(route.id), filterEdges(route.edges.split(), keep)
+        else:
+            for vehicle in parse(routefile, 'vehicle'):
+                # print("found veh", vehicle.id)
+                yield unique_id(vehicle.id), filterEdges(vehicle.route[0].edges.split(), keep)
+
+
+def main(args):
+    options = parse_args(args)
+    net = readNet(options.net, withInternal=options.internal)
+
     with open(options.outfile, 'w') as outf:
         outf.write('<polygons>\n')
-        for routefile in options.routefiles:
-            print("parsing %s" % routefile)
-            if options.standalone:
-                for route in parse(routefile, 'route'):
-                    # print("found veh", vehicle.id)
-                    generate_poly(net, unique_id(route.id), options.colorgen(),
-                                  options.layer, options.geo,
-                                  route.edges.split(), options.blur, outf)
-            else:
-                for vehicle in parse(routefile, 'vehicle'):
-                    # print("found veh", vehicle.id)
-                    generate_poly(net, unique_id(vehicle.id), options.colorgen(),
-                                  options.layer, options.geo,
-                                  vehicle.route[0].edges.split(), options.blur, outf)
+        if options.scaleWidth is None:
+            for route_id, edges in parseRoutes(options):
+                generate_poly(options, net, route_id, options.colorgen(), edges, outf)
+        else:
+            count = {}
+            for route_id, edges in parseRoutes(options):
+                edges = tuple(edges)
+                if edges in count:
+                    count[edges][0] += 1
+                else:
+                    count[edges] = [1, route_id]
+            for edges, (n, route_id) in count.items():
+                width = options.scaleWidth * n
+                params = {'count': str(n)}
+                generate_poly(options, net, route_id, options.colorgen(), edges, outf, lineWidth=width, params=params)
+
         outf.write('</polygons>\n')
 
 

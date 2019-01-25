@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(9, "reference center")
+netedit.modifyAdditionalDefaultValue(10, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 250)
@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 350, 270)
 
 # block additional
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(14)
 
 # change to move mode
 netedit.moveMode()
@@ -65,7 +65,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 350, 270)
 
 # unblock additional
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(14)
 
 # change to move mode
 netedit.moveMode()

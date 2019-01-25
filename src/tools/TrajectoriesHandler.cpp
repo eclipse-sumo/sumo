@@ -57,7 +57,7 @@ TrajectoriesHandler::myStartElement(int element,
             myStepSize = attrs.getFloat("timeStepSize") / 1000.;
             break;
         case SUMO_TAG_TIMESTEP:
-            myCurrentTime = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, 0, ok);
+            myCurrentTime = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, nullptr, ok);
             break;
         case SUMO_TAG_VEHICLE:
             if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
@@ -95,10 +95,10 @@ TrajectoriesHandler::myStartElement(int element,
             double a = attrs.hasAttribute(SUMO_ATTR_ACCELERATION) ? attrs.get<double>(SUMO_ATTR_ACCELERATION, id.c_str(), ok) / 1000. : INVALID_VALUE;
             double s = attrs.hasAttribute(SUMO_ATTR_SLOPE) ? RAD2DEG(asin(attrs.get<double>(SUMO_ATTR_SLOPE, id.c_str(), ok) / 10000.)) : INVALID_VALUE;
             const SUMOTime time = attrs.getOpt<int>(SUMO_ATTR_TIME, id.c_str(), ok, INVALID_VALUE);
-            if (myXMLOut != 0) {
+            if (myXMLOut != nullptr) {
                 writeXMLEmissions(id, c, time, v, a, s);
             }
-            if (myStdOut != 0) {
+            if (myStdOut != nullptr) {
                 writeEmissions(*myStdOut, id, c, STEPS2TIME(time), v, a, s);
             }
             break;

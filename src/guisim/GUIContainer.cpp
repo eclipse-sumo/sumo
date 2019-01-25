@@ -186,7 +186,7 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     // set container color
     setColor(s);
     // scale
-    const double upscale = s.containerSize.getExaggeration(s);
+    const double upscale = s.containerSize.getExaggeration(s, this);
     glScaled(upscale, upscale, 1);
     switch (s.containerQuality) {
         case 0:
@@ -400,7 +400,7 @@ GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         //}
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const double exaggeration = s.personSize.getExaggeration(s);
+            const double exaggeration = s.personSize.getExaggeration(s, this);
             const double halfLength = getVehicleType().getLength() / 2.0 * exaggeration;
             const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);

@@ -167,13 +167,13 @@ public:
     void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief sets the color according to the current scheme index and some edge function
-    bool setFunctionalColor(int activeScheme) const;
+    bool setFunctionalColor(const GUIColorer& c) const;
 
     /// @brief sets multiple colors according to the current scheme index and edge function
     bool setMultiColor(const GUIColorer& c) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief gets the scaling value according to the current scheme index
     double getScaleValue(int activeScheme) const;

@@ -74,7 +74,7 @@ void
 NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     for (std::vector<NBNode*>::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
         NBNode* node = (*ni);
-        if (node == 0) {
+        if (node == nullptr) {
             WRITE_WARNING("invalid node for traffic light '" + myName + "'");
             continue;
         }

@@ -59,3 +59,9 @@ ticket4432
 # closing and re-opening a lane
 ticket4514
 ticket4563
+
+# invalid vehicle.getDrivingDistance
+ticket4642
+
+# failure to add vehicle in long simulation
+ticket4920

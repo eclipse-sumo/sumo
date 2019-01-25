@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # Rebuild network
 netedit.rebuildNetwork()
@@ -38,16 +38,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(4, "dummylinkIndex")
+netedit.modifyAttribute(7, "dummylinkIndex")
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(4, "-3")
+netedit.modifyAttribute(7, "-3")
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(4, "6")
+netedit.modifyAttribute(7, "6")
 
 # Change linkindex2 with a valid value
-netedit.modifyAttribute(4, "1")
+netedit.modifyAttribute(7, "1")
 
 # rebuild network
 netedit.rebuildNetwork()

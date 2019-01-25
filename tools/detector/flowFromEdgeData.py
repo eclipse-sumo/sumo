@@ -150,7 +150,7 @@ def calcStatistics(options, begin, edgeFlow, detReader):
         # avoid division by zero
         n = -1
     print('#', " ".join(map(repr, [rSum / n, dSum / n, sumAbsDev / n,
-          math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n)])),
+                                   math.sqrt(sumSquaredDev / n), math.sqrt(sumSquaredPercent / n)])),
           file=options.outfile)
 
 

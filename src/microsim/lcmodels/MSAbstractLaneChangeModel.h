@@ -332,6 +332,11 @@ public:
         return 1.0;
     }
 
+    /// @brief return factor for modifying the safety constraints for opposite-diretction overtaking of the car-following model
+    virtual double getOppositeSafetyFactor() const {
+        return 1.0;
+    }
+
     /// @brief whether the current vehicles shall be debugged
     virtual bool debugVehicle() const {
         return false;

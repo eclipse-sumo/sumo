@@ -36,11 +36,10 @@
 // member method definitions
 // ===========================================================================
 MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& subid, const Phases& phases,
+        const std::string& id, const std::string& programID, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameters
-                                                    )
-    : MSTrafficLightLogic(tlcontrol, id, subid, delay, parameters), myPhases(phases),
+        const std::map<std::string, std::string>& parameters)
+    : MSTrafficLightLogic(tlcontrol, id, programID, logicType, delay, parameters), myPhases(phases),
       myStep(step) {
     for (int i = 0; i < (int)myPhases.size(); i++) {
         myDefaultCycleTime += myPhases[i]->duration;

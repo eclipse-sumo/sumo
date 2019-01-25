@@ -31,26 +31,26 @@ public:
     * @brief Constructor without sensors passed
     * @param[in] tlcontrol The tls control responsible for this tls
     * @param[in] id This tls' id
-    * @param[in] subid This tls' sub-id (program id)
+    * @param[in] programID This tls' sub-id (program id)
     * @param[in] phases Definitions of the phases
     * @param[in] step The initial phase index
     * @param[in] delay The time to wait before the first switch
     */
     MSSOTLPhaseTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                 const std::string& id, const std::string& subid,
+                                 const std::string& id, const std::string& programID,
                                  const Phases& phases, int step, SUMOTime delay, const std::map<std::string, std::string>& parameters);
 
     /**
      * @brief Constructor with sensors passed
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] phases Definitions of the phases
      * @param[in] step The initial phase index
      * @param[in] delay The time to wait before the first switch
      */
     MSSOTLPhaseTrafficLightLogic(MSTLLogicControl& tlcontrol,
-                                 const std::string& id, const std::string& subid,
+                                 const std::string& id, const std::string& programID,
                                  const Phases& phases, int step, SUMOTime delay, const std::map<std::string, std::string>& parameters, MSSOTLSensors* sensors);
 
 protected:

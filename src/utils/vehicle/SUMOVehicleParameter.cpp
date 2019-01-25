@@ -25,7 +25,7 @@
 
 #include "SUMOVehicleParameter.h"
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
@@ -317,10 +317,10 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
         }
     }
     if (duration >= 0) {
-        dev.writeAttr(SUMO_ATTR_DURATION, STEPS2TIME(duration));
+        dev.writeAttr(SUMO_ATTR_DURATION, time2string(duration));
     }
     if (until >= 0) {
-        dev.writeAttr(SUMO_ATTR_UNTIL, STEPS2TIME(until));
+        dev.writeAttr(SUMO_ATTR_UNTIL, time2string(until));
     }
     if ((parametersSet & STOP_TRIGGER_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_TRIGGERED, triggered);
@@ -384,7 +384,7 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
         dld = DEPART_LANE_FIRST_ALLOWED;
     } else {
         try {
-            lane = TplConvert::_2int(val.c_str());
+            lane = StringUtils::toInt(val);
             dld = DEPART_LANE_GIVEN;
             if (lane < 0) {
                 ok = false;
@@ -416,7 +416,7 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
         dpd = DEPART_POS_LAST;
     } else {
         try {
-            pos = TplConvert::_2double(val.c_str());
+            pos = StringUtils::toDouble(val);
             dpd = DEPART_POS_GIVEN;
         } catch (...) {
             ok = false;
@@ -447,7 +447,7 @@ SUMOVehicleParameter::parseDepartPosLat(const std::string& val, const std::strin
         dpd = DEPART_POSLAT_LEFT;
     } else {
         try {
-            pos = TplConvert::_2double(val.c_str());
+            pos = StringUtils::toDouble(val);
             dpd = DEPART_POSLAT_GIVEN;
         } catch (...) {
             ok = false;
@@ -470,7 +470,7 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
         dsd = DEPART_SPEED_MAX;
     } else {
         try {
-            speed = TplConvert::_2double(val.c_str());
+            speed = StringUtils::toDouble(val);
             dsd = DEPART_SPEED_GIVEN;
             if (speed < 0) {
                 ok = false;
@@ -494,7 +494,7 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
         ald = ARRIVAL_LANE_CURRENT;
     } else {
         try {
-            lane = TplConvert::_2int(val.c_str());
+            lane = StringUtils::toInt(val);
             ald = ARRIVAL_LANE_GIVEN;
             if (lane < 0) {
                 ok = false;
@@ -522,7 +522,7 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string&
         apd = ARRIVAL_POS_MAX;
     } else {
         try {
-            pos = TplConvert::_2double(val.c_str());
+            pos = StringUtils::toDouble(val);
             apd = ARRIVAL_POS_GIVEN;
         } catch (...) {
             ok = false;
@@ -547,7 +547,7 @@ SUMOVehicleParameter::parseArrivalPosLat(const std::string& val, const std::stri
         apd = ARRIVAL_POSLAT_LEFT;
     } else {
         try {
-            pos = TplConvert::_2double(val.c_str());
+            pos = StringUtils::toDouble(val);
             apd = ARRIVAL_POSLAT_GIVEN;
         } catch (...) {
             ok = false;
@@ -568,7 +568,7 @@ SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::strin
         asd = ARRIVAL_SPEED_CURRENT;
     } else {
         try {
-            speed = TplConvert::_2double(val.c_str());
+            speed = StringUtils::toDouble(val);
             if (speed < 0) {
                 ok = false;
             }

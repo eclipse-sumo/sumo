@@ -20,20 +20,16 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include "GNEFrame.h"
+#include <netbuild/NBTrafficLightLogic.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class NBTrafficLightDefinition;
 class NBLoadedSUMOTLDef;
-class GNEEdge;
-class GNELane;
-class GNEInternalLane;
-class GNEJunction;
 class NBOwnTLDef;
+class GNEInternalLane;
 
 // ===========================================================================
 // class definitions
@@ -264,7 +260,7 @@ public:
     // class TLSFile
     // ===========================================================================
 
-    class TLSFile : protected FXGroupBox, public SUMOSAXHandler {
+    class TLSFile : protected FXGroupBox {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
 
@@ -275,33 +271,6 @@ public:
         /// @brief destructor
         ~TLSFile();
 
-        /// @name inherited from GenericSAXHandler
-        //@{
-
-        /** @brief Called on the opening of a tag
-            * @param[in] element ID of the currently opened element
-            * @param[in] attrs Attributes within the currently opened element
-            * @exception ProcessError If something fails
-            * @see GenericSAXHandler::myStartElement
-            */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
-        //@}
-
-        /// @brief enable all elements TLSFile
-        void enableTLSFile();
-
-        /// @brief disable all elements TLSFile
-        void disableTLSFile();
-
-        /// @brief clear loaded phases
-        void clearLoadedTLS();
-
-        /// @brief check if loaded TrafficLights corresponds to a TL controled junction in net
-        bool checkTLSValids();
-
-        /// @brief get loaded phases
-        const std::vector<NBLoadedSUMOTLDef*>& getLoadedTLS() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief load TLS Program from an additional file
@@ -309,6 +278,9 @@ public:
 
         /// @brief save TLS Programm to an additional file
         long onCmdSaveTLSProgram(FXObject*, FXSelector, void*);
+
+        /// @brief enable buttons, only when a tlLogic is being edited
+        long onUpdNeedsDef(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -324,9 +296,6 @@ public:
 
         /// @brief button for save TLS Programs
         FXButton* mySaveTLSProgramButton;
-
-        /// @brief container used to save loaded TLSs
-        std::vector<NBLoadedSUMOTLDef*> myLoadedTLS;
 
         /// @brief convert SUMOTime into string
         std::string writeSUMOTime(SUMOTime steps);

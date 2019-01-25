@@ -90,7 +90,7 @@ class ParBuffer {
 
         std::string next() {
             std::string value;
-            size_t sep;
+            int sep;
 
             if (inBuffer.size() == 0)
                 return "";
@@ -98,9 +98,9 @@ class ParBuffer {
             sep = -1;
             do {
                 sep = inBuffer.find(SEP, sep + 1);
-            } while (!(sep == std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
+            } while (!((size_t)sep == std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
 
-            if (sep == std::string::npos) {
+            if ((size_t)sep == std::string::npos) {
                 value = unescape(inBuffer);
                 inBuffer = "";
             }

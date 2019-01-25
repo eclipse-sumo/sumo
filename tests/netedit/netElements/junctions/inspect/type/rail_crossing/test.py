@@ -28,6 +28,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # rebuild network
 netedit.rebuildNetwork()
 
+# inspect central node
+netedit.leftClick(referencePosition, 325, 250)
+
 # set invalid value
 netedit.modifyAttribute(2, "dummyType")
 

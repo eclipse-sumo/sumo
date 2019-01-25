@@ -31,7 +31,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
@@ -108,7 +108,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
         if (myDestLanes.size() > 0 && myDestLanes.front()->getSpeedLimit() != speed) {
             myDestLanes.front()->getEdge().setMaxSpeed(speed);
             MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(myDestLanes.front()->getEdge());
-            while (first != 0) {
+            while (first != nullptr) {
                 first->setSpeed(speed, currentTime, -1);
                 first = first->getNextSegment();
             }

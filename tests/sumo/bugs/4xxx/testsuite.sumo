@@ -48,3 +48,15 @@ ticket4518
 
 # Crash in SSM Device on recurrent network search for foes (assertion triggered, perhaps only exposed in debug mode).
 ticket4556
+
+# Deadlock at opposed strategical LC attempt.
+ticket4829
+
+# deadlock on parallel routing
+ticket4855
+
+# ACC model applies emergency decel at insertion
+ticket4861
+
+# speed on junction when approaching pedestrian crossing
+ticket4900

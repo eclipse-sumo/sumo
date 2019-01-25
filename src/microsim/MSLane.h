@@ -30,7 +30,9 @@
 // ===========================================================================
 #include <config.h>
 
+#include <memory>
 #include <vector>
+#include <map>
 #include <deque>
 #include <cassert>
 #include <utils/common/Named.h>
@@ -57,6 +59,11 @@ class MSVehicleControl;
 class OutputDevice;
 class MSLeaderInfo;
 
+// ===========================================================================
+// type definitions
+// ===========================================================================
+/// Coverage info
+typedef std::map<const MSLane*, std::pair<double, double> >  LaneCoverageInfo; // also declared in libsumo/Helper.h!
 
 // ===========================================================================
 // class definitions
@@ -548,6 +555,13 @@ public:
      */
     virtual void planMovements(const SUMOTime t);
 
+    /** @brief Register junction approaches for all vehicles after velocities
+     * have been planned. 
+     *
+     * This method goes through all vehicles calling their * "setApproachingForAllLinks" method.
+     */
+    virtual void setJunctionApproaches(const SUMOTime t);
+
     /** @brief This updates the MSLeaderInfo argument with respect to the given MSVehicle.
      *         All leader-vehicles on the same edge, which are relevant for the vehicle
      *         (i.e. with position > vehicle's position) and not already integrated into
@@ -575,6 +589,15 @@ public:
     ///@}
 
 
+    /// @brief short-circut collision check if nothing changed since the last check
+    inline bool needsCollisionCheck() const {
+        return myNeedsCollisionCheck;
+    }
+
+    /// @brief require another collision check due to relevant changes in the simulation
+    inline void requireCollisionCheck() {
+        myNeedsCollisionCheck = true;
+    }
 
     /// Check if vehicles are too close.
     virtual void detectCollisions(SUMOTime timestep, const std::string& stage);
@@ -857,6 +880,29 @@ public:
     /// @brief get all vehicles that are inlapping from consecutive edges
     MSLeaderInfo getPartialBeyond() const;
 
+    /// @brief Returns all vehicles closer than downstreamDist along the along the road network starting on the given
+    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance
+    /// @note  Re-implementation of the corresponding method in MSDevice_SSM, which cannot be easily adapted, as it gathers
+    ///        additional information for conflict lanes, etc.
+    /// @param[in] lanes - sequence of lanes to search along
+    /// @param[in] startPos - start position of the search on the first lane
+    /// @param[in] downstreamDist - distance to search downstream
+    /// @param[in] upstreamDist - distance to search upstream
+    /// @param[in/out] checkedLanes - lanes, which were already scanned (current lane is added, if not present,
+    ///                otherwise the scan is aborted; TODO: this may disregard unscanned parts of the lane in specific circular set ups.)
+    /// @return    vehs - List of vehicles found
+    std::set<MSVehicle*> getSurroundingVehicles(double startPos, double downstreamDist, double upstreamDist, std::shared_ptr<LaneCoverageInfo> checkedLanes) const;
+
+    /// @brief Returns all vehicles on the lane overlapping with the interval [a,b]
+    /// @note  Does not consider vehs with front on subsequent lanes
+    std::set<MSVehicle*> getVehiclesInRange(double a, double b) const;
+
+
+    /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
+    std::vector<const MSJunction*> getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const;
+    /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
+    std::vector<const MSLink*> getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& contLanes) const;
+
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
      * The result is cached in myLogicalPredecessorLane
      */
@@ -1119,13 +1165,13 @@ protected:
 
     /// @brief detect whether there is a collision between the two vehicles
     bool detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
-                                std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief take action upon collision
     void handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                 double gap, double latGap,
-                                std::set<const MSVehicle*, ComparatorIdLess>& toRemove,
+                                std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*>& toTeleport) const;
 
     /// @brief compute maximum braking distance on this lane
@@ -1279,6 +1325,9 @@ protected:
     double myRightSideOnEdge;
     /// @brief the index of the rightmost sublane of this lane on myEdge
     int myRightmostSublane;
+
+    /// @brief whether a collision check is currently needed
+    bool myNeedsCollisionCheck;
 
     // @brief the ids of neighboring lanes
     std::vector<std::string> myNeighs;

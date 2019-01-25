@@ -36,9 +36,9 @@
 enum GUIIcon {
     /// @name general Interface icons
     /// @{
-    ICON_APP = 0,
-    ICON_DLR,
     ICON_SUMO,
+    ICON_SUMO_MINI,
+    ICON_SUMO_LOGO,
     ICON_EMPTY,
     ICON_OPEN_CONFIG,
     ICON_OPEN_NET,
@@ -177,10 +177,12 @@ enum GUIIcon {
     ICON_UNDO,
     ICON_REDO,
     ICON_NETEDIT,
+    ICON_NETEDIT_MINI,
     ICON_LOCK,
     ICON_ADD,
     ICON_REMOVE,
-    ICON_NETEDITARROW,
+    ICON_NETEDITARROWLEFT,
+    ICON_NETEDITARROWRIGHT,
     /// @}
 
     /// @name lane icons
@@ -197,6 +199,7 @@ enum GUIIcon {
     ICON_MODECONNECTION,
     ICON_MODECREATEEDGE,
     ICON_MODECROSSING,
+    ICON_MODETAZ,
     ICON_MODEDELETE,
     ICON_MODEINSPECT,
     ICON_MODEMOVE,
@@ -250,6 +253,8 @@ enum GUIIcon {
     ICON_DESTPROBREROUTE,
     ICON_PARKINGZONEREROUTE,
     ICON_ROUTEPROBREROUTE,
+    ICON_TAZ,
+    ICON_TAZEDGE,
     /// @}
 
     /// @name netedit routeElements icons

@@ -26,6 +26,8 @@
 #include <config.h>
 
 #include <string>
+#include <xercesc/util/XMLString.hpp>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -52,7 +54,7 @@ public:
     /** Replaces all occurences of the second string by the third
         string within the first string */
     static std::string replace(std::string str, const char* what,
-                               const char* by);
+        const char* by);
 
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);
@@ -85,6 +87,57 @@ public:
     static std::string charToHex(unsigned char c);
     static unsigned char hexToChar(const std::string& str);
 
+    /**@brief converts a string into the integer value described by it by calling the char-type converter, which
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw NumberFormatException - exception when the string does not contain an integer
+     */
+    static int toInt(const std::string& sData);
+
+    /// @brief converts a string into the integer value described by it
+    /// @return the default value if the data is empty
+    static int toIntSecure(const std::string& sData, int def);
+
+    /**@brief converts a string into the long value described by it by calling the char-type converter, which
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw NumberFormatException - exception when the string does not contain a long integer
+     */
+    static long long int toLong(const std::string& sData);
+
+    /**@brief converts a string with a hex value into the integer value described by it by calling the char-type converter
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain an integer
+     */
+    static int hexToInt(const std::string& sData);
+
+    /**@brief converts a string into the double value described by it by calling the char-type converter
+     * @throw an EmptyData - exception if the given string is empty
+     * @throw a NumberFormatException - exception when the string does not contain a double
+     */
+    static double toDouble(const std::string& sData);
+
+    /// @brief converts a string into the integer value described by it
+    /// @return the default value if the data is empty
+    static double toDoubleSecure(const std::string& sData, const double def);
+
+    /**@brief converts a string into the bool value described by it by calling the char-type converter
+     * @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
+     * @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'
+     * @throw EmptyData - exception if the given string is empty or 0 pointer
+     * @throw BoolFormatException in any other case
+     */
+    static bool toBool(const std::string& sData);
+
+    /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
+     * @throw an EmptyData - exception if the given pointer is 0
+     */
+    static inline std::string transcode(const XMLCh* const data) {
+        return transcode(data, (int)XERCES_CPP_NAMESPACE::XMLString::stringLen(data));
+    }
+
+    /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8 considering the given length
+     * @throw EmptyData if the given pointer is 0
+     */
+    static std::string transcode(const XMLCh* const data, int length);
 };
 
 

@@ -149,9 +149,9 @@ class TlLogic(sumolib.net.TLSProgram):
                             if tlIndex not in self._tlIndexToSignalGroup:
                                 self._signalGroups[sgID].addConnection(connIn, connOut, tlIndex)
                                 self._tlIndexToSignalGroup[tlIndex] = sgID
-                            else:
+                            elif self._tlIndexToSignalGroup[tlIndex] != sgID:
                                 print(("Error: linkIndex %d already bound to signal group %s. " +
-                                      "Cannot assign it to signal group %s.") % (
+                                       "Cannot assign it to signal group %s.") % (
                                       tlIndex, self._tlIndexToSignalGroup[tlIndex], sgID))
                                 sys.exit(-1)
 

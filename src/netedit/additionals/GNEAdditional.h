@@ -23,22 +23,17 @@
 
 #include <config.h>
 
-#include <string>
-#include <vector>
+#include <netedit/GNEAttributeCarrier.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <netedit/GNEAttributeCarrier.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEAdditionalDialog;
 class GNEEdge;
 class GNELane;
-class GNENet;
 class GNEViewNet;
 class GUIGLObjectPopupMenu;
 
@@ -109,10 +104,22 @@ public:
     /// @brief Destructor
     ~GNEAdditional();
 
+    /// @name members and functions relative to write additionals into XML
+    /// @{
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in childs)
+    virtual bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in childs) 
+    virtual std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in childs) 
+    virtual void fixAdditionalProblem();
+    /// @}
 
     /**@brief open Additional Dialog
      * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
@@ -129,16 +136,14 @@ public:
     void endGeometryMoving();
 
     /**@brief change the position of the element geometry without saving in undoList
-    * @param[in] oldPos position before start movement
-    * @param[in] offset movement offset regardings to oldPos
-    */
-    virtual void moveGeometry(const Position& oldPos, const Position& offset) = 0;
+     * @param[in] offset Position used for calculate new position of geometry without updating RTree
+     */
+    virtual void moveGeometry(const Position& offset) = 0;
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] oldPos the old position of additional
     * @param[in] undoList The undoList on which to register changes
     */
-    virtual void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) = 0;
+    virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry(bool updateGrid) = 0;
@@ -277,18 +282,6 @@ public:
     /// @name Functions related with Generic Paramters
     /// @{
 
-    /// @brief add generic parameter
-    bool addGenericParameter(const std::string& key, const std::string& value);
-
-    /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string& key);
-
-    /// @brief update generic parameter
-    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
-
-    /// @brief update value generic parameter
-    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
-
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
 
@@ -306,37 +299,131 @@ public:
      */
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
+    /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
+    virtual void updateAdditionalParent();
+
 protected:
+    /// @brief struct for pack all variables related with geometry of elemement
+    struct AdditionalGeometry {
+        /// @brief constructor
+        AdditionalGeometry();
+
+        /// @brief reset geometry
+        void clearGeometry();
+
+        /// @brief calculate multi shape unified
+        void calculateMultiShapeUnified();
+
+        /// @brief calculate shape rotations and lenghts
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief calculate multi shape rotations and lenghts
+        void calculateMultiShapeRotationsAndLengths();
+
+        /// @brief The shape of the additional element
+        PositionVector shape;
+
+        /// @brief The multi-shape of the additional element (used by certain additionals)
+        std::vector<PositionVector> multiShape;
+
+        /// @brief The rotations of the single shape parts
+        std::vector<double> shapeRotations;
+
+        /// @brief The lengths of the single shape parts
+        std::vector<double> shapeLengths;
+
+        /// @brief The rotations of the multi-shape parts
+        std::vector<std::vector<double> > multiShapeRotations;
+
+        /// @brief The lengths of the multi-shape shape parts
+        std::vector<std::vector<double> > multiShapeLengths;
+
+        /// @brief multi shape unified
+        PositionVector multiShapeUnified;
+    };
+
+    /// @brief struct for pack all variables related with additional move
+    struct AdditionalMove {
+        /// @brief boundary used during moving of elements (to avoid insertion in RTREE
+        Boundary movingGeometryBoundary;
+
+        /// @brief value for saving first original position over lane before moving
+        Position originalViewPosition;
+
+        /// @brief value for saving first original position over lane before moving
+        std::string firstOriginalLanePosition;
+
+        /// @brief value for saving second original position over lane before moving
+        std::string secondOriginalPosition;
+    };
+
+    /// @brief struct for pack all variables and functions related with Block Icon
+    struct BlockIcon {
+        /// @brief constructor
+        BlockIcon(GNEAdditional *additional);
+
+        /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
+        void setRotation(GNELane* additionalLane = nullptr);
+
+        /// @brief draw lock icon
+        void draw(double size = 0.5) const;
+
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional *myAdditional;
+
+    public:
+        /// @brief position of the block icon
+        Position position;
+
+        /// @brief The offSet of the block icon
+        Position offset;
+
+        /// @brief The rotation of the block icon
+        double rotation;
+    };
+
+    /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs
+    struct ChildConnections {
+        /// @brief constructor
+        ChildConnections(GNEAdditional *additional);
+
+        /// @brief update Connection's geometry
+        void update();
+
+        /// @brief draw connections between Parent and childrens
+        void draw() const;
+
+        /// @brief position and rotation of every symbol over lane
+        std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
+
+        /// @brief Matrix with the Vertex's positions of connections between parents an their childs
+        std::vector<PositionVector> connectionPositions;
+
+    private:
+        /// @brief pointer to additional parent
+        GNEAdditional *myAdditional;
+    };
+
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
-    /**@brief The shape of the additional element
-     * @note must be configured in updateGeometry(bool updateGrid)
-     */
-    PositionVector myShape;
+    /// @brief geometry to be precomputed in updateGeometry(...)
+    AdditionalGeometry myGeometry;
 
-    /// @brief boundary used during moving of elements
-    Boundary myMovingGeometryBoundary;
+    /// @brief variable AdditionalMove
+    AdditionalMove myMove;
 
     /// @brief name of additional
     std::string myAdditionalName;
 
-    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
-    /// @{
-    /// The rotations of the shape parts
-    std::vector<double> myShapeRotations;
-
-    /// The lengths of the shape parts
-    std::vector<double> myShapeLengths;
-    /// @}
-
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
-    /// @brief pointer to first Addititional parent
+    /// @brief pointer to first Additional parent
     GNEAdditional* myFirstAdditionalParent;
 
-    /// @brief pointer to second Addititional parent
+    /// @brief pointer to second Additional parent
     GNEAdditional* mySecondAdditionalParent;
 
     /// @brief vector with the Additional childs
@@ -348,26 +435,14 @@ protected:
     /// @brief vector with the lane childs of this additional
     std::vector<GNELane*> myLaneChilds;
 
+    /// @brief variable BlockIcon
+    BlockIcon myBlockIcon;
+
+    /// @brief variable ChildConnections
+    ChildConnections myChildConnections;
+
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();
-
-    /// @name members and functions relative to block icon
-    /// @{
-    /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
-    void setBlockIconRotation(GNELane* additionalLane = nullptr);
-
-    /// @brief draw lock icon
-    void drawLockIcon(double size = 0.5) const;
-
-    /// @brief position of the block icon
-    Position myBlockIconPosition;
-
-    /// @brief The offSet of the block icon
-    Position myBlockIconOffset;
-
-    /// @brief The rotation of the block icon
-    double myBlockIconRotation;
-    /// @}
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
@@ -377,6 +452,9 @@ protected:
 
     /// @brief check if a new additional ID is valid
     bool isValidAdditionalID(const std::string& newID) const;
+
+    /// @brief check if a new detector ID is valid
+    bool isValidDetectorID(const std::string& newID) const;
 
     /**@brief change ID of additional
     * @throw exception if exist already an additional whith the same ID
@@ -407,24 +485,6 @@ protected:
     * @throw exception if additional with ID newAdditionalParentID doesn't exist
     */
     void changeSecondAdditionalParent(const std::string& newAdditionalParentID);
-
-    /// @}
-
-    /// @name members and functions relative to connections between Additionals and their childs
-    /// @{
-
-    /// @brief update Connection's geometry
-    void updateChildConnections();
-
-    /// @brief draw connections between Parent and childrens
-    void drawChildConnections() const;
-
-    /// @brief position and rotation of every simbol over lane
-    std::vector<std::pair<Position, double> > mySymbolsPositionAndRotation;
-
-    /// @brief Matrix with the Vertex's positions of connections between parents an their childs
-    std::vector<PositionVector> myChildConnectionPositions;
-
     /// @}
 
 private:

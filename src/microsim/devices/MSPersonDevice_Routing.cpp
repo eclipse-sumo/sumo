@@ -1,0 +1,155 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    MSPersonDevice_Routing.cpp
+/// @author  Michael Behrisch
+/// @author  Daniel Krajzewicz
+/// @author  Laura Bieker
+/// @author  Christoph Sommer
+/// @author  Jakob Erdmann
+/// @date    Tue, 04 Dec 2007
+/// @version $Id$
+///
+// A device that performs vehicle rerouting based on current edge speeds
+/****************************************************************************/
+
+// ===========================================================================
+// included modules
+// ===========================================================================
+#include <config.h>
+
+#include <microsim/MSNet.h>
+#include <microsim/MSEventControl.h>
+#include <microsim/MSTransportable.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/xml/SUMOSAXAttributes.h>
+#include "MSRoutingEngine.h"
+#include "MSPersonDevice_Routing.h"
+
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+// ---------------------------------------------------------------------------
+// static initialisation methods
+// ---------------------------------------------------------------------------
+void
+MSPersonDevice_Routing::insertOptions(OptionsCont& oc) {
+    insertDefaultAssignmentOptions("rerouting", "Routing", oc, true);
+    oc.doRegister("person-device.rerouting.period", new Option_String("0", "TIME"));
+    oc.addSynonyme("person-device.rerouting.period", "person-device.routing.period", true);
+    oc.addDescription("person-device.rerouting.period", "Routing", "The period with which the person shall be rerouted");
+}
+
+
+void
+MSPersonDevice_Routing::buildDevices(MSTransportable& p, std::vector<MSPersonDevice*>& into) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (p.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", p, false)) {
+        // route computation is enabled
+        const SUMOTime period = string2time(oc.getString("person-device.rerouting.period"));
+        MSRoutingEngine::initWeightUpdate();
+        // build the device
+        into.push_back(new MSPersonDevice_Routing(p, "routing_" + p.getID(), period));
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// MSPersonDevice_Routing-methods
+// ---------------------------------------------------------------------------
+MSPersonDevice_Routing::MSPersonDevice_Routing(MSTransportable& holder, const std::string& id, SUMOTime period)
+    : MSPersonDevice(holder, id), myPeriod(period), myLastRouting(-1), myRerouteCommand(0) {
+    if (holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
+        // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
+        const SUMOTime execTime = MSRoutingEngine::hasEdgeUpdates() ? holder.getParameter().depart : -1;
+        MSNet::getInstance()->getInsertionEvents()->addEvent(new WrappingCommand<MSPersonDevice_Routing>(this, &MSPersonDevice_Routing::wrappedRerouteCommandExecute), execTime);
+        // the event will deschedule and destroy itself so it does not need to be stored
+    }
+}
+
+
+MSPersonDevice_Routing::~MSPersonDevice_Routing() {
+    // make the rerouting command invalid if there is one
+    if (myRerouteCommand != nullptr) {
+        myRerouteCommand->deschedule();
+    }
+}
+
+
+SUMOTime
+MSPersonDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
+    reroute(currentTime);
+    return myPeriod;
+}
+
+
+void
+MSPersonDevice_Routing::reroute(const SUMOTime currentTime, const bool /* onInit */) {
+    MSRoutingEngine::initEdgeWeights();
+    //check whether the weights did change since the last reroute
+    if (myLastRouting >= MSRoutingEngine::getLastAdaptation()) {
+        return;
+    }
+    myLastRouting = currentTime;
+//    MSRoutingEngine::reroute(myHolder, currentTime, onInit);
+}
+
+
+std::string
+MSPersonDevice_Routing::getParameter(const std::string& key) const {
+    if (key == "period") {
+        return time2string(myPeriod);
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+}
+
+
+void
+MSPersonDevice_Routing::setParameter(const std::string& key, const std::string& value) {
+    double doubleValue;
+    try {
+        doubleValue = StringUtils::toDouble(value);
+    } catch (NumberFormatException&) {
+        throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
+    }
+    if (key == "period") {
+        const SUMOTime oldPeriod = myPeriod;
+        myPeriod = TIME2STEPS(doubleValue);
+        if (myPeriod <= 0) {
+            myRerouteCommand->deschedule();
+        } else if (oldPeriod <= 0) {
+            // re-schedule routing command
+            MSNet::getInstance()->getInsertionEvents()->addEvent(new WrappingCommand<MSPersonDevice_Routing>(this, &MSPersonDevice_Routing::wrappedRerouteCommandExecute), SIMSTEP + myPeriod);
+        }
+    } else {
+        throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    }
+}
+
+
+void
+MSPersonDevice_Routing::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myPeriod));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSPersonDevice_Routing::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myPeriod;
+}
+
+
+/****************************************************************************/

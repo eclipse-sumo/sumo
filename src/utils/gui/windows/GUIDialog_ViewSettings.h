@@ -62,6 +62,7 @@ public:
         FXCheckButton* myCheck;
         FXRealSpinner* mySizeDial;
         FXColorWell* myColorWell;
+        FXColorWell* myBGColorWell;
         FXCheckButton* myConstSizeCheck;
     };
 
@@ -76,6 +77,7 @@ public:
         FXRealSpinner* myMinSizeDial;
         FXRealSpinner* myExaggerateDial;
         FXCheckButton* myCheck;
+        FXCheckButton* myCheckSelected;
     };
 
     /** @brief Constructor
@@ -256,6 +258,13 @@ private:
     FXVerticalFrame* myDecalsFrame;
     MFXAddEditTypedTable* myDecalsTable;
 
+    /// selection colors
+    FXColorWell* mySelectionColor;
+    FXColorWell* mySelectedEdgeColor;
+    FXColorWell* mySelectedLaneColor;
+    FXColorWell* mySelectedConnectionColor;
+    FXColorWell* mySelectedAdditionalColor;
+
     /// ... lane colorer
     FXComboBox* myLaneEdgeColorMode;
     FXVerticalFrame* myLaneColorSettingFrame;
@@ -265,6 +274,7 @@ private:
     FXCheckButton* myLaneColorInterpolation;
     FXButton* myLaneColorRainbow;
     FXButton* myJunctionColorRainbow;
+    FXTextField* myParamKey;
 
     /// ... lane scaler
     FXComboBox* myLaneEdgeScaleMode;
@@ -329,10 +339,12 @@ private:
     FXCheckButton* myDither;
     FXCheckButton* myShowSizeLegend;
 
-    NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel,
+    NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
                *myJunctionIndexPanel, *myTLIndexPanel,
                *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myVehicleNamePanel, *myPersonNamePanel, *myContainerNamePanel,
+               *myVehicleNamePanel, *myVehicleValuePanel,
+               *myPersonNamePanel, *myPersonValuePanel,
+               *myContainerNamePanel,
                *myAddNamePanel, *myAddFullNamePanel, *myPOINamePanel, *myPolyNamePanel, *myPOITypePanel, *myPolyTypePanel;
 
     SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;

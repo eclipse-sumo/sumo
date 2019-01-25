@@ -95,7 +95,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      FXIcon* ic, FXuint opts,
                                      FXint x, FXint y, FXint w, FXint h)
     : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
-    myParent->addChild(this, false);
+    myParent->addGLChild(this);
 }
 
 
@@ -121,7 +121,7 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
 
 
 GUISUMOViewParent::~GUISUMOViewParent() {
-    myParent->removeChild(this);
+    myParent->removeGLChild(this);
 }
 
 
@@ -234,9 +234,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    GUIDialog_GLObjChooser* chooser = new GUIDialog_GLObjChooser(
-        this, GUIIconSubSys::getIcon(icon), title.c_str(), ids, GUIGlObjectStorage::gIDStorage);
-    UNUSED_PARAMETER(chooser);
+    new GUIDialog_GLObjChooser(this, GUIIconSubSys::getIcon(icon), title.c_str(), ids, GUIGlObjectStorage::gIDStorage);
     return 1;
 }
 
@@ -256,14 +254,14 @@ GUISUMOViewParent::isSelected(GUIGlObject* o) const {
         return true;
     } else if (type == GLO_EDGE) {
         GUIEdge* edge = dynamic_cast<GUIEdge*>(o);
-        if (edge == 0) {
+        if (edge == nullptr) {
             // hmph, just some security stuff
             return false;
         }
         const std::vector<MSLane*>& lanes = edge->getLanes();
         for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
             GUILane* l = dynamic_cast<GUILane*>(*j);
-            if (l != 0 && gSelected.isSelected(GLO_LANE, l->getGlID())) {
+            if (l != nullptr && gSelected.isSelected(GLO_LANE, l->getGlID())) {
                 return true;
             }
         }
@@ -289,4 +287,3 @@ GUISUMOViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
 
 
 /****************************************************************************/
-

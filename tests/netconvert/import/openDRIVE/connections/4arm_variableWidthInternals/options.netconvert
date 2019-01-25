@@ -1,0 +1,5 @@
+--opendrive opendrive.xodr
+--output.original-names
+--offset.disable-normalization
+--opendrive.internal-shapes
+--opendrive.import-all-lanes

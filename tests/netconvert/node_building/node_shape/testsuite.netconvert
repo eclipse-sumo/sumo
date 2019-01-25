@@ -20,3 +20,6 @@ misleading_angles
 
 # see #1443
 t_intersection
+
+# roundabout with many geometry points
+roundabout_dense_geometry

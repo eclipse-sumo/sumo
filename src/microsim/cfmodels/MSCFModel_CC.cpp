@@ -32,7 +32,7 @@
 #include <microsim/MSEdge.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/cfmodels/ParBuffer.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/TraCIDefs.h>
@@ -697,11 +697,11 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             return;
         }
         if (key.compare(CC_PAR_VEHICLE_POSITION) == 0) {
-            vars->position = TplConvert::_2int(value.c_str());
+            vars->position = StringUtils::toInt(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_PLATOON_SIZE) == 0) {
-            vars->nCars = TplConvert::_2int(value.c_str());
+            vars->nCars = StringUtils::toInt(value.c_str());
             // given that we have a static matrix, check that we're not
             // setting a number of cars larger than the size of that matrix
             if (vars->nCars > MAX_N_CARS) {
@@ -730,75 +730,75 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             return;
         }
         if (key.compare(PAR_ENABLE_AUTO_LANE_CHANGE) == 0) {
-            vars->autoLaneChange = TplConvert::_2int(value.c_str()) == 1;
+            vars->autoLaneChange = StringUtils::toInt(value.c_str()) == 1;
             return;
         }
         if (key.compare(CC_PAR_CACC_XI) == 0) {
-            vars->caccXi = TplConvert::_2double(value.c_str());
+            vars->caccXi = StringUtils::toDouble(value.c_str());
             recomputeParameters(veh);
             return;
         }
         if (key.compare(CC_PAR_CACC_OMEGA_N) == 0) {
-            vars->caccOmegaN = TplConvert::_2double(value.c_str());
+            vars->caccOmegaN = StringUtils::toDouble(value.c_str());
             recomputeParameters(veh);
             return;
         }
         if (key.compare(CC_PAR_CACC_C1) == 0) {
-            vars->caccC1 = TplConvert::_2double(value.c_str());
+            vars->caccC1 = StringUtils::toDouble(value.c_str());
             recomputeParameters(veh);
             return;
         }
         if (key.compare(CC_PAR_ENGINE_TAU) == 0) {
-            vars->engineTau = TplConvert::_2double(value.c_str());
+            vars->engineTau = StringUtils::toDouble(value.c_str());
             vars->engine->setParameter(FOLM_PAR_TAU, vars->engineTau);
             recomputeParameters(veh);
             vars->engine->setParameter(FOLM_PAR_TAU, vars->engineTau);
         }
         if (key.compare(CC_PAR_UMIN) == 0) {
-            vars->uMin = TplConvert::_2double(value.c_str());
+            vars->uMin = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_UMAX) == 0) {
-            vars->uMax = TplConvert::_2double(value.c_str());
+            vars->uMax = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_PLOEG_H) == 0) {
-            vars->ploegH = TplConvert::_2double(value.c_str());
+            vars->ploegH = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_PLOEG_KP) == 0) {
-            vars->ploegKp = TplConvert::_2double(value.c_str());
+            vars->ploegKp = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_PLOEG_KD) == 0) {
-            vars->ploegKd = TplConvert::_2double(value.c_str());
+            vars->ploegKd = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_FLATBED_KA) == 0) {
-            vars->flatbedKa = TplConvert::_2double(value.c_str());
+            vars->flatbedKa = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_FLATBED_KV) == 0) {
-            vars->flatbedKv = TplConvert::_2double(value.c_str());
+            vars->flatbedKv = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_FLATBED_KP) == 0) {
-            vars->flatbedKp = TplConvert::_2double(value.c_str());
+            vars->flatbedKp = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_FLATBED_H) == 0) {
-            vars->flatbedH = TplConvert::_2double(value.c_str());
+            vars->flatbedH = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_FLATBED_D) == 0) {
-            vars->flatbedD = TplConvert::_2double(value.c_str());
+            vars->flatbedD = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(CC_PAR_VEHICLE_ENGINE_MODEL) == 0) {
             if (vars->engine) {
                 delete vars->engine;
             }
-            int engineModel = TplConvert::_2int(value.c_str());;
+            int engineModel = StringUtils::toInt(value.c_str());;
             switch (engineModel) {
             case CC_ENGINE_MODEL_REALISTIC: {
                 vars->engine = new RealisticEngineModel();
@@ -829,7 +829,7 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             return;
         }
         if (key.compare(PAR_CACC_SPACING) == 0) {
-            vars->caccSpacing = TplConvert::_2double(value.c_str());
+            vars->caccSpacing = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(PAR_FIXED_ACCELERATION) == 0) {
@@ -837,19 +837,19 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             return;
         }
         if (key.compare(PAR_CC_DESIRED_SPEED) == 0) {
-            vars->ccDesiredSpeed = TplConvert::_2double(value.c_str());
+            vars->ccDesiredSpeed = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(PAR_ACTIVE_CONTROLLER) == 0) {
-            vars->activeController = (enum Plexe::ACTIVE_CONTROLLER) TplConvert::_2int(value.c_str());
+            vars->activeController = (enum Plexe::ACTIVE_CONTROLLER) StringUtils::toInt(value.c_str());
             return;
         }
         if (key.compare(PAR_ACC_HEADWAY_TIME) == 0) {
-            vars->accHeadwayTime = TplConvert::_2double(value.c_str());
+            vars->accHeadwayTime = StringUtils::toDouble(value.c_str());
             return;
         }
         if (key.compare(PAR_USE_CONTROLLER_ACCELERATION) == 0) {
-            vars->useControllerAcceleration = TplConvert::_2int(value.c_str()) != 0;
+            vars->useControllerAcceleration = StringUtils::toInt(value.c_str()) != 0;
             return;
         }
         if (key.compare(PAR_USE_AUTO_FEEDING) == 0) {
@@ -878,7 +878,7 @@ void MSCFModel_CC::setParameter(MSVehicle *veh, const std::string& key, const st
             return;
         }
         if (key.compare(PAR_USE_PREDICTION) == 0) {
-            vars->usePrediction = TplConvert::_2int(value.c_str()) == 1;
+            vars->usePrediction = StringUtils::toInt(value.c_str()) == 1;
             return;
         }
     } catch (NumberFormatException &) {

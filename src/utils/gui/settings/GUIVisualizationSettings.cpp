@@ -25,6 +25,7 @@
 
 #include <map>
 #include <vector>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include "GUIVisualizationSettings.h"
 #include "GUIPropertyScheme.h"
 
@@ -63,8 +64,14 @@ const RGBColor GUIVisualizationSettings::SUMO_color_containerStop_sign(177, 184,
 const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation(114, 210, 252);
 const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_sign(255, 235, 0);
 const RGBColor GUIVisualizationSettings::SUMO_color_chargingStation_charge(255, 180, 0);
+const RGBColor GUIVisualizationSettings::SUMO_color_E1(255, 255, 0);
+const RGBColor GUIVisualizationSettings::SUMO_color_E1Instant(255, 0, 255);
+const RGBColor GUIVisualizationSettings::SUMO_color_E2(0, 204, 204);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
+
+const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by param (numerical, streetwise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");
 
 // ===========================================================================
 // member method definitions
@@ -82,19 +89,24 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     internalEdgeName(false, 40, RGBColor(128, 64, 0, 255)),
     cwaEdgeName(false, 50, RGBColor::MAGENTA),
     streetName(false, 55, RGBColor::YELLOW),
+    edgeValue(false, 100, RGBColor::CYAN),
     hideConnectors(false),
     laneWidthExaggeration(1),
     laneMinSize(0),
     showLaneDirection(false),
     showSublanes(true),
     spreadSuperposed(false),
+    edgeParam("EDGE_KEY"),
+    laneParam("LANE_KEY"),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false), drawMinGap(false),
     showBTRange(false), vehicleSize(1),
     vehicleName(false, 50, RGBColor(204, 153, 0, 255)),
+    vehicleValue(false, 80, RGBColor::CYAN),
     personQuality(0),
     personSize(1),
     personName(false, 50, RGBColor(0, 153, 204, 255)),
+    personValue(false, 80, RGBColor::CYAN),
     containerQuality(0),
     containerSize(1),
     containerName(false, 50, RGBColor(0, 153, 204, 255)),
@@ -116,7 +128,12 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     polyType(false, 50, RGBColor(255, 0, 128, 255)),
     showSizeLegend(true),
     gaming(false),
-    selectionScale(1),
+    selectionColor(0, 0, 204, 255),
+    selectedEdgeColor(0, 0, 204, 255),
+    selectedLaneColor(0, 0, 128, 255),
+    selectedConnectionColor(0, 0, 100, 255),
+    selectedAdditionalColor(0, 0, 150, 255),
+    selectionScale(1.),
     drawForSelecting(false) {
 
     if (netedit) {
@@ -293,6 +310,14 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)10);
     scheme.addColor(RGBColor::RED, (double)100);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
@@ -311,9 +336,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::BLUE, (double)(120 / 3.6));
     scheme.addColor(RGBColor::MAGENTA, (double)(150 / 3.6));
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by action step", RGBColor::GREY);
-    scheme.addColor(RGBColor(0, 255, 0, 255), 1.);
-    scheme.addColor(RGBColor(80, 160, 80, 255), 2.);
+    scheme = GUIColorScheme("by action step", RGBColor::GREY, "no action", true);
+    scheme.addColor(RGBColor(0, 255, 0, 255), 1., "action in next step");
+    scheme.addColor(RGBColor(80, 160, 80, 255), 2., "had action step");
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by waiting time", RGBColor::BLUE);
     scheme.addColor(RGBColor::CYAN, (double)30);
@@ -674,6 +699,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)10);
     scheme.addColor(RGBColor::RED, (double)100);
     edgeColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by TAZ (streetwise)", RGBColor(204, 204, 204), "no TAZ", true);
+    edgeColorer.addScheme(scheme);
 
 
     /// add edge scaling schemes
@@ -787,6 +814,12 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::RED, (double) .3);
     scheme.addColor(RGBColor::GREEN, (double) - .1);
     scheme.addColor(RGBColor::BLUE, (double) - .3);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
@@ -911,6 +944,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showDirection", showLaneDirection);
     dev.writeAttr("showSublanes", showSublanes);
     dev.writeAttr("spreadSuperposed", spreadSuperposed);
+    dev.writeAttr("edgeParam", edgeParam);
+    dev.writeAttr("laneParam", laneParam);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -923,6 +958,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "               ";
     streetName.print(dev, "streetName");
+    dev.lf();
+    dev << "               ";
+    edgeValue.print(dev, "edgeValue");
     laneColorer.save(dev);
     laneScaler.save(dev);
     edgeColorer.save(dev);
@@ -934,9 +972,13 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleQuality", vehicleQuality);
     vehicleSize.print(dev, "vehicle");
     dev.writeAttr("showBlinker", showBlinker);
+    dev.writeAttr("drawMinGap", drawMinGap);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
+    dev.lf();
+    dev << "                 ";
+    vehicleValue.print(dev, "vehicleValue");
     vehicleColorer.save(dev);
     dev.closeTag();
     // persons
@@ -947,6 +989,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "                ";
     personName.print(dev, "personName");
+    dev.lf();
+    dev << "                 ";
+    personValue.print(dev, "personValue");
     personColorer.save(dev);
     dev.closeTag();
     // containers
@@ -1020,6 +1065,21 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (backgroundColor != v2.backgroundColor) {
         return false;
     }
+    if (selectionColor != v2.selectionColor) {
+        return false;
+    }
+    if (selectedEdgeColor != v2.selectedEdgeColor) {
+        return false;
+    }
+    if (selectedLaneColor != v2.selectedLaneColor) {
+        return false;
+    }
+    if (selectedConnectionColor != v2.selectedConnectionColor) {
+        return false;
+    }
+    if (selectedAdditionalColor != v2.selectedAdditionalColor) {
+        return false;
+    }
     if (showGrid != v2.showGrid) {
         return false;
     }
@@ -1069,6 +1129,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (streetName != v2.streetName) {
         return false;
     }
+    if (edgeValue != v2.edgeValue) {
+        return false;
+    }
     if (hideConnectors != v2.hideConnectors) {
         return false;
     }
@@ -1085,6 +1148,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (spreadSuperposed != v2.spreadSuperposed) {
+        return false;
+    }
+    if (edgeParam != v2.edgeParam) {
+        return false;
+    }
+    if (laneParam != v2.laneParam) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {
@@ -1111,6 +1180,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (vehicleName != v2.vehicleName) {
         return false;
     }
+    if (vehicleValue != v2.vehicleValue) {
+        return false;
+    }
     if (!(personColorer == v2.personColorer)) {
         return false;
     }
@@ -1121,6 +1193,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (personName != v2.personName) {
+        return false;
+    }
+    if (personValue != v2.personValue) {
         return false;
     }
     if (!(containerColorer == v2.containerColorer)) {
@@ -1212,9 +1287,11 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 
 
 double
-GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, double factor) const {
+GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor) const {
     /// @note should look normal-sized at zoom 1000
-    return (constantSize && !s.drawForSelecting) ? MAX2((double)exaggeration, exaggeration * factor / s.scale) : exaggeration;
+    return (constantSize && !s.drawForSelecting && (!constantSizeSelected || o == nullptr || gSelected.isSelected(o))) 
+        ? MAX2((double)exaggeration, exaggeration * factor / s.scale) 
+        : (!constantSizeSelected || o == nullptr || gSelected.isSelected(o) ? exaggeration : 1);
 }
 
 

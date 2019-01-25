@@ -44,8 +44,9 @@
 //#define DEBUG_EMERGENCYDECEL
 //#define DEBUG_COND (true)
 #define DEBUG_COND (veh->isSelected())
+//#define DEBUG_COND (veh->getID() == "follower")
 //#define DEBUG_COND2 (SIMTIME == 176)
-//#define DEBUG_COND2 (gDebugFlag1)
+#define DEBUG_COND2 (gDebugFlag1)
 
 
 
@@ -189,9 +190,12 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 }
 #endif
 
-vMax = MAX2(vMin, vMax);
+    vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
+#ifdef DEBUG_FINALIZE_SPEED
+    double vDawdle = vNext;
+#endif
     assert(vNext >= vMin);
     assert(vNext <= vMax);
     // apply lane-changing related speed adaptations
@@ -203,10 +207,11 @@ vMax = MAX2(vMin, vMax);
     if DEBUG_COND {
     std::cout << std::setprecision(gPrecision)
         << "veh '" << veh->getID() << "' oldV=" << oldV
+        << " vPos" << vPos
         << " vMin=" << vMin
         << " vMax=" << vMax
-        << " vPos" << vStop
-        << " vStop" << vStop
+        << " vStop=" << vStop
+        << " vDawdle=" << vDawdle
         << " vNext=" << vNext
         << "\n";
     }
@@ -704,8 +709,7 @@ double
 MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double v /*currentSpeed*/, bool onInsertion, double headway) const {
     double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        // XXX pass headway argument
-        vsafe = maximumSafeStopSpeedEuler(g);
+        vsafe = maximumSafeStopSpeedEuler(g, headway);
     } else {
         vsafe = maximumSafeStopSpeedBallistic(g, v, onInsertion, headway);
     }
@@ -756,9 +760,6 @@ MSCFModel::maximumSafeStopSpeedEuler(double gap, double headway) const {
     gap -= NUMERICAL_EPS; // lots of code relies on some slack XXX: it shouldn't...
     if (gap <= 0) {
         return 0;
-    } else if (gap <= ACCEL2SPEED(myDecel)) {
-        // workaround for #2310
-        return MIN2(ACCEL2SPEED(myDecel), DIST2SPEED(gap));
     }
     const double g = gap;
     const double b = ACCEL2SPEED(myDecel);
@@ -897,18 +898,19 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
             }
 #endif
 
-            const double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
+            double safeDecel = EMERGENCY_DECEL_AMPLIFIER * calculateEmergencyDeceleration(gap, egoSpeed, predSpeed, predMaxDecel);
             // Don't be riskier than the usual method (myDecel <= safeDecel may occur, because a headway>0 is used above)
-            x = egoSpeed - ACCEL2SPEED(MAX2(safeDecel, myDecel));
+            safeDecel = MAX2(safeDecel, myDecel);
+            // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
+            safeDecel = MIN2(safeDecel, origSafeDecel);
+            x = egoSpeed - ACCEL2SPEED(safeDecel);
             if (MSGlobals::gSemiImplicitEulerUpdate) {
                 x = MAX2(x, 0.);
             }
-            // don't brake harder than originally planned (possible due to euler/ballistic mismatch)
-            x = MIN2(origSafeDecel, x);
 
 #ifdef DEBUG_EMERGENCYDECEL
             if (DEBUG_COND2) {
-                std::cout << "     -> corrected emergency deceleration: " << safeDecel << std::endl;
+                std::cout << "     -> corrected emergency deceleration: " << safeDecel << " newVSafe=" << x << std::endl;
             }
 #endif
 

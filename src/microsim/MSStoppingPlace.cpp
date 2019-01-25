@@ -94,7 +94,7 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
                 //if (forVehicle.isSelected()) {
                 //    std::cout << SIMTIME << " fitPosFor " << forVehicle.getID() << " l=" << vehLength << " prev=" << prev << " vehBeg=" << it.first << " vehEnd=" << it.second.first << " found=" << (prev - it.first >= vehLength) << "\n";
                 //}
-                if (prev - it.first >= vehLength && (
+                if (prev - it.first + NUMERICAL_EPS >= vehLength && (
                             it.second.second->isParking()
                             || it.second.second->remainingStopDuration() > TIME2STEPS(10))) {
                     return prev;
@@ -111,7 +111,7 @@ bool
 MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
     // always fit at the default position or if at least half the vehicle length
     // is within the stop range (debatable)
-    return pos == myEndPos || (pos - myBegPos >= veh.getVehicleType().getLength() / 2);
+    return pos + POSITION_EPS >= myEndPos || (pos - myBegPos >= veh.getVehicleType().getLength() / 2);
 }
 
 Position

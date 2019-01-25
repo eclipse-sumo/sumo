@@ -41,7 +41,7 @@
 AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet) :
     myStatData(ds),
     myLocation(inStreet),
-    myAdult(0),
+    myAdult(nullptr),
     myOpeningTime(generateOpeningTime(*ds)),
     myClosingTime(generateClosingTime(*ds)) {
     ds->workPositions++;
@@ -51,7 +51,7 @@ AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet
 AGWorkPosition::AGWorkPosition(AGDataAndStatistics* ds, const AGStreet& inStreet, double pos) :
     myStatData(ds),
     myLocation(inStreet, pos),
-    myAdult(0),
+    myAdult(nullptr),
     myOpeningTime(generateOpeningTime(*ds)),
     myClosingTime(generateClosingTime(*ds)) {
     ds->workPositions++;
@@ -105,23 +105,23 @@ AGWorkPosition::generateClosingTime(const AGDataAndStatistics& ds) {
 
 bool
 AGWorkPosition::isTaken() const {
-    return (myAdult != 0);
+    return (myAdult != nullptr);
 }
 
 
 void
 AGWorkPosition::let() {
-    if (myAdult != 0) {
+    if (myAdult != nullptr) {
         myStatData->workPositions++;
         myAdult->lostWorkPosition();
-        myAdult = 0;
+        myAdult = nullptr;
     }
 }
 
 
 void
 AGWorkPosition::take(AGAdult* worker) {
-    if (myAdult == 0) {
+    if (myAdult == nullptr) {
         myStatData->workPositions--;
         myAdult = worker;
     } else {

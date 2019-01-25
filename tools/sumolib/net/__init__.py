@@ -92,6 +92,20 @@ class TLS:
         return self._programs
 
 
+class Phase:
+
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1):
+        self.duration = duration
+        self.state = state
+        self.minDur = minDur  # minimum duration (only for actuated tls)
+        self.maxDur = maxDur  # maximum duration (only for actuated tls)
+        self.next = next
+
+    def __repr__(self):
+        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s)" %
+                (self.duration, self.state, self.minDur, self.maxDur, self.next))
+
+
 class TLSProgram:
 
     def __init__(self, id, offset, type):
@@ -100,15 +114,18 @@ class TLSProgram:
         self._offset = offset
         self._phases = []
 
-    def addPhase(self, state, duration):
-        self._phases.append((state, duration))
+    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=-1):
+        self._phases.append(Phase(duration, state, minDur, maxDur, next))
 
     def toXML(self, tlsID):
         ret = '  <tlLogic id="%s" type="%s" programID="%s" offset="%s">\n' % (
             tlsID, self._type, self._id, self._offset)
         for p in self._phases:
+            minDur = '' if p.minDur < 0 else ' minDur="%s"' % p.minDur
+            maxDur = '' if p.maxDur < 0 else ' maxDur="%s"' % p.maxDur
+            next = '' if p.next < 0 else ' next="%s"' % p.next
             ret = ret + \
-                '    <phase duration="%s" state="%s"/>\n' % (p[1], p[0])
+                '    <phase duration="%s" state="%s"%s%s%s/>\n' % (p.duration, p.state, minDur, maxDur, next)
         ret = ret + '  </tlLogic>\n'
         return ret
 
@@ -135,6 +152,7 @@ class Net:
         self._allLanes = []
         self._origIdx = None
         self.hasWarnedAboutMissingRTree = False
+        self.hasInternal = False
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -174,6 +192,8 @@ class Net:
             e = edge.Edge(id, fromN, toN, prio, function, name)
             self._edges.append(e)
             self._id2edge[id] = e
+            if function:
+                self.hasInternal = True
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length, width, allow=None, disallow=None):
@@ -201,8 +221,11 @@ class Net:
             except Exception:
                 pass
 
-    def getEdges(self):
-        return self._edges
+    def getEdges(self, withInternal=True):
+        if not withInternal:
+            return [e for e in self._edges if e.getFunction() == '']
+        else:
+            return self._edges
 
     def getRoundabouts(self):
         return self._roundabouts
@@ -280,6 +303,9 @@ class Net:
 
     def getNodes(self):
         return self._nodes
+
+    def getTLS(self, tlid):
+        return self._id2tls[tlid]
 
     def getTLSSecure(self, tlid):
         if tlid in self._id2tls:
@@ -436,13 +462,21 @@ class Net:
                 return path, cost
             if cost > maxCost:
                 return None, cost
-            for e2 in e1.getOutgoing():
+            for e2, conn in e1.getOutgoing().items():
                 if e2 not in seen:
                     newCost = cost + e2.getLength()
+                    if self.hasInternal:
+                        minInternalCost = 1e400
+                        for c in conn:
+                            if c.getViaLaneID() is not None:
+                                minInternalCost = min(minInternalCost, self.getLane(c.getViaLaneID()).getLength())
+                        if minInternalCost < 1e400:
+                            newCost += minInternalCost
                     if e2 not in dist or newCost < dist[e2]:
                         dist[e2] = newCost
                         heapq.heappush(q, (newCost, e2.getID(), e2, path))
         return None, 1e400
+
 
 class NetReader(handler.ContentHandler):
 
@@ -459,7 +493,11 @@ class NetReader(handler.ContentHandler):
             self._withPhases = True
         self._withConnections = others.get('withConnections', True)
         self._withFoes = others.get('withFoes', True)
-        self._withInternal = others.get('withInternal', False)
+        self._withPedestrianConnections = others.get('withPedestrianConnections', False)
+        self._withInternal = others.get('withInternal', self._withPedestrianConnections)
+        if self._withPedestrianConnections and not self._withInternal:
+            sys.stderr.write("Warning: Option withPedestrianConnections requires withInternal\n")
+            self._withInternal = True
 
     def startElement(self, name, attrs):
         if name == 'location':
@@ -509,7 +547,7 @@ class NetReader(handler.ContentHandler):
                 self._currentNode = self._net.addNode(attrs['id'], attrs['type'],
                                                       tuple(
                                                           map(float, [attrs['x'], attrs['y'],
-                                                              attrs['z'] if 'z' in attrs else '0'])),
+                                                                      attrs['z'] if 'z' in attrs else '0'])),
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
@@ -547,8 +585,8 @@ class NetReader(handler.ContentHandler):
         if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
-            if not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
-                    self._net._crossings_and_walkingAreas):
+            if self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or toEdgeID in
+                                                       self._net._crossings_and_walkingAreas):
                 fromEdge = self._net.getEdge(fromEdgeID)
                 toEdge = self._net.getEdge(toEdgeID)
                 fromLane = fromEdge.getLane(int(attrs['fromLane']))
@@ -586,7 +624,11 @@ class NetReader(handler.ContentHandler):
                 attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'], self._latestProgram)
         if self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
-                attrs['state'], int(attrs['duration']))
+                attrs['state'], int(attrs['duration']),
+                int(attrs['minDur']) if 'minDur' in attrs else -1,
+                int(attrs['maxDur']) if 'maxDur' in attrs else -1,
+                int(attrs['next']) if 'next' in attrs else -1
+            )
         if name == 'roundabout':
             self._net.addRoundabout(
                 attrs['nodes'].split(), attrs['edges'].split())
@@ -643,6 +685,7 @@ def readNet(filename, **others):
         'withConnections' : import all connections (default True)
         'withFoes' : import right-of-way information (default True)
         'withInternal' : import internal edges and lanes (default False)
+        'withPedestrianConnections' : import connections between sidewalks, crossings (default False)
     """
     netreader = NetReader(**others)
     parse(filename, netreader)

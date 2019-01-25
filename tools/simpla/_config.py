@@ -157,7 +157,7 @@ def loadVTypeMap(fn):
         if NrBadLines > 0:
             if rp.VERBOSITY >= 1:
                 warn(("vType file '%s' contained %d lines that were not parsed into a colon-separated " +
-                     "sequence of strings!") % (fn, NrBadLines))
+                      "sequence of strings!") % (fn, NrBadLines))
 
 
 def load(filename):

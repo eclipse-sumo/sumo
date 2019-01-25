@@ -41,7 +41,7 @@ class MSVehicleType;
 class MSRoute;
 class MSEdge;
 class MSLane;
-class MSDevice;
+class MSVehicleDevice;
 class MSPerson;
 class MSTransportable;
 class MSParkingArea;
@@ -59,6 +59,7 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
  */
 class SUMOVehicle {
 public:
+    typedef long long int NumericalID;
 
     // XXX: This definition was introduced to make the MSVehicle's previousSpeed
     //      available in the context of MSMoveReminder::notifyMove(). Another solution
@@ -156,7 +157,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true) = 0;
+    virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true) = 0;
 
     /// Replaces the current route by the given one
     virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true) = 0;
@@ -281,7 +282,7 @@ public:
     /** @brief Returns this vehicle's devices
      * @return This vehicle's devices
      */
-    virtual const std::vector<MSDevice*>& getDevices() const = 0;
+    virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
 
     /** @brief Adds a person to this vehicle
      *
@@ -363,7 +364,7 @@ public:
     virtual bool isStoppedInRange(double pos) const = 0;
 
     /// @brief Returns a device of the given type if it exists or 0
-    virtual MSDevice* getDevice(const std::type_info& type) const = 0;
+    virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
 
 
     virtual double getChosenSpeedFactor() const = 0;
@@ -376,11 +377,18 @@ public:
 
     virtual SUMOTime getDepartDelay() const = 0;
 
+    /// @brief get distance for coming to a stop (used for rerouting checks)
+    virtual double getBrakeGap() const = 0;
+
     /// @brief Returns this vehicles impatience
     virtual double getImpatience() const = 0;
 
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const = 0;
+
+    /// @brief return the numerical ID which is only for internal usage
+    //  (especially fast comparison in maps which need vehicles as keys)
+    virtual NumericalID getNumericalID() const = 0;
 
     /// @name state io
     //@{

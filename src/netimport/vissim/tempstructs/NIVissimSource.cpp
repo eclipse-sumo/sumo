@@ -63,7 +63,7 @@ NIVissimSource*
 NIVissimSource::dictionary(const std::string& id) {
     DictType::iterator i = myDict.find(id);
     if (i == myDict.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second;
 }

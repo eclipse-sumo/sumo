@@ -61,19 +61,18 @@ MSInternalJunction::postloadInit() {
     assert(specialLane->getLinkCont().size() == 1);
     MSLink* thisLink = specialLane->getLinkCont()[0];
     const MSRightOfWayJunction* parent = dynamic_cast<const MSRightOfWayJunction*>(specialLane->getEdge().getToJunction());
-    if (parent == 0) {
+    if (parent == nullptr) {
         // parent has type traffic_light_unregulated
         return;
     }
     const int ownLinkIndex = specialLane->getIncomingLanes()[0].viaLink->getIndex();
     const MSLogicJunction::LinkBits& response = parent->getLogic()->getResponseFor(ownLinkIndex);
     // inform links where they have to report approaching vehicles to
-    int requestPos = 0;
     //std::cout << " special=" << specialLane->getID() << " incoming=" << toString(myIncomingLanes) << " internal=" << toString(myInternalLanes) << "\n";
     for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
         const MSLinkCont& lc = (*i)->getLinkCont();
         for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
-            if ((*q)->getViaLane() != 0) {
+            if ((*q)->getViaLane() != nullptr) {
                 const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
                 //std::cout << "       response=" << response << " index=" << ownLinkIndex << " foeIndex=" << foeIndex << " ibct=" << indirectBicycleTurn(specialLane, thisLink, *i, *q) << "\n";
                 if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, *i, *q)) {
@@ -105,10 +104,10 @@ MSInternalJunction::postloadInit() {
         }
     }
     // thisLinks is itself an exitLink of the preceding internal lane
-    thisLink->setRequestInformation((int)requestPos, true, false, myInternalLinkFoes, myInternalLaneFoes, thisLink->getViaLane()->getLogicalPredecessorLane());
+    thisLink->setRequestInformation(ownLinkIndex, true, false, myInternalLinkFoes, myInternalLaneFoes, thisLink->getViaLane()->getLogicalPredecessorLane());
     assert(thisLink->getViaLane()->getLinkCont().size() == 1);
     MSLink* exitLink = thisLink->getViaLane()->getLinkCont()[0];
-    exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
+    exitLink->setRequestInformation(ownLinkIndex, false, false, std::vector<MSLink*>(),
                                     myInternalLaneFoes, thisLink->getViaLane());
     for (std::vector<MSLink*>::const_iterator k = myInternalLinkFoes.begin(); k != myInternalLinkFoes.end(); ++k) {
         thisLink->addBlockedLink(*k);
@@ -121,7 +120,7 @@ bool
 MSInternalJunction::indirectBicycleTurn(const MSLane* specialLane, const MSLink* thisLink, const MSLane* foeFirstPart, const MSLink* foeLink) const {
     if (specialLane->getPermissions() == SVC_BICYCLE && foeFirstPart->getPermissions() == SVC_BICYCLE
             && thisLink->getDirection() == LINKDIR_LEFT && foeLink->getDirection() == LINKDIR_LEFT
-            && thisLink->getViaLane() != 0
+            && thisLink->getViaLane() != nullptr
             && thisLink->getViaLane()->getShape().intersects(foeFirstPart->getShape())) {
         return true;
     } else {

@@ -64,7 +64,6 @@ detector:detector.xml
 [run_dependent_text]
 output:<!--{[->]}-->
 output:^Performance:{->}^Vehicles:
-output:visible boundary
 output:uncheck:
 output:@@[^@]*@@
 output:data\\{REPLACE data/}
@@ -75,6 +74,7 @@ output:Parsing nodes from .*{REPLACE Parsing nodes from (FILE)}
 output:Parsing edges from .*{REPLACE Parsing edges from (FILE)}
 output:Parsing connections from .*{REPLACE Parsing connections from (FILE)}
 output:Loading vehicle type mappings from file.*{REPLACE Loading vehicle type mappings from file '<vtype.map>'...}
+output:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->

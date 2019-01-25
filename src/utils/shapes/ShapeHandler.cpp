@@ -24,7 +24,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/GeomConvHelper.h>
@@ -43,7 +43,7 @@
 ShapeHandler::ShapeHandler(const std::string& file, ShapeContainer& sc) :
     SUMOSAXHandler(file), myShapeContainer(sc),
     myPrefix(""), myDefaultColor(RGBColor::RED), myDefaultLayer(), myDefaultFill(false),
-    myLastParameterised(0) {
+    myLastParameterised(nullptr) {
 }
 
 
@@ -63,9 +63,9 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 addPOI(attrs, false, false);
                 break;
             case SUMO_TAG_PARAM:
-                if (myLastParameterised != 0) {
+                if (myLastParameterised != nullptr) {
                     bool ok = true;
-                    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, 0, ok);
+                    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
                     // continue if key awas sucesfully loaded
                     if (ok) {
                         // circumventing empty string value
@@ -95,7 +95,7 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 void
 ShapeHandler::myEndElement(int element) {
     if (element != SUMO_TAG_PARAM) {
-        myLastParameterised = 0;
+        myLastParameterised = nullptr;
     }
 }
 
@@ -103,7 +103,7 @@ void
 ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
     const double INVALID_POSITION(-1000000);
-    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, INVALID_POSITION);
     const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_POSITION);
     double lon = attrs.getOpt<double>(SUMO_ATTR_LON, id.c_str(), ok, INVALID_POSITION);
@@ -177,13 +177,14 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
 void
 ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, const bool useProcessing) {
     bool ok = true;
-    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, 0, ok);
+    const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     // get the id, report an error if not given or empty...
     if (!ok) {
         return;
     }
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
     const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, myDefaultFill);
+    const double lineWidth = attrs.getOpt<double>(SUMO_ATTR_LINEWIDTH, id.c_str(), ok, Shape::DEFAULT_LINEWIDTH);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, Shape::DEFAULT_TYPE);
     const RGBColor color = attrs.hasAttribute(SUMO_ATTR_COLOR) ? attrs.get<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok) : myDefaultColor;
     PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
@@ -214,7 +215,13 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         WRITE_ERROR("Polygon's shape cannot be empty.");
         return;
     }
-    if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, ignorePruning)) {
+    // check that lineWidth is positive
+    if (lineWidth <= 0) {
+        WRITE_ERROR("Polygon's lineWidth must be greather than 0.");
+        return;
+    }
+    // create polygon, or show an error if polygon already exists
+    if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, ignorePruning)) {
         WRITE_ERROR("Polygon '" + id + "' already exists.");
     }
     myLastParameterised = myShapeContainer.getPolygons().get(id);

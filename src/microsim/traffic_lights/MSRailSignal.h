@@ -49,11 +49,11 @@ public:
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
-     * @param[in] subid This tls' sub-id (program id)
+     * @param[in] programID This tls' sub-id (program id)
      * @param[in] parameters This tls' parameters
      */
     MSRailSignal(MSTLLogicControl& tlcontrol,
-                 const std::string& id, const std::string& subid,
+                 const std::string& id, const std::string& programID,
                  const std::map<std::string, std::string>& parameters);
 
 
@@ -128,13 +128,6 @@ public:
     * @see MSTrafficLightLogic::getPhase
     */
     const MSPhaseDefinition& getPhase(int givenstep) const;
-
-    /** @brief Returns the type of the logic as a string
-     * @return The type of the logic
-     */
-    const std::string getLogicType() const {
-        return "railSignal";
-    }
     /// @}
 
 

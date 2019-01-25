@@ -25,25 +25,13 @@
 #include <version.h>
 #endif
 
-#include <ctime>
 #include <signal.h>
-#include <iostream>
-#include <utils/options/Option.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/common/RandHelper.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <netimport/NIFrame.h>
-#include <netbuild/NBFrame.h>
-#include <netwrite/NWFrame.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"

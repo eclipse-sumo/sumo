@@ -23,17 +23,15 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <iostream>
-#include <fx.h>
-#include <utils/foxtools/MFXEventQue.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/foxtools/FXThreadEvent.h>
+#include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
-#include <utils/shapes/ShapeHandler.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/geom/Position.h>
 #include <utils/gui/div/GUIMessageWindow.h>
+#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/shapes/ShapeHandler.h>
+
 
 // ===========================================================================
 // class declarations
@@ -43,8 +41,6 @@ class GNEUndoList;
 class GNENet;
 class GNEViewNet;
 class GUIEvent;
-class GUIParameterTracker;
-class GUIParameterTableWindow;
 
 
 // ===========================================================================

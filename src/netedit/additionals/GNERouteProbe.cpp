@@ -20,30 +20,15 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewParent.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERouteProbe.h"
 
@@ -74,11 +59,7 @@ GNERouteProbe::updateGeometry(bool updateGrid) {
     }
 
     // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-
-    // clear Shape
-    myShape.clear();
+    myGeometry.clearGeometry();
 
     // obtain relative position of routeProbe in edge
     myRelativePositionY = 2 * myEdge->getRouteProbeRelativePosition(this);
@@ -88,25 +69,25 @@ GNERouteProbe::updateGeometry(bool updateGrid) {
 
     // Get shape of lane parent
     double offset = firstLane->getShape().length() < 0.5 ? firstLane->getShape().length() : 0.5;
-    myShape.push_back(firstLane->getShape().positionAtOffset(offset));
+    myGeometry.shape.push_back(firstLane->getShape().positionAtOffset(offset));
 
     // Obtain first position
-    Position f = myShape[0] - Position(1, 0);
+    Position f = myGeometry.shape[0] - Position(1, 0);
 
     // Obtain next position
-    Position s = myShape[0] + Position(1, 0);
+    Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myShapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(offset) * -1);
+    myGeometry.shapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(offset) * -1);
 
     // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+    myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(1.1, (-3.06) - myRelativePositionY);
+    myBlockIcon.offset = Position(1.1, (-3.06) - myRelativePositionY);
 
     // Set block icon rotation, and using their rotation for logo
-    setBlockIconRotation(firstLane);
+    myBlockIcon.setRotation(firstLane);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -130,13 +111,13 @@ GNERouteProbe::getPositionInView() const {
 
 
 void
-GNERouteProbe::moveGeometry(const Position&, const Position&) {
+GNERouteProbe::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNERouteProbe::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNERouteProbe::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -153,12 +134,12 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
     const int numberOfLanes = int(myEdge->getLanes().size());
 
     // set color
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 216, 0));
     }
@@ -166,8 +147,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // draw shape
     glPushMatrix();
     glTranslated(0, 0, getType());
-    glTranslated(myShape[0].x(), myShape[0].y(), 0);
-    glRotated(myShapeRotations[0], 0, 0, 1);
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
+    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(-1.6, -1.6, 0);
     glBegin(GL_QUADS);
@@ -185,7 +166,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator (White)
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectionColor);
+            GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
         }
@@ -201,8 +182,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myShape[0].x(), myShape[0].y(), getType());
-    glRotated(myShapeRotations[0], 0, 0, 1);
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+    glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
     glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
 
     // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
@@ -225,15 +206,15 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Check if the distance is enought to draw details
     if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
-        drawLockIcon(0.4);
+        myBlockIcon.draw(0.4);
     }
 
     // draw name
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
 
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myShape[0], 2, 2, myShapeRotations[0], (-2.56) - myRelativePositionY, -1.6);
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], 2, 2, myGeometry.shapeRotations[0], (-2.56) - myRelativePositionY, -1.6);
     }
 
     // pop name
@@ -261,7 +242,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -283,20 +264,20 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNERouteProbe::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
 std::string
 GNERouteProbe::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_BEGIN);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_BEGIN);
 }
 
 // ===========================================================================
@@ -331,7 +312,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -368,10 +349,12 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

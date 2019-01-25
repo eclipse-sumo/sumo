@@ -64,7 +64,7 @@ findRoute Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime
 findRoute with routing mode Stage(stageType=3, line='', destStop='', edges=('o', '2o'), travelTime=1455.5902116141665, cost=1455.5902116141665, intended='', depart=-1.0)
 findIntermodalRoute [Stage(stageType=2, line='', destStop='', edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, intended='', depart=-1.0)]
 findIntermodalRoute (walk)
-  Stage(stageType=2, line='', destStop='', edges=('o', '2o'), travelTime=2463.3033600000003, cost=2463.3033600000003, intended='', depart=-1.0)
+  Stage(stageType=2, line='', destStop='', edges=('o', '2o'), travelTime=2467.7865600000005, cost=2467.7865600000005, intended='', depart=-1.0)
 
 findIntermodalRoute (bike)
   Stage(stageType=3, line='bicycle', destStop='', edges=('o', '2o'), travelTime=1848.3174000000001, cost=1848.3174000000001, intended='bicycle', depart=-1.0)

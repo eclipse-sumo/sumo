@@ -1079,6 +1079,66 @@ PositionVector::move2side(double amount) {
 }
 
 
+void 
+PositionVector::move2side(std::vector<double> amount) {
+    if (size() < 2) {
+        return;
+    }
+    if (length2D() == 0) {
+        return;
+    }
+    if (size() != amount.size()) {
+        throw InvalidArgument("Numer of offsets (" + toString(amount.size()) 
+                + ") does not match number of points (" + toString(size()) + ")");
+    }
+    PositionVector shape;
+    for (int i = 0; i < static_cast<int>(size()); i++) {
+        if (i == 0) {
+            const Position& from = (*this)[i];
+            const Position& to = (*this)[i + 1];
+            if (from != to) {
+                shape.push_back(from - sideOffset(from, to, amount[i]));
+            }
+        } else if (i == static_cast<int>(size()) - 1) {
+            const Position& from = (*this)[i - 1];
+            const Position& to = (*this)[i];
+            if (from != to) {
+                shape.push_back(to - sideOffset(from, to, amount[i]));
+            }
+        } else {
+            const Position& from = (*this)[i - 1];
+            const Position& me = (*this)[i];
+            const Position& to = (*this)[i + 1];
+            PositionVector fromMe(from, me);
+            fromMe.extrapolate2D(me.distanceTo2D(to));
+            const double extrapolateDev = fromMe[1].distanceTo2D(to);
+            if (fabs(extrapolateDev) < POSITION_EPS) {
+                // parallel case, just shift the middle point
+                shape.push_back(me - sideOffset(from, to, amount[i]));
+            } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
+                // counterparallel case, just shift the middle point
+                PositionVector fromMe(from, me);
+                fromMe.extrapolate2D(amount[i]);
+                shape.push_back(fromMe[1]);
+            } else {
+                Position offsets = sideOffset(from, me, amount[i]);
+                Position offsets2 = sideOffset(me, to, amount[i]);
+                PositionVector l1(from - offsets, me - offsets);
+                PositionVector l2(me - offsets2, to - offsets2);
+                Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], 100);
+                if (meNew == Position::INVALID) {
+                    throw InvalidArgument("no line intersection");
+                }
+                meNew = meNew + Position(0, 0, me.z());
+                shape.push_back(meNew);
+            }
+            // copy original z value
+            shape.back().set(shape.back().x(), shape.back().y(), me.z());
+        }
+    }
+    *this = shape;
+}
+
 double
 PositionVector::angleAt2D(int pos) const {
     if ((pos + 1) < (int)size()) {
@@ -1166,6 +1226,19 @@ PositionVector::insert_noDoublePos(const std::vector<Position>::iterator& at, co
 bool
 PositionVector::isClosed() const {
     return (size() >= 2) && ((*this)[0] == back());
+}
+
+
+bool 
+PositionVector::isNAN() const {
+    // iterate over all positions and check if is NAN
+    for (auto i = begin(); i != end(); i++) {
+        if (i->isNAN()) {
+            return true;
+        }
+    }
+    // all ok, then return false
+    return false;
 }
 
 
@@ -1277,7 +1350,7 @@ PositionVector::intersects(const Position& p11, const Position& p12, const Posit
             }
         }
         if (a != -1e12) {
-            if (x != 0) {
+            if (x != nullptr) {
                 if (p11.x() != p12.x()) {
                     *mu = (a - p11.x()) / (p12.x() - p11.x());
                     *x = a;
@@ -1313,7 +1386,7 @@ PositionVector::intersects(const Position& p11, const Position& p12, const Posit
             return false;
         }
     }
-    if (x != 0) {
+    if (x != nullptr) {
         *x = p11.x() + mua * (p12.x() - p11.x());
         *y = p11.y() + mua * (p12.y() - p11.y());
         *mu = mua;
@@ -1412,9 +1485,9 @@ PositionVector::smoothedZFront(double dist) const {
     const double dz = (*this)[1].z() - z0;
     // if the shape only has 2 points it is as smooth as possible already
     if (size() > 2 && dz != 0) {
-        dist = MIN2(dist, length());
+        dist = MIN2(dist, length2D());
         // check wether we need to insert a new point at dist
-        Position pDist = positionAtOffset(dist);
+        Position pDist = positionAtOffset2D(dist);
         int iLast = indexOfClosest(pDist);
         // prevent close spacing to reduce impact of rounding errors in z-axis
         if (pDist.distanceTo2D((*this)[iLast]) > POSITION_EPS * 20) {

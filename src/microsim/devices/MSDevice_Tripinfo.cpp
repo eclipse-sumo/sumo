@@ -40,7 +40,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-MSDevice_Tripinfo::DeviceSet MSDevice_Tripinfo::myPendingOutput;
+std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> MSDevice_Tripinfo::myPendingOutput;
 
 double MSDevice_Tripinfo::myVehicleCount(0);
 double MSDevice_Tripinfo::myTotalRouteLength(0);
@@ -71,7 +71,7 @@ SUMOTime MSDevice_Tripinfo::myTotalRideDuration(0);
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
         MSDevice_Tripinfo* device = new MSDevice_Tripinfo(v, "tripinfo_" + v.getID());
         into.push_back(device);
@@ -84,7 +84,7 @@ MSDevice_Tripinfo::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& i
 // MSDevice_Tripinfo-methods
 // ---------------------------------------------------------------------------
 MSDevice_Tripinfo::MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id) :
-    MSDevice(holder, id),
+    MSVehicleDevice(holder, id),
     myDepartLane(""),
     myDepartSpeed(-1),
     myDepartPosLat(0),
@@ -275,15 +275,7 @@ MSDevice_Tripinfo::generateOutput() const {
     os.writeAttr("stopTime", time2string(myStoppingTime));
     os.writeAttr("timeLoss", time2string(timeLoss));
     os.writeAttr("rerouteNo", myHolder.getNumberReroutes());
-    const std::vector<MSDevice*>& devices = myHolder.getDevices();
-    std::ostringstream str;
-    for (std::vector<MSDevice*>::const_iterator i = devices.begin(); i != devices.end(); ++i) {
-        if (i != devices.begin()) {
-            str << ' ';
-        }
-        str << (*i)->getID();
-    }
-    os.writeAttr("devices", str.str());
+    os.writeAttr("devices", toString(myHolder.getDevices()));
     os.writeAttr("vType", myHolder.getVehicleType().getID());
     os.writeAttr("speedFactor", myHolder.getChosenSpeedFactor());
     os.writeAttr("vaporized", (myHolder.getEdge() == *(myHolder.getRoute().end() - 1) ? "" : "0"));

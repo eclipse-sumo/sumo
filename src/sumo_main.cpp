@@ -30,6 +30,7 @@
 #endif
 
 #include <ctime>
+#include <csignal>
 #include <string>
 #include <iostream>
 #include <netload/NLBuilder.h>
@@ -48,11 +49,47 @@
 // ===========================================================================
 // functions
 // ===========================================================================
+void
+signalHandler(int signum) {
+    if (MSNet::hasInstance()) {
+        switch (signum) {
+            case SIGINT:
+            case SIGTERM:
+                if (MSNet::getInstance()->isInterrupted()) {
+                    std::cout << "Another interrupt signal received, hard exit." << std::endl;
+                    exit(signum);
+                }
+                std::cout << "Interrupt signal received, trying to exit gracefully." << std::endl;
+                MSNet::getInstance()->interrupt();
+                break;
+#ifndef _MSC_VER
+            case SIGUSR1:
+                std::cout << "Step #" << SIMSTEP << std::endl;
+                std::cout << MSNet::getInstance()->generateStatistics(string2time(OptionsCont::getOptions().getString("begin"))) << std::endl;
+                break;
+            case SIGUSR2:
+                //TODO reload sim
+                break;
+#endif
+            default:
+                break;
+        }
+    }
+}
+
+
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
+    signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
+#ifndef _MSC_VER
+    signal(SIGUSR1, signalHandler);
+    signal(SIGUSR2, signalHandler);
+#endif
+
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("A microscopic, multi-modal traffic simulation.");

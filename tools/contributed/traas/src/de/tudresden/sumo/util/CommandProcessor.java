@@ -30,7 +30,6 @@ import java.util.LinkedList;
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.subscription.Subscription;
 import de.tudresden.ws.container.SumoBestLanes;
-import de.tudresden.ws.container.SumoBoundingBox;
 import de.tudresden.ws.container.SumoColor;
 import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoLeader;
@@ -44,6 +43,7 @@ import de.tudresden.ws.container.SumoPrimitive;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSProgram;
+import de.tudresden.ws.container.SumoVehicleData;
 import de.uniluebeck.itm.tcpip.Storage;
 import de.tudresden.ws.container.SumoTLSPhase;
 import de.tudresden.ws.container.SumoTLSController;
@@ -98,15 +98,6 @@ public class CommandProcessor extends Query{
 			}
 			output = ssl;
 		
-		}else if(type == Constants.TYPE_BOUNDINGBOX){
-			
-			double min_x = s.readDouble();
-			double min_y = s.readDouble();
-			double max_x = s.readDouble();
-			double max_y = s.readDouble();
-			
-			output = new SumoBoundingBox(min_x, min_y, max_x, max_y);
-			
 		}else if(type == Constants.VAR_STOPSTATE){
 			
 			short s0 = s.readByte();
@@ -332,8 +323,7 @@ public class CommandProcessor extends Query{
 			
 			output = sg;
 		
-		}
-		else if(type == Constants.TYPE_COLOR){
+		} else if(type == Constants.TYPE_COLOR){
 			
 			int r = s.readUnsignedByte();
 			int g = s.readUnsignedByte();
@@ -341,7 +331,7 @@ public class CommandProcessor extends Query{
 			int a = s.readUnsignedByte();
 			
 			output = new SumoColor(r, g, b, a);
-		
+
 		}else if(type == Constants.TYPE_UBYTE){
 			output = new SumoPrimitive(s.readUnsignedByte());
 		}
@@ -379,15 +369,6 @@ public class CommandProcessor extends Query{
 			}
 			output = ssl;
 		
-		}else if(sc.output_type == Constants.TYPE_BOUNDINGBOX){
-			
-			double min_x = resp.content().readDouble();
-			double min_y = resp.content().readDouble();
-			double max_x = resp.content().readDouble();
-			double max_y = resp.content().readDouble();
-			
-			output = new SumoBoundingBox(min_x, min_y, max_x, max_y);
-			
 		}else if(sc.input2 == Constants.VAR_STOPSTATE){
 			short s = resp.content().readByte();
 			SumoStopFlags sf = new SumoStopFlags((byte) s);
@@ -604,6 +585,35 @@ public class CommandProcessor extends Query{
 				}
 			
 				output = sl;
+
+            }else if(sc.input2 == Constants.LAST_STEP_VEHICLE_DATA){
+
+                resp.content().readUnsignedByte();
+                resp.content().readInt();
+
+                SumoVehicleData vehData  = new SumoVehicleData();
+
+                int numItems = resp.content().readInt();
+                for(int i=0; i<numItems; i++){
+
+                    resp.content().readUnsignedByte();
+                    String vehID = resp.content().readStringASCII();
+
+                    resp.content().readUnsignedByte();
+                    double length = resp.content().readDouble();
+
+                    resp.content().readUnsignedByte();
+                    double entryTime = resp.content().readDouble();
+
+                    resp.content().readUnsignedByte();
+                    double leaveTime = resp.content().readDouble();
+
+                    resp.content().readUnsignedByte();
+                    String typeID = resp.content().readStringASCII();
+
+                    vehData.add(vehID, length, entryTime, leaveTime, typeID);
+                }
+                output = vehData;
 				
 			}else if(sc.input2 == Constants.FIND_ROUTE){
 				

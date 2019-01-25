@@ -18,32 +18,11 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/dialogs/GNECalibratorDialog.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 
 #include "GNECalibratorRoute.h"
 
@@ -75,13 +54,13 @@ GNECalibratorRoute::getGNEEdges() const {
 
 
 void
-GNECalibratorRoute::moveGeometry(const Position&, const Position&) {
+GNECalibratorRoute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNECalibratorRoute::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNECalibratorRoute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -122,7 +101,7 @@ GNECalibratorRoute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -140,7 +119,7 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -162,20 +141,20 @@ GNECalibratorRoute::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNECalibratorRoute::getPopUpID() const {
-    return toString(getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
 GNECalibratorRoute::getHierarchyName() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 // ===========================================================================
@@ -198,7 +177,7 @@ GNECalibratorRoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

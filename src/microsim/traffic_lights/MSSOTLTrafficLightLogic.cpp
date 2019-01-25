@@ -33,14 +33,15 @@
 MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     MSTLLogicControl& tlcontrol,
     const std::string& id,
-    const std::string& subid,
+    const std::string& programID,
+    const TrafficLightType logicType,
     const Phases& phases,
     int step,
     SUMOTime delay,
     const std::map<std::string, std::string>& parameters)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, subid, phases, step, delay, parameters) {
-    this->mySensors = NULL;
-    this->myCountSensors = NULL;
+    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay, parameters) {
+    this->mySensors = nullptr;
+    this->myCountSensors = nullptr;
     sensorsSelfBuilt = true;
     checkPhases();
     setupCTS();
@@ -50,13 +51,14 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
 MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     MSTLLogicControl& tlcontrol,
     const std::string& id,
-    const std::string& subid,
+    const std::string& programID,
+    const TrafficLightType logicType,
     const Phases& phases,
     int step,
     SUMOTime delay,
     const std::map<std::string, std::string>& parameters,
     MSSOTLSensors* sensors)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, subid, phases, step, delay, parameters) {
+    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, logicType, phases, step, delay, parameters) {
     this->mySensors = sensors;
     sensorsSelfBuilt = false;
     checkPhases();

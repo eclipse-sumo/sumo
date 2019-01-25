@@ -12,3 +12,12 @@ right_on_red
 
 # adapt junction logic to custom tls program
 right_on_red_custom_program
+
+# group phases by opposite directions
+layout_opposites
+
+# group phases by incoming edge
+layout_incoming
+
+# group phases by incoming edge, also allow compatible right-turns
+right_on_red_layout_incoming

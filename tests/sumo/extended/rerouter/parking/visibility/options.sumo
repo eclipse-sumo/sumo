@@ -2,3 +2,4 @@
 --route-files=input_routes.rou.xml
 --additional-files=input_additional.add.xml,input_additional2.add.xml 
 --vehroutes=vehroutes.xml 
+--vehroute-output.cost

@@ -1,33 +1,36 @@
 # all test check also the undo-redo of modifications and save the poly into a file
 # create default
-create_default
+default
 
 # create color
-create_color
+color
 
 # create fill
-create_fill
+fill
+
+# create lineWidth
+linewidth
 
 # create layer
-create_layer
+layer
 
 # create type
-create_type
+type
 
 # create imgfile
-create_imgfile
+imgfile
 
 # create relativepath
-create_relativepath
+relativepath
 
 # create with different angle
-create_angle
+angle
 
 # create with different block move
-create_block_move
+block_move
 
 # create with different block shape
-create_block_shape
+block_shape
 
 # create with different close shape
-create_close_shape
+close_shape

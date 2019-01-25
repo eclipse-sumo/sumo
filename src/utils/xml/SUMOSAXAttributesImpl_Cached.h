@@ -28,7 +28,7 @@
 #include <iostream>
 #include <xercesc/sax2/Attributes.hpp>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "SUMOSAXAttributes.h"
 
 
@@ -228,6 +228,8 @@ public:
      */
     SumoXMLNodeType getNodeType(bool& ok) const;
 
+    /// @brief returns rightOfWay method
+    RightOfWay getRightOfWay(bool& ok) const; 
 
     /**
      * @brief Returns the value of the named attribute
@@ -286,7 +288,7 @@ private:
      * @param[in] id The id of the attribute to retrieve the vale of
      * @return The xerces-value of the attribute
      */
-    const char* getAttributeValueSecure(int id) const;
+    const std::string& getAttributeValueSecure(int id) const;
 
 
 private:

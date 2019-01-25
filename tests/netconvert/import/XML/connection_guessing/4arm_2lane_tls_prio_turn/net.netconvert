@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:34 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:46 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -75,22 +75,22 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes="" shape="93.60,110.40 106.40,110.40 106.84,108.18 107.40,107.40 108.18,106.84 109.18,106.51 110.40,106.40 110.40,93.60 108.18,93.16 107.40,92.60 106.84,91.82 106.51,90.82 106.40,89.60 93.60,89.60 93.16,91.82 92.60,92.60 91.82,93.16 90.82,93.49 89.60,93.60 89.60,106.40 91.82,106.84 92.60,107.40 93.16,108.18 93.49,109.18">
-        <request index="0"  response="0000100001100000" foes="0000100001100000"/>
+        <request index="0"  response="0000000001100000" foes="0000000001100000"/>
         <request index="1"  response="1111100011100000" foes="1111100011100000"/>
         <request index="2"  response="1111100011100000" foes="1111100011100000"/>
-        <request index="3"  response="1110011111100000" foes="1110011111100000"/>
-        <request index="4"  response="0000000000000000" foes="1000011000000000"/>
+        <request index="3"  response="1110011011100000" foes="1110011011100000"/>
+        <request index="4"  response="0000000000000000" foes="0000011000000000"/>
         <request index="5"  response="0000000000000000" foes="1000111000001111"/>
         <request index="6"  response="0000000000000000" foes="1000111000001111"/>
-        <request index="7"  response="0000000000000000" foes="0111111000001110"/>
-        <request index="8"  response="0000000000000000" foes="0110000000001000"/>
+        <request index="7"  response="0000000000000000" foes="0110111000001110"/>
+        <request index="8"  response="0000000000000000" foes="0110000000000000"/>
         <request index="9"  response="0000000011110000" foes="1110000011111000"/>
         <request index="10" response="0000000011110000" foes="1110000011111000"/>
-        <request index="11" response="0000000011100000" foes="1110000011100111"/>
-        <request index="12" response="0000000010000000" foes="0000000010000110"/>
+        <request index="11" response="0000000011100000" foes="1110000011100110"/>
+        <request index="12" response="0000000000000000" foes="0000000000000110"/>
         <request index="13" response="0000111110000000" foes="0000111110001110"/>
         <request index="14" response="0000111110000000" foes="0000111110001110"/>
-        <request index="15" response="0000111001110000" foes="0000111001111110"/>
+        <request index="15" response="0000111001100000" foes="0000111001101110"/>
     </junction>
     <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1" intLanes="" shape="200.00,100.00 200.00,93.60 200.00,100.00"/>
     <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="CN_0 CN_1" intLanes="" shape="100.00,200.00 106.40,200.00 100.00,200.00"/>
@@ -109,7 +109,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="SC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="9" dir="s" state="o"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" tl="C" linkIndex="10" dir="s" state="o"/>
     <connection from="SC" to="CW" fromLane="1" toLane="1" tl="C" linkIndex="11" dir="l" state="o"/>
-    <connection from="WC" to="CS" fromLane="0" toLane="0" tl="C" linkIndex="12" dir="r" state="o"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" tl="C" linkIndex="12" dir="r" state="O"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" tl="C" linkIndex="13" dir="s" state="o"/>
     <connection from="WC" to="CE" fromLane="1" toLane="1" tl="C" linkIndex="14" dir="s" state="o"/>
     <connection from="WC" to="CN" fromLane="1" toLane="1" tl="C" linkIndex="15" dir="l" state="o"/>

@@ -32,10 +32,11 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/additionals/GNEDetectorE2.h>
+#include <netedit/frames/GNEAdditionalFrame.h>
 
 #include "GNEDialog_FixAdditionalPositions.h"
 
@@ -57,17 +58,17 @@ FXIMPLEMENT(GNEDialog_FixAdditionalPositions, FXDialogBox, GNEDialog_FixAddition
 // member method definitions
 // ===========================================================================
 
-GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEStoppingPlace*>& invalidStoppingPlaces, const std::vector<GNEDetector*>& invalidDetectors) :
-    FXDialogBox(viewNet->getApp(), ("Fix stoppingPlaces positions"), GUIDesignDialogBoxExplicit, 0, 0, 458, 300, 0, 0, 0, 0),
+GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
+    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit, 0, 0, 478, 350, 0, 0, 0, 0),
     myViewNet(viewNet),
-    myInvalidStoppingPlaces(invalidStoppingPlaces),
-    myInvalidDetectors(invalidDetectors) {
+    myInvalidSingleLaneAdditionals(invalidSingleLaneAdditionals),
+    myInvalidMultiLaneAdditionals(invalidMultiLaneAdditionals) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_BUSSTOP));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create label for table
-    new FXLabel(mainFrame, "List of Stopping places and E2 detectors with conflicts", 0, GUIDesignLabelCenterThick);
+    new FXLabel(mainFrame, "List of Stopping places and E2 detectors with conflicts", nullptr, GUIDesignLabelCenterThick);
     // Create table, copy intervals and update table
     myTable = new FXTable(mainFrame, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
     myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
@@ -76,21 +77,21 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
     // clear table
     myTable->clearItems();
     // set number of rows
-    myTable->setTableSize(int(myInvalidStoppingPlaces.size() + myInvalidDetectors.size()), 3);
+    myTable->setTableSize(int(myInvalidSingleLaneAdditionals.size() + myInvalidMultiLaneAdditionals.size()), 3);
     // Configure list
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
     myTable->setColumnWidth(1, 160);
-    myTable->setColumnWidth(2, 260);
+    myTable->setColumnWidth(2, 280);
     myTable->setColumnText(0, "");
     myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
     myTable->setColumnText(2, "Conflict");
     myTable->getRowHeader()->setWidth(0);
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
-    FXTableItem* item = 0;
-    // iterate over stopping places
-    for (auto i : myInvalidStoppingPlaces) {
+    FXTableItem* item = nullptr;
+    // iterate over single lane additionals
+    for (auto i : myInvalidSingleLaneAdditionals) {
         // Set icon
         item = new FXTableItem("", i->getIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
@@ -100,27 +101,14 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // Set conflict
-        std::string errorStartPosition, errorEndPosition, separator;
-        // check start position
-        if (i->getStartPosition() < 0) {
-            errorStartPosition = (toString(SUMO_ATTR_STARTPOS) + " < 0");
-        }
-        // check end position
-        if (i->getEndPosition() > i->getLane()->getParentEdge().getNBEdge()->getFinalLength()) {
-            errorEndPosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
-        }
-        // check separator
-        if ((errorStartPosition.size() > 0) && (errorEndPosition.size() > 0)) {
-            separator = " and ";
-        }
-        item = new FXTableItem((errorStartPosition + separator + errorEndPosition).c_str());
+        item = new FXTableItem(i->getAdditionalProblem().c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }
-    // iterate over detectors
-    for (auto i : myInvalidDetectors) {
+    // iterate over multi lane additionals
+    for (auto i : myInvalidMultiLaneAdditionals) {
         // Set icon
         item = new FXTableItem("", i->getIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
@@ -129,48 +117,27 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
         item = new FXTableItem(i->getID().c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
-        // Set conflict
-        std::string errorPosition, errorLenght, separator;
-        // check position over lane
-        if (i->getPositionOverLane() < 0) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
-        } else if (i->getPositionOverLane() > i->getLane()->getParentEdge().getNBEdge()->getFinalLength()) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
-        }
-        GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(i);
-        if ((E2Detector != nullptr) && ((E2Detector->getPositionOverLane() + E2Detector->getLength()) > i->getLane()->getParentEdge().getNBEdge()->getFinalLength())) {
-            errorLenght = (toString(SUMO_ATTR_LENGTH) + " > lanes's length");
-        }
-
-        // check separator
-        if ((errorPosition.size() > 0) && (errorLenght.size() > 0)) {
-            separator = " and ";
-        }
-        item = new FXTableItem((errorPosition + separator + errorLenght).c_str());
+        // set conflict
+        item = new FXTableItem((i->getAdditionalProblem()).c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
     }
-    // create label for elements
-    new FXLabel(mainFrame, "Select a solution:", 0, GUIDesignLabelCenterThick);
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    // create Vertical Frame for left options
-    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    myOptionA = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myOptionC = new FXRadioButton(RadioButtonsLeft, "Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create Vertical Frame for right options
-    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    myOptionB = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myOptionD = new FXRadioButton(RadioButtonsRight, "Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors",
-                                  this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // leave option a as default
-    myOptionA->setCheck(true);
+    // create position options
+    myPositionOptions.buildPositionOptions(this, mainFrame);
+    // check if position options has to be disabled
+    if(myInvalidSingleLaneAdditionals.empty()) {
+        myPositionOptions.disablePositionOptions();
+    }
+    // create consecutive lane options
+    myConsecutiveLaneOptions.buildConsecutiveLaneOptions(this, mainFrame);
+    // check if consecutive lane options has to be disabled
+    if(myInvalidMultiLaneAdditionals.empty()) {
+        myConsecutiveLaneOptions.disableConsecutiveLaneOptions();
+    }
     // create dialog buttons bot centered
+    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     myAcceptButton = new FXButton(buttonsFrame, FXWindow::tr("&Accept"), GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
@@ -187,113 +154,89 @@ GNEDialog_FixAdditionalPositions::~GNEDialog_FixAdditionalPositions() {
 
 long
 GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    if (obj == myOptionA) {
-        myOptionA->setCheck(true);
-        myOptionB->setCheck(false);
-        myOptionC->setCheck(false);
-        myOptionD->setCheck(false);
-        return 1;
-    } else if (obj == myOptionB) {
-        myOptionA->setCheck(false);
-        myOptionB->setCheck(true);
-        myOptionC->setCheck(false);
-        myOptionD->setCheck(false);
-        return 1;
-    } else if (obj == myOptionC) {
-        myOptionA->setCheck(false);
-        myOptionB->setCheck(false);
-        myOptionC->setCheck(true);
-        myOptionD->setCheck(false);
-        return 1;
-    } else if (obj == myOptionD) {
-        myOptionA->setCheck(false);
-        myOptionB->setCheck(false);
-        myOptionC->setCheck(false);
-        myOptionD->setCheck(true);
-        return 1;
-    } else {
-        return 0;
-    }
+    myPositionOptions.selectOption(obj);
+    myConsecutiveLaneOptions.selectOption(obj);
+    return 1;
 }
 
 
 long
 GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (myOptionA->getCheck() == TRUE) {
-        myViewNet->getUndoList()->p_begin(toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
-        // iterate over invalid stopping places to enable friendly position
-        for (auto i : myInvalidStoppingPlaces) {
-            i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
-        }
-        // iterate over invalid detectors to enable friendly position
-        for (auto i : myInvalidDetectors) {
-            i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
-        }
-        myViewNet->getUndoList()->p_end();
-        // stop modal with TRUE (continue saving)
-        getApp()->stopModal(this, TRUE);
-        return 1;
-    } else if (myOptionB->getCheck() == TRUE) {
-        myViewNet->getUndoList()->p_begin("Fixed positions of invalid additionals");
-        // iterate over invalid stopping places to fix positions
-        for (auto i = myInvalidStoppingPlaces.begin(); i != myInvalidStoppingPlaces.end(); i++) {
-            GNEStoppingPlace* stoppingPlace = dynamic_cast<GNEStoppingPlace*>(*i);
-            if (stoppingPlace != nullptr) {
-                // obtain start and end position
-                std::string startPos = stoppingPlace->getAttribute(SUMO_ATTR_STARTPOS);
-                std::string endPos = stoppingPlace->getAttribute(SUMO_ATTR_ENDPOS);
-                // fix start and end positions using fixStoppinPlacePosition (0.01 is used to avoid precision problems)
-                GNEAdditionalHandler::fixStoppinPlacePosition(startPos, endPos, stoppingPlace->getLane()->getLaneParametricLength() - 0.01, POSITION_EPS + 0.01, true);
-                // set new start and end positions
-                stoppingPlace->setAttribute(SUMO_ATTR_STARTPOS, toString(startPos), myViewNet->getUndoList());
-                stoppingPlace->setAttribute(SUMO_ATTR_ENDPOS, toString(endPos), myViewNet->getUndoList());
+    bool continueSaving = true;
+    // first check options from single lane additionals
+    if(myInvalidSingleLaneAdditionals.size() > 0) {
+        if (myPositionOptions.activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
+            // iterate over invalid single lane elements to enable friendly position
+            for (auto i : myInvalidSingleLaneAdditionals) {
+                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
-        }
-        // iterate over invalid detectors
-        for (auto i : myInvalidDetectors) {
-            GNEDetectorE2* E2Detector = dynamic_cast<GNEDetectorE2*>(i);
-            // Check if we're handling a E2 detector o a E1/Entry/Exit
-            if (E2Detector != nullptr) {
-                // obtain position and lenght
-                double pos = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_POSITION));
-                double length = GNEAttributeCarrier::parse<double>(E2Detector->getAttribute(SUMO_ATTR_LENGTH));
-                // fix pos and lenght using fixE2DetectorPositionPosition
-                GNEAdditionalHandler::fixE2DetectorPositionPosition(pos, length, E2Detector->getLane()->getParentEdge().getNBEdge()->getFinalLength(), true);
-                // set new position and length
-                E2Detector->setAttribute(SUMO_ATTR_POSITION, toString(pos), myViewNet->getUndoList());
-                E2Detector->setAttribute(SUMO_ATTR_LENGTH, toString(length), myViewNet->getUndoList());
-            } else {
-                // obtain position
-                double pos = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_POSITION));
-                // fix pos and lenght  checkAndFixDetectorPositionPosition
-                GNEAdditionalHandler::checkAndFixDetectorPositionPosition(pos, i->getLane()->getParentEdge().getNBEdge()->getFinalLength(), true);
-                // set new position
-                i->setAttribute(SUMO_ATTR_POSITION, toString(pos), myViewNet->getUndoList());
+            myViewNet->getUndoList()->p_end();
+        } else if (myPositionOptions.fixPositionsAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("fix positions of invalid additionals");
+            // iterate over invalid single lane elements to fix positions
+            for (auto i : myInvalidSingleLaneAdditionals) {
+                i->fixAdditionalProblem();
             }
+            myViewNet->getUndoList()->p_end();
+        } else if (myPositionOptions.selectInvalidStopsAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("select invalid additionals");
+            // iterate over invalid single lane elements to select all elements
+            for (auto i : myInvalidSingleLaneAdditionals) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->p_end();
+            // abort saving
+            continueSaving = false;
         }
-        myViewNet->getUndoList()->p_end();
-        // stop modal with TRUE (continue saving)
-        getApp()->stopModal(this, TRUE);
-        return 1;
-    } else if (myOptionC->getCheck() == TRUE) {
-        // simply stop modal with TRUE to save additionals with invalid positions
-        getApp()->stopModal(this, TRUE);
-        return 1;
-    } else if (myOptionD->getCheck() == TRUE) {
-        std::set<GUIGlID> GLIDsToSelect;
-        myViewNet->getUndoList()->p_begin("select invalid additionals");
-        for (auto i : myInvalidStoppingPlaces) {
-            i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-        }
-        myViewNet->getUndoList()->p_end();
-        // stop modal with FALSE (abort saving)
-        getApp()->stopModal(this, FALSE);
-        return 0;
-    } else {
-        // stop modal with FALSE (abort saving)
-        getApp()->stopModal(this, FALSE);
-        return 0;
     }
+     // now check options from multi lane additionals
+    if(myInvalidMultiLaneAdditionals.size() > 0) {
+        myViewNet->getUndoList()->p_begin("fix multilane additionals problems");
+        // fix problems of consecutive lanes
+        if (myConsecutiveLaneOptions.buildConnectionBetweenLanes->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to enable friendly position
+            for (auto i : myInvalidMultiLaneAdditionals) {
+                i->fixAdditionalProblem();
+            }
+            // we need to check if after first fix there is still  Invalid MultiL-ane Additionals with errors
+            auto copyOfInvalidMultiLaneAdditionals = myInvalidMultiLaneAdditionals;
+            myInvalidMultiLaneAdditionals.clear();
+            for (auto i : copyOfInvalidMultiLaneAdditionals) {
+                if(!i->isAdditionalValid()) {
+                    myInvalidMultiLaneAdditionals.push_back(i);
+                }
+            }
+        } else if (myConsecutiveLaneOptions.removeInvalidElements->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to fix positions
+            for (auto i : myInvalidMultiLaneAdditionals) {
+                myViewNet->getViewParent()->getAdditionalFrame()->removeAdditional(i);
+            }
+            // clear myInvalidMultiLaneAdditionals due tere isn't more invalid multi lane additionals
+            myInvalidMultiLaneAdditionals.clear();
+        }
+        // fix problem of positions
+        if (myPositionOptions.activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to enable friendly position
+            for (auto i : myInvalidSingleLaneAdditionals) {
+                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            }
+        } else if (myPositionOptions.fixPositionsAndSave->getCheck() == TRUE) {
+            // iterate over invalid single lane elements to fix positions
+            for (auto i : myInvalidSingleLaneAdditionals) {
+                i->fixAdditionalProblem();
+            }
+        }
+        myViewNet->getUndoList()->p_end();
+    }
+    if(continueSaving) {
+        // stop modal with TRUE (continue saving)
+        getApp()->stopModal(this, TRUE);
+    } else {
+        // stop modal with TRUE (abort saving)
+        getApp()->stopModal(this, FALSE);
+    }
+    return 1;
 }
 
 
@@ -302,6 +245,138 @@ GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal (abort saving)
     getApp()->stopModal(this, FALSE);
     return 1;
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+    // create label for elements
+    new FXLabel(mainFrame, "Select a solution for StoppingPlaces and E2 detectors:", nullptr, GUIDesignLabelCenterThick);
+    // create horizontal frames for radio buttons
+    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    // create Vertical Frame for left options
+    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
+                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions",
+                                    fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create Vertical Frame for right options
+    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
+                                            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors",
+                                                    fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "activateFriendlyPositionAndSave" as default
+    activateFriendlyPositionAndSave->setCheck(true);
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::selectOption(FXObject* option) {
+     if (option == activateFriendlyPositionAndSave) {
+        activateFriendlyPositionAndSave->setCheck(true);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == fixPositionsAndSave) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(true);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == saveInvalid) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(true);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == selectInvalidStopsAndCancel) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(true);
+    }
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::enablePositionOptions() {
+    activateFriendlyPositionAndSave->enable();
+    fixPositionsAndSave->enable();
+    saveInvalid->enable();
+    selectInvalidStopsAndCancel->enable();
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::PositionOptions::disablePositionOptions() {
+    activateFriendlyPositionAndSave->disable();
+    fixPositionsAndSave->disable();
+    saveInvalid->disable();
+    selectInvalidStopsAndCancel->disable();
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+    // create label for elements
+    new FXLabel(mainFrame, "Select a solution for Multilane E2 detectors:", nullptr, GUIDesignLabelCenterThick);
+    // create horizontal frames for radio buttons
+    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    // create Vertical Frame for left options
+    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, "Build connections between lanes\t\tNew connections will be created between non-connected lanes",
+                                                    fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
+                                              fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // add a vertical separator beween both options
+    new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
+    // create Vertical Frame for right options
+    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
+                                                        fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
+                                            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "buildConnectionBetweenLanes" and "activateFriendlyPositionAndSave" as default
+    buildConnectionBetweenLanes->setCheck(true);
+    activateFriendlyPositionAndSave->setCheck(true);
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::selectOption(FXObject* option) {
+    // set top buttons
+    if (option == buildConnectionBetweenLanes) {
+        buildConnectionBetweenLanes->setCheck(true);
+        removeInvalidElements->setCheck(false);
+    } else if (option == removeInvalidElements) {
+        buildConnectionBetweenLanes->setCheck(false);
+        removeInvalidElements->setCheck(true);
+    }
+    // set down buttons
+    if (option == activateFriendlyPositionAndSave) {
+        activateFriendlyPositionAndSave->setCheck(true);
+        fixPositionsAndSave->setCheck(false);
+    } else if (option == fixPositionsAndSave) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(true);
+    }
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
+    buildConnectionBetweenLanes->enable();
+    removeInvalidElements->enable();
+    activateFriendlyPositionAndSave->enable();
+    fixPositionsAndSave->enable();
+}
+
+
+void 
+GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
+    buildConnectionBetweenLanes->disable();
+    removeInvalidElements->disable();
+    activateFriendlyPositionAndSave->disable();
+    fixPositionsAndSave->disable();
 }
 
 /****************************************************************************/

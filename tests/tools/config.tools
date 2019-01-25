@@ -67,6 +67,7 @@ copy_test_path:ptlines.xml
 copy_test_path:input_edgedata.xml
 copy_test_path:summary.xml
 copy_test_path:config.txt
+copy_test_path:input_sel.txt
 
 [collate_file]
 detectors:e1.add.xml
@@ -145,12 +146,14 @@ output:^calling.*duarouter
 output:Parsing network projection
 output:Parsing types from '.*[\\/]data[\\/]typemap[\\/]{REPLACE Parsing types from 'sumo/data/typemap/}
 output:from osm-file .*[\\/](.*)osm.xml{REPLACE from osm-file '\1osm.xml}
+output:from .*[\\/](.*).xml{REPLACE from <DIR>/\1.xml}
 output:Building scenario in.*{REPLACE Building scenario in <DIR>}
 output:^Performance:{->}^Vehicles:
 output:instance at 0x[0-9A-Fa-f]+{REPLACE instance at <ADDRESS>}
 output:Written configuration to .*{REPLACE Written configuration to <PATH>}
 output:Warning: Module 'rtree' not available. Using brute-force fallback
 output:2147483647{REPLACE 9223372036854775807}
+output:Simulation.*started with{REPLACE Simulation started with}
 trips:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->
@@ -195,6 +198,7 @@ osmbatch:0.001
 osmlines:0.0101
 osmstops:0.0101
 osmtrips:0.0101
+ptroutes:0.0101
 summary:0.0001
 
 [unordered_text]

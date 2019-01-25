@@ -112,7 +112,7 @@ GUINet::getBoundary() const {
 
 MSTransportableControl&
 GUINet::getPersonControl() {
-    if (myPersonControl == 0) {
+    if (myPersonControl == nullptr) {
         myPersonControl = new GUITransportableControl();
     }
     return *myPersonControl;
@@ -121,7 +121,7 @@ GUINet::getPersonControl() {
 
 MSTransportableControl&
 GUINet::getContainerControl() {
-    if (myContainerControl == 0) {
+    if (myContainerControl == nullptr) {
         myContainerControl = new GUITransportableControl();
     }
     return *myContainerControl;
@@ -177,7 +177,7 @@ GUINet::getJunctionPosition(const std::string& name) const {
 
 bool
 GUINet::vehicleExists(const std::string& name) const {
-    return myVehicleControl->getVehicle(name) != 0;
+    return myVehicleControl->getVehicle(name) != nullptr;
 }
 
 
@@ -257,7 +257,7 @@ GUINet::initGUIStructures() {
     for (std::vector<SumoXMLTag>::const_iterator i = types.begin(); i != types.end(); ++i) {
         for (const auto& j : myDetectorControl->getTypedDetectors(*i)) {
             GUIDetectorWrapper* wrapper = j.second->buildDetectorGUIRepresentation();
-            if (wrapper != 0) {
+            if (wrapper != nullptr) {
                 myDetectorWrapper.push_back(wrapper);
                 myGrid.addAdditionalGLObject(wrapper);
             }
@@ -435,7 +435,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeed));
     ret->mkItem("avg. relative speed", true,
                 new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeedRelative));
-    if (myPersonControl != 0) {
+    if (myPersonControl != nullptr) {
         ret->mkItem("loaded persons [#]", true,
                     new FunctionBinding<MSTransportableControl, int>(&getPersonControl(), &MSTransportableControl::getLoadedNumber));
         ret->mkItem("running persons [#]", true,
@@ -470,7 +470,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
             ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
             ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
             ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
-            if (myPersonControl != 0) {
+            if (myPersonControl != nullptr) {
                 ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
                 ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
                 ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
@@ -502,7 +502,7 @@ GUINet::getCenteringBoundary() const {
 GUINet*
 GUINet::getGUIInstance() {
     GUINet* net = dynamic_cast<GUINet*>(MSNet::getInstance());
-    if (net != 0) {
+    if (net != nullptr) {
         return net;
     }
     throw ProcessError("A gui-network was not yet constructed.");

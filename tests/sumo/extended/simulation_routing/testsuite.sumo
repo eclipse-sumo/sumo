@@ -16,5 +16,8 @@ via
 # test routing persons
 personTrip
 
+# use periodic rerouting to avoid congestion
+reroute_congestions
+
 # handle input errors
 errors

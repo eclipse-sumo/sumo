@@ -18,35 +18,20 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <netbuild/NBEdge.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Connection.h>
+#include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/GNEViewParent.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetectorE2.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
@@ -55,15 +40,198 @@
 
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
                              const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, lane, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    myLanes({lane}),
     myLength(length),
+    myEndPositionOverLane(0.),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold) {
+    myJamThreshold(jamThreshold),
+    myE2valid(true) {
+}
+
+
+GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double endPos, double freq, const std::string& filename, const std::string& vehicleTypes,
+                             const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR_MULTILANE, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement),
+    myLanes(lanes),
+    myEndPositionOverLane(endPos),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myE2valid(true) {
 }
 
 
 GNEDetectorE2::~GNEDetectorE2() {
+}
+
+
+bool 
+GNEDetectorE2::isAdditionalValid() const {
+    if(myLanes.size() == 1) {
+        // with friendly position enabled position are "always fixed"
+        if (myFriendlyPosition) {
+            return true;
+        } else {
+            return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
+        }
+    } else {
+        // first check if there is connection between all consecutive lanes
+        if (myE2valid) {
+            // with friendly position enabled position are "always fixed"
+            if (myFriendlyPosition) {
+                return true;
+            } else {
+                return (myPositionOverLane >= 0) && ((myPositionOverLane) <= myLanes.back()->getParentEdge().getNBEdge()->getFinalLength() &&
+                        myEndPositionOverLane >= 0) && ((myEndPositionOverLane) <= myLanes.back()->getParentEdge().getNBEdge()->getFinalLength());
+            }
+        } else {
+            return false;
+        }
+    }
+}
+
+
+std::string 
+GNEDetectorE2::getAdditionalProblem() const {
+    // declare variable for error position 
+    std::string errorFirstLanePosition, separator, errorLastLanePosition;
+    if(myLanes.size() == 1) {
+        // check positions over lane
+        if (myPositionOverLane < 0) {
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        }
+        if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+        }
+        if ((myPositionOverLane + myLength) > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " + " + toString(SUMO_ATTR_LENGTH) + " > lanes's length");
+        }
+    } else {
+        if (myE2valid) {
+            // check positions over first lane
+            if (myPositionOverLane < 0) {
+                errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+            }
+            if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+                errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            }
+            // check positions over last lane
+            if (myEndPositionOverLane < 0) {
+                errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
+            }
+            if (myEndPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+                errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+            }
+        } else {
+            errorFirstLanePosition = "lanes aren't consecutives";
+        }
+    }
+    // check separator
+    if ((errorFirstLanePosition.size() > 0) && (errorLastLanePosition.size() > 0)) {
+        separator = " and ";
+    }
+    // return error message
+    return errorFirstLanePosition + separator + errorLastLanePosition;
+}
+
+
+void 
+GNEDetectorE2::fixAdditionalProblem() {
+    if(myLanes.size() == 1) {
+        // obtain position and lenght
+        double newPositionOverLane = myPositionOverLane;
+        double newLength = myLength;
+        // fix pos and lenght using fixE2DetectorPosition
+        GNEAdditionalHandler::fixE2DetectorPosition(newPositionOverLane, newLength, myLanes.at(0)->getParentEdge().getNBEdge()->getFinalLength(), true);
+        // set new position and length
+        setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
+        setAttribute(SUMO_ATTR_LENGTH, toString(myLength), myViewNet->getUndoList());
+    } else {
+        if(!myE2valid) {
+            // build connections between all consecutive lanes
+            bool foundConnection = true;
+            int i = 0;
+            // iterate over all lanes, and stop if myE2valid is false
+            while (i < ((int)myLanes.size()-1)) {
+                // change foundConnection to false
+                foundConnection = false;
+                // if a connection betwen "from" lane and "to" lane of connection is found, change myE2valid to true again
+                for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
+                    if(j->getLaneFrom() == myLanes.at(i) && j->getLaneTo() == myLanes.at(i+1)) {
+                        foundConnection = true;
+                    }
+                }
+                // if connection wasn't found
+                if(!foundConnection) {
+                    // create new connection manually
+                    NBEdge::Connection newCon(myLanes.at(i)->getIndex(), myLanes.at(i+1)->getParentEdge().getNBEdge(), myLanes.at(i+1)->getIndex());
+                    // allow to undo creation of new lane
+                    myViewNet->getUndoList()->add(new GNEChange_Connection(&myLanes.at(i)->getParentEdge(), newCon, false, true), true);
+                }
+                // update lane iterator
+                i++;
+            }
+        } else {
+            // declare new position
+            double newPositionOverLane = myPositionOverLane;
+            // fix pos and lenght  checkAndFixDetectorPosition
+            GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, myLanes.front()->getParentEdge().getNBEdge()->getFinalLength(), true);
+            // set new position
+            setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
+            // declare new end position
+            double newEndPositionOverLane = myEndPositionOverLane;
+            // fix pos and lenght  checkAndFixDetectorPosition
+            GNEAdditionalHandler::checkAndFixDetectorPosition(newEndPositionOverLane, myLanes.back()->getParentEdge().getNBEdge()->getFinalLength(), true);
+            // set new position
+            setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPositionOverLane), myViewNet->getUndoList());
+        }
+    }
+}
+
+
+void
+GNEDetectorE2::moveGeometry(const Position& offset) {
+    // Calculate new position using old position
+    Position newPosition = myMove.originalViewPosition;
+    newPosition.add(offset);
+    // filtern position using snap to active grid
+    newPosition = myViewNet->snapToActiveGrid(newPosition);
+    double offsetLane = myLanes.front()->getShape().nearest_offset_to_point2D(newPosition, false) - myLanes.front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
+    // move geometry depending of number of lanes
+    if(myLanes.size() == 1) {
+        myPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+    } else {
+        // calculate new start and end positions
+        double newStartPosition = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+        double newEndPosition = parse<double>(myMove.secondOriginalPosition) + offsetLane;
+        // change start and end position of E2 detector ONLY if both extremes aren't overpassed
+        if((newStartPosition >= 0) && (newStartPosition <= myLanes.front()->getLaneShapeLength()) &&
+           (newEndPosition >= 0) && (newEndPosition <= myLanes.back()->getLaneShapeLength())) {
+            myPositionOverLane = newStartPosition;
+            myEndPositionOverLane = newEndPosition;
+        }
+    }
+    // Update geometry
+    updateGeometry(false);
+}
+
+
+void
+GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
+    // commit geometry moving depending of number of lanes
+    if(myLanes.size() == 1) {
+        // commit new position allowing undo/redo
+        undoList->p_begin("position of " + getTagStr());
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+        undoList->p_end();
+    } else {
+        undoList->p_begin("position of " + getTagStr());
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, myMove.secondOriginalPosition));
+        undoList->p_end();
+    }
 }
 
 
@@ -75,70 +243,116 @@ GNEDetectorE2::updateGeometry(bool updateGrid) {
     }
 
     // Clear all containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
+    myGeometry.clearGeometry();
 
-    // Get shape of lane parent
-    myShape = myLane->getShape();
+    // declare variables for start and end positions
+    double startPosFixed, endPosFixed;
 
-    // set start position
-    double startPosFixed;
-    if (myPositionOverLane < 0) {
-        startPosFixed = 0;
-    } else if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
-        startPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
-    } else {
-        startPosFixed = myPositionOverLane;
-    }
+    // calculate start and end positions dependin of number of lanes
+    if (myLanes.size() == 1) {
+        // set shape lane as detector shape
+        myGeometry.shape = myLanes.front()->getShape();
 
-    // set end position
-    double endPosFixed;
-    if ((myPositionOverLane + myLength) < 0) {
-        endPosFixed = 0;
-    } else if ((myPositionOverLane + myLength) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
-        endPosFixed = myLane->getParentEdge().getNBEdge()->getFinalLength();
-    } else {
-        endPosFixed = (myPositionOverLane + myLength);
-    }
-
-    // Cut shape using as delimitators fixed start position and fixed end position
-    myShape = myShape.getSubpart(startPosFixed * myLane->getLengthGeometryFactor(), endPosFixed * myLane->getLengthGeometryFactor());
-
-    // Get number of parts of the shape
-    int numberOfSegments = (int)myShape.size() - 1;
-
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-
-        // Reserve memory (To improve efficiency)
-        myShapeRotations.reserve(numberOfSegments);
-        myShapeLengths.reserve(numberOfSegments);
-
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-
-            // Obtain first position
-            const Position& f = myShape[i];
-
-            // Obtain next position
-            const Position& s = myShape[i + 1];
-
-            // Save distance between position into myShapeLengths
-            myShapeLengths.push_back(f.distanceTo(s));
-
-            // Save rotation (angle) of the vector constructed by points f and s
-            myShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        // set start position
+        if (myPositionOverLane < 0) {
+            startPosFixed = 0;
+        } else if (myPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+            startPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            startPosFixed = myPositionOverLane;
         }
-    }
 
-    // Set block icon position
-    myBlockIconPosition = myShape.getLineCenter();
+        // set end position
+        if ((myPositionOverLane + myLength) < 0) {
+            endPosFixed = 0;
+        } else if ((myPositionOverLane + myLength) > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+            endPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            endPosFixed = (myPositionOverLane + myLength);
+        }
+        
+        // Cut shape using as delimitators fixed start position and fixed end position
+        myGeometry.shape = myGeometry.shape.getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), endPosFixed * myLanes.back()->getLengthGeometryFactor());
+    
+        // Get calculate lenghts and rotations
+        myGeometry.calculateShapeRotationsAndLengths();
+
+        // Set block icon position
+        myBlockIcon.position = myGeometry.shape.getLineCenter();
+
+    } else if (myLanes.size() > 1) {
+        // start with the first lane shape
+        myGeometry.multiShape.push_back(myLanes.front()->getShape());
+       
+        // set start position
+        if (myPositionOverLane < 0) {
+            startPosFixed = 0;
+        } else if (myPositionOverLane > myLanes.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+            startPosFixed = myLanes.front()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            startPosFixed = myPositionOverLane;
+        }
+        // Cut shape using as delimitators fixed start position and fixed end position
+        myGeometry.multiShape[0] = myGeometry.multiShape[0].getSubpart(startPosFixed * myLanes.front()->getLengthGeometryFactor(), myLanes.front()->getParentEdge().getNBEdge()->getFinalLength());
+       
+        // declare last shape
+        PositionVector lastShape = myLanes.back()->getShape();
+
+        // set end position
+        if (myEndPositionOverLane < 0) {
+            endPosFixed = 0;
+        } else if (myEndPositionOverLane > myLanes.back()->getParentEdge().getNBEdge()->getFinalLength()) {
+            endPosFixed = myLanes.back()->getParentEdge().getNBEdge()->getFinalLength();
+        } else {
+            endPosFixed = myEndPositionOverLane;
+        }
+
+        // Cut shape using as delimitators fixed start position and fixed end position
+        lastShape = lastShape.getSubpart(0, endPosFixed * myLanes.back()->getLengthGeometryFactor());
+
+        // add first shape connection (if exist, in other case leave it empty)
+        myGeometry.multiShape.push_back(PositionVector{myLanes.at(0)->getShape().back(), myLanes.at(1)->getShape().front()});
+        for (auto j : myLanes.at(0)->getParentEdge().getGNEConnections()) {
+            if (j->getLaneTo() == myLanes.at(1)) {
+                myGeometry.multiShape.back() = j->getShape();
+            }
+        }
+
+        // append shapes of intermediate lanes AND connections (if exist)
+        for (int i = 1; i < ((int)myLanes.size() - 1); i++) {
+            // add lane shape
+            myGeometry.multiShape.push_back(myLanes.at(i)->getShape());
+            // add empty shape for connection
+            myGeometry.multiShape.push_back(PositionVector{myLanes.at(i)->getShape().back(), myLanes.at(i+1)->getShape().front()});
+            // set connection shape (if exist). In other case, insert an empty shape
+            for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
+                if (j->getLaneTo() == myLanes.at(i+1)) {
+                    myGeometry.multiShape.back() = j->getShape();
+                }
+            }
+        }
+
+        // append last shape
+        myGeometry.multiShape.push_back(lastShape);
+
+        // calculate multi shape rotation and lengths
+        myGeometry.calculateMultiShapeRotationsAndLengths();
+
+        // calculate unified shape
+        myGeometry.calculateMultiShapeUnified();
+
+        // Set block icon position
+        myBlockIcon.position = myGeometry.multiShape.front().getLineCenter();
+
+        // check integrity
+        checkE2MultilaneIntegrity();
+    }
 
     // Set offset of the block icon
-    myBlockIconOffset = Position(-0.75, 0);
+    myBlockIcon.offset = Position(-0.75, 0);
 
     // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation(myLane);
+    myBlockIcon.setRotation(myLanes.front());
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -153,14 +367,30 @@ GNEDetectorE2::getLength() const {
 }
 
 
-bool
-GNEDetectorE2::isDetectorPositionFixed() const {
-    // with friendly position enabled position are "always fixed"
-    if (myFriendlyPosition) {
-        return true;
-    } else {
-        return (myPositionOverLane >= 0) && ((myPositionOverLane + myLength) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+void 
+GNEDetectorE2::checkE2MultilaneIntegrity() {
+    // we assume that E2 is valid
+    myE2valid = true;
+    int i = 0;
+    // iterate over all lanes, and stop if myE2valid is false
+    while (i < ((int)myLanes.size()-1) && myE2valid) {
+        // set myE2valid to false
+        myE2valid = false;
+        // if a connection betwen "from" lane and "to" lane of connection is found, change myE2valid to true again
+        for (auto j : myLanes.at(i)->getParentEdge().getGNEConnections()) {
+            if(j->getLaneFrom() == myLanes.at(i) && j->getLaneTo() == myLanes.at(i+1)) {
+                myE2valid = true;
+            }
+        }
+        // update iterator
+        i++;
     }
+}
+
+
+GNELane*
+GNEDetectorE2::getLane() const {
+    return myLanes.front();
 }
 
 
@@ -172,46 +402,89 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     // Add a draw matrix
     glPushMatrix();
 
-    // Start with the drawing of the area traslating matrix to origing
+    // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
 
     // Set color of the base
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
-        GLHelper::setColor(RGBColor(0, 204, 204));
+        // set color depending if is or isn't valid
+        if(myE2valid) {
+            GLHelper::setColor(s.SUMO_color_E2);
+        } else {
+            GLHelper::setColor(RGBColor::RED);
+        }
     }
 
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s);
+    const double exaggeration = s.addSize.getExaggeration(s, this);
 
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, exaggeration);
+    // check if we have to drawn a E2 single lane or a E2 multiLane
+    if(myGeometry.shape.size() > 0) {
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
+    } else {
+        // iterate over multishapes
+        for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
+            // don't draw shapes over connections if "show connections" is enabled
+            if (!myViewNet->showConnections() || (i%2==0)) {
+                GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), exaggeration);
+            }
+        }
+    }
 
     // Pop last matrix
     glPopMatrix();
 
     // Check if the distance is enougth to draw details and isn't being drawn for selecting
     if ((s.scale * exaggeration >= 10) && !s.drawForSelecting) {
-        // Push matrix
-        glPushMatrix();
-        // Traslate to center of detector
-        glTranslated(myShape.getLineCenter().x(), myShape.getLineCenter().y(), getType() + 0.1);
-        // Rotate depending of myBlockIconRotation
-        glRotated(myBlockIconRotation, 0, 0, -1);
-        //move to logo position
-        glTranslated(-0.75, 0, 0);
-        // draw E2 logo
-        if (isAttributeCarrierSelected()) {
-            GLHelper::drawText("E2", Position(), .1, 1.5, myViewNet->getNet()->selectionColor);
+        // draw logo depending if this is an Multilane E2 detector
+        if(myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+            // Push matrix
+            glPushMatrix();
+            // Traslate to center of detector
+            glTranslated(myGeometry.shape.getLineCenter().x(), myGeometry.shape.getLineCenter().y(), getType() + 0.1);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(myBlockIcon.rotation, 0, 0, -1);
+            //move to logo position
+            glTranslated(-0.75, 0, 0);
+            // draw E2 logo
+            if (isAttributeCarrierSelected()) {
+                GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
+            } else {
+                GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+            }
         } else {
-            GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+            // Push matrix
+            glPushMatrix();
+            // Traslate to center of detector
+            glTranslated(myBlockIcon.position.x(), myBlockIcon.position.y(), getType() + 0.1);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(myBlockIcon.rotation, 0, 0, -1);
+            //move to logo position
+            glTranslated(-1.5, 0, 0);
+            // draw E2 logo
+            if (isAttributeCarrierSelected()) {
+                GLHelper::drawText("E2", Position(), .1, 1.5, s.selectionColor);
+            } else {
+                GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
+            }
+            //move to logo position
+            glTranslated(1.2, 0, 0);
+            // Rotate depending of myBlockIcon.rotation
+            glRotated(90, 0, 0, 1);
+            if (isAttributeCarrierSelected()) {
+                GLHelper::drawText("multi", Position(), .1, 0.9, s.selectedAdditionalColor);
+            } else {
+                GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);
+            }
         }
         // pop matrix
         glPopMatrix();
 
         // Show Lock icon depending of the Edit mode
-        drawLockIcon();
+        myBlockIcon.draw();
     }
 
     // Draw name if isn't being drawn for selecting
@@ -219,8 +492,12 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), myShape, exaggeration);
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+        if(myGeometry.shape.size() > 0) {
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+        } else {
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, exaggeration);
+        }
     }
     // Pop name
     glPopName();
@@ -233,9 +510,12 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLane->getID();
+        case SUMO_ATTR_LANES:
+            return parseIDs(myLanes);
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
+        case SUMO_ATTR_ENDPOS:
+            return toString(myEndPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_LENGTH:
@@ -261,7 +541,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -274,7 +554,9 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
+        case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
+        case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_NAME:
@@ -290,7 +572,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -299,14 +581,25 @@ bool
 GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidDetectorID(value);
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
-                return true;
+            if (value.empty()) {
+                return false;
+            } else {
+                return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
+            }
+        case SUMO_ATTR_LANES:
+            if (value.empty()) {
+                return false;
+            } else if (canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false)) {
+                // check if lanes are consecutives
+                return lanesConsecutives(parse<std::vector<GNELane*> >(myViewNet->getNet(), value));
             } else {
                 return false;
             }
         case SUMO_ATTR_POSITION:
+            return canParse<double>(value);
+        case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
@@ -337,7 +630,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -352,10 +645,15 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            myLane = changeLane(myLane, value);
+        case SUMO_ATTR_LANES:
+            myLanes = parse<std::vector<GNELane*> >(myViewNet->getNet(), value);
+            checkE2MultilaneIntegrity();
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
+            break;
+        case SUMO_ATTR_ENDPOS:
+            myEndPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);
@@ -382,7 +680,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myJamThreshold = parse<double>(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
-            myFriendlyPosition = parse<bool>(value);;
+            myFriendlyPosition = parse<bool>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
@@ -398,10 +696,12 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

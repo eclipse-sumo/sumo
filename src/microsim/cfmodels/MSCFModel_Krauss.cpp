@@ -84,8 +84,9 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
     if (veh->hasDriverState()) {
         applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
     }
-
+    //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
+    //gDebugFlag1 = false;
     const double vmin = minNextSpeedEmergency(speed);
     const double vmax = maxNextSpeed(speed, veh);
     if (MSGlobals::gSemiImplicitEulerUpdate) {

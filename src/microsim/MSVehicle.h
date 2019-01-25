@@ -366,6 +366,10 @@ public:
      */
     void planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double lengthsInFront);
 
+    /** @brief Register junction approaches for all link items in the current
+     * plan */
+    void setApproachingForAllLinks(const SUMOTime t);
+
 
     /** @brief Executes planned vehicle movements with regards to right-of-way
      *
@@ -1349,6 +1353,40 @@ public:
      * LaneChangeMode and any given laneTimeLine
      */
     class Influencer {
+    private:
+        /// @brief Container for state and parameters of the gap control
+        struct GapControlState {
+            GapControlState();
+            void activate(double tauOriginal, double tauTarget, double additionalGap, double duration, double changeRate, double maxDecel);
+            void deactivate();
+            /// @brief Original value for the desired headway (will be reset after duration has expired)
+            double tauOriginal;
+            /// @brief Current, interpolated value for the desired time headway
+            double tauCurrent;
+            /// @brief Target value for the desired time headway
+            double tauTarget;
+            /// @brief Current, interpolated value for the desired space headway
+            double addGapCurrent;
+            /// @brief Target value for the desired space headway
+            double addGapTarget;
+            /// @brief Remaining duration for keeping the target headway
+            double remainingDuration;
+            /// @brief Rate by which the current time and space headways are changed towards the target value.
+            ///        (A rate of one corresponds to reaching the target value within one second)
+            double changeRate;
+            /// @brief Maximal deceleration to be applied due to the adapted headway
+            double maxDecel;
+            /// @brief Whether the gap control is active
+            bool active;
+            /// @brief Whether the desired gap was attained during the current activity phase (induces the remaining duration to decrease)
+            bool gapAttained;
+            /// @brief The last recognized leader
+            const MSVehicle* prevLeader;
+            /// @brief Time of the last update of the gap control
+            SUMOTime lastUpdate;
+            /// @brief cache storage for the headway increments of the current operation
+            double timeHeadwayIncrement, spaceHeadwayIncrement;
+        };
     public:
         /// @brief Constructor
         Influencer();
@@ -1363,6 +1401,13 @@ public:
          */
         void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, double> >& speedTimeLine);
 
+        /** @brief Activates the gap control with the given parameters, @see GapControlState
+         */
+        void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel);
+
+        /** @brief Deactivates the gap control
+         */
+        void deactivateGapController();
 
         /** @brief Sets a new lane timeline
          * @param[in] laneTimeLine The time line of lanes to use
@@ -1386,7 +1431,9 @@ public:
         }
         SUMOTime getLaneTimeLineDuration();
 
-        /** @brief Applies stored velocity information on the speed to use
+        SUMOTime getLaneTimeLineEnd();
+
+        /** @brief Applies stored velocity information on the speed to use.
          *
          * The given speed is assumed to be the non-influenced speed from longitudinal control.
          *  It is stored for further usage in "myOriginalSpeed".
@@ -1398,6 +1445,20 @@ public:
          * @return The speed to use
          */
         double influenceSpeed(SUMOTime currentTime, double speed, double vSafe, double vMin, double vMax);
+
+        /** @brief Applies gap control logic on the speed.
+         *
+         * The given speed is assumed to be the non-influenced speed from longitudinal control.
+         *  It is stored for further usage in "myOriginalSpeed".
+         * @param[in] currentTime The current simulation time
+         * @param[in] veh The controlled vehicle
+         * @param[in] speed The undisturbed speed
+         * @param[in] vSafe The safe velocity
+         * @param[in] vMin The minimum velocity
+         * @param[in] vMax The maximum simulation time
+         * @return The speed to use (<=speed)
+         */
+        double gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* veh, double speed, double vSafe, double vMin, double vMax);
 
         /** @brief Applies stored LaneChangeMode information and laneTimeLine
          * @param[in] currentTime The current simulation time
@@ -1493,6 +1554,10 @@ public:
             myLatDist = 0.;
         }
 
+        bool ignoreOverlap() const {
+            return myTraciLaneChangePriority == LCP_ALWAYS;
+        }
+
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
 
     private:
@@ -1501,6 +1566,9 @@ public:
 
         /// @brief The lane usage time line to apply
         std::vector<std::pair<SUMOTime, int> > myLaneTimeLine;
+
+        /// @brief The gap control state
+        std::shared_ptr<GapControlState> myGapControlState;
 
         /// @brief The velocity before influence
         double myOriginalSpeed;
@@ -1588,6 +1656,9 @@ public:
 
     /// @brief get a numerical value for the priority of the  upcoming link
     static int nextLinkPriority(const std::vector<MSLane*>& conts);
+
+    /// @brief whether the given vehicle must be followed at the given junction
+    bool isLeader(const MSLink* link, const MSVehicle* veh) const; 
 
     /// @name state io
     //@{
@@ -1695,6 +1766,9 @@ protected:
      */
     const ConstMSEdgeVector getStopEdges() const;
 
+    /// @brief get distance for coming to a stop (used for rerouting checks)
+    double getBrakeGap() const;
+
     /// @brief ensure that a vehicle-relative position is not invalid
     Position validatePosition(Position result, double offset = 0) const;
 
@@ -1785,6 +1859,11 @@ protected:
 
     mutable Position myCachedPosition;
 
+    /// @brief time at which the current junction was entered
+    SUMOTime myJunctionEntryTime;
+    SUMOTime myJunctionEntryTimeNeverYield;
+    SUMOTime myJunctionConflictEntryTime;
+
 protected:
 
     /// @brief Drive process items represent bounds on the safe velocity
@@ -1801,7 +1880,7 @@ protected:
         double myArrivalSpeedBraking;
         double myDistance;
         double accelV;
-        bool hadVehicle;
+        bool hadStoppedVehicle;
         double availableSpace;
 
         DriveProcessItem(MSLink* link, double vPass, double vWait, bool setRequest,
@@ -1813,7 +1892,7 @@ protected:
             myArrivalTime(arrivalTime), myArrivalSpeed(arrivalSpeed),
             myArrivalTimeBraking(arrivalTimeBraking), myArrivalSpeedBraking(arrivalSpeedBraking),
             myDistance(distance),
-            accelV(leaveSpeed), hadVehicle(false), availableSpace(0) {
+            accelV(leaveSpeed), hadStoppedVehicle(false), availableSpace(0) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
             assert(vPass >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
@@ -1825,7 +1904,7 @@ protected:
             myArrivalTime(0), myArrivalSpeed(0),
             myArrivalTimeBraking(0), myArrivalSpeedBraking(0),
             myDistance(distance),
-            accelV(-1), hadVehicle(false), availableSpace(_availableSpace) {
+            accelV(-1), hadStoppedVehicle(false), availableSpace(_availableSpace) {
             assert(vWait >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
         };
 
@@ -1845,7 +1924,13 @@ protected:
     /// Container for used Links/visited Lanes during planMove() and executeMove.
     // TODO: Consider making LFLinkLanes a std::deque for efficient front removal (needs refactoring in checkRewindLinkLanes()...)
     typedef std::vector< DriveProcessItem > DriveItemVector;
+
+    /// @brief container for the planned speeds in the current step
     DriveItemVector myLFLinkLanes;
+
+    /// @brief planned speeds from the previous step for un-registering from junctions after the new container is filled
+    DriveItemVector myLFLinkLanesPrev;
+
     /** @brief iterator pointing to the next item in myLFLinkLanes
     *   @note  This is updated whenever the vehicle advances to a subsequent lane (see processLaneAdvances())
     *          and used for inter-actionpoint actualization of myLFLinkLanes (i.e. deletion of passed items)
@@ -1858,9 +1943,6 @@ protected:
 
     /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;
-
-    /// @brief registers computed approach information with all links
-    void setApproachingForAllLinks(DriveItemVector& lfLinks) const;
 
     /// @brief unregister approach from all upcoming links
     void removeApproachingInformation(DriveItemVector& lfLinks) const;

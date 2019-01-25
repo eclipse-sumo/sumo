@@ -58,6 +58,7 @@ overtaking_vehicle_blocks_minor_road2
 # overtaking through the opposite direction lane must check minor roads on the path of ego vehicle
 overtaking_vehicle_blocks_minor_road3
 no_overtaking_across_minor_link
+no_overtaking_across_minor_link2
 
 # return from overtaking if there is no opposite leader
 return_no_opposite_leader

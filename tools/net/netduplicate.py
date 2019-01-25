@@ -66,6 +66,8 @@ def main():
             netconvert, options.net, os.path.join(tmpDir, d[0]), d[1], d[2])
         out = open(os.path.join(tmpDir, "%s_.nod.xml" % d[0]), 'w')
         for line in open(os.path.join(tmpDir, "%s.nod.xml" % d[0])):
+            if 'location' in line:
+                continue
             line = line.replace('id="', 'id="%s_' % d[0])
             line = line.replace('tl="', 'tl="%s_' % d[0])
             out.write(line)

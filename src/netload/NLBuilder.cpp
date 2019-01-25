@@ -35,7 +35,7 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/ToString.h>
@@ -73,7 +73,7 @@ void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::string& id,
         double value, double begTime, double endTime) const {
     MSEdge* edge = MSEdge::dictionary(id);
-    if (edge != 0) {
+    if (edge != nullptr) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
         WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
@@ -88,7 +88,7 @@ void
 NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::string& id,
         double value, double begTime, double endTime) const {
     MSEdge* edge = MSEdge::dictionary(id);
-    if (edge != 0) {
+    if (edge != nullptr) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
         WRITE_ERROR("Trying to set the travel time for the unknown edge '" + id + "'.");
@@ -189,7 +189,7 @@ NLBuilder::build() {
         XMLSubSys::runParser(h, f);
         if (myOptions.isDefault("begin")) {
             myOptions.set("begin", time2string(h.getTime()));
-            if (TraCIServer::getInstance() != 0) {
+            if (TraCIServer::getInstance() != nullptr) {
                 TraCIServer::getInstance()->setTargetTime(h.getTime());
             }
         }
@@ -235,7 +235,7 @@ NLBuilder::init() {
     RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
     RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
     MSFrame::setMSGlobals(oc);
-    MSVehicleControl* vc = 0;
+    MSVehicleControl* vc = nullptr;
     if (MSGlobals::gUseMesoSim) {
         vc = new MEVehicleControl();
     } else {
@@ -267,14 +267,14 @@ NLBuilder::init() {
 
 void
 NLBuilder::buildNet() {
-    MSEdgeControl* edges = 0;
-    MSJunctionControl* junctions = 0;
-    SUMORouteLoaderControl* routeLoaders = 0;
-    MSTLLogicControl* tlc = 0;
+    MSEdgeControl* edges = nullptr;
+    MSJunctionControl* junctions = nullptr;
+    SUMORouteLoaderControl* routeLoaders = nullptr;
+    MSTLLogicControl* tlc = nullptr;
     std::vector<SUMOTime> stateDumpTimes;
     std::vector<std::string> stateDumpFiles;
     try {
-        edges = myEdgeBuilder.build();
+        edges = myEdgeBuilder.build(myXMLHandler.networkVersion());
         junctions = myJunctionBuilder.build();
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();

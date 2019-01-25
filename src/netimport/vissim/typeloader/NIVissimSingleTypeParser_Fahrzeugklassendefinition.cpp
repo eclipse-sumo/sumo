@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/VectorHelper.h>
 #include "../NIImporter_Vissim.h"
@@ -61,15 +61,15 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
         color = (*i).second;
     } else {
         int r, g, b;
-        r = TplConvert::_2int(colorName.c_str());
+        r = StringUtils::toInt(colorName);
         if (!(from >> g)) {
-            throw NumberFormatException();
+            throw NumberFormatException("");
         }
         if (!(from >> b)) {
-            throw NumberFormatException();
+            throw NumberFormatException("");
         }
         if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
-            throw NumberFormatException();
+            throw NumberFormatException("");
         }
         color = RGBColor((unsigned char)r, (unsigned char)g, (unsigned char)b, 255);
     }
@@ -82,7 +82,7 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream& from) {
     std::vector<int> types;
     from >> tag;
     do {
-        types.push_back(TplConvert::_2int(tag.c_str()));
+        types.push_back(StringUtils::toInt(tag));
         tag = readEndSecure(from);
     } while (tag != "DATAEND");
     return NIVissimVehTypeClass::dictionary(id, name, color, types);

@@ -84,17 +84,18 @@ MESegment::MESegment(const std::string& id,
     myJunctionControl(junctionControl),
     myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 &&
                  // only apply to the last segment of a tls-controlled edge
-                 myNextSegment == 0 && (
+                 myNextSegment == nullptr && (
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT ||
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_NOJUNCTION ||
                      parent.getToJunction()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED)),
     myMinorPenalty(MSGlobals::gMesoMinorPenalty > 0 &&
                    // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
-                   myNextSegment == 0 &&
+                   myNextSegment == nullptr &&
                    parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT &&
                    parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_NOJUNCTION &&
                    parent.getToJunction()->getType() != NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink()),
+    myNumCars(0),
     myEntryBlockTime(SUMOTime_MIN),
     myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
@@ -125,7 +126,7 @@ MESegment::MESegment(const std::string& id,
 MESegment::MESegment(const std::string& id):
     Named(id),
     myEdge(myDummyParent), // arbitrary edge needed to supply the needed reference
-    myNextSegment(0), myLength(0), myIndex(0),
+    myNextSegment(nullptr), myLength(0), myIndex(0),
     myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0), myTau_length(1),
     myHeadwayCapacity(0), myCapacity(0), myJunctionControl(false),
     myTLSPenalty(false),
@@ -289,16 +290,6 @@ MESegment::initialise(MEVehicle* veh, SUMOTime time) {
 }
 
 
-int
-MESegment::getCarNumber() const {
-    int total = 0;
-    for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
-        total += (int)k->size();
-    }
-    return total;
-}
-
-
 double
 MESegment::getMeanSpeed(bool useCached) const {
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
@@ -342,6 +333,7 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
     assert(std::find(cars.begin(), cars.end(), v) != cars.end());
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
     v->updateDetectors(leaveTime, true, reason);
+    myNumCars--;
     myEdge.lock();
     if (v == cars.back()) {
         cars.pop_back();
@@ -353,7 +345,7 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
         cars.erase(std::find(cars.begin(), cars.end(), v));
     }
     myEdge.unlock();
-    return 0;
+    return nullptr;
 }
 
 
@@ -385,8 +377,8 @@ MSLink*
 MESegment::getLink(const MEVehicle* veh, bool penalty) const {
     if (myJunctionControl || penalty) {
         const MSEdge* const nextEdge = veh->succEdge(1);
-        if (nextEdge == 0) {
-            return 0;
+        if (nextEdge == nullptr) {
+            return nullptr;
         }
         // try to find any link leading to our next edge, start with the lane pointed to by the que index
         const MSLane* const bestLane = myEdge.getLanes()[veh->getQueIndex()];
@@ -408,7 +400,7 @@ MESegment::getLink(const MEVehicle* veh, bool penalty) const {
             }
         }
     }
-    return 0;
+    return nullptr;
 }
 
 
@@ -441,7 +433,7 @@ MESegment::isOpen(const MEVehicle* veh) const {
         return true;
     }
     const MSLink* link = getLink(veh);
-    return (link == 0
+    return (link == nullptr
             || link->havePriority()
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
@@ -467,7 +459,7 @@ void
 MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time, const MSMoveReminder::Notification reason) {
     assert(isInvalid(next) || time >= myBlockTimes[veh->getQueIndex()]);
     MSLink* link = getLink(veh);
-    if (link != 0) {
+    if (link != nullptr) {
         link->removeApproaching(veh);
     }
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
@@ -476,7 +468,7 @@ MESegment::send(MEVehicle* veh, MESegment* next, SUMOTime time, const MSMoveRemi
         myLastHeadway = next->getTimeHeadway(this, veh);
         myBlockTimes[veh->getQueIndex()] += myLastHeadway;
     }
-    if (lc != 0) {
+    if (lc != nullptr) {
         lc->setEventTime(MAX2(lc->getEventTime(), myBlockTimes[veh->getQueIndex()]));
         MSGlobals::gMesoNet->addLeaderCar(lc, getLink(lc));
     }
@@ -524,7 +516,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     if (myCarQues.size() > 1) {
         const MSEdge* succ = veh->succEdge(1);
         // succ may be invalid if called from initialise() with an invalid route
-        if (succ != 0 && myFollowerMap.count(succ) > 0) {
+        if (succ != nullptr && myFollowerMap.count(succ) > 0) {
             const std::vector<int>& indices = myFollowerMap[succ];
             nextQueIndex = indices[0];
             for (std::vector<int>::const_iterator i = indices.begin() + 1; i != indices.end(); ++i) {
@@ -535,7 +527,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         }
     }
     std::vector<MEVehicle*>& cars = myCarQues[nextQueIndex];
-    MEVehicle* newLeader = 0; // first vehicle in the current queue
+    MEVehicle* newLeader = nullptr; // first vehicle in the current queue
     SUMOTime tleave = MAX2(veh->getStoptime(this, time) + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), myBlockTimes[nextQueIndex]);
     if (veh->isStopped()) {
         MSNet::getInstance()->getVehicleControl().addWaiting(&myEdge, veh);
@@ -558,6 +550,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
         }
     }
     myEdge.unlock();
+    myNumCars++;
     if (!isDepart) {
         // regular departs could take place anywhere on the edge so they should not block regular flow
         // the -1 facilitates interleaving of multiple streams
@@ -575,7 +568,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     } else {
         veh->activateReminders(MSMoveReminder::NOTIFICATION_SEGMENT);
     }
-    if (newLeader != 0) {
+    if (newLeader != nullptr) {
         MSGlobals::gMesoNet->addLeaderCar(newLeader, getLink(newLeader));
     }
 }
@@ -583,7 +576,7 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
 
 bool
 MESegment::vaporizeAnyCar(SUMOTime currentTime) {
-    MEVehicle* remove = 0;
+    MEVehicle* remove = nullptr;
     for (Queues::const_iterator k = myCarQues.begin(); k != myCarQues.end(); ++k) {
         if (!k->empty()) {
             // remove last in queue
@@ -671,9 +664,10 @@ MESegment::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc, con
     for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
         MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(*it));
         // vehicle could be removed due to options
-        if (v != 0) {
+        if (v != nullptr) {
             assert(v->getSegment() == this);
             myCarQues[queIdx].push_back(v);
+            myNumCars++;
             myOccupancy += v->getVehicleType().getLengthWithGap();
         }
     }
@@ -718,7 +712,7 @@ MESegment::getFlow() const {
 SUMOTime
 MESegment::getLinkPenalty(const MEVehicle* veh) const {
     const MSLink* link = getLink(veh, myTLSPenalty || myMinorPenalty);
-    if (link != 0) {
+    if (link != nullptr) {
         SUMOTime result = 0;
         if (link->isTLSControlled()) {
             result += link->getMesoTLSPenalty();
@@ -740,7 +734,7 @@ double
 MESegment::getTLSCapacity(const MEVehicle* veh) const {
     if (myTLSPenalty) {
         const MSLink* link = getLink(veh, true);
-        if (link != 0) {
+        if (link != nullptr) {
             assert(link->isTLSControlled());
             assert(link->getGreenFraction() > 0);
             return link->getGreenFraction();

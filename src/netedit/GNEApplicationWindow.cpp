@@ -19,57 +19,46 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#ifdef HAVE_VERSION_H
-#include <version.h>
-#endif
-
-#include <string>
-#include <sstream>
-#include <algorithm>
-
-#include <utils/common/ToString.h>
-#include <utils/foxtools/MFXUtils.h>
+#include <netbuild/NBFrame.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <netedit/dialogs/GNEDialog_About.h>
+#include <netedit/frames/GNETAZFrame.h>
+#include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netimport/NIFrame.h>
+#include <netwrite/NWFrame.h>
+#include <utils/common/SysUtils.h>
+#include <utils/common/SystemFrame.h>
 #include <utils/foxtools/FXLinkLabel.h>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/gui/div/GUIMessageWindow.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIUserIO.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <netimport/NIFrame.h>
-#include <netbuild/NBFrame.h>
-#include <netwrite/NWFrame.h>
-#include <utils/common/SystemFrame.h>
-#include <netimport/NIImporter_SUMO.h>
-#include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/dialogs/GNEDialog_About.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "GNEApplicationWindow.h"
-#include "GNELoadThread.h"
 #include "GNEEvent_NetworkLoaded.h"
-#include "GNEViewParent.h"
-#include "GNEViewNet.h"
+#include "GNELoadThread.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
+#include "GNEViewParent.h"
 
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
 
 // ===========================================================================
 // FOX-declarations
@@ -137,6 +126,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_ADDITIONAL,                     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_CROSSING,                       GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_TAZ,                            GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_TAZ,                            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SETMODE_POLYGON,                        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SETMODE_PROHIBITION,                    GNEApplicationWindow::onCmdSetMode),
@@ -212,7 +203,7 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 #endif
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
-    myLoadThread(0),
+    myLoadThread(nullptr),
     myAmLoading(false),
     myRecentNets(a, "nets"),
     myConfigPattern(configPattern),
@@ -224,6 +215,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     GUIIconSubSys::initIcons(a);
     // init Textures
     GUITextureSubSys::initTextures(a);
+    // init cursors
+    GUICursorSubSys::initCursors(a);
 }
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -251,10 +244,10 @@ GNEApplicationWindow::dependentBuild() {
     {
         myGeoFrame =
             new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in NETCONVERT)", 0, LAYOUT_CENTER_Y);
+        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in NETCONVERT)", nullptr, LAYOUT_CENTER_Y);
         myCartesianFrame =
             new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", 0, LAYOUT_CENTER_Y);
+        myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
     }
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
@@ -299,6 +292,8 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_ADDITIONAL));   // A
     getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // r
     getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_CROSSING));     // R
+    getAccelTable()->addAccel(122, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // z
+    getAccelTable()->addAccel(90,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_TAZ));          // Z
     getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // p
     getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_GNE_SETMODE_POLYGON));      // P
     getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));             // v
@@ -414,7 +409,7 @@ void
 GNEApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&File", 0, myFileMenu);
+    new FXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
     new FXMenuCommand(myFileMenu,
                       "&New Network...\tCtrl+N\tCreate a new network.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_GNE_TOOLBARFILE_NEWNETWORK);
@@ -422,7 +417,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "&Open Network...\tCtrl+O\tOpen a SUMO network.",
                       GUIIconSubSys::getIcon(ICON_OPEN_NET), this, MID_OPEN_NETWORK);
     new FXMenuCommand(myFileMenu,
-                      "Open Configura&tion...\tCtrl+Shift+O\tOpen a NETCONVERT configuration file.",
+                      "Open Netconvert Configura&tion...\tCtrl+Shift+O\tOpen a configuration file with NETCONVERT options.",
                       GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_OPEN_CONFIG);
     new FXMenuCommand(myFileMenu,
                       "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
@@ -492,43 +487,43 @@ GNEApplicationWindow::fillMenuBar() {
     FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);
     sep1->setTarget(&myRecentConfigs);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentConfigs, FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(myFileMenu, "Clear Recent Configurat&ions", 0, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentConfigs, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myFileMenu, "Clear Recent Configurat&ions", nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
     myRecentConfigs.setTarget(this);
     myRecentConfigs.setSelector(MID_RECENTFILE);
     FXMenuSeparator* sep2 = new FXMenuSeparator(myFileMenu);
     sep2->setTarget(&myRecentNets);
     sep2->setSelector(FXRecentFiles::ID_ANYFILES);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_1);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_2);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_3);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_4);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_5);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_6);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_7);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_8);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_9);
-    new FXMenuCommand(myFileMenu, "", 0, &myRecentNets, FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(myFileMenu, "Cl&ear Recent Networks", 0, &myRecentNets, FXRecentFiles::ID_CLEAR);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_1);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_2);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_3);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_4);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_5);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_6);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_7);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_8);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_9);
+    new FXMenuCommand(myFileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_10);
+    new FXMenuCommand(myFileMenu, "Cl&ear Recent Networks", nullptr, &myRecentNets, FXRecentFiles::ID_CLEAR);
     myRecentNets.setTarget(this);
     myRecentNets.setSelector(MID_RECENTFILE);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
                       "&Quit\tCtrl+Q\tQuit the Application.",
-                      0, this, MID_QUIT, 0);
+                      nullptr, this, MID_QUIT, 0);
 
     // build edit menu
     myEditMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Edit", 0, myEditMenu);
+    new FXMenuTitle(myMenuBar, "&Edit", nullptr, myEditMenu);
 
     // build undo/redo command
     new FXMenuCommand(myEditMenu,
@@ -572,27 +567,30 @@ GNEApplicationWindow::fillMenuBar() {
                       "C&rossing mode\tR\tCreate crossings between edges.",
                       GUIIconSubSys::getIcon(ICON_MODECROSSING), this, MID_GNE_SETMODE_CROSSING);
     new FXMenuCommand(myEditMenu,
+                      "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
+                      GUIIconSubSys::getIcon(ICON_MODETAZ), this, MID_GNE_SETMODE_TAZ);
+    new FXMenuCommand(myEditMenu,
                       "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
                       GUIIconSubSys::getIcon(ICON_MODEPOLYGON), this, MID_GNE_SETMODE_POLYGON);
 
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
-                      0, this, MID_EDITVIEWSCHEME);
+                      nullptr, this, MID_EDITVIEWSCHEME);
     new FXMenuCommand(myEditMenu,
                       "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-                      0, this, MID_EDITVIEWPORT);
+                      nullptr, this, MID_EDITVIEWPORT);
     new FXMenuCommand(myEditMenu,
                       "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
-                      0, this, MID_GNE_HOTKEY_TOOGLE_GRID);
+                      nullptr, this, MID_GNE_HOTKEY_TOOGLE_GRID);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
-                      GUIIconSubSys::getIcon(ICON_APP), this, MID_SUMOGUI);
+                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_SUMOGUI);
 
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Processing", 0, myProcessingMenu);
+    new FXMenuTitle(myMenuBar, "&Processing", nullptr, myProcessingMenu);
     new FXMenuCommand(myProcessingMenu,
                       "Compute Junctions\tF5\tComputes junction shape and logic.",
                       GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_GNE_PROCESSING_COMPUTEJUNCTIONS);
@@ -642,7 +640,7 @@ GNEApplicationWindow::fillMenuBar() {
                       GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Windows", 0, myWindowsMenu);
+    new FXMenuTitle(myMenuBar, "&Windows", nullptr, myWindowsMenu);
     new FXMenuCheck(myWindowsMenu,
                     "&Show Status Line\t\tToggle this Status Bar on/off.",
                     myStatusbar, FXWindow::ID_TOGGLESHOWN);
@@ -674,17 +672,17 @@ GNEApplicationWindow::fillMenuBar() {
     */
     new FXMenuCommand(myWindowsMenu,
                       "&Clear Message Window\t\tClear the message window.",
-                      0, this, MID_CLEARMESSAGEWINDOW);
+                      nullptr, this, MID_CLEARMESSAGEWINDOW);
 
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Help", 0, myHelpMenu);
+    new FXMenuTitle(myMenuBar, "&Help", nullptr, myHelpMenu);
     new FXMenuCommand(myHelpMenu,
                       "&Online Documentation\tF1\tOpen Online documentation.",
-                      0, this, MID_HELP);
+                      nullptr, this, MID_HELP);
     new FXMenuCommand(myHelpMenu,
                       "&About\tF2\tAbout netedit.",
-                      0, this, MID_ABOUT);
+                      nullptr, this, MID_ABOUT);
 }
 
 
@@ -794,9 +792,14 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
         OptionsCont& oc = OptionsCont::getOptions();
         GNELoadThread::fillOptions(oc);
         if (osmPattern.contains(opendialog.getPattern())) {
+            // recommended osm options
+            // http://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
             oc.set("osm-files", file);
+            oc.set("geometry.remove", "true");
             oc.set("ramps.guess", "true");
-            oc.set("tls.guess", "true");
+            oc.set("junctions.join", "true");
+            oc.set("tls.guess-signals", "true");
+            oc.set("tls.discard-simple", "true");
         } else {
             throw ProcessError("Attempted to import unknown file format '" + file + "'.");
         }
@@ -806,7 +809,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
         if (wizard->execute()) {
             NIFrame::checkOptions(); // needed to set projection parameters
-            loadConfigOrNet(file, false, false, false);
+            loadConfigOrNet("", false, false, false);
         }
     }
     return 1;
@@ -894,6 +897,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         // Run parser
         myUndoList->p_begin("Loading TLS Programs from '" + file + "'");
+        myNet->computeEverything(this);
         if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
             // Abort undo/redo
             myUndoList->abort();
@@ -944,8 +948,8 @@ long
 GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
     if (myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
-        if (w != 0) {
-            w->onCmdLocate(0, sel, 0);
+        if (w != nullptr) {
+            w->onCmdLocate(nullptr, sel, nullptr);
         }
     }
     return 1;
@@ -953,7 +957,7 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myAmLoading ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myAmLoading ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
 }
 
@@ -1105,6 +1109,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (myNet) {
         myNet->requiereSaveNet(false);
     }
+    // update app
     update();
 }
 
@@ -1158,7 +1163,7 @@ GNEApplicationWindow::openNewView() {
 FXGLCanvas*
 GNEApplicationWindow::getBuildGLCanvas() const {
     if (myMDIClient->numChildren() == 0) {
-        return 0;
+        return nullptr;
     }
     GNEViewParent* share_tmp1 =
         static_cast<GNEViewParent*>(myMDIClient->childAtIndex(0));
@@ -1188,22 +1193,18 @@ void
 GNEApplicationWindow::closeAllWindows() {
     myTrackerLock.lock();
     // remove trackers and other external windows
-    for (int i = 0; i < (int)mySubWindows.size(); ++i) {
-        mySubWindows[i]->destroy();
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        window->destroy();
+        delete window;
     }
-    for (int i = 0; i < (int)myTrackerWindows.size(); ++i) {
-        myTrackerWindows[i]->destroy();
+    myGLWindows.clear();
+    for (FXMainWindow* const window : myTrackerWindows) {
+        window->destroy();
+        delete window;
     }
+    myTrackerWindows.clear();
     // reset the caption
     setTitle(myTitlePrefix);
-    // delete other children
-    while (myTrackerWindows.size() != 0) {
-        delete myTrackerWindows[0];
-    }
-    while (mySubWindows.size() != 0) {
-        delete mySubWindows[0];
-    }
-    mySubWindows.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();
@@ -1312,18 +1313,25 @@ GNEApplicationWindow::onCmdSetMode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
-    if (mySubWindows.empty()) {
+    if (myGLWindows.empty()) {
         return 1;
     }
+    FXRegistry reg("SUMO GUI", "Eclipse");
+    reg.read();
+    const GUISUMOAbstractView* const v = getView();
+    reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
+    reg.writeRealEntry("viewport", "y", v->getChanger().getYPos());
+    reg.writeRealEntry("viewport", "z", v->getChanger().getZPos());
+    reg.write();
     std::string sumogui = "sumo-gui";
     const char* sumoPath = getenv("SUMO_HOME");
-    if (sumoPath != 0) {
+    if (sumoPath != nullptr) {
         std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
             sumogui = "\"" + newPath + "\"";
         }
     }
-    std::string cmd = sumogui + " -n "  + OptionsCont::getOptions().getString("output-file");
+    std::string cmd = sumogui + " --registry-viewport" + " -n "  + OptionsCont::getOptions().getString("output-file");
     // start in background
 #ifndef WIN32
     cmd = cmd + " &";
@@ -1340,12 +1348,23 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
-    if (getView()) {
+    // obtain pointer to view net (only for improve code legibility)
+    GNEViewNet *viewNet = getView();
+    // check that view exists
+    if (viewNet) {
         // show extra information for tests
         WRITE_DEBUG("Key ESC (abort) pressed");
-        // abort current operation
-        getView()->abortOperation();
-        getView()->update();
+        // first check if we're selecting a subset of edges in TAZ Frame
+        if(viewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->getEdgeAndTAZChildsSelected().size() > 0) {
+            // show extra information for tests
+            WRITE_DEBUG("Cleaning current selected edges");
+            // clear current selection
+            viewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->clearSelectedEdges();
+        } else {
+            // abort current operation
+            viewNet->abortOperation();
+            viewNet->update();
+        }
     }
     return 1;
 }
@@ -1415,7 +1434,7 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
-        getView()->onCmdShowGrid(0, 0, 0);
+        getView()->onCmdShowGrid(nullptr, 0, nullptr);
     }
     return 1;
 }
@@ -1630,7 +1649,7 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     oc.resetWritable();
     oc.set("output-file", file.text());
     setTitle(MFXUtils::getTitleText(myTitlePrefix, file));
-    onCmdSaveNetwork(0, 0, 0);
+    onCmdSaveNetwork(nullptr, 0, nullptr);
     return 1;
 }
 
@@ -1771,7 +1790,7 @@ long GNEApplicationWindow::onCmdSaveShapesAs(FXObject*, FXSelector, void*) {
         // Set new shape file
         myShapesFile = file.text();
         // save shapes
-        return onCmdSaveShapes(0, 0, 0);
+        return onCmdSaveShapes(nullptr, 0, nullptr);
     } else {
         return 1;
     }
@@ -1780,14 +1799,14 @@ long GNEApplicationWindow::onCmdSaveShapesAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myNet == 0 ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myNet == nullptr ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
 }
 
 
 long
 GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myNet == 0 || !OptionsCont::getOptions().isSet("sumo-net-file") ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), 0);
+    sender->handle(this, myNet == nullptr || !OptionsCont::getOptions().isSet("sumo-net-file") ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
 }
 
@@ -1797,7 +1816,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     // function onCmdSaveAsNetwork must be executed if this is the first save
     if (oc.getString("output-file") == "") {
-        return onCmdSaveAsNetwork(0, 0, 0);
+        return onCmdSaveAsNetwork(nullptr, 0, nullptr);
     } else {
         getApp()->beginWaitCursor();
         try {
@@ -1873,7 +1892,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
         // Set new additional file
         myAdditionalsFile = file.text();
         // save additionals
-        return onCmdSaveAdditionals(0, 0, 0);
+        return onCmdSaveAdditionals(nullptr, 0, nullptr);
     } else {
         return 1;
     }
@@ -1931,7 +1950,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
         // Set new TLS Program file
         myTLSProgramsFile = file.text();
         // save TLS Programs
-        return onCmdSaveTLSPrograms(0, 0, 0);
+        return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
     } else {
         return 1;
     }
@@ -1941,8 +1960,8 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
-    bool enable = myNet != 0 && oc.isSet("output-file");
-    sender->handle(this, FXSEL(SEL_COMMAND, enable ? ID_ENABLE : ID_DISABLE), 0);
+    bool enable = myNet != nullptr && oc.isSet("output-file");
+    sender->handle(this, FXSEL(SEL_COMMAND, enable ? ID_ENABLE : ID_DISABLE), nullptr);
     if (enable) {
         FXString caption = ("Save " + oc.getString("output-file")).c_str();
         sender->handle(this, FXSEL(SEL_COMMAND, FXMenuCaption::ID_SETSTRINGVALUE), (void*)&caption);
@@ -1953,13 +1972,8 @@ GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
 
 GNEViewNet*
 GNEApplicationWindow::getView() {
-    if (mySubWindows.size() != 0) {
-        GUIGlChildWindow* childWindows = dynamic_cast<GUIGlChildWindow*>(mySubWindows[0]);
-        if (childWindows != nullptr) {
-            return dynamic_cast<GNEViewNet*>(childWindows->getView());
-        } else {
-            return nullptr;
-        }
+    if (!myGLWindows.empty()) {
+        return dynamic_cast<GNEViewNet*>(myGLWindows[0]->getView());
     } else {
         return nullptr;
     }
@@ -1991,7 +2005,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             }
         } else if (answer == MBOX_CLICKED_SAVE) {
             // save newtork
-            onCmdSaveNetwork(0, 0, 0);
+            onCmdSaveNetwork(nullptr, 0, nullptr);
             if (!myUndoList->marked()) {
                 // saving failed
                 return false;
@@ -2045,7 +2059,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'Yes'");
-            if (onCmdSaveAdditionals(0, 0, 0) == 1) {
+            if (onCmdSaveAdditionals(nullptr, 0, nullptr) == 1) {
                 // additionals sucesfully saved
                 return true;
             } else {
@@ -2087,7 +2101,7 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
         } else if (answer == MBOX_CLICKED_SAVE) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Save shapes before exit' with 'Yes'");
-            if (onCmdSaveShapes(0, 0, 0) == 1) {
+            if (onCmdSaveShapes(nullptr, 0, nullptr) == 1) {
                 // shapes sucesfully saved
                 return true;
             } else {
@@ -2114,7 +2128,7 @@ GNEApplicationWindow::continueWithUnsavedShapeChanges() {
 void
 GNEApplicationWindow::updateControls() {
     GNEViewNet* view = getView();
-    if (view != 0) {
+    if (view != nullptr) {
         view->updateControls();
     }
 }
@@ -2125,8 +2139,8 @@ GNEApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     const long handled = FXMainWindow::onKeyPress(o, sel, eventData);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
-        if (w != 0) {
-            w->onKeyPress(0, sel, eventData);
+        if (w != nullptr) {
+            w->onKeyPress(nullptr, sel, eventData);
         }
     }
     return 0;
@@ -2138,8 +2152,8 @@ GNEApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* eventData)
     const long handled = FXMainWindow::onKeyRelease(o, sel, eventData);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
-        if (w != 0) {
-            w->onKeyRelease(0, sel, eventData);
+        if (w != nullptr) {
+            w->onKeyRelease(nullptr, sel, eventData);
         }
     }
     return 0;
@@ -2163,7 +2177,7 @@ GNEApplicationWindow::GNEShapeHandler::getLanePos(const std::string& poiID, cons
     int laneIndex;
     NBHelpers::interpretLaneID(laneID, edgeID, laneIndex);
     NBEdge* edge = myNet->retrieveEdge(edgeID)->getNBEdge();
-    if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
+    if (edge == nullptr || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
         WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
         return Position::INVALID;
     }

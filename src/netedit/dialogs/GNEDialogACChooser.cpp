@@ -38,6 +38,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/netelements/GNEJunction.h>
 
 #include "GNEDialogACChooser.h"
 
@@ -47,9 +48,18 @@
 // ===========================================================================
 
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
-    GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), getGLIds(ACs), GUIGlObjectStorage::gIDStorage),
+    GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myACs(ACs),
-    myViewParent(viewParent) {
+    myViewParent(viewParent),
+    myLocateTLS(title.find("TLS") != std::string::npos)
+{
+    // @note refresh must be called here because the base class constructor cannot
+    // call the virtual function getObjectName
+    std::vector<GUIGlID> ids;
+    for (auto ac : ACs) {
+        ids.push_back(dynamic_cast<GUIGlObject*>(ac)->getGlID());
+    }
+    refreshList(ids);
 }
 
 
@@ -69,13 +79,22 @@ GNEDialogACChooser::toggleSelection(int listIndex) {
 }
 
 
-std::vector<GUIGlID>
-GNEDialogACChooser::getGLIds(const std::vector<GNEAttributeCarrier*>& ACs) {
-    std::vector<GUIGlID> ids;
-    for (auto ac : ACs) {
-        ids.push_back(dynamic_cast<GUIGlObject*>(ac)->getGlID());
+std::string
+GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
+    if (myLocateTLS) {
+        GNEJunction* junction = dynamic_cast<GNEJunction*>(o);
+        assert(junction != nullptr);
+        const std::set<NBTrafficLightDefinition*>& defs = junction->getNBNode()->getControllingTLS();
+        assert(defs.size() > 0);
+        NBTrafficLightDefinition* tlDef = *defs.begin();
+        if (tlDef->getID() == o->getMicrosimID()) {
+            return o->getMicrosimID();
+        } else {
+            return tlDef->getID() + " (" + o->getMicrosimID() + ")";
+        }
+    } else {
+        return o->getMicrosimID();
     }
-    return ids;
 }
 
 /****************************************************************************/

@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "../NIImporter_Vissim.h"
 #include "../tempstructs/NIVissimSource.h"
 #include "NIVissimSingleTypeParser_Zuflussdefinition.h"
@@ -60,7 +60,7 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream& from) {
         // exact = true;
         tag = myRead(from);
     }
-    // double q = TplConvert::_2double(tag.c_str());
+    // double q = StringUtils::toDouble(tag);
     // read the vehicle types
     from >> tag;
     int vehicle_combination;

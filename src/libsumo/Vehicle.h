@@ -51,6 +51,7 @@ class VariableWrapper;
  */
 namespace libsumo {
 class Vehicle {
+    friend class Helper;
 public:
     /// @name Value retrieval
     /// @{
@@ -149,6 +150,8 @@ public:
     static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void slowDown(const std::string& vehicleID, double speed, double duration);
+    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel);
+    static void deactivateGapControl(const std::string& vehicleID);
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setSpeedMode(const std::string& vehicleID, int speedMode);
     static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);
@@ -186,9 +189,10 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
-private:
+protected:
     static MSVehicle* getVehicle(const std::string& id);
 
+private:
     static bool isVisible(const SUMOVehicle* veh);
 
     static bool isOnInit(const std::string& vehicleID);

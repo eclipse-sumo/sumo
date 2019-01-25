@@ -12,16 +12,13 @@ inspect
 inspect_selected
 
 # load poi
-#load
-
-#load pois with generic parameters
-#load_genericparameters
+load
 
 # move poi
-#move
+move
 
 # lock/unlock poi
-#lock_unlock
+lock_unlock
 
 # volatile recomputing
 volatileRecomputing

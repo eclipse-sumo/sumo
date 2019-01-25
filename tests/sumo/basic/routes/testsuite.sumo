@@ -9,3 +9,6 @@ simtime_fractional
 
 # Tests whether simulation time is regarded using vehicle repetition
 simtime_same
+
+# check route validity upon loading
+validity

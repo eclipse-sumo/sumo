@@ -38,12 +38,12 @@
 template<class E, class L, class N, class V>
 class IntermodalEdge : public Named {
 public:
-    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line) :
+    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = 0.) :
         Named(id),
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge == nullptr ? 0. : edge->getLength()),
+        myLength(edge == nullptr || length > 0. ? length : edge->getLength()),
         myEfforts(nullptr) { }
 
     virtual ~IntermodalEdge() {}
@@ -132,6 +132,10 @@ public:
         myLength = length;
     }
 
+    inline bool isInternal() const {
+        return myEdge != nullptr && myEdge->isInternal();
+    }
+
     virtual bool hasEffort() const {
         return myEfforts != nullptr;
     }
@@ -156,7 +160,7 @@ public:
 
     // only used by AStar
     inline double getDistanceTo(const IntermodalEdge* other) const {
-        return myEdge != nullptr && other->myEdge != nullptr ? myEdge->getDistanceTo(other->myEdge) : 0.;
+        return myEdge != nullptr && other->myEdge != nullptr ? myEdge->getDistanceTo(other->myEdge, true) : 0.;
     }
 
     // only used by AStar

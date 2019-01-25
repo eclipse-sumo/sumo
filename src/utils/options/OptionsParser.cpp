@@ -45,7 +45,7 @@ OptionsParser::parse(int argc, char** argv) {
             if (i < argc - 1) {
                 add = check(argv[i], argv[i + 1], ok);
             } else {
-                add = check(argv[i], 0, ok);
+                add = check(argv[i], nullptr, ok);
             }
             i += add;
         } catch (ProcessError& e) {
@@ -76,7 +76,7 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
         if (idx1 != std::string::npos) {
             ok &= oc.set(tmp.substr(0, idx1), tmp.substr(idx1 + 1));
         } else {
-            if (arg2 == 0 || (oc.isBool(convert(arg1 + 2)) && arg2[0] == '-')) {
+            if (arg2 == nullptr || (oc.isBool(convert(arg1 + 2)) && arg2[0] == '-')) {
                 ok &= oc.set(convert(arg1 + 2), "true");
             } else {
                 ok &= oc.set(convert(arg1 + 2), convert(arg2));
@@ -89,7 +89,7 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
     for (int i = 1; arg1[i] != 0; i++) {
         // set boolean switches
         if (oc.isBool(convert(arg1[i]))) {
-            if (arg2 == 0 || arg2[0] == '-' || arg1[i + 1] != 0) {
+            if (arg2 == nullptr || arg2[0] == '-' || arg1[i + 1] != 0) {
                 ok &= oc.set(convert(arg1[i]), "true");
             } else {
                 ok &= oc.set(convert(arg1[i]), convert(arg2));
@@ -99,7 +99,7 @@ OptionsParser::check(const char* arg1, const char* arg2, bool& ok) {
         } else {
             // check whether the parameter comes directly after the switch
             //  and process if so
-            if (arg2 == 0 || arg1[i + 1] != 0) {
+            if (arg2 == nullptr || arg1[i + 1] != 0) {
                 ok &= processNonBooleanSingleSwitch(oc, arg1 + i);
                 return 1;
                 // process parameter following after a space

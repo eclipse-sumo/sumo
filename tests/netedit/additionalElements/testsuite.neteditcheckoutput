@@ -19,6 +19,9 @@ e1detector
 # e2 detector
 e2detector
 
+# e2 multilane 
+e2MultiLaneDetector
+
 # e3 detector
 e3detector
 
@@ -44,13 +47,13 @@ parkingarea
 parkingspace
 
 # rerouter
-rerouter
+#rerouter
 
 # routeprobe
-routeprobe
+#routeprobe
 
 # vaporizer
-vaporizer
+#vaporizer
 
 # variable speed sign
 #variablespeedsign

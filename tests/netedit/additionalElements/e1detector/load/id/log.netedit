@@ -1,0 +1,2 @@
+Warning: Essential unique string attribute 'id' of e1Detector is missing; e1Detector cannot be created
+Warning: There is another e1Detector with the same ID='E1_01'.

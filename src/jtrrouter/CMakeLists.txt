@@ -13,7 +13,9 @@ set(jtrrouter_SRCS
 )
 
 add_executable(jtrrouter ${jtrrouter_SRCS})
-set_target_properties(jtrrouter PROPERTIES OUTPUT_NAME_DEBUG jtrrouterD)
+set_target_properties(jtrrouter PROPERTIES OUTPUT_NAME jtrrouter${BINARY_SUFFIX})
+set_target_properties(jtrrouter PROPERTIES OUTPUT_NAME_DEBUG jtrrouter${BINARY_SUFFIX}D)
 target_link_libraries(jtrrouter router ${commonvehiclelibs})
+add_dependencies(jtrrouter generate-version-h)
 
 install(TARGETS jtrrouter RUNTIME DESTINATION bin)

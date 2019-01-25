@@ -23,6 +23,8 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_Wiedemann.h
    MSCFModel_ACC.cpp
    MSCFModel_ACC.h
+   MSCFModel_CACC.cpp
+   MSCFModel_CACC.h
    MSCFModel_Rail.cpp
    MSCFModel_Rail.h
    CC_Const.h

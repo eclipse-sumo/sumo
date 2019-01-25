@@ -103,10 +103,10 @@ def write_ped(f, index, options, depart):
         randomOrFixed(options.length),
         randomOrFixed(options.minGap),
         randomOrFixed(options.maxSpeed, 0.4), color))
-    f.write('    <person id="%s%s" type="%s%s" depart="%s">\n' %
-            (options.name, index, options.name, index, depart))
-    f.write('        <walk %s departPos="%s" arrivalPos="%s"/>\n' %
-            (edges, options.departPos, options.arrivalPos))
+    f.write('    <person id="%s%s" type="%s%s" depart="%s" departPos="%s">\n' %
+            (options.name, index, options.name, index, depart, options.departPos))
+    f.write('        <walk %s arrivalPos="%s"/>\n' %
+            (edges, options.arrivalPos))
     f.write('    </person>\n')
 
 

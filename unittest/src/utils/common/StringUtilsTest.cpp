@@ -111,3 +111,60 @@ TEST(StringUtils, test_method_escapeXML) {
 	EXPECT_EQ("&quot;test&quot;", StringUtils::escapeXML("\"test\""))<< "\" must be replaced.";
 	EXPECT_EQ("test", StringUtils::escapeXML("\01test\01"));
 }
+
+
+TEST(StringUtils, test_toInt) {
+    EXPECT_EQ(0, StringUtils::toInt("0"));
+    EXPECT_EQ(1, StringUtils::toInt("+1"));
+    EXPECT_EQ(-1, StringUtils::toInt("-1"));
+    EXPECT_THROW(StringUtils::toInt("1e0"), NumberFormatException);
+    EXPECT_THROW(StringUtils::toInt("100000000000"), NumberFormatException);
+    EXPECT_THROW(StringUtils::toInt(""), EmptyData);
+}
+
+TEST(StringUtils, test_toLong) {
+    EXPECT_EQ(0, StringUtils::toLong("0"));
+    EXPECT_EQ(1, StringUtils::toLong("+1"));
+    EXPECT_EQ(-1, StringUtils::toLong("-1"));
+    EXPECT_THROW(StringUtils::toLong("1e0"), NumberFormatException);
+    EXPECT_EQ(100000000000, StringUtils::toLong("100000000000"));
+    EXPECT_THROW(StringUtils::toLong(""), EmptyData);
+}
+
+TEST(StringUtils, test_toDouble) {
+    EXPECT_EQ(0, StringUtils::toDouble("0"));
+    EXPECT_EQ(1, StringUtils::toDouble("+1"));
+    EXPECT_EQ(-1, StringUtils::toDouble("-1"));
+    EXPECT_EQ(1, StringUtils::toDouble("1e0"));
+    EXPECT_EQ(10, StringUtils::toDouble("1e1"));
+    EXPECT_EQ(1, StringUtils::toDouble("1."));
+    EXPECT_EQ(1.1, StringUtils::toDouble("1.1"));
+    EXPECT_EQ(.1, StringUtils::toDouble(".1"));
+    EXPECT_EQ(1.1, StringUtils::toDouble("1,1"));
+    EXPECT_EQ(.1, StringUtils::toDouble(",1"));
+    EXPECT_EQ(100000000000, StringUtils::toDouble("100000000000"));
+    EXPECT_THROW(StringUtils::toDouble(""), EmptyData);
+    EXPECT_THROW(StringUtils::toDouble("1e0x"), NumberFormatException);
+    EXPECT_THROW(StringUtils::toDouble("1x"), NumberFormatException);
+}
+
+TEST(StringUtils, test_toBool) {
+    // according to gtest issue 322 EXPECT_EQ(false, ...) triggers a gcc bug
+    EXPECT_EQ(true, StringUtils::toBool("true"));
+    EXPECT_FALSE(StringUtils::toBool("false"));
+    EXPECT_EQ(true, StringUtils::toBool("True"));
+    EXPECT_FALSE(StringUtils::toBool("False"));
+    EXPECT_EQ(true, StringUtils::toBool("yes"));
+    EXPECT_FALSE(StringUtils::toBool("no"));
+    EXPECT_EQ(true, StringUtils::toBool("on"));
+    EXPECT_FALSE(StringUtils::toBool("off"));
+    EXPECT_EQ(true, StringUtils::toBool("1"));
+    EXPECT_FALSE(StringUtils::toBool("0"));
+    EXPECT_EQ(true, StringUtils::toBool("x"));
+    EXPECT_FALSE(StringUtils::toBool("-"));
+    EXPECT_EQ(true, StringUtils::toBool("ON"));
+    EXPECT_THROW(StringUtils::toBool(""), EmptyData);
+    EXPECT_THROW(StringUtils::toBool("1e0"), BoolFormatException);
+    EXPECT_THROW(StringUtils::toBool("Trari"), BoolFormatException);
+    EXPECT_THROW(StringUtils::toBool("yessir"), BoolFormatException);
+}

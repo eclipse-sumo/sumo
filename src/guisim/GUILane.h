@@ -127,6 +127,10 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
+    void setJunctionApproaches(const SUMOTime t);
+
+    /** the same as in MSLane, but locks the access for the visualisation
+        first; the access will be granted at the end of this method */
     bool executeMovements(SUMOTime t, std::vector<MSLane*>& into);
 
     /** the same as in MSLane, but locks the access for the visualisation
@@ -249,10 +253,15 @@ public:
     }
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const;
+
+    /* @brief sets the color according to the current scheme index and some lane function
+     * @param[in] id override active scheme when calling from meso gui
+     */
+    bool setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme=-1) const;
 
 protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
@@ -295,11 +304,8 @@ private:
     /// @brief gets the scaling value according to the current scheme index
     double getScaleValue(int activeScheme) const;
 
-    /// @brief sets the color according to the current scheme index and some lane function
-    bool setFunctionalColor(int activeScheme, RGBColor& col) const;
-
     /// @brief sets multiple colors according to the current scheme index and some lane function
-    bool setMultiColor(const GUIColorer& c, RGBColor& col) const;
+    bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;
 
     /// @brief sets the color according to the currente settings
     RGBColor setColor(const GUIVisualizationSettings& s) const;

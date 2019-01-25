@@ -43,16 +43,9 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
     try {
         if (!libsumo::Junction::handleVariable(id, variable, &server)) {
             switch (variable) {
-                case VAR_SHAPE: {
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_POLYGON);
-                    const libsumo::TraCIPositionVector shp = libsumo::Junction::getShape(id);
-                    server.getWrapperStorage().writeUnsignedByte(MIN2(255, (int)shp.size()));
-                    for (int iPoint = 0; iPoint < MIN2(255, (int)shp.size()); ++iPoint) {
-                        server.getWrapperStorage().writeDouble(shp[iPoint].x);
-                        server.getWrapperStorage().writeDouble(shp[iPoint].y);
-                    }
+                case VAR_SHAPE:
+                    server.writePositionVector(server.getWrapperStorage(), libsumo::Junction::getShape(id));
                     break;
-                }
                 default:
                     return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, "Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }

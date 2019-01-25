@@ -24,7 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
@@ -47,7 +47,7 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      const RONet* net, MsgHandler* errorHandler)
     : RORoutable(pars, type), myRoute(route) {
     getParameter().stops.clear();
-    if (route != 0 && route->getFirstRoute() != 0) {
+    if (route != nullptr && route->getFirstRoute() != nullptr) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
             addStop(*s, net, errorHandler);
         }
@@ -72,7 +72,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     const ROEdge* stopEdge = net->getEdgeForLaneID(stopPar.lane);
     assert(stopEdge != 0); // was checked when parsing the stop
     if (stopEdge->prohibits(this)) {
-        if (errorHandler != 0) {
+        if (errorHandler != nullptr) {
             errorHandler->inform("Stop edge '" + stopEdge->getID() + "' does not allow vehicle '" + getID() + "'.");
         }
         return;
@@ -127,13 +127,13 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
     std::string noRouteMsg = "The vehicle '" + getID() + "' has no valid route.";
     RORouteDef* const routeDef = getRouteDefinition();
     // check if the route definition is valid
-    if (routeDef == 0) {
+    if (routeDef == nullptr) {
         errorHandler->inform(noRouteMsg);
         myRoutingSuccess = false;
         return;
     }
     RORoute* current = routeDef->buildCurrentRoute(router, getDepartureTime(), *this);
-    if (current == 0 || current->size() == 0) {
+    if (current == nullptr || current->size() == 0) {
         delete current;
         errorHandler->inform(noRouteMsg);
         myRoutingSuccess = false;
@@ -192,11 +192,11 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
 
 void
 ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
-    if (typeos != 0 && getType() != 0 && !getType()->saved) {
+    if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
         getType()->write(*typeos);
         getType()->saved = true;
     }
-    if (getType() != 0 && !getType()->saved) {
+    if (getType() != nullptr && !getType()->saved) {
         getType()->write(os);
         getType()->saved = asAlternatives;
     }

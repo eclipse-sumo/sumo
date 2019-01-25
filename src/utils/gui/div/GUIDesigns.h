@@ -147,7 +147,7 @@
 /// @brief label extended over frame without thick and with text justify to right and height of 23
 #define GUIDesignLabelRight                 (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame without thickand  with text justify to center and height of 23
+/// @brief label extended over frame without thick and with text justify to center and height of 23
 #define GUIDesignLabelCenter                (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to left and height of 23
@@ -165,8 +165,8 @@
 /// @brief label extended over the matrix column with thick frame and height of 23
 #define GUIDesignLabelAttribute             (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, 23, 2, 2, 2, 2
 
-/// @brief label extended over over frame without thickand with text justify to center and withouht vertical spaces
-#define GUIDesignLabelAboutInfo             (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
+/// @brief label extended over frame without thick and with text justify to center and without vertical spaces
+#define GUIDesignLabelAboutInfo             (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label ticked filled only with an icon of 32x32
 #define GUIDesignLabelIcon32x32Thicked      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 24, 23, 2, 2, 2, 2
@@ -174,8 +174,8 @@
 /// @brief label ticked filled used for VClasses. It uses icons of 64x32 pixels
 #define GUIDesignLabelIcon64x32Thicked      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 94, 46, 2, 2, 2, 2
 
-/// @brief design for label with icon of 64x64 px
-#define GUIDesignLabelIcon64x64noSpacing    (LAYOUT_CENTER_Y | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT ), 0, 0, 64, 64, 0, 0, 0, 0
+/// @brief design for label with icon
+#define GUIDesignLabelIcon                  (LAYOUT_CENTER_Y | LAYOUT_CENTER_X ), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label ticked filled extended over frame used for VClasses. can be used by icons of 64x32 pixels
 #define GUIDesignLabelIconExtendedx46Ticked (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 46, 2, 2, 2, 2
@@ -237,6 +237,9 @@
 
 /// @brief Matrix design extended over Frame and used for represent attributes and their values (Deprecated)
 #define GUIDesignMatrixAttributes           (LAYOUT_FILL_X | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
+
+/// @brief Matrix for pack GLTypes (used in GNESelectorFrame)
+#define GUIDesignMatrixLockGLTypes          (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 /// @}
 
 

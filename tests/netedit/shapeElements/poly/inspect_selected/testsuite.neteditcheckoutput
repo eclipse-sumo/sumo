@@ -1,36 +1,39 @@
-# all test check also the undo-redo of modifications and save the poly into a file
-# edit poly color
-inspect_selected_color
+# all test check also the undo-redo of modifications and save the into a file
+# edit color
+color
 
-# edit poly fill
-inspect_selected_fill
+# edit fill
+fill
 
-# edit poly layer
-inspect_selected_layer
+# edit linewidth
+linewidth
 
-# edit poly type
-inspect_selected_type
+# edit layer
+layer
 
-# edit poly imgfile
-inspect_selected_imgfile
+# edit type
+type
 
-# edit poly relative path
-inspect_selected_relativepath
+# edit imgfile
+imgfile
 
-# edit poly angle
-inspect_selected_angle
+# edit relative path
+relativepath
+
+# edit angle
+angle
 
 # edit use geo
-inspect_selected_geo_use
+geo_use
 
-# edit poly generic parameters
-inspect_selected_genericparameters
+# edit generic parameters
+genericparameters
 
-# edit poly block move
-inspect_selected_blockmove
+# edit block move
+blockmove
 
-# edit poly block shape
-inspect_selected_blockshape
+# edit block shape
+blockshape
 
-# edit poly close shape
-inspect_selected_closeshape
+# edit close shape
+closeshape

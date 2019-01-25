@@ -89,13 +89,13 @@ Lane::getLinks(std::string laneID) {
     const MSLane* const lane = getLane(laneID);
     const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
     for (const MSLink* const link : lane->getLinkCont()) {
-        const std::string approachedLane = link->getLane() != 0 ? link->getLane()->getID() : "";
+        const std::string approachedLane = link->getLane() != nullptr ? link->getLane()->getID() : "";
         const bool hasPrio = link->havePriority();
         const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
         const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
                                          SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
         const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
-        const std::string approachedInternal = link->getViaLane() != 0 ? link->getViaLane()->getID() : "";
+        const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
         const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
         const std::string direction = SUMOXMLDefinitions::LinkDirections.getString(link->getDirection());
         const double length = link->getLength();
@@ -274,7 +274,7 @@ Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
     const MSLane* from = getLane(laneID);
     const MSLane* to = getLane(toLaneID);
     const MSLink* link = MSLinkContHelper::getConnectingLink(*from, *to);
-    if (link == 0) {
+    if (link == nullptr) {
         throw TraCIException("No connection from lane '" + laneID + "' to lane '" + toLaneID + "'");
     }
     for (MSLink* foe : link->getFoeLinks()) {
@@ -308,8 +308,8 @@ Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(parseVehicleClasses(allowedClasses), MSLane::CHANGE_PERMISSIONS_PERMANENT);
     l->getEdge().rebuildAllowedLanes();
-    for (MSEdge* pred : l->getEdge().getPredecessors()) {
-        pred->rebuildAllowedLanes();
+    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedTargets();
     }
 }
 
@@ -319,6 +319,9 @@ Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClass
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
     l->setPermissions(invertPermissions(parseVehicleClasses(disallowedClasses)), MSLane::CHANGE_PERMISSIONS_PERMANENT); // negation yields allowed
     l->getEdge().rebuildAllowedLanes();
+    for (MSEdge* const pred : l->getEdge().getPredecessors()) {
+        pred->rebuildAllowedTargets();
+    }
 }
 
 
@@ -355,7 +358,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Lane, LANE)
 const MSLane*
 Lane::getLane(const std::string& id) {
     const MSLane* r = MSLane::dictionary(id);
-    if (r == 0) {
+    if (r == nullptr) {
         throw TraCIException("Lane '" + id + "' is not known");
     }
     return r;
@@ -377,7 +380,7 @@ Lane::makeWrapper() {
 bool
 Lane::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());

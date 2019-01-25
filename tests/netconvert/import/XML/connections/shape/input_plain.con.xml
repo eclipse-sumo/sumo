@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="NC" to="CW" fromLane="0" toLane="0"/>
     <connection from="NC" to="CS" fromLane="0" toLane="0"/>
-    <connection from="NC" to="CS" fromLane="1" toLane="1"  shape="98.35,108.05 103.00,100.0 98.35,91.95"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1"  shape="93.34,114.90 103.00,100.0 98.35,91.95"/>
     <connection from="NC" to="CE" fromLane="1" toLane="1"/>
 
     <connection from="SC" to="CE" fromLane="0" toLane="0"/>

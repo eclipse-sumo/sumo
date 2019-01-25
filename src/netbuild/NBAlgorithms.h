@@ -205,12 +205,12 @@ public:
     /** @brief Computes node types
      * @param[in] nc The container of nodes to loop along
      */
-    static void computeNodeTypes(NBNodeCont& nc);
+    static void computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
     /** @brief Checks rail_crossing for validity
      * @param[in] nc The container of nodes to loop along
      */
-    static void validateRailCrossings(NBNodeCont& nc);
+    static void validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
     /// @brief whether the given node only has rail edges
     static bool isRailwayNode(NBNode* n);

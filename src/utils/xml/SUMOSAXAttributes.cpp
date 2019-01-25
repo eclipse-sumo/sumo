@@ -37,7 +37,6 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-bool SUMOSAXAttributes::myHaveInformedAboutDeprecatedDivider = false;
 const std::string SUMOSAXAttributes::ENCODING = " encoding=\"UTF-8\"";
 
 
@@ -60,7 +59,6 @@ std::string SUMOSAXAttributes::getInternal(const int attr) const {
 }
 
 
-
 SUMOTime
 SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
                                         bool& ok, bool report) const {
@@ -74,13 +72,13 @@ SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
     try {
         const std::string val = getInternal<std::string>(attr);
         return string2time(val);
-    } catch (ProcessError&) {
-        if (report) {
-            emitFormatError(getName(attr), "a time value", objectid);
-        }
     } catch (EmptyData&) {
         if (report) {
             emitEmptyError(getName(attr), objectid);
+        }
+    } catch (ProcessError&) {
+        if (report) {
+            emitFormatError(getName(attr), "a time value", objectid);
         }
     }
     ok = false;
@@ -97,13 +95,13 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
     try {
         const std::string val = getInternal<std::string>(attr);
         return string2time(val);
-    } catch (ProcessError&) {
-        if (report) {
-            emitFormatError(getName(attr), "a real number", objectid);
-        }
     } catch (EmptyData&) {
         if (report) {
             emitEmptyError(getName(attr), objectid);
+        }
+    } catch (ProcessError&) {
+        if (report) {
+            emitFormatError(getName(attr), "a real number", objectid);
         }
     }
     ok = false;
@@ -111,14 +109,11 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
 }
 
 
-
-
-
 void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' is missing in definition of ";
-    if (objectid == 0 || objectid[0] == 0) {
+    if (objectid == nullptr || objectid[0] == 0) {
         oss << "a " << myObjectType;
     } else {
         oss << myObjectType << " '" << objectid << "'";
@@ -132,7 +127,7 @@ void
 SUMOSAXAttributes::emitEmptyError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid == 0 || objectid[0] == 0) {
+    if (objectid == nullptr || objectid[0] == 0) {
         oss << "a " << myObjectType;
     } else {
         oss << myObjectType << " '" << objectid << "'";
@@ -146,7 +141,7 @@ void
 SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const {
     std::ostringstream oss;
     oss << "Attribute '" << attrname << "' in definition of ";
-    if (objectid == 0 || objectid[0] == 0) {
+    if (objectid == nullptr || objectid[0] == 0) {
         oss << "a " << myObjectType;
     } else {
         oss << myObjectType << " '" << objectid << "'";
@@ -158,13 +153,7 @@ SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::strin
 
 void
 SUMOSAXAttributes::parseStringVector(const std::string& def, std::vector<std::string>& into) {
-    if (def.find(';') != std::string::npos || def.find(',') != std::string::npos) {
-        if (!myHaveInformedAboutDeprecatedDivider) {
-            WRITE_WARNING("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
-            myHaveInformedAboutDeprecatedDivider = true;
-        }
-    }
-    StringTokenizer st(def, ";, ", true);
+    StringTokenizer st(def, " ", true);
     while (st.hasNext()) {
         into.push_back(st.next());
     }
@@ -173,13 +162,7 @@ SUMOSAXAttributes::parseStringVector(const std::string& def, std::vector<std::st
 
 void
 SUMOSAXAttributes::parseStringSet(const std::string& def, std::set<std::string>& into) {
-    if (def.find(';') != std::string::npos || def.find(',') != std::string::npos) {
-        if (!myHaveInformedAboutDeprecatedDivider) {
-            WRITE_WARNING("Please note that using ';' and ',' as XML list separators is deprecated.\n From 1.0 onwards, only ' ' will be accepted.");
-            myHaveInformedAboutDeprecatedDivider = true;
-        }
-    }
-    StringTokenizer st(def, ";, ", true);
+    StringTokenizer st(def, " ", true);
     while (st.hasNext()) {
         into.insert(st.next());
     }
@@ -243,4 +226,3 @@ Boundary SUMOSAXAttributes::getInternal(const int attr) const {
 
 
 /****************************************************************************/
-

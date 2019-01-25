@@ -247,8 +247,11 @@ public:
     /// divides the incoming lanes on outgoing lanes
     void computeLanes2Lanes();
 
-    /// build the list of outgoing edges and lanes
+    /// @brief build the list of outgoing edges and lanes
     void computeLogics(const NBEdgeCont& ec, OptionsCont& oc);
+
+    /// @brief compute right-of-way logic for all lane-to-lane connections
+    void computeLogics2(const NBEdgeCont& ec, OptionsCont& oc);
 
     /// @brief Returns the number of nodes stored in this container
     int size() const {
@@ -333,9 +336,10 @@ private:
     /// @{
     /** @brief Returns whethe the given node cluster should be controlled by a tls
      * @param[in] c The node cluster
+     * @param[in] laneSpeedThreshold threshold for determining whether a node or cluster should be tls controlled
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const NodeSet& c) const;
+    bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const;
     /// @}
 
 

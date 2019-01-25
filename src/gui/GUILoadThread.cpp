@@ -143,7 +143,7 @@ GUILoadThread::run() {
         // the options are not valid but maybe we want to quit
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
-        submitEndAndCleanup(0, 0, 0);
+        submitEndAndCleanup(nullptr, 0, 0);
         return 0;
     }
 
@@ -154,7 +154,7 @@ GUILoadThread::run() {
     MSFrame::setMSGlobals(oc);
     GUITexturesHelper::allowTextures(!oc.getBool("disable-textures"));
 
-    MSVehicleControl* vehControl = 0;
+    MSVehicleControl* vehControl = nullptr;
     GUIVisualizationSettings::UseMesoSim = MSGlobals::gUseMesoSim;
     if (MSGlobals::gUseMesoSim) {
         vehControl = new GUIMEVehicleControl();
@@ -162,12 +162,12 @@ GUILoadThread::run() {
         vehControl = new GUIVehicleControl();
     }
 
-    GUINet* net = 0;
+    GUINet* net = nullptr;
     SUMOTime simStartTime = 0;
     SUMOTime simEndTime = 0;
     std::vector<std::string> guiSettingsFiles;
     bool osgView = false;
-    GUIEdgeControlBuilder* eb = 0;
+    GUIEdgeControlBuilder* eb = nullptr;
     try {
         net = new GUINet(
             vehControl,
@@ -207,19 +207,20 @@ GUILoadThread::run() {
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         delete net;
-        net = 0;
+        net = nullptr;
 #ifndef _DEBUG
     } catch (std::exception& e) {
         WRITE_ERROR(e.what());
         delete net;
-        net = 0;
+        net = nullptr;
 #endif
     }
-    if (net == 0) {
+    if (net == nullptr) {
         MSNet::clearAll();
     }
     delete eb;
-    submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView);
+    submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView,
+            oc.getBool("registry-viewport"));
     return 0;
 }
 
@@ -229,13 +230,14 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
                                    const SUMOTime simStartTime,
                                    const SUMOTime simEndTime,
                                    const std::vector<std::string>& guiSettingsFiles,
-                                   const bool osgView) {
+                                   const bool osgView,
+                                   const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myTitle, guiSettingsFiles, osgView);
+    GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myTitle, guiSettingsFiles, osgView, viewportFromRegistry);
     myEventQue.add(e);
     myEventThrow.signal();
 }
@@ -246,7 +248,7 @@ GUILoadThread::loadConfigOrNet(const std::string& file, bool isNet) {
     myFile = file;
     myLoadNet = isNet;
     if (myFile != "") {
-        OptionsIO::setArgs(0, 0);
+        OptionsIO::setArgs(0, nullptr);
     }
     start();
 }

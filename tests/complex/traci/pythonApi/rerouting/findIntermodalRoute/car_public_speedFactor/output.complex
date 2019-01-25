@@ -1,0 +1,100 @@
+ Retrying in 1 seconds
+findIntermodalRoute modes='car bicycle public' vType=' pType=''
+  Stage(stageType=3, line='car', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=120.14830813534917, cost=120.14830813534917, intended='car', depart=-1.0)
+
+findIntermodalRoute modes='car bicycle public' vType=defaultCar' pType=''
+  Stage(stageType=3, line='defaultCar', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=120.14830813534917, cost=120.14830813534917, intended='defaultCar', depart=-1.0)
+
+findIntermodalRoute modes='car bicycle public' vType=slowCar' pType=''
+  Stage(stageType=3, line='car', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=120.14830813534917, cost=120.14830813534917, intended='car', depart=-1.0)
+
+findIntermodalRoute modes='car bicycle public' vType=slowCarFactor' pType=''
+  Stage(stageType=3, line='car', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=120.14830813534917, cost=120.14830813534917, intended='car', depart=-1.0)
+
+findIntermodalRoute modes='car bicycle public' vType=fastCar' pType=''
+  Stage(stageType=3, line='fastCar', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=60.074154067674584, cost=60.074154067674584, intended='fastCar', depart=-1.0)
+
+
+
+findIntermodalRoute modes='public' vType=' pType=''
+  Stage(stageType=2, line='', destStop='stopC_W', edges=('A0B0', 'accessC'), travelTime=181.27776000000003, cost=181.27776000000003, intended='', depart=-1.0)
+  Stage(stageType=3, line='train2:1', destStop='stopA_W', edges=('railEW',), travelTime=559.72296, cost=559.72296, intended='train_train2:1.0', depart=599.0)
+  Stage(stageType=2, line='', destStop='stopA_N', edges=('accessA',), travelTime=3.8025599999999713, cost=3.8025599999999713, intended='', depart=-1.0)
+  Stage(stageType=3, line='train1:0', destStop='stopB_N', edges=('railSN',), travelTime=355.1979600000001, cost=355.1979600000001, intended='train_train1:0.1', depart=1001.0)
+  Stage(stageType=2, line='', destStop='', edges=('accessB', 'A1B1'), travelTime=203.92319999999995, cost=203.92319999999995, intended='', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=defaultCar' pType=''
+  Stage(stageType=3, line='defaultCar', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=120.14830813534917, cost=120.14830813534917, intended='defaultCar', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=slowCar' pType=''
+  Stage(stageType=2, line='', destStop='stopC_W', edges=('A0B0', 'accessC'), travelTime=181.27776000000003, cost=181.27776000000003, intended='', depart=-1.0)
+  Stage(stageType=3, line='train2:1', destStop='stopA_W', edges=('railEW',), travelTime=559.72296, cost=559.72296, intended='train_train2:1.0', depart=599.0)
+  Stage(stageType=2, line='', destStop='stopA_N', edges=('accessA',), travelTime=3.8025599999999713, cost=3.8025599999999713, intended='', depart=-1.0)
+  Stage(stageType=3, line='train1:0', destStop='stopB_N', edges=('railSN',), travelTime=355.1979600000001, cost=355.1979600000001, intended='train_train1:0.1', depart=1001.0)
+  Stage(stageType=2, line='', destStop='', edges=('accessB', 'A1B1'), travelTime=203.92319999999995, cost=203.92319999999995, intended='', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=slowCarFactor' pType=''
+  Stage(stageType=3, line='slowCarFactor', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=600.7415406767458, cost=600.7415406767458, intended='slowCarFactor', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=fastCar' pType=''
+  Stage(stageType=3, line='fastCar', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=60.074154067674584, cost=60.074154067674584, intended='fastCar', depart=-1.0)
+
+
+
+findIntermodalRoute modes='' vType=' pType=''
+  Stage(stageType=2, line='', destStop='', edges=('A0B0', 'B1B0', 'A1B1'), travelTime=1424.6592000000003, cost=1424.6592000000003, intended='', depart=-1.0)
+
+findIntermodalRoute modes='' vType=defaultCar' pType=''
+  Stage(stageType=3, line='defaultCar', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=120.14830813534917, cost=120.14830813534917, intended='defaultCar', depart=-1.0)
+
+findIntermodalRoute modes='' vType=slowCar' pType=''
+  Stage(stageType=2, line='', destStop='', edges=('A0B0', 'B1B0', 'A1B1'), travelTime=1424.6592000000003, cost=1424.6592000000003, intended='', depart=-1.0)
+
+findIntermodalRoute modes='' vType=slowCarFactor' pType=''
+  Stage(stageType=3, line='slowCarFactor', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=600.7415406767458, cost=600.7415406767458, intended='slowCarFactor', depart=-1.0)
+
+findIntermodalRoute modes='' vType=fastCar' pType=''
+  Stage(stageType=3, line='fastCar', destStop='', edges=('A0B0', 'B0A0', 'A0A1', 'A1B1'), travelTime=60.074154067674584, cost=60.074154067674584, intended='fastCar', depart=-1.0)
+
+
+
+findIntermodalRoute modes='public' vType=' pType=''
+  Stage(stageType=2, line='', destStop='stopC_W', edges=('A0B0', 'accessC'), travelTime=181.27776000000003, cost=181.27776000000003, intended='', depart=-1.0)
+  Stage(stageType=3, line='train2:1', destStop='stopA_W', edges=('railEW',), travelTime=559.72296, cost=559.72296, intended='train_train2:1.0', depart=599.0)
+  Stage(stageType=2, line='', destStop='stopA_N', edges=('accessA',), travelTime=3.8025599999999713, cost=3.8025599999999713, intended='', depart=-1.0)
+  Stage(stageType=3, line='train1:0', destStop='stopB_N', edges=('railSN',), travelTime=355.1979600000001, cost=355.1979600000001, intended='train_train1:0.1', depart=1001.0)
+  Stage(stageType=2, line='', destStop='', edges=('accessB', 'A1B1'), travelTime=203.92319999999995, cost=203.92319999999995, intended='', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=' pType='defaultPed'
+  Stage(stageType=2, line='', destStop='stopC_W', edges=('A0B0', 'accessC'), travelTime=181.27776000000003, cost=181.27776000000003, intended='', depart=-1.0)
+  Stage(stageType=3, line='train2:1', destStop='stopA_W', edges=('railEW',), travelTime=559.72296, cost=559.72296, intended='train_train2:1.0', depart=599.0)
+  Stage(stageType=2, line='', destStop='stopA_N', edges=('accessA',), travelTime=3.8025599999999713, cost=3.8025599999999713, intended='', depart=-1.0)
+  Stage(stageType=3, line='train1:0', destStop='stopB_N', edges=('railSN',), travelTime=355.1979600000001, cost=355.1979600000001, intended='train_train1:0.1', depart=1001.0)
+  Stage(stageType=2, line='', destStop='', edges=('accessB', 'A1B1'), travelTime=203.92319999999995, cost=203.92319999999995, intended='', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=' pType='slowPed'
+  Stage(stageType=2, line='', destStop='stopC_W', edges=('A0B0', 'accessC'), travelTime=1258.8733333333334, cost=1258.8733333333334, intended='', depart=-1.0)
+  Stage(stageType=3, line='train2:1', destStop='stopA_W', edges=('railEW',), travelTime=1282.1336666666666, cost=1282.1336666666666, intended='train_train2:1.1', depart=2399.0)
+  Stage(stageType=2, line='', destStop='stopA_N', edges=('accessA',), travelTime=26.40666666666675, cost=26.40666666666675, intended='', depart=-1.0)
+  Stage(stageType=3, line='train1:0', destStop='stopB_N', edges=('railSN',), travelTime=332.59266666666645, cost=332.59266666666645, intended='train_train1:0.4', depart=2801.0)
+  Stage(stageType=2, line='', destStop='', edges=('accessB', 'A1B1'), travelTime=1416.1333333333328, cost=1416.1333333333328, intended='', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=' pType='slowPedFactor'
+  Stage(stageType=2, line='', destStop='stopC_W', edges=('A0B0', 'accessC'), travelTime=181.27776000000003, cost=181.27776000000003, intended='', depart=-1.0)
+  Stage(stageType=3, line='train2:1', destStop='stopA_W', edges=('railEW',), travelTime=559.72296, cost=559.72296, intended='train_train2:1.0', depart=599.0)
+  Stage(stageType=2, line='', destStop='stopA_N', edges=('accessA',), travelTime=3.8025599999999713, cost=3.8025599999999713, intended='', depart=-1.0)
+  Stage(stageType=3, line='train1:0', destStop='stopB_N', edges=('railSN',), travelTime=355.1979600000001, cost=355.1979600000001, intended='train_train1:0.1', depart=1001.0)
+  Stage(stageType=2, line='', destStop='', edges=('accessB', 'A1B1'), travelTime=203.92319999999995, cost=203.92319999999995, intended='', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=' pType='fastPed'
+  Stage(stageType=2, line='', destStop='', edges=('A0B0', 'B1B0', 'A1B1'), travelTime=659.5644444444445, cost=659.5644444444445, intended='', depart=-1.0)
+
+findIntermodalRoute modes='public' vType=' pType='fastPedFactor'
+  Stage(stageType=2, line='', destStop='stopC_W', edges=('A0B0', 'accessC'), travelTime=181.27776000000003, cost=181.27776000000003, intended='', depart=-1.0)
+  Stage(stageType=3, line='train2:1', destStop='stopA_W', edges=('railEW',), travelTime=559.72296, cost=559.72296, intended='train_train2:1.0', depart=599.0)
+  Stage(stageType=2, line='', destStop='stopA_N', edges=('accessA',), travelTime=3.8025599999999713, cost=3.8025599999999713, intended='', depart=-1.0)
+  Stage(stageType=3, line='train1:0', destStop='stopB_N', edges=('railSN',), travelTime=355.1979600000001, cost=355.1979600000001, intended='train_train1:0.1', depart=1001.0)
+  Stage(stageType=2, line='', destStop='', edges=('accessB', 'A1B1'), travelTime=203.92319999999995, cost=203.92319999999995, intended='', depart=-1.0)
+
+
+

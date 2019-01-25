@@ -1,5 +1,5 @@
 # tests for additional elements (Busstops, charging stations, etc.)
-#additionalElements
+additionalElements
 
 # basic tests for opening and creating networks
 basic
@@ -8,19 +8,19 @@ basic
 bugs
 
 # tests for net elements (Junctions, edges, crossings, etc..)
-#netElements
+netElements
 
 # test for Traffic lights
-#trafficLights
+trafficLights
 
 # test for routes elements (Routes, Vehicles, etc.)
 #routeElements
 
 # test for select elements 
-#selection
+selection
 
 # test for shapes elements (Polygons and POIs)
-#shapeElements
+shapeElements
 
 # test for check recomputing with volatile options
-#volatileRecomputing
+volatileRecomputing

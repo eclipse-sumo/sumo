@@ -51,20 +51,20 @@ def check():
 
 
 phases = []
-phases.append(traci.trafficlight.Phase(30, 0, 0, "rrrrGGggrrrrGGgg"))
-phases.append(traci.trafficlight.Phase(10, 0, 0, "rrrrGGggrrrrGGgg"))
-phases.append(traci.trafficlight.Phase(40, 0, 0, "rrrrGGggrrrrGGgg"))
-phases.append(traci.trafficlight.Phase(20, 0, 0, "rrrrGGggrrrrGGgg"))
-phases.append(traci.trafficlight.Phase(20, 0, 0, "rrrrGGggrrrrGGgg"))
-phases.append(traci.trafficlight.Phase(20, 0, 0, "rrrrGGggrrrrGGgg"))
-logic = traci.trafficlight.Logic("custom", 0, 0, 0, phases)
+phases.append(traci.trafficlight.Phase(30, "rrrrGGggrrrrGGgg", 0, 0))
+phases.append(traci.trafficlight.Phase(10, "rrrrGGggrrrrGGgg", 0, 0))
+phases.append(traci.trafficlight.Phase(40, "rrrrGGggrrrrGGgg", 0, 0))
+phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
+phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
+phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
+logic = traci.trafficlight.Logic("custom", 0, 0, phases)
 traci.trafficlight.setCompleteRedYellowGreenDefinition(tlsID, logic)
 
 traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseDuration(tlsID, 23)
 check()
 defs = traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID)
-print("numDefs=%s numPhases=%s" % (len(defs), map(lambda d: len(d.getPhases()), defs)))
+print("numDefs=%s numPhases=%s" % (len(defs), list(map(lambda d: len(d.getPhases()), defs))))
 traci.trafficlight.subscribe(tlsID)
 print(traci.trafficlight.getSubscriptionResults(tlsID))
 for step in range(3, 6):

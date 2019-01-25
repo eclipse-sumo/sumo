@@ -34,7 +34,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -113,14 +113,14 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     }
     // we start looking from the end because there is a high probability that the input is sorted by time
     std::vector<ODCell*>& odList = myShortCut[od];
-    ODCell* cell = 0;
+    ODCell* cell = nullptr;
     for (std::vector<ODCell*>::const_reverse_iterator c = odList.rbegin(); c != odList.rend(); ++c) {
         if ((*c)->begin <= depart && (*c)->end > depart && (*c)->vehicleType == vehicleType) {
             cell = *c;
             break;
         }
     }
-    if (cell == 0) {
+    if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
         if (add(1., intervalIdx * interval, (intervalIdx + 1) * interval, od.first, od.second, vehicleType)) {
@@ -354,7 +354,7 @@ ODMatrix::parseSingleTime(const std::string& time) {
     }
     std::string hours = time.substr(0, time.find('.'));
     std::string minutes = time.substr(time.find('.') + 1);
-    return TIME2STEPS(TplConvert::_2int(hours.c_str()) * 3600 + TplConvert::_2int(minutes.c_str()) * 60);
+    return TIME2STEPS(StringUtils::toInt(hours) * 3600 + StringUtils::toInt(minutes) * 60);
 }
 
 
@@ -381,7 +381,7 @@ ODMatrix::readFactor(LineReader& lr, double scale) {
     std::string line = getNextNonCommentLine(lr);
     double factor = -1;
     try {
-        factor = TplConvert::_2double(line.c_str()) * scale;
+        factor = StringUtils::toDouble(line) * scale;
     } catch (NumberFormatException&) {
         throw ProcessError("Broken factor: '" + line + "'.");
     }
@@ -411,7 +411,7 @@ ODMatrix::readV(LineReader& lr, double scale,
 
     // districts
     line = getNextNonCommentLine(lr);
-    const int numDistricts = TplConvert::_2int(StringUtils::prune(line).c_str());
+    const int numDistricts = StringUtils::toInt(StringUtils::prune(line));
     // parse district names (normally ints)
     std::vector<std::string> names;
     while ((int)names.size() != numDistricts) {
@@ -435,7 +435,7 @@ ODMatrix::readV(LineReader& lr, double scale,
                 StringTokenizer st2(line, StringTokenizer::WHITECHARS);
                 while (st2.hasNext()) {
                     assert(di != names.end());
-                    double vehNumber = TplConvert::_2double(st2.next().c_str()) * factor;
+                    double vehNumber = StringUtils::toDouble(st2.next()) * factor;
                     if (vehNumber != 0) {
                         add(vehNumber, begin, end, *si, *di, vehType);
                     }
@@ -464,7 +464,7 @@ ODMatrix::readO(LineReader& lr, double scale,
     std::string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
-        int type = TplConvert::_2int(StringUtils::prune(line).c_str());
+        int type = StringUtils::toInt(StringUtils::prune(line));
         if (vehType == "") {
             vehType = toString(type);
         }
@@ -491,7 +491,7 @@ ODMatrix::readO(LineReader& lr, double scale,
         try {
             std::string sourceD = st2.next();
             std::string destD = st2.next();
-            double vehNumber = TplConvert::_2double(st2.next().c_str()) * factor;
+            double vehNumber = StringUtils::toDouble(st2.next()) * factor;
             if (vehNumber != 0) {
                 add(vehNumber, begin, end, sourceD, destD, vehType);
             }
@@ -624,7 +624,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
         for (int chour = 0; chour < 24; ++chour) {
-            result.add(chour * 3600., TplConvert::_2double(def[chour].c_str()));
+            result.add(chour * 3600., StringUtils::toDouble(def[chour]));
         }
         result.add(24 * 3600., 0.); // dummy value to finish the last interval
     } else {
@@ -633,8 +633,8 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
             if (st2.size() != 2) {
                 throw ProcessError("Broken time line definition: missing a value in '" + def[i] + "'.");
             }
-            const double time = TplConvert::_2double(st2.next().c_str());
-            result.add(time, TplConvert::_2double(st2.next().c_str()));
+            const double time = StringUtils::toDouble(st2.next());
+            result.add(time, StringUtils::toDouble(st2.next()));
         }
     }
     return result;

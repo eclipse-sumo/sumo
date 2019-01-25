@@ -86,12 +86,13 @@ GUIViewTraffic::GUIViewTraffic(
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
     myTrackedID(GUIGlObject::INVALID_ID)
 #ifdef HAVE_FFMPEG
-    , myCurrentVideo(0)
+    , myCurrentVideo(nullptr)
 #endif
 {}
 
 
 GUIViewTraffic::~GUIViewTraffic() {
+    endSnapshot();
 }
 
 
@@ -161,7 +162,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
     if (!gSchemeStorage.contains(name)) {
         return false;
     }
-    if (myVisualizationChanger != 0) {
+    if (myVisualizationChanger != nullptr) {
         if (myVisualizationChanger->getCurrentScheme() != name) {
             myVisualizationChanger->setCurrentScheme(name);
         }
@@ -174,7 +175,7 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
 
 
 void
-GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
+GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
     assert(!scheme.isFixed());
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
@@ -189,13 +190,13 @@ GUIViewTraffic::buildColorRainbow(GUIColorScheme& scheme, int active, GUIGlObjec
         const MSEdgeVector& edges = MSEdge::getAllEdges();
         for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
             if (MSGlobals::gUseMesoSim) {
-                const double val = static_cast<GUIEdge*>(*it)->getColorValue(active);
+                const double val = static_cast<GUIEdge*>(*it)->getColorValue(s, active);
                 minValue = MIN2(minValue, val);
                 maxValue = MAX2(maxValue, val);
             } else {
                 const std::vector<MSLane*>& lanes = (*it)->getLanes();
                 for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
-                    const double val = static_cast<GUILane*>(*it_l)->getColorValue(active);
+                    const double val = static_cast<GUILane*>(*it_l)->getColorValue(s, active);
                     minValue = MIN2(minValue, val);
                     maxValue = MAX2(maxValue, val);
                 }
@@ -305,7 +306,7 @@ void
 GUIViewTraffic::onGamingClick(Position pos) {
     MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
     const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
-    MSTrafficLightLogic* minTll = 0;
+    MSTrafficLightLogic* minTll = nullptr;
     double minDist = std::numeric_limits<double>::infinity();
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         // get the logic
@@ -322,7 +323,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
         }
     }
-    if (minTll != 0) {
+    if (minTll != nullptr) {
         const MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(minTll->getID());
         const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
         if (logics.size() > 1) {
@@ -355,19 +356,19 @@ GUIViewTraffic::getLaneUnderCursor() {
         int id = getObjectUnderCursor();
         if (id != 0) {
             GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-            if (o != 0) {
+            if (o != nullptr) {
                 return dynamic_cast<GUILane*>(o);
             }
         }
         makeNonCurrent();
     }
-    return 0;
+    return nullptr;
 }
 
 long
 GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
-    if (lane != 0) {
+    if (lane != nullptr) {
         lane->closeTraffic();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
         update();
@@ -379,7 +380,7 @@ GUIViewTraffic::onCmdCloseLane(FXObject*, FXSelector, void*) {
 long
 GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
-    if (lane != 0) {
+    if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->closeTraffic(lane);
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
         update();
@@ -391,7 +392,7 @@ GUIViewTraffic::onCmdCloseEdge(FXObject*, FXSelector, void*) {
 long
 GUIViewTraffic::onCmdAddRerouter(FXObject*, FXSelector, void*) {
     GUILane* lane = getLaneUnderCursor();
-    if (lane != 0) {
+    if (lane != nullptr) {
         dynamic_cast<GUIEdge*>(&lane->getEdge())->addRerouter();
         GUIGlObjectStorage::gIDStorage.unblockObject(lane->getGlID());
         update();
@@ -404,7 +405,7 @@ long
 GUIViewTraffic::onDoubleClicked(FXObject*, FXSelector, void*) {
     // leave fullscreen mode
     if (myApp->isFullScreen()) {
-        myApp->onCmdFullScreen(0, 0, 0);
+        myApp->onCmdFullScreen(nullptr, 0, nullptr);
     } else {
         stopTrack();
     }
@@ -416,7 +417,7 @@ GUIViewTraffic::onDoubleClicked(FXObject*, FXSelector, void*) {
 void
 GUIViewTraffic::saveFrame(const std::string& destFile, FXColor* buf) {
 #ifdef HAVE_FFMPEG
-    if (myCurrentVideo == 0) {
+    if (myCurrentVideo == nullptr) {
         myCurrentVideo = new GUIVideoEncoder(destFile.c_str(), getWidth(), getHeight(), myApp->getDelay());
     }
     myCurrentVideo->writeFrame((uint8_t*)buf);
@@ -430,9 +431,9 @@ GUIViewTraffic::saveFrame(const std::string& destFile, FXColor* buf) {
 void
 GUIViewTraffic::endSnapshot() {
 #ifdef HAVE_FFMPEG
-    if (myCurrentVideo != 0) {
+    if (myCurrentVideo != nullptr) {
         delete myCurrentVideo;
-        myCurrentVideo = 0;
+        myCurrentVideo = nullptr;
     }
 #endif
 }
@@ -440,15 +441,12 @@ GUIViewTraffic::endSnapshot() {
 
 void
 GUIViewTraffic::checkSnapshots() {
-    GUISUMOAbstractView::checkSnapshots();
 #ifdef HAVE_FFMPEG
-    if (myCurrentVideo != 0) {
-        std::string error = makeSnapshot("");
-        if (error != "" && error != "video") {
-            WRITE_WARNING(error);
-        }
+    if (myCurrentVideo != nullptr) {
+        addSnapshot(getCurrentTimeStep() - DELTA_T, "");
     }
 #endif
+    GUISUMOAbstractView::checkSnapshots();
 }
 
 
@@ -456,5 +454,6 @@ const std::vector<SUMOTime>
 GUIViewTraffic::retrieveBreakpoints() const {
     return myApp->retrieveBreakpoints();
 }
+
 
 /****************************************************************************/

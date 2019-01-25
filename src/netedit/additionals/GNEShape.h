@@ -23,24 +23,9 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <utility>
-#include <vector>
-#include <netbuild/NBConnection.h>
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBNode.h>
-#include <utils/geom/Boundary.h>
-#include <utils/geom/Position.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/globjects/GUIPointOfInterest.h>
-#include <utils/gui/globjects/GUIPolygon.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
 
 #include <netedit/GNEAttributeCarrier.h>
+
 
 // ===========================================================================
 // class definitions
@@ -52,9 +37,8 @@ public:
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
      * @param[in] movementBlocked if movement of POI is blocked
-     * @param[in] shapeBlocked if shape of POI is blocked
      */
-    GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked, bool shapeBlocked);
+    GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked);
 
     /// @brief Destructor
     ~GNEShape();
@@ -81,11 +65,8 @@ public:
     /// @brief return true if movement is blocked
     bool isMovementBlocked() const;
 
-    /// @brief return true if shape is blocked
-    bool isShapeBlocked() const;
-
     /// @brief draw lock icon
-    void drawLockIcon(const Position& pos, double layer, double size = 0.5) const;
+    void draw(const Position& pos, double layer, double size = 0.5) const;
 
     /// @name functions for edit geometry
     /// @{
@@ -168,18 +149,6 @@ public:
     /// @name This functions related with generic parameters has to be implemented in all GNEAttributeCarriers
     /// @{
 
-    /// @brief add generic parameter
-    virtual bool addGenericParameter(const std::string& key, const std::string& value) = 0;
-
-    /// @brief remove generic parameter
-    virtual bool removeGenericParameter(const std::string& key) = 0;
-
-    /// @brief update generic parameter
-    virtual bool updateGenericParameter(const std::string& oldKey, const std::string& newKey) = 0;
-
-    /// @brief update value generic parameter
-    virtual bool updateGenericParameterValue(const std::string& key, const std::string& newValue) = 0;
-
     /// @brief return generic parameters in string format
     virtual std::string getGenericParametersStr() const = 0;
 
@@ -200,9 +169,6 @@ protected:
 
     /// @brief flag to block movement
     bool myBlockMovement;
-
-    /// @brief flag for block shape
-    bool myBlockShape;
 
 private:
     /// @brief set attribute after validation

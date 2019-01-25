@@ -20,14 +20,11 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
-#include <cassert>
 
 #include "GNEChange_Lane.h"
 
@@ -69,14 +66,14 @@ GNEChange_Lane::~GNEChange_Lane() {
     myEdge->decRef("GNEChange_Lane");
     if (myEdge->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + toString(myEdge->getTag()) + " '" + myEdge->getID() + "' in GNEChange_Lane");
+        WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' in GNEChange_Lane");
         delete myEdge;
     }
     if (myLane) {
         myLane->decRef("GNEChange_Lane");
         if (myLane->unreferenced()) {
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + toString(myLane->getTag()) + " '" + myLane->getID() + "' in GNEChange_Lane");
+            WRITE_DEBUG("Deleting unreferenced " + myLane->getTagStr() + " '" + myLane->getID() + "' in GNEChange_Lane");
             delete myLane;
         }
     }
@@ -88,7 +85,7 @@ GNEChange_Lane::undo() {
     if (myForward) {
         // show extra information for tests
         if (myLane != nullptr) {
-            WRITE_DEBUG("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+            WRITE_DEBUG("Removing " + myLane->getTagStr() + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
         } else {
             WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
@@ -105,7 +102,7 @@ GNEChange_Lane::undo() {
     } else {
         // show extra information for tests
         if (myLane != nullptr) {
-            WRITE_DEBUG("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+            WRITE_DEBUG("Adding " + myLane->getTagStr() + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
         } else {
             WRITE_DEBUG("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
         }
@@ -135,7 +132,7 @@ GNEChange_Lane::redo() {
     if (myForward) {
         // show extra information for tests
         if (myLane != nullptr) {
-            WRITE_DEBUG("Adding " + toString(myLane->getTag()) + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+            WRITE_DEBUG("Adding " + myLane->getTagStr() + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
         } else {
             WRITE_DEBUG("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
         }
@@ -152,7 +149,7 @@ GNEChange_Lane::redo() {
     } else {
         // show extra information for tests
         if (myLane != nullptr) {
-            WRITE_DEBUG("Removing " + toString(myLane->getTag()) + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+            WRITE_DEBUG("Removing " + myLane->getTagStr() + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
         } else {
             WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }

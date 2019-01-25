@@ -265,6 +265,9 @@ public:
     /// @brief move position vector to side using certain ammount
     void move2side(double amount);
 
+    /// @brief move position vector to side using a custom offset for each geometry point
+    void move2side(std::vector<double> amount);
+
     /// @brief get angle  in certain position of position vector
     double angleAt2D(int pos) const;
 
@@ -347,6 +350,9 @@ public:
 
     /// @brief check if PositionVector is closed
     bool isClosed() const;
+
+    /// @brief check if PositionVector is NAN
+    bool isNAN() const;
 
     /** @brief Removes positions if too near
      * @param[in] minDist The minimum accepted distance; default: POSITION_EPS

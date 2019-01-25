@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 13:26:57 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 05.12.2018 14:28:29 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_03Sep132455.3808/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_disallowed/select_vtypes_allowed_all\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec064317.2876/netedit.gui/netElements/lanes/select_vtypes/disallowed/all\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_03Sep132455.3808/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_disallowed/select_vtypes_allowed_all\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec064317.2876/netedit.gui/netElements/lanes/select_vtypes/disallowed/all\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,7 +19,7 @@
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
     </junctions>
 
@@ -28,12 +28,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_03Sep132455.3808/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_disallowed/select_vtypes_allowed_all\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_03Sep132455.3808/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_disallowed/select_vtypes_allowed_all\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec064317.2876/netedit.gui/netElements/lanes/select_vtypes/disallowed/all\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec064317.2876/netedit.gui/netElements/lanes/select_vtypes/disallowed/all\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_03Sep132455.3808/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_disallowed/select_vtypes_allowed_all\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec064317.2876/netedit.gui/netElements/lanes/select_vtypes/disallowed/all\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -42,13 +42,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_03Sep132455.3808/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_disallowed/select_vtypes_allowed_all\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec064317.2876/netedit.gui/netElements/lanes/select_vtypes/disallowed/all\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-30.00" convBoundary="0.00,0.00,80.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

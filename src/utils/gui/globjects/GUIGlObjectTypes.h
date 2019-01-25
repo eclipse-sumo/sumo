@@ -96,6 +96,8 @@ enum GUIGlObjectType {
     GLO_VAPORIZER = 118,
     /// @brief a Acces
     GLO_ACCESS = 119,
+    /// @brief a TAZ
+    GLO_TAZ = 120,
     /// @brief reserved GLO type to pack shapes
     GLO_SHAPE = 200,
     /// @brief a polygon

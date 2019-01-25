@@ -20,15 +20,11 @@
     </xsd:element>
     <xsd:element name="edge">
         <xsd:complexType>
-            <xsd:choice>
-                <xsd:sequence>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="lane"/>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="container"/>
-                </xsd:sequence>
-                <xsd:sequence>
-                    <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
-                </xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="lane"/>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="vehicle"/>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="container"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
         </xsd:complexType>

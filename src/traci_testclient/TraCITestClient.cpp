@@ -575,9 +575,12 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << std::endl;
     } else if (valueDataType == TYPE_POLYGON) {
-        int length = inMsg.readUnsignedByte();
+        int size = inMsg.readUnsignedByte();
+        if (size == 0) {
+            size = inMsg.readInt();
+        }
         answerLog << " PolygonValue: ";
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
             double x = inMsg.readDouble();
             double y = inMsg.readDouble();
             answerLog << "(" << x << "," << y << ") ";
@@ -597,30 +600,6 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         answerLog << " RoadMapPositionValue: roadId=" << roadId
                   << " pos=" << pos
                   << " laneId=" << laneId << std::endl;
-    } else if (valueDataType == TYPE_TLPHASELIST) {
-        int length = inMsg.readUnsignedByte();
-        answerLog << " TLPhaseListValue: length=" << length << std::endl;
-        for (int i = 0; i < length; i++) {
-            std::string pred = inMsg.readString();
-            std::string succ = inMsg.readString();
-            int phase = inMsg.readUnsignedByte();
-            answerLog << " precRoad=" << pred << " succRoad=" << succ
-                      << " phase=";
-            switch (phase) {
-                case TLPHASE_RED:
-                    answerLog << "red" << std::endl;
-                    break;
-                case TLPHASE_YELLOW:
-                    answerLog << "yellow" << std::endl;
-                    break;
-                case TLPHASE_GREEN:
-                    answerLog << "green" << std::endl;
-                    break;
-                default:
-                    answerLog << "#Error: unknown phase value" << (int)phase << std::endl;
-                    return;
-            }
-        }
     } else if (valueDataType == TYPE_STRING) {
         std::string s = inMsg.readString();
         answerLog << " string value: " << s << std::endl;
@@ -711,6 +690,33 @@ TraCITestClient::testAPI() {
     } catch (libsumo::TraCIException& e) {
         answerLog << "    caught TraCIException(" << e.what() << ")\n";
     }
+    // poi
+    answerLog << "  POI:\n";
+    answerLog << "    getIDList: " << joinToString(poi.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << poi.getIDCount() << "\n";
+    answerLog << "    getPosition: " << poi.getPosition("poi0").getString() << "\n";
+    answerLog << "    getColor: " << poi.getColor("poi0").getString() << "\n";
+
+    // poly
+    answerLog << "  polygon:\n";
+    answerLog << "    getIDList: " << joinToString(polygon.getIDList(), " ") << "\n";
+    answerLog << "    getIDCount: " << polygon.getIDCount() << "\n";
+    std::vector<libsumo::TraCIPosition> shape = polygon.getShape("poly0");
+    std::string shapeStr;
+    for (auto pos : shape) {
+        shapeStr += pos.getString() + " ";
+    }
+    polygon.setLineWidth("poly0", 0.6);
+    answerLog << "    getLineWidth: " << polygon.getLineWidth("poly0") << "\n";
+    answerLog << "    getShape: " << shapeStr << "\n";
+    answerLog << "    getColor: " << polygon.getColor("poly0").getString() << "\n";
+    shape[0].x = 42;
+    polygon.setShape("poly0", shape);
+    std::string shapeStr2;
+    for (auto pos : polygon.getShape("poly0")) {
+        shapeStr2 += pos.getString() + " ";
+    }
+    answerLog << "    getShape after modification: " << shapeStr2 << "\n";
 
     // route
     answerLog << "  route:\n";
@@ -882,6 +888,12 @@ TraCITestClient::testAPI() {
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p0") << "\n";
     answerLog << "    getVehicle: " << person.getVehicle("p0") << "\n";
     answerLog << "    getEdges: " << joinToString(person.getEdges("p0"), " ") << "\n";
+    answerLog << "    getPosition: " << person.getPosition("p0").getString() << "\n";
+    answerLog << "    getPosition3D: " << person.getPosition3D("p0").getString() << "\n";
+    answerLog << "    getAngle: " << person.getAngle("p0") << "\n";
+    answerLog << "    getLanePosition: " << person.getLanePosition("p0") << "\n";
+    answerLog << "    getLength: " << person.getLength("p0") << "\n";
+    answerLog << "    getColor: " << person.getColor("p0").getString() << "\n";
     person.setParameter("p0", "foo", "bar");
     answerLog << "    param: " << person.getParameter("p0", "foo") << "\n";
     person.setSpeed("p0", 3);
@@ -924,21 +936,22 @@ TraCITestClient::testAPI() {
             answerLog << "      index=" << i << " link=" << j << " fromLane=" << links[i][j].fromLane << " viaLane=" << links[i][j].viaLane << " toLane=" << links[i][j].toLane << "\n";
         }
     }
-    std::vector<libsumo::TraCIPhase> phases({ libsumo::TraCIPhase(5, 5, 5, "rrrrrrr"), libsumo::TraCIPhase(10, 5, 15, "ggggggg"),
-                                            libsumo::TraCIPhase(3, 3, 3, "GGGGGGG"), libsumo::TraCIPhase(3, 3, 3, "yyyyyyy")
+    libsumo::TraCILogic logic("custom", 0, 3);
+    logic.phases = std::vector<libsumo::TraCIPhase>({ libsumo::TraCIPhase(5, "rrrrrrr", 5, 5), libsumo::TraCIPhase(10, "ggggggg", 5, 15),
+                                            libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
                                             });
-    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", libsumo::TraCILogic("custom", 0, 3, phases));
+    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", logic);
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {
-        answerLog << "      subID=" << logics[i].subID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
+        answerLog << "      subID=" << logics[i].programID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
         answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
         for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
-            answerLog << "         phase=" << logics[i].phases[j].phase
+            answerLog << "         phase=" << logics[i].phases[j].state
                       << " dur=" << logics[i].phases[j].duration
-                      << " minDur=" << logics[i].phases[j].duration1
-                      << " maxDur=" << logics[i].phases[j].duration2
+                      << " minDur=" << logics[i].phases[j].minDur
+                      << " maxDur=" << logics[i].phases[j].maxDur
                       << "\n";
         }
     }

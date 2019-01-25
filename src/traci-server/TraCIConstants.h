@@ -30,7 +30,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 18
+#define TRACI_VERSION 19
 
 // ****************************************
 // COMMANDS
@@ -64,6 +64,9 @@
 
 // command: set sublane (vehicle)
 #define CMD_CHANGESUBLANE 0x15
+
+// command: open gap
+#define CMD_OPENGAP 0x16
 
 // command: change target
 #define CMD_CHANGETARGET 0x31
@@ -325,8 +328,6 @@
 #define TYPE_DOUBLE 0x0B
 // 8 bit ASCII string
 #define TYPE_STRING 0x0C
-// list of traffic light phases
-#define TYPE_TLPHASELIST 0x0D
 // list of strings
 #define TYPE_STRINGLIST 0x0E
 // compound object
@@ -345,26 +346,15 @@
 // result type: error
 #define RTYPE_ERR 0xFF
 
+// ****************************************
+// special return or parameter values
+// ****************************************
 // return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
-#define INVALID_DOUBLE_VALUE -1073741824.
+#define INVALID_DOUBLE_VALUE -1073741824
 // return value for invalid queries (especially vehicle is not on the road), see Position::INVALID
 #define INVALID_INT_VALUE -1073741824
 // maximum value for client ordering (2 ^ 30)
 #define MAX_ORDER 1073741824
-
-// ****************************************
-// TRAFFIC LIGHT PHASES
-// ****************************************
-// red phase
-#define TLPHASE_RED 0x01
-// yellow phase
-#define TLPHASE_YELLOW 0x02
-// green phase
-#define TLPHASE_GREEN 0x03
-// tl is blinking
-#define TLPHASE_BLINKING 0x04
-// tl is off and not blinking
-#define TLPHASE_NOSIGNAL 0x05
 
 
 // ****************************************
@@ -473,14 +463,11 @@
 // Specify maximal upstream distance for vehicles in context subscription result
 #define FILTER_TYPE_UPSTREAM_DIST 0x04
 
-// Only return leader and follower in context subscription result
-#define FILTER_TYPE_CF_MANEUVER 0x05
-
-// Only return leader and follower on ego and neighboring lane in context subscription result
-#define FILTER_TYPE_LC_MANEUVER 0x06
+// Only return leader and follower on the specified lanes in context subscription result
+#define FILTER_TYPE_LEAD_FOLLOW 0x05
 
 // Only return foes on upcoming junction in context subscription result
-#define FILTER_TYPE_TURN_MANEUVER 0x07
+#define FILTER_TYPE_TURN 0x07
 
 // Only return vehicles of the given vClass in context subscription result
 #define FILTER_TYPE_VCLASS 0x08
@@ -496,7 +483,7 @@
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)
 // ****************************************
 // list of instances' ids (get: all)
-#define ID_LIST 0x00
+#define TRACI_ID_LIST 0x00
 
 // count of instances (get: all)
 #define ID_COUNT 0x01
@@ -660,7 +647,7 @@
 // minimum gap (get: vehicle types)
 #define VAR_MINGAP 0x4c
 
-// width (get: vehicle types, lanes)
+// width (get: vehicle types, lanes, polygons)
 #define VAR_WIDTH 0x4d
 
 // shape (get: polygons)

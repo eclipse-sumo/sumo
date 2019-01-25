@@ -172,9 +172,9 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
         stop->addLine(myPTLine->getRef());
     }
 }
+
+
 void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
-
-
     std::vector<NBEdge*> edges;
 
     NBNode* first = nullptr;
@@ -301,6 +301,8 @@ NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
         }
     }
 }
+
+
 std::set<std::string>&
 NBPTLineCont::getServedPTStops() {
     return myServedPTStops;
@@ -411,7 +413,7 @@ NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle
                       const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
     NBEdge* fromEdge = ec.getByID(from->getEdgeId());
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
-    if (fromEdge == 0 || toEdge == 0) {
+    if (fromEdge == nullptr || toEdge == nullptr) {
         return std::numeric_limits<double>::max();
     }
     std::vector<const NBEdge*> route;

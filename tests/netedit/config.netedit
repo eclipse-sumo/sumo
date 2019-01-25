@@ -1,5 +1,5 @@
 import_config_file:../config_all
-binary:$PYTHON_EXECUTABLE
+binary:test.py
 use_case_record_mode:GUI
 config_module:default
 
@@ -17,6 +17,8 @@ copy_test_path:input_additionals.add.xml
 copy_test_path:input_shapes.add.xml
 copy_test_path:gui-settings.xml
 copy_test_path:berlin_icon.ico
+copy_test_path:fileA.txt
+copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
 
@@ -60,4 +62,5 @@ log:Proj GUI{REPLACE MODULES}
 [floating_point_tolerance]
 net:0.0101
 output:0.0101
+errors:0.0101
 additionals:0.0101

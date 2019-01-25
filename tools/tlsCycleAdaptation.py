@@ -136,7 +136,7 @@ def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
         valid = True
         for program in tl.getPrograms().values():
             for phase in program.getPhases():
-                if len(phase) > len(tl.getConnections()):
+                if len(phase.state) > len(tl.getConnections()):
                     print("Skipping TLS '%s' due to unused states" % tl.getID())
                     valid = False
                     break
@@ -194,7 +194,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     # check if there are shared lane groups, i.e. some lane groups have only "g" (no "G")
     ownGreenConnsList = []
     for i, p in enumerate(phases):
-        for j, control in enumerate(p[0]):
+        for j, control in enumerate(p.state):
             if control == "G" and j not in ownGreenConnsList:
                 ownGreenConnsList.append(j)
     yellowRedTime = 0
@@ -202,13 +202,13 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     currentLength = 0
     phaseLaneIndexMap = collections.defaultdict(list)
     for i, p in enumerate(phases):
-        currentLength += p[1]
-        if 'G' in p[0]:
-            greenTime += p[1]
-            groupFlowsMap[i] = [p[1]]
+        currentLength += p.duration
+        if 'G' in p.state:
+            greenTime += p.duration
+            groupFlowsMap[i] = [p.duration]
             groupFlows = 0
             laneIndexList = []
-            for j, control in enumerate(p[0]):
+            for j, control in enumerate(p.state):
                 inEdge = connsList[j][0]._edge._id
                 if j == 0:
                     exEdge = inEdge
@@ -219,7 +219,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
                     if connsList[j][0].getIndex() not in laneIndexList:
                         laneIndexList.append(connsList[j][0].getIndex())
 
-                if exEdge != inEdge or j == len(p[0]) - 1:
+                if exEdge != inEdge or j == len(p.state) - 1:
                     if laneIndexList:
                         phaseLaneIndexMap[i].append(laneIndexList)
                         groupFlowsMap[i].append(groupFlows)
@@ -232,10 +232,10 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
                             if connsList[j][0].getIndex() not in laneIndexList:
                                 laneIndexList.append(connsList[j][0].getIndex())
                 exEdge = inEdge
-        elif 'G' not in p[0] and 'g' in p[0] and 'y' not in p[0] and 'r' not in p[0]:
+        elif 'G' not in p.state and 'g' in p.state and 'y' not in p.state and 'r' not in p.state:
             print("Check: only g for all connections:%s in phase %s" % (tl._id, i))
-        elif ('G' not in p[0] and 'g' not in p[0]) or ('G' not in p[0] and 'y' in p[0] and 'r' in p[0]):
-            yellowRedTime += int(p[1])
+        elif ('G' not in p.state and 'g' not in p.state) or ('G' not in p.state and 'y' in p.state and 'r' in p.state):
+            yellowRedTime += int(p.duration)
         if options.verbose and i in groupFlowsMap:
             print("phase: %s" % i)
             print("group flows: %s" % groupFlowsMap[i])
@@ -351,10 +351,10 @@ def main(options):
 
                     phases = programs[pro].getPhases()
                     for i, p in enumerate(phases):
-                        duration = p[1]
+                        duration = p.duration
                         if i in groupFlowsMap:
                             duration = groupFlowsMap[i][0]
-                        outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p[0]))
+                        outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p.state))
                     outf.write('    </tlLogic>\n')
         else:
             print("There are no flows at the given intersections. No green time optimization is done.")

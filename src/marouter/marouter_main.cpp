@@ -35,7 +35,7 @@
 #include <vector>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/sax/SAXParseException.hpp>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
@@ -124,8 +124,8 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
     for (int i = numInternalEdges; i < numTotalEdges; i++) {
         const Dijkstra::EdgeInfo& ei = router.getEdgeInfo(i);
         if (!ei.edge->isInternal()) {
-            router.compute(ei.edge, 0, 0, 0, into);
-            double fromEffort = router.getEffort(ei.edge, 0, 0);
+            router.compute(ei.edge, nullptr, nullptr, 0, into);
+            double fromEffort = router.getEffort(ei.edge, nullptr, 0);
             for (int j = numInternalEdges; j < numTotalEdges; j++) {
                 double heuTT = router.getEdgeInfo(j).effort - fromEffort;
                 FileHelpers::writeFloat(outFile, heuTT);
@@ -173,7 +173,7 @@ writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const
 void
 computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
     // build the router
-    SUMOAbstractRouter<ROEdge, ROVehicle>* router = 0;
+    SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
     const SUMOTime begin = string2time(oc.getString("begin"));
@@ -277,7 +277,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         }
     }
     try {
-        const RORouterProvider provider(router, 0, 0);
+        const RORouterProvider provider(router, nullptr, nullptr);
         // prepare the output
         net.openOutput(oc);
         // process route definitions
@@ -285,7 +285,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         matrix.sortByBeginTime();
-        ROVehicle defaultVehicle(SUMOVehicleParameter(), 0, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
+        ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
         ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"), net, matrix, *router);
         a.resetFlows();
 #ifdef HAVE_FOX
@@ -304,7 +304,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         // update path costs and output
         bool haveOutput = false;
         OutputDevice* dev = net.getRouteOutput();
-        if (dev != 0) {
+        if (dev != nullptr) {
             std::vector<std::string> tazParamKeys;
             if (oc.isSet("taz-param")) {
                 tazParamKeys = oc.getStringVector("taz-param");
@@ -329,7 +329,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                     for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                         (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                        (*j)->writeXMLDefinition(od, 0, true, false);
+                        (*j)->writeXMLDefinition(od, nullptr, true, false);
                     }
                     od.closeTag();
                     od.closeTag();
@@ -344,7 +344,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                             for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
                                 (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                                (*j)->writeXMLDefinition(od, 0, true, false);
+                                (*j)->writeXMLDefinition(od, nullptr, true, false);
                             }
                             od.closeTag();
                             if (!tazParamKeys.empty()) {
@@ -413,7 +413,7 @@ main(int argc, char** argv) {
     oc.setApplicationDescription("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes");
     oc.setApplicationName("marouter", "Eclipse SUMO marouter Version " VERSION_STRING);
     int ret = 0;
-    RONet* net = 0;
+    RONet* net = nullptr;
     try {
         XMLSubSys::init();
         ROMAFrame::fillOptions();
@@ -471,7 +471,7 @@ main(int argc, char** argv) {
             WRITE_ERROR(toString(e.getLineNumber()));
             ret = 1;
         } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
-            WRITE_ERROR(TplConvert::_2str(e.getMessage()));
+            WRITE_ERROR(StringUtils::transcode(e.getMessage()));
             ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed() || ret != 0) {

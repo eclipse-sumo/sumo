@@ -272,7 +272,7 @@ class Edge(sumolib.net.Edge):
                                       (self.estcapacity * curve[2]))**curve[1]))
 
             if ((self.flow > self.estcapacity or self.flow == self.estcapacity) and
-               self.flow > 0. and self.connection == 0):
+                    self.flow > 0. and self.connection == 0):
                 self.queuetime = self.queuetime + options.lamda * \
                     (self.actualtime - self.freeflowtime * (1 + curve[0]))
                 if self.queuetime < 1.:

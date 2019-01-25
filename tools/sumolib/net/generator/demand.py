@@ -167,5 +167,5 @@ class Demand:
         # aeh, implicitly setting --no-warnings is not nice, is it?; and the
         # need to dump generated vtypes to a temporary file as well
         subprocess.call([duarouter, "-v", "-n", netName, "-t", fdo.name, "-o", routesName,
-                        "--no-warnings", "--additional-files", "vtypes.add.xml", "--vtype-output", "tmp.add.xml"])
+                         "--no-warnings", "--additional-files", "vtypes.add.xml", "--vtype-output", "tmp.add.xml"])
         os.remove(fdo.name)

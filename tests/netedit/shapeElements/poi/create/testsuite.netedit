@@ -1,30 +1,33 @@
 # all test check also the undo-redo of modifications and save the POI into a shape file
+# GEO POI Creator
+geo_poi
+
 # create default
-create_default
+default
 
 # create color
-create_color
+color
 
 # create type
-create_type
+type
 
 # create layer
-create_layer
+layer
 
 # create width
-create_width
+width
 
 # create height
-create_height
+height
 
 # create imgfile
-create_imgfile
+imgfile
 
 # create relativepath
-create_relativepath
+relativepath
 
 # create with different angle
-create_angle
+angle
 
 # create with different block move
-create_blockmove
+blockmove

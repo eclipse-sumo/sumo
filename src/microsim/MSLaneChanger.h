@@ -188,10 +188,11 @@ protected:
         const std::pair<MSVehicle* const, double>& neighFollow,
         const std::vector<MSVehicle::LaneQ>& preb) const;
 
-    ///  @brief start the lane change maneuver (and finish it instantly if gLaneChangeDuration == 0)
-    void startChange(MSVehicle* vehicle, ChangerIt& from, int direction);
+    /*  @brief start the lane change maneuver (and finish it instantly if gLaneChangeDuration == 0)
+     *  @return False when aborting the change due to being remote controlled*/
+    bool startChange(MSVehicle* vehicle, ChangerIt& from, int direction);
 
-    ///  @brief continue a lane change maneuver and return whether the midpoint was passed in this step (used if gLaneChangeDuration > 0)
+    ///  @brief continue a lane change maneuver and return whether the vehicle has completely moved onto the new lane (used if gLaneChangeDuration > 0)
     bool continueChange(MSVehicle* vehicle, ChangerIt& from);
 
     std::pair<MSVehicle* const, double> getRealFollower(const ChangerIt& target) const;

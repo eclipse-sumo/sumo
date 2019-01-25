@@ -18,36 +18,15 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <foreign/fontstash/fontstash.h>
-#include <iostream>
-#include <string>
-#include <utility>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 
 #include <netedit/GNENet.h>
-#include "GNEParkingArea.h"
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
+
 #include "GNEParkingSpace.h"
 
 
@@ -55,11 +34,9 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, double x, double y, double z, double width, double length, double angle, bool blockMovement) :
+GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position &pos, double width, double length, double angle, bool blockMovement) :
     GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement),
-    myX(x),
-    myY(y),
-    myZ(z),
+    myPosition(pos),
     myWidth(width),
     myLength(length),
     myAngle(angle) {
@@ -70,22 +47,21 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 
 void
-GNEParkingSpace::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEParkingSpace::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    Position pos = oldPos;
-    pos.add(offset);
-    myX = pos.x();
-    myY = pos.y();
+    myPosition = myMove.originalViewPosition;
+    myPosition.add(offset);
+    // filtern position using snap to active grid
+    myPosition = myViewNet->snapToActiveGrid(myPosition);
     updateGeometry(false);
 }
 
 
 void
-GNEParkingSpace::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEParkingSpace::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_X, toString(myX), true, toString(oldPos.x())));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_Y, toString(myY), true, toString(oldPos.y())));
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -96,9 +72,10 @@ GNEParkingSpace::updateGeometry(bool updateGrid) {
     if (updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
-    // clear shape and set new position
-    myShape.clear();
-    myShape.push_back(Position(myX, myY));
+    // Clear all containers
+    myGeometry.clearGeometry();
+    // set new position
+    myGeometry.shape.push_back(myPosition);
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
@@ -108,7 +85,7 @@ GNEParkingSpace::updateGeometry(bool updateGrid) {
 
 Position
 GNEParkingSpace::getPositionInView() const {
-    return Position(myX, myY);
+    return myPosition;
 }
 
 
@@ -124,13 +101,13 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     // Traslate matrix and draw green contour
-    glTranslated(myX, myY, getType() + 0.1);
+    glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
     glRotated(myAngle, 0, 0, 1);
     // only drawn small box if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Set Color depending of selection
         if (isAttributeCarrierSelected()) {
-            GLHelper::setColor(myViewNet->getNet()->selectedConnectionColor);
+            GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(0, 255, 0, 255));
         }
@@ -140,7 +117,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, 0.1);
     // Set Color depending of selection
     if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(myViewNet->getNet()->selectedAdditionalColor);
+        GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(255, 200, 200, 255));
     }
@@ -148,13 +125,13 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Traslate matrix and draw lock icon if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         glTranslated(0, myLength / 2, 0.1);
-        drawLockIcon();
+        myBlockIcon.draw();
     }
     // pop draw matrix
     glPopMatrix();
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
-        GLHelper::drawShapeDottedContour(getType(), Position(myX, myY), myWidth, myLength, myAngle, 0, myLength / 2);
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+        GLHelper::drawShapeDottedContour(getType(), myPosition, myWidth, myLength, myAngle, 0, myLength / 2);
     }
 
     // pop name
@@ -167,12 +144,8 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getAdditionalID();
-        case SUMO_ATTR_X:
-            return toString(myX);
-        case SUMO_ATTR_Y:
-            return toString(myY);
-        case SUMO_ATTR_Z:
-            return toString(myZ);
+        case SUMO_ATTR_POSITION:
+            return toString(myPosition);
         case SUMO_ATTR_WIDTH:
             return toString(myWidth);
         case SUMO_ATTR_LENGTH:
@@ -188,7 +161,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -200,9 +173,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_X:
-        case SUMO_ATTR_Y:
-        case SUMO_ATTR_Z:
+        case SUMO_ATTR_POSITION:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_ANGLE:
@@ -213,7 +184,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -223,12 +194,8 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
-        case SUMO_ATTR_X:
-            return canParse<double>(value);
-        case SUMO_ATTR_Y:
-            return canParse<double>(value);
-        case SUMO_ATTR_Z:
-            return canParse<double>(value);
+        case SUMO_ATTR_POSITION:
+            return canParse<Position>(value);
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_LENGTH:
@@ -244,20 +211,20 @@ GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNEParkingSpace::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
 std::string
 GNEParkingSpace::getHierarchyName() const {
-    return toString(getTag()) + ": " + getAttribute(SUMO_ATTR_X) + ", " + getAttribute(SUMO_ATTR_Y);
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_POSITION);
 }
 
 // ===========================================================================
@@ -270,14 +237,8 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_X:
-            myX = parse<double>(value);
-            break;
-        case SUMO_ATTR_Y:
-            myY = parse<double>(value);
-            break;
-        case SUMO_ATTR_Z:
-            myZ = parse<double>(value);
+        case SUMO_ATTR_POSITION:
+            myPosition = parse<Position>(value);
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = parse<double>(value);
@@ -305,10 +266,12 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 

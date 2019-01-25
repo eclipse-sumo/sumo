@@ -1,0 +1,14 @@
+# test generating polygons from a route file
+basic
+
+# filter output edges
+filter
+
+# scale polygon width according to the number of similar routes
+scaleWidth
+
+# include internal lane shapes in export
+internal
+
+# spread shapes to avoid overlap
+spread

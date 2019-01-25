@@ -58,7 +58,7 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttribu
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(AC) {
-    assert(GNEAttributeCarrier::getTagProperties(AC->getTag()).hasAttribute(SUMO_ATTR_ALLOW));
+    assert(AC->getTagProperty().hasAttribute(SUMO_ATTR_ALLOW));
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
     // create main frame
@@ -115,7 +115,7 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttribu
     myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(ICON_RESET), this, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // reset dialog
-    onCmdReset(0, 0, 0);
+    onCmdReset(nullptr, 0, nullptr);
 }
 
 
@@ -241,7 +241,7 @@ GNEDialog_AllowDisallow::buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicle
     myVClassMap[vclass].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
     myVClassMap[vclass].second = new FXLabel(buttonAndStatusFrame, "status", nullptr, GUIDesignLabelLeftThick);
     // create label for description of vehicle
-    new FXLabel(buttonAndInformationFrame, description.c_str(), 0, GUIDesignLabelLeftThick);
+    new FXLabel(buttonAndInformationFrame, description.c_str(), nullptr, GUIDesignLabelLeftThick);
 }
 
 /****************************************************************************/

@@ -21,7 +21,6 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNENet.h>
 
 #include "GNEChange.h"
 

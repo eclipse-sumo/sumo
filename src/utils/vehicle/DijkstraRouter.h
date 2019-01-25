@@ -63,54 +63,13 @@ template<class E, class V, class BASE>
 class DijkstraRouter : public BASE {
 public:
     /**
-     * @class EdgeInfo
-     * A definition about a route's edge with the effort needed to reach it and
-     *  the information about the previous edge.
-     */
-    class EdgeInfo {
-    public:
-        /// Constructor
-        EdgeInfo(const E* const e)
-            : edge(e), effort(std::numeric_limits<double>::max()), leaveTime(0.), prev(nullptr), via(nullptr), visited(false) {}
-
-        /// The current edge
-        const E* const edge;
-
-        /// Effort to reach the edge
-        double effort;
-
-        /// The time the vehicle leaves the edge
-        double leaveTime;
-
-        /// The previous edge
-        const EdgeInfo* prev;
-
-        /// The optional internal edge corresponding to prev
-        const E* via;
-
-        /// The previous edge
-        bool visited;
-
-        inline void reset() {
-            effort = std::numeric_limits<double>::max();
-            via = nullptr;
-            visited = false;
-        }
-
-    private:
-        /// @brief Invalidated assignment operator
-        EdgeInfo& operator=(const EdgeInfo& s) = delete;
-
-    };
-
-    /**
      * @class EdgeInfoByEffortComparator
      * Class to compare (and so sort) nodes by their effort
      */
     class EdgeInfoByEffortComparator {
     public:
         /// Comparing method
-        bool operator()(const EdgeInfo* nod1, const EdgeInfo* nod2) const {
+        bool operator()(const typename BASE::EdgeInfo* nod1, const typename BASE::EdgeInfo* nod2) const {
             if (nod1->effort == nod2->effort) {
                 return nod1->edge->getNumericalID() > nod2->edge->getNumericalID();
             }
@@ -126,7 +85,7 @@ public:
         myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myEdgeInfos.push_back(EdgeInfo(*i));
+            myEdgeInfos.push_back(typename BASE::EdgeInfo(*i));
         }
     }
 
@@ -139,12 +98,12 @@ public:
 
     void init() {
         // all EdgeInfos touched in the previous query are either in myFrontierList or myFound: clean those up
-        for (typename std::vector<EdgeInfo*>::iterator i = myFrontierList.begin(); i != myFrontierList.end(); i++) {
-            (*i)->reset();
+        for (auto& edgeInfo : myFrontierList) {
+            edgeInfo->reset();
         }
         myFrontierList.clear();
-        for (typename std::vector<EdgeInfo*>::iterator i = myFound.begin(); i != myFound.end(); i++) {
-            (*i)->reset();
+        for (auto& edgeInfo : myFound) {
+            edgeInfo->reset();
         }
         myFound.clear();
     }
@@ -170,7 +129,7 @@ public:
 #endif
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         if (this->myBulkMode) {
-            const EdgeInfo& toInfo = myEdgeInfos[to->getNumericalID()];
+            const auto& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);
                 this->endQuery(1);
@@ -179,9 +138,9 @@ public:
         } else {
             init();
             // add begin node
-            EdgeInfo* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
-            fromInfo->effort = 0;
-            fromInfo->prev = 0;
+            auto* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
+            fromInfo->effort = 0.;
+            fromInfo->prev = nullptr;
             fromInfo->leaveTime = STEPS2TIME(msTime);
             myFrontierList.push_back(fromInfo);
         }
@@ -190,12 +149,12 @@ public:
         while (!myFrontierList.empty()) {
             num_visited += 1;
             // use the node with the minimal length
-            EdgeInfo* const minimumInfo = myFrontierList.front();
+            auto* const minimumInfo = myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
 #ifdef DijkstraRouter_DEBUG_QUERY
             std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
-            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
-                std::cout << (*it)->effort << "," << (*it)->edge->getID() << " ";
+            for (auto& it : myFrontierList) {
+                std::cout << it->effort << "," << it->edge->getID() << " ";
             }
             std::cout << "\n";
 #endif
@@ -215,7 +174,7 @@ public:
             const E* viaEdge = minimumInfo->via;
             double effort = minimumInfo->effort;
             double leaveTime = minimumInfo->leaveTime;
-            while (viaEdge != nullptr && viaEdge != minEdge) {
+            while (viaEdge != nullptr && viaEdge->isInternal()) {
                 const double viaEffortDelta = this->getEffort(viaEdge, vehicle, leaveTime);
                 leaveTime += this->getTravelTime(viaEdge, vehicle, leaveTime, viaEffortDelta);
                 effort += viaEffortDelta;
@@ -231,7 +190,7 @@ public:
             assert(leaveTime >= minimumInfo->leaveTime);
             // check all ways from the node with the minimal length
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
-                EdgeInfo* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
+                auto* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
                 // check whether it can be used
                 if (this->isProhibited(follower.first, vehicle)) {
                     continue;
@@ -265,7 +224,7 @@ public:
 
 
     /// Builds the path from marked edges
-    void buildPathFrom(const EdgeInfo* rbegin, std::vector<const E*>& edges) {
+    void buildPathFrom(const typename BASE::EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::vector<const E*> tmp;
         while (rbegin != 0) {
             tmp.push_back(rbegin->edge);
@@ -274,19 +233,19 @@ public:
         std::copy(tmp.rbegin(), tmp.rend(), std::back_inserter(edges));
     }
 
-    const EdgeInfo& getEdgeInfo(int index) const {
+    const typename BASE::EdgeInfo& getEdgeInfo(int index) const {
         return myEdgeInfos[index];
     }
 
 private:
-    DijkstraRouter(const std::vector<EdgeInfo>& edgeInfos, bool unbuildIsWarning,
+    DijkstraRouter(const std::vector<typename BASE::EdgeInfo>& edgeInfos, bool unbuildIsWarning,
                    typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
         BASE("DijkstraRouter", effortOperation, ttOperation),
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         mySilent(silent),
         myExternalEffort(calc) {
-        for (const EdgeInfo& ei : edgeInfos) {
-            myEdgeInfos.push_back(EdgeInfo(ei.edge));
+        for (const auto& edgeInfo : edgeInfos) {
+            myEdgeInfos.push_back(typename BASE::EdgeInfo(edgeInfo.edge));
         }
     }
 
@@ -300,12 +259,12 @@ private:
     EffortCalculator* const myExternalEffort;
 
     /// The container of edge information
-    std::vector<EdgeInfo> myEdgeInfos;
+    std::vector<typename BASE::EdgeInfo> myEdgeInfos;
 
     /// A container for reusage of the min edge heap
-    std::vector<EdgeInfo*> myFrontierList;
+    std::vector<typename BASE::EdgeInfo*> myFrontierList;
     /// @brief list of visited Edges (for resetting)
-    std::vector<EdgeInfo*> myFound;
+    std::vector<typename BASE::EdgeInfo*> myFound;
 
     EdgeInfoByEffortComparator myComparator;
 };
@@ -314,4 +273,3 @@ private:
 #endif
 
 /****************************************************************************/
-

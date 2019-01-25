@@ -15,23 +15,25 @@
 
 
 from setuptools import setup, find_packages
+import os
+import version
+
+SUMO_VERSION = version.gitDescribe()[1:-11].replace("_", ".").replace("+", ".")
+package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
     name='sumolib',
-
-    version='0.31.0',
-
+    version=SUMO_VERSION,
     url='http://sumo.dlr.de/wiki/Tools/Sumolib',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
-
-    license='EPL v2',
+    license='EPL-2.0',
 
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'LICENSE :: OSI Approved :: Eclipse Public License v2 (EPLv2)',
+        'LICENSE :: OSI Approved :: Eclipse Public License v2 (EPL-2.0)',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
@@ -39,18 +41,12 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
-
     keywords='traffic simulation traci sumo',
 
-    # automatically find packages
-    packages=find_packages(include=["sumolib", "sumolib.*"]),
-
-    script_name='./build/setup-sumolib.py',
-    data_files=['./build/setup-sumolib.py'],
-
-    # TODO: check requirements
-    install_requires=[''],
+    packages=find_packages(package_dir, include=["sumolib", "sumolib.*"]),
+    package_dir={'': package_dir},
 
     # TODO: add extra dependencies for testing
     extras_require={

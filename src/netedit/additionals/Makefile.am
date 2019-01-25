@@ -22,6 +22,9 @@ GNEDetectorExit.cpp GNEDetectorExit.h \
 GNERerouter.cpp GNERerouter.h \
 GNERouteProbe.cpp GNERouteProbe.h \
 GNEVaporizer.cpp GNEVaporizer.h \
+GNETAZ.cpp GNETAZ.h \
+GNETAZSource.cpp GNETAZSource.h \
+GNETAZSink.cpp GNETAZSink.h \
 GNECalibrator.cpp GNECalibrator.h \
 GNECalibratorFlow.cpp GNECalibratorFlow.h \
 GNECalibratorVehicleType.cpp GNECalibratorVehicleType.h \

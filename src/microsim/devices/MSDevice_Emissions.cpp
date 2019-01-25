@@ -44,7 +44,7 @@ MSDevice_Emissions::insertOptions() {
 
 
 void
-MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "emissions", v, false)) {
         // build the device
         MSDevice_Emissions* device = new MSDevice_Emissions(v, "emissions_" + v.getID());
@@ -57,7 +57,7 @@ MSDevice_Emissions::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& 
 // MSDevice_Emissions-methods
 // ---------------------------------------------------------------------------
 MSDevice_Emissions::MSDevice_Emissions(SUMOVehicle& holder, const std::string& id)
-    : MSDevice(holder, id), myEmissions() {
+    : MSVehicleDevice(holder, id), myEmissions() {
 }
 
 

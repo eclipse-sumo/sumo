@@ -26,14 +26,13 @@
 #include <cassert>
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
-#include <xercesc/util/XercesVersion.hpp>
-#include <xercesc/util/TransService.hpp>
-#include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
+#include "XMLSubSys.h"
 #include "SUMOSAXAttributesImpl_Xerces.h"
 #include "SUMOSAXAttributesImpl_Cached.h"
 
@@ -67,74 +66,43 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
 
 bool
 SUMOSAXAttributesImpl_Xerces::getBool(int id) const {
-    return TplConvert::_2bool(getAttributeValueSecure(id));
+    return StringUtils::toBool(getString(id));
 }
 
 
 int
 SUMOSAXAttributesImpl_Xerces::getInt(int id) const {
-    return TplConvert::_2int(getAttributeValueSecure(id));
+    return StringUtils::toInt(getString(id));
 }
 
 
 long long int
 SUMOSAXAttributesImpl_Xerces::getLong(int id) const {
-    return TplConvert::_2long(getAttributeValueSecure(id));
+    return StringUtils::toLong(getString(id));
 }
 
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getString(int id) const {
-    const XMLCh* utf16 = getAttributeValueSecure(id);
-#if _XERCES_VERSION < 30100
-    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(utf16);
-    std::string result(t);
-    XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
-#else
-    if (XERCES_CPP_NAMESPACE::XMLString::stringLen(utf16) == 0) {
-        // TranscodeToStr and debug_new interact badly in this case;
-        return "";
-    } else {
-        try {
-            XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
-            return TplConvert::_2str(utf8.str(), (unsigned)utf8.length());
-        } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {
-            return "?";
-        }
-    }
-#endif
+    return StringUtils::transcode(getAttributeValueSecure(id));
 }
 
 
 std::string
-SUMOSAXAttributesImpl_Xerces::getStringSecure(int id,
-        const std::string& str) const {
+SUMOSAXAttributesImpl_Xerces::getStringSecure(int id, const std::string& str) const {
     const XMLCh* utf16 = getAttributeValueSecure(id);
-#if _XERCES_VERSION < 30100
-    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(utf16);
-    std::string result(TplConvert::_2strSec(t, str));
-    XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
-#else
     if (XERCES_CPP_NAMESPACE::XMLString::stringLen(utf16) == 0) {
         // TranscodeToStr and debug_new interact badly in this case;
-        return "";
+        return str;
     } else {
-        try {
-            XERCES_CPP_NAMESPACE::TranscodeToStr utf8(utf16, "UTF-8");
-            return TplConvert::_2strSec(utf8.str(), (unsigned)utf8.length(), str);
-        } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {
-            return "?";
-        }
+        return getString(id);
     }
-#endif
 }
 
 
 double
 SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
-    return TplConvert::_2double(getAttributeValueSecure(id));
+    return StringUtils::toDouble(getString(id));
 }
 
 
@@ -149,9 +117,9 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
 double
 SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const {
     XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    double result = TplConvert::_2double(myAttrs.getValue(t));
+    const std::string utf8 = StringUtils::transcode(myAttrs.getValue(t));
     XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
+    return StringUtils::toDouble(utf8);
 }
 
 
@@ -168,9 +136,13 @@ std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
         const std::string& str) const {
     XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    std::string result = TplConvert::_2strSec(myAttrs.getValue(t), str);
+    const XMLCh* v = myAttrs.getValue(t);
     XERCES_CPP_NAMESPACE::XMLString::release(&t);
-    return result;
+    if (v == nullptr) {
+        return str;
+    } else {
+        return StringUtils::transcode(v);
+    }
 }
 
 
@@ -199,6 +171,18 @@ SUMOSAXAttributesImpl_Xerces::getNodeType(bool& ok) const {
     return NODETYPE_UNKNOWN;
 }
 
+RightOfWay
+SUMOSAXAttributesImpl_Xerces::getRightOfWay(bool& ok) const {
+    if (hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
+        std::string rowString = getString(SUMO_ATTR_RIGHT_OF_WAY);
+        if (SUMOXMLDefinitions::RightOfWayValues.hasString(rowString)) {
+            return SUMOXMLDefinitions::RightOfWayValues.get(rowString);
+        }
+        ok = false;
+    }
+    return RIGHT_OF_WAY_DEFAULT;
+}
+
 
 RGBColor
 SUMOSAXAttributesImpl_Xerces::getColor() const {
@@ -215,12 +199,12 @@ SUMOSAXAttributesImpl_Xerces::getShape(int attr) const {
         if (pos.size() != 2 && pos.size() != 3) {
             throw FormatException("shape format");
         }
-        double x = TplConvert::_2double(pos.next().c_str());
-        double y = TplConvert::_2double(pos.next().c_str());
+        double x = StringUtils::toDouble(pos.next());
+        double y = StringUtils::toDouble(pos.next());
         if (pos.size() == 2) {
             shape.push_back(Position(x, y));
         } else {
-            double z = TplConvert::_2double(pos.next().c_str());
+            double z = StringUtils::toDouble(pos.next());
             shape.push_back(Position(x, y, z));
         }
     }
@@ -235,10 +219,10 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
     if (st.size() != 4) {
         throw FormatException("boundary format");
     }
-    const double xmin = TplConvert::_2double(st.next().c_str());
-    const double ymin = TplConvert::_2double(st.next().c_str());
-    const double xmax = TplConvert::_2double(st.next().c_str());
-    const double ymax = TplConvert::_2double(st.next().c_str());
+    const double xmin = StringUtils::toDouble(st.next());
+    const double ymin = StringUtils::toDouble(st.next());
+    const double xmax = StringUtils::toDouble(st.next());
+    const double ymax = StringUtils::toDouble(st.next());
     return Boundary(xmin, ymin, xmax, ymax);
 }
 
@@ -264,8 +248,8 @@ SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
 void
 SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        os << " " << TplConvert::_2str(myAttrs.getLocalName(i));
-        os << "=\"" << TplConvert::_2str(myAttrs.getValue(i)) << "\"";
+        os << " " << StringUtils::transcode(myAttrs.getLocalName(i));
+        os << "=\"" << StringUtils::transcode(myAttrs.getValue(i)) << "\"";
     }
 }
 
@@ -274,7 +258,7 @@ SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Xerces::clone() const {
     std::map<std::string, std::string> attrs;
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        attrs[TplConvert::_2str(myAttrs.getLocalName(i))] = TplConvert::_2str(myAttrs.getValue(i));
+        attrs[StringUtils::transcode(myAttrs.getLocalName(i))] = StringUtils::transcode(myAttrs.getValue(i));
     }
     return new SUMOSAXAttributesImpl_Cached(attrs, myPredefinedTagsMML, getObjectType());
 }

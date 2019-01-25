@@ -1,13 +1,14 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
-Debug: Selected invalid shape in ShapeSelector
-Debug: Selected shape 'poi' in ShapeSelector
+Debug: Selected item 'poly' in ItemSelector
+Debug: Selected invalid item in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Selected item 'poi' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding poi 'POI_0' into viewNet
 Debug: Shapes has to be saved
 Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Setting new attribute blockMovement 'false' into poi 'POI_0'
 Debug: Shapes saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

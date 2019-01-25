@@ -28,7 +28,7 @@
 #include <string>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
@@ -163,14 +163,21 @@ NIImporter_ArcView::load() {
     const std::vector<std::string> params = myOptions.getStringVector("shapefile.add-params");
 
     int featureIndex = 0;
+    bool warnNotUnique = true;
+    std::string idPrefix = ""; // prefix for non-unique street-id values
+    int idIndex = 1; // running index to make street-id unique
     while ((poFeature = poLayer->GetNextFeature()) != NULL) {
         // read in edge attributes
         if (featureIndex == 0) {
             WRITE_MESSAGE("Available fields: " + toString(getFieldNames(poFeature)));
         }
-        std::string id, name, from_node, to_node;
+        std::string id;
+        std::string name;
+        std::string from_node;
+        std::string to_node;
         if (!getStringEntry(poFeature, "shapefile.street-id", "LINK_ID", true, id)) {
             WRITE_ERROR("Needed field '" + id + "' (street-id) is missing.");
+            id = "";
         }
         if (id == "") {
             id = toString(myRunningEdgeID++);
@@ -181,9 +188,11 @@ NIImporter_ArcView::load() {
 
         if (!getStringEntry(poFeature, "shapefile.from-id", "REF_IN_ID", true, from_node)) {
             WRITE_ERROR("Needed field '" + from_node + "' (from node id) is missing.");
+            from_node = "";
         }
         if (!getStringEntry(poFeature, "shapefile.to-id", "NREF_IN_ID", true, to_node)) {
             WRITE_ERROR("Needed field '" + to_node + "' (to node id) is missing.");
+            to_node = "";
         }
 
         if (from_node == "" || to_node == "") {
@@ -287,6 +296,27 @@ NIImporter_ArcView::load() {
             dir = poFeature->GetFieldAsString(index);
         }
         const std::string origID = saveOrigIDs ? id : "";
+        // check for duplicate ids
+        NBEdge* existing = myEdgeCont.retrieve(id);
+        NBEdge* existingReverse = myEdgeCont.retrieve("-" + id);
+        if (existing != nullptr || existingReverse != nullptr) {
+            std::string duplicateID = existing != nullptr ? id : existingReverse->getID();
+            if ((existing != 0 && existing->getGeometry() == shape)
+                    || (existingReverse != 0 && existingReverse->getGeometry() == shape.reverse())) {
+                WRITE_ERROR("Edge '" + duplicateID + " is not unique");
+            } else {
+                if (id != idPrefix) {
+                    idPrefix = id;
+                    idIndex = 1;
+                }
+                id += "#" + toString(idIndex);
+                if (warnNotUnique) {
+                    WRITE_WARNING("street-id '" + idPrefix + "' is not unique. Renaming subsequent edge to '" + id + "'");
+                    warnNotUnique = false;
+                }
+                idIndex++;
+            }
+        }
         // add positive direction if wanted
         if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id) == 0) {
@@ -296,6 +326,8 @@ NIImporter_ArcView::load() {
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
+            } else {
+                WRITE_ERROR("Could not create edge '" + id + "'. An edge with the same id already exists");
             }
         }
         // add negative direction if wanted
@@ -307,6 +339,8 @@ NIImporter_ArcView::load() {
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
+            } else {
+                WRITE_ERROR("Could not create edge '-" + id + "'. An edge with the same id already exists");
             }
         }
         //

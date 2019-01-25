@@ -44,7 +44,7 @@ class DistrictEdgeComputer:
         for idx, edge in enumerate(self._net.getEdges()):
             shape = edge.getShape()
             if (edge.getSpeed() < options.maxspeed and edge.getSpeed() > options.minspeed and
-               (options.internal or edge.getFunction() != "internal")):
+                    (options.internal or edge.getFunction() != "internal")):
                 if options.vclass is None or edge.allows(options.vclass):
                     if options.assign_from:
                         xmin, ymin = shape[0]
@@ -83,7 +83,8 @@ class DistrictEdgeComputer:
 
     def writeResults(self, options):
         fd = open(options.output, "w")
-        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")
+        sumolib.xml.writeHeader(
+            fd, "$Id$", "tazs", "taz_file.xsd")
         lastId = None
         lastEdges = None
         key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None
@@ -94,8 +95,9 @@ class DistrictEdgeComputer:
             else:
                 if options.weighted:
                     if options.shapeinfo:
-                        fd.write('    <taz id="%s" shape="%s">\n' %
-                                 (district.id, district.getShapeString()))
+                        color = ' color="%s"' % district.color if district.color is not None else ''
+                        fd.write('    <taz id="%s" shape="%s"%s>\n' %
+                                 (district.id, district.getShapeString(), color))
                     else:
                         fd.write('    <taz id="%s">\n' % district.id)
                     for edge in filtered:

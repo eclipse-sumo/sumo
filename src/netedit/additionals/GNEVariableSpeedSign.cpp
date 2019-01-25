@@ -20,33 +20,17 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEVariableSpeedSign.h"
-#include "GNEVariableSpeedSignStep.h"
 
 
 // ===========================================================================
@@ -71,25 +55,22 @@ GNEVariableSpeedSign::updateGeometry(bool updateGrid) {
     }
 
     // Clear shape
-    myShape.clear();
+    myGeometry.shape.clear();
 
     // Set block icon position
-    myBlockIconPosition = myPosition;
+    myBlockIcon.position = myPosition;
 
     // Set block icon offset
-    myBlockIconOffset = Position(-0.5, -0.5);
+    myBlockIcon.offset = Position(-0.5, -0.5);
 
     // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation();
+    myBlockIcon.setRotation();
 
     // Set position
-    myShape.push_back(myPosition);
-
-    // clear mySymbolsPositionAndRotation
-    mySymbolsPositionAndRotation.clear();
+    myGeometry.shape.push_back(myPosition);
 
     // update child connections
-    updateChildConnections();
+    myChildConnections.update();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -112,19 +93,21 @@ GNEVariableSpeedSign::openAdditionalDialog() {
 
 
 void
-GNEVariableSpeedSign::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEVariableSpeedSign::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    myPosition = oldPos;
+    myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
+    // filtern position using snap to active grid
+    myPosition = myViewNet->snapToActiveGrid(myPosition);
     updateGeometry(false);
 }
 
 
 void
-GNEVariableSpeedSign::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEVariableSpeedSign::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -142,7 +125,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myShape[0].x(), myShape[0].y(), getType());
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
 
     // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
     if (s.drawForSelecting) {
@@ -165,13 +148,13 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting) {
 
         // Show Lock icon depending of the Edit mode
-        drawLockIcon(0.4);
+        myBlockIcon.draw(0.4);
 
         // obtain exxageration
-        const double exaggeration = s.addSize.getExaggeration(s);
+        const double exaggeration = s.addSize.getExaggeration(s, this);
 
         // iterate over symbols and rotation
-        for (auto i : mySymbolsPositionAndRotation) {
+        for (auto i : myChildConnections.symbolsPositionAndRotation) {
             glPushMatrix();
             glScaled(exaggeration, exaggeration, 1);
             glTranslated(i.first.x(), i.first.y(), getType());
@@ -204,7 +187,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // Draw connections
-        drawChildConnections();
+        myChildConnections.draw();
     }
 
     // Pop symbol matrix
@@ -216,14 +199,14 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
-        for (auto i : myChildConnectionPositions) {
+        for (auto i : myChildConnections.connectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }
         // draw rerouter symbol over all lanes
-        for (auto i : mySymbolsPositionAndRotation) {
+        for (auto i : myChildConnections.symbolsPositionAndRotation) {
             GLHelper::drawShapeDottedContour(getType(), i.first, 2.6, 2.6, -1 * i.second, 0, -1.5);
         }
     }
@@ -251,7 +234,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -280,7 +263,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -307,20 +290,20 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNEVariableSpeedSign::getPopUpID() const {
-    return toString(getTag()) + ": " + getID();
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
 GNEVariableSpeedSign::getHierarchyName() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 // ===========================================================================
@@ -356,10 +339,12 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

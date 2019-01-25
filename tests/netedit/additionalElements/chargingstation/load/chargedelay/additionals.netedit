@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 19.11.2018 10:25:53 by Eclipse SUMO netedit Version v1_0_0+0979-5758048824
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov102437.8124/netedit.gui/additionalElements/chargingstation/load/chargedelay\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov102437.8124/netedit.gui/additionalElements/chargingstation/load/chargedelay\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov102437.8124/netedit.gui/additionalElements/chargingstation/load/chargedelay\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov102437.8124/netedit.gui/additionalElements/chargingstation/load/chargedelay\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov102437.8124/netedit.gui/additionalElements/chargingstation/load/chargedelay\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov102437.8124/netedit.gui/additionalElements/chargingstation/load/chargedelay\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov102437.8124/netedit.gui/additionalElements/chargingstation/load/chargedelay\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <chargingStation id="chargingStation_0" name="chargingStation" lane="gneE1_0" startPos="36.00" endPos="38.00"/>
+    <chargingStation id="chargingStation_1" name="chargingStation" lane="gneE1_0" startPos="40.00" endPos="42.00"/>
+    <chargingStation id="chargingStation_2" name="chargingStation" lane="gneE1_0" startPos="44.00" endPos="46.00"/>
+    <chargingStation id="chargingStation_3" name="chargingStation" chargeDelay="5.50" lane="gneE1_0" startPos="44.00" endPos="46.00"/>
+</additional>

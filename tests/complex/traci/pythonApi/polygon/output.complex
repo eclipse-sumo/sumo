@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -15,6 +16,8 @@ type modified blub
 color modified (5, 6, 7, 8)
 color modified2 (5, 6, 7, 255)
 filled modified False
+getParameter='' (unset)
+getParameter='42' (after setting)
 {0: ('0',)}
 step 3
 {0: ('0',)}
@@ -22,3 +25,5 @@ step 4
 {0: ('0',)}
 step 5
 {0: ('0',)}
+new polygon lineWidth 3.0
+lineWidth modified 0.5

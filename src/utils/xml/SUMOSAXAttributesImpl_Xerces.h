@@ -30,7 +30,7 @@
 #include <iostream>
 #include <xercesc/sax2/Attributes.hpp>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include "SUMOSAXAttributes.h"
 
 
@@ -231,6 +231,8 @@ public:
      */
     SumoXMLNodeType getNodeType(bool& ok) const;
 
+    /// @brief returns rightOfWay method
+    RightOfWay getRightOfWay(bool& ok) const; 
 
     /**
      * @brief Returns the value of the named attribute

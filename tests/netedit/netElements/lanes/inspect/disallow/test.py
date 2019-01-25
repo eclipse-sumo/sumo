@@ -50,9 +50,9 @@ netedit.modifyAttribute(4, "authority  army, passenger; taxi. tram")
 netedit.modifyAttribute(4, "")
 
 # Change parameter 2 with a valid value (empty)
-netedit.modifyAttribute(4, 
-    "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
-    "rail_electric motorcycle moped pedestrian custom1")
+netedit.modifyAttribute(4,
+                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
+                        "rail_electric motorcycle moped pedestrian custom1")
 
 # recompute
 netedit.rebuildNetwork()

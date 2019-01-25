@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:38 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:51 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-7793.00,-2175.01" convBoundary="0.00,0.00,173.42,55.89" origBoundary="7793.00,2175.01,7966.42,2230.89" projParameter="!"/>
 
@@ -62,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-190.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40"/>
     </edge>
 
-    <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.42,-0.00 174.89,6.23"/>
+    <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.42,0.00 174.89,6.23"/>
     <junction id="268" type="dead_end" x="0.00" y="55.89" incLanes="-190.0.00_0 -190.0.00_1" intLanes="" shape="2.10,61.93 -0.00,55.89"/>
 
 </net>

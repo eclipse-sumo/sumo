@@ -345,7 +345,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(VehicleType, VEHICLETYPE)
 MSVehicleType*
 VehicleType::getVType(std::string id) {
     MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(id);
-    if (t == 0) {
+    if (t == nullptr) {
         throw TraCIException("Vehicle type '" + id + "' is not known");
     }
     return t;
@@ -361,7 +361,7 @@ VehicleType::makeWrapper() {
 bool
 VehicleType::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());

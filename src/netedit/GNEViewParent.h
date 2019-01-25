@@ -26,30 +26,23 @@
 // ===========================================================================
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <fx.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/Boundary.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
+
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUISUMOAbstractView;
 class GNEDialogACChooser;
 class GNENet;
 class GNEUndoList;
 class GNEApplicationWindow;
-class GNEDialogACChooser;
-class GNEFrame;
 class GNEInspectorFrame;
 class GNESelectorFrame;
 class GNEConnectorFrame;
 class GNETLSEditorFrame;
 class GNEAdditionalFrame;
 class GNECrossingFrame;
+class GNETAZFrame;
 class GNEDeleteFrame;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
@@ -117,6 +110,9 @@ public:
     /// @brief get frame for GNE_MODE_CROSSING
     GNECrossingFrame* getCrossingFrame() const;
 
+    /// @brief get frame for GNE_MODE_TAZ
+    GNETAZFrame* getTAZFrame() const;
+
     /// @brief get frame for GNE_MODE_DELETE
     GNEDeleteFrame* getDeleteFrame() const;
 
@@ -172,6 +168,81 @@ protected:
     GNEViewParent() {}
 
 private:
+    /// @brief struct for Frames
+    struct Frames {
+        /// @brief constructor
+        Frames();
+
+        /// @brief hide frames
+        void hideFrames();
+
+        /// @brief set new width in all frames
+        void setWidth(int frameWidth);
+
+        /// @brief return true if at least there is a frame shown
+        bool isFrameShown() const;
+
+        /// @brief frame for GNE_MODE_INSPECT
+        GNEInspectorFrame* inspectorFrame;
+
+        /// @brief frame for GNE_MODE_SELECT
+        GNESelectorFrame* selectorFrame;
+
+        /// @brief frame for GNE_MODE_CONNECT
+        GNEConnectorFrame* connectorFrame;
+
+        /// @brief frame for GNE_MODE_TLS
+        GNETLSEditorFrame* TLSEditorFrame;
+
+        /// @brief frame for GNE_MODE_ADDITIONAL
+        GNEAdditionalFrame* additionalFrame;
+
+        /// @brief frame for GNE_MODE_CROSSING
+        GNECrossingFrame* crossingFrame;
+
+        /// @brief frame for GNE_MODE_TAZ
+        GNETAZFrame* TAZFrame;
+
+        /// @brief frame for GNE_MODE_DELETE
+        GNEDeleteFrame* deleteFrame;
+
+        /// @brief frame for GNE_MODE_POLYGON
+        GNEPolygonFrame* polygonFrame;
+
+        /// @brief frame for GNE_MODE_PROHIBITION
+        GNEProhibitionFrame* prohibitionFrame;
+    };
+
+    /// @brief struct for ACChoosers dialog
+    struct ACChoosers {
+        /// @brief constructor
+        ACChoosers();
+
+        /// @brief destructor
+        ~ACChoosers();
+
+        /// @brief pointer to ACChooser dialog
+        GNEDialogACChooser* ACChooserJunction;
+
+        /// @brief pointer to ACChooser dialog
+        GNEDialogACChooser* ACChooserEdges;
+
+        /// @brief pointer to ACChooser dialog
+        GNEDialogACChooser* ACChooserTLS;
+
+        /// @brief pointer to ACChooser dialog
+        GNEDialogACChooser* ACChooserAdditional;
+
+        /// @brief pointer to ACChooser dialog
+        GNEDialogACChooser* ACChooserPOI;
+
+        /// @brief pointer to ACChooser dialog
+        GNEDialogACChooser* ACChooserPolygon;
+
+        /// @brief pointer to ACChooser dialog
+        GNEDialogACChooser* ACChooserProhibition;
+    };
+
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEAppWindows;
 
@@ -184,29 +255,11 @@ private:
     /// @brief Splitter to divide ViewNet und GNEFrames
     FXSplitter* myFramesSplitter;
 
-    /// @brief pointer to ACChooser dialog
-    GNEDialogACChooser* myACChooserJunction;
+    /// @brief struct for frames
+    Frames myFrames;
 
-    /// @brief pointer to ACChooser dialog
-    GNEDialogACChooser* myACChooserEdges;
-
-    /// @brief pointer to ACChooser dialog
-    GNEDialogACChooser* myACChooserTLS;
-
-    /// @brief pointer to ACChooser dialog
-    GNEDialogACChooser* myACChooserAdditional;
-
-    /// @brief pointer to ACChooser dialog
-    GNEDialogACChooser* myACChooserPOI;
-
-    /// @brief pointer to ACChooser dialog
-    GNEDialogACChooser* myACChooserPolygon;
-
-    /// @brief pointer to ACChooser dialog
-    GNEDialogACChooser* myACChooserProhibition;
-
-    /// @brief map with the Frames
-    std::map<int, GNEFrame*> myGNEFrames;
+    /// @brief struct for ACChoosers
+    ACChoosers myACChoosers;
 };
 
 

@@ -1,4 +1,0 @@
-<additional>
-     <inductionLoop id="myLoop1" lane="gneE0_0" pos="-20" freq="1" file="NUL"/>
-     <inductionLoop id="myLoop2" lane="gneE2_0" pos="-20" freq="1" file="NUL"/>
-</additional>

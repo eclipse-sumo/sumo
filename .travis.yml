@@ -19,8 +19,6 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install xerces-c fox; fi
 
 script:
-  - export CPPFLAGS="$CPPFLAGS -I/opt/X11/include -I/usr/local/include"
-  - export LDFLAGS="-L/opt/X11/lib"
   - if [[ "$CXX" == "clang++" ]]; then export CXXFLAGS="$CXXFLAGS -stdlib=libc++"; export LDFLAGS="$LDFLAGS -stdlib=libc++"; fi
   - if [[ "$TOOLCHAIN" == "autotools" ]]; then autoreconf -i && ./configure; fi
   - if [[ "$TOOLCHAIN" == "cmake" ]]; then mkdir cmake-build && cd cmake-build && cmake ..; fi

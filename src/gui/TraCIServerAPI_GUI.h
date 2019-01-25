@@ -25,7 +25,6 @@
 #include <config.h>
 
 #include <string>
-#include <libsumo/TraCIDefs.h>
 #include <traci-server/TraCIServer.h>
 #include <foreign/tcpip/storage.h>
 

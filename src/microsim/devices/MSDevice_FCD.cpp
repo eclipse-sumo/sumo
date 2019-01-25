@@ -22,7 +22,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -57,7 +57,7 @@ MSDevice_FCD::insertOptions(OptionsCont& oc) {
 
 
 void
-MSDevice_FCD::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) {
+MSDevice_FCD::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "fcd", v, oc.isSet("fcd-output"))) {
         MSDevice_FCD* device = new MSDevice_FCD(v, "fcd_" + v.getID());
@@ -73,7 +73,7 @@ MSDevice_FCD::buildVehicleDevices(SUMOVehicle& v, std::vector<MSDevice*>& into) 
 // MSDevice_FCD-methods
 // ---------------------------------------------------------------------------
 MSDevice_FCD::MSDevice_FCD(SUMOVehicle& holder, const std::string& id) :
-    MSDevice(holder, id) {
+    MSVehicleDevice(holder, id) {
 }
 
 

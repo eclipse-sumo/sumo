@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:37 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:49 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -41,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -127,15 +128,15 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_11_0 :C_12_0 :C_3_0 :C_3_1 :C_5_0 :C_6_0 :C_6_1 :C_8_0 :C_9_0 :C_9_1" shape="93.60,110.40 106.40,110.40 110.40,106.40 110.40,93.60 106.40,89.60 100.00,89.60 89.60,93.60 89.60,106.40">
-        <request index="0"  response="00000000000" foes="00100011000" cont="0"/>
-        <request index="1"  response="00011100000" foes="11011111000" cont="1"/>
+        <request index="0"  response="00000000000" foes="00000011000" cont="0"/>
+        <request index="1"  response="00011000000" foes="11011011000" cont="1"/>
         <request index="2"  response="00011000000" foes="00011000000" cont="1"/>
         <request index="3"  response="00111000011" foes="00111000011" cont="0"/>
         <request index="4"  response="00111000011" foes="00111000011" cont="0"/>
-        <request index="5"  response="00000000000" foes="11000000010" cont="0"/>
+        <request index="5"  response="00000000000" foes="11000000000" cont="0"/>
         <request index="6"  response="00000000000" foes="11000011110" cont="0"/>
         <request index="7"  response="00000000000" foes="11000011110" cont="0"/>
-        <request index="8"  response="00000000001" foes="11000011001" cont="0"/>
+        <request index="8"  response="00000000000" foes="11000011000" cont="0"/>
         <request index="9"  response="00111100010" foes="00111100010" cont="0"/>
         <request index="10" response="00111100010" foes="00111100010" cont="0"/>
     </junction>
@@ -164,7 +165,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_5_0" tl="C" linkIndex="0" dir="r" state="O"/>
     <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_6_0" tl="C" linkIndex="0" dir="s" state="O"/>
     <connection from="SC" to="CN" fromLane="1" toLane="1" via=":C_6_1" tl="C" linkIndex="0" dir="s" state="O"/>
-    <connection from="SC" to="CW" fromLane="1" toLane="1" via=":C_8_0" tl="C" linkIndex="1" dir="l" state="o"/>
+    <connection from="SC" to="CW" fromLane="1" toLane="1" via=":C_8_0" tl="C" linkIndex="1" dir="l" state="O"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="2" dir="s" state="o"/>
     <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_9_1" tl="C" linkIndex="2" dir="s" state="o"/>
 

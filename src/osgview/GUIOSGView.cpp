@@ -74,7 +74,7 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/TplConvert.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/PositionVector.h>
 #include <gui/GUISUMOViewParent.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -311,9 +311,9 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                 GUINet* net = (GUINet*) MSNet::getInstance();
                 try {
                     MSTLLogicControl::TLSLogicVariants& vars = net->getTLSControl().get(d.filename.substr(3, linkStringIdx - 3));
-                    const int linkIdx = TplConvert::_2int(d.filename.substr(linkStringIdx + 1).c_str());
+                    const int linkIdx = StringUtils::toInt(d.filename.substr(linkStringIdx + 1));
                     if (linkIdx < 0 || linkIdx >= static_cast<int>(vars.getActive()->getLinks().size())) {
-                        throw NumberFormatException();
+                        throw NumberFormatException("");
                     }
                     const MSLink* const l = vars.getActive()->getLinksAt(linkIdx)[0];
                     osg::Switch* switchNode = new osg::Switch();

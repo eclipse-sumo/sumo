@@ -102,7 +102,8 @@ class SimulationDomain(Domain):
         Returns the current simulation time in ms.
         """
         # we should raise the awareness by removing the DeprecationWarning category below after 1.0
-        warnings.warn("getCurrentTime is deprecated, please use getTime which returns floating point seconds", DeprecationWarning, stacklevel=2)
+        warnings.warn("getCurrentTime is deprecated, please use getTime which returns floating point seconds",
+                      DeprecationWarning, stacklevel=2)
         return self._getUniversal(tc.VAR_TIME_STEP)
 
     def getLoadedNumber(self):
@@ -278,8 +279,8 @@ class SimulationDomain(Domain):
         return self._getUniversal(tc.VAR_TELEPORT_ENDING_VEHICLES_IDS)
 
     def getDeltaT(self):
-        """getDeltaT() -> integer
-        Returns the length of one simulation step in milliseconds
+        """getDeltaT() -> double
+        Returns the length of one simulation step in seconds
         """
         return self._getUniversal(tc.VAR_DELTA_T)
 

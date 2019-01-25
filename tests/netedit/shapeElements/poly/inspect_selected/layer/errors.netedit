@@ -1,0 +1,104 @@
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Adding poly 'poly_0' into viewNet
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: Shapes has to be saved
+Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Adding poly 'poly_1' into viewNet
+GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
+Debug: Value 'dummyLayer' for attribute layer of poly isn't valid
+Debug: Setting new attribute layer '-2' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: Setting new attribute layer '-2' into poly 'poly_1'
+GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: Setting new attribute layer '2.5' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: Setting new attribute layer '2.5' into poly 'poly_1'
+GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute layer '-2.00' into poly 'poly_1'
+GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: Setting previous attribute layer '-2.00' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: Keys Ctrl + Z (Undo) pressed
+Debug: Setting previous attribute layer '64.00' into poly 'poly_1'
+GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: Setting previous attribute layer 'default' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute layer '-2' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: Setting new attribute layer '-2' into poly 'poly_1'
+GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: Keys Ctrl + Y (Redo) pressed
+Debug: Setting new attribute layer '2.5' into poly 'poly_0'
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: Setting new attribute layer '2.5' into poly 'poly_1'
+GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: Shapes saved
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
+GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
+GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
+GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
+GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
+Debug: delete poly 'poly_1' in ~GNEChange_Shape()
+Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
+GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
+Debug: delete poly 'poly_0' in ~GNEChange_Shape()
+Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call destructor: 6

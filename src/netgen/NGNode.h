@@ -140,7 +140,7 @@ public:
      * @todo There is no interaction with explicit node setting options? Where is this done?
      * @todo Check whether throwing an exception is really necessary, here
      */
-    NBNode* buildNBNode(NBNetBuilder& nb) const;
+    NBNode* buildNBNode(NBNetBuilder& nb, const Position& perturb) const;
 
 
     /** @brief Adds the given link to the internal list

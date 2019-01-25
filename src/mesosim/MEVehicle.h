@@ -183,6 +183,12 @@ public:
      */
     const ConstMSEdgeVector getStopEdges() const;
 
+
+    /// @brief get distance for coming to a stop (used for rerouting checks)
+    double getBrakeGap() const {
+        return 0;
+    }
+
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
     bool replaceParkingArea(MSParkingArea* /* parkingArea = 0 */, std::string& /*errorMsg*/) {

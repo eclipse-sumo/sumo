@@ -117,6 +117,9 @@ protected:
     /// update the list with the given ids
     void refreshList(const std::vector<GUIGlID>& ids);
 
+    /// @bbrief retrieve name for the given object
+    virtual std::string getObjectName(GUIGlObject* o) const;
+
 private:
     /// @brief The list that holds the ids
     FXList* myList;

@@ -20,17 +20,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/common/ToString.h>
 #include "GNEClosingReroute.h"
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterIntervalDialog.h>
 
 #include <netedit/GNEUndoList.h>
-#include "GNERerouter.h"
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include "GNERerouterInterval.h"
 
 
 // ===========================================================================
@@ -56,13 +53,13 @@ GNEClosingReroute::~GNEClosingReroute() {}
 
 
 void
-GNEClosingReroute::moveGeometry(const Position&, const Position&) {
+GNEClosingReroute::moveGeometry(const Position&) {
     // This additional cannot be moved
 }
 
 
 void
-GNEClosingReroute::commitGeometryMoving(const Position&, GNEUndoList*) {
+GNEClosingReroute::commitGeometryMoving(GNEUndoList*) {
     // This additional cannot be moved
 }
 
@@ -107,7 +104,7 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -126,7 +123,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -145,20 +142,20 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
 
 std::string
 GNEClosingReroute::getPopUpID() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 
 std::string
 GNEClosingReroute::getHierarchyName() const {
-    return toString(getTag()) + ": " + myClosedEdge->getID();
+    return getTagStr() + ": " + myClosedEdge->getID();
 }
 
 // ===========================================================================
@@ -184,7 +181,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

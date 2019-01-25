@@ -60,7 +60,7 @@ public:
 
     /// @brief Constructor
     GeoConvHelper(const std::string& proj, const Position& offset,
-                  const Boundary& orig, const Boundary& conv, double scale = 1.0, double rot = 0.0, bool inverse = false);
+                  const Boundary& orig, const Boundary& conv, double scale = 1.0, double rot = 0.0, bool inverse = false, bool flatten=false);
 
     /// @brief Destructor
     ~GeoConvHelper();
@@ -150,9 +150,6 @@ public:
     /// @brief Returns the original projection definition
     const std::string& getProjString() const;
 
-    /// @brief Returns the expanded projection definition
-    const std::string getProjStringExpaneded() const;
-
     /// @brief @brief writes the location element
     static void writeLocation(OutputDevice& into);
 
@@ -202,6 +199,9 @@ private:
 
     /// @brief Information whether inverse projection shall be used
     bool myUseInverseProjection;
+
+    /// @brief whether to discard z-data
+    bool myFlatten;
 
     /// @brief The boundary before conversion (x2cartesian)
     Boundary myOrigBoundary;

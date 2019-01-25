@@ -35,21 +35,21 @@ netedit.toogleShowConnectionsInspectorMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change shape with an invalid value
-netedit.modifyAttribute(7, "dummyShape")
+netedit.modifyAttribute(10, "dummyShape")
 
 # Change shape with an valid value (empty)
-netedit.modifyAttribute(7, "")
+netedit.modifyAttribute(10, "")
 
 # Change shape with an valid value
-netedit.modifyAttribute(7, "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60")
+netedit.modifyAttribute(10, "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60")
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 3)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

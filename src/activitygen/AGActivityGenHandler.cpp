@@ -129,14 +129,14 @@ AGActivityGenHandler::parseGeneralCityInfo(const SUMOSAXAttributes& attrs) {
         bool ok;
         myCity.statData.inhabitants = attrs.getInt(AGEN_ATTR_INHABITANTS);
         myCity.statData.households = attrs.getInt(AGEN_ATTR_HOUSEHOLDS);
-        myCity.statData.limitAgeChildren = attrs.getOpt<int>(AGEN_ATTR_CHILDREN, 0, ok, 18);
-        myCity.statData.limitAgeRetirement = attrs.getOpt<int>(AGEN_ATTR_RETIREMENT, 0, ok, 63);
-        myCity.statData.carRate = attrs.getOpt<double>(AGEN_ATTR_CARS, 0, ok, 0.58);
-        myCity.statData.unemployement = attrs.getOpt<double>(AGEN_ATTR_UNEMPLOYEMENT, 0, ok, 0.06);
-        myCity.statData.laborDemand = attrs.getOpt<double>(AGEN_ATTR_LABORDEMAND, 0, ok, 1.05);
-        myCity.statData.maxFootDistance = attrs.getOpt<double>(AGEN_ATTR_MAX_FOOT_DIST, 0, ok, 300.0);
-        myCity.statData.incomingTraffic = attrs.getOpt<int>(AGEN_ATTR_IN_TRAFFIC, 0, ok, 0);
-        myCity.statData.outgoingTraffic = attrs.getOpt<int>(AGEN_ATTR_OUT_TRAFFIC, 0, ok, 0);
+        myCity.statData.limitAgeChildren = attrs.getOpt<int>(AGEN_ATTR_CHILDREN, nullptr, ok, 18);
+        myCity.statData.limitAgeRetirement = attrs.getOpt<int>(AGEN_ATTR_RETIREMENT, nullptr, ok, 63);
+        myCity.statData.carRate = attrs.getOpt<double>(AGEN_ATTR_CARS, nullptr, ok, 0.58);
+        myCity.statData.unemployement = attrs.getOpt<double>(AGEN_ATTR_UNEMPLOYEMENT, nullptr, ok, 0.06);
+        myCity.statData.laborDemand = attrs.getOpt<double>(AGEN_ATTR_LABORDEMAND, nullptr, ok, 1.05);
+        myCity.statData.maxFootDistance = attrs.getOpt<double>(AGEN_ATTR_MAX_FOOT_DIST, nullptr, ok, 300.0);
+        myCity.statData.incomingTraffic = attrs.getOpt<int>(AGEN_ATTR_IN_TRAFFIC, nullptr, ok, 0);
+        myCity.statData.outgoingTraffic = attrs.getOpt<int>(AGEN_ATTR_OUT_TRAFFIC, nullptr, ok, 0);
     } catch (const std::exception& e) {
         WRITE_ERROR("Error while parsing the element " +
                     SUMOXMLDefinitions::Tags.getString(AGEN_TAG_GENERAL) + ": " +
@@ -149,11 +149,11 @@ void
 AGActivityGenHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     try {
         bool ok;
-        myCity.statData.carPreference = attrs.getOpt<double>(AGEN_ATTR_CARPREF, 0, ok, 0.0);
-        myCity.statData.speedTimePerKm = attrs.getOpt<double>(AGEN_ATTR_CITYSPEED, 0, ok, 360.0);
-        myCity.statData.freeTimeActivityRate = attrs.getOpt<double>(AGEN_ATTR_FREETIMERATE, 0, ok, 0.15);
-        myCity.statData.uniformRandomTrafficRate = attrs.getOpt<double>(AGEN_ATTR_UNI_RAND_TRAFFIC, 0, ok, 0.0);
-        myCity.statData.departureVariation = attrs.getOpt<double>(AGEN_ATTR_DEP_VARIATION, 0, ok, 0.0);
+        myCity.statData.carPreference = attrs.getOpt<double>(AGEN_ATTR_CARPREF, nullptr, ok, 0.0);
+        myCity.statData.speedTimePerKm = attrs.getOpt<double>(AGEN_ATTR_CITYSPEED, nullptr, ok, 360.0);
+        myCity.statData.freeTimeActivityRate = attrs.getOpt<double>(AGEN_ATTR_FREETIMERATE, nullptr, ok, 0.15);
+        myCity.statData.uniformRandomTrafficRate = attrs.getOpt<double>(AGEN_ATTR_UNI_RAND_TRAFFIC, nullptr, ok, 0.0);
+        myCity.statData.departureVariation = attrs.getOpt<double>(AGEN_ATTR_DEP_VARIATION, nullptr, ok, 0.0);
     } catch (const std::exception& e) {
         WRITE_ERROR("Error while parsing the element " +
                     SUMOXMLDefinitions::Tags.getString(AGEN_TAG_PARAM) + ": " +
@@ -176,7 +176,7 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
         }
         std::string eid = attrs.getString(SUMO_ATTR_EDGE);
         AGStreet* street = dynamic_cast<AGStreet*>(net->getEdge(eid));
-        if (street == 0) {
+        if (street == nullptr) {
             WRITE_ERROR("Edge '" + eid + "' is not known.");
             return;
         }
@@ -326,6 +326,9 @@ AGActivityGenHandler::parseStation(const SUMOSAXAttributes& attrs) {
         int refID = attrs.get<int>(SUMO_ATTR_REFID, myCurrentObject.c_str(), ok);
         if (!ok) {
             throw ProcessError();
+        }
+        if (myCity.statData.busStations.count(refID) == 0) {
+            throw ProcessError("Unknown bus station " + toString(refID));
         }
         if (!isRevStation) {
             currentBusLine->locateStation(myCity.statData.busStations.find(refID)->second);

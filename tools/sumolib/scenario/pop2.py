@@ -147,13 +147,13 @@ class ScenarioSet:
                 if options.couplede2:
                     fdo.write(('  <e2Detector id="%s_%s" lane="%s" pos="-.1" length="200" ' +
                                'tl="%s" file="%s" friendlyPos="t"/>\n') % (
-                               tlsID, laneID, laneID, tlsID, files["coupledE2"][0]))
+                        tlsID, laneID, laneID, tlsID, files["coupledE2"][0]))
             fdo.write('\n')
         if options.e2:
             for l in seenLanes:
                 fdo.write(('  <e2Detector id="%s" lane="%s" pos="-.1" length="200" file="%s" ' +
                            'freq="%s" friendlyPos="t"/>\n') % (
-                           l, l, files["e2"][0], options.aggregation))
+                    l, l, files["e2"][0], options.aggregation))
         fdo.write('\n')
         fdo.write("</additional>\n")
         fdo.close()

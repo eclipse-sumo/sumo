@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 16:12:49 2018 by Eclipse SUMO netconvert Version abbc805
+<!-- generated on Fri Dec 14 09:27:59 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -49,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-100.95,-200.00,300.00,-87.31" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -87,22 +88,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":9_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
 
-    <edge id="-a" from="1" to="2" priority="-1" spreadType="center">
+    <edge id="-a" from="1" to="2" priority="-1" spreadType="center" bidi="a">
         <lane id="-a_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="-100.00,-100.00 0.00,-100.00"/>
     </edge>
-    <edge id="-b" from="2" to="3" priority="-1" spreadType="center">
+    <edge id="-b" from="2" to="3" priority="-1" spreadType="center" bidi="b">
         <lane id="-b_0" index="0" allow="rail_urban" speed="27.78" length="98.21" shape="0.00,-100.00 98.21,-100.00"/>
     </edge>
-    <edge id="-f" from="8" to="9" priority="-1" spreadType="center">
+    <edge id="-f" from="8" to="9" priority="-1" spreadType="center" bidi="f">
         <lane id="-f_0" index="0" allow="rail_urban" speed="27.78" length="99.17" shape="100.83,-200.00 200.00,-200.00"/>
     </edge>
-    <edge id="-gneE1" from="9" to="10" priority="-1" spreadType="center">
+    <edge id="-gneE1" from="9" to="10" priority="-1" spreadType="center" bidi="gneE1">
         <lane id="-gneE1_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="200.00,-200.00 300.00,-200.00"/>
     </edge>
-    <edge id="a" from="2" to="1" priority="-1" spreadType="center">
+    <edge id="a" from="2" to="1" priority="-1" spreadType="center" bidi="-a">
         <lane id="a_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="0.00,-100.00 -100.00,-100.00"/>
     </edge>
-    <edge id="b" from="3" to="2" priority="-1" spreadType="center">
+    <edge id="b" from="3" to="2" priority="-1" spreadType="center" bidi="-b">
         <lane id="b_0" index="0" allow="rail_urban" speed="27.78" length="98.21" shape="98.21,-100.00 0.00,-100.00"/>
     </edge>
     <edge id="c" from="3" to="4" priority="-1" spreadType="center" shape="100.00,-100.00 134.05,-87.31 200.96,-87.41">
@@ -114,13 +115,13 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="e" from="8" to="7" priority="-1" spreadType="center">
         <lane id="e_0" index="0" allow="rail_urban" speed="27.78" length="98.18" shape="98.18,-200.00 0.00,-200.00"/>
     </edge>
-    <edge id="f" from="9" to="8" priority="-1" spreadType="center">
+    <edge id="f" from="9" to="8" priority="-1" spreadType="center" bidi="-f">
         <lane id="f_0" index="0" allow="rail_urban" speed="27.78" length="99.17" shape="200.00,-200.00 100.83,-200.00"/>
     </edge>
     <edge id="g" from="11" to="8" priority="-1" spreadType="center">
         <lane id="g_0" index="0" allow="rail_urban" speed="27.78" length="101.43" shape="-0.43,-176.25 98.27,-199.59"/>
     </edge>
-    <edge id="gneE1" from="10" to="9" priority="-1" spreadType="center">
+    <edge id="gneE1" from="10" to="9" priority="-1" spreadType="center" bidi="-gneE1">
         <lane id="gneE1_0" index="0" allow="rail_urban" speed="27.78" length="100.00" shape="300.00,-200.00 200.00,-200.00"/>
     </edge>
     <edge id="gneE2" from="5" to="3" priority="-1" spreadType="center">

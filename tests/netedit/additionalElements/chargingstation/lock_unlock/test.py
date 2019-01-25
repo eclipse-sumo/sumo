@@ -23,7 +23,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,43 +35,43 @@ netedit.changeAdditional("chargingStation")
 netedit.modifyAdditionalDefaultValue(9, "reference center")
 
 # create chargingStation in mode "reference center"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # change to move mode
 netedit.moveMode()
 
 # move chargingStation to right
-netedit.moveElement(referencePosition, 150, 260, 250, 260)
+netedit.moveElement(referencePosition, 150, 240, 250, 240)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect chargingStation
-netedit.leftClick(referencePosition, 350, 260)
+netedit.leftClick(referencePosition, 350, 240)
 
 # block additional
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(16)
 
 # change to move mode
 netedit.moveMode()
 
 # try to move chargingStation to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 260, 350, 260)
+netedit.moveElement(referencePosition, 250, 240, 350, 240)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect chargingStation
-netedit.leftClick(referencePosition, 350, 260)
+netedit.leftClick(referencePosition, 350, 240)
 
 # unblock additional
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(16)
 
 # change to move mode
 netedit.moveMode()
 
 # move chargingStation to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 260, 350, 260)
+netedit.moveElement(referencePosition, 250, 240, 350, 240)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

@@ -18,37 +18,17 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
 
-#include <string>
-#include <iostream>
-#include <utility>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/common/ToString.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/xml/SUMOSAXHandler.h>
-#include <utils/common/MsgHandler.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/netelements/GNEEdge.h>
-#include <netedit/GNEViewParent.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetectorE3.h"
-#include "GNEDetectorEntry.h"
-#include "GNEDetectorExit.h"
 
 
 // ===========================================================================
@@ -77,22 +57,22 @@ GNEDetectorE3::updateGeometry(bool updateGrid) {
     }
 
     // Clear shape
-    myShape.clear();
+    myGeometry.shape.clear();
 
     // Set block icon position
-    myBlockIconPosition = myPosition;
+    myBlockIcon.position = myPosition;
 
     // Set block icon offset
-    myBlockIconOffset = Position(-0.5, -0.5);
+    myBlockIcon.offset = Position(-0.5, -0.5);
 
     // Set block icon rotation, and using their rotation for draw logo
-    setBlockIconRotation();
+    myBlockIcon.setRotation();
 
     // Set position
-    myShape.push_back(myPosition);
+    myGeometry.shape.push_back(myPosition);
 
     // Update connection's geometry
-    updateChildConnections();
+    myChildConnections.update();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -108,19 +88,22 @@ GNEDetectorE3::getPositionInView() const {
 
 
 void
-GNEDetectorE3::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEDetectorE3::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry
-    myPosition = oldPos;
+    myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
+    // filtern position using snap to active grid
+    // filtern position using snap to active grid
+    myPosition = myViewNet->snapToActiveGrid(myPosition);
     updateGeometry(false);
 }
 
 
 void
-GNEDetectorE3::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEDetectorE3::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
-    undoList->p_begin("position of " + toString(getTag()));
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(oldPos)));
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -138,7 +121,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myShape[0].x(), myShape[0].y(), getType());
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
 
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
     if (s.drawForSelecting) {
@@ -158,19 +141,19 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     if (!s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
-        drawLockIcon(0.4);
+        myBlockIcon.draw(0.4);
         // Draw connections
-        drawChildConnections();
+        myChildConnections.draw();
     }
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myViewNet->getACUnderCursor() == this)) {
+    if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
         // draw shape dotte contour aroud alld connections between child and parents
-        for (auto i : myChildConnectionPositions) {
+        for (auto i : myChildConnections.connectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }
     }
@@ -205,7 +188,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -221,7 +204,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             // Change Ids of all Entry/Exits childs
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTag()), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTagProperty().getTag()), undoList);
             }
             break;
         }
@@ -238,7 +221,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -247,7 +230,7 @@ bool
 GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidDetectorID(value);
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_FREQUENCY:
@@ -273,7 +256,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 
@@ -284,9 +267,9 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
     int numExits = 0;
     // iterate over additional chidls and obtain number of entrys and exits
     for (auto i : myAdditionalChilds) {
-        if (i->getTag() == SUMO_TAG_DET_ENTRY) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
             numEntrys++;
-        } else if (i->getTag() == SUMO_TAG_DET_EXIT) {
+        } else if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
             numExits++;
         }
     }
@@ -304,13 +287,13 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
 
 std::string
 GNEDetectorE3::getPopUpID() const {
-    return toString(getTag()) + ":" + getID();
+    return getTagStr() + ":" + getID();
 }
 
 
 std::string
 GNEDetectorE3::getHierarchyName() const {
-    return toString(getTag());
+    return getTagStr();
 }
 
 // ===========================================================================
@@ -358,10 +341,12 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
-            throw InvalidArgument(toString(getTag()) + " doesn't have an attribute of type '" + toString(key) + "'");
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // After setting attribute always update Geometry
-    updateGeometry(true);
+    // Update Geometry after setting a new attribute (but avoided for certain attributes)
+    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

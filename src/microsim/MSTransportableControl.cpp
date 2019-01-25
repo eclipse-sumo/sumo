@@ -76,7 +76,7 @@ MSTransportable*
 MSTransportableControl::get(const std::string& id) const {
     std::map<std::string, MSTransportable*>::const_iterator i = myTransportables.find(id);
     if (i == myTransportables.end()) {
-        return 0;
+        return nullptr;
     }
     return (*i).second;
 }
@@ -85,14 +85,14 @@ MSTransportableControl::get(const std::string& id) const {
 void
 MSTransportableControl::erase(MSTransportable* transportable) {
     if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"), transportable);
+        transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"));
     } else if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
         // collecting statistics is a sideffect
         OutputDevice_String dev;
-        transportable->tripInfoOutput(dev, transportable);
+        transportable->tripInfoOutput(dev);
     }
     if (OptionsCont::getOptions().isSet("vehroute-output")) {
-        transportable->routeOutput(OutputDevice::getDeviceByOption("vehroute-output"));
+        transportable->routeOutput(OutputDevice::getDeviceByOption("vehroute-output"), OptionsCont::getOptions().getBool("vehroute-output.route-length"));
     }
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
     if (i != myTransportables.end()) {
@@ -255,7 +255,7 @@ MSTransportableControl::abortWaitingForVehicle() {
             MSTransportable* p = (*j);
             p->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             std::string transportableType;
-            if (dynamic_cast<MSPerson*>(p) != 0) {
+            if (dynamic_cast<MSPerson*>(p) != nullptr) {
                 edge->removePerson(p);
                 transportableType = "Person";
             } else {
@@ -263,7 +263,7 @@ MSTransportableControl::abortWaitingForVehicle() {
                 edge->removeContainer(p);
             }
             MSTransportable::Stage_Driving* stage = dynamic_cast<MSTransportable::Stage_Driving*>(p->getCurrentStage());
-            const std::string waitDescription = stage == 0 ? "waiting" : stage->getWaitingDescription();
+            const std::string waitDescription = stage == nullptr ? "waiting" : stage->getWaitingDescription();
             WRITE_WARNING(transportableType + " '" + p->getID() + "' aborted " + waitDescription + ".");
             erase(p);
         }

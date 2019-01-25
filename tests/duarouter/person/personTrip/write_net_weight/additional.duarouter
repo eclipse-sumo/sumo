@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/04/18 13:08:52 by Eclipse SUMO duarouter Version 1.0.0
+<!-- generated on 09/23/18 15:19:33 by Eclipse SUMO duarouter Version UNKNOWN
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -128,5 +128,5 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="left2end_car-1.00:left2end" line="!access" length="1529.03" successors="left2end"/>
     <edge id="left2end_depart_connector250.00" line="!connector" length="243.80" successors="left2end_fwd250.00 left2end_bwd250.00 left2end_car250.00"/>
     <edge id="left2end_arrival_connector250.00" line="!connector" length="243.80" successors=""/>
-    <edge id="train:left2end" line="train" length="1529.03" successors="left2end"/>
+    <edge id="train:left2end" line="train" length="1379.19" successors="left2end"/>
 </intermodal>

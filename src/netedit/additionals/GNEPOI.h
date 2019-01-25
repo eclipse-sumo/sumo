@@ -22,7 +22,8 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
+
+#include <utils/gui/globjects/GUIPointOfInterest.h>
 
 #include "GNEShape.h"
 
@@ -190,18 +191,6 @@ public:
     /// @name Function related with generic parameters
     /// @{
 
-    /// @brief add generic parameter
-    bool addGenericParameter(const std::string& key, const std::string& value);
-
-    /// @brief remove generic parameter
-    bool removeGenericParameter(const std::string& key);
-
-    /// @brief update generic parameter
-    bool updateGenericParameter(const std::string& oldKey, const std::string& newKey);
-
-    /// @brief update value generic parameter
-    bool updateGenericParameterValue(const std::string& key, const std::string& newValue);
-
     /// @brief return generic parameters in string format
     std::string getGenericParametersStr() const;
 
@@ -221,6 +210,9 @@ protected:
     GNELane* myGNELane;
 
 private:
+    /// @brief position used for move POILanes
+    Position myOriginalViewPosition;
+
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

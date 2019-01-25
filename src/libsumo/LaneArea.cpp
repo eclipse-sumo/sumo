@@ -124,7 +124,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(LaneArea, LANEAREA)
 MSE2Collector*
 LaneArea::getDetector(const std::string& id) {
     MSE2Collector* e2 = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
-    if (e2 == 0) {
+    if (e2 == nullptr) {
         throw TraCIException("Lane area detector '" + id + "' is not known");
     }
     return e2;
@@ -140,7 +140,7 @@ LaneArea::makeWrapper() {
 bool
 LaneArea::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
     switch (variable) {
-        case ID_LIST:
+        case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());

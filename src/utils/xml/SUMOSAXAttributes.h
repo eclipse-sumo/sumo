@@ -315,6 +315,11 @@ public:
      */
     virtual SumoXMLNodeType getNodeType(bool& ok) const = 0;
 
+    /**
+     * @brief Returns the right-of-way method 
+     */
+    virtual RightOfWay getRightOfWay(bool& ok) const = 0;
+
 
     /**
      * @brief Returns the value of the named attribute
@@ -405,10 +410,6 @@ protected:
     void emitUngivenError(const std::string& attrname, const char* objectid) const;
     void emitEmptyError(const std::string& attrname, const char* objectid) const;
     void emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const;
-
-private:
-    /// @brief Information whether the usage of a deprecated divider was reported
-    static bool myHaveInformedAboutDeprecatedDivider;
 
 private:
     /// @brief Invalidated copy constructor.

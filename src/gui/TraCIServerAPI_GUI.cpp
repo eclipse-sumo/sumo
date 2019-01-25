@@ -34,8 +34,8 @@
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIBaseVehicle.h>
-#include "GUIEvent_Screenshot.h"
 #include "TraCIServerAPI_GUI.h"
+
 
 // ===========================================================================
 // method definitions
@@ -47,8 +47,9 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     int variable = inputStorage.readUnsignedByte();
     std::string id = inputStorage.readString();
     // check variable
-    if (variable != ID_LIST && variable != VAR_VIEW_ZOOM && variable != VAR_VIEW_OFFSET
-            && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY && variable != VAR_HAS_VIEW && variable != VAR_TRACK_VEHICLE) {
+    if (variable != TRACI_ID_LIST && variable != VAR_VIEW_ZOOM && variable != VAR_VIEW_OFFSET
+            && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY && variable != VAR_HAS_VIEW
+            && variable != VAR_TRACK_VEHICLE) {
         return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "Get GUI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
@@ -58,7 +59,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     tempMsg.writeUnsignedByte(variable);
     tempMsg.writeString(id);
     // process request
-    if (variable == ID_LIST) {
+    if (variable == TRACI_ID_LIST) {
         std::vector<std::string> ids = GUIMainWindow::getInstance()->getViewIDs();
         tempMsg.writeUnsignedByte(TYPE_STRINGLIST);
         tempMsg.writeStringList(ids);
@@ -136,7 +137,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     // id
     std::string id = inputStorage.readString();
     GUISUMOAbstractView* v = getNamedView(id);
-    if (v == 0) {
+    if (v == nullptr) {
         return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
     }
     // process
@@ -214,7 +215,7 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 v->stopTrack();
             } else {
                 SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(id);
-                if (veh == 0) {
+                if (veh == nullptr) {
                     return server.writeErrorStatusCmd(CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + id + "'.", outputStorage);
                 }
                 if (v->getTrackedID() != static_cast<GUIVehicle*>(veh)->getGlID()) {
@@ -233,12 +234,12 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 GUISUMOAbstractView*
 TraCIServerAPI_GUI::getNamedView(const std::string& id) {
     GUIMainWindow* const mw = GUIMainWindow::getInstance();
-    if (mw == 0) {
-        return 0;
+    if (mw == nullptr) {
+        return nullptr;
     }
-    GUIGlChildWindow* const c = static_cast<GUIGlChildWindow*>(mw->getViewByID(id));
-    if (c == 0) {
-        return 0;
+    GUIGlChildWindow* const c = mw->getViewByID(id);
+    if (c == nullptr) {
+        return nullptr;
     }
     return c->getView();
 }

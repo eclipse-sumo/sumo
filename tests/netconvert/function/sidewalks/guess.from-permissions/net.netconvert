@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:52:02 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:57 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_8_0" index="0" allow="passenger" speed="8.49" length="9.81" shape="91.60,98.40 95.97,99.03 99.10,100.90 100.00,102.40"/>
     </edge>
     <edge id=":C_9" function="internal">
-        <lane id=":C_9_0" index="0" speed="8.49" length="6.31" shape="100.00,102.40 100.97,104.03 101.60,108.40"/>
+        <lane id=":C_9_0" index="0" allow="passenger" speed="8.49" length="6.31" shape="100.00,102.40 100.97,104.03 101.60,108.40"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">
@@ -107,10 +107,10 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_3_0 :C_4_0 :C_4_1 :C_6_0 :C_6_1 :C_9_0" shape="93.60,108.40 108.40,108.40 108.62,107.29 108.90,106.90 109.29,106.62 109.79,106.46 110.40,106.40 110.40,91.60 109.29,91.38 108.90,91.10 108.62,90.71 108.46,90.21 108.40,89.60 93.60,89.60 93.38,90.71 93.10,91.10 92.71,91.38 92.21,91.54 91.60,91.60 91.60,106.40 92.71,106.62 93.10,106.90 93.38,107.29 93.54,107.79">
-        <request index="0" response="111111000" foes="111111110" cont="0"/>
+        <request index="0" response="111110000" foes="111110110" cont="0"/>
         <request index="1" response="100110001" foes="100110001" cont="0"/>
         <request index="2" response="100110001" foes="100110001" cont="0"/>
-        <request index="3" response="000000000" foes="011000001" cont="0"/>
+        <request index="3" response="000000000" foes="011000000" cont="0"/>
         <request index="4" response="000000000" foes="111000111" cont="0"/>
         <request index="5" response="000000000" foes="111000111" cont="0"/>
         <request index="6" response="000111000" foes="000111001" cont="0"/>

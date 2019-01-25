@@ -1,81 +1,98 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, shapes saved
-Debug: Selected additional 'busStop' in AdditionalSelector
+Debug: Selected item 'busStop' in ItemSelector
+Debug: Selected item 'busStop' in ItemSelector
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Setting new attribute startPos '8.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '18.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '23.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '33.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '-4.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '6.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '45.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '55.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '27.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '37.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '4.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '14.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '-5.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '5.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '13.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '23.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '43.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '53.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute startPos '28.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '38.00' into busStop 'busStop_gneE0_0_0'
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '55.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '45.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '53.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '43.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '23.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '13.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '6.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '-4.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '5.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '-5.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '33.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '23.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '18.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '8.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '14.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '4.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl + Z (Undo) pressed
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '8.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '18.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '4.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '14.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '23.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '33.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '-4.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '6.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '-5.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '5.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '15.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '13.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '23.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '45.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '55.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '43.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '53.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '27.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '37.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '28.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '38.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

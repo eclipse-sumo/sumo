@@ -47,15 +47,15 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 125)
 
 # Change keepclear
-netedit.modifyBoolAttribute(1)
+netedit.modifyBoolAttribute(4)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check undo
 netedit.undo(referencePosition, 1)
 
-# rebuild 
+# rebuild
 netedit.rebuildNetwork()
 
 # Check redo

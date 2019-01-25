@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 16 15:51:52 2018 by Eclipse SUMO netconvert Version c310b0a
+<!-- generated on Fri Dec 14 09:27:44 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,100.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_6_0" index="0" allow="bicycle" speed="4.97" length="6.66" shape="97.50,117.90 97.50,113.90 99.20,112.70 99.71,112.44"/>
     </edge>
     <edge id=":C_14" function="internal">
-        <lane id=":C_14_0" index="0" speed="4.97" length="2.66" shape="99.71,112.44 100.00,112.30 100.80,112.70 101.60,113.90"/>
+        <lane id=":C_14_0" index="0" allow="bicycle" speed="4.97" length="2.66" shape="99.71,112.44 100.00,112.30 100.80,112.70 101.60,113.90"/>
     </edge>
     <edge id=":C_7" function="internal">
         <lane id=":C_7_0" index="0" allow="bicycle" speed="5.04" length="5.00" shape="111.90,110.80 110.54,110.99 109.58,111.57 108.99,112.54 108.80,113.90"/>

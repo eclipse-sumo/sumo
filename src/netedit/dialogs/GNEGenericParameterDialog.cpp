@@ -31,6 +31,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNet.h>
+#include <utils/xml/SUMOSAXHandler.h>
 
 #include "GNEGenericParameterDialog.h"
 
@@ -82,8 +83,8 @@ GNEGenericParameterDialog::GenericParametersValues::GenericParametersValues(FXHo
     myGenericParameters(genericParameters) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myKeyLabel = new FXLabel(horizontalFrameLabels, "key", 0, GUIDesignLabelThick100);
-    new FXLabel(horizontalFrameLabels, "value", 0, GUIDesignLabelCenterThick);
+    myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThick100);
+    new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelCenterThick);
     // create scroll windows
     FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL);
     // create vertical frame for rows
@@ -423,7 +424,7 @@ GNEGenericParameterDialog::GenericParametersOptions::onCmdHelpGenericParameter(F
             << " - Duplicated and empty Keys aren't valid.\n"
             << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
     // Create label with the help text
-    new FXLabel(GenericParameterHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new FXLabel(GenericParameterHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
     new FXHorizontalSeparator(GenericParameterHelpDialog, GUIDesignHorizontalSeparator);
     // Create frame for OK Button

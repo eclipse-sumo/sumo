@@ -179,7 +179,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             }
             myNodeCont.addJoinExclusion(nodeIDs);
         }
-        NBNodeTypeComputer::validateRailCrossings(myNodeCont);
+        NBNodeTypeComputer::validateRailCrossings(myNodeCont, myTLLCont);
     }
     // join junctions (may create new "geometry"-nodes so it needs to come before removing these
     if (mayAddOrRemove && oc.exists("junctions.join-exclude") && oc.isSet("junctions.join-exclude")) {
@@ -273,7 +273,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(oc.getString("tls.default-type"));
         for (std::vector<std::string>::const_iterator i = tlControlledNodes.begin(); i != tlControlledNodes.end(); ++i) {
             NBNode* node = myNodeCont.retrieve(*i);
-            if (node == 0) {
+            if (node == nullptr) {
                 WRITE_WARNING("Building a tl-logic for junction '" + *i + "' is not possible." + "\n The junction '" + *i + "' is not known.");
             } else {
                 myNodeCont.setAsTLControlled(node, myTLLCont, type);
@@ -346,7 +346,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     //
     before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Computing edge shapes");
-    myEdgeCont.computeEdgeShapes();
+    myEdgeCont.computeEdgeShapes(oc.getBool("geometry.max-grade.fix") ? oc.getFloat("geometry.max-grade") / 100 : -1);
     PROGRESS_TIME_MESSAGE(before);
     // resort edges based on the node and edge shapes
     NBNodesEdgesSorter::sortNodesEdges(myNodeCont, true);
@@ -371,7 +371,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     //
     before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Computing node types");
-    NBNodeTypeComputer::computeNodeTypes(myNodeCont);
+    NBNodeTypeComputer::computeNodeTypes(myNodeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     //
     myNetworkHaveCrossings = oc.getBool("walkingareas");
@@ -530,6 +530,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
         PROGRESS_TIME_MESSAGE(before);
     }
+    // compute lane-to-lane node logics (require traffic lights and inner edges to be done)
+    myNodeCont.computeLogics2(myEdgeCont, oc);
+
     if (lefthand) {
         mirrorX();
     };
@@ -540,7 +543,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         myEdgeCont.checkOverlap(oc.getFloat("geometry.check-overlap"), oc.getFloat("geometry.check-overlap.vertical-threshold"));
         PROGRESS_TIME_MESSAGE(before);
     }
-    if (oc.exists("geometry.max-grade") && oc.getFloat("geometry.max-grade") > 0 && geoConvHelper.getConvBoundary().getZRange() > 0) {
+    if (geoConvHelper.getConvBoundary().getZRange() > 0 && oc.getFloat("geometry.max-grade") > 0) {
         before = SysUtils::getCurrentMillis();
         PROGRESS_BEGIN_MESSAGE("Checking edge grade");
         // user input is in %
@@ -643,7 +646,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
     bool ok = true;
     if (GeoConvHelper::getNumLoaded() > 1
             && GeoConvHelper::getLoaded().usingGeoProjection()
-            && from_srs != 0
+            && from_srs != nullptr
             && from_srs->usingGeoProjection()
             && *from_srs != GeoConvHelper::getLoaded()) {
         from_srs->cartesian2geo(from);
@@ -653,7 +656,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
     if (ok) {
         const NBHeightMapper& hm = NBHeightMapper::get();
         if (hm.ready()) {
-            if (from_srs != 0 && from_srs->usingGeoProjection()) {
+            if (from_srs != nullptr && from_srs->usingGeoProjection()) {
                 from_srs->cartesian2geo(orig);
             }
             double z = hm.getZ(orig);

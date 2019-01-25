@@ -43,10 +43,10 @@ netedit.inspectMode()
 # inspect selected edges
 netedit.leftClick(referencePosition, 250, 180)
 
-# Change parameter 3 with a non valid value 
+# Change parameter 3 with a non valid value
 netedit.modifyAttribute(3, "%%$$&&&")
 
-# Change parameter 3 with a valid value 
+# Change parameter 3 with a valid value
 netedit.modifyAttribute(3, "customType")
 
 # recompute

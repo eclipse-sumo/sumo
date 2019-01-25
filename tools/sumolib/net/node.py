@@ -126,18 +126,30 @@ class Node:
         return self._type
 
     def getConnections(self, source=None, target=None):
-        incoming = list(self.getIncoming())
         if source:
             incoming = [source]
+        else:
+            incoming = list(self._incoming)
         conns = []
         for e in incoming:
-            for l in e.getLanes():
+            if (hasattr(e, "getLanes")):
+                lanes = e.getLanes()
+            else:
+                # assuming source is a lane
+                lanes = [e]
+            for l in lanes:
                 all_outgoing = l.getOutgoing()
                 outgoing = []
                 if target:
-                    for o in all_outgoing:
-                        if o.getTo() == target:
-                            outgoing.append(o)
+                    if hasattr(target, "getLanes"):
+                        for o in all_outgoing:
+                            if o.getTo() == target:
+                                outgoing.append(o)
+                    else:
+                        # assuming target is a lane
+                        for o in all_outgoing:
+                            if o.getToLane() == target:
+                                outgoing.append(o)
                 else:
                     outgoing = all_outgoing
                 conns.extend(outgoing)

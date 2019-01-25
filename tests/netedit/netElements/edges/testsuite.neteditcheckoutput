@@ -15,7 +15,10 @@ inspect_selected
 load
 
 # move edge
-#move
+move
 
 # check selection of edges through allow and disallow parameter
 select_vtypes
+
+# check contextual menu
+contextual_menu

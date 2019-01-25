@@ -75,4 +75,7 @@ rerouting
 
 # tests for vehicle mapping
 moveToXY
+
+# Tests for lateral collisions
+lateralCollision
 bugs

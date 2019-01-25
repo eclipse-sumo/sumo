@@ -46,7 +46,7 @@ class GNEDialog_FixAdditionalPositions : public FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEStoppingPlace*>& invalidStoppingPlaces, const std::vector<GNEDetector*>& invalidDetectors);
+    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
     /// @brief destructor
     ~GNEDialog_FixAdditionalPositions();
@@ -64,32 +64,80 @@ public:
     /// @}
 
 protected:
+    /// @brief struct for group all radio buttons related with position
+    struct PositionOptions {
+        /// @brief build Position Options
+        void buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief enable position options
+        void enablePositionOptions();
+
+        /// @brief disable position options
+        void disablePositionOptions();
+
+        /// @brief Option "Activate friendlyPos and save"
+        FXRadioButton* activateFriendlyPositionAndSave;
+
+        /// @brief Option "Fix Positions and save"
+        FXRadioButton* fixPositionsAndSave;
+
+        /// @brief Option "Save invalid"
+        FXRadioButton* saveInvalid;
+
+        /// @brief Option "Select invalid stops and cancel"
+        FXRadioButton* selectInvalidStopsAndCancel;
+    };
+
+    /// @brief struct for group all radio buttons related with position
+    struct ConsecutiveLaneOptions {
+        /// @brief build consecutive lane Options
+        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief enable consecutive lane options
+        void enableConsecutiveLaneOptions();
+
+        /// @brief disable consecutive lane options
+        void disableConsecutiveLaneOptions();
+
+        /// @brief Option "build connections between lanes"
+        FXRadioButton* buildConnectionBetweenLanes;
+
+        /// @brief Option "remove invalid elements"
+        FXRadioButton* removeInvalidElements;
+
+        /// @brief Option "Activate friendlyPos and save"
+        FXRadioButton* activateFriendlyPositionAndSave;
+
+        /// @brief Option "Fix Positions and save"
+        FXRadioButton* fixPositionsAndSave;
+    };
+
     /// @brief FOX needs this
     GNEDialog_FixAdditionalPositions() {}
 
     /// @brief view net
     GNEViewNet* myViewNet;
 
-    /// @brief vector with the invalid stoppingplaces
-    std::vector<GNEStoppingPlace*> myInvalidStoppingPlaces;
+    /// @brief vector with the invalid single-lane additionals
+    std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
 
-    /// @brief vector with the invalid stoppingplaces
-    std::vector<GNEDetector*> myInvalidDetectors;
+    /// @brief vector with the invalid multi-lane additionals
+    std::vector<GNEAdditional*> myInvalidMultiLaneAdditionals;
 
     /// @brief list with the stoppingPlaces and detectors
     FXTable* myTable;
 
-    /// @brief Option "Activate friendlyPos and save"
-    FXRadioButton* myOptionA;
+    /// @brief struct with position options
+    PositionOptions myPositionOptions;
 
-    /// @brief Option "Fix Positions and save"
-    FXRadioButton* myOptionB;
-
-    /// @brief Option "Save invalid"
-    FXRadioButton* myOptionC;
-
-    /// @brief Option "Select invalid stops and cancel"
-    FXRadioButton* myOptionD;
+    /// @brief struct with the consecutive lane options
+    ConsecutiveLaneOptions myConsecutiveLaneOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;

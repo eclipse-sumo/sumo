@@ -20,33 +20,22 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
-#include <iostream>
-#include <ctime>
-#include <utils/xml/XMLSubSys.h>
-#include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/MsgRetrievingFunction.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/Option.h>
-#include <utils/options/OptionsIO.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBFrame.h>
-#include <netimport/NILoader.h>
+#include <netbuild/NBNetBuilder.h>
 #include <netimport/NIFrame.h>
+#include <netimport/NILoader.h>
 #include <netwrite/NWFrame.h>
-#include <netbuild/NBFrame.h>
-#include <netedit/additionals/GNEAdditionalHandler.h>
+#include <utils/common/MsgRetrievingFunction.h>
+#include <utils/common/RandHelper.h>
+#include <utils/common/SystemFrame.h>
+#include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/xml/XMLSubSys.h>
 
+#include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
-#include "GNEEvent_NetworkLoaded.h"
 
 
 // ===========================================================================
@@ -82,14 +71,16 @@ GNELoadThread::run() {
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
 
-    GNENet* net = 0;
+    GNENet* net = nullptr;
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.clear();
-    if (!initOptions()) {
-        submitEndAndCleanup(net);
-        return 0;
+    if (myFile != "" || oc.getString("sumo-net-file") != "") {
+        oc.clear();
+        if (!initOptions()) {
+            submitEndAndCleanup(net);
+            return 0;
+        }
     }
     MsgHandler::initOutputOptions();
     if (!(NIFrame::checkOptions() &&
@@ -170,7 +161,7 @@ GNELoadThread::run() {
             WRITE_ERROR("Failed to build network.");
             delete net;
             delete netBuilder;
-            net = 0;
+            net = nullptr;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
 #ifdef _DEBUG
@@ -178,7 +169,7 @@ GNELoadThread::run() {
 #endif
             delete net;
             delete netBuilder;
-            net = 0;
+            net = nullptr;
         }
     }
     // only a single setting file is supported
@@ -328,7 +319,7 @@ GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStar
     myFile = file;
     myLoadNet = isNet;
     if (myFile != "" && !useStartupOptions) {
-        OptionsIO::setArgs(0, 0);
+        OptionsIO::setArgs(0, nullptr);
     }
     myNewNet = newNet;
     start();

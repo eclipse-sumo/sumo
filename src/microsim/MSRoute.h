@@ -132,9 +132,10 @@ public:
      * @param[in] fromEdge edge at wich computation begins
      * @param[in] toEdge   edge at which distance computation shall stop
      * @param[in] includeInternal Whether the lengths of internal edges shall be counted
+     * @param[in] routePosition Optional offset when searching for the fromEdge within the route
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true) const;
+    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true, int routePosition = 0) const;
 
     /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
      * This has the same semantics as above but uses iterators instead of edge
@@ -160,12 +161,27 @@ public:
         return myCosts;
     }
 
+    /** @brief Returns the estimated savings due to using this route (compare to the route before rerouting)
+     *
+     * @return The route's estimated savings (the difference in costs of this route to the previous one)
+     */
+    double getSavings() const {
+        return mySavings;
+    }
+
     /** @brief Sets the costs of the route
      *
      * @param[in] costs The new route costs
      */
     void setCosts(double costs) {
         myCosts = costs;
+    }
+    /** @brief Sets the savings of the route
+     *
+     * @param[in] costs The new route costs
+     */
+    void setSavings(double savings) {
+        mySavings = savings;
     }
 
     /// Returns the stops
@@ -237,6 +253,9 @@ private:
 
     /// @brief The assigned or calculated costs
     double myCosts;
+
+    /// @brief The estimated savings when rerouting
+    double mySavings;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;

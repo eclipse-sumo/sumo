@@ -233,10 +233,6 @@ private:
     /// @brief The algorithm type for the traffic light
     TrafficLightType myType;
 
-    /// @brief all allowed characters for phase state (see SUMOXMLDefinitions)
-    static const char allowedStatesInitializer[];
-    static const std::string ALLOWED_STATES;
-
 private:
     /// @brief Invalidated assignment operator
     NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s);

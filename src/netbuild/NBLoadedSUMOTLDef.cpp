@@ -47,7 +47,7 @@
 NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& programID,
                                      SUMOTime offset, TrafficLightType type) :
     NBTrafficLightDefinition(id, programID, offset, type),
-    myTLLogic(0),
+    myTLLogic(nullptr),
     myReconstructAddedConnections(false),
     myReconstructRemovedConnections(false),
     myPhasesLoaded(false) {
@@ -69,7 +69,7 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLig
     myControlledNodes = def->getNodes();
     NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
     updateParameter(def->getParametersMap());
-    if (sumoDef != 0) {
+    if (sumoDef != nullptr) {
         myReconstructAddedConnections = sumoDef->myReconstructAddedConnections;
         myReconstructRemovedConnections = sumoDef->myReconstructRemovedConnections;
     }
@@ -145,7 +145,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
         }
         NBEdge* edge = c.getFrom();
-        if (edge != 0 && edge->getNumLanes() > c.getFromLane()) {
+        if (edge != nullptr && edge->getNumLanes() > c.getFromLane()) {
             // logic may have yet to be reconstructed
             edge->setControllingTLInformation(c, getID());
         }
@@ -264,7 +264,7 @@ NBLoadedSUMOTLDef::collectEdges() {
                     myControlledInnerEdges.insert(edge->getID());
                 } else {
                     myEdgesWithin.push_back(edge);
-                    (*j)->setIsInnerEdge();
+                    (*j)->setInternal();
                     ++j; //j = myIncomingEdges.erase(j);
                     continue;
                 }
@@ -329,8 +329,8 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                     (int)(phases.front().state.size()) < noLinksAll ||
                     ((int)(phases.front().state.size()) > noLinksAll && !customIndex))) {
             // collect edges
-            EdgeVector fromEdges(size, (NBEdge*)0);
-            EdgeVector toEdges(size, (NBEdge*)0);
+            EdgeVector fromEdges(size, (NBEdge*)nullptr);
+            EdgeVector toEdges(size, (NBEdge*)nullptr);
             std::vector<int> fromLanes(size, 0);
             collectEdgeVectors(fromEdges, toEdges, fromLanes);
             const std::string crossingDefaultState(crossings.size(), 'r');
@@ -387,7 +387,7 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
             for (NBConnectionVector::const_iterator it1 = myControlledLinks.begin(); it1 != myControlledLinks.end(); it1++) {
                 const NBConnection& c1 = *it1;
                 const int i1 = c1.getTLIndex();
-                if (i1 == NBConnection::InvalidTlIndex || (state[i1] != 'g' && state[i1] != 's') || c1.getFrom() == 0 || c1.getTo() == 0) {
+                if (i1 == NBConnection::InvalidTlIndex || (state[i1] != 'g' && state[i1] != 's') || c1.getFrom() == nullptr || c1.getTo() == nullptr) {
                     continue;
                 }
                 for (NBConnectionVector::const_iterator it2 = myControlledLinks.begin(); it2 != myControlledLinks.end(); it2++) {
@@ -396,7 +396,7 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
                     if (i2 != NBConnection::InvalidTlIndex
                             && i2 != i1
                             && (state[i2] == 'G' || state[i2] == 'g')
-                            && c2.getFrom() != 0 && c2.getTo() != 0) {
+                            && c2.getFrom() != nullptr && c2.getTo() != nullptr) {
                         const bool rightTurnConflict = NBNode::rightTurnConflict(
                                                            c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
                         const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
@@ -465,7 +465,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
             }
             delete myTLLogic;
             myTLLogic = newLogic;
-            if (newLogic != 0) {
+            if (newLogic != nullptr) {
                 newLogic->setID(getID());
                 newLogic->setType(getType());
                 newLogic->setOffset(getOffset());

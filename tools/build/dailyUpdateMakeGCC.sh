@@ -18,21 +18,30 @@ echo -n "$FILEPREFIX " > $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
-make distclean &> /dev/null
-make -f Makefile.cvs clean &> /dev/null
+if test "${CONFIGURE_OPT::5}" == "cmake"; then
+  rm -rf build/$FILEPREFIX
+else
+  make distclean &> /dev/null
+  make -f Makefile.cvs clean &> /dev/null
+fi
 basename $MAKELOG >> $STATUSLOG
 git pull &> $MAKELOG || (echo "git pull failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 GITREV=`tools/build/version.py -`
 date >> $MAKELOG
-make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-if make -j >> $MAKELOG 2>&1; then
+if test "${CONFIGURE_OPT::5}" == "cmake"; then
+  mkdir build/$FILEPREFIX && cd build/$FILEPREFIX
+  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+else
+  make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+  ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+fi
+if make -j32 >> $MAKELOG 2>&1; then
   if test -e $PREFIX/sumo/unittest/src/sumo-unittest; then
     $PREFIX/sumo/unittest/src/sumo-unittest >> $MAKELOG 2>&1 || (echo "unit tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
   fi
   date >> $MAKELOG
   if make install >> $MAKELOG 2>&1; then
-    if test -z "$CONFIGURE_OPT"; then
+    if test -z "$CONFIGURE_OPT" -o "$CONFIGURE_OPT" == "cmake"; then
       make -j distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
       make dist-complete >> $MAKELOG 2>&1 || (echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
     fi
@@ -46,6 +55,7 @@ date >> $MAKELOG
 echo `grep -c '[Ww]arn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
 
 echo "--" >> $STATUSLOG
+cd $PREFIX/sumo
 if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; then
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
@@ -80,9 +90,15 @@ fi
 echo "--" >> $STATUSLOG
 basename $MAKEALLLOG >> $STATUSLOG
 export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-security"
-./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python --with-ffmpeg \
-  $CONFIGURE_OPT &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
-if make >> $MAKEALLLOG 2>&1; then
+if test "${CONFIGURE_OPT::5}" == "cmake"; then
+  rm -rf build/debug-$FILEPREFIX
+  mkdir build/debug-$FILEPREFIX && cd build/debug-$FILEPREFIX
+  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
+else
+  ./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python --with-ffmpeg \
+    $CONFIGURE_OPT &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
+fi
+if make -j32 >> $MAKEALLLOG 2>&1; then
   make install >> $MAKEALLLOG 2>&1 || (echo "make install with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
