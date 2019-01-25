@@ -1926,8 +1926,10 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
                 // add internal lengths
                 const MSLane* nextLane = *(j + 1);
                 const MSLink* link = MSLinkContHelper::getConnectingLink(*initialLane, *nextLane);
-                assert(link != 0);
-                roundaboutDistanceAhead += link->getInternalLengthsAfter();
+                assert(link != nullptr || !MSGlobals::gCheckRoutes);
+                if (link != nullptr) {
+                    roundaboutDistanceAhead += link->getInternalLengthsAfter();
+                }
             }
             j++;
         } else {
@@ -1953,7 +1955,10 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
             if (it + 1 != continuationLanes.end() && *(it + 1) != nullptr && (*(it + 1))->getEdge().isRoundabout()) {
                 // find corresponding link for the current lane
                 const MSLink* link = MSLinkContHelper::getConnectingLink(*lane, **(it + 1));
-                assert(link != 0);
+                assert(link != nullptr || !MSGlobals::gCheckRoutes);
+                if (link == nullptr) {
+                    break;
+                }
                 double linkLength = link->getInternalLengthsAfter();
                 roundaboutDistanceAhead += linkLength;
             }
