@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-02-02 10:38:40.581000 by $Id: route2trips.py v0_32_0+0134-9f1b8d0bad oss@behrisch.de 2018-01-04 21:53:06 +0100 $ via randomTrips.py
-  options: -n net2.net.xml -s 42 <doubleminus>validate -a input_additional.add.xml -r out.rou.xml -t type="truck" -e 10
+
+<!-- generated on Sun Dec 23 21:46:26 2018 by Eclipse SUMO duarouter Version v1_0_1+1015-8e01b2d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml.tmp"/>
+        <write-trips value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="10.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
 -->
+
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="truck" vClass="truck">
-    </vType>
-    <trip id="1" depart="1.00" from="beg2left" to="end" type="truck"/>
-    <trip id="5" depart="5.00" from="beg2left" to="left2end" type="truck"/>
-    <trip id="6" depart="6.00" from="beg" to="end" type="truck"/>
-    <trip id="7" depart="7.00" from="left" to="left2end" type="truck"/>
-    <trip id="8" depart="8.00" from="beg2left" to="left2end" type="truck"/>
+    <vType id="truck" vClass="truck"/>
+    <trip id="1" type="truck" depart="1.00" from="beg2left" to="end"/>
+    <trip id="5" type="truck" depart="5.00" from="beg2left" to="left2end"/>
+    <trip id="6" type="truck" depart="6.00" from="beg" to="end"/>
+    <trip id="7" type="truck" depart="7.00" from="left" to="left2end"/>
+    <trip id="8" type="truck" depart="8.00" from="beg2left" to="left2end"/>
 </routes>

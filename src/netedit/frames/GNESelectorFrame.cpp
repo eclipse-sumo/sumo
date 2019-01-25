@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -112,6 +112,10 @@ GNESelectorFrame::~GNESelectorFrame() {}
 
 void
 GNESelectorFrame::show() {
+    // show Type Entries depending of current supermode
+    myLockGLObjectTypes->showTypeEntries();
+    // refresh element set
+    myElementSet->refreshElementSet();
     // Show frame
     GNEFrame::show();
 }
@@ -124,17 +128,12 @@ GNESelectorFrame::hide() {
 }
 
 
-GNESelectorFrame::LockGLObjectTypes*
-GNESelectorFrame::getLockGLObjectTypes() const {
-    return myLockGLObjectTypes;
-}
-
-
 void
 GNESelectorFrame::clearCurrentSelection() const {
     // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
     myViewNet->getUndoList()->p_begin("clear selection");
-    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers();
+    // obtain selected ACs depending of current supermode
+    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
     // change attribute GNE_ATTR_SELECTED of all selected items to false
     for (auto i : selectedAC) {
         i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
@@ -154,7 +153,10 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, Modifi
     std::set<std::pair<std::string, GNEAttributeCarrier*> > ACToUnselect;
     // in restrict AND replace mode all current selected attribute carriers will be unselected
     if ((setOperation == ModificationMode::SET_REPLACE) || (setOperation == ModificationMode::SET_RESTRICT)) {
-        for (auto i : myViewNet->getNet()->getSelectedAttributeCarriers()) {
+        // obtain selected ACs depending of current supermode
+        std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
+        // add id into ACs to unselect
+        for (auto i : selectedAC) {
             ACToUnselect.insert(std::pair<std::string, GNEAttributeCarrier*>(i->getID(), i));
         }
     }
@@ -232,6 +234,12 @@ GNESelectorFrame::getModificationModeModul() const {
 }
 
 
+GNESelectorFrame::LockGLObjectTypes*
+GNESelectorFrame::getLockGLObjectTypes() const {
+    return myLockGLObjectTypes;
+}
+
+
 std::vector<GNEAttributeCarrier*>
 GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
@@ -296,49 +304,66 @@ GNESelectorFrame::getMatches(SumoXMLTag ACTag, SumoXMLAttr ACAttr, char compOp, 
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Selected items", GUIDesignGroupBoxFrame),
+    FXGroupBox(selectorFrameParent->myContentFrame, "Locked selected items", GUIDesignGroupBoxFrame),
     mySelectorFrameParent(selectorFrameParent) {
     // create a matrix for TypeEntries
     FXMatrix* matrixLockGLObjectTypes = new FXMatrix(this, 3, GUIDesignMatrixLockGLTypes);
-    // create typeEntries for the different elements
-    myTypeEntries[GLO_JUNCTION] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Junctions");
-    myTypeEntries[GLO_EDGE] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Edges");
-    myTypeEntries[GLO_LANE] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Lanes");
-    myTypeEntries[GLO_CONNECTION] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Connections");
-    myTypeEntries[GLO_ADDITIONAL] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Additionals");
-    myTypeEntries[GLO_CROSSING] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Crossings");
-    myTypeEntries[GLO_POLYGON] = new ObjectTypeEntry(matrixLockGLObjectTypes, "Polygons");
-    myTypeEntries[GLO_POI] = new ObjectTypeEntry(matrixLockGLObjectTypes, "POIs");
+    // create typeEntries for the different Network elements
+    myTypeEntries[GLO_JUNCTION] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Junctions"));
+    myTypeEntries[GLO_EDGE] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Edges"));
+    myTypeEntries[GLO_LANE] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Lanes"));
+    myTypeEntries[GLO_CONNECTION] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Connections"));
+    myTypeEntries[GLO_ADDITIONAL] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Additionals"));
+    myTypeEntries[GLO_CROSSING] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Crossings"));
+    myTypeEntries[GLO_POLYGON] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "Polygons"));
+    myTypeEntries[GLO_POI] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "POIs"));
+    // create typeEntries for the different Demand elements
+    myTypeEntries[GLO_ROUTE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Routes"));
 }
 
 
 GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {
     // remove all type entries
-    for (auto i : myTypeEntries) {
-        delete i.second;
+    for (const auto& i : myTypeEntries) {
+        delete i.second.second;
     }
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::addedLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type)->counterUp();
+    myTypeEntries.at(type).second->counterUp();
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::removeLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type)->counterDown();
+    myTypeEntries.at(type).second->counterDown();
 }
 
 
 bool
 GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(const GUIGlObjectType type) const {
     if ((type >= 100) && (type < 199)) {
-        return myTypeEntries.at(GLO_ADDITIONAL)->isGLTypeLocked();
+        return myTypeEntries.at(GLO_ADDITIONAL).second->isGLTypeLocked();
     } else {
-        return myTypeEntries.at(type)->isGLTypeLocked();
+        return myTypeEntries.at(type).second->isGLTypeLocked();
     }
+}
+
+
+void
+GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
+    for (const auto& i : myTypeEntries) {
+        // showr or hidde type entries depending of current supermode
+        if (i.second.first == mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode) {
+            i.second.second->showObjectTypeEntry();
+        } else {
+            i.second.second->hideObjectTypeEntry();
+        }
+    }
+    // recalc frame parent
+    recalc();
 }
 
 
@@ -347,26 +372,42 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* 
     myCounter(0) {
     // create elements
     myLabelCounter = new FXLabel(matrixParent, "0", nullptr, GUIDesignLabelLeft);
-    myLabelTypeName = new FXLabel(matrixParent, label.c_str(), nullptr, GUIDesignLabelLeft);
-    myCheckBoxLocked = new FXMenuCheck(matrixParent, "Unlocked", this, MID_GNE_SET_ATTRIBUTE, LAYOUT_FILL_X | LAYOUT_RIGHT);
+    myLabelTypeName = new FXLabel(matrixParent, (label + " ").c_str(), nullptr, GUIDesignLabelLeft);
+    myCheckBoxLocked = new FXCheckButton(matrixParent, "unlocked", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonLeft);
 }
 
 
-void 
+void
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::showObjectTypeEntry() {
+    myLabelCounter->show();
+    myLabelTypeName->show();
+    myCheckBoxLocked->show();
+}
+
+
+void
+GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::hideObjectTypeEntry() {
+    myLabelCounter->hide();
+    myLabelTypeName->hide();
+    myCheckBoxLocked->hide();
+}
+
+
+void
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::counterUp() {
     myCounter++;
     myLabelCounter->setText(toString(myCounter).c_str());
 }
 
 
-void 
+void
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::counterDown() {
     myCounter--;
     myLabelCounter->setText(toString(myCounter).c_str());
 }
 
 
-bool 
+bool
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::isGLTypeLocked() const {
     return (myCheckBoxLocked->getCheck() == TRUE);
 }
@@ -374,10 +415,10 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::isGLTypeLocked() const {
 
 long
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::onCmdSetCheckBox(FXObject*, FXSelector, void*) {
-    if(myCheckBoxLocked->getCheck() == TRUE) {
-        myCheckBoxLocked->setText("Locked");
+    if (myCheckBoxLocked->getCheck() == TRUE) {
+        myCheckBoxLocked->setText("locked");
     } else {
-        myCheckBoxLocked->setText("Unlocked");
+        myCheckBoxLocked->setText("unlocked");
     }
     return 1;
 }
@@ -457,10 +498,6 @@ GNESelectorFrame::ElementSet::ElementSet(GNESelectorFrame* selectorFrameParent) 
     myCurrentElementSet(ELEMENTSET_NETELEMENT) {
     // Create MatchTagBox for tags and fill it
     mySetComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
-    mySetComboBox->appendItem("Net Element");
-    mySetComboBox->appendItem("Additional");
-    mySetComboBox->appendItem("Shape");
-    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
 }
 
 
@@ -473,28 +510,61 @@ GNESelectorFrame::ElementSet::getElementSet() const {
 }
 
 
+void
+GNESelectorFrame::ElementSet::refreshElementSet() {
+    // first clear item
+    mySetComboBox->clearItems();
+    // now fill elements depending of supermode
+    if (mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        mySetComboBox->appendItem("Net Element");
+        mySetComboBox->appendItem("Additional");
+        mySetComboBox->appendItem("Shape");
+    } else {
+        mySetComboBox->appendItem("Demand Element");
+    }
+    mySetComboBox->setNumVisible(mySetComboBox->getNumItems());
+    // update rest of elements
+    onCmdSelectElementSet(0, 0, 0);
+}
+
+
 long
 GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
-    if (mySetComboBox->getText() == "Net Element") {
-        myCurrentElementSet = ELEMENTSET_NETELEMENT;
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        // enable match attribute
-        mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-    } else if (mySetComboBox->getText() == "Additional") {
-        myCurrentElementSet = ELEMENTSET_ADDITIONAL;
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        // enable match attribute
-        mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
-    } else if (mySetComboBox->getText() == "Shape") {
-        myCurrentElementSet = ELEMENTSET_SHAPE;
-        mySetComboBox->setTextColor(FXRGB(0, 0, 0));
-        // enable match attribute
-        mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+    // check depending of current supermode
+    if (mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        if (mySetComboBox->getText() == "Net Element") {
+            myCurrentElementSet = ELEMENTSET_NETELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else if (mySetComboBox->getText() == "Additional") {
+            myCurrentElementSet = ELEMENTSET_ADDITIONAL;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else if (mySetComboBox->getText() == "Shape") {
+            myCurrentElementSet = ELEMENTSET_SHAPE;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else {
+            myCurrentElementSet = ELEMENTSET_INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+            // disable match attribute
+            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+        }
     } else {
-        myCurrentElementSet = ELEMENTSET_INVALID;
-        mySetComboBox->setTextColor(FXRGB(255, 0, 0));
-        // disable match attribute
-        mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+        if (mySetComboBox->getText() == "Demand Element") {
+            myCurrentElementSet = ELEMENTSET_DEMANDELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else {
+            myCurrentElementSet = ELEMENTSET_INVALID;
+            mySetComboBox->setTextColor(FXRGB(255, 0, 0));
+            // disable match attribute
+            mySelectorFrameParent->myMatchAttribute->disableMatchAttribute();
+        }
     }
     return 1;
 }
@@ -545,6 +615,8 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_DEMANDELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_DEMANDELEMENT, true);
     } else {
         throw ProcessError("Invalid element set");
     }
@@ -585,6 +657,8 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_SHAPE) {
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::ELEMENTSET_DEMANDELEMENT) {
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TAGProperty::TAGPROPERTY_DEMANDELEMENT, true);
     } else {
         throw ProcessError("Unkown set");
     }
@@ -874,9 +948,12 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                     // obtain GNEAttributeCarrier
                     GNEAttributeCarrier* AC = mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
                     // check if AC exist and if is selectable
-                    if (AC != nullptr) {
-                        loadedACs.push_back(AC);
-                    }
+                    if (AC && AC->getTagProperty().isSelectable())
+                        // now check if we're in the correct supermode to load this element
+                        if (((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
+                                ((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
+                            loadedACs.push_back(AC);
+                        }
                 }
             }
         }
@@ -901,7 +978,7 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
     }
     try {
         OutputDevice& dev = OutputDevice::getDevice(file.text());
-        for (auto i : mySelectorFrameParent->myViewNet->getNet()->getSelectedAttributeCarriers()) {
+        for (auto i : mySelectorFrameParent->myViewNet->getNet()->getSelectedAttributeCarriers(false)) {
             GUIGlObject* object = dynamic_cast<GUIGlObject*>(i);
             if (object) {
                 dev << GUIGlObject::TypeNames.getString(object->getType()) << ":" << i->getID() << "\n";
@@ -931,7 +1008,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // first make a copy of current selected elements
-    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers();
+    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(false);
     // for invert selection, first clean current selection and next select elements of set "unselectedElements"
     mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("invert selection");
     // select junctions, edges, lanes connections and crossings
@@ -941,7 +1018,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         // due we iterate over all junctions, only it's neccesary iterate over incoming edges
         for (auto j : i->getGNEIncomingEdges()) {
             // only select edges if "select edges" flag is enabled. In other case, select only lanes
-            if (mySelectorFrameParent->getViewNet()->selectEdges()) {
+            if (mySelectorFrameParent->getViewNet()->getViewOptions().selectEdges()) {
                 j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
             } else {
                 for (auto k : j->getLanes()) {

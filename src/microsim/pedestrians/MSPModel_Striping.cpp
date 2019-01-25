@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -26,7 +26,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/router/PedestrianRouter.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
@@ -105,8 +105,8 @@ const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
 // ===========================================================================
 
 MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
-    myNumActivePedestrians(0) {
-    net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
+    myNumActivePedestrians(0),
+    myAmActive(false) {
     initWalkingAreaPaths(net);
     // configurable parameters
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
@@ -125,11 +125,16 @@ MSPModel_Striping::~MSPModel_Striping() {
 
 PedestrianState*
 MSPModel_Striping::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime) {
+    MSNet* net = MSNet::getInstance();
+    if (!myAmActive) {
+        net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
+        myAmActive = true;
+    }
     assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
     if (lane == nullptr) {
         std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
-                            + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
+                            + time2string(net->getCurrentTimeStep()) + ".";
         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
             WRITE_WARNING(error);
             return nullptr;
@@ -1032,8 +1037,8 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 // to brake, otherwise the person must be able to cross in time
                 const double distToCrossBeforeVeh = (dir == FORWARD ? vo.xFwd : crossing->getLength() - vo.xBack);
                 const double bGap = (prio
-                        ? veh->getCarFollowModel().brakeGap(veh->getSpeed(), veh->getCarFollowModel().getMaxDecel(), 0)
-                        : veh->getSpeed() * distToCrossBeforeVeh); // walking 1m/s
+                                     ? veh->getCarFollowModel().brakeGap(veh->getSpeed(), veh->getCarFollowModel().getMaxDecel(), 0)
+                                     : veh->getSpeed() * distToCrossBeforeVeh); // walking 1m/s
                 double vehYmin;
                 double vehYmax;
                 // relY increases from left to right (the other way around from vehicles)
@@ -1813,18 +1818,18 @@ MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2
     for (int i = 0; i < (int)into.size(); ++i) {
         if (gDebugFlag1) {
             std::cout << "     i=" << i
-                << " into=" << into[i].description << " iDist=" << distanceTo(into[i])
-                << " obs2=" << obs2[i].description << " oDist=" << distanceTo(obs2[i]) << "\n";
+                      << " into=" << into[i].description << " iDist=" << distanceTo(into[i])
+                      << " obs2=" << obs2[i].description << " oDist=" << distanceTo(obs2[i]) << "\n";
         }
         const double dO = distanceTo(obs2[i]);
         const double dI = distanceTo(into[i]);
         if (dO < dI) {
             into[i] = obs2[i];
         } else if (dO == dI
-                && into[i].type != OBSTACLE_PED
-                && into[i].type != OBSTACLE_VEHICLE
-                && (obs2[i].type == OBSTACLE_PED ||
-                    obs2[i].type == OBSTACLE_VEHICLE)) {
+                   && into[i].type != OBSTACLE_PED
+                   && into[i].type != OBSTACLE_VEHICLE
+                   && (obs2[i].type == OBSTACLE_PED ||
+                       obs2[i].type == OBSTACLE_VEHICLE)) {
             into[i] = obs2[i];
         }
     }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, A
 // ===========================================================================
 // static value definitions
 // ===========================================================================
-MFXMutex GUIParameterTableWindow::myGlobalContainerLock;
+FXMutex GUIParameterTableWindow::myGlobalContainerLock;
 std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 
 // ===========================================================================
@@ -85,7 +85,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myLock.lock();
     myObject->addParameterTable(this);
     myLock.unlock();
-    AbstractMutex::ScopedLocker locker(myGlobalContainerLock);
+    FXMutexLock locker(myGlobalContainerLock);
     myContainer.push_back(this);
     // Table cannot be editable
     myTable->setEditable(FALSE);
@@ -96,13 +96,13 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
     myApplication->removeChild(this);
     myLock.lock();
     for (std::vector<GUIParameterTableItemInterface*>::iterator i = myItems.begin(); i != myItems.end(); ++i) {
-        delete(*i);
+        delete (*i);
     }
     if (myObject != nullptr) {
         myObject->removeParameterTable(this);
     }
     myLock.unlock();
-    AbstractMutex::ScopedLocker locker(myGlobalContainerLock);
+    FXMutexLock locker(myGlobalContainerLock);
     std::vector<GUIParameterTableWindow*>::iterator i = std::find(myContainer.begin(), myContainer.end(), this);
     if (i != myContainer.end()) {
         myContainer.erase(i);
@@ -112,7 +112,7 @@ GUIParameterTableWindow::~GUIParameterTableWindow() {
 
 void
 GUIParameterTableWindow::removeObject(GUIGlObject* /*i*/) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     myObject = nullptr;
 }
 
@@ -204,7 +204,7 @@ GUIParameterTableWindow::mkItem(const char* name, bool dynamic, long long int va
 
 void
 GUIParameterTableWindow::updateTable() {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     if (myObject == nullptr) {
         return;
     }

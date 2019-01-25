@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -40,6 +40,12 @@ from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
 SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
     os.path.dirname(os.path.abspath(__file__)), ".."))
+
+try:
+    basestring
+    # Allows isinstance(foo, basestring) to work in Python 3
+except NameError:
+    basestring = str
 
 typemapdir = os.path.join(SUMO_HOME, "data", "typemap")
 typemaps = {
@@ -159,10 +165,10 @@ class Builder(object):
     def getRelative(self, options):
         result = []
         dirname = self.tmp
-        l = len(dirname)
+        ld = len(dirname)
         for o in options:
-            if type(o) in [str, unicode] and o[0:l] == dirname:
-                remove = o[:l+1]
+            if isinstance(o, basestring) and o[:ld] == dirname:
+                remove = o[:ld+1]
                 result.append(o.replace(remove, ''))
             else:
                 result.append(o)
@@ -315,11 +321,14 @@ class Builder(object):
         period = 3600 / (length / 1000) / options["count"]
 
         opts = ["-n", self.files["net"], "--seed", RANDOMSEED, "--fringe-factor", options["fringeFactor"],
-                "-p", period, "-r", self.files["route"], "-o", self.files["trips"], "-e", self.data["duration"]]
+                "-p", period, "-o", self.files["trips"], "-e", self.data["duration"]]
+        if "--validate" not in vehicleParameters[vehicle]:
+            opts += ["-r", self.files["route"]]
         if vehicle == "pedestrian" and publicTransport:
             opts += vehicleParameters["persontrips"]
         else:
             opts += vehicleParameters[vehicle]
+
         return opts
 
     def makeConfigFile(self):
@@ -455,7 +464,8 @@ parser.add_argument("--remote", action="store_true",
                     "will be generated.")
 parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
-                    help="Run with pre-defined options on file 'osm_bbox.osm.xml' and write output to the given directory.")
+                    help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
+                    "write output to the given directory.")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
                     help="Port for the Websocket. Please edit script.js when using an other port than 8010.")

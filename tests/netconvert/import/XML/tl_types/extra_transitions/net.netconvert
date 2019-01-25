@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jan  7 14:33:45 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+        <tllogic-files value="input_plain.tll.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="30.00,0.00" convBoundary="0.00,0.00,60.00,30.00" origBoundary="-30.00,0.00,30.00,30.00" projParameter="!"/>
+
+    <edge id=":node_centertl_0" function="internal">
+        <lane id=":node_centertl_0_0" index="0" speed="6.51" length="9.03" shape="28.40,7.20 28.05,4.75 27.00,3.00 25.25,1.95 22.80,1.60"/>
+    </edge>
+    <edge id=":node_centertl_1" function="internal">
+        <lane id=":node_centertl_1_0" index="0" speed="8.00" length="14.19" shape="28.40,7.20 28.95,3.35 30.60,0.60 33.35,-1.05 37.20,-1.60"/>
+    </edge>
+    <edge id=":node_centertl_2" function="internal">
+        <lane id=":node_centertl_2_0" index="0" speed="3.65" length="2.56" shape="28.40,7.20 29.20,6.00 30.00,5.60 30.20,5.70"/>
+    </edge>
+    <edge id=":node_centertl_9" function="internal">
+        <lane id=":node_centertl_9_0" index="0" speed="3.65" length="2.12" shape="30.20,5.70 30.80,6.00 31.60,7.20"/>
+    </edge>
+    <edge id=":node_centertl_3" function="internal">
+        <lane id=":node_centertl_3_0" index="0" speed="6.51" length="9.03" shape="37.20,1.60 34.75,1.95 33.00,3.00 31.95,4.75 31.60,7.20"/>
+    </edge>
+    <edge id=":node_centertl_4" function="internal">
+        <lane id=":node_centertl_4_0" index="0" speed="10.00" length="14.40" shape="37.20,1.60 22.80,1.60"/>
+    </edge>
+    <edge id=":node_centertl_5" function="internal">
+        <lane id=":node_centertl_5_0" index="0" speed="3.65" length="2.34" shape="37.20,1.60 36.00,0.80 35.60,0.00"/>
+    </edge>
+    <edge id=":node_centertl_10" function="internal">
+        <lane id=":node_centertl_10_0" index="0" speed="3.65" length="2.34" shape="35.60,0.00 36.00,-0.80 37.20,-1.60"/>
+    </edge>
+    <edge id=":node_centertl_6" function="internal">
+        <lane id=":node_centertl_6_0" index="0" speed="10.00" length="14.40" shape="22.80,-1.60 37.20,-1.60"/>
+    </edge>
+    <edge id=":node_centertl_7" function="internal">
+        <lane id=":node_centertl_7_0" index="0" speed="8.00" length="5.93" shape="22.80,-1.60 26.65,-1.05 28.40,0.00"/>
+    </edge>
+    <edge id=":node_centertl_8" function="internal">
+        <lane id=":node_centertl_8_0" index="0" speed="3.65" length="2.34" shape="22.80,-1.60 24.00,-0.80 24.40,0.00"/>
+    </edge>
+    <edge id=":node_centertl_11" function="internal">
+        <lane id=":node_centertl_11_0" index="0" speed="8.00" length="8.26" shape="28.40,0.00 29.40,0.60 31.05,3.35 31.60,7.20"/>
+    </edge>
+    <edge id=":node_centertl_12" function="internal">
+        <lane id=":node_centertl_12_0" index="0" speed="3.65" length="2.34" shape="24.40,0.00 24.00,0.80 22.80,1.60"/>
+    </edge>
+    <edge id=":node_left_0" function="internal">
+        <lane id=":node_left_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
+    </edge>
+    <edge id=":node_right_0" function="internal">
+        <lane id=":node_right_0_0" index="0" speed="3.65" length="4.67" shape="60.00,-1.60 61.20,-0.80 61.60,0.00 61.20,0.80 60.00,1.60"/>
+    </edge>
+    <edge id=":node_up_0" function="internal">
+        <lane id=":node_up_0_0" index="0" speed="3.65" length="4.67" shape="31.60,30.00 30.80,31.20 30.00,31.60 29.20,31.20 28.40,30.00"/>
+    </edge>
+
+    <edge id="-edge_left" from="node_centertl" to="node_left" priority="2">
+        <lane id="-edge_left_0" index="0" speed="10.00" length="22.80" shape="22.80,1.60 0.00,1.60"/>
+    </edge>
+    <edge id="-edge_right" from="node_centertl" to="node_right" priority="2">
+        <lane id="-edge_right_0" index="0" speed="10.00" length="22.80" shape="37.20,-1.60 60.00,-1.60"/>
+    </edge>
+    <edge id="-edge_up" from="node_centertl" to="node_up" priority="2">
+        <lane id="-edge_up_0" index="0" speed="10.00" length="22.80" shape="31.60,7.20 31.60,30.00"/>
+    </edge>
+    <edge id="edge_left" from="node_left" to="node_centertl" priority="2">
+        <lane id="edge_left_0" index="0" speed="10.00" length="22.80" shape="0.00,-1.60 22.80,-1.60"/>
+    </edge>
+    <edge id="edge_right" from="node_right" to="node_centertl" priority="2">
+        <lane id="edge_right_0" index="0" speed="10.00" length="22.80" shape="60.00,1.60 37.20,1.60"/>
+    </edge>
+    <edge id="edge_up" from="node_up" to="node_centertl" priority="2">
+        <lane id="edge_up_0" index="0" speed="10.00" length="22.80" shape="28.40,30.00 28.40,7.20"/>
+    </edge>
+
+    <tlLogic id="node_centertl" type="static" programID="0" offset="10">
+        <phase duration="31" state="rrrGGgGgg"/>
+        <phase duration="3"  state="rrryygygg"/>
+        <phase duration="6"  state="rrrrrGrGG"/>
+        <phase duration="3"  state="rrrrryryy"/>
+        <phase duration="31" state="GGgGrrrrr"/>
+        <phase duration="3"  state="yyyyrrrrr"/>
+    </tlLogic>
+    <tlLogic id="node_centertl" type="static" programID="alternative" offset="0">
+        <phase duration="31" state="rrrGGgGgg" name="1"/>
+        <phase duration="3"  state="rrryygygg" name="1-2"/>
+        <phase duration="6"  state="rrrrrGrGG" name="2"/>
+        <phase duration="3"  state="rrrrryryy" name="2-3"/>
+        <phase duration="31" state="GGgGrrrrr" name="3"/>
+        <phase duration="3"  state="yyyyrrrrr" name="3-1" next="0"/>
+        <phase duration="3"  state="rrryyyyyy" name="1-3" next="5"/>
+    </tlLogic>
+
+    <junction id="node_centertl" type="traffic_light" x="30.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_1_0 :node_centertl_9_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_10_0 :node_centertl_6_0 :node_centertl_11_0 :node_centertl_12_0" shape="26.80,7.20 33.20,7.20 33.64,4.98 34.20,4.20 34.98,3.64 35.98,3.31 37.20,3.20 37.20,-3.20 22.80,-3.20 22.80,3.20 25.02,3.64 25.80,4.20 26.36,4.98 26.69,5.98">
+        <request index="0" response="000010000" foes="100010000" cont="0"/>
+        <request index="1" response="011010000" foes="011110000" cont="0"/>
+        <request index="2" response="010001000" foes="010001000" cont="1"/>
+        <request index="3" response="000000000" foes="010000100" cont="0"/>
+        <request index="4" response="000000000" foes="110000011" cont="0"/>
+        <request index="5" response="001000010" foes="001000010" cont="1"/>
+        <request index="6" response="000000000" foes="000100010" cont="0"/>
+        <request index="7" response="000011000" foes="000011110" cont="1"/>
+        <request index="8" response="000010001" foes="000010001" cont="1"/>
+    </junction>
+    <junction id="node_left" type="priority" x="0.00" y="0.00" incLanes="-edge_left_0" intLanes=":node_left_0_0" shape="0.00,0.00 0.00,3.20 0.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="node_right" type="priority" x="60.00" y="0.00" incLanes="-edge_right_0" intLanes=":node_right_0_0" shape="60.00,0.00 60.00,-3.20 60.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="node_up" type="priority" x="30.00" y="30.00" incLanes="-edge_up_0" intLanes=":node_up_0_0" shape="30.00,30.00 33.20,30.00 30.00,30.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <junction id=":node_centertl_9_0" type="internal" x="30.20" y="5.70" incLanes=":node_centertl_2_0 edge_left_0 edge_right_0" intLanes=":node_centertl_3_0 :node_centertl_7_0"/>
+    <junction id=":node_centertl_10_0" type="internal" x="35.60" y="0.00" incLanes=":node_centertl_5_0 edge_left_0 edge_up_0" intLanes=":node_centertl_1_0 :node_centertl_6_0"/>
+    <junction id=":node_centertl_11_0" type="internal" x="28.40" y="0.00" incLanes=":node_centertl_7_0 edge_right_0" intLanes=":node_centertl_1_0 :node_centertl_2_0 :node_centertl_3_0 :node_centertl_4_0"/>
+    <junction id=":node_centertl_12_0" type="internal" x="24.40" y="0.00" incLanes=":node_centertl_8_0 edge_right_0 edge_up_0" intLanes=":node_centertl_0_0 :node_centertl_4_0"/>
+
+    <connection from="-edge_left" to="edge_left" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
+    <connection from="-edge_right" to="edge_right" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>
+    <connection from="-edge_up" to="edge_up" fromLane="0" toLane="0" via=":node_up_0_0" dir="t" state="M"/>
+    <connection from="edge_left" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_6_0" tl="node_centertl" linkIndex="6" dir="s" state="O"/>
+    <connection from="edge_left" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_7_0" tl="node_centertl" linkIndex="7" dir="l" state="o"/>
+    <connection from="edge_left" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_8_0" tl="node_centertl" linkIndex="8" dir="t" state="o"/>
+    <connection from="edge_right" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_3_0" tl="node_centertl" linkIndex="3" dir="r" state="O"/>
+    <connection from="edge_right" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_4_0" tl="node_centertl" linkIndex="4" dir="s" state="O"/>
+    <connection from="edge_right" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_5_0" tl="node_centertl" linkIndex="5" dir="t" state="o"/>
+    <connection from="edge_up" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_0_0" tl="node_centertl" linkIndex="0" dir="r" state="o"/>
+    <connection from="edge_up" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_1_0" tl="node_centertl" linkIndex="1" dir="l" state="o"/>
+    <connection from="edge_up" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_2_0" tl="node_centertl" linkIndex="2" dir="t" state="o"/>
+
+    <connection from=":node_centertl_0" to="-edge_left" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":node_centertl_1" to="-edge_right" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":node_centertl_2" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_9_0" dir="t" state="m"/>
+    <connection from=":node_centertl_9" to="-edge_up" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_centertl_3" to="-edge_up" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":node_centertl_4" to="-edge_left" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_5" to="-edge_right" fromLane="0" toLane="0" via=":node_centertl_10_0" dir="t" state="m"/>
+    <connection from=":node_centertl_10" to="-edge_right" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_centertl_6" to="-edge_right" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":node_centertl_7" to="-edge_up" fromLane="0" toLane="0" via=":node_centertl_11_0" dir="l" state="m"/>
+    <connection from=":node_centertl_11" to="-edge_up" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":node_centertl_8" to="-edge_left" fromLane="0" toLane="0" via=":node_centertl_12_0" dir="t" state="m"/>
+    <connection from=":node_centertl_12" to="-edge_left" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_left_0" to="edge_left" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_right_0" to="edge_right" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_up_0" to="edge_up" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

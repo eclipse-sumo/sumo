@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -369,7 +369,7 @@ MSVehicleType::duplicateType(const std::string& id, bool persistent) const {
 void
 MSVehicleType::check() {
     if (!myWarnedActionStepLengthTauOnce
-            && myParameter.wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)
+            && myParameter.actionStepLength != DELTA_T
             && STEPS2TIME(myParameter.actionStepLength) > getCarFollowModel().getHeadwayTime()) {
         myWarnedActionStepLengthTauOnce = true;
         std::stringstream s;

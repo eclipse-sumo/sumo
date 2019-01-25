@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -25,7 +25,6 @@
 #include <fx.h>
 #include <string>
 #include <vector>
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ValueRetriever.h>
@@ -115,7 +114,7 @@ private:
     double myMin, myMax;
 
     // Mutex to avoid parallel drawing and insertion of new items
-    MFXMutex myLock;
+    FXMutex myLock;
 
     /// The aggregation interval in simulation steps
     int myAggregationInterval;

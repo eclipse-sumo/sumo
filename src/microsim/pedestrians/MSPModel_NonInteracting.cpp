@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/IntermodalNetwork.h>
+#include <utils/router/IntermodalNetwork.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -41,15 +41,6 @@
 #define DEBUG1 "disabled"
 #define DEBUG2 "disabled"
 #define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
-
-// ===========================================================================
-// named (internal) constants
-// ===========================================================================
-
-
-// ===========================================================================
-// static members
-// ===========================================================================
 
 
 // ===========================================================================

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -146,6 +146,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.spreadSuperposed = StringUtils::toBool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)));
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
             mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
+            mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);
             myCurrentColorer = element;
             mySettings.edgeColorer.setActive(laneEdgeMode);
             mySettings.edgeScaler.setActive(laneEdgeScaleMode);
@@ -249,6 +250,7 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.drawLinkJunctionIndex = parseTextSettings("drawLinkJunctionIndex", attrs, mySettings.drawLinkJunctionIndex);
             mySettings.junctionName = parseTextSettings("junctionName", attrs, mySettings.junctionName);
             mySettings.internalJunctionName = parseTextSettings("internalJunctionName", attrs, mySettings.internalJunctionName);
+            mySettings.tlsPhaseIndex = parseTextSettings("tlsPhaseIndex", attrs, mySettings.tlsPhaseIndex);
             mySettings.showLane2Lane = StringUtils::toBool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)));
             mySettings.drawJunctionShape = StringUtils::toBool(attrs.getStringSecure("drawShape", toString(mySettings.drawJunctionShape)));
             mySettings.drawCrossingsAndWalkingareas = StringUtils::toBool(attrs.getStringSecure(
@@ -364,8 +366,8 @@ GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {
     if (mySettings.name != "") {
         gSchemeStorage.add(mySettings);
         if (view) {
-            FXint index = view->getColoringSchemesCombo().appendItem(mySettings.name.c_str());
-            view->getColoringSchemesCombo().setCurrentItem(index);
+            FXint index = view->getColoringSchemesCombo()->appendItem(mySettings.name.c_str());
+            view->getColoringSchemesCombo()->setCurrentItem(index);
             view->setColorScheme(mySettings.name);
         }
     }

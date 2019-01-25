@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -415,11 +415,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         if (e.pos < 0) {
             e.pos += myCurrentEdge->getGeometry().length();
         }
-        std::vector<std::string> lanes;
-        SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LANES, nullptr, ok, ""), lanes);
-        for (std::vector<std::string>::iterator i = lanes.begin(); i != lanes.end(); ++i) {
+        for (const std::string& id : attrs.getOptStringVector(SUMO_ATTR_LANES, myCurrentID.c_str(), ok)) {
             try {
-                int lane = StringUtils::toInt((*i));
+                int lane = StringUtils::toInt(id);
                 e.lanes.push_back(lane);
             } catch (NumberFormatException&) {
                 WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
@@ -434,7 +432,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         }
         e.speed = attrs.getOpt(SUMO_ATTR_SPEED, nullptr, ok, myCurrentEdge->getSpeed());
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && myOptions.getBool("speed-in-kmh")) {
-            e.speed /= (double) 3.6;
+            e.speed /= 3.6;
         }
         e.idBefore = attrs.getOpt(SUMO_ATTR_ID_BEFORE, nullptr, ok, std::string(""));
         e.idAfter = attrs.getOpt(SUMO_ATTR_ID_AFTER, nullptr, ok, std::string(""));

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -131,7 +131,7 @@ private:
 
 private:
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
-        const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
+              const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
     double speedSpeedContol(const double speed, double vErr) const;
     double speedGapControl(const MSVehicle* const veh, const double gap2pred,
@@ -149,7 +149,7 @@ private:
 
 private:
     /// @brief Invalidated assignment operator
-    MSCFModel_CACC & operator=(const MSCFModel_CACC& s);
+    MSCFModel_CACC& operator=(const MSCFModel_CACC& s);
 };
 
 #endif /* MSCFModel_CACC_H */

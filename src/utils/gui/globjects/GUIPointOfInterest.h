@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -112,15 +112,15 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
-protected:    
+protected:
     /// @brief set color
-    void setColor(const GUIVisualizationSettings& s) const;
+    void setColor(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
 
     /// @brief check if POI can be drawn
     bool checkDraw(const GUIVisualizationSettings& s) const;
 
     /// @brief draw inner POI (before pushName() )
-    void drawInnerPOI(const GUIVisualizationSettings& s) const;
+    void drawInnerPOI(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
 
     /// @brief after every iteration of drawgl, position of vertices that make the circle are saved here. It used to drawn a dotted contour in Netedit)
     static std::vector<Position> myPOIVertices;

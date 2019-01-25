@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials
@@ -30,8 +30,13 @@
 #include <config.h>
 
 #include "AGTrip.h"
-#include "../city/AGHousehold.h"
-#include "../city/AGDataAndStatistics.h"
+#include <activitygen/city/AGDataAndStatistics.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class AGHousehold;
 
 
 // ===========================================================================

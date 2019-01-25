@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 26 17:21:07 2018 by Eclipse SUMO Version da2bc78
+<!-- generated on Thu Jan  3 13:05:53 2019 by Eclipse SUMO Version v1_0_1+1015-8e01b2d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <routing>
@@ -97,6 +98,22 @@ SPDX-License-Identifier: EPL-2.0
         <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
+    <vehicle id="rerouting_device.7" depart="28.00" color="blue" arrival="235.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="28.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
+        </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
+    </vehicle>
+
+    <vehicle id="rerouting_device.8" depart="32.00" color="blue" arrival="239.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="32.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
+        </routeDistribution>
+        <param key="has.rerouting.device" value="true"/>
+    </vehicle>
+
     <vehicle id="rerouting_device.9" depart="36.00" color="blue" arrival="243.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="36.00" probability="0" edges="beg beg2left left left2end end rend"/>
@@ -158,37 +175,21 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="rerouting_device.7" depart="28.00" color="blue" arrival="548.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="28.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
-        </routeDistribution>
-        <param key="has.rerouting.device" value="true"/>
-    </vehicle>
-
-    <vehicle id="no_device.7" depart="30.00" color="yellow" arrival="549.00">
+    <vehicle id="no_device.7" depart="30.00" color="yellow" arrival="548.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="30.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="rerouting_device.8" depart="32.00" color="blue" arrival="550.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="32.00" probability="0" edges="beg beg2left left left2end end rend"/>
-            <route edges="beg middle end rend"/>
-        </routeDistribution>
-        <param key="has.rerouting.device" value="true"/>
-    </vehicle>
-
-    <vehicle id="no_device.8" depart="34.00" color="yellow" arrival="552.00">
+    <vehicle id="no_device.8" depart="34.00" color="yellow" arrival="549.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="34.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="no_device.9" depart="38.00" color="yellow" arrival="553.00">
+    <vehicle id="no_device.9" depart="38.00" color="yellow" arrival="550.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="38.00" probability="0" edges="beg beg2left left left2end end rend"/>
             <route edges="beg middle end rend"/>

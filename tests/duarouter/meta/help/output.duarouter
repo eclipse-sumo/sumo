@@ -1,5 +1,5 @@
-Eclipse SUMO duarouter Version 7cc56db
- Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
+Eclipse SUMO duarouter Version v1_1_0+0040-b68edb7a21e
+ Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
 
@@ -51,6 +51,8 @@ Output Options:
                                         FILE
   --intermodal-weight-output FILE     Write intermodal edges with lengths and
                                         travel times to FILE
+  --write-trips                       Write trips instead of vehicles (for
+                                        validating trip input)
   --exit-times                        Write exit times (weights) for each edge
 
 Processing Options:
@@ -72,6 +74,9 @@ Processing Options:
                                         instead
   --weights.interpolate               Interpolate edge weights at interval
                                         boundaries
+  --weights.minor-penalty FLOAT       Apply the given time penalty when
+                                        computing routing costs for minor-link
+                                        internal lanes
   --with-taz                          Use origin and destination zones
                                         (districts) for in- and output
   --bulk-routing                      Aggregate routing queries with the same

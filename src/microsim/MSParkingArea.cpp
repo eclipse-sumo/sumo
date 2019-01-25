@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2015-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2015-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -55,8 +55,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
     myAngle(angle),
     myReservationTime(-1),
     myReservations(0),
-    myReservationMaxLength(0)
-{
+    myReservationMaxLength(0) {
     // initialize unspecified defaults
     if (myWidth == 0) {
         myWidth = SUMO_const_laneWidth;
@@ -80,9 +79,9 @@ MSParkingArea::MSParkingArea(const std::string& id,
         const Position s = myShape.positionAtOffset(spaceDim * (i + 1));
         Position pos = myAngle == 0 ? s : (f + s) * 0.5;
         addLotEntry(pos.x(), pos.y(), pos.z(),
-            myWidth, myLength,
-            ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI) + myAngle);
-        mySpaceOccupancies.back().myEndPos = myBegPos + spaceDim * (i + 1);
+                    myWidth, myLength,
+                    ((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI) + myAngle);
+        mySpaceOccupancies.back().myEndPos = myBegPos + MAX2(POSITION_EPS, spaceDim * (i + 1));
     }
     computeLastFreePos();
 }
@@ -176,26 +175,30 @@ MSParkingArea::computeLastFreePos() {
             myLastFreePos = lsd.myEndPos;
             break;
         } else {
-            myLastFreePos = MIN2(myLastFreePos, 
-                    lsd.myEndPos - lsd.vehicle->getVehicleType().getLength() - NUMERICAL_EPS);
+            myLastFreePos = MIN2(myLastFreePos,
+                                 lsd.myEndPos - lsd.vehicle->getVehicleType().getLength() - NUMERICAL_EPS);
         }
     }
 }
 
 
-double 
+double
 MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle) {
     if (forVehicle.getLane() != &myLane) {
         // for different lanes, do not consider reservations to avoid lane-order
         // dependency in parallel simulation
 #ifdef DEBUG_RESERVATIONS
-        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " other lane\n";
+        if (DEBUG_COND2(forVehicle)) {
+            std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " other lane\n";
+        }
 #endif
         return getLastFreePos(forVehicle);
     }
     if (t > myReservationTime) {
 #ifdef DEBUG_RESERVATIONS
-        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " first reservation\n";
+        if (DEBUG_COND2(forVehicle)) {
+            std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " first reservation\n";
+        }
 #endif
         myReservationTime = t;
         myReservations = 1;
@@ -209,22 +212,24 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
     } else {
         if (myCapacity > getOccupancy() + myReservations) {
 #ifdef DEBUG_RESERVATIONS
-        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " res=" << myReservations << " enough space\n";
+            if (DEBUG_COND2(forVehicle)) {
+                std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() << " res=" << myReservations << " enough space\n";
+            }
 #endif
             myReservations++;
             myReservationMaxLength = MAX2(myReservationMaxLength, forVehicle.getVehicleType().getLength());
             return getLastFreePos(forVehicle);
-        } else{
+        } else {
             if (myCapacity == 0) {
                 return getLastFreePos(forVehicle);
             } else {
 #ifdef DEBUG_RESERVATIONS
-        if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID() 
-            << " res=" << myReservations << " resTime=" << myReservationTime << " reserved full, maxLen=" << myReservationMaxLength << " endPos=" << mySpaceOccupancies[0].myEndPos << "\n";
+                if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID()
+                                                           << " res=" << myReservations << " resTime=" << myReservationTime << " reserved full, maxLen=" << myReservationMaxLength << " endPos=" << mySpaceOccupancies[0].myEndPos << "\n";
 #endif
-                return (mySpaceOccupancies[0].myEndPos 
-                        - myReservationMaxLength 
-                        - forVehicle.getVehicleType().getMinGap() 
+                return (mySpaceOccupancies[0].myEndPos
+                        - myReservationMaxLength
+                        - forVehicle.getVehicleType().getMinGap()
                         - NUMERICAL_EPS);
             }
         }

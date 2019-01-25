@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -28,10 +28,10 @@
 
 #include <vector>
 #include <string>
+#include <fx.h>
 #include <microsim/MSEdge.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -134,23 +134,23 @@ public:
 
 
     void addPerson(MSTransportable* p) const {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         MSEdge::addPerson(p);
     }
 
     void removePerson(MSTransportable* p) const {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         MSEdge::removePerson(p);
     }
 
 
     void addContainer(MSTransportable* c) const {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         MSEdge::addContainer(c);
     }
 
     void removeContainer(MSTransportable* c) const {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         MSEdge::removeContainer(c);
     }
 
@@ -226,7 +226,7 @@ private:
 
 private:
     /// The mutex used to avoid concurrent updates of myPersons/ myContainers
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     mutable RGBColor myMesoColor;
 

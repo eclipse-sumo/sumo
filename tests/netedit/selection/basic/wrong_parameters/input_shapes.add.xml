@@ -1,8 +1,0 @@
-<additionals>
-    <poly id="poly_0" color="green" fill="1" layer="0.00" shape="10.00,20.00 0.00,20.00 0.00,10.00 10.00,10.00 10.00,20.00"/>
-    <poly id="poly_1" color="green" fill="1" layer="0.00" shape="40.00,20.00 40.00,10.00 50.00,10.00 50.00,20.00 40.00,20.00"/>
-    <poi id="POI_0" color="red" layer="3.00" lane="gneE1_0" pos="40.00" width="0.00" height="0.00"/>
-    <poi id="POI_1" color="red" layer="3.00" lane="gneE1_0" pos="10.00" width="0.00" height="0.00"/>
-    <poi id="POI_2" color="red" layer="3.00" x="10.00" y="-10.00" width="0.00" height="0.00"/>
-    <poi id="POI_3" color="red" layer="3.00" x="40.00" y="-10.00" width="0.00" height="0.00"/>
-</additionals>

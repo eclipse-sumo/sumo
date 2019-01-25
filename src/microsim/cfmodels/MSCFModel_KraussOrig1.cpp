@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -52,7 +52,7 @@ MSCFModel_KraussOrig1::~MSCFModel_KraussOrig1() {}
 double
 MSCFModel_KraussOrig1::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
     UNUSED_PARAMETER(veh);
-    const double vDawdle = MAX2(vMin, dawdle(vMax));
+    const double vDawdle = MAX2(vMin, dawdle(vMax, veh->getRNG()));
     return vDawdle;
 }
 
@@ -80,7 +80,7 @@ MSCFModel_KraussOrig1::stopSpeed(const MSVehicle* const veh, const double speed,
 
 
 double
-MSCFModel_KraussOrig1::dawdle(double speed) const {
+MSCFModel_KraussOrig1::dawdle(double speed, std::mt19937* rng) const {
     if (!MSGlobals::gSemiImplicitEulerUpdate) {
         // in case of the ballistic update, negative speeds indicate
         // a desired stop before the completion of the next timestep.
@@ -89,7 +89,7 @@ MSCFModel_KraussOrig1::dawdle(double speed) const {
             return speed;
         }
     }
-    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
+    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand(rng)));
 }
 
 

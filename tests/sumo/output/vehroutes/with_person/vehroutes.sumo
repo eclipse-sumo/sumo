@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun  4 14:46:28 2018 by Eclipse SUMO Version 4ce83f2
+<!-- generated on Mon Jan 21 21:59:24 2019 by Eclipse SUMO Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,10 @@ SPDX-License-Identifier: EPL-2.0
         <end value="1000"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -37,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     </vehicle>
 
-    <person id="p1" depart="100.00" arrival="415.00">
+    <person id="p1" depart="100.00" arrival="416.00">
         <stop lane="4/1to3/1_0" until="150.00"/>
         <ride from="4/1to3/1" to="1/1to0/1" lines="0"/>
         <walk edges="1/1to0/1 0/0to0/1 0/0to1/0" speed="5.00"/>

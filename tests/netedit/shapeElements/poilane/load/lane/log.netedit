@@ -1,5 +1,2 @@
-Error: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_1'.
-Error: Invalid lane id 'dummyLane' (missing '_').
-Error: Invalid lane index 'dummyLane' for lane 'dummyLane'.
-Error: Edge dummyLane
-Error: Loading of shapes failed.
+Warning: Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI 'POI_1'.
+Warning: The lane 'dummyLane' to use within the PoI 'POI_2' is not known.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -814,7 +814,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         const bool warnOnly = st.size() > 7;
         myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true,
                                             NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                                            NBEdge::UNSPECIFIED_SPEED, PositionVector::EMPTY, warnOnly);
+                                            NBEdge::UNSPECIFIED_SPEED, PositionVector::EMPTY, false, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::INIT);

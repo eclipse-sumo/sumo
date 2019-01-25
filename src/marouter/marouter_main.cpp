@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -47,11 +47,11 @@
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/vehicle/RouteCostCalculator.h>
-#include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/CHRouter.h>
-#include <utils/vehicle/CHRouterWrapper.h>
+#include <utils/router/RouteCostCalculator.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/router/AStarRouter.h>
+#include <utils/router/CHRouter.h>
+#include <utils/router/CHRouterWrapper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <od/ODCell.h>
 #include <od/ODDistrict.h>
@@ -294,7 +294,11 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             new RONet::WorkerThread(net.getThreadPool(), provider);
         }
 #endif
-        const std::string assignMethod = oc.getString("assignment-method");
+        std::string assignMethod = oc.getString("assignment-method");
+        if (assignMethod == "UE") {
+            WRITE_WARNING("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE').");
+            assignMethod = "SUE";
+        }
         if (assignMethod == "incremental") {
             a.incremental(oc.getInt("max-iterations"), oc.getBool("verbose"));
         } else if (assignMethod == "SUE") {
@@ -445,7 +449,7 @@ main(int argc, char** argv) {
             }
         }
         if (net->getDistricts().empty()) {
-            throw ProcessError("No districts loaded.");
+            WRITE_WARNING("No districts loaded, will use edge ids!");
         }
         // load districts
         ODDistrictCont districts;

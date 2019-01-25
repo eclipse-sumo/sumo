@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -62,7 +62,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de");
+    myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de");
 }
 
 
@@ -74,7 +74,7 @@ OptionsCont::~OptionsCont() {
 void
 OptionsCont::doRegister(const std::string& name, Option* v) {
     assert(v != 0);
-    ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
+    ItemAddressContType::iterator i = std::find(myAddresses.begin(), myAddresses.end(), v);
     if (i == myAddresses.end()) {
         myAddresses.push_back(v);
     }
@@ -306,7 +306,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
     os << "Options set:" << std::endl;
     for (OptionsCont::KnownContType::const_iterator i = oc.myValues.begin();
             i != oc.myValues.end(); i++) {
-        std::vector<std::string>::iterator j = find(done.begin(), done.end(), (*i).first);
+        std::vector<std::string>::iterator j = std::find(done.begin(), done.end(), (*i).first);
         if (j == done.end()) {
             std::vector<std::string> synonymes = oc.getSynonymes((*i).first);
             if (synonymes.size() != 0) {
@@ -460,7 +460,7 @@ void
 OptionsCont::clear() {
     ItemAddressContType::iterator i;
     for (i = myAddresses.begin(); i != myAddresses.end(); i++) {
-        delete(*i);
+        delete (*i);
     }
     myAddresses.clear();
     myValues.clear();
@@ -917,7 +917,7 @@ OptionsCont::isInStringVector(const std::string& optionName,
                               const std::string& itemName) {
     if (isSet(optionName)) {
         std::vector<std::string> values = getStringVector(optionName);
-        return find(values.begin(), values.end(), itemName) != values.end();
+        return std::find(values.begin(), values.end(), itemName) != values.end();
     }
     return false;
 }

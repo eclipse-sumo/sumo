@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -24,8 +24,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
+// we do not include config.h here, since we should be independent of a special sumo build
 #include <vector>
 #include <limits>
 #include <map>
@@ -203,14 +202,15 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 class TraCIPhase {
 public:
     TraCIPhase() {}
-    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = INVALID_DOUBLE_VALUE, const double _maxDur = INVALID_DOUBLE_VALUE, const int _next = -1)
-        : duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next) {}
+    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = INVALID_DOUBLE_VALUE, const double _maxDur = INVALID_DOUBLE_VALUE, const int _next = -1, const std::string& _name = "")
+        : duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name) {}
     ~TraCIPhase() {}
 
     double duration;
     std::string state;
     double minDur, maxDur;
     int next;
+    std::string name;
 };
 }
 

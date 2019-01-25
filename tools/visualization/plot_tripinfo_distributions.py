@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -24,7 +24,7 @@ from __future__ import print_function
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
@@ -53,7 +53,7 @@ def main(args=None):
     helpers.addInteractionOptions(optParser)
     helpers.addPlotOptions(optParser)
     # parse
-    options, remaining_args = optParser.parse_args(args=args)
+    options, _ = optParser.parse_args(args=args)
 
     if options.tripinfos is None:
         print("Error: at least one tripinfo file must be given")
@@ -97,10 +97,9 @@ def main(args=None):
     fig, ax = helpers.openFigure(options)
     for i, f in enumerate(files):
         c = helpers.getColor(options, i, len(files))
-        l = helpers.getLabel(f, i, options)
-        plt.bar(center, hists[f], width=width, label=l, color=c)
-        for j in range(0, options.bins):
-            center[j] = center[j] + width
+        plt.bar(center, hists[f], width=width, label=helpers.getLabel(f, i, options), color=c)
+        for j in range(options.bins):
+            center[j] += width
     helpers.closeFigure(fig, ax, options)
 
 

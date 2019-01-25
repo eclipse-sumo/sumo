@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -70,8 +70,8 @@ if __name__ == "__main__":
                          help="trace file to use (mandatory)", metavar="FILE")
     optParser.add_option("-d", "--delta", default=1,
                          type="float", help="maximum distance between edge and trace points")
-    optParser.add_option("-a", "--air-dist-factor", default=2,
-                         type="float", help="maximum factor between airline and route distance between successive trace points")
+    optParser.add_option("-a", "--air-dist-factor", default=2, type="float",
+                         help="maximum factor between airline and route distance between successive trace points")
     optParser.add_option("-o", "--output",
                          help="route output (mandatory)", metavar="FILE")
     optParser.add_option("-p", "--poi-output",
@@ -82,8 +82,9 @@ if __name__ == "__main__":
                          default=False, help="read trace with geo-coordinates")
     optParser.add_option("--fill-gaps", action="store_true",
                          default=False, help="use internal dijkstra to repair disconnected routes")
-    optParser.add_option("-g", "--gap-penalty", default=-1,
-                         type="float", help="penalty to add for disconnected routes (default of -1 adds the distance between the two endpoints as penalty)")
+    optParser.add_option("-g", "--gap-penalty", default=-1, type="float",
+                         help="penalty to add for disconnected routes " +
+                              "(default of -1 adds the distance between the two endpoints as penalty)")
     (options, args) = optParser.parse_args()
 
     if not options.output or not options.net:
@@ -115,12 +116,13 @@ if __name__ == "__main__":
             traces = readFCD(options.trace, net, options.geo)
         else:
             traces = readLines(options.trace, net, options.geo)
+        mapOpts = (options.delta, options.verbose, options.air_dist_factor,
+                   options.fill_gaps, options.gap_penalty)
         for tid, trace in traces:
             if poiOut is not None:
                 for idx, pos in enumerate(trace):
                     poiOut.write('<poi id="%s:%s" x="%s" y="%s"/>\n' % (tid, idx, pos[0], pos[1]))
-            edges = [e.getID() for e in sumolib.route.mapTrace(
-                trace, net, options.delta, options.verbose, options.air_dist_factor, options.fill_gaps, options.gap_penalty) if e.getFunction() != "internal"]
+            edges = [e.getID() for e in sumolib.route.mapTrace(trace, net, *mapOpts) if e.getFunction() != "internal"]
             if polyOut is not None:
                 route2poly.generate_poly(net, tid, colorgen(), 10, True, edges, False, polyOut)
             outf.write('    <route id="%s" edges="%s"/>\n' % (tid, " ".join(edges)))

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -53,6 +53,7 @@
 
 class NBNetBuilder;
 class GNEAdditional;
+class GNEDemandElement;
 class GNEApplicationWindow;
 class GNEAttributeCarrier;
 class GNEConnection;
@@ -78,6 +79,7 @@ class GNENet : public GUIGlObject, public ShapeContainer {
 
     /// @brief declare friend class
     friend class GNEAdditionalHandler;
+    friend class GNEDemandHandler;
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;
@@ -85,6 +87,7 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_Shape;
     friend class GNEChange_CalibratorItem;
     friend class GNEChange_Additional;
+    friend class GNEChange_DemandElement;
 
 public:
     /**@brief Constructor
@@ -151,7 +154,7 @@ public:
     * @return whether the polygon could be added
     */
     bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, 
+                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
                     bool geo, bool fill, double lineWidth, bool ignorePruning = false);
 
     /**@brief Builds a POI using the given values and adds it to the container
@@ -254,6 +257,18 @@ public:
      * @param[in] undoList The undolist in which to mark changes
      */
     void deleteShape(GNEShape* shape, GNEUndoList* undoList);
+
+    /**@brief remove additional
+     * @param[in] additional The Shape to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList);
+
+    /**@brief remove demand element
+     * @param[in] demandElement The Shape to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList);
 
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
@@ -462,8 +477,8 @@ public:
     /// @brief get view net
     GNEViewNet* getViewNet() const;
 
-    /// @brief get all selected attribute carriers
-    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers();
+    /// @brief get all selected attribute carriers (or only relative to current supermode
+    std::vector<GNEAttributeCarrier*> getSelectedAttributeCarriers(bool ignoreCurrentSupermode);
 
     /// @brief returns the tllcont of the underlying netbuilder
     NBTrafficLightLogicCont& getTLLogicCont();
@@ -482,9 +497,9 @@ public:
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
      * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
-     * param[in] shapePath path in wich shapes were saved before recomputing with volatile options
+     * param[in] demandPath path in wich demand elements were saved before recomputing with volatile options
      */
-    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string shapePath = "");
+    void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "");
 
     /**@brief join selected junctions
      * @note difference to mergeJunctions:
@@ -580,6 +595,51 @@ public:
 
     /// @}
 
+    /// @name Functions related to DemandElement Items
+    /// @{
+
+    /**@brief Returns the named demand element
+     * @param[in] type tag with the type of demand element
+     * @param[in] id The id of the demand element to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting demand element should result in an exception
+     */
+    GNEDemandElement* retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief return all demand elements
+     * @param[in] onlySelected Whether to return only selected demand elements
+     */
+    std::vector<GNEDemandElement*> retrieveDemandElements(bool onlySelected = false) const;
+
+    /**@brief get map with IDs and pointers to demand elements
+     * @param[in] type type of demand element to get. SUMO_TAG_NOTHING will get all demand elements
+     * @return map with IDs and pointers to demand elements.
+     */
+    const std::map<std::string, GNEDemandElement*>& getDemandElementByType(SumoXMLTag type) const;
+
+    /**@brief Returns the number of demand elements of the net
+     * @param[in] type type of demand element to count. SUMO_TAG_NOTHING will count all demand elements
+     * @return Number of demand elements of the net
+     */
+    int getNumberOfDemandElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+
+    /**@brief update demand element ID in container
+    * @note this function is automatically called when user changes the ID of an demand element
+    */
+    void updateDemandElementID(const std::string& oldID, GNEDemandElement* demandElement);
+
+    /// @brief inform that demand elements has to be saved
+    void requiereSaveDemandElements(bool value);
+
+    /**@brief save demand element elements of the network
+    * @param[in] filename name of the file in wich save demand elements
+    */
+    void saveDemandElements(const std::string& filename);
+
+    /// @brief generate demand element id
+    std::string generateDemandElementID(SumoXMLTag type) const;
+
+    /// @}
+
     /// @name Functions related to Shapes
     /// @{
 
@@ -601,14 +661,6 @@ public:
 
     /// @brief change Shape ID
     void changeShapeID(GNEShape* s, const std::string& OldID);
-
-    /// @brief inform that shapes has to be saved
-    void requiereSaveShapes(bool value);
-
-    /**@brief save shapes elements of the network
-     * @param[in] filename name of the file in wich save shapes
-     */
-    void saveShapes(const std::string& filename);
 
     /// @brief get number of shapes
     int getNumberOfShapes() const;
@@ -639,6 +691,9 @@ protected:
 
         /// @brief map with the name and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
+
+        /// @brief map with the name and pointer to demand elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
     };
 
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
@@ -672,10 +727,10 @@ protected:
     bool myAdditionalsSaved;
 
     /// @brief Flag to check if shapes has to be saved
-    bool myShapesSaved;
-
-    /// @brief Flag to check if shapes has to be saved
     bool myTLSProgramsSaved;
+
+    /// @brief Flag to check if demand elements has to be saved
+    bool myDemandElementsSaved;
 
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{
@@ -692,6 +747,24 @@ protected:
      * @throw processError if additional wasn't previously inserted
      */
     bool deleteAdditional(GNEAdditional* additional);
+
+    /// @}
+
+    /// @name Insertion and erasing of GNEDemandElements items
+    /// @{
+
+    /// @brief return true if demand element exist (use pointer instead ID)
+    bool demandElementExist(GNEDemandElement* demandElement);
+
+    /**@brief Insert a demand element element int GNENet container.
+     * @throw processError if route was already inserted
+     */
+    void insertDemandElement(GNEDemandElement* demandElement);
+
+    /**@brief delete demand element element of GNENet container
+     * @throw processError if demand element wasn't previously inserted
+     */
+    bool deleteDemandElement(GNEDemandElement* demandElement);
 
     /// @}
 
@@ -737,6 +810,9 @@ private:
 
     /// @brief save additionals after confirming invalid objects
     void saveAdditionalsConfirmed(const std::string& filename);
+
+    /// @brief save demand elements after confirming invalid objects
+    void saveDemandElementsConfirmed(const std::string& filename);
 
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 

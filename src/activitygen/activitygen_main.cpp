@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials
@@ -69,7 +69,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         throw ProcessError("The network file '" + file + "' could not be accessed.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading net");
-    RONetHandler handler(toFill, eb, true);
+    RONetHandler handler(toFill, eb, true, 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -183,7 +183,7 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
     const double e2Length = e2->getGeometry().length2D();
     const double maxLookAhead = MAX2(e1Length, e2Length);
     double lookAhead = MIN2(maxLookAhead, 2 * NBEdge::ANGLE_LOOKAHEAD);
-    while (fabs(relAngle1 - relAngle2) < 3.0) {
+    while (fabs(fabs(relAngle1) - fabs(relAngle2)) < 3.0) {
         // look at further geometry segments to resolve ambiguity
         const double offset1 = myRefIncoming ? lookAhead : e1Length - lookAhead;
         const double offset2 = myRefIncoming ? lookAhead : e2Length - lookAhead;
@@ -200,7 +200,7 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
         }
         lookAhead *= 2;
     }
-    if (fabs(relAngle1 - relAngle2) < 3.0) {
+    if (fabs(fabs(relAngle1) - fabs(relAngle2)) < 3.0) {
         // use angle to end of reference edge as tiebraker
         relAngle1 = NBHelpers::normRelAngle(myReferenceAngle, GeomHelper::legacyDegree(
                                                 myReferencePos.angleTo2D(e1->getLaneShape(0)[geomIndex]), true));
@@ -211,6 +211,10 @@ NBContHelper::straightness_sorter::operator()(NBEdge* e1, NBEdge* e2) const {
         //    << " abs2=" << GeomHelper::legacyDegree(myReferencePos.angleTo2D(e2->getLaneShape(0).front()), true) <<  "\n";
     }
     //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " a1=" << relAngle1 << " a2=" << relAngle2 << "\n";
+    if (fabs(fabs(relAngle1) - fabs(relAngle2)) < NUMERICAL_EPS && fabs(relAngle1 - relAngle2) > NUMERICAL_EPS) {
+        // another tie braker, if we have one going to the right and one going to the left, take the one to the right
+        return relAngle1 > relAngle2;
+    }
     return fabs(relAngle1) < fabs(relAngle2);
 }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -50,15 +50,15 @@ netedit.modifyAttribute(1, "")
 netedit.modifyAttribute(1, "12.00,8.00")
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1,
-                        "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00")
+netedit.modifyAttribute(1, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
+                           "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00")
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save shapes
-netedit.saveShapes()
+netedit.saveAdditionals()
 
 # save network
 netedit.saveNetwork()

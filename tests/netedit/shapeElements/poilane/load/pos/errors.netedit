@@ -10,9 +10,8 @@ Debug: Adding poiLane 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 47.00,-1.40,53.00,4.60
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals saved, shapes unsaved
-Error: Attribute 'pos' in definition of poi 'POI_1' is not of type float.
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding poiLane 'POI_2' into viewNet
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
@@ -25,10 +24,9 @@ Debug: Adding poiLane 'POI_4' into viewNet
 GLDebug: Inserted poi:POI_4 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_4 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Inserted poi:POI_4 into SUMORTree with boundary 17.00,-1.40,23.00,4.60
-Error: Loading of shapes failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
-Debug: Shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
@@ -83,4 +81,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

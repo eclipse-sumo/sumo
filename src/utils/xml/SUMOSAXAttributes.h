@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -316,7 +316,7 @@ public:
     virtual SumoXMLNodeType getNodeType(bool& ok) const = 0;
 
     /**
-     * @brief Returns the right-of-way method 
+     * @brief Returns the right-of-way method
      */
     virtual RightOfWay getRightOfWay(bool& ok) const = 0;
 
@@ -346,10 +346,16 @@ public:
 
     /** @brief Tries to read given attribute assuming it is a string vector
      *
+     * The behavior is similar to Python's string.split(), so multiple consecutive
+     *  whitespace do not generate empty strings and leading and trailing whitespace is silently omitted.
+     *
      * @param[in] attr The id of the attribute to read
      * @return The read value if given and not empty; empty vector if an error occurred
      */
-    virtual std::vector<std::string> getStringVector(int attr) const = 0;
+    const std::vector<std::string> getStringVector(int attr) const;
+
+    /// @brief convenience function to avoid the default argument and the template stuff at getOpt<>
+    const std::vector<std::string> getOptStringVector(int attr, const char* objectid, bool& ok, bool report = true) const;
     //}
 
 
@@ -367,6 +373,10 @@ public:
      */
     virtual void serialize(std::ostream& os) const = 0;
 
+    /** @brief Retrieves all attribute names
+     */
+    virtual std::vector<std::string> getAttributeNames() const = 0;
+
 
     /// @brief return the objecttype to which these attributes belong
     const std::string& getObjectType() const {
@@ -381,28 +391,6 @@ public:
 
     /** @brief The encoding of parsed strings */
     static const std::string ENCODING;
-
-
-    /** @brief Splits the given string
-     *
-     * Spaces, ",", and ";" are assumed to be separator characters.
-     * Though, in the case a "," or a ";" occurs, a warning is generated (once).
-     *
-     * @param[in] def The string to split
-     * @param[out] into The vector to fill
-     */
-    static void parseStringVector(const std::string& def, std::vector<std::string>& into);
-
-
-    /** @brief Splits the given string, stores it in a set
-     *
-     * Spaces, ",", and ";" are assumed to be separator characters.
-     * Though, in the case a "," or a ";" occurs, a warning is generated (once).
-     *
-     * @param[in] def The string to split
-     * @param[out] into The set to fill
-     */
-    static void parseStringSet(const std::string& def, std::set<std::string>& into);
 
 
 protected:
@@ -472,6 +460,11 @@ template<> struct invalid_return<PositionVector> {
 
 template<> struct invalid_return<Boundary> {
     static const Boundary value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<std::vector<std::string> > {
+    static const std::vector<std::string> value;
     static const std::string type;
 };
 

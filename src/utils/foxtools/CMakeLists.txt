@@ -1,6 +1,7 @@
 set(utils_foxtools_STAT_SRCS
    FXBaseObject.cpp
    FXBaseObject.h
+   FXConditionalLock.h
    fxexdefs.h
    MFXImageHelper.cpp
    MFXImageHelper.h
@@ -12,13 +13,14 @@ set(utils_foxtools_STAT_SRCS
    FXSevenSegment.h
    FXSingleEventThread.cpp
    FXSingleEventThread.h
+   FXSynchQue.h
    FXThreadEvent.cpp
    FXThreadEvent.h
    FXWorkerThread.h
+   MsgHandlerSynchronized.h
+   MsgHandlerSynchronized.cpp
    MFXCheckableButton.cpp
    MFXCheckableButton.h
-   MFXEventQue.cpp
-   MFXEventQue.h
    MFXInterThreadEventClient.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h
@@ -26,8 +28,8 @@ set(utils_foxtools_STAT_SRCS
    MFXEditableTable.h
    MFXMenuHeader.cpp
    MFXMenuHeader.h
-   MFXMutex.cpp
-   MFXMutex.h
+   MFXIconComboBox.cpp
+   MFXIconComboBox.h
    MFXUtils.cpp
    MFXUtils.h
 )

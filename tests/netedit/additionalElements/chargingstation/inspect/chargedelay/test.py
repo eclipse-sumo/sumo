@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 160)
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(12, "dummyChargeDelay")
+netedit.modifyAttribute(13, "dummyChargeDelay")
 
 # Change parameter chargeDelay with a non valid value
-netedit.modifyAttribute(12, "-100")
+netedit.modifyAttribute(13, "-100")
 
 # Change parameter chargeDelay with a valid value
-netedit.modifyAttribute(12, "30.5")
+netedit.modifyAttribute(13, "30.5")
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

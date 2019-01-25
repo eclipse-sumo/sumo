@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -35,25 +35,25 @@ netedit.changeAdditional("busStop")
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create busStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter startPos with a valid value (empty)
-netedit.modifyAttribute(5, "")
+netedit.modifyAttribute(6, "")
 
 # Change parameter startPos with a valid value (< 0)
-netedit.modifyAttribute(5, "-5")
+netedit.modifyAttribute(6, "-5")
 
 # Change parameter startPos with a non valid value (> endPos)
-netedit.modifyAttribute(5, "400")
+netedit.modifyAttribute(6, "400")
 
 # Change parameter startPos with a valid value
-netedit.modifyAttribute(5, "20")
+netedit.modifyAttribute(6, "20")
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

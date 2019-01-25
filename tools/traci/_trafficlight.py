@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -22,16 +22,18 @@ from .exceptions import TraCIException
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1):
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1, name=""):
         self.duration = duration
         self.state = state
         self.minDur = minDur  # minimum duration (only for actuated tls)
         self.maxDur = maxDur  # maximum duration (only for actuated tls)
         self.next = next
+        self.name = name
 
     def __repr__(self):
-        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s)" %
-                (self.duration, self.state, self.minDur, self.maxDur, self.next))
+        name = "" if self.name == "" else ", name='%s'" % self.name
+        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s%s)" %
+                (self.duration, self.state, self.minDur, self.maxDur, self.next, name))
 
 
 class Logic:
@@ -74,13 +76,14 @@ def _readLogics(result):
         logic = Logic(programID, type, currentPhaseIndex)
         numPhases = result.readCompound()
         for __ in range(numPhases):
-            result.readCompound(5)
+            result.readCompound(6)
             duration = result.readTypedDouble()
             state = result.readTypedString()
             minDur = result.readTypedDouble()
             maxDur = result.readTypedDouble()
             next = result.readTypedInt()
-            logic.phases.append(Phase(duration, state, minDur, maxDur, next))
+            name = result.readTypedString()
+            logic.phases.append(Phase(duration, state, minDur, maxDur, next, name))
         numParams = result.readCompound()
         for __ in range(numParams):
             key, value = result.readTypedStringList()
@@ -113,6 +116,7 @@ _RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
                       tc.TL_CONTROLLED_LINKS: _readLinks,
                       tc.TL_CURRENT_PROGRAM: Storage.readString,
                       tc.TL_CURRENT_PHASE: Storage.readInt,
+                      tc.VAR_NAME: Storage.readString,
                       tc.TL_NEXT_SWITCH: Storage.readDouble,
                       tc.TL_PHASE_DURATION: Storage.readDouble}
 
@@ -175,6 +179,12 @@ class TrafficLightDomain(Domain):
         """
         return self._getUniversal(tc.TL_CURRENT_PHASE, tlsID)
 
+    def getPhaseName(self, tlsID):
+        """getPhase(string) -> string
+        Returns the name of the current phase.
+        """
+        return self._getUniversal(tc.VAR_NAME, tlsID)
+
     def getNextSwitch(self, tlsID):
         """getNextSwitch(string) -> double
 
@@ -226,6 +236,14 @@ class TrafficLightDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
 
+    def setPhaseName(self, tlsID, name):
+        """setPhase(string, string) -> None
+
+        Sets the name of the current phase within the current program
+        """
+        self._connection._sendStringCmd(
+            tc.CMD_SET_TL_VARIABLE, tc.VAR_NAME, tlsID, name)
+
     def setProgram(self, tlsID, programID):
         """setProgram(string, string) -> None
 
@@ -254,7 +272,7 @@ class TrafficLightDomain(Domain):
         length = 1 + 4 + 1 + 4 + \
             len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
         for p in tls.phases:
-            length += 1 + 4 + 1 + 8 + 1 + 4 + len(p.state) + 1 + 8 + 1 + 8 + 1 + 4
+            length += 1 + 4 + 1 + 8 + 1 + 4 + len(p.state) + 1 + 8 + 1 + 8 + 1 + 4 + 1 + 4 + len(p.name)
         length += 1 + 4  # subparams
         for k, v in tls.subParameter.items():
             length += 1 + 4 + 4 + len(k) + 4 + len(v)
@@ -266,10 +284,11 @@ class TrafficLightDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tls.currentPhaseIndex)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.phases))
         for p in tls.phases:
-            self._connection._string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 5, tc.TYPE_DOUBLE, p.duration)
+            self._connection._string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 6, tc.TYPE_DOUBLE, p.duration)
             self._connection._packString(p.state)
             self._connection._string += struct.pack("!BdBdBi", tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur,
                                                     tc.TYPE_INTEGER, p.next)
+            self._connection._packString(p.name)
         # subparams
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.subParameter))
         for par in tls.subParameter.items():

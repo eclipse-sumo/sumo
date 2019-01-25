@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -35,15 +35,15 @@ def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicu
     p = point
     p1 = line_start
     p2 = line_end
-    l = distance(p1, p2)
+    d = distance(p1, p2)
     u = ((p[0] - p1[0]) * (p2[0] - p1[0])) + ((p[1] - p1[1]) * (p2[1] - p1[1]))
-    if l == 0 or u < 0.0 or u > l * l:
+    if d == 0. or u < 0. or u > d * d:
         if perpendicular:
             return INVALID_DISTANCE
-        if u < 0:
-            return 0
-        return l
-    return u / l
+        if u < 0.:
+            return 0.
+        return d
+    return u / d
 
 
 def polygonOffsetAndDistanceToPoint(point, polygon, perpendicular=False):
@@ -232,7 +232,7 @@ def move2side(shape, amount):
             toPos = shape[i + 1]
             # check for narrow turns
             if narrow(fromPos, pos, toPos, amount):
-                #print("narrow at i=%s pos=%s" % (i, pos))
+                # print("narrow at i=%s pos=%s" % (i, pos))
                 pass
             else:
                 a = sideOffset(fromPos, pos, -amount)
@@ -244,7 +244,7 @@ def move2side(shape, amount):
                     extend = norm(sub(pos, fromPos))
                     pos2 = add(pos, mul(extend, amount))
                 result.append(pos2)
-    #print("move2side", amount)
+    # print("move2side", amount)
     # print(shape)
     # print(result)
     # print()

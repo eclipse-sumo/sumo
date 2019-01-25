@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -313,11 +313,11 @@ public:
                          double width = -1);
 
     static void drawTextSettings(
-            const GUIVisualizationTextSettings& settings,
-            const std::string& text, const Position& pos,
-            const double scale,
-            const double angle = 0,
-            const double layer = 2048); // GLO_MAX
+        const GUIVisualizationTextSettings& settings,
+        const std::string& text, const Position& pos,
+        const double scale,
+        const double angle = 0,
+        const double layer = 2048); // GLO_MAX
 
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,

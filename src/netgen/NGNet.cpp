@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -215,7 +215,7 @@ NGNet::connect(NGNode* node1, NGNode* node2) {
     myEdgeList.push_back(link2);
 }
 
-Distribution_Parameterized 
+Distribution_Parameterized
 NGNet::getDistribution(const std::string& option) {
     std::string val = OptionsCont::getOptions().getString(option);
     try {
@@ -235,9 +235,9 @@ NGNet::toNB() const {
     std::vector<NBNode*> nodes;
     for (NGNodeList::const_iterator i1 = myNodeList.begin(); i1 != myNodeList.end(); i1++) {
         Position perturb(
-                perturbx.sample(),
-                perturby.sample(),
-                perturbz.sample());
+            perturbx.sample(),
+            perturby.sample(),
+            perturbz.sample());
         NBNode* node = (*i1)->buildNBNode(myNetBuilder, perturb);
         nodes.push_back(node);
         myNetBuilder.getNodeCont().insert(node);

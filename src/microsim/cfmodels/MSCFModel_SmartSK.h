@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -126,6 +126,8 @@ public:
     }
     /// @}
 
+    /// @brief apply dawdling
+    double patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const;
 
     /** @brief Duplicates the car-following model
      * @param[in] vtype The vehicle type this model belongs to (1:1)
@@ -146,13 +148,13 @@ private:
      * @param[in] speed The speed with no dawdling
      * @return The speed after dawdling
      */
-    virtual double dawdle(double speed) const;
+    virtual double dawdle(double speed, std::mt19937* rng) const;
 
     virtual void updateMyHeadway(const MSVehicle* const veh) const {
         // this is the point were the preferred headway changes slowly:
         SSKVehicleVariables* vars = (SSKVehicleVariables*)veh->getCarFollowVariables();
         double tTau = vars->myHeadway;
-        tTau = tTau + (myHeadwayTime - tTau) * myTmp2 + myTmp3 * tTau * RandHelper::rand(double(-1.0), double(1.0));
+        tTau = tTau + (myHeadwayTime - tTau) * myTmp2 + myTmp3 * tTau * RandHelper::rand(double(-1.0), double(1.0), veh->getRNG());
         if (tTau < TS) { // this ensures the SK safety condition
             tTau = TS;
         }

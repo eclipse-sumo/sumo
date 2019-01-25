@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -139,6 +139,9 @@ public:
         myRestrictions = restrictions;
     }
 
+    inline void setTimePenalty(double value) {
+        myTimePenalty = value;
+    }
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
@@ -434,7 +437,7 @@ public:
 
 
     /// @brief optimistic distance heuristic for use in routing
-    double getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate=false) const;
+    double getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate = false) const;
 
 
     /** @brief Returns all ROEdges */
@@ -543,6 +546,9 @@ protected:
 
     /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
     Boundary myBoundary;
+
+    /// @brief flat penalty when computing traveltime
+    double myTimePenalty;
 
     static ROEdgeVector myEdges;
 

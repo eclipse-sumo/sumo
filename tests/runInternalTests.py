@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
     env["MAROUTER_BINARY"] = os.path.join(
         root, "..", "bin", "marouter" + suffix)
-    apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,netconvert.gdal,polyconvert.gdal"
+    apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel,netconvert.gdal,polyconvert.gdal"
     apps += ",complex.meso,complex.libsumo,duarouter.astar"
     if chrouter:
         apps += ",duarouter.chrouter"

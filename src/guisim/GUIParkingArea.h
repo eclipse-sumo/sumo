@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -121,7 +121,7 @@ public:
 
     /// @brief extend boundary
     void addLotEntry(double x, double y, double z,
-            double width, double length, double angle);
+                     double width, double length, double angle);
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

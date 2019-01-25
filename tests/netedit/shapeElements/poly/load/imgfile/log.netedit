@@ -1,4 +1,3 @@
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Dec094654.1312/netedit.gui/shapeElements/poly/load/imgfile\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan152638.2716/netedit.gui/shapeElements/poly/load/imgfile\paris.ico'.
 Loading failed!
-Error: Attribute 'imgFile' in definition of poly 'poly_2' is empty.
-Error: Loading of shapes failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan152638.2716/netedit.gui/shapeElements/poly/load/imgfile\input_additionals.add.xml failed.

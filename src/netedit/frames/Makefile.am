@@ -10,4 +10,6 @@ GNECrossingFrame.cpp GNECrossingFrame.h \
 GNETAZFrame.cpp GNETAZFrame.h \
 GNEDeleteFrame.cpp GNEDeleteFrame.h \
 GNEPolygonFrame.cpp GNEPolygonFrame.h \
+GNECreateEdgeFrame.cpp GNECreateEdgeFrame.h \
+GNERouteFrame.cpp GNERouteFrame.h \
 GNEProhibitionFrame.cpp GNEProhibitionFrame.h

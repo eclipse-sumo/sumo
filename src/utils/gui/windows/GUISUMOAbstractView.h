@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -39,7 +39,6 @@
 #undef NOMINMAX
 #endif
 
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
 #include <utils/common/RGBColor.h>
@@ -209,6 +208,16 @@ public:
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/) { }
 
+    /// @brief return list of loaded edgeData attributes
+    virtual std::vector<std::string> getEdgeDataAttrs() const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return list of available edge parameters
+    virtual std::vector<std::string> getEdgeLaneParamKeys(bool /*edgeKeys*/) const {
+        return std::vector<std::string>();
+    }
+
     /// @brief remove viewport
     void remove(GUIDialog_EditViewport*);
 
@@ -307,7 +316,7 @@ public:
 
 public:
     /// @brief get coloring schemes combo
-    FXComboBox& getColoringSchemesCombo();
+    FXComboBox* getColoringSchemesCombo();
 
     /// @brief Returns the cursor's x/y position within the network
     Position getPositionInformation() const;
@@ -331,6 +340,9 @@ public:
 
     /// @brief Sets the delay of the parent application
     void setDelay(double delay);
+
+    /** @brief Sets the breakpoints of the parent application */
+    void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
 
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
@@ -444,7 +456,7 @@ protected:
     std::vector<Decal> myDecals;
 
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
-    MFXMutex myDecalsLock;
+    FXMutex myDecalsLock;
     ///@}
 
     /// @brief Snapshots
@@ -457,7 +469,7 @@ protected:
     FXCondition mySnapshotCondition;
 
     /// @brief poly draw lock
-    mutable MFXMutex myPolyDrawLock;
+    mutable FXMutex myPolyDrawLock;
 
     /// @brief List of objects for which GUIGlObject::drawGLAdditional is called
     std::map<const GUIGlObject*, int> myAdditionallyDrawn;

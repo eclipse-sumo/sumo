@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -205,7 +205,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
                     }
                 }
                 if (splitEdge != nullptr) {
-                    j = find(j, (*ri).edges2Pass.end(), splitEdge);
+                    j = std::find(j, (*ri).edges2Pass.end(), splitEdge);
                 } else {
                     ++j;
                 }
@@ -877,7 +877,7 @@ RODFDetectorCon::removeDetector(const std::string& id) {
     myDetectorMap.erase(ri1);
     //
     std::vector<RODFDetector*>::iterator ri2 =
-        find(myDetectors.begin(), myDetectors.end(), oldDet);
+        std::find(myDetectors.begin(), myDetectors.end(), oldDet);
     myDetectors.erase(ri2);
     //
     bool found = false;
@@ -955,7 +955,7 @@ RODFDetectorCon::getAnyDetectorForEdge(const RODFEdge* const edge) const {
 void
 RODFDetectorCon::clearDists(std::map<SUMOTime, RandomDistributor<int>* >& dists) const {
     for (std::map<SUMOTime, RandomDistributor<int>* >::iterator i = dists.begin(); i != dists.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
 }
 

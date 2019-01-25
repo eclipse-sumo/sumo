@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -105,7 +105,9 @@ protected:
         OPENDRIVE_TAG_WIDTH,
         OPENDRIVE_TAG_SPEED,
         OPENDRIVE_TAG_ELEVATION,
-        OPENDRIVE_TAG_GEOREFERENCE
+        OPENDRIVE_TAG_GEOREFERENCE,
+        OPENDRIVE_TAG_OBJECT,
+        OPENDRIVE_TAG_REPEAT
     };
 
 
@@ -120,11 +122,18 @@ protected:
         OPENDRIVE_ATTR_REVMINOR,
         OPENDRIVE_ATTR_ID,
         OPENDRIVE_ATTR_LENGTH,
+        OPENDRIVE_ATTR_WIDTH,
+        OPENDRIVE_ATTR_DISTANCE,
+        OPENDRIVE_ATTR_TSTART,
+        OPENDRIVE_ATTR_TEND,
+        OPENDRIVE_ATTR_WIDTHSTART,
+        OPENDRIVE_ATTR_WIDTHEND,
         OPENDRIVE_ATTR_JUNCTION,
         OPENDRIVE_ATTR_ELEMENTTYPE,
         OPENDRIVE_ATTR_ELEMENTID,
         OPENDRIVE_ATTR_CONTACTPOINT,
         OPENDRIVE_ATTR_S,
+        OPENDRIVE_ATTR_T,
         OPENDRIVE_ATTR_X,
         OPENDRIVE_ATTR_Y,
         OPENDRIVE_ATTR_HDG,
@@ -393,15 +402,33 @@ protected:
         PositionVector shape;
 
         std::string getDescription() const {
-            return "Connection from=" + fromEdge + "_" + toString(fromLane) 
-                + " to=" + toEdge + "_" + toString(toLane)
-                + " fromCP=" + (fromCP == OPENDRIVE_CP_START ? "start" : fromCP == OPENDRIVE_CP_END ? "end" : "unknown")
-                + " toCP=" + (toCP == OPENDRIVE_CP_START ? "start" : toCP == OPENDRIVE_CP_END ? "end" : "unknown")
-                + " all=" + toString(all);
-                //+ " origID=" + origID + " origLane=" + toString(origLane);
+            return "Connection from=" + fromEdge + "_" + toString(fromLane)
+                   + " to=" + toEdge + "_" + toString(toLane)
+                   + " fromCP=" + (fromCP == OPENDRIVE_CP_START ? "start" : fromCP == OPENDRIVE_CP_END ? "end" : "unknown")
+                   + " toCP=" + (toCP == OPENDRIVE_CP_START ? "start" : toCP == OPENDRIVE_CP_END ? "end" : "unknown")
+                   + " all=" + toString(all);
+            //+ " origID=" + origID + " origLane=" + toString(origLane);
         }
     };
 
+    /**
+     * @struct Object
+     * @brief A road object (e.g. parkingSpace)
+     */
+    struct OpenDriveObject {
+        std::string type;
+        std::string name;
+        std::string id;
+        double s;
+        double t;
+        double zOffset;
+        double length;
+        double width;
+        double height;
+        double hdg;
+        double pitch;
+        double roll;
+    };
 
     /**
      * @struct OpenDriveEdge
@@ -446,6 +473,7 @@ protected:
         std::vector<OpenDriveLaneSection> laneSections;
         std::vector<OpenDriveSignal> signals;
         std::set<Connection> connections;
+        std::vector<OpenDriveObject> objects;
         bool isInner;
     };
 

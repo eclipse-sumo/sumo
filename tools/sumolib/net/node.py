@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@ class Node:
         self._intLanes = intLanes
         self._shape3D = None
         self._shape = None
+        self._params = {}
 
     def getID(self):
         return self._id
@@ -154,3 +155,12 @@ class Node:
                     outgoing = all_outgoing
                 conns.extend(outgoing)
         return conns
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params

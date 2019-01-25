@@ -11,7 +11,7 @@ GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -0.10,-0.
 GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
 GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
 Debug: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
@@ -45,7 +45,7 @@ GLDebug: Inserted calibrator:calibrator03 into SUMORTree with boundary 12.00,-21
 GLDebug: Removed object calibrator:calibrator04 from SUMORTree with boundary 14.00,-21.60,54.00,18.40
 GLDebug: Inserted calibrator:calibrator04 into SUMORTree with boundary 14.00,-21.60,54.00,18.40
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -82,7 +82,7 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: Deleting unreferenced laneCalibrator 'calibrator04'
 GLDebug: Removed object calibrator:calibrator04 from SUMORTree with boundary 14.00,-21.60,54.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced laneCalibrator 'calibrator03'
 GLDebug: Removed object calibrator:calibrator03 from SUMORTree with boundary 12.00,-21.60,52.00,18.40
 Debug: Deleting unreferenced laneCalibrator 'calibrator02'
@@ -99,4 +99,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

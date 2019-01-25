@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -30,12 +30,14 @@
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -283,7 +285,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // compute lane-marking intersection points)
         const double halfWidth2 = exaggeration * (myParentEdge.getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2);
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-        const double halfWidth =  myParentEdge.isAttributeCarrierSelected() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
+        const double halfWidth =  drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
         const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge.getNBEdge()->isBidiRail();
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && (!s.drawForSelecting || spreadSuperposed)) {
@@ -397,7 +399,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // draw a Start/endPoints if lane has a custom shape
         if (!s.drawForSelecting && (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
             GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-            if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+            if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
                 // override with special colors (unless the color scheme is based on selection)
                 GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
             }
@@ -488,19 +490,19 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     // build copy names entry
-    if (editMode != GNE_MODE_TLS) {
+    if (editMode != GNE_NMODE_TLS) {
         new FXMenuCommand(ret, "Copy edge parent name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
         buildNameCopyPopupEntry(ret);
     }
     // build selection
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    if (editMode != GNE_MODE_TLS) {
+    if (editMode != GNE_NMODE_TLS) {
         // build show parameters menu
         buildShowParamsPopupEntry(ret);
         // build position copy entry
         buildPositionCopyEntry(ret, false);
     }
-    if (editMode != GNE_MODE_CONNECT && editMode != GNE_MODE_TLS && editMode != GNE_MODE_CREATE_EDGE) {
+    if (editMode != GNE_NMODE_CONNECT && editMode != GNE_NMODE_TLS && editMode != GNE_NMODE_CREATE_EDGE) {
         // Get icons
         FXIcon* pedestrianIcon = GUIIconSubSys::getIcon(ICON_LANEPEDESTRIAN);
         FXIcon* bikeIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
@@ -625,7 +627,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane && !edgeHasGreenVerge) {
             cascadeRemoveSpecialLane->disable();
         }
-    } else if (editMode == GNE_MODE_TLS) {
+    } else if (editMode == GNE_NMODE_TLS) {
         if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->controlsEdge(myParentEdge)) {
             new FXMenuCommand(ret, "Select state for all links from this edge:", nullptr, nullptr, 0);
             const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
@@ -642,7 +644,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // buildShowParamsPopupEntry(ret, false);
     // build shape positions menu
-    if (editMode != GNE_MODE_TLS) {
+    if (editMode != GNE_NMODE_TLS) {
         new FXMenuSeparator(ret);
         const double pos = getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         const double height = getShape().positionAtOffset2D(getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
@@ -720,7 +722,7 @@ GNELane::updateGeometry(bool updateGrid) {
         i->updateGeometry(updateGrid);
     }
     // update additionals with this lane as chid
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->updateGeometry(updateGrid);
     }
     // update POIs associated to this lane
@@ -728,7 +730,7 @@ GNELane::updateGeometry(bool updateGrid) {
         i->updateGeometry(updateGrid);
     }
     // In Move mode, connections aren't updated
-    if (myNet->getViewNet() && myNet->getViewNet()->getCurrentEditMode() != GNE_MODE_MOVE) {
+    if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_MOVE) {
         // Update incoming connections of this lane
         auto incomingConnections = getGNEIncomingConnections();
         for (auto i : incomingConnections) {
@@ -979,8 +981,9 @@ GNELane::setGenericParametersStr(const std::string& value) {
 
 
 void
-GNELane::setSpecialColor(const RGBColor* color) {
+GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
     mySpecialColor = color;
+    mySpecialColorValue = colorValue;
 }
 
 // ===========================================================================
@@ -1034,14 +1037,9 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
-}
-
-
-void
-GNELane::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 
 
@@ -1050,10 +1048,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (mySpecialColor != nullptr) {
         // If special color is enabled, set it
         GLHelper::setColor(*mySpecialColor);
-    } else if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+    } else if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(s.selectedLaneColor);
-    } else if (myParentEdge.isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+    } else if (myParentEdge.drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(s.selectedEdgeColor);
     } else {
@@ -1104,6 +1102,9 @@ GNELane::setMultiColor(const GUIColorer& c) const {
 double
 GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     const SVCPermissions myPermissions = myParentEdge.getNBEdge()->getPermissions(myIndex);
+    if (mySpecialColor != nullptr && mySpecialColorValue != std::numeric_limits<double>::max()) {
+        return mySpecialColorValue;
+    }
     switch (activeScheme) {
         case 0:
             switch (myPermissions) {
@@ -1177,7 +1178,7 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 void
 GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     // iterate over all additional parents of lane
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         // Obtain attribute LANES of additional
         std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
         // check that at least there is an lane
@@ -1203,6 +1204,35 @@ GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
     }
 }
 
+
+void
+GNELane::removeLaneOfDemandElementParents(GNEUndoList* undoList, bool allowEmpty) {
+    // iterate over all additional parents of lane
+    for (auto i : myDemandElementParents) {
+        // Obtain attribute LANES of additional
+        std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
+        // check that at least there is an lane
+        if (laneIDs.empty()) {
+            throw ProcessError("DemandElement lane childs is empty");
+        } else if ((laneIDs.size() == 1) && (allowEmpty == false)) {
+            // remove entire DemandElement if SUMO_ATTR_LANES cannot be empty
+            if (laneIDs.front() == getID()) {
+                undoList->add(new GNEChange_DemandElement(i, false), true);
+            } else {
+                throw ProcessError("lane ID wasnt' found in DemandElement");
+            }
+        } else {
+            auto it = std::find(laneIDs.begin(), laneIDs.end(), getID());
+            if (it != laneIDs.end()) {
+                // set new attribute in DemandElement
+                laneIDs.erase(it);
+                i->setAttribute(SUMO_ATTR_LANES, toString(laneIDs), undoList);
+            } else {
+                throw ProcessError("lane ID wasnt' found in DemandElement");
+            }
+        }
+    }
+}
 
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
@@ -1332,7 +1362,7 @@ GNELane::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additionals with this lane as chid
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of POIs associated to this lane
@@ -1350,7 +1380,7 @@ GNELane::endGeometryMoving() {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of POIs associated to this lane

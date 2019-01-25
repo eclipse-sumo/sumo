@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
 /// @file    GNEDeleteFrame.h
-/// @author  Pablo Alvarez Lopex
+/// @author  Pablo Alvarez Lopez
 /// @date    Dec 2016
 /// @version $Id$
 ///
@@ -52,15 +52,21 @@ public:
         /// @brief check if only delete geometry points checkbox is enabled
         bool deleteOnlyGeometryPoints() const;
 
+        /// @brief check if protect demand elements checkbox is enabled
+        bool protectDemandElements() const;
+
     private:
         /// @brief pointer to delete Frame Parent
         GNEDeleteFrame* myDeleteFrameParent;
 
-        /// @brief checkbox for enable/disable automatically delete additionals childs
+        /// @brief checkbox for enable/disable automatic deletion of additionals childs
         FXCheckButton* myForceDeleteAdditionals;
 
         /// @brief checkbox for enable/disable delete only geometry points
         FXCheckButton* myDeleteOnlyGeometryPoints;
+
+        /// @brief checkbox for enable/disable automatic deletion of demand childs
+        FXCheckButton* myProtectDemandElements;
     };
 
     /**@brief Constructor

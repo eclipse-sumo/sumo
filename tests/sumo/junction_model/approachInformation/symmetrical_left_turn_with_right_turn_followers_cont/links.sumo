@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 10 11:21:41 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <precision value="4"/>
+        <netstate-dump.precision value="4"/>
+        <emission-output.precision value="4"/>
+        <battery-output.precision value="4"/>
+        <link-output value="linkstate.xml"/>
+    </output>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <time-to-teleport value="20"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<link-output>
+    <timestep id="0.0000"/>
+    <timestep id="1.0000">
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_3_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="36.7890" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_10_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="36.7890" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="2.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.4210" arrivalTimeBraking="38.4210" leaveTime="9.4760" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.1960" arrivalTimeBraking="38.1960" leaveTime="8.5680" arrivalSpeed="13.4315" arrivalSpeedBraking="0.0000" leaveSpeed="13.4315" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.4210" arrivalTimeBraking="38.4210" leaveTime="9.4760" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.1960" arrivalTimeBraking="38.1960" leaveTime="8.5680" arrivalSpeed="13.4315" arrivalSpeedBraking="0.0000" leaveSpeed="13.4315" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.0590" arrivalTimeBraking="38.0590" leaveTime="8.9020" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_3_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="36.7890" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.0590" arrivalTimeBraking="38.0590" leaveTime="8.9020" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_10_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="36.7890" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="3.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.1280" arrivalTimeBraking="38.1280" leaveTime="9.1830" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.0840" arrivalTimeBraking="38.0840" leaveTime="8.4440" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.1280" arrivalTimeBraking="38.1280" leaveTime="9.1830" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.0840" arrivalTimeBraking="38.0840" leaveTime="8.4440" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="7.7840" arrivalTimeBraking="37.7840" leaveTime="8.6270" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_3_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="36.7890" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="7.7840" arrivalTimeBraking="37.7840" leaveTime="8.6270" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_10_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="36.7890" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="4.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="7.9820" arrivalTimeBraking="37.9820" leaveTime="9.0370" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.1600" arrivalTimeBraking="38.1600" leaveTime="8.5200" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="7.9820" arrivalTimeBraking="37.9820" leaveTime="9.0370" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="37.3390" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="0.0000" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.1600" arrivalTimeBraking="38.1600" leaveTime="8.5200" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="7.6490" arrivalTimeBraking="37.6490" leaveTime="8.4920" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_3_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="8.1790" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="6.7994" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="7.6490" arrivalTimeBraking="37.6490" leaveTime="8.4920" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_10_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.7890" arrivalTimeBraking="8.1790" leaveTime="8.4150" arrivalSpeed="7.0352" arrivalSpeedBraking="6.7994" leaveSpeed="8.5096" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="5.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="7.9120" arrivalTimeBraking="37.9120" leaveTime="8.9670" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="8.5340" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.2140" arrivalTimeBraking="38.2140" leaveTime="8.5740" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="7.9120" arrivalTimeBraking="37.9120" leaveTime="8.9670" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3390" arrivalTimeBraking="8.5340" leaveTime="9.0990" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.2140" arrivalTimeBraking="38.2140" leaveTime="8.5740" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.3010" arrivalTimeBraking="37.3010" leaveTime="7.6610" arrivalSpeed="13.8900" arrivalSpeedBraking="0.0000" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="7.5850" arrivalTimeBraking="37.5850" leaveTime="8.4280" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_3_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.1120" arrivalTimeBraking="7.3810" leaveTime="7.0220" arrivalSpeed="13.8900" arrivalSpeedBraking="10.7556" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="7.5850" arrivalTimeBraking="37.5850" leaveTime="8.4280" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_10_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.1120" arrivalTimeBraking="7.3810" leaveTime="7.0220" arrivalSpeed="13.8900" arrivalSpeedBraking="10.7556" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="6.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.1890" arrivalTimeBraking="38.1890" leaveTime="9.2440" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.7360" arrivalTimeBraking="8.3530" leaveTime="9.4960" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.3980" arrivalTimeBraking="38.3980" leaveTime="8.7710" arrivalSpeed="13.3931" arrivalSpeedBraking="0.0000" leaveSpeed="13.3931" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.4100" arrivalTimeBraking="8.8370" leaveTime="7.7700" arrivalSpeed="13.8900" arrivalSpeedBraking="9.7235" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.1890" arrivalTimeBraking="38.1890" leaveTime="9.2440" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="12.1565" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.7360" arrivalTimeBraking="8.3530" leaveTime="9.4960" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.3980" arrivalTimeBraking="38.3980" leaveTime="8.7710" arrivalSpeed="13.3931" arrivalSpeedBraking="0.0000" leaveSpeed="13.3931" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.4100" arrivalTimeBraking="8.8370" leaveTime="7.7700" arrivalSpeed="13.8900" arrivalSpeedBraking="9.7235" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="7.8260" arrivalTimeBraking="37.8260" leaveTime="8.6690" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_3_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.2210" arrivalTimeBraking="7.2480" leaveTime="7.1310" arrivalSpeed="13.8900" arrivalSpeedBraking="13.3077" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="7.8260" arrivalTimeBraking="37.8260" leaveTime="8.6690" arrivalSpeed="10.6175" arrivalSpeedBraking="0.0000" leaveSpeed="11.5987" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_10_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.2210" arrivalTimeBraking="7.2480" leaveTime="7.1310" arrivalSpeed="13.8900" arrivalSpeedBraking="13.3077" leaveSpeed="13.8900" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="7.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.4850" arrivalTimeBraking="38.4850" leaveTime="9.5410" arrivalSpeed="10.5976" arrivalSpeedBraking="0.0000" leaveSpeed="12.1391" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.7360" arrivalTimeBraking="8.6000" leaveTime="9.4960" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="9.0060" arrivalTimeBraking="39.0060" leaveTime="9.4520" arrivalSpeed="11.2053" arrivalSpeedBraking="0.0000" leaveSpeed="11.2053" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.9220" arrivalTimeBraking="9.4030" leaveTime="8.3220" arrivalSpeed="12.4907" arrivalSpeedBraking="8.2641" leaveSpeed="12.4907" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.4850" arrivalTimeBraking="38.4850" leaveTime="9.5410" arrivalSpeed="10.5976" arrivalSpeedBraking="0.0000" leaveSpeed="12.1391" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.7360" arrivalTimeBraking="8.6000" leaveTime="9.4960" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="9.0060" arrivalTimeBraking="39.0060" leaveTime="9.4520" arrivalSpeed="11.2053" arrivalSpeedBraking="0.0000" leaveSpeed="11.2053" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.9220" arrivalTimeBraking="9.4030" leaveTime="8.3220" arrivalSpeed="12.4907" arrivalSpeedBraking="8.2641" leaveSpeed="12.4907" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.2850" arrivalTimeBraking="38.2850" leaveTime="9.2160" arrivalSpeed="9.5136" arrivalSpeedBraking="0.0000" leaveSpeed="10.5976" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_3_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="6.5990" arrivalTimeBraking="7.5990" leaveTime="7.5920" arrivalSpeed="12.2749" arrivalSpeedBraking="12.2749" leaveSpeed="13.1755" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.2850" arrivalTimeBraking="38.2850" leaveTime="9.2160" arrivalSpeed="9.5136" arrivalSpeedBraking="0.0000" leaveSpeed="10.5976" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_10_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="6.5990" arrivalTimeBraking="7.5990" leaveTime="7.5920" arrivalSpeed="12.2749" arrivalSpeedBraking="12.2749" leaveSpeed="13.1755" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="8.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="9.3050" arrivalTimeBraking="39.3050" leaveTime="10.7600" arrivalSpeed="7.1928" arrivalSpeedBraking="0.0000" leaveSpeed="9.3159" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="7.9050" arrivalTimeBraking="8.9240" leaveTime="9.6650" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="9.6290" arrivalTimeBraking="39.6290" leaveTime="10.1660" arrivalSpeed="9.3174" arrivalSpeedBraking="0.0000" leaveSpeed="9.3174" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="8.6430" arrivalTimeBraking="10.1120" leaveTime="9.1300" arrivalSpeed="10.2660" arrivalSpeedBraking="6.4843" leaveSpeed="10.2660" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="9.3050" arrivalTimeBraking="39.3050" leaveTime="10.7600" arrivalSpeed="7.1928" arrivalSpeedBraking="0.0000" leaveSpeed="9.3159" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="7.9050" arrivalTimeBraking="8.9240" leaveTime="9.6650" arrivalSpeed="7.0352" arrivalSpeedBraking="7.0352" leaveSpeed="8.7238" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="9.6290" arrivalTimeBraking="39.6290" leaveTime="10.1660" arrivalSpeed="9.3174" arrivalSpeedBraking="0.0000" leaveSpeed="9.3174" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="8.6430" arrivalTimeBraking="10.1120" leaveTime="9.1300" arrivalSpeed="10.2660" arrivalSpeedBraking="6.4843" leaveSpeed="10.2660" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.6990" arrivalTimeBraking="38.6990" leaveTime="10.0000" arrivalSpeed="7.1947" arrivalSpeedBraking="0.0000" leaveSpeed="7.1928" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.6990" arrivalTimeBraking="38.6990" leaveTime="10.0000" arrivalSpeed="7.1947" arrivalSpeedBraking="0.0000" leaveSpeed="7.1928" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="9.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="9.9060" arrivalTimeBraking="39.9060" leaveTime="11.8680" arrivalSpeed="4.6909" arrivalSpeedBraking="0.0000" leaveSpeed="7.5534" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="8.3720" arrivalTimeBraking="9.3720" leaveTime="10.1530" arrivalSpeed="6.9341" arrivalSpeedBraking="6.9341" leaveSpeed="8.6424" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="10.3280" arrivalTimeBraking="40.3280" leaveTime="10.9770" arrivalSpeed="7.7052" arrivalSpeedBraking="0.0000" leaveSpeed="7.7052" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="9.5190" arrivalTimeBraking="11.1930" leaveTime="10.1290" arrivalSpeed="8.2013" arrivalSpeedBraking="3.9744" leaveSpeed="8.2013" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="9.9060" arrivalTimeBraking="39.9060" leaveTime="11.8680" arrivalSpeed="4.6909" arrivalSpeedBraking="0.0000" leaveSpeed="7.5534" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="8.3720" arrivalTimeBraking="9.3720" leaveTime="10.1530" arrivalSpeed="6.9341" arrivalSpeedBraking="6.9341" leaveSpeed="8.6424" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="10.3280" arrivalTimeBraking="40.3280" leaveTime="10.9770" arrivalSpeed="7.7052" arrivalSpeedBraking="0.0000" leaveSpeed="7.7052" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="9.5190" arrivalTimeBraking="11.1930" leaveTime="10.1290" arrivalSpeed="8.2013" arrivalSpeedBraking="3.9744" leaveSpeed="8.2013" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="8.4900" arrivalTimeBraking="9.4960" leaveTime="9.7130" arrivalSpeed="10.6175" arrivalSpeedBraking="10.6175" leaveSpeed="4.6909" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="8.4900" arrivalTimeBraking="9.4960" leaveTime="9.7130" arrivalSpeed="10.6175" arrivalSpeedBraking="10.6175" leaveSpeed="4.6909" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="10.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="11.0890" arrivalTimeBraking="41.0890" leaveTime="13.9390" arrivalSpeed="2.1352" arrivalSpeedBraking="0.0000" leaveSpeed="6.2936" willPass="1"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0033" arrivalTime="9.0260" arrivalTimeBraking="10.0260" leaveTime="11.6960" arrivalSpeed="3.9147" arrivalSpeedBraking="3.9147" leaveSpeed="6.4757" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="11.3720" arrivalTimeBraking="41.3720" leaveTime="12.1660" arrivalSpeed="6.2936" arrivalSpeedBraking="0.0000" leaveSpeed="6.2936" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0033" arrivalTime="10.7330" arrivalTimeBraking="40.7330" leaveTime="11.5080" arrivalSpeed="6.4523" arrivalSpeedBraking="0.0000" leaveSpeed="6.4523" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="11.0890" arrivalTimeBraking="41.0890" leaveTime="13.9390" arrivalSpeed="2.1352" arrivalSpeedBraking="0.0000" leaveSpeed="6.2936" willPass="1"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0033" arrivalTime="9.0260" arrivalTimeBraking="10.0260" leaveTime="11.6960" arrivalSpeed="3.9147" arrivalSpeedBraking="3.9147" leaveSpeed="6.4757" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="11.3720" arrivalTimeBraking="41.3720" leaveTime="12.1660" arrivalSpeed="6.2936" arrivalSpeedBraking="0.0000" leaveSpeed="6.2936" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0033" arrivalTime="10.7330" arrivalTimeBraking="40.7330" leaveTime="11.5080" arrivalSpeed="6.4523" arrivalSpeedBraking="0.0000" leaveSpeed="6.4523" willPass="1"/>
+        </link>
+        <link from="NC_1" via=":C_1_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="9.0140" arrivalTimeBraking="10.0140" leaveTime="10.9640" arrivalSpeed="7.4654" arrivalSpeedBraking="7.4654" leaveSpeed="2.1352" willPass="1"/>
+        </link>
+        <link from="SC_1" via=":C_8_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="9.0140" arrivalTimeBraking="10.0140" leaveTime="10.9640" arrivalSpeed="7.4654" arrivalSpeedBraking="7.4654" leaveSpeed="2.1352" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="11.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0033" arrivalTime="33.2580" arrivalTimeBraking="63.2580" leaveTime="37.3150" arrivalSpeed="0.0000" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0067" arrivalTime="10.0650" arrivalTimeBraking="11.0650" leaveTime="27.4260" arrivalSpeed="1.5978" arrivalSpeedBraking="1.5978" leaveSpeed="0.0000" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0033" arrivalTime="12.7610" arrivalTimeBraking="42.7610" leaveTime="13.6060" arrivalSpeed="5.9203" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0067" arrivalTime="99.7100" arrivalTimeBraking="129.7100" leaveTime="5099.7100" arrivalSpeed="0.0000" arrivalSpeedBraking="0.0000" leaveSpeed="0.0000" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0033" arrivalTime="33.2580" arrivalTimeBraking="63.2580" leaveTime="37.3150" arrivalSpeed="0.0000" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0067" arrivalTime="10.0650" arrivalTimeBraking="11.0650" leaveTime="27.4260" arrivalSpeed="1.5978" arrivalSpeedBraking="1.5978" leaveSpeed="0.0000" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0033" arrivalTime="12.7610" arrivalTimeBraking="42.7610" leaveTime="13.6060" arrivalSpeed="5.9203" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0067" arrivalTime="99.7100" arrivalTimeBraking="129.7100" leaveTime="5099.7100" arrivalSpeed="0.0000" arrivalSpeedBraking="0.0000" leaveSpeed="0.0000" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="12.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0067" arrivalTime="34.2580" arrivalTimeBraking="64.2580" leaveTime="38.3150" arrivalSpeed="0.0000" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_3_0" via=":C_16_0" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="11.0650" arrivalTimeBraking="12.0650" leaveTime="15.0290" arrivalSpeed="1.5978" arrivalSpeedBraking="1.5978" leaveSpeed="5.4003" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0067" arrivalTime="13.7610" arrivalTimeBraking="43.7610" leaveTime="14.6060" arrivalSpeed="5.9203" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="13.6000" arrivalTimeBraking="43.6000" leaveTime="14.5310" arrivalSpeed="5.3722" arrivalSpeedBraking="0.0000" leaveSpeed="5.3722" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0067" arrivalTime="34.2580" arrivalTimeBraking="64.2580" leaveTime="38.3150" arrivalSpeed="0.0000" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_10_0" via=":C_18_0" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="11.0650" arrivalTimeBraking="12.0650" leaveTime="15.0290" arrivalSpeed="1.5978" arrivalSpeedBraking="1.5978" leaveSpeed="5.4003" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0067" arrivalTime="13.7610" arrivalTimeBraking="43.7610" leaveTime="14.6060" arrivalSpeed="5.9203" arrivalSpeedBraking="0.0000" leaveSpeed="5.9203" willPass="0"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="13.6000" arrivalTimeBraking="43.6000" leaveTime="14.5310" arrivalSpeed="5.3722" arrivalSpeedBraking="0.0000" leaveSpeed="5.3722" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="13.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="13.5510" arrivalTimeBraking="43.5510" leaveTime="20.0000" arrivalSpeed="1.5000" arrivalSpeedBraking="0.0000" leaveSpeed="2.2248" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="16.2430" arrivalTimeBraking="46.2430" leaveTime="18.4900" arrivalSpeed="2.2248" arrivalSpeedBraking="0.0000" leaveSpeed="2.2248" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="13.7360" arrivalTimeBraking="43.7360" leaveTime="14.6280" arrivalSpeed="5.6047" arrivalSpeedBraking="0.0000" leaveSpeed="5.6047" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="13.5510" arrivalTimeBraking="43.5510" leaveTime="20.0000" arrivalSpeed="1.5000" arrivalSpeedBraking="0.0000" leaveSpeed="2.2248" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="16.2430" arrivalTimeBraking="46.2430" leaveTime="18.4900" arrivalSpeed="2.2248" arrivalSpeedBraking="0.0000" leaveSpeed="2.2248" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="13.7360" arrivalTimeBraking="43.7360" leaveTime="14.6280" arrivalSpeed="5.6047" arrivalSpeedBraking="0.0000" leaveSpeed="5.6047" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="14.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="13.1950" arrivalTimeBraking="14.1950" leaveTime="17.8040" arrivalSpeed="4.4866" arrivalSpeedBraking="4.4866" leaveSpeed="0.7248" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="23.8100" arrivalTimeBraking="53.8100" leaveTime="30.7080" arrivalSpeed="0.7248" arrivalSpeedBraking="0.0000" leaveSpeed="0.7248" willPass="1"/>
+        </link>
+        <link from=":C_16_0" via="" to="CE_0">
+            <approaching id="NE" impatience="0.0000" arrivalTime="13.8680" arrivalTimeBraking="14.8680" leaveTime="14.7300" arrivalSpeed="5.8020" arrivalSpeedBraking="5.8020" leaveSpeed="5.8020" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="13.1950" arrivalTimeBraking="14.1950" leaveTime="17.8040" arrivalSpeed="4.4866" arrivalSpeedBraking="4.4866" leaveSpeed="0.7248" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="23.8100" arrivalTimeBraking="53.8100" leaveTime="30.7080" arrivalSpeed="0.7248" arrivalSpeedBraking="0.0000" leaveSpeed="0.7248" willPass="1"/>
+        </link>
+        <link from=":C_18_0" via="" to="CW_0">
+            <approaching id="SW" impatience="0.0000" arrivalTime="13.8680" arrivalTimeBraking="14.8680" leaveTime="14.7300" arrivalSpeed="5.8020" arrivalSpeedBraking="5.8020" leaveSpeed="5.8020" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="15.0000">
+        <link from=":C_1_0" via=":C_15_0" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="14.0310" arrivalTimeBraking="15.0310" leaveTime="18.8920" arrivalSpeed="3.3022" arrivalSpeedBraking="3.3022" leaveSpeed="1.6390" willPass="1"/>
+        </link>
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="18.3390" arrivalTimeBraking="48.3390" leaveTime="21.3900" arrivalSpeed="1.6390" arrivalSpeedBraking="0.0000" leaveSpeed="1.6390" willPass="1"/>
+        </link>
+        <link from=":C_8_0" via=":C_17_0" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="14.0310" arrivalTimeBraking="15.0310" leaveTime="18.8920" arrivalSpeed="3.3022" arrivalSpeedBraking="3.3022" leaveSpeed="1.6390" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="18.3390" arrivalTimeBraking="48.3390" leaveTime="21.3900" arrivalSpeed="1.6390" arrivalSpeedBraking="0.0000" leaveSpeed="1.6390" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="16.0000">
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="16.0120" arrivalTimeBraking="46.0120" leaveTime="16.9370" arrivalSpeed="6.6702" arrivalSpeedBraking="0.0000" leaveSpeed="4.1390" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="16.0120" arrivalTimeBraking="46.0120" leaveTime="16.9370" arrivalSpeed="6.6702" arrivalSpeedBraking="0.0000" leaveSpeed="4.1390" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="17.0000">
+        <link from=":C_15_0" via="" to="CW_0">
+            <approaching id="NW" impatience="0.0000" arrivalTime="16.1940" arrivalTimeBraking="17.1940" leaveTime="16.9210" arrivalSpeed="7.1233" arrivalSpeedBraking="7.1233" leaveSpeed="6.6390" willPass="1"/>
+        </link>
+        <link from=":C_17_0" via="" to="CE_0">
+            <approaching id="SE" impatience="0.0000" arrivalTime="16.1940" arrivalTimeBraking="17.1940" leaveTime="16.9210" arrivalSpeed="7.1233" arrivalSpeedBraking="7.1233" leaveSpeed="6.6390" willPass="1"/>
+        </link>
+    </timestep>
+    <timestep id="18.0000"/>
+    <timestep id="19.0000"/>
+    <timestep id="20.0000"/>
+    <timestep id="21.0000"/>
+    <timestep id="22.0000"/>
+    <timestep id="23.0000"/>
+    <timestep id="24.0000"/>
+</link-output>

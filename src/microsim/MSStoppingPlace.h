@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@
 #include <map>
 #include <string>
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
@@ -56,7 +57,7 @@ class Position;
  * Please note that using the last free space disallows vehicles to enter a
  *  free space in between other vehicles.
  */
-class MSStoppingPlace : public Named {
+class MSStoppingPlace : public Named, public Parameterised {
 public:
     /** @brief Constructor
      *

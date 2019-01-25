@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -55,7 +55,7 @@ FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBox,     GEOPOICreatorMap
 // GNEPolygonFrame::GEOPOICreator - methods
 // ---------------------------------------------------------------------------
 
-GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParent) : 
+GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParent) :
     FXGroupBox(polygonFrameParent->myContentFrame, "GEO POI Creator", GUIDesignGroupBoxFrame),
     myPolygonFrameParent(polygonFrameParent) {
     // create RadioButtons for formats
@@ -65,7 +65,7 @@ GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParen
     myLatLonRadioButton->setCheck(TRUE);
     // create text field for coordinates
     myCoordinatesTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create checkBox 
+    // create checkBox
     myCenterViewAfterCreationCheckButton = new FXCheckButton(this, "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     // create button for create GEO POIs
     myCreateGEOPOIButton = new FXButton(this, "Create GEO POI (clipboard)", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
@@ -77,7 +77,7 @@ GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParen
 GNEPolygonFrame::GEOPOICreator::~GEOPOICreator() {}
 
 
-void 
+void
 GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
     // check if there is an GEO Proj string is defined
     if (GeoConvHelper::getFinal().getProjString() != "!") {
@@ -94,18 +94,18 @@ GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
 }
 
 
-void 
+void
 GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModul() {
     hide();
 }
 
 
-long 
+long
 GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) {
     // check if input contains spaces
     std::string input = myCoordinatesTextField->getText().text();
     std::string inputWithoutSpaces;
-    for (const auto &i : input) {
+    for (const auto& i : input) {
         if (i != ' ') {
             inputWithoutSpaces.push_back(i);
         }
@@ -140,10 +140,10 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*
 }
 
 
-long 
+long
 GNEPolygonFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*) {
     //disable other radio button depending of selected option
-    if(obj == myLonLatRadioButton) {
+    if (obj == myLonLatRadioButton) {
         myLonLatRadioButton->setCheck(TRUE);
         myLatLonRadioButton->setCheck(FALSE);
     } else if (obj == myLatLonRadioButton) {
@@ -151,12 +151,12 @@ GNEPolygonFrame::GEOPOICreator::onCmdSetFormat(FXObject* obj, FXSelector, void*)
         myLatLonRadioButton->setCheck(TRUE);
     }
     // in both cases call onCmdSetCoordinates(0,0,0) to set new cartesian equivalence
-    onCmdSetCoordinates(0,0,0);
+    onCmdSetCoordinates(0, 0, 0);
     return 1;
 }
 
 
-long 
+long
 GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
     // first check if current GEO Position is valid
     if (myPolygonFrameParent->myShapeAttributes->areValuesValid()) {
@@ -172,7 +172,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
             myCoordinatesTextField->setText("");
             myCreateGEOPOIButton->setText("Create GEO POI (clipboard)");
         }
-        if (GNEAttributeCarrier::canParse<Position>(geoPosStr)) { 
+        if (GNEAttributeCarrier::canParse<Position>(geoPosStr)) {
             // obtain shape attributes and values
             auto valuesOfElement = myPolygonFrameParent->myShapeAttributes->getAttributesAndValues();
             // obtain netedit attributes and values
@@ -191,7 +191,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
             // return ADDSHAPE_SUCCESS if POI was sucesfully created
             if (myPolygonFrameParent->addPOI(valuesOfElement)) {
                 // check if view has to be centered over created GEO POI
-                if(myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
+                if (myCenterViewAfterCreationCheckButton->getCheck() == TRUE) {
                     // create a boundary over given GEO Position and center view over it
                     Boundary centerPosition;
                     centerPosition.add(geoPos);
@@ -238,7 +238,7 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 }
 
 
-void 
+void
 GNEPolygonFrame::show() {
     // refresh item selector
     myItemSelector->refreshTagProperties();
@@ -248,7 +248,7 @@ GNEPolygonFrame::show() {
 
 
 GNEPolygonFrame::AddShapeResult
-GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
     // check if current selected shape is valid
@@ -349,7 +349,7 @@ GNEPolygonFrame::buildShape() {
     if (myShapeAttributes->areValuesValid() == false) {
         myShapeAttributes->showWarningMessage();
         return false;
-    } else if(myDrawingShape->getTemporalShape().size() == 0) {
+    } else if (myDrawingShape->getTemporalShape().size() == 0) {
         WRITE_WARNING("Polygon shape cannot be empty");
         return false;
     } else {
@@ -364,7 +364,7 @@ GNEPolygonFrame::buildShape() {
 
         // obtain shape and check if has to be closed
         PositionVector temporalShape = myDrawingShape->getTemporalShape();
-        if(valuesOfElement[GNE_ATTR_CLOSE_SHAPE] == "true") {
+        if (valuesOfElement[GNE_ATTR_CLOSE_SHAPE] == "true") {
             temporalShape.closePolygon();
         }
         valuesOfElement[SUMO_ATTR_SHAPE] = toString(temporalShape);
@@ -378,8 +378,8 @@ GNEPolygonFrame::buildShape() {
 }
 
 
-void 
-GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties) {
+void
+GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // if there are parmeters, show and Recalc groupBox
     myShapeAttributes->showACAttributesModul(tagProperties);
     // show netedit attributes
@@ -399,7 +399,7 @@ GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties &tagPrope
 }
 
 
-void 
+void
 GNEPolygonFrame::disableModuls() {
     // hide all widgets
     myShapeAttributes->hideACAttributesModul();

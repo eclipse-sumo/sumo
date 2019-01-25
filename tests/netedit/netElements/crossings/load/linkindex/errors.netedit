@@ -22,7 +22,7 @@ GLDebug: Inserted edge:NC into SUMORTree with boundary 65.20,70.00,130.00,230.00
 GLDebug: Inserted edge:SC into SUMORTree with boundary 70.00,-30.00,134.80,130.00
 GLDebug: Inserted edge:WC into SUMORTree with boundary -30.00,65.20,130.00,130.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removed object junction:C from SUMORTree with boundary 78.00,78.00,122.00,122.00
 GLDebug: Removed object junction:E from SUMORTree with boundary 178.00,78.00,222.00,122.00
@@ -307,4 +307,4 @@ Debug: Deleting unreferenced junction 'S' in GNENet destructor
 Debug: Deleting unreferenced junction 'W' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 33
+GLDebug: Number of objects in SUMORTree during call of the destructor: 33

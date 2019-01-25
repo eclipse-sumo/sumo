@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -192,7 +192,7 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool 
     if (onInit) {
         myCurrEdge = newRoute->begin();
     } else {
-        myCurrEdge = find(edges.begin() + offset, edges.end(), *myCurrEdge);
+        myCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
     }
     // check whether the old route may be deleted (is not used by anyone else)
     newRoute->addReference();

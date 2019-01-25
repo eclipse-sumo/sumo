@@ -1,0 +1,29 @@
+Running main() from gtest_main.cc
+[==========] Running 7 tests from 3 test cases.
+[----------] Global test environment set-up.
+[----------] 1 test from MSEventControl
+[ RUN      ] MSEventControl.test_method_execute
+[       OK ] MSEventControl.test_method_execute (0 ms)
+[----------] 1 test from MSEventControl (0 ms total)
+
+[----------] 4 tests from MSCFModelTest
+[ RUN      ] MSCFModelTest.test_method_brakeGap
+[       OK ] MSCFModelTest.test_method_brakeGap (0 ms)
+[ RUN      ] MSCFModelTest.test_method_static_brakeGap
+[       OK ] MSCFModelTest.test_method_static_brakeGap (0 ms)
+[ RUN      ] MSCFModelTest.test_method_static_freeSpeed
+[       OK ] MSCFModelTest.test_method_static_freeSpeed (0 ms)
+[ RUN      ] MSCFModelTest.test_method_static_freeSpeed_half
+[       OK ] MSCFModelTest.test_method_static_freeSpeed_half (0 ms)
+[----------] 4 tests from MSCFModelTest (0 ms total)
+
+[----------] 2 tests from MSCFModel_IDMTest
+[ RUN      ] MSCFModel_IDMTest.test_method_brakeGap
+[       OK ] MSCFModel_IDMTest.test_method_brakeGap (1 ms)
+[ RUN      ] MSCFModel_IDMTest.test_method_getSecureGap
+[       OK ] MSCFModel_IDMTest.test_method_getSecureGap (1 ms)
+[----------] 2 tests from MSCFModel_IDMTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 3 test cases ran. (3 ms total)
+[  PASSED  ] 7 tests.

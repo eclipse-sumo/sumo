@@ -1,0 +1,109 @@
+Running main() from gtest_main.cc
+[==========] Running 44 tests from 5 test cases.
+[----------] Global test environment set-up.
+[----------] 10 tests from StringTokenizer
+[ RUN      ] StringTokenizer.test_split_with_whitechar
+[       OK ] StringTokenizer.test_split_with_whitechar (0 ms)
+[ RUN      ] StringTokenizer.test_split_with_newline
+[       OK ] StringTokenizer.test_split_with_newline (0 ms)
+[ RUN      ] StringTokenizer.test_split_with_x
+[       OK ] StringTokenizer.test_split_with_x (0 ms)
+[ RUN      ] StringTokenizer.test_split_any_char
+[       OK ] StringTokenizer.test_split_any_char (0 ms)
+[ RUN      ] StringTokenizer.test_method_reinit
+[       OK ] StringTokenizer.test_method_reinit (0 ms)
+[ RUN      ] StringTokenizer.test_method_size
+[       OK ] StringTokenizer.test_method_size (0 ms)
+[ RUN      ] StringTokenizer.test_method_front
+[       OK ] StringTokenizer.test_method_front (0 ms)
+[ RUN      ] StringTokenizer.test_method_get
+[       OK ] StringTokenizer.test_method_get (1 ms)
+[ RUN      ] StringTokenizer.test_method_get_with_empty_data
+[       OK ] StringTokenizer.test_method_get_with_empty_data (0 ms)
+[ RUN      ] StringTokenizer.test_method_getVector
+[       OK ] StringTokenizer.test_method_getVector (0 ms)
+[----------] 10 tests from StringTokenizer (1 ms total)
+
+[----------] 3 tests from FileHelpers
+[ RUN      ] FileHelpers.test_method_checkForRelativity
+[       OK ] FileHelpers.test_method_checkForRelativity (0 ms)
+[ RUN      ] FileHelpers.test_method_getConfigurationRelative
+[       OK ] FileHelpers.test_method_getConfigurationRelative (0 ms)
+[ RUN      ] FileHelpers.test_method_getFilePath
+[       OK ] FileHelpers.test_method_getFilePath (0 ms)
+[----------] 3 tests from FileHelpers (0 ms total)
+
+[----------] 14 tests from StringUtils
+[ RUN      ] StringUtils.test_method_prune
+[       OK ] StringUtils.test_method_prune (0 ms)
+[ RUN      ] StringUtils.test_method_to_lower_case
+[       OK ] StringUtils.test_method_to_lower_case (0 ms)
+[ RUN      ] StringUtils.test_method_latin1_to_utf8
+[       OK ] StringUtils.test_method_latin1_to_utf8 (0 ms)
+[ RUN      ] StringUtils.test_method_convertUmlaute
+[       OK ] StringUtils.test_method_convertUmlaute (0 ms)
+[ RUN      ] StringUtils.test_method_replace
+[       OK ] StringUtils.test_method_replace (0 ms)
+[ RUN      ] StringUtils.test_method_replace_empty_string
+[       OK ] StringUtils.test_method_replace_empty_string (0 ms)
+[ RUN      ] StringUtils.test_method_replace_empty_second_argument
+[       OK ] StringUtils.test_method_replace_empty_second_argument (0 ms)
+[ RUN      ] StringUtils.test_method_replace_empty_third_argument
+[       OK ] StringUtils.test_method_replace_empty_third_argument (0 ms)
+[ RUN      ] StringUtils.test_method_toTimeString
+[       OK ] StringUtils.test_method_toTimeString (0 ms)
+[ RUN      ] StringUtils.test_method_escapeXML
+[       OK ] StringUtils.test_method_escapeXML (0 ms)
+[ RUN      ] StringUtils.test_toInt
+[       OK ] StringUtils.test_toInt (0 ms)
+[ RUN      ] StringUtils.test_toLong
+[       OK ] StringUtils.test_toLong (0 ms)
+[ RUN      ] StringUtils.test_toDouble
+[       OK ] StringUtils.test_toDouble (2 ms)
+[ RUN      ] StringUtils.test_toBool
+[       OK ] StringUtils.test_toBool (0 ms)
+[----------] 14 tests from StringUtils (2 ms total)
+
+[----------] 7 tests from RGBColor
+[ RUN      ] RGBColor.test_parseColor_with_wrong_string
+[       OK ] RGBColor.test_parseColor_with_wrong_string (0 ms)
+[ RUN      ] RGBColor.test_parseColor
+[       OK ] RGBColor.test_parseColor (0 ms)
+[ RUN      ] RGBColor.test_parseColor_with_a_short_string
+[       OK ] RGBColor.test_parseColor_with_a_short_string (0 ms)
+[ RUN      ] RGBColor.test_interpolate
+[       OK ] RGBColor.test_interpolate (0 ms)
+[ RUN      ] RGBColor.test_interpolate_weight_1
+[       OK ] RGBColor.test_interpolate_weight_1 (0 ms)
+[ RUN      ] RGBColor.test_interpolate_weight_0
+[       OK ] RGBColor.test_interpolate_weight_0 (0 ms)
+[ RUN      ] RGBColor.test_operator_equal
+[       OK ] RGBColor.test_operator_equal (0 ms)
+[----------] 7 tests from RGBColor (0 ms total)
+
+[----------] 10 tests from ValueTimeLine
+[ RUN      ] ValueTimeLine.test_get_single_nocollect
+[       OK ] ValueTimeLine.test_get_single_nocollect (0 ms)
+[ RUN      ] ValueTimeLine.test_get_multi_nocollect
+[       OK ] ValueTimeLine.test_get_multi_nocollect (0 ms)
+[ RUN      ] ValueTimeLine.test_get_single_collect
+[       OK ] ValueTimeLine.test_get_single_collect (0 ms)
+[ RUN      ] ValueTimeLine.test_get_multi_collect
+[       OK ] ValueTimeLine.test_get_multi_collect (0 ms)
+[ RUN      ] ValueTimeLine.test_overwrite_nocollect
+[       OK ] ValueTimeLine.test_overwrite_nocollect (0 ms)
+[ RUN      ] ValueTimeLine.test_overwrite_collect
+[       OK ] ValueTimeLine.test_overwrite_collect (0 ms)
+[ RUN      ] ValueTimeLine.test_overwrite_nocollect2
+[       OK ] ValueTimeLine.test_overwrite_nocollect2 (0 ms)
+[ RUN      ] ValueTimeLine.test_overwrite_collect2
+[       OK ] ValueTimeLine.test_overwrite_collect2 (0 ms)
+[ RUN      ] ValueTimeLine.test_fill_gaps_withbounds
+[       OK ] ValueTimeLine.test_fill_gaps_withbounds (0 ms)
+[ RUN      ] ValueTimeLine.test_fill_gaps_nobounds
+[       OK ] ValueTimeLine.test_fill_gaps_nobounds (0 ms)
+[----------] 10 tests from ValueTimeLine (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 44 tests from 5 test cases ran. (4 ms total)
+[  PASSED  ] 44 tests.

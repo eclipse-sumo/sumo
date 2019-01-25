@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -86,22 +86,12 @@ public:
      *  but may also be transposed in full when there is not enough space.
      */
     class ApproachingDivider : public Bresenham::BresenhamCallBack {
-    private:
-        /// @brief The list of edges that approach the current edge
-        EdgeVector* myApproaching;
-
-        /// @brief The approached current edge
-        NBEdge* myCurrentOutgoing;
-
-        /// @brief The available lanes to which connections shall be built
-        std::vector<int> myAvailableLanes;
-
     public:
         /**@brief Constructor
          * @param[in] approaching The list of the edges that approach the outgoing edge
          * @param[in] currentOutgoing The outgoing edge
          */
-        ApproachingDivider(EdgeVector* approaching, NBEdge* currentOutgoing);
+        ApproachingDivider(const EdgeVector& approaching, NBEdge* currentOutgoing);
 
         /// @brief Destructor
         ~ApproachingDivider();
@@ -116,6 +106,20 @@ public:
 
         /// @brief the method that spreads the wished number of lanes from the the lane given by the bresenham-call to both left and right
         std::deque<int>* spread(const std::vector<int>& approachingLanes, int dest) const;
+
+    private:
+        /// @brief The list of edges that approach the current edge
+        const EdgeVector& myApproaching;
+
+        /// @brief The approached current edge
+        NBEdge* myCurrentOutgoing;
+
+        /// @brief The available lanes to which connections shall be built
+        std::vector<int> myAvailableLanes;
+
+    private:
+        /// @brief Invalidated assignment operator.
+        ApproachingDivider& operator=(const ApproachingDivider&) = delete;
 
     };
 
@@ -748,14 +752,14 @@ public:
     bool isConstantWidthTransition() const;
 
     /// @brief return list of unique endpoint coordinates of all edges at this node
-    std::vector<Position> getEndPoints() const;
+    std::vector<std::pair<Position, std::string> > getEndPoints() const;
 
 private:
     /// @brief sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
 
     /// @brief returns a list of edges which are connected to the given outgoing edge
-    EdgeVector* getEdgesThatApproach(NBEdge* currentOutgoing);
+    void getEdgesThatApproach(NBEdge* currentOutgoing, EdgeVector& approaching);
 
     /// @brief replace incoming connections prohibitions
     void replaceInConnectionProhibitions(NBEdge* which, NBEdge* by, int whichLaneOff, int byLaneOff);
@@ -780,7 +784,7 @@ private:
 
     /// @brief returns whether sub is a subset of super
     static bool includes(const std::set<NBEdge*, ComparatorIdLess>& super,
-                  const std::set<const NBEdge*, ComparatorIdLess>& sub);
+                         const std::set<const NBEdge*, ComparatorIdLess>& sub);
 
 private:
     /// @brief The position the node lies at

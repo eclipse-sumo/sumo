@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -441,7 +441,7 @@ public:
      * @todo Recheck usage
      * @see NBEdge::computeEdgeShape
      */
-    void computeEdgeShapes(double smoothElevationThreshold=-1);
+    void computeEdgeShapes(double smoothElevationThreshold = -1);
 
 
     /** @brief Computes the shapes of all lanes of all edges stored in the container
@@ -540,7 +540,8 @@ public:
     void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
                                   bool keepClear, double contPos, double visibility, double speed,
                                   const PositionVector& customShape,
-                                  bool warnOnly = false);
+                                  bool uncontrolled,
+                                  bool warnOnly);
 
 
     /** @brief Try to set any stored connections
@@ -616,11 +617,13 @@ private:
         PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_,
                               bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, double speed_,
                               const PositionVector& customShape_,
-                              bool warnOnly_ = false) :
+                              bool uncontrolled_,
+                              bool warnOnly_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
             visibility(visibility_),
             speed(speed_),
             customShape(customShape_),
+            uncontrolled(uncontrolled_),
             warnOnly(warnOnly_) {
         }
         /// @brief The id of the edge the connection starts at
@@ -643,6 +646,8 @@ private:
         double speed;
         /// @brief custom shape for connection
         PositionVector customShape;
+        /// @brief whether this connection shall not be controlled by a traffic light
+        bool uncontrolled;
         /// @brief whether a failure to set this connection is a warning or an error
         bool warnOnly;
     };

@@ -1,0 +1,29 @@
+Description: Added missing libs to link, fixing FTBFS.
+Bug-Debian: https://bugs.debian.org/710373
+Author: Daniel T Chen <crimsun@ubuntu.com>, Julian Taylor <jtaylor.debian@googlemail.com>
+Origin: https://launchpadlibrarian.net/137511659/sumo_0.16.0~dfsg-1~exp1_0.16.0~dfsg-1~exp1ubuntu1.diff.gz
+Reviewed-by: Anton Gladky <gladk@debian.org>
+Last-Update: 2015-04-16
+Index: sumo-0.32.0/src/Makefile.am
+===================================================================
+--- sumo-0.32.0.orig/src/Makefile.am
++++ sumo-0.32.0/src/Makefile.am
+@@ -1,4 +1,4 @@
+-XERCES_LIBS = -l$(LIB_XERCES)
++XERCES_LIBS = -l$(LIB_XERCES) -lpthread -lGLU -lGL
+ 
+ if WITH_GUI
+ GUI_APPS = sumo-gui
+Index: sumo-0.32.0/src/Makefile.in
+===================================================================
+--- sumo-0.32.0.orig/src/Makefile.in
++++ sumo-0.32.0/src/Makefile.in
+@@ -383,7 +383,7 @@ STRIP = @STRIP@
+ VERSION = @VERSION@
+ XERCES_CFLAGS = @XERCES_CFLAGS@
+ XERCES_LDFLAGS = @XERCES_LDFLAGS@
+-XERCES_LIBS = -l$(LIB_XERCES)
++XERCES_LIBS = -l$(LIB_XERCES) -lpthread -lGLU -lGL
+ abs_builddir = @abs_builddir@
+ abs_srcdir = @abs_srcdir@
+ abs_top_builddir = @abs_top_builddir@

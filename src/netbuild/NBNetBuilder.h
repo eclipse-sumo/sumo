@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <utils/shapes/ShapeContainer.h>
 #include "NBEdgeCont.h"
 #include "NBTypeCont.h"
 #include "NBNodeCont.h"
@@ -187,6 +188,10 @@ public:
         return myParkingCont;
     }
 
+    ShapeContainer& getShapeCont() {
+        return myShapeCont;
+    }
+
     /// @brief notify about style of loaded network (Without Crossings)
     bool haveNetworkCrossings() {
         return myNetworkHaveCrossings;
@@ -251,6 +256,9 @@ protected:
     NBPTLineCont myPTLineCont;
 
     NBParkingCont myParkingCont;
+
+    /// @brief container for loaded polygon data
+    ShapeContainer myShapeCont;
 
     /// @brief flag to indicate that network has crossings
     bool myNetworkHaveCrossings;

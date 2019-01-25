@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -57,7 +57,7 @@ extern SUMOTime DELTA_T;
 
 #define STEPS2TIME(x) (static_cast<double>((x)/1000.))
 // static cast to long long int truncates so we must pad away from 0 for correct rounding
-#define TIME2STEPS(x) (static_cast<SUMOTime>((x)*1000 + (x >= 0 ? 0.5 : -0.5)))
+#define TIME2STEPS(x) (static_cast<SUMOTime>((x)*1000 + ((x) >= 0 ? 0.5 : -0.5)))
 #define STEPFLOOR(x) (int(x/DELTA_T)*DELTA_T)
 #define STEPS2MS(x) (x)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -24,11 +24,11 @@ import itertools
 import random
 from collections import defaultdict
 from optparse import OptionParser
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.net import readNet  # noqa
 from sumolib.miscutils import Colorgen  # noqa
-from sumolib import geomhelper
+from sumolib import geomhelper  # noqa
 
 
 def parse_args(args):
@@ -41,8 +41,7 @@ def parse_args(args):
                          help="saturation for polygons (float from [0,1] or 'random')")
     optParser.add_option("-b", "--brightness", default=1,
                          help="brightness for polygons (float from [0,1] or 'random')")
-    optParser.add_option(
-        "-l", "--layer", default=100, help="layer for generated polygons")
+    optParser.add_option("-l", "--layer", default=100, help="layer for generated polygons")
     optParser.add_option("--geo", action="store_true",
                          default=False, help="write polgyons with geo-coordinates")
     optParser.add_option("--internal", action="store_true",
@@ -51,7 +50,8 @@ def parse_args(args):
     optParser.add_option("--blur", type="float",
                          default=0, help="maximum random disturbance to route geometry")
     optParser.add_option("--scale-width", type="float", dest="scaleWidth",
-                         help="group similar routes and scale width by group size multiplied with the given factor (in m)")
+                         help="group similar routes and scale width by " +
+                              "group size multiplied with the given factor (in m)")
     optParser.add_option("--standalone", action="store_true", default=False,
                          help="Parse stand-alone routes that are not define as child-element of a vehicle")
     optParser.add_option("--filter-output.file", dest="filterOutputFile",
@@ -96,7 +96,7 @@ def getSpread(lanes):
             return i
         else:
             pass
-            #print(i, [l.getID() for l in lanes])
+            # print(i, [l.getID() for l in lanes])
     assert(False)
 
 

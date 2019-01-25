@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jan 16 10:58:16 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-gneE0"/>
+
+    <connection from="-gneE1" to="gneE2" fromLane="1" toLane="1"/>
+    <connection from="-gneE1" to="-gneE0" fromLane="1" toLane="1"/>
+
+    <connection from="-gneE2" to="-gneE0" fromLane="1" toLane="1"/>
+    <connection from="-gneE2" to="gneE1" fromLane="1" toLane="0"/>
+
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0"/>
+    <connection from="gneE0" to="gneE2" fromLane="0" toLane="1"/>
+
+    <connection from="gneE1"/>
+
+    <connection from="gneE2"/>
+
+    <crossing node="gneJ1" edges="gneE2 -gneE2" priority="1" width="4.00" linkIndex="5"/>
+</connections>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -110,7 +110,7 @@ SUMOSAXReader::parseString(std::string content) {
 
 bool
 SUMOSAXReader::parseFirst(std::string systemID) {
-    if (systemID.substr(systemID.length() - 4) == ".sbx") {
+    if (systemID.length() >= 4 && systemID.substr(systemID.length() - 4) == ".sbx") {
         myBinaryInput = new BinaryInputDevice(systemID, true, myValidationScheme == XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always);
         *myBinaryInput >> mySbxVersion;
         if (mySbxVersion < 1 || mySbxVersion > 2) {

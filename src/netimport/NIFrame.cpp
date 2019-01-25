@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -85,6 +85,8 @@ NIFrame::fillOptions() {
     oc.addDescription("ptstop-files", "Input", "Reads public transport stops from FILE");
     oc.doRegister("ptline-files", new Option_FileName());
     oc.addDescription("ptline-files", "Input", "Reads public transport lines from FILE");
+    oc.doRegister("polygon-files", new Option_FileName());
+    oc.addDescription("polygon-files", "Input", "Reads polygons from FILE for embedding in network where applicable");
 
     oc.doRegister("shapefile-prefix", new Option_FileName());
     oc.addSynonyme("shapefile-prefix", "shapefile");

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@
 class GNEAttributeCarrier;
 class GNENetElement;
 class GNEAdditional;
+class GNEDemandElement;
 class GNEShape;
 class GNENet;
 
@@ -84,6 +85,19 @@ public:
                         bool customOrigValue = false,
                         const std::string& origValue = "");
 
+    /**@brief Constructor for DemandElements
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] testingMode flag to indicate if netedit is running in testing mode
+     */
+    GNEChange_Attribute(GNEDemandElement* demandElement,
+                        const SumoXMLAttr key,
+                        const std::string& value,
+                        bool customOrigValue = false,
+                        const std::string& origValue = "");
+
+
     /// @brief Destructor
     ~GNEChange_Attribute();
 
@@ -131,6 +145,9 @@ private:
 
     /// @brief used if AC is a shape element
     GNEShape* myShape;
+
+    /// @brief used if AC is a demand element
+    GNEDemandElement* myDemandElement;
 };
 
 #endif

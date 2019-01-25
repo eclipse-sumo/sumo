@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -214,15 +214,6 @@ SUMOSAXAttributesImpl_Cached::getBoundary(int attr) const {
 }
 
 
-std::vector<std::string>
-SUMOSAXAttributesImpl_Cached::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Cached::getName(int attr) const {
     if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
@@ -240,6 +231,14 @@ SUMOSAXAttributesImpl_Cached::serialize(std::ostream& os) const {
     }
 }
 
+std::vector<std::string>
+SUMOSAXAttributesImpl_Cached::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (std::map<std::string, std::string>::const_iterator it = myAttrs.begin(); it != myAttrs.end(); ++it) {
+        result.push_back(it->first);
+    }
+    return result;
+}
 
 SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Cached::clone() const {

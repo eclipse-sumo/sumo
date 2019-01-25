@@ -21,3 +21,12 @@ layout_incoming
 
 # group phases by incoming edge, also allow compatible right-turns
 right_on_red_layout_incoming
+
+# load program with extra transition states
+extra_transitions
+
+# traffic light with one uncontrolled connection
+uncontrolled_links
+
+# traffic light with one uncontrolled connection at a joined tls
+uncontrolled_links_joinedTls

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:58 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 11:42:12 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -160,22 +160,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="CW_3" index="3" allow="passenger" speed="13.89" length="87.60" shape="87.60,101.60 0.00,101.60"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="2">
-        <lane id="EC_0" index="0" allow="pedestrian" speed="13.89" length="87.60" width="3.00" shape="200.00,109.40 112.40,109.40"/>
-        <lane id="EC_1" index="1" disallow="all" speed="13.89" length="79.60" endOffset="8.00" width="1.50" shape="200.00,107.15 120.40,107.15"/>
-        <lane id="EC_2" index="2" allow="passenger" speed="13.89" length="79.60" endOffset="8.00" shape="200.00,104.80 120.40,104.80"/>
-        <lane id="EC_3" index="3" allow="passenger" speed="13.89" length="79.60" endOffset="8.00" shape="200.00,101.60 120.40,101.60"/>
+        <lane id="EC_0" index="0" allow="pedestrian" speed="13.89" length="81.60" width="3.00" shape="200.00,109.40 112.40,109.40"/>
+        <lane id="EC_1" index="1" disallow="all" speed="13.89" length="81.60" endOffset="8.00" width="1.50" shape="200.00,107.15 120.40,107.15"/>
+        <lane id="EC_2" index="2" allow="passenger" speed="13.89" length="81.60" endOffset="8.00" shape="200.00,104.80 120.40,104.80"/>
+        <lane id="EC_3" index="3" allow="passenger" speed="13.89" length="81.60" endOffset="8.00" shape="200.00,101.60 120.40,101.60"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="2">
-        <lane id="NC_0" index="0" allow="pedestrian" speed="13.89" length="83.60" endOffset="4.00" width="3.00" shape="90.60,200.00 90.60,116.40"/>
-        <lane id="NC_1" index="1" disallow="all" speed="13.89" length="87.60" width="1.50" shape="92.85,200.00 92.85,112.40"/>
-        <lane id="NC_2" index="2" allow="passenger" speed="13.89" length="87.60" shape="95.20,200.00 95.20,112.40"/>
-        <lane id="NC_3" index="3" allow="passenger" speed="13.89" length="87.60" shape="98.40,200.00 98.40,112.40"/>
+        <lane id="NC_0" index="0" allow="pedestrian" speed="13.89" length="86.60" endOffset="4.00" width="3.00" shape="90.60,200.00 90.60,116.40"/>
+        <lane id="NC_1" index="1" disallow="all" speed="13.89" length="86.60" width="1.50" shape="92.85,200.00 92.85,112.40"/>
+        <lane id="NC_2" index="2" allow="passenger" speed="13.89" length="86.60" shape="95.20,200.00 95.20,112.40"/>
+        <lane id="NC_3" index="3" allow="passenger" speed="13.89" length="86.60" shape="98.40,200.00 98.40,112.40"/>
     </edge>
     <edge id="SC" from="S" to="C" priority="2">
-        <lane id="SC_0" index="0" allow="pedestrian" speed="13.89" length="87.60" width="3.00" shape="109.40,0.00 109.40,87.60"/>
-        <lane id="SC_1" index="1" disallow="all" speed="13.89" length="87.60" width="1.50" shape="107.15,0.00 107.15,87.60"/>
-        <lane id="SC_2" index="2" allow="passenger" speed="13.89" length="82.60" endOffset="5.00" shape="104.80,0.00 104.80,82.60"/>
-        <lane id="SC_3" index="3" allow="passenger" speed="13.89" length="82.60" endOffset="5.00" shape="101.60,0.00 101.60,82.60"/>
+        <lane id="SC_0" index="0" allow="pedestrian" speed="13.89" length="85.10" width="3.00" shape="109.40,0.00 109.40,87.60"/>
+        <lane id="SC_1" index="1" disallow="all" speed="13.89" length="85.10" width="1.50" shape="107.15,0.00 107.15,87.60"/>
+        <lane id="SC_2" index="2" allow="passenger" speed="13.89" length="85.10" endOffset="5.00" shape="104.80,0.00 104.80,82.60"/>
+        <lane id="SC_3" index="3" allow="passenger" speed="13.89" length="85.10" endOffset="5.00" shape="101.60,0.00 101.60,82.60"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="2">
         <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="77.60" endOffset="10.00" width="3.00" shape="0.00,90.60 77.60,90.60"/>

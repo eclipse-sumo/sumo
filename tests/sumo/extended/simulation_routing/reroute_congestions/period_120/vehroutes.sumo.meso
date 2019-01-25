@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Nov 11 13:33:19 2018 by Eclipse SUMO Version v1_0_1+0610-1037adc
+<!-- generated on Thu Jan 24 15:42:49 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -340,17 +340,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="62" depart="248.00" arrival="421.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="248.00" probability="0" edges="-1892 1617"/>
-            <route cost="176.04" savings="0.00" edges="-1892 -664 -540 301 493 1338 1575 1617"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="40" depart="160.00" arrival="421.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="160.00" probability="0" edges="-1090 -2066"/>
             <route cost="266.55" savings="0.00" edges="-1090 -951 -802 -9 5 222 240 254 278 652 662 833 2386 -2370 2319 2321 -2066"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="62" depart="248.00" arrival="421.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="248.00" probability="0" edges="-1892 1617"/>
+            <route cost="176.04" savings="0.00" edges="-1892 -664 -540 301 493 1338 1575 1617"/>
         </routeDistribution>
     </vehicle>
 
@@ -361,17 +361,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="41" depart="164.00" arrival="431.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="164.00" probability="0" edges="-2691 1342"/>
-            <route cost="266.73" savings="0.00" edges="-2691 -2614 2588 -2454 -2411 -2386 -833 -662 -540 301 460 481 1312 1342"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="8" depart="32.00" arrival="431.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="32.00" probability="0" edges="214 -2614"/>
             <route cost="387.32" savings="0.00" edges="214 -205 197 228 240 254 278 652 662 833 2386 2411 2454 -2588 2614 -2614"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="41" depart="164.00" arrival="431.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="164.00" probability="0" edges="-2691 1342"/>
+            <route cost="266.73" savings="0.00" edges="-2691 -2614 2588 -2454 -2411 -2386 -833 -662 -540 301 460 481 1312 1342"/>
         </routeDistribution>
     </vehicle>
 
@@ -439,13 +439,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="77" depart="308.00" arrival="489.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="308.00" probability="0" edges="2405 1627"/>
-            <route cost="180.05" savings="0.00" edges="2405 -2365 -2321 -2319 2370 -2386 -833 829 1892 1935 1627"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="54" depart="216.00" arrival="489.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="216.00" probability="0" edges="21 -2438"/>
@@ -458,6 +451,13 @@
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="232.00" probability="0" edges="-2411 -55"/>
             <route cost="257.13" savings="0.00" replacedOnEdge="-254" reason="device.rerouting" replacedAtTime="352.00" probability="0" edges="-2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3 -45 47 -55"/>
             <route cost="153.96" savings="0.34" edges="-2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 39 47 -55"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="77" depart="308.00" arrival="489.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="308.00" probability="0" edges="2405 1627"/>
+            <route cost="180.05" savings="0.00" edges="2405 -2365 -2321 -2319 2370 -2386 -833 829 1892 1935 1627"/>
         </routeDistribution>
     </vehicle>
 
@@ -638,17 +638,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="95" depart="380.00" arrival="579.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="380.00" probability="0" edges="254 -2333"/>
-            <route cost="210.57" savings="0.00" edges="254 -262 274 1316 -1312 1625 1931 -2188 2187 2194 2333 -2333"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="66" depart="264.00" arrival="579.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="264.00" probability="0" edges="-2663 2424"/>
             <route cost="313.54" savings="0.00" edges="-2663 -2333 -2194 -1917 -1623 -1575 -1338 -493 -264 262 278 658 828 1943 2424"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="95" depart="380.00" arrival="579.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="380.00" probability="0" edges="254 -2333"/>
+            <route cost="210.57" savings="0.00" edges="254 -262 274 1316 -1312 1625 1931 -2188 2187 2194 2333 -2333"/>
         </routeDistribution>
     </vehicle>
 
@@ -673,13 +673,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="109" depart="436.00" arrival="608.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="436.00" probability="0" edges="-831 1907"/>
-            <route cost="171.12" savings="0.00" edges="-831 833 1320 1337 1605 1905 1907"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="83" depart="332.00" arrival="608.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="332.00" probability="0" edges="201 2321"/>
@@ -687,10 +680,10 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="99" depart="396.00" arrival="609.00">
+    <vehicle id="109" depart="436.00" arrival="608.00">
         <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="396.00" probability="0" edges="1659 9"/>
-            <route cost="234.00" savings="0.00" edges="1659 -1659 -1617 -1575 -1338 -493 -264 -250 -232 -222 -5 9"/>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="436.00" probability="0" edges="-831 1907"/>
+            <route cost="171.12" savings="0.00" edges="-831 833 1320 1337 1605 1905 1907"/>
         </routeDistribution>
     </vehicle>
 
@@ -698,6 +691,13 @@
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="384.00" probability="0" edges="-937 540"/>
             <route cost="218.68" savings="0.00" edges="-937 -790 -47 45 -3 5 222 232 250 264 -301 540"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="99" depart="396.00" arrival="609.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="396.00" probability="0" edges="1659 9"/>
+            <route cost="234.00" savings="0.00" edges="1659 -1659 -1617 -1575 -1338 -493 -264 -250 -232 -222 -5 9"/>
         </routeDistribution>
     </vehicle>
 
@@ -750,17 +750,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="115" depart="460.00" arrival="665.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="460.00" probability="0" edges="-2365 828"/>
-            <route cost="204.45" savings="0.00" edges="-2365 -2321 -2319 2370 -2386 -833 -662 -652 658 828"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="85" depart="340.00" arrival="665.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="340.00" probability="0" edges="-2690 -45"/>
             <route cost="324.96" savings="0.00" edges="-2690 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3 -45"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="115" depart="460.00" arrival="665.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="460.00" probability="0" edges="-2365 828"/>
+            <route cost="204.45" savings="0.00" edges="-2365 -2321 -2319 2370 -2386 -833 -662 -652 658 828"/>
         </routeDistribution>
     </vehicle>
 
@@ -834,17 +834,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="125" depart="500.00" arrival="707.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="500.00" probability="0" edges="1586 -2333"/>
-            <route cost="230.19" savings="0.00" edges="1586 -1586 -1454 1320 -1309 1338 1575 1623 1917 2194 2333 -2333"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="121" depart="484.00" arrival="707.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="484.00" probability="0" edges="2472 -2442"/>
             <route cost="250.90" savings="0.00" edges="2472 -2472 -1782 1784 -1892 -829 833 2386 -2370 1903 2058 2438 2442 -2442"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="125" depart="500.00" arrival="707.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="500.00" probability="0" edges="1586 -2333"/>
+            <route cost="230.19" savings="0.00" edges="1586 -1586 -1454 1320 -1309 1338 1575 1623 1917 2194 2333 -2333"/>
         </routeDistribution>
     </vehicle>
 
@@ -1135,17 +1135,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="152" depart="608.00" arrival="890.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="608.00" probability="0" edges="2686 2436"/>
-            <route cost="303.55" savings="0.00" edges="2686 -2686 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 828 1941 -2436 2436"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="131" depart="524.00" arrival="890.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="524.00" probability="0" edges="792 -2450"/>
             <route cost="352.73" savings="0.00" edges="792 -792 -51 45 -3 5 222 240 254 278 652 662 833 2386 2411 2454 -2588 -2450"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="152" depart="608.00" arrival="890.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="608.00" probability="0" edges="2686 2436"/>
+            <route cost="303.55" savings="0.00" edges="2686 -2686 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 828 1941 -2436 2436"/>
         </routeDistribution>
     </vehicle>
 
@@ -1254,17 +1254,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="192" depart="768.00" arrival="947.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="768.00" probability="0" edges="-2450 1782"/>
-            <route cost="196.83" savings="0.00" edges="-2450 -2072 -1903 2370 -2386 -833 829 1892 -1784 1782"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="172" depart="688.00" arrival="947.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="688.00" probability="0" edges="-2335 -2686"/>
             <route cost="258.88" savings="0.00" edges="-2335 -2194 -1917 -1623 1613 -1611 1605 2175 -2066 2058 2438 2442 2686 -2686"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="192" depart="768.00" arrival="947.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="768.00" probability="0" edges="-2450 1782"/>
+            <route cost="196.83" savings="0.00" edges="-2450 -2072 -1903 2370 -2386 -833 829 1892 -1784 1782"/>
         </routeDistribution>
     </vehicle>
 
@@ -1415,17 +1415,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="224" depart="896.00" arrival="1052.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="896.00" probability="0" edges="-1667 -232"/>
-            <route cost="156.64" savings="0.00" edges="-1667 -1617 -1575 -1338 -493 -264 -250 -232"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="189" depart="756.00" arrival="1052.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="756.00" probability="0" edges="-333 -2454"/>
             <route cost="296.63" savings="0.00" edges="-333 -320 -205 197 228 240 254 278 652 662 833 2386 2411 2454 -2454"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="224" depart="896.00" arrival="1052.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="896.00" probability="0" edges="-1667 -232"/>
+            <route cost="156.64" savings="0.00" edges="-1667 -1617 -1575 -1338 -493 -264 -250 -232"/>
         </routeDistribution>
     </vehicle>
 
@@ -1471,17 +1471,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="209" depart="836.00" arrival="1067.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="836.00" probability="0" edges="-2192 2472"/>
-            <route cost="217.90" savings="0.00" edges="-2192 -1917 -1623 -1575 -1338 -493 -264 262 278 658 814 1627 1782 2472"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="202" depart="808.00" arrival="1067.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="808.00" probability="0" edges="951 -1659"/>
             <route cost="261.34" savings="0.00" edges="951 -951 -802 -9 5 222 232 250 264 493 1338 1575 1617 1659 -1659"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="209" depart="836.00" arrival="1067.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="836.00" probability="0" edges="-2192 2472"/>
+            <route cost="217.90" savings="0.00" edges="-2192 -1917 -1623 -1575 -1338 -493 -264 262 278 658 814 1627 1782 2472"/>
         </routeDistribution>
     </vehicle>
 
@@ -1667,17 +1667,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="237" depart="948.00" arrival="1184.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="948.00" probability="0" edges="-2326 -2427"/>
-            <route cost="235.48" savings="0.00" edges="-2326 -2192 -1917 -1623 1613 -1611 1599 2370 2411 -2427"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="222" depart="888.00" arrival="1184.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="888.00" probability="0" edges="-1659 1595"/>
             <route cost="295.98" savings="0.00" edges="-1659 -1617 -1575 -1338 -493 -264 -250 -232 -222 36 1329 1466 1595"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="237" depart="948.00" arrival="1184.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="948.00" probability="0" edges="-2326 -2427"/>
+            <route cost="235.48" savings="0.00" edges="-2326 -2192 -1917 -1623 1613 -1611 1599 2370 2411 -2427"/>
         </routeDistribution>
     </vehicle>
 
@@ -1737,17 +1737,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="259" depart="1036.00" arrival="1232.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1036.00" probability="0" edges="290 2405"/>
-            <route cost="195.08" savings="0.00" edges="290 540 662 833 2386 -2370 1903 2058 2405"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="238" depart="952.00" arrival="1232.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="952.00" probability="0" edges="212 2663"/>
             <route cost="300.67" savings="0.00" edges="212 -205 197 228 232 250 274 1316 -1312 1625 1931 -2188 2187 2194 2333 2663"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="259" depart="1036.00" arrival="1232.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1036.00" probability="0" edges="290 2405"/>
+            <route cost="195.08" savings="0.00" edges="290 540 662 833 2386 -2370 1903 2058 2405"/>
         </routeDistribution>
     </vehicle>
 
@@ -1898,17 +1898,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="289" depart="1156.00" arrival="1323.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1156.00" probability="0" edges="-1943 1903"/>
-            <route cost="190.20" savings="0.00" edges="-1943 -828 -658 652 662 833 2386 -2370 1903"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="288" depart="1152.00" arrival="1323.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1152.00" probability="0" edges="-2196 2072"/>
             <route cost="190.19" savings="0.00" edges="-2196 -1917 -1623 1613 -1611 1605 2175 -2066 2072"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="289" depart="1156.00" arrival="1323.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1156.00" probability="0" edges="-1943 1903"/>
+            <route cost="190.20" savings="0.00" edges="-1943 -828 -658 652 662 833 2386 -2370 1903"/>
         </routeDistribution>
     </vehicle>
 
@@ -2039,6 +2039,13 @@
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="293" depart="1172.00" arrival="1397.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1172.00" probability="0" edges="-2436 2194"/>
+            <route cost="251.91" savings="0.00" edges="-2436 2436 -1941 -828 -658 -278 -262 274 1316 -1312 1625 1931 -2188 2187 2194"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="294" depart="1176.00" arrival="1397.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1176.00" probability="0" edges="-1917 1943"/>
@@ -2050,13 +2057,6 @@
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1184.00" probability="0" edges="-2690 -2188"/>
             <route cost="230.32" savings="0.00" edges="-2690 -2442 -2438 -2058 2066 -2175 -1605 1611 -1613 1623 1915 2188 -2188"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="293" depart="1172.00" arrival="1397.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1172.00" probability="0" edges="-2436 2194"/>
-            <route cost="251.91" savings="0.00" edges="-2436 2436 -1941 -828 -658 -278 -262 274 1316 -1312 1625 1931 -2188 2187 2194"/>
         </routeDistribution>
     </vehicle>
 
@@ -2109,17 +2109,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="303" depart="1212.00" arrival="1433.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1212.00" probability="0" edges="2333 -2427"/>
-            <route cost="232.37" savings="0.00" edges="2333 -2333 -2194 -1917 -1623 1613 -1611 1599 2370 2411 -2427"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="260" depart="1040.00" arrival="1433.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1040.00" probability="0" edges="2183 333"/>
             <route cost="392.86" savings="0.00" edges="2183 -2319 2370 -2386 -833 -662 -652 -278 -254 -240 -228 -197 205 320 333"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="303" depart="1212.00" arrival="1433.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1212.00" probability="0" edges="2333 -2427"/>
+            <route cost="232.37" savings="0.00" edges="2333 -2333 -2194 -1917 -1623 1613 -1611 1599 2370 2411 -2427"/>
         </routeDistribution>
     </vehicle>
 
@@ -2214,17 +2214,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="311" depart="1244.00" arrival="1492.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1244.00" probability="0" edges="1466 -1617"/>
-            <route cost="274.99" savings="0.00" edges="1466 -1466 -1329 -36 222 232 250 264 493 1338 1575 1617 -1617"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="304" depart="1216.00" arrival="1492.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1216.00" probability="0" edges="189 2058"/>
             <route cost="277.30" savings="0.00" edges="189 197 228 240 254 278 652 662 833 2386 -2370 1903 2058"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="311" depart="1244.00" arrival="1492.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1244.00" probability="0" edges="1466 -1617"/>
+            <route cost="274.99" savings="0.00" edges="1466 -1466 -1329 -36 222 232 250 264 493 1338 1575 1617 -1617"/>
         </routeDistribution>
     </vehicle>
 
@@ -2376,17 +2376,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="337" depart="1348.00" arrival="1593.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1348.00" probability="0" edges="2424 2656"/>
-            <route cost="245.50" savings="0.00" edges="2424 2436 -1941 -828 -658 652 662 833 2386 2411 2454 -2588 2656"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="323" depart="1292.00" arrival="1593.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1292.00" probability="0" edges="2442 -1887"/>
             <route cost="300.82" savings="0.00" edges="2442 -2442 -2438 -2058 -1903 2370 -2386 -833 829 1892 -1784 1782 -1887"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="337" depart="1348.00" arrival="1593.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1348.00" probability="0" edges="2424 2656"/>
+            <route cost="245.50" savings="0.00" edges="2424 2436 -1941 -828 -658 652 662 833 2386 2411 2454 -2588 2656"/>
         </routeDistribution>
     </vehicle>
 
@@ -2625,17 +2625,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="356" depart="1424.00" arrival="1726.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1424.00" probability="0" edges="215 -2058"/>
-            <route cost="285.10" savings="0.00" edges="215 228 240 254 278 652 662 833 2386 -2370 1903 2058 -2058"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="355" depart="1420.00" arrival="1726.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1420.00" probability="0" edges="-951 2588"/>
             <route cost="296.05" savings="0.00" edges="-951 -802 -9 5 222 240 254 278 652 662 833 2386 2411 2454 -2588 2588"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="356" depart="1424.00" arrival="1726.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1424.00" probability="0" edges="215 -2058"/>
+            <route cost="285.10" savings="0.00" edges="215 228 240 254 278 652 662 833 2386 -2370 1903 2058 -2058"/>
         </routeDistribution>
     </vehicle>
 
@@ -2830,13 +2830,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="410" depart="1640.00" arrival="1831.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1640.00" probability="0" edges="-2454 9"/>
-            <route cost="213.83" savings="0.00" edges="-2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="401" depart="1604.00" arrival="1831.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1604.00" probability="0" edges="-831 792"/>
@@ -2844,10 +2837,24 @@
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="410" depart="1640.00" arrival="1831.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1640.00" probability="0" edges="-2454 9"/>
+            <route cost="213.83" savings="0.00" edges="-2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="407" depart="1628.00" arrival="1832.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1628.00" probability="0" edges="2438 1784"/>
             <route cost="203.02" savings="0.00" edges="2438 -2438 -2058 -1903 2370 -2386 -833 829 1892 -1784 1784"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="375" depart="1500.00" arrival="1833.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1500.00" probability="0" edges="-1599 1468"/>
+            <route cost="332.75" savings="0.00" edges="-1599 -1337 -1309 -493 -264 -250 -232 -222 36 1329 1468"/>
         </routeDistribution>
     </vehicle>
 
@@ -2862,13 +2869,6 @@
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1644.00" probability="0" edges="1784 -2440"/>
             <route cost="188.88" savings="0.00" edges="1784 -1892 -829 833 2386 -2370 1903 2072 -2440"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="375" depart="1500.00" arrival="1833.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1500.00" probability="0" edges="-1599 1468"/>
-            <route cost="332.75" savings="0.00" edges="-1599 -1337 -1309 -493 -264 -250 -232 -222 36 1329 1468"/>
         </routeDistribution>
     </vehicle>
 
@@ -2935,17 +2935,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="415" depart="1660.00" arrival="1910.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1660.00" probability="0" edges="215 -2588"/>
-            <route cost="259.60" savings="0.00" edges="215 228 240 254 278 652 662 833 2386 2411 2454 -2588"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="409" depart="1636.00" arrival="1910.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1636.00" probability="0" edges="1649 1466"/>
             <route cost="275.66" savings="0.00" edges="1649 -1659 -1617 -1575 -1338 -493 -264 -250 -232 -222 36 1329 1466"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="415" depart="1660.00" arrival="1910.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1660.00" probability="0" edges="215 -2588"/>
+            <route cost="259.60" savings="0.00" edges="215 228 240 254 278 652 662 833 2386 2411 2454 -2588"/>
         </routeDistribution>
     </vehicle>
 
@@ -2963,17 +2963,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="430" depart="1720.00" arrival="1933.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1720.00" probability="0" edges="-232 2408"/>
-            <route cost="246.18" savings="0.00" edges="-232 240 254 278 652 662 833 2386 -2370 2319 2321 2365 2408"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="422" depart="1688.00" arrival="1933.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1688.00" probability="0" edges="2686 -814"/>
             <route cost="233.69" savings="0.00" edges="2686 -2686 -2442 -2438 -2058 -1903 2370 -2386 -833 829 1892 1935 -814"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="430" depart="1720.00" arrival="1933.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1720.00" probability="0" edges="-232 2408"/>
+            <route cost="246.18" savings="0.00" edges="-232 240 254 278 652 662 833 2386 -2370 2319 2321 2365 2408"/>
         </routeDistribution>
     </vehicle>
 
@@ -3244,17 +3244,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="455" depart="1820.00" arrival="2068.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1820.00" probability="0" edges="2427 9"/>
-            <route cost="247.03" savings="0.00" edges="2427 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="445" depart="1780.00" arrival="2068.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1780.00" probability="0" edges="-2066 205"/>
             <route cost="277.26" savings="0.00" edges="-2066 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -228 -197 205"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="455" depart="1820.00" arrival="2068.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1820.00" probability="0" edges="2427 9"/>
+            <route cost="247.03" savings="0.00" edges="2427 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9"/>
         </routeDistribution>
     </vehicle>
 
@@ -3440,17 +3440,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="487" depart="1948.00" arrival="2193.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1948.00" probability="0" edges="-2695 5"/>
-            <route cost="260.00" savings="0.00" edges="-2695 -2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 5"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="468" depart="1872.00" arrival="2193.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1872.00" probability="0" edges="2686 1468"/>
             <route cost="338.72" savings="0.00" edges="2686 -2686 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 828 1941 -2436 -2403 -1466 1468"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="487" depart="1948.00" arrival="2193.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1948.00" probability="0" edges="-2695 5"/>
+            <route cost="260.00" savings="0.00" edges="-2695 -2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 5"/>
         </routeDistribution>
     </vehicle>
 
@@ -3468,13 +3468,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="500" depart="2000.00" arrival="2204.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2000.00" probability="0" edges="-1454 -1458"/>
-            <route cost="215.88" savings="0.00" edges="-1454 -833 -662 -652 658 828 1941 -2436 -2403 -1466 -1458"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="459" depart="1836.00" arrival="2204.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1836.00" probability="0" edges="-2403 -2440"/>
@@ -3486,6 +3479,13 @@
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1888.00" probability="0" edges="205 -2408"/>
             <route cost="324.69" savings="0.00" edges="205 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2058 2438 -2408"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="500" depart="2000.00" arrival="2204.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2000.00" probability="0" edges="-1454 -1458"/>
+            <route cost="215.88" savings="0.00" edges="-1454 -833 -662 -652 658 828 1941 -2436 -2403 -1466 -1458"/>
         </routeDistribution>
     </vehicle>
 
@@ -3588,17 +3588,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="502" depart="2008.00" arrival="2261.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2008.00" probability="0" edges="-2187 -2669"/>
-            <route cost="252.43" savings="0.00" edges="-2187 2188 -1931 -1625 1312 -1316 -274 262 278 658 814 1627 1782 2472 -2669"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="471" depart="1884.00" arrival="2261.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="1884.00" probability="0" edges="-2691 -55"/>
             <route cost="376.97" savings="0.00" edges="-2691 -2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3 -45 47 -55"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="502" depart="2008.00" arrival="2261.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2008.00" probability="0" edges="-2187 -2669"/>
+            <route cost="252.43" savings="0.00" edges="-2187 2188 -1931 -1625 1312 -1316 -274 262 278 658 814 1627 1782 2472 -2669"/>
         </routeDistribution>
     </vehicle>
 
@@ -4096,17 +4096,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="573" depart="2292.00" arrival="2565.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2292.00" probability="0" edges="2442 1941"/>
-            <route cost="272.22" savings="0.00" edges="2442 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 828 1941"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="553" depart="2212.00" arrival="2565.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2212.00" probability="0" edges="-215 2438"/>
             <route cost="352.59" savings="0.00" edges="-215 215 228 240 254 278 652 662 833 2386 -2370 1903 2058 2438"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="573" depart="2292.00" arrival="2565.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2292.00" probability="0" edges="2442 1941"/>
+            <route cost="272.22" savings="0.00" edges="2442 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 828 1941"/>
         </routeDistribution>
     </vehicle>
 
@@ -4330,17 +4330,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="604" depart="2416.00" arrival="2687.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2416.00" probability="0" edges="45 2183"/>
-            <route cost="270.05" savings="0.00" edges="45 -3 5 222 232 250 264 493 1309 1337 1605 2183"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="600" depart="2400.00" arrival="2687.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2400.00" probability="0" edges="205 1903"/>
             <route cost="292.07" savings="0.00" edges="205 -205 197 228 240 254 278 652 662 833 2386 -2370 1903"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="604" depart="2416.00" arrival="2687.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2416.00" probability="0" edges="45 2183"/>
+            <route cost="270.05" savings="0.00" edges="45 -3 5 222 232 250 264 493 1309 1337 1605 2183"/>
         </routeDistribution>
     </vehicle>
 
@@ -4429,17 +4429,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="621" depart="2484.00" arrival="2741.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2484.00" probability="0" edges="21 1905"/>
-            <route cost="257.22" savings="0.00" edges="21 228 232 250 264 493 1309 1337 1605 1905"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="618" depart="2472.00" arrival="2741.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2472.00" probability="0" edges="-21 2614"/>
             <route cost="272.38" savings="0.00" edges="-21 5 222 240 254 278 652 662 833 2386 2411 2454 -2588 2614"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="621" depart="2484.00" arrival="2741.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2484.00" probability="0" edges="21 1905"/>
+            <route cost="257.22" savings="0.00" edges="21 228 232 250 264 493 1309 1337 1605 1905"/>
         </routeDistribution>
     </vehicle>
 
@@ -4724,10 +4724,10 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="681" depart="2724.00" arrival="2928.00">
+    <vehicle id="667" depart="2668.00" arrival="2928.00">
         <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2724.00" probability="0" edges="2588 -2192"/>
-            <route cost="227.58" savings="0.00" edges="2588 -2454 -2411 -2370 -1599 1611 -1613 1623 1917 2192 -2192"/>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2668.00" probability="0" edges="-1675 -55"/>
+            <route cost="276.95" savings="0.00" edges="-1675 -1617 -1575 -1338 -493 -264 -250 -232 -222 -5 9 39 47 -55"/>
         </routeDistribution>
     </vehicle>
 
@@ -4738,10 +4738,10 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="667" depart="2668.00" arrival="2928.00">
+    <vehicle id="681" depart="2724.00" arrival="2928.00">
         <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2668.00" probability="0" edges="-1675 -55"/>
-            <route cost="276.95" savings="0.00" edges="-1675 -1617 -1575 -1338 -493 -264 -250 -232 -222 -5 9 39 47 -55"/>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2724.00" probability="0" edges="2588 -2192"/>
+            <route cost="227.58" savings="0.00" edges="2588 -2454 -2411 -2370 -1599 1611 -1613 1623 1917 2192 -2192"/>
         </routeDistribution>
     </vehicle>
 
@@ -5109,17 +5109,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="734" depart="2936.00" arrival="3127.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2936.00" probability="0" edges="-833 768"/>
-            <route cost="194.31" savings="0.00" edges="-833 -662 -652 -278 -254 -240 -222 -5 9 39 47 768"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="733" depart="2932.00" arrival="3127.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2932.00" probability="0" edges="2370 1658"/>
             <route cost="193.51" savings="0.00" edges="2370 -2386 -833 -662 -540 301 460 481 1312 1342 1658"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="734" depart="2936.00" arrival="3127.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2936.00" probability="0" edges="-833 768"/>
+            <route cost="194.31" savings="0.00" edges="-833 -662 -652 -278 -254 -240 -222 -5 9 39 47 768"/>
         </routeDistribution>
     </vehicle>
 
@@ -5144,17 +5144,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="735" depart="2940.00" arrival="3147.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2940.00" probability="0" edges="-2695 1915"/>
-            <route cost="206.49" savings="0.00" edges="-2695 -2614 -2450 -2072 2066 -2175 -1605 1611 -1613 1623 1915"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="728" depart="2912.00" arrival="3147.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2912.00" probability="0" edges="-2058 -2403"/>
             <route cost="234.46" savings="0.00" edges="-2058 -1903 2370 -2386 -833 -662 -652 658 828 1941 -2436 -2403"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="735" depart="2940.00" arrival="3147.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2940.00" probability="0" edges="-2695 1915"/>
+            <route cost="206.49" savings="0.00" edges="-2695 -2614 -2450 -2072 2066 -2175 -1605 1611 -1613 1623 1915"/>
         </routeDistribution>
     </vehicle>
 
@@ -5207,17 +5207,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="729" depart="2916.00" arrival="3200.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2916.00" probability="0" edges="205 2066"/>
-            <route cost="300.55" savings="0.00" edges="205 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2066"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="725" depart="2900.00" arrival="3200.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2900.00" probability="0" edges="-21 -2058"/>
             <route cost="299.57" savings="0.00" edges="-21 5 222 240 254 278 652 662 833 2386 -2370 1903 2058 -2058"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="729" depart="2916.00" arrival="3200.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2916.00" probability="0" edges="205 2066"/>
+            <route cost="300.55" savings="0.00" edges="205 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2066"/>
         </routeDistribution>
     </vehicle>
 
@@ -5235,17 +5235,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="730" depart="2920.00" arrival="3212.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2920.00" probability="0" edges="-1468 -1911"/>
-            <route cost="271.67" savings="0.00" edges="-1468 -1329 -36 222 232 250 264 493 1338 1575 1617 1667 -1911"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="727" depart="2908.00" arrival="3212.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2908.00" probability="0" edges="1329 -1659"/>
             <route cost="303.62" savings="0.00" edges="1329 -1329 -36 222 232 250 264 493 1338 1575 1617 1659 -1659"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="730" depart="2920.00" arrival="3212.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2920.00" probability="0" edges="-1468 -1911"/>
+            <route cost="271.67" savings="0.00" edges="-1468 -1329 -36 222 232 250 264 493 1338 1575 1617 1667 -1911"/>
         </routeDistribution>
     </vehicle>
 
@@ -5263,17 +5263,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="758" depart="3032.00" arrival="3241.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3032.00" probability="0" edges="2192 828"/>
-            <route cost="209.70" savings="0.00" edges="2192 -2192 -1917 -1623 -1575 -1338 -493 -264 262 278 658 828"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="724" depart="2896.00" arrival="3241.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="2896.00" probability="0" edges="-47 -2686"/>
             <route cost="334.80" savings="0.00" edges="-47 45 -3 5 222 240 254 278 652 662 833 2386 -2370 1903 2058 2438 2442 2686 -2686"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="758" depart="3032.00" arrival="3241.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3032.00" probability="0" edges="2192 828"/>
+            <route cost="209.70" savings="0.00" edges="2192 -2192 -1917 -1623 -1575 -1338 -493 -264 262 278 658 828"/>
         </routeDistribution>
     </vehicle>
 
@@ -5511,17 +5511,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="795" depart="3180.00" arrival="3387.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3180.00" probability="0" edges="-1931 1468"/>
-            <route cost="206.06" savings="0.00" edges="-1931 -1625 1312 -1316 -274 -250 -232 -222 36 1329 1468"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="771" depart="3084.00" arrival="3387.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3084.00" probability="0" edges="-197 2072"/>
             <route cost="301.39" savings="0.00" edges="-197 197 228 240 254 278 652 662 833 2386 -2370 1903 2072"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="795" depart="3180.00" arrival="3387.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3180.00" probability="0" edges="-1931 1468"/>
+            <route cost="206.06" savings="0.00" edges="-1931 -1625 1312 -1316 -274 -250 -232 -222 36 1329 1468"/>
         </routeDistribution>
     </vehicle>
 
@@ -5603,18 +5603,18 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="770" depart="3080.00" arrival="3419.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3080.00" probability="0" edges="-2614 214"/>
-            <route cost="338.27" savings="0.00" edges="-2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -228 -215 214"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="766" depart="3064.00" arrival="3419.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3064.00" probability="0" edges="330 -2072"/>
             <route cost="369.40" savings="0.00" replacedOnEdge="228" reason="device.rerouting" replacedAtTime="3184.00" probability="0" edges="330 -320 -205 197 228 232 250 264 -301 540 662 833 2386 -2370 1903 2072 -2072"/>
             <route cost="268.08" savings="1.65" edges="330 -320 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2072 -2072"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="770" depart="3080.00" arrival="3419.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3080.00" probability="0" edges="-2614 214"/>
+            <route cost="338.27" savings="0.00" edges="-2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -228 -215 214"/>
         </routeDistribution>
     </vehicle>
 
@@ -5766,10 +5766,10 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="839" depart="3356.00" arrival="3521.00">
+    <vehicle id="808" depart="3232.00" arrival="3521.00">
         <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3356.00" probability="0" edges="254 -2326"/>
-            <route cost="187.47" savings="0.00" edges="254 -262 274 1316 -1312 1625 1931 -2188 2187 2194 -2326"/>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3232.00" probability="0" edges="2322 2691"/>
+            <route cost="289.78" savings="0.00" edges="2322 2342 -2188 -1915 -1623 1613 -1611 1605 2175 -2066 2072 2450 2614 2691"/>
         </routeDistribution>
     </vehicle>
 
@@ -5780,10 +5780,10 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="808" depart="3232.00" arrival="3521.00">
+    <vehicle id="839" depart="3356.00" arrival="3521.00">
         <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3232.00" probability="0" edges="2322 2691"/>
-            <route cost="289.78" savings="0.00" edges="2322 2342 -2188 -1915 -1623 1613 -1611 1605 2175 -2066 2072 2450 2614 2691"/>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3356.00" probability="0" edges="254 -2326"/>
+            <route cost="187.47" savings="0.00" edges="254 -262 274 1316 -1312 1625 1931 -2188 2187 2194 -2326"/>
         </routeDistribution>
     </vehicle>
 
@@ -5795,17 +5795,17 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="836" depart="3344.00" arrival="3534.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3344.00" probability="0" edges="5 1675"/>
-            <route cost="196.62" savings="0.00" edges="5 222 232 250 264 493 1338 1575 1617 1675"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="820" depart="3280.00" arrival="3534.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3280.00" probability="0" edges="-2614 -2436"/>
             <route cost="253.79" savings="0.00" edges="-2614 2588 -2454 -2411 -2386 -833 -662 -652 658 828 1941 -2436"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="836" depart="3344.00" arrival="3534.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3344.00" probability="0" edges="5 1675"/>
+            <route cost="196.62" savings="0.00" edges="5 222 232 250 264 493 1338 1575 1617 1675"/>
         </routeDistribution>
     </vehicle>
 
@@ -5943,13 +5943,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="854" depart="3416.00" arrival="3616.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3416.00" probability="0" edges="-1316 2408"/>
-            <route cost="199.64" savings="0.00" edges="-1316 448 469 1309 1337 1605 2175 2365 2408"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="803" depart="3212.00" arrival="3616.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3212.00" probability="0" edges="-339 -2072"/>
@@ -5961,6 +5954,13 @@
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3396.00" probability="0" edges="-2326 2411"/>
             <route cost="219.94" savings="0.00" edges="-2326 -2192 -1917 -1623 1613 -1611 1599 2370 2411"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="854" depart="3416.00" arrival="3616.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3416.00" probability="0" edges="-1316 2408"/>
+            <route cost="199.64" savings="0.00" edges="-1316 448 469 1309 1337 1605 2175 2365 2408"/>
         </routeDistribution>
     </vehicle>
 
@@ -6112,13 +6112,6 @@
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="879" depart="3516.00" arrival="3702.00">
-        <routeDistribution>
-            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3516.00" probability="0" edges="2192 240"/>
-            <route cost="194.60" savings="0.00" edges="2192 -2192 -2187 2188 -1931 -1625 1312 -1316 -274 -250 -232 240"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="863" depart="3452.00" arrival="3702.00">
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3452.00" probability="0" edges="-1915 2436"/>
@@ -6130,6 +6123,13 @@
         <routeDistribution>
             <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3480.00" probability="0" edges="2686 1892"/>
             <route cost="221.94" savings="0.00" edges="2686 -2686 -2442 -2438 -2058 -1903 2370 -2386 -833 829 1892"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="879" depart="3516.00" arrival="3702.00">
+        <routeDistribution>
+            <route cost="0.00" savings="0.00" replacedOnEdge="" reason="device.rerouting" replacedAtTime="3516.00" probability="0" edges="2192 240"/>
+            <route cost="194.60" savings="0.00" edges="2192 -2192 -2187 2188 -1931 -1625 1312 -1316 -274 -250 -232 240"/>
         </routeDistribution>
     </vehicle>
 

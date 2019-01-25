@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iterator>
-#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/router/IntermodalRouter.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include "MSGlobals.h"
@@ -62,7 +62,7 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
 
 MSInsertionControl::~MSInsertionControl() {
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
-        delete(i->pars);
+        delete (i->pars);
     }
 }
 

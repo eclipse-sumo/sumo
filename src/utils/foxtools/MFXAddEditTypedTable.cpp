@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -499,7 +499,7 @@ MFXAddEditTypedTable::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
 
 // Clicked in list
 long
-MFXAddEditTypedTable::onClicked(FXObject*, FXSelector , void* ptr) {
+MFXAddEditTypedTable::onClicked(FXObject*, FXSelector, void* ptr) {
     if (editor) {
         delete editor;
         input.fm.row = -1;

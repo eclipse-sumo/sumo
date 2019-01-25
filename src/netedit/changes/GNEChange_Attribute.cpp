@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@
 /// @date    Mar 2011
 /// @version $Id$
 ///
-// A network change in which something is moved (for undo/redo)
+// A network change in which something is changed (for undo/redo)
 /****************************************************************************/
 
 // ===========================================================================
@@ -25,6 +25,7 @@
 #include <netedit/netelements/GNENetElement.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEShape.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 
 #include "GNEChange_Attribute.h"
 
@@ -48,8 +49,9 @@ GNEChange_Attribute::GNEChange_Attribute(GNENetElement* netElement,
     myNet(netElement->getNet()),
     myNetElement(netElement),
     myAdditional(nullptr),
-    myShape(nullptr) {
-    assert(myAC && (myNetElement || myAdditional || myShape));
+    myShape(nullptr),
+    myDemandElement(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -65,8 +67,9 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAdditional* additional,
     myNet(additional->getViewNet()->getNet()),
     myNetElement(nullptr),
     myAdditional(additional),
-    myShape(nullptr) {
-    assert(myAC && (myNetElement || myAdditional || myShape));
+    myShape(nullptr),
+    myDemandElement(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -82,8 +85,27 @@ GNEChange_Attribute::GNEChange_Attribute(GNEShape* shape,
     myNet(shape->getNet()),
     myNetElement(nullptr),
     myAdditional(nullptr),
-    myShape(shape) {
-    assert(myAC && (myNetElement || myAdditional || myShape));
+    myShape(shape),
+    myDemandElement(nullptr) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+}
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEDemandElement* demandElement,
+        SumoXMLAttr key, const std::string& value,
+        bool customOrigValue, const std::string& origValue) :
+    GNEChange(nullptr, true),
+    myAC(demandElement),
+    myKey(key),
+    myOrigValue(customOrigValue ? origValue : demandElement->getAttribute(key)),
+    myNewValue(value),
+    myNet(demandElement->getViewNet()->getNet()),
+    myNetElement(nullptr),
+    myAdditional(nullptr),
+    myShape(nullptr),
+    myDemandElement(demandElement) {
+    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
@@ -119,10 +141,10 @@ GNEChange_Attribute::undo() {
     if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
-        } else if (myAdditional) {
+        } else if (myAdditional || myShape) {
             myNet->requiereSaveAdditionals(true);
-        } else if (myShape) {
-            myNet->requiereSaveShapes(true);
+        } else if (myDemandElement) {
+            myNet->requiereSaveDemandElements(true);
         }
     }
 }
@@ -138,10 +160,10 @@ GNEChange_Attribute::redo() {
     if (myKey != GNE_ATTR_SELECTED) {
         if (myNetElement) {
             myNet->requiereSaveNet(true);
-        } else if (myAdditional) {
+        } else if (myAdditional || myShape) {
             myNet->requiereSaveAdditionals(true);
-        } else if (myShape) {
-            myNet->requiereSaveShapes(true);
+        } else if (myDemandElement) {
+            myNet->requiereSaveDemandElements(true);
         }
     }
 }

@@ -1,0 +1,5 @@
+<routes>
+    <route id="r0" edges="beg middle end"/>
+    <flow id="right" color="red" route="r0" begin="0" end="1000" period="5" departLane="0" departSpeed="max" departPos="random"/>
+    <flow id="left" color="blue" route="r0" begin="0" end="1000" period="5" departLane="1" departSpeed="max" departPos="random"/>
+</routes>

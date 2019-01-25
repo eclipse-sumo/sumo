@@ -12,3 +12,6 @@ cross3ltl_queue_schema
 cross3ltl_emission_schema
 cross3ltl_full_schema
 amitran_trajectories_schema
+
+# load csv with type edges
+plain_edges

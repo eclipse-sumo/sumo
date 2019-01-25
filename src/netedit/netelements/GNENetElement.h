@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@
 // ===========================================================================
 
 class GNEAdditional;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -58,6 +59,9 @@ public:
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;
 
+    /// @name functions related with additionals parent/childs
+    /// @{
+
     /// @brief add additional child to this edge
     void addAdditionalParent(GNEAdditional* additional);
 
@@ -75,6 +79,31 @@ public:
 
     /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEAdditional*>& getAdditionalChilds() const;
+
+    /// @}
+
+    /// @name functions related with demand elements parent/childs
+    /// @{
+
+    /// @brief add demand element child to this edge
+    void addDemandElementParent(GNEDemandElement* demandElement);
+
+    /// @brief remove demand element child from this edge
+    void removeDemandElementParent(GNEDemandElement* demandElement);
+
+    /// @brief add demand element child to this edge
+    void addDemandElementChild(GNEDemandElement* demandElement);
+
+    /// @brief remove demand element child from this edge
+    void removeDemandElementChild(GNEDemandElement* demandElement);
+
+    /// @brief return vector of demand element that have as Parameter this edge (For example, Routes)
+    const std::vector<GNEDemandElement*>& getDemandElementParents() const;
+
+    /// @brief return vector of demand element that have as Parent this edge (For example, Routes)
+    const std::vector<GNEDemandElement*>& getDemandElementChilds() const;
+
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -118,6 +147,9 @@ public:
 
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;
+
+    /// @brief check if attribute carrier must be drawn using selecting color.
+    bool drawUsingSelectColor() const;
 
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
@@ -167,18 +199,21 @@ protected:
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 
-    /// @brief list of Additional parents of this NetElement
-    std::vector<GNEAdditional*> myFirstAdditionalParents;
+    /// @brief list of additional parents of this NetElement
+    std::vector<GNEAdditional*> myAdditionalParents;
 
-    /// @brief list of Additional Childs of this NetElement
+    /// @brief list of additional Childs of this NetElement
     std::vector<GNEAdditional*> myAdditionalChilds;
+
+    /// @brief list of demand elements parents of this NetElement
+    std::vector<GNEDemandElement*> myDemandElementParents;
+
+    /// @brief list of demand elements Childs of this NetElement (note: Can be inserted multiples times)
+    std::vector<GNEDemandElement*> myDemandElementChilds;
 
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for check if mouse is over objects
-    virtual void mouseOverObject(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief Invalidated copy constructor.
     GNENetElement(const GNENetElement&) = delete;

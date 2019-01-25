@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ import optparse
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-import route2trips  # noqa
 from sumolib.miscutils import euclidean  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
@@ -80,6 +79,8 @@ def get_options(args=None):
                          default=False, help="weight edge probability by length")
     optParser.add_option("-L", "--lanes", action="store_true",
                          default=False, help="weight edge probability by number of lanes")
+    optParser.add_option("--edge-param", dest="edgeParam",
+                         help="use the given edge parameter as factor for edge")
     optParser.add_option("--speed-exponent", type="float", dest="speed_exponent",
                          default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
     optParser.add_option("--fringe-factor", type="float", dest="fringe_factor",
@@ -229,7 +230,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             return 0  # not allowed
         if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
             return 0  # not suitable as intermediate way point
-        if (fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and not options.pedestrians and
+        if (fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and
+                not options.pedestrians and
                 (options.allow_fringe_min_length is None or edge.getLength() < options.allow_fringe_min_length)):
             return 0  # the wrong kind of fringe
         prob = 1
@@ -244,6 +246,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
                 edge.getSpeed() > options.fringe_threshold and
                 edge.is_fringe(getattr(edge, fringe_bonus))):
             prob *= options.fringe_factor
+        if options.edgeParam is not None:
+            prob *= float(edge.getParam(options.edgeParam, 1.0))
         return prob
     return edge_probability
 
@@ -443,8 +447,7 @@ def main(options):
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
-        sumolib.writeXMLHeader(
-            fouttrips, "$Id$", "routes")
+        sumolib.writeXMLHeader(fouttrips, "$Id$", "routes")  # noqa
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s"%s/>\n' %
                             (options.vtypeID, options.vehicle_class, vtypeattrs))
@@ -472,22 +475,28 @@ def main(options):
 
         fouttrips.write("</routes>\n")
 
+    # call duarouter for routes or validated trips
+    args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
+            '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
+    if options.additional is not None:
+        args += ['--additional-files', options.additional]
+    if options.carWalkMode is not None:
+        args += ['--persontrip.transfer.car-walk', options.carWalkMode]
+    if options.walkfactor is not None:
+        args += ['--persontrip.walkfactor', options.walkfactor]
     if options.routefile:
-        args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '-o', options.routefile, '--ignore-errors',
-                '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
-        if options.additional is not None:
-            args += ['--additional-files', options.additional]
-        if options.carWalkMode is not None:
-            args += ['--persontrip.transfer.car-walk', options.carWalkMode]
-        if options.walkfactor is not None:
-            args += ['--persontrip.walkfactor', options.walkfactor]
-        print("calling ", " ".join(args))
-        subprocess.call(args)
+        args2 = args + ['-o', options.routefile]
+        print("calling ", " ".join(args2))
+        subprocess.call(args2)
 
     if options.validate:
-        print("calling route2trips")
-        route2trips.main([options.routefile], outfile=options.tripfile,
-                         vias=vias, calledBy=" via randomTrips.py")
+        # write to temporary file because the input is read incrementally
+        tmpTrips = options.tripfile + ".tmp"
+        args2 = args + ['-o', tmpTrips, '--write-trips']
+        print("calling ", " ".join(args2))
+        subprocess.call(args2)
+        os.remove(options.tripfile)  # on windows, rename does not overwrite
+        os.rename(tmpTrips, options.tripfile)
 
     if options.weights_outprefix:
         trip_generator.source_generator.write_weights(

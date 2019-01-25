@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -242,11 +242,11 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
 
 #ifdef DEBUG_TOC
     std::cout << "Parsed openGapParams: \n"
-            << "  timegap=" << timegap
-            << ", spacing=" << spacing
-            << ", changeRate=" << changeRate
-            << ", maxDecel=" << maxDecel
-            << std::endl;
+              << "  timegap=" << timegap
+              << ", spacing=" << spacing
+              << ", changeRate=" << changeRate
+              << ", maxDecel=" << maxDecel
+              << std::endl;
 #endif
 
     return OpenGapParams(timegap, spacing, changeRate, maxDecel, specifiedAny);
@@ -851,7 +851,7 @@ MSDevice_ToC::writeOutput() {
         assert(myEvents.empty());
         return;
     }
-    while(!myEvents.empty()) {
+    while (!myEvents.empty()) {
         std::pair<SUMOTime, std::string>& e = myEvents.front();
         myOutputFile->openTag(e.second);
         myOutputFile->writeAttr("id", myHolder.getID()).writeAttr("t", STEPS2TIME(e.first));
@@ -891,7 +891,7 @@ MSDevice_ToC::deactivateDeliberateLCs() {
         myPreviousLCMode = lcModeHolder;
 #ifdef DEBUG_TOC
         std::cout << "MSDevice_ToC::setLCModeMRM() setting LC Mode of vehicle '" << myHolder.getID()
-                << "' from " << myPreviousLCMode << " to " << LCModeMRM << std::endl;
+                  << "' from " << myPreviousLCMode << " to " << LCModeMRM << std::endl;
 #endif
     }
     myHolderMS->getInfluencer().setLaneChangeMode(LCModeMRM);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ MSTLLogicControl::TLSLogicVariants::TLSLogicVariants()
 MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants() {
     std::map<std::string, MSTrafficLightLogic*>::const_iterator j;
     for (std::map<std::string, MSTrafficLightLogic*>::iterator j = myVariants.begin(); j != myVariants.end(); ++j) {
-        delete(*j).second;
+        delete (*j).second;
     }
     for (std::vector<OnSwitchAction*>::iterator i = mySwitchActions.begin(); i != mySwitchActions.end(); ++i) {
         delete *i;
@@ -552,11 +552,11 @@ MSTLLogicControl::MSTLLogicControl()
 MSTLLogicControl::~MSTLLogicControl() {
     // delete tls
     for (std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     // delete WAUTs
     for (std::map<std::string, WAUT*>::const_iterator i = myWAUTs.begin(); i != myWAUTs.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
 }
 

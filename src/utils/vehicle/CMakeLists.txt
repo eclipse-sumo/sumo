@@ -1,33 +1,17 @@
 set(utils_vehicle_STAT_SRCS
-   AStarLookupTable.h
-   AStarRouter.h
-   AccessEdge.h
-   CarEdge.h
-   PedestrianEdge.h
-   PublicTransportEdge.h
-   StopEdge.h
-   CHBuilder.h
-   CHRouter.h
-   CHRouterWrapper.h
-   DijkstraRouter.h
-   IntermodalEdge.h
-   IntermodalNetwork.h
-   IntermodalRouter.h
-   IntermodalTrip.h
-   EffortCalculator.h
-   GawronCalculator.h
-   LogitCalculator.h
-   RouteCostCalculator.h
-   PedestrianRouter.h
-   RouterProvider.h
-   SUMOAbstractRouter.h
-   SPTree.h
+   SUMORouteHandler.cpp
+   SUMORouteHandler.h
+   SUMORouteLoader.cpp
+   SUMORouteLoader.h
+   SUMORouteLoaderControl.cpp
+   SUMORouteLoaderControl.h
    SUMOVehicle.h
    SUMOVehicleParameter.cpp
    SUMOVehicleParameter.h
+   SUMOVehicleParserHelper.cpp
+   SUMOVehicleParserHelper.h
    SUMOVTypeParameter.cpp
-   SUMOVTypeParameter.h
-)
+   SUMOVTypeParameter.h)
 
 add_library(utils_vehicle STATIC ${utils_vehicle_STAT_SRCS})
 set_property(TARGET utils_vehicle PROPERTY PROJECT_LABEL "z_utils_vehicle")

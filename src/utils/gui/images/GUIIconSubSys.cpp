@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -41,6 +41,7 @@
 #include "stop.xpm"
 #include "step.xpm"
 #include "new_window.xpm"
+#include "new_window_3d.xpm"
 
 #include "app_tracker.xpm"
 #include "app_finder.xpm"
@@ -129,6 +130,9 @@
 #include "cut.xpm"
 #include "ext.xpm"
 
+#include "supermodenetwork.xpm"
+#include "supermodedemand.xpm"
+
 #include "modeadditional.xpm"
 #include "modeconnection.xpm"
 #include "modecreateedge.xpm"
@@ -141,6 +145,8 @@
 #include "modetrafficlight.xpm"
 #include "modepolygon.xpm"
 #include "modeprohibition.xpm"
+
+#include "moderoute.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -253,7 +259,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_STOP] = new FXXPMIcon(a, stop_xpm);
     myIcons[ICON_STEP] = new FXXPMIcon(a, step_xpm);
     myIcons[ICON_MICROVIEW] = new FXXPMIcon(a, new_window_xpm);
-    myIcons[ICON_LAGGRVIEW] = new FXXPMIcon(a, new_window_xpm);
+    myIcons[ICON_OSGVIEW] = new FXXPMIcon(a, new_window_3d_xpm);
     myIcons[ICON_RECENTERVIEW] = new FXXPMIcon(a, recenter_view_xpm);
     myIcons[ICON_ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
     myIcons[ICON_EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
@@ -341,6 +347,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
 
+    myIcons[ICON_SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
+    myIcons[ICON_SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);
+
     myIcons[ICON_MODEADDITIONAL] = new FXXPMIcon(a, modeadditional_xpm);
     myIcons[ICON_MODECONNECTION] = new FXXPMIcon(a, modeconnection_xpm);
     myIcons[ICON_MODECREATEEDGE] = new FXXPMIcon(a, modecreateedge_xpm);
@@ -353,6 +362,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
     myIcons[ICON_MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
     myIcons[ICON_MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
+
+    myIcons[ICON_MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);

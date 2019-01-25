@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -24,9 +24,9 @@
 #include <config.h>
 
 #include <algorithm>
-#include <utils/vehicle/RouteCostCalculator.h>
+#include <utils/router/RouteCostCalculator.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
@@ -34,6 +34,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "ROEdge.h"
+#include "ROLane.h"
 #include "RONode.h"
 #include "ROPerson.h"
 #include "RORoute.h"
@@ -217,7 +218,8 @@ RONet::openOutput(const OptionsCont& options) {
         myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
         myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
     }
-    if (options.exists("alternatives-output") && options.isSet("alternatives-output")) {
+    if (options.exists("alternatives-output") && options.isSet("alternatives-output")
+            && !(options.exists("write-trips") && options.getBool("write-trips"))) {
         myRouteAlternativesOutput = &OutputDevice::getDevice(options.getString("alternatives-output"));
         myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
         myRouteAlternativesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");

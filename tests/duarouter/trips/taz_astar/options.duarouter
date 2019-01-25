@@ -1,1 +1,0 @@
--n input_net.net.xml -r input_trips.trips.xml --additional-files input_districts.taz.xml -v --routing-algorithm astar --no-step-log -o routes.rou.xml

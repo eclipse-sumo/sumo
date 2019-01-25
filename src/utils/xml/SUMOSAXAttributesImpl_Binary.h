@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -232,7 +232,7 @@ public:
     SumoXMLNodeType getNodeType(bool& ok) const;
 
     /// @brief returns rightOfWay method
-    RightOfWay getRightOfWay(bool& ok) const; 
+    RightOfWay getRightOfWay(bool& ok) const;
 
     /**
      * @brief Returns the value of the named attribute
@@ -258,14 +258,6 @@ public:
      */
     Boundary getBoundary(int attr) const;
 
-    /** @brief Tries to read given attribute assuming it is a string vector
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occurred
-     */
-    std::vector<std::string> getStringVector(int attr) const;
-
-
     /** @brief Converts the given attribute id into a man readable string
      *
      * Returns a "?" if the attribute is not known.
@@ -281,6 +273,10 @@ public:
      * @param[in] os The stream to use
      */
     void serialize(std::ostream& os) const;
+
+    /** @brief Retrieves all attribute names
+     */
+    std::vector<std::string> getAttributeNames() const;
 
     /// @brief return a new deep-copy attributes object
     SUMOSAXAttributes* clone() const;

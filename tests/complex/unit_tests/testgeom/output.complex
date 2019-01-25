@@ -1,0 +1,67 @@
+Running main() from gtest_main.cc
+[==========] Running 26 tests from 3 test cases.
+[----------] Global test environment set-up.
+[----------] 10 tests from Boundary
+[ RUN      ] Boundary.test_method_add
+[       OK ] Boundary.test_method_add (0 ms)
+[ RUN      ] Boundary.test_method_add_multiple
+[       OK ] Boundary.test_method_add_multiple (0 ms)
+[ RUN      ] Boundary.test_method_getCenter
+[       OK ] Boundary.test_method_getCenter (0 ms)
+[ RUN      ] Boundary.test_method_getWidthHeight
+[       OK ] Boundary.test_method_getWidthHeight (0 ms)
+[ RUN      ] Boundary.test_method_around
+[       OK ] Boundary.test_method_around (0 ms)
+[ RUN      ] Boundary.test_method_overlapsWith
+[       OK ] Boundary.test_method_overlapsWith (0 ms)
+[ RUN      ] Boundary.test_method_crosses
+[       OK ] Boundary.test_method_crosses (0 ms)
+[ RUN      ] Boundary.test_method_partialWithin
+[       OK ] Boundary.test_method_partialWithin (0 ms)
+[ RUN      ] Boundary.test_method_flipY
+[       OK ] Boundary.test_method_flipY (0 ms)
+[ RUN      ] Boundary.test_method_moveby
+[       OK ] Boundary.test_method_moveby (0 ms)
+[----------] 10 tests from Boundary (1 ms total)
+
+[----------] 1 test from GeoConvHelper
+[ RUN      ] GeoConvHelper.test_method_x2cartesian
+[       OK ] GeoConvHelper.test_method_x2cartesian (2 ms)
+[----------] 1 test from GeoConvHelper (2 ms total)
+
+[----------] 15 tests from PositionVectorTest
+[ RUN      ] PositionVectorTest.test_method_around
+[       OK ] PositionVectorTest.test_method_around (1 ms)
+[ RUN      ] PositionVectorTest.test_method_area
+[       OK ] PositionVectorTest.test_method_area (0 ms)
+[ RUN      ] PositionVectorTest.test_method_scaleRelative
+[       OK ] PositionVectorTest.test_method_scaleRelative (0 ms)
+[ RUN      ] PositionVectorTest.test_method_getCentroid
+[       OK ] PositionVectorTest.test_method_getCentroid (0 ms)
+[ RUN      ] PositionVectorTest.test_method_getPolygonCenter
+[       OK ] PositionVectorTest.test_method_getPolygonCenter (0 ms)
+[ RUN      ] PositionVectorTest.test_method_getBoxBoundary
+[       OK ] PositionVectorTest.test_method_getBoxBoundary (0 ms)
+[ RUN      ] PositionVectorTest.test_method_splitAt
+[       OK ] PositionVectorTest.test_method_splitAt (0 ms)
+[ RUN      ] PositionVectorTest.test_method_intersectsAtLenghts2D
+[       OK ] PositionVectorTest.test_method_intersectsAtLenghts2D (0 ms)
+[ RUN      ] PositionVectorTest.test_method_nearest_offset_to_point2D
+[       OK ] PositionVectorTest.test_method_nearest_offset_to_point2D (0 ms)
+[ RUN      ] PositionVectorTest.test_method_extrapolate2D
+[       OK ] PositionVectorTest.test_method_extrapolate2D (0 ms)
+[ RUN      ] PositionVectorTest.test_method_move2side
+[       OK ] PositionVectorTest.test_method_move2side (0 ms)
+[ RUN      ] PositionVectorTest.test_method_transformToVectorCoordinates
+[       OK ] PositionVectorTest.test_method_transformToVectorCoordinates (0 ms)
+[ RUN      ] PositionVectorTest.test_method_distance
+[       OK ] PositionVectorTest.test_method_distance (0 ms)
+[ RUN      ] PositionVectorTest.test_method_distances
+[       OK ] PositionVectorTest.test_method_distances (0 ms)
+[ RUN      ] PositionVectorTest.test_method_overlapsWith
+[       OK ] PositionVectorTest.test_method_overlapsWith (0 ms)
+[----------] 15 tests from PositionVectorTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 26 tests from 3 test cases ran. (4 ms total)
+[  PASSED  ] 26 tests.

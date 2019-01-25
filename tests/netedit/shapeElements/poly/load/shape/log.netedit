@@ -1,17 +1,5 @@
-Error: Attribute 'id' is missing in definition of a poly.
-Error: Polygon 'poly_0' already exists.
-Error: Attribute 'color' in definition of poly 'poly_3' is empty.
-Error: Attribute 'fill' in definition of poly 'poly_6' is not of type bool.
-Error: Attribute 'layer' in definition of poly 'poly_9' is not of type float.
-Error: Attribute 'shape' is missing in definition of poly 'poly_11'.
-Error: Polygon's shape cannot be empty.
-Error: Attribute 'shape' in definition of poly 'poly_12' is not of type PositionVector.
-Error: Polygon's shape cannot be empty.
-Error: Attribute 'type' in definition of poly 'poly_18' is empty.
-Error: Could not load 'C:/Users/alva_pa/.texttest/tmp/netedit.gui.05Dec094654.1312/netedit.gui/shapeElements/poly/load/shape\paris.ico'.
-Loading failed!
-Error: Attribute 'imgFile' in definition of poly 'poly_21' is empty.
-Error: Attribute 'angle' in definition of poly 'poly_23' is not of type float.
-Error: Attribute 'relativePath' in definition of poly 'poly_26' is not of type bool.
-Error: Attribute 'relativePath' in definition of poly 'poly_27' is empty.
-Error: Loading of shapes failed.
+Warning: Essential list of unique positions attribute 'shape' of poly with ID 'poly_01' is missing; poly cannot be created
+Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
+Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
+Warning: Format of essential list of unique positions attribute 'shape' of poly with ID 'poly_02' is invalid; List of Positions aren't neither x,y nor x,y,z; poly cannot be created
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_23Jan154612.2796/netedit.gui/shapeElements/poly/load/shape\input_additionals.add.xml failed.

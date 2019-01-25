@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -99,11 +99,11 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
     // first clear vertices
     myPOIVertices.clear();
     // check if POI can be drawn
-    if(checkDraw(s)) {
+    if (checkDraw(s)) {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s);
+        drawInnerPOI(s, false);
         // pop name
         glPopName();
     }
@@ -111,10 +111,10 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPointOfInterest::setColor(const GUIVisualizationSettings& s) const {
+GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     const GUIColorer& c = s.poiColorer;
     const int active = c.getActive();
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POI, getGlID())) {
+    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POI, getGlID()) && disableSelectionColor) {
         // override with special colors (unless the color scheme is based on selection)
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else if (active == 0) {
@@ -127,7 +127,7 @@ GUIPointOfInterest::setColor(const GUIVisualizationSettings& s) const {
 }
 
 
-bool 
+bool
 GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s) const {
     // only continue if scale is valid
     if (s.scale * (1.3 / 3.0) *s.poiSize.getExaggeration(s, this) < s.poiSize.minSize) {
@@ -137,11 +137,11 @@ GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
-GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s) const {
+void
+GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     const double exaggeration = s.poiSize.getExaggeration(s, this);
     glPushMatrix();
-    setColor(s);
+    setColor(s, disableSelectionColor);
     glTranslated(x(), y(), getShapeLayer());
     glRotated(-getShapeNaviDegree(), 0, 0, 1);
     // check if has to be drawn as a circle or with an image
@@ -149,8 +149,8 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s) const {
         int textureID = GUITexturesHelper::getTextureID(getShapeImgFile());
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
-                                                -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
-                                                myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
+                                               -myHalfImgWidth * exaggeration, -myHalfImgHeight * exaggeration,
+                                               myHalfImgWidth * exaggeration,  myHalfImgHeight * exaggeration);
         }
     } else {
         // fallback if no image is defined

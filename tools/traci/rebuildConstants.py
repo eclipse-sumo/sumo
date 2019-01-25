@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -17,8 +17,9 @@
 """
 This script extracts definitions from <SUMO>/src/traci-server/TraCIConstants.h
  and builds an according constants definition python file "constants.py".
- For Python just call the script without options, for Java: 
- tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants -o tools/contributed/traas/src/de/tudresden/sumo/config/Constants.java
+ For Python just call the script without options, for Java:
+ tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants
+  -o tools/contributed/traas/src/de/tudresden/sumo/config/Constants.java
 """
 
 from __future__ import print_function
@@ -40,7 +41,7 @@ fdo = open(options.output, "w")
 if options.java:
     print("/**", file=fdo)
 print("""# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -81,7 +82,7 @@ def translateFile(filePath, fdo, start, item, end):
                 else:
                     line = line.replace("///", "#").lstrip(" ")
                     line = line.replace("//", "# ").lstrip(" ")
-                if line.find(item) >= 0 and not "//" in line:
+                if line.find(item) >= 0 and "//" not in line:
                     line = line.rstrip(",")
                     if "=" not in line:
                         vals = line.split(" ")

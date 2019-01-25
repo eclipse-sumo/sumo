@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -98,7 +98,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Traslate matrix
     glTranslated(0, 0, getType());
     // Set Color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(RGBColor(83, 89, 172, 255));
@@ -130,7 +130,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Scale matrix
         glScaled(exaggeration, exaggeration, 1);
         // Set base color
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(83, 89, 172, 255));
@@ -140,7 +140,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Move to top
         glTranslated(0, 0, .1);
         // Set sign color
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor(177, 184, 186, 171));
@@ -149,7 +149,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // Draw sign 'C'
         if (s.scale * exaggeration >= 4.5) {
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText("P", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
                 GLHelper::drawText("P", Position(), .1, myCircleInText, RGBColor(83, 89, 172, 255), myBlockIcon.rotation);
@@ -263,32 +263,18 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_STARTPOS:
             if (value.empty()) {
                 return true;
+            } else if (canParse<double>(value)) {
+                return checkStoppinPlacePosition(value, myEndPosition, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
-                if (canParse<double>(value)) {
-                    if (canParse<double>(myEndPosition)) {
-                        // Check that new start Position is smaller that end position
-                        return (parse<double>(value) < parse<double>(myEndPosition));
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
+                return false;
             }
         case SUMO_ATTR_ENDPOS:
             if (value.empty()) {
                 return true;
+            } else if (canParse<double>(value)) {
+                return checkStoppinPlacePosition(myStartPosition, value, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
-                if (canParse<double>(value)) {
-                    if (canParse<double>(myStartPosition)) {
-                        // Check that new start Position is smaller that end position
-                        return (parse<double>(myStartPosition) < parse<double>(value));
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
+                return false;
             }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
@@ -376,7 +362,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

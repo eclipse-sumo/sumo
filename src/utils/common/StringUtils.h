@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ public:
     /** Replaces all occurences of the second string by the third
         string within the first string */
     static std::string replace(std::string str, const char* what,
-        const char* by);
+                               const char* by);
 
     /// Builds a time string (hh:mm:ss) from the given seconds
     static std::string toTimeString(int time);

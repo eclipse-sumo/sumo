@@ -6,10 +6,10 @@ Reading flows between 0.0 and 90.0
 Calculating routes
 3 sources, 2 unlimited
 3 sinks, 3 unlimited
-Writing 600 vehicles from 1 sources between time 0 and 3600
+Writing 600 vehicles from 1 sources between time 0 and 60 (minutes)
   unused sources: on3 on7
 Calculating routes
 3 sources, 2 unlimited
 3 sinks, 3 unlimited
-Writing 300 vehicles from 1 sources between time 3600 and 7200
+Writing 300 vehicles from 1 sources between time 60 and 120 (minutes)
   unused sources: on3 on7

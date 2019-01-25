@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -205,12 +205,12 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow& v) {
     {
         const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            v.getColoringSchemesCombo().appendItem((*i).c_str());
+            v.getColoringSchemesCombo()->appendItem(i->c_str());
             if ((*i) == myVisualizationSettings->name) {
-                v.getColoringSchemesCombo().setCurrentItem(v.getColoringSchemesCombo().getNumItems() - 1);
+                v.getColoringSchemesCombo()->setCurrentItem(v.getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v.getColoringSchemesCombo().setNumVisible(5);
+        v.getColoringSchemesCombo()->setNumVisible(5);
     }
     // for junctions
     new FXButton(v.getLocatorPopup(),
@@ -342,7 +342,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
     for (; it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); it++) {
         GUIVehicle* veh = static_cast<GUIVehicle*>(it->second);
-        if (!veh->isOnRoad()) {
+        if (!(veh->isOnRoad() || veh->isParking() || veh->wasRemoteControlled())) {
             continue;
         }
         auto itVeh = myVehicles.find(veh);
@@ -376,9 +376,11 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         myVehicles[veh].lights->setValue(2, veh->signalSet(MSVehicle::VEH_SIGNAL_BRAKELIGHT));
     }
     // remove inactive
-    for (auto& item : myVehicles) {
-        if (!item.second.active) {
-            removeVeh(item.first);
+    for (auto it = myVehicles.begin(); it != myVehicles.end();) {
+        if (!it->second.active) {
+            removeVeh((it++)->first);
+        } else {
+            ++it;
         }
     }
 
@@ -407,7 +409,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (std::map<std::string, MSTransportable*>::const_iterator it = MSNet::getInstance()->getPersonControl().loadedBegin(); it != MSNet::getInstance()->getPersonControl().loadedEnd(); ++it) {
         MSTransportable* person = (*it).second;
         // XXX if not departed: continue
-        if (person->hasArrived()) {
+        if (person->hasArrived() || !person->hasDeparted()) {
             //std::cout << SIMTIME << " person " << person->getID() << " is loaded but arrived\n";
             continue;
         }
@@ -425,11 +427,15 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
     }
     // remove inactive
-    for (auto& item : myPersons) {
-        if (!item.second.active) {
-            removeTransportable(item.first);
+    for (auto it = myPersons.begin(); it != myPersons.end();) {
+        if (!it->second.active) {
+            removeTransportable((it++)->first);
+        } else {
+            ++it;
         }
     }
+
+
     if (myAdapter->makeCurrent()) {
         myViewer->frame();
         makeNonCurrent();
