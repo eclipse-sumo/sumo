@@ -35,10 +35,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 15 with a non valid value
-netedit.modifyAttribute(15, "%%%$$$$$%")
+netedit.modifyAttribute(15, "%%%$$$$$%", False)
 
 # Change parameter 15 with a valid value
-netedit.modifyAttribute(15, "my own name")
+netedit.modifyAttribute(15, "my own name", False)
 
 # recompute
 netedit.rebuildNetwork()

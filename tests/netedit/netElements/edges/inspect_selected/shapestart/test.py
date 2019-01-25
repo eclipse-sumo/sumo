@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 14 with a non valid value (dummy)
-netedit.modifyAttribute(14, "dummyShapeStart")
+netedit.modifyAttribute(14, "dummyShapeStart", False)
 
 # Change parameter 14 with a non valid value (incomplete)
-netedit.modifyAttribute(14, "34")
+netedit.modifyAttribute(14, "34", False)
 
 # Change parameter 14 with a valid value (empty)
-netedit.modifyAttribute(14, "")
+netedit.modifyAttribute(14, "", False)
 
 # Change parameter 14 with a valid value
-netedit.modifyAttribute(14, "14,15.5")
+netedit.modifyAttribute(14, "14,15.5", False)
 
 # recompute
 netedit.rebuildNetwork()

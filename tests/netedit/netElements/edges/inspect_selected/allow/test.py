@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 5 with an non valid value (dummy)
-netedit.modifyAttribute(5, "DummyAllowed")
+netedit.modifyAttribute(5, "DummyAllowed", False)
 
 # Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(5, "")
+netedit.modifyAttribute(5, "", False)
 
 # Change parameter 5 with a valid value (different separators)
-netedit.modifyAttribute(5, "authority  army, passenger; taxi. tram")
+netedit.modifyAttribute(5, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(5, "")
+netedit.modifyAttribute(5, "", False)
 
 # Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(5, "authority army vip passenger hov taxi bus coach tram bicycle")
+netedit.modifyAttribute(5, "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute
 netedit.rebuildNetwork()

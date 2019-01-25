@@ -1,13 +1,13 @@
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding busStop 'busStop2' in GNEChange_Additional
 Debug: Adding busStop 'busStop3' in GNEChange_Additional
 Debug: Adding busStop 'busStop4' in GNEChange_Additional
 Debug: Adding busStop 'busStop5' in GNEChange_Additional
 Debug: Adding busStop 'busStop6' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -23,7 +23,7 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Value 'dummy_Junction' for attribute from of edge isn't valid
 Debug: Value '' for attribute from of edge isn't valid
@@ -31,7 +31,7 @@ Debug: Value 'gneJ2' for attribute from of edge isn't valid
 Debug: Removing connection 'gneE3_1->gneE2_1' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in removeConnection()
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Removing connection 'gneE3_0->gneE8_0' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE8_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
@@ -68,7 +68,7 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE2_1' in retrieveGNEConnection()
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shapeStart '0.00,20.00' into edge 'gneE2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
@@ -108,7 +108,7 @@ Debug: Created connection 'fromgneE3_0togneE8_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE3_1->gneE2_1' into edge 'gneE3'
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing connection 'gneE3_1->gneE2_1' from edge 'gneE3'
 Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in removeConnection()
@@ -149,7 +149,7 @@ Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE2_1' in retrieveGNEConnection()
 Debug: Deleting unreferenced busStop 'busStop6'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced busStop 'busStop5'
 Debug: Deleting unreferenced busStop 'busStop4'
 Debug: Deleting unreferenced busStop 'busStop3'

@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 18.06.2018 16:09:02 by Eclipse SUMO netedit Version b50f1d14b4
+<!-- generated on 25.01.2019 12:13:48 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/netElements/edges/delete\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/netElements/edges/delete\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/netElements/edges/delete\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/netElements/edges/delete\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\net.net.xml"/>
     </output>
 
     <processing>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\routes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/netElements/edges/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -34,11 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/netElements/edges/delete\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_4_2_2" lane="4_2" startPos="3.01" endPos="13.01"/>
 </additional>

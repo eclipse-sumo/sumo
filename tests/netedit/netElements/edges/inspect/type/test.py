@@ -35,10 +35,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 6 with a non valid value
-netedit.modifyAttribute(6, "%%$$&&&")
+netedit.modifyAttribute(6, "%%$$&&&", False)
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(6, "customType")
+netedit.modifyAttribute(6, "customType", False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -35,13 +35,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 0 with a non valid value (empty ID)
-netedit.modifyAttribute(0, "")
+netedit.modifyAttribute(0, "", False)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "gneE3")
+netedit.modifyAttribute(0, "gneE3", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "correct_ID")
+netedit.modifyAttribute(0, "correct_ID", False)
 
 # recompute
 netedit.rebuildNetwork()
