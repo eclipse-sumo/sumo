@@ -57,13 +57,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 400, 150)
 
 # Set all Junctions as traffic lighs
-netedit.modifyAttribute(0, "traffic_light")
+netedit.modifyAttribute(0, "traffic_light", False)
 
 # inspect set of edges
 netedit.leftClick(referencePosition, 480, 160)
 
 # change all speed of edges
-netedit.modifyAttribute(0, "20")
+netedit.modifyAttribute(0, "20", False)
 
 # rebuild network
 netedit.rebuildNetwork()

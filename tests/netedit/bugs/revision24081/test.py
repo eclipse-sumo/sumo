@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 225)
 
 # change position of node (Crash was here)
-netedit.modifyAttribute(1, "25.00,50.00")
+netedit.modifyAttribute(1, "25.00,50.00", False)
 
 # Check undo
 netedit.undo(referencePosition, 1)

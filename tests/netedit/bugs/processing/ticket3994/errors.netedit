@@ -1,5 +1,5 @@
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE3_0togneE7_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE4_0to-gneE3_0' in retrieveGNEConnection()
@@ -23,12 +23,12 @@ Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2togneE10_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2to-gneE4_0' in retrieveGNEConnection()
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ16' into net
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Setting new attribute type 'priority' into junction 'gneJ16'
 Debug: Removing connection '-gneE4_0->gneE12_2' from edge '-gneE4'
 Debug: Deleting unreferenced connection 'from-gneE4_0togneE12_2' in removeConnection()

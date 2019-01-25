@@ -1,33 +1,12 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-[log] CLICK on L(514,350)@S(0)[0,0 1920x1080] (235 msec)
-TestFunctions: Clicked over position 514 - 350
-[log] CLICK on L(514,350)@S(0)[0,0 1920x1080] (236 msec)
-TestFunctions: Clicked with Control key pressed over position 514 - 350
-[log] CLICK on L(514,350)@S(0)[0,0 1920x1080] (234 msec)
-TestFunctions: Clicked with Control key pressed over position 514 - 350
-[log]  TYPE "s"
-[log] CLICK on L(514,350)@S(0)[0,0 1920x1080] (238 msec)
-TestFunctions: Clicked with Control key pressed over position 514 - 350
-[log]  TYPE "#F12."
-[log] ( Umschalt )  TYPE "#TAB."
-[log] ( Umschalt )  TYPE "#TAB."
-[log] ( Umschalt )  TYPE "#TAB."
-[log]  TYPE " "
-[log]  TYPE "#F12."
-[log] CLICK on L(514,380)@S(0)[0,0 1920x1080] (234 msec)
-TestFunctions: Clicked with Control key pressed over position 514 - 380
-[log] CLICK on L(514,380)@S(0)[0,0 1920x1080] (234 msec)
-TestFunctions: Clicked with Control key pressed over position 514 - 380
-[log]  TYPE "i"
-[log] CLICK on L(514,380)@S(0)[0,0 1920x1080] (250 msec)
-TestFunctions: Clicked with Control key pressed over position 514 - 380
-[log] CLICK on L(514,350)@S(0)[0,0 1920x1080] (234 msec)
-TestFunctions: Clicked with Control key pressed over position 514 - 350
-[log] ( Strg )  TYPE "s"
-[log] ( Strg )  TYPE "q"
+TestFunctions: 'reference.png' found. Position: 304 - 168
+TestFunctions: Clicked over position 514 - 378
+TestFunctions: Clicked with Control key pressed over position 514 - 378
+TestFunctions: Clicked with Control key pressed over position 514 - 378
+TestFunctions: Clicked with Control key pressed over position 514 - 378
+TestFunctions: Clicked with Control key pressed over position 514 - 408
+TestFunctions: Clicked with Control key pressed over position 514 - 408
+TestFunctions: Clicked with Control key pressed over position 514 - 408
+TestFunctions: Clicked with Control key pressed over position 514 - 378
 TestFunctions: Netedit closed successfully
