@@ -38,13 +38,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Set invalid Power
-netedit.modifyAttribute(2, "dummyPower")
+netedit.modifyAttribute(2, "dummyPower", True)
 
 # Set invalid Power
-netedit.modifyAttribute(2, "-1000")
+netedit.modifyAttribute(2, "-1000", True)
 
 # Set Power
-netedit.modifyAttribute(2, "11000")
+netedit.modifyAttribute(2, "11000", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
