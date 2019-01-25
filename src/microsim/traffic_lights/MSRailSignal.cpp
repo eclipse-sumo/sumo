@@ -51,7 +51,7 @@
 
 //#define DEBUG_SIGNALSTATE
 //#define DEBUG_SIGNALSTATE_PRIORITY
-//#define DEBUG_COND (getID() == "C")
+//#define DEBUG_COND (getID() == "disabled")
 //#define DEBUG_COND (true)
 
 // ===========================================================================
@@ -372,8 +372,28 @@ MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, 
             if (ili.viaLink->getDirection() == LINKDIR_TURN) {
                 continue;
             }
-            if (foundSwitch && ili.viaLink->getTLLogic() != nullptr) {
-                return;
+            if (ili.viaLink->getTLLogic() != nullptr) {
+                if (!foundSwitch && bidiBlock.size() > 1) {
+                    // check wether this node is switch (first edge doesn't count)
+                    for (MSLink* link : ili.lane->getLinkCont()) {
+                        if (link->getDirection() == LINKDIR_TURN) {
+                            continue;
+                        }
+                        if (link->getViaLaneOrLane() == prev) {
+                            continue;
+                        }
+                        //std::cout << "   ili.lane=" << ili.lane->getID() 
+                        //    << " prev=" << prev->getID()
+                        //    << " linkDir=" << ili.viaLink->getDirection()
+                        //    << " linkIndex=" << ili.viaLink->getTLIndex()
+                        //    << "\n";
+                        foundSwitch = true;
+                        break;
+                    }
+                }
+                if (foundSwitch) {
+                    return;
+                }
             }
             if (toLane == nullptr) {
                 toLane = ili.lane;
