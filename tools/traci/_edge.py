@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -152,7 +152,7 @@ class EdgeDomain(Domain):
     def getLastStepOccupancy(self, edgeID):
         """getLastStepOccupancy(string) -> double
 
-        Returns the occupancy in % for the last time step on the given edge.
+        Returns the net occupancy (excluding inter-vehicle gaps) in % for the last time step on the given edge.
         """
         return self._getUniversal(tc.LAST_STEP_OCCUPANCY, edgeID)
 

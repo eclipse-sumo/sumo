@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -55,6 +55,7 @@ GUIMainWindow* GUIMainWindow::myInstance = nullptr;
 GUIMainWindow::GUIMainWindow(FXApp* a) :
     FXMainWindow(a, "SUMO-gui main window", nullptr, nullptr, DECOR_ALL, 20, 20, 600, 400),
     myAmFullScreen(false),
+    myTrackerLock(true),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),
     myAmGaming(false),
     myListInternal(false),

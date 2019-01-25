@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -143,15 +143,15 @@ GUIPolygon::getCenteringBoundary() const {
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
-    if(checkDraw(s)) {
-        AbstractMutex::ScopedLocker locker(myLock);
+    if (checkDraw(s)) {
+        FXMutexLock locker(myLock);
         //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
         //    storeTesselation(s.polySize.getExaggeration(s));
         //}
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPolygon(s);
+        drawInnerPolygon(s, false);
         // pop name
         glPopName();
     }
@@ -160,7 +160,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GUIPolygon::setShape(const PositionVector& shape) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     SUMOPolygon::setShape(shape);
     //storeTesselation(myLineWidth);
 }
@@ -216,11 +216,11 @@ GUIPolygon::storeTesselation(double lineWidth) const {
 
 
 void
-GUIPolygon::setColor(const GUIVisualizationSettings& s) const {
+GUIPolygon::setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, getGlID())) {
-        // override with special colors (unless the color scheme is based on selection)
+    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, getGlID()) && disableSelectionColor) {
+        // override with special selection colors (unless the color scheme is based on selection)
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else if (active == 0) {
         GLHelper::setColor(getShapeColor());
@@ -254,12 +254,12 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s) const {
+void
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
     glPushMatrix();
     glTranslated(0, 0, getShapeLayer());
     glRotated(-getShapeNaviDegree(), 0, 0, 1);
-    setColor(s);
+    setColor(s, disableSelectionColor);
 
     int textureID = -1;
     if (getFill()) {

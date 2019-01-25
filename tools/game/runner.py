@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ import pickle
 import glob
 try:
     import Tkinter
-except:
+except ImportError:
     import tkinter as Tkinter
 from optparse import OptionParser
 from xml.dom import pulldom
@@ -98,9 +98,9 @@ def printDebug(*args):
 if _UPLOAD:
     printDebug("import httplib...")
     try:
-        import httplib
+        import httplib  # noqa
         printDebug("SUCCESS")
-    except BaseException:
+    except ImportError:
         printDebug("FAILED - disabling upload...")
         _UPLOAD = False
 if _UPLOAD:
@@ -480,7 +480,7 @@ def findSumoBinary(guisimBinary):
 
 
 guisimPath = findSumoBinary("sumo-gui")
-haveOSG = b"OSG" in subprocess.check_output(findSumoBinary("sumo"))
+haveOSG = "OSG" in subprocess.check_output(findSumoBinary("sumo"), universal_newlines=True)
 
 if options.stereo:
     for m in stereoModes:

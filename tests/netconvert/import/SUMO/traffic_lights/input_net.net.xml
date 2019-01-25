@@ -102,20 +102,22 @@
 
     <tlLogic id="node_centertl" type="static" programID="0" offset="10">
         <phase duration="31" state="rrrGGgGgg"/>
-        <phase duration="3" state="rrryygygg"/>
-        <phase duration="6" state="rrrrrGrGG"/>
-        <phase duration="3" state="rrrrryryy"/>
+        <phase duration="3"  state="rrryygygg"/>
+        <phase duration="6"  state="rrrrrGrGG"/>
+        <phase duration="3"  state="rrrrryryy"/>
         <phase duration="31" state="GGgGrrrrr"/>
-        <phase duration="3" state="yyyyrrrrr"/>
+        <phase duration="3"  state="yyyyrrrrr"/>
     </tlLogic>
 
     <tlLogic id="node_centertl" type="static" programID="alternative" offset="0">
-        <phase duration="31" state="rrrGGgGgg"/>
-        <phase duration="3" state="rrryygygg"/>
-        <phase duration="6" state="rrrrrGrGG"/>
-        <phase duration="3" state="rrrrryryy"/>
-        <phase duration="31" state="GGgGrrrrr"/>
-        <phase duration="3" state="yyyyrrrrr"/>
+        <phase duration="31" state="rrrGGgGgg" name="1"/>
+        <phase duration="3"  state="rrryygygg" name="1-2"/>
+        <phase duration="6"  state="rrrrrGrGG" name="2"/>
+        <phase duration="3"  state="rrrrryryy" name="2-3"/>
+        <phase duration="31" state="GGgGrrrrr" name="3"/>
+        <phase duration="3"  state="yyyyrrrrr" next="0" name="3-1"/>
+        <!-- extra transitions -->
+        <phase duration="3"  state="rrryyyyyy" next="5" name="1-3"/>
     </tlLogic>
 
     <junction id="node_centertl" type="priority" x="0.00" y="0.00" incLanes="edge_up_0 edge_right_0 edge_left_0" intLanes=":node_centertl_0_0 :node_centertl_9_0 :node_centertl_10_0 :node_centertl_3_0 :node_centertl_4_0 :node_centertl_11_0 :node_centertl_6_0 :node_centertl_12_0 :node_centertl_13_0" shape="-3.25,4.75 3.25,4.75 4.75,3.25 4.75,-3.25 -4.75,-3.25 -4.75,3.25">

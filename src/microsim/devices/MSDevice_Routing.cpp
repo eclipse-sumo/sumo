@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -36,10 +36,6 @@
 #include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/CHRouter.h>
-#include <utils/vehicle/CHRouterWrapper.h>
 #include "MSRoutingEngine.h"
 #include "MSDevice_Routing.h"
 
@@ -62,11 +58,11 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addSynonyme("device.rerouting.pre-period", "device.routing.pre-period", true);
     oc.addDescription("device.rerouting.pre-period", "Routing", "The rerouting period before depart");
 
-    oc.doRegister("device.rerouting.adaptation-weight", new Option_Float(.5));
+    oc.doRegister("device.rerouting.adaptation-weight", new Option_Float(0));
     oc.addSynonyme("device.rerouting.adaptation-weight", "device.routing.adaptation-weight", true);
     oc.addDescription("device.rerouting.adaptation-weight", "Routing", "The weight of prior edge weights for exponential moving average");
 
-    oc.doRegister("device.rerouting.adaptation-steps", new Option_Integer(0));
+    oc.doRegister("device.rerouting.adaptation-steps", new Option_Integer(180));
     oc.addSynonyme("device.rerouting.adaptation-steps", "device.routing.adaptation-steps", true);
     oc.addDescription("device.rerouting.adaptation-steps", "Routing", "The number of steps for moving average weight of prior edge weights");
 
@@ -96,7 +92,7 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 bool
 MSDevice_Routing::checkOptions(OptionsCont& oc) {
     bool ok = true;
-    if (oc.getInt("device.rerouting.adaptation-steps") > 0 && !oc.isDefault("device.rerouting.adaptation-weight")) {
+    if (!oc.isDefault("device.rerouting.adaptation-steps") && !oc.isDefault("device.rerouting.adaptation-weight")) {
         WRITE_ERROR("Only one of the options 'device.rerouting.adaptation-steps' or 'device.rerouting.adaptation-weight' may be given.");
         ok = false;
     }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -69,7 +69,7 @@ TrafficLight::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
         TraCILogic l(logic->getProgramID(), (int)logic->getLogicType(), logic->getCurrentPhaseIndex());
         l.subParameter = logic->getParametersMap();
         for (const MSPhaseDefinition* const phase : logic->getPhases()) {
-            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase->duration), phase->getState(), STEPS2TIME(phase->minDuration), STEPS2TIME(phase->maxDuration), phase->getNextPhase()));
+            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase->duration), phase->getState(), STEPS2TIME(phase->minDuration), STEPS2TIME(phase->maxDuration), phase->getNextPhase(), phase->getName()));
         }
         result.emplace_back(l);
     }
@@ -139,6 +139,11 @@ TrafficLight::getPhase(const std::string& tlsID) {
 }
 
 
+std::string
+TrafficLight::getPhaseName(const std::string& tlsID) {
+    return getTLS(tlsID).getActive()->getCurrentPhaseDef().getName();
+}
+
 double
 TrafficLight::getPhaseDuration(const std::string& tlsID) {
     return STEPS2TIME(getTLS(tlsID).getActive()->getCurrentPhaseDef().duration);
@@ -175,6 +180,12 @@ TrafficLight::setPhase(const std::string& tlsID, const int index) {
     active->changeStepAndDuration(MSNet::getInstance()->getTLSControl(), cTime, index, duration);
 }
 
+void
+TrafficLight::setPhaseName(const std::string& tlsID, const std::string& name) {
+    MSTrafficLightLogic* const active = getTLS(tlsID).getActive();
+    const_cast<MSPhaseDefinition&>(active->getCurrentPhaseDef()).setName(name);
+}
+
 
 void
 TrafficLight::setProgram(const std::string& tlsID, const std::string& programID) {
@@ -204,7 +215,7 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
     }
     std::vector<MSPhaseDefinition*> phases;
     for (TraCIPhase phase : logic.phases) {
-        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), phase.state, TIME2STEPS(phase.minDur), TIME2STEPS(phase.maxDur), phase.next));
+        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase.duration), phase.state, TIME2STEPS(phase.minDur), TIME2STEPS(phase.maxDur), phase.next, phase.name));
     }
     if (vars.getLogic(logic.programID) == nullptr) {
         MSTrafficLightLogic* mslogic = new MSSimpleTrafficLightLogic(MSNet::getInstance()->getTLSControl(), tlsID, logic.programID, TLTYPE_STATIC, phases, logic.currentPhaseIndex, 0, logic.subParameter);
@@ -252,6 +263,8 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
             return wrapper->wrapStringList(objID, variable, getControlledLanes(objID));
         case TL_CURRENT_PHASE:
             return wrapper->wrapInt(objID, variable, getPhase(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getPhaseName(objID));
         case TL_CURRENT_PROGRAM:
             return wrapper->wrapString(objID, variable, getProgram(objID));
         case TL_PHASE_DURATION:

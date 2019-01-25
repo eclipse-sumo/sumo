@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@
 #include <vector>
 #include <iostream>
 #include <fx.h>
-#include <utils/foxtools/MFXEventQue.h>
+#include <utils/foxtools/FXSynchQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/foxtools/FXLCDLabel.h>
@@ -131,6 +131,9 @@ public:
 
     /// @brief Called on menu File->Load Shapes
     long onCmdOpenShapes(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu File->Load EdgeData
+    long onCmdOpenEdgeData(FXObject*, FXSelector, void*);
 
     /// @brief Called on reload
     long onCmdReload(FXObject*, FXSelector, void*);
@@ -238,6 +241,9 @@ public:
     /// @brief Determines whether some buttons which require an active simulation may be shown
     long onUpdNeedsSimulation(FXObject*, FXSelector, void*);
 
+    /// @brief Determines whether traci is active
+    long onUpdTraCIStatus(FXObject*, FXSelector, void*);
+
     /// @brief Called if the message window shall be cleared
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
@@ -275,6 +281,10 @@ public:
     virtual void setDelay(double delay) {
         mySimDelay = delay;
     }
+
+    /** @brief Sets the breakpoints of the parent application
+     */
+    virtual void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
 
     /** @brief Sends an event from the application thread to the GUI and waits until it is handled
      * @param event the event to send
@@ -367,7 +377,7 @@ protected:
     double myAlternateSimDelay;
 
     /// @brief List of got requests
-    MFXEventQue<GUIEvent*> myEvents;
+    FXSynchQue<GUIEvent*> myEvents;
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -109,6 +109,22 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
 }
 
 
+const std::vector<std::string>
+SUMOSAXAttributes::getStringVector(int attr) const {
+    const std::vector<std::string>& ret = StringTokenizer(getString(attr)).getVector();
+    if (ret.empty()) {
+        throw EmptyData();
+    }
+    return ret;
+}
+
+
+const std::vector<std::string>
+SUMOSAXAttributes::getOptStringVector(int attr, const char* objectid, bool& ok, bool report) const {
+    return getOpt<std::vector<std::string> >(attr, objectid, ok, std::vector<std::string>(), report);
+}
+
+
 void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
@@ -148,24 +164,6 @@ SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::strin
     }
     oss << " is not " << type << ".";
     WRITE_ERROR(oss.str());
-}
-
-
-void
-SUMOSAXAttributes::parseStringVector(const std::string& def, std::vector<std::string>& into) {
-    StringTokenizer st(def, " ", true);
-    while (st.hasNext()) {
-        into.push_back(st.next());
-    }
-}
-
-
-void
-SUMOSAXAttributes::parseStringSet(const std::string& def, std::set<std::string>& into) {
-    StringTokenizer st(def, " ", true);
-    while (st.hasNext()) {
-        into.insert(st.next());
-    }
 }
 
 
@@ -222,6 +220,14 @@ const std::string invalid_return<Boundary>::type = "Boundary";
 template<>
 Boundary SUMOSAXAttributes::getInternal(const int attr) const {
     return getBoundary(attr);
+}
+
+
+const std::vector<std::string> invalid_return<std::vector<std::string> >::value = std::vector<std::string>();
+const std::string invalid_return<std::vector<std::string> >::type = "StringVector";
+template<>
+std::vector<std::string> SUMOSAXAttributes::getInternal(const int attr) const {
+    return getStringVector(attr);
 }
 
 

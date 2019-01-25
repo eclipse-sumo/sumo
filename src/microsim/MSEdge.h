@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -233,7 +233,7 @@ public:
 
 
     /// @brief check and register the opposite superposable edge if any
-    void checkAndRegisterBiDirEdge(const std::string& bidiID="");
+    void checkAndRegisterBiDirEdge(const std::string& bidiID = "");
 
     /// @brief return opposite superposable/congruent edge, if it exist and 0 else
     inline const MSEdge* getBidiEdge() const {
@@ -406,9 +406,9 @@ public:
         if (myFunction == EDGEFUNC_CONNECTOR) {
             return 0;
         } else if (veh != 0) {
-            return getLength() / getVehicleMaxSpeed(veh);
+            return getLength() / getVehicleMaxSpeed(veh) + myTimePenalty;
         } else {
-            return getLength() / getSpeedLimit();
+            return myEmptyTraveltime;
         }
     }
 
@@ -547,7 +547,7 @@ public:
 
     void rebuildAllowedLanes();
 
-    void rebuildAllowedTargets(const bool updateVehicles=true);
+    void rebuildAllowedTargets(const bool updateVehicles = true);
 
 
     /** @brief optimistic air distance heuristic for use in routing
@@ -555,7 +555,7 @@ public:
      * @param[in] doBoundaryEstimate whether the distance should be estimated by looking at the distance of the bounding boxes
      * @return The distance to the other edge
      */
-    double getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate=false) const;
+    double getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate = false) const;
 
 
     /// @brief return the coordinates of the center of the given stop
@@ -630,7 +630,7 @@ public:
 
     // return whether there have been vehicles on this edge at least once
     inline bool isDelayed() const {
-        return myAmDelayed;
+        return myAmDelayed || myBidiEdge == nullptr || myBidiEdge->myAmDelayed;
     }
 
     bool hasLaneChanger() const {
@@ -824,6 +824,9 @@ protected:
 
     /// @brief the traveltime on the empty edge (cached value for speedup)
     double myEmptyTraveltime;
+
+    /// @brief flat penalty when computing traveltime
+    double myTimePenalty;
 
     /// @brief whether this edge had a vehicle with less than max speed on it
     mutable bool myAmDelayed;

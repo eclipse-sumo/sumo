@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@
 
 #include <cassert>
 #include <utils/common/StringBijection.h>
-#include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/common/StringTokenizer.h>
 
 #include "SUMOXMLDefinitions.h"
 
@@ -572,7 +572,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lefthand",               SUMO_ATTR_LEFTHAND },
     { "limitTurnSpeed",         SUMO_ATTR_LIMIT_TURN_SPEED },
     { "checkLaneFoesAll",       SUMO_ATTR_CHECKLANEFOES_ALL },
-    { "checkLaneFoesRoundabout",SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT },
+    { "checkLaneFoesRoundabout", SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "vehicle",                SUMO_ATTR_VEHICLE },
@@ -694,7 +694,7 @@ StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctio
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
-    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY }, 
+    {"edgePriority", RIGHT_OF_WAY_EDGEPRIORITY },
     {"default",      RIGHT_OF_WAY_DEFAULT } // default (must be the last one)
 };
 
@@ -908,8 +908,7 @@ SUMOXMLDefinitions::isValidFilename(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
-    std::vector<std::string> typeIDs;
-    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    const std::vector<std::string>& typeIDs = StringTokenizer(value).getVector();
     if (typeIDs.empty()) {
         return false;
     } else {
@@ -926,8 +925,7 @@ SUMOXMLDefinitions::isValidListOfNetIDs(const std::string& value) {
 
 bool
 SUMOXMLDefinitions::isValidListOfTypeID(const std::string& value) {
-    std::vector<std::string> typeIDs;
-    SUMOSAXAttributes::parseStringVector(value, typeIDs);
+    const std::vector<std::string>& typeIDs = StringTokenizer(value).getVector();
     if (typeIDs.empty()) {
         return false;
     } else {

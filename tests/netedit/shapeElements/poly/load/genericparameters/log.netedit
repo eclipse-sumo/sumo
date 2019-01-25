@@ -1,3 +1,4 @@
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Loading of shapes failed.
+Warning: Error parsing key from shape generic parameter. Key doesn't exist
+Warning: Error parsing key from shape generic parameter. Key contains invalid characters
+Warning: Error parsing value from shape generic parameter. Value contains invalid characters
+Warning: Error parsing key from shape generic parameter. Key doesn't exist

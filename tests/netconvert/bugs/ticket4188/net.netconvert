@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 25 01:26:52 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -232,8 +232,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="NS1" to="EW2" fromLane="0" toLane="1" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_18_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="18" dir="r" state="o"/>
     <connection from="NS1" to="NS2" fromLane="1" toLane="0" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="19" dir="s" state="o"/>
     <connection from="NS1" to="WE2" fromLane="1" toLane="1" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="20" dir="l" state="o"/>
-    <connection from="SN1" to="WE2" fromLane="0" toLane="0" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_0" dir="r" state="m"/>
-    <connection from="SN1" to="WE2" fromLane="0" toLane="1" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_7_0" dir="r" state="m"/>
+    <connection from="SN1" to="WE2" fromLane="0" toLane="0" uncontrolled="1" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_0" dir="r" state="m"/>
+    <connection from="SN1" to="WE2" fromLane="0" toLane="1" uncontrolled="1" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_7_0" dir="r" state="m"/>
     <connection from="SN1" to="SN2" fromLane="1" toLane="0" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="8" dir="s" state="o"/>
     <connection from="SN1" to="EW2" fromLane="1" toLane="0" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="9" dir="l" state="o"/>
     <connection from="SN1" to="EW2" fromLane="1" toLane="1" via=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_10_0" tl="_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8" linkIndex="10" dir="l" state="o"/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@
 
 #include "GNEBusStop.h"
 #include "GNEAccess.h"
+#include "GNEAdditionalHandler.h"
 
 // ===========================================================================
 // method definitions
@@ -95,7 +96,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, getType());
     // Set color of the base
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);
@@ -134,7 +135,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
             // draw line with a color depending of the selection status
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.selectionColor, 0, FONS_ALIGN_LEFT);
             } else {
                 GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.SUMO_color_busStop, 0, FONS_ALIGN_LEFT);
@@ -147,7 +148,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
         // Set color of the externe circle
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop);
@@ -157,7 +158,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // Traslate to front
         glTranslated(0, 0, .1);
         // Set color of the interne circle
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(s.SUMO_color_busStop_sign);
@@ -166,7 +167,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle(myCircleInWidth, circleResolution);
         // If the scale * exageration is equal or more than 4.5, draw H
         if (s.scale * exaggeration >= 4.5) {
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, s.selectedAdditionalColor, myBlockIcon.rotation);
             } else {
                 GLHelper::drawText("H", Position(), .1, myCircleInText, s.SUMO_color_busStop, myBlockIcon.rotation);
@@ -268,32 +269,18 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_STARTPOS:
             if (value.empty()) {
                 return true;
+            } else if (canParse<double>(value)) {
+                return checkStoppinPlacePosition(value, myEndPosition, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
-                if (canParse<double>(value)) {
-                    if (canParse<double>(myEndPosition)) {
-                        // Check that new start Position is smaller that end position
-                        return (parse<double>(value) < parse<double>(myEndPosition));
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
+                return false;
             }
         case SUMO_ATTR_ENDPOS:
             if (value.empty()) {
                 return true;
+            } else if (canParse<double>(value)) {
+                return checkStoppinPlacePosition(myStartPosition, value, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
-                if (canParse<double>(value)) {
-                    if (canParse<double>(myStartPosition)) {
-                        // Check that new start Position is smaller that end position
-                        return (parse<double>(myStartPosition) < parse<double>(value));
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
+                return false;
             }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
@@ -357,7 +344,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

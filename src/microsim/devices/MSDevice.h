@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -165,7 +165,7 @@ protected:
      * @param[in] optionsTopic The options topic into which the options shall be added
      * @param[filled] oc The options container to add the options to
      */
-    static void insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc, const bool isPerson=false);
+    static void insertDefaultAssignmentOptions(const std::string& deviceName, const std::string& optionsTopic, OptionsCont& oc, const bool isPerson = false);
 
 
     /** @brief Determines whether a vehicle should get a certain device
@@ -174,7 +174,7 @@ protected:
      * @param[in] deviceName The name of the device type
      * @param[in] v The vehicle to determine whether it shall be equipped or not
      */
-    template<class DEVICEHOLDER> 
+    template<class DEVICEHOLDER>
     static bool equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::string& deviceName, DEVICEHOLDER& v, bool outputOptionSet, const bool isPerson = false);
     /// @}
 

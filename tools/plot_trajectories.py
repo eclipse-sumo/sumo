@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -23,8 +23,6 @@ Individual trajectories can be clicked in interactive mode to print the vehicle 
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
-import os
-import math
 from collections import defaultdict
 from optparse import OptionParser
 import matplotlib.pyplot as plt
@@ -35,8 +33,8 @@ from sumolib.xml import parse_fast_nested
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select one of ('ds','ts', 'td', 'da', 'ta') for plotting"
-                         + " distanceVsSpeed (default), timeVsSpeed, timeVsDistance, distanceVsAcceleration, timeVsAcceleration")
+                         help="select one of ('ds','ts', 'td', 'da', 'ta') for plotting distanceVsSpeed (default), " +
+                         "timeVsSpeed, timeVsDistance, distanceVsAcceleration, timeVsAcceleration")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -105,7 +103,8 @@ def main(options):
 
     routes = defaultdict(list)  # vehID -> recorded edges
     data = defaultdict(lambda: ([], [], [], []))  # vehID -> (times, speeds, distances, accelerations)
-    for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
+    for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
+                                               'vehicle', ['id', 'speed', 'lane']):
         time = float(timestep.time)
         speed = float(vehicle.speed)
         prevTime = time
@@ -144,7 +143,7 @@ def main(options):
             skip = False
             route = routes[vehID]
             for required in options.filterRoute:
-                if not required in route:
+                if required not in route:
                     skip = True
                     break
             if skip:

@@ -1,3 +1,6 @@
+# tests for rail signals
+rail_signal
+
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
 
@@ -17,3 +20,9 @@ reverse_at_stop
 # train serving a public transport line must reverse direction at a branch stop without having a link
 # Input taken from reverse_at_stop
 reverse_no_link
+
+# trains passing each other at two loops
+two_passing_loops
+
+# as above but with intermediate nodes on the tracks
+two_passing_loops2

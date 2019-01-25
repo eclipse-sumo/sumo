@@ -1,5 +1,5 @@
-Eclipse SUMO netconvert Version eeef47f
- Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
+Eclipse SUMO netconvert Version v1_1_0+0040-b68edb7a21e
+ Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
 
@@ -22,6 +22,8 @@ Input Options:
   -t, --type-files FILE                Read XML-type defs from FILE
   --ptstop-files FILE                  Reads public transport stops from FILE
   --ptline-files FILE                  Reads public transport lines from FILE
+  --polygon-files FILE                 Reads polygons from FILE for embedding
+                                         in network where applicable
   --shapefile-prefix FILE              Read shapefiles (ArcView, Tiger, ...)
                                          from files starting with 'FILE'
   --dlr-navteq-prefix FILE             Read converted Navteq GDF data
@@ -80,6 +82,9 @@ Output Options:
                                          any line
   --parking-output FILE                Writes parking areas to FILE
   --railway.topology.output FILE       Analyse topology of the railway network
+  --polygon-output FILE                Write shapes that are embedded in the
+                                         network input and that are not
+                                         supported by polyconvert (OpenDRIVE)
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                          whenever the angular change  between
                                          straight segments exceeds FLOAT degrees

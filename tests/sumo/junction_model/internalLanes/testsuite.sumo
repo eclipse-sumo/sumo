@@ -1,0 +1,11 @@
+# two connections from the same lane that diverge (they should not block each other after diverging far enough)
+diverging_siblings
+
+# two connections from the same lane that have common geometry over most of their length  (they should block each other and induce car-following behavior)
+parallel_siblings
+
+# test that vehicles do not overlap on internal lanes from the same origin lane
+endOffset
+
+# test dynamics when keepClear is disabled in the network
+keepClear

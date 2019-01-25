@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@
 class GNEAdditionalFrame : public GNEFrame {
 
 public:
-   
+
     // ===========================================================================
     // class SelectorLaneParents
     // ===========================================================================
@@ -56,7 +56,7 @@ public:
         void hideSelectorLaneParentsModul();
 
         /// @brief start selection of consecutive lanes
-        void startConsecutiveLaneSelector(GNELane *lane, const Position &clickedPosition);
+        void startConsecutiveLaneSelector(GNELane* lane, const Position& clickedPosition);
 
         /// @brief stop selection of consecutive lanes
         bool stopConsecutiveLaneSelector();
@@ -65,7 +65,7 @@ public:
         void abortConsecutiveLaneSelector();
 
         /// @brief return true if lane can be selected as consecutive lane
-        bool addSelectedLane(GNELane *lane, const Position &clickedPosition);
+        bool addSelectedLane(GNELane* lane, const Position& clickedPosition);
 
         /// @brief remove last added point
         void removeLastSelectedLane();
@@ -77,10 +77,10 @@ public:
         bool isShown() const;
 
         /// @brief get selected lane color
-        const RGBColor &getSelectedLaneColor() const;
+        const RGBColor& getSelectedLaneColor() const;
 
         /// @brief get current selected lanes
-        const std::vector<std::pair<GNELane*, double> > &getSelectedLanes() const;
+        const std::vector<std::pair<GNELane*, double> >& getSelectedLanes() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -118,7 +118,7 @@ public:
         RGBColor mySelectedLaneColor;
 
         /// @brief check if certain lane is selected
-        bool isLaneSelected(GNELane *lane) const;
+        bool isLaneSelected(GNELane* lane) const;
     };
 
     // ===========================================================================
@@ -316,12 +316,7 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if additional was sucesfully added
      */
-    bool addAdditional(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
-
-    /**@brief remove an additional element previously added
-     * @param[in] additional element to erase
-     */
-    void removeAdditional(GNEAdditional* additional);
+    bool addAdditional(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief show selector lane child and update use selected edges/lanes
     void showSelectorLaneChildsModul();
@@ -330,8 +325,8 @@ public:
     GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;
 
 protected:
-     /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties);
+    /// @brief enable moduls depending of item selected in ItemSelector
+    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
@@ -341,22 +336,22 @@ private:
     std::string generateID(GNENetElement* netElement) const;
 
     /// @brief build common additional attributes
-    bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagProperties &tagValues);
+    bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief build additional with Parent
-    bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string> &valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagProperties &tagValues);
+    bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* parent, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief build additional over an edge (parent of lane)
-    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties &tagValues);
+    bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief build additional over a single lane
-    bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties &tagValues);
+    bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief build additional over lanes
-    bool buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string> &valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties &tagValues);
+    bool buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief build additional over view
-    bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string> &valuesMap, const GNEAttributeCarrier::TagProperties &tagValues);
+    bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief item selector
     ItemSelector* myItemSelector;
@@ -366,7 +361,7 @@ private:
 
     /// @brief Netedit parameter
     NeteditAttributes* myNeteditAttributes;
-    
+
     /// @brief Modul for select lane parents (currently only consecutives)
     SelectorLaneParents* mySelectorLaneParents;
 

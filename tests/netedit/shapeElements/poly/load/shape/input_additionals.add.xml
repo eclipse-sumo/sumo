@@ -1,0 +1,23 @@
+<additionals>
+	<!-- non valid shape (missing) -->
+	<poly id="poly_01" color="green" fill="1" layer="0.00"/>
+
+	<!-- non valid shape (dummy) -->
+	<poly id="poly_02" color="green" fill="1" layer="0.00" shape="dummyShape"/>
+
+	<!-- non valid valid shape (duplicated points)-->
+	<poly id="poly_03" color="green" fill="1" layer="0.00" shape="10.00,-40.00 20.00,-40.00 20.00,-50.00 20.00,-50.00 10.00,-50.00 10.00,-50.00 10.00,-40.00"/>
+	
+	<!-- valid valid shape (only 1 point)-->
+	<poly id="poly_04" color="green" fill="1" layer="0.00" shape="40.00,-40.00"/>
+	    
+	<!-- valid valid shape 3 points, area 0-->
+	<poly id="poly_05" color="green" fill="1" layer="0.00" shape="-70.00,40.00 -60.00,40.00 -70.00,40.00 -60.00,40.00"/>
+	
+	<!-- valid shape (only 2 points)-->
+	<poly id="poly_06" color="green" fill="1" layer="0.00" shape="-70.00,20.00 -60.00,20.00"/>
+	
+	<!-- valid shape (duplicated with poly_0 shape) -->
+	<poly id="poly_07" color="green" fill="1" layer="0.00" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00"/>
+
+</additionals>

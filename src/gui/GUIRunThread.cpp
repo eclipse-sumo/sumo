@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@
 // member method definitions
 // ===========================================================================
 GUIRunThread::GUIRunThread(FXApp* app, MFXInterThreadEventClient* parent,
-                           double& simDelay, MFXEventQue<GUIEvent*>& eq,
+                           double& simDelay, FXSynchQue<GUIEvent*>& eq,
                            FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, parent),
       myNet(nullptr), myHalting(true), myQuit(false), mySimulationInProgress(false), myOk(true), myHaveSignaledEnd(false),
@@ -128,7 +128,7 @@ GUIRunThread::run() {
             }
             // check whether we shall stop at this step
             myBreakpointLock.lock();
-            const bool haltAfter = find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
+            const bool haltAfter = std::find(myBreakpoints.begin(), myBreakpoints.end(), myNet->getCurrentTimeStep()) != myBreakpoints.end();
             myBreakpointLock.unlock();
             // do the step
             makeStep();
@@ -170,7 +170,7 @@ GUIRunThread::makeStep() {
 
         // inform parent that a step has been performed
         e = new GUIEvent_SimulationStep();
-        myEventQue.add(e);
+        myEventQue.push_back(e);
         myEventThrow.signal();
 
         e = nullptr;
@@ -203,7 +203,7 @@ GUIRunThread::makeStep() {
                 break;
         }
         if (e != nullptr) {
-            myEventQue.add(e);
+            myEventQue.push_back(e);
             myEventThrow.signal();
             myHalting = true;
         }
@@ -222,7 +222,7 @@ GUIRunThread::makeStep() {
         mySimulationLock.unlock();
         mySimulationInProgress = false;
         e = new GUIEvent_SimulationEnded(MSNet::SIMSTATE_ERROR_IN_SIM, myNet->getCurrentTimeStep());
-        myEventQue.add(e);
+        myEventQue.push_back(e);
         myEventThrow.signal();
         myHalting = true;
         myOk = false;
@@ -232,7 +232,7 @@ GUIRunThread::makeStep() {
         mySimulationLock.unlock();
         mySimulationInProgress = false;
         e = new GUIEvent_SimulationEnded(MSNet::SIMSTATE_ERROR_IN_SIM, myNet->getCurrentTimeStep());
-        myEventQue.add(e);
+        myEventQue.push_back(e);
         myEventThrow.signal();
         myHalting = true;
         myOk = false;
@@ -314,7 +314,7 @@ GUIRunThread::prepareDestruction() {
 void
 GUIRunThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
     GUIEvent* e = new GUIEvent_Message(type, msg);
-    myEventQue.add(e);
+    myEventQue.push_back(e);
     myEventThrow.signal();
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@
 
 #include <signal.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/foxtools/MsgHandlerSynchronized.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
@@ -43,8 +44,7 @@
 int
 main(int argc, char** argv) {
     // make the output aware of threading
-    MFXMutex lock;
-    MsgHandler::assignLock(&lock);
+    MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     // get the options
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
@@ -79,7 +79,7 @@ main(int argc, char** argv) {
         gSchemeStorage.init(&application, true);
         window->dependentBuild();
         // Create app
-        application.addSignal(SIGINT, window, MID_QUIT);
+        application.addSignal(SIGINT, window, MID_HOTKEY_CTRL_Q_CLOSE);
         application.create();
         // Load configuration given on command line
         if (argc > 1) {

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -93,8 +93,8 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      const FXString& name,
                                      GUIMainWindow* parentWindow,
                                      FXIcon* ic, FXuint opts,
-                                     FXint x, FXint y, FXint w, FXint h)
-    : GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h) {
+                                     FXint x, FXint y, FXint w, FXint h) :
+    GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h) {
     myParent->addGLChild(this);
 }
 
@@ -114,7 +114,7 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
     }
     myView->buildViewToolBars(*this);
     if (myParent->isGaming()) {
-        myNavigationToolBar->hide();
+        myStaticNavigationToolBar->hide();
     }
     return myView;
 }
@@ -128,9 +128,9 @@ GUISUMOViewParent::~GUISUMOViewParent() {
 void
 GUISUMOViewParent::setToolBarVisibility(const bool value) {
     if (value) {
-        myNavigationToolBar->show();
+        myStaticNavigationToolBar->show();
     } else {
-        myNavigationToolBar->hide();
+        myStaticNavigationToolBar->hide();
     }
 }
 

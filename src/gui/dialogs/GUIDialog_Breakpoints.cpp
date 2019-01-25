@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -204,7 +204,7 @@ long
 GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
     FXMutexLock lock(*myBreakpointLock);
     const FXTablePos* const i = (FXTablePos*) data;
-    const std::string value = myTable->getItemText(i->row, i->col).text();
+    const std::string value = StringUtils::prune(myTable->getItemText(i->row, i->col).text());
     // check whether the inserted value is empty
     const bool empty = value.find_first_not_of(" ") == std::string::npos;
     try {
@@ -231,5 +231,10 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* data) {
 }
 
 
+void
+GUIDialog_Breakpoints::layout() {
+    FXMainWindow::layout();
+    myTable->setColumnWidth(0, myTable->getWidth() - 1);
+}
 /****************************************************************************/
 

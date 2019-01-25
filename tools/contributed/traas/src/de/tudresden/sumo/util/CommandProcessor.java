@@ -72,6 +72,10 @@ public class CommandProcessor extends Query{
 	public synchronized void do_SimulationStep(double targetTime) throws IOException {
 		doSimulationStep(targetTime);
 	}
+
+	public synchronized void do_setOrder(int index) throws IOException {
+		doSetOrder(index);
+	}
 	
 	public static SumoObject read(int type, Storage s){
 		

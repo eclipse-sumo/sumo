@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -13,27 +13,32 @@
 # @date    2016-15-04
 # @version $Id$
 
+"""
+Compare differences between tripinfo files that contain the same vehicles
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import optparse
+import argparse
 from collections import OrderedDict
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 from sumolib.output import parse  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
-    optParser.add_option("--persons", action="store_true",
-                         default=False, help="compute personinfo differences")
-    (options, args) = optParser.parse_args(args=args)
-    try:
-        options.orig, options.new, options.output = args
-    except:
-        print("USAGE: <tripinfos1> <tripinfos2> <output>", file=sys.stderr)
-        sys.exit(1)
+    argParser = argparse.ArgumentParser()
+    argParser.add_argument("orig", help="the first tripinfo file")
+    argParser.add_argument("new", help="the second tripinfo file")
+    argParser.add_argument("output", help="the output file")
+    argParser.add_argument("--persons", action="store_true",
+                           default=False, help="compute personinfo differences")
+    argParser.add_argument("--histogram-scale", type=float, dest="histScale",
+                           help="compute data histogram with the FLOAT granularity")
+    options = argParser.parse_args(args=args)
+    options.useHist = options.histScale is not None
     return options
 
 
@@ -43,9 +48,9 @@ def write_diff(options):
     attr_conversions = dict([(a, parseTime) for a in attrs])
     vehicles_orig = OrderedDict([(v.id, v) for v in parse(options.orig, 'tripinfo',
                                                           attr_conversions=attr_conversions)])
-    origDurations = Statistics('original durations')
-    durations = Statistics('new durations')
-    durationDiffs = Statistics('duration differences')
+    origDurations = Statistics('original durations',   histogram=options.useHist, scale=options.histScale)
+    durations = Statistics('new durations',            histogram=options.useHist, scale=options.histScale)
+    durationDiffs = Statistics('duration differences', histogram=options.useHist, scale=options.histScale)
     with open(options.output, 'w') as f:
         f.write("<tripDiffs>\n")
         for v in parse(options.new, 'tripinfo', attr_conversions=attr_conversions):

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -51,8 +51,7 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myACs(ACs),
     myViewParent(viewParent),
-    myLocateTLS(title.find("TLS") != std::string::npos)
-{
+    myLocateTLS(title.find("TLS") != std::string::npos) {
     // @note refresh must be called here because the base class constructor cannot
     // call the virtual function getObjectName
     std::vector<GUIGlID> ids;

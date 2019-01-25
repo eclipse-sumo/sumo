@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/RouterProvider.h>
+#include <utils/router/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 

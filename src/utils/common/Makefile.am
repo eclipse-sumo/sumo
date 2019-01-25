@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libcommon.a
 
-libcommon_a_SOURCES = AbstractMutex.h \
-Command.h \
+libcommon_a_SOURCES = Command.h \
 FileHelpers.cpp FileHelpers.h \
 IDSupplier.h IDSupplier.cpp \
 MsgHandler.h MsgHandler.cpp \

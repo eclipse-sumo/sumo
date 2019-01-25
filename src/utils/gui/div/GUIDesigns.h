@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -87,6 +87,9 @@
 
 /// @brief little checkable button with icon placed in navigation toolbar
 #define GUIDesignButtonToolbarCheckable     (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+
+/// @brief checkable button with icon placed in navigation toolbar for supermodes
+#define GUIDesignButtonToolbarSupermode     (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23
 /// @}
 
 
@@ -116,6 +119,10 @@
 
 /// @brief checkButton with thick extended over the frame used for attributes
 #define GUIDesignCheckButtonAttributeLabel  (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief checkButton placed in left position
+#define GUIDesignCheckButtonLeft            (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
+
 /// @}
 
 
@@ -129,7 +136,7 @@
 /// @}
 
 
-/// @name FXMenuChecks
+/// @name FXRadiobuttons
 /// @{
 /// @brief design for radio button
 #define GUIDesignRadioButton                (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
@@ -273,22 +280,33 @@
 
 /// @name designs for toolbars
 /// @{
-/// @brief design for all toolbars and menubars
-#define GUIDesignBar                        (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
+/// @brief design for top toolbar (file, edit, processing...)
+#define GUIDesignToolbarMenuBar             (LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED)
+
+/// @brief design for top toolbar (file, edit, processing...) used only in netedit (due supermodes buttons)
+#define GUIDesignToolbarMenuBarNetedit      (LAYOUT_SIDE_TOP | FRAME_RAISED)
+
+/// @brief design for default toolbar
+#define GUIDesignToolBar                    (FRAME_NORMAL)
+
+/// @brief design for toolbar
+#define GUIDesignToolBarRaisedSame          (LAYOUT_DOCK_SAME | FRAME_RAISED)
+
+/// @brief design for first toolbar shell positioned in the next position of dock
+#define GUIDesignToolBarRaisedNext          (LAYOUT_DOCK_NEXT | FRAME_RAISED)
 
 /// @brief design used in status bar
 #define GUIDesignStatusBar                  (LAYOUT_SIDE_BOTTOM | LAYOUT_FILL_X | FRAME_RAISED)
 
-/// @brief design for toolbar grip     (used to change the position of toolbar with mouse)
+/// @brief design for toolbar grip (used to change the position of toolbar with mouse)
 #define GUIDesignToolBarGrip                (TOOLBARGRIP_DOUBLE)
 
-/// @brief design for first toolbar shell positioned in the next position of dock
-#define GUIDesignToolBarShell1              (LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED)
+/// @brief design for first toolbar shell positioned in the next-top position of dock
+#define GUIDesignToolBarRaisedNextTop       (LAYOUT_DOCK_NEXT | LAYOUT_SIDE_TOP | FRAME_RAISED)
 
 /// @brief design for first toolbar shell positioned in the same  position of dock
-#define GUIDesignToolBarShell2              (LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED)
+#define GUIDesignToolBarRaisedSameTop       (LAYOUT_DOCK_SAME | LAYOUT_SIDE_TOP | FRAME_RAISED)
 
-#define GUIDesignToolBarShell3              (FRAME_NORMAL)
 /// @}
 
 
@@ -490,10 +508,16 @@
 #define GUIDesignTreeListFrame                  (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
 /// @brief design for FXLists
-#define GUIDesignList                           (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_NORMAL)
+#define GUIDesignList                           (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X)
 
-/// @brief design for FXLists that only allow a single selected elements
-#define GUIDesignListSingleElement              (FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LIST_SINGLESELECT)
+/// @brief design for FXList sthat only allow a single selected elements selected
+#define GUIDesignListSingleElement              (LIST_SINGLESELECT | FRAME_NORMAL | LAYOUT_FILL_X)
+
+/// @brief design for FXLists with height fixed
+#define GUIDesignListFixedHeight                (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
+
+/// @brief design for FXLists that only allow a single selected elements selected and height fixed
+#define GUIDesignListSingleElementFixedHeight   (LIST_SINGLESELECT | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 100
 
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -112,6 +112,10 @@ enum GUIGlObjectType {
     GLO_PERSON = 302,
     /// @brief a container
     GLO_CONTAINER = 303,
+    /// @brief a route
+    GLO_ROUTE = 304,
+    /// @brief a vehicle type
+    GLO_VTYPE = 305,
     /// @brief empty max
     GLO_MAX = 2048
 };

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -93,13 +93,13 @@ public:
         FXTextField* myCoordinatesTextField;
 
         /// @brief button for enable or disable certer view after creation of GEO POI
-        FXCheckButton *myCenterViewAfterCreationCheckButton;
+        FXCheckButton* myCenterViewAfterCreationCheckButton;
 
         /// @brief button for create GEO Coordinates
         FXButton* myCreateGEOPOIButton;
 
         /// @brief FXLabel for the equivalent position of GEO Position in Cartesian Position
-        FXLabel *myLabelCartesianPosition;
+        FXLabel* myLabelCartesianPosition;
     };
 
     /**@brief Constructor
@@ -119,7 +119,7 @@ public:
     * @param[in] ObjectsUnderCursor objects under cursor after click over view
     * @return AddShapeStatus with the result of operation
     */
-    AddShapeResult processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    AddShapeResult processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief get list of selecte id's in string format
     static std::string getIdsSelected(const FXList* list);
@@ -134,8 +134,8 @@ protected:
      */
     bool buildShape();
 
-     /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties &tagProperties);
+    /// @brief enable moduls depending of item selected in ItemSelector
+    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();

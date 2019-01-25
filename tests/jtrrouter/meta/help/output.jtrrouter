@@ -1,5 +1,5 @@
-Eclipse SUMO jtrrouter Version 7cc56db
- Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
+Eclipse SUMO jtrrouter Version v1_1_0+0040-b68edb7a21e
+ Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
 
@@ -56,6 +56,8 @@ Processing Options:
                                      by using the last usable edge instead
   --weights.interpolate            Interpolate edge weights at interval
                                      boundaries
+  --weights.minor-penalty FLOAT    Apply the given time penalty when computing
+                                     routing costs for minor-link internal lanes
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
   --bulk-routing                   Aggregate routing queries with the same

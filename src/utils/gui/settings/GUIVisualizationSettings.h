@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ class GUIGlObject;
 // cannot declare this as inner class because it needs to be used in forward
 // declaration (@todo fix inclusion order by removing references to guisim!)
 struct GUIVisualizationTextSettings {
-    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128,0,0,0), bool _constSize = true) :
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128, 0, 0, 0), bool _constSize = true) :
         show(_show), size(_size), color(_color), bgColor(_bgColor), constSize(_constSize) {}
 
     bool show;
@@ -194,6 +194,9 @@ public:
     /// @brief key for coloring by edge parameter
     std::string edgeParam;
     std::string laneParam;
+
+    /// @brief key for coloring by edgeData
+    std::string edgeData;
     //@}
 
 
@@ -255,7 +258,7 @@ public:
     /// @brief The junction colorer
     GUIColorer junctionColorer;
     // Setting bundles for optional drawing junction names and indices
-    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName;
+    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName, tlsPhaseIndex;
     /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
     /// @brief whether the shape of the junction should be drawn
@@ -405,6 +408,7 @@ public:
 
     static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
+    static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
 
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;

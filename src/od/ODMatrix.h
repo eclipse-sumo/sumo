@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -103,7 +103,8 @@ public:
      */
     bool add(double vehicleNumber, SUMOTime begin,
              SUMOTime end, const std::string& origin, const std::string& destination,
-             const std::string& vehicleType);
+             const std::string& vehicleType,
+             const bool originIsEdge = false, const bool destinationIsEdge = false);
 
     /** @brief Adds a single vehicle with departure time
      *
@@ -117,8 +118,9 @@ public:
      * @return whether the vehicle could be added
      */
     bool add(const std::string& id, const SUMOTime depart,
-             const std::pair<const std::string, const std::string>& od,
-             const std::string& vehicleType);
+             const std::string& fromTaz, const std::string& toTaz,
+             const std::string& vehicleType,
+             const bool originIsEdge = false, const bool destinationIsEdge = false);
 
     /** @brief Helper function for flow and trip output writing the depart
      *   and arrival attributes
@@ -434,4 +436,3 @@ private:
 #endif
 
 /****************************************************************************/
-

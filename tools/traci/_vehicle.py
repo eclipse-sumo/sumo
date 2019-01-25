@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -965,9 +965,10 @@ class VehicleDomain(Domain):
         """openGap(string, double, double, double, double, double) -> None
 
         Changes the vehicle's desired time headway (cf-parameter tau) smoothly to the given new value
-        using the given change rate. Similarly, the given space headway is applied gradually to achieve a minimal spacial gap.
-        The vehicle is commanded to keep the increased headway for  
-        the given duration once its target value is attained. Optionally, a maximal value for the 
+        using the given change rate. Similarly, the given space headway is applied gradually
+        to achieve a minimal spatial gap.
+        The vehicle is commanded to keep the increased headway for
+        the given duration once its target value is attained. Optionally, a maximal value for the
         deceleration (>0) can be given to prevent harsh braking due to the change of tau.
         Note that this does only affect the following behavior regarding the current leader and does
         not influence the gap acceptance during lane change, etc.
@@ -1539,7 +1540,8 @@ class VehicleDomain(Domain):
             # Using default: both directions
             lanes = [-1, 0, 1]
         elif not (direction == -1 or direction == 1):
-            warnings.warn("Ignoring lane change subscription filter with non-neighboring lane offset direction=%s." % direction)
+            warnings.warn("Ignoring lane change subscription filter " +
+                          "with non-neighboring lane offset direction=%s." % direction)
             return
         else:
             lanes = [0, direction]

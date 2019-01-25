@@ -6,3 +6,8 @@ outgoing internal lanes of SC_0: :C_9_0 :C_10_0
 connections from :C_0_0:
 <connection from=":C_0" to="CW" fromLane="0" toLane="0" direction="s">
 lanes to :C_0_0: NC_0
+edgeParams ek1:ev1 ek2:ev2 ek3:ev3 ek4:ev4
+laneParams lk1:lv1 lk2:lv2
+laneParams lk3:lv3 lk4:lv4
+junctionParams jk1:jv1 jk2:jv2
+tlsParams tk1:tv1 tk2:tv2

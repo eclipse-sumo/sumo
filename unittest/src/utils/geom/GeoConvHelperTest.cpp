@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -33,6 +33,6 @@ TEST(GeoConvHelper, test_method_x2cartesian) {
     Position pos(13.5326994, 52.428098100000007);
     gch.x2cartesian(pos);
     
-	EXPECT_DOUBLE_EQ(400235.50494557252, pos.x());
-	EXPECT_DOUBLE_EQ(5809666.826070101, pos.y());
+    EXPECT_NEAR(400235.50494557252, pos.x(), 1e-5);
+    EXPECT_NEAR(5809666.826070101, pos.y(), 1e-5);
 }

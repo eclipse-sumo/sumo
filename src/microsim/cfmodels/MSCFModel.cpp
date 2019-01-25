@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -190,7 +190,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 }
 #endif
 
-    vMax = MAX2(vMin, vMax);
+vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
 #ifdef DEBUG_FINALIZE_SPEED
@@ -206,14 +206,14 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #ifdef DEBUG_FINALIZE_SPEED
     if DEBUG_COND {
     std::cout << std::setprecision(gPrecision)
-        << "veh '" << veh->getID() << "' oldV=" << oldV
-        << " vPos" << vPos
-        << " vMin=" << vMin
-        << " vMax=" << vMax
-        << " vStop=" << vStop
-        << " vDawdle=" << vDawdle
-        << " vNext=" << vNext
-        << "\n";
+                  << "veh '" << veh->getID() << "' oldV=" << oldV
+                  << " vPos" << vPos
+                  << " vMin=" << vMin
+                  << " vMax=" << vMax
+                  << " vStop=" << vStop
+                  << " vDawdle=" << vDawdle
+                  << " vNext=" << vNext
+                  << "\n";
     }
 #endif
     return vNext;
@@ -991,15 +991,15 @@ MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const
     if (!veh->getDriverState()->debugLocked()) {
             veh->getDriverState()->lockDebug();
             std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayAndSpeedDifferencePerceptionErrors()\n"
-            << "  speed=" << speed << " gap=" << gap << " leaderSpeed=" << predSpeed
-            << "\n  perceivedGap=" << perceivedGap << " perceivedLeaderSpeed=" << speed + perceivedSpeedDifference
-            << " perceivedSpeedDifference=" << perceivedSpeedDifference
-            << std::endl;
+                      << "  speed=" << speed << " gap=" << gap << " leaderSpeed=" << predSpeed
+                      << "\n  perceivedGap=" << perceivedGap << " perceivedLeaderSpeed=" << speed + perceivedSpeedDifference
+                      << " perceivedSpeedDifference=" << perceivedSpeedDifference
+                      << std::endl;
             const double exactFollowSpeed = followSpeed(veh, speed, gap, predSpeed, predMaxDecel);
             const double errorFollowSpeed = followSpeed(veh, speed, perceivedGap, speed + perceivedSpeedDifference, predMaxDecel);
             const double accelError = SPEED2ACCEL(errorFollowSpeed - exactFollowSpeed);
             std::cout << "  gapError=" << perceivedGap - gap << "  dvError=" << perceivedSpeedDifference - (predSpeed - speed)
-            << "\n  resulting accelError: " << accelError << std::endl;
+                      << "\n  resulting accelError: " << accelError << std::endl;
             veh->getDriverState()->unlockDebug();
         }
     }
@@ -1023,7 +1023,7 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
     if (!veh->getDriverState()->debugLocked()) {
             veh->getDriverState()->lockDebug();
             std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayPerceptionError()\n"
-            << "  speed=" << speed << " gap=" << gap << "\n  perceivedGap=" << perceivedGap << std::endl;
+                      << "  speed=" << speed << " gap=" << gap << "\n  perceivedGap=" << perceivedGap << std::endl;
             const double exactStopSpeed = stopSpeed(veh, speed, gap);
             const double errorStopSpeed = stopSpeed(veh, speed, perceivedGap);
             const double accelError = SPEED2ACCEL(errorStopSpeed - exactStopSpeed);

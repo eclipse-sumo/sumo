@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -114,7 +114,7 @@ MESegment::MESegment(const std::string& id,
             assert(allowed != 0);
             assert(allowed->size() > 0);
             for (std::vector<MSLane*>::const_iterator j = allowed->begin(); j != allowed->end(); ++j) {
-                std::vector<MSLane*>::const_iterator it = find(lanes.begin(), lanes.end(), *j);
+                std::vector<MSLane*>::const_iterator it = std::find(lanes.begin(), lanes.end(), *j);
                 myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
             }
         }
@@ -221,7 +221,7 @@ MESegment::addDetector(MSMoveReminder* data) {
 
 void
 MESegment::removeDetector(MSMoveReminder* data) {
-    std::vector<MSMoveReminder*>::iterator it = find(
+    std::vector<MSMoveReminder*>::iterator it = std::find(
                 myDetectorData.begin(), myDetectorData.end(), data);
     if (it != myDetectorData.end()) {
         myDetectorData.erase(it);
@@ -660,9 +660,9 @@ MESegment::saveState(OutputDevice& out) {
 
 
 void
-MESegment::loadState(std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
-    for (std::vector<std::string>::const_iterator it = vehIds.begin(); it != vehIds.end(); ++it) {
-        MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(*it));
+MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
+    for (const std::string& id : vehIds) {
+        MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(id));
         // vehicle could be removed due to options
         if (v != nullptr) {
             assert(v->getSegment() == this);

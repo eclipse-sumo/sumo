@@ -70,6 +70,9 @@ multiconnect
 # test loading a simulation
 load
 
+# test retrieval of upcoming traffic lights
+nextTLS
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
 

@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -25,10 +25,8 @@ from __future__ import print_function
 
 import sys
 import math
-import os
 from tables import crCurveTable, laneTypeTable
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net  # noqa
+import sumolib
 
 # This class is used for finding the k shortest paths.
 
@@ -44,14 +42,14 @@ class Predecessor:
 # includes the update-function for searching the k shortest paths.
 
 
-class Vertex(sumolib.net.Node):
+class Vertex(sumolib.net.node.Node):
 
     """
     This class is to store node attributes and the respective incoming/outgoing links.
     """
 
     def __init__(self, id, type=None, coord=None, incLanes=None):
-        sumolib.net.Node.__init__(self, id, type, coord, incLanes)
+        sumolib.net.node.Node.__init__(self, id, type, coord, incLanes)
         self.preds = []
         self.wasUpdated = False
 
@@ -107,14 +105,14 @@ class Vertex(sumolib.net.Node):
 # read from the net.
 
 
-class Edge(sumolib.net.Edge):
+class Edge(sumolib.net.edge.Edge):
 
     """
     This class is to record link attributes
     """
 
     def __init__(self, label, source, target, prio, function, name):
-        sumolib.net.Edge.__init__(
+        sumolib.net.edge.Edge.__init__(
             self, label, source, target, prio, function, name)
         self.capacity = sys.maxsize
         # parameter for estimating capacities according to signal timing plans
@@ -160,7 +158,7 @@ class Edge(sumolib.net.Edge):
         self.capThrough = 0.
 
     def addLane(self, lane):
-        sumolib.net.Edge.addLane(self, lane)
+        sumolib.net.edge.Edge.addLane(self, lane)
         if self._from._id == self._to._id:
             self.freeflowtime = 0.0
         else:

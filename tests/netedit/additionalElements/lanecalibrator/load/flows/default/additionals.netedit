@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30.11.2018 11:00:40 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
+<!-- generated on 22.01.2019 19:54:26 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov105736.5184/netedit.gui/additionalElements/lanecalibrator/load/flows/default\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/additionalElements/lanecalibrator/load/flows/default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov105736.5184/netedit.gui/additionalElements/lanecalibrator/load/flows/default\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/additionalElements/lanecalibrator/load/flows/default\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov105736.5184/netedit.gui/additionalElements/lanecalibrator/load/flows/default\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov105736.5184/netedit.gui/additionalElements/lanecalibrator/load/flows/default\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov105736.5184/netedit.gui/additionalElements/lanecalibrator/load/flows/default\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/additionalElements/lanecalibrator/load/flows/default\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/additionalElements/lanecalibrator/load/flows/default\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/additionalElements/lanecalibrator/load/flows/default\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov105736.5184/netedit.gui/additionalElements/lanecalibrator/load/flows/default\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/additionalElements/lanecalibrator/load/flows/default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,14 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Nov105736.5184/netedit.gui/additionalElements/lanecalibrator/load/flows/default\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/additionalElements/lanecalibrator/load/flows/default\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vType id="CType" color="yellow"/>
-    <route id="CRoute" edges="gneE0 gneE1"/>
     <calibrator id="calibratorFlows" lane="gneE0_0" pos="20.00" output="calibratorFlows.txt"/>
 </additional>

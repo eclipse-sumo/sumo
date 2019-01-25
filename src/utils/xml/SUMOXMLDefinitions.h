@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -1157,11 +1157,11 @@ enum LaneChangeAction {
     LCA_BLOCKED_BY_RIGHT_FOLLOWER = 1 << 12,
     /// @brief The vehicle is blocked being overlapping
     LCA_OVERLAPPING = 1 << 13,
-    /// @brief The vehicle does not have enough space to complete a continuous lane and change before the next turning movement
+    /// @brief The vehicle does not have enough space to complete a continuous change before the next turn
     LCA_INSUFFICIENT_SPACE = 1 << 14,
     /// @brief used by the sublane model
     LCA_SUBLANE = 1 << 15,
-    /// @brief Vehicle is too slow to guarantee success of lane change (used for continuous lane changing in case that maxSpeedLatStanding==0)
+    /// @brief Vehicle is too slow to complete a continuous lane change (in case that maxSpeedLatStanding==0)
     LCA_INSUFFICIENT_SPEED = 1 << 28,
     /// @brief lane can change
     LCA_WANTS_LANECHANGE = LCA_LEFT | LCA_RIGHT,
@@ -1327,8 +1327,8 @@ public:
     /// @brief return edge id when given the lane ID
     static std::string getEdgeIDFromLane(const std::string laneID);
     /// @}
-    
-    /// @brief all allowed characters for phase state 
+
+    /// @brief all allowed characters for phase state
     static const std::string ALLOWED_TLS_LINKSTATES;
 
 
@@ -1370,8 +1370,8 @@ private:
     /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
     /// @}
-    
-    /// @brief all allowed characters for phase state 
+
+    /// @brief all allowed characters for phase state
     static const char AllowedTLS_linkStatesInitializer[];
 };
 

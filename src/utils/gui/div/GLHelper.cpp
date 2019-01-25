@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -633,17 +633,17 @@ GLHelper::drawText(const std::string& text, const Position& pos,
 
 void
 GLHelper::drawTextSettings(
-            const GUIVisualizationTextSettings& settings,
-            const std::string& text, const Position& pos,
-            const double scale,
-            const double angle,
-            const double layer) {
+    const GUIVisualizationTextSettings& settings,
+    const std::string& text, const Position& pos,
+    const double scale,
+    const double angle,
+    const double layer) {
     drawTextBox(text, pos, layer,
-            settings.scaledSize(scale),
-            settings.color,
-            settings.bgColor,
-            RGBColor::INVISIBLE,
-            angle, 0, 0.2);
+                settings.scaledSize(scale),
+                settings.color,
+                settings.bgColor,
+                RGBColor::INVISIBLE,
+                angle, 0, 0.2);
 }
 
 
@@ -653,28 +653,29 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
                       const double angle,
                       const double relBorder,
-                      const double relMargin)
-{
+                      const double relMargin) {
     if (!initFont()) {
         return;
     };
-    const double boxAngle = 90;
-    const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
-    const double borderWidth = size * relBorder;
-    const double boxHeight = size * (0.32 + 0.6 * relMargin);
-    const double boxWidth = stringWidth + size * relMargin;
-    glPushMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glTranslated(pos.x(), pos.y(), layer);
-    glRotated(-angle, 0, 0, 1);
-    Position left(-boxWidth * 0.5, 0);
-    setColor(borderColor);
-    drawBoxLine(left, boxAngle, boxWidth, boxHeight);
-    left.add(borderWidth * 1.5, 0);
-    setColor(bgColor);
-    glTranslated(0, 0, 0.01);
-    drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
-    glPopMatrix();
+    if (bgColor.alpha() != 0) {
+        const double boxAngle = 90;
+        const double stringWidth = size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
+        const double borderWidth = size * relBorder;
+        const double boxHeight = size * (0.32 + 0.6 * relMargin);
+        const double boxWidth = stringWidth + size * relMargin;
+        glPushMatrix();
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glTranslated(pos.x(), pos.y(), layer);
+        glRotated(-angle, 0, 0, 1);
+        Position left(-boxWidth * 0.5, 0);
+        setColor(borderColor);
+        drawBoxLine(left, boxAngle, boxWidth, boxHeight);
+        left.add(borderWidth * 1.5, 0);
+        setColor(bgColor);
+        glTranslated(0, 0, 0.01);
+        drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
+        glPopMatrix();
+    }
     drawText(text, pos, layer + 0.02, size, txtColor, angle);
 }
 

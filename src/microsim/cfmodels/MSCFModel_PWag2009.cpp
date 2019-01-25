@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -69,11 +69,11 @@ MSCFModel_PWag2009::followSpeed(const MSVehicle* const veh, double speed, double
     const double asafe = SPEED2ACCEL(vsafe - speed);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     double apref = vars->aOld;
-    if (apref <= asafe && RandHelper::rand() <= myActionPointProbability * TS) {
+    if (apref <= asafe && RandHelper::rand(veh->getRNG()) <= myActionPointProbability * TS) {
         apref = myDecelDivTau * (gap + (predSpeed - speed) * myHeadwayTime - speed * myHeadwayTime) / (speed + myTauDecel);
         apref = MIN2(apref, myAccel);
         apref = MAX2(apref, -myDecel);
-        apref += myDawdle * RandHelper::rand((double) - 1., (double)1.);
+        apref += myDawdle * RandHelper::rand((double) - 1., (double)1., veh->getRNG());
     }
     if (apref > asafe) {
         apref = asafe;

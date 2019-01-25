@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -119,18 +119,16 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet& net, const SUMOSAXAttribu
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
     std::string objectid = attrs.get<std::string>(SUMO_ATTR_LANES, id.c_str(), ok);
-    if (!ok) {
-        throw InvalidArgument("The lanes to use within MSLaneSpeedTrigger '" + id + "' are not known.");
-    }
     std::vector<MSLane*> lanes;
-    std::vector<std::string> laneIDs;
-    SUMOSAXAttributes::parseStringVector(objectid, laneIDs);
-    for (std::vector<std::string>::iterator i = laneIDs.begin(); i != laneIDs.end(); ++i) {
-        MSLane* lane = MSLane::dictionary(*i);
+    for (const std::string& laneID : attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, id.c_str(), ok)) {
+        MSLane* lane = MSLane::dictionary(laneID);
         if (lane == nullptr) {
-            throw InvalidArgument("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
+            throw InvalidArgument("The lane '" + laneID + "' to use within MSLaneSpeedTrigger '" + id + "' is not known.");
         }
         lanes.push_back(lane);
+    }
+    if (!ok) {
+        throw InvalidArgument("The lanes to use within MSLaneSpeedTrigger '" + id + "' are not known.");
     }
     if (lanes.size() == 0) {
         throw InvalidArgument("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
@@ -185,7 +183,6 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     //get the name, leave blank if not given
     const std::string ptStopName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
-    // get the lane
     MSLane* lane = getLane(attrs, toString(element), id);
     // get the positions
     double frompos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0);
@@ -194,9 +191,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
-    // get the lines
-    std::vector<std::string> lines;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+    const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
     // build the bus stop
     buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName);
 }
@@ -247,9 +242,7 @@ NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& 
     if (!ok || !myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos)) {
         throw InvalidArgument("Invalid position for parking area '" + id + "'.");
     }
-    // get the lines
-    std::vector<std::string> lines;
-    SUMOSAXAttributes::parseStringVector(attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "", false), lines);
+    const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
     // build the parking area
     beginParkingArea(net, id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad);
 }
@@ -352,19 +345,16 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     }
     // get the file name to read further definitions from
     std::string file = getFileName(attrs, base, true);
-    std::string objectid = attrs.get<std::string>(SUMO_ATTR_EDGES, id.c_str(), ok);
-    if (!ok) {
-        throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
-    }
     MSEdgeVector edges;
-    std::vector<std::string> edgeIDs;
-    SUMOSAXAttributes::parseStringVector(objectid, edgeIDs);
-    for (std::vector<std::string>::iterator i = edgeIDs.begin(); i != edgeIDs.end(); ++i) {
-        MSEdge* edge = MSEdge::dictionary(*i);
+    for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok)) {
+        MSEdge* edge = MSEdge::dictionary(edgeID);
         if (edge == nullptr) {
-            throw InvalidArgument("The edge '" + (*i) + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
+            throw InvalidArgument("The edge '" + edgeID + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
         }
         edges.push_back(edge);
+    }
+    if (!ok) {
+        throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
     }
     if (edges.size() == 0) {
         throw InvalidArgument("No edges found for MSTriggeredRerouter '" + id + "'.");

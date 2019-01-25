@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -38,8 +38,8 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/geom/PositionVector.h>
-#include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -25,16 +25,15 @@
 // ===========================================================================
 #include <config.h>
 
+#include <fx.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/foxtools/MFXMutex.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMORTree;
 class Position;
-class MFXMutex;
 
 
 // ===========================================================================
@@ -138,7 +137,7 @@ public:
 
 private:
     /// @brief The mutex for adding/removing operations
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     /// @brief The RTree structure to add and remove visualization elements
     SUMORTree& myVis;
@@ -152,4 +151,3 @@ private:
 #endif
 
 /****************************************************************************/
-

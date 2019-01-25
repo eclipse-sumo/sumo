@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ from __future__ import print_function
 import os
 import sys
 import codecs
-import copy
 
 from optparse import OptionParser
 from collections import defaultdict
@@ -70,13 +69,13 @@ def cut_trips(aEdges, options, validTaz):
         print("Parsing trips from %s" % routeFile)
         for trip in parse(routeFile, 'trip'):
             num_trips += 1
-            if trip.attr_from is not None and not trip.attr_from in areaEdges:
+            if trip.attr_from is not None and trip.attr_from not in areaEdges:
                 continue
-            if trip.to is not None and not trip.to in areaEdges:
+            if trip.to is not None and trip.to not in areaEdges:
                 continue
-            if trip.fromTaz is not None and not trip.fromTaz in validTaz:
+            if trip.fromTaz is not None and trip.fromTaz not in validTaz:
                 continue
-            if trip.toTaz is not None and not trip.toTaz in validTaz:
+            if trip.toTaz is not None and trip.toTaz not in validTaz:
                 continue
             yield float(trip.depart), trip
             num_returned += 1

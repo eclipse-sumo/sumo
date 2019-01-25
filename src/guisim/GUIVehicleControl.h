@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -26,14 +26,9 @@
 #include <config.h>
 
 #include <vector>
+#include <fx.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class MFXMutex;
 
 
 // ===========================================================================
@@ -127,7 +122,7 @@ public:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 
 private:

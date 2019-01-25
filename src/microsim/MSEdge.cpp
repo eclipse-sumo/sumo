@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -76,10 +76,11 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myWidth(0.),
     myLength(0.),
     myEmptyTraveltime(0.),
+    myTimePenalty(0.),
     myAmDelayed(false),
     myAmRoundabout(false),
     myAmFringe(true),
-    myBidiEdge(nullptr) 
+    myBidiEdge(nullptr)
 { }
 
 
@@ -149,6 +150,12 @@ void MSEdge::recalcCache() {
         if (minPenalty > 0) {
             myEmptyTraveltime += STEPS2TIME(minPenalty);
         }
+    } else if (isInternal()) {
+        const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
+        if (!link->isTLSControlled() && !link->havePriority()) {
+            myEmptyTraveltime += MSGlobals::gMinorPenalty;
+            myTimePenalty = MSGlobals::gMinorPenalty;
+        }
     }
 }
 
@@ -180,6 +187,7 @@ MSEdge::closeBuilding() {
                 }
             }
         }
+        lane->checkBufferType();
     }
     std::sort(mySuccessors.begin(), mySuccessors.end(), by_id_sorter());
     rebuildAllowedLanes();
@@ -232,7 +240,7 @@ MSEdge::allowsLaneChanging() const {
 }
 
 
-void 
+void
 MSEdge::addToAllowed(const SVCPermissions permissions, const std::vector<MSLane*>* allowedLanes, AllowedLanesCont& laneCont) const {
     // recheck whether we had this list to save memory
     if (allowedLanes->empty()) {
@@ -759,6 +767,13 @@ MSEdge::getMeanSpeed() const {
             v += vehNo * (*i)->getMeanSpeed();
             no += vehNo;
         }
+        if (myBidiEdge != nullptr) {
+            for (const MSLane* lane : myBidiEdge->getLanes()) {
+                const double vehNo = (double)lane->getVehicleNumber();
+                v += vehNo * lane->getMeanSpeed();
+                no += vehNo;
+            }
+        }
         if (no == 0) {
             return getSpeedLimit();
         }
@@ -826,7 +841,7 @@ MSEdge::getAllEdges() {
 void
 MSEdge::clear() {
     for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     myDict.clear();
     myEdges.clear();
@@ -1106,7 +1121,7 @@ void MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
             WRITE_ERROR("Bidi-edge '" + bidiID + "' does not exist");
         }
         return;
-    } 
+    }
     if (getFunction() != EDGEFUNC_NORMAL) {
         return;
     }

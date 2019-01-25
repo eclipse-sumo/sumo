@@ -19,7 +19,7 @@ GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -0.10,-
 GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
 GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access0' in GNEChange_Additional
@@ -165,11 +165,12 @@ GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary -
 GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
 GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
+Debug: DemandElements saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
@@ -181,7 +182,7 @@ GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access3'
 GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary -1.17,-21.60,70.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access2'
 GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary -20.00,-18.40,57.00,21.60
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access1'
@@ -478,4 +479,4 @@ Debug: Deleting unreferenced access 'busStop_gneE4_0_0access2' in GNENet destruc
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access3' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 27
+GLDebug: Number of objects in SUMORTree during call of the destructor: 27

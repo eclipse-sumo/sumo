@@ -1,0 +1,16 @@
+Running main() from gtest_main.cc
+[==========] Running 2 tests from 2 test cases.
+[----------] Global test environment set-up.
+[----------] 1 test from NBHeightMapperTest
+[ RUN      ] NBHeightMapperTest.test_method_getZ
+[       OK ] NBHeightMapperTest.test_method_getZ (0 ms)
+[----------] 1 test from NBHeightMapperTest (1 ms total)
+
+[----------] 1 test from NBTrafficLightLogic
+[ RUN      ] NBTrafficLightLogic.test_method_getDuration
+[       OK ] NBTrafficLightLogic.test_method_getDuration (0 ms)
+[----------] 1 test from NBTrafficLightLogic (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 2 test cases ran. (1 ms total)
+[  PASSED  ] 2 tests.

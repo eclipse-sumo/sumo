@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -46,33 +46,34 @@ GNEDetectorE1::~GNEDetectorE1() {
 }
 
 
-bool 
+bool
 GNEDetectorE1::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return fabs(myPositionOverLane) <= myLane->getParentEdge().getNBEdge()->getFinalLength();
     }
 }
 
 
-std::string 
+std::string
 GNEDetectorE1::getAdditionalProblem() const {
-    // declare variable for error position 
+    // declare variable for error position
     std::string errorPosition;
+    const double len = myLane->getParentEdge().getNBEdge()->getFinalLength();
     // check positions over lane
-    if (myPositionOverLane < 0) {
+    if (myPositionOverLane < -len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
     }
-    if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+    if (myPositionOverLane > len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
     }
     return errorPosition;
 }
 
 
-void 
+void
 GNEDetectorE1::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
@@ -90,7 +91,11 @@ GNEDetectorE1::moveGeometry(const Position& offset) {
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
+    const bool storeNegative = myPositionOverLane < 0;
     myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
+    if (storeNegative) {
+        myPositionOverLane -= myLane->getParentEdge().getNBEdge()->getFinalLength();
+    }
     // Update geometry
     updateGeometry(false);
 }
@@ -116,8 +121,7 @@ GNEDetectorE1::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // obtain position over lane
-    double fixedPositionOverLane = myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength() ? myLane->getParentEdge().getNBEdge()->getFinalLength() : myPositionOverLane < 0 ? 0 : myPositionOverLane;
-    myGeometry.shape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor()));
+    myGeometry.shape.push_back(getPositionInView());
 
     // Obtain first position
     Position f = myGeometry.shape[0] - Position(1, 0);
@@ -126,7 +130,7 @@ GNEDetectorE1::updateGeometry(bool updateGrid) {
     Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
+    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
@@ -159,7 +163,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s, this);
 
     // set color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_E1);
@@ -185,7 +189,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // outline if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -203,7 +207,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator if isn't being drawn for selecting
     if ((width * exaggeration > 1) && !s.drawForSelecting) {
         // set color
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(RGBColor::WHITE);
@@ -229,7 +233,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         //move to logo position
         glTranslated(-1, 0, 0);
         // draw E1 logo
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::drawText("E1", Position(), .1, 1.5, s.selectionColor);
         } else {
             GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
@@ -324,7 +328,7 @@ GNEDetectorE1::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_POSITION:
-            return canParse<double>(value);
+            return canParse<double>(value) && fabs(parse<double>(value)) < myLane->getParentEdge().getNBEdge()->getFinalLength();
         case SUMO_ATTR_FREQUENCY:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_NAME:
@@ -398,7 +402,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

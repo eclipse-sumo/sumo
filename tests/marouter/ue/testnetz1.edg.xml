@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+  <edge id="D1" from="910" to="1" type="a"/>
+
+  <edge id="L2" from="1" to="4" type="a"/>
+
+  <edge id="L3" from="2" to="4" type="a"/>
+
+  <edge id="D2" from="920" to="2" type="a"/>
+
+  <edge id="L4" from="4" to="8" type="b"/>
+
+  <edge id="L5" from="4" to="6" type="a"/>
+
+  <edge id="L6" from="5" to="9" type="a"/>
+
+  <edge id="L7" from="6" to="5" type="a"/>
+
+  <edge id="L8" from="6" to="7" type="a"/>
+
+  <edge id="L9" from="7" to="12" type="a"/>
+
+  <edge id="L10" from="9" to="10" type="a"/>
+
+  <edge id="L11" from="9" to="11" type="c"/>
+
+  <edge id="L12" from="8" to="13" type="b"/>
+
+  <edge id="L13" from="10" to="11" type="a"/>
+
+  <edge id="L14" from="12" to="11" type="a"/>
+
+  <edge id="L15" from="11" to="13" type="a"/>
+
+  <edge id="L16" from="13" to="3" type="a"/>
+
+  <edge id="D3" from="3" to="930" type="a"/>
+
+</edges>

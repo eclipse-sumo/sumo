@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -192,16 +192,38 @@ public:
     virtual void updateSafeLatDist(const double travelledLatDist);
 
     const std::pair<int, int>& getSavedState(const int dir) const {
-        return mySavedStates.find(dir)->second;
-    }
-
-    bool hasSavedState(const int dir) const {
-        return mySavedStates.find(dir) != mySavedStates.end();
+        if (dir == -1) {
+            return mySavedStateRight;
+        } else if (dir == 0) {
+            return mySavedStateCenter;
+        } else {
+            return mySavedStateLeft;
+        }
     }
 
     void saveLCState(const int dir, const int stateWithoutTraCI, const int state) {
-        mySavedStates[dir] = std::make_pair(stateWithoutTraCI | myCanceledStates[dir], state);
+        const auto pair = std::make_pair(stateWithoutTraCI | getCanceledState(dir), state);
+        if (dir == -1) {
+            mySavedStateRight = pair;
+        } else if (dir == 0) {
+            mySavedStateCenter = pair;
+        } else {
+            mySavedStateLeft = pair;
+        }
     }
+
+    int& getCanceledState(const int dir) {
+        if (dir == -1) {
+            return myCanceledStateRight;
+        } else if (dir == 0) {
+            return myCanceledStateCenter;
+        } else {
+            return myCanceledStateLeft;
+        }
+    }
+
+    /// @return whether this vehicle is blocked from performing a strategic change
+    bool isStrategicBlocked() const;
 
     void setFollowerGaps(CLeaderDist follower, double secGap);
     void setLeaderGaps(CLeaderDist, double secGap);
@@ -211,9 +233,9 @@ public:
     void setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicles);
 
     virtual void prepareStep() {
-        myCanceledStates[-1] = LCA_NONE;
-        myCanceledStates[0] = LCA_NONE;
-        myCanceledStates[1] = LCA_NONE;
+        getCanceledState(-1) = LCA_NONE;
+        getCanceledState(0) = LCA_NONE;
+        getCanceledState(1) = LCA_NONE;
         saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
         saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
         saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
@@ -499,7 +521,7 @@ public:
     void primaryLaneChanged(MSLane* source, MSLane* target, int direction);
 
     /// @brief called once the vehicle ends a lane change manoeuvre (non-instant)
-    void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction);
+    void laneChangeOutput(const std::string& tag, MSLane* source, MSLane* target, int direction, double maneuverDist = 0);
 
     /// @brief whether the current change completes the manoeuvre
     virtual bool sublaneChangeCompleted(const double latDist) const {
@@ -574,8 +596,12 @@ protected:
     /// @brief lane changing state from step before the previous simulation step
     int myPreviousState2;
 
-    std::map<int, std::pair<int, int> > mySavedStates;
-    std::map<int, int> myCanceledStates;
+    std::pair<int, int> mySavedStateRight;
+    std::pair<int, int> mySavedStateCenter;
+    std::pair<int, int> mySavedStateLeft;
+    int myCanceledStateRight;
+    int myCanceledStateCenter;
+    int myCanceledStateLeft;
 
     /// @brief the current lateral speed
     double mySpeedLat;

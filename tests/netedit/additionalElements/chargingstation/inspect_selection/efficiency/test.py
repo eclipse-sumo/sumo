@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -38,13 +38,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(6, "dummyEfficiency")
+netedit.modifyAttribute(7, "dummyEfficiency")
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(6, "2")
+netedit.modifyAttribute(7, "2")
 
 # set efficiency
-netedit.modifyAttribute(6, "0.5")
+netedit.modifyAttribute(7, "0.5")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/foxtools/MFXEventQue.h>
+#include <utils/foxtools/FXSynchQue.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -65,7 +65,7 @@
 // member method definitions
 // ===========================================================================
 GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
-                             MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
+                             FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
       myEventThrow(ev) {
     myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_ERROR);
@@ -112,7 +112,7 @@ GUILoadThread::run() {
                 myFile = oc.getString("net-file");
                 myLoadNet = true;
             }
-            myEventQue.add(new GUIEvent_Message("Loading '" + myFile + "'."));
+            myEventQue.push_back(new GUIEvent_Message("Loading '" + myFile + "'."));
             myEventThrow.signal();
             myParent->addRecentFile(FXPath::absolute(myFile.c_str()), myLoadNet);
         }
@@ -148,9 +148,7 @@ GUILoadThread::run() {
     }
 
     // initialise global settings
-    RandHelper::initRandGlobal();
-    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
-    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
+    NLBuilder::initRandomness();
     MSFrame::setMSGlobals(oc);
     GUITexturesHelper::allowTextures(!oc.getBool("disable-textures"));
 
@@ -200,6 +198,15 @@ GUILoadThread::run() {
 #ifdef HAVE_OSG
             osgView = oc.getBool("osg-view");
 #endif
+            if (oc.isSet("edgedata-files")) {
+                if (!oc.isUsableFileList("edgedata-files")) {
+                    WRITE_ERROR("Could not load edgedata-files '" + oc.getString("edgedata-files") + "'");
+                } else {
+                    for (const std::string& file : oc.getStringVector("edgedata-files")) {
+                        net->loadEdgeData(file);
+                    }
+                }
+            }
         }
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
@@ -220,7 +227,7 @@ GUILoadThread::run() {
     }
     delete eb;
     submitEndAndCleanup(net, simStartTime, simEndTime, guiSettingsFiles, osgView,
-            oc.getBool("registry-viewport"));
+                        oc.getBool("registry-viewport"));
     return 0;
 }
 
@@ -238,7 +245,7 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
     GUIEvent* e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myTitle, guiSettingsFiles, osgView, viewportFromRegistry);
-    myEventQue.add(e);
+    myEventQue.push_back(e);
     myEventThrow.signal();
 }
 
@@ -257,7 +264,7 @@ GUILoadThread::loadConfigOrNet(const std::string& file, bool isNet) {
 void
 GUILoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
     GUIEvent* e = new GUIEvent_Message(type, msg);
-    myEventQue.add(e);
+    myEventQue.push_back(e);
     myEventThrow.signal();
 }
 

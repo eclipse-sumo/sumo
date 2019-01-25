@@ -18,6 +18,6 @@ Reading edgeData
 A 0 3000.0 -1.0
 # interval 240
 # avgRouteFlow avgDetFlow avgDev RMSE RMSPE
-# 0 3000.0 3000.0 3000.0 1.0
+# 0.0 3000.0 3000.0 3000.0 1.0
 Reading flows
 Reading edgeData

@@ -1,7 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_15Sep104544.2876/netedit.gui/selection/select_load_selection\selection.txt
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: 'reference.png' found. Position: 304 - 168
+C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.22Jan162028.1316/netedit.gui/selection/operations/load\selection.txt
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

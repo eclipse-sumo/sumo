@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -31,12 +31,16 @@
 #include "MSRouteHandler.h"
 #include <microsim/devices/MSVehicleDevice.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/router/IntermodalRouter.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXConditionalLock.h>
+#endif
 
 
 // ===========================================================================
@@ -60,7 +64,8 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
-    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)) {
+    myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
+    myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
@@ -77,12 +82,12 @@ MSVehicleControl::MSVehicleControl() :
 MSVehicleControl::~MSVehicleControl() {
     // delete vehicles
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     myVehicleDict.clear();
     // delete vehicle type distributions
     for (VTypeDistDictType::iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
     myVTypeDistDict.clear();
     // delete vehicle types
@@ -91,6 +96,7 @@ MSVehicleControl::~MSVehicleControl() {
     }
     myVTypeDict.clear();
 }
+
 
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
@@ -107,17 +113,29 @@ MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 void
 MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
     assert(myRunningVehNo > 0);
-    myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
-    myRunningVehNo--;
-    MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
-    for (MSVehicleDevice* const dev : veh->getDevices()) {
-        dev->generateOutput();
+    myPendingRemovals.push_back(veh);
+}
+
+
+void
+MSVehicleControl::removePending() {
+    std::vector<SUMOVehicle*>& vehs = myPendingRemovals.getContainer();
+    std::sort(vehs.begin(), vehs.end(), ComparatorNumericalIdLess());
+    for (SUMOVehicle* const veh : vehs) {
+        myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
+        myRunningVehNo--;
+        MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
+        for (MSVehicleDevice* const dev : veh->getDevices()) {
+            dev->generateOutput();
+        }
+        if (OptionsCont::getOptions().isSet("tripinfo-output")) {
+            // close tag after tripinfo (possibly including emissions from another device) have been written
+            OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
+        }
+        deleteVehicle(veh);
     }
-    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        // close tag after tripinfo (possibly including emissions from another device) have been written
-        OutputDevice::getDeviceByOption("tripinfo-output").closeTag();
-    }
-    deleteVehicle(veh);
+    vehs.clear();
+    myPendingRemovals.unlock();
 }
 
 
@@ -211,6 +229,10 @@ MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
     }
     if (veh != nullptr) {
         myVehicleDict.erase(veh->getID());
+    }
+    auto ptVehIt = std::find(myPTVehicles.begin(), myPTVehicles.end(), veh);
+    if (ptVehIt != myPTVehicles.end()) {
+        myPTVehicles.erase(ptVehIt);
     }
     delete veh;
 }

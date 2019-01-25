@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -225,8 +225,8 @@ private:
                               const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
 
     /// @brief whether the given connections must be checked for lane conflicts due to disjunct target lanes
-    bool checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connection& con, 
-            const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
+    bool checkLaneFoesByCooperation(const NBEdge* from, const NBEdge::Connection& con,
+                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon) const;
 
     /** @brief return whether the given laneToLane connections prohibit each other
      * under the assumption that the edge2edge connections are in conflict

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -200,7 +200,7 @@ NBTrafficLightDefinition::collectEdges() {
     for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end(); ++j) {
         NBEdge* edge = *j;
         // an edge lies within the logic if it is outgoing as well as incoming
-        EdgeVector::iterator k = find(myOutgoing.begin(), myOutgoing.end(), edge);
+        EdgeVector::iterator k = std::find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
             myEdgesWithin.push_back(edge);
         } else  {
@@ -525,7 +525,7 @@ NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
     return std::find(myRightOnRedConflicts.begin(), myRightOnRedConflicts.end(), std::make_pair(index, foeIndex)) != myRightOnRedConflicts.end();
 }
 
-std::string 
+std::string
 NBTrafficLightDefinition::getDescription() const {
     return getID() + ':' + getProgramID() + '@' + toString(this);
 }

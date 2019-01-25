@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -87,8 +87,6 @@ GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        // delete additional of test
-        myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
         for (auto i : myLaneParents) {
             i->removeAdditionalChild(myAdditional);
@@ -113,10 +111,12 @@ GNEChange_Additional::undo() {
         for (auto i : myLaneChilds) {
             i->removeAdditionalParent(myAdditional);
         }
+        // delete additional from net
+        myNet->deleteAdditional(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        // insert additional of test
+        // insert additional into net
         myNet->insertAdditional(myAdditional);
         // 1 - If additional own a Lane parent, add it to lane
         for (auto i : myLaneParents) {
@@ -186,8 +186,6 @@ GNEChange_Additional::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        // delete additional of test
-        myNet->deleteAdditional(myAdditional);
         // 1 - If additional own a lane parent, remove it from lane
         for (auto i : myLaneParents) {
             i->removeAdditionalChild(myAdditional);
@@ -212,6 +210,8 @@ GNEChange_Additional::redo() {
         for (auto i : myLaneChilds) {
             i->removeAdditionalParent(myAdditional);
         }
+        // remove additional of test
+        myNet->deleteAdditional(myAdditional);
     }
     // Requiere always save additionals
     myNet->requiereSaveAdditionals(true);

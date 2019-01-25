@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -81,8 +81,8 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vType
 
 
 if len(sys.argv) < 8:
-    print(
-        "Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> <opposite{0,1}> <vTypes> <vClasses>")
+    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> " +
+          "<opposite{0,1}> <vTypes> <vClasses>")
     sys.exit("")
 sys.stdout.flush()
 opposite = bool(int(sys.argv[5]))

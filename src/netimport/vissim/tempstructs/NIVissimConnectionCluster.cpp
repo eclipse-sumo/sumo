@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -150,7 +150,7 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
         myIncomingEdges.push_back(c->getFromEdgeID());
         assert(find(edges.begin(), edges.end(), c->getFromEdgeID()) != edges.end()
                ||
-               find(edges.begin(), edges.end(), c->getToEdgeID()) != edges.end());
+               std::find(edges.begin(), edges.end(), c->getToEdgeID()) != edges.end());
     }
     VectorHelper<int>::removeDouble(myIncomingEdges);
     VectorHelper<int>::removeDouble(myOutgoingEdges);
@@ -547,7 +547,7 @@ NIVissimConnectionCluster::removeConnections(const NodeSubCluster& c) {
     for (NodeSubCluster::ConnectionCont::const_iterator i = c.myConnections.begin(); i != c.myConnections.end(); i++) {
         NIVissimConnection* conn = *i;
         int connid = conn->getID();
-        std::vector<int>::iterator j = find(myConnections.begin(), myConnections.end(), connid);
+        std::vector<int>::iterator j = std::find(myConnections.begin(), myConnections.end(), connid);
         if (j != myConnections.end()) {
             myConnections.erase(j);
         }
@@ -672,7 +672,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
     // !!!
     assert(myBoundary.xmin() <= myBoundary.xmax());
     NIVissimEdge* edge = NIVissimEdge::dictionary(edgeid);
-    std::vector<int>::const_iterator i = find(myEdges.begin(), myEdges.end(), edgeid);
+    std::vector<int>::const_iterator i = std::find(myEdges.begin(), myEdges.end(), edgeid);
     if (i == myEdges.end()) {
         // edge does not exist!?
         throw 1;
@@ -688,7 +688,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
 void
 NIVissimConnectionCluster::clearDict() {
     for (ContType::iterator i = myClusters.begin(); i != myClusters.end(); i++) {
-        delete(*i);
+        delete (*i);
     }
     myClusters.clear();
     myFirstFreeID = 100000;

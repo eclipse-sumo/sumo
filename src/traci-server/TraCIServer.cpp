@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@
 #include <foreign/tcpip/socket.h>
 #include <foreign/tcpip/storage.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/vehicle/DijkstraRouter.h>
+#include <utils/router/DijkstraRouter.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/MsgHandler.h>
@@ -90,6 +90,7 @@
 //#define DEBUG_MULTI_CLIENTS
 //#define DEBUG_SUBSCRIPTIONS
 //#define DEBUG_SUBSCRIPTION_FILTERS
+//#define DEBUG_RAW_INPUT
 
 
 // ===========================================================================
@@ -233,6 +234,9 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
         try {
             WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
             myServerSocket = new tcpip::Socket(port);
+            if (numClients > 1) {
+                WRITE_MESSAGE("  waiting for " + toString(numClients) + " clients...");
+            }
             while ((int)mySockets.size() < numClients) {
                 int index = (int)mySockets.size() + MAX_ORDER + 1;
                 mySockets[index] = new SocketInfo(myServerSocket->accept(true), begin);
@@ -248,6 +252,9 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
                 mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
                 mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_COLLISION] = std::vector<std::string>();
                 mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_EMERGENCYSTOP] = std::vector<std::string>();
+                if (numClients > 1) {
+                    WRITE_MESSAGE("  client connected");
+                }
             }
             // When got here, all clients have connected
             if (numClients > 1) {
@@ -278,7 +285,7 @@ TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
 #ifdef HAVE_PYTHON
             || OptionsCont::getOptions().isSet("python-script")
 #endif
-                                                   )) {
+                                                         )) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
                                      OptionsCont::getOptions().getInt("remote-port"),
                                      OptionsCont::getOptions().getInt("num-clients"));
@@ -368,7 +375,9 @@ TraCIServer::checkClientOrdering() {
                 tcpip::Storage tmp;
                 tmp.writeStorage(myInputStorage);
                 myInputStorage.reset();
-                myInputStorage.writeUnsignedByte(commandLength);
+                // we don't know whether the command was set with extended
+                // length syntax or not so we hardcode the length here (#5037)
+                myInputStorage.writeUnsignedByte(commandId == CMD_SETORDER ? 6 : 2);
                 myInputStorage.writeUnsignedByte(commandId);
                 myInputStorage.writeStorage(tmp);
 
@@ -776,6 +785,13 @@ TraCIServer::readCommandID(int& commandStart, int& commandLength) {
     if (commandLength == 0) {
         commandLength = myInputStorage.readInt();
     }
+#ifdef DEBUG_RAW_INPUT
+    std::cout << " commandStart=" << commandStart << " commandLength=" << commandLength << " pos=" << myInputStorage.position() << " raw=";
+    for (auto it = myInputStorage.begin(); it != myInputStorage.end(); ++it) {
+        std::cout << (int)*it << " ";
+    }
+    std::cout << "\n";
+#endif
     return myInputStorage.readUnsignedByte();
 }
 
@@ -932,7 +948,7 @@ TraCIServer::dispatchCommand() {
     }
     if ((int)myInputStorage.position() != commandStart + commandLength) {
         std::ostringstream msg;
-        msg << "Wrong position in requestMessage after dispatching command.";
+        msg << "Wrong position in requestMessage after dispatching command " << commandId << ".";
         msg << " Expected command length was " << commandLength;
         msg << " but " << myInputStorage.position() - commandStart << " Bytes were read.";
         writeStatusCmd(commandId, RTYPE_ERR, msg.str());
@@ -1340,7 +1356,7 @@ TraCIServer::addSubscriptionFilter() {
             // Read relative lanes to consider for context filter
             addSubscriptionFilterLeadFollow();
         }
-            break;
+        break;
         case FILTER_TYPE_TURN:
             addSubscriptionFilterTurn();
             break;
@@ -1461,7 +1477,7 @@ TraCIServer::writeResponseWithLength(tcpip::Storage& outputStorage, tcpip::Stora
 }
 
 
-void 
+void
 TraCIServer::writePositionVector(tcpip::Storage& outputStorage, const libsumo::TraCIPositionVector& shape) {
     outputStorage.writeUnsignedByte(TYPE_POLYGON);
     if (shape.size() < 256) {

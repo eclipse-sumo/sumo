@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -147,7 +147,7 @@ double
 MSInductLoop::getCurrentSpeed() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return d.size() != 0
-           ? accumulate(d.begin(), d.end(), (double) 0.0, speedSum) / (double) d.size()
+           ? std::accumulate(d.begin(), d.end(), (double) 0.0, speedSum) / (double) d.size()
            : -1;
 }
 
@@ -156,7 +156,7 @@ double
 MSInductLoop::getCurrentLength() const {
     std::vector<VehicleData> d = collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T);
     return d.size() != 0
-           ? accumulate(d.begin(), d.end(), (double) 0.0, lengthSum) / (double) d.size()
+           ? std::accumulate(d.begin(), d.end(), (double) 0.0, lengthSum) / (double) d.size()
            : -1;
 }
 

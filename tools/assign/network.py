@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -21,14 +21,12 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import sys
 import datetime
 import operator
 from xml.sax import handler
 from elements import Predecessor, Vertex, Edge, Path, TLJunction, Signalphase
 from dijkstra import dijkstraPlain, dijkstraBoost, dijkstra
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import sumolib.net  # noqa
+import sumolib
 
 # Net class stores the network (vertex and edge collection).
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times

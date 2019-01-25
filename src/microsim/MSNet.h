@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
 
@@ -742,6 +742,9 @@ protected:
 
     /// @brief the network version
     double myVersion;
+
+    /// @brief end of loaded edgeData
+    SUMOTime myEdgeDataEndTime;
 
     /// @brief Dictionary of bus / container stops
     std::map<SumoXMLTag, NamedObjectCont<MSStoppingPlace*> > myStoppingPlaces;

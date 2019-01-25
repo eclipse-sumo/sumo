@@ -10,20 +10,15 @@ Debug: Adding poiLane 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 27.00,-1.40,33.00,4.60
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting generic parameter 'key1|value1' into shape.
-Error: Attribute 'key' is missing in definition of a param.
-Debug: Inserting generic parameter '$$key with spaces%%|value3' into shape.
 Debug: Inserting generic parameter 'key1|value4' into shape.
 Debug: Inserting generic parameter 'key2|' into shape.
-Debug: Inserting generic parameter 'key3|$$value with spaces%%' into shape.
 Debug: Inserting generic parameter 'key4|value5' into shape.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Loading of shapes failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
-Debug: Shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
@@ -63,4 +58,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

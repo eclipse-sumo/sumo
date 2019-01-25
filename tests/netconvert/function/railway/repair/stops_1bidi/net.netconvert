@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:59 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 13:22:51 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,10 +60,10 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":11_0" function="internal">
         <lane id=":11_0_0" index="0" allow="rail_urban" speed="27.78" length="0.38" shape="-0.81,-176.21 -0.70,-176.21 -0.62,-176.22 -0.54,-176.23 -0.43,-176.25"/>
     </edge>
-    <edge id=":2_0" function="internal">
+    <edge id=":2_0" function="internal" bidi=":2_1">
         <lane id=":2_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
     </edge>
-    <edge id=":2_1" function="internal">
+    <edge id=":2_1" function="internal" bidi=":2_0">
         <lane id=":2_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
     </edge>
     <edge id=":3_0" function="internal">
@@ -81,10 +81,10 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":8_1" function="internal">
         <lane id=":8_1_0" index="0" allow="rail_urban" speed="27.78" length="2.60" shape="98.27,-199.59 99.02,-199.78 99.54,-199.91 100.06,-199.98 100.83,-200.00"/>
     </edge>
-    <edge id=":9_0" function="internal">
+    <edge id=":9_0" function="internal" bidi=":9_1">
         <lane id=":9_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
-    <edge id=":9_1" function="internal">
+    <edge id=":9_1" function="internal" bidi=":9_0">
         <lane id=":9_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
 

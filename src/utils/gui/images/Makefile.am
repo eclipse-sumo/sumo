@@ -91,12 +91,14 @@ modeprohibition.xpm \
 modeselect.xpm \
 modetaz.xpm \
 modetrafficlight.xpm \
+moderoute.xpm \
 netedit_icon16.xpm \
 netedit_icon64.xpm \
 neteditarrowleft.xpm \
 neteditarrowright.xpm \
 netopen.xpm \
 new_window.xpm \
+new_window_3d.xpm \
 no.xpm \
 open_bmp_dialog.xpm \
 opening.xpm \
@@ -182,6 +184,8 @@ yellow_person.xpm \
 yellow_vehicle.xpm \
 yes.xpm \
 zoomstyle.xpm \
+supermodedemand.xpm \
+supermodenetwork.xpm \
 GNETexture_Rerouter.cpp GNETexture_RerouterSelected.cpp \
 GNETexture_RouteProbe.cpp GNETexture_RouteProbeSelected.cpp \
 GNETexture_VariableSpeedSign.cpp GNETexture_VariableSpeedSignSelected.cpp \

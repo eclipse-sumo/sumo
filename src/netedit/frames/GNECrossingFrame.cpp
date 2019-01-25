@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -66,7 +66,7 @@ FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       FXGroupBox,     CreateCrossi
 // GNECrossingFrame::CurrentJunction - methods
 // ---------------------------------------------------------------------------
 
-GNECrossingFrame::CurrentJunction::CurrentJunction(GNECrossingFrame* crossingFrameParent) : 
+GNECrossingFrame::CurrentJunction::CurrentJunction(GNECrossingFrame* crossingFrameParent) :
     FXGroupBox(crossingFrameParent->myContentFrame, "Junction", GUIDesignGroupBoxFrame) {
     // create junction label
     myCurrentJunctionLabel = new FXLabel(this, "No junction selected", 0, GUIDesignLabelLeft);
@@ -76,9 +76,9 @@ GNECrossingFrame::CurrentJunction::CurrentJunction(GNECrossingFrame* crossingFra
 GNECrossingFrame::CurrentJunction::~CurrentJunction() {}
 
 
-void 
-GNECrossingFrame::CurrentJunction::updateCurrentJunctionLabel(const std::string &junctionID) {
-    if(junctionID.empty()) {
+void
+GNECrossingFrame::CurrentJunction::updateCurrentJunctionLabel(const std::string& junctionID) {
+    if (junctionID.empty()) {
         myCurrentJunctionLabel->setText("No junction selected");
     } else {
         myCurrentJunctionLabel->setText((std::string("Current Junction: ") + junctionID).c_str());
@@ -451,7 +451,7 @@ GNECrossingFrame::CrossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 // GNECrossingFrame::CreateCrossing - methods
 // ---------------------------------------------------------------------------
 
-GNECrossingFrame::CreateCrossing::CreateCrossing(GNECrossingFrame* crossingFrameParent) : 
+GNECrossingFrame::CreateCrossing::CreateCrossing(GNECrossingFrame* crossingFrameParent) :
     FXGroupBox(crossingFrameParent->myContentFrame, "Create", GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent) {
     // Create groupbox for create crossings
@@ -471,12 +471,12 @@ GNECrossingFrame::CreateCrossing::onCmdCreateCrossing(FXObject*, FXSelector, voi
         if (myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getNBNode()->checkCrossingDuplicated(myCrossingFrameParent->myCrossingParameters->getCrossingEdges()) == false) {
             // create new crossing
             myCrossingFrameParent->myViewNet->getUndoList()->add(new GNEChange_Crossing(myCrossingFrameParent->myEdgeSelector->getCurrentJunction(),
-                                          myCrossingFrameParent->myCrossingParameters->getCrossingEdges(),
-                                          myCrossingFrameParent->myCrossingParameters->getCrossingWidth(),
-                                          myCrossingFrameParent->myCrossingParameters->getCrossingPriority(),
-                                          -1, -1,
-                                          PositionVector::EMPTY,
-                                          false, true), true);
+                    myCrossingFrameParent->myCrossingParameters->getCrossingEdges(),
+                    myCrossingFrameParent->myCrossingParameters->getCrossingWidth(),
+                    myCrossingFrameParent->myCrossingParameters->getCrossingPriority(),
+                    -1, -1,
+                    PositionVector::EMPTY,
+                    false, true), true);
             // clear selected edges
             myCrossingFrameParent->myEdgeSelector->onCmdClearSelection(0, 0, 0);
         } else {
@@ -515,10 +515,10 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myCreateCrossing = new CreateCrossing(this);
 
     // Create groupbox and labels for legends
-    FXGroupBox *groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
-    FXLabel *colorCandidateLabel = new FXLabel(groupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
+    FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
+    FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(getEdgeCandidateColor()));
-    FXLabel *colorSelectedLabel = new FXLabel(groupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
+    FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
     colorSelectedLabel->setBackColor(MFXUtils::getFXColor(getEdgeCandidateSelectedColor()));
 
     // disable edge selector
@@ -540,7 +540,7 @@ GNECrossingFrame::hide() {
 
 
 void
-GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor) {
+GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
     // If current element is a junction
     if (objectsUnderCursor.getJunctionFront()) {
         // change label
@@ -566,11 +566,11 @@ GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor &objectsUnder
 }
 
 
-void 
+void
 GNECrossingFrame::createCrossingHotkey() {
     if (myEdgeSelector->getCurrentJunction()) {
         // simply call onCmdCreateCrossing of CreateCrossing modul
-        myCreateCrossing->onCmdCreateCrossing(0,0,0);
+        myCreateCrossing->onCmdCreateCrossing(0, 0, 0);
     }
 }
 

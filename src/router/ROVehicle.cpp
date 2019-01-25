@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -24,19 +24,20 @@
 // ===========================================================================
 #include <config.h>
 
+#include <string>
+#include <iostream>
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <string>
-#include <iostream>
 #include "RORouteDef.h"
-#include "ROVehicle.h"
 #include "RORoute.h"
 #include "ROHelper.h"
 #include "RONet.h"
+#include "ROLane.h"
+#include "ROVehicle.h"
 
 
 // ===========================================================================
@@ -201,11 +202,35 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
         getType()->saved = asAlternatives;
     }
 
+    const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
     // write the vehicle (new style, with included routes)
-    getParameter().write(os, options);
+    getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
 
     // save the route
-    myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
+    if (writeTrip) {
+        const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();
+        if (edges.size() > 0) {
+            if (edges.front()->isTazConnector()) {
+                if (edges.size() > 1) {
+                    os.writeAttr(SUMO_ATTR_FROM, edges[1]->getID());
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_FROM, edges[0]->getID());
+            }
+            if (edges.back()->isTazConnector()) {
+                if (edges.size() > 1) {
+                    os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 2]->getID());
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 1]->getID());
+            }
+        }
+        if (getParameter().via.size() > 0) {
+            os.writeAttr(SUMO_ATTR_VIA, getParameter().via);
+        }
+    } else {
+        myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));
+    }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
         stop->write(os);
     }

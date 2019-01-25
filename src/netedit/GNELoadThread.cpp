@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXEventQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev) :
+GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev) :
     FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
     myEventThrow(ev) {
     myDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MT_DEBUG);
@@ -189,7 +189,7 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& guiSettingsFi
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
     GUIEvent* e = new GNEEvent_NetworkLoaded(net, myFile, guiSettingsFile, viewportFromRegistry);
-    myEventQue.add(e);
+    myEventQue.push_back(e);
     myEventThrow.signal();
 }
 
@@ -221,17 +221,19 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
-    oc.doRegister("sumo-additionals-file", 'a', new Option_String());
-    oc.addDescription("sumo-additionals-file", "Netedit", "file in which additionals are loaded");
+    oc.doRegister("additional-files", 'a', new Option_FileName());
+    oc.addSynonyme("additional-files", "additional");
+    oc.addDescription("additional-files", "Netedit", "Load additional and shapes descriptions from FILE(s)");
 
     oc.doRegister("additionals-output", new Option_String());
     oc.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
 
-    oc.doRegister("sumo-shapes-file", new Option_String());
-    oc.addDescription("sumo-shapes-file", "Netedit", "file in which shapes are loaded");
+    oc.doRegister("route-files", 'r', new Option_FileName());
+    oc.addSynonyme("route-files", "routes");
+    oc.addDescription("route-files", "Netedit", "Load demand elements descriptions from FILE(s)");
 
-    oc.doRegister("shapes-output", new Option_String());
-    oc.addDescription("shapes-output", "Netedit", "file in which shapes must be saved");
+    oc.doRegister("demandelements-output", new Option_String());
+    oc.addDescription("demandelements-output", "Netedit", "file in which demand elements must be saved");
 
     oc.doRegister("TLSPrograms-output", new Option_String());
     oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
@@ -329,9 +331,9 @@ GNELoadThread::loadConfigOrNet(const std::string& file, bool isNet, bool useStar
 void
 GNELoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
     GUIEvent* e = new GUIEvent_Message(type, msg);
-    myEventQue.add(e);
+    myEventQue.push_back(e);
     myEventThrow.signal();
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

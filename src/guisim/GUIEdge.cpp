@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -28,11 +28,11 @@
 #include <cmath>
 #include <string>
 #include <algorithm>
+#include <fx.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/foxtools/MFXMutex.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -231,16 +231,24 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == EDGEFUNC_INTERNAL;
     const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA);
     const bool drawStreetName = s.streetName.show && myStreetName != "";
-    const bool drawEdgeValue = s.edgeValue.show && (myFunction == EDGEFUNC_NORMAL 
-            || (myFunction == EDGEFUNC_INTERNAL && !s.drawJunctionShape)
-            || ((myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA) && s.drawCrossingsAndWalkingareas));
+    const bool drawEdgeValue = s.edgeValue.show && (myFunction == EDGEFUNC_NORMAL
+                               || (myFunction == EDGEFUNC_INTERNAL && !s.drawJunctionShape)
+                               || ((myFunction == EDGEFUNC_CROSSING || myFunction == EDGEFUNC_WALKINGAREA) && s.drawCrossingsAndWalkingareas));
     if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
         if (lane1 != nullptr && lane2 != nullptr) {
+            const bool spreadSuperposed = s.spreadSuperposed && getBidiEdge() != nullptr && lane2->drawAsRailway(s);
             Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
             p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
             p.mul(.5);
+            if (spreadSuperposed) {
+                // move name to the right of the edge and towards its beginning
+                const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
+                const double shiftA = lane1->getShape().rotationAtOffset(lane1->getShape().length() / (double) 2.) - DEG2RAD(135);
+                Position shift(dist * cos(shiftA), dist * sin(shiftA));
+                p.add(shift);
+            }
             double angle = s.getTextAngle(lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.) + 90);
             if (drawEdgeName) {
                 drawName(p, s.scale, s.edgeName, angle);
@@ -255,15 +263,15 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             if (drawEdgeValue) {
                 const int activeScheme = s.getLaneEdgeMode();
                 // use value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
-                double value = (MSGlobals::gUseMesoSim 
-                    ? getColorValue(s, activeScheme)
-                    : lane2->getColorValue(s, activeScheme));
+                double value = (MSGlobals::gUseMesoSim
+                                ? getColorValue(s, activeScheme)
+                                : lane2->getColorValue(s, activeScheme));
                 GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
             }
         }
     }
     if (s.scale * s.personSize.getExaggeration(s, nullptr) > s.personSize.minSize) {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         for (std::set<MSTransportable*>::const_iterator i = myPersons.begin(); i != myPersons.end(); ++i) {
             GUIPerson* person = dynamic_cast<GUIPerson*>(*i);
             assert(person != 0);
@@ -271,7 +279,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     if (s.scale * s.containerSize.getExaggeration(s, nullptr) > s.containerSize.minSize) {
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         for (std::set<MSTransportable*>::const_iterator i = myContainers.begin(); i != myContainers.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
             assert(container != 0);
@@ -287,7 +295,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     if (vehicleControl != nullptr) {
         // draw the meso vehicles
         vehicleControl->secureVehicles();
-        AbstractMutex::ScopedLocker locker(myLock);
+        FXMutexLock locker(myLock);
         int laneIndex = 0;
         MESegment::Queue queue;
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
@@ -402,13 +410,13 @@ GUIEdge::setFunctionalColor(const GUIColorer& c) const {
     const int activeScheme = c.getActive();
     int activeMicroScheme = -1;
     switch (activeScheme) {
-        case 0: 
+        case 0:
             activeMicroScheme = 0; // color uniform
             break;
-        case 9: 
+        case 9:
             activeMicroScheme = 18; // color by angle
             break;
-        case 17: 
+        case 17:
             activeMicroScheme = 30; // color by TAZ
             break;
         default:

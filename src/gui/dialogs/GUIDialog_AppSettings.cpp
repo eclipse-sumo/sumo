@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -67,7 +67,7 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     b = new FXCheckButton(f1, "Locate elements when clicking on messages", this, MID_LOCATELINKS);
     b->setCheck(myLocateLinks);
     new FXHorizontalSeparator(f1, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
-    b = new FXCheckButton(f1, "Allow Textures", this , MID_ALLOWTEXTURES);
+    b = new FXCheckButton(f1, "Allow Textures", this, MID_ALLOWTEXTURES);
     b->setCheck(myAllowTextures);
     FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
     FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);

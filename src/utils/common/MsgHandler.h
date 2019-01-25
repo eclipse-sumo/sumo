@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -33,7 +33,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class AbstractMutex;
 class OutputDevice;
 
 
@@ -62,6 +61,15 @@ public:
         /// The message is an debug
         MT_GLDEBUG
     };
+
+private:
+    typedef MsgHandler* (*Factory)(MsgType);
+
+public:
+    /// @brief Sets the factory function to use for new MsgHandlers
+    static void setFactory(Factory func) {
+        myFactory = func;
+    }
 
     /// @brief Returns the instance to add normal messages to
     static MsgHandler* getMessageInstance();
@@ -104,7 +112,7 @@ public:
     static void cleanupOnEnd();
 
     /// @brief adds a new error to the list
-    void inform(std::string msg, bool addType = true);
+    virtual void inform(std::string msg, bool addType = true);
 
     /** @brief Begins a process information
      *
@@ -113,28 +121,25 @@ public:
      *  a process message has been begun. If an error occurs, a newline will be printed.
      * After the action has been performed, use endProcessMsg to inform the user about it.
      */
-    void beginProcessMsg(std::string msg, bool addType = true);
+    virtual void beginProcessMsg(std::string msg, bool addType = true);
 
     /// @brief Ends a process information
-    void endProcessMsg(std::string msg);
+    virtual void endProcessMsg(std::string msg);
 
     /// @brief Clears information whether an error occurred previously
-    void clear();
+    virtual void clear();
 
     /// @brief Adds a further retriever to the instance responsible for a certain msg type
-    void addRetriever(OutputDevice* retriever);
+    virtual void addRetriever(OutputDevice* retriever);
 
     /// @brief Removes the retriever from the handler
-    void removeRetriever(OutputDevice* retriever);
+    virtual void removeRetriever(OutputDevice* retriever);
 
     /// @brief Returns whether the given output device retrieves messages from the handler
     bool isRetriever(OutputDevice* retriever) const;
 
     /// @brief Returns the information whether any messages were added
     bool wasInformed() const;
-
-    /// @brief Sets the lock to use The lock will not be deleted
-    static void assignLock(AbstractMutex* lock);
 
     /** @brief Generic output operator
      * @return The MsgHandler for further processing
@@ -175,12 +180,15 @@ protected:
     }
 
 
-private:
     /// @brief standard constructor
     MsgHandler(MsgType type);
 
     /// @brief destructor
-    ~MsgHandler();
+    virtual ~MsgHandler();
+
+private:
+    /// @brief The function to call for new MsgHandlers, nullptr means use default constructor
+    static Factory myFactory;
 
     /// @brief The instance to handle debug
     static MsgHandler* myDebugInstance;
@@ -200,9 +208,6 @@ private:
     /// @brief Information whether a process information is printed to cout
     static bool myAmProcessingProcess;
 
-    /// @brief The lock if any has to be used. The lock will not be deleted
-    static AbstractMutex* myLock;
-
 private:
     /// @brief The type of the instance
     MsgType myType;
@@ -210,11 +215,8 @@ private:
     /// @brief information wehther an error occurred at all
     bool myWasInformed;
 
-    /// @brief Definition of the list of retrievers to inform
-    typedef std::vector<OutputDevice*> RetrieverVector;
-
     /// @brief The list of retrievers that shall be informed about new messages or errors
-    RetrieverVector myRetrievers;
+    std::vector<OutputDevice*> myRetrievers;
 
 private:
     /// @brief invalid copy constructor
@@ -230,9 +232,6 @@ private:
     static bool myWriteDebugMessages;
     static bool myWriteDebugGLMessages;
 };
-
-
-
 
 
 // ===========================================================================
@@ -251,4 +250,3 @@ private:
 #endif
 
 /****************************************************************************/
-

@@ -61,6 +61,7 @@ netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
 ./netwrite/libnetwrite.a \
 ./netbuild/libnetbuild.a \
+./utils/shapes/libshapes.a \
 ./foreign/eulerspiral/libeulerspiral.a \
 $(COMMON_LIBS) \
 $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
@@ -103,4 +104,4 @@ $(VERSION_H): ../.git
 	../tools/build/version.py $(CURDIR)
 endif
 
-EXTRA_DIST = config.h config.h.in $(VERSION_H) sumo-gui.rc
+EXTRA_DIST = config.h.in $(VERSION_H) sumo-gui.rc

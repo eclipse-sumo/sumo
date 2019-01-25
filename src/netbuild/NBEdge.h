@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -684,7 +684,7 @@ public:
      *  but may differ in actual geomtric length.
      * @note Depends on previous call to NBNodeCont::computeNodeShapes
      */
-    void computeEdgeShape(double smoothElevationThreshold=-1);
+    void computeEdgeShape(double smoothElevationThreshold = -1);
 
     /** @brief Returns the shape of the nth lane
      * @return The shape of the lane given by its index (counter from right)
@@ -1407,9 +1407,6 @@ private:
     /// @brief recomputes the edge priorities and manipulates them for a distribution of lanes on edges which is more like in real-life
     std::vector<int>* prepareEdgePriorities(const EdgeVector* outgoing);
 
-    /// @brief computes the sum of the given list's entries (sic!)
-    static int computePrioritySum(const std::vector<int>& priorities);
-
     /// @name Setting and getting connections
     /// @{
     /** @briefmoves a connection one place to the left;
@@ -1521,16 +1518,6 @@ private:
     /// @brief Information whether this edge is a (macroscopic) connector
     bool myAmMacroscopicConnector;
 
-    /// @brief TLS Disabled Connections
-    struct TLSDisabledConnection {
-        int fromLane;
-        NBEdge* to;
-        int toLane;
-    };
-
-    /// @brief vector with the disabled connections
-    std::vector<TLSDisabledConnection> myTLSDisabledConnections;
-
     /// @brief The street name (or whatever arbitrary string you wish to attach)
     std::string myStreetName;
 
@@ -1557,35 +1544,6 @@ private:
     mutable NBConstEdgePairVector myViaSuccessors;
 
 public:
-    /// @class tls_disable_finder
-    class tls_disable_finder {
-    public:
-        /// @brief constructor
-        tls_disable_finder(const TLSDisabledConnection& tpl) : myDefinition(tpl) { }
-
-        /// @brief operator ()
-        bool operator()(const TLSDisabledConnection& e) const {
-            if (e.to != myDefinition.to) {
-                return false;
-            }
-            if (e.fromLane != myDefinition.fromLane) {
-                return false;
-            }
-            if (e.toLane != myDefinition.toLane) {
-                return false;
-            }
-            return true;
-        }
-
-    private:
-        /// @brief definition of disable connection
-        TLSDisabledConnection myDefinition;
-
-    private:
-        /// @brief invalidated assignment operator
-        tls_disable_finder& operator=(const tls_disable_finder& s);
-    };
-
 
     /// @class connections_toedge_finder
     class connections_toedge_finder {

@@ -1,8 +1,8 @@
-SUMO netconvert Version v0_31_0+1647-6d8dc768ae
- Build features: Windows-6.1.7601 Proj GDAL GUI OSG GL2PS SWIG
- Copyright (C) 2001-2018 German Aerospace Center (DLR) and others; http://sumo.dlr.de
+Eclipse SUMO netconvert Version v1_1_0+0040-b68edb7a21e
+ Build features: Windows-6.1.7601 AMD64 MSVC 18.0.40629.0 Proj GUI GDAL FFmpeg OSG GL2PS SWIG
+ Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 
-SUMO netconvert Version v0_31_0+1647-6d8dc768ae is part of SUMO.
+Eclipse SUMO netconvert Version v1_1_0+0040-b68edb7a21e is part of SUMO.
 This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at

@@ -1,3 +1,2 @@
-Error: Attribute 'imgFile' in definition of poi 'POI_0' is empty.
-Error: Attribute 'id' is missing in definition of a poi.
-Error: Loading of shapes failed.
+Warning: Essential unique string attribute 'id' of poi is missing; poi cannot be created
+Warning: POI with ID 'POI_0' already exists.

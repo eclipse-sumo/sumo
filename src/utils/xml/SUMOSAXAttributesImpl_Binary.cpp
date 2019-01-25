@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -313,15 +313,6 @@ SUMOSAXAttributesImpl_Binary::getBoundary(int attr) const {
 }
 
 
-std::vector<std::string>
-SUMOSAXAttributesImpl_Binary::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Binary::getName(int attr) const {
     if (myAttrIds.find(attr) == myAttrIds.end()) {
@@ -337,6 +328,15 @@ SUMOSAXAttributesImpl_Binary::serialize(std::ostream& os) const {
         os << " " << getName(*i);
         os << "=\"" << getStringSecure(*i, "?") << "\"";
     }
+}
+
+std::vector<std::string>
+SUMOSAXAttributesImpl_Binary::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (std::set<int>::const_iterator i = myAttrs.begin(); i != myAttrs.end(); ++i) {
+        result.push_back(getName(*i));
+    }
+    return result;
 }
 
 

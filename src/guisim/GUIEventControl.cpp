@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -23,14 +23,16 @@
 #include <config.h>
 
 #include <cassert>
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #include "GUIEventControl.h"
 
 
 // ===========================================================================
 // member definitions
 // ===========================================================================
-GUIEventControl::GUIEventControl() {}
+GUIEventControl::GUIEventControl() :
+    myLock(true)
+{}
 
 
 GUIEventControl::~GUIEventControl() {
@@ -39,14 +41,14 @@ GUIEventControl::~GUIEventControl() {
 
 void
 GUIEventControl::addEvent(Command* operation, SUMOTime execTimeStep) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSEventControl::addEvent(operation, execTimeStep);
 }
 
 
 void
 GUIEventControl::execute(SUMOTime execTime) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSEventControl::execute(execTime);
 }
 

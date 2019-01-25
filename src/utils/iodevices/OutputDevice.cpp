@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -165,7 +165,7 @@ OutputDevice::realString(const double v, const int precision) {
     if (v < pow(10., -precision)) {
         oss.setf(std::ios::scientific, std::ios::floatfield);
     } else {
-        oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+        oss.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format
         oss.setf(std::ios::showpoint);    // print decimal point
         oss << std::setprecision(precision);
     }

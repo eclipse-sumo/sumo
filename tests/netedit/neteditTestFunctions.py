@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -268,13 +268,13 @@ def Popen(extraParameters, debugInformation):
 
     # Check if additionals must be loaded
     if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
-        NeteditCall += ['--sumo-additionals-file',
+        NeteditCall += ['-a',
                         os.path.join(textTestSandBox, "input_additionals.add.xml")]
 
-    # Check if shapes must be loaded
-    if os.path.exists(os.path.join(textTestSandBox, "input_shapes.add.xml")):
-        NeteditCall += ['--sumo-shapes-file',
-                        os.path.join(textTestSandBox, "input_shapes.add.xml")]
+    # Check if demand elements must be loaded
+    if os.path.exists(os.path.join(textTestSandBox, "input_routes.rou.xml")):
+        NeteditCall += ['-r',
+                        os.path.join(textTestSandBox, "input_routes.rou.xml")]
 
     # check if a gui settings file has to be load
     if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
@@ -289,9 +289,9 @@ def Popen(extraParameters, debugInformation):
     NeteditCall += ['--additionals-output',
                     os.path.join(textTestSandBox, "additionals.xml")]
 
-    # set output for shapes
-    NeteditCall += ['--shapes-output',
-                    os.path.join(textTestSandBox, "shapes.xml")]
+    # set output for demand elements
+    NeteditCall += ['--demandelements-output',
+                    os.path.join(textTestSandBox, "routes.xml")]
 
     # add extra parameters
     NeteditCall += extraParameters
@@ -318,7 +318,7 @@ def getReferenceMatch(neProcess, waitTime):
         print("TestFunctions: 'reference.png' found. Position: " +
               str(referencePosition[0]) + " - " + str(referencePosition[1]))
         # check that position is consistent (due scaling)
-        if (referencePosition[0] != 304 or referencePosition[1] != 140):
+        if (referencePosition[0] != 304 or referencePosition[1] != 168):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                   "is 100% (See #3746)")
         return referencePosition
@@ -583,16 +583,6 @@ def saveNetworkAs(waitTime=2):
 def saveAdditionals():
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
-
-
-"""
-@brief save shapes
-"""
-
-
-def saveShapes():
-    # save additionals using hotkey
-    typeThreeKeys('ctrl', 'shift', 'p')
 
 
 """

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/common/SUMOTime.h>
 
 // ===========================================================================
@@ -120,7 +120,9 @@ public:
 
 private:
     /// @brief add a route and check for duplicates
-    bool addRoute(ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
+    bool addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
+
+    const ConstROEdgeVector computePath(const ODCell* cell, const SUMOTime time = 0, SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr);
 
     /// @brief get the k shortest paths
     void getKPaths(const int kPaths, const double penalty);

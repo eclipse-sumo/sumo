@@ -8,18 +8,13 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -52.00,28.00,-38.00,42.00
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals saved, shapes unsaved
-Error: Attribute 'id' is missing in definition of a poly.
-Debug: Adding poly '%%%%;;$$$%' into viewNet
-GLDebug: Inserted polygon:%%%%;;$$$% into SUMORTree with boundary -32.00,28.00,-18.00,42.00
-Error: Polygon 'poly_0' already exists.
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -32.00,28.00,-18.00,42.00
-Error: Loading of shapes failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
-Debug: Shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
@@ -47,9 +42,6 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
 GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary -32.00,28.00,-18.00,42.00
 Debug: delete poly 'poly_1' in ~GNEChange_Shape()
-Debug: Removing poly '%%%%;;$$$%' from net in ~GNEChange_Shape()
-GLDebug: Removed object polygon:%%%%;;$$$% from SUMORTree with boundary -32.00,28.00,-18.00,42.00
-Debug: delete poly '%%%%;;$$$%' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -52.00,28.00,-38.00,42.00
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
@@ -63,4 +55,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -41,75 +41,98 @@
 class GUIGlChildWindow : public FXMDIChild {
     FXDECLARE(GUIGlChildWindow)
 public:
+    /// @brief constructor
     GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow,
-                     FXMDIMenu* mdimenu, const FXString& name,
+                     FXMDIMenu* mdimenu, const FXString& name, FXMenuBar* gripNavigationToolbar,
                      FXIcon* ic = NULL, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
+    /// @brief destructor
     virtual ~GUIGlChildWindow();
 
+    /// @brief get build GL Canvas
     virtual FXGLCanvas* getBuildGLCanvas() const;
+
+    /// @brief create GUIGlChildWindow
     virtual void create();
 
-    GUISUMOAbstractView* getView() const {
-        return myView;
-    }
+    /// @brief return GUISUMOAbstractView
+    GUISUMOAbstractView* getView() const;
 
+    /** @brief Returns the main window
+     * @return This view's parent
+     */
+    GUIMainWindow* getParent();
+
+    /// @name buttons call backs
+    /// @{
     long onCmdRecenterView(FXObject*, FXSelector, void*);
     long onCmdEditViewport(FXObject*, FXSelector, void*);
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
     long onCmdShowToolTips(FXObject* sender, FXSelector, void*);
     long onCmdZoomStyle(FXObject* sender, FXSelector, void*);
     long onCmdChangeColorScheme(FXObject*, FXSelector sel, void*);
+    /// @}
 
-    void buildNavigationToolBar();
-    void buildColoringToolBar();
-    void buildScreenshotToolBar();
+    /// @brief return a reference to navigation toolbar
+    FXToolBar* getNavigationToolBar(GUISUMOAbstractView& v);
 
-
-    FXToolBar& getNavigationToolBar(GUISUMOAbstractView& v);
+    /// @ brief return a pointer to locator popup
     FXPopup* getLocatorPopup();
-    FXComboBox& getColoringSchemesCombo();
+
+    /// @brief return combobox with the current coloring schemes (standard, fastest standard, real world...)
+    FXComboBox* getColoringSchemesCombo();
 
     /** @brief Centers the view onto the given artifact
      * @param[in] id The id of the object to center the view on
      */
     void setView(GUIGlID id);
 
-
-    /** @brief Returns the main window
-     * @return This view's parent
-     */
-    GUIMainWindow* getParent() {
-        return myParent;
-    }
-
-
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
     virtual bool isSelected(GUIGlObject* o) const;
 
-
 protected:
-    /// the view
+    /// @brief fox need this
+    GUIGlChildWindow() {}
+
+    /// @brief The view
     GUISUMOAbstractView* myView;
 
-    /// The tool bar
-    FXToolBar* myNavigationToolBar;
+    /// @brief The static navigation tool bar
+    FXToolBar* myStaticNavigationToolBar;
+
+    // @brief The grip navigation tool bar
+    FXMenuBar* myGripNavigationToolbar;
 
     /// The locator menu
     FXPopup* myLocatorPopup;
+
+    /// @brief The locator button
     FXMenuButton* myLocatorButton;
 
+    /// @brief The contents frame
     FXVerticalFrame* myContentFrame;
 
+    /// @brief The coloring schemes
     FXComboBox* myColoringSchemes;
 
     /// @brief The parent window
     GUIMainWindow* myParent;
 
+    /// @brief build navigation toolbar
+    void buildNavigationToolBar();
 
-protected:
-    GUIGlChildWindow() { }
+    /// @brief build coloring toolbar
+    void buildColoringToolBar();
 
+    /// @brief build screenshot toolbar
+    void buildScreenshotToolBar();
+
+private:
+    /// @brief Invalidated copy constructor.
+    GUIGlChildWindow(const GUIGlChildWindow&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GUIGlChildWindow& operator=(const GUIGlChildWindow&) = delete;
 };
 
 

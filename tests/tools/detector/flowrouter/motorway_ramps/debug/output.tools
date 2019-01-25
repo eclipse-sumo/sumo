@@ -32,5 +32,5 @@ Calculating routes
   findPath start=<None,9223372036854775807,0> pathStart=<None,9223372036854775807,0> limits(False, True)
   findPath start=<None,9223372036854775807,0> pathStart=<None,9223372036854775807,0> limits(False, False)
 detFlow 1800
-Writing 900 vehicles from 1 sources between time 0 and 3600
+Writing 900 vehicles from 1 sources between time 0 and 60 (minutes)
   unused sources: on3 on7

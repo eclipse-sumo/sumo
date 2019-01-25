@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 11:42:15 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,8 +34,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE0_2" index="2" allow="pedestrian" speed="13.89" length="100.00" width="1.00" shape="0.00,3.20 100.00,3.20"/>
     </edge>
     <edge id="gneE1" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE1_0" index="0" allow="rail" speed="13.89" length="95.00" endOffset="5.00" shape="0.00,-4.80 95.00,-4.80"/>
-        <lane id="gneE1_1" index="1" allow="rail" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+        <lane id="gneE1_0" index="0" allow="rail" speed="13.89" length="97.50" endOffset="5.00" shape="0.00,-4.80 95.00,-4.80"/>
+        <lane id="gneE1_1" index="1" allow="rail" speed="13.89" length="97.50" shape="0.00,-1.60 100.00,-1.60"/>
     </edge>
 
     <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,3.70 0.00,0.00 0.00,-6.40"/>

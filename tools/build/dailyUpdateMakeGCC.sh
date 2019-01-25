@@ -30,18 +30,15 @@ GITREV=`tools/build/version.py -`
 date >> $MAKELOG
 if test "${CONFIGURE_OPT::5}" == "cmake"; then
   mkdir build/$FILEPREFIX && cd build/$FILEPREFIX
-  cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
+  cmake ${CONFIGURE_OPT:5} -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. >> $MAKELOG 2>&1 || (echo "cmake failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 else
   make -f Makefile.cvs >> $MAKELOG 2>&1 || (echo "autoreconf failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
   ./configure --prefix=$PREFIX/sumo $CONFIGURE_OPT >> $MAKELOG 2>&1 || (echo "configure failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
 fi
 if make -j32 >> $MAKELOG 2>&1; then
-  if test -e $PREFIX/sumo/unittest/src/sumo-unittest; then
-    $PREFIX/sumo/unittest/src/sumo-unittest >> $MAKELOG 2>&1 || (echo "unit tests failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-  fi
   date >> $MAKELOG
   if make install >> $MAKELOG 2>&1; then
-    if test -z "$CONFIGURE_OPT" -o "$CONFIGURE_OPT" == "cmake"; then
+    if test "$FILEPREFIX" == "gcc4_64"; then
       make -j distcheck >> $MAKELOG 2>&1 || (echo "make distcheck failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
       make dist-complete >> $MAKELOG 2>&1 || (echo "make dist-complete failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
     fi
@@ -67,11 +64,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   else
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
-      GUISUFFIX=gui
-      if test $FILEPREFIX == "clangMacOS"; then
-        GUISUFFIX=macgui
-      fi
-      tests/runTests.sh -a sumo.$GUISUFFIX -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
       tests/runTests.sh -a netedit.daily -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
     fi
   fi
@@ -93,7 +86,7 @@ export CXXFLAGS="$CXXFLAGS -Wall -W -pedantic -Wno-long-long -Wformat -Wformat-s
 if test "${CONFIGURE_OPT::5}" == "cmake"; then
   rm -rf build/debug-$FILEPREFIX
   mkdir build/debug-$FILEPREFIX && cd build/debug-$FILEPREFIX
-  cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
+  cmake ${CONFIGURE_OPT:5} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PREFIX ../.. > $MAKEALLLOG 2>&1 || (echo "cmake debug failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
 else
   ./configure --prefix=$PREFIX/sumo --program-suffix=A --with-python --with-ffmpeg \
     $CONFIGURE_OPT &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)

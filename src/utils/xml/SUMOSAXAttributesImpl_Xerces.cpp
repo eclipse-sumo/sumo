@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -227,15 +227,6 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
 }
 
 
-std::vector<std::string>
-SUMOSAXAttributesImpl_Xerces::getStringVector(int attr) const {
-    std::string def = getString(attr);
-    std::vector<std::string> ret;
-    parseStringVector(def, ret);
-    return ret;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
     if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
@@ -251,6 +242,16 @@ SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
         os << " " << StringUtils::transcode(myAttrs.getLocalName(i));
         os << "=\"" << StringUtils::transcode(myAttrs.getValue(i)) << "\"";
     }
+}
+
+
+std::vector<std::string>
+SUMOSAXAttributesImpl_Xerces::getAttributeNames() const {
+    std::vector<std::string> result;
+    for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
+        result.push_back(StringUtils::transcode(myAttrs.getLocalName(i)));
+    }
+    return result;
 }
 
 

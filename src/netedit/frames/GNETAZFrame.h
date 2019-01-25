@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -44,8 +44,8 @@ public:
         /// @brief struct for edges and the source/sink colors
         struct TAZEdge {
             /// @brief constructor
-            TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNEAdditional *_TAZSource, GNEAdditional *_TAZSink);
-            
+            TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNEAdditional* _TAZSource, GNEAdditional* _TAZSink);
+
             /// @brief destructor (needed because RGBColors has to be deleted)
             ~TAZEdge();
 
@@ -56,10 +56,10 @@ public:
             GNEEdge* edge;
 
             /// @brief source TAZ
-            GNEAdditional *TAZSource;
+            GNEAdditional* TAZSource;
 
             /// @brif sink TAZ
-            GNEAdditional *TAZSink;
+            GNEAdditional* TAZSink;
 
             /// @brief color by source [0-9]
             int sourceColor;
@@ -94,20 +94,20 @@ public:
         bool isTAZEdge(GNEEdge* edge) const;
 
         /// @brief get current net edges
-        const std::vector<GNEEdge*> &getNetEdges() const;
+        const std::vector<GNEEdge*>& getNetEdges() const;
 
         /// @brief get current selected edges
-        const std::vector<GNEEdge*> &getSelectedEdges() const;
+        const std::vector<GNEEdge*>& getSelectedEdges() const;
 
         /// @brief get TAZEdges
-        const std::vector<TAZCurrent::TAZEdge> &getTAZEdges() const;
+        const std::vector<TAZCurrent::TAZEdge>& getTAZEdges() const;
 
         /// @brief refresh TAZEdges
         void refreshTAZEdges();
 
     protected:
         /// @brief add TAZChild
-        void addTAZChild(GNEAdditional *additional);
+        void addTAZChild(GNEAdditional* additional);
 
     private:
         /// @brief pointer to TAZ Frame
@@ -169,7 +169,7 @@ public:
         GNETAZFrame* myTAZFrameParent;
 
         /// @brief Statistics labels
-        FXLabel *myStatisticsLabel;
+        FXLabel* myStatisticsLabel;
     };
 
     // ===========================================================================
@@ -253,7 +253,7 @@ public:
         /// @brief default TAZSink weight
         double getDefaultTAZSinkWeight() const;
 
-        /// @brief check if toggle membership is enabled 
+        /// @brief check if toggle membership is enabled
         bool getToggleMembership() const;
 
         /// @name FOX-callbacks
@@ -289,10 +289,10 @@ public:
         FXTextField* myTextFieldDefaultValueTAZSinks;
 
         /// @brief button for use selected edges
-        FXButton *myUseSelectedEdges;
+        FXButton* myUseSelectedEdges;
 
         /// @brief information label
-        FXLabel *myInformationLabel;
+        FXLabel* myInformationLabel;
 
         /// @brief default TAZSource weight
         double myDefaultTAZSourceWeight;
@@ -323,7 +323,7 @@ public:
         void hideTAZSelectionStatisticsModul();
 
         /// @brief add an edge and their TAZ Childs in the list of selected items
-        bool selectEdge(const TAZCurrent::TAZEdge &edge);
+        bool selectEdge(const TAZCurrent::TAZEdge& edge);
 
         /// @brief un select an edge (and their TAZ Childs)
         bool unselectEdge(GNEEdge* edge);
@@ -335,7 +335,7 @@ public:
         void clearSelectedEdges();
 
         /// @brief get map with edge and TAZChilds
-        const std::vector<TAZCurrent::TAZEdge> &getEdgeAndTAZChildsSelected() const;
+        const std::vector<TAZCurrent::TAZEdge>& getEdgeAndTAZChildsSelected() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -370,7 +370,7 @@ public:
         FXTextField* myTextFieldTAZSinkWeight;
 
         /// @brief Statistics labels
-        FXLabel *myStatisticsLabel;
+        FXLabel* myStatisticsLabel;
 
         /// @brief vector with the current selected edges and their associated childs
         std::vector<TAZCurrent::TAZEdge> myEdgeAndTAZChildsSelected;
@@ -498,7 +498,7 @@ public:
         /// @brief RGBColor color for selected egdes
         RGBColor myEdgeSelectedColor;
     };
-    
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -516,7 +516,7 @@ public:
     * @param[in] objectsUnderCursor objects under cursors
     * @return true if something (select TAZ or add edge) was sucefully done
     */
-    bool processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    bool processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief process selection of edges in view net
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
@@ -539,9 +539,9 @@ protected:
      * @note called when user stop drawing shape
      */
     bool buildShape();
-    
+
     /// @brief add or remove a TAZSource and a TAZSink, or remove it if edge is in the list of TAZ Childs
-    bool addOrRemoveTAZMember(GNEEdge *edge);
+    bool addOrRemoveTAZMember(GNEEdge* edge);
 
     /// @brief drop all TAZSources and TAZ Sinks of current TAZ
     void dropTAZMembers();

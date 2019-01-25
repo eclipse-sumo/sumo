@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -48,6 +48,7 @@
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NIXMLPTHandler.h>
+#include <netimport/NIXMLShapeHandler.h>
 #include <netimport/NIXMLConnectionsHandler.h>
 #include <netimport/NIImporter_DlrNavteq.h>
 #include <netimport/NIImporter_VISUM.h>
@@ -186,6 +187,12 @@ NILoader::loadXML(OptionsCont& oc) {
                     myNetBuilder.getPTStopCont(),
                     myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptline-files"), "public transport lines");
+
+    // load shapes for output formats that embed shape data
+    loadXMLType(new NIXMLShapeHandler(
+                    myNetBuilder.getShapeCont(),
+                    myNetBuilder.getEdgeCont()),
+                oc.getStringVector("polygon-files"), "polygon data");
 }
 
 void

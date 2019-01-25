@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -1122,15 +1122,15 @@ MSLCM_LC2013::_wantsChange(
         driveToNextStop = myVehicle.nextStopDist();
         const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
 #ifdef DEBUG_WANTS_CHANGE
-    if (DEBUG_COND) {
-        std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
-                  << " stopDist=" << myVehicle.nextStopDist()
-                  << " lastDist=" << myVehicle.getLastStepDist()
-                  << " stopPos=" << stopPos
-                  << " currentDist=" << currentDist
-                  << " neighDist=" << neighDist
-                  << "\n";
-    }
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
+                      << " stopDist=" << myVehicle.nextStopDist()
+                      << " lastDist=" << myVehicle.getLastStepDist()
+                      << " stopPos=" << stopPos
+                      << " currentDist=" << currentDist
+                      << " neighDist=" << neighDist
+                      << "\n";
+        }
 #endif
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
@@ -1330,9 +1330,9 @@ MSLCM_LC2013::_wantsChange(
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
                 std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
-                    << " overtakeDist=" << overtakeDist
-                    << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
-                    << "\n";
+                          << " overtakeDist=" << overtakeDist
+                          << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
+                          << "\n";
             }
 #endif
             ret = ret | lca | LCA_STRATEGIC | LCA_URGENT;
@@ -1384,7 +1384,7 @@ MSLCM_LC2013::_wantsChange(
     }
 #endif
     // store state before canceling
-    myCanceledStates[laneOffset] |= ret;
+    getCanceledState(laneOffset) |= ret;
     ret = myVehicle.influenceChangeDecision(ret);
     if ((ret & lcaCounter) != 0) {
         // we are not interested in traci requests for the opposite direction here
@@ -1926,8 +1926,10 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
                 // add internal lengths
                 const MSLane* nextLane = *(j + 1);
                 const MSLink* link = MSLinkContHelper::getConnectingLink(*initialLane, *nextLane);
-                assert(link != 0);
-                roundaboutDistanceAhead += link->getInternalLengthsAfter();
+                assert(link != nullptr || !MSGlobals::gCheckRoutes);
+                if (link != nullptr) {
+                    roundaboutDistanceAhead += link->getInternalLengthsAfter();
+                }
             }
             j++;
         } else {
@@ -1953,7 +1955,10 @@ MSLCM_LC2013::distanceAlongNextRoundabout(double position, const MSLane* initial
             if (it + 1 != continuationLanes.end() && *(it + 1) != nullptr && (*(it + 1))->getEdge().isRoundabout()) {
                 // find corresponding link for the current lane
                 const MSLink* link = MSLinkContHelper::getConnectingLink(*lane, **(it + 1));
-                assert(link != 0);
+                assert(link != nullptr || !MSGlobals::gCheckRoutes);
+                if (link == nullptr) {
+                    break;
+                }
                 double linkLength = link->getInternalLengthsAfter();
                 roundaboutDistanceAhead += linkLength;
             }

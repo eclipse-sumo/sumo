@@ -1,0 +1,2 @@
+-n net.net.xml -s 42 --weights-output-prefix weights --edge-param customWeight
+-e 1

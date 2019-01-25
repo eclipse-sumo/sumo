@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -31,6 +31,8 @@
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position.h>
+#include <utils/xml/SUMOSAXHandler.h>
+#include <utils/xml/SAXWeightsHandler.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <foreign/rtree/LayeredRTree.h>
 #include <utils/geom/PositionVector.h>
@@ -57,7 +59,6 @@ class OutputDevice;
 class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
-class MFXMutex;
 class GUIMEVehicleControl;
 
 
@@ -306,6 +307,16 @@ public:
      */
     GUIMEVehicleControl* getGUIMEVehicleControl();
 
+    /// @brief retrieve loaded edged weight for the given attribute and the current simulation time
+    double getEdgeData(const MSEdge* edge, const std::string& attr);
+
+    /// @brief load edgeData from file
+    bool loadEdgeData(const std::string& file);
+
+
+    /// @brief return list of loaded edgeData attributes
+    std::vector<std::string> getEdgeDataAttrs() const;
+
 #ifdef HAVE_OSG
     void updateColor(const GUIVisualizationSettings& s);
 #endif
@@ -370,9 +381,49 @@ protected:
     long myLastVehicleMovementCount, myOverallVehicleCount;
     long myOverallSimDuration;
 
+    /// @brief loaded edge data for visualization
+    std::map<std::string, MSEdgeWeightsStorage*> myLoadedEdgeData;
+
+    /// @brief class for discovering edge attributes
+    class DiscoverAttributes : public SUMOSAXHandler {
+    public:
+        DiscoverAttributes(const std::string& file):
+            SUMOSAXHandler(file), lastIntervalEnd(0) {};
+        ~DiscoverAttributes() {};
+        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        std::vector<std::string> getEdgeAttrs();
+        SUMOTime lastIntervalEnd;
+    private:
+        std::set<std::string> edgeAttrs;
+    };
+
+    class EdgeFloatTimeLineRetriever_GUI : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
+    public:
+        /// @brief Constructor
+        EdgeFloatTimeLineRetriever_GUI(MSEdgeWeightsStorage* weightStorage) : myWeightStorage(weightStorage) {}
+
+        /// @brief Destructor
+        ~EdgeFloatTimeLineRetriever_GUI() { }
+
+        /** @brief Adds an effort for a given edge and time period
+         *
+         * @param[in] id The id of the object to add a weight for
+         * @param[in] val The effort
+         * @param[in] beg The begin of the interval the weight is valid for
+         * @param[in] end The end of the interval the weight is valid for
+         * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
+         */
+        void addEdgeWeight(const std::string& id, double val, double beg, double end) const;
+
+    private:
+        /// @brief The storage that  edges shall be added to
+        MSEdgeWeightsStorage* myWeightStorage;
+
+    };
+
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 };
 

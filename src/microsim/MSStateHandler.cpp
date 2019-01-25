@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/MSEdge.h>
@@ -185,14 +185,15 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_VIEWSETTINGS_VEHICLES: {
-            std::vector<std::string> vehIDs;
-            SUMOSAXAttributes::parseStringVector(attrs.getString(SUMO_ATTR_VALUE), vehIDs);
-            if (MSGlobals::gUseMesoSim) {
-                mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex++);
-            } else {
-                MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes()[myEdgeAndLane.second]->loadState(
-                    vehIDs, MSNet::getInstance()->getVehicleControl());
-            }
+            try {
+                const std::vector<std::string>& vehIDs = attrs.getStringVector(SUMO_ATTR_VALUE);
+                if (MSGlobals::gUseMesoSim) {
+                    mySegment->loadState(vehIDs, MSNet::getInstance()->getVehicleControl(), StringUtils::toLong(attrs.getString(SUMO_ATTR_TIME)) - myOffset, myQueIndex++);
+                } else {
+                    MSEdge::getAllEdges()[myEdgeAndLane.first]->getLanes()[myEdgeAndLane.second]->loadState(
+                        vehIDs, MSNet::getInstance()->getVehicleControl());
+                }
+            } catch (EmptyData&) {} // attr may be empty
             break;
         }
         case SUMO_TAG_PARAM: {

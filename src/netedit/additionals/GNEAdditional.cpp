@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -151,13 +151,13 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
-                        } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                             device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                             // write 0 only if is different from 0 (the default value)
-                            if(pos.z() != 0) {
+                            if (pos.z() != 0) {
                                 device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                             }
                         } else {
@@ -176,13 +176,13 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
-                    } else if(tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                    } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                         // get position attribute and write it separate
                         Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                         device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
                         device.writeAttr(SUMO_ATTR_Y, toString(pos.y()));
                         // write 0 only if is different from 0 (the default value)
-                        if(pos.z() != 0) {
+                        if (pos.z() != 0) {
                             device.writeAttr(SUMO_ATTR_Z, toString(pos.z()));
                         }
                     } else {
@@ -194,7 +194,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         // iterate over childs and write it in XML (or in a different file)
         if (tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
-            OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("sumo-additionals-file")) + getAttribute(SUMO_ATTR_FILE));
+            OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
             deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save childs in a different filename
             for (auto i : myAdditionalChilds) {
@@ -224,19 +224,19 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNEAdditional::isAdditionalValid() const {
     return true;
 }
 
 
-std::string 
+std::string
 GNEAdditional::getAdditionalProblem() const {
     return "";
 }
 
 
-void 
+void
 GNEAdditional::fixAdditionalProblem() {
     throw InvalidArgument(getTagStr() + " cannot fix any problem");
 }
@@ -256,7 +256,7 @@ GNEAdditional::startGeometryMoving() {
     const TagProperties& tagProperties = myTagProperty;
     // check if position over lane or lanes has to be saved
     if (tagProperties.canBePlacedOverLane()) {
-        if(tagProperties.canMaskStartEndPos()) {
+        if (tagProperties.canMaskStartEndPos()) {
             // obtain start and end position
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
             myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
@@ -611,7 +611,7 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, myTagProperty.getNumberOfAttributes());
     // Iterate over attributes
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         // Add attribute and set it dynamic if aren't unique
         if (i.second.isUnique()) {
             ret->mkItem(toString(i.first).c_str(), false, getAttribute(i.first));
@@ -647,42 +647,7 @@ GNEAdditional::getCenteringBoundary() const {
 }
 
 
-bool
-GNEAdditional::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
-    if (edges.size() == 0) {
-        // routes cannot be empty
-        return false;
-    } else if (edges.size() == 1) {
-        // routes with a single edge are valid
-        return true;
-    } else {
-        // iterate over edges to check that compounds a chain
-        auto it = edges.begin();
-        while (it != edges.end() - 1) {
-            GNEEdge* currentEdge = *it;
-            GNEEdge* nextEdge = *(it + 1);
-            // consecutive edges aren't allowed
-            if (currentEdge->getID() == nextEdge->getID()) {
-                return false;
-            }
-            // make sure that edges are consecutives
-            if (std::find(currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().begin(),
-                          currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end(),
-                          nextEdge) == currentEdge->getGNEJunctionDestiny()->getGNEOutgoingEdges().end()) {
-                if (report) {
-                    WRITE_WARNING("Parameter 'Route' invalid. " + currentEdge->getTagStr() + " '" + currentEdge->getID() +
-                                  "' ins't consecutive to " + nextEdge->getTagStr() + " '" + nextEdge->getID() + "'");
-                }
-                return false;
-            }
-            it++;
-        }
-    }
-    return true;
-}
-
-
-void 
+void
 GNEAdditional::updateAdditionalParent() {
     // by default nothing to do
 }
@@ -691,7 +656,7 @@ GNEAdditional::updateAdditionalParent() {
 GNEAdditional::AdditionalGeometry::AdditionalGeometry() {}
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::clearGeometry() {
     shape.clear();
     multiShape.clear();
@@ -703,7 +668,7 @@ GNEAdditional::AdditionalGeometry::clearGeometry() {
 }
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::calculateMultiShapeUnified() {
     // merge all multishape parts in a single shape
     for (auto i : multiShape) {
@@ -712,7 +677,7 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeUnified() {
 }
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::calculateShapeRotationsAndLengths() {
     // Get number of parts of the shape
     int numberOfSegments = (int)shape.size() - 1;
@@ -736,14 +701,14 @@ GNEAdditional::AdditionalGeometry::calculateShapeRotationsAndLengths() {
 }
 
 
-void 
+void
 GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
     // Get number of parts of the shape for every part shape
     std::vector<int> numberOfSegments;
     for (auto i : multiShape) {
         // numseg cannot be 0
         int numSeg = (int)i.size() - 1;
-        numberOfSegments.push_back((numSeg>=0)? numSeg : 0);
+        numberOfSegments.push_back((numSeg >= 0) ? numSeg : 0);
         multiShapeRotations.push_back(std::vector<double>());
         multiShapeLengths.push_back(std::vector<double>());
     }
@@ -767,7 +732,7 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
 }
 
 
-GNEAdditional::BlockIcon::BlockIcon(GNEAdditional *additional) :
+GNEAdditional::BlockIcon::BlockIcon(GNEAdditional* additional) :
     myAdditional(additional),
     rotation(0.) {}
 
@@ -833,7 +798,7 @@ GNEAdditional::BlockIcon::draw(double size) const {
 }
 
 
-GNEAdditional::ChildConnections::ChildConnections(GNEAdditional *additional) : 
+GNEAdditional::ChildConnections::ChildConnections(GNEAdditional* additional) :
     myAdditional(additional) {}
 
 
@@ -949,7 +914,7 @@ GNEAdditional::ChildConnections::draw() const {
 void
 GNEAdditional::setDefaultValues() {
     // iterate over attributes and set default value
-    for (const auto &i : myTagProperty) {
+    for (const auto& i : myTagProperty) {
         if (i.second.hasDefaultValue()) {
             setAttribute(i.first, i.second.getDefaultValue());
         }
@@ -973,7 +938,7 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 }
 
 
-bool 
+bool
 GNEAdditional::isValidDetectorID(const std::string& newID) const {
     if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
@@ -1096,6 +1061,16 @@ GNEAdditional::isAttributeCarrierSelected() const {
 
 
 bool
+GNEAdditional::drawUsingSelectColor() const {
+    if (mySelected && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNEAdditional::checkAdditionalChildRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkAdditionalChildRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
@@ -1151,11 +1126,5 @@ GNEAdditional::setGenericParametersStr(const std::string& value) {
         }
     }
 }
-
-
-void
-GNEAdditional::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
 
 /****************************************************************************/

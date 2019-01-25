@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -61,7 +61,7 @@ TrackerValueDesc::addValue(double value) {
         myMin = value < myMin ? value : myMin;
         myMax = value > myMax ? value : myMax;
     }
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     myValues.push_back(value);
     if (value != myInvalidValue) {
         myTmpLastAggValue += value;
@@ -137,7 +137,7 @@ TrackerValueDesc::unlockValues() {
 
 void
 TrackerValueDesc::setAggregationSpan(SUMOTime as) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     if (myAggregationInterval != as / DELTA_T) {
         myAggregationInterval = (int)(as / DELTA_T);
         // ok, the aggregation has changed,

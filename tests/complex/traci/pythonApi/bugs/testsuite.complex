@@ -65,3 +65,6 @@ ticket4642
 
 # failure to add vehicle in long simulation
 ticket4920
+
+# moveToXY and opposite direction driving
+ticket5029

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -64,7 +64,8 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myAmSource(false),
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
-    myCombinedPermissions(0) {
+    myCombinedPermissions(0),
+    myTimePenalty(0) {
     while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);
     }
@@ -81,7 +82,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 
 ROEdge::~ROEdge() {
     for (std::vector<ROLane*>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        delete(*i);
+        delete (*i);
     }
 }
 
@@ -101,6 +102,12 @@ ROEdge::addLane(ROLane* lane) {
 
 void
 ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
+    if (isInternal()) {
+        // for internal edges after an internal junction,
+        // this is called twice and only the second call counts
+        myFollowingEdges.clear();
+        myFollowingViaEdges.clear();
+    }
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));
@@ -140,7 +147,7 @@ double
 ROEdge::getEffort(const ROVehicle* const veh, double time) const {
     double ret = 0;
     if (!getStoredEffort(time, ret)) {
-        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed);
+        return myLength / MIN2(veh->getType()->maxSpeed, mySpeed) + myTimePenalty;
     }
     return ret;
 }
@@ -191,7 +198,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
         }
     }
     const double speed = veh != nullptr ? MIN2(veh->getType()->maxSpeed, veh->getType()->speedFactor.getParameter()[0] * mySpeed) : mySpeed;
-    return myLength / speed;
+    return myLength / speed + myTimePenalty;
 }
 
 
@@ -300,7 +307,7 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
         myEfforts.fillGaps(value, boundariesOverride);
     }
     if (myUsingTTTimeLine) {
-        myTravelTimes.fillGaps(myLength / mySpeed, boundariesOverride);
+        myTravelTimes.fillGaps(myLength / mySpeed + myTimePenalty, boundariesOverride);
     }
 }
 

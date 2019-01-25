@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -460,6 +460,9 @@ private:
 
     /// @brief store of all lanes which have pedestrians on them
     ActiveLanes myActiveLanes;
+
+    /// @brief whether an event for pedestrian processing was added
+    bool myAmActive;
 
     /// @brief store for walkinArea elements
     static WalkingAreaPaths myWalkingAreaPaths;

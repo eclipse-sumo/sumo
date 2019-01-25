@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -18,17 +18,14 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
+import warnings
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
 try:
-    from . import visualization
+    from . import visualization  # noqa
 except ImportError as e:
-    class VisDummy:
-
-        def __getattr__(self, name):
-            raise e
-    visualization = VisDummy()
+    warnings.warn(str(e))
 from . import files, net, output, sensors, shapes  # noqa
 from . import color, geomhelper, miscutils, options, route  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa
@@ -127,14 +124,15 @@ def checkBinary(name, bindir=None):
         binary = join(env.get("SUMO_HOME"), "bin", name)
         if exeExists(binary):
             return binary
-    binary = os.path.abspath(
-        join(os.path.dirname(__file__), '..', '..', 'bin', name))
-    if exeExists(binary):
-        return binary
+    if bindir is None:
+        binary = os.path.abspath(join(os.path.dirname(__file__), '..', '..', 'bin', name))
+        if exeExists(binary):
+            return binary
     if name[-1] != "D" and name[-5:] != "D.exe":
-        if name[-4:] == ".exe":
-            return checkBinary(name[:-4] + "D")
-        return checkBinary(name + "D")
+        binaryD = (name[:-4] if name[-4:] == ".exe" else name) + "D"
+        found = checkBinary(binaryD, bindir)
+        if found != binaryD:
+            return found
     return name
 
 

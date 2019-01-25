@@ -10,9 +10,12 @@
     <busStop id="busStop_03" lane="gneE0_0" startPos="35" endPos="40000" lines="line1 line2" name="busStop" friendlyPos="false"/>
     
     <!-- non valid end position (<startPos) -->
-    <busStop id="busStop_4" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_04" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2" name="busStop" friendlyPos="false"/>
 	
 	<!-- valid end position -->
     <busStop id="busStop_05" lane="gneE0_0" startPos="35" endPos="55" lines="line1 line2" name="busStop" friendlyPos="false"/>
+	
+	<!-- valid end position (Negative)-->
+    <busStop id="busStop_06" lane="gneE0_0" startPos="35" endPos="-5" lines="line1 line2" name="busStop" friendlyPos="false"/>
     
 </additional>

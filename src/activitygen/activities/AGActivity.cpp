@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials
@@ -27,8 +27,9 @@
 #include <config.h>
 
 #include <utils/common/RandHelper.h>
+#include <activitygen/city/AGHousehold.h>
+#include <activitygen/city/AGTime.h>
 #include "AGActivity.h"
-#include "../city/AGTime.h"
 
 
 // ===========================================================================
@@ -38,6 +39,7 @@ bool
 AGActivity::isGenerated() {
     return genDone;
 }
+
 
 bool
 AGActivity::generateTrips() {
@@ -98,11 +100,13 @@ AGActivity::availableTranspMeans(AGPosition from, AGPosition to) {
     return available;
 }
 
+
 int
 AGActivity::timeToDrive(AGPosition from, AGPosition to) {
     double dist = from.distanceTo(to);
     return (int)(timePerKm * dist / 1000.0);
 }
+
 
 int
 AGActivity::depHour(AGPosition from, AGPosition to, int arrival) {
@@ -111,10 +115,12 @@ AGActivity::depHour(AGPosition from, AGPosition to, int arrival) {
     return (arrival - timeToDrive(from, to));
 }
 
+
 int
 AGActivity::arrHour(AGPosition from, AGPosition to, int departure) {
     return (departure + timeToDrive(from, to));
 }
+
 
 int
 AGActivity::randomTimeBetween(int begin, int end) {
@@ -128,9 +134,11 @@ AGActivity::randomTimeBetween(int begin, int end) {
     return (begin + tAlea);
 }
 
+
 std::list<AGTrip>&
 AGActivity::getPartialActivityTrips() {
     return myPartialActivityTrips;
 }
+
 
 /****************************************************************************/

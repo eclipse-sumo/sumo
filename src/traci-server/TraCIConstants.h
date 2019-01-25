@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@
 // ****************************************
 // VERSION
 // ****************************************
-#define TRACI_VERSION 19
+#define TRACI_VERSION 20
 
 // ****************************************
 // COMMANDS
@@ -530,7 +530,7 @@
 // last step person list (get: edges, vehicles)
 #define LAST_STEP_PERSON_ID_LIST 0x1a
 
-// full name (get: edges, simulation)
+// full name (get: edges, simulation, trafficlight)
 #define VAR_NAME 0x1b
 
 // traffic light states, encoded as rRgGyYoO tuple (get: traffic lights)

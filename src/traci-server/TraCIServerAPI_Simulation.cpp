@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -339,9 +339,11 @@ TraCIServerAPI_Simulation::writeVehicleStateIDs(TraCIServer& server, tcpip::Stor
 void
 TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage) {
     outputStorage.writeUnsignedByte(TYPE_COMPOUND);
-    outputStorage.writeInt(6);
+    outputStorage.writeInt(13);
     outputStorage.writeUnsignedByte(TYPE_INTEGER);
     outputStorage.writeInt(stage.type);
+    outputStorage.writeUnsignedByte(TYPE_STRING);
+    outputStorage.writeString(stage.vType);
     outputStorage.writeUnsignedByte(TYPE_STRING);
     outputStorage.writeString(stage.line);
     outputStorage.writeUnsignedByte(TYPE_STRING);
@@ -352,10 +354,18 @@ TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsu
     outputStorage.writeDouble(stage.travelTime);
     outputStorage.writeUnsignedByte(TYPE_DOUBLE);
     outputStorage.writeDouble(stage.cost);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.length);
     outputStorage.writeUnsignedByte(TYPE_STRING);
     outputStorage.writeString(stage.intended);
     outputStorage.writeUnsignedByte(TYPE_DOUBLE);
     outputStorage.writeDouble(stage.depart);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.departPos);
+    outputStorage.writeUnsignedByte(TYPE_DOUBLE);
+    outputStorage.writeDouble(stage.arrivalPos);
+    outputStorage.writeUnsignedByte(TYPE_STRING);
+    outputStorage.writeString(stage.description);
 }
 
 
@@ -424,7 +434,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip:
             outputStorage.writeString(roadPos.first->getEdge().getID());
             outputStorage.writeDouble(roadPos.second);
             const std::vector<MSLane*> lanes = roadPos.first->getEdge().getLanes();
-            outputStorage.writeUnsignedByte((int)distance(lanes.begin(), find(lanes.begin(), lanes.end(), roadPos.first)));
+            outputStorage.writeUnsignedByte((int)distance(lanes.begin(), std::find(lanes.begin(), lanes.end(), roadPos.first)));
         }
         break;
         case POSITION_2D:

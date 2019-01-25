@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -119,6 +119,9 @@ public:
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;
 
+    /// @brief check if attribute carrier must be drawn using selecting color.
+    bool drawUsingSelectColor() const;
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -173,9 +176,6 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for check if mouse is over objects
-    virtual void mouseOverObject(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief Invalidated copy constructor.
     GNEShape(const GNEShape&) = delete;
