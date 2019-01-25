@@ -420,6 +420,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     markBestParallel(n, bestFirst, bestSecond);
 }
 
+
 void
 NBEdgePriorityComputer::markBestParallel(const NBNode& n, NBEdge* bestFirst, NBEdge* bestSecond) {
     // edges running parallel to the main direction should also be prioritised

@@ -2537,7 +2537,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     //  the importance by 2 due to the possibility to leave the junction
     //  faster from this lane
     EdgeVector tmp(*outgoing);
-    sort(tmp.begin(), tmp.end(), NBContHelper::straightness_sorter(myTo, this));
+    sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
     i = std::find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
     int dist = (int) distance(outgoing->begin(), i);
     MainDirections mainDirections(*outgoing, this, myTo, dist);
